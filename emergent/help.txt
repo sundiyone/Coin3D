@@ -1,0 +1,70 @@
+ESmith-rowland@SEG_SMTHRWLNDLT MINGW64 ~/Coin3D/emergent/quarter_build
+$ rm -rf *
+
+ESmith-rowland@SEG_SMTHRWLNDLT MINGW64 ~/Coin3D/emergent/quarter_build
+$ cmake -G "MSYS Makefiles" ../quarter
+-- The C compiler identification is GNU 6.3.0
+-- The CXX compiler identification is GNU 6.3.0
+-- Check for working C compiler: D:/msys64/mingw64/bin/gcc.exe
+-- Check for working C compiler: D:/msys64/mingw64/bin/gcc.exe -- works
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Check for working CXX compiler: D:/msys64/mingw64/bin/g++.exe
+-- Check for working CXX compiler: D:/msys64/mingw64/bin/g++.exe -- works
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found OpenGL: opengl32
+coin-config = D:/msys64/mingw64/bin/coin-config
+-- Found Coin-L/mingw64/lib;-lCoin -lopengl32 -lgdi32 -lwinmm -luser32 -lopengl32 -lgdi32 -lwinmm -luser32
+Qt5Core_LIBRARIES    = Qt5::Core
+Qt53DCore_LIBRARIES  = Qt5::3DCore
+Qt5Gui_LIBRARIES     = Qt5::Gui
+Qt5Widgets_LIBRARIES = Qt5::Widgets
+-- Configuring done
+-- Generating done
+-- Build files have been written to: D:/msys64/home/ESmith-rowland/Coin3D/emergent/quarter_build
+
+ESmith-rowland@SEG_SMTHRWLNDLT MINGW64 ~/Coin3D/emergent/quarter_build
+$ make
+Scanning dependencies of target Quarter_autogen
+[  4%] Automatic moc and uic for target Quarter
+Generating moc source Quarter_autogen.dir/moc_QuarterWidget_K7YWQZOGEP4PPM.cpp
+Generating moc source Quarter_autogen.dir/moc_DragDropHandle_ZO7NECNLUWIFYD.cpp
+Generating moc source Quarter_autogen.dir/moc_EventFilter_KMH3TXHNZSMVM7.cpp
+Generating moc source Quarter_autogen.dir/moc_FocusHandler_OMABDSVLCS2ITC.cpp
+Generating moc source Quarter_autogen.dir/moc_ContextMenu_7AMRWBMWLNHBOC.cpp
+Generating moc source Quarter_autogen.dir/moc_InteractionMod_D4IHCMB3SUQZZA.cpp
+Generating moc source Quarter_autogen.dir/moc_SensorManager_BLIJXZDHJCQZ5S.cpp
+Generating moc source Quarter_autogen.dir/moc_SignalThread_DCSQUDPUUV6VXE.cpp
+Generating moc compilation Quarter_autogen.cpp
+[  4%] Built target Quarter_autogen
+Scanning dependencies of target Quarter
+[  9%] Building CXX object src/Quarter/CMakeFiles/Quarter.dir/ContextMenu.cpp.obj
+[ 13%] Building CXX object src/Quarter/CMakeFiles/Quarter.dir/DragDropHandler.cpp.obj
+[ 18%] Building CXX object src/Quarter/CMakeFiles/Quarter.dir/EventFilter.cpp.obj
+[ 22%] Building CXX object src/Quarter/CMakeFiles/Quarter.dir/FocusHandler.cpp.obj
+[ 27%] Building CXX object src/Quarter/CMakeFiles/Quarter.dir/ImageReader.cpp.obj
+[ 31%] Building CXX object src/Quarter/CMakeFiles/Quarter.dir/InputDevice.cpp.obj
+[ 36%] Building CXX object src/Quarter/CMakeFiles/Quarter.dir/InteractionMode.cpp.obj
+[ 40%] Building CXX object src/Quarter/CMakeFiles/Quarter.dir/Keyboard.cpp.obj
+[ 45%] Building CXX object src/Quarter/CMakeFiles/Quarter.dir/KeyboardP.cpp.obj
+[ 50%] Building CXX object src/Quarter/CMakeFiles/Quarter.dir/Mouse.cpp.obj
+[ 54%] Building CXX object src/Quarter/CMakeFiles/Quarter.dir/NativeEvent.cpp.obj
+[ 59%] Building CXX object src/Quarter/CMakeFiles/Quarter.dir/QtCoinCompatibility.cpp.obj
+[ 63%] Building CXX object src/Quarter/CMakeFiles/Quarter.dir/Quarter.cpp.obj
+[ 68%] Building CXX object src/Quarter/CMakeFiles/Quarter.dir/QuarterP.cpp.obj
+[ 72%] Building CXX object src/Quarter/CMakeFiles/Quarter.dir/QuarterWidget.cpp.obj
+[ 77%] Building CXX object src/Quarter/CMakeFiles/Quarter.dir/QuarterWidgetP.cpp.obj
+[ 81%] Building CXX object src/Quarter/CMakeFiles/Quarter.dir/SensorManager.cpp.obj
+[ 86%] Building CXX object src/Quarter/CMakeFiles/Quarter.dir/SignalThread.cpp.obj
+[ 90%] Building CXX object src/Quarter/CMakeFiles/Quarter.dir/SpaceNavigatorDevice.cpp.obj
+[ 95%] Building CXX object src/Quarter/CMakeFiles/Quarter.dir/Quarter_autogen.cpp.obj
+[100%] Linking CXX shared library libQuarter.dll
+[100%] Built target Quarter
+
+ESmith-rowland@SEG_SMTHRWLNDLT MINGW64 ~/Coin3D/emergent/quarter_build
+$

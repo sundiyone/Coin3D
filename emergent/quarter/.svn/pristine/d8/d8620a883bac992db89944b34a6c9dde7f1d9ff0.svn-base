@@ -1,0 +1,116 @@
+Microsoft Developer Studio Workspace File, Format Version 6.00
+# WARNING: DO NOT EDIT OR DELETE THIS WORKSPACE FILE!
+
+###############################################################################
+
+Project: "minimal_example"=.\minimal_example.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name quarter1
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name quarter1_install
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "quarter1"=.\quarter1.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "quarter1_install"=.\quarter1_install.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name quarter1
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "quarter1_uninstall"=.\quarter1_uninstall.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "quarterwidgetplugin1"=.\quarterwidgetplugin1.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name quarter1_install
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "quarterwidgetplugin1_install"=.\quarterwidgetplugin1_install.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name quarterwidgetplugin1
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "quarterwidgetplugin1_uninstall"=.\quarterwidgetplugin1_uninstall.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Global:
+
+Package=<5>
+{{{
+}}}
+
+Package=<3>
+{{{
+}}}
+
+###############################################################################
+
