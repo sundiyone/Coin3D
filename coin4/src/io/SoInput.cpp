@@ -1693,19 +1693,18 @@ SoInput::read(double & d)
 }
 
 #ifdef __CYGWIN__
-#include <boost/static_assert.hpp>
 
 bool
 SoInput::read(long int & i)
 {
-  BOOST_STATIC_ASSERT(sizeof(long int) == sizeof(int));
+  static_assert(sizeof(long int) == sizeof(int));
   return read(reinterpret_cast<int &>(i));
 }
 
 bool
 SoInput::read(unsigned long int & i)
 {
-  BOOST_STATIC_ASSERT(sizeof(unsigned long int) == sizeof(unsigned int));
+  static_assert(sizeof(unsigned long int) == sizeof(unsigned int));
   return read(reinterpret_cast<unsigned int &>(i));
 }
 #endif //__CYGWIN

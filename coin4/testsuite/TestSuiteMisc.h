@@ -100,7 +100,7 @@ template <typename T, typename S, typename U>
 bool
 fuzzyCompare(const T & v1, const S & v2, U tolerance = 64) 
 {
-  BOOST_STATIC_ASSERT(static_cast<int>(SbTypeInfo<T>::Dimensions)==static_cast<int>(SbTypeInfo<S>::Dimensions));
+  static_assert(static_cast<int>(SbTypeInfo<T>::Dimensions)==static_cast<int>(SbTypeInfo<S>::Dimensions));
   return fCompare<SbTypeInfo<T>::Dimensions>::cmp(v1,v2,tolerance);
 }
 
