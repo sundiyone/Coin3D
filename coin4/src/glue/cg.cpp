@@ -157,10 +157,10 @@ typedef struct {
 
 /* ********************************************************************** */
 
-static cc_cgglue_t * cg_instance = NULL;
+static cc_cgglue_t * cg_instance = nullptr;
 /* Cg is split into two dll's under Windows. Need two libhandles */
-static cc_libhandle cg_libhandle = NULL;
-static cc_libhandle cg_libhandle2 = NULL;
+static cc_libhandle cg_libhandle = nullptr;
+static cc_libhandle cg_libhandle2 = nullptr;
 static int cg_failed_to_load = 0;
 
 /* ********************************************************************** */
@@ -177,9 +177,9 @@ cgglue_cleanup(void)
   free(cg_instance);
 
   /* restore variables to initial value */
-  cg_instance = NULL;
-  cg_libhandle = NULL;
-  cg_libhandle2 = NULL;
+  cg_instance = nullptr;
+  cg_libhandle = nullptr;
+  cg_libhandle2 = nullptr;
   cg_failed_to_load = 0;
 }
 
@@ -207,12 +207,12 @@ cgglue_init(void)
       /* FIXME: should we get the system shared library name from an
          Autoconf check? 20000930 mortene. */
       const char * possiblelibnames[] = {
-        NULL, /* is set below */
+        nullptr, /* is set below */
         "CgGL", "libCgGL", "libCgGL.so",
 
         /* FIXME: not yet tested on Mac OS X. 20050125 mortene. */
         "libCgGL.dylib", 
-        NULL
+        nullptr
       };
 
       possiblelibnames[0] = coin_getenv("COIN_CG_LIBNAME");
@@ -242,7 +242,7 @@ cgglue_init(void)
       if (!zi->_funcname_ && cg_libhandle2) { \
         zi->_funcname_ = (_funcsig_)cc_dl_sym(cg_libhandle2, SO__QUOTE(_funcname_)); \
       } \
-      if (zi->_funcname_ == NULL) { \
+      if (zi->_funcname_ == nullptr) { \
         zi->available = 0; \
         zi->cgfx_available = 0; \
       } \
@@ -253,7 +253,7 @@ cgglue_init(void)
       if (!zi->_funcname_ && cg_libhandle2) { \
         zi->_funcname_ = (_funcsig_)cc_dl_sym(cg_libhandle2, SO__QUOTE(_funcname_)); \
       } \
-      if (zi->_funcname_ == NULL) { \
+      if (zi->_funcname_ == nullptr) { \
         zi->cgfx_available = 0; \
       } \
     } while (0)
@@ -272,9 +272,9 @@ cgglue_init(void)
     zi->cgfx_available = 0;
     /* Define CGGLUE_REGISTER_FUNC macro. */
 #define CGGLUE_REGISTER_FUNC(_funcsig_, _funcname_) \
-    zi->_funcname_ = NULL
+    zi->_funcname_ = nullptr
 #define CGGLUE_REGISTER_FXFUNC(_funcsig_, _funcname_) \
-    zi->_funcname_ = NULL
+    zi->_funcname_ = nullptr
 
 #endif /* no linking */
 

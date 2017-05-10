@@ -59,7 +59,7 @@ public:
   void addTriangle(const SoPrimitiveVertex * v0,
                    const SoPrimitiveVertex * v1,
                    const SoPrimitiveVertex * v2,
-                   const int * pointdetailidx = NULL);
+                   const int * pointdetailidx = nullptr);
   void addLine(const SoPrimitiveVertex * v0,
                const SoPrimitiveVertex * v1);
   void addPoint(const SoPrimitiveVertex * v);

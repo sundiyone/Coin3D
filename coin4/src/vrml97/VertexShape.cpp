@@ -118,14 +118,14 @@ SoVRMLVertexShape::initClass(void)
 SoVRMLVertexShape::SoVRMLVertexShape(void)
 {
   PRIVATE(this) = new SoVRMLVertexShapeP;
-  PRIVATE(this)->normalcache = NULL;
+  PRIVATE(this)->normalcache = nullptr;
 
   SO_VRMLNODE_INTERNAL_CONSTRUCTOR(SoVRMLVertexShape);
 
-  SO_VRMLNODE_ADD_EXPOSED_FIELD(coord, (NULL));
-  SO_VRMLNODE_ADD_EXPOSED_FIELD(texCoord, (NULL));
-  SO_VRMLNODE_ADD_EXPOSED_FIELD(normal, (NULL));
-  SO_VRMLNODE_ADD_FIELD(color, (NULL));
+  SO_VRMLNODE_ADD_EXPOSED_FIELD(coord, (nullptr));
+  SO_VRMLNODE_ADD_EXPOSED_FIELD(texCoord, (nullptr));
+  SO_VRMLNODE_ADD_EXPOSED_FIELD(normal, (nullptr));
+  SO_VRMLNODE_ADD_FIELD(color, (nullptr));
   SO_VRMLNODE_ADD_FIELD(colorPerVertex, (true));
   SO_VRMLNODE_ADD_FIELD(normalPerVertex, (true));
 }
@@ -309,7 +309,7 @@ SoVRMLVertexShape::generateAndReadLockNormalCache(SoState * const state)
   //
   if (!generateDefaultNormals(state, PRIVATE(this)->normalcache)) {
     // FIXME: implement SoNormalBundle
-    if (generateDefaultNormals(state, (SoNormalBundle *)NULL)) {
+    if (generateDefaultNormals(state, (SoNormalBundle *)nullptr)) {
       // FIXME: set generator in normal cache
     }
   }
@@ -340,10 +340,10 @@ SoVRMLVertexShape::getVertexData(SoState * state,
   coords = SoCoordinateElement::getInstance(state);
   assert(coords);
 
-  normals = NULL;
+  normals = nullptr;
   if (neednormals) {
     SoVRMLNormal * node = (SoVRMLNormal*) this->normal.getValue();
-    normals = (node && node->vector.getNum()) ? node->vector.getValues(0) : NULL;
+    normals = (node && node->vector.getNum()) ? node->vector.getValues(0) : nullptr;
   }
 }
 

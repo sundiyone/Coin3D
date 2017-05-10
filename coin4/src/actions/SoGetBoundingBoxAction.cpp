@@ -270,7 +270,7 @@ SoGetBoundingBoxAction::SoGetBoundingBoxAction(const SbViewportRegion & vp)
   : center(0, 0, 0),
     vpregion(vp),
     resettype(SoGetBoundingBoxAction::ALL),
-    resetpath(NULL),
+    resetpath(nullptr),
     flags(SoGetBoundingBoxAction::RESET_BEFORE)
 {
   SO_ACTION_CONSTRUCTOR(SoGetBoundingBoxAction);
@@ -368,7 +368,7 @@ SoGetBoundingBoxAction::isInCameraSpace(void) const
 /*!
   Forces the computed bounding box to be reset and the transformation
   to be identity before or after the tail node of \a path, depending
-  on the \a resetbefore argument.  \c NULL can be specified for the \a
+  on the \a resetbefore argument.  \c nullptr can be specified for the \a
   path argument to disable this behavior.
 
   \sa getResetPath(), isResetPath(), isResetBefore(), getWhatReset()
@@ -386,7 +386,7 @@ SoGetBoundingBoxAction::setResetPath(const SoPath * path,
 }
 
 /*!
-  Returns the reset path (or \c NULL).
+  Returns the reset path (or \c nullptr).
 
   \sa setResetPath(), isResetPath(), isResetBefore(), getWhatReset()
 */
@@ -404,7 +404,7 @@ SoGetBoundingBoxAction::getResetPath(void) const
 bool
 SoGetBoundingBoxAction::isResetPath(void) const
 {
-  return this->resetpath != NULL;
+  return this->resetpath != nullptr;
 }
 
 /*!

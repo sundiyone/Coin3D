@@ -355,18 +355,18 @@ SoDragger::SoDragger(void)
   SO_KIT_INIT_INSTANCE();
 
   PRIVATE(this)->mingesture = 8;
-  PRIVATE(this)->eventaction = NULL;
+  PRIVATE(this)->eventaction = nullptr;
   PRIVATE(this)->frontonprojector = USE_PICK;
   PRIVATE(this)->valuechangedcbenabled = true;
   PRIVATE(this)->ignoreinbbox = false;
-  PRIVATE(this)->currentevent = NULL;
-  PRIVATE(this)->pickedpath = NULL;
-  PRIVATE(this)->draggercache = NULL;
+  PRIVATE(this)->currentevent = nullptr;
+  PRIVATE(this)->pickedpath = nullptr;
+  PRIVATE(this)->draggercache = nullptr;
   PRIVATE(this)->isgrabbing = false;
-  PRIVATE(this)->activechilddragger = NULL;
-  PRIVATE(this)->surrogateownerpath = NULL;
-  PRIVATE(this)->surrogatepath = NULL;
-  PRIVATE(this)->cbaction = NULL;
+  PRIVATE(this)->activechilddragger = nullptr;
+  PRIVATE(this)->surrogateownerpath = nullptr;
+  PRIVATE(this)->surrogatepath = nullptr;
+  PRIVATE(this)->cbaction = nullptr;
   PRIVATE(this)->didmousemove = false;
   PRIVATE(this)->projectorepsilon = 0.0f;
 }
@@ -465,7 +465,7 @@ SoDragger::updateElements(SoState * state)
 
   if (state->isElementEnabled(SoNormalElement::getClassStackIndex())) {
     // lines/shapes will use normals if on state. We don't want that.
-    SoNormalElement::set(state, this, 0, NULL);
+    SoNormalElement::set(state, this, 0, nullptr);
   }
   if (state->isElementEnabled(SoLineWidthElement::getClassStackIndex())) {
     // make default
@@ -1064,7 +1064,7 @@ typedef struct {
   SbViewVolume vv;
 } sodragger_vv_data;
 
-static sodragger_vv_data * vvdata = NULL;
+static sodragger_vv_data * vvdata = nullptr;
 
 static SoCallbackAction::Response
 sodragger_vv_cb(void * userdata, SoCallbackAction * action, const SoNode * node)
@@ -1084,7 +1084,7 @@ extern "C" {
 static void vv_data_cleanup(void)
 {
   delete vvdata;
-  vvdata = NULL;
+  vvdata = nullptr;
 }
 
 } // extern "C"
@@ -1100,11 +1100,11 @@ SoDragger::getViewVolume(void)
   // view volume can be found directly. pederb, 2002-10-30
 
   if (PRIVATE(this)->draggercache && PRIVATE(this)->draggercache->path) {
-    if (vvdata == NULL) {
+    if (vvdata == nullptr) {
       vvdata = new sodragger_vv_data;
       coin_atexit(static_cast<coin_atexit_f *>(vv_data_cleanup), CC_ATEXIT_NORMAL);
     }
-    if (PRIVATE(this)->cbaction == NULL) {
+    if (PRIVATE(this)->cbaction == nullptr) {
       PRIVATE(this)->cbaction = new SoCallbackAction;
       PRIVATE(this)->cbaction->addPostCallback(SoCamera::getClassTypeId(), sodragger_vv_cb, vvdata);
       PRIVATE(this)->cbaction->addPostCallback(SoDragger::getClassTypeId(), sodragger_vv_cb, this);
@@ -1206,11 +1206,11 @@ SoDragger::workFieldsIntoTransform(SbMatrix & matrix)
 {
   SoSFVec3f * vecfield;
   SoSFRotation * rotfield;
-  const SbVec3f * translation = NULL;
-  const SbVec3f * scaleFactor = NULL;
-  const SbRotation * rotation = NULL;
-  const SbRotation * scaleOrientation = NULL;
-  const SbVec3f * center = NULL;
+  const SbVec3f * translation = nullptr;
+  const SbVec3f * scaleFactor = nullptr;
+  const SbRotation * rotation = nullptr;
+  const SbRotation * scaleOrientation = nullptr;
+  const SbVec3f * center = nullptr;
 
   vecfield = coin_safe_cast<SoSFVec3f *>(this->getField("translation"));
   if (vecfield) translation = &vecfield->getValue();
@@ -1271,7 +1271,7 @@ SoDragger::getMinScale(void)
 
 /*!
   Same as above, but pointers to values are supplied. If a pointer is
-  \c NULL, the matrix value for that argument is used when
+  \c nullptr, the matrix value for that argument is used when
   reconstructing the matrix.
 */
 void
@@ -1322,12 +1322,12 @@ SoDragger::getTransformFast(SbMatrix & matrix, SbVec3f & translation,
 
   SoDragger::workValuesIntoTransform(matrix, &translation, &rotation,
                                      &scalefactor,
-                                     &scaleorientation, NULL);
+                                     &scaleorientation, nullptr);
 }
 
 /*!
   Returns \a matrix after \a translation has been appended.  If \a
-  conversion != \c NULL it is used to transform \a translation into
+  conversion != \c nullptr it is used to transform \a translation into
   the space \a matrix is defined.
 */
 SbMatrix
@@ -1345,7 +1345,7 @@ SoDragger::appendTranslation(const SbMatrix & matrix, const SbVec3f & translatio
 
 /*!
   Returns \a matrix after \a scale and \a scalecenter has been
-  appended.  If \a conversion != \c NULL it is used to transform scale
+  appended.  If \a conversion != \c nullptr it is used to transform scale
   into the space \a matrix is defined.
 */
 
@@ -1463,7 +1463,7 @@ SoDragger::appendScale(const SbMatrix & matrix, const SbVec3f & scale, const SbV
 
 /*!
   Appends \a rot, around \a rotcenter, to \a matrix. If \a conversion
-  is != \c NULL, this is used to move the rotation into that
+  is != \c nullptr, this is used to move the rotation into that
   coordinate systems before appending the rotation.
 */
 SbMatrix
@@ -1602,7 +1602,7 @@ SoDragger::handleEvent(SoHandleEventAction * action)
     if (!action->getGrabber())
       this->updateDraggerCache(action->getCurPath());
     else
-      this->updateDraggerCache(NULL);
+      this->updateDraggerCache(nullptr);
   }
   // try child draggers first
   if (action->getGrabber() != this) {
@@ -1666,7 +1666,7 @@ SoDragger::handleEvent(SoHandleEventAction * action)
       if (!action->getGrabber())
         this->updateDraggerCache(action->getCurPath());
       else
-        this->updateDraggerCache(NULL);
+        this->updateDraggerCache(nullptr);
 
       this->isActive = true;
       PRIVATE(this)->didmousemove = false;
@@ -1693,16 +1693,16 @@ SoDragger::handleEvent(SoHandleEventAction * action)
     if (PRIVATE(this)->isgrabbing) this->grabEventsCleanup();
     if (PRIVATE(this)->pickedpath) {
       PRIVATE(this)->pickedpath->unref();
-      PRIVATE(this)->pickedpath = NULL;
+      PRIVATE(this)->pickedpath = nullptr;
     }
     PRIVATE(this)->surrogatename = "";
     if (PRIVATE(this)->surrogateownerpath) {
       PRIVATE(this)->surrogateownerpath->unref();
-      PRIVATE(this)->surrogateownerpath = NULL;
+      PRIVATE(this)->surrogateownerpath = nullptr;
     }
     if (PRIVATE(this)->surrogatepath) {
       PRIVATE(this)->surrogatepath->unref();
-      PRIVATE(this)->surrogatepath = NULL;
+      PRIVATE(this)->surrogatepath = nullptr;
     }
 
     PRIVATE(this)->finishCB.invokeCallbacks(this);
@@ -1877,7 +1877,7 @@ SoDragger::childFinishCB(void * data, SoDragger * COIN_UNUSED_ARG(child))
 
   thisp->ref();
   PRIVATE(thisp)->finishCB.invokeCallbacks(thisp);
-  thisp->setActiveChildDragger(NULL);
+  thisp->setActiveChildDragger(nullptr);
   if (PRIVATE(thisp)->draggercache) PRIVATE(thisp)->draggercache->truncatePath();
   thisp->unref();
 }
@@ -1929,7 +1929,7 @@ SoDragger::eventHandled(const SoEvent * event, SoHandleEventAction * action)
 void
 SoDragger::updateDraggerCache(const SoPath * path)
 {
-  if (PRIVATE(this)->draggercache == NULL)
+  if (PRIVATE(this)->draggercache == nullptr)
     PRIVATE(this)->draggercache = new SoDraggerCache(this);
   if (path) PRIVATE(this)->draggercache->update(reclassify_cast<const SoFullPath *>(path), path->findNode(this));
   else PRIVATE(this)->draggercache->updateMatrix();

@@ -66,8 +66,8 @@ extern "C" {
 
 /* ******************************************************************** */
 
-static GLUWrapper_t * GLU_instance = NULL;
-static cc_libhandle GLU_libhandle = NULL;
+static GLUWrapper_t * GLU_instance = nullptr;
+static cc_libhandle GLU_libhandle = nullptr;
 static int GLU_failed_to_load = 0;
 static int GLU_is_initializing = 0;
 
@@ -93,13 +93,13 @@ GLUWrapper_cleanup(void)
 #ifdef GLU_RUNTIME_LINKING
   if (GLU_libhandle) {
     cc_dl_close(GLU_libhandle);
-    GLU_libhandle = NULL;
+    GLU_libhandle = nullptr;
   }
 #endif /* GLU_RUNTIME_LINKING */
 
   assert(GLU_instance);
   free(GLU_instance);
-  GLU_instance = NULL;
+  GLU_instance = nullptr;
   GLU_failed_to_load = 0;
   GLU_is_initializing = 0;
 }
@@ -212,7 +212,7 @@ GLUWrapper_gluGetString(GLenum name)
 {
   static const GLubyte versionstring[] = "1.0.0";
   if (name == GLU_VERSION) return versionstring;
-  return NULL;
+  return nullptr;
 }
 
 /* Replacement function for gluScaleImage(). */
@@ -363,7 +363,7 @@ GLUWrapper(void)
     /* FIXME: should we get the system shared library name from an
        Autoconf check? 20000930 mortene. */
     const char * possiblelibnames[] = {
-      NULL, /* is set below */
+      nullptr, /* is set below */
       /* MSWindows DLL name for the GLU library */
       "glu32",
 
@@ -372,7 +372,7 @@ GLUWrapper(void)
       "libGLU", "libMesaGLU",
       "libGLU.so", "libMesaGLU.so",
       "libGLU.so.1", /* Some Debian distributions do not supply a symlink for libGLU.so, only libGLU.so.1 */
-      NULL
+      nullptr
     };
     possiblelibnames[0] = coin_getenv("COIN_GLU_LIBNAME");
     int idx = possiblelibnames[0] ? 0 : 1;
@@ -388,7 +388,7 @@ GLUWrapper(void)
     /* On Mac OS X, GLU is part of the OpenGL framework, which at this
        point is alrady loaded -> We can resolve symbols from the current
        process image. */
-    GLU_libhandle = cc_dl_open(NULL);
+    GLU_libhandle = cc_dl_open(nullptr);
     libname = "OpenGL.framework/Libraries/libGLU.dylib";
 
 #endif /* !GLU_IS_PART_OF_GL */
@@ -435,7 +435,7 @@ GLUWrapper(void)
   gi->available = 0;
     /* Define GLUWRAPPER_REGISTER_FUNC macro. */
 #define GLUWRAPPER_REGISTER_FUNC(_funcname_, _funcsig_) \
-      gi->_funcname_ = NULL
+      gi->_funcname_ = nullptr
 
 #endif /* !GLUWRAPPER_ASSUME_GLU */
 
@@ -466,7 +466,7 @@ GLUWrapper(void)
   // mortene & kyrah.
   GLUWRAPPER_REGISTER_FUNC(gluNurbsCallbackData, gluNurbsCallbackData_t);
 #else /* !gluNurbsCallbackData */
-  gi->gluNurbsCallbackData = NULL;
+  gi->gluNurbsCallbackData = nullptr;
 #endif /* !gluNurbsCallbackData */
   GLUWRAPPER_REGISTER_FUNC(gluNewTess, gluNewTess_t);
   GLUWRAPPER_REGISTER_FUNC(gluTessCallback, gluTessCallback_t);
@@ -481,9 +481,9 @@ GLUWrapper(void)
 
   /* "Backup" functions, makes it easier to be robust even when no GLU
      library can be loaded. */
-  if (gi->gluScaleImage == NULL)
+  if (gi->gluScaleImage == nullptr)
     gi->gluScaleImage = GLUWrapper_gluScaleImage;
-  if (gi->gluGetString == NULL) /* Was missing in GLU v1.0. */
+  if (gi->gluGetString == nullptr) /* Was missing in GLU v1.0. */
     gi->gluGetString = GLUWrapper_gluGetString;
 
   /* Makes it possible to place a debugging "filter" in front of the
@@ -493,7 +493,7 @@ GLUWrapper(void)
     const char * env = coin_getenv("COIN_DEBUG_GLUNURBSSURFACE");
     if (env && (atoi(env) > 0)) {
       gi->gluNurbsSurface_in_GLU = gi->gluNurbsSurface;
-      if (gi->gluNurbsSurface != NULL) { gi->gluNurbsSurface = (gluNurbsSurface_t)GLUWrapper_gluNurbsSurface; }
+      if (gi->gluNurbsSurface != nullptr) { gi->gluNurbsSurface = (gluNurbsSurface_t)GLUWrapper_gluNurbsSurface; }
     }
   }
 

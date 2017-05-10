@@ -50,7 +50,7 @@ public:
                            const SbVec3f & b1, const SbVec3f & b2,
                            float * linP0, float * linP1);
   float sqrDistance(const SbVec3f & p1, 
-                    float * pfSParam = NULL, float * pfTParam = NULL) const;
+                    float * pfSParam = nullptr, float * pfTParam = nullptr) const;
 
   SbTri3f & operator = (const SbTri3f & t);
 

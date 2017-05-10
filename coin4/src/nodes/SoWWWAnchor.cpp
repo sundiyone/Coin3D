@@ -129,18 +129,18 @@ class SoWWWAnchorP {
   static void * highlightdata;
 
   static void atexit_cleanup() {
-    SoWWWAnchorP::fetchfunc = NULL;
-    SoWWWAnchorP::fetchdata = NULL;
-    SoWWWAnchorP::highlightfunc = NULL;
-    SoWWWAnchorP::highlightdata = NULL;
+    SoWWWAnchorP::fetchfunc = nullptr;
+    SoWWWAnchorP::fetchdata = nullptr;
+    SoWWWAnchorP::highlightfunc = nullptr;
+    SoWWWAnchorP::highlightdata = nullptr;
   }
 };
 
 // static members
-SoWWWAnchorCB * SoWWWAnchorP::fetchfunc = NULL;
-void * SoWWWAnchorP::fetchdata = NULL;
-SoWWWAnchorCB * SoWWWAnchorP::highlightfunc = NULL;
-void * SoWWWAnchorP::highlightdata = NULL;
+SoWWWAnchorCB * SoWWWAnchorP::fetchfunc = nullptr;
+void * SoWWWAnchorP::fetchdata = nullptr;
+SoWWWAnchorCB * SoWWWAnchorP::highlightfunc = nullptr;
+void * SoWWWAnchorP::highlightdata = nullptr;
 
 #endif // DOXYGEN_SKIP_THIS
 
@@ -225,7 +225,7 @@ SoWWWAnchor::handleEvent(SoHandleEventAction * action)
       SbString s = this->getFullURLName();
       if (this->map.getValue() == POINT) {
         const SoPickedPoint * pp = action->getPickedPoint();
-        const SbVec3f point = pp->getObjectPoint(NULL);
+        const SbVec3f point = pp->getObjectPoint(nullptr);
         SbString temp;
         temp.sprintf("?%g%%2c%g%%2c%g", point[0], point[1], point[2]);
         s.operator+=(temp);

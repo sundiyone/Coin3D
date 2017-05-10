@@ -277,7 +277,7 @@ SoAsciiText::SoAsciiText(void)
   SO_NODE_SET_SF_ENUM_TYPE(justification, Justification);
 
   PRIVATE(this) = new SoAsciiTextP(this);
-  PRIVATE(this)->cache = NULL;
+  PRIVATE(this)->cache = nullptr;
 }
 
 /*!
@@ -373,7 +373,7 @@ SoAsciiText::GLRender(SoGLRenderAction * action)
     }
 
     SbString str = this->string[i];
-    cc_glyph3d * prevglyph = NULL;
+    cc_glyph3d * prevglyph = nullptr;
     const char * p = str.getString();
     size_t length = cc_string_utf8_validate_length(p);
     //    assert(length);
@@ -433,7 +433,7 @@ SoAsciiText::GLRender(SoGLRenderAction * action)
     }
     if (prevglyph) {
       cc_glyph3d_unref(prevglyph);
-      prevglyph = NULL;
+      prevglyph = nullptr;
     }
 
     ypos -= fontspec->size * this->spacing.getValue();
@@ -516,7 +516,7 @@ void SoAsciiTextP::calculateStringStretch(const int i, const cc_font_specificati
   // Approximate the stretchfactor
   stretchfactor = master->width[i] / this->stringwidths[i];
 
-  cc_glyph3d * prevglyph = NULL;
+  cc_glyph3d * prevglyph = nullptr;
   float originalmaxx = 0.0f;
   float originalmaxxpos = 0.0f;
   float originalxpos = 0.0f;
@@ -572,7 +572,7 @@ void SoAsciiTextP::calculateStringStretch(const int i, const cc_font_specificati
 
   // Unreference the last glyph
   cc_glyph3d_unref(prevglyph);
-  prevglyph = NULL;
+  prevglyph = nullptr;
   
   // Calculate the accurate stretchfactor and the width of the
   // string. This should be close to the specified width unless the
@@ -694,7 +694,7 @@ SoAsciiText::generatePrimitives(SoAction * action)
   vertex.setDetail(&detail);
   vertex.setMaterialIndex(0);
 
-  this->beginShape(action, SoShape::TRIANGLES, NULL);
+  this->beginShape(action, SoShape::TRIANGLES, nullptr);
   vertex.setNormal(SbVec3f(0.0f, 0.0f, 1.0f));
 
   float ypos = 0.0f;
@@ -716,7 +716,7 @@ SoAsciiText::generatePrimitives(SoAction * action)
     }
     
     SbString str = this->string[i];
-    cc_glyph3d * prevglyph = NULL;
+    cc_glyph3d * prevglyph = nullptr;
     const char * p = str.getString();
     size_t length = cc_string_utf8_validate_length(p);
     //    assert(length);
@@ -779,7 +779,7 @@ SoAsciiText::generatePrimitives(SoAction * action)
     ypos -= fontspec->size * this->spacing.getValue();
     if (prevglyph) {
       cc_glyph3d_unref(prevglyph);
-      prevglyph = NULL;
+      prevglyph = nullptr;
     }
   }
   this->endShape();
@@ -850,7 +850,7 @@ SoAsciiTextP::setUpGlyphs(SoState * state, SoAsciiText * textnode)
   float kerningy = 0;
   float advancex = 0;
   float advancey = 0;
-  cc_glyph3d * prevglyph = NULL;
+  cc_glyph3d * prevglyph = nullptr;
 
   for (int i = 0; i < textnode->string.getNum(); i++) {
     float stringwidth = 0.0f;
@@ -891,7 +891,7 @@ SoAsciiTextP::setUpGlyphs(SoState * state, SoAsciiText * textnode)
     if (prevglyph) {
       // Have to remove the appended advance and add the last character to the calculated with
       stringwidth += (cc_glyph3d_getwidth(prevglyph) - advancex) * fontspecptr->size;
-      prevglyph = NULL; // To make sure the next line starts with blank sheets
+      prevglyph = nullptr; // To make sure the next line starts with blank sheets
     }
 
     this->stringwidths.append(stringwidth);

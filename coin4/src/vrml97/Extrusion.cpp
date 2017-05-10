@@ -413,7 +413,7 @@ public:
      idx(32),
      gen(true),
      dirty(true),
-     vbocache(NULL)
+     vbocache(nullptr)
 #ifdef COIN_THREADSAFE
      , rwmutex(SbRWMutex::READ_PRECEDENCE)
 #endif // COIN_THREADSAFE
@@ -539,7 +539,7 @@ SoVRMLExtrusion::GLRender(SoGLRenderAction * action)
        SoMultiTextureCoordinateElement::FUNCTION) &&
       (SoMultiTextureCoordinateElement::getType(state) !=
        SoMultiTextureCoordinateElement::TEXGEN)) {
-    SoGLMultiTextureCoordinateElement::setTexGen(state, this, NULL);
+    SoGLMultiTextureCoordinateElement::setTexGen(state, this, nullptr);
     SoMultiTextureCoordinateElement::set2(state, this, PRIVATE(this)->tcoord.getLength(),
                                           PRIVATE(this)->tcoord.getArrayPtr());
   }
@@ -566,13 +566,13 @@ SoVRMLExtrusion::GLRender(SoGLRenderAction * action)
 
     if (doTextures) {
       PRIVATE(this)->vbocache->getTexCoordVBO(0)->bindBuffer(contextid);
-      cc_glglue_glTexCoordPointer(glue, 2, GL_FLOAT, 0, NULL);
+      cc_glglue_glTexCoordPointer(glue, 2, GL_FLOAT, 0, nullptr);
       cc_glglue_glEnableClientState(glue, GL_TEXTURE_COORD_ARRAY);
 
       for (i = 1; i <= lastenabled; i++) {
         if (enabled[i]) {
           cc_glglue_glClientActiveTexture(glue, GL_TEXTURE0 + i);
-          cc_glglue_glTexCoordPointer(glue, 2, GL_FLOAT, 0, NULL);
+          cc_glglue_glTexCoordPointer(glue, 2, GL_FLOAT, 0, nullptr);
           cc_glglue_glEnableClientState(glue, GL_TEXTURE_COORD_ARRAY);
         }
       }
@@ -580,11 +580,11 @@ SoVRMLExtrusion::GLRender(SoGLRenderAction * action)
     }
 
     PRIVATE(this)->vbocache->getNormalVBO()->bindBuffer(contextid);
-    cc_glglue_glNormalPointer(glue, GL_FLOAT, 0, NULL);
+    cc_glglue_glNormalPointer(glue, GL_FLOAT, 0, nullptr);
     cc_glglue_glEnableClientState(glue, GL_NORMAL_ARRAY);
 
     PRIVATE(this)->vbocache->getCoordVBO()->bindBuffer(contextid);
-    cc_glglue_glVertexPointer(glue, 3, GL_FLOAT, 0, NULL);
+    cc_glglue_glVertexPointer(glue, 3, GL_FLOAT, 0, nullptr);
     cc_glglue_glEnableClientState(glue, GL_VERTEX_ARRAY);
 
     SoGLVertexAttributeElement::getInstance(state)->enableVBO(action);
@@ -646,9 +646,9 @@ SoVRMLExtrusion::GLRender(SoGLRenderAction * action)
                         PRIVATE(this)->idx.getArrayPtr(),
                         PRIVATE(this)->idx.getLength(),
                         normals,
-                        NULL,
+                        nullptr,
                         &mb,
-                        NULL,
+                        nullptr,
                         &tb,
                         PRIVATE(this)->idx.getArrayPtr(),
                         &vab,
@@ -798,7 +798,7 @@ SoVRMLExtrusion::updateCache(void)
 void
 SoVRMLExtrusionP::updateVBO(SoAction * action)
 {
-  if (this->vbocache == NULL || !this->vbocache->isValid(action->getState())) {
+  if (this->vbocache == nullptr || !this->vbocache->isValid(action->getState())) {
     this->readUnlock();
     SoTextureCoordinateBundle tb(action, false, false);
     bool istexfunc = tb.isFunction();
@@ -923,7 +923,7 @@ SoVRMLExtrusion::createTriangleDetail(SoRayPickAction * COIN_UNUSED_ARG(action),
                                       SoPickedPoint * COIN_UNUSED_ARG(pp))
 {
   // no triangle detail for Extrusion
-  return NULL;
+  return nullptr;
 }
 
 static SbVec3f

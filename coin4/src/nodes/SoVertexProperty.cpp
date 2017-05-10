@@ -211,9 +211,9 @@
 class SoVertexPropertyP {
  public:
   SoVertexPropertyP(void) 
-    : vertexvbo(NULL),
-      normalvbo(NULL),
-      colorvbo(NULL)
+    : vertexvbo(nullptr),
+      normalvbo(nullptr),
+      colorvbo(nullptr)
   {
     this->checktransparent = false;
     this->transparent = false;
@@ -415,7 +415,7 @@ SoVertexProperty::updateVertex(SoState * state, bool glrender, bool vbo)
     if (glrender) {
       if (vbo) {
         bool dirty = false;
-        if (PRIVATE(this)->vertexvbo == NULL) {
+        if (PRIVATE(this)->vertexvbo == nullptr) {
           PRIVATE(this)->vertexvbo = new SoVBO(GL_ARRAY_BUFFER, GL_STATIC_DRAW); 
           dirty =  true;
         }
@@ -430,9 +430,9 @@ SoVertexProperty::updateVertex(SoState * state, bool glrender, bool vbo)
       }
       else if (PRIVATE(this)->vertexvbo && PRIVATE(this)->vertexvbo->getBufferDataId()) {
         // clear buffers to deallocate VBO memory
-        PRIVATE(this)->vertexvbo->setBufferData(NULL, 0, 0);
+        PRIVATE(this)->vertexvbo->setBufferData(nullptr, 0, 0);
       }
-      SoGLVBOElement::setVertexVBO(state, vbo ? PRIVATE(this)->vertexvbo : NULL);
+      SoGLVBOElement::setVertexVBO(state, vbo ? PRIVATE(this)->vertexvbo : nullptr);
     }
   }
 }
@@ -443,8 +443,8 @@ SoVertexProperty::updateTexCoord(SoState * state, bool glrender, bool vbo)
   const int numvertex = this->vertex.getNum();
   int num = this->texCoord3.getNum();
   int dim = 3;
-  const SbVec3f * tc3 = num ? this->texCoord3.getValues(0) : NULL;
-  const SbVec2f * tc2 = NULL;
+  const SbVec3f * tc3 = num ? this->texCoord3.getValues(0) : nullptr;
+  const SbVec2f * tc2 = nullptr;
   if (num == 0) {
     num = this->texCoord.getNum();
     dim = 2;
@@ -469,7 +469,7 @@ SoVertexProperty::updateTexCoord(SoState * state, bool glrender, bool vbo)
           // it's important to call this _before_ setting the coordinates
           // on the state.
           SoGLMultiTextureCoordinateElement::setTexGen(state,
-                                                       this, unit, NULL);
+                                                       this, unit, nullptr);
         }
         if (dim == 2) {
           SoMultiTextureCoordinateElement::set2(state, this, unit, numperunit,
@@ -484,12 +484,12 @@ SoVertexProperty::updateTexCoord(SoState * state, bool glrender, bool vbo)
           bool setvbo = false;
 
           if (i >= PRIVATE(this)->texcoordvbo.getLength()) {
-            PRIVATE(this)->texcoordvbo.append(NULL);
+            PRIVATE(this)->texcoordvbo.append(nullptr);
           }
           if ((numperunit == numvertex) && vbo) {
             bool dirty = false;
             setvbo = true;
-            if (PRIVATE(this)->texcoordvbo[i] == NULL) {
+            if (PRIVATE(this)->texcoordvbo[i] == nullptr) {
               PRIVATE(this)->texcoordvbo[i] = new SoVBO(GL_ARRAY_BUFFER, GL_STATIC_DRAW); 
               dirty =  true;
             }
@@ -512,9 +512,9 @@ SoVertexProperty::updateTexCoord(SoState * state, bool glrender, bool vbo)
           else if (PRIVATE(this)->texcoordvbo[i] && 
                    PRIVATE(this)->texcoordvbo[i]->getBufferDataId()) {
             // clear buffers to deallocate VBO memory
-            PRIVATE(this)->texcoordvbo[i]->setBufferData(NULL, 0, 0);
+            PRIVATE(this)->texcoordvbo[i]->setBufferData(nullptr, 0, 0);
           }
-          SoGLVBOElement::setTexCoordVBO(state, 0, setvbo ? PRIVATE(this)->texcoordvbo[i] : NULL);
+          SoGLVBOElement::setTexCoordVBO(state, 0, setvbo ? PRIVATE(this)->texcoordvbo[i] : nullptr);
         }
       }
     }
@@ -537,7 +537,7 @@ SoVertexProperty::updateNormal(SoState * state, uint32_t overrideflags, bool glr
       if ((num == numvertex) && vbo) {
         bool dirty = false;
         setvbo = true;
-        if (PRIVATE(this)->normalvbo == NULL) {
+        if (PRIVATE(this)->normalvbo == nullptr) {
           PRIVATE(this)->normalvbo = new SoVBO(GL_ARRAY_BUFFER, GL_STATIC_DRAW); 
           dirty =  true;
         }
@@ -552,9 +552,9 @@ SoVertexProperty::updateNormal(SoState * state, uint32_t overrideflags, bool glr
       }
       else if (PRIVATE(this)->normalvbo && PRIVATE(this)->normalvbo->getBufferDataId()) {
         // clear buffers to deallocate VBO memory
-        PRIVATE(this)->normalvbo->setBufferData(NULL, 0, 0);
+        PRIVATE(this)->normalvbo->setBufferData(nullptr, 0, 0);
       }
-      SoGLVBOElement::setNormalVBO(state, setvbo ? PRIVATE(this)->normalvbo : NULL);
+      SoGLVBOElement::setNormalVBO(state, setvbo ? PRIVATE(this)->normalvbo : nullptr);
     }
   }
   if (this->normal.getNum() > 0 && !TEST_OVERRIDE(NORMAL_BINDING, overrideflags)) {
@@ -586,7 +586,7 @@ SoVertexProperty::updateMaterial(SoState * state, uint32_t overrideflags, bool g
       if ((num == numvertex) && vbo) {
         bool dirty = false;
         setvbo = true;
-        if (PRIVATE(this)->colorvbo == NULL) {
+        if (PRIVATE(this)->colorvbo == nullptr) {
           PRIVATE(this)->colorvbo = new SoVBO(GL_ARRAY_BUFFER, GL_STATIC_DRAW);
           dirty = true;
         }
@@ -616,9 +616,9 @@ SoVertexProperty::updateMaterial(SoState * state, uint32_t overrideflags, bool g
         }
       }
       else if (PRIVATE(this)->colorvbo) {
-        PRIVATE(this)->colorvbo->setBufferData(NULL, 0, 0);
+        PRIVATE(this)->colorvbo->setBufferData(nullptr, 0, 0);
       }
-      SoGLVBOElement::setColorVBO(state, setvbo ? PRIVATE(this)->colorvbo : NULL);
+      SoGLVBOElement::setColorVBO(state, setvbo ? PRIVATE(this)->colorvbo : nullptr);
     }
   }
   if (num && !TEST_OVERRIDE(MATERIAL_BINDING, overrideflags)) {

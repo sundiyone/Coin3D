@@ -57,13 +57,13 @@ const char SoBase::PImpl::ROUTE_KEYWORD[] = "ROUTE";
 const char SoBase::PImpl::PROTO_KEYWORD[] = "PROTO";
 const char SoBase::PImpl::EXTERNPROTO_KEYWORD[] = "EXTERNPROTO";
 
-void * SoBase::PImpl::mutex = NULL;
-void * SoBase::PImpl::name2obj_mutex = NULL;
-void * SoBase::PImpl::obj2name_mutex = NULL;
-void * SoBase::PImpl::auditor_mutex = NULL;
-void * SoBase::PImpl::global_mutex = NULL;
+void * SoBase::PImpl::mutex = nullptr;
+void * SoBase::PImpl::name2obj_mutex = nullptr;
+void * SoBase::PImpl::obj2name_mutex = nullptr;
+void * SoBase::PImpl::auditor_mutex = nullptr;
+void * SoBase::PImpl::global_mutex = nullptr;
 
-SbHash<const SoBase *, SoAuditorList *> * SoBase::PImpl::auditordict = NULL;
+SbHash<const SoBase *, SoAuditorList *> * SoBase::PImpl::auditordict = nullptr;
 
 // Only a small number of SoBase derived objects will under usual
 // conditions have designated names, so we use a couple of static
@@ -71,17 +71,17 @@ SbHash<const SoBase *, SoAuditorList *> * SoBase::PImpl::auditordict = NULL;
 // pointer for each and every object, we'll cut down on a decent
 // amount of memory use this way (SoBase should be kept as slim as
 // possible, as any dead weight is brought along in a lot of objects).
-SbHash<const char *, SbPList *> * SoBase::PImpl::name2obj = NULL;
-SbHash<const SoBase *, const char *> * SoBase::PImpl::obj2name = NULL;
+SbHash<const char *, SbPList *> * SoBase::PImpl::name2obj = nullptr;
+SbHash<const SoBase *, const char *> * SoBase::PImpl::obj2name = nullptr;
 
 // This is used for debugging purposes: it stores a pointer to all
 // SoBase-derived objects that have been allocated and not
 // deallocated.
 bool SoBase::PImpl::trackbaseobjects = false;
-void * SoBase::PImpl::allbaseobj_mutex = NULL;
-SoBaseSet * SoBase::PImpl::allbaseobj = NULL; // maps from SoBase * to NULL
+void * SoBase::PImpl::allbaseobj_mutex = nullptr;
+SoBaseSet * SoBase::PImpl::allbaseobj = nullptr; // maps from SoBase * to nullptr
 
-SbString * SoBase::PImpl::refwriteprefix = NULL;
+SbString * SoBase::PImpl::refwriteprefix = nullptr;
 
 bool SoBase::PImpl::tracerefs = false;
 uint32_t SoBase::PImpl::writecounter = 0;
@@ -93,9 +93,9 @@ SoNode *
 SoBase::PImpl::readNode(SoInput * in)
 {
   SbName name;
-  if (!in->read(name, true)) return NULL;
-  SoBase * node = NULL;
-  if (!SoBase::PImpl::readBase(in, name, node)) return NULL;
+  if (!in->read(name, true)) return nullptr;
+  SoBase * node = nullptr;
+  if (!SoBase::PImpl::readBase(in, name, node)) return nullptr;
   assert(node->isOfType(SoNode::getClassTypeId()));
   return (SoNode *) node;
 }
@@ -141,7 +141,7 @@ SoBase::PImpl::cleanup_auditordict(void)
     }
 
     delete SoBase::PImpl::auditordict;
-    SoBase::PImpl::auditordict = NULL;
+    SoBase::PImpl::auditordict = nullptr;
   }
 }
 
@@ -234,7 +234,7 @@ SoBase::PImpl::readReference(SoInput * in, SoBase *& base)
     refname = startstr;
   }
 
-  if ((base = in->findReference(refname)) == NULL) {
+  if ((base = in->findReference(refname)) == nullptr) {
     SoReadError::post(in, "Unknown reference \"%s\"", refname.getString());
     return false;
   }
@@ -265,7 +265,7 @@ SoBase::PImpl::readBase(SoInput * in, SbName & classname, SoBase *& base)
 #endif // debug
 
   bool ret = true;
-  base = NULL;
+  base = nullptr;
 
   SbName refname;
 
@@ -476,7 +476,7 @@ failed:
 
     base->ref();
     base->unref();
-    base = NULL;
+    base = nullptr;
   }
 
   return false;
@@ -513,7 +513,7 @@ SoBase::PImpl::createInstance(SoInput * in, const SbName & classname)
   if (type == SoType::badType())
     type = SoType::fromName(classname);
 
-  SoBase * instance = NULL;
+  SoBase * instance = nullptr;
 
   if (type == SoType::badType() ||
       type == SoUnknownNode::getClassTypeId()) {
@@ -600,7 +600,7 @@ BOOST_AUTO_TEST_CASE(realTime_globalfield_import)
 
   SoInput * in = new SoInput;
   in->setBuffer(scene, strlen(scene));
-  SoNode * g = NULL;
+  SoNode * g = nullptr;
   const bool readok = SoDB::read(in, g);
   assert(readok); // that import is ok is tested by a case in SoDB.cpp
   delete in;

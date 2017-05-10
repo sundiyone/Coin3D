@@ -373,16 +373,16 @@ SoCenterballDragger::transferCenterDraggerMotion(SoDragger * childdragger)
 
 /*!
   Sets values for the internal SoSwitch parts. If \a activechild ==
-  \c NULL, all feedback is deactivated.
+  \c nullptr, all feedback is deactivated.
 */
 void
 SoCenterballDragger::setSwitches(SoDragger * activechild)
 {
   SoSwitch *sw;
 
-  if (activechild == NULL || coin_safe_cast<SoNode *>(activechild) == rotator.getValue()) {
+  if (activechild == nullptr || coin_safe_cast<SoNode *>(activechild) == rotator.getValue()) {
     // special feedback when rotator is activated/deactiveated
-    int switchval = activechild != NULL ? 1 : 0;
+    int switchval = activechild != nullptr ? 1 : 0;
     sw = SO_GET_ANY_PART(this, "XCenterChanger.translatorSwitch", SoSwitch);
     SoInteractionKit::setSwitchValue(sw, switchval);;
     sw = SO_GET_ANY_PART(this, "YCenterChanger.translatorSwitch", SoSwitch);
@@ -409,7 +409,7 @@ SoCenterballDragger::setSwitches(SoDragger * activechild)
   else if (coin_safe_cast<SoNode *>(activechild) == ZRotator.getValue()) {
     vals[2] = 0;
   }
-  else if (activechild != NULL) {
+  else if (activechild != nullptr) {
     vals[0] = vals[1] = vals[2] = 0;
   }
 
@@ -470,7 +470,7 @@ SoCenterballDragger::setUpConnections(bool onoff, bool doitalways)
     }
 
     // Update dragger in case fields have changed values before connection
-    SoCenterballDragger::fieldSensorCB(this, NULL);
+    SoCenterballDragger::fieldSensorCB(this, nullptr);
 
     if (this->rotFieldSensor->getAttachedField() != &this->rotation) {
       this->rotFieldSensor->attach(&this->rotation);
@@ -488,10 +488,10 @@ SoCenterballDragger::setUpConnections(bool onoff, bool doitalways)
     this->removeChildDragger("YCenterChanger");
     this->removeChildDragger("ZCenterChanger");
 
-    if (this->rotFieldSensor->getAttachedField() != NULL) {
+    if (this->rotFieldSensor->getAttachedField() != nullptr) {
       this->rotFieldSensor->detach();
     }
-    if (this->centerFieldSensor->getAttachedField() != NULL) {
+    if (this->centerFieldSensor->getAttachedField() != nullptr) {
       this->centerFieldSensor->detach();
     }
     inherited::setUpConnections(onoff, doitalways);
@@ -602,7 +602,7 @@ void
 SoCenterballDragger::kidFinishCB(void * d, SoDragger * COIN_UNUSED_ARG(child))
 {
   SoCenterballDragger * thisp = static_cast<SoCenterballDragger *>(d);
-  thisp->setSwitches(NULL);
+  thisp->setSwitches(nullptr);
 
   SoSurroundScale * scale = coin_safe_cast<SoSurroundScale *>(
     thisp->getPart("surroundScale", false)

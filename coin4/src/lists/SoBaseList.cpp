@@ -121,7 +121,7 @@ void
 SoBaseList::remove(const int index)
 {
   assert(index >= 0 && index < this->getLength());
-  if (this->referencing && GET_BASEPTR(index) != NULL)
+  if (this->referencing && GET_BASEPTR(index) != nullptr)
     GET_BASEPTR(index)->unref();
   SbPList::remove(index);
 }
@@ -158,7 +158,7 @@ SoBaseList::truncate(const int length)
   if (this->referencing) {
     const int n = this->getLength();
     for (int i = length; i < n; i++)
-      if (GET_BASEPTR(i) != NULL) GET_BASEPTR(i)->unref();
+      if (GET_BASEPTR(i) != nullptr) GET_BASEPTR(i)->unref();
   }
   SbPList::truncate(length);
 }
@@ -197,7 +197,7 @@ SoBaseList::operator=(const SoBaseList & l)
 
   Will automatically expand the size of the internal array if \a idx
   is outside the current bounds of the list. The values of any
-  additional pointers are then set to \c NULL.
+  additional pointers are then set to \c nullptr.
 */
 SoBase *
 SoBaseList::operator[](const int idx) const

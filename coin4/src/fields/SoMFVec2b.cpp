@@ -141,7 +141,7 @@ SoMFVec2b::setValue(int8_t x, int8_t y)
 void
 SoMFVec2b::setValue(const int8_t xy[2])
 {
-  if (xy == NULL) this->setNum(0);
+  if (xy == nullptr) this->setNum(0);
   else this->setValue(SbVec2b(xy));
 }
 

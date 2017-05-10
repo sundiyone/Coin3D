@@ -57,13 +57,13 @@ struct cc_glyph2d {
   bool mono;
 };
 
-static cc_dict * glyph2d_fonthash = NULL;
+static cc_dict * glyph2d_fonthash = nullptr;
 static bool glyph2d_initialized = false;
 
 /*
   Mutex lock for the static ang global font hash
 */
-static void * glyph2d_fonthash_lock = NULL;
+static void * glyph2d_fonthash_lock = nullptr;
 
 /* Set '#if 1' to enable debug output to stderr for tracking mutex locking. */
 #if 0
@@ -87,7 +87,7 @@ cc_glyph2d_cleanup(void)
 {
   CC_MUTEX_DESTRUCT(glyph2d_fonthash_lock);
   cc_dict_destruct(glyph2d_fonthash);
-  glyph2d_fonthash = NULL;
+  glyph2d_fonthash = nullptr;
   glyph2d_initialized = false;
 }
 
@@ -128,7 +128,7 @@ cc_glyph2d_ref(uint32_t character, const cc_font_specification * spec, float ang
 
   /* Beacuse this function is the entry point for glyph2d, the mutex
      is initialized here. */
-  if (glyph2d_fonthash_lock == NULL) 
+  if (glyph2d_fonthash_lock == nullptr) 
     cc_glyph2d_initialize();
   
   assert(spec);
@@ -231,7 +231,7 @@ cc_glyph2d_ref(uint32_t character, const cc_font_specification * spec, float ang
 void
 cc_glyph2d_unref(cc_glyph2d * glyph)
 {
-  cc_glyph_unref(glyph2d_fonthash, &(glyph->c), NULL);
+  cc_glyph_unref(glyph2d_fonthash, &(glyph->c), nullptr);
 }
 
 static bool 

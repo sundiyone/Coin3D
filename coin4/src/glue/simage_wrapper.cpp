@@ -60,8 +60,8 @@
 extern "C" {
 #endif /* __cplusplus */
 
-static simage_wrapper_t * simage_instance = NULL;
-static cc_libhandle simage_libhandle = NULL;
+static simage_wrapper_t * simage_instance = nullptr;
+static cc_libhandle simage_libhandle = nullptr;
 static int simage_failed_to_load = 0;
 static int simage_is_initializing = 0;
 
@@ -85,13 +85,13 @@ simage_wrapper_cleanup(void)
 #ifdef SIMAGE_RUNTIME_LINKING
   if (simage_libhandle) {
     cc_dl_close(simage_libhandle);
-    simage_libhandle = NULL;
+    simage_libhandle = nullptr;
   }
 #endif /* SIMAGE_RUNTIME_LINKING */
 
   assert(simage_instance);
   free(simage_instance);
-  simage_instance = NULL;
+  simage_instance = nullptr;
   simage_failed_to_load = 0;
   simage_is_initializing = 0;
 }
@@ -121,7 +121,7 @@ simage_wrapper_get_num_savers(void)
 static void *
 simage_wrapper_get_saver_handle(int COIN_UNUSED_ARG(jada))
 {
-  return NULL;
+  return nullptr;
 }
 
 static int
@@ -148,13 +148,13 @@ simage_wrapper_get_saver_extensions(void * COIN_UNUSED_ARG(handle))
 static const char *
 simage_wrapper_get_saver_fullname(void * COIN_UNUSED_ARG(handle))
 {
-  return NULL;
+  return nullptr;
 }
 
 static const char *
 simage_wrapper_get_saver_description(void * COIN_UNUSED_ARG(handle))
 {
-  return NULL;
+  return nullptr;
 }
 
 static unsigned char *
@@ -166,13 +166,13 @@ simage_wrapper_resize3d(unsigned char * COIN_UNUSED_ARG(imagedata),
                         int COIN_UNUSED_ARG(newheight),
                         int COIN_UNUSED_ARG(newlayers))
 {
-  return NULL;
+  return nullptr;
 }
 
 static s_params *
 simage_wrapper_s_params_create(void)
 {
-  return NULL;
+  return nullptr;
 }
 
 static void
@@ -195,30 +195,30 @@ simage_wrapper_s_params_get(s_params * COIN_UNUSED_ARG(params), ...)
 
 static s_stream *
 simage_wrapper_s_stream_open(const char * COIN_UNUSED_ARG(filename),
-              s_params * COIN_UNUSED_ARG(params) /* | NULL */)
+              s_params * COIN_UNUSED_ARG(params) /* | nullptr */)
 {
-  return NULL;
+  return nullptr;
 }
 
 static s_stream *
 simage_wrapper_s_stream_create(const char * COIN_UNUSED_ARG(filename),
-                s_params * COIN_UNUSED_ARG(params) /* | NULL */)
+                s_params * COIN_UNUSED_ARG(params) /* | nullptr */)
 {
-  return NULL;
+  return nullptr;
 }
 
 static void *
 simage_wrapper_s_stream_get_buffer(s_stream * COIN_UNUSED_ARG(stream),
-                    void * COIN_UNUSED_ARG(prealloc) /* | NULL */,
-                    int * COIN_UNUSED_ARG(size) /* | NULL */,
-                    s_params * COIN_UNUSED_ARG(params) /* | NULL */)
+                    void * COIN_UNUSED_ARG(prealloc) /* | nullptr */,
+                    int * COIN_UNUSED_ARG(size) /* | nullptr */,
+                    s_params * COIN_UNUSED_ARG(params) /* | nullptr */)
 {
-  return NULL;
+  return nullptr;
 }
 
 static int
 simage_wrapper_s_stream_put_buffer(s_stream * COIN_UNUSED_ARG(stream), void * COIN_UNUSED_ARG(buffer),
-                    int COIN_UNUSED_ARG(size), s_params * COIN_UNUSED_ARG(params) /* | NULL */)
+                    int COIN_UNUSED_ARG(size), s_params * COIN_UNUSED_ARG(params) /* | nullptr */)
 {
   return 0;
 }
@@ -238,7 +238,7 @@ simage_wrapper_s_stream_destroy(s_stream * COIN_UNUSED_ARG(stream))
 static s_params *
 simage_wrapper_s_stream_params(s_stream * COIN_UNUSED_ARG(stream))
 {
-  return NULL;
+  return nullptr;
 }
 
 
@@ -285,13 +285,13 @@ simage_wrapper(void)
       /* FIXME: should we get the system shared library name from an
          Autoconf check? 20000930 mortene. */
       const char * possiblelibnames[] = {
-        NULL, /* is set below */
+        nullptr, /* is set below */
         "simage", "libsimage", "libsimage.so",
         /* Mach dynamic library name */
         "libsimage.dylib",
         /* MSWindows DLL names for the simage library */
         simage_dll_name,
-        NULL
+        nullptr
       };
 
       possiblelibnames[0] = coin_getenv("COIN_SIMAGE_LIBNAME");
@@ -333,7 +333,7 @@ simage_wrapper(void)
     si->available = 0;
     /* Define SIMAGEWRAPPER_REGISTER_FUNC macro. */
 #define SIMAGEWRAPPER_REGISTER_FUNC(_funcname_, _funcsig_) \
-    si->_funcname_ = NULL
+    si->_funcname_ = nullptr
 
 #endif /* !SIMAGEWRAPPER_ASSUME_SIMAGE */
 
@@ -400,7 +400,7 @@ simage_wrapper(void)
         SIMAGEWRAPPER_REGISTER_FUNC(simage_resize3d, simage_resize3d_t);
 #endif
       }
-      else si->simage_resize3d = NULL;
+      else si->simage_resize3d = nullptr;
 
       if (simage_wrapper_versionMatchesAtLeast(1,4,0)) {
 #if !defined(HAVE_LIBSIMAGE) || defined(SIMAGE_VERSION_1_4)
@@ -420,7 +420,7 @@ simage_wrapper(void)
       else {
 #if 0
         /* 20021018 thammer. I might want to use these later instead
-           of setting all of them to NULL */
+           of setting all of them to nullptr */
         si->s_params_set = simage_wrapper_s_params_set;
         si->s_params_get = simage_wrapper_s_params_get;
         si->s_stream_open = simage_wrapper_s_stream_open;
@@ -429,15 +429,15 @@ simage_wrapper(void)
         si->s_stream_destroy = simage_wrapper_s_stream_destroy;
         si->s_stream_params = simage_wrapper_s_stream_params;
 #endif
-        si->s_params_create = NULL;
-        si->s_params_destroy = NULL;
-        si->s_params_set = NULL;
-        si->s_params_get = NULL;
-        si->s_stream_open = NULL;
-        si->s_stream_get_buffer = NULL;
-        si->s_stream_close = NULL;
-        si->s_stream_destroy = NULL;
-        si->s_stream_params = NULL;
+        si->s_params_create = nullptr;
+        si->s_params_destroy = nullptr;
+        si->s_params_set = nullptr;
+        si->s_params_get = nullptr;
+        si->s_stream_open = nullptr;
+        si->s_stream_get_buffer = nullptr;
+        si->s_stream_close = nullptr;
+        si->s_stream_destroy = nullptr;
+        si->s_stream_params = nullptr;
       }
     }
     simage_is_initializing = 0;

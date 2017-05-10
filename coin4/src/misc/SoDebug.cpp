@@ -61,7 +61,7 @@ struct SoDebug_internal {
   static void delete_namedict(void);
 };
 
-SbHash<void *, char *> * SoDebug_internal::namedict = NULL;
+SbHash<void *, char *> * SoDebug_internal::namedict = nullptr;
 
 } // anonymous namespace
 
@@ -105,11 +105,11 @@ SoDebug::RTPrintf(const char * formatstr, ...)
 void
 SoDebug::NamePtr(const char * name, void * ptr)
 {
-  if ( SoDebug_internal::namedict == NULL ) {
+  if ( SoDebug_internal::namedict == nullptr ) {
     SoDebug_internal::namedict = new SbHash<void *, char *>;
     coin_atexit(SoDebug_internal::delete_namedict, CC_ATEXIT_NORMAL);
   }
-  char * data = NULL;
+  char * data = nullptr;
   if ( SoDebug_internal::namedict->get(ptr, data) ) {
     free(data);
     SoDebug_internal::namedict->erase(ptr);
@@ -130,8 +130,8 @@ const char *
 SoDebug::PtrName(void * ptr)
 {
   static const char fallback[] = "<noName>";
-  if ( SoDebug_internal::namedict == NULL ) return fallback;
-  char * data = NULL;
+  if ( SoDebug_internal::namedict == nullptr ) return fallback;
+  char * data = nullptr;
   if ( SoDebug_internal::namedict->get(ptr, data) ) {
     if ( data ) {
       return data;
@@ -158,7 +158,7 @@ SoDebug::write(SoNode * node)
 }
 
 /*!
-  Writes the node to the given filename, or /tmp/debug.iv if filename is NULL.
+  Writes the node to the given filename, or /tmp/debug.iv if filename is nullptr.
 */
 
 void
@@ -223,7 +223,7 @@ SoDebug_internal::delete_namedict(void)
   }
 
   delete namedict;
-  namedict = NULL;
+  namedict = nullptr;
 }
 
 // *************************************************************************

@@ -143,7 +143,7 @@ SoMFVec4i32::setValue(int32_t x, int32_t y, int32_t z, int32_t w)
 void
 SoMFVec4i32::setValue(const int32_t xyzw[4])
 {
-  if (xyzw == NULL) this->setNum(0);
+  if (xyzw == nullptr) this->setNum(0);
   else this->setValue(SbVec4i32(xyzw));
 }
 

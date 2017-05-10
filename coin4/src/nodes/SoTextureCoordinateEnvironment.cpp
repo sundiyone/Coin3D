@@ -88,7 +88,7 @@ public:
   static void cleanup_func(void);
 };
 
-SbVec4f * SoTextureCoordinateEnvironmentP::dummy_texcoords = NULL;
+SbVec4f * SoTextureCoordinateEnvironmentP::dummy_texcoords = nullptr;
 
 void
 SoTextureCoordinateEnvironmentP::cleanup_func(void)
@@ -186,7 +186,7 @@ SoTextureCoordinateEnvironment::GLRender(SoGLRenderAction * action)
                                                  action->getState());
     SoGLMultiTextureCoordinateElement::setTexGen(action->getState(),
                                                  this, unit, handleTexgen, 
-                                                 NULL,
+                                                 nullptr,
                                                  generate,
                                                  action->getState());
   }

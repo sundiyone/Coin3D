@@ -51,8 +51,8 @@
 */
 SoVertexArrayIndexer::SoVertexArrayIndexer(void)
   : target(0),
-    next(NULL),
-    vbo(NULL),
+    next(nullptr),
+    vbo(nullptr),
     use_shorts(true)
 {
 }
@@ -244,7 +244,7 @@ SoVertexArrayIndexer::render(const cc_glglue * glue, const bool renderasvbo, con
   case GL_POINTS:
     // common case
     if (renderasvbo) {
-      if (this->vbo == NULL) {
+      if (this->vbo == nullptr) {
         this->vbo = new SoVBO(GL_ELEMENT_ARRAY_BUFFER);
         if (this->use_shorts) {
           GLushort * dst = reinterpret_cast<GLushort*> 
@@ -263,7 +263,7 @@ SoVertexArrayIndexer::render(const cc_glglue * glue, const bool renderasvbo, con
       cc_glglue_glDrawElements(glue,
                                this->target,
                                this->indexarray.getLength(),
-                               this->use_shorts ? GL_UNSIGNED_SHORT : GL_UNSIGNED_INT, NULL);
+                               this->use_shorts ? GL_UNSIGNED_SHORT : GL_UNSIGNED_INT, nullptr);
       cc_glglue_glBindBuffer(glue, GL_ELEMENT_ARRAY_BUFFER, 0);
     }
     else {
@@ -320,7 +320,7 @@ SoVertexArrayIndexer::getNumVertices(void)
 SoVertexArrayIndexer *
 SoVertexArrayIndexer::getNext(void)
 {
-  if (this->next == NULL) {
+  if (this->next == nullptr) {
     this->next = new SoVertexArrayIndexer;
   }
   return this->next;
@@ -474,6 +474,6 @@ GLint *
 SoVertexArrayIndexer::getWriteableIndices(void)
 {
   delete this->vbo;
-  this->vbo = NULL;
+  this->vbo = nullptr;
   return (GLint*) this->indexarray.getArrayPtr();
 }

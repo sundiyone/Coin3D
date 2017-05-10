@@ -44,8 +44,8 @@
 
 soshape_trianglesort::soshape_trianglesort(void)
 {
-  this->pvlist = NULL;
-  this->trianglelist = NULL;
+  this->pvlist = nullptr;
+  this->trianglelist = nullptr;
 }
 
 soshape_trianglesort::~soshape_trianglesort()
@@ -57,7 +57,7 @@ soshape_trianglesort::~soshape_trianglesort()
 void
 soshape_trianglesort::beginShape(SoState *)
 {
-  if (this->pvlist == NULL) {
+  if (this->pvlist == nullptr) {
     this->pvlist = new SbList <SoPrimitiveVertex>;
     this->trianglelist = new SbList <sorted_triangle>;
   }

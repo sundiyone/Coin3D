@@ -94,8 +94,8 @@ PRIVATE_EQUALITY_SOURCE(SoSFEnum);
 /* Constructor. */
 SoSFEnum::SoSFEnum(void)
 {
-  this->enumValues = NULL;
-  this->enumNames  = NULL;
+  this->enumValues = nullptr;
+  this->enumNames  = nullptr;
   this->numEnums = 0;
   this->legalValuesSet = false;
 }

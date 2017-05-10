@@ -40,7 +40,7 @@ public:
   SoGLDisplayList(SoState * state, Type type, int allocnum = 1,
                   bool mipmaptexobj = false);
   void ref(void);
-  void unref(SoState * state = NULL);
+  void unref(SoState * state = nullptr);
 
   void open(SoState *state, int index = 0);
   void close(SoState *state);

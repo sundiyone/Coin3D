@@ -87,7 +87,7 @@ SoTextureCoordinateDefault::GLRender(SoGLRenderAction * action)
 {
   /*int unit = */SoTextureUnitElement::get(action->getState());
   SoGLMultiTextureCoordinateElement::setTexGen(action->getState(),
-                                               this, 0, NULL);
+                                               this, 0, nullptr);
   SoTextureCoordinateDefault::doAction((SoAction *)action);
 }
 

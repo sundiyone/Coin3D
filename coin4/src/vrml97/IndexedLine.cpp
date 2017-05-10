@@ -73,7 +73,7 @@ SoVRMLIndexedLine::computeBBox(SoAction * COIN_UNUSED_ARG(action),
                                SbVec3f & center)
 {
   SoVRMLCoordinate * node = (SoVRMLCoordinate*) this->coord.getValue();
-  if (node == NULL) return;
+  if (node == nullptr) return;
 
   int numCoords = node->point.getNum();
   const SbVec3f * coords = node->point.getValues(0);
@@ -109,7 +109,7 @@ SoVRMLIndexedLine::getColorIndices(void) // protected
 {
   // FIXME: why is there just a dummy implementation of this method?
   // Please document special cases like this.  20030603 mortene.
-  return NULL;
+  return nullptr;
 }
 
 void

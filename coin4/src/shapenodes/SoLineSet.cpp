@@ -234,8 +234,8 @@ namespace { namespace SoGL { namespace LineSet {
                        bool needNormals,
                        bool drawPoints)
   {
-    const SbVec3f * coords3d = NULL;
-    const SbVec4f * coords4d = NULL;
+    const SbVec3f * coords3d = nullptr;
+    const SbVec4f * coords4d = nullptr;
     const bool is3d = coords->is3D();
     if (is3d) {
       coords3d = coords->getArrayPtr3();
@@ -460,7 +460,7 @@ SoLineSet::GLRender(SoGLRenderAction * action)
 
   SoVertexShape::getVertexData(state, tmp, normals,
                                needNormals);
-  if (normals == NULL && needNormals) {
+  if (normals == nullptr && needNormals) {
     needNormals = false;
     if (!didpush) {
       state->push();
@@ -513,7 +513,7 @@ bool
 SoLineSet::generateDefaultNormals(SoState * , SoNormalCache * nc)
 {
   // not possible to generate normals for LineSet
-  nc->set(0, NULL);
+  nc->set(0, nullptr);
   return true;
 }
 
@@ -579,7 +579,7 @@ SoLineSet::generatePrimitives(SoAction *action)
   SoVertexShape::getVertexData(action->getState(), coords, normals,
                                needNormals);
 
-  if (normals == NULL) needNormals = false;
+  if (normals == nullptr) needNormals = false;
 
   SoTextureCoordinateBundle tb(action, false, false);
   doTextures = tb.needCoordinates();

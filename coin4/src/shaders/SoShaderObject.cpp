@@ -133,9 +133,9 @@ public:
   void GLRender(SoGLRenderAction *action);
 
   SoGLShaderObject * getGLShaderObject(const uint32_t cachecontext) {
-    SoGLShaderObject * obj = NULL;
+    SoGLShaderObject * obj = nullptr;
     if (this->glshaderobjects.get(cachecontext, obj)) return obj;
-    return NULL;
+    return nullptr;
   }
   void setGLShaderObject(SoGLShaderObject * obj, const uint32_t cachecontext) {
     SoGLShaderObject * oldshader;
@@ -149,7 +149,7 @@ public:
     SbList <uint32_t> keylist;
     this->glshaderobjects.makeKeyList(keylist);
     for (int i = 0; i < keylist.getLength(); i++) {
-      SoGLShaderObject * glshader = NULL;
+      SoGLShaderObject * glshader = nullptr;
       (void) this->glshaderobjects.get(keylist[i], glshader);
       SoGLCacheContextElement::scheduleDeleteCallback(glshader->getCacheContext(),
                                                       really_delete_object, glshader);
@@ -181,7 +181,7 @@ public:
     SbList <uint32_t> keylist;
     this->glshaderobjects.makeKeyList(keylist);
     for (int i = 0; i < keylist.getLength(); i++) {
-      SoGLShaderObject * glshader = NULL;
+      SoGLShaderObject * glshader = nullptr;
       (void) this->glshaderobjects.get(keylist[i], glshader);
       glshader->setParametersDirty(true);
     }
@@ -250,7 +250,7 @@ SoShaderObject::SoShaderObject(void)
   SO_NODE_SET_SF_ENUM_TYPE(sourceType, SourceType);
 
   SO_NODE_ADD_FIELD(sourceProgram, (""));
-  SO_NODE_ADD_FIELD(parameter, (NULL));
+  SO_NODE_ADD_FIELD(parameter, (nullptr));
   this->parameter.setNum(0);
   this->parameter.setDefault(true);
 
@@ -401,7 +401,7 @@ SoShaderObjectP::GLRender(SoGLRenderAction * action)
   if (this->owner->sourceProgram.isDefault() ||
       this->owner->sourceProgram.getValue().getLength() == 0) { return; }
 
-  if (shaderobject == NULL) {
+  if (shaderobject == nullptr) {
     if (this->shouldload) {
       this->checkType(); // set this->cachedSourceType
       this->readSource(); // set this->cachedSourceProgram
@@ -626,7 +626,7 @@ SoShaderObjectP::updateParameters(const uint32_t cachecontext, int start, int nu
   if (start < 0 || num < 0) return;
 
   SoGLShaderObject * shaderobject = this->getGLShaderObject(cachecontext);
-  if ((shaderobject == NULL) || !shaderobject->getParametersDirty()) return;
+  if ((shaderobject == nullptr) || !shaderobject->getParametersDirty()) return;
 
   int cnt = this->owner->parameter.getNum();
   int end = start+num;
@@ -655,32 +655,32 @@ SoShaderObjectP::updateCoinParameters(const uint32_t cachecontext, SoState * sta
       if (name == "coin_texunit0_model") {
         SoMultiTextureImageElement::Model model;
         SbColor dummy;
-        bool tex = SoGLMultiTextureImageElement::get(state, model, dummy) != NULL;
-        shaderobject->updateCoinParameter(state, name, NULL, tex ? model : 0);
+        bool tex = SoGLMultiTextureImageElement::get(state, model, dummy) != nullptr;
+        shaderobject->updateCoinParameter(state, name, nullptr, tex ? model : 0);
       }
       else if (name == "coin_texunit1_model") {
         SoMultiTextureImageElement::Model model;
         SbColor dummy;
-        bool tex = SoGLMultiTextureImageElement::get(state, 1, model, dummy) != NULL;
-        shaderobject->updateCoinParameter(state, name, NULL, tex ? model : 0);
+        bool tex = SoGLMultiTextureImageElement::get(state, 1, model, dummy) != nullptr;
+        shaderobject->updateCoinParameter(state, name, nullptr, tex ? model : 0);
       }
       else if (name == "coin_texunit2_model") {
         SoMultiTextureImageElement::Model model;
         SbColor dummy;
-        bool tex = SoGLMultiTextureImageElement::get(state, 2, model, dummy) != NULL;
-        shaderobject->updateCoinParameter(state, name, NULL, tex ? model : 0);
+        bool tex = SoGLMultiTextureImageElement::get(state, 2, model, dummy) != nullptr;
+        shaderobject->updateCoinParameter(state, name, nullptr, tex ? model : 0);
       }
       else if (name == "coin_texunit3_model") {
         SoMultiTextureImageElement::Model model;
         SbColor dummy;
-        bool tex = SoGLMultiTextureImageElement::get(state, 3, model, dummy) != NULL;
-        shaderobject->updateCoinParameter(state, name, NULL, tex ? model : 0);
+        bool tex = SoGLMultiTextureImageElement::get(state, 3, model, dummy) != nullptr;
+        shaderobject->updateCoinParameter(state, name, nullptr, tex ? model : 0);
       }
       else if (name == "coin_light_model") {
-        shaderobject->updateCoinParameter(state, name, NULL, SoLazyElement::getLightModel(state));
+        shaderobject->updateCoinParameter(state, name, nullptr, SoLazyElement::getLightModel(state));
       }
       else if (name == "coin_two_sided_lighting") {
-        shaderobject->updateCoinParameter(state, name, NULL, SoLazyElement::getTwoSidedLighting(state));
+        shaderobject->updateCoinParameter(state, name, nullptr, SoLazyElement::getTwoSidedLighting(state));
       }
     }
   }
@@ -693,7 +693,7 @@ SoShaderObjectP::updateAllParameters(const uint32_t cachecontext)
   if (!this->owner->isActive.getValue()) return;
 
   SoGLShaderObject * shaderobject = this->getGLShaderObject(cachecontext);
-  if ((shaderobject == NULL) || !shaderobject->getParametersDirty()) return;
+  if ((shaderobject == nullptr) || !shaderobject->getParametersDirty()) return;
 
   int i, cnt = this->owner->parameter.getNum();
 
@@ -713,7 +713,7 @@ SoShaderObjectP::updateStateMatrixParameters(const uint32_t cachecontext)
   if (!this->owner->isActive.getValue()) return;
 
   SoGLShaderObject * shaderobject = this->getGLShaderObject(cachecontext);
-  if (shaderobject == NULL) return;
+  if (shaderobject == nullptr) return;
 
   int i, cnt = this->owner->parameter.getNum();
   for (i= 0; i <cnt; i++) {

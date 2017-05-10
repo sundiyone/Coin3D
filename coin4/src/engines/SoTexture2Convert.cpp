@@ -45,7 +45,7 @@ SoTexture2Convert::SoTexture2Convert(void)
 {
   SO_ENGINE_INTERNAL_CONSTRUCTOR(SoTexture2Convert);
 
-  SO_ENGINE_ADD_INPUT(sourceImage, (SbVec2s(0,0), 1, NULL));
+  SO_ENGINE_ADD_INPUT(sourceImage, (SbVec2s(0,0), 1, nullptr));
 
   SO_ENGINE_ADD_OUTPUT(image, SoSFImage);
 }

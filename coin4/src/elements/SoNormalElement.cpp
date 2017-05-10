@@ -75,7 +75,7 @@ SoNormalElement::set(SoState * const state,
                      const bool unitLength)
 {
   if (state->isElementEnabled(SoGLVBOElement::getClassStackIndex())) {
-    SoGLVBOElement::setNormalVBO(state, NULL);
+    SoGLVBOElement::setNormalVBO(state, nullptr);
   }
   SoNormalElement * elem = coin_safe_cast<SoNormalElement *>
     (
@@ -94,7 +94,7 @@ void
 SoNormalElement::init(SoState *state)
 {
   inherited::init(state);
-  this->normals = NULL;
+  this->normals = nullptr;
   this->numNormals = 0;
   this->unitLength = false;
 }

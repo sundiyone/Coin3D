@@ -149,7 +149,7 @@ protected:
   void setIVVersion(float version);
   FILE * findFile(const char * fileName, SbString & fullName);
   void initFile(FILE * newFP, const char * fileName, SbString * fullName,
-                bool openedHere, SbDict * refDict = NULL);
+                bool openedHere, SbDict * refDict = nullptr);
   bool checkHeader(bool bValidateBufferHeader = false);
   bool fromBuffer(void) const;
   bool skipWhiteSpace(void);

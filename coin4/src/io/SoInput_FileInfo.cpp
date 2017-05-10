@@ -61,14 +61,14 @@ SoInput_FileInfo::SoInput_FileInfo(SoInput_Reader * readerptr,
   this->threadreadidx = 0;
   this->threadbufidx = 0;
   this->threadeof = false;
-  this->readbuf = NULL;
+  this->readbuf = nullptr;
 #else // HAVE_THREADS && SOINPUT_ASYNC_IO
   this->readbuf = new char[READBUFSIZE];
 #endif // !(HAVE_THREADS && SOINPUT_ASYNC_IO)
   this->readbuflen = 0;
   this->readbufidx = 0;
 
-  this->header = NULL;
+  this->header = nullptr;
   this->headerisread = false;
   this->ivversion = 0.0f;
   this->linenr = 1;
@@ -79,10 +79,10 @@ SoInput_FileInfo::SoInput_FileInfo(SoInput_Reader * readerptr,
   this->isbinary = false;
   this->vrml1file = false;
   this->vrml2file = false;
-  this->prefunc = NULL;
-  this->postfunc = NULL;
+  this->prefunc = nullptr;
+  this->postfunc = nullptr;
   this->stdinname = "<stdin>";
-  this->deletebuffer = NULL;
+  this->deletebuffer = nullptr;
 
 #if defined(HAVE_THREADS) && defined(SOINPUT_ASYNC_IO)
   if (this->reader) {
@@ -238,7 +238,7 @@ SoInput_FileInfo::findReference(const SbName & name) const
 {
   SoBase * base;
   if (this->references.get(name.getString(), base)) { return base; }
-  return NULL;
+  return nullptr;
 }
 
 bool
@@ -461,15 +461,15 @@ SoInput_FileInfo::findProto(const SbName & name)
   for (int i = 0; i < n; i++) {
     if (ptr[i]->getProtoName() == name) return ptr[i];
   }
-  return NULL;
+  return nullptr;
 }
 
 // wrapper around this->reader. We delay creating the reader if we're
-// reading from stdin (reader == NULL).
+// reading from stdin (reader == nullptr).
 SoInput_Reader *
 SoInput_FileInfo::getReader(void)
 {
-  if (this->reader == NULL) {
+  if (this->reader == nullptr) {
     this->reader = SoInput_Reader::createReader(coin_get_stdin(), SbString("<stdin>"));
 #if defined(HAVE_THREADS) && defined(SOINPUT_ASYNC_IO)
     // schedule a buffer read
@@ -517,7 +517,7 @@ SoInput_FileInfo::readUnsignedInteger(uint32_t & l)
   // FIXME: check man page of strtoul and exploit the functionality
   // provided better -- it looks like we are duplicating some of the
   // effort. 19990530 mortene.
-  l = strtoul(str, NULL, 0);
+  l = strtoul(str, nullptr, 0);
 
   return true;
 }
@@ -543,7 +543,7 @@ SoInput_FileInfo::readInteger(int32_t & l)
   // provided better -- it looks like we are duplicating some of the
   // effort. 19990530 mortene.
 #if 1 // old code
-  l = strtol(str, NULL, 0);
+  l = strtol(str, nullptr, 0);
 #else // first version of replacement of strtol. Not activated yet
   int i, n = strlen(s);
   if (n >= 3 && s[0] == '0' && s[1] == 'x') {

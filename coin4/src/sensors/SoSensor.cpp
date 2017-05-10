@@ -53,7 +53,7 @@
 
 /*! \file SoSensor.h */
 #include <Inventor/sensors/SoSensor.h>
-#include <stdlib.h> // NULL
+#include <stdlib.h> // nullptr
 #include <coindefs.h> // COIN_OBSOLETED()
 #include "misc/SbHash.h"
 
@@ -110,7 +110,7 @@ unsigned int SbHashFunc(const SoSensor * key) {
   Constructor.
  */
 SoSensor::SoSensor(void)
-  : func(NULL), funcData(NULL)
+  : func(nullptr), funcData(nullptr)
 {
 }
 
@@ -206,7 +206,7 @@ SoSensor *
 SoSensor::getNextInQueue(void) const
 {
   COIN_OBSOLETED();
-  return NULL;
+  return nullptr;
 }
 
 /*!

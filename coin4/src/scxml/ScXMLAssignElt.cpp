@@ -103,7 +103,7 @@ ScXMLAssignEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocum
   // handle XML attributes
   if (unlikely(!assign->handleXMLAttributes())) {
     delete assign;
-    return NULL;
+    return nullptr;
   }
 
   const int numchildren = cc_xml_elt_get_num_children(xmlelt);
@@ -120,7 +120,7 @@ ScXMLAssignEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocum
                        "unexpected XML element '<%s>' found in <assign>",
                        elementtype);
     delete assign;
-    return NULL;
+    return nullptr;
   }
 
   return assign;
@@ -160,17 +160,17 @@ ScXMLAssignElt::cleanClass(void)
   Constructor that sets up an empty ScXMLAssignElt object.
 */
 ScXMLAssignElt::ScXMLAssignElt(void)
-: location(NULL),
-  dataID(NULL),
-  expr(NULL)
+: location(nullptr),
+  dataID(nullptr),
+  expr(nullptr)
 {
 }
 
 ScXMLAssignElt::~ScXMLAssignElt(void)
 {
-  this->setLocationAttribute(NULL);
-  this->setDataIDAttribute(NULL);
-  this->setExprAttribute(NULL);
+  this->setLocationAttribute(nullptr);
+  this->setDataIDAttribute(nullptr);
+  this->setExprAttribute(nullptr);
 }
 
 void
@@ -243,7 +243,7 @@ ScXMLAssignElt::search(const char * attrname, const char * attrvalue) const
       return this;
     }
   }
-  return NULL;
+  return nullptr;
 }
 
 void

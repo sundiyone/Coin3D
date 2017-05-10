@@ -56,7 +56,7 @@
     SbVec3f(0, 1, 0), SbVec3f(0, 0, 0)
   };
 
-  SbTesselator mytessellator(tess_cb, NULL);
+  SbTesselator mytessellator(tess_cb, nullptr);
   mytessellator.beginPolygon();
   for (int i=0; i < 4; i++) {
     mytessellator.addVertex(vertices[i], &vertices[i]);
@@ -236,7 +236,7 @@ SbTesselator::PImpl::heap_evaluate(void * v)
 SbTesselator::SbTesselator(SbTesselatorCB * func, void * data)
 {
   this->setCallback(func, data);
-  PRIVATE(this)->headV = PRIVATE(this)->tailV = NULL;
+  PRIVATE(this)->headV = PRIVATE(this)->tailV = nullptr;
   PRIVATE(this)->currVertex = 0;
 
   PRIVATE(this)->heap =
@@ -280,7 +280,7 @@ SbTesselator::beginPolygon(bool keepVerts, const SbVec3f &normal)
   else {
     PRIVATE(this)->hasNormal = false;
   }
-  PRIVATE(this)->headV = PRIVATE(this)->tailV = NULL;
+  PRIVATE(this)->headV = PRIVATE(this)->tailV = nullptr;
   PRIVATE(this)->numVerts = 0;
   PRIVATE(this)->bbox.makeEmpty();
 }
@@ -302,7 +302,7 @@ SbTesselator::addVertex(const SbVec3f &v,void *data)
   PImpl::Vertex *newv = PRIVATE(this)->newVertex();
   newv->v = v;
   newv->data = data;
-  newv->next = NULL;
+  newv->next = nullptr;
   newv->dirtyweight = 1;
   newv->weight = FLT_MAX;
   newv->prev = PRIVATE(this)->tailV;
@@ -331,7 +331,7 @@ SbTesselator::endPolygon(void)
     PImpl::Vertex * last = PRIVATE(this)->tailV;
     if (first->v == last->v) {
       PImpl::Vertex * newlast = last->prev;
-      newlast->next = NULL;
+      newlast->next = nullptr;
       // don't delete old tail. We have some special memory handling
       // in this class
       PRIVATE(this)->tailV = newlast;
@@ -740,7 +740,7 @@ SbTesselator::PImpl::calcPolygonNormal()
   Vertex *currvertex = this->headV;
   vert2 = currvertex->v;
 
-  while (currvertex->next != NULL && currvertex != tailV) {
+  while (currvertex->next != nullptr && currvertex != tailV) {
     vert1 = vert2;
     vert2 = currvertex->next->v;
     this->polyNormal[0] += (vert1[1] - vert2[1]) * (vert1[2] + vert2[2]);
@@ -782,7 +782,7 @@ SbTesselator::PImpl::newVertex()
 void
 SbTesselator::PImpl::cleanUp()
 {
-  this->headV = this->tailV = NULL;
+  this->headV = this->tailV = nullptr;
   this->currVertex = 0;
   this->numVerts = 0;
 }

@@ -220,7 +220,7 @@ static const char * gouraudtriangle[] = {
   "roll aload pop 9 3 roll 4 index 6 index 4 index add add 3 div 10 1 roll 7",
   "index 5 index 3 index add add 3 div 10 1 roll 6 index 4 index 2 index add",
   "add 3 div 10 1 roll 9 {pop} repeat 3 array astore triangle } ifelse } bd",
-  NULL
+  nullptr
 };
 
 static const char * flatshadetriangle[] = {
@@ -232,7 +232,7 @@ static const char * flatshadetriangle[] = {
   "closepath",
   "setrgbcolor",
   "fill } def",
-  NULL
+  nullptr
 };
 
 static const char * rightshow[] = {
@@ -242,7 +242,7 @@ static const char * rightshow[] = {
   "neg",
   "0 rmoveto",
   "show } def",
-  NULL
+  nullptr
 };
 
 static const char * centershow[] = {
@@ -253,7 +253,7 @@ static const char * centershow[] = {
   "neg",
   "0 rmoveto",
   "show } def",
-  NULL
+  nullptr
 };
 
 static void print_array(FILE * fp, const char ** array)

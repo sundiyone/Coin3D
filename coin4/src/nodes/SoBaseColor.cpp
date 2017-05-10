@@ -73,7 +73,7 @@ class SoBaseColorP {
 #ifdef COIN_THREADSAFE
     colorpacker_storage(sizeof(void*), alloc_colorpacker, free_colorpacker),
 #endif // COIN_THREADSAFE
-    vbo(NULL) { }
+    vbo(nullptr) { }
   ~SoBaseColorP() { delete this->vbo; }
 
 #ifdef COIN_THREADSAFE
@@ -168,12 +168,12 @@ SoBaseColor::doAction(SoAction * action)
       SoBase::staticDataLock();
       if (SoGLVBOElement::shouldCreateVBO(state, num)) {
         setvbo = true;
-        if (PRIVATE(this)->vbo == NULL) {
+        if (PRIVATE(this)->vbo == nullptr) {
           PRIVATE(this)->vbo = new SoVBO(GL_ARRAY_BUFFER, GL_STATIC_DRAW);
         }
       }
       else if (PRIVATE(this)->vbo) {
-        PRIVATE(this)->vbo->setBufferData(NULL, 0, 0);
+        PRIVATE(this)->vbo->setBufferData(nullptr, 0, 0);
       }
       // don't fill in any data in the VBO. Data will be filled in
       // using the ColorPacker right before the VBO is used

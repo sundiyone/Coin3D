@@ -57,7 +57,7 @@
 
 class SoScXMLNavigationTarget::PImpl {
 public:
-  PImpl(void) : sessiondatamap(NULL) { }
+  PImpl(void) : sessiondatamap(nullptr) { }
 
   typedef std::map<const char *, SoScXMLNavigationTarget::Data *> SessionDataMap;
   typedef std::pair<const char *, SoScXMLNavigationTarget::Data *> SessionDataEntry;
@@ -101,7 +101,7 @@ SoScXMLNavigationTarget::~SoScXMLNavigationTarget(void)
     ++it;
   }
   delete PRIVATE(this)->sessiondatamap;
-  PRIVATE(this)->sessiondatamap = NULL;
+  PRIVATE(this)->sessiondatamap = nullptr;
 }
 
 /*!
@@ -113,7 +113,7 @@ SoScXMLNavigationTarget::~SoScXMLNavigationTarget(void)
 SoScXMLNavigationTarget::Data *
 SoScXMLNavigationTarget::getSessionData(SbName sessionid, NewDataFunc * constructor)
 {
-  Data * data = NULL;
+  Data * data = nullptr;
   SoScXMLNavigation::syncLock();
   PImpl::SessionDataMap::iterator findit =
     PRIVATE(this)->sessiondatamap->find(sessionid.getString());
@@ -173,7 +173,7 @@ SoScXMLNavigationTarget::getSessionId(const ScXMLEvent * event)
 }
 
 /*!
-  Returns the state machine that is associated with the given sessionid, or NULL
+  Returns the state machine that is associated with the given sessionid, or nullptr
   if there are no state machines registered for the session id.
 */
 ScXMLStateMachine *
@@ -185,13 +185,13 @@ SoScXMLNavigationTarget::getStateMachine(const ScXMLEvent * event, SbName sessio
     SoDebugError::post("SoScXMLNavigationTarget::getSoStateMachine",
                        "while processing %s: no statemachine for session '%s'.",
                        event->getEventName().getString(), sessionid.getString());
-    return NULL;
+    return nullptr;
   }
   return sm;
 }
 
 /*!
-  Returns the So- state machine that is associated with the given sessionid, or NULL
+  Returns the So- state machine that is associated with the given sessionid, or nullptr
   if there are no state machines registered for the session id or if the state machine
   is not of SoScXMLStateMachine type.
 */
@@ -201,33 +201,33 @@ SoScXMLNavigationTarget::getSoStateMachine(const ScXMLEvent * event, SbName sess
   assert(event);
   ScXMLStateMachine * sm = SoScXMLNavigationTarget::getStateMachine(event, sessionid);
   if unlikely (!sm) {
-    return NULL;
+    return nullptr;
   }
   if unlikely (!sm->isOfType(SoScXMLStateMachine::getClassTypeId())) {
     SoDebugError::post("SoScXMLNavigationTarget::getSoStateMachine",
                        "while processing %s: statemachine not of So-type for session '%s'.",
                        event->getEventName().getString(), sessionid.getString());
-    return NULL;
+    return nullptr;
   }
   return static_cast<SoScXMLStateMachine *>(sm);
 }
 
 /*!
-  Returns the current active camera, or NULL if there is no active camera set.
-  If NULL is returned, error messages has been posted.
+  Returns the current active camera, or nullptr if there is no active camera set.
+  If nullptr is returned, error messages has been posted.
 */
 SoCamera *
 SoScXMLNavigationTarget::getActiveCamera(const ScXMLEvent * event, SbName sessionid)
 {
   SoScXMLStateMachine * statemachine = SoScXMLNavigationTarget::getSoStateMachine(event, sessionid);
-  if unlikely (!statemachine) { return NULL; }
+  if unlikely (!statemachine) { return nullptr; }
 
   SoCamera * camera = statemachine->getActiveCamera();
   if unlikely (!camera) {
     SoDebugError::post("SoScXMLZoomTarget::processOneEvent",
                        "while processing %s: no current camera",
                        event->getEventName().getString());
-    return NULL;
+    return nullptr;
   }
   return camera;
 }

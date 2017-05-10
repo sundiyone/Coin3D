@@ -202,7 +202,7 @@ SoBumpMap::SoBumpMap(void)
   SO_NODE_INTERNAL_CONSTRUCTOR(SoBumpMap);
 
   SO_NODE_ADD_FIELD(filename, (""));
-  SO_NODE_ADD_FIELD(image, (SbVec2s(0, 0), 0, NULL));
+  SO_NODE_ADD_FIELD(image, (SbVec2s(0, 0), 0, nullptr));
   SO_NODE_ADD_FIELD(wrapS, (REPEAT));
   SO_NODE_ADD_FIELD(wrapT, (REPEAT));
 
@@ -226,7 +226,7 @@ SoBumpMap::SoBumpMap(void)
 */
 SoBumpMap::~SoBumpMap()
 {
-  PRIVATE(this)->glimage->unref(NULL);
+  PRIVATE(this)->glimage->unref(nullptr);
   delete PRIVATE(this)->filenamesensor;
   delete PRIVATE(this);
 }
@@ -303,7 +303,7 @@ SoBumpMap::GLRender(SoGLRenderAction * action)
       SoShapeStyleElement::setBumpmapEnabled(state, true);
     }
     else {
-      SoBumpMapElement::set(state, this, NULL);
+      SoBumpMapElement::set(state, this, nullptr);
       SoShapeStyleElement::setBumpmapEnabled(state, false);
     }
   }

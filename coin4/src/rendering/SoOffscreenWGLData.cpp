@@ -35,8 +35,8 @@
 SbVec2f
 SoOffscreenWGLData::getResolution(void)
 {
-  HDC devctx = CreateCompatibleDC(NULL);
-  if (devctx == NULL) {
+  HDC devctx = CreateCompatibleDC(nullptr);
+  if (devctx == nullptr) {
     SoDebugError::postWarning("SoOffscreenWGLData::getResolution",
                               "Couldn't create a device context.");
     return SbVec2f(72.0f / 25.4f, 72.0f / 25.4f); // fall back to 72dpi

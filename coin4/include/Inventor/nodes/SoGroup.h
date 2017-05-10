@@ -75,8 +75,8 @@ protected:
   virtual SoNotRec createNotRec(void);
 
   void setOperation(const SoNotRec::OperationType opType = SoNotRec::UNSPECIFIED,
-		    const SoNode * cc = NULL,
-		    const SoNode * pc = NULL,
+		    const SoNode * cc = nullptr,
+		    const SoNode * pc = nullptr,
 		    const int ci = -1);
 
   SoChildList * children;

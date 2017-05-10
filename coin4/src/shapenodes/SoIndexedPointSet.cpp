@@ -124,7 +124,7 @@ SO_NODE_SOURCE(SoIndexedPointSet);
 SoIndexedPointSet::SoIndexedPointSet()
 {
   SO_NODE_INTERNAL_CONSTRUCTOR(SoIndexedPointSet);
-  this->vaindexer = NULL;
+  this->vaindexer = nullptr;
 }
 
 /*!
@@ -262,7 +262,7 @@ SoIndexedPointSet::GLRender(SoGLRenderAction * action)
     return;
   }
 
-  if (normals == NULL && needNormals) {
+  if (normals == nullptr && needNormals) {
     needNormals = false;
     if (!didpush) {
       state->push();
@@ -276,25 +276,25 @@ SoIndexedPointSet::GLRender(SoGLRenderAction * action)
     nbind = this->findNormalBinding(state);
   }
   //if we don't have explicit normal indices, use coord indices:
-  if (nbind == PER_VERTEX_INDEXED && nindices == NULL) nindices = cindices;
+  if (nbind == PER_VERTEX_INDEXED && nindices == nullptr) nindices = cindices;
 
   mbind = this->findMaterialBinding(state);
   //if we don't have explicit material indices, use coord indices:
-  if (mbind == PER_VERTEX_INDEXED && mindices == NULL) mindices = cindices;
+  if (mbind == PER_VERTEX_INDEXED && mindices == nullptr) mindices = cindices;
 
   tbind = OVERALL;
   if (doTextures) {
     tbind = this->findTextureBinding(state);
     if (tb.isFunction() && !tb.needIndices()) {
       tbind = OVERALL;
-      tindices = NULL;//don't send texture coords
+      tindices = nullptr;//don't send texture coords
     }
     else if (tbind == PER_VERTEX){
-      tindices = NULL;//texture coords are sent per vertex
+      tindices = nullptr;//texture coords are sent per vertex
     }
     else {//tbind == PER_VERTEX_INDEXED
       //if we don't have explicit texture coord indices, use coord indices:
-      if (tindices == NULL) tindices = cindices;
+      if (tindices == nullptr) tindices = cindices;
     }
   }
 
@@ -319,7 +319,7 @@ SoIndexedPointSet::GLRender(SoGLRenderAction * action)
 
   if (dova && (mbind == PER_VERTEX_INDEXED)) {
     const SoGLVBOElement * vboelem = SoGLVBOElement::getInstance(state);
-    if (vboelem->getColorVBO() == NULL) {
+    if (vboelem->getColorVBO() == nullptr) {
       dova = false;
       // we might be able to do VA-rendering, but need to check the
       // diffuse color type first.
@@ -333,12 +333,12 @@ SoIndexedPointSet::GLRender(SoGLRenderAction * action)
   if (dova) {
     bool vbo = this->startVertexArray(action,
                                         glcoords,
-                                        (needNormals && (nbind == PER_VERTEX_INDEXED)) ? normals : NULL,
+                                        (needNormals && (nbind == PER_VERTEX_INDEXED)) ? normals : nullptr,
                                         doTextures,
                                         mbind == PER_VERTEX_INDEXED);
     didrenderasvbo = vbo;
     LOCK_VAINDEXER(this);
-    if (this->vaindexer == NULL) {
+    if (this->vaindexer == nullptr) {
       SoVertexArrayIndexer * indexer = new SoVertexArrayIndexer;
       for (int i = 0; i < numindices; i++) {
         int32_t idx = this->coordIndex[i];
@@ -407,7 +407,7 @@ SoIndexedPointSet::generateDefaultNormals(SoState *, SoNormalCache * nc)
 {
   // Overridden to clear normal cache, as it's not possible to
   // generate a normal for a point.
-  nc->set(0, NULL);
+  nc->set(0, nullptr);
   return true;
 }
 
@@ -481,7 +481,7 @@ SoIndexedPointSet::generatePrimitives(SoAction *action)
     return;
   }
 
-  if (normals == NULL) {
+  if (normals == nullptr) {
     needNormals = false;
   }
 
@@ -490,25 +490,25 @@ SoIndexedPointSet::generatePrimitives(SoAction *action)
     nbind = this->findNormalBinding(state);
   }
   //if we don't have explicit normal indices, use coord indices:
-  if (nbind == PER_VERTEX_INDEXED && nindices == NULL) nindices = cindices;
+  if (nbind == PER_VERTEX_INDEXED && nindices == nullptr) nindices = cindices;
 
   mbind = this->findMaterialBinding(state);
   //if we don't have explicit material indices, use coord indices:
-  if (mbind == PER_VERTEX_INDEXED && mindices == NULL) mindices = cindices;
+  if (mbind == PER_VERTEX_INDEXED && mindices == nullptr) mindices = cindices;
 
   tbind = OVERALL;
   if (doTextures) {
     tbind = this->findTextureBinding(state);
     if (tb.isFunction() && !tb.needIndices()) {
       tbind = OVERALL;
-      tindices = NULL;//don't send texture coords
+      tindices = nullptr;//don't send texture coords
     }
     else if (tbind == PER_VERTEX){
-      tindices = NULL;//texture coords are sent per vertex
+      tindices = nullptr;//texture coords are sent per vertex
     }
     else {//tbind == PER_VERTEX_INDEXED
       //if we don't have explicit texture coord indices, use coord indices:
-      if (tindices == NULL) tindices = cindices;
+      if (tindices == nullptr) tindices = cindices;
     }
   }
 
@@ -569,7 +569,7 @@ SoIndexedPointSet::notify(SoNotList * list)
     LOCK_VAINDEXER(this);
     if (this->vaindexer) {
       delete this->vaindexer;
-      this->vaindexer = NULL;
+      this->vaindexer = nullptr;
     }
     UNLOCK_VAINDEXER(this);
   }

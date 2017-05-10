@@ -119,13 +119,13 @@ ScXMLElt::cleanClass(void)
 }
 
 ScXMLElt::ScXMLElt(void)
-: containerptr(NULL)
+: containerptr(nullptr)
 {
 }
 
 ScXMLElt::~ScXMLElt(void)
 {
-  this->containerptr = NULL;
+  this->containerptr = nullptr;
 }
 
 /*!
@@ -134,7 +134,7 @@ ScXMLElt::~ScXMLElt(void)
   can be used as a general-purpose attribute dictionary outside of
   that.
 
-  If NULL is passed as the value, the attribute is removed.
+  If nullptr is passed as the value, the attribute is removed.
 */
 void
 ScXMLElt::setXMLAttribute(const char * attribute, const char * value)
@@ -152,7 +152,7 @@ ScXMLElt::setXMLAttribute(const char * attribute, const char * value)
     }
   } else {
     delete [] it->second;
-    it->second = NULL;
+    it->second = nullptr;
     if (!value) {
       PRIVATE(this)->attributemap.erase(it);
     } else {
@@ -164,7 +164,7 @@ ScXMLElt::setXMLAttribute(const char * attribute, const char * value)
 
 /*!
   This method returns the string value set for an attribute, or
-  NULL if not set.
+  nullptr if not set.
 */
 const char *
 ScXMLElt::getXMLAttribute(const char * attribute) const
@@ -175,7 +175,7 @@ ScXMLElt::getXMLAttribute(const char * attribute) const
   if (it != PRIVATE(this)->attributemap.end()) {
     return it->second;
   }
-  return NULL;
+  return nullptr;
 }
 
 /*!
@@ -197,7 +197,7 @@ ScXMLElt::handleXMLAttributes(void)
   This method searches the SCXML structure for an element with the
   given attributevalue for the given attribute.
 
-  Returns NULL if nothing was found.
+  Returns nullptr if nothing was found.
 
   This function needs to be reimplemented to traverse child elements.
 */
@@ -207,13 +207,13 @@ ScXMLElt::search(const char * attrname, const char * attrvalue) const
   assert(attrname && attrvalue);
   if (strstr(attrname, ":")) { // namespace attribute
     const char * val = this->getXMLAttribute(attrname);
-    if (val != NULL) {
+    if (val != nullptr) {
       if (strcmp(val, attrvalue) == 0) {
         return this;
       }
     }
   }
-  return NULL;
+  return nullptr;
 }
 
 /*!
@@ -223,7 +223,7 @@ ScXMLElt *
 ScXMLElt::clone(void) const
 {
   SoType elementtype(getTypeId());
-  if (!elementtype.canCreateInstance()) { return NULL; }
+  if (!elementtype.canCreateInstance()) { return nullptr; }
   ScXMLElt * copy = static_cast<ScXMLElt *>(elementtype.createInstance());
   copy->copyContents(this);
   return copy;

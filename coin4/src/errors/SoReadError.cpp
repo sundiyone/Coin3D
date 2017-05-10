@@ -49,7 +49,7 @@
 
 SoType SoReadError::classTypeId STATIC_SOTYPE_INIT;
 SoErrorCB * SoReadError::callback = SoError::defaultHandlerCB;
-void * SoReadError::callbackData = NULL;
+void * SoReadError::callbackData = nullptr;
 
 // *************************************************************************
 
@@ -58,7 +58,7 @@ void
 SoReadError::initClass(void)
 {
   SoReadError::callback = SoError::defaultHandlerCB;
-  SoReadError::callbackData = NULL;
+  SoReadError::callbackData = nullptr;
   SoReadError::classTypeId =
     SoType::createType(SoError::getClassTypeId(), "ReadError");
 }

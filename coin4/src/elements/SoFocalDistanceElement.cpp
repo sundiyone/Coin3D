@@ -78,7 +78,7 @@ SoFocalDistanceElement::set(SoState * const state, SoNode * const node,
 void
 SoFocalDistanceElement::set(SoState * const state, const float distance)
 {
-  SoFocalDistanceElement::set(state, NULL, distance);
+  SoFocalDistanceElement::set(state, nullptr, distance);
 }
 
 //! FIXME: write doc.

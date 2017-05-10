@@ -107,7 +107,7 @@ BOOST_AUTO_TEST_CASE(textinput)
   BOOST_CHECK_EQUAL(field.getValue(), false);
 
   TestSuite::ResetReadErrorCount();
-  static const char * filters[] = { "Invalid value", NULL };
+  static const char * filters[] = { "Invalid value", nullptr };
   TestSuite::PushMessageSuppressFilters(filters);
   ok = field.set("MAYBE"); // emits two error messages
   BOOST_CHECK_MESSAGE(ok == false, "did accept 'MAYBE'");
@@ -122,7 +122,7 @@ BOOST_AUTO_TEST_CASE(textinput)
   BOOST_CHECK_MESSAGE(ok == true, "did not accept '1'");
   BOOST_CHECK_EQUAL(field.getValue(), true);
 
-  static const char * filters2[] = { "Illegal value", NULL };
+  static const char * filters2[] = { "Illegal value", nullptr };
   TestSuite::PushMessageSuppressFilters(filters2);
   ok = field.set("2");
   BOOST_CHECK_MESSAGE(ok == false, "did accept '2'");

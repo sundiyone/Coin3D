@@ -109,7 +109,7 @@ const SoLightModelElement *
 SoLightModelElement::getInstance(SoState *state)
 {
   //FIXME: Can this function or any of the similar functions ever
-  //return NULL? BFG 20080916
+  //return nullptr? BFG 20080916
   return coin_assert_cast<const SoLightModelElement *>
     (
      state->getElementNoPush(classStackIndex)

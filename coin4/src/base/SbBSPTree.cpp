@@ -84,7 +84,7 @@ private:
 coin_bspnode::coin_bspnode(SbList <SbVec3f> *ptsarray)
   : indices(4)
 {
-  this->left = this->right = NULL;
+  this->left = this->right = nullptr;
   this->pointsArray = ptsarray;
   this->dimension = DIM_NONE;
 }
@@ -236,7 +236,7 @@ coin_bspnode::removePoint(const SbVec3f &pt)
 void
 coin_bspnode::split()
 {
-  assert(this->left == NULL && this->right == NULL);
+  assert(this->left == nullptr && this->right == nullptr);
   this->left = new coin_bspnode(this->pointsArray);
   this->right = new coin_bspnode(this->pointsArray);
 
@@ -512,7 +512,7 @@ void
 SbBSPTree::clear(const int COIN_UNUSED_ARG(initsize))
 {
   delete this->topnode;
-  this->topnode = NULL;
+  this->topnode = nullptr;
   this->pointsArray.truncate(0, true);
   this->userdataArray.truncate(0, true);
   this->topnode = new coin_bspnode(&this->pointsArray);

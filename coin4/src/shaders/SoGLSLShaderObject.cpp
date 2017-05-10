@@ -98,7 +98,7 @@ SoGLSLShaderObject::load(const char* srcStr)
   if (this->shaderHandle == 0) return;
   this->programid = soglshaderobject_idcounter++;
 
-  this->glctx->glShaderSourceARB(this->shaderHandle, 1, (const COIN_GLchar **)&srcStr, NULL);
+  this->glctx->glShaderSourceARB(this->shaderHandle, 1, (const COIN_GLchar **)&srcStr, nullptr);
   this->glctx->glCompileShaderARB(this->shaderHandle);
 
   if (SoGLSLShaderObject::didOpenGLErrorOccur("SoGLSLShaderObject::load()")) {

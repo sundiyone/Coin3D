@@ -153,7 +153,7 @@ SoUniformShaderParameter::getGLShaderParameter(const uint32_t cachecontext)
 {
   SoGLShaderParameter * glparam;
   if (PRIVATE(this)->glparams.get(cachecontext, glparam)) return glparam;
-  return NULL;
+  return nullptr;
 }
 
 
@@ -423,7 +423,7 @@ void SoShaderParameterArray2f::updateParameter(SoGLShaderObject *shader)
   this->ensureParameter(shader);
 
   int     num    = this->value.getNum();
-  float * buffer = NULL;
+  float * buffer = nullptr;
 
   if (num > 0) {
     buffer = new float[2*num];
@@ -467,7 +467,7 @@ void SoShaderParameterArray3f::updateParameter(SoGLShaderObject *shader)
   this->ensureParameter(shader);
 
   int     num    = this->value.getNum();
-  float * buffer = NULL;
+  float * buffer = nullptr;
 
   if (num > 0) {
     buffer = new float[3*num];
@@ -511,7 +511,7 @@ void SoShaderParameterArray4f::updateParameter(SoGLShaderObject *shader)
   this->ensureParameter(shader);
 
   int     num    = this->value.getNum();
-  float * buffer = NULL;
+  float * buffer = nullptr;
 
   if (num > 0) {
     buffer = new float[4*num];
@@ -594,7 +594,7 @@ void SoShaderParameterMatrixArray::updateParameter(SoGLShaderObject *shader)
   this->ensureParameter(shader);
 
   int     num    = this->value.getNum();
-  float * buffer = NULL;
+  float * buffer = nullptr;
 
   if (num > 0) {
     buffer = new float[16*num];

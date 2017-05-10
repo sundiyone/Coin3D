@@ -185,7 +185,7 @@ static void enable_vbo(const Key & COIN_UNUSED_ARG(key),
     SoCoordinateElement::getInstance(action->getState());
   assert(coords->getNum() == attribdata->data->getNum());
 
-  const void * dataptr = NULL;
+  const void * dataptr = nullptr;
 
   if (data->vbo) {
     data->vbo->bindBuffer(action->getCacheContext());
@@ -232,7 +232,7 @@ void
 SoGLVertexAttributeElement::addElt(SoVertexAttributeData * attribdata)
 {
   inherited::addElt(attribdata);
-  this->applyToAttributes(query_attribs, NULL);
+  this->applyToAttributes(query_attribs, nullptr);
 }
 
 //! FIXME: write doc.

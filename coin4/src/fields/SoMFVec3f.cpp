@@ -150,7 +150,7 @@ SoMFVec3f::setValue(float x, float y, float z)
 void
 SoMFVec3f::setValue(const float xyz[3])
 {
-  if (xyz == NULL) this->setNum(0);
+  if (xyz == nullptr) this->setNum(0);
   else this->setValue(SbVec3f(xyz));
 }
 

@@ -155,7 +155,7 @@ SoGLTextureEnabledElement::pop(SoState * state,
 void
 SoGLTextureEnabledElement::set(SoState * const state, const bool enabled)
 {
-  SoGLTextureEnabledElement::set(state, NULL, enabled);
+  SoGLTextureEnabledElement::set(state, nullptr, enabled);
 }
 
 

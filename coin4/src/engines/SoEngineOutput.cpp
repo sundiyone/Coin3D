@@ -56,7 +56,7 @@
 SoEngineOutput::SoEngineOutput(void)
 {
   this->enabled = true;
-  this->container = NULL;
+  this->container = nullptr;
 }
 
 /*!
@@ -90,7 +90,7 @@ SoEngineOutput::~SoEngineOutput()
 SoType
 SoEngineOutput::getConnectionType(void) const
 {
-  assert(this->container != NULL);
+  assert(this->container != nullptr);
   const SoEngineOutputData * outputs =
     this->isNodeEngineOutput() ?
     this->getNodeContainer()->getOutputData() :
@@ -139,7 +139,7 @@ void
 SoEngineOutput::enable(const bool flag)
 {
   this->enabled = flag;
-  if (flag) this->touchSlaves(NULL, false);
+  if (flag) this->touchSlaves(nullptr, false);
 }
 
 /*!
@@ -155,7 +155,7 @@ SoEngineOutput::isEnabled(void) const
 
 /*!
   Returns the engine containing this output. If the engine
-  containing this output is a NodeEngine, this method returns NULL.
+  containing this output is a NodeEngine, this method returns nullptr.
 
   \sa setContainer(), getNodeContainer()
 */
@@ -167,7 +167,7 @@ SoEngineOutput::getContainer(void) const
     SoDebugError::postWarning("SoEngineOutput::getContainer",
                               "Container is not an Engine");
 #endif // COIN_DEBUG
-    return NULL;
+    return nullptr;
   }
   return this->container;
 }
@@ -175,7 +175,7 @@ SoEngineOutput::getContainer(void) const
 /*!
 
   Returns the node engine containing this output. If the engine
-  containing this output is not a NodeEgine, this method returns NULL.
+  containing this output is not a NodeEgine, this method returns nullptr.
 
   \COIN_FUNCTION_EXTENSION
 
@@ -191,7 +191,7 @@ SoEngineOutput::getNodeContainer(void) const
     SoDebugError::postWarning("SoEngineOutput::getContainer",
                               "Container is not a NodeEngine");
 #endif // COIN_DEBUG
-    return NULL;
+    return nullptr;
   }
   return coin_assert_cast<SoNodeEngine*>(this->container);
 }

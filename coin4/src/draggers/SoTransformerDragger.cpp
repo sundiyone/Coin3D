@@ -868,7 +868,7 @@ SoTransformerDragger::setUpConnections(bool onoff, bool doitalways)
   if (onoff) {
     inherited::setUpConnections(onoff, doitalways);
 
-    SoTransformerDragger::fieldSensorCB(this, NULL);
+    SoTransformerDragger::fieldSensorCB(this, nullptr);
 
     if (this->translFieldSensor->getAttachedField() != &this->translation) {
       this->translFieldSensor->attach(&this->translation);
@@ -881,13 +881,13 @@ SoTransformerDragger::setUpConnections(bool onoff, bool doitalways)
     }
   }
   else {
-    if (this->translFieldSensor->getAttachedField() != NULL) {
+    if (this->translFieldSensor->getAttachedField() != nullptr) {
       this->translFieldSensor->detach();
     }
-    if (this->scaleFieldSensor->getAttachedField() != NULL) {
+    if (this->scaleFieldSensor->getAttachedField() != nullptr) {
       this->scaleFieldSensor->detach();
     }
-    if (this->rotateFieldSensor->getAttachedField() != NULL) {
+    if (this->rotateFieldSensor->getAttachedField() != nullptr) {
       this->rotateFieldSensor->detach();
     }
     inherited::setUpConnections(onoff, doitalways);
@@ -1942,9 +1942,9 @@ SoNode *
 SoTransformerDragger::getNodeFieldNode(const char *fieldname)
 {
   SoField *field = this->getField(fieldname);
-  assert(field != NULL);
+  assert(field != nullptr);
   assert(field->isOfType(SoSFNode::getClassTypeId()));
-  assert(coin_assert_cast<SoSFNode *>(field)->getValue() != NULL);
+  assert(coin_assert_cast<SoSFNode *>(field)->getValue() != nullptr);
   return coin_assert_cast<SoSFNode *>(field)->getValue();
 }
 
@@ -2218,7 +2218,7 @@ register_cb(void * data, SoCallbackAction * action, const SoNode * node)
 {
   assert(data);
   SbDict * dict = static_cast<SbDict *>(data);
-  dict->enter(reinterpret_cast<uintptr_t>(node), NULL);
+  dict->enter(reinterpret_cast<uintptr_t>(node), nullptr);
   return SoCallbackAction::CONTINUE;
 }
 
@@ -2227,7 +2227,7 @@ void
 ensure_unique_cb(uintptr_t entry, void * value, void * data)
 {
   SbDict * copydict = static_cast<SbDict *>(data);
-  void * val = NULL;
+  void * val = nullptr;
   BOOST_ASSERT(!copydict->find(entry, val));
 }
 

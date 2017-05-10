@@ -145,7 +145,7 @@ ScXMLSendEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocumen
   // handle XML attributes
   if (unlikely(!send->handleXMLAttributes())) {
     delete send;
-    return NULL;
+    return nullptr;
   }
 
   const int numchildren = cc_xml_elt_get_num_children(xmlelt);
@@ -161,7 +161,7 @@ ScXMLSendEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocumen
     SoDebugError::post("ScXMLSendEltReader::read",
                        "<send> contains unexpected <%s> element", elementtype);
     delete send;
-    return NULL;
+    return nullptr;
    }
 
   return send;
@@ -192,25 +192,25 @@ ScXMLSendElt::cleanClass(void)
 }
 
 ScXMLSendElt::ScXMLSendElt(void)
-: event(NULL),
-  target(NULL),
-  targettype(NULL),
-  sendid(NULL),
-  delay(NULL),
-  namelist(NULL),
-  hints(NULL)
+: event(nullptr),
+  target(nullptr),
+  targettype(nullptr),
+  sendid(nullptr),
+  delay(nullptr),
+  namelist(nullptr),
+  hints(nullptr)
 {
 }
 
 ScXMLSendElt::~ScXMLSendElt(void)
 {
-  this->setEventAttribute(NULL);
-  this->setTargetAttribute(NULL);
-  this->setTargetTypeAttribute(NULL);
-  this->setSendIDAttribute(NULL);
-  this->setDelayAttribute(NULL);
-  this->setNameListAttribute(NULL);
-  this->setHintsAttribute(NULL);
+  this->setEventAttribute(nullptr);
+  this->setTargetAttribute(nullptr);
+  this->setTargetTypeAttribute(nullptr);
+  this->setSendIDAttribute(nullptr);
+  this->setDelayAttribute(nullptr);
+  this->setNameListAttribute(nullptr);
+  this->setHintsAttribute(nullptr);
 }
 
 void
@@ -343,7 +343,7 @@ ScXMLSendElt::search(const char * attrname, const char * attrvalue) const
       return this;
     }
   }
-  return NULL;
+  return nullptr;
 }
 
 namespace {
@@ -377,7 +377,7 @@ ScXMLSendElt::createEvent(ScXMLEventTarget * host) const
     event->setEventName("error.Fetch");
     host->queueInternalEvent(event);
     delete event;
-    return NULL;
+    return nullptr;
   }
 
   event->setEventName(this->event);

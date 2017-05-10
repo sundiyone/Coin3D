@@ -40,7 +40,7 @@
   operations.
 
   Note that the node pointer stored in a field instance of this type
-  may be a \c NULL pointer.
+  may be a \c nullptr pointer.
 
   \sa SoNode, SoMFNode
 
@@ -84,12 +84,12 @@ SoSFNode::initClass(void)
 // so don't use Doxygen commenting.)
 #ifndef DOXYGEN_SKIP_THIS
 
-/* Constructor, sets initial node pointer to a \c NULL pointer. */
+/* Constructor, sets initial node pointer to a \c nullptr pointer. */
 SoSFNode::SoSFNode(void)
 {
-  this->value = NULL;
+  this->value = nullptr;
 #ifdef COIN_INTERNAL_SOSFPATH
-  this->head = NULL;
+  this->head = nullptr;
 #endif // COIN_INTERNAL_SOSFPATH
 }
 
@@ -97,7 +97,7 @@ SoSFNode::SoSFNode(void)
 SoSFNode::~SoSFNode(void)
 {
   this->enableNotify(false);
-  this->setValue(NULL);
+  this->setValue(nullptr);
 }
 
 #endif // DOXYGEN_SKIP_THIS
@@ -109,7 +109,7 @@ SoSFNode::~SoSFNode(void)
 #ifndef DOXYGEN_SKIP_THIS
 
 // Store the \a newval node pointer in this field. If \a newval is not
-// \c NULL, will add 1 to the reference count of the node.
+// \c nullptr, will add 1 to the reference count of the node.
 void
 SoSFNode::setValue(SoNode * newval)
 {
@@ -168,15 +168,15 @@ SoSFNode::readValue(SoInput * in)
   SoBase * baseptr;
   bool isVRMLspecialCase = false;
 
-  // Note: do *not* simply check for baseptr==NULL here, as that is a
+  // Note: do *not* simply check for baseptr==nullptr here, as that is a
   // valid condition for VRML97 files, where nodes can indeed be
-  // explicitly given as a NULL value. See the 'vrml97nullchild' test
+  // explicitly given as a nullptr value. See the 'vrml97nullchild' test
   // case near the end of this file for a valid case that would fail.
   if(in->isFileVRML1() || in->isFileVRML2()) {
     SbName name;
     in->read(name, true);
     if (name == "NULL") {
-      baseptr = NULL;
+      baseptr = nullptr;
       isVRMLspecialCase = true;
     }
     else {
@@ -186,7 +186,7 @@ SoSFNode::readValue(SoInput * in)
 
   if (!isVRMLspecialCase) {
     if (!SoBase::read(in, baseptr, SoNode::getClassTypeId())) return false;
-    if (baseptr == NULL) {
+    if (baseptr == nullptr) {
       SoReadError::post(in, "Invalid node specification");
       return false;
     }
@@ -197,7 +197,7 @@ SoSFNode::readValue(SoInput * in)
     return false;
   }
 
-  if (baseptr != NULL) {
+  if (baseptr != nullptr) {
     this->setValue(coin_safe_cast<SoNode *>(baseptr));
   }
   return true;

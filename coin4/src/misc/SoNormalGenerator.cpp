@@ -355,11 +355,11 @@ SoNormalGenerator::getNormals(void) const
 {
   if (!this->perVertex) {
     if (this->faceNormals.getLength()) return this->faceNormals.getArrayPtr();
-    return NULL;
+    return nullptr;
   }
   if (this->vertexNormals.getLength())
     return this->vertexNormals.getArrayPtr();
-  return NULL;
+  return nullptr;
 }
 
 /*!

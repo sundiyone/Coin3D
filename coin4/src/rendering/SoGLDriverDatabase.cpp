@@ -154,12 +154,12 @@ const int SoGLDriverDatabaseP::databaseloaderversion = 1;
 SoGLDriverDatabaseP::SoGLDriverDatabaseP()
 {
   this->initFunctions();
-  this->database = NULL;
+  this->database = nullptr;
 }
 
 SoGLDriverDatabaseP::~SoGLDriverDatabaseP()
 {
-  if (this->database != NULL) {
+  if (this->database != nullptr) {
 #if COIN_DEBUG
     cc_xml_doc_write_to_file(this->database, "database_debug.xml");
 #endif
@@ -381,7 +381,7 @@ SoGLDriverDatabaseP::isFast(const cc_glglue * context, const SbName & feature)
 SbName
 SoGLDriverDatabaseP::getComment(const cc_glglue * context, const SbName & feature)
 {
-  const char * comment = NULL;
+  const char * comment = nullptr;
 
   SoGLDriver * driver = this->findGLDriver(context);
 
@@ -398,7 +398,7 @@ SoGLDriverDatabaseP::getComment(const cc_glglue * context, const SbName & featur
 cc_xml_element *
 SoGLDriverDatabaseP::findPlatform(const cc_xml_elt * root, const char * platformstring)
 {
-  cc_xml_element * platform = NULL;
+  cc_xml_element * platform = nullptr;
 
   unsigned int numplatforms = cc_xml_elt_get_num_children_of_type(root, "platform");
 
@@ -433,7 +433,7 @@ SoGLDriverDatabaseP::findPlatform(const cc_xml_elt * root, const char * platform
       }
     }
   }
-  return NULL;
+  return nullptr;
 }
 
 /*
@@ -475,7 +475,7 @@ SoGLDriverDatabaseP::findVendor(const cc_xml_elt * platform, const char * vendor
       }
     }
   }
-  return NULL;
+  return nullptr;
 }
 
 /*
@@ -545,7 +545,7 @@ SoGLDriverDatabaseP::findDriver(const cc_xml_elt * vendor, const cc_glglue * COI
       //oyshole, 20080314
     }
   }
-  return NULL;
+  return nullptr;
 }
 
 /*
@@ -578,7 +578,7 @@ SoGLDriverDatabaseP::findGLDriver(const cc_glglue * context)
   SbName renderer(context->rendererstr);
   SbName versionstring(context->versionstr);
 
-  SoGLDriver * driver = NULL;
+  SoGLDriver * driver = nullptr;
 
   // Check if a driver object has been created for this context. If so
   // use this driver.
@@ -626,7 +626,7 @@ SoGLDriverDatabaseP::findGLDriver(const cc_glglue * context)
 bool
 SoGLDriverDatabaseP::loadFromFile(const SbName & filename)
 {
-  if (this->database != NULL)
+  if (this->database != nullptr)
     cc_xml_doc_delete_x(this->database);
 
   this->database = cc_xml_doc_new();
@@ -635,7 +635,7 @@ SoGLDriverDatabaseP::loadFromFile(const SbName & filename)
 
   if (!result || !checkDocumentVersion(this->database)) {
     cc_xml_doc_delete_x(this->database);
-    this->database = NULL;
+    this->database = nullptr;
   }
   return result;
 }
@@ -646,7 +646,7 @@ SoGLDriverDatabaseP::loadFromFile(const SbName & filename)
 bool
 SoGLDriverDatabaseP::loadFromBuffer(const char * buffer)
 {
-  if (this->database != NULL)
+  if (this->database != nullptr)
     cc_xml_doc_delete_x(this->database);
 
   this->database = cc_xml_doc_new();
@@ -655,7 +655,7 @@ SoGLDriverDatabaseP::loadFromBuffer(const char * buffer)
 
   if (!result || !checkDocumentVersion(this->database)) {
     cc_xml_doc_delete_x(this->database);
-    this->database = NULL;
+    this->database = nullptr;
   }
   return result;
 }
@@ -733,11 +733,11 @@ SoGLDriverDatabaseP::mergeVendor(cc_xml_elt * platform, const cc_xml_elt * vendo
   cc_xml_element * name = cc_xml_elt_get_child_of_type(vendor, "name", 0);
   SbName namestr = cc_xml_elt_get_cdata(name);
 
-  cc_xml_elt * existingvendor = NULL;
+  cc_xml_elt * existingvendor = nullptr;
 
   existingvendor = findVendor(platform, namestr);
 
-  if (existingvendor == NULL) {
+  if (existingvendor == nullptr) {
     // Try Aliases
     unsigned int numaliases = cc_xml_elt_get_num_children_of_type(vendor, "alias");
 
@@ -748,7 +748,7 @@ SoGLDriverDatabaseP::mergeVendor(cc_xml_elt * platform, const cc_xml_elt * vendo
     }
   }
 
-  if (existingvendor == NULL) {
+  if (existingvendor == nullptr) {
     cc_xml_elt_add_child_x(platform, cc_xml_elt_clone(vendor));
     result = true;
   }
@@ -780,11 +780,11 @@ SoGLDriverDatabaseP::mergePlatform(const cc_xml_elt * platform)
 
   cc_xml_elt * root = getDatabaseRoot();
 
-  cc_xml_elt * existingplatform = NULL;
+  cc_xml_elt * existingplatform = nullptr;
 
   existingplatform = findPlatform(root, namestr);
 
-  if (existingplatform == NULL) {
+  if (existingplatform == nullptr) {
     // Try Aliases
     unsigned int numaliases = cc_xml_elt_get_num_children_of_type(platform, "alias");
 
@@ -795,7 +795,7 @@ SoGLDriverDatabaseP::mergePlatform(const cc_xml_elt * platform)
     }
   }
 
-  if (existingplatform == NULL) {
+  if (existingplatform == nullptr) {
     cc_xml_elt_add_child_x(root, cc_xml_elt_clone(platform));
     result = true;
   }
@@ -844,7 +844,7 @@ SoGLDriverDatabaseP::mergeRoot(const cc_xml_elt * root)
 cc_xml_elt *
 SoGLDriverDatabaseP::getDatabaseRoot()
 {
-  if (this->database == NULL)
+  if (this->database == nullptr)
     this->database = cc_xml_doc_new();
 
   cc_xml_elt * root = cc_xml_doc_get_root(this->database);
@@ -980,9 +980,9 @@ SoGLDriverDatabaseP::addFeature(const SbName & feature, const SbName & comment)
 {
   cc_xml_elt * root = getDatabaseRoot();
 
-  cc_xml_elt * featureelement = cc_xml_elt_new_from_data("feature", NULL);
-  cc_xml_elt * nameelement = cc_xml_elt_new_from_data("name", NULL);
-  cc_xml_elt * commentelement = cc_xml_elt_new_from_data("comment", NULL);
+  cc_xml_elt * featureelement = cc_xml_elt_new_from_data("feature", nullptr);
+  cc_xml_elt * nameelement = cc_xml_elt_new_from_data("name", nullptr);
+  cc_xml_elt * commentelement = cc_xml_elt_new_from_data("comment", nullptr);
 
   cc_xml_elt_set_cdata_x(nameelement, feature);
   cc_xml_elt_set_cdata_x(commentelement, comment);
@@ -1158,18 +1158,18 @@ SoGLDriverDatabase::addFeature(const SbName & feature, const SbName & comment)
   pimpl()->addFeature(feature, comment);
 }
 
-static SoGLDriverDatabaseP * pimpl_instance = NULL;
+static SoGLDriverDatabaseP * pimpl_instance = nullptr;
 
 static void sogldriverdatabase_atexit(void)
 {
   delete pimpl_instance;
-  pimpl_instance = NULL;
+  pimpl_instance = nullptr;
 }
 
 SoGLDriverDatabaseP *
 SoGLDriverDatabase::pimpl(void)
 {
-  if (pimpl_instance == NULL) {
+  if (pimpl_instance == nullptr) {
     pimpl_instance = new SoGLDriverDatabaseP;
     cc_coin_atexit((coin_atexit_f*) sogldriverdatabase_atexit);
   }

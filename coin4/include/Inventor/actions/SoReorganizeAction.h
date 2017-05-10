@@ -38,7 +38,7 @@ class COIN_DLL_API SoReorganizeAction : public SoSimplifyAction {
 public: 
   static void initClass(void);
 
-  SoReorganizeAction(SoSimplifier * simplifier = NULL);
+  SoReorganizeAction(SoSimplifier * simplifier = nullptr);
   virtual ~SoReorganizeAction(void);
 
   SoSeparator * getSimplifiedSceneGraph(void) const;

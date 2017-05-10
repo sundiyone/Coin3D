@@ -27,6 +27,8 @@
 #include <Inventor/C/tidbits.h>
 #include <Inventor/system/gl.h>
 
+#include <cstdlib>
+
 // *************************************************************************
 
 bool
@@ -52,7 +54,7 @@ SbGLUTessellator::SbGLUTessellator(void (* cb)(void *, void *, void *, void *),
 
   // allocated later on demand, so there is no resource allocation
   // when just putting an SbGLUTessellator on the current stack frame:
-  this->tessobj = NULL;
+  this->tessobj = nullptr;
 }
 
 SbGLUTessellator::~SbGLUTessellator()

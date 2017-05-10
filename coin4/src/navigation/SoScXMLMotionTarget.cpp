@@ -50,12 +50,12 @@ SoScXMLMotionTarget::cleanClass(void)
   SoScXMLMotionTarget::classTypeId = SoType::badType();
 }
 
-SoScXMLMotionTarget * SoScXMLMotionTarget::theSingleton = NULL;
+SoScXMLMotionTarget * SoScXMLMotionTarget::theSingleton = nullptr;
 
 SoScXMLMotionTarget *
 SoScXMLMotionTarget::constructSingleton(void)
 {
-  assert(SoScXMLMotionTarget::theSingleton == NULL);
+  assert(SoScXMLMotionTarget::theSingleton == nullptr);
   SoScXMLMotionTarget::theSingleton =
     static_cast<SoScXMLMotionTarget *>(SoScXMLMotionTarget::classTypeId.createInstance());
   return SoScXMLMotionTarget::theSingleton;
@@ -64,15 +64,15 @@ SoScXMLMotionTarget::constructSingleton(void)
 void
 SoScXMLMotionTarget::destructSingleton(void)
 {
-  assert(SoScXMLMotionTarget::theSingleton != NULL);
+  assert(SoScXMLMotionTarget::theSingleton != nullptr);
   delete SoScXMLMotionTarget::theSingleton;
-  SoScXMLMotionTarget::theSingleton = NULL;
+  SoScXMLMotionTarget::theSingleton = nullptr;
 }
 
 SoScXMLMotionTarget *
 SoScXMLMotionTarget::singleton(void)
 {
-  assert(SoScXMLMotionTarget::theSingleton != NULL);
+  assert(SoScXMLMotionTarget::theSingleton != nullptr);
   return SoScXMLMotionTarget::theSingleton;
 }
 

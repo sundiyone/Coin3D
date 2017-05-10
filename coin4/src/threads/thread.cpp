@@ -73,7 +73,7 @@ cc_thread_construct(cc_thread_f * func, void * closure)
   int ok;
 
   thread = (cc_thread*) malloc(sizeof(cc_thread));
-  assert(thread != NULL);
+  assert(thread != nullptr);
   thread->func = func;
   thread->closure = closure;
 
@@ -81,7 +81,7 @@ cc_thread_construct(cc_thread_f * func, void * closure)
   if (ok) return thread;
   assert(0 && "unable to create thread");
   free(thread);
-  return NULL;
+  return nullptr;
 }
 
 /* ********************************************************************** */
@@ -93,7 +93,7 @@ void
 cc_thread_destruct(cc_thread * thread)
 {
   int ok;
-  assert(thread != NULL);
+  assert(thread != nullptr);
   ok = internal_clean(thread);
   assert(ok == CC_OK);
   free(thread);
@@ -109,7 +109,7 @@ cc_thread_join(cc_thread * thread,
                void ** retvalptr)
 {
   int ok;
-  assert(thread != NULL);
+  assert(thread != nullptr);
 
   ok = internal_join(thread, retvalptr);
   assert(ok == CC_OK);
@@ -308,7 +308,7 @@ cc_thread_init(void)
 /*!
   \fn static SbThread * SbThread::create(void *(*func)(void *), void * closure)
 
-  This function creates a new thread, or returns NULL on failure.
+  This function creates a new thread, or returns nullptr on failure.
 */
 
 /*!

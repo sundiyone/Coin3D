@@ -60,7 +60,7 @@
 
   [...]
   SoCallbackAction cba(myviewport);
-  cba.addPostCallback(SoCamera::getClassTypeId(), camera_cb, NULL);
+  cba.addPostCallback(SoCamera::getClassTypeId(), camera_cb, nullptr);
 
   \endverbatim
 
@@ -241,7 +241,7 @@ SoElement *
 SoCullElement::copyMatchInfo(void) const
 {
   assert(0 && "should not get here");
-  return NULL;
+  return nullptr;
 }
 
 //

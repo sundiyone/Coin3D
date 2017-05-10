@@ -62,19 +62,19 @@ void glxglue_init(cc_glglue * w)
   w->glx.version.minor = 0;
   w->glx.isdirect = 1;
 
-  w->glx.serverversion = NULL;
-  w->glx.servervendor = NULL;
-  w->glx.serverextensions = NULL;
-  w->glx.clientversion = NULL;
-  w->glx.clientvendor = NULL;
-  w->glx.clientextensions = NULL;
-  w->glx.glxextensions = NULL;
+  w->glx.serverversion = nullptr;
+  w->glx.servervendor = nullptr;
+  w->glx.serverextensions = nullptr;
+  w->glx.clientversion = nullptr;
+  w->glx.clientvendor = nullptr;
+  w->glx.clientextensions = nullptr;
+  w->glx.glxextensions = nullptr;
 }
 
-void * glxglue_getprocaddress(const cc_glglue * glue, const char * fname) { return NULL; }
+void * glxglue_getprocaddress(const cc_glglue * glue, const char * fname) { return nullptr; }
 int glxglue_ext_supported(const cc_glglue * w, const char * extension) { return 0; }
 
-void * glxglue_context_create_offscreen(unsigned int width, unsigned int height) { assert(false); return NULL; }
+void * glxglue_context_create_offscreen(unsigned int width, unsigned int height) { assert(false); return nullptr; }
 bool glxglue_context_make_current(void * ctx) { assert(false); return false; }
 void glxglue_context_reinstate_previous(void * ctx) { assert(false); }
 void glxglue_context_destruct(void * ctx) { assert(false); }
@@ -120,13 +120,13 @@ bool glxglue_context_pbuffer_max(void * ctx, unsigned int * lims) { assert(false
 
 /* ********************************************************************** */
 
-static Display * glxglue_display = NULL;
+static Display * glxglue_display = nullptr;
 static bool glxglue_opendisplay_failed = false;
 
 static int glxglue_screen = -1;
 
 struct glxglue_contextdata;
-static bool (* glxglue_context_create)(struct glxglue_contextdata * context) = NULL;
+static bool (* glxglue_context_create)(struct glxglue_contextdata * context) = nullptr;
 
 typedef void * COIN_GLXFBConfig;
 typedef COIN_GLXFBConfig * (APIENTRY * COIN_PFNGLXCHOOSEFBCONFIG)(Display * dpy, int screen, const int * attrib_list, int * nelements);
@@ -224,7 +224,7 @@ struct glxglue_contextdata {
 
  */
 static Display *
-glxglue_get_display(const cc_glglue * currentcontext = NULL)
+glxglue_get_display(const cc_glglue * currentcontext = nullptr)
 {
   if (currentcontext && currentcontext->glx.glXGetCurrentDisplay) {
     if (glxglue_screen == -1) {
@@ -242,18 +242,18 @@ glxglue_get_display(const cc_glglue * currentcontext = NULL)
     return (Display*)currentcontext->glx.glXGetCurrentDisplay();
   }
 
-  if ((glxglue_display == NULL) && !glxglue_opendisplay_failed) {
+  if ((glxglue_display == nullptr) && !glxglue_opendisplay_failed) {
     /* FIXME: should use the real display-setting. :-(  20020926 mortene. */
 
-    /* UPDATE 20090218 tamer: Passing NULL through XOpenDisplay()
+    /* UPDATE 20090218 tamer: Passing nullptr through XOpenDisplay()
      * makes a POSIX-conformant system default to the value of the
      * DISPLAY environment variable. Isn't that exactly what we want?
      * Do you mean that the display_name can potentially be provided
      * by other means than the DISPLAY envvar? */
     
-    if (!(glxglue_display = XOpenDisplay(NULL))) {
+    if (!(glxglue_display = XOpenDisplay(nullptr))) {
       cc_debugerror_post("glxglue_init",
-                         "Couldn't open NULL display.");
+                         "Couldn't open nullptr display.");
       glxglue_opendisplay_failed = true;
     }
     
@@ -276,7 +276,7 @@ glxglue_set_version(const cc_glglue * w, int * major, int * minor)
   *major = -1;
   *minor = 0;
 
-  if (glxglue_get_display(w) == NULL) { return; }
+  if (glxglue_get_display(w) == nullptr) { return; }
 
   ok = glXQueryVersion(glxglue_get_display(w), major, minor);
 
@@ -294,7 +294,7 @@ glxglue_set_version(const cc_glglue * w, int * major, int * minor)
 void *
 glxglue_getprocaddress(const cc_glglue * glue_in, const char * fname)
 {
-  void * ptr = NULL;
+  void * ptr = nullptr;
 
   if (!glue_in->glx.glXGetProcAddress && !glue_in->glx.tried_bind_glXGetProcAddress) {
     cc_glglue * glue = const_cast<cc_glglue*> (glue_in);
@@ -354,7 +354,7 @@ int
 glxglue_ext_supported(const cc_glglue * w, const char * extension)
 {
   return
-    (w->glx.glxextensions != NULL) &&
+    (w->glx.glxextensions != nullptr) &&
     coin_glglue_extension_available(w->glx.glxextensions, extension);
 }
 
@@ -390,12 +390,12 @@ glxglue_resolve_symbols(cc_glglue * w)
   const char * env;
   struct cc_glxglue * g = &(w->glx);
 
-  glxglue_glXChooseFBConfig = NULL;
-  glxglue_glXCreateNewContext = NULL;
-  glxglue_glXGetFBConfigAttrib = NULL;
+  glxglue_glXChooseFBConfig = nullptr;
+  glxglue_glXCreateNewContext = nullptr;
+  glxglue_glXGetFBConfigAttrib = nullptr;
 
   env = coin_getenv("COIN_GLXGLUE_NO_GLX13_PBUFFERS");
-  glx13pbuffer = (env == NULL) || (atoi(env) < 1);
+  glx13pbuffer = (env == nullptr) || (atoi(env) < 1);
 
 #ifdef GLX_EXT_import_context
   if (!g->glXGetCurrentDisplay && glxglue_ext_supported(w, "GLX_EXT_import_context")) {
@@ -418,9 +418,9 @@ glxglue_resolve_symbols(cc_glglue * w)
   }
 #endif /* GLX_SGIX_fbconfig */
 
-  glxglue_glXCreatePbuffer_GLX_1_3 = NULL;
-  glxglue_glXCreateGLXPbufferSGIX = NULL;
-  glxglue_glXDestroyPbuffer = NULL;
+  glxglue_glXCreatePbuffer_GLX_1_3 = nullptr;
+  glxglue_glXCreateGLXPbufferSGIX = nullptr;
+  glxglue_glXDestroyPbuffer = nullptr;
 
 #ifdef GLX_VERSION_1_3
   if (glx13pbuffer && cc_glglue_glxversion_matches_at_least(w, 1, 3)) {
@@ -472,7 +472,7 @@ glxglue_init(cc_glglue * w)
      for URL). So we will assume the man pages are correct.
   */
   struct cc_glxglue * g = &(w->glx);
-  g->glXGetCurrentDisplay = NULL;
+  g->glXGetCurrentDisplay = nullptr;
 #ifdef GLX_VERSION_1_2
   g->glXGetCurrentDisplay = (COIN_PFNGLXGETCURRENTDISPLAYPROC)PROC(w, glXGetCurrentDisplay);
 #endif /* GLX_VERSION_1_2 */
@@ -481,13 +481,13 @@ glxglue_init(cc_glglue * w)
   w->glx.isdirect = glxglue_isdirect(w);
 
 
-  w->glx.serverversion = NULL;
-  w->glx.servervendor = NULL;
-  w->glx.serverextensions = NULL;
-  w->glx.clientversion = NULL;
-  w->glx.clientvendor = NULL;
-  w->glx.clientextensions = NULL;
-  w->glx.glxextensions = NULL;
+  w->glx.serverversion = nullptr;
+  w->glx.servervendor = nullptr;
+  w->glx.serverextensions = nullptr;
+  w->glx.clientversion = nullptr;
+  w->glx.clientvendor = nullptr;
+  w->glx.clientextensions = nullptr;
+  w->glx.glxextensions = nullptr;
 
   if (glxglue_get_display(w)) {
 
@@ -619,11 +619,11 @@ glxglue_find_gl_visual(void)
      of this failing for some compiler under HP-UX 10.20.) */
 #define ARRAYSIZE 32
   int attrs[ARRAYSIZE];
-  XVisualInfo * visinfo = NULL;
+  XVisualInfo * visinfo = nullptr;
 
-  if (glxglue_get_display() == NULL) { return NULL; }
+  if (glxglue_get_display() == nullptr) { return nullptr; }
 
-  while (visinfo == NULL && trynum < 8) {
+  while (visinfo == nullptr && trynum < 8) {
     int arraysize = glxglue_build_GL_attrs(attrs, trynum);
     assert(arraysize < ARRAYSIZE);
     visinfo = glXChooseVisual(glxglue_get_display(), DefaultScreen(glxglue_get_display()),
@@ -634,7 +634,7 @@ glxglue_find_gl_visual(void)
   if (!visinfo) {
     cc_debugerror_postwarning("glxglue_find_gl_visual",
                               "Couldn't get any OpenGL-capable RGBA X11 visual.");
-    return NULL;
+    return nullptr;
   }
 
   return visinfo;
@@ -650,21 +650,21 @@ glxglue_contextdata_init(unsigned int width, unsigned int height)
   struct glxglue_contextdata * ctx;
 
   XVisualInfo * vi = glxglue_find_gl_visual();
-  if (vi == NULL) { return NULL; }
+  if (vi == nullptr) { return nullptr; }
 
   ctx = (struct glxglue_contextdata *)malloc(sizeof(struct glxglue_contextdata));
 
   ctx->visinfo = vi;
-  ctx->glxcontext = NULL;
+  ctx->glxcontext = nullptr;
   ctx->width = width;
   ctx->height = height;
 
   ctx->pixmap = 0;
   ctx->glxpixmap = 0;
 
-  ctx->storeddisplay = NULL;
+  ctx->storeddisplay = nullptr;
   ctx->storeddrawable = 0;
-  ctx->storedcontext = NULL;
+  ctx->storedcontext = nullptr;
   ctx->pbuffer = false;
 
   return ctx;
@@ -673,9 +673,9 @@ glxglue_contextdata_init(unsigned int width, unsigned int height)
 static void
 glxglue_contextdata_cleanup(struct glxglue_contextdata * ctx)
 {
-  if (ctx == NULL) { return; }
+  if (ctx == nullptr) { return; }
 
-  Display * display = glxglue_get_display(NULL);
+  Display * display = glxglue_get_display(nullptr);
   if (ctx->glxcontext) glXDestroyContext(display, ctx->glxcontext);
   if (ctx->glxpixmap) {
     if (ctx->pbuffer) { glxglue_glXDestroyPbuffer(display, ctx->glxpixmap); }
@@ -700,11 +700,11 @@ glxglue_context_create_software(struct glxglue_contextdata * context)
      Rendering to a GLX pixmap is of course exactly what we want to be
      able to do. */
 
-  Display * display = glxglue_get_display(NULL);
+  Display * display = glxglue_get_display(nullptr);
   context->glxcontext = glXCreateContext(display, context->visinfo, 0,
                                          False);
 
-  if (context->glxcontext == NULL) {
+  if (context->glxcontext == nullptr) {
     cc_debugerror_postwarning("glxglue_context_create_software",
                               "Couldn't create GLX context.");
     return false;
@@ -761,11 +761,11 @@ glxglue_glXCreatePbuffer(Display * dpy, COIN_GLXFBConfig config, int width, int 
   /* The official SGIX pbuffer extensions documentation says the
      following about the glXCreateGLXPbufferSGIX() function:
 
-         <attrib_list> can be either NULL, in which case all the
+         <attrib_list> can be either nullptr, in which case all the
          attributes assume their default values as described
          below. [...]
 
-     ..but leaving attrib_list (i.e. the last argument) as NULL causes
+     ..but leaving attrib_list (i.e. the last argument) as nullptr causes
      a crash with NVidia's Linux driver, at least in version 41.91.
   */
   return glxglue_glXCreateGLXPbufferSGIX(dpy, config, width, height, sgix_attrs);
@@ -810,7 +810,7 @@ glxglue_context_create_pbuffer(struct glxglue_contextdata * context)
   assert(attrs[0] == GLX_STENCIL_SIZE);
   if (v != -1) { attrs[1] = v; };
 
-  dpy = glxglue_get_display(NULL);
+  dpy = glxglue_get_display(nullptr);
   if (!dpy) { return false; }
 
   /* get a list of matching GLX frame buffer configurations. the list is
@@ -819,7 +819,7 @@ glxglue_context_create_pbuffer(struct glxglue_contextdata * context)
 
   fbc = glxglue_glXChooseFBConfig(dpy, DefaultScreen(dpy), attrs, &fbc_cnt);
   assert(fbc_cnt >= 0);
-  if ((fbc_cnt == 0) || (fbc == NULL)) {
+  if ((fbc_cnt == 0) || (fbc == nullptr)) {
     /* FIXME: we have had reports of this hitting. Is it possible to
        improve the selection technique so we can be absolutely sure no
        usable fb-config is available, e.g. by iterating over all
@@ -841,7 +841,7 @@ glxglue_context_create_pbuffer(struct glxglue_contextdata * context)
   /* direct rendering graphic context creation == Hardware use */
 
   context->glxcontext = glxglue_glXCreateNewContext(dpy, fbc[0],
-                                                    GLX_RGBA_TYPE, NULL, true);
+                                                    GLX_RGBA_TYPE, nullptr, true);
 
   /* must store this before freeing the array */
   context->fbconfig = fbc[0];
@@ -849,7 +849,7 @@ glxglue_context_create_pbuffer(struct glxglue_contextdata * context)
   /* free the config list */
   XFree(fbc);
 
-  if (context->glxcontext == NULL) {
+  if (context->glxcontext == nullptr) {
     cc_debugerror_postwarning("glxglue_context_create_pbuffer",
                               "Couldn't create GLX context.");
     return false;
@@ -889,14 +889,14 @@ glxglue_context_create_offscreen(unsigned int width, unsigned int height)
   struct glxglue_contextdata * swctx, * pbctx;
 
   swctx = glxglue_contextdata_init(width, height);
-  if (swctx == NULL) { return NULL; }
+  if (swctx == nullptr) { return nullptr; }
 
-  if (glxglue_context_create != NULL) {
+  if (glxglue_context_create != nullptr) {
     ok = glxglue_context_create(swctx);
     if (ok) { return swctx; }
 
     glxglue_contextdata_cleanup(swctx);
-    return NULL;
+    return nullptr;
   }
 
   /* As there could possibly be no valid glx context at this moment,
@@ -906,7 +906,7 @@ glxglue_context_create_offscreen(unsigned int width, unsigned int height)
   ok = glxglue_context_create_software(swctx);
   if (!ok || !glxglue_context_make_current(swctx)) {
     glxglue_contextdata_cleanup(swctx);
-    return NULL;
+    return nullptr;
   }
 
   /* ok, so we can at least use a non-pbuffer offscreen context */
@@ -932,7 +932,7 @@ glxglue_context_create_offscreen(unsigned int width, unsigned int height)
      available doesn't really prove it) */
 
   pbctx = glxglue_contextdata_init(width, height);
-  if (pbctx == NULL) { return swctx; }
+  if (pbctx == nullptr) { return swctx; }
 
   ok = glxglue_context_create_pbuffer(pbctx);
 
@@ -976,7 +976,7 @@ glxglue_context_make_current(void * ctx)
                            context->storeddisplay);
   }
 
-  Display * display = glxglue_get_display(NULL);
+  Display * display = glxglue_get_display(nullptr);
   r = glXMakeCurrent(display, context->glxpixmap, context->glxcontext);
 
   if (coin_glglue_debug()) {
@@ -996,15 +996,15 @@ glxglue_context_reinstate_previous(void * ctx)
 
   if (coin_glglue_debug()) {
     cc_debugerror_postinfo("glxglue_context_reinstate_previous",
-                           "releasing context (glxMakeCurrent(%p, None, NULL))",
-                           glxglue_get_display(NULL));
+                           "releasing context (glxMakeCurrent(%p, None, nullptr))",
+                           glxglue_get_display(nullptr));
   }
 
-  Display * display = glxglue_get_display(NULL);
+  Display * display = glxglue_get_display(nullptr);
   /* FIXME: this causes a crash with ATI on Linux for me. ATI and Mesa
      is somehow mixed together, which is probably the reason why the
      crash happens..? 20041105 mortene. */
-  (void)glXMakeCurrent(display, None, NULL); /* release */
+  (void)glXMakeCurrent(display, None, nullptr); /* release */
 
   /* The previous context is stored and reset to make it possible to
      use an SoOffscreenRenderer from for instance an SoCallback node
@@ -1090,14 +1090,14 @@ glxglue_context_pbuffer_max(void * ctx, unsigned int * lims)
 void glxglue_cleanup(void)
 {
   glxglue_screen = -1;
-  glxglue_context_create = NULL;
+  glxglue_context_create = nullptr;
 
-  glxglue_glXChooseFBConfig = NULL;
-  glxglue_glXCreateNewContext = NULL;
-  glxglue_glXGetFBConfigAttrib = NULL;
-  glxglue_glXCreatePbuffer_GLX_1_3 = NULL;
-  glxglue_glXCreateGLXPbufferSGIX = NULL;
-  glxglue_glXDestroyPbuffer = NULL;
+  glxglue_glXChooseFBConfig = nullptr;
+  glxglue_glXCreateNewContext = nullptr;
+  glxglue_glXGetFBConfigAttrib = nullptr;
+  glxglue_glXCreatePbuffer_GLX_1_3 = nullptr;
+  glxglue_glXCreateGLXPbufferSGIX = nullptr;
+  glxglue_glXDestroyPbuffer = nullptr;
 
   /* FIXME: We used to not close the display due to potential problems
      on some NVidia drivers (see original comment, reproduced
@@ -1115,7 +1115,7 @@ void glxglue_cleanup(void)
        like doublebuffered visuals coming up just blank.
    */
   if (glxglue_display) XCloseDisplay(glxglue_display);
-  glxglue_display = NULL;
+  glxglue_display = nullptr;
   glxglue_opendisplay_failed = false;
 }
 

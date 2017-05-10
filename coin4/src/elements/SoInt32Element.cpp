@@ -121,7 +121,7 @@ void
 SoInt32Element::set(const int index, SoState * const state,
                     const int32_t value)
 {
-  set(index, state, NULL, value);
+  set(index, state, nullptr, value);
 }
 
 //! FIXME: write doc.
@@ -131,7 +131,7 @@ SoInt32Element::get(const int index,
                     SoState * const state)
 {
   const SoInt32Element * element;
-  element = coin_safe_cast<const SoInt32Element *>(getConstElement(state, index)); //, NULL );
+  element = coin_safe_cast<const SoInt32Element *>(getConstElement(state, index)); //, nullptr );
   if (element)
     return element->data;
   return 0;

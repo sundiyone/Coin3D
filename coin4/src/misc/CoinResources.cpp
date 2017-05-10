@@ -93,7 +93,7 @@ namespace CoinResources { namespace {
     class ResourceHandle {
     public:
       ResourceHandle(void)
-        : resloc(NULL), canbefile(false), filenotfound(false)
+        : resloc(nullptr), canbefile(false), filenotfound(false)
       { }
 
       char * resloc;
@@ -121,7 +121,7 @@ namespace CoinResources { namespace {
         it++;
       }
       delete resourcemap;
-      resourcemap = NULL;
+      resourcemap = nullptr;
     }
 
     ResourceHandle *
@@ -131,7 +131,7 @@ namespace CoinResources { namespace {
       SbName reslochash(resloc);
       ResourceMap::iterator it =
         resourcemap->find(reslochash.getString());
-      if (it == resourcemap->end()) return NULL;
+      if (it == resourcemap->end()) return nullptr;
       return it->second;
     }
 
@@ -209,7 +209,7 @@ CoinResources::get(const char * resloc)
       CFRelease(url);
 #else // !COIN_MACOSX_FRAMEWORK
       static const char * coindirenv = coin_getenv("COINDIR");
-      if (coindirenv == NULL) {
+      if (coindirenv == nullptr) {
         handle->filenotfound = true;
         break;
       }
@@ -239,7 +239,7 @@ CoinResources::get(const char * resloc)
 
       size_t num = fread(buffer.data(), size, 1, fp);
       fclose(fp);
-      fp = NULL;
+      fp = nullptr;
 
       if (num == 1) {
         // FIXME: at this point we can check if this is the first

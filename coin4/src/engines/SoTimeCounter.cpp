@@ -176,7 +176,7 @@ SoTimeCounter::writeInstance(SoOutput * out)
   // pass on the updates.
 
   // Disconnect from realTime field.
-  SoField * connectfield = NULL;
+  SoField * connectfield = nullptr;
   bool connectfromrealTime =
     this->timeIn.getConnectedField(connectfield) &&
     connectfield == SoDB::getGlobalField("realTime");

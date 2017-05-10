@@ -375,11 +375,11 @@ public:
 
   static void cleanup(void) {
     delete SoTexture2P::mutex;
-    SoTexture2P::mutex = NULL;
+    SoTexture2P::mutex = nullptr;
   }
 };
 
-SbMutex * SoTexture2P::mutex = NULL;
+SbMutex * SoTexture2P::mutex = nullptr;
 
 #define PRIVATE(p) ((p)->pimpl)
 
@@ -407,7 +407,7 @@ SoTexture2::SoTexture2(void)
   SO_NODE_INTERNAL_CONSTRUCTOR(SoTexture2);
 
   SO_NODE_ADD_FIELD(filename, (""));
-  SO_NODE_ADD_FIELD(image, (SbVec2s(0, 0), 0, NULL));
+  SO_NODE_ADD_FIELD(image, (SbVec2s(0, 0), 0, nullptr));
   SO_NODE_ADD_FIELD(wrapS, (REPEAT));
   SO_NODE_ADD_FIELD(wrapT, (REPEAT));
   SO_NODE_ADD_FIELD(model, (MODULATE));
@@ -426,7 +426,7 @@ SoTexture2::SoTexture2(void)
   SO_NODE_DEFINE_ENUM_VALUE(Model, REPLACE);
   SO_NODE_SET_SF_ENUM_TYPE(model, Model);
 
-  PRIVATE(this)->glimage = NULL;
+  PRIVATE(this)->glimage = nullptr;
   PRIVATE(this)->glimagevalid = false;
   PRIVATE(this)->readstatus = 1;
 
@@ -444,7 +444,7 @@ SoTexture2::SoTexture2(void)
 */
 SoTexture2::~SoTexture2()
 {
-  if (PRIVATE(this)->glimage) PRIVATE(this)->glimage->unref(NULL);
+  if (PRIVATE(this)->glimage) PRIVATE(this)->glimage->unref(nullptr);
   delete PRIVATE(this)->filenamesensor;
   delete PRIVATE(this);
 }
@@ -588,7 +588,7 @@ SoTexture2::GLRender(SoGLRenderAction * action)
   int maxunits = cc_glglue_max_texture_units(glue);
   if (unit < maxunits) {
     SoGLMultiTextureImageElement::set(state, this, unit,
-                                      PRIVATE(this)->glimagevalid ? PRIVATE(this)->glimage : NULL,
+                                      PRIVATE(this)->glimagevalid ? PRIVATE(this)->glimage : nullptr,
                                       glmodel,
                                       this->blendColor.getValue());
     
@@ -755,7 +755,7 @@ SoTexture2::filenameSensorCB(void * data, SoSensor *)
   else if (thisp->filename.getValue() == "") {
     // setting filename to "" should reset the node to its initial state
     thisp->setReadStatus(0);
-    thisp->image.setValue(SbVec2s(0,0), 0, NULL);
+    thisp->image.setValue(SbVec2s(0,0), 0, nullptr);
     thisp->image.setDefault(true);
     thisp->filename.setDefault(true);
   }

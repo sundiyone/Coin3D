@@ -67,7 +67,7 @@ typedef struct {
   unsigned int avail_out; /* remaining free space at next_out */
   unsigned long total_out; /* total nb of bytes output so far */
   
-  char * msg;      /* last error message, NULL if no error */
+  char * msg;      /* last error message, nullptr if no error */
   struct internal_state * state; /* not visible by applications */
   
   alloc_func zalloc;  /* used to allocate the internal state */
@@ -150,21 +150,21 @@ void * cc_gzm_open(const uint8_t * buffer, uint32_t len)
 
 
   s = (cc_gzm_stream *) Z_ALLOC(sizeof(cc_gzm_stream));
-  if (!s) return NULL;
+  if (!s) return nullptr;
 
   s->stream.zalloc = (alloc_func)0;
   s->stream.zfree = (free_func)0;
   s->stream.opaque = (void *)0;
-  s->stream.next_in = s->inbuf = NULL;
-  s->stream.next_out = s->outbuf = NULL;
+  s->stream.next_in = s->inbuf = nullptr;
+  s->stream.next_out = s->outbuf = nullptr;
   s->stream.avail_in = s->stream.avail_out = 0;
   s->z_err = Z_OK;
   s->z_eof = 0;
-  s->crc = cc_zlibglue_crc32(0L, NULL, 0);
-  s->msg = NULL;
+  s->crc = cc_zlibglue_crc32(0L, nullptr, 0);
+  s->msg = nullptr;
   s->transparent = 0;
-  s->path = NULL;
-  s->memfile = NULL;
+  s->path = nullptr;
+  s->memfile = nullptr;
 
   s->mode = 'r'; /* read */
   if (s->mode == 'w') { /* not supported yet */
@@ -177,9 +177,9 @@ void * cc_gzm_open(const uint8_t * buffer, uint32_t len)
 
     s->stream.next_out = s->outbuf = (uint8_t*)Z_ALLOC(Z_BUFSIZE);
 #endif
-    if (err != Z_OK || s->outbuf == NULL) {
+    if (err != Z_OK || s->outbuf == nullptr) {
       destroy(s);
-      return NULL;
+      return nullptr;
     }
   }
   else {
@@ -197,9 +197,9 @@ void * cc_gzm_open(const uint8_t * buffer, uint32_t len)
      * return Z_STREAM_END. Here the gzip CRC32 ensures that 4 bytes are
      * present after the compressed stream.
      */
-    if (err != Z_OK || s->inbuf == NULL) {
+    if (err != Z_OK || s->inbuf == nullptr) {
       destroy(s);
-      return NULL;
+      return nullptr;
     }
   }
   s->stream.avail_out = Z_BUFSIZE;
@@ -318,7 +318,7 @@ static int destroy (cc_gzm_stream * s)
 
   Z_TRYFREE(s->msg);
 
-  if (s->stream.state != NULL) {
+  if (s->stream.state != nullptr) {
     if (s->mode == 'w') {
 #ifdef Z_NO_DEFLATE
       err = Z_STREAM_ERROR;
@@ -352,7 +352,7 @@ cc_gzm_read (void * file, void * buf, uint32_t len)
   uint8_t *start = (uint8_t*)buf; /* starting point for crc computation */
   uint8_t * next_out; /* == stream.next_out but not forced far (for MSDOS) */
 
-  if (s == NULL || s->mode != 'r') return Z_STREAM_ERROR;
+  if (s == nullptr || s->mode != 'r') return Z_STREAM_ERROR;
 
   if (s->z_err == Z_DATA_ERROR || s->z_err == Z_ERRNO) return -1;
   if (s->z_err == Z_STREAM_END) return 0;  /* EOF */
@@ -420,7 +420,7 @@ cc_gzm_read (void * file, void * buf, uint32_t len)
           cc_zlibglue_inflateReset(&(s->stream));
           s->stream.total_in = total_in;
           s->stream.total_out = total_out;
-          s->crc = cc_zlibglue_crc32(0L, NULL, 0);
+          s->crc = cc_zlibglue_crc32(0L, nullptr, 0);
         }
       }
     }
@@ -448,7 +448,7 @@ cc_gzm_getc(void * file)
    read, or a newline character is read and transferred to buf, or an
    end-of-file condition is encountered.  The string is then terminated
    with a null character.
-   gzgets returns buf, or NULL in case of error.
+   gzgets returns buf, or nullptr in case of error.
 
    The current implementation is not optimized at all.
 */
@@ -456,11 +456,11 @@ char *
 cc_gzm_gets(void * file, char * buf, int len)
 {
   char * b = buf;
-  if (buf == NULL || len <= 0) return NULL;
+  if (buf == nullptr || len <= 0) return nullptr;
 
   while (--len > 0 && cc_gzm_read(file, buf, 1) == 1 && *buf++ != '\n') ;
   *buf = '\0';
-  return b == buf && len > 0 ? NULL : b;
+  return b == buf && len > 0 ? nullptr : b;
 }
 
 #ifndef Z_NO_DEFLATE
@@ -474,7 +474,7 @@ cc_gzm_setparams(void * file, int level, int strategy)
 {
   cc_gzm_stream *s = (cc_gzm_stream*)file;
 
-  if (s == NULL || s->mode != 'w') return Z_STREAM_ERROR;
+  if (s == nullptr || s->mode != 'w') return Z_STREAM_ERROR;
 
   /* Make room to allow flushing */
   if (s->stream.avail_out == 0) {
@@ -496,7 +496,7 @@ cc_gzm_write(void * file, void * buf, unsigned int len)
 {
   cc_gzm_stream *s = (cc_gzm_stream*)file;
 
-  if (s == NULL || s->mode != 'w') return Z_STREAM_ERROR;
+  if (s == nullptr || s->mode != 'w') return Z_STREAM_ERROR;
 
   s->stream.next_in = (uint8_t*)buf;
   s->stream.avail_in = len;
@@ -553,7 +553,7 @@ static int do_flush (void * file, int flush)
   int done = 0;
   cc_gzm_stream *s = (cc_gzm_stream*)file;
 
-  if (s == NULL || s->mode != 'w') return Z_STREAM_ERROR;
+  if (s == nullptr || s->mode != 'w') return Z_STREAM_ERROR;
 
   s->stream.avail_in = 0; /* should be zero already anyway */
 
@@ -608,7 +608,7 @@ cc_gzm_seek(void * file, off_t offset, int whence)
 {
   cc_gzm_stream *s = (cc_gzm_stream*)file;
 
-  if (s == NULL || whence == SEEK_END ||
+  if (s == nullptr || whence == SEEK_END ||
       s->z_err == Z_ERRNO || s->z_err == Z_DATA_ERROR) {
     return -1L;
   }
@@ -623,7 +623,7 @@ cc_gzm_seek(void * file, off_t offset, int whence)
     if (offset < 0) return -1L;
 
     /* At this point, offset is the number of zero bytes to write. */
-    if (s->inbuf == NULL) {
+    if (s->inbuf == nullptr) {
       s->inbuf = (uint8_t*)Z_ALLOC(Z_BUFSIZE); /* for seeking */
       zmemzero(s->inbuf, Z_BUFSIZE);
     }
@@ -665,7 +665,7 @@ cc_gzm_seek(void * file, off_t offset, int whence)
   }
   /* offset is now the number of bytes to skip. */
 
-  if (offset != 0 && s->outbuf == NULL) {
+  if (offset != 0 && s->outbuf == nullptr) {
     s->outbuf = (uint8_t*)Z_ALLOC(Z_BUFSIZE);
   }
   while (offset > 0)  {
@@ -686,13 +686,13 @@ int cc_gzm_rewind(void * file)
 {
   cc_gzm_stream *s = (cc_gzm_stream*)file;
 
-  if (s == NULL || s->mode != 'r') return -1;
+  if (s == nullptr || s->mode != 'r') return -1;
 
   s->z_err = Z_OK;
   s->z_eof = 0;
   s->stream.avail_in = 0;
   s->stream.next_in = s->inbuf;
-  s->crc = cc_zlibglue_crc32(0L, NULL, 0);
+  s->crc = cc_zlibglue_crc32(0L, nullptr, 0);
 
   if (s->startpos == 0) { /* not a compressed file */
     s->memfile->currpos = 0;
@@ -721,7 +721,7 @@ int cc_gzm_eof(void * file)
 {
   cc_gzm_stream *s = (cc_gzm_stream*)file;
 
-  return (s == NULL || s->mode != 'r') ? 0 : s->z_eof;
+  return (s == nullptr || s->mode != 'r') ? 0 : s->z_eof;
 }
 
 #ifndef Z_NO_DEFLATE
@@ -766,7 +766,7 @@ int cc_gzm_close(void * file)
   int err;
   cc_gzm_stream *s = (cc_gzm_stream*)file;
 
-  if (s == NULL) return Z_STREAM_ERROR;
+  if (s == nullptr) return Z_STREAM_ERROR;
 
   if (s->mode == 'w') {
 #ifdef Z_NO_DEFLATE

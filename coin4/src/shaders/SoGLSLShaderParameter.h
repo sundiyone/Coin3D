@@ -30,7 +30,7 @@
 
 // *************************************************************************
 
-#include <stddef.h> // NULL
+#include <stddef.h> // nullptr
 
 #include <Inventor/SbString.h>
 
@@ -80,7 +80,7 @@ private:
   int32_t programid;
 
   bool isValid(const SoGLShaderObject * shader, const char * name,
-                 GLenum type, int * num = NULL);
+                 GLenum type, int * num = nullptr);
 };
 
 #endif /* ! COIN_SOGLSLSHADERPARAMETER_H */

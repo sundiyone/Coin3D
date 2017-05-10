@@ -113,10 +113,10 @@ SoSelectOne_valid_type(SoType t)
 */
 SoSelectOne::SoSelectOne(SoType inputtype)
 {
-  this->dynamicinput = NULL;
-  this->dynamicoutput = NULL;
-  this->input = NULL;
-  this->output = NULL;
+  this->dynamicinput = nullptr;
+  this->dynamicoutput = nullptr;
+  this->input = nullptr;
+  this->output = nullptr;
 
 #if COIN_DEBUG
   if (!SoSelectOne_valid_type(inputtype)) {
@@ -135,10 +135,10 @@ SoSelectOne::SoSelectOne(SoType inputtype)
 // used from import code or copy code.
 SoSelectOne::SoSelectOne(void)
 {
-  this->dynamicinput = NULL;
-  this->dynamicoutput = NULL;
-  this->input = NULL;
-  this->output = NULL;
+  this->dynamicinput = nullptr;
+  this->dynamicoutput = nullptr;
+  this->input = nullptr;
+  this->output = nullptr;
 }
 
 // Set up the input and output fields of the engine. This is done from
@@ -147,7 +147,7 @@ SoSelectOne::SoSelectOne(void)
 void
 SoSelectOne::initialize(const SoType inputfieldtype)
 {
-  assert(this->input == NULL);
+  assert(this->input == nullptr);
   assert(SoSelectOne_valid_type(inputfieldtype));
 
   SO_ENGINE_INTERNAL_CONSTRUCTOR(SoSelectOne);
@@ -164,7 +164,7 @@ SoSelectOne::initialize(const SoType inputfieldtype)
   // Built-in fields always start with the "MF", but we try to handle
   // user-defined fields aswell.
   const char * ptr = strstr(multiname.getString(), "MF");
-  assert(ptr != NULL && "invalid input field type");
+  assert(ptr != nullptr && "invalid input field type");
   const ptrdiff_t offset = ptr - multiname.getString();
   SbString singlename = (offset == 0) ? SbString("") : multiname.getSubString(0, int(offset - 1));
   singlename += 'S';

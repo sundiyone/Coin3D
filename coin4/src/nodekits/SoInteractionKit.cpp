@@ -172,7 +172,7 @@ public:
 #endif // DOXYGEN_SKIP_THIS
 
 
-static SbList <SoNode*> * defaultdraggerparts = NULL;
+static SbList <SoNode*> * defaultdraggerparts = nullptr;
 
 
 //
@@ -194,7 +194,7 @@ static void
 interactionkit_cleanup(void)
 {
   delete defaultdraggerparts;
-  defaultdraggerparts = NULL;
+  defaultdraggerparts = nullptr;
 }
 
 #define PRIVATE(obj) ((obj)->pimpl)
@@ -232,7 +232,7 @@ SoInteractionKit::SoInteractionKit(void)
 
   SO_KIT_INIT_INSTANCE();
 
-  PRIVATE(this)->connectedseparator = NULL;
+  PRIVATE(this)->connectedseparator = nullptr;
   PRIVATE(this)->fieldsensor = new SoFieldSensor(SoInteractionKit::fieldSensorCB, PRIVATE(this));
   PRIVATE(this)->fieldsensor->setPriority(0);
 
@@ -262,7 +262,7 @@ SoInteractionKit::initClass(void)
 
 /*!
   Sets a part in the kit as a surrogate path. The \a partname part is
-  set to \c NULL, and the surrogate path is remembered. Following
+  set to \c nullptr, and the surrogate path is remembered. Following
   picks on the surrogate path will be regarded as a pick on \a
   partname.
 */
@@ -374,7 +374,7 @@ SoInteractionKit::isPathSurrogateInMySubgraph(const SoPath * path)
 void
 SoInteractionKit::setSwitchValue(SoNode * node, const int newVal)
 {
-  if (node == NULL) return;
+  if (node == nullptr) return;
   assert(node->isOfType(SoSwitch::getClassTypeId()));
   SoSwitch * mySwitch = (SoSwitch *)node;
   if (mySwitch->whichChild.getValue() != newVal) {
@@ -410,7 +410,7 @@ SoInteractionKit::readInstance(SoInput * in, unsigned short flags)
 {
   bool ret = inherited::readInstance(in, flags); // will handle fields
   if (ret) {
-    // remove surrogate paths where part != NULL and not an empty
+    // remove surrogate paths where part != nullptr and not an empty
     // group or separator
     int n = PRIVATE(this)->surrogatenamelist.getLength();
     for (int i = 0; i < n; i++) {
@@ -458,7 +458,7 @@ SoInteractionKit::readDefaultParts(const char * fileName,
   // seem to remember that SGI Inventor works this way. 20020322 mortene.
 
   SoInput input;
-  SoNode * root = NULL;
+  SoNode * root = nullptr;
 
   const char * draggerdir = coin_getenv("SO_DRAGGER_DIR");
 
@@ -632,7 +632,7 @@ SoInteractionKit::setAnySurrogatePath(const SbName & partname,
         // replace with empty group to keep switch numbering
         kit->setPart(partNum, (SoNode *)type.createInstance());
       }
-      else { // set to NULL and update switch numbering
+      else { // set to nullptr and update switch numbering
         SoSwitch * sw = (SoSwitch *)parent;
         int whichChild = sw->whichChild.getValue();
         int partIdx = sw->findChild(node);
@@ -642,12 +642,12 @@ SoInteractionKit::setAnySurrogatePath(const SbName & partname,
         else if (partIdx < whichChild) {
           sw->whichChild.setValue(whichChild-1);
         }
-        kit->setPart(partNum, NULL);
+        kit->setPart(partNum, nullptr);
       }
     }
     else {
-      // set part to NULL
-      kit->setPart(partNum, NULL);
+      // set part to nullptr
+      kit->setPart(partNum, nullptr);
     }
     // add the path
     ((SoInteractionKit *)kit)->pimpl->addSurrogatePath(path, catalog->getName(partNum));
@@ -839,7 +839,7 @@ SoInteractionKitP::connectFields(const bool onoff)
     this->connectedseparator->renderCulling.disconnect();
     this->connectedseparator->pickCulling.disconnect();
     this->connectedseparator->unref();
-    this->connectedseparator = NULL;
+    this->connectedseparator = nullptr;
   }
   if (onoff) {
     SoSeparator * sep = (SoSeparator*) this->kit->topSeparator.getValue();

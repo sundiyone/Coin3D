@@ -150,7 +150,7 @@ int
 SoNodeEngine::getOutputs(SoEngineOutputList & l) const
 {
   const SoEngineOutputData * outputs = this->getOutputData();
-  if (outputs == NULL) return 0;
+  if (outputs == nullptr) return 0;
 
   int n = outputs->getNumOutputs();
   for (int i = 0; i < n; i++) {
@@ -160,20 +160,20 @@ SoNodeEngine::getOutputs(SoEngineOutputList & l) const
 }
 
 /*!
-  Returns the output with name \a outputname, or \c NULL if no such
+  Returns the output with name \a outputname, or \c nullptr if no such
   output exists.
 */
 SoEngineOutput *
 SoNodeEngine::getOutput(const SbName & outputname) const
 {
   const SoEngineOutputData * outputs = this->getOutputData();
-  if (outputs == NULL) return NULL;
+  if (outputs == nullptr) return nullptr;
   int n = outputs->getNumOutputs();
   for (int i = 0; i < n; i++) {
     if (outputs->getOutputName(i) == outputname)
       return outputs->getOutput(this, i);
   }
-  return NULL;
+  return nullptr;
 }
 
 /*!
@@ -185,7 +185,7 @@ SoNodeEngine::getOutputName(const SoEngineOutput * output,
                         SbName & outputname) const
 {
   const SoEngineOutputData * outputs = this->getOutputData();
-  if (outputs == NULL) return false;
+  if (outputs == nullptr) return false;
 
   int n = outputs->getNumOutputs();
   for (int i = 0; i < n; i++) {
@@ -274,7 +274,7 @@ SoNodeEngine::evaluateWrapper(void)
 const SoFieldData **
 SoNodeEngine::getFieldDataPtr(void)
 {
-  return NULL; // base class has no input
+  return nullptr; // base class has no input
 }
 
 /*!
@@ -284,7 +284,7 @@ SoNodeEngine::getFieldDataPtr(void)
 const SoEngineOutputData **
 SoNodeEngine::getOutputDataPtr(void)
 {
-  return NULL; // base class has no output
+  return nullptr; // base class has no output
 }
 
 // Documented in superclass.

@@ -145,7 +145,7 @@ SoNurbsP<Master>::tessBegin(int type, void * data)
 #endif // debug
     break;
   }
-  cbdata->thisp->beginShape(cbdata->action, shapetype, NULL);
+  cbdata->thisp->beginShape(cbdata->action, shapetype, nullptr);
 }
 
 

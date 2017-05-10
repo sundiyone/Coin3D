@@ -79,7 +79,7 @@
     root->ref();
 
     SoIntersectionDetectionAction ida;
-    ida.addIntersectionCallback(intersectionCB, NULL);
+    ida.addIntersectionCallback(intersectionCB, nullptr);
     ida.setManipsEnabled(false);
     ida.setDraggersEnabled(false);
     ida.setIntersectionDetectionEpsilon(10.0f);
@@ -261,9 +261,9 @@ SoIntersectionDetectionAction::PImpl::PImpl(void)
   this->draggersenabled = true;
   this->manipsenabled = true;
   this->internalsenabled = false;
-  this->filtercb = NULL;
-  this->filterclosure = NULL;
-  this->traverser = NULL;
+  this->filtercb = nullptr;
+  this->filterclosure = nullptr;
+  this->traverser = nullptr;
   this->prunetypes = new SoTypeList;
   this->traversaltypes = new SoTypeList;
 }
@@ -730,8 +730,8 @@ class PrimitiveData {
 public:
   PrimitiveData(void)
   {
-    this->path = NULL;
-    this->octtree = NULL;
+    this->path = nullptr;
+    this->octtree = nullptr;
   }
 
   ~PrimitiveData()
@@ -742,12 +742,12 @@ public:
 
 
   const SbOctTree * getOctTree(void) {
-    if (this->octtree == NULL) {
+    if (this->octtree == nullptr) {
       const SbOctTreeFuncs funcs = {
-        NULL /* ptinsidefunc */,
+        nullptr /* ptinsidefunc */,
         PrimitiveData::insideboxfunc,
-        NULL /* insidespherefunc */,
-        NULL /* insideplanesfunc */
+        nullptr /* insidespherefunc */,
+        nullptr /* insideplanesfunc */
       };
 
       SbBox3f b = this->getBoundingBox();
@@ -786,7 +786,7 @@ public:
 
   void addTriangle(SbTri3f * t)
   {
-    assert(this->octtree == NULL && "all triangles must be added before making octtree");
+    assert(this->octtree == nullptr && "all triangles must be added before making octtree");
     this->triangles.append(t);
     this->bbox.extendBy(t->getBoundingBox());
   }
@@ -821,7 +821,7 @@ class ShapeData {
 public:
   ShapeData(void)
   {
-    this->primitives = NULL;
+    this->primitives = nullptr;
   }
 
   ~ShapeData()
@@ -1003,9 +1003,9 @@ SoIntersectionDetectionAction::PImpl::reset(void)
     delete data;
   }
   this->shapedata.truncate(0);
-  if (this->traverser != NULL) {
+  if (this->traverser != nullptr) {
     delete this->traverser;
-    this->traverser = NULL;
+    this->traverser = nullptr;
   }
   this->traverser = new SoCallbackAction;
 #ifdef HAVE_DRAGGERS
@@ -1016,7 +1016,7 @@ SoIntersectionDetectionAction::PImpl::reset(void)
                                   traverseCB, this);
   for (i = 0; i < this->prunetypes->getLength(); i++)
     this->traverser->addPreCallback((*(this->prunetypes))[i],
-                                    pruneCB, NULL);
+                                    pruneCB, nullptr);
   this->traverser->addPreCallback(SoShape::getClassTypeId(),
                                   shapeCB, this);
 }
@@ -1165,7 +1165,7 @@ SoIntersectionDetectionAction::PImpl::doIntersectionTesting(void)
   }
 
   delete this->traverser;
-  this->traverser = NULL;
+  this->traverser = nullptr;
 
   if (ida_debug()) {
     SoDebugError::postInfo("SoIntersectionDetectionAction::PImpl::doIntersectionTesting",
@@ -1175,10 +1175,10 @@ SoIntersectionDetectionAction::PImpl::doIntersectionTesting(void)
   }
 
   const SbOctTreeFuncs funcs = {
-    NULL /* ptinsidefunc */,
+    nullptr /* ptinsidefunc */,
     shapeinsideboxfunc,
-    NULL /* insidespherefunc */,
-    NULL /* insideplanesfunc */
+    nullptr /* insidespherefunc */,
+    nullptr /* insideplanesfunc */
   };
 
   SbBox3f b = this->fullxfbbox.project();

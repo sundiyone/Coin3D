@@ -209,7 +209,7 @@ SoPointLightDragger::setUpConnections(bool onoff, bool doitalways)
   else {
     SoDragger * child = coin_assert_cast<SoDragger *>(this->getAnyPart("translator", false));
     this->unregisterChildDragger(child);
-    if (this->fieldSensor->getAttachedField() != NULL) {
+    if (this->fieldSensor->getAttachedField() != nullptr) {
       this->fieldSensor->detach();
     }
     inherited::setUpConnections(onoff, doitalways);

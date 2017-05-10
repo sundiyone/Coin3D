@@ -68,7 +68,7 @@ ScXMLAnchorEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocum
   // handle XML attributes
   if (unlikely(!anchor->handleXMLAttributes())) {
     delete anchor;
-    return NULL;
+    return nullptr;
   }
 
   const int numchildren = cc_xml_elt_get_num_children(xmlelt);
@@ -85,7 +85,7 @@ ScXMLAnchorEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocum
                        "unexpected XML element '<%s>' found in <anchor>",
                        elementtype);
     delete anchor;
-    return NULL;
+    return nullptr;
   }
 
   return anchor;
@@ -116,15 +116,15 @@ ScXMLAnchorElt::cleanClass(void)
 }
 
 ScXMLAnchorElt::ScXMLAnchorElt(void)
-: type(NULL),
-  snapshot(NULL)
+: type(nullptr),
+  snapshot(nullptr)
 {
 }
 
 ScXMLAnchorElt::~ScXMLAnchorElt(void)
 {
-  this->setTypeAttribute(NULL);
-  this->setSnapshotAttribute(NULL);
+  this->setTypeAttribute(nullptr);
+  this->setSnapshotAttribute(nullptr);
 }
 
 void
@@ -147,7 +147,7 @@ ScXMLAnchorElt::handleXMLAttributes(void)
   this->setTypeAttribute(this->getXMLAttribute("type"));
   this->setSnapshotAttribute(this->getXMLAttribute("snapshot"));
 
-  if (this->type == NULL) {
+  if (this->type == nullptr) {
     return false;
   }
 
@@ -180,7 +180,7 @@ ScXMLAnchorElt::search(const char * attrname, const char * attrvalue) const
       return this;
     }
   }
-  return NULL;
+  return nullptr;
 }
 
 #undef PRIVATE

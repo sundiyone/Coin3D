@@ -34,7 +34,7 @@
 
 static cc_debugerror_cb * dbgerr_callback =
   reinterpret_cast<cc_debugerror_cb *>(cc_error_default_handler_cb);
-static void * dbgerr_callback_data = NULL;
+static void * dbgerr_callback_data = nullptr;
 static bool dbgerr_cleanup_function_set = false;
 
 extern "C" {
@@ -43,7 +43,7 @@ static void
 debugerror_cleanup(void)
 {
   dbgerr_callback = reinterpret_cast<cc_debugerror_cb *>(cc_error_default_handler_cb);
-  dbgerr_callback_data = NULL;
+  dbgerr_callback_data = nullptr;
   dbgerr_cleanup_function_set = false;
 }
 

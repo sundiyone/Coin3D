@@ -262,12 +262,12 @@ SoTextureCubeMap::SoTextureCubeMap(void)
   SO_NODE_INTERNAL_CONSTRUCTOR(SoTextureCubeMap);
 
   SO_NODE_ADD_FIELD(filenames, (""));
-  SO_NODE_ADD_FIELD(imagePosX, (SbVec2s(0, 0), 0, NULL));
-  SO_NODE_ADD_FIELD(imageNegX, (SbVec2s(0, 0), 0, NULL));
-  SO_NODE_ADD_FIELD(imagePosY, (SbVec2s(0, 0), 0, NULL));
-  SO_NODE_ADD_FIELD(imageNegY, (SbVec2s(0, 0), 0, NULL));
-  SO_NODE_ADD_FIELD(imagePosZ, (SbVec2s(0, 0), 0, NULL));
-  SO_NODE_ADD_FIELD(imageNegZ, (SbVec2s(0, 0), 0, NULL));
+  SO_NODE_ADD_FIELD(imagePosX, (SbVec2s(0, 0), 0, nullptr));
+  SO_NODE_ADD_FIELD(imageNegX, (SbVec2s(0, 0), 0, nullptr));
+  SO_NODE_ADD_FIELD(imagePosY, (SbVec2s(0, 0), 0, nullptr));
+  SO_NODE_ADD_FIELD(imageNegY, (SbVec2s(0, 0), 0, nullptr));
+  SO_NODE_ADD_FIELD(imagePosZ, (SbVec2s(0, 0), 0, nullptr));
+  SO_NODE_ADD_FIELD(imageNegZ, (SbVec2s(0, 0), 0, nullptr));
   SO_NODE_ADD_FIELD(wrapS, (REPEAT));
   SO_NODE_ADD_FIELD(wrapT, (REPEAT));
   SO_NODE_ADD_FIELD(model, (MODULATE));
@@ -288,7 +288,7 @@ SoTextureCubeMap::SoTextureCubeMap(void)
   this->filenames.setNum(0);
   this->filenames.setDefault(0);
 
-  PRIVATE(this)->glimage = NULL;
+  PRIVATE(this)->glimage = nullptr;
   PRIVATE(this)->glimagevalid = false;
   PRIVATE(this)->readstatus = 1;
 
@@ -307,7 +307,7 @@ SoTextureCubeMap::SoTextureCubeMap(void)
 */
 SoTextureCubeMap::~SoTextureCubeMap()
 {
-  if (PRIVATE(this)->glimage) PRIVATE(this)->glimage->unref(NULL);
+  if (PRIVATE(this)->glimage) PRIVATE(this)->glimage->unref(nullptr);
   delete PRIVATE(this)->filenames_sensor;
   delete PRIVATE(this);
 }
@@ -433,7 +433,7 @@ SoTextureCubeMap::GLRender(SoGLRenderAction * action)
   int maxunits = cc_glglue_max_texture_units(glue);
   if (unit < maxunits) {
     SoGLMultiTextureImageElement::set(state, this, unit,
-                                      PRIVATE(this)->glimagevalid ? PRIVATE(this)->glimage : NULL,
+                                      PRIVATE(this)->glimagevalid ? PRIVATE(this)->glimage : nullptr,
                                       glmodel,
                                       this->blendColor.getValue());
     if (quality > 0.0f && PRIVATE(this)->glimagevalid) {
@@ -634,7 +634,7 @@ SoTextureCubeMap::filenameSensorCB(void * data, SoSensor * COIN_UNUSED_ARG(s))
 SoSFImage * 
 SoTextureCubeMap::getImageField(const int idx)
 {
-  SoSFImage * img = NULL;
+  SoSFImage * img = nullptr;
   switch (idx) {
   default:
   case 0: img = &this->imageNegX; break;

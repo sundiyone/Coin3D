@@ -96,7 +96,7 @@ cc_storage_hash_destruct_cb(uintptr_t COIN_UNUSED_ARG(key), void * val, void * c
 cc_storage *
 cc_storage_construct(unsigned int size)
 {
-  return cc_storage_init(size, NULL, NULL);
+  return cc_storage_init(size, nullptr, nullptr);
 }
 
 cc_storage *
@@ -112,7 +112,7 @@ cc_storage_construct_etc(unsigned int size,
 void
 cc_storage_destruct(cc_storage * storage)
 {
-  assert(storage != NULL);
+  assert(storage != nullptr);
 
   cc_dict_apply(storage->dict, cc_storage_hash_destruct_cb, storage);
   cc_dict_destruct(storage->dict);

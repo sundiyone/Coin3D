@@ -55,7 +55,7 @@ cc_barrier_construct(unsigned int count)
 void
 cc_barrier_destruct(cc_barrier * barrier)
 {
-  assert(barrier != NULL);
+  assert(barrier != nullptr);
          
   cc_condvar_wake_all(barrier->condvar);
   cc_condvar_destruct(barrier->condvar);
@@ -69,7 +69,7 @@ cc_barrier_destruct(cc_barrier * barrier)
 int
 cc_barrier_enter(cc_barrier * barrier)
 {
-  assert(barrier != NULL);
+  assert(barrier != nullptr);
   cc_mutex_lock(barrier->mutex);
   barrier->counter++;
   if (barrier->counter == barrier->numthreads) {

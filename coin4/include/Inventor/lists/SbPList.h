@@ -26,7 +26,6 @@
 
 #include <Inventor/SbBasic.h>
 #include <assert.h>
-#include <stddef.h> // NULL definition
 
 class COIN_DLL_API SbPList {
   enum { DEFAULTSIZE = 4 };

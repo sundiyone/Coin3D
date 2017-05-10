@@ -102,8 +102,8 @@ static void soglcachecontext_cleanup(void)
   CC_MUTEX_DESTRUCT(glcache_mutex);
 
   if (soglcache_contextdestructioncb) {
-    SoContextHandler::removeContextDestructionCallback(soglcache_contextdestructioncb, NULL);
-    soglcache_contextdestructioncb = NULL;
+    SoContextHandler::removeContextDestructionCallback(soglcache_contextdestructioncb, nullptr);
+    soglcache_contextdestructioncb = nullptr;
   }
 
   biggest_cache_context_id = 0;
@@ -169,7 +169,7 @@ SoGLCacheContextElement::initClass(void)
   // initClass() to make it work properly when destructing a
   // context. See comments in SoContextHandler.cpp for more
   // information.
-  SoContextHandler::addContextDestructionCallback(cleanupContext, NULL);
+  SoContextHandler::addContextDestructionCallback(cleanupContext, nullptr);
   soglcache_contextdestructioncb = cleanupContext;
 }
 
@@ -238,7 +238,7 @@ SoGLCacheContextElement::set(SoState * state, int context,
   if (remoterendering) elem->autocachebits = DO_AUTO_CACHE;
 
   // really delete GL resources scheduled for destruction
-  SoGLCacheContextElement::cleanupContext((uint32_t) context, NULL);
+  SoGLCacheContextElement::cleanupContext((uint32_t) context, nullptr);
 }
 
 /*!

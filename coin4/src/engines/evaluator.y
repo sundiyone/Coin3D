@@ -107,7 +107,7 @@ expression    : expression ';' subexpression
               | subexpression { root_node = $1; $$ = $1; }
               ;
 
-subexpression : { $$ = NULL }
+subexpression : { $$ = nullptr }
               | fltlhs '=' fltstatement { $$ = so_eval_create_binary(ID_ASSIGN_FLT, $1, $3); }
               | veclhs '=' vecstatement { $$ = so_eval_create_binary(ID_ASSIGN_VEC, $1, $3); }
               ;
@@ -242,17 +242,17 @@ so_eval_parse(const char *buffer)
 {
   /* FIXME: better error handling is obviously needed */
   YY_BUFFER_STATE state;
-  myerrorptr = NULL;
-  root_node = NULL;
+  myerrorptr = nullptr;
+  root_node = nullptr;
   state = so_eval_scan_string(buffer); /* flex routine */
   so_evalparse(); /* start parsing */
   so_eval_delete_buffer(state); /* flex routine */
-  if (myerrorptr) return NULL;
+  if (myerrorptr) return nullptr;
   return root_node;
 }
 
 /*
- * Returns current error message or NULL if none.
+ * Returns current error message or nullptr if none.
  *
  * Note: don't "const" the return type, as that will trigger a bug in
  * Microsoft Visual C++ v6.0. 20000606 mortene.
@@ -273,6 +273,6 @@ so_evalerror(char *myerr)
   myerrorbuf[511] = 0; /* just in case string was too long */
   myerrorptr = myerrorbuf; /* signal error */
   so_eval_delete(root_node); /* free memory used */
-  root_node = NULL;
+  root_node = nullptr;
   return 0;
 }

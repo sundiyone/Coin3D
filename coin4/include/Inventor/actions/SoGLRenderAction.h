@@ -117,8 +117,8 @@ public:
   int getSortedLayersNumPasses(void) const;
 
   void setSortedObjectOrderStrategy(const SortedObjectOrderStrategy strategy,
-                                    SoGLSortedObjectOrderCB * cb = NULL,
-                                    void * closure = NULL);
+                                    SoGLSortedObjectOrderCB * cb = nullptr,
+                                    void * closure = nullptr);
 
   void setDelayedObjDepthWrite(bool write);
   bool getDelayedObjDepthWrite(void) const;

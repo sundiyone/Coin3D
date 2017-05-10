@@ -74,7 +74,7 @@ SoTextOutlineEnabledElement::set(SoState * const state,
 void
 SoTextOutlineEnabledElement::set(SoState * const state, const bool enabled)
 {
-  set(state, NULL, enabled);
+  set(state, nullptr, enabled);
 }
 
 /*!

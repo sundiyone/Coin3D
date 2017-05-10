@@ -301,7 +301,7 @@ SoVRMLTouchSensor::handleEvent(SoHandleEventAction * action)
   if (mousemove || buttondown || buttonup) {
     bool isover = false;
     const SoPickedPoint * pp = action->getPickedPoint();
-    SoNode * parentnode = NULL;
+    SoNode * parentnode = nullptr;
     if (pp) {
       const SoFullPath * currpath = (const SoFullPath*) action->getCurPath();
       SoFullPath * parentpath = (SoFullPath*) currpath->copy(0, currpath->getLength()-1);

@@ -58,13 +58,13 @@ bool cglglue_context_is_using_pbuffer(void * COIN_UNUSED_ARG(ctx))
 
 void * cglglue_getprocaddress(const char * COIN_UNUSED_ARG(fname))
 {
-  assert(false); return NULL;
+  assert(false); return nullptr;
 }
 
 void * cglglue_context_create_offscreen(unsigned int COIN_UNUSED_ARG(width), 
                                         unsigned int COIN_UNUSED_ARG(height))
 { 
-  assert(false); return NULL; 
+  assert(false); return nullptr; 
 }
 
 bool cglglue_context_make_current(void * COIN_UNUSED_ARG(ctx))
@@ -115,10 +115,10 @@ typedef CGLError (* COIN_CGLTEXIMAGEPBUFFER) (CGLContextObj ctx,
                                                CGLPBufferObj pbuffer, 
                                                GLenum source);
 
-static COIN_CGLCREATEPBUFFER cglglue_CGLCreatePBuffer = NULL;
-static COIN_CGLDESTROYPBUFFER cglglue_CGLDestroyPBuffer = NULL;
-static COIN_CGLSETPBUFFER cglglue_CGLSetPBuffer = NULL;
-static COIN_CGLTEXIMAGEPBUFFER cglglue_CGLTexImagePBuffer = NULL;
+static COIN_CGLCREATEPBUFFER cglglue_CGLCreatePBuffer = nullptr;
+static COIN_CGLDESTROYPBUFFER cglglue_CGLDestroyPBuffer = nullptr;
+static COIN_CGLSETPBUFFER cglglue_CGLSetPBuffer = nullptr;
+static COIN_CGLTEXIMAGEPBUFFER cglglue_CGLTexImagePBuffer = nullptr;
 
 struct cglglue_contextdata;
 
@@ -169,12 +169,12 @@ cglglue_contextdata_init(unsigned int width, unsigned int height)
   struct cglglue_contextdata * ctx;
   ctx = (struct cglglue_contextdata *)malloc(sizeof(struct cglglue_contextdata));
 
-  ctx->storedcontext = NULL;
+  ctx->storedcontext = nullptr;
   ctx->rowbytes = 0;
-  ctx->membuffer = NULL;
-  ctx->cglcontext = NULL;
-  ctx->pixformat = NULL;
-  ctx->cglpbuffer = NULL; 
+  ctx->membuffer = nullptr;
+  ctx->cglcontext = nullptr;
+  ctx->pixformat = nullptr;
+  ctx->cglpbuffer = nullptr; 
   ctx->width = width;
   ctx->height = height;
   ctx->pbufferisbound = false;
@@ -201,7 +201,7 @@ cglglue_context_create_software(struct cglglue_contextdata * ctx)
     kCGLPFAAlphaSize, 8,
     kCGLPFADepthSize, 24,
     kCGLPFAStencilSize, 1,
-    NULL
+    nullptr
   };
 
   /* FIXME: the following is a hack to get around a problem which
@@ -249,7 +249,7 @@ cglglue_context_create_software(struct cglglue_contextdata * ctx)
     return false;
   }
   
-  err = CGLCreateContext(ctx->pixformat, NULL, &ctx->cglcontext);
+  err = CGLCreateContext(ctx->pixformat, nullptr, &ctx->cglcontext);
   if (err != kCGLNoError || !ctx->cglcontext) {
     cc_debugerror_postwarning("cglglue_context_create_software",
                               "Couldn't create CGL context. %s",
@@ -305,7 +305,7 @@ cglglue_context_create_pbuffer(struct cglglue_contextdata * ctx)
     kCGLPFAClosestPolicy, 
     kCGLPFAAccelerated, 
     kCGLPFANoRecovery,
-    NULL
+    nullptr
   };
 
   /* FIXME: this is a hack. See comment elsewhere in the file where
@@ -343,7 +343,7 @@ cglglue_context_create_pbuffer(struct cglglue_contextdata * ctx)
   
   if (!ctx->pixformat) return false;
 
-  err = CGLCreateContext (ctx->pixformat, NULL, &ctx->cglcontext);
+  err = CGLCreateContext (ctx->pixformat, nullptr, &ctx->cglcontext);
   if (err != kCGLNoError || !ctx->cglcontext) {
     cc_debugerror_post("cglglue_context_create_pbuffer",
                        "Couldn't create CGL context: %s", 
@@ -388,10 +388,10 @@ cglglue_context_create_offscreen(unsigned int width, unsigned int height)
   bool ok, pbuffer = false, ispbuffer = false;
 
   ctx = cglglue_contextdata_init(width, height);
-  if (!ctx) return NULL;
+  if (!ctx) return nullptr;
 
   /* Use cached function pointer for pBuffer vs SW context creation... */
-  if (cglglue_context_create != NULL) {
+  if (cglglue_context_create != nullptr) {
 
     ispbuffer = (cglglue_context_create == cglglue_context_create_pbuffer);
 
@@ -409,7 +409,7 @@ cglglue_context_create_offscreen(unsigned int width, unsigned int height)
       if (cglglue_context_create_software(ctx)) { return ctx; } 
       cglglue_contextdata_cleanup(ctx);
     }
-    return NULL;
+    return nullptr;
   }
 
   /* ... but the first time around, we have to figure out. */
@@ -429,7 +429,7 @@ cglglue_context_create_offscreen(unsigned int width, unsigned int height)
     return ctx;
   } else {
     cglglue_contextdata_cleanup(ctx);
-    return NULL;
+    return nullptr;
   }
 }
 
@@ -514,7 +514,7 @@ cglglue_context_reinstate_previous(void * ctx)
   } else { /* pBuffer support available */
 
     if (context->storedcontext) CGLSetCurrentContext(context->storedcontext);
-    else CGLSetCurrentContext(NULL);
+    else CGLSetCurrentContext(nullptr);
 
   } 
 }
@@ -575,25 +575,25 @@ bool
 cglglue_context_can_render_to_texture(void * ctx)
 {
   struct cglglue_contextdata * context = (struct cglglue_contextdata *)ctx;
-  return context->cglpbuffer != NULL;
+  return context->cglpbuffer != nullptr;
 }
 
 void 
 cglglue_cleanup(void)
 {
-  cglglue_CGLCreatePBuffer = NULL;
-  cglglue_CGLDestroyPBuffer = NULL;
-  cglglue_CGLSetPBuffer = NULL;
-  cglglue_CGLTexImagePBuffer = NULL;
+  cglglue_CGLCreatePBuffer = nullptr;
+  cglglue_CGLDestroyPBuffer = nullptr;
+  cglglue_CGLSetPBuffer = nullptr;
+  cglglue_CGLTexImagePBuffer = nullptr;
 
-  cglglue_context_create = NULL;
+  cglglue_context_create = nullptr;
 }
 
 // used to look up CGL specific functions
 void * 
 cglglue_getprocaddress(const char * fname)
 {
-  void * ret = NULL;
+  void * ret = nullptr;
   cc_libhandle h = cc_dl_handle_with_gl_symbols();
   if (h) {
     ret = cc_dl_sym(h, fname);

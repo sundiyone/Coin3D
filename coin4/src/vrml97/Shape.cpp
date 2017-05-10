@@ -36,8 +36,8 @@
 
   \verbatim
   Shape {
-    exposedField SFNode appearance NULL
-    exposedField SFNode geometry   NULL
+    exposedField SFNode appearance nullptr
+    exposedField SFNode geometry   nullptr
   }
   \endverbatim
 
@@ -55,7 +55,7 @@
   (<http://www.web3d.org/x3d/specifications/vrml/ISO-IEC-14772-VRML97/part1/concepts.html#4.14>),
   contains details of the VRML lighting model and the interaction
   between Appearance nodes and geometry nodes.  If the geometry field
-  is NULL, the object is not drawn.
+  is nullptr, the object is not drawn.
 
 */
 
@@ -81,12 +81,12 @@
 
 /*!
   \var SoSFNode SoVRMLShape::appearance
-  Can store an SoVRMLAppearance node, or NULL.
+  Can store an SoVRMLAppearance node, or nullptr.
 */
 
 /*!
   \var SoSFNode SoVRMLShape::geometry
-  Can store any SoVRMLGeometry subclass, or NULL.
+  Can store any SoVRMLGeometry subclass, or nullptr.
 */
 
 /*!
@@ -183,8 +183,8 @@ SoVRMLShape::SoVRMLShape(void)
 
   SO_VRMLNODE_INTERNAL_CONSTRUCTOR(SoVRMLShape);
 
-  SO_VRMLNODE_ADD_EXPOSED_FIELD(appearance, (NULL));
-  SO_VRMLNODE_ADD_EXPOSED_FIELD(geometry, (NULL));
+  SO_VRMLNODE_ADD_EXPOSED_FIELD(appearance, (nullptr));
+  SO_VRMLNODE_ADD_EXPOSED_FIELD(geometry, (nullptr));
 
   SO_NODE_ADD_FIELD(renderCaching, (AUTO));
   SO_NODE_ADD_FIELD(boundingBoxCaching, (AUTO));
@@ -196,11 +196,11 @@ SoVRMLShape::SoVRMLShape(void)
   SO_NODE_SET_SF_ENUM_TYPE(renderCaching, CacheEnabled);
   SO_NODE_SET_SF_ENUM_TYPE(boundingBoxCaching, CacheEnabled);
 
-  // supply a NULL-pointer as parent, since notifications will be 
+  // supply a nullptr-pointer as parent, since notifications will be 
   // handled by the fields that actually contain the node(s)
-  PRIVATE(this)->childlist = new SoChildList(NULL);
+  PRIVATE(this)->childlist = new SoChildList(nullptr);
   PRIVATE(this)->childlistvalid = false;
-  PRIVATE(this)->cachelist = NULL;
+  PRIVATE(this)->cachelist = nullptr;
 }
 
 SoVRMLShape::~SoVRMLShape()
@@ -234,8 +234,8 @@ SoVRMLShape::doAction(SoAction * action)
   SoState * state = action->getState();
 
   if (state->isElementEnabled(SoLazyElement::getClassStackIndex())) {
-    if ((this->appearance.getValue() == NULL) ||
-        (((SoVRMLAppearance*)this->appearance.getValue())->material.getValue() == NULL)) {
+    if ((this->appearance.getValue() == nullptr) ||
+        (((SoVRMLAppearance*)this->appearance.getValue())->material.getValue() == nullptr)) {
       SoLazyElement::setLightModel(state, SoLazyElement::BASE_COLOR);
     }
   }
@@ -264,8 +264,8 @@ SoVRMLShape::GLRender(SoGLRenderAction * action)
   SoState * state = action->getState();
   state->push();
 
-  if ((this->appearance.getValue() == NULL) ||
-      (((SoVRMLAppearance*)this->appearance.getValue())->material.getValue() == NULL)) {
+  if ((this->appearance.getValue() == nullptr) ||
+      (((SoVRMLAppearance*)this->appearance.getValue())->material.getValue() == nullptr)) {
     SoLazyElement::setLightModel(state, SoLazyElement::BASE_COLOR);
   }
 

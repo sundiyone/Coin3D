@@ -32,8 +32,8 @@
 static int
 win32_mutex_struct_init(cc_mutex * mutex_struct)
 {
-  mutex_struct->w32thread.mutexhandle = CreateMutex(NULL, false, NULL);
-  if (mutex_struct->w32thread.mutexhandle == NULL) {
+  mutex_struct->w32thread.mutexhandle = CreateMutex(nullptr, false, nullptr);
+  if (mutex_struct->w32thread.mutexhandle == nullptr) {
     if (COIN_DEBUG) {
       cc_win32_print_error("win32_mutex_struct_init",
                            "CreateMutex()", GetLastError());

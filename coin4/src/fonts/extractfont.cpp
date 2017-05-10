@@ -26,8 +26,8 @@
 int
 main(int argc, char ** argv)
 {
-  setbuf(stdout, NULL);
-  setbuf(stderr, NULL);
+  setbuf(stdout, nullptr);
+  setbuf(stderr, nullptr);
 
   static unsigned char charset[256];
   int c;
@@ -84,7 +84,7 @@ main(int argc, char ** argv)
   fprintf(stderr, "chars/line:  %d\n", charsperline);
 
 
-  s_image * image = s_image_load(imgfile, NULL);
+  s_image * image = s_image_load(imgfile, nullptr);
 
   if ( !image ) {
     printf("error: could not open file %s\n", imgfile);

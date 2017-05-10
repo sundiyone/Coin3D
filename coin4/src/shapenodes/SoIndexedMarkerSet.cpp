@@ -186,7 +186,7 @@ SoIndexedMarkerSet::GLRender(SoGLRenderAction * action)
 
   mbind = this->findMaterialBinding(state);
   //if we don't have explicit material indices, use coord indices:
-  if (mbind == PER_VERTEX_INDEXED && mindices == NULL) mindices = cindices;
+  if (mbind == PER_VERTEX_INDEXED && mindices == nullptr) mindices = cindices;
 
   const SoGLCoordinateElement * glcoords = dynamic_cast<const SoGLCoordinateElement *>(coords);
   assert(glcoords && "could not cast to SoGLCoordinateElement");

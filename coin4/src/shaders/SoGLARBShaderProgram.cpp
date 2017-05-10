@@ -38,8 +38,8 @@
 
 SoGLARBShaderProgram::SoGLARBShaderProgram(void)
 {
-  this->fragmentShader = NULL;
-  this->vertexShader = NULL;
+  this->fragmentShader = nullptr;
+  this->vertexShader = nullptr;
 }
 
 void
@@ -57,8 +57,8 @@ SoGLARBShaderProgram::addShaderObject(SoGLARBShaderObject * shaderObject)
 void
 SoGLARBShaderProgram::removeShaderObjects(void)
 {
-  this->vertexShader = NULL;
-  this->fragmentShader = NULL;
+  this->vertexShader = nullptr;
+  this->fragmentShader = nullptr;
 }
 
 void

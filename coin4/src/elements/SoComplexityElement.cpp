@@ -81,7 +81,7 @@ SoComplexityElement::set(SoState * const state, SoNode * const node,
 void
 SoComplexityElement::set(SoState * const state, const float complexity)
 {
-  set(state, NULL, complexity);
+  set(state, nullptr, complexity);
 }
 
 //! FIXME: write doc.

@@ -303,7 +303,7 @@ void
 SoChildList::traverse(SoAction * const action, const int first, const int last)
 {
   int i;
-  SoNode * node = NULL;
+  SoNode * node = nullptr;
 
   assert((first >= 0) && (first < this->getLength()) && "index out of bounds");
   assert((last >= 0) && (last < this->getLength()) && "index out of bounds");

@@ -35,7 +35,7 @@
 
 #include "upgraders/SoUpgrader.h"
 
-#include <stddef.h> // for NULL
+#include <stddef.h> // for nullptr
 #include <assert.h>
 
 #include <Inventor/SbName.h>
@@ -58,14 +58,14 @@
 //
 // FIXME: replace this with a real set datatype abstraction. 20050524 mortene.
 typedef SbHash<const char *, void *> NameSet;
-static NameSet * soupgrader_namedict = NULL;
+static NameSet * soupgrader_namedict = nullptr;
 static bool soupgrader_isinitialized = false;
 
 static void
 soupgrader_cleanup(void)
 {
   delete soupgrader_namedict;
-  soupgrader_namedict = NULL;
+  soupgrader_namedict = nullptr;
   soupgrader_isinitialized = false;
 }
 
@@ -78,7 +78,7 @@ soupgrader_add_to_namedict(const SbString & name)
   // Note: the SbString->SbName wrapping is necessary, or the const
   // char* will _not_ be valid upon the SbString going out of scope
   // (while SbName makes permanent const char* references).
-  soupgrader_namedict->put(SbName(name.getString()).getString(), NULL);
+  soupgrader_namedict->put(SbName(name.getString()).getString(), nullptr);
 
   // Create lookup both with and without the "So" prefix. This is
   // necessary for the hash lookup in soupgrader_exists() to match
@@ -95,7 +95,7 @@ soupgrader_add_to_namedict(const SbString & name)
 
   // Note: the SbString->SbName wrapping is necessary, see above
   // comment.
-  soupgrader_namedict->put(SbName(tmp.getString()).getString(), NULL);
+  soupgrader_namedict->put(SbName(tmp.getString()).getString(), nullptr);
 }
 
 static bool
@@ -130,7 +130,7 @@ soupgrader_init_classes(void)
 /*!
   Try creating a node of name \a name with Inventor version \a ivversion.
 
-  Returns NULL if no such node exists.
+  Returns nullptr if no such node exists.
 */
 SoBase *
 SoUpgrader::tryCreateNode(const SbName & name, const float ivversion)
@@ -154,7 +154,7 @@ SoUpgrader::tryCreateNode(const SbName & name, const float ivversion)
       }
     }
   }
-  return NULL;
+  return nullptr;
 }
 
 /*!
@@ -181,7 +181,7 @@ SoUpgrader::createUpgrade(const SoBase * base)
                        "No upgrade functionality available for %s",
                        type.getName().getString());
   }
-  return NULL;
+  return nullptr;
 }
 
 #undef SOUPGRADER_ADD_TYPE

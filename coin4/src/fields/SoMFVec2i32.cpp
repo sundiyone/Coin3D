@@ -141,7 +141,7 @@ SoMFVec2i32::setValue(int32_t x, int32_t y)
 void
 SoMFVec2i32::setValue(const int32_t xy[2])
 {
-  if (xy == NULL) this->setNum(0);
+  if (xy == nullptr) this->setNum(0);
   else this->setValue(SbVec2i32(xy));
 }
 

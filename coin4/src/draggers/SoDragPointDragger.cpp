@@ -368,7 +368,7 @@ SoDragPointDragger::setUpConnections(bool onoff, bool doitalways)
     yzdragger->setPartAsDefault("translatorActive", "dragPointYZTranslatorTranslatorActive");
     this->registerDragger(yzdragger);
 
-    SoDragPointDragger::fieldSensorCB(this, NULL);
+    SoDragPointDragger::fieldSensorCB(this, nullptr);
     if (this->fieldSensor->getAttachedField() != &this->translation) {
       this->fieldSensor->attach(&this->translation);
     }
@@ -380,7 +380,7 @@ SoDragPointDragger::setUpConnections(bool onoff, bool doitalways)
     this->unregisterDragger("xyTranslator");
     this->unregisterDragger("xzTranslator");
     this->unregisterDragger("yzTranslator");
-    if (this->fieldSensor->getAttachedField() != NULL) {
+    if (this->fieldSensor->getAttachedField() != nullptr) {
       this->fieldSensor->detach();
     }
 
@@ -490,7 +490,7 @@ SoDragPointDragger::dragStart(void)
 {
   SoDragger * activechild = this->getActiveChildDragger();
 
-  assert(activechild != NULL);
+  assert(activechild != nullptr);
 
   SoSwitch * sw;
   if (activechild->isOfType(SoTranslate2Dragger::getClassTypeId())) {
@@ -509,7 +509,7 @@ SoDragPointDragger::dragStart(void)
       sw = SO_GET_ANY_PART(this, "zFeedbackSwitch", SoSwitch);
       break;
     default:
-      assert(0); sw = NULL; // Dummy assignment to avoid compiler warning.
+      assert(0); sw = nullptr; // Dummy assignment to avoid compiler warning.
       break;
     }
     SoInteractionKit::setSwitchValue(sw, 0);

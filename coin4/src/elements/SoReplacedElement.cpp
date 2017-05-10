@@ -137,7 +137,7 @@ SoReplacedElement::getElement(SoState * const state, const int stackIndex,
     else { elem->nodeId = 0; }
     return elem;
   }
-  return NULL;
+  return nullptr;
 }
 
 /*!

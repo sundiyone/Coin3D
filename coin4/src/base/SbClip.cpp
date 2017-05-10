@@ -95,7 +95,7 @@ SbClip::outputVertex(const SbVec3f & v, void * data)
 /*!
   Clip polygon against \a plane. This might change the number of
   vertices in the polygon. For each time a new vertex is created, the
-  callback supplied in the constructor (if != NULL) is called with the
+  callback supplied in the constructor (if != nullptr) is called with the
   line being clipped and the new vertex calculated. The callback
   should return a new void pointer to be stored by the clipper.
 */
@@ -127,7 +127,7 @@ SbClip::clip(const SbPlane & plane)
       (void) dir.normalize();
       float dot = dir.dot(planeN);
       SbVec3f newvertex = v0 - dir * (d0/dot);
-      void * newdata = NULL;
+      void * newdata = nullptr;
       if (this->callback) {
         newdata = this->callback(v0, data0, v1, data1, newvertex, this->cbdata);
       }
@@ -139,7 +139,7 @@ SbClip::clip(const SbPlane & plane)
       (void) dir.normalize();
       float dot = dir.dot(planeN);
       SbVec3f newvertex = v0 - dir * (d0/dot);
-      void * newdata = NULL;
+      void * newdata = nullptr;
       if (this->callback) {
         newdata = this->callback(v0, data0, v1, data1, newvertex, this->cbdata);
       }

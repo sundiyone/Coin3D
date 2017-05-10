@@ -175,7 +175,7 @@ SoMultiTextureEnabledElement::getEnabledUnits(SoState * state,
     return PRIVATE(elem)->enabled.getArrayPtr();
   }
   lastenabled = -1;
-  return NULL;
+  return nullptr;
 }
 
 /*!
@@ -250,7 +250,7 @@ SoMultiTextureEnabledElement::getActiveUnits(SoState * state, int & lastenabled)
     lastenabled = i;
     return PRIVATE(elem)->mode.getArrayPtr();
   }
-  return NULL;
+  return nullptr;
 }
 
 /*!

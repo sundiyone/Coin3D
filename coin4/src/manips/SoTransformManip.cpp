@@ -140,7 +140,7 @@ SoTransformManip::SoTransformManip(void)
 */
 SoTransformManip::~SoTransformManip()
 {
-  this->setDragger(NULL);
+  this->setDragger(nullptr);
 
   delete this->rotateFieldSensor;
   delete this->translFieldSensor;
@@ -166,14 +166,14 @@ SoTransformManip::setDragger(SoDragger * newdragger)
     olddragger->removeValueChangedCallback(SoTransformManip::valueChangedCB, this);
     this->children->remove(0);
   }
-  if (newdragger != NULL) {
+  if (newdragger != nullptr) {
     if (this->children->getLength() > 0) {
       this->children->set(0, newdragger);
     }
     else {
       this->children->append(newdragger);
     }
-    SoTransformManip::fieldSensorCB(this, NULL);
+    SoTransformManip::fieldSensorCB(this, nullptr);
     newdragger->addValueChangedCallback(SoTransformManip::valueChangedCB, this);
   }
 }
@@ -195,7 +195,7 @@ SoTransformManip::getDragger(void)
 #endif // COIN_DEBUG
     }
   }
-  return NULL;
+  return nullptr;
 }
 
 // *************************************************************************
@@ -234,11 +234,11 @@ SoTransformManip::replaceNode(SoPath * path)
     SbString partname = kit->getPartString(path);
     if (partname != "") {  // FIXME: isn't this an assert condition? 20010909 mortene.
       SoTransform *oldpart = (SoTransform*) kit->getPart(partname, true);
-      if (oldpart != NULL) {  // FIXME: isn't this an assert condition? 20010909 mortene.
+      if (oldpart != nullptr) {  // FIXME: isn't this an assert condition? 20010909 mortene.
         this->attachSensors(false);
         this->transferFieldValues(oldpart, this);
         this->attachSensors(true);
-        SoTransformManip::fieldSensorCB(this, NULL);
+        SoTransformManip::fieldSensorCB(this, nullptr);
         kit->setPart(partname, this);
         return true;
       }
@@ -278,7 +278,7 @@ SoTransformManip::replaceNode(SoPath * path)
   this->attachSensors(false);
   this->transferFieldValues((SoTransform*)fulltail, this);
   this->attachSensors(true);
-  SoTransformManip::fieldSensorCB(this, NULL);
+  SoTransformManip::fieldSensorCB(this, nullptr);
 
   // FIXME: this looks too simple -- what if there's more than one
   // parent SoGroup for the SoTransform we're replacing.  Looks to me
@@ -437,7 +437,7 @@ SoTransformManip::getChildren(void) const
 void
 SoTransformManip::valueChangedCB(void * m, SoDragger * dragger)
 {
-  if (dragger == NULL) return;
+  if (dragger == nullptr) return;
 
   SoTransformManip * thisp = (SoTransformManip*)m;
 
@@ -482,7 +482,7 @@ SoTransformManip::fieldSensorCB(void * m, SoSensor *)
 {
   SoTransformManip *thisp = (SoTransformManip*)m;
   SoDragger *dragger = thisp->getDragger();
-  if (dragger != NULL) {
+  if (dragger != nullptr) {
     bool wasenabled = dragger->enableValueChangedCallbacks(false);
     SbMatrix matrix;
     SbVec3f center = thisp->center.getValue();
@@ -511,7 +511,7 @@ SoTransformManip::copyContents(const SoFieldContainer * fromfc, bool copyconnect
 {
   assert(fromfc->isOfType(SoTransformManip::getClassTypeId()));
   SoDragger *dragger = ((SoTransformManip*)fromfc)->getDragger();
-  this->setDragger(dragger ? (SoDragger*) dragger->copy() : NULL);
+  this->setDragger(dragger ? (SoDragger*) dragger->copy() : nullptr);
   inherited::copyContents(fromfc, copyconnections);
 }
 
@@ -524,7 +524,7 @@ SoTransformManip::transferFieldValues(const SoTransform * from, SoTransform * to
 {
   SoTransformManip * tomanip = 
     to->isOfType(SoTransformManip::getClassTypeId()) ?
-    (SoTransformManip*) to : NULL;
+    (SoTransformManip*) to : nullptr;
   
   if (tomanip) tomanip->attachSensors(false);    
   
@@ -535,7 +535,7 @@ SoTransformManip::transferFieldValues(const SoTransform * from, SoTransform * to
   to->center = from->center.getValue();
 
   if (tomanip) {
-    SoTransformManip::fieldSensorCB(tomanip, NULL);
+    SoTransformManip::fieldSensorCB(tomanip, nullptr);
     tomanip->attachSensors(true);
   }
 }

@@ -32,7 +32,7 @@
 
 template <typename T>
 SbLazyPimplPtr<T>::SbLazyPimplPtr(void)
-: ptr(NULL)
+: ptr(nullptr)
 {
 }
 
@@ -51,7 +51,7 @@ SbLazyPimplPtr<T>::SbLazyPimplPtr(const SbLazyPimplPtr<T> & copy)
 template <typename T>
 SbLazyPimplPtr<T>::~SbLazyPimplPtr(void)
 {
-  this->set(NULL);
+  this->set(nullptr);
 }
 
 template <typename T>
@@ -68,7 +68,7 @@ template <typename T>
 T &
 SbLazyPimplPtr<T>::get(void) const
 {
-  if (this->ptr == NULL) {
+  if (this->ptr == nullptr) {
     this->ptr = this->getNew();
   }
   return *(this->ptr);

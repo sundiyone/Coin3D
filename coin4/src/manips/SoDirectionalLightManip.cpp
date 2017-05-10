@@ -117,7 +117,7 @@ SoDirectionalLightManip::SoDirectionalLightManip(void)
 */
 SoDirectionalLightManip::~SoDirectionalLightManip()
 {
-  this->setDragger(NULL);
+  this->setDragger(nullptr);
 
   delete this->colorFieldSensor;
   delete this->directionFieldSensor;
@@ -136,14 +136,14 @@ SoDirectionalLightManip::setDragger(SoDragger * newdragger)
     olddragger->removeValueChangedCallback(SoDirectionalLightManip::valueChangedCB, this);
     this->children->remove(0);
   }
-  if (newdragger != NULL) {
+  if (newdragger != nullptr) {
     if (this->children->getLength() > 0) {
       this->children->set(0, newdragger);
     }
     else {
       this->children->append(newdragger);
     }
-    SoDirectionalLightManip::fieldSensorCB(this, NULL);
+    SoDirectionalLightManip::fieldSensorCB(this, nullptr);
     newdragger->addValueChangedCallback(SoDirectionalLightManip::valueChangedCB, this);
   }
 }
@@ -165,7 +165,7 @@ SoDirectionalLightManip::getDragger(void)
 #endif // debug
     }
   }
-  return NULL;
+  return nullptr;
 }
 
 /*!
@@ -191,11 +191,11 @@ SoDirectionalLightManip::replaceNode(SoPath * path)
     SbString partname = kit->getPartString(path);
     if (partname != "") {
       SoDirectionalLight * oldpart = (SoDirectionalLight *) kit->getPart(partname, true);
-      if (oldpart != NULL) {
+      if (oldpart != nullptr) {
         this->attachSensors(false);
         this->transferFieldValues(oldpart, this);
         this->attachSensors(true);
-        SoDirectionalLightManip::fieldSensorCB(this, NULL);
+        SoDirectionalLightManip::fieldSensorCB(this, nullptr);
         kit->setPart(partname, this);
         return true;
       }
@@ -223,7 +223,7 @@ SoDirectionalLightManip::replaceNode(SoPath * path)
   this->attachSensors(false);
   this->transferFieldValues((SoDirectionalLight *)fulltail, this);
   this->attachSensors(true);
-  SoDirectionalLightManip::fieldSensorCB(this, NULL);
+  SoDirectionalLightManip::fieldSensorCB(this, nullptr);
 
   ((SoGroup *)parent)->replaceChild(fulltail, this);
   this->unrefNoDelete();
@@ -385,7 +385,7 @@ SoDirectionalLightManip::fieldSensorCB(void * m, SoSensor *)
 {
   SoDirectionalLightManip * thisp = (SoDirectionalLightManip *)m;
   SoDragger * dragger = thisp->getDragger();
-  if (dragger != NULL) {
+  if (dragger != nullptr) {
     SbVec3f direction = thisp->direction.getValue();
     SbMatrix matrix = dragger->getMotionMatrix();
     SbVec3f t, s;

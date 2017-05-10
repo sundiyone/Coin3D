@@ -168,7 +168,7 @@ SoSeparatorKit::SoSeparatorKit(void)
   SO_KIT_ADD_CATALOG_LIST_ENTRY(childList, SoSeparator, true, topSeparator, "", SoShapeKit, true);
   SO_KIT_ADD_LIST_ITEM_TYPE(childList, SoSeparatorKit);
 
-  PRIVATE(this)->connectedseparator = NULL;
+  PRIVATE(this)->connectedseparator = nullptr;
   PRIVATE(this)->fieldsensor = new SoFieldSensor(SoSeparatorKitP::sensorCB, PRIVATE(this));
   PRIVATE(this)->fieldsensor->setPriority(0);
 
@@ -242,7 +242,7 @@ SoSeparatorKitP::connectFields(const bool onoff)
     this->connectedseparator->renderCulling.disconnect();
     this->connectedseparator->pickCulling.disconnect();
     this->connectedseparator->unref();
-    this->connectedseparator = NULL;
+    this->connectedseparator = nullptr;
   }
   if (onoff) {
     SoSeparator * sep = (SoSeparator*) this->kit->topSeparator.getValue();

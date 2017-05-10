@@ -271,8 +271,8 @@ SoText2::SoText2(void)
   PRIVATE(this)->spacingsensor = new SoFieldSensor(SoText2P::sensor_cb, PRIVATE(this));
   PRIVATE(this)->spacingsensor->attach(&this->spacing);
   PRIVATE(this)->spacingsensor->setPriority(0);
-  PRIVATE(this)->cache = NULL;
-  PRIVATE(this)->pixel_buffer = NULL;
+  PRIVATE(this)->cache = nullptr;
+  PRIVATE(this)->pixel_buffer = nullptr;
   PRIVATE(this)->pixel_buffer_size = 0;
 }
 
@@ -352,8 +352,8 @@ SoText2::GLRender(SoGLRenderAction * action)
     int offvp;
     int thispos[2];
     int thissize[2];
-    const unsigned char * buffer = NULL;
-    cc_glyph2d * prevglyph = NULL;
+    const unsigned char * buffer = nullptr;
+    cc_glyph2d * prevglyph = nullptr;
     
     const int nrlines = this->string.getNum();
 
@@ -428,7 +428,7 @@ SoText2::GLRender(SoGLRenderAction * action)
 
         glRasterPos3f(rpx, rpy, -nilpoint[2]);
 
-        if (offvp) { glBitmap(0,0,0,0,offsetx,offsety,NULL); }
+        if (offvp) { glBitmap(0,0,0,0,offsetx,offsety,nullptr); }
 
         if (buffer) {
           if (cc_glyph2d_getmono(glyph)) {
@@ -753,7 +753,7 @@ SoText2P::dumpBuffer(unsigned char * buffer, SbVec2s size, SbVec2s pos, bool mon
 {
   // FIXME: pure debug method, remove. preng 2003-03-18.
   if (!buffer) {
-    fprintf(stderr,"bitmap error: buffer pointer NULL.\n");
+    fprintf(stderr,"bitmap error: buffer pointer nullptr.\n");
   } else {
     int rows = size[1];
     int bytes = mono ? size[0] >> 3 : size[0];
@@ -785,7 +785,7 @@ SoText2P::dumpBuffer(unsigned char * buffer, SbVec2s size, SbVec2s pos, bool mon
 bool
 SoText2P::shouldBuildGlyphCache(SoState * state)
 {
-  if (this->cache == NULL) return true;
+  if (this->cache == nullptr) return true;
   return !this->cache->isValid(state);
 }
 
@@ -827,7 +827,7 @@ SoText2P::buildGlyphCache(SoState * state)
     int advancey = 0;
     int bitmapsize[2];
     int bitmappos[2];
-    const cc_glyph2d * prevglyph = NULL;
+    const cc_glyph2d * prevglyph = nullptr;
     const char * p = str.getString();
     unsigned int length = cc_string_utf8_validate_length(p);
 

@@ -131,7 +131,7 @@
 #ifndef DOXYGEN_SKIP_THIS
 class SoTrackballDraggerP {
 public:
-  SoTrackballDraggerP(void) : master(NULL) { }
+  SoTrackballDraggerP(void) : master(nullptr) { }
   SoTrackballDragger * master;
   SbSphereProjector * sphereProj;
   SbCylinderProjector * cylProj;
@@ -363,7 +363,7 @@ SoTrackballDragger::setUpConnections(bool onoff, bool doitalways)
   if (onoff) {
     inherited::setUpConnections(onoff, doitalways);
 
-    SoTrackballDragger::fieldSensorCB(this, NULL);
+    SoTrackballDragger::fieldSensorCB(this, nullptr);
 
     if (this->rotFieldSensor->getAttachedField() != &this->rotation) {
       this->rotFieldSensor->attach(&this->rotation);
@@ -373,10 +373,10 @@ SoTrackballDragger::setUpConnections(bool onoff, bool doitalways)
     }
   }
   else {
-    if (this->rotFieldSensor->getAttachedField() != NULL) {
+    if (this->rotFieldSensor->getAttachedField() != nullptr) {
       this->rotFieldSensor->detach();
     }
-    if (this->scaleFieldSensor->getAttachedField() != NULL) {
+    if (this->scaleFieldSensor->getAttachedField() != nullptr) {
       this->scaleFieldSensor->detach();
     }
     inherited::setUpConnections(onoff, doitalways);
@@ -725,7 +725,7 @@ SoTrackballDragger::dragFinish(void)
       rot.getValue(PRIVATE(this)->animAxis, PRIVATE(this)->animAngle);
     }
     this->saveStartParameters(); // store new startMotionMatrix
-    SoTrackballDragger::timerSensorCB(this, NULL);
+    SoTrackballDragger::timerSensorCB(this, nullptr);
     PRIVATE(this)->prevTime = get_current_time();
     PRIVATE(this)->timerSensor->setBaseTime(PRIVATE(this)->prevTime);
     // FIXME: get animation frame rate from somewhere?
@@ -810,8 +810,8 @@ SoNode *
 SoTrackballDragger::getNodeFieldNode(const char *fieldname)
 {
   SoField *field = this->getField(fieldname);
-  assert(field != NULL);
-  assert(coin_assert_cast<SoSFNode *>(field)->getValue() != NULL);
+  assert(field != nullptr);
+  assert(coin_assert_cast<SoSFNode *>(field)->getValue() != nullptr);
   return coin_assert_cast<SoSFNode *>(field)->getValue();
 }
 

@@ -68,13 +68,13 @@ extern "C" {
 bool cc_flwft_initialize(void) { return false; }
 void cc_flwft_exit(void) { }
 
-void * cc_flwft_get_font(const char * fontname, const unsigned int pixelsize) { assert(false); return NULL; }
+void * cc_flwft_get_font(const char * fontname, const unsigned int pixelsize) { assert(false); return nullptr; }
 void cc_flwft_get_font_name(void * font, cc_string * str) { assert(false); }
 void cc_flwft_done_font(void * font) { assert(false); }
 
 
 int cc_flwft_get_num_charmaps(void * font) { assert(false); return 0; }
-const char * cc_flwft_get_charmap_name(void * font, int charmap) { assert(false); return NULL; }
+const char * cc_flwft_get_charmap_name(void * font, int charmap) { assert(false); return nullptr; }
 void cc_flwft_set_charmap(void * font, int charmap) { assert(false); }
 void cc_flwft_set_char_size(void * font, int height) { assert(false); }
 
@@ -87,8 +87,8 @@ void cc_flwft_get_vector_kerning(void * font, int glyph1, int glyph2, float *x, 
 void cc_flwft_get_bitmap_kerning(void * font, int glyph1, int glyph2, int *x, int *y) { assert(false); }
 void cc_flwft_done_glyph(void * font, int glyph) { assert(false); }
 
-struct cc_font_bitmap * cc_flwft_get_bitmap(void * font, unsigned int glyph) { assert(false); return NULL; }
-struct cc_font_vector_glyph * cc_flwft_get_vector_glyph(void * font, unsigned int glyph, float complexity) { assert(false); return NULL; }
+struct cc_font_bitmap * cc_flwft_get_bitmap(void * font, unsigned int glyph) { assert(false); return nullptr; }
+struct cc_font_vector_glyph * cc_flwft_get_vector_glyph(void * font, unsigned int glyph, float complexity) { assert(false); return nullptr; }
 
 void cc_flwft_scale_vector_glyph_coords(struct cc_font_vector_glyph * vecglyph, float factor){ assert(false); }
 
@@ -254,7 +254,7 @@ static FT_Library library;
 /* Built-in mappings from font names to font file names.
 
    First item is a generic font name, then comes a list of possible
-   file names (in sorted order of priority), then a NULL pointer, then
+   file names (in sorted order of priority), then a nullptr pointer, then
    a new generic font name, etc.
 */
 static const char * fontfilenames[] = {
@@ -277,64 +277,64 @@ static const char * fontfilenames[] = {
     20030901 mortene.
    */
 
-  "Arial", "arial.ttf", NULL,
-  "Arial Bold", "arialbd.ttf", NULL,
-  "Arial Bold Italic", "arialbi.ttf", NULL,
-  "Arial Italic", "ariali.ttf", NULL,
-  "Century Gothic", "gothic.ttf", NULL,
-  "Century Gothic Bold", "gothicb.ttf", NULL,
-  "Century Gothic Bold Italic", "gothicbi.ttf", NULL,
-  "Century Gothic Italic", "gothici.ttf", NULL,
-  "Courier", "cour.ttf", NULL,
-  "Courier Bold", "courbd.ttf", NULL,
-  "Courier Bold Italic", "courbi.ttf", NULL,
-  "Courier Italic", "couri.ttf", NULL,
-  "Simian", "simtoran.ttf", "simtgori.ttf", "simtchimp.ttf", NULL,
-  "Times New Roman", "times.ttf", NULL,
-  "Times New Roman Bold", "timesbd.ttf", NULL,
-  "Times New Roman Bold Italic", "timesbi.ttf", NULL,
-  "Times New Roman Italic", "timesi.ttf", NULL,
-  "Verdana", "verdana.ttf", NULL,
-  "Verdana Bold", "verdanab.ttf", NULL,
-  "Verdana Bold Italic", "verdanaz.ttf", NULL,
-  "Verdana Italic", "verdanai.ttf", NULL,
-  "OpenSymbol", "opens___.ttf", NULL,
-  "Small", "smalle.fon", NULL,
+  "Arial", "arial.ttf", nullptr,
+  "Arial Bold", "arialbd.ttf", nullptr,
+  "Arial Bold Italic", "arialbi.ttf", nullptr,
+  "Arial Italic", "ariali.ttf", nullptr,
+  "Century Gothic", "gothic.ttf", nullptr,
+  "Century Gothic Bold", "gothicb.ttf", nullptr,
+  "Century Gothic Bold Italic", "gothicbi.ttf", nullptr,
+  "Century Gothic Italic", "gothici.ttf", nullptr,
+  "Courier", "cour.ttf", nullptr,
+  "Courier Bold", "courbd.ttf", nullptr,
+  "Courier Bold Italic", "courbi.ttf", nullptr,
+  "Courier Italic", "couri.ttf", nullptr,
+  "Simian", "simtoran.ttf", "simtgori.ttf", "simtchimp.ttf", nullptr,
+  "Times New Roman", "times.ttf", nullptr,
+  "Times New Roman Bold", "timesbd.ttf", nullptr,
+  "Times New Roman Bold Italic", "timesbi.ttf", nullptr,
+  "Times New Roman Italic", "timesi.ttf", nullptr,
+  "Verdana", "verdana.ttf", nullptr,
+  "Verdana Bold", "verdanab.ttf", nullptr,
+  "Verdana Bold Italic", "verdanaz.ttf", nullptr,
+  "Verdana Italic", "verdanai.ttf", nullptr,
+  "OpenSymbol", "opens___.ttf", nullptr,
+  "Small", "smalle.fon", nullptr,
 
   /* These are the TrueType fonts installed from the Debian Linux
      "msttcorefonts" package, as of version 1.1.2. */
-  "Andale Mono", "Andale_Mono.ttf", NULL,
-  "Arial", "Arial.ttf", NULL,
-  "Arial Black", "Arial_Black.ttf", NULL,
-  "Arial Bold", "Arial_Bold.ttf", NULL,
-  "Arial Bold Italic", "Arial_Bold_Italic.ttf", NULL,
-  "Arial Italic", "Arial_Italic.ttf", NULL,
-  "Comic Sans MS", "Comic_Sans_MS.ttf", NULL,
-  "Comic Sans MS Bold", "Comic_Sans_MS_Bold.ttf", NULL,
-  "Courier", "Courier_New.ttf", NULL,
-  "Courier New", "Courier_New.ttf", NULL,
-  "Courier New Bold", "Courier_New_Bold.ttf", NULL,
-  "Courier New Bold Italic", "Courier_New_Bold_Italic.ttf", NULL,
-  "Courier New Italic", "Courier_New_Italic.ttf", NULL,
-  "Georgia", "Georgia.ttf", NULL,
-  "Georgia Bold", "Georgia_Bold.ttf", NULL,
-  "Georgia Bold Italic", "Georgia_Bold_Italic.ttf", NULL,
-  "Georgia Italic", "Georgia_Italic.ttf", NULL,
-  "Impact", "Impact.ttf", NULL,
-  "Times", "Times_New_Roman.ttf", NULL,
-  "Times New Roman", "Times_New_Roman.ttf", NULL,
-  "Times New Roman Bold", "Times_New_Roman_Bold.ttf", NULL,
-  "Times New Roman Bold Italic", "Times_New_Roman_Bold_Italic.ttf", NULL,
-  "Times New Roman Italic", "Times_New_Roman_Italic.ttf", NULL,
-  "Trebuchet MS", "Trebuchet_MS.ttf", NULL,
-  "Trebuchet MS Bold", "Trebuchet_MS_Bold.ttf", NULL,
-  "Trebuchet MS Bold Italic", "Trebuchet_MS_Bold_Italic.ttf", NULL,
-  "Trebuchet MS Italic", "Trebuchet_MS_Italic.ttf", NULL,
-  "Verdana", "Verdana.ttf", NULL,
-  "Verdana Bold", "Verdana_Bold.ttf", NULL,
-  "Verdana Bold Italic", "Verdana_Bold_Italic.ttf", NULL,
-  "Verdana Italic", "Verdana_Italic.ttf", NULL,
-  "Webdings", "Webdings.ttf", NULL
+  "Andale Mono", "Andale_Mono.ttf", nullptr,
+  "Arial", "Arial.ttf", nullptr,
+  "Arial Black", "Arial_Black.ttf", nullptr,
+  "Arial Bold", "Arial_Bold.ttf", nullptr,
+  "Arial Bold Italic", "Arial_Bold_Italic.ttf", nullptr,
+  "Arial Italic", "Arial_Italic.ttf", nullptr,
+  "Comic Sans MS", "Comic_Sans_MS.ttf", nullptr,
+  "Comic Sans MS Bold", "Comic_Sans_MS_Bold.ttf", nullptr,
+  "Courier", "Courier_New.ttf", nullptr,
+  "Courier New", "Courier_New.ttf", nullptr,
+  "Courier New Bold", "Courier_New_Bold.ttf", nullptr,
+  "Courier New Bold Italic", "Courier_New_Bold_Italic.ttf", nullptr,
+  "Courier New Italic", "Courier_New_Italic.ttf", nullptr,
+  "Georgia", "Georgia.ttf", nullptr,
+  "Georgia Bold", "Georgia_Bold.ttf", nullptr,
+  "Georgia Bold Italic", "Georgia_Bold_Italic.ttf", nullptr,
+  "Georgia Italic", "Georgia_Italic.ttf", nullptr,
+  "Impact", "Impact.ttf", nullptr,
+  "Times", "Times_New_Roman.ttf", nullptr,
+  "Times New Roman", "Times_New_Roman.ttf", nullptr,
+  "Times New Roman Bold", "Times_New_Roman_Bold.ttf", nullptr,
+  "Times New Roman Bold Italic", "Times_New_Roman_Bold_Italic.ttf", nullptr,
+  "Times New Roman Italic", "Times_New_Roman_Italic.ttf", nullptr,
+  "Trebuchet MS", "Trebuchet_MS.ttf", nullptr,
+  "Trebuchet MS Bold", "Trebuchet_MS_Bold.ttf", nullptr,
+  "Trebuchet MS Bold Italic", "Trebuchet_MS_Bold_Italic.ttf", nullptr,
+  "Trebuchet MS Italic", "Trebuchet_MS_Italic.ttf", nullptr,
+  "Verdana", "Verdana.ttf", nullptr,
+  "Verdana Bold", "Verdana_Bold.ttf", nullptr,
+  "Verdana Bold Italic", "Verdana_Bold_Italic.ttf", nullptr,
+  "Verdana Italic", "Verdana_Italic.ttf", nullptr,
+  "Webdings", "Webdings.ttf", nullptr
 };
 
   struct cc_flwft_globals {
@@ -343,7 +343,7 @@ static const char * fontfilenames[] = {
   };
 
   static struct cc_flwft_globals cc_flwft_globals = {
-    NULL, NULL
+    nullptr, nullptr
   };
 
 /* ************************************************************************* */
@@ -360,7 +360,7 @@ cc_flwft_initialize(void)
   error = cc_ftglue_FT_Init_FreeType(&library);
   if (error) {
     if (cc_font_debug()) cc_debugerror_post("cc_flwft_initialize", "error %d", error);
-    library = NULL;
+    library = nullptr;
     return false;
   }
 
@@ -375,10 +375,10 @@ cc_flwft_initialize(void)
                        "Version of Freetype 2 library is < 2.1 "
                        "Font rendering is disabled.");
     cc_ftglue_FT_Done_FreeType(library);
-    library = NULL;
+    library = nullptr;
     return false;
   }
-  assert((cc_flwft_globals.fontname2filename == NULL) && "call cc_flwft_initialize only once!");
+  assert((cc_flwft_globals.fontname2filename == nullptr) && "call cc_flwft_initialize only once!");
 
   /* Set up hash of font name to array of file name mappings. */
   cc_flwft_globals.fontname2filename = cc_dict_construct(50, 0.75);
@@ -400,7 +400,7 @@ cc_flwft_initialize(void)
         assert(unused);
       }
 
-      while (fontfilenames[++i] != NULL) {
+      while (fontfilenames[++i] != nullptr) {
         cc_dynarray_append(array, (void *)fontfilenames[i]);
       }
 
@@ -414,14 +414,14 @@ cc_flwft_initialize(void)
     char * str;
     cc_flwft_globals.fontfiledirs = cc_dynarray_new();
 
-    if ((env = coin_getenv("COIN_FONT_PATH")) != NULL) {
+    if ((env = coin_getenv("COIN_FONT_PATH")) != nullptr) {
       str = strdup(env);
       assert(str);
       cc_dynarray_append(cc_flwft_globals.fontfiledirs, str);
     }
 
 #ifdef _WIN32
-    if ((env = coin_getenv("WINDIR")) != NULL) {
+    if ((env = coin_getenv("WINDIR")) != nullptr) {
       cc_string fullpath;
       cc_string_construct(&fullpath);
 
@@ -443,10 +443,10 @@ cc_flwft_initialize(void)
   }
 
   /* Setup temporary glyph-struct used during tessellation */
-  flwft_tessellator.vertexlist = NULL;
-  flwft_tessellator.faceindexlist = NULL;
-  flwft_tessellator.edgeindexlist = NULL;
-  flwft_tessellator.malloclist = NULL;
+  flwft_tessellator.vertexlist = nullptr;
+  flwft_tessellator.faceindexlist = nullptr;
+  flwft_tessellator.edgeindexlist = nullptr;
+  flwft_tessellator.malloclist = nullptr;
 
   return true;
 }
@@ -468,26 +468,26 @@ cc_flwft_exit(void)
     free(cc_dynarray_get(cc_flwft_globals.fontfiledirs, i));
   }
   cc_dynarray_destruct(cc_flwft_globals.fontfiledirs);
-  cc_flwft_globals.fontfiledirs = NULL;
+  cc_flwft_globals.fontfiledirs = nullptr;
 
-  cc_dict_apply(cc_flwft_globals.fontname2filename, clean_fontmap_hash, NULL);
+  cc_dict_apply(cc_flwft_globals.fontname2filename, clean_fontmap_hash, nullptr);
   cc_dict_destruct(cc_flwft_globals.fontname2filename);
-  cc_flwft_globals.fontname2filename = NULL;
+  cc_flwft_globals.fontname2filename = nullptr;
 
   cc_ftglue_FT_Done_FreeType(library);
-  library = NULL;
+  library = nullptr;
 }
 
 static const char *
 find_font_file(const char * fontname, unsigned int pixelsize)
 {
-  const char * foundfile = NULL;
+  const char * foundfile = nullptr;
 
   /* use fontconfig to locate fonts if available */
   if (cc_fcglue_available()) {
-    unsigned char * filename = NULL;
-    FcPattern * font_pattern = NULL;
-    FcPattern * matched_pattern = NULL;
+    unsigned char * filename = nullptr;
+    FcPattern * font_pattern = nullptr;
+    FcPattern * matched_pattern = nullptr;
     FcResult result;
 
     /* parse the fontname string to create a fontconfig pattern instance */
@@ -495,7 +495,7 @@ find_font_file(const char * fontname, unsigned int pixelsize)
       cc_debugerror_postinfo("find_font_file",
                              "fontname '%s' could not be parsed by fontconfig",
                              fontname);
-      return NULL;
+      return nullptr;
     }
 
     /* add the requested size to the pattern in order to pick up the correct font
@@ -503,7 +503,7 @@ find_font_file(const char * fontname, unsigned int pixelsize)
     if (!cc_fcglue_FcPatternAddDouble(font_pattern, FC_PIXEL_SIZE, pixelsize)) {
       cc_debugerror_postinfo("find_font_file",
                              "cc_fcglue_FcPatternAddDouble failed");
-      return NULL;
+      return nullptr;
     }
 
     /* next two steps mandatory for fontconfig's FcFontMatch call
@@ -512,10 +512,10 @@ find_font_file(const char * fontname, unsigned int pixelsize)
      * given by the user not taken out. */
 
     /* apply pattern modification operations for those tagged as such */
-    if (!cc_fcglue_FcConfigSubstitute(NULL, font_pattern, FcMatchPattern)) {
+    if (!cc_fcglue_FcConfigSubstitute(nullptr, font_pattern, FcMatchPattern)) {
       cc_debugerror_postinfo("find_font_file",
                              "cc_fcglue_FcConfigSubstitute failed");
-      return NULL;
+      return nullptr;
     }
 
     /* supply default values for underspecified font patterns */
@@ -529,17 +529,17 @@ find_font_file(const char * fontname, unsigned int pixelsize)
      * visually impaired (like me...). 20040410 tamer. */
 
     /* return the font most close matching the provided pattern */
-    if (!(matched_pattern = cc_fcglue_FcFontMatch(NULL, font_pattern, &result))) {
+    if (!(matched_pattern = cc_fcglue_FcFontMatch(nullptr, font_pattern, &result))) {
       cc_debugerror_postinfo("cc_fcglue_find_font_file",
                              "cc_fcglue_FcFontMatch failed");
-      return NULL;
+      return nullptr;
     }
 
     /* get the filename entry out of the pattern */
     if (cc_fcglue_FcPatternGetString(matched_pattern, "file", 0, &filename) != FcResultMatch) {
       cc_debugerror_postinfo("find_font_file",
                              "cc_fcglue_FcPatternGetString failed to get the fontfile");
-      return NULL;
+      return nullptr;
     }
 
     if (cc_font_debug()) {
@@ -567,7 +567,7 @@ find_font_file(const char * fontname, unsigned int pixelsize)
     const uintptr_t key = (uintptr_t)cc_namemap_get_address(fontname);
     found_in_hash = cc_dict_get(cc_flwft_globals.fontname2filename, key, &val);
     if (!found_in_hash) {
-      const char * c = NULL;
+      const char * c = nullptr;
       if (cc_font_debug()) {
         cc_debugerror_postinfo("find_font_file",
                                "fontname '%s' not found in name hash",
@@ -575,7 +575,7 @@ find_font_file(const char * fontname, unsigned int pixelsize)
       }
       /* If name ends in ".ttf", we interpret it as filename. */
       c = strrchr(fontname, '.');
-      if (!(c && strlen(c) == 4 && strstr(c, ".ttf"))) return NULL;
+      if (!(c && strlen(c) == 4 && strstr(c, ".ttf"))) return nullptr;
     }
 
     possiblefilenames = (cc_dynarray *)val;
@@ -627,7 +627,7 @@ cc_flwft_get_font(const char * fontname, unsigned int pixelsize)
   FT_Face face;
   FT_Error error;
   const char * fontfilename = find_font_file(fontname, pixelsize);
-  static const int disable_utf8 = (coin_getenv("COIN_DISABLE_UTF8") != NULL);
+  static const int disable_utf8 = (coin_getenv("COIN_DISABLE_UTF8") != nullptr);
 
   error = cc_ftglue_FT_New_Face(library, fontfilename ? fontfilename : fontname, 0, &face);
 
@@ -638,7 +638,7 @@ cc_flwft_get_font(const char * fontname, unsigned int pixelsize)
                                 error, fontname,
                                 fontfilename ? fontfilename : "(null)");
     }
-    return NULL;
+    return nullptr;
   }
 
   if (cc_font_debug()) {
@@ -904,14 +904,14 @@ cc_flwft_get_bitmap(void * font, unsigned int glyph)
     if (cc_font_debug()) cc_debugerror_post("cc_flwft_get_bitmap",
 					    "FT_Load_Glyph() => error %d",
 					    error);
-    return NULL;
+    return nullptr;
   }
   error = cc_ftglue_FT_Get_Glyph(face->glyph, &g);
   if (error) {
     if (cc_font_debug()) cc_debugerror_post("cc_flwft_get_bitmap",
 					    "FT_Get_Glyph() => error %d",
 					    error);
-    return NULL;
+    return nullptr;
   }
 
   /* render a glyph only if it's in outline format. this won't be the
@@ -926,7 +926,7 @@ cc_flwft_get_bitmap(void * font, unsigned int glyph)
       if (cc_font_debug()) cc_debugerror_post("cc_flwft_get_bitmap",
 					      "FT_Glyph_To_Bitmap() => error %d",
 					      error);
-      return NULL;
+      return nullptr;
     }
   }
 
@@ -964,35 +964,35 @@ cc_flwft_get_vector_glyph(void * font, unsigned int glyphindex, float complexity
   if (!GLUWrapper()->available) {
     cc_debugerror_post("cc_flwft_get_vector_glyph",
                        "GLU library could not be loaded.");
-    return NULL;
+    return nullptr;
   }
 
-  if ((GLUWrapper()->gluNewTess == NULL) ||
-      (GLUWrapper()->gluTessCallback == NULL) ||
-      (GLUWrapper()->gluTessBeginPolygon == NULL) ||
-      (GLUWrapper()->gluTessEndContour == NULL) ||
-      (GLUWrapper()->gluTessEndPolygon == NULL) ||
-      (GLUWrapper()->gluDeleteTess == NULL) ||
-      (GLUWrapper()->gluTessVertex == NULL) ||
-      (GLUWrapper()->gluTessBeginContour == NULL)) {
+  if ((GLUWrapper()->gluNewTess == nullptr) ||
+      (GLUWrapper()->gluTessCallback == nullptr) ||
+      (GLUWrapper()->gluTessBeginPolygon == nullptr) ||
+      (GLUWrapper()->gluTessEndContour == nullptr) ||
+      (GLUWrapper()->gluTessEndPolygon == nullptr) ||
+      (GLUWrapper()->gluDeleteTess == nullptr) ||
+      (GLUWrapper()->gluTessVertex == nullptr) ||
+      (GLUWrapper()->gluTessBeginContour == nullptr)) {
     cc_debugerror_post("cc_flwft_get_vector_glyph",
                        "Unable to bind required GLU tessellation "
                        "functions for 3D FreeType font support.");
-    return NULL;
+    return nullptr;
   }
 
   face = (FT_Face) font;
 
   error = cc_ftglue_FT_Set_Char_Size(face, 0, (flwft_3dfontsize<<6), 0, 0);
   if (error != 0) {
-    /* FIXME: No message is printed here because returning NULL will
+    /* FIXME: No message is printed here because returning nullptr will
        force glyph3d.c to use the builtin font. This happens whenever
        the system cannot find the requested font. This cannot be
        detected because 'fontlib_wrapper.c:cc_flw_get_font()' will
        always return the builtin font on failure instead of an error.
        A better and more elegant workaround should be
        made... (handegar). */
-    return NULL;
+    return nullptr;
   }
 
   error = cc_ftglue_FT_Load_Glyph(face, glyphindex, FT_LOAD_DEFAULT);
@@ -1002,7 +1002,7 @@ cc_flwft_get_vector_glyph(void * font, unsigned int glyphindex, float complexity
                          "Error loading glyph (glyphindex==%d). "
                          "(FT_Load_Glyph() error => %d)", glyphindex, error);
     }
-    return NULL;
+    return nullptr;
   }
 
   error = cc_ftglue_FT_Get_Glyph(face->glyph, &tmp);
@@ -1010,13 +1010,13 @@ cc_flwft_get_vector_glyph(void * font, unsigned int glyphindex, float complexity
     cc_debugerror_post("cc_flwft_get_vector_glyph",
                        "Error fetching glyph. Font is not properly initialized. "
                        "(FT_Get_Glyph() error => %d)", error);
-    return NULL;
+    return nullptr;
   }
 
   /* FIXME: investigate if there is a simple way to gather the outline
      from a bitmapped font? 20040925 tamer. */
   /* in case of a bitmap font fall back to the default font. commonly
-     it will already fail and return NULL due to not being able to set
+     it will already fail and return nullptr due to not being able to set
      another character size for fixed sized fonts. still, rather be
      robust and catch the unprobable case where the provided bitmap
      font could match the flwt_3dfontsize. */
@@ -1027,19 +1027,19 @@ cc_flwft_get_vector_glyph(void * font, unsigned int glyphindex, float complexity
     }
     /* cleanup temporary glyph */
     cc_ftglue_FT_Done_Glyph(tmp);
-    return NULL;
+    return nullptr;
   }
 
   g = (FT_OutlineGlyph)tmp;
   outline = g->outline;
 
-  if (flwft_tessellator.vertexlist == NULL)
+  if (flwft_tessellator.vertexlist == nullptr)
      flwft_tessellator.vertexlist = cc_list_construct();
-  if (flwft_tessellator.faceindexlist == NULL)
+  if (flwft_tessellator.faceindexlist == nullptr)
      flwft_tessellator.faceindexlist = cc_list_construct();
-  if (flwft_tessellator.edgeindexlist == NULL)
+  if (flwft_tessellator.edgeindexlist == nullptr)
      flwft_tessellator.edgeindexlist = cc_list_construct();
-  if (flwft_tessellator.malloclist == NULL) {
+  if (flwft_tessellator.malloclist == nullptr) {
     flwft_tessellator.malloclist = cc_list_construct();
   }
 
@@ -1068,11 +1068,11 @@ cc_flwft_get_vector_glyph(void * font, unsigned int glyphindex, float complexity
   GLUWrapper()->gluTessCallback(flwft_tessellator.tessellator_object, GLU_TESS_COMBINE, (gluTessCallback_cb_t) flwft_combineCallback);
   GLUWrapper()->gluTessCallback(flwft_tessellator.tessellator_object, GLU_TESS_ERROR, (gluTessCallback_cb_t) flwft_errorCallback);
 
-  GLUWrapper()->gluTessBeginPolygon(flwft_tessellator.tessellator_object, NULL);
+  GLUWrapper()->gluTessBeginPolygon(flwft_tessellator.tessellator_object, nullptr);
   /* According to the SGI doc for GLU, specifying the triangle normal
      will speed up the tessellation process. */
   GLUWrapper()->gluTessNormal(flwft_tessellator.tessellator_object, 0.0f, 0.0f, -1.0f);
-  error = cc_ftglue_FT_Outline_Decompose(&outline, &outline_funcs, NULL);
+  error = cc_ftglue_FT_Outline_Decompose(&outline, &outline_funcs, nullptr);
   if (flwft_tessellator.contour_open) {
     GLUWrapper()->gluTessEndContour(flwft_tessellator.tessellator_object);
 
@@ -1429,7 +1429,7 @@ flwft_cleanupMallocList(void)
       free(cc_list_get(flwft_tessellator.malloclist, i));
     }
     cc_list_destruct(flwft_tessellator.malloclist);
-    flwft_tessellator.malloclist = NULL;
+    flwft_tessellator.malloclist = nullptr;
   }
 }
 
@@ -1452,7 +1452,7 @@ flwft_buildVertexList(struct cc_font_vector_glyph * newglyph)
   }
 
   cc_list_destruct(flwft_tessellator.vertexlist);
-  flwft_tessellator.vertexlist = NULL;
+  flwft_tessellator.vertexlist = nullptr;
 }
 
 static void
@@ -1469,7 +1469,7 @@ flwft_buildEdgeIndexList(struct cc_font_vector_glyph * newglyph)
     newglyph->edgeindices[i] = (int) ((intptr_t) cc_list_get(flwft_tessellator.edgeindexlist, i));
 
   cc_list_destruct(flwft_tessellator.edgeindexlist);
-  flwft_tessellator.edgeindexlist = NULL;
+  flwft_tessellator.edgeindexlist = nullptr;
 }
 
 static void
@@ -1486,7 +1486,7 @@ flwft_buildFaceIndexList(struct cc_font_vector_glyph * newglyph)
     newglyph->faceindices[i] = (int) ((intptr_t) cc_list_get(flwft_tessellator.faceindexlist, i));
 
   cc_list_destruct(flwft_tessellator.faceindexlist);
-  flwft_tessellator.faceindexlist = NULL;
+  flwft_tessellator.faceindexlist = nullptr;
 }
 
 static int

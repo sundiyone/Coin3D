@@ -150,7 +150,7 @@ extern "C" {
 #ifdef COIN_THREADSAFE
 #include <Inventor/C/threads/mutex.h>
 #include "threads/mutexp.h"
-static cc_mutex * atexit_list_monitor = NULL;
+static cc_mutex * atexit_list_monitor = nullptr;
 #endif /* COIN_THREADSAFE */
 
 
@@ -346,7 +346,7 @@ coin_vsnprintf(char * dst, unsigned int n, const char * fmtstr, va_list args)
 static FILE *
 nullfileptr(void)
 {
-  static FILE * nullfp = NULL;
+  static FILE * nullfp = nullptr;
 
   if (!nullfp) {
     struct stat sbuf;
@@ -357,7 +357,7 @@ nullfileptr(void)
       nullfd = open(unixdevnull, O_WRONLY);
 
     if (nullfd == -1) {
-      const char * tmpname = tmpnam(NULL);
+      const char * tmpname = tmpnam(nullptr);
 
       if (tmpname) {
         nullfd = open(tmpname, O_CREAT|O_WRONLY);
@@ -446,8 +446,8 @@ coin_snprintf(char * dst, unsigned int n, const char * fmtstr, ...)
 */
 
 #ifdef HAVE_GETENVIRONMENTVARIABLE
-static struct envvar_data * envlist_head = NULL;
-static struct envvar_data * envlist_tail = NULL;
+static struct envvar_data * envlist_head = nullptr;
+static struct envvar_data * envlist_tail = nullptr;
 
 struct envvar_data {
   char * name;
@@ -459,22 +459,22 @@ static void
 envlist_cleanup(void)
 {
   struct envvar_data * ptr = envlist_head;
-  while (ptr != NULL) {
+  while (ptr != nullptr) {
     struct envvar_data * tmp = ptr;
     free(ptr->name);
     free(ptr->val);
     ptr = ptr->next;
     free(tmp);
   }
-  envlist_head = NULL;
-  envlist_tail = NULL;
+  envlist_head = nullptr;
+  envlist_tail = nullptr;
 }
 
 static void
 envlist_append(struct envvar_data * item)
 {
-  item->next = NULL;
-  if (envlist_head == NULL) {
+  item->next = nullptr;
+  if (envlist_head == nullptr) {
     envlist_head = item;
     envlist_tail = item;
     coin_atexit_func("envlist_cleanup", envlist_cleanup, CC_ATEXIT_ENVIRONMENT);
@@ -531,17 +531,17 @@ coin_getenv(const char * envname)
      having to copy it around. 20060314 mortene. */
 #ifdef HAVE_GETENVIRONMENTVARIABLE
   int neededsize;
-  neededsize = GetEnvironmentVariable(envname, NULL, 0);
+  neededsize = GetEnvironmentVariable(envname, nullptr, 0);
   /* neededsize includes the \0-terminating character */
   if (neededsize >= 1) {
     int resultsize;
     struct envvar_data * envptr;
     char * valbuf = (char *) malloc(neededsize);
-    if (valbuf == NULL) {
+    if (valbuf == nullptr) {
       /* Augh. Could we handle this any better? */
       /* If we already bookkeep a buffer for this variable, we /could/ try
          to reuse it (much work for a non-100% solution).  20030205 larsa */
-      return NULL;
+      return nullptr;
     }
     resultsize = GetEnvironmentVariable(envname, valbuf, neededsize);
     if (resultsize != (neededsize - 1)) {
@@ -550,7 +550,7 @@ coin_getenv(const char * envname)
          and envval being changed in the background, or maybe just asserting?
          20030205 larsa */
       free(valbuf);
-      return NULL;
+      return nullptr;
     }
 
     /*
@@ -565,12 +565,12 @@ coin_getenv(const char * envname)
 
     /* Try to find bookkeeped envvar buffer among those registered earlier. */
     envptr = envlist_head;
-    while ((envptr != NULL) && (strcmp(envptr->name, envname) != 0))
+    while ((envptr != nullptr) && (strcmp(envptr->name, envname) != 0))
       envptr = envptr->next;
 
     /* We can avoid this if-else by always freeing the envvar_data for the
        variable upfront, but it's a tad less efficient. */
-    if (envptr != NULL) {
+    if (envptr != nullptr) {
       /* We are already bookkeeping a buffer for this variable.
        * => free previous value buffer and bookkeep the new one instead */
       free(envptr->val);
@@ -579,28 +579,28 @@ coin_getenv(const char * envname)
     else {
       /* We aren't bookkeeping a buffer for this one yet. */
       envptr = (struct envvar_data *) malloc(sizeof(struct envvar_data));
-      if (envptr == NULL) {
+      if (envptr == nullptr) {
         /* Augh. Could we handle this any better? */
         /* We can alternatively ignore the bookkeeping and leak the buffer
            - 20030205 larsa */
         free(valbuf);
-        return NULL;
+        return nullptr;
       }
       envptr->name = strdup(envname);
-      if (envptr->name == NULL) {
+      if (envptr->name == nullptr) {
         /* Augh. Could we handle this any better? */
         /* We can alternatively ignore the bookkeeping and leak the buffer
            - 20030205 larsa */
         free(envptr);
         free(valbuf);
-        return NULL;
+        return nullptr;
       }
       envptr->val = valbuf;
       envlist_append(envptr);
     }
     return envptr->val;
   }
-  return NULL;
+  return nullptr;
 #else /* !HAVE_GETENVIRONMENTVARIABLE */
   return getenv(envname);
 #endif /* !HAVE_GETENVIRONMENTVARIABLE */
@@ -618,8 +618,8 @@ coin_setenv(const char * name, const char * value, int overwrite)
 */
   struct envvar_data * envptr, * prevptr;
   envptr = envlist_head;
-  prevptr = NULL;
-  while ((envptr != NULL) && (strcmp(envptr->name, name) != 0)) {
+  prevptr = nullptr;
+  while ((envptr != nullptr) && (strcmp(envptr->name, name) != 0)) {
     prevptr = envptr;
     envptr = envptr->next;
   }
@@ -641,7 +641,7 @@ coin_setenv(const char * name, const char * value, int overwrite)
   sign (=), or foreign lowercase characters in the variable name.
   */
 
-  if (overwrite || (GetEnvironmentVariable(name, NULL, 0) == 0))
+  if (overwrite || (GetEnvironmentVariable(name, nullptr, 0) == 0))
     return SetEnvironmentVariable(name, value) ? true : false;
   else
     return true;
@@ -662,8 +662,8 @@ coin_unsetenv(const char * name)
 */
   struct envvar_data * envptr, * prevptr;
   envptr = envlist_head;
-  prevptr = NULL;
-  while ((envptr != NULL) && (strcmp(envptr->name, name) != 0)) {
+  prevptr = nullptr;
+  while ((envptr != nullptr) && (strcmp(envptr->name, name) != 0)) {
     prevptr = envptr;
     envptr = envptr->next;
   }
@@ -677,7 +677,7 @@ coin_unsetenv(const char * name)
     free(envptr->val);
     free(envptr);
   }
-  SetEnvironmentVariable(name, NULL);
+  SetEnvironmentVariable(name, nullptr);
 #else /* !HAVE_GETENVIRONMENTVARIABLE */
   unsetenv(name);
 #endif /* !HAVE_GETENVIRONMENTVARIABLE */
@@ -1076,7 +1076,7 @@ void free_std_fds(void);
 
 typedef void(*atexit_func_type)(void);
 
-static cc_list * atexit_list = NULL;
+static cc_list * atexit_list = nullptr;
 static bool isexiting = false;
 
 typedef struct {
@@ -1122,7 +1122,7 @@ coin_atexit_cleanup(void)
   /* delete mutex here to make sure this is done before the threading subsystem is shut down */
 #ifdef COIN_THREADSAFE
   cc_mutex_destruct(atexit_list_monitor);
-  atexit_list_monitor = NULL;
+  atexit_list_monitor = nullptr;
 #endif /* COIN_THREADSAFE */
 
   debugstr = coin_getenv("COIN_DEBUG_CLEANUP");
@@ -1149,7 +1149,7 @@ coin_atexit_cleanup(void)
   free_std_fds();
 
   cc_list_destruct(atexit_list);
-  atexit_list = NULL;
+  atexit_list = nullptr;
   isexiting = false;
 
   if (debug) {
@@ -1199,7 +1199,7 @@ coin_atexit_func(const char * name, coin_atexit_f * f, coin_atexit_priorities pr
 
   assert(!isexiting && "tried to attach an atexit function while exiting");
 
-  if (atexit_list == NULL) {
+  if (atexit_list == nullptr) {
     atexit_list = cc_list_construct();
     /* The atexit() registration was disabled, since it has proved
        dangerous to let the C library trigger the callbacks.
@@ -1306,9 +1306,9 @@ coin_is_exiting(void)
   then open a new one?  20030217 larsa
 */
 
-static FILE * coin_stdin = NULL;
-static FILE * coin_stdout = NULL;
-static FILE * coin_stderr = NULL;
+static FILE * coin_stdin = nullptr;
+static FILE * coin_stdout = nullptr;
+static FILE * coin_stderr = nullptr;
 static int coin_dup_stdin = -1;
 static int coin_dup_stdout = -1;
 static int coin_dup_stderr = -1;
@@ -1320,7 +1320,7 @@ free_std_fds(void)
   if (coin_stdin) {
     assert(coin_dup_stdin != -1);
     fclose(coin_stdin);
-    coin_stdin = NULL;
+    coin_stdin = nullptr;
     dup2(coin_dup_stdin, STDIN_FILENO);
     close(coin_dup_stdin);
     coin_dup_stdin = -1;
@@ -1328,7 +1328,7 @@ free_std_fds(void)
   if (coin_stdout) {
     assert(coin_dup_stdout != -1);
     fclose(coin_stdout);
-    coin_stdout = NULL;
+    coin_stdout = nullptr;
     dup2(coin_dup_stdout, STDOUT_FILENO);
     close(coin_dup_stdout);
     coin_dup_stdout = -1;
@@ -1336,7 +1336,7 @@ free_std_fds(void)
   if (coin_stderr) {
     assert(coin_dup_stderr != -1);
     fclose(coin_stderr);
-    coin_stderr = NULL;
+    coin_stderr = nullptr;
     dup2(coin_dup_stderr, STDERR_FILENO);
     close(coin_dup_stderr);
     coin_dup_stderr = -1;
@@ -1380,7 +1380,7 @@ coin_locale_set_portable(cc_string * storeold)
 {
   const char * loc;
 
-  const char * deflocale = setlocale(LC_NUMERIC, NULL);
+  const char * deflocale = setlocale(LC_NUMERIC, nullptr);
   if (strcmp(deflocale, "C") == 0) { return false; }
 
   /* Must copy deflocale string, as it will be changed on the next
@@ -1389,7 +1389,7 @@ coin_locale_set_portable(cc_string * storeold)
   cc_string_set_text(storeold, deflocale);
 
   loc = setlocale(LC_NUMERIC, "C");
-  assert(loc != NULL && "could not set locale to supposed portable C locale");
+  assert(loc != nullptr && "could not set locale to supposed portable C locale");
   return true;
 }
 
@@ -1397,7 +1397,7 @@ void
 coin_locale_reset(cc_string * storedold)
 {
   const char * l = setlocale(LC_NUMERIC, cc_string_get_text(storedold));
-  assert(l != NULL && "could not reset locale");
+  assert(l != nullptr && "could not reset locale");
   cc_string_clean(storedold);
 }
 
@@ -1514,7 +1514,7 @@ coin_parse_versionstring(const char * versionstr,
   *major = 0;
   if (minor) *minor = 0;
   if (patch) *patch = 0;
-  if (versionstr == NULL) return false;
+  if (versionstr == nullptr) return false;
 
   (void)strncpy(buffer, versionstr, 255);
   buffer[255] = '\0'; /* strncpy() will not null-terminate if strlen > 255 */
@@ -1524,7 +1524,7 @@ coin_parse_versionstring(const char * versionstr,
     char * start = buffer;
     *dotptr = '\0';
     *major = atoi(start);
-    if (minor == NULL) return true;
+    if (minor == nullptr) return true;
     start = ++dotptr;
 
     dotptr = strchr(start, '.');
@@ -1535,7 +1535,7 @@ coin_parse_versionstring(const char * versionstr,
       int terminate = *dotptr == ' ';
       *dotptr = '\0';
       *minor = atoi(start);
-      if (patch == NULL) return true;
+      if (patch == nullptr) return true;
       if (!terminate) {
         start = ++dotptr;
         dotptr = strchr(start, ' ');
@@ -1565,7 +1565,7 @@ getcwd_wrapper(char * buf, size_t size)
   return getcwd(buf, size);
 #else /* HAVE_GETCWD */
   /* FIXME: abort compilation? pederb, 2003-08-18 */
-  return NULL;
+  return nullptr;
 #endif /* ! HAVE_GETCWD */
 }
 
@@ -1588,20 +1588,20 @@ getcwd_wrapper(char * buf, size_t size)
 bool
 coin_getcwd(cc_string * str)
 {
-  char buf[256], * dynbuf = NULL;
+  char buf[256], * dynbuf = nullptr;
   size_t bufsize = sizeof(buf);
   char * cwd = getcwd_wrapper(buf, bufsize);
 
-  while ((cwd == NULL) && (errno == ERANGE)) {
+  while ((cwd == nullptr) && (errno == ERANGE)) {
     bufsize *= 2;
-    if (dynbuf != NULL) { free(dynbuf); }
+    if (dynbuf != nullptr) { free(dynbuf); }
     dynbuf = (char *)malloc(bufsize);
     cwd = getcwd_wrapper(dynbuf, bufsize);
   }
-  if (cwd == NULL) { cc_string_set_text(str, strerror(errno)); }
+  if (cwd == nullptr) { cc_string_set_text(str, strerror(errno)); }
   else { cc_string_set_text(str, cwd); }
 
-  if (dynbuf != NULL) { free(dynbuf); }
+  if (dynbuf != nullptr) { free(dynbuf); }
   return cwd ? true : false;
 }
 

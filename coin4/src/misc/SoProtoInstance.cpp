@@ -54,9 +54,9 @@
 class SoProtoInstanceP {
 public:
   SoProtoInstanceP() :
-    fielddata(NULL),
-    protodef(NULL),
-    root(NULL)
+    fielddata(nullptr),
+    protodef(nullptr),
+    root(nullptr)
   { }
 
   SoFieldData * fielddata;
@@ -93,7 +93,7 @@ SoProtoInstance::initClass(void)
   SoProtoInstance::classTypeId =
     SoType::createType(inherited::getClassTypeId(),
                        "ProtoInstance",
-                       NULL,
+                       nullptr,
                        SoNode::nextActionMethodIndex++);
 
   protoinstance_dict = new SoNode2SoProtoInstanceMap;
@@ -129,7 +129,7 @@ SoProtoInstance::SoProtoInstance(SoProto * proto,
 */
 SoProtoInstance::~SoProtoInstance()
 {
-  this->setRootNode(NULL);
+  this->setRootNode(nullptr);
   const int n = PRIVATE(this)->fielddata->getNumFields();
   for (int i = 0; i < n; i++) {
     delete PRIVATE(this)->fielddata->getField(this, i);
@@ -225,7 +225,7 @@ SoProtoInstance::getFileFormatName(void) const
 }
 
 /*!
-  Given root node \a rootnode, return the PROTO instance, or NULL if
+  Given root node \a rootnode, return the PROTO instance, or nullptr if
   \a rootnode is not a PROTO instance root node.
 */
 SoProtoInstance *
@@ -233,7 +233,7 @@ SoProtoInstance::findProtoInstance(const SoNode * rootnode)
 {
   SoProtoInstance * ret;
   CC_MUTEX_LOCK(protoinstance_mutex);
-  if (!protoinstance_dict->get(rootnode, ret)) { ret = NULL; }
+  if (!protoinstance_dict->get(rootnode, ret)) { ret = nullptr; }
   CC_MUTEX_UNLOCK(protoinstance_mutex);
   return ret;
 }
@@ -268,7 +268,7 @@ SoProtoInstance::sensorCB(void * data, SoSensor *)
 {
   // not used anymore. ProtoInstance is unref'ed from SoNode destructor
   SoProtoInstance * thisp = (SoProtoInstance*) data;
-  thisp->setRootNode(NULL);
+  thisp->setRootNode(nullptr);
   thisp->unref();
 }
 

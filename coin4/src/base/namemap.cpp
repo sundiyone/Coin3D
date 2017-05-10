@@ -72,9 +72,9 @@ struct NamemapBucketEntry {
   struct NamemapBucketEntry * next;
 };
 
-static void * access_mutex = NULL;
-static struct NamemapBucketEntry ** nametable = NULL;
-static struct NamemapMemChunk * headchunk = NULL;
+static void * access_mutex = nullptr;
+static struct NamemapBucketEntry ** nametable = nullptr;
+static struct NamemapMemChunk * headchunk = nullptr;
 
 /* ************************************************************************* */
 
@@ -102,7 +102,7 @@ namemap_cleanup(void)
     }
   }
   free(nametable);
-  nametable = static_cast<struct NamemapBucketEntry **>(NULL);
+  nametable = static_cast<struct NamemapBucketEntry **>(nullptr);
 
   CC_MUTEX_DESTRUCT(access_mutex);
 }
@@ -117,9 +117,9 @@ namemap_init(void)
 
   nametable = static_cast<struct NamemapBucketEntry **>(
     malloc(sizeof(struct NamemapBucketEntry *) * NAME_TABLE_SIZE));
-  for (i = 0; i < NAME_TABLE_SIZE; i++) { nametable[i] = NULL; }
+  for (i = 0; i < NAME_TABLE_SIZE; i++) { nametable[i] = nullptr; }
 
-  headchunk = NULL;
+  headchunk = nullptr;
 
   coin_atexit(static_cast<coin_atexit_f *>(namemap_cleanup), CC_ATEXIT_SBNAME);
 }
@@ -132,7 +132,7 @@ find_string_address(const char * s)
   /* FIXME: this is an unacceptable limitation. 20030608 mortene. */
   assert(len < CHUNK_SIZE);
 
-  if (headchunk == NULL || headchunk->bytesleft < len) {
+  if (headchunk == nullptr || headchunk->bytesleft < len) {
     struct NamemapMemChunk * newchunk = static_cast<struct NamemapMemChunk *>(
       malloc(sizeof(struct NamemapMemChunk))
       );
@@ -159,22 +159,22 @@ namemap_find_or_add_string(const char * str, bool addifnotfound)
   unsigned long h, i;
   struct NamemapBucketEntry * entry;
 
-  if (access_mutex == NULL) { CC_MUTEX_CONSTRUCT(access_mutex); }
+  if (access_mutex == nullptr) { CC_MUTEX_CONSTRUCT(access_mutex); }
   CC_MUTEX_LOCK(access_mutex);
 
-  if (nametable == NULL) { namemap_init(); }
-  assert(nametable != static_cast<struct NamemapBucketEntry **>(NULL) && "name hash dead");
+  if (nametable == nullptr) { namemap_init(); }
+  assert(nametable != static_cast<struct NamemapBucketEntry **>(nullptr) && "name hash dead");
 
   h = cc_string_hash_text(str);
   i = h % NAME_TABLE_SIZE;
   entry = nametable[i];
 
-  while (entry != NULL) {
+  while (entry != nullptr) {
     if (entry->hashvalue == h && strcmp(entry->str, str) == 0) { break; }
     entry = entry->next;
   }
 
-  if ((entry == NULL) && addifnotfound) {
+  if ((entry == nullptr) && addifnotfound) {
     entry = static_cast<struct NamemapBucketEntry *>(malloc(sizeof(struct NamemapBucketEntry)));
     entry->str = find_string_address(str);
     entry->hashvalue = h;
@@ -184,7 +184,7 @@ namemap_find_or_add_string(const char * str, bool addifnotfound)
   }
 
   CC_MUTEX_UNLOCK(access_mutex);
-  return entry ? entry->str : NULL;
+  return entry ? entry->str : nullptr;
 }
 
 /* ************************************************************************* */
@@ -204,7 +204,7 @@ cc_namemap_get_address(const char * str)
   Returns address pointer of a given string.
 
   String will not be added if it doesn't exist in name hash (and \c
-  NULL will be returned).
+  nullptr will be returned).
 */
 const char *
 cc_namemap_peek_string(const char * str)

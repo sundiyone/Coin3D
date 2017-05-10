@@ -53,8 +53,8 @@
 
 // *************************************************************************
 
-void * CoinStaticObjectInDLL::mutexhandle = NULL;
-CoinStaticObjectInDLL * CoinStaticObjectInDLL::singleton = NULL;
+void * CoinStaticObjectInDLL::mutexhandle = nullptr;
+CoinStaticObjectInDLL * CoinStaticObjectInDLL::singleton = nullptr;
 
 // *************************************************************************
 
@@ -134,11 +134,11 @@ CoinStaticObjectInDLL::CoinStaticObjectInDLL(void)
            this, SbTime::getTimeOfDay().getValue());
   }
 
-  assert(CoinStaticObjectInDLL::singleton == NULL);
+  assert(CoinStaticObjectInDLL::singleton == nullptr);
   CoinStaticObjectInDLL::singleton = this;
 
   if (!CoinStaticObjectInDLL::activateMutex()) {
-    MessageBox(NULL,
+    MessageBox(nullptr,
                "Detected two instances of the Coin library in the same\n"
                "process image!!\n\n"
 
@@ -191,7 +191,7 @@ CoinStaticObjectInDLL::~CoinStaticObjectInDLL()
   }
 
   assert(CoinStaticObjectInDLL::singleton);
-  CoinStaticObjectInDLL::singleton = NULL;
+  CoinStaticObjectInDLL::singleton = nullptr;
 }
 
 // Called from SoDB::init().
@@ -236,12 +236,12 @@ CoinStaticObjectInDLL::activateMutex(void)
            CoinStaticObjectInDLL::mutexName().getString());
   }
 
-  assert(CoinStaticObjectInDLL::mutexhandle == NULL);
+  assert(CoinStaticObjectInDLL::mutexhandle == nullptr);
 
   SetLastError(0); // so we don't react to an old error for the check below
 
   CoinStaticObjectInDLL::mutexhandle = (HANDLE)
-    CreateMutex(NULL, true, CoinStaticObjectInDLL::mutexName().getString());
+    CreateMutex(nullptr, true, CoinStaticObjectInDLL::mutexName().getString());
   // (The mutex is automatically destructed by the operating system
   // when the process exits.)
 
@@ -260,8 +260,8 @@ CoinStaticObjectInDLL::deactivateMutex(void)
 
   // it's only necessary to close the mutex handle the first time 
   // CoinStaticObjectInDLL::init() is called. In subsequent calls the handle
-  // will be NULL.
-  if (CoinStaticObjectInDLL::mutexhandle != NULL) {
+  // will be nullptr.
+  if (CoinStaticObjectInDLL::mutexhandle != nullptr) {
     const BOOL ok = CloseHandle((HANDLE)CoinStaticObjectInDLL::mutexhandle);
     if (!ok) { // just in case
       if (debug()) {
@@ -272,12 +272,12 @@ CoinStaticObjectInDLL::deactivateMutex(void)
                CoinStaticObjectInDLL::mutexhandle);
       }
 
-      MessageBox(NULL,
+      MessageBox(nullptr,
                  "CloseHandle() in CoinStaticObjectInDLL::deactivateMutex()\n"
                  "failed! Please report to <coin-support@coin3d.org>.\n",
                  "Warning!", MB_OK | MB_ICONERROR | MB_TASKMODAL);
     }
-    CoinStaticObjectInDLL::mutexhandle = (HANDLE)NULL;
+    CoinStaticObjectInDLL::mutexhandle = (HANDLE)nullptr;
   }
 }
 

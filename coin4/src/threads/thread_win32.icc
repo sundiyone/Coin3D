@@ -37,7 +37,7 @@ internal_init(cc_thread * thread)
 {
   DWORD threadid_unused;
 
-  thread->w32thread.threadhandle = CreateThread(NULL, 0,
+  thread->w32thread.threadhandle = CreateThread(nullptr, 0,
     cc_w32thread_thread_proc, (LPVOID) thread, 0, &threadid_unused);
 
   /* threadid_unused - see PlatformSDK doc. for CreateThread */
@@ -50,7 +50,7 @@ internal_init(cc_thread * thread)
    * ExitThread. Failure to do so results in small memory leaks when
    * ExitThread is called. " */
 
-  if (thread->w32thread.threadhandle == NULL) {
+  if (thread->w32thread.threadhandle == nullptr) {
     if (COIN_DEBUG) {
       cc_win32_print_error("internal_init", "CreateThread()", GetLastError());
     }
@@ -104,7 +104,7 @@ internal_join(cc_thread * thread,
    * will result in memory leaks - or bigger problems - see Platform
    * SDK doc. */
   CloseHandle(thread->w32thread.threadhandle);
-  thread->w32thread.threadhandle = NULL;
+  thread->w32thread.threadhandle = nullptr;
 
   return bstatus ? CC_OK : CC_ERROR;
 }

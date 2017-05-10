@@ -32,8 +32,8 @@
 
 SoGLCgShaderProgram::SoGLCgShaderProgram(void)
 {
-  this->fragmentShader = NULL;
-  this->vertexShader = NULL;
+  this->fragmentShader = nullptr;
+  this->vertexShader = nullptr;
 }
 
 SoGLCgShaderProgram::~SoGLCgShaderProgram()
@@ -55,8 +55,8 @@ SoGLCgShaderProgram::addShaderObject(SoGLCgShaderObject * shaderObject)
 void
 SoGLCgShaderProgram::removeShaderObjects(void)
 {
-  this->vertexShader = NULL;
-  this->fragmentShader = NULL;
+  this->vertexShader = nullptr;
+  this->fragmentShader = nullptr;
 }
 
 void

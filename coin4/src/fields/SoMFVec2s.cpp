@@ -141,7 +141,7 @@ SoMFVec2s::setValue(short x, short y)
 void
 SoMFVec2s::setValue(const short xy[2])
 {
-  if (xy == NULL) this->setNum(0);
+  if (xy == nullptr) this->setNum(0);
   else this->setValue(SbVec2s(xy));
 }
 

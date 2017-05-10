@@ -66,7 +66,7 @@ static void
 so_linearprofile_construct_data(void * closure)
 {
   so_linearprofile_data * data = (so_linearprofile_data*) closure;
-  data->coordlist = NULL;
+  data->coordlist = nullptr;
 }
 
 static void
@@ -87,9 +87,9 @@ so_linearprofile_cleanup(void)
 static SbList <float> *
 so_linearprofile_get_coordlist(void)
 {
-  so_linearprofile_data * data = NULL;
+  so_linearprofile_data * data = nullptr;
   data = (so_linearprofile_data*) so_linearprofile_storage->get();
-  if (data->coordlist == NULL) {
+  if (data->coordlist == nullptr) {
     data->coordlist = new SbList<float>;
   }
   return data->coordlist;
@@ -264,7 +264,7 @@ SoLinearProfile::getVertices(SoState * state, int32_t & numvertices,
     numvertices = n;
   }
   else {
-    vertices = NULL;
+    vertices = nullptr;
     numvertices = 0;
   }
 }

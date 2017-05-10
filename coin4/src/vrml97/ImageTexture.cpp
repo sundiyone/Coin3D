@@ -212,8 +212,8 @@
 // *************************************************************************
 
 static int imagedata_maxage = 0;
-static VRMLPrequalifyFileCallback * imagetexture_prequalify_cb = NULL;
-static void * imagetexture_prequalify_closure = NULL;
+static VRMLPrequalifyFileCallback * imagetexture_prequalify_cb = nullptr;
+static void * imagetexture_prequalify_closure = nullptr;
 static bool imagetexture_delay_fetch = true;
 
 // *************************************************************************
@@ -274,25 +274,25 @@ public:
 
 #ifdef COIN_THREADSAFE
     delete glimagemutex;
-    glimagemutex = NULL;
+    glimagemutex = nullptr;
 #endif // COIN_THREADSAFE
 
     if (scheduler) {
       cc_sched_destruct(scheduler);
-      scheduler = NULL;
+      scheduler = nullptr;
     }
 
     imagetexture_delay_fetch = true;
-    imagetexture_prequalify_cb = NULL;
-    imagetexture_prequalify_closure = NULL;
+    imagetexture_prequalify_cb = nullptr;
+    imagetexture_prequalify_closure = nullptr;
   }
 };
 
 #ifdef COIN_THREADSAFE
-SbMutex * SoVRMLImageTextureP::glimagemutex = NULL;
+SbMutex * SoVRMLImageTextureP::glimagemutex = nullptr;
 #endif // COIN_THREADSAFE
 
-cc_sched * SoVRMLImageTextureP::scheduler = NULL;
+cc_sched * SoVRMLImageTextureP::scheduler = nullptr;
 bool SoVRMLImageTextureP::is_exiting = false;
 
 // *************************************************************************
@@ -343,7 +343,7 @@ SoVRMLImageTexture::SoVRMLImageTexture(void)
   SO_VRMLNODE_INTERNAL_CONSTRUCTOR(SoVRMLImageTexture);
   SO_VRMLNODE_ADD_EMPTY_EXPOSED_MFIELD(url);
 
-  PRIVATE(this)->glimage = NULL;
+  PRIVATE(this)->glimage = nullptr;
   PRIVATE(this)->glimagevalid = false;
   PRIVATE(this)->readstatus = 1;
   PRIVATE(this)->allowprequalifycb = true;
@@ -373,7 +373,7 @@ SoVRMLImageTexture::~SoVRMLImageTexture()
     cc_sched_wait_all(SoVRMLImageTextureP::scheduler);
   }
 
-  if (PRIVATE(this)->glimage) PRIVATE(this)->glimage->unref(NULL);
+  if (PRIVATE(this)->glimage) PRIVATE(this)->glimage->unref(nullptr);
   PRIVATE(this)->clearSearchDirs();
   delete PRIVATE(this)->urlsensor;
   delete PRIVATE(this);
@@ -635,7 +635,7 @@ static void
 imagetexture_glimage_delete(void * closure, SoSensor * s)
 {
   SoGLImage * img = (SoGLImage*) closure;
-  img->unref(NULL);
+  img->unref(nullptr);
   delete s;
 }
 
@@ -654,7 +654,7 @@ SoVRMLImageTexture::glimage_callback(void * closure)
       // SoGLImage. Use a sensor to delete it the next time the
       // delayqueue sensors are processed.
       if (PRIVATE(thisp)->glimage) {
-        PRIVATE(thisp)->glimage->setEndFrameCallback(NULL, NULL);
+        PRIVATE(thisp)->glimage->setEndFrameCallback(nullptr, nullptr);
         // allocate new sensor. It will be deleted in the sensor
         // callback. We do this here since this node might be outside
         // the view frustum, and GLRender() may not be called anytime
@@ -662,11 +662,11 @@ SoVRMLImageTexture::glimage_callback(void * closure)
         SoOneShotSensor * s = new SoOneShotSensor(imagetexture_glimage_delete, PRIVATE(thisp)->glimage);
         s->schedule();
         // clear the GLImage in this node. The sensor has a pointer to it and will delete it
-        PRIVATE(thisp)->glimage = NULL;
+        PRIVATE(thisp)->glimage = nullptr;
         PRIVATE(thisp)->glimagevalid = false;
       }
       PRIVATE(thisp)->unlock_glimage();
-      PRIVATE(thisp)->image.setValue(SbVec2s(0,0), 0, NULL);
+      PRIVATE(thisp)->image.setValue(SbVec2s(0,0), 0, nullptr);
       (void) thisp->loadUrl();
       return;
     }
@@ -778,7 +778,7 @@ SoVRMLImageTexture::urlSensorCB(void * data, SoSensor *)
         cc_sched_wait_all(SoVRMLImageTextureP::scheduler);
       }
 
-      thisp->pimpl->image.setValue(SbVec2s(0,0), 0, NULL);
+      thisp->pimpl->image.setValue(SbVec2s(0,0), 0, nullptr);
     }
   }
 }
@@ -794,7 +794,7 @@ SoVRMLImageTexture::readImage(const SbString & filename)
                                         this);
   }
   else {
-    retval = default_prequalify_cb(filename, NULL, this); 
+    retval = default_prequalify_cb(filename, nullptr, this); 
   }
   PRIVATE(this)->lock_glimage();
   PRIVATE(this)->glimagevalid = false;

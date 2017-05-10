@@ -83,12 +83,12 @@ SoScXMLMiscTarget::cleanClass(void)
   SoScXMLMiscTarget::classTypeId = SoType::badType();
 }
 
-SoScXMLMiscTarget * SoScXMLMiscTarget::theSingleton = NULL;
+SoScXMLMiscTarget * SoScXMLMiscTarget::theSingleton = nullptr;
 
 SoScXMLMiscTarget *
 SoScXMLMiscTarget::constructSingleton(void)
 {
-  assert(SoScXMLMiscTarget::theSingleton == NULL);
+  assert(SoScXMLMiscTarget::theSingleton == nullptr);
   SoScXMLMiscTarget::theSingleton =
     static_cast<SoScXMLMiscTarget *>(SoScXMLMiscTarget::classTypeId.createInstance());
   return SoScXMLMiscTarget::theSingleton;
@@ -97,15 +97,15 @@ SoScXMLMiscTarget::constructSingleton(void)
 void
 SoScXMLMiscTarget::destructSingleton(void)
 {
-  assert(SoScXMLMiscTarget::theSingleton != NULL);
+  assert(SoScXMLMiscTarget::theSingleton != nullptr);
   delete SoScXMLMiscTarget::theSingleton;
-  SoScXMLMiscTarget::theSingleton = NULL;
+  SoScXMLMiscTarget::theSingleton = nullptr;
 }
 
 SoScXMLMiscTarget *
 SoScXMLMiscTarget::singleton(void)
 {
-  assert(SoScXMLMiscTarget::theSingleton != NULL);
+  assert(SoScXMLMiscTarget::theSingleton != nullptr);
   return SoScXMLMiscTarget::theSingleton;
 }
 

@@ -39,7 +39,7 @@
   operations.
 
   Note that the engine pointer stored in a field instance of this type
-  may be a \c NULL pointer.
+  may be a \c nullptr pointer.
 
   \sa SoEngine, SoMFEngine
 
@@ -83,12 +83,12 @@ SoSFEngine::initClass(void)
 // so don't use Doxygen commenting.)
 #ifndef DOXYGEN_SKIP_THIS
 
-/* Constructor, sets initial engine pointer to a \c NULL pointer. */
+/* Constructor, sets initial engine pointer to a \c nullptr pointer. */
 SoSFEngine::SoSFEngine(void)
 {
-  this->value = NULL;
+  this->value = nullptr;
 #ifdef COIN_INTERNAL_SOSFPATH
-  this->head = NULL;
+  this->head = nullptr;
 #endif // COIN_INTERNAL_SOSFPATH
 }
 
@@ -96,7 +96,7 @@ SoSFEngine::SoSFEngine(void)
 SoSFEngine::~SoSFEngine(void)
 {
   this->enableNotify(false);
-  this->setValue(NULL);
+  this->setValue(nullptr);
 }
 
 #endif // DOXYGEN_SKIP_THIS
@@ -108,7 +108,7 @@ SoSFEngine::~SoSFEngine(void)
 #ifndef DOXYGEN_SKIP_THIS
 
 // Store the \a newval engine pointer in this field. If \a newval is not
-// \c NULL, will add 1 to the reference count of the engine.
+// \c nullptr, will add 1 to the reference count of the engine.
 void
 SoSFEngine::setValue(SoEngine * newval)
 {
@@ -215,7 +215,7 @@ SoSFEngine::countWriteRefs(SoOutput * out) const
   inherited::countWriteRefs(out);
 
   SoBase * base = this->getValue();
-  if (base == NULL) return;
+  if (base == nullptr) return;
 
   // NB: This code is common for SoSFNode, SoSFPath and SoSFEngine.
   // That's why we check the base type before writing/counting
@@ -291,7 +291,7 @@ SoSFEngine::referencesCopy(void) const
   }
   else if (n->isOfType(SoPath::getClassTypeId())) {
     SoPath * p = coin_assert_cast<SoPath *>(n);
-    if (p->getHead() == NULL) return false;
+    if (p->getHead() == nullptr) return false;
     if (SoFieldContainer::checkCopy(p->getHead())) return true;
   }
   else {

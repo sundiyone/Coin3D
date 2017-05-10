@@ -36,10 +36,10 @@
 class SoVBOCacheP {
 public:
   SoVBOCacheP(void) {
-    this->vaindexer = NULL;
-    this->coordvbo = NULL;
-    this->colorvbo = NULL;
-    this->normalvbo = NULL;
+    this->vaindexer = nullptr;
+    this->coordvbo = nullptr;
+    this->colorvbo = nullptr;
+    this->normalvbo = nullptr;
   }
   ~SoVBOCacheP() {
     delete this->vaindexer;
@@ -83,7 +83,7 @@ SoVBOCache::~SoVBOCache()
 SoVertexArrayIndexer * 
 SoVBOCache::getVertexArrayIndexer(const bool createifnull)
 {
-  if (createifnull && (this->pimpl->vaindexer == NULL)) {
+  if (createifnull && (this->pimpl->vaindexer == nullptr)) {
     this->pimpl->vaindexer = new SoVertexArrayIndexer;
   }
   return this->pimpl->vaindexer;
@@ -96,7 +96,7 @@ SoVBOCache::getVertexArrayIndexer(const bool createifnull)
 SoVBO * 
 SoVBOCache::getCoordVBO(const bool createifnull)
 {
-  if (createifnull && (this->pimpl->coordvbo == NULL)) {
+  if (createifnull && (this->pimpl->coordvbo == nullptr)) {
     this->pimpl->coordvbo = new SoVBO;
   }
   return this->pimpl->coordvbo;
@@ -110,7 +110,7 @@ SoVBOCache::getCoordVBO(const bool createifnull)
 SoVBO * 
 SoVBOCache::getNormalVBO(const bool createifnull)
 {
-  if (createifnull && (this->pimpl->normalvbo == NULL)) {
+  if (createifnull && (this->pimpl->normalvbo == nullptr)) {
     this->pimpl->normalvbo = new SoVBO;
   }
   return this->pimpl->normalvbo;
@@ -123,7 +123,7 @@ SoVBOCache::getNormalVBO(const bool createifnull)
 SoVBO * 
 SoVBOCache::getColorVBO(const bool createifnull)
 {
-  if (createifnull && (this->pimpl->colorvbo == NULL)) {
+  if (createifnull && (this->pimpl->colorvbo == nullptr)) {
     this->pimpl->colorvbo = new SoVBO;
   }
   return this->pimpl->colorvbo;
@@ -138,14 +138,14 @@ SoVBOCache::getTexCoordVBO(const int unit, const bool createifnull)
 {
   if (createifnull) {
     while (this->pimpl->texcoordvbo.getLength() <= unit) {
-      this->pimpl->texcoordvbo.append(NULL);
+      this->pimpl->texcoordvbo.append(nullptr);
     }
-    if (this->pimpl->texcoordvbo[unit] == NULL) {
+    if (this->pimpl->texcoordvbo[unit] == nullptr) {
       this->pimpl->texcoordvbo[unit] = new SoVBO;
     }
   }
   if (this->pimpl->texcoordvbo.getLength() > unit) {
     return this->pimpl->texcoordvbo[unit];
   }
-  return NULL;
+  return nullptr;
 }

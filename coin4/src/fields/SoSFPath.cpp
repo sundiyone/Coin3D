@@ -41,7 +41,7 @@
   operations.
 
   Note that the path pointer stored in a field instance of this type
-  may be a \c NULL pointer.
+  may be a \c nullptr pointer.
 
   \sa SoPath, SoMFPath
 
@@ -86,12 +86,12 @@ SoSFPath::initClass(void)
 // so don't use Doxygen commenting.)
 #ifndef DOXYGEN_SKIP_THIS
 
-/* Constructor, sets initial path pointer to a \c NULL pointer. */
+/* Constructor, sets initial path pointer to a \c nullptr pointer. */
 SoSFPath::SoSFPath(void)
 {
-  this->value = NULL;
+  this->value = nullptr;
 #ifdef COIN_INTERNAL_SOSFPATH
-  this->head = NULL;
+  this->head = nullptr;
 #endif // COIN_INTERNAL_SOSFPATH
 }
 
@@ -99,7 +99,7 @@ SoSFPath::SoSFPath(void)
 SoSFPath::~SoSFPath(void)
 {
   this->enableNotify(false);
-  this->setValue(NULL);
+  this->setValue(nullptr);
 }
 
 #endif // DOXYGEN_SKIP_THIS
@@ -111,7 +111,7 @@ SoSFPath::~SoSFPath(void)
 #ifndef DOXYGEN_SKIP_THIS
 
 // Store the \a newval path pointer in this field. If \a newval is not
-// \c NULL, will add 1 to the reference count of the path.
+// \c nullptr, will add 1 to the reference count of the path.
 void
 SoSFPath::setValue(SoPath * newval)
 {
@@ -169,13 +169,13 @@ SoSFPath::readValue(SoInput * in)
 {
   SoBase * baseptr;
 
-  //Handle when the path is set to NULL
+  //Handle when the path is set to nullptr
   SbName keyword;
   if (in)
     if (!in->read(keyword)) return false;
   
   if(keyword=="NULL") {
-    this->setValue(NULL);
+    this->setValue(nullptr);
     return true;
   }
   else
@@ -235,7 +235,7 @@ SoSFPath::countWriteRefs(SoOutput * out) const
   inherited::countWriteRefs(out);
 
   SoBase * base = this->getValue();
-  if (base == NULL) return;
+  if (base == nullptr) return;
 
   // NB: This code is common for SoSFNode, SoSFPath and SoSFEngine.
   // That's why we check the base type before writing/counting
@@ -311,7 +311,7 @@ SoSFPath::referencesCopy(void) const
   }
   else if (n->isOfType(SoPath::getClassTypeId())) {
     SoPath * p = coin_assert_cast<SoPath *>(n);
-    if (p->getHead() == NULL) return false;
+    if (p->getHead() == nullptr) return false;
     if (SoFieldContainer::checkCopy(p->getHead())) return true;
   }
   else {

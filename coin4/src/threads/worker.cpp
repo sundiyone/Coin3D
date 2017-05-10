@@ -67,7 +67,7 @@ worker_thread_loop(cc_worker * worker)
     }
   }
 
-  worker->workfunc = NULL;
+  worker->workfunc = nullptr;
   /* remember to unlock mutex after we break out of the loop */
   cc_mutex_unlock(worker->mutex);
 }
@@ -80,7 +80,7 @@ worker_thread_entry(void * data)
 {
   cc_worker * worker = (cc_worker*) data;
   worker_thread_loop(worker);
-  return NULL;
+  return nullptr;
 }
 
 /*
@@ -122,9 +122,9 @@ worker_stop_thread(cc_worker * worker)
     cc_condvar_wake_one(worker->cond);
     cc_mutex_unlock(worker->mutex);
     /* wait for thread to finish */
-    cc_thread_join(worker->thread, NULL);
+    cc_thread_join(worker->thread, nullptr);
     cc_thread_destruct(worker->thread);
-    worker->thread = NULL;
+    worker->thread = nullptr;
     worker->shutdown = false; /* reset signal */
   }
 }
@@ -140,13 +140,13 @@ cc_worker_construct(void)
   worker->cond = cc_condvar_construct();
   worker->begincond = cc_condvar_construct();
   worker->beginmutex = cc_mutex_construct();
-  worker->thread = NULL; /* delay creating thread */
+  worker->thread = nullptr; /* delay creating thread */
   worker->threadisrunning = false;
   worker->shutdown = false;
-  worker->workfunc = NULL;
-  worker->workclosure = NULL;
-  worker->idlecb = NULL;
-  worker->idleclosure = NULL;
+  worker->workfunc = nullptr;
+  worker->workclosure = nullptr;
+  worker->idlecb = nullptr;
+  worker->idleclosure = nullptr;
   return worker;
 }
 
@@ -159,7 +159,7 @@ cc_worker_destruct(cc_worker * worker)
   if (worker->threadisrunning) {
     worker_stop_thread(worker);
   }
-  assert(worker->thread == NULL);
+  assert(worker->thread == nullptr);
   cc_mutex_destruct(worker->mutex);
   cc_condvar_destruct(worker->cond);
   cc_condvar_destruct(worker->begincond);

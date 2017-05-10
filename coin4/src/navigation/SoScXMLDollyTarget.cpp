@@ -161,12 +161,12 @@ SoScXMLDollyTarget::cleanClass(void)
   SoScXMLDollyTarget::classTypeId = SoType::badType();
 }
 
-SoScXMLDollyTarget * SoScXMLDollyTarget::theSingleton = NULL;
+SoScXMLDollyTarget * SoScXMLDollyTarget::theSingleton = nullptr;
 
 SoScXMLDollyTarget *
 SoScXMLDollyTarget::constructSingleton(void)
 {
-  assert(SoScXMLDollyTarget::theSingleton == NULL);
+  assert(SoScXMLDollyTarget::theSingleton == nullptr);
   SoScXMLDollyTarget::theSingleton =
     static_cast<SoScXMLDollyTarget *>(SoScXMLDollyTarget::classTypeId.createInstance());
   return SoScXMLDollyTarget::theSingleton;
@@ -175,15 +175,15 @@ SoScXMLDollyTarget::constructSingleton(void)
 void
 SoScXMLDollyTarget::destructSingleton(void)
 {
-  assert(SoScXMLDollyTarget::theSingleton != NULL);
+  assert(SoScXMLDollyTarget::theSingleton != nullptr);
   delete SoScXMLDollyTarget::theSingleton;
-  SoScXMLDollyTarget::theSingleton = NULL;
+  SoScXMLDollyTarget::theSingleton = nullptr;
 }
 
 SoScXMLDollyTarget *
 SoScXMLDollyTarget::singleton(void)
 {
-  assert(SoScXMLDollyTarget::theSingleton != NULL);
+  assert(SoScXMLDollyTarget::theSingleton != nullptr);
   return SoScXMLDollyTarget::theSingleton;
 }
 

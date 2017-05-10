@@ -250,9 +250,9 @@ SoFile::readNamedFile(SoInput * in)
     if (!readok) { // actual read error
       break;
     }
-    if (n == NULL) { // this is what happens on EOF, not valid
+    if (n == nullptr) { // this is what happens on EOF, not valid
                      // identifiers, or when children have been given
-                     // the NULL keyword
+                     // the nullptr keyword
 
       break; 
     }

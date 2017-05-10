@@ -59,14 +59,14 @@ class DelayEventData {
   // FIXME: these objects should per spec die with the invoking eventtarget.
 public:
   DelayEventData(void)
-  : targettype(NULL), targetname(NULL), delay(0.0f), alarm(NULL), event(NULL)
+  : targettype(nullptr), targetname(nullptr), delay(0.0f), alarm(nullptr), event(nullptr)
   {
   }
   ~DelayEventData(void)
   {
-    delete [] this->targettype; this->targettype = NULL;
-    delete [] this->targetname; this->targetname = NULL;
-    if (event) { delete this->event; this->event = NULL; }
+    delete [] this->targettype; this->targettype = nullptr;
+    delete [] this->targetname; this->targetname = nullptr;
+    if (event) { delete this->event; this->event = nullptr; }
   }
 
   char * targettype;
@@ -89,10 +89,10 @@ typedef std::pair<const char *, TargetMap *> TargetTypeMapEntry;
 
 class ScXMLEventTarget::PImpl {
 public:
-  PImpl(void) : targetsessionid(NULL) { }
+  PImpl(void) : targetsessionid(nullptr) { }
   ~PImpl(void)
   {
-    delete [] this->targetsessionid; this->targetsessionid = NULL;
+    delete [] this->targetsessionid; this->targetsessionid = nullptr;
     // FIX?ME: clean out queues
   }
 
@@ -138,7 +138,7 @@ ScXMLEventTarget::PImpl::delay_event_alarm_cb(void * userdata, SoSensor * COIN_U
 
 #define PRIVATE(obj) ((obj)->pimpl)
 
-TargetTypeMap * ScXMLEventTarget::PImpl::targettypes = NULL;
+TargetTypeMap * ScXMLEventTarget::PImpl::targettypes = nullptr;
 SbList<ScXMLEventTarget *> ScXMLEventTarget::PImpl::targets;
 
 SCXML_OBJECT_ABSTRACT_SOURCE(ScXMLEventTarget);
@@ -149,7 +149,7 @@ ScXMLEventTarget::initClass(void)
   SCXML_OBJECT_INIT_ABSTRACT_CLASS(ScXMLEventTarget, ScXMLObject, "ScXMLObject");
 
   ScXMLP::lock();
-  assert(ScXMLEventTarget::PImpl::targettypes == NULL);
+  assert(ScXMLEventTarget::PImpl::targettypes == nullptr);
   ScXMLEventTarget::PImpl::targettypes = new TargetTypeMap;
   ScXMLP::unlock();
 }
@@ -160,13 +160,13 @@ ScXMLEventTarget::cleanClass(void)
   int n;
   while ( (n = ScXMLEventTarget::PImpl::targets.getLength())>0) {
     ScXMLEventTarget * target = ScXMLEventTarget::PImpl::targets[n-1];
-    unregisterEventTarget(target,NULL);
+    unregisterEventTarget(target,nullptr);
   }
   
   ScXMLP::lock();
-  assert(ScXMLEventTarget::PImpl::targettypes != NULL);
+  assert(ScXMLEventTarget::PImpl::targettypes != nullptr);
   delete ScXMLEventTarget::PImpl::targettypes;
-  ScXMLEventTarget::PImpl::targettypes = NULL;
+  ScXMLEventTarget::PImpl::targettypes = nullptr;
   ScXMLP::unlock();
   ScXMLEventTarget::classTypeId = SoType::badType();
 }
@@ -187,7 +187,7 @@ ScXMLEventTarget::registerEventTarget(ScXMLEventTarget * target, const char * se
   assert(ScXMLEventTarget::PImpl::targettypes);
   ScXMLP::lock();
   TargetTypeMap::iterator typeit = ScXMLEventTarget::PImpl::targettypes->find(targettypename.getString());
-  TargetMap * targetmap = NULL;
+  TargetMap * targetmap = nullptr;
   if (typeit != ScXMLEventTarget::PImpl::targettypes->end()) {
     targetmap = typeit->second;
   } else {
@@ -197,7 +197,7 @@ ScXMLEventTarget::registerEventTarget(ScXMLEventTarget * target, const char * se
   }
 
   TargetMap::iterator targetit = targetmap->find(targetnamename.getString());
-  SessionMap * sessionmap = NULL;
+  SessionMap * sessionmap = nullptr;
   if (targetit != targetmap->end()) {
     sessionmap = targetit->second;
   } else {
@@ -300,7 +300,7 @@ ScXMLEventTarget::getEventTarget(const char * targettype, const char * targetnam
   const SbName targettypename(targettype);
   const SbName targetnamename(targetname);
   SbName targetsessionid(SbName::empty());
-  if (sessionid != NULL) {
+  if (sessionid != nullptr) {
     targetsessionid = SbName(sessionid);
   }
 
@@ -312,7 +312,7 @@ ScXMLEventTarget::getEventTarget(const char * targettype, const char * targetnam
     //                    "given target type ('%s') not registered 1",
     //                    targettypename.getString());
     ScXMLP::unlock();
-    return NULL;
+    return nullptr;
   }
   TargetMap * targetmap = typeit->second;
 
@@ -322,7 +322,7 @@ ScXMLEventTarget::getEventTarget(const char * targettype, const char * targetnam
     //                    "given target (type '%s' '%s') not registered",
     //                    targettypename.getString(), targetnamename.getString());
     ScXMLP::unlock();
-    return NULL;
+    return nullptr;
   }
   SessionMap * sessionmap = targetit->second;
 
@@ -332,7 +332,7 @@ ScXMLEventTarget::getEventTarget(const char * targettype, const char * targetnam
     //                    "given target (type '%s' '%s') with session '%s' not registered",
     //                    targettypename.getString(), targetnamename.getString(), targetsessionid.getString());
     ScXMLP::unlock();
-    return NULL;
+    return nullptr;
   }
 
   ScXMLEventTarget * target = sessionit->second;
@@ -344,9 +344,9 @@ ScXMLEventTarget::getEventTarget(const char * targettype, const char * targetnam
 /*!
 */
 ScXMLEventTarget::ScXMLEventTarget(void)
-: targetname(NULL),
-  targettype(NULL),
-  currentevent(NULL),
+: targetname(nullptr),
+  targettype(nullptr),
+  currentevent(nullptr),
   isprocessingqueue(false)
 {
 }
@@ -359,9 +359,9 @@ ScXMLEventTarget::~ScXMLEventTarget(void)
     ScXMLEventTarget::unregisterEventTarget(this, PRIVATE(this)->targetsessionid);
   }
   delete [] this->targetname;
-  this->targetname = NULL;
+  this->targetname = nullptr;
   delete [] this->targettype;
-  this->targettype = NULL;
+  this->targettype = nullptr;
 }
 
 /*!
@@ -374,7 +374,7 @@ ScXMLEventTarget::setEventTargetType(const char * targettypestr)
   }
 
   delete [] this->targettype;
-  this->targettype = NULL;
+  this->targettype = nullptr;
 
   if (targettypestr) {
     this->targettype = new char [strlen(targettypestr) + 1];
@@ -407,7 +407,7 @@ ScXMLEventTarget::setEventTargetName(const char * targetnamestr)
   }
 
   delete [] this->targetname;
-  this->targetname = NULL;
+  this->targetname = nullptr;
 
   if (targetnamestr) {
     this->targetname = new char [strlen(targetnamestr) + 1];
@@ -494,7 +494,7 @@ ScXMLEventTarget::processEventQueue(void)
   bool eventsuccess = false;
   bool communicating = true;
   while (communicating) {
-    const ScXMLEvent * event = NULL;
+    const ScXMLEvent * event = nullptr;
     while ((event = this->getNextEvent())) {
       if (this->processOneEvent(event)) {
         eventsuccess = true;
@@ -527,7 +527,7 @@ ScXMLEventTarget::processEventQueue(void)
 const ScXMLEvent *
 ScXMLEventTarget::getNextEvent(void)
 {
-  const ScXMLEvent * nextevent = NULL;
+  const ScXMLEvent * nextevent = nullptr;
   // internal events have first priority
   nextevent = this->getNextInternalEvent();
   if (!nextevent) {
@@ -542,7 +542,7 @@ const ScXMLEvent *
 ScXMLEventTarget::getNextInternalEvent(void)
 {
   ScXMLP::lock();
-  const ScXMLEvent * nextevent = NULL;
+  const ScXMLEvent * nextevent = nullptr;
   if (!PRIVATE(this)->internaleventqueue.empty()) {
     nextevent = PRIVATE(this)->internaleventqueue.front();
     PRIVATE(this)->internaleventqueue.pop_front();
@@ -557,7 +557,7 @@ const ScXMLEvent *
 ScXMLEventTarget::getNextExternalEvent(void)
 {
   ScXMLP::lock();
-  const ScXMLEvent * nextevent = NULL;
+  const ScXMLEvent * nextevent = nullptr;
   if (!PRIVATE(this)->externaleventqueue.empty()) {
     nextevent = PRIVATE(this)->externaleventqueue.front();
     PRIVATE(this)->externaleventqueue.pop_front();
@@ -589,10 +589,10 @@ ScXMLEventTarget::setCurrentEvent(const ScXMLEvent * event)
 /*!
   \fn const ScXMLEvent * ScXMLEventTarget::getCurrentEvent(void) const
 
-  This method returns the current event during event processing, and NULL
+  This method returns the current event during event processing, and nullptr
   when not processing events.
 
-  Event processing is in special cases done with NULL as the current event,
+  Event processing is in special cases done with nullptr as the current event,
   as for instance during state machine initialization.
 */
 

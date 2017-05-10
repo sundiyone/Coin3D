@@ -137,7 +137,7 @@ SoMFVec3d::setValue(double x, double y, double z)
 void
 SoMFVec3d::setValue(const double xyz[3])
 {
-  if (xyz == NULL) this->setNum(0);
+  if (xyz == nullptr) this->setNum(0);
   else this->setValue(SbVec3d(xyz));
 }
 

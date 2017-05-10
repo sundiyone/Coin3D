@@ -103,7 +103,7 @@
 
   Will automatically expand the size of the internal array if \a index
   is outside the current bounds of the list. The values of any
-  additional pointers are then set to \c NULL.
+  additional pointers are then set to \c nullptr.
 */
 
 /*!
@@ -280,14 +280,14 @@ SbPList::operator==(const SbPList & l) const
   return true;
 }
 
-// Expand list to the given size, filling in with NULL pointers.
+// Expand list to the given size, filling in with nullptr pointers.
 void
 SbPList::expandlist(const int size) const
 {
   const int oldsize = this->getLength();
   SbPList * thisp = (SbPList *)this;
   thisp->expand(size);
-  for (int i = oldsize; i < size; i++) (*thisp)[i] = NULL;
+  for (int i = oldsize; i < size; i++) (*thisp)[i] = nullptr;
 }
 
 // grow allocated array, not number of items

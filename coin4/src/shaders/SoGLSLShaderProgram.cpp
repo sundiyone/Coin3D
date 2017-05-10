@@ -83,7 +83,7 @@ SoGLSLShaderProgram::deletePrograms(void)
 void
 SoGLSLShaderProgram::addShaderObject(SoGLSLShaderObject *shaderObject)
 {
-  if (shaderObject!=NULL) {
+  if (shaderObject!=nullptr) {
     if (this->indexOfShaderObject(shaderObject) < 0) {
       this->shaderObjects.append(shaderObject);
     }
@@ -187,7 +187,7 @@ SoGLSLShaderProgram::ensureLinking(const cc_glglue * g)
 int
 SoGLSLShaderProgram::indexOfShaderObject(SoGLSLShaderObject *shaderObject)
 {
-  if (shaderObject == NULL) return -1;
+  if (shaderObject == nullptr) return -1;
 
   int cnt = this->shaderObjects.getLength();
   for (int i=0; i<cnt; i++) {
@@ -249,7 +249,7 @@ SoGLSLShaderProgram::updateCoinParameter(SoState * state, const SbName & name, c
 {
   const int n = this->shaderObjects.getLength();
   for (int i = 0; i < n; i++) {
-    this->shaderObjects[i]->updateCoinParameter(state, name, NULL, value);
+    this->shaderObjects[i]->updateCoinParameter(state, name, nullptr, value);
   }
 }
 

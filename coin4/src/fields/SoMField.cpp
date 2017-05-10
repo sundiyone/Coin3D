@@ -280,7 +280,7 @@ using std::strlen;
 SoType SoMField::classTypeId STATIC_SOTYPE_INIT;
 
 // need one static mutex for field_buffer in SoMField::get1(SbString &)
-static void * somfield_mutex = NULL;
+static void * somfield_mutex = nullptr;
 
 static void
 somfield_mutex_cleanup(void)
@@ -301,7 +301,7 @@ SoMField::getClassTypeId(void)
 void
 SoMField::initClass(void)
 {
-  PRIVATE_FIELD_INIT_CLASS(SoMField, "MField", inherited, NULL);
+  PRIVATE_FIELD_INIT_CLASS(SoMField, "MField", inherited, nullptr);
 
   CC_MUTEX_CONSTRUCT(somfield_mutex);
   coin_atexit(somfield_mutex_cleanup, CC_ATEXIT_NORMAL);
@@ -370,7 +370,7 @@ SoMField::set1(const int index, const char * const valuestring)
   return true;
 }
 
-static void * mfield_buffer = NULL;
+static void * mfield_buffer = nullptr;
 static size_t mfield_buffer_size = 0;
 
 static void
@@ -378,7 +378,7 @@ mfield_buffer_cleanup(void)
 {
   if (mfield_buffer) {
     free(mfield_buffer);
-    mfield_buffer = NULL;
+    mfield_buffer = nullptr;
     mfield_buffer_size = 0;
   }
 }
@@ -784,7 +784,7 @@ SoMField::allocValues(int newnum)
     if (!this->userDataIsUsed) {
       delete[] static_cast<unsigned char *>(this->valuesPtr());
     }
-    this->setValuesPtr(NULL);
+    this->setValuesPtr(nullptr);
     this->userDataIsUsed = false;
     this->maxNum = 0;
   }
@@ -819,7 +819,7 @@ SoMField::allocValues(int newnum)
         (void) memcpy(newblock, this->valuesPtr(), copysize);
         // we have to dereference old values in SoMFNode, SoMFPath and
         // SoMFEngine, so we just initialize the part of the array
-        // with no defined values to NULL.
+        // with no defined values to nullptr.
         int rest = this->maxNum*fsize - copysize;
         if (rest > 0) {
           (void)memset(newblock + copysize, 0, rest);
@@ -834,7 +834,7 @@ SoMField::allocValues(int newnum)
     else {
       unsigned char * data = new unsigned char[newnum * fsize];
       // we have to dereference old values in SoMFNode, SoMFPath and
-      // SoMFEngine, so we just initialize the array to NULL.
+      // SoMFEngine, so we just initialize the array to nullptr.
       (void)memset(data, 0, newnum * fsize);
       this->setValuesPtr(data);
       this->userDataIsUsed = false;

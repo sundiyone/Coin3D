@@ -52,7 +52,7 @@ public:
                          const int32_t *coordindices,
                          const int numcoordindices,
                          const float crease_angle,
-                         const SbVec3f *facenormals = NULL,
+                         const SbVec3f *facenormals = nullptr,
                          const int numfacenormals = -1,
                          const bool ccw = true,
                          const bool tristrip = false);

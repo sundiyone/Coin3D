@@ -33,7 +33,7 @@ typedef void SbTesselatorCB(void * v0, void * v1, void * v2, void * data);
 
 class COIN_DLL_API SbTesselator {
 public:
-  SbTesselator(SbTesselatorCB * func = NULL, void * data = NULL);
+  SbTesselator(SbTesselatorCB * func = nullptr, void * data = nullptr);
   ~SbTesselator(void);
 
   void beginPolygon(bool keepVertices = false,

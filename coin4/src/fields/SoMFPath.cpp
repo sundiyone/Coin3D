@@ -37,7 +37,7 @@
   export operations.
 
   Note that path pointers stored in field instances of this type may
-  be \c NULL pointers.
+  be \c nullptr pointers.
 
   \sa SoPath, SoSFPath
 
@@ -171,7 +171,7 @@ SoMFPath::set1Value(const int idx, SoPath * newval)
   // Expand array if necessary.
   if (idx >= this->num) {
 #ifdef COIN_INTERNAL_SOMFPATH
-    for (int i = this->num; i <= idx; i++) this->pathheads.append(NULL);
+    for (int i = this->num; i <= idx; i++) this->pathheads.append(nullptr);
 #endif // COIN_INTERNAL_SOMFPATH
     this->setNum(idx + 1);
   }
@@ -209,7 +209,7 @@ SoMFPath::set1Value(const int idx, SoPath * newval)
     this->setChangedIndex(idx);
     this->values[idx] = newval;
 #ifdef COIN_INTERNAL_SOMFPATH
-    this->pathheads[idx] = newval ? newval->getHead() : NULL;
+    this->pathheads[idx] = newval ? newval->getHead() : nullptr;
 #endif // COIN_INTERNAL_SOMFPATH
   }
 
@@ -278,7 +278,7 @@ SoMFPath::deleteValues(int start, int numarg)
   inherited::deleteValues(start, numarg);
 }
 
-// Overridden to insert NULL pointers in new array slots.
+// Overridden to insert nullptr pointers in new array slots.
 void
 SoMFPath::insertSpace(int start, int numarg)
 {
@@ -291,9 +291,9 @@ SoMFPath::insertSpace(int start, int numarg)
   inherited::insertSpace(start, numarg);
   for (int i=start; i < start+numarg; i++) {
 #ifdef COIN_INTERNAL_SOMFPATH
-    this->pathheads.insert(NULL, start);
+    this->pathheads.insert(nullptr, start);
 #endif // COIN_INTERNAL_SOMFPATH
-    this->values[i] = NULL;
+    this->values[i] = nullptr;
   }
 
   // Initialization done, now send notification.

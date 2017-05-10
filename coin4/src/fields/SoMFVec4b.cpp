@@ -143,7 +143,7 @@ SoMFVec4b::setValue(int8_t x, int8_t y, int8_t z, int8_t w)
 void
 SoMFVec4b::setValue(const int8_t xyzw[4])
 {
-  if (xyzw == NULL) this->setNum(0);
+  if (xyzw == nullptr) this->setNum(0);
   else this->setValue(SbVec4b(xyzw));
 }
 

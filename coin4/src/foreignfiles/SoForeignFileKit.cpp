@@ -99,7 +99,7 @@ public:
 
 };
 
-SbHash<const char *, SoType> * SoForeignFileKitP::fileexts = NULL;
+SbHash<const char *, SoType> * SoForeignFileKitP::fileexts = nullptr;
 
 SO_KIT_ABSTRACT_SOURCE(SoForeignFileKit);
 
@@ -107,7 +107,7 @@ static void
 foreignfilekit_cleanup(void)
 {
   delete SoForeignFileKitP::fileexts;
-  SoForeignFileKitP::fileexts = NULL;
+  SoForeignFileKitP::fileexts = nullptr;
 }
 
 void
@@ -137,7 +137,7 @@ SoForeignFileKit::initClasses(void)
 
 SoForeignFileKit::SoForeignFileKit(void)
 {
-  PRIVATE(this) = NULL;
+  PRIVATE(this) = nullptr;
   // PRIVATE(this) = new SoForeignFileKitP(this);
 
   SO_KIT_INTERNAL_CONSTRUCTOR(SoForeignFileKit);
@@ -161,7 +161,7 @@ SoForeignFileKit::~SoForeignFileKit(void)
 bool
 SoForeignFileKit::registerFileExtension(SoType handler, SbName extension, SoForeignFileIdentifyFunc * COIN_UNUSED_ARG(identify))
 {
-  assert(SoForeignFileKitP::fileexts != NULL);
+  assert(SoForeignFileKitP::fileexts != nullptr);
   assert(handler.canCreateInstance());
 
   if (extension.getString()[0] == '.') {
@@ -180,11 +180,11 @@ SoForeignFileKit::registerFileExtension(SoType handler, SbName extension, SoFore
 
 /*!
   Creates an instance of a suitable SoForeignFileKit subtype.
-  Returns NULL on failure or a kit with refcount of 1 on success.
+  Returns nullptr on failure or a kit with refcount of 1 on success.
 */
 static SoForeignFileKit *create_foreignfilekit(const char *filename, bool exhaust)
 {
-  assert(SoForeignFileKitP::fileexts != NULL);
+  assert(SoForeignFileKitP::fileexts != nullptr);
 
   const char * extptr = strrchr(filename, '.');
   if (extptr) {
@@ -222,7 +222,7 @@ static SoForeignFileKit *create_foreignfilekit(const char *filename, bool exhaus
     // FIXME: Implement
     // SoForeignFileKitP::fileexts->apply()
   }
-  return NULL;
+  return nullptr;
 }
 
 /*!
@@ -234,7 +234,7 @@ bool
 SoForeignFileKit::isFileSupported(const char * filename, bool exhaust)
 {
   SoForeignFileKit * foreignfile = create_foreignfilekit(filename, exhaust);
-  bool success = (foreignfile != NULL);
+  bool success = (foreignfile != nullptr);
   if (foreignfile) foreignfile->unref();
   return success;
 }
@@ -249,7 +249,7 @@ bool
 SoForeignFileKit::isFileSupported(SoInput * in, bool exhaust)
 {
   assert(in);
-  if (in->getCurFileName() == NULL || in->getNumBytesRead() > 0) {
+  if (in->getCurFileName() == nullptr || in->getNumBytesRead() > 0) {
     // can only read proper files, from the beginning
     return false;
   }
@@ -259,7 +259,7 @@ SoForeignFileKit::isFileSupported(SoInput * in, bool exhaust)
 /*!
   Creates an instance of a suitable SoForeignFileKit subtype from the given file 
   and reads its content.
-  Returns NULL on failure or a kit with refcount of 0 on success.
+  Returns nullptr on failure or a kit with refcount of 0 on success.
 
   FIXME: \e exhaust is not implemented.
  */
@@ -272,7 +272,7 @@ SoForeignFileKit::createForeignFileKit(const char * filename, bool exhaust)
       foreignfile->unrefNoDelete();
     } else {
       foreignfile->unref();
-      foreignfile = NULL;
+      foreignfile = nullptr;
     }
   }
   return foreignfile;
@@ -286,7 +286,7 @@ SoForeignFileKit *
 SoForeignFileKit::createForeignFileKit(SoInput * in, bool exhaust)
 {
   assert(in);
-  if (in->getCurFileName() == NULL || in->getNumBytesRead() > 0) {
+  if (in->getCurFileName() == nullptr || in->getNumBytesRead() > 0) {
     // can only read proper files, from the beginning
     return nullptr;
   }

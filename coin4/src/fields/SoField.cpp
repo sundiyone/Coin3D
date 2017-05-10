@@ -149,7 +149,7 @@ inline unsigned int SbHashFunc(const void * key)
 
 static const int SOFIELD_GET_STACKBUFFER_SIZE = 1024;
 // need one static mutex for field_buffer in SoField::get(SbString &)
-static void * sofield_mutex = NULL;
+static void * sofield_mutex = nullptr;
 
 // flags for this->statusbits
 
@@ -170,7 +170,7 @@ class SoConnectStorage {
 public:
   SoConnectStorage(SoFieldContainer * c, SoType t)
     : container(c),
-    lastnotify(NULL),
+    lastnotify(nullptr),
     fieldtype(t),
     maptoconverter(13) // save about ~1kB vs default nr of buckets
     {
@@ -227,7 +227,7 @@ public:
   SoFieldConverter * findConverter(const void * item)
   {
     SoFieldConverter * val;
-    if (!this->maptoconverter.get(item, val)) { return NULL; }
+    if (!this->maptoconverter.get(item, val)) { return nullptr; }
     return val;
   }
 
@@ -367,7 +367,7 @@ public:
   static SbHash<char *, char **> * ptrhash;
 };
 
-SbHash<char *, char **> * SoFieldP::ptrhash = NULL;
+SbHash<char *, char **> * SoFieldP::ptrhash = nullptr;
 
 extern "C" {
 // atexit callbacks
@@ -380,7 +380,7 @@ SbHash<char *, char **> *
 SoFieldP::getReallocHash(void)
 {
   // FIXME: protect with mutex?
-  if (SoFieldP::ptrhash == NULL) {
+  if (SoFieldP::ptrhash == nullptr) {
     SoFieldP::ptrhash = new SbHash<char *, char **>;
     coin_atexit(hashExitCleanup, CC_ATEXIT_NORMAL);
   }
@@ -392,7 +392,7 @@ hashExitCleanup(void)
 {
   assert(SoFieldP::ptrhash->getNumElements() == 0);
   delete SoFieldP::ptrhash;
-  SoFieldP::ptrhash = NULL;
+  SoFieldP::ptrhash = nullptr;
 }
 
 void *
@@ -400,14 +400,14 @@ SoFieldP::hashRealloc(void * bufptr, size_t size)
 {
   CC_MUTEX_LOCK(sofield_mutex);
 
-  char ** bufptrptr = NULL;
+  char ** bufptrptr = nullptr;
   int ok = SoFieldP::ptrhash->get(static_cast<char *>(bufptr), bufptrptr);
   assert(ok);
 
-  // If *bufptrptr contains a NULL pointer, this is the first
+  // If *bufptrptr contains a nullptr pointer, this is the first
   // invocation and the initial memory buffer was on the stack.
   char * newbuf;
-  if (*bufptrptr == NULL) {
+  if (*bufptrptr == nullptr) {
     // if initial buffer was on the stack, we need to manually copy
     // the data into the new buffer.
     newbuf = static_cast<char *>(malloc(size));
@@ -527,7 +527,7 @@ SoField::hasExtendedStorage(void) const
   doing the common parts of data initialization in fields.
 */
 SoField::SoField(void)
-  : container(NULL)
+  : container(nullptr)
 {
   this->statusbits = 0;
   this->setStatusBits(FLAG_DONOTIFY |
@@ -1339,7 +1339,7 @@ SoField::get(SbString & valuestring)
   // Initial buffer setup.
   SoOutput out;
   char initbuffer[SOFIELD_GET_STACKBUFFER_SIZE];
-  char * bufferptr = NULL; // indicates that initial buffer is on the stack
+  char * bufferptr = nullptr; // indicates that initial buffer is on the stack
 
   CC_MUTEX_LOCK(sofield_mutex);
   int ok = SoFieldP::getReallocHash()->put(initbuffer, &bufferptr);
@@ -1645,7 +1645,7 @@ SoField::shouldWrite(void) const
     // fields should be written even if they have the default value
     // (just like any other field). pederb, 2005-12-20
     SoFieldContainer * thecontainer = this->getContainer();
-    if ( thecontainer != NULL &&
+    if ( thecontainer != nullptr &&
          thecontainer->isOfType(SoProtoInstance::getClassTypeId()) ) {
       // PROTO instance fields are usually connected, but we don't want to
       // write out PROTO instance fields that contain default values - they
@@ -1788,7 +1788,7 @@ SoField::copyConnection(const SoField * fromfield)
   }
   for (i = 0; i < fromfield->storage->masterengineouts.getLength(); i++) {
     SoEngineOutput * master = fromfield->storage->masterengineouts[i];
-    SoEngineOutput * copyeo = NULL;
+    SoEngineOutput * copyeo = nullptr;
 
     if (master->isNodeEngineOutput()) {
       SbName name;
@@ -2123,7 +2123,7 @@ SoField::evaluateField(void) const
 
   if (!this->isConnected()) return;
 
-  assert(this->storage != NULL);
+  assert(this->storage != nullptr);
 
   // lock _before_ testing FLAG_ISEVALUATING to be thread safe
   SOFIELD_RECLOCK;
@@ -2214,7 +2214,7 @@ SoField::appendConnection(SoField * master, bool notnotify)
 }
 
 // Make a converter from value(s) of the given field type and the
-// value(s) of this type. Returns NULL if no value conversion between
+// value(s) of this type. Returns nullptr if no value conversion between
 // types is possible.
 SoFieldConverter *
 SoField::createConverter(SoType from) const
@@ -2229,7 +2229,7 @@ SoField::createConverter(SoType from) const
                               from.getName().getString(),
                               thistype.getName().getString());
 #endif // COIN_DEBUG
-    return NULL;
+    return nullptr;
   }
 
   SoFieldConverter * fc;
@@ -2317,18 +2317,18 @@ SoField::readConnection(SoInput * in)
 
   // Get pointer to master field or engine output and connect.
 
-  SoEngineOutput * masteroutput = NULL;
+  SoEngineOutput * masteroutput = nullptr;
   SoField * masterfield = fc->getField(mastername);
 
   if (!masterfield) {
     masteroutput =
       fc->isOfType(SoEngine::getClassTypeId()) ?
-      coin_safe_cast<SoEngine*>(fc)->getOutput(mastername) : NULL;
+      coin_safe_cast<SoEngine*>(fc)->getOutput(mastername) : nullptr;
 
     if (!masteroutput) {
       masteroutput =
         fc->isOfType(SoNodeEngine::getClassTypeId()) ?
-        coin_safe_cast<SoNodeEngine *>(fc)->getOutput(mastername) : NULL;
+        coin_safe_cast<SoNodeEngine *>(fc)->getOutput(mastername) : nullptr;
     }
   }
 
@@ -2394,15 +2394,15 @@ SoField::writeConnection(SoOutput * out) const
 
 // Check if this field should write a connection upon export. Returns
 // a pointer to the fieldcontainer with the master field we're
-// connected to (or NULL if none, or if the master field's container
-// is not within the scenegraph). If the return value is non-NULL, the
+// connected to (or nullptr if none, or if the master field's container
+// is not within the scenegraph). If the return value is non-nullptr, the
 // name of the master field is copied to the mastername argument.
 SoFieldContainer *
 SoField::resolveWriteConnection(SbName & mastername) const
 {
-  if (!this->isConnected()) return NULL;
+  if (!this->isConnected()) return nullptr;
 
-  SoFieldContainer * fc = NULL;
+  SoFieldContainer * fc = nullptr;
   SoField * fieldmaster;
   SoEngineOutput * enginemaster;
 

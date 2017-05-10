@@ -782,18 +782,18 @@ SoExtSelection::SoExtSelection(void)
   PRIVATE(this)->lassopatternanimate = true;
   PRIVATE(this)->lassopattern = 0xf0f0;
 
-  PRIVATE(this)->filterCB = NULL;
-  PRIVATE(this)->triangleFilterCB = NULL;
-  PRIVATE(this)->lineFilterCB = NULL;
-  PRIVATE(this)->pointFilterCB = NULL;
+  PRIVATE(this)->filterCB = nullptr;
+  PRIVATE(this)->triangleFilterCB = nullptr;
+  PRIVATE(this)->lineFilterCB = nullptr;
+  PRIVATE(this)->pointFilterCB = nullptr;
 
   PRIVATE(this)->drawcallbackcounter=0;
   PRIVATE(this)->drawcounter=0;
   PRIVATE(this)->visitedshapepaths = new SoPathList();
   PRIVATE(this)->somefacesvisible = false;
 
-  PRIVATE(this)->renderer = NULL;
-  PRIVATE(this)->lassorenderer = NULL;
+  PRIVATE(this)->renderer = nullptr;
+  PRIVATE(this)->lassorenderer = nullptr;
 
 }
 
@@ -849,7 +849,7 @@ SoExtSelection::isUsingOverlay(void)
 
 /*!
   Returns the scene graph for overlay rendering. Will always return
-  NULL in Coin, as this method has been obsoleted.
+  nullptr in Coin, as this method has been obsoleted.
 
   (It is probably used in TGS Inventor from the SoXt / SoWin
   libraries' So[Xt|Win]RenderArea class to fetch the overlay graph to
@@ -859,7 +859,7 @@ SoSeparator *
 SoExtSelection::getOverlaySceneGraph(void)
 {
   COIN_OBSOLETED();
-  return NULL;
+  return nullptr;
 }
 
 // *************************************************************************
@@ -1272,7 +1272,7 @@ SoExtSelection::getLassoCoordsDC (int &COIN_UNUSED_ARG(numCoords))
 {
   // FIXME: Implement this for TGS compatibility...
   COIN_STUB_ONCE();
-  return NULL;
+  return nullptr;
 }
 
 /*!
@@ -1285,7 +1285,7 @@ SoExtSelection::getLassoCoordsWC (int &COIN_UNUSED_ARG(numCoords))
 {
   // FIXME: Implement this for TGS compatibility...
   COIN_STUB_ONCE();
-  return NULL;
+  return nullptr;
 }
 
 /*!
@@ -1308,7 +1308,7 @@ SoExtSelection::getSelectionPathList () const
   new path to be used when selecting. The new returned path should
   not be ref'd. SoExtSelection will ref() and unref() it.
 
-  To cancel the selection, return NULL from the callback.
+  To cancel the selection, return nullptr from the callback.
 
   if \a callonlyifselectable is true, the callback will only be
   invoked when the path to the new node pass through the
@@ -1398,7 +1398,7 @@ void
 SoExtSelectionP::timercallback(void * data, SoSensor * COIN_UNUSED_ARG(sensor))
 {
   SoExtSelection * ext = (SoExtSelection *)data;
-  if (ext == NULL) return;
+  if (ext == nullptr) return;
   if (ext->isOverlayLassoAnimated()) {
     int pat = ext->getOverlayLassoPattern();
     int pat2 = pat << 1;
@@ -2241,7 +2241,7 @@ SoExtSelectionP::doSelect(const SoPath * path)
     newpath = this->filterCB(this->filterCBData, path);
   }
 
-  if (newpath == NULL) { return; }
+  if (newpath == nullptr) { return; }
 
 #if COIN_DEBUG && 0 // debug
   SoDebugError::postInfo("SoExtSelectionP::doSelect",
@@ -2656,11 +2656,11 @@ SoExtSelectionP::performSelection(SoHandleEventAction * action)
       vp = SbViewportRegion(newsize[0],newsize[1]);
     }
     // only (re)allocate the renderers if the viewport has changed
-    if (this->renderer == NULL || this->renderer->getViewportRegion() != vp) {
+    if (this->renderer == nullptr || this->renderer->getViewportRegion() != vp) {
       delete this->renderer;
       this->renderer = new SoOffscreenRenderer(vp);
     }
-    if (this->lassorenderer == NULL || this->lassorenderer->getViewportRegion() != vp) {
+    if (this->lassorenderer == nullptr || this->lassorenderer->getViewportRegion() != vp) {
       delete this->lassorenderer;
       this->lassorenderer = new SoOffscreenRenderer(vp);
     }
@@ -2696,7 +2696,7 @@ SoExtSelectionP::performSelection(SoHandleEventAction * action)
       // Debugging: if the envvar is set, the contents of the
       // offscreen buffer are stored to disk for investigation.
       static bool chkenv = false;
-      static const char * dumpfilename = NULL;
+      static const char * dumpfilename = nullptr;
       if (chkenv == false) {
         dumpfilename = coin_getenv("COIN_EXTSELECTION_SAVE_OFFSCREENBUFFER");
         chkenv = true;

@@ -91,7 +91,7 @@
   \endcode
 
   Note: if VRML97 support is not present in the Coin library, this
-  action does nothing and getVRML2SceneGraph always returns \c NULL.
+  action does nothing and getVRML2SceneGraph always returns \c nullptr.
 
   \sa SoToVRMLAction
 
@@ -203,7 +203,7 @@ SoToVRML2Action::initClass(void)
   Return a pointer to the root node of the generated scenegraph of
   only VRML2 / VRML97 nodes.
 
-  Will return \c NULL if VRML97 support was not compiled into the
+  Will return \c nullptr if VRML97 support was not compiled into the
   library.
 */
 
@@ -278,7 +278,7 @@ SoToVRML2Action::~SoToVRML2Action() { }
 void SoToVRML2Action::apply(SoNode * node) { }
 void SoToVRML2Action::apply(SoPath * path) { }
 void SoToVRML2Action::apply(const SoPathList & pathlist, bool obeysrules) { }
-SoVRMLGroup * SoToVRML2Action::getVRML2SceneGraph(void) const { return NULL; }
+SoVRMLGroup * SoToVRML2Action::getVRML2SceneGraph(void) const { return nullptr; }
 void SoToVRML2Action::beginTraversal(SoNode * node) { }
 void SoToVRML2Action::reuseAppearanceNodes(bool appearance) { }
 bool SoToVRML2Action::doReuseAppearanceNodes(void) const { return false; }
@@ -296,8 +296,8 @@ bool SoToVRML2Action::doReuseGeometryNodes(void) const { return false; }
 class SoToVRML2ActionP {
 public:
   SoToVRML2ActionP(void)
-    : master(NULL),nodefuse(false),reuseAppearanceNodes(false),reuseGeometryNodes(false),
-      vrml2path(NULL),vrml2root(NULL),bboxaction(NULL),vrmlcoords(NULL),vrmlnormals(NULL),vrmlcolors(NULL),vrmltexcoords(NULL)
+    : master(nullptr),nodefuse(false),reuseAppearanceNodes(false),reuseGeometryNodes(false),
+      vrml2path(nullptr),vrml2root(nullptr),bboxaction(nullptr),vrmlcoords(nullptr),vrmlnormals(nullptr),vrmlcolors(nullptr),vrmltexcoords(nullptr)
   {}
 
   ~SoToVRML2ActionP(void)
@@ -310,15 +310,15 @@ public:
 
   void init(void)
   {
-    this->bsptree = NULL;
-    this->bsptreetex = NULL;
-    this->bsptreenormal = NULL;
-    this->coordidx = NULL;
-    this->normalidx = NULL;
-    this->texidx = NULL;
-    this->coloridx = NULL;
+    this->bsptree = nullptr;
+    this->bsptreetex = nullptr;
+    this->bsptreenormal = nullptr;
+    this->coordidx = nullptr;
+    this->normalidx = nullptr;
+    this->texidx = nullptr;
+    this->coloridx = nullptr;
 
-    recentTex2 = NULL;
+    recentTex2 = nullptr;
     do_post_primitives = false;
     didpush = false;
 
@@ -347,7 +347,7 @@ public:
   }
 
   SoGetBoundingBoxAction * getBBoxAction(void) {
-    if (this->bboxaction == NULL) {
+    if (this->bboxaction == nullptr) {
       SbViewportRegion vp(DEFAULT_VIEWPORT_WIDTH, DEFAULT_VIEWPORT_HEIGHT);
       this->bboxaction = new SoGetBoundingBoxAction(vp);
     }
@@ -702,7 +702,7 @@ SoToVRML2ActionP::search_for_recent_node(SoAction * action, const SoType & type)
 
   this->searchaction.apply(const_cast<SoPath *>(action->getCurPath()));
 
-  SoNode * tail = NULL;
+  SoNode * tail = nullptr;
   SoFullPath * path = reclassify_cast<SoFullPath *>(this->searchaction.getPath());
   if (path) {
     tail = path->getTail();
@@ -874,11 +874,11 @@ SoToVRML2ActionP::insert_shape(SoCallbackAction * action, SoVRMLGeometry * geom)
     if (mat->transparency.getValue() != transp) mat->transparency = transp;
 
     // Texture
-    if (this->recentTex2 == NULL) {
+    if (this->recentTex2 == nullptr) {
       this->recentTex2 = coin_safe_cast<SoTexture2 *>(search_for_recent_node(action, SoTexture2::getClassTypeId()));
     }
 
-    if (this->recentTex2 != NULL) {
+    if (this->recentTex2 != nullptr) {
       SbVec2s size;
       int numComponents;
       const unsigned char * image = this->recentTex2->image.getValue(size, numComponents);
@@ -919,7 +919,7 @@ SoToVRML2ActionP::insert_shape(SoCallbackAction * action, SoVRMLGeometry * geom)
           appearance->textureTransform = textrans;
         }
       }
-      this->recentTex2 = NULL;
+      this->recentTex2 = nullptr;
     }
   } else {
     if (mat->emissiveColor.getValue() != diffuse) mat->emissiveColor = diffuse;
@@ -942,7 +942,7 @@ SoToVRML2ActionP::push_sep_cb(void * closure, SoCallbackAction * COIN_UNUSED_ARG
   }
 
   // Push a new SoVRMLGroup on the tail of the path
-  SoVRMLGroup * newgroup = NULL;
+  SoVRMLGroup * newgroup = nullptr;
 
   if (node->isOfType(SoVRMLTransform::getClassTypeId())) {
     const SoVRMLTransform * oldtrans = coin_assert_cast<const SoVRMLTransform*>(node);
@@ -1337,7 +1337,7 @@ SoToVRML2ActionP::soifs_cb(void * closure, SoCallbackAction * action, const SoNo
 
   const SoCoordinateElement * coordElem = SoCoordinateElement::getInstance(action->getState());
   if (coordElem->getNum() > 0) {
-    if (coordElem->getArrayPtr3() != NULL) {
+    if (coordElem->getArrayPtr3() != nullptr) {
       ifs->coord = thisp->get_or_create_coordinate(coordElem->getArrayPtr3(),
                                                    coordElem->getNum());
     } else {
@@ -1433,14 +1433,14 @@ SoToVRML2ActionP::soils_cb(void * closure, SoCallbackAction * action, const SoNo
     vp->callback(action);
   }
 
-  SoVRMLCoordinate * newcoord = NULL;
+  SoVRMLCoordinate * newcoord = nullptr;
   const SoCoordinateElement * coordElem = SoCoordinateElement::getInstance(action->getState());
   if (coordElem->getNum() > 0) {
     if (thisp->nodefuse) {
       newcoord = new SoVRMLCoordinate;
     }
     else {
-      if (coordElem->getArrayPtr3() != NULL) {
+      if (coordElem->getArrayPtr3() != nullptr) {
         newcoord = thisp->get_or_create_coordinate(coordElem->getArrayPtr3(),
                                                    coordElem->getNum());
       } else {
@@ -1475,7 +1475,7 @@ SoToVRML2ActionP::soils_cb(void * closure, SoCallbackAction * action, const SoNo
     const int32_t * src = oldils->coordIndex.getValues(0);
 
     SbVec3f * c = const_cast<SbVec3f*>(coordElem->getArrayPtr3());
-    if (c == NULL) {
+    if (c == nullptr) {
       SbVec3f * vec3f = new SbVec3f[coordElem->getNum()];
       const SbVec4f * coord4 = coordElem->getArrayPtr4();
       for (int i=coordElem->getNum()-1; i >= 0; i--) {
@@ -1498,7 +1498,7 @@ SoToVRML2ActionP::soils_cb(void * closure, SoCallbackAction * action, const SoNo
     newcoord->point.setValues(0, bsp.numPoints(),
                               bsp.getPointsArrayPtr());
 
-    if (coordElem->getArrayPtr3() == NULL) delete[] c;
+    if (coordElem->getArrayPtr3() == nullptr) delete[] c;
 
   }
   else {
@@ -1595,7 +1595,7 @@ SoToVRML2ActionP::solineset_cb(void * closure, SoCallbackAction * action, const 
 
   const SoCoordinateElement * coordElem = SoCoordinateElement::getInstance(action->getState());
   if (coordElem->getNum() > 0) {
-    if (coordElem->getArrayPtr3() != NULL) {
+    if (coordElem->getArrayPtr3() != nullptr) {
       ils->coord = thisp->get_or_create_coordinate(coordElem->getArrayPtr3(),
                                                    coordElem->getNum());
     } else {
@@ -1721,7 +1721,7 @@ SoToVRML2ActionP::sopointset_cb(void * closure, SoCallbackAction * action, const
   if (numpts < 0 || numpts > coordElem->getNum()) numpts = coordElem->getNum();
 
   if (numpts) {
-    if (coordElem->getArrayPtr3() != NULL) {
+    if (coordElem->getArrayPtr3() != nullptr) {
       ps->coord = thisp->get_or_create_coordinate(coordElem->getArrayPtr3(), numpts);
     }
     else {
@@ -2103,10 +2103,10 @@ SoToVRML2ActionP::post_primitives_cb(void * closure, SoCallbackAction * action, 
 
     // we need some specific handling for VRML nodes, since these
     // nodes store the state inside the node in fields
-    const SoSFBool * ccw_field = NULL;
-    const SoSFBool * solid_field = NULL;
-    const SoSFBool * convex_field = NULL;
-    const SoSFFloat * creaseangle_field = NULL;
+    const SoSFBool * ccw_field = nullptr;
+    const SoSFBool * solid_field = nullptr;
+    const SoSFBool * convex_field = nullptr;
+    const SoSFFloat * creaseangle_field = nullptr;
 
     if (node->isOfType(SoVRMLGeometry::getClassTypeId())) {
       ccw_field = static_cast<const SoSFBool*>(node->getField("ccw"));
@@ -2174,14 +2174,14 @@ SoToVRML2ActionP::post_primitives_cb(void * closure, SoCallbackAction * action, 
 
   }
 
-  delete thisp->bsptree; thisp->bsptree = NULL;
-  delete thisp->bsptreetex; thisp->bsptreetex = NULL;
-  delete thisp->bsptreenormal; thisp->bsptreenormal = NULL;
+  delete thisp->bsptree; thisp->bsptree = nullptr;
+  delete thisp->bsptreetex; thisp->bsptreetex = nullptr;
+  delete thisp->bsptreenormal; thisp->bsptreenormal = nullptr;
 
-  delete thisp->coordidx; thisp->coordidx = NULL;
-  delete thisp->normalidx; thisp->normalidx = NULL;
-  delete thisp->texidx; thisp->texidx = NULL;
-  delete thisp->coloridx; thisp->coloridx = NULL;
+  delete thisp->coordidx; thisp->coordidx = nullptr;
+  delete thisp->normalidx; thisp->normalidx = nullptr;
+  delete thisp->texidx; thisp->texidx = nullptr;
+  delete thisp->coloridx; thisp->coloridx = nullptr;
 
   thisp->insert_shape(action, is);
 

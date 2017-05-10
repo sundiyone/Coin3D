@@ -39,7 +39,7 @@
 #include <Inventor/scxml/ScXMLMinimumEvaluator.h>
 
 namespace {
-static ScXMLDataObj * root = NULL;
+static ScXMLDataObj * root = nullptr;
 }
 
 %}
@@ -214,5 +214,5 @@ scxml_coin_get_root_obj(void)
 void
 scxml_coin_clear_root_obj(void)
 {
-  root = NULL;
+  root = nullptr;
 }

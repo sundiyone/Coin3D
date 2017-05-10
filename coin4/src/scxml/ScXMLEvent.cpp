@@ -118,7 +118,7 @@ ScXMLEvent::getAssociation(const char * key) const
   if (findit != PRIVATE(this)->associations.end()) {
     return findit->second;
   }
-  return NULL;
+  return nullptr;
 }
 
 size_t

@@ -94,7 +94,7 @@
 class sostate_pushstore {
 public:
   sostate_pushstore(void) {
-    this->next = this->prev = NULL;
+    this->next = this->prev = nullptr;
   }
   SbList <int> elements;
   sostate_pushstore * next;
@@ -144,8 +144,8 @@ SoState::SoState(SoAction * theAction, const SoTypeList & enabledelements)
   PRIVATE(this)->initial = new SoElement * [this->numstacks];
 
   for (i = 0; i < this->numstacks; i++) {
-    PRIVATE(this)->initial[i] = NULL;
-    this->stack[i] = NULL;
+    PRIVATE(this)->initial[i] = nullptr;
+    this->stack[i] = nullptr;
   }
 
   const int numelements = enabledelements.getLength();
@@ -222,7 +222,7 @@ SoState::getElement(const int stackindex)
   // time debugging it, pederb, 2007-08-01)
   assert(!PRIVATE(this)->ispopping);
 
-  if (!this->isElementEnabled(stackindex)) return NULL;
+  if (!this->isElementEnabled(stackindex)) return nullptr;
   SoElement * element = this->stack[stackindex];
 
 #if 0 // debug
@@ -264,7 +264,7 @@ SoState::getElement(const int stackindex)
 void
 SoState::push(void)
 {
-  if (PRIVATE(this)->pushstore->next == NULL) {
+  if (PRIVATE(this)->pushstore->next == nullptr) {
     sostate_pushstore * store = new sostate_pushstore;
     store->prev = PRIVATE(this)->pushstore;
     PRIVATE(this)->pushstore->next = store;
@@ -313,7 +313,7 @@ SoState::print(FILE * const file) const
   fprintf(file, "  enabled elements {\n");
   for (int i = 0; i < this->numstacks; i++) {
     SoElement * element;
-    if ((element = this->stack[i]) != NULL)
+    if ((element = this->stack[i]) != nullptr)
       fprintf(file, "    %s\n",
                element->getTypeId().getName().getString());
   }

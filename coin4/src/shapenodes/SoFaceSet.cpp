@@ -169,7 +169,7 @@ SO_NODE_SOURCE(SoFaceSet);
 SoFaceSet::SoFaceSet()
 {
   PRIVATE(this) = new SoFaceSetP;
-  PRIVATE(this)->convexCache = NULL;
+  PRIVATE(this)->convexCache = nullptr;
   PRIVATE(this)->concavestatus = STATUS_UNKNOWN;
   PRIVATE(this)->primitivetype = UNKNOWN_TYPE;
 
@@ -295,8 +295,8 @@ namespace { namespace SoGL { namespace FaceSet {
     // Make sure specified coordinate startindex is valid
     assert(idx >= 0);
 
-    const SbVec3f * coords3d = NULL;
-    const SbVec4f * coords4d = NULL;
+    const SbVec3f * coords3d = nullptr;
+    const SbVec4f * coords4d = nullptr;
     const bool is3d = coords->is3D();
     if (is3d) {
       coords3d = coords->getArrayPtr3();
@@ -526,9 +526,9 @@ SoFaceSet::GLRender(SoGLRenderAction * action)
 
     if (!needNormals) nbind = OVERALL;
 
-    SoNormalCache * nc = NULL;
+    SoNormalCache * nc = nullptr;
 
-    if (needNormals && normals == NULL) {
+    if (needNormals && normals == nullptr) {
       nc = this->generateAndReadLockNormalCache(state);
       normals = nc->getNormals();
     }
@@ -567,7 +567,7 @@ SoFaceSet::GLRender(SoGLRenderAction * action)
         !tb.isFunction()) {
       bool dovbo = this->startVertexArray(action,
                                             coords,
-                                            nbind == PER_VERTEX ? normals : NULL,
+                                            nbind == PER_VERTEX ? normals : nullptr,
                                             doTextures,
                                             (mbind == PER_VERTEX));
       int numprimitives = this->numVertices.getNum();
@@ -764,9 +764,9 @@ SoFaceSet::generatePrimitives(SoAction *action)
   Binding mbind = this->findMaterialBinding(state);
   Binding nbind = this->findNormalBinding(state);
 
-  SoNormalCache * nc = NULL;
+  SoNormalCache * nc = nullptr;
 
-  if (needNormals && normals == NULL) {
+  if (needNormals && normals == nullptr) {
     nc = this->generateAndReadLockNormalCache(state);
     normals = nc->getNormals();
   }
@@ -987,16 +987,16 @@ SoFaceSet::useConvexCache(SoAction * action)
     break;
   }
 
-  SoNormalCache * nc = NULL;
+  SoNormalCache * nc = nullptr;
 
-  if (needNormals && normals == NULL) {
+  if (needNormals && normals == nullptr) {
     nc = this->generateAndReadLockNormalCache(state);
     normals = nc->getNormals();
   }
   else if (!needNormals) {
     nbind = SoConvexDataCache::NONE;
   }
-  if (nbind == SoConvexDataCache::NONE && normals == NULL) {
+  if (nbind == SoConvexDataCache::NONE && normals == nullptr) {
     static SbVec3f dummynormal;
     dummynormal.setValue(0.0f, 0.0f, 1.0f);
     normals = &dummynormal;
@@ -1006,7 +1006,7 @@ SoFaceSet::useConvexCache(SoAction * action)
   if (tb.needCoordinates()) tbind = SoConvexDataCache::PER_VERTEX;
 
   if (!isvalid) {
-    SoCacheElement::set(state, NULL); // close cache
+    SoCacheElement::set(state, nullptr); // close cache
     // create an index table to be able to use convex cache.
     // should be fast compared to the tessellation
     const ptrdiff_t diff = end - ptr;
@@ -1021,7 +1021,7 @@ SoFaceSet::useConvexCache(SoAction * action)
     }
     PRIVATE(this)->convexCache->generate(coords, modelmatrix,
                                 dummyidx.getArrayPtr(), dummyidx.getLength(),
-                                NULL, NULL, NULL,
+                                nullptr, nullptr, nullptr,
                                 mbind,
                                 nbind,
                                 tbind);

@@ -63,7 +63,7 @@ ScXMLDataObj *
 ScXMLECMAScriptEvaluator::evaluate(const char * COIN_UNUSED_ARG(expression)) const
 {
   // FIXME: not implemented
-  return NULL;
+  return nullptr;
 }
 
 bool
@@ -77,6 +77,6 @@ ScXMLDataObj *
 ScXMLECMAScriptEvaluator::locate(const char * COIN_UNUSED_ARG(location)) const
 {
   // FIXME: not implemented
-  return NULL;
+  return nullptr;
 }
 

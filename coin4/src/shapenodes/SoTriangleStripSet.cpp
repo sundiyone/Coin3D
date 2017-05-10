@@ -264,8 +264,8 @@ namespace { namespace SoGL { namespace TriStripSet {
                        const int32_t *end,
                        bool needNormals)
   {
-    const SbVec3f * coords3d = NULL;
-    const SbVec4f * coords4d = NULL;
+    const SbVec3f * coords3d = nullptr;
+    const SbVec4f * coords4d = nullptr;
     const bool is3d = coords->is3D();
     if (is3d) {
       coords3d = coords->getArrayPtr3();
@@ -481,8 +481,8 @@ SoTriangleStripSet::GLRender(SoGLRenderAction * action)
   if (!needNormals) nbind = OVERALL;
 
 
-  SoNormalCache * nc = NULL;
-  if (needNormals && normals == NULL) {
+  SoNormalCache * nc = nullptr;
+  if (needNormals && normals == nullptr) {
     nc = this->generateAndReadLockNormalCache(state);
     normals = nc->getNormals();
   }
@@ -643,9 +643,9 @@ SoTriangleStripSet::generatePrimitives(SoAction *action)
   Binding mbind = this->findMaterialBinding(action->getState());
   Binding nbind = this->findNormalBinding(action->getState());
 
-  SoNormalCache * nc = NULL;
+  SoNormalCache * nc = nullptr;
 
-  if (needNormals && normals == NULL) {
+  if (needNormals && normals == nullptr) {
     nc = this->generateAndReadLockNormalCache(state);
     normals = nc->getNormals();
   }

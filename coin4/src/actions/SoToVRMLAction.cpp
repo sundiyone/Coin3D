@@ -112,7 +112,7 @@ SO_ACTION_SOURCE(SoToVRMLAction);
 class SoToVRMLActionP {
 public:
   SoToVRMLActionP(void)
-    : master(NULL)
+    : master(nullptr)
   {
     this->expandsofile = false;
     this->urlname = "";
@@ -127,15 +127,15 @@ public:
 
     this->nodefuse = false; // for optimizing bad scene graphs
 
-    this->bsptree = NULL;
-    this->bsptreetex = NULL;
-    this->bsptreenormal = NULL;
-    this->coordidx = NULL;
-    this->normalidx = NULL;
-    this->texidx = NULL;
-    this->coloridx = NULL;
-    this->vrmlpath = NULL;
-    this->vrmlroot = NULL;
+    this->bsptree = nullptr;
+    this->bsptreetex = nullptr;
+    this->bsptreenormal = nullptr;
+    this->coordidx = nullptr;
+    this->normalidx = nullptr;
+    this->texidx = nullptr;
+    this->coloridx = nullptr;
+    this->vrmlpath = nullptr;
+    this->vrmlroot = nullptr;
   }
 
   void init(void) {
@@ -467,12 +467,12 @@ SoNode *
 SoToVRMLActionP::search_for_node(SoNode * root, const SbName & name, const SoType & type)
 {
   SoNodeList mylist;
-  if (name == SbName::empty()) return NULL;
+  if (name == SbName::empty()) return nullptr;
 
   mylist.truncate(0);
   int num = SoNode::getByName(name, mylist);
   int cnt = 0;
-  SoNode * retnode = NULL;
+  SoNode * retnode = nullptr;
   for (int i = 0; i < num; i++) {
     SoNode * node = mylist[i];
     if (node->getTypeId() == type) {
@@ -483,7 +483,7 @@ SoToVRMLActionP::search_for_node(SoNode * root, const SbName & name, const SoTyp
 
   // if there is only one node with that name, return it
   if (retnode && cnt == 1) return retnode;
-  if (!retnode) return NULL;
+  if (!retnode) return nullptr;
 
   this->searchaction.setSearchingAll(true);
   this->searchaction.setName(name);
@@ -497,7 +497,7 @@ SoToVRMLActionP::search_for_node(SoNode * root, const SbName & name, const SoTyp
 #endif // HAVE_NODEKITS
 
   this->searchaction.apply(root);
-  SoNode * tail = NULL;
+  SoNode * tail = nullptr;
   SoFullPath * path = reclassify_cast<SoFullPath*>(this->searchaction.getPath());
   if (path) {
     tail = path->getTail();
@@ -520,17 +520,17 @@ SoToVRMLActionP::get_current_tail(void)
 SoMaterial *
 SoToVRMLActionP::find_or_create_material(void)
 {
-  SoMaterial * mat = NULL;
+  SoMaterial * mat = nullptr;
   SoGroup * tail = this->get_current_tail();
 
   int num = tail->getNumChildren();
-  while (--num >= 0 && mat == NULL) {
+  while (--num >= 0 && mat == nullptr) {
     SoNode * node = tail->getChild(num);
     if (node->isOfType(SoMaterial::getClassTypeId())) {
       mat = coin_assert_cast<SoMaterial*>(node);
     }
   }
-  if (mat == NULL) {
+  if (mat == nullptr) {
     mat = new SoMaterial;
     tail->addChild(mat);
   }
@@ -638,14 +638,14 @@ SoToVRMLActionP::post_primitives_cb(void * closure, SoCallbackAction * COIN_UNUS
 
   tail->addChild(ifs);
 
-  delete thisp->bsptree; thisp->bsptree = NULL;
-  delete thisp->bsptreetex; thisp->bsptreetex = NULL;
-  delete thisp->bsptreenormal; thisp->bsptreenormal = NULL;
+  delete thisp->bsptree; thisp->bsptree = nullptr;
+  delete thisp->bsptreetex; thisp->bsptreetex = nullptr;
+  delete thisp->bsptreenormal; thisp->bsptreenormal = nullptr;
 
-  delete thisp->coordidx; thisp->coordidx = NULL;
-  delete thisp->normalidx; thisp->normalidx = NULL;
-  delete thisp->texidx; thisp->texidx = NULL;
-  delete thisp->coloridx; thisp->coloridx = NULL;
+  delete thisp->coordidx; thisp->coordidx = nullptr;
+  delete thisp->normalidx; thisp->normalidx = nullptr;
+  delete thisp->texidx; thisp->texidx = nullptr;
+  delete thisp->coloridx; thisp->coloridx = nullptr;
 
   return SoCallbackAction::CONTINUE;
 }
@@ -982,7 +982,7 @@ SoToVRMLActionP::vrmlils_cb(void * closure, SoCallbackAction * COIN_UNUSED_ARG(a
   SoVRMLCoordinate * coord = coin_assert_cast<SoVRMLCoordinate *>(oldils->coord.getValue());
   SoGroup * tail = thisp->get_current_tail();
 
-  SoCoordinate3 * newcoord = NULL;
+  SoCoordinate3 * newcoord = nullptr;
 
   if (coord) {
     if (thisp->nodefuse) {
@@ -1132,7 +1132,7 @@ SoToVRMLActionP::vrmlelevation_cb(void * closure, SoCallbackAction * COIN_UNUSED
                                 color->color.getValues(0));
   }
 
-  thisp->init_gen(color != NULL);
+  thisp->init_gen(color != nullptr);
   return SoCallbackAction::CONTINUE;
 }
 

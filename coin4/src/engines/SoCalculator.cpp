@@ -410,7 +410,7 @@ SoCalculator::evaluate(void)
         }
 #endif // COIN_DEBUG
       }
-      else PRIVATE(this)->evaluatorList.append(NULL);
+      else PRIVATE(this)->evaluatorList.append(nullptr);
     }
   }
 
@@ -556,7 +556,7 @@ SoCalculator::evaluateExpression(struct so_eval_node *node, const int fieldidx)
 void
 SoCalculator::findUsed(struct so_eval_node *node, char *inused, char *outused)
 {
-  if (node == NULL) return;
+  if (node == nullptr) return;
 
   if (node->id == ID_ASSIGN_FLT || node->id == ID_ASSIGN_VEC) {
     this->findUsed(node->child2, inused, outused); // traverse rhs

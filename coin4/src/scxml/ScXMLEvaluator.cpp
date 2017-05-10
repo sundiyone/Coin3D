@@ -110,7 +110,7 @@ ScXMLEvaluator::cleanClass(void)
 }
 
 ScXMLEvaluator::ScXMLEvaluator(void)
-: statemachine(NULL)
+: statemachine(nullptr)
 {
 }
 
@@ -180,7 +180,7 @@ ScXMLDataObj::cleanClass(void)
 }
 
 ScXMLDataObj::ScXMLDataObj(void)
-: container(NULL)
+: container(nullptr)
 {
 }
 
@@ -248,19 +248,19 @@ ScXMLStringDataObj::createFor(const char * strval)
 }
 
 ScXMLStringDataObj::ScXMLStringDataObj(void)
-: value(NULL)
+: value(nullptr)
 {
 }
 
 ScXMLStringDataObj::ScXMLStringDataObj(const char * strval)
-: value(NULL)
+: value(nullptr)
 {
   this->setString(strval);
 }
 
 ScXMLStringDataObj::~ScXMLStringDataObj(void)
 {
-  this->setString(NULL);
+  this->setString(nullptr);
 }
 
 void
@@ -268,7 +268,7 @@ ScXMLStringDataObj::setString(const char * strptr)
 {
   if (this->value) {
     delete [] this->value;
-    this->value = NULL;
+    this->value = nullptr;
   }
   if (strptr) {
     this->value = new char [strlen(strptr) + 1];
@@ -435,19 +435,19 @@ ScXMLSbDataObj::createFor(const char * sbvalue)
 }
 
 ScXMLSbDataObj::ScXMLSbDataObj(void)
-: value(NULL)
+: value(nullptr)
 {
 }
 
 ScXMLSbDataObj::ScXMLSbDataObj(const char * sbvalue)
-: value(NULL)
+: value(nullptr)
 {
   this->setSbValue(sbvalue);
 }
 
 ScXMLSbDataObj::~ScXMLSbDataObj(void)
 {
-  this->setSbValue(NULL);
+  this->setSbValue(nullptr);
 }
 
 void
@@ -455,7 +455,7 @@ ScXMLSbDataObj::setSbValue(const char * sbvalue)
 {
   if (this->value) {
     delete [] this->value;
-    this->value = NULL;
+    this->value = nullptr;
   }
   if (sbvalue) {
     this->value = new char [ strlen(sbvalue) + 1 ];
@@ -530,7 +530,7 @@ ScXMLExprDataObj::cleanClass(void)
 }
 
 ScXMLExprDataObj::ScXMLExprDataObj(void)
-: result(NULL)
+: result(nullptr)
 {
 }
 
@@ -538,7 +538,7 @@ ScXMLExprDataObj::~ScXMLExprDataObj(void)
 {
   if (this->result) {
     delete this->result;
-    this->result = NULL;
+    this->result = nullptr;
   }
 }
 
@@ -547,10 +547,10 @@ ScXMLExprDataObj::evaluate(ScXMLStateMachine * sm)
 {
   if (this->result) {
     delete this->result;
-    this->result = NULL;
+    this->result = nullptr;
   }
   bool ok = this->evaluateNow(sm, this->result);
-  if (!ok) return NULL;
+  if (!ok) return nullptr;
   return this->result;
 }
 
@@ -583,19 +583,19 @@ ScXMLReferenceDataObj::createFor(const char * reference)
 }
 
 ScXMLReferenceDataObj::ScXMLReferenceDataObj(void)
-: reference(NULL)
+: reference(nullptr)
 {
 }
 
 ScXMLReferenceDataObj::ScXMLReferenceDataObj(const char * referencestr)
-: reference(NULL)
+: reference(nullptr)
 {
   this->setReference(referencestr);
 }
 
 ScXMLReferenceDataObj::~ScXMLReferenceDataObj(void)
 {
-  this->setReference(NULL);
+  this->setReference(nullptr);
 }
 
 void
@@ -603,7 +603,7 @@ ScXMLReferenceDataObj::setReference(const char * referencestr)
 {
   if (this->reference) {
     delete [] this->reference;
-    this->reference = NULL;
+    this->reference = nullptr;
   }
   if (referencestr) {
     this->reference = new char [ strlen(referencestr) + 1 ];
@@ -624,7 +624,7 @@ ScXMLReferenceDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& point
     return false;
   }
 
-  ScXMLConstantDataObj * valueobj = NULL;
+  ScXMLConstantDataObj * valueobj = nullptr;
   if (obj->isOfType(ScXMLExprDataObj::getClassTypeId())) {
     ScXMLExprDataObj * exprobj = static_cast<ScXMLExprDataObj *>(obj);
     ScXMLDataObj * dataobj = exprobj->evaluate(sm);
@@ -697,7 +697,7 @@ ScXMLAndOpExprDataObj::createFor(ScXMLDataObj * lhs, ScXMLDataObj * rhs)
 }
 
 ScXMLAndOpExprDataObj::ScXMLAndOpExprDataObj(void)
-: lhs(NULL), rhs(NULL)
+: lhs(nullptr), rhs(nullptr)
 {
 }
 
@@ -710,11 +710,11 @@ ScXMLAndOpExprDataObj::~ScXMLAndOpExprDataObj(void)
 {
   if (this->lhs) {
     delete this->lhs;
-    this->lhs = NULL;
+    this->lhs = nullptr;
   }
   if (this->rhs) {
     delete this->rhs;
-    this->rhs = NULL;
+    this->rhs = nullptr;
   }
 }
 
@@ -734,7 +734,7 @@ bool
 ScXMLAndOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& pointer) const
 {
   assert(this->lhs && this->rhs);
-  ScXMLBoolDataObj * lhsbool = NULL, * rhsbool = NULL;
+  ScXMLBoolDataObj * lhsbool = nullptr, * rhsbool = nullptr;
 
   if (this->lhs->isOfType(ScXMLExprDataObj::getClassTypeId())) {
     ScXMLExprDataObj * lhsexpr = static_cast<ScXMLExprDataObj *>(this->lhs);
@@ -836,7 +836,7 @@ ScXMLOrOpExprDataObj::createFor(ScXMLDataObj * lhs, ScXMLDataObj * rhs)
 }
 
 ScXMLOrOpExprDataObj::ScXMLOrOpExprDataObj(void)
-: lhs(NULL), rhs(NULL)
+: lhs(nullptr), rhs(nullptr)
 {
 }
 
@@ -849,11 +849,11 @@ ScXMLOrOpExprDataObj::~ScXMLOrOpExprDataObj(void)
 {
   if (this->lhs) {
     delete this->lhs;
-    this->lhs = NULL;
+    this->lhs = nullptr;
   }
   if (this->rhs) {
     delete this->rhs;
-    this->rhs = NULL;
+    this->rhs = nullptr;
   }
 }
 
@@ -873,7 +873,7 @@ bool
 ScXMLOrOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& pointer) const
 {
   assert(this->lhs && this->rhs);
-  ScXMLBoolDataObj * lhsbool = NULL, * rhsbool = NULL;
+  ScXMLBoolDataObj * lhsbool = nullptr, * rhsbool = nullptr;
 
   if (this->lhs->isOfType(ScXMLExprDataObj::getClassTypeId())) {
     ScXMLExprDataObj * lhsexpr = static_cast<ScXMLExprDataObj *>(lhs);
@@ -960,7 +960,7 @@ ScXMLNotOpExprDataObj::createFor(ScXMLDataObj * rhs)
 }
 
 ScXMLNotOpExprDataObj::ScXMLNotOpExprDataObj(void)
-: rhs(NULL)
+: rhs(nullptr)
 {
 }
 
@@ -973,7 +973,7 @@ ScXMLNotOpExprDataObj::~ScXMLNotOpExprDataObj(void)
 {
   if (this->rhs) {
     delete this->rhs;
-    this->rhs = NULL;
+    this->rhs = nullptr;
   }
 }
 
@@ -987,7 +987,7 @@ bool
 ScXMLNotOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& pointer) const
 {
   assert(this->rhs);
-  ScXMLBoolDataObj * rhsbool = NULL;
+  ScXMLBoolDataObj * rhsbool = nullptr;
   if (this->rhs->isOfType(ScXMLExprDataObj::getClassTypeId())) {
     ScXMLExprDataObj * rhsexpr = static_cast<ScXMLExprDataObj *>(rhs);
     ScXMLDataObj * evaled = rhsexpr->evaluate(sm);
@@ -1065,7 +1065,7 @@ ScXMLEqualsOpExprDataObj::createFor(ScXMLDataObj * lhs, ScXMLDataObj * rhs)
 }
 
 ScXMLEqualsOpExprDataObj::ScXMLEqualsOpExprDataObj(void)
-: lhs(NULL), rhs(NULL)
+: lhs(nullptr), rhs(nullptr)
 {
 }
 
@@ -1078,11 +1078,11 @@ ScXMLEqualsOpExprDataObj::~ScXMLEqualsOpExprDataObj(void)
 {
   if (this->lhs) {
     delete this->lhs;
-    this->lhs = NULL;
+    this->lhs = nullptr;
   }
   if (this->rhs) {
     delete this->rhs;
-    this->rhs = NULL;
+    this->rhs = nullptr;
   }
 }
 
@@ -1102,7 +1102,7 @@ bool
 ScXMLEqualsOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& pointer) const
 {
   assert(this->lhs && this->rhs);
-  ScXMLDataObj * lhsevaled = NULL, * rhsevaled = NULL;
+  ScXMLDataObj * lhsevaled = nullptr, * rhsevaled = nullptr;
 
   if (this->lhs->isOfType(ScXMLExprDataObj::getClassTypeId())) {
     ScXMLExprDataObj * lhsexpr = static_cast<ScXMLExprDataObj *>(this->lhs);
@@ -1191,7 +1191,7 @@ ScXMLAddOpExprDataObj::createFor(ScXMLDataObj * lhs, ScXMLDataObj * rhs)
 }
 
 ScXMLAddOpExprDataObj::ScXMLAddOpExprDataObj(void)
-: lhs(NULL), rhs(NULL)
+: lhs(nullptr), rhs(nullptr)
 {
 }
 
@@ -1204,11 +1204,11 @@ ScXMLAddOpExprDataObj::~ScXMLAddOpExprDataObj(void)
 {
   if (this->lhs) {
     delete this->lhs;
-    this->lhs = NULL;
+    this->lhs = nullptr;
   }
   if (this->rhs) {
     delete this->rhs;
-    this->rhs = NULL;
+    this->rhs = nullptr;
   }
 }
 
@@ -1228,7 +1228,7 @@ bool
 ScXMLAddOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& pointer) const
 {
   assert(this->lhs && this->rhs);
-  ScXMLRealDataObj * lhsreal = NULL, * rhsreal = NULL;
+  ScXMLRealDataObj * lhsreal = nullptr, * rhsreal = nullptr;
 
   if (this->lhs->isOfType(ScXMLExprDataObj::getClassTypeId())) {
     ScXMLExprDataObj * lhsexpr = static_cast<ScXMLExprDataObj *>(this->lhs);
@@ -1298,7 +1298,7 @@ ScXMLSubtractOpExprDataObj::createFor(ScXMLDataObj * lhs, ScXMLDataObj * rhs)
 }
 
 ScXMLSubtractOpExprDataObj::ScXMLSubtractOpExprDataObj(void)
-: lhs(NULL), rhs(NULL)
+: lhs(nullptr), rhs(nullptr)
 {
 }
 
@@ -1311,11 +1311,11 @@ ScXMLSubtractOpExprDataObj::~ScXMLSubtractOpExprDataObj(void)
 {
   if (this->lhs) {
     delete this->lhs;
-    this->lhs = NULL;
+    this->lhs = nullptr;
   }
   if (this->rhs) {
     delete this->rhs;
-    this->rhs = NULL;
+    this->rhs = nullptr;
   }
 }
 
@@ -1335,7 +1335,7 @@ bool
 ScXMLSubtractOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& pointer) const
 {
   assert(this->lhs && this->rhs);
-  ScXMLRealDataObj * lhsreal = NULL, * rhsreal = NULL;
+  ScXMLRealDataObj * lhsreal = nullptr, * rhsreal = nullptr;
 
   if (this->lhs->isOfType(ScXMLExprDataObj::getClassTypeId())) {
     ScXMLExprDataObj * lhsexpr = static_cast<ScXMLExprDataObj *>(this->lhs);
@@ -1407,7 +1407,7 @@ ScXMLMultiplyOpExprDataObj::createFor(ScXMLDataObj * lhs, ScXMLDataObj * rhs)
 }
 
 ScXMLMultiplyOpExprDataObj::ScXMLMultiplyOpExprDataObj(void)
-: lhs(NULL), rhs(NULL)
+: lhs(nullptr), rhs(nullptr)
 {
 }
 
@@ -1420,11 +1420,11 @@ ScXMLMultiplyOpExprDataObj::~ScXMLMultiplyOpExprDataObj(void)
 {
   if (this->lhs) {
     delete this->lhs;
-    this->lhs = NULL;
+    this->lhs = nullptr;
   }
   if (this->rhs) {
     delete this->rhs;
-    this->rhs = NULL;
+    this->rhs = nullptr;
   }
 }
 
@@ -1444,7 +1444,7 @@ bool
 ScXMLMultiplyOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& pointer) const
 {
   assert(this->lhs && this->rhs);
-  ScXMLRealDataObj * lhsreal = NULL, * rhsreal = NULL;
+  ScXMLRealDataObj * lhsreal = nullptr, * rhsreal = nullptr;
 
   if (this->lhs->isOfType(ScXMLExprDataObj::getClassTypeId())) {
     ScXMLExprDataObj * lhsexpr = static_cast<ScXMLExprDataObj *>(this->lhs);
@@ -1516,7 +1516,7 @@ ScXMLDivideOpExprDataObj::createFor(ScXMLDataObj * lhs, ScXMLDataObj * rhs)
 }
 
 ScXMLDivideOpExprDataObj::ScXMLDivideOpExprDataObj(void)
-: lhs(NULL), rhs(NULL)
+: lhs(nullptr), rhs(nullptr)
 {
 }
 
@@ -1529,11 +1529,11 @@ ScXMLDivideOpExprDataObj::~ScXMLDivideOpExprDataObj(void)
 {
   if (this->lhs) {
     delete this->lhs;
-    this->lhs = NULL;
+    this->lhs = nullptr;
   }
   if (this->rhs) {
     delete this->rhs;
-    this->rhs = NULL;
+    this->rhs = nullptr;
   }
 }
 
@@ -1553,7 +1553,7 @@ bool
 ScXMLDivideOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& pointer) const
 {
   assert(this->lhs && this->rhs);
-  ScXMLRealDataObj * lhsreal = NULL, * rhsreal = NULL;
+  ScXMLRealDataObj * lhsreal = nullptr, * rhsreal = nullptr;
 
   if (this->lhs->isOfType(ScXMLExprDataObj::getClassTypeId())) {
     ScXMLExprDataObj * lhsexpr = static_cast<ScXMLExprDataObj *>(this->lhs);
@@ -1627,7 +1627,7 @@ ScXMLNegateOpExprDataObj::createFor(ScXMLDataObj * rhs)
 }
 
 ScXMLNegateOpExprDataObj::ScXMLNegateOpExprDataObj(void)
-: rhs(NULL)
+: rhs(nullptr)
 {
 }
 
@@ -1640,7 +1640,7 @@ ScXMLNegateOpExprDataObj::~ScXMLNegateOpExprDataObj(void)
 {
   if (this->rhs) {
     delete this->rhs;
-    this->rhs = NULL;
+    this->rhs = nullptr;
   }
 }
 
@@ -1654,7 +1654,7 @@ bool
 ScXMLNegateOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& pointer) const
 {
   assert(this->rhs);
-  ScXMLRealDataObj * rhsevaled = NULL;
+  ScXMLRealDataObj * rhsevaled = nullptr;
   if (this->rhs->isOfType(ScXMLExprDataObj::getClassTypeId())) {
     ScXMLExprDataObj * rhsexpr = static_cast<ScXMLExprDataObj *>(this->rhs);
     ScXMLDataObj * evaled = rhsexpr->evaluate(sm);

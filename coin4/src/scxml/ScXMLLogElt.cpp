@@ -70,7 +70,7 @@ ScXMLLogEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocument
   // handle XML attributes
   if (unlikely(!log->handleXMLAttributes())) {
     delete log;
-    return NULL;
+    return nullptr;
   }
 
   const int numchildren = cc_xml_elt_get_num_children(xmlelt);
@@ -86,7 +86,7 @@ ScXMLLogEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocument
     SoDebugError::post("ScXMLElseEltReader::read",
                        "<log> contains unexpected <%s> element", elementtype);
     delete log;
-    return NULL;
+    return nullptr;
   }
 
   return log;
@@ -116,17 +116,17 @@ ScXMLLogElt::cleanClass(void)
 }
 
 ScXMLLogElt::ScXMLLogElt(void)
-: label(NULL),
-  expr(NULL),
-  level(NULL)
+: label(nullptr),
+  expr(nullptr),
+  level(nullptr)
 {
 }
 
 ScXMLLogElt::~ScXMLLogElt(void)
 {
-  this->setLabelAttribute(NULL);
-  this->setExprAttribute(NULL);
-  this->setLevelAttribute(NULL);
+  this->setLabelAttribute(nullptr);
+  this->setExprAttribute(nullptr);
+  this->setLevelAttribute(nullptr);
 }
 
 void
@@ -199,7 +199,7 @@ ScXMLLogElt::search(const char * attrname, const char * attrvalue) const
       return this;
     }
   }
-  return NULL;
+  return nullptr;
 }
 
 void

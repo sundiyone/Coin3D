@@ -78,10 +78,10 @@ SoInterpolate::SoInterpolate(void)
     // FIXME: is this really necessary for SoInterpolate? 20000505 mortene.
     SoInterpolate::inputdata =
       new SoFieldData(SoInterpolate::parentinputdata ?
-                      *SoInterpolate::parentinputdata : NULL);
+                      *SoInterpolate::parentinputdata : nullptr);
     SoInterpolate::outputdata =
       new SoEngineOutputData(SoInterpolate::parentoutputdata ?
-                             *SoInterpolate::parentoutputdata : NULL);
+                             *SoInterpolate::parentoutputdata : nullptr);
   }
 
   SO_ENGINE_ADD_INPUT(alpha, (0.0f));
@@ -111,6 +111,6 @@ SoInterpolate::~SoInterpolate()
 #if COIN_DEBUG && 0 // debug
   SoDebugError::postInfo("SoInterpolate::~SoInterpolate", "%p", this);
 #endif // debug
-  delete this->inputdata; this->inputdata = NULL;
-  delete this->outputdata; this->outputdata = NULL;
+  delete this->inputdata; this->inputdata = nullptr;
+  delete this->outputdata; this->outputdata = nullptr;
 }

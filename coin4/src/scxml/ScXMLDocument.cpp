@@ -74,10 +74,10 @@ using std::strlen;
 class ScXMLDocument::PImpl {
 public:
   PImpl(void)
-  : filename(NULL),
-    root(NULL),
-    stateidmap(NULL),
-    dataidmap(NULL)
+  : filename(nullptr),
+    root(nullptr),
+    stateidmap(nullptr),
+    dataidmap(nullptr)
   { }
   ~PImpl(void) { }
 
@@ -262,7 +262,7 @@ void intrusive_ptr_release(cc_xml_doc * doc) {
 ScXMLDocument *
 ScXMLDocument::readFile(const char * filename)
 {
-  ScXMLDocument * scxmldoc = NULL;
+  ScXMLDocument * scxmldoc = nullptr;
 
   if (strncmp(filename, "coin:", 5) == 0) { // is a "resource"
     //size_t buffersize = 0;
@@ -278,12 +278,12 @@ ScXMLDocument::readFile(const char * filename)
 
   boost::intrusive_ptr<cc_xml_doc> xmldoc(cc_xml_doc_new());
   if (unlikely(!cc_xml_doc_read_file_x(xmldoc.get(), filename))) {
-    return NULL;
+    return nullptr;
   }
 
   scxmldoc = ScXMLDocument::readXMLData(xmldoc.get());
   if (unlikely(!scxmldoc)) {
-    return NULL;
+    return nullptr;
   }
 
   scxmldoc->setFilename(filename);
@@ -294,16 +294,16 @@ ScXMLDocument::readFile(const char * filename)
 ScXMLDocument *
 ScXMLDocument::readBuffer(const SbByteBuffer & buffer)
 {
-  if (buffer.size()==0) return NULL;
+  if (buffer.size()==0) return nullptr;
 
   boost::intrusive_ptr<cc_xml_doc> xmldoc(cc_xml_doc_new());
   if (unlikely(!cc_xml_doc_read_buffer_x(xmldoc.get(), buffer.constData(), buffer.size()))) {
-    return NULL;
+    return nullptr;
   }
 
   ScXMLDocument * scxmldoc = ScXMLDocument::readXMLData(xmldoc.get());
   if (unlikely(!scxmldoc)) {
-    return NULL;
+    return nullptr;
   }
 
   scxmldoc->setFilename("<memory buffer>");
@@ -320,15 +320,15 @@ ScXMLDocument::readXMLData(cc_xml_doc * xmldoc)
     SoDebugError::post("ScXMLDocument::readXMLData",
                        "expected root to be an <scxml> element, not '%s'",
                        cc_xml_elt_get_type(root));
-    return NULL;
+    return nullptr;
   }
 
   ScXMLEltReader * reader = ScXMLScxmlElt::getElementReader();
   ScXMLDocument * scxmldoc = new ScXMLDocument;
-  ScXMLElt * elt = reader->read(NULL, root, scxmldoc, NULL);
+  ScXMLElt * elt = reader->read(nullptr, root, scxmldoc, nullptr);
   if (unlikely(!elt)) {
     delete scxmldoc;
-    return NULL;
+    return nullptr;
   }
   assert(elt->isOfType(ScXMLScxmlElt::getClassTypeId()));
   scxmldoc->setRoot(static_cast<ScXMLScxmlElt *>(elt));
@@ -368,7 +368,7 @@ ScXMLDocument::getRoot(void) const
 ScXMLAbstractStateElt *
 ScXMLDocument::getStateById(SbName id) const
 {
-  if (PRIVATE(this)->stateidmap.get() == NULL) {
+  if (PRIVATE(this)->stateidmap.get() == nullptr) {
     ScXMLDocument * thisp = const_cast<ScXMLDocument *>(this);
     PRIVATE(thisp)->stateidmap.reset(new PImpl::StateIdMap);
     PRIVATE(thisp)->dataidmap.reset(new PImpl::DataIdMap);
@@ -379,13 +379,13 @@ ScXMLDocument::getStateById(SbName id) const
   if (it != PRIVATE(this)->stateidmap->end()) {
     return it->second;
   }
-  return NULL;
+  return nullptr;
 }
 
 ScXMLDataElt *
 ScXMLDocument::getDataById(SbName id) const
 {
-  if (PRIVATE(this)->dataidmap.get() == NULL) {
+  if (PRIVATE(this)->dataidmap.get() == nullptr) {
     ScXMLDocument * thisp = const_cast<ScXMLDocument *>(this);
     PRIVATE(thisp)->stateidmap.reset(new PImpl::StateIdMap);
     PRIVATE(thisp)->dataidmap.reset(new PImpl::DataIdMap);
@@ -396,7 +396,7 @@ ScXMLDocument::getDataById(SbName id) const
   if (it != PRIVATE(this)->dataidmap->end()) {
     return it->second;
   }
-  return NULL;
+  return nullptr;
 }
 
 #undef PRIVATE

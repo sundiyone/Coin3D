@@ -507,7 +507,7 @@ SoHandleBoxDragger::setUpConnections(bool onoff, bool doitalways)
   if (onoff) {
     inherited::setUpConnections(onoff, doitalways);
 
-    SoHandleBoxDragger::fieldSensorCB(this, NULL);
+    SoHandleBoxDragger::fieldSensorCB(this, nullptr);
 
     if (this->translFieldSensor->getAttachedField() != &this->translation) {
       this->translFieldSensor->attach(&this->translation);
@@ -518,10 +518,10 @@ SoHandleBoxDragger::setUpConnections(bool onoff, bool doitalways)
 
   }
   else {
-    if (this->translFieldSensor->getAttachedField() != NULL) {
+    if (this->translFieldSensor->getAttachedField() != nullptr) {
       this->translFieldSensor->detach();
     }
-    if (this->scaleFieldSensor->getAttachedField() != NULL) {
+    if (this->scaleFieldSensor->getAttachedField() != nullptr) {
       this->scaleFieldSensor->detach();
     }
     inherited::setUpConnections(onoff, doitalways);
@@ -875,8 +875,8 @@ SoNode *
 SoHandleBoxDragger::getNodeFieldNode(const char * fieldname)
 {
   SoField * field = this->getField(fieldname);
-  assert(field != NULL);
-  assert(coin_assert_cast<SoSFNode *>(field)->getValue() != NULL);
+  assert(field != nullptr);
+  assert(coin_assert_cast<SoSFNode *>(field)->getValue() != nullptr);
   return coin_assert_cast<SoSFNode *>(field)->getValue();
 }
 

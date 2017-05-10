@@ -71,7 +71,7 @@ SoOutput_Writer::~SoOutput_Writer()
 FILE * 
 SoOutput_Writer::getFilePointer(void)
 {
-  return NULL;
+  return nullptr;
 }
 
 
@@ -217,7 +217,7 @@ SoOutput_MemBufferWriter::makeRoomInBuf(size_t bytes)
 
 SoOutput_GZFileWriter::SoOutput_GZFileWriter(FILE * fp, const bool shouldclose, const float level)
 {
-  this->gzfp = NULL;
+  this->gzfp = nullptr;
 
   int fd = fileno(fp);
   if (fd >= 0 && !shouldclose) fd = dup(fd);
@@ -281,7 +281,7 @@ SoOutput_GZFileWriter::bytesInBuf(void)
 
 SoOutput_BZ2FileWriter::SoOutput_BZ2FileWriter(FILE * fparg, const bool shouldclose, const float level)
 {
-  this->fp = shouldclose ? fparg : NULL;
+  this->fp = shouldclose ? fparg : nullptr;
   this->writecounter = 0;
 
   int bzerror = BZ_OK;
@@ -291,8 +291,8 @@ SoOutput_BZ2FileWriter::SoOutput_BZ2FileWriter(FILE * fparg, const bool shouldcl
   if (this->bzfp && (bzerror != BZ_OK)) {
     SoDebugError::postWarning("SoOutput_BZ2FileWriter::SoOutput_BZF2ileWriter", 
                               "Unable to open file for writing.");    
-    cc_bzglue_BZ2_bzWriteClose(&bzerror, this->bzfp, 0, NULL, NULL);
-    this->bzfp = NULL;
+    cc_bzglue_BZ2_bzWriteClose(&bzerror, this->bzfp, 0, nullptr, nullptr);
+    this->bzfp = nullptr;
   }
 }
 
@@ -300,7 +300,7 @@ SoOutput_BZ2FileWriter::~SoOutput_BZ2FileWriter()
 {
   if (this->bzfp) {
     int bzerror = BZ_OK;
-    cc_bzglue_BZ2_bzWriteClose(&bzerror, this->bzfp, 0, NULL, NULL);
+    cc_bzglue_BZ2_bzWriteClose(&bzerror, this->bzfp, 0, nullptr, nullptr);
     if (bzerror != BZ_OK) {
       SoDebugError::postWarning("SoOutput_BZ2FileWriter::~SoOutput_BZ2FileWriter", 
                                 "Error when closing bzip2 file.");    
@@ -330,8 +330,8 @@ SoOutput_BZ2FileWriter::write(const char * buf, size_t numbytes, const bool COIN
       assert(bzerror == BZ_IO_ERROR);
       SoDebugError::postWarning("SoOutput_BZ2FileWriter::write", 
                                 "I/O error while writing.");    
-      cc_bzglue_BZ2_bzWriteClose(&bzerror, this->bzfp, 0, NULL, NULL);
-      this->bzfp = NULL;
+      cc_bzglue_BZ2_bzWriteClose(&bzerror, this->bzfp, 0, nullptr, nullptr);
+      this->bzfp = nullptr;
       return 0;
     }
     this->writecounter += numbytes;

@@ -36,8 +36,8 @@
 
   \verbatim
   PointSet {
-    exposedField  SFNode  color      NULL
-    exposedField  SFNode  coord      NULL
+    exposedField  SFNode  color      nullptr
+    exposedField  SFNode  coord      nullptr
   }
   \endverbatim
   
@@ -46,16 +46,16 @@
   field specifies a SoVRMLCoordinate node (or instance of a Coordinate
   node). The results are undefined if the coord field specifies any
   other type of node. PointSet uses the coordinates in order. If the
-  coord field is NULL, the point set is considered empty.  PointSet
+  coord field is nullptr, the point set is considered empty.  PointSet
   nodes are not lit, not texture-mapped, nor do they participate in
   collision detection. The size of each point is implementation-
-  dependent.  If the color field is not NULL, it shall specify a
+  dependent.  If the color field is not nullptr, it shall specify a
   SoVRMLColor node that contains at least the number of points
   contained in the coord node. The results are undefined if the color
   field specifies any other type of node. Colours shall be applied to
   each point in order. The results are undefined if the number of
   values in the Color node is less than the number of values specified
-  in the Coordinate node.  If the color field is NULL and there is a
+  in the Coordinate node.  If the color field is nullptr and there is a
   SoVRMLMaterial node defined for the SoVRMLAppearance node affecting
   this PointSet node, the emissiveColor of the Material node shall be
   used to draw the points. More details on lighting equations can be
@@ -110,7 +110,7 @@ is_material_per_vertex(SoVRMLPointSet * ps, SoState * state)
         SoMaterialBindingElement::OVERALL) return true;
     return false;
   }
-  return ps->color.getValue() != NULL;
+  return ps->color.getValue() != nullptr;
 }
 
 SO_NODE_SOURCE(SoVRMLPointSet);
@@ -177,7 +177,7 @@ SoVRMLPointSet::GLRender(SoGLRenderAction * action)
   
   if (dova && matpervertex) {
     const SoGLVBOElement * vboelem = SoGLVBOElement::getInstance(state);
-    if (vboelem->getColorVBO() == NULL) {
+    if (vboelem->getColorVBO() == nullptr) {
       dova = false;
       // we might be able to do VA-rendering, but need to check the
       // diffuse color type first.
@@ -191,7 +191,7 @@ SoVRMLPointSet::GLRender(SoGLRenderAction * action)
   if (dova) {
     bool vbo = this->startVertexArray(action,
                                         coords,
-                                        NULL,
+                                        nullptr,
                                         false,
                                         matpervertex);
     didrenderasvbo = vbo;
@@ -203,9 +203,9 @@ SoVRMLPointSet::GLRender(SoGLRenderAction * action)
   }
   else {
     sogl_render_pointset((SoGLCoordinateElement*) coords,
-                         NULL,
-                         matpervertex ? &mb : NULL,
-                         NULL,
+                         nullptr,
+                         matpervertex ? &mb : nullptr,
+                         nullptr,
                          numpts, 0);
   }
 

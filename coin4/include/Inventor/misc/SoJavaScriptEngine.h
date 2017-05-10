@@ -51,7 +51,7 @@ public:
   virtual bool executeFile(const SbName & filename) const;
   virtual bool executeFunction(const SbName &name, int argc, 
                                  const SoField * argv, 
-                                 SoField * rval = NULL) const;
+                                 SoField * rval = nullptr) const;
 
   virtual bool setScriptField(const SbName & name, const SoField * f) const;
   virtual bool unsetScriptField(const SbName & name) const;

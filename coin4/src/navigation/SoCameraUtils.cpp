@@ -102,7 +102,7 @@ SoCameraManager::createFor(SoCamera * camera)
   assert(camera);
 
   // FIXME: need to be able to instantiate an appdomain orthographic camera as well
-  SoCameraManager * manager = NULL;
+  SoCameraManager * manager = nullptr;
   if (camera->isOfType(SoPerspectiveCamera::getClassTypeId())) {
     manager = new SoPerspectiveCameraManager(camera);
   }
@@ -135,7 +135,7 @@ SoCameraManager::SoCameraManager(SoCamera * thecamera)
 SoCameraManager::~SoCameraManager(void)
 {
   camera->unref();
-  camera = NULL;
+  camera = nullptr;
 }
 
 void

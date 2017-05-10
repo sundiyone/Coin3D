@@ -57,7 +57,7 @@
 typedef void convert_func(SoField * from, SoField * to);
 typedef SbHash<uint32_t, convert_func *> UInt32ToConverterFuncMap;
 
-static UInt32ToConverterFuncMap * convertfunc_dict = NULL;
+static UInt32ToConverterFuncMap * convertfunc_dict = nullptr;
 
 // *************************************************************************
 
@@ -69,8 +69,8 @@ static UInt32ToConverterFuncMap * convertfunc_dict = NULL;
 
 PRIVATE_ENGINE_TYPESYSTEM_SOURCE(SoConvertAll);
 unsigned int SoConvertAll::classinstances = 0;
-const SoFieldData ** SoConvertAll::parentinputdata = NULL;
-const SoEngineOutputData ** SoConvertAll::parentoutputdata = NULL;
+const SoFieldData ** SoConvertAll::parentinputdata = nullptr;
+const SoEngineOutputData ** SoConvertAll::parentoutputdata = nullptr;
 
 const SoFieldData *
 SoConvertAll::getFieldData(void) const
@@ -89,14 +89,14 @@ SoConvertAll::getOutputData(void) const
 // convenience.
 SoFieldData * SoConvertAll::inputdata = reinterpret_cast<SoFieldData *>(0x1);
 SoEngineOutputData * SoConvertAll::outputdata = reinterpret_cast<SoEngineOutputData *>(0x1);
-const SoFieldData ** SoConvertAll::getInputDataPtr(void) { return NULL; }
-const SoEngineOutputData ** SoConvertAll::getOutputDataPtr(void) { return NULL; }
+const SoFieldData ** SoConvertAll::getInputDataPtr(void) { return nullptr; }
+const SoEngineOutputData ** SoConvertAll::getOutputDataPtr(void) { return nullptr; }
 
 void
 SoConvertAll::atexit_cleanup(void)
 {
-  SoConvertAll::parentinputdata = NULL;
-  SoConvertAll::parentoutputdata = NULL;
+  SoConvertAll::parentinputdata = nullptr;
+  SoConvertAll::parentoutputdata = nullptr;
   SoConvertAll::classTypeId STATIC_SOTYPE_INIT;
   SoConvertAll::classinstances = 0;
 }
@@ -663,7 +663,7 @@ extern "C" {
 static void convertall_cleanup_dict(void)
 {
   delete convertfunc_dict;
-  convertfunc_dict = NULL;
+  convertfunc_dict = nullptr;
 }
 
 } // extern "C"
@@ -1111,11 +1111,11 @@ SoConvertAll::SoConvertAll(const SoType from, const SoType to)
 
     this->inputdata_instance =
       new SoFieldData(SoConvertAll::parentinputdata ?
-                      *SoConvertAll::parentinputdata : NULL);
+                      *SoConvertAll::parentinputdata : nullptr);
 
     this->outputdata_instance =
       new SoEngineOutputData(SoConvertAll::parentoutputdata ?
-                             *SoConvertAll::parentoutputdata : NULL);
+                             *SoConvertAll::parentoutputdata : nullptr);
 
     /* SoConvertAll is not considered native (doesn't really matter
        one way or the other). */
@@ -1196,7 +1196,7 @@ SoConvertAll::evaluate(void)
         // to behave properly on enum fields (the this->input instance
         // doesn't contain the name<->value mappings in the case that
         // the master field is of type So[SM]FEnum or So[SM]FBitMask).
-        SoField * masterfield = NULL;
+        SoField * masterfield = nullptr;
         if (this->input->getConnectedField(masterfield))
           this->convertvalue(masterfield, f);
         // Couldn't get master field, this means we are connected to

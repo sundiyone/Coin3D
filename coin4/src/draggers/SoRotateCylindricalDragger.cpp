@@ -217,14 +217,14 @@ SoRotateCylindricalDragger::setUpConnections(bool onoff, bool doitalways)
   if (onoff) {
     inherited::setUpConnections(onoff, doitalways);
 
-    SoRotateCylindricalDragger::fieldSensorCB(this, NULL);
+    SoRotateCylindricalDragger::fieldSensorCB(this, nullptr);
 
     if (this->fieldSensor->getAttachedField() != &this->rotation) {
       this->fieldSensor->attach(&this->rotation);
     }
   }
   else {
-    if (this->fieldSensor->getAttachedField() != NULL) {
+    if (this->fieldSensor->getAttachedField() != nullptr) {
       this->fieldSensor->detach();
     }
     inherited::setUpConnections(onoff, doitalways);
@@ -305,7 +305,7 @@ SoRotateCylindricalDragger::copyContents(const SoFieldContainer * fromfc,
   if (!this->userProj) {
     delete this->cylinderProj;
   }
-  this->cylinderProj = NULL;
+  this->cylinderProj = nullptr;
 
   if (from->cylinderProj) {
     this->cylinderProj = static_cast<SbCylinderProjector *>(

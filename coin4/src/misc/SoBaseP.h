@@ -65,7 +65,7 @@ public:
 
   static bool trackbaseobjects;
   static void * allbaseobj_mutex;
-  static SoBaseSet * allbaseobj; // maps from SoBase * to NULL
+  static SoBaseSet * allbaseobj; // maps from SoBase * to nullptr
 
   static SbString * refwriteprefix;
   static bool tracerefs;

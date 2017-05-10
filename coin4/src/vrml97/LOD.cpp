@@ -198,10 +198,10 @@ SoVRMLLOD::commonConstructor(void)
   // HACK WARNING: All children of this node are stored in the level
   // field. Avoid double notifications (because of notification
   // through SoChildList) be reallocating the SoChildList with a
-  // NULL-parent here. SoGroup will have allocated an SoChildList in
+  // nullptr-parent here. SoGroup will have allocated an SoChildList in
   // its constructor when we get here.
   delete this->SoGroup::children;
-  this->SoGroup::children = new SoChildList(NULL);
+  this->SoGroup::children = new SoChildList(nullptr);
 }
 
 // *************************************************************************

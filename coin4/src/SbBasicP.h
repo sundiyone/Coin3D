@@ -60,26 +60,26 @@ struct coin_depointer<Type * const> {
 template<typename To,typename From>
 To coin_internal_safe_cast2(From * ptr) {
 #ifdef COIN_DEPOINTER_AVAILABLE
-  if((ptr != NULL) && ptr->getTypeId().isDerivedFrom(coin_depointer<To>::type::getClassTypeId()))
+  if((ptr != nullptr) && ptr->getTypeId().isDerivedFrom(coin_depointer<To>::type::getClassTypeId()))
 #else
   //FIXME Can we avoid declaring an unused variable also for MSVC6? - BFG 20080807
-  To retVal = NULL;
-  if((ptr != NULL) && ptr->getTypeId().isDerivedFrom(retVal->getClassTypeId()))
+  To retVal = nullptr;
+  if((ptr != nullptr) && ptr->getTypeId().isDerivedFrom(retVal->getClassTypeId()))
 #endif //OLDMSVC
   return static_cast<To>(ptr);
-  return NULL;
+  return nullptr;
 }
 
 template<typename To,typename From>
 To
 coin_internal_safe_cast(From * ptr) {
 #ifdef COIN_DEPOINTER_AVAILABLE
-  if((ptr != NULL) && ptr->isOfType(coin_depointer<To>::type::getClassTypeId()))
+  if((ptr != nullptr) && ptr->isOfType(coin_depointer<To>::type::getClassTypeId()))
 #else
-  if((ptr != NULL) && ptr->isOfType(((To) NULL)->getClassTypeId()))
+  if((ptr != nullptr) && ptr->isOfType(((To) nullptr)->getClassTypeId()))
 #endif //OLDMSVC
     return static_cast<To>(ptr);
-  return NULL;
+  return nullptr;
 }
 
 template<typename To>

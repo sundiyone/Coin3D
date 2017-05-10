@@ -53,11 +53,11 @@ static cc_fifo_item * i_unlink_head(cc_fifo * fifo);
 void
 cc_fifo_struct_init(cc_fifo * fifo)
 {
-  assert(fifo != NULL);
+  assert(fifo != nullptr);
   cc_mutex_struct_init(&fifo->access);
-  fifo->head = NULL;
-  fifo->tail = NULL;
-  fifo->free = NULL;
+  fifo->head = nullptr;
+  fifo->tail = nullptr;
+  fifo->free = nullptr;
   fifo->elements = 0;
   cc_condvar_struct_init(&fifo->sleep);
 }
@@ -66,18 +66,18 @@ void
 cc_fifo_struct_clean(cc_fifo * fifo)
 {
   cc_fifo_item * item, * next;
-  assert(fifo != NULL);
+  assert(fifo != nullptr);
   cc_mutex_struct_clean(&fifo->access);
   /* free fifo list */
   item = fifo->head;
-  while ( item != NULL ) {
+  while ( item != nullptr ) {
     next = item->next;
     cc_fifo_item_delete(item);
     item = next;
   }
   /* free free list */
   item = fifo->free;
-  while ( item != NULL ) {
+  while ( item != nullptr ) {
     next = item->next;
     cc_fifo_item_delete(item);
     item = next;
@@ -109,7 +109,7 @@ void
 cc_fifo_assign(cc_fifo * fifo, void * ptr, uint32_t type)
 {
   cc_fifo_item * item;
-  assert(fifo != NULL);
+  assert(fifo != nullptr);
   cc_mutex_lock(&fifo->access);
   item = i_get_free_item(fifo);
   item->item = ptr;
@@ -123,7 +123,7 @@ void
 cc_fifo_retrieve(cc_fifo * fifo, void ** ptr, uint32_t * type)
 {
   cc_fifo_item * item;
-  assert(fifo != NULL && ptr != NULL);
+  assert(fifo != nullptr && ptr != nullptr);
   cc_mutex_lock(&fifo->access);
   while ( true ) {
     if ( fifo->elements == 0 ) {
@@ -131,7 +131,7 @@ cc_fifo_retrieve(cc_fifo * fifo, void ** ptr, uint32_t * type)
     } else {
       item = i_unlink_head(fifo);
       *ptr = item->item;
-      if ( type != NULL ) *type = item->type;
+      if ( type != nullptr ) *type = item->type;
       item->next = fifo->free;
       fifo->free = item;
       cc_mutex_unlock(&fifo->access);
@@ -145,7 +145,7 @@ bool
 cc_fifo_try_retrieve(cc_fifo * fifo, void ** ptr, uint32_t * type)
 {
   cc_fifo_item * item;
-  assert(fifo != NULL && ptr != NULL);
+  assert(fifo != nullptr && ptr != nullptr);
   /* FIXME: consider cc_mutex_try_lock()? to escape even a failed lock */
   if ( ! cc_mutex_try_lock(&fifo->access) ) {
     return false;
@@ -156,7 +156,7 @@ cc_fifo_try_retrieve(cc_fifo * fifo, void ** ptr, uint32_t * type)
   }
   item = i_unlink_head(fifo);
   *ptr = item->item;
-  if ( type != NULL ) *type = item->type;
+  if ( type != nullptr ) *type = item->type;
   cc_fifo_item_delete(item);
   cc_mutex_unlock(&fifo->access);
   cc_condvar_wake_one(&fifo->sleep);
@@ -168,7 +168,7 @@ cc_fifo_try_retrieve(cc_fifo * fifo, void ** ptr, uint32_t * type)
 unsigned int
 cc_fifo_size(cc_fifo * fifo)
 {
-  assert(fifo != NULL);
+  assert(fifo != nullptr);
   return fifo->elements;
 }
 
@@ -179,9 +179,9 @@ cc_fifo_item_new(void) /* static */
 {
   cc_fifo_item * item;
   item = (cc_fifo_item*) malloc(sizeof(cc_fifo_item));
-  assert(item != NULL);
-  item->next = NULL;
-  item->item = NULL;
+  assert(item != nullptr);
+  item->next = nullptr;
+  item->item = nullptr;
   item->type = 0;
   return item;
 }
@@ -189,7 +189,7 @@ cc_fifo_item_new(void) /* static */
 void
 cc_fifo_item_delete(cc_fifo_item * item) /* static */
 {
-  assert(item != NULL);
+  assert(item != nullptr);
   free(item);
 }
 
@@ -198,21 +198,21 @@ cc_fifo_item_delete(cc_fifo_item * item) /* static */
 void
 cc_fifo_lock(cc_fifo * fifo)
 {
-  assert(fifo != NULL);
+  assert(fifo != nullptr);
   cc_mutex_lock(&fifo->access);
 }
 
 bool
 cc_fifo_try_lock(cc_fifo * fifo)
 {
-  assert(fifo != NULL);
+  assert(fifo != nullptr);
   return cc_mutex_try_lock(&fifo->access);
 }
 
 void
 cc_fifo_unlock(cc_fifo * fifo)
 {
-  assert(fifo != NULL);
+  assert(fifo != nullptr);
   cc_mutex_unlock(&fifo->access);
 }
 
@@ -221,10 +221,10 @@ cc_fifo_unlock(cc_fifo * fifo)
 bool
 cc_fifo_peek(cc_fifo * fifo, void ** item, uint32_t * type)
 {
-  assert(fifo != NULL);
-  if ( fifo->head == NULL ) return false;
+  assert(fifo != nullptr);
+  if ( fifo->head == nullptr ) return false;
   *item = fifo->head->item;
-  if ( type != NULL ) *type = fifo->head->type;
+  if ( type != nullptr ) *type = fifo->head->type;
   return true;
 }
 
@@ -232,9 +232,9 @@ bool
 cc_fifo_contains(cc_fifo * fifo, void * itemptr)
 {
   cc_fifo_item * item;
-  assert(fifo != NULL);
+  assert(fifo != nullptr);
   item = fifo->head;
-  while ( item != NULL ) {
+  while ( item != nullptr ) {
     if ( item->item == itemptr ) return true;
     item = item->next;
   }
@@ -245,16 +245,16 @@ bool
 cc_fifo_reclaim(cc_fifo * fifo, void * itemptr)
 {
   cc_fifo_item * item, * prev;
-  assert(fifo != NULL);
+  assert(fifo != nullptr);
   item = fifo->head;
-  prev = NULL;
-  while ( item != NULL ) {
+  prev = nullptr;
+  while ( item != nullptr ) {
     if ( item->item == itemptr ) {
-      if ( prev == NULL ) fifo->head = item->next;
+      if ( prev == nullptr ) fifo->head = item->next;
       else prev->next = item->next;
       if ( fifo->tail == item ) fifo->tail = prev;
       /* and reset/store the container */
-      item->item = NULL;
+      item->item = nullptr;
       item->type = 0;
       item->next = fifo->free;
       fifo->free = item;
@@ -276,10 +276,10 @@ cc_fifo_item *
 i_get_free_item(cc_fifo * fifo) /* static */
 {
   cc_fifo_item * item;
-  if ( fifo->free != NULL ) {
+  if ( fifo->free != nullptr ) {
     item = fifo->free;
     fifo->free = item->next;
-    item->next = NULL;
+    item->next = nullptr;
   } else {
     item = cc_fifo_item_new();
   }
@@ -294,7 +294,7 @@ i_get_free_item(cc_fifo * fifo) /* static */
 void
 i_append(cc_fifo * fifo, cc_fifo_item * item) /* static */
 {
-  if ( fifo->tail == NULL ) {
+  if ( fifo->tail == nullptr ) {
     fifo->head = item;
     fifo->tail = item;
   } else {
@@ -315,8 +315,8 @@ i_unlink_head(cc_fifo * fifo) /* static */
   cc_fifo_item * item;
   item = fifo->head;
   fifo->head = item->next;
-  if ( fifo->head == NULL )
-    fifo->tail = NULL;
+  if ( fifo->head == nullptr )
+    fifo->tail = nullptr;
   fifo->elements -= 1;
   return item;
 }

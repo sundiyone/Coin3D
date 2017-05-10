@@ -64,8 +64,8 @@ protected: SoSFNode _entry_
 
 
 #define PRIVATE_KIT_SOURCE(_class_) \
-SoNodekitCatalog * _class_::classcatalog = NULL; \
-const SoNodekitCatalog ** _class_::parentcatalogptr = NULL; \
+SoNodekitCatalog * _class_::classcatalog = nullptr; \
+const SoNodekitCatalog ** _class_::parentcatalogptr = nullptr; \
  \
 const SoNodekitCatalog * \
 _class_::getClassNodekitCatalog(void) \
@@ -89,8 +89,8 @@ void \
 _class_::atexit_cleanupkit(void) \
 { \
    delete _class_::classcatalog; \
-  _class_::classcatalog = NULL; \
-  _class_::parentcatalogptr = NULL; \
+  _class_::classcatalog = nullptr; \
+  _class_::parentcatalogptr = nullptr; \
 }
 
 #define SO_KIT_SOURCE(_class_) \
@@ -121,7 +121,7 @@ PRIVATE_KIT_SOURCE(_class_)
   do { \
     SO_NODE_CONSTRUCTOR(_class_); \
     SoBase::staticDataLock(); \
-    if (_class_::classcatalog == NULL) { \
+    if (_class_::classcatalog == nullptr) { \
       SoType mytype = SoType::fromName(SO__QUOTE(_class_)); \
       _class_::classcatalog = (*_class_::parentcatalogptr)->clone(mytype); \
       cc_coin_atexit_static_internal(_class_::atexit_cleanupkit); \
@@ -143,7 +143,7 @@ PRIVATE_KIT_SOURCE(_class_)
                            SoType::badType(), \
                            SoType::badType(), \
                            _ispublic_); \
-    SO_NODE_ADD_FIELD(_part_,(NULL)); \
+    SO_NODE_ADD_FIELD(_part_,(nullptr)); \
   } while (0)
 
 
@@ -160,7 +160,7 @@ PRIVATE_KIT_SOURCE(_class_)
                            _containertype_::getClassTypeId(), \
                            _itemtype_::getClassTypeId(), \
                            _ispublic_); \
-    SO_NODE_ADD_FIELD(_part_,(NULL)); \
+    SO_NODE_ADD_FIELD(_part_,(nullptr)); \
   } while (0)
 
 
@@ -177,7 +177,7 @@ PRIVATE_KIT_SOURCE(_class_)
                            SoType::badType(), \
                            SoType::badType(), \
                            _ispublic_); \
-    SO_NODE_ADD_FIELD(_part_,(NULL)); \
+    SO_NODE_ADD_FIELD(_part_,(nullptr)); \
   } while (0)
 
 

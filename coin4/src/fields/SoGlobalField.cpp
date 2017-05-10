@@ -62,11 +62,11 @@
 
 SoType SoGlobalField::classTypeId STATIC_SOTYPE_INIT;
 
-SoBaseList * SoGlobalField::allcontainers = NULL;
+SoBaseList * SoGlobalField::allcontainers = nullptr;
 
 // *************************************************************************
 
-// Constructor. Pass NULL for the field pointer to construct an empty
+// Constructor. Pass nullptr for the field pointer to construct an empty
 // SoGlobalField instance.
 SoGlobalField::SoGlobalField(const SbName & name, SoField * field)
 {
@@ -86,7 +86,7 @@ SoGlobalField::SoGlobalField(const SbName & name, SoField * field)
     this->classfielddata->addField(this, name, field);
   }
   else {
-    this->classfielddata = NULL;
+    this->classfielddata = nullptr;
   }
 
   this->setName(name);
@@ -115,7 +115,7 @@ SoGlobalField::~SoGlobalField()
 void *
 SoGlobalField::createInstance(void)
 {
-  return new SoGlobalField(SbName::empty(), NULL);
+  return new SoGlobalField(SbName::empty(), nullptr);
 }
 
 // Do common initializations.
@@ -164,7 +164,7 @@ SoGlobalField::clean(void)
 #endif // COIN_DEBUG
 
   delete SoGlobalField::allcontainers;
-  SoGlobalField::allcontainers = NULL;
+  SoGlobalField::allcontainers = nullptr;
   SoGlobalField::classTypeId STATIC_SOTYPE_INIT;
 }
 
@@ -204,7 +204,7 @@ SoGlobalField::getGlobalFieldContainer(const SbName & name)
 {
   int idx = SoGlobalField::getGlobalFieldIndex(name);
   return
-    (idx == -1) ? NULL : coin_assert_cast<SoGlobalField *>((*SoGlobalField::allcontainers)[idx]);
+    (idx == -1) ? nullptr : coin_assert_cast<SoGlobalField *>((*SoGlobalField::allcontainers)[idx]);
 }
 
 // Returns the complete set of SoGlobalField instances.
@@ -234,7 +234,7 @@ SoGlobalField::getTypeId(void) const
 SoField *
 SoGlobalField::getGlobalField(void) const
 {
-  return this->classfielddata ? this->classfielddata->getField(this, 0) : NULL;
+  return this->classfielddata ? this->classfielddata->getField(this, 0) : nullptr;
 }
 
 // Overridden to also set field name.
@@ -260,7 +260,7 @@ SoGlobalField::readInstance(SoInput * in, unsigned short COIN_UNUSED_ARG(flags))
   // A bit more coding and we could let the readInstance() method be
   // called on already initialized SoGlobalField instances, but I
   // don't think there's any point. mortene.
-  assert(this->classfielddata == NULL);
+  assert(this->classfielddata == nullptr);
 
   // This macro is convenient for reading with error detection.
 #define READ_VAL(val) \

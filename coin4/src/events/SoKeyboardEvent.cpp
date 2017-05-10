@@ -78,8 +78,8 @@
   given \c KEY.
 */
 
-static SbHash<int, char> * converttoprintable = NULL;
-static SbHash<int, char> * converttoprintable_shift = NULL;
+static SbHash<int, char> * converttoprintable = nullptr;
+static SbHash<int, char> * converttoprintable_shift = nullptr;
 
 extern "C" {
 
@@ -87,9 +87,9 @@ static void
 sokeyboardevent_cleanup(void)
 {
   delete converttoprintable;
-  converttoprintable = NULL;
+  converttoprintable = nullptr;
   delete converttoprintable_shift;
-  converttoprintable_shift = NULL;
+  converttoprintable_shift = nullptr;
 }
 
 } // extern "C"
@@ -344,7 +344,7 @@ SoKeyboardEvent::getPrintableCharacter(void) const
 {
   if (this->isprintableset) return this->printable;
 
-  if (converttoprintable == NULL) {
+  if (converttoprintable == nullptr) {
     build_convert_dicts();
   }
 

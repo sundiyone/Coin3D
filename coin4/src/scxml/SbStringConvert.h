@@ -67,7 +67,7 @@ template<typename Type, typename ArgumentType>
 template <typename T>
 struct ScXMLConvert {
     static
-    T fromString(const SbString & str, bool * conversionOk = NULL)
+    T fromString(const SbString & str, bool * conversionOk = nullptr)
     {
       typename SbTypeInfo<T>::PrimitiveType tmpVal[SbTypeInfo<T>::Dimensions];
       SbString substr;
@@ -122,7 +122,7 @@ struct ScXMLConvert {
 
 template<typename T>
 struct PrimitiveConvert {
-  static T fromString(const SbString & str, bool * conversionOk = NULL) {
+  static T fromString(const SbString & str, bool * conversionOk = nullptr) {
       return FromString<T>(str, conversionOk);
   }
   static SbString toString(const T & in) {
@@ -148,7 +148,7 @@ public:
   
   template <typename T>
     static
-    T fromString(const SbString & str, bool * conversionOk = NULL)
+    T fromString(const SbString & str, bool * conversionOk = nullptr)
     {
       return
         IF< SbTypeInfo<T>::isPrimitive, PrimitiveConvert<T>, ScXMLConvert<T> >::RET::fromString(str,conversionOk);

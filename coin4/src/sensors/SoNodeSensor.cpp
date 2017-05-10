@@ -46,7 +46,7 @@
 */
 SoNodeSensor::SoNodeSensor(void)
 {
-  this->convict = NULL;
+  this->convict = nullptr;
 }
 
 /*!
@@ -58,7 +58,7 @@ SoNodeSensor::SoNodeSensor(void)
 SoNodeSensor::SoNodeSensor(SoSensorCB * func, void * data)
   : inherited(func, data)
 {
-  this->convict = NULL;
+  this->convict = nullptr;
 }
 
 /*!
@@ -86,7 +86,7 @@ SoNodeSensor::~SoNodeSensor(void)
 void
 SoNodeSensor::attach(SoNode * node)
 {
-  if (this->convict != NULL) {
+  if (this->convict != nullptr) {
     this->detach();
     SoDebugError::postWarning("SoNodeSensor::attach", 
                               "Attaching node sensor that is already attached.", 
@@ -106,7 +106,7 @@ void
 SoNodeSensor::detach(void)
 {
   if (this->convict) this->convict->removeAuditor(this, SoNotRec::SENSOR);
-  this->convict = NULL;
+  this->convict = nullptr;
 }
 
 /*!

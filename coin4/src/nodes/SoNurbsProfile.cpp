@@ -178,8 +178,8 @@ static void
 so_nurbsprofile_construct_data(void * closure)
 {
   so_nurbsprofile_data * data = (so_nurbsprofile_data*) closure;
-  data->coordlist = NULL;
-  data->tmplist = NULL;
+  data->coordlist = nullptr;
+  data->tmplist = nullptr;
 }
 
 static void
@@ -201,17 +201,17 @@ so_nurbsprofile_cleanup(void)
 static SbList <float> *
 so_nurbsprofile_get_coordlist(const bool tmplist)
 {
-  so_nurbsprofile_data * data = NULL;
+  so_nurbsprofile_data * data = nullptr;
   data = (so_nurbsprofile_data*) so_nurbsprofile_storage->get();
 
   if (tmplist) {
-    if (data->tmplist == NULL) {
+    if (data->tmplist == nullptr) {
       data->tmplist = new SbList<float>;
     }
     return data->tmplist;
   }
   else {
-    if (data->coordlist == NULL) {
+    if (data->coordlist == nullptr) {
       data->coordlist = new SbList<float>;
     }
     return data->coordlist;
@@ -230,7 +230,7 @@ SoNurbsProfile::SoNurbsProfile(void)
   SO_NODE_INTERNAL_CONSTRUCTOR(SoNurbsProfile);
 
   SO_NODE_ADD_FIELD(knotVector, (0.0f));
-  this->nurbsrenderer = NULL;
+  this->nurbsrenderer = nullptr;
 }
 
 /*!
@@ -350,7 +350,7 @@ SoNurbsProfile::getVertices(SoState * state, int32_t & numvertices,
   this->getTrimCurve(state, numpoints, points, floatspervec, numknots, knotvector);
   if (numpoints == 0 || numknots == 0) {
     numvertices = 0;
-    vertices = NULL;
+    vertices = nullptr;
     return;
   }
 
@@ -374,7 +374,7 @@ SoNurbsProfile::getVertices(SoState * state, int32_t & numvertices,
     // we will write into this array in the GLU callback
     coordListNurbsProfile->truncate(0);
 
-    if (this->nurbsrenderer == NULL) {
+    if (this->nurbsrenderer == nullptr) {
       this->nurbsrenderer = GLUWrapper()->gluNewNurbsRenderer();
       GLUWrapper()->gluNurbsCallback(this->nurbsrenderer, (GLenum) GLU_NURBS_VERTEX,
                                      (gluNurbsCallback_cb_t)nurbsprofile_tess_vertex);

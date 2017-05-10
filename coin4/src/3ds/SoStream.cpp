@@ -608,7 +608,7 @@ bool SoStream::reallocBuffer(size_t newSize)
     newAllocSize = newSize;
 
   char *newBuffer = static_cast<char*>(realloc(buffer, newAllocSize));
-  if (newBuffer != NULL) {
+  if (newBuffer != nullptr) {
     buffer = newBuffer;
     bufferSize = newSize;
     bufferAllocSize = newAllocSize;
@@ -647,7 +647,7 @@ void SoStream::emptyBuffer(size_t streamSize)
   closeStream();
   streamType = MEMORY;
   if (streamSize == 0) {
-    buffer = NULL;
+    buffer = nullptr;
   } else {
     buffer = static_cast<char*>(malloc(streamSize));
   }

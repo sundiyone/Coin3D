@@ -86,7 +86,7 @@ SoPickStyleElement::init(SoState * state)
 void
 SoPickStyleElement::set(SoState * const state, const Style style)
 {
-  set(state, NULL, style);
+  set(state, nullptr, style);
 }
 
 //! FIXME: write doc.

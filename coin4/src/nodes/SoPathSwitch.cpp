@@ -55,7 +55,7 @@
 /*!
   \var SoSFPath SoPathSwitch::path
 
-  The path that must match the current action path. A \c NULL path
+  The path that must match the current action path. A \c nullptr path
   will never match. An empty path will always match. The path should
   go up to (not including) the SoPathSwitch node, but need not go all
   the way back to the root node.
@@ -79,7 +79,7 @@ SoPathSwitch::SoPathSwitch(void)
 static bool 
 is_matching_paths(const SoPath * currentpath, const SoPath * pathswitchpath)
 {
-  if (pathswitchpath == NULL) return false;
+  if (pathswitchpath == nullptr) return false;
 
   const SoFullPath * current = (const SoFullPath*) currentpath;
   const SoFullPath * swpath = (const SoFullPath *) pathswitchpath;
@@ -126,7 +126,7 @@ void
 SoPathSwitch::commonConstructor(void)
 {
   SO_NODE_INTERNAL_CONSTRUCTOR(SoPathSwitch);
-  SO_NODE_ADD_FIELD(path, (NULL));
+  SO_NODE_ADD_FIELD(path, (nullptr));
 }
 
 /*!

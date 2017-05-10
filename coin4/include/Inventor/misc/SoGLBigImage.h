@@ -35,7 +35,7 @@ class COIN_DLL_API SoGLBigImage : public SoGLImage {
 public:
 
   SoGLBigImage();
-  virtual void unref(SoState * state = NULL);
+  virtual void unref(SoState * state = nullptr);
 
   static SoType getClassTypeId(void);
   virtual SoType getTypeId(void) const ;
@@ -45,7 +45,7 @@ public:
                        const Wrap wrapt = REPEAT,
                        const float quality = 0.5f,
                        const int border = 0,
-                       SoState * createinstate = NULL);
+                       SoState * createinstate = nullptr);
 
   virtual void setData(const SbImage * image,
                        const Wrap wraps,
@@ -53,7 +53,7 @@ public:
                        const Wrap wrapr,
                        const float quality = 0.5f,
                        const int border = 0,
-                       SoState * createinstate = NULL);
+                       SoState * createinstate = nullptr);
 
   int initSubImages(const SbVec2s & subimagesize) const;
   void handleSubImage(const int idx, SbVec2f & start, SbVec2f & end,
@@ -63,7 +63,7 @@ public:
   bool exceededChangeLimit(void);
   static int setChangeLimit(const int limit);
 
-  // will return NULL to avoid that SoGLTextureImageElement will
+  // will return nullptr to avoid that SoGLTextureImageElement will
   // update the texture state.
   virtual SoGLDisplayList * getGLDisplayList(SoState * state);
 

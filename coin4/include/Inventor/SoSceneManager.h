@@ -77,7 +77,7 @@ public:
   virtual void activate(void);
   virtual void deactivate(void);
   void setRenderCallback(SoSceneManagerRenderCB * f,
-                         void * const userData = NULL);
+                         void * const userData = nullptr);
   bool isAutoRedraw(void) const;
   void setRedrawPriority(const uint32_t priority);
   uint32_t getRedrawPriority(void) const;

@@ -74,12 +74,12 @@
 #include "tidbitsp.h"
 #include "nodes/SoSubNodeP.h"
 
-static SoTypeList * sonodekitlistpart_deflist = NULL;
+static SoTypeList * sonodekitlistpart_deflist = nullptr;
 
 static void sonodekitlistpart_atexit_cleanup(void)
 {
   delete sonodekitlistpart_deflist;
-  sonodekitlistpart_deflist = NULL;
+  sonodekitlistpart_deflist = nullptr;
 }
 
 /*!
@@ -99,7 +99,7 @@ SoNodeKitListPart::SoNodeKitListPart(void)
 
   SO_NODE_ADD_FIELD(containerTypeName,(SoGroup::getClassTypeId().getName().getString()));
   SO_NODE_ADD_FIELD(childTypeNames,(SoNode::getClassTypeId().getName().getString()));
-  SO_NODE_ADD_FIELD(containerNode,(NULL));
+  SO_NODE_ADD_FIELD(containerNode,(nullptr));
 
   this->containerNode.setValue(new SoGroup);
   // to avoid notification problems (container node is in the scene
@@ -120,7 +120,7 @@ SoNodeKitListPart::SoNodeKitListPart(void)
 SoNodeKitListPart::~SoNodeKitListPart()
 {
   delete this->children;
-  this->containerNode.setValue(NULL);
+  this->containerNode.setValue(nullptr);
 }
 
 /*!
@@ -603,7 +603,7 @@ SoNodeKitListPart::syncInternalData(void)
   }
 
   // Set up container node, if necessary.
-  if (this->containerNode.getValue() == NULL) {
+  if (this->containerNode.getValue() == nullptr) {
     SoType containerType = SoType::fromName(this->containerTypeName.getValue());
     this->containerNode.setValue((SoNode*)containerType.createInstance());
     this->containerNode.setDefault(true);

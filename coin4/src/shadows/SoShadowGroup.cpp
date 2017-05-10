@@ -367,10 +367,10 @@ public:
     const int TEXSIZE = coin_geq_power_of_two((int) (sg->precision.getValue() * SbMin(maxsize, maxtexsize)));
 
     this->lightid = -1;
-    this->vsm_program = NULL;
-    this->vsm_farval = NULL;
-    this->vsm_nearval = NULL;
-    this->gaussmap = NULL;
+    this->vsm_program = nullptr;
+    this->vsm_farval = nullptr;
+    this->vsm_nearval = nullptr;
+    this->gaussmap = nullptr;
     this->texunit = -1;
     this->bboxnode = new SoSeparator;
     this->bboxnode->ref();
@@ -603,15 +603,15 @@ public:
     matrixaction(SbViewportRegion(SbVec2s(100,100))),
     shadowlightsvalid(false),
     needscenesearch(true),
-    shaderprogram(NULL),
-    vertexshader(NULL),
-    fragmentshader(NULL),
-    vertexshadercache(NULL),
-    fragmentshadercache(NULL),
-    texunit0(NULL),
-    texunit1(NULL),
-    lightmodel(NULL),
-    twosided(NULL),
+    shaderprogram(nullptr),
+    vertexshader(nullptr),
+    fragmentshader(nullptr),
+    vertexshadercache(nullptr),
+    fragmentshadercache(nullptr),
+    texunit0(nullptr),
+    texunit1(nullptr),
+    lightmodel(nullptr),
+    twosided(nullptr),
     numtexunitsinscene(1),
     hasclipplanes(false),
     subgraphsearchenabled(true)
@@ -1895,7 +1895,7 @@ SoShadowGroupP::setFragmentShader(SoState * state)
   texmap->name = str;
   texmap->value = 0;
 
-  SoShaderParameter1i * texmap1 = NULL;
+  SoShaderParameter1i * texmap1 = nullptr;
 
   if (!this->texunit0) {
     this->texunit0 = new SoShaderParameter1i;
@@ -2300,13 +2300,13 @@ SoShadowLightCache::shadowmap_glcallback(void * COIN_UNUSED_ARG(closure), SoActi
     SoState * state = action->getState();
     SoLazyElement::setLightModel(state, SoLazyElement::BASE_COLOR);
     SoTextureQualityElement::set(state, 0.0f);
-    SoMaterialBindingElement::set(state, NULL, SoMaterialBindingElement::OVERALL);
-    SoNormalElement::set(state, NULL, 0, NULL, false);
+    SoMaterialBindingElement::set(state, nullptr, SoMaterialBindingElement::OVERALL);
+    SoNormalElement::set(state, nullptr, 0, nullptr, false);
 
 
-    SoOverrideElement::setNormalVectorOverride(state, NULL, true);
-    SoOverrideElement::setMaterialBindingOverride(state, NULL, true);
-    SoOverrideElement::setLightModelOverride(state, NULL, true);
+    SoOverrideElement::setNormalVectorOverride(state, nullptr, true);
+    SoOverrideElement::setMaterialBindingOverride(state, nullptr, true);
+    SoOverrideElement::setLightModelOverride(state, nullptr, true);
     SoTextureOverrideElement::setQualityOverride(state, true);
   }
 }

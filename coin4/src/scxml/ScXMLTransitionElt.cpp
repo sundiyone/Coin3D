@@ -137,7 +137,7 @@ ScXMLTransitionEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLD
   // handle XML attributes
   if (unlikely(!transition->handleXMLAttributes())) {
     delete transition;
-    return NULL;
+    return nullptr;
   }
 
   const int numchildren = cc_xml_elt_get_num_children(xmlelt);
@@ -157,7 +157,7 @@ ScXMLTransitionEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLD
       ScXMLElt * logobj = logreader->read(transition, element, doc, sm);
       if (unlikely(!logobj)) {
         delete transition;
-        return NULL;
+        return nullptr;
       }
       assert(logobj->isOfType(ScXMLLogElt::getClassTypeId()));
       transition->addExecutable(static_cast<ScXMLLogElt *>(logobj));
@@ -169,7 +169,7 @@ ScXMLTransitionEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLD
       ScXMLElt * eventobj = eventreader->read(transition, element, doc, sm);
       if (unlikely(!eventobj)) {
         delete transition;
-        return NULL;
+        return nullptr;
       }
       assert(eventobj->isOfType(ScXMLEventElt::getClassTypeId()));
       transition->addExecutable(static_cast<ScXMLEventElt *>(eventobj));
@@ -181,7 +181,7 @@ ScXMLTransitionEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLD
       ScXMLElt * assignobj = assignreader->read(transition, element, doc, sm);
       if (unlikely(!assignobj)) {
         delete transition;
-        return NULL;
+        return nullptr;
       }
       assert(assignobj->isOfType(ScXMLAssignElt::getClassTypeId()));
       transition->addExecutable(static_cast<ScXMLAssignElt *>(assignobj));
@@ -193,7 +193,7 @@ ScXMLTransitionEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLD
       ScXMLElt * sendobj = sendreader->read(transition, element, doc, sm);
       if (unlikely(!sendobj)) {
         delete transition;
-        return NULL;
+        return nullptr;
       }
       assert(sendobj->isOfType(ScXMLSendElt::getClassTypeId()));
       transition->addExecutable(static_cast<ScXMLSendElt *>(sendobj));
@@ -205,7 +205,7 @@ ScXMLTransitionEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLD
       ScXMLElt * ifobj = ifreader->read(transition, element, doc, sm);
       if (unlikely(!ifobj)) {
         delete transition;
-        return NULL;
+        return nullptr;
       }
       assert(ifobj->isOfType(ScXMLIfElt::getClassTypeId()));
       transition->addExecutable(static_cast<ScXMLIfElt *>(ifobj));
@@ -217,7 +217,7 @@ ScXMLTransitionEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLD
       ScXMLElt * scriptobj = scriptreader->read(transition, element, doc, sm);
       if (unlikely(!scriptobj)) {
         delete transition;
-        return NULL;
+        return nullptr;
       }
       assert(scriptobj->isOfType(ScXMLScriptElt::getClassTypeId()));
       transition->addExecutable(static_cast<ScXMLScriptElt *>(scriptobj));
@@ -229,7 +229,7 @@ ScXMLTransitionEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLD
       ScXMLElt * invokeobj = invokereader->read(transition, element, doc, sm);
       if (unlikely(!invokeobj)) {
         delete transition;
-        return NULL;
+        return nullptr;
       }
       assert(invokeobj->isOfType(ScXMLInvokeElt::getClassTypeId()));
       transition->addExecutable(static_cast<ScXMLInvokeElt *>(invokeobj));
@@ -239,7 +239,7 @@ ScXMLTransitionEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLD
                          "unexpected XML element '<%s>' found in <transition>",
                          elementtype);
       delete transition;
-      return NULL;
+      return nullptr;
     }
   }
   return transition;
@@ -277,10 +277,10 @@ ScXMLTransitionElt::cleanClass(void)
 }
 
 ScXMLTransitionElt::ScXMLTransitionElt(void)
-: event(NULL),
-  cond(NULL),
-  target(NULL),
-  anchor(NULL),
+: event(nullptr),
+  cond(nullptr),
+  target(nullptr),
+  anchor(nullptr),
   needprefixmatching(false),
   eventkey(SbName::empty()),
   targetkey(SbName::empty())
@@ -289,10 +289,10 @@ ScXMLTransitionElt::ScXMLTransitionElt(void)
 
 ScXMLTransitionElt::~ScXMLTransitionElt(void)
 {
-  this->setEventAttribute(NULL);
-  this->setCondAttribute(NULL);
-  this->setTargetAttribute(NULL);
-  this->setAnchorAttribute(NULL);
+  this->setEventAttribute(nullptr);
+  this->setCondAttribute(nullptr);
+  this->setTargetAttribute(nullptr);
+  this->setAnchorAttribute(nullptr);
 }
 
 void
@@ -301,7 +301,7 @@ ScXMLTransitionElt::setEventAttribute(const char * eventstr)
   if (this->event && this->event != this->getXMLAttribute("event")) {
     delete [] this->event;
   }
-  this->event = NULL;
+  this->event = nullptr;
   this->eventkey = SbName::empty();
   this->needprefixmatching = false;
 
@@ -312,7 +312,7 @@ ScXMLTransitionElt::setEventAttribute(const char * eventstr)
     // more succeeding tokens - we need in other words not implement
     // any form of generic pattern matching here...
     const char * ptr = strstr(eventstr, ".*");
-    if ((ptr != NULL) && (strlen(ptr) == 2)) {
+    if ((ptr != nullptr) && (strlen(ptr) == 2)) {
       this->needprefixmatching = true;
       // we'll chop off the pattern matching key and use the boolean
       const int len = strlen(eventstr) - 1;
@@ -418,7 +418,7 @@ ScXMLTransitionElt::search(const char * attrname, const char * attrvalue) const
       return this;
     }
   }
-  return NULL;
+  return nullptr;
 }
 
 
@@ -431,7 +431,7 @@ ScXMLTransitionElt::search(const char * attrname, const char * attrvalue) const
 bool
 ScXMLTransitionElt::isConditionLess(void) const
 {
-  if (this->cond == NULL) return true;
+  if (this->cond == nullptr) return true;
   if (strlen(this->cond) == 0) return true;
   return false;
 }
@@ -448,7 +448,7 @@ ScXMLTransitionElt::isConditionLess(void) const
 bool
 ScXMLTransitionElt::isTargetLess(void) const
 {
-  return (this->target == NULL);
+  return (this->target == nullptr);
 }
 
 /*!
@@ -464,7 +464,7 @@ ScXMLTransitionElt::isTargetLess(void) const
 bool
 ScXMLTransitionElt::isSelfReferencing(void) const
 {
-  if (this->target != NULL && this->getContainer()) {
+  if (this->target != nullptr && this->getContainer()) {
     const char * containerid = this->getContainer()->getXMLAttribute("id");
     if (strcmp(containerid, this->target) == 0) return true;
   }

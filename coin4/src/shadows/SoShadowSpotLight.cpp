@@ -44,7 +44,7 @@
   <b>FILE FORMAT/DEFAULTS:</b>
   \code
     ShadowSpotLight {
-      shadowMapScene NULL
+      shadowMapScene nullptr
       nearDistance -1
       farDistance -1
     }
@@ -108,7 +108,7 @@
 /*!
   \var SoSFNode SoShadowGroup::shadowMapScene
   
-  The shadow map scene graph. If this is NULL (the default), the node
+  The shadow map scene graph. If this is nullptr (the default), the node
   will behave as a normal SoSpotLight node.  
 
 */
@@ -149,7 +149,7 @@ SO_NODE_SOURCE(SoShadowSpotLight);
 SoShadowSpotLight::SoShadowSpotLight(void)
 {
   SO_NODE_INTERNAL_CONSTRUCTOR(SoShadowSpotLight);
-  SO_NODE_ADD_FIELD(shadowMapScene, (NULL));
+  SO_NODE_ADD_FIELD(shadowMapScene, (nullptr));
   SO_NODE_ADD_FIELD(nearDistance, (-1.0f));
   SO_NODE_ADD_FIELD(farDistance, (-1.0f));
 }

@@ -79,13 +79,13 @@ struct EventInfo {
 class ScXMLStateMachine::PImpl {
 public:
   PImpl(void)
-    : pub(NULL),
+    : pub(nullptr),
       active(false), finished(false),
       name(SbName::empty()), sessionid(SbName::empty()),
       loglevel(3),
-      description(NULL),
-      evaluator(NULL),
-      initializer(NULL)
+      description(nullptr),
+      evaluator(nullptr),
+      initializer(nullptr)
   {
   }
 
@@ -93,7 +93,7 @@ public:
   {
     if (this->description) {
       delete this->description;
-      this->description = NULL;
+      this->description = nullptr;
     }
   }
 
@@ -140,7 +140,7 @@ public:
   static SbHash<const char *, ScXMLStateMachine *> * sessiondictionary;
 }; // ScXMLStateMachine::PImpl
 
-SbHash<const char *, ScXMLStateMachine *> * ScXMLStateMachine::PImpl::sessiondictionary = NULL;
+SbHash<const char *, ScXMLStateMachine *> * ScXMLStateMachine::PImpl::sessiondictionary = nullptr;
 long ScXMLStateMachine::PImpl::nextsessionid = 0;
 
 // *************************************************************************
@@ -164,7 +164,7 @@ ScXMLStateMachine::cleanClass(void)
 {
   ScXMLStateMachine::PImpl::nextsessionid = 0;
   delete ScXMLStateMachine::PImpl::sessiondictionary;
-  ScXMLStateMachine::PImpl::sessiondictionary = NULL;
+  ScXMLStateMachine::PImpl::sessiondictionary = nullptr;
   ScXMLStateMachine::classTypeId = SoType::badType();
 }
 
@@ -172,12 +172,12 @@ ScXMLStateMachine *
 ScXMLStateMachine::getStateMachineForSessionId(const SbName & sessionid)
 {
   if (sessionid == SbName::empty()) {
-    return NULL;
+    return nullptr;
   }
   const char * id = sessionid.getString();
-  ScXMLStateMachine * statemachine = NULL;
+  ScXMLStateMachine * statemachine = nullptr;
   if (!ScXMLStateMachine::PImpl::sessiondictionary->get(id, statemachine)) {
-    return NULL;
+    return nullptr;
   }
   return statemachine;
 }
@@ -222,7 +222,7 @@ ScXMLStateMachine::setDescription(ScXMLDocument * document)
 {
   assert(!PRIVATE(this)->active);
   PRIVATE(this)->description = document;
-  PRIVATE(this)->initializer.reset(NULL);
+  PRIVATE(this)->initializer.reset(nullptr);
   PRIVATE(this)->active = false;
   PRIVATE(this)->finished = false;
   PRIVATE(this)->activestatelist.clear();
@@ -310,7 +310,7 @@ ScXMLStateMachine::initialize(void)
   PRIVATE(this)->active = true;
   PRIVATE(this)->finished = false;
   PRIVATE(this)->activestatelist.clear();
-  this->processOneEvent(NULL); // process the 'initial' initializer
+  this->processOneEvent(nullptr); // process the 'initial' initializer
   this->processEventQueue(); // process any pending events from the initial-processing
 }
 
@@ -333,7 +333,7 @@ ScXMLStateMachine::processOneEvent(const ScXMLEvent * event)
                              event->getEventName().getString());
     else
       SoDebugError::postInfo("ScXMLStateMachine::processOneEvent",
-                             "NULL event");
+                             "nullptr event");
   }
 
   if (0 /* debug */) {
@@ -348,7 +348,7 @@ ScXMLStateMachine::processOneEvent(const ScXMLEvent * event)
 
   PImpl::TransitionList transitions;
   if (PRIVATE(this)->activestatelist.size() == 0) {
-    if (PRIVATE(this)->initializer.get() == NULL) {
+    if (PRIVATE(this)->initializer.get() == nullptr) {
       PRIVATE(this)->initializer.reset(new ScXMLTransitionElt);
       // FIXME
       if (PRIVATE(this)->description->getRoot()->getInitial()) {
@@ -356,12 +356,12 @@ ScXMLStateMachine::processOneEvent(const ScXMLEvent * event)
         PRIVATE(this)->initializer->setTargetAttribute(PRIVATE(this)->description->getRoot()->getInitialAttribute());
       }
     }
-    transitions.push_back(PImpl::StateTransition(static_cast<ScXMLElt*>(NULL), PRIVATE(this)->initializer.get()));
+    transitions.push_back(PImpl::StateTransition(static_cast<ScXMLElt*>(nullptr), PRIVATE(this)->initializer.get()));
   } else {
     for (int c = 0; c < static_cast<int>(PRIVATE(this)->activestatelist.size()); ++c) {
       // containers are also active states and must be checked
       ScXMLElt * stateobj = PRIVATE(this)->activestatelist.at(c);
-      while (stateobj != NULL) {
+      while (stateobj != nullptr) {
         PRIVATE(this)->findTransitions(transitions, stateobj, event);
         stateobj = stateobj->getContainer();
       }
@@ -372,7 +372,7 @@ ScXMLStateMachine::processOneEvent(const ScXMLEvent * event)
   if (transitions.size() == 0) {
     if (this->getEvaluator())
       this->getEvaluator()->clearTemporaryVariables();
-    this->setCurrentEvent(NULL);
+    this->setCurrentEvent(nullptr);
     return false;
   }
 
@@ -432,7 +432,7 @@ ScXMLStateMachine::processOneEvent(const ScXMLEvent * event)
     std::vector<ScXMLElt *> sourcestates;
 
     ScXMLElt * sourcestate = transit->first;
-    if (sourcestate != NULL) { // ignore sourcestate NULL (initializer)
+    if (sourcestate != nullptr) { // ignore sourcestate nullptr (initializer)
       // find all activestate object contained within source state
       std::vector<ScXMLElt *>::iterator activeit =
         PRIVATE(this)->activestatelist.begin();
@@ -604,7 +604,7 @@ ScXMLStateMachine::processOneEvent(const ScXMLEvent * event)
 
   if (this->getEvaluator())
     this->getEvaluator()->clearTemporaryVariables();
-  this->setCurrentEvent(NULL);
+  this->setCurrentEvent(nullptr);
   return true; // transitions have been taken
 }
 
@@ -632,10 +632,10 @@ ScXMLStateMachine::isFinished(void) const
 
 
 /*!
-  This method returns the current event during event processing, and NULL
+  This method returns the current event during event processing, and nullptr
   when not processing events.
 
-  Event processing is in special cases done with NULL as the current event,
+  Event processing is in special cases done with nullptr as the current event,
   as for instance during state machine initialization.
 */
 
@@ -828,7 +828,7 @@ ScXMLStateMachine::getVariable(const char * name) const
     return PRIVATE(this)->varstring.getString();
     // return PRIVATE(this)->name.getString();
   }
-  return NULL;
+  return nullptr;
 }
 
 // *************************************************************************

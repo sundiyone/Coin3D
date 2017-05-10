@@ -83,7 +83,7 @@ SoTextureScalePolicyElement::init(SoState * state)
 void
 SoTextureScalePolicyElement::set(SoState * const state, const Policy policy)
 {
-  SoTextureScalePolicyElement::set(state, NULL, policy);
+  SoTextureScalePolicyElement::set(state, nullptr, policy);
 }
 
 //! FIXME: write doc.

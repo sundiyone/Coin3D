@@ -277,7 +277,7 @@ static void
 soseparator_storage_construct(void * data)
 {
   soseparator_storage * ptr = (soseparator_storage*) data;
-  ptr->glcachelist = NULL;
+  ptr->glcachelist = nullptr;
 }
 
 static void
@@ -296,7 +296,7 @@ public:
       new SbStorage(sizeof(soseparator_storage),
                     soseparator_storage_construct,
                     soseparator_storage_destruct);
-    this->pub = NULL;
+    this->pub = nullptr;
   }
   ~SoSeparatorP() {
     delete this->glcachestorage;
@@ -329,7 +329,7 @@ public:
   SoGLCacheList * getGLCacheList(bool createifnull);
 
   void invalidateGLCaches(void) {
-    glcachestorage->applyToAll(invalidate_gl_cache, NULL);
+    glcachestorage->applyToAll(invalidate_gl_cache, nullptr);
   }
 
   void lock(void) {
@@ -357,7 +357,7 @@ SoSeparatorP::getGLCacheList(bool createifnull)
 {
   soseparator_storage * ptr =
     (soseparator_storage*) this->glcachestorage->get();
-  if (createifnull && ptr->glcachelist == NULL) {
+  if (createifnull && ptr->glcachelist == nullptr) {
     ptr->glcachelist = new SoGLCacheList(SoSeparator::getNumRenderCaches());
   }
   return ptr->glcachelist;
@@ -416,7 +416,7 @@ SoSeparator::commonConstructor(void)
     maxcaches = -2; // so we don't request the envvar later if it is not set
     const char * maxcachesstr = coin_getenv("IV_SEPARATOR_MAX_CACHES");
     if (maxcachesstr) {
-      maxcaches = strtol(maxcachesstr, NULL, 10);
+      maxcaches = strtol(maxcachesstr, nullptr, 10);
       if ((maxcaches == LONG_MIN) || (maxcaches == LONG_MAX) || (maxcaches < 0)) {
         SoDebugError::post("SoSeparator::commonConstructor",
                            "Environment variable IV_SEPARATOR_MAX_CACHES "
@@ -428,7 +428,7 @@ SoSeparator::commonConstructor(void)
     }
   }
 
-  PRIVATE(this)->bboxcache = NULL;
+  PRIVATE(this)->bboxcache = nullptr;
   PRIVATE(this)->bboxcache_usecount = 0;
   PRIVATE(this)->bboxcache_destroycount = 0;
 
@@ -644,7 +644,7 @@ SoSeparator::GLRenderBelowPath(SoGLRenderAction * action)
   state->push();
   bool didcull = false;
 
-  SoGLCacheList * createcache = NULL;
+  SoGLCacheList * createcache = nullptr;
   if ((this->renderCaching.getValue() != OFF) &&
       (SoSeparator::getNumRenderCaches() > 0)) {
 
@@ -694,7 +694,7 @@ SoSeparator::GLRenderBelowPath(SoGLRenderAction * action)
     false : this->cullTest(state);
   if (createcache || !outsidefrustum) {
     int n = this->children->getLength();
-    SoNode ** childarray = (n!=0)? reinterpret_cast<SoNode**>(this->children->getArrayPtr()) : NULL;
+    SoNode ** childarray = (n!=0)? reinterpret_cast<SoNode**>(this->children->getArrayPtr()) : nullptr;
     action->pushCurPath();
     for (int i = 0; i < n && !action->hasTerminated(); i++) {
       action->popPushCurPath(i, childarray[i]);

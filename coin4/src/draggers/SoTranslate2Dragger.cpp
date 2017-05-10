@@ -276,14 +276,14 @@ SoTranslate2Dragger::setUpConnections(bool onoff, bool doitalways)
   if (onoff) {
     inherited::setUpConnections(onoff, doitalways);
 
-    SoTranslate2Dragger::fieldSensorCB(this, NULL);
+    SoTranslate2Dragger::fieldSensorCB(this, nullptr);
 
     if (this->fieldSensor->getAttachedField() != &this->translation) {
       this->fieldSensor->attach(&this->translation);
     }
   }
   else {
-    if (this->fieldSensor->getAttachedField() != NULL) {
+    if (this->fieldSensor->getAttachedField() != nullptr) {
       this->fieldSensor->detach();
     }
     inherited::setUpConnections(onoff, doitalways);

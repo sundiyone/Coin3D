@@ -592,7 +592,7 @@ struct cc_glglue {
     unsigned int major, minor, release;
   } version;
 
-  /* OpenGL calls. Will be NULL if not available, otherwise they
+  /* OpenGL calls. Will be nullptr if not available, otherwise they
      contain a valid function pointer into the OpenGL library. */
   COIN_PFNGLPOLYGONOFFSETPROC glPolygonOffset;
   COIN_PFNGLPOLYGONOFFSETPROC glPolygonOffsetEXT;

@@ -98,8 +98,8 @@ SoEventCallback::SoEventCallback(void)
 {
   SO_NODE_INTERNAL_CONSTRUCTOR(SoEventCallback);
 
-  this->heaction = NULL;
-  this->path = NULL;
+  this->heaction = nullptr;
+  this->path = nullptr;
 }
 
 /*!
@@ -121,7 +121,7 @@ SoEventCallback::initClass(void)
 
 /*!
   Sets the path that must be picked before the registered callbacks
-  are invoked. If \c NULL, callbacks will be invoked for every event
+  are invoked. If \c nullptr, callbacks will be invoked for every event
   that matches the callback event type.
 
   \sa getPath()
@@ -131,7 +131,7 @@ SoEventCallback::setPath(SoPath * pathptr)
 {
   if (this->path) {
     this->path->unref();
-    this->path = NULL;
+    this->path = nullptr;
   }
   if (pathptr) {
 #if COIN_DEBUG
@@ -218,7 +218,7 @@ SoEventCallback::getAction(void) const
 const SoEvent *
 SoEventCallback::getEvent(void) const
 {
-  return (this->heaction ? this->heaction->getEvent() : NULL);
+  return (this->heaction ? this->heaction->getEvent() : nullptr);
 }
 
 /*!
@@ -230,7 +230,7 @@ SoEventCallback::getEvent(void) const
 const SoPickedPoint *
 SoEventCallback::getPickedPoint(void) const
 {
-  return this->heaction ? this->heaction->getPickedPoint() : NULL;
+  return this->heaction ? this->heaction->getPickedPoint() : nullptr;
 }
 
 
@@ -351,9 +351,9 @@ SoEventCallback::handleEvent(SoHandleEventAction * action)
   // SoHandleEventAction is applied to the scene graph while the
   // callbacks above are still processing, a new pointer will
   // overwrite the previous one (which is a problem that may cause
-  // hard-to-find errors), and then it will be overwritten with a NULL
+  // hard-to-find errors), and then it will be overwritten with a nullptr
   // pointer below, which causes getAction(), getEvent() etc to return
-  // NULL values.
+  // nullptr values.
   //
   // The fundamental design flaw here, as I see it, is that the
   // callback invocations should pass on the SoHandleEventAction
@@ -374,5 +374,5 @@ SoEventCallback::handleEvent(SoHandleEventAction * action)
                               "and should be avoided");
   }
 
-  this->heaction = NULL;
+  this->heaction = nullptr;
 }

@@ -133,11 +133,11 @@ SoIndexedShape::computeBBox(SoAction * action, SbBox3f & box, SbVec3f & center)
   assert(box.isEmpty());
   SoState * state = action->getState();
 
-  const SoCoordinateElement * coordelem = NULL;
+  const SoCoordinateElement * coordelem = nullptr;
   SoNode *vpnode = this->vertexProperty.getValue();
   SoVertexProperty *vp = 
     (vpnode && vpnode->isOfType(SoVertexProperty::getClassTypeId())) ?
-    (SoVertexProperty *)vpnode : NULL;
+    (SoVertexProperty *)vpnode : nullptr;
   bool vpvtx = vp && (vp->vertex.getNum() > 0);
   if (!vpvtx) {
     coordelem = SoCoordinateElement::getInstance(state);
@@ -260,7 +260,7 @@ const int32_t *
 SoIndexedShape::getNormalIndices()
 {
   COIN_OBSOLETED();
-  return NULL;
+  return nullptr;
 }
 
 /*!
@@ -274,7 +274,7 @@ const int32_t *
 SoIndexedShape::getColorIndices()
 {
   COIN_OBSOLETED();
-  return NULL;
+  return nullptr;
 }
 
 /*!
@@ -288,7 +288,7 @@ const int32_t *
 SoIndexedShape::getTexCoordIndices()
 {
   COIN_OBSOLETED();
-  return NULL;
+  return nullptr;
 }
 
 /*!
@@ -316,18 +316,18 @@ SoIndexedShape::getVertexData(SoState * state,
   numcindices = this->coordIndex.getNum();
 
   mindices = this->materialIndex.getValues(0);
-  if (this->materialIndex.getNum() <= 0 || mindices[0] < 0) mindices = NULL;
+  if (this->materialIndex.getNum() <= 0 || mindices[0] < 0) mindices = nullptr;
 
   tindices = this->textureCoordIndex.getValues(0);
-  if (this->textureCoordIndex.getNum() <= 0 || tindices[0] < 0) tindices = NULL;
+  if (this->textureCoordIndex.getNum() <= 0 || tindices[0] < 0) tindices = nullptr;
 
   normalCacheUsed = false;
-  nindices = NULL;
+  nindices = nullptr;
   if (needNormals) {
     nindices = this->normalIndex.getValues(0);
-    if (this->normalIndex.getNum() <= 0 || nindices[0] < 0) nindices = NULL;
+    if (this->normalIndex.getNum() <= 0 || nindices[0] < 0) nindices = nullptr;
 
-    if (normals == NULL) {
+    if (normals == nullptr) {
       SoNormalCache * nc = this->generateAndReadLockNormalCache(state);
       normals = nc->getNormals();
       nindices = nc->getIndices();
@@ -335,7 +335,7 @@ SoIndexedShape::getVertexData(SoState * state,
      
       // if no normals were generated, unlock normal cache before
       // returning
-      if (normals == NULL) {
+      if (normals == nullptr) {
         this->readUnlockNormalCache();
         normalCacheUsed = false;
       }

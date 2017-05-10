@@ -101,12 +101,12 @@ ScXMLStateEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocume
     SoDebugError::post("ScXMLStateEltReader::read",
                        "invalid XML attributes");
     delete state;
-    return NULL;
+    return nullptr;
   }
 
   // handle external reference
   const char * extref = state->getSrcAttribute();
-  if ((extref != NULL) && (extref[0] != '\0')) {
+  if ((extref != nullptr) && (extref[0] != '\0')) {
     SbString reference(extref);
     char * eltnameref = const_cast<char *>(strchr(reference.getString(), '#'));
     if (eltnameref) {
@@ -299,7 +299,7 @@ ScXMLStateEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocume
       ScXMLElt * stateobj = statereader->read(state, element, doc, sm);
       if (unlikely(!stateobj)) {
         delete state;
-        return NULL;
+        return nullptr;
       }
 
       assert(stateobj->isOfType(ScXMLStateElt::getClassTypeId()));
@@ -312,7 +312,7 @@ ScXMLStateEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocume
         SoDebugError::post("ScXMLStateEltReader::read",
                            "<state> elements can only contain one <onentry> element");
         delete state;
-        return NULL;
+        return nullptr;
       }
 
       ScXMLEltReader * onentryreader = ScXMLOnEntryElt::getElementReader();
@@ -320,7 +320,7 @@ ScXMLStateEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocume
       ScXMLElt * onentryobj = onentryreader->read(state, element, doc, sm);
       if (unlikely(!onentryobj)) {
         delete state;
-        return NULL;
+        return nullptr;
       }
 
       assert(onentryobj->isOfType(ScXMLOnEntryElt::getClassTypeId()));
@@ -333,7 +333,7 @@ ScXMLStateEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocume
         SoDebugError::post("ScXMLStateEltReader::read",
                            "<state> elements can only contain one <onexit> element");
         delete state;
-        return NULL;
+        return nullptr;
       }
 
       ScXMLEltReader * onexitreader = ScXMLOnExitElt::getElementReader();
@@ -341,7 +341,7 @@ ScXMLStateEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocume
       ScXMLElt * onexitobj = onexitreader->read(state, element, doc, sm);
       if (unlikely(!onexitobj)) {
         delete state;
-        return NULL;
+        return nullptr;
       }
 
       assert(onexitobj->isOfType(ScXMLOnExitElt::getClassTypeId()));
@@ -355,7 +355,7 @@ ScXMLStateEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocume
       ScXMLElt * transitionobj = transitionreader->read(state, element, doc, sm);
       if (unlikely(!transitionobj)) {
         delete state;
-        return NULL;
+        return nullptr;
       }
 
       assert(transitionobj->isOfType(ScXMLTransitionElt::getClassTypeId()));
@@ -370,7 +370,7 @@ ScXMLStateEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocume
       ScXMLElt * initialobj = initialreader->read(state, element, doc, sm);
       if (unlikely(!initialobj)) {
         delete state;
-        return NULL;
+        return nullptr;
       }
 
       assert(initialobj->isOfType(ScXMLInitialElt::getClassTypeId()));
@@ -384,7 +384,7 @@ ScXMLStateEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocume
       ScXMLElt * parallelobj = parallelreader->read(state, element, doc, sm);
       if (unlikely(!parallelobj)) {
         delete state;
-        return NULL;
+        return nullptr;
       }
 
       assert(parallelobj->isOfType(ScXMLParallelElt::getClassTypeId()));
@@ -398,7 +398,7 @@ ScXMLStateEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocume
       ScXMLElt * finalobj = finalreader->read(state, element, doc, sm);
       if (unlikely(!finalobj)) {
         delete state;
-        return NULL;
+        return nullptr;
       }
 
       assert(finalobj->isOfType(ScXMLFinalElt::getClassTypeId()));
@@ -412,7 +412,7 @@ ScXMLStateEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocume
       ScXMLElt * historyobj = historyreader->read(state, element, doc, sm);
       if (unlikely(!historyobj)) {
         delete state;
-        return NULL;
+        return nullptr;
       }
 
       assert(historyobj->isOfType(ScXMLHistoryElt::getClassTypeId()));
@@ -426,7 +426,7 @@ ScXMLStateEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocume
       ScXMLElt * anchorobj = anchorreader->read(state, element, doc, sm);
       if (unlikely(!anchorobj)) {
         delete state;
-        return NULL;
+        return nullptr;
       }
 
       assert(anchorobj->isOfType(ScXMLAnchorElt::getClassTypeId()));
@@ -439,7 +439,7 @@ ScXMLStateEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocume
         SoDebugError::post("ScXMLStateEltReader::read",
                            "<state> elements can only contain one <datamodel> element");
         delete state;
-        return NULL;
+        return nullptr;
       }
 
       ScXMLEltReader * datamodelreader = ScXMLDataModelElt::getElementReader();
@@ -447,7 +447,7 @@ ScXMLStateEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocume
       ScXMLElt * datamodelobj = datamodelreader->read(state, element, doc, sm);
       if (unlikely(!datamodelobj)) {
         delete state;
-        return NULL;
+        return nullptr;
       }
 
       assert(datamodelobj->isOfType(ScXMLDataModelElt::getClassTypeId()));
@@ -464,7 +464,7 @@ ScXMLStateEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocume
       } else {
         SoDebugError::post("ScXML::readFile", "error reading <%s> element", elementtype);
         delete state;
-        return NULL;
+        return nullptr;
       }
     }
 #endif
@@ -473,7 +473,7 @@ ScXMLStateEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocume
                          "unexpected XML element '<%s>' found in <state>",
                          elementtype);
       delete state;
-      return NULL;
+      return nullptr;
     }
   }
   return state;
@@ -484,12 +484,12 @@ ScXMLStateEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocume
 class ScXMLStateElt::PImpl {
 public:
   PImpl(void)
-  : onentryptr(NULL),
-    onexitptr(NULL),
-    initialptr(NULL),
-    datamodelptr(NULL),
-    invokeptr(NULL)
-    //srcref(NULL)
+  : onentryptr(nullptr),
+    onexitptr(nullptr),
+    initialptr(nullptr),
+    datamodelptr(nullptr),
+    invokeptr(nullptr)
+    //srcref(nullptr)
   {
   }
 
@@ -543,8 +543,8 @@ ScXMLStateElt::cleanClass(void)
   Constructor.
 */
 ScXMLStateElt::ScXMLStateElt(void)
-: src(NULL),
-  initial(NULL)
+: src(nullptr),
+  initial(nullptr)
 {
 }
 
@@ -553,8 +553,8 @@ ScXMLStateElt::ScXMLStateElt(void)
 */
 ScXMLStateElt::~ScXMLStateElt(void)
 {
-  this->setSrcAttribute(NULL);
-  this->setInitialAttribute(NULL);
+  this->setSrcAttribute(nullptr);
+  this->setInitialAttribute(nullptr);
 }
 
 /*!
@@ -571,7 +571,7 @@ ScXMLStateElt::setSrcAttribute(const char * srcstr)
 
   SCXML__SET_ATTRIBUTE_VALUE(this->src, "src", srcstr);
 
-  if ((this->src != NULL) && (strcmp(this->src, "") != 0)) {
+  if ((this->src != nullptr) && (strcmp(this->src, "") != 0)) {
     // FIXME: scan string for #
     // FIXME: load/import [externally] referenced states
   }
@@ -779,7 +779,7 @@ ScXMLStateElt::search(const char * attrname, const char * attrvalue) const
       return hit;
     }
   }
-  return NULL;
+  return nullptr;
 }
 
 SCXML_SINGLE_OBJECT_API_IMPL(ScXMLStateElt, ScXMLOnEntryElt,
@@ -824,7 +824,7 @@ ScXMLStateElt::isAtomicState(void) const
 {
   return ((PRIVATE(this)->statelist.size() == 0) &&
           (PRIVATE(this)->parallellist.size() == 0) &&
-          (PRIVATE(this)->invokeptr.get() != NULL));
+          (PRIVATE(this)->invokeptr.get() != nullptr));
 }
 
 #undef PRIVATE

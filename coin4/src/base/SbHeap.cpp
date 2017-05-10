@@ -74,7 +74,7 @@ SbHeap::SbHeap(const SbHeapFuncs &hFuncs, const int initsize)
 {
   this->funcs = hFuncs;
   assert(funcs.eval_func);
-  this->heap.append(NULL);
+  this->heap.append(nullptr);
 }
 
 /*!
@@ -91,7 +91,7 @@ void
 SbHeap::emptyHeap(void)
 {
   this->heap.truncate(0);
-  this->heap.append(NULL);
+  this->heap.append(nullptr);
 }
 
 /*!
@@ -152,7 +152,7 @@ SbHeap::remove(void *obj)
 }
 
 /*!
-  Returns and removes the first element in the heap, or \a NULL
+  Returns and removes the first element in the heap, or \a nullptr
   if heap is empty.
 */
 void *
@@ -162,7 +162,7 @@ SbHeap::extractMin(void)
 }
 
 /*!
-  Returns the first element in the heap, or \e NULL if heap is empty.
+  Returns the first element in the heap, or \e nullptr if heap is empty.
 */
 void *
 SbHeap::getMin(void)
@@ -170,7 +170,7 @@ SbHeap::getMin(void)
   if (this->heap.getLength() > 1)
     return heap[1];
   else
-    return NULL;
+    return nullptr;
 }
 
 /*!
@@ -288,7 +288,7 @@ SbHeap::heapExtractMin(void)
 {
   int hsize = this->heap.getLength()-1;
   void *min;
-  if (hsize < 1) return NULL;
+  if (hsize < 1) return nullptr;
   min = this->heap[1];
   this->heap[1] = this->heap[hsize];
   if (this->funcs.set_index_func)
@@ -308,7 +308,7 @@ SbHeap::heapInsert(void *obj)
   void (*setindex)(void*,int) = this->funcs.set_index_func;
   float (*eval)(void*) = this->funcs.eval_func;
 
-  this->heap.append(NULL); // will be overwritten later
+  this->heap.append(nullptr); // will be overwritten later
 
   while (i > 1 && eval(this->heap[i>>1]) > eval(obj)) {
     this->heap[i] = this->heap[i>>1];

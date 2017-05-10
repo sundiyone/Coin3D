@@ -43,7 +43,7 @@
   \verbatim
   Text { 
     exposedField  MFString string    []
-    exposedField  SFNode   fontStyle NULL
+    exposedField  SFNode   fontStyle nullptr
     exposedField  MFFloat  length    []      # [0,)
     exposedField  SFFloat  maxExtent 0.0     # [0,)
   }
@@ -219,7 +219,7 @@ SoVRMLText::SoVRMLText(void)
 
   SO_VRMLNODE_ADD_EMPTY_EXPOSED_MFIELD(string);
 
-  SO_VRMLNODE_ADD_EXPOSED_FIELD(fontStyle, (NULL));
+  SO_VRMLNODE_ADD_EXPOSED_FIELD(fontStyle, (nullptr));
   SO_VRMLNODE_ADD_EXPOSED_FIELD(maxExtent, (0.0f));
   SO_VRMLNODE_ADD_EMPTY_EXPOSED_MFIELD(length);
 
@@ -238,7 +238,7 @@ SoVRMLText::SoVRMLText(void)
   PRIVATE(this)->fontstylesensor->attach(&fontStyle);
   PRIVATE(this)->fontstylesensor->setPriority(0);
   
-  PRIVATE(this)->cache = NULL;
+  PRIVATE(this)->cache = nullptr;
 }
 
 float
@@ -413,7 +413,7 @@ SoVRMLText::GLRender(SoGLRenderAction * action)
 
     }
      
-    cc_glyph3d * prevglyph = NULL;
+    cc_glyph3d * prevglyph = nullptr;
 
     SbString str = this->string[i];
     const char * p = str.getString();
@@ -496,7 +496,7 @@ SoVRMLText::GLRender(SoGLRenderAction * action)
 
     if (prevglyph) {
       cc_glyph3d_unref(prevglyph);
-      prevglyph = NULL;
+      prevglyph = nullptr;
     }
   }
   glEnd();
@@ -573,7 +573,7 @@ SoVRMLText::notify(SoNotList * list)
 SoChildList *
 SoVRMLText::getChildren(void) const
 {
-  return NULL;
+  return nullptr;
 }
 
 
@@ -776,7 +776,7 @@ SoVRMLText::generatePrimitives(SoAction * action)
   vertex.setDetail(&detail);
   vertex.setMaterialIndex(0);
 
-  this->beginShape(action, SoShape::TRIANGLES, NULL);
+  this->beginShape(action, SoShape::TRIANGLES, nullptr);
   vertex.setNormal(SbVec3f(0.0f, 0.0f, 1.0f));
 
   float ypos = 0.0f;
@@ -880,7 +880,7 @@ SoVRMLText::generatePrimitives(SoAction * action)
     }
     
     SbString str = this->string[i];
-    cc_glyph3d * prevglyph = NULL;
+    cc_glyph3d * prevglyph = nullptr;
     const char * p = str.getString();
     size_t len = cc_string_utf8_validate_length(p);
     assert(len);
@@ -963,7 +963,7 @@ SoVRMLText::generatePrimitives(SoAction * action)
     }
     if (prevglyph) {
       cc_glyph3d_unref(prevglyph);
-      prevglyph = NULL;
+      prevglyph = nullptr;
     }
   }
 
@@ -1094,7 +1094,7 @@ SoVRMLTextP::setUpGlyphs(SoState * state, SoVRMLText * textnode)
     float kerningy = 0;
     float advancex = 0;
     float advancey = 0;
-    cc_glyph3d * prevglyph = NULL;
+    cc_glyph3d * prevglyph = nullptr;
     this->maxglyphbbox.makeEmpty();
 
     for (unsigned int strcharidx = 0; strcharidx < len; strcharidx++) {
@@ -1120,7 +1120,7 @@ SoVRMLTextP::setUpGlyphs(SoState * state, SoVRMLText * textnode)
           
     }
 
-    if (prevglyph != NULL) {
+    if (prevglyph != nullptr) {
       // Italic font might cause last letter to be outside bbox. Add width if needed.
       if (advancex < cc_glyph3d_getwidth(prevglyph)) 
         stringwidth += (cc_glyph3d_getwidth(prevglyph) - advancex);

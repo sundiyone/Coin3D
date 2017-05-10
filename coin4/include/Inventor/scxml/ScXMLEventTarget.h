@@ -78,10 +78,10 @@ protected:
 
   virtual bool processOneEvent(const ScXMLEvent * event);
 
-  static void registerEventTarget(ScXMLEventTarget * target, const char * sessionid = NULL);
-  static void unregisterEventTarget(ScXMLEventTarget * target, const char * sessionid = NULL);
+  static void registerEventTarget(ScXMLEventTarget * target, const char * sessionid = nullptr);
+  static void unregisterEventTarget(ScXMLEventTarget * target, const char * sessionid = nullptr);
 
-  static ScXMLEventTarget * getEventTarget(const char * targettype, const char * targetname, const char * sessionid = NULL);
+  static ScXMLEventTarget * getEventTarget(const char * targettype, const char * targetname, const char * sessionid = nullptr);
 
 private:
   ScXMLEventTarget(const ScXMLEventTarget & rhs); // N/A

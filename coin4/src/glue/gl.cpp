@@ -94,7 +94,7 @@
     cc_glglue_glTexImage3D(glw, GL_PROXY_TEXTURE_3D, 0, GL_RGBA,
                            64, 64, 64, 0,
                            GL_RGBA, GL_UNSIGNED_BYTE,
-                           NULL);
+                           nullptr);
   }
   else {
     // Implement a proper fallback or error handling.
@@ -252,10 +252,10 @@ extern "C" {
 }
 #endif
 
-static cc_list * gl_instance_created_cblist = NULL;
+static cc_list * gl_instance_created_cblist = nullptr;
 static int COIN_MAXIMUM_TEXTURE2_SIZE = -1;
 static int COIN_MAXIMUM_TEXTURE3_SIZE = -1;
-static cc_glglue_offscreen_cb_functions* offscreen_cb = NULL;
+static cc_glglue_offscreen_cb_functions* offscreen_cb = nullptr;
 static int COIN_USE_AGL = -1;
 
 /* ********************************************************************** */
@@ -569,7 +569,7 @@ coin_glglue_dl_handle(const cc_glglue * glue)
 void *
 cc_glglue_getprocaddress(const cc_glglue * glue, const char * symname)
 {
-  void * ptr = NULL;
+  void * ptr = nullptr;
 
   // FIXME: also supply 'glue' to coin_[x]gl_getprocaddress()
   ptr = coin_wgl_getprocaddress(glue, symname);
@@ -590,7 +590,7 @@ returnpoint:
 
 /* Global dictionary which stores the mappings from the context IDs to
    actual cc_glglue instances. */
-static cc_dict * gldict = NULL;
+static cc_dict * gldict = nullptr;
 
 static void
 free_glglue_instance(uintptr_t COIN_UNUSED_ARG(key), void * value, void * COIN_UNUSED_ARG(closure))
@@ -605,11 +605,11 @@ static void
 glglue_cleanup(void)
 {
   if (gldict) {
-    cc_dict_apply(gldict, free_glglue_instance, NULL);
+    cc_dict_apply(gldict, free_glglue_instance, nullptr);
     cc_dict_destruct(gldict);
-    gldict = NULL;
+    gldict = nullptr;
   }
-  offscreen_cb = NULL;
+  offscreen_cb = nullptr;
 
 #ifdef HAVE_GLX
   glxglue_cleanup();
@@ -753,7 +753,7 @@ coin_glglue_extension_available(const char * extensions, const char * ext)
 
   assert(ext && "NULL string");
   assert((ext[0] != '\0') && "empty string");
-  assert((strchr(ext, ' ') == NULL) && "extension name can't have spaces");
+  assert((strchr(ext, ' ') == nullptr) && "extension name can't have spaces");
 
   start = extensions;
   extlen = strlen(ext);
@@ -788,15 +788,15 @@ cc_glglue_glext_supported(const cc_glglue * wrapper, const char * extension)
 {
   const uintptr_t key = (uintptr_t)cc_namemap_get_address(extension);
 
-  void * result = NULL;
+  void * result = nullptr;
   if (cc_dict_get(wrapper->glextdict, key, &result)) {
-    return result != NULL;
+    return result != nullptr;
   }
   result = coin_glglue_extension_available(wrapper->extensionsstr, extension) ?
-    (void*) 1 : NULL;
+    (void*) 1 : nullptr;
   cc_dict_put(wrapper->glextdict, key, result);
 
-  return result != NULL;
+  return result != nullptr;
 }
 
 #ifdef HAVE_DYNAMIC_LINKING
@@ -860,8 +860,8 @@ glglue_resolve_symbols(cc_glglue * w)
   /* Appeared in OpenGL v1.1. We store both the "real" function
      pointer and the extension pointer, in case we need to work around
      an SGI bug (see comments in cc_glglue_glPolygonOffset(). */
-  w->glPolygonOffset = NULL;
-  w->glPolygonOffsetEXT = NULL;
+  w->glPolygonOffset = nullptr;
+  w->glPolygonOffsetEXT = nullptr;
 #ifdef GL_VERSION_1_1
   if (cc_glglue_glversion_matches_at_least(w, 1, 1, 0)) {
     w->glPolygonOffset = (COIN_PFNGLPOLYGONOFFSETPROC)PROC(w, glPolygonOffset);
@@ -876,9 +876,9 @@ glglue_resolve_symbols(cc_glglue * w)
 
 
   /* Appeared in OpenGL v1.1. */
-  w->glGenTextures = NULL;
-  w->glBindTexture = NULL;
-  w->glDeleteTextures = NULL;
+  w->glGenTextures = nullptr;
+  w->glBindTexture = nullptr;
+  w->glDeleteTextures = nullptr;
 #ifdef GL_VERSION_1_1
   if (cc_glglue_glversion_matches_at_least(w, 1, 1, 0)) {
     w->glGenTextures = (COIN_PFNGLGENTEXTURESPROC)PROC(w, glGenTextures);
@@ -895,7 +895,7 @@ glglue_resolve_symbols(cc_glglue * w)
 #endif /* GL_EXT_texture_object */
 
   /* Appeared in OpenGL v1.1. */
-  w->glTexSubImage2D = NULL;
+  w->glTexSubImage2D = nullptr;
 #ifdef GL_VERSION_1_1
   if (cc_glglue_glversion_matches_at_least(w, 1, 1, 0)) {
     w->glTexSubImage2D = (COIN_PFNGLTEXSUBIMAGE2DPROC)PROC(w, glTexSubImage2D);
@@ -908,8 +908,8 @@ glglue_resolve_symbols(cc_glglue * w)
 #endif /* GL_EXT_subtexture */
 
   /* Appeared in OpenGL 1.1 */
-  w->glPushClientAttrib = NULL;
-  w->glPopClientAttrib = NULL;
+  w->glPushClientAttrib = nullptr;
+  w->glPopClientAttrib = nullptr;
 #ifdef GL_VERSION_1_1
   if (cc_glglue_glversion_matches_at_least(w, 1, 1, 0)) {
     w->glPushClientAttrib = (COIN_PFNGLPUSHCLIENTATTRIBPROC) PROC(w, glPushClientAttrib);
@@ -918,9 +918,9 @@ glglue_resolve_symbols(cc_glglue * w)
 #endif /* GL_VERSION_1_1 */
 
   /* These were introduced with OpenGL v1.2. */
-  w->glTexImage3D = NULL;
-  w->glCopyTexSubImage3D = NULL;
-  w->glTexSubImage3D = NULL;
+  w->glTexImage3D = nullptr;
+  w->glCopyTexSubImage3D = nullptr;
+  w->glTexSubImage3D = nullptr;
 #ifdef GL_VERSION_1_2
   if (cc_glglue_glversion_matches_at_least(w, 1, 2, 0)) {
     w->glTexImage3D = (COIN_PFNGLTEXIMAGE3DPROC)PROC(w, glTexImage3D);
@@ -967,12 +967,12 @@ glglue_resolve_symbols(cc_glglue * w)
 
      20041108 mortene, based on information provided by handegar.
   */
-  w->glActiveTexture = NULL;
-  w->glClientActiveTexture = NULL;
-  w->glMultiTexCoord2f = NULL;
-  w->glMultiTexCoord2fv = NULL;
-  w->glMultiTexCoord3fv = NULL;
-  w->glMultiTexCoord4fv = NULL;
+  w->glActiveTexture = nullptr;
+  w->glClientActiveTexture = nullptr;
+  w->glMultiTexCoord2f = nullptr;
+  w->glMultiTexCoord2fv = nullptr;
+  w->glMultiTexCoord3fv = nullptr;
+  w->glMultiTexCoord4fv = nullptr;
 #ifdef GL_VERSION_1_3
   if (cc_glglue_glversion_matches_at_least(w, 1, 3, 0)) {
     w->glActiveTexture = (COIN_PFNGLACTIVETEXTUREPROC)PROC(w, glActiveTexture);
@@ -1000,7 +1000,7 @@ glglue_resolve_symbols(cc_glglue * w)
         !w->glMultiTexCoord2fv ||
         !w->glMultiTexCoord3fv ||
         !w->glMultiTexCoord4fv) {
-      w->glActiveTexture = NULL; /* cc_glglue_has_multitexture() will return false */
+      w->glActiveTexture = nullptr; /* cc_glglue_has_multitexture() will return false */
       if (COIN_DEBUG || coin_glglue_debug()) {
         cc_debugerror_postwarning("glglue_init",
                                   "glActiveTexture found, but one or more of the other "
@@ -1015,13 +1015,13 @@ glglue_resolve_symbols(cc_glglue * w)
     w->maxtextureunits = (int) tmp;
   }
 
-  w->glCompressedTexImage1D = NULL;
-  w->glCompressedTexImage2D = NULL;
-  w->glCompressedTexImage3D = NULL;
-  w->glCompressedTexSubImage1D = NULL;
-  w->glCompressedTexSubImage2D = NULL;
-  w->glCompressedTexSubImage3D = NULL;
-  w->glGetCompressedTexImage = NULL;
+  w->glCompressedTexImage1D = nullptr;
+  w->glCompressedTexImage2D = nullptr;
+  w->glCompressedTexImage3D = nullptr;
+  w->glCompressedTexSubImage1D = nullptr;
+  w->glCompressedTexSubImage2D = nullptr;
+  w->glCompressedTexSubImage3D = nullptr;
+  w->glGetCompressedTexImage = nullptr;
 
 #ifdef GL_VERSION_1_3
   if (cc_glglue_glversion_matches_at_least(w, 1, 3, 0)) {
@@ -1036,7 +1036,7 @@ glglue_resolve_symbols(cc_glglue * w)
 #endif /* GL_VERSION_1_3 */
 
 #ifdef GL_ARB_texture_compression
-  if ((w->glCompressedTexImage1D == NULL) &&
+  if ((w->glCompressedTexImage1D == nullptr) &&
       cc_glglue_glext_supported(w, "GL_ARB_texture_compression")) {
     w->glCompressedTexImage1D = (COIN_PFNGLCOMPRESSEDTEXIMAGE1DPROC)PROC(w, glCompressedTexImage1DARB);
     w->glCompressedTexImage2D = (COIN_PFNGLCOMPRESSEDTEXIMAGE2DPROC)PROC(w, glCompressedTexImage2DARB);
@@ -1048,11 +1048,11 @@ glglue_resolve_symbols(cc_glglue * w)
   }
 #endif /* GL_ARB_texture_compression */
 
-  w->glColorTable = NULL;
-  w->glColorSubTable = NULL;
-  w->glGetColorTable = NULL;
-  w->glGetColorTableParameteriv = NULL;
-  w->glGetColorTableParameterfv = NULL;
+  w->glColorTable = nullptr;
+  w->glColorSubTable = nullptr;
+  w->glGetColorTable = nullptr;
+  w->glGetColorTableParameteriv = nullptr;
+  w->glGetColorTableParameterfv = nullptr;
 
 #if defined(GL_VERSION_1_2) && defined(GL_ARB_imaging)
   if (cc_glglue_glversion_matches_at_least(w, 1, 2, 0) &&
@@ -1066,7 +1066,7 @@ glglue_resolve_symbols(cc_glglue * w)
 #endif /* GL_VERSION_1_2 && GL_ARB_imaging */
 
 #if defined(GL_EXT_color_table)
-  if ((w->glColorTable == NULL) &&
+  if ((w->glColorTable == nullptr) &&
       cc_glglue_glext_supported(w, "GL_EXT_color_table")) {
     w->glColorTable = (COIN_PFNGLCOLORTABLEPROC)PROC(w, glColorTableEXT);
     w->glGetColorTable = (COIN_PFNGLGETCOLORTABLEPROC)PROC(w, glGetColorTableEXT);
@@ -1076,7 +1076,7 @@ glglue_resolve_symbols(cc_glglue * w)
 #endif /* GL_EXT_color_table */
 
 #if defined(GL_SGI_color_table)
-  if ((w->glColorTable == NULL) &&
+  if ((w->glColorTable == nullptr) &&
       cc_glglue_glext_supported(w, "GL_SGI_color_table")) {
     w->glColorTable = (COIN_PFNGLCOLORTABLEPROC)PROC(w, glColorTableSGI);
     w->glGetColorTable = (COIN_PFNGLGETCOLORTABLEPROC)PROC(w, glGetColorTableSGI);
@@ -1086,7 +1086,7 @@ glglue_resolve_symbols(cc_glglue * w)
 #endif /* GL_SGI_color_table */
 
 #if defined(GL_EXT_color_subtable)
-  if ((w->glColorSubTable == NULL) &&
+  if ((w->glColorSubTable == nullptr) &&
       cc_glglue_glext_supported(w, "GL_EXT_color_subtable")) {
     w->glColorSubTable = (COIN_PFNGLCOLORSUBTABLEPROC)PROC(w, glColorSubTableEXT);
   }
@@ -1104,7 +1104,7 @@ glglue_resolve_symbols(cc_glglue * w)
      EXT_color_table / SGI_color_table / OGL1.2+ + ARB_imaging. It
      only defines a *subset* of what EXT_color_table etc defines,
      though. */
-  if ((w->glColorTable == NULL) &&
+  if ((w->glColorTable == nullptr) &&
       cc_glglue_glext_supported(w, "GL_EXT_paletted_texture")) {
     w->glColorTable = (COIN_PFNGLCOLORTABLEPROC)PROC(w, glColorTableEXT);
     w->glColorSubTable = (COIN_PFNGLCOLORSUBTABLEPROC)PROC(w, glColorSubTableEXT);
@@ -1153,7 +1153,7 @@ glglue_resolve_symbols(cc_glglue * w)
      EXT_color_table / SGI_color_table / OGL1.2+ + ARB_imaging. It
      only defines a *subset* of what EXT_color_table etc defines,
      though. */
-  if ((w->glColorTable == NULL) &&
+  if ((w->glColorTable == nullptr) &&
       cc_glglue_glext_supported(w, "GL_SGI_texture_color_table")) {
     w->glColorTable = (COIN_PFNGLCOLORTABLEPROC)PROC(w, glColorTableSGI);
     w->glGetColorTable = (COIN_PFNGLGETCOLORTABLEPROC)PROC(w, glGetColorTableSGI);
@@ -1164,8 +1164,8 @@ glglue_resolve_symbols(cc_glglue * w)
 #endif /* disabled */
 
 
-  w->glBlendEquation = NULL;
-  w->glBlendEquationEXT = NULL;
+  w->glBlendEquation = nullptr;
+  w->glBlendEquationEXT = nullptr;
 
 #if defined(GL_VERSION_1_4)
   if (cc_glglue_glversion_matches_at_least(w, 1, 4, 0)) {
@@ -1173,7 +1173,7 @@ glglue_resolve_symbols(cc_glglue * w)
   }
 #endif /* GL_VERSION_1_4 */
 
-  if (w->glBlendEquation == NULL) {
+  if (w->glBlendEquation == nullptr) {
 #if defined(GL_VERSION_1_2) && defined(GL_ARB_imaging)
     if (cc_glglue_glversion_matches_at_least(w, 1, 2, 0) &&
         cc_glglue_glext_supported(w, "GL_ARB_imaging")) {
@@ -1188,14 +1188,14 @@ glglue_resolve_symbols(cc_glglue * w)
   }
 #endif /* GL_EXT_blend_minmax */
 
-  w->glBlendFuncSeparate = NULL;
+  w->glBlendFuncSeparate = nullptr;
 #if defined(GL_VERSION_1_4)
   if (cc_glglue_glversion_matches_at_least(w, 1, 4, 0)) {
     w->glBlendFuncSeparate = (COIN_PFNGLBLENDFUNCSEPARATEPROC)PROC(w, glBlendFuncSeparate);
   }
 #endif /* GL_VERSION_1_4 */
 
-  w->glVertexPointer = NULL; /* for cc_glglue_has_vertex_array() */
+  w->glVertexPointer = nullptr; /* for cc_glglue_has_vertex_array() */
 #if defined(GL_VERSION_1_1)
   if (cc_glglue_glversion_matches_at_least(w, 1, 1, 0)) {
     w->glVertexPointer = (COIN_PFNGLVERTEXPOINTERPROC) PROC(w, glVertexPointer);
@@ -1221,7 +1221,7 @@ glglue_resolve_symbols(cc_glglue * w)
         !w->glDrawArrays ||
         !w->glDrawElements ||
         !w->glArrayElement) {
-      w->glVertexPointer = NULL; /* cc_glglue_has_vertex_array() will return false */
+      w->glVertexPointer = nullptr; /* cc_glglue_has_vertex_array() will return false */
       if (COIN_DEBUG || coin_glglue_debug()) {
         cc_debugerror_postwarning("glglue_init",
                                   "glVertexPointer found, but one or more of the other "
@@ -1233,15 +1233,15 @@ glglue_resolve_symbols(cc_glglue * w)
 
 
 #if defined(GL_VERSION_1_2)
-  w->glDrawRangeElements = NULL;
+  w->glDrawRangeElements = nullptr;
   if (cc_glglue_glversion_matches_at_least(w, 1, 2, 0))
     w->glDrawRangeElements = (COIN_PFNGLDRAWRANGEELEMENTSPROC) PROC(w, glDrawRangeElements);
 #endif /* GL_VERSION_1_2 */
 
 
   /* Appeared in OpenGL v1.4 (but also in GL_EXT_multi_draw_array extension */
-  w->glMultiDrawArrays = NULL;
-  w->glMultiDrawElements = NULL;
+  w->glMultiDrawArrays = nullptr;
+  w->glMultiDrawElements = nullptr;
 #if defined(GL_VERSION_1_4)
   if (cc_glglue_glversion_matches_at_least(w, 1, 4, 0)) {
     w->glMultiDrawArrays = (COIN_PFNGLMULTIDRAWARRAYSPROC) PROC(w, glMultiDrawArrays);
@@ -1249,13 +1249,13 @@ glglue_resolve_symbols(cc_glglue * w)
   }
 #endif /* GL_VERSION_1_4 */
 #if defined(GL_EXT_multi_draw_arrays)
-  if ((w->glMultiDrawArrays == NULL) && cc_glglue_glext_supported(w, "GL_EXT_multi_draw_arrays")) {
+  if ((w->glMultiDrawArrays == nullptr) && cc_glglue_glext_supported(w, "GL_EXT_multi_draw_arrays")) {
     w->glMultiDrawArrays = (COIN_PFNGLMULTIDRAWARRAYSPROC) PROC(w, glMultiDrawArraysEXT);
     w->glMultiDrawElements = (COIN_PFNGLMULTIDRAWELEMENTSPROC) PROC(w, glMultiDrawElementsEXT);
   }
 #endif /* GL_EXT_multi_draw_arrays */
 
-  w->glBindBuffer = NULL; /* so that cc_glglue_has_vertex_buffer_objects() works  */
+  w->glBindBuffer = nullptr; /* so that cc_glglue_has_vertex_buffer_objects() works  */
 #if defined(GL_VERSION_1_5)
   if (cc_glglue_glversion_matches_at_least(w, 1, 5, 0)) {
     w->glBindBuffer = (COIN_PFNGLBINDBUFFERPROC) PROC(w, glBindBuffer);
@@ -1273,7 +1273,7 @@ glglue_resolve_symbols(cc_glglue * w)
 #endif /* GL_VERSION_1_5 */
 
 #if defined(GL_ARB_vertex_buffer_object)
-  if ((w->glBindBuffer == NULL) && cc_glglue_glext_supported(w, "GL_ARB_vertex_buffer_object")) {
+  if ((w->glBindBuffer == nullptr) && cc_glglue_glext_supported(w, "GL_ARB_vertex_buffer_object")) {
     w->glBindBuffer = (COIN_PFNGLBINDBUFFERPROC) PROC(w, glBindBufferARB);
     w->glDeleteBuffers = (COIN_PFNGLDELETEBUFFERSPROC) PROC(w, glDeleteBuffersARB);
     w->glGenBuffers = (COIN_PFNGLGENBUFFERSPROC) PROC(w, glGenBuffersARB);
@@ -1294,13 +1294,13 @@ glglue_resolve_symbols(cc_glglue * w)
      the 53.28 driver (version 1.4.1). */
   if (!strcmp(w->vendorstr, "NVIDIA Corporation")) {
     if (!cc_glglue_glversion_matches_at_least(w, 1, 4, 1)) {
-      w->glBindBuffer = NULL;
+      w->glBindBuffer = nullptr;
     }
     /* VBOs seems really slow on the GeForce4 Go GPUs, but this test
        is disabled for now until we know for sure that VBOs will
        always be slow for this GPU */
     /*     else if (strstr(w->rendererstr, "GeForce4 420 Go")) { */
-    /*       w->glBindBuffer = NULL; */
+    /*       w->glBindBuffer = nullptr; */
     /*     } */
     /* FIXME: I guess the above has been made obsolete by the VBO
        performance testing we now do..? pederb should confirm.
@@ -1320,7 +1320,7 @@ glglue_resolve_symbols(cc_glglue * w)
   */
   if (w->glBindBuffer) {
     const char * env = coin_getenv("COIN_GL_DISABLE_VBO");
-    if (env && (atoi(env) > 0)) { w->glBindBuffer = NULL; }
+    if (env && (atoi(env) > 0)) { w->glBindBuffer = nullptr; }
   }
 
 
@@ -1336,7 +1336,7 @@ glglue_resolve_symbols(cc_glglue * w)
       const char * env = coin_getenv("COIN_VBO");
       if (!env || (atoi(env) > 0)) {
         if (w->vendor_is_intel) {
-          w->glBindBuffer = NULL;
+          w->glBindBuffer = nullptr;
         }
       }
     }
@@ -1352,7 +1352,7 @@ glglue_resolve_symbols(cc_glglue * w)
     /* Enable users to override this workaround by setting COIN_VBO=1 */
     const char * env = coin_getenv("COIN_VBO");
     if (!env || (atoi(env) > 0)) {
-      w->glBindBuffer = NULL;
+      w->glBindBuffer = nullptr;
     }
   }
 
@@ -1369,7 +1369,7 @@ glglue_resolve_symbols(cc_glglue * w)
         !w->glUnmapBuffer ||
         !w->glGetBufferParameteriv ||
         !w->glGetBufferPointerv) {
-      w->glBindBuffer = NULL; /* so that cc_glglue_has_vertex_buffer_object() will return false */
+      w->glBindBuffer = nullptr; /* so that cc_glglue_has_vertex_buffer_object() will return false */
       if (COIN_DEBUG || coin_glglue_debug()) {
         cc_debugerror_postwarning("glglue_init",
                                   "glBindBuffer found, but one or more of the other "
@@ -1379,19 +1379,19 @@ glglue_resolve_symbols(cc_glglue * w)
   }
 
   /* GL_NV_register_combiners */
-  w->glCombinerParameterfvNV = NULL;
-  w->glCombinerParameterivNV = NULL;
-  w->glCombinerParameterfNV = NULL;
-  w->glCombinerParameteriNV = NULL;
-  w->glCombinerInputNV = NULL;
-  w->glCombinerOutputNV = NULL;
-  w->glFinalCombinerInputNV = NULL;
-  w->glGetCombinerInputParameterfvNV = NULL;
-  w->glGetCombinerInputParameterivNV = NULL;
-  w->glGetCombinerOutputParameterfvNV = NULL;
-  w->glGetCombinerOutputParameterivNV = NULL;
-  w->glGetFinalCombinerInputParameterfvNV = NULL;
-  w->glGetFinalCombinerInputParameterivNV = NULL;
+  w->glCombinerParameterfvNV = nullptr;
+  w->glCombinerParameterivNV = nullptr;
+  w->glCombinerParameterfNV = nullptr;
+  w->glCombinerParameteriNV = nullptr;
+  w->glCombinerInputNV = nullptr;
+  w->glCombinerOutputNV = nullptr;
+  w->glFinalCombinerInputNV = nullptr;
+  w->glGetCombinerInputParameterfvNV = nullptr;
+  w->glGetCombinerInputParameterivNV = nullptr;
+  w->glGetCombinerOutputParameterfvNV = nullptr;
+  w->glGetCombinerOutputParameterivNV = nullptr;
+  w->glGetFinalCombinerInputParameterfvNV = nullptr;
+  w->glGetFinalCombinerInputParameterivNV = nullptr;
   w->has_nv_register_combiners = false;
 
 #ifdef GL_NV_register_combiners
@@ -1456,25 +1456,25 @@ glglue_resolve_symbols(cc_glglue * w)
                                 cc_glglue_glversion_matches_at_least(w, 1, 3, 0));
 
   /* GL_ARB_fragment_program */
-  w->glProgramStringARB = NULL;
-  w->glBindProgramARB = NULL;
-  w->glDeleteProgramsARB = NULL;
-  w->glGenProgramsARB = NULL;
-  w->glProgramEnvParameter4dARB = NULL;
-  w->glProgramEnvParameter4dvARB = NULL;
-  w->glProgramEnvParameter4fARB = NULL;
-  w->glProgramEnvParameter4fvARB = NULL;
-  w->glProgramLocalParameter4dARB = NULL;
-  w->glProgramLocalParameter4dvARB = NULL;
-  w->glProgramLocalParameter4fARB = NULL;
-  w->glProgramLocalParameter4fvARB = NULL;
-  w->glGetProgramEnvParameterdvARB = NULL;
-  w->glGetProgramEnvParameterfvARB = NULL;
-  w->glGetProgramLocalParameterdvARB = NULL;
-  w->glGetProgramLocalParameterfvARB = NULL;
-  w->glGetProgramivARB = NULL;
-  w->glGetProgramStringARB = NULL;
-  w->glIsProgramARB = NULL;
+  w->glProgramStringARB = nullptr;
+  w->glBindProgramARB = nullptr;
+  w->glDeleteProgramsARB = nullptr;
+  w->glGenProgramsARB = nullptr;
+  w->glProgramEnvParameter4dARB = nullptr;
+  w->glProgramEnvParameter4dvARB = nullptr;
+  w->glProgramEnvParameter4fARB = nullptr;
+  w->glProgramEnvParameter4fvARB = nullptr;
+  w->glProgramLocalParameter4dARB = nullptr;
+  w->glProgramLocalParameter4dvARB = nullptr;
+  w->glProgramLocalParameter4fARB = nullptr;
+  w->glProgramLocalParameter4fvARB = nullptr;
+  w->glGetProgramEnvParameterdvARB = nullptr;
+  w->glGetProgramEnvParameterfvARB = nullptr;
+  w->glGetProgramLocalParameterdvARB = nullptr;
+  w->glGetProgramLocalParameterfvARB = nullptr;
+  w->glGetProgramivARB = nullptr;
+  w->glGetProgramStringARB = nullptr;
+  w->glIsProgramARB = nullptr;
   w->has_arb_fragment_program = false;
 
 #ifdef GL_ARB_fragment_program
@@ -1523,68 +1523,68 @@ glglue_resolve_symbols(cc_glglue * w)
 #endif /* GL_ARB_fragment_program */
 
   w->has_arb_vertex_program = false;
-  w->glVertexAttrib1sARB = NULL;
-  w->glVertexAttrib1fARB = NULL;
-  w->glVertexAttrib1dARB = NULL;
-  w->glVertexAttrib2sARB = NULL;
-  w->glVertexAttrib2fARB = NULL;
-  w->glVertexAttrib2dARB = NULL;
-  w->glVertexAttrib3sARB = NULL;
-  w->glVertexAttrib3fARB = NULL;
-  w->glVertexAttrib3dARB = NULL;
-  w->glVertexAttrib4sARB = NULL;
-  w->glVertexAttrib4fARB = NULL;
-  w->glVertexAttrib4dARB = NULL;
-  w->glVertexAttrib4NubARB = NULL;
-  w->glVertexAttrib1svARB = NULL;
-  w->glVertexAttrib1fvARB = NULL;
-  w->glVertexAttrib1dvARB = NULL;
-  w->glVertexAttrib2svARB = NULL;
-  w->glVertexAttrib2fvARB = NULL;
-  w->glVertexAttrib2dvARB = NULL;
-  w->glVertexAttrib3svARB = NULL;
-  w->glVertexAttrib3fvARB = NULL;
-  w->glVertexAttrib3dvARB = NULL;
-  w->glVertexAttrib4bvARB = NULL;
-  w->glVertexAttrib4svARB = NULL;
-  w->glVertexAttrib4ivARB = NULL;
-  w->glVertexAttrib4ubvARB = NULL;
-  w->glVertexAttrib4usvARB = NULL;
-  w->glVertexAttrib4uivARB = NULL;
-  w->glVertexAttrib4fvARB = NULL;
-  w->glVertexAttrib4dvARB = NULL;
-  w->glVertexAttrib4NbvARB = NULL;
-  w->glVertexAttrib4NsvARB = NULL;
-  w->glVertexAttrib4NivARB = NULL;
-  w->glVertexAttrib4NubvARB = NULL;
-  w->glVertexAttrib4NusvARB = NULL;
-  w->glVertexAttrib4NuivARB = NULL;
-  w->glVertexAttribPointerARB = NULL;
-  w->glEnableVertexAttribArrayARB = NULL;
-  w->glDisableVertexAttribArrayARB = NULL;
-  w->glProgramStringARB = NULL;
-  w->glBindProgramARB = NULL;
-  w->glDeleteProgramsARB = NULL;
-  w->glGenProgramsARB = NULL;
-  w->glProgramEnvParameter4dARB = NULL;
-  w->glProgramEnvParameter4dvARB = NULL;
-  w->glProgramEnvParameter4fARB = NULL;
-  w->glProgramEnvParameter4fvARB = NULL;
-  w->glProgramLocalParameter4dARB = NULL;
-  w->glProgramLocalParameter4dvARB = NULL;
-  w->glProgramLocalParameter4fARB = NULL;
-  w->glProgramLocalParameter4fvARB = NULL;
-  w->glGetProgramEnvParameterdvARB = NULL;
-  w->glGetProgramEnvParameterfvARB = NULL;
-  w->glGetProgramLocalParameterdvARB = NULL;
-  w->glGetProgramLocalParameterfvARB = NULL;
-  w->glGetProgramivARB = NULL;
-  w->glGetProgramStringARB = NULL;
-  w->glGetVertexAttribdvARB = NULL;
-  w->glGetVertexAttribfvARB = NULL;
-  w->glGetVertexAttribivARB = NULL;
-  w->glGetVertexAttribPointervARB = NULL;
-  w->glIsProgramARB = NULL;
+  w->glVertexAttrib1sARB = nullptr;
+  w->glVertexAttrib1fARB = nullptr;
+  w->glVertexAttrib1dARB = nullptr;
+  w->glVertexAttrib2sARB = nullptr;
+  w->glVertexAttrib2fARB = nullptr;
+  w->glVertexAttrib2dARB = nullptr;
+  w->glVertexAttrib3sARB = nullptr;
+  w->glVertexAttrib3fARB = nullptr;
+  w->glVertexAttrib3dARB = nullptr;
+  w->glVertexAttrib4sARB = nullptr;
+  w->glVertexAttrib4fARB = nullptr;
+  w->glVertexAttrib4dARB = nullptr;
+  w->glVertexAttrib4NubARB = nullptr;
+  w->glVertexAttrib1svARB = nullptr;
+  w->glVertexAttrib1fvARB = nullptr;
+  w->glVertexAttrib1dvARB = nullptr;
+  w->glVertexAttrib2svARB = nullptr;
+  w->glVertexAttrib2fvARB = nullptr;
+  w->glVertexAttrib2dvARB = nullptr;
+  w->glVertexAttrib3svARB = nullptr;
+  w->glVertexAttrib3fvARB = nullptr;
+  w->glVertexAttrib3dvARB = nullptr;
+  w->glVertexAttrib4bvARB = nullptr;
+  w->glVertexAttrib4svARB = nullptr;
+  w->glVertexAttrib4ivARB = nullptr;
+  w->glVertexAttrib4ubvARB = nullptr;
+  w->glVertexAttrib4usvARB = nullptr;
+  w->glVertexAttrib4uivARB = nullptr;
+  w->glVertexAttrib4fvARB = nullptr;
+  w->glVertexAttrib4dvARB = nullptr;
+  w->glVertexAttrib4NbvARB = nullptr;
+  w->glVertexAttrib4NsvARB = nullptr;
+  w->glVertexAttrib4NivARB = nullptr;
+  w->glVertexAttrib4NubvARB = nullptr;
+  w->glVertexAttrib4NusvARB = nullptr;
+  w->glVertexAttrib4NuivARB = nullptr;
+  w->glVertexAttribPointerARB = nullptr;
+  w->glEnableVertexAttribArrayARB = nullptr;
+  w->glDisableVertexAttribArrayARB = nullptr;
+  w->glProgramStringARB = nullptr;
+  w->glBindProgramARB = nullptr;
+  w->glDeleteProgramsARB = nullptr;
+  w->glGenProgramsARB = nullptr;
+  w->glProgramEnvParameter4dARB = nullptr;
+  w->glProgramEnvParameter4dvARB = nullptr;
+  w->glProgramEnvParameter4fARB = nullptr;
+  w->glProgramEnvParameter4fvARB = nullptr;
+  w->glProgramLocalParameter4dARB = nullptr;
+  w->glProgramLocalParameter4dvARB = nullptr;
+  w->glProgramLocalParameter4fARB = nullptr;
+  w->glProgramLocalParameter4fvARB = nullptr;
+  w->glGetProgramEnvParameterdvARB = nullptr;
+  w->glGetProgramEnvParameterfvARB = nullptr;
+  w->glGetProgramLocalParameterdvARB = nullptr;
+  w->glGetProgramLocalParameterfvARB = nullptr;
+  w->glGetProgramivARB = nullptr;
+  w->glGetProgramStringARB = nullptr;
+  w->glGetVertexAttribdvARB = nullptr;
+  w->glGetVertexAttribfvARB = nullptr;
+  w->glGetVertexAttribivARB = nullptr;
+  w->glGetVertexAttribPointervARB = nullptr;
+  w->glIsProgramARB = nullptr;
 
 
 #ifdef GL_ARB_vertex_program
@@ -1679,9 +1679,9 @@ glglue_resolve_symbols(cc_glglue * w)
 
 #ifdef GL_ARB_vertex_shader
 
-  w->glBindAttribLocationARB = NULL;
-  w->glGetActiveAttribARB = NULL;
-  w->glGetAttribLocationARB = NULL;
+  w->glBindAttribLocationARB = nullptr;
+  w->glGetActiveAttribARB = nullptr;
+  w->glGetAttribLocationARB = nullptr;
 
   if (cc_glglue_glext_supported(w, "GL_ARB_vertex_shader")) {
 
@@ -1712,39 +1712,39 @@ glglue_resolve_symbols(cc_glglue * w)
 #endif /* GL_ARB_vertex_shader */
 
 
-  w->glGetUniformLocationARB = NULL;
-  w->glGetActiveUniformARB = NULL;
-  w->glUniform1fARB = NULL;
-  w->glUniform2fARB = NULL;
-  w->glUniform3fARB = NULL;
-  w->glUniform4fARB = NULL;
-  w->glCreateShaderObjectARB = NULL;
-  w->glShaderSourceARB = NULL;
-  w->glCompileShaderARB = NULL;
-  w->glGetObjectParameterivARB = NULL;
-  w->glDeleteObjectARB = NULL;
-  w->glAttachObjectARB = NULL;
-  w->glDetachObjectARB = NULL;
-  w->glGetInfoLogARB = NULL;
-  w->glLinkProgramARB = NULL;
-  w->glUseProgramObjectARB = NULL;
-  w->glCreateProgramObjectARB = NULL;
+  w->glGetUniformLocationARB = nullptr;
+  w->glGetActiveUniformARB = nullptr;
+  w->glUniform1fARB = nullptr;
+  w->glUniform2fARB = nullptr;
+  w->glUniform3fARB = nullptr;
+  w->glUniform4fARB = nullptr;
+  w->glCreateShaderObjectARB = nullptr;
+  w->glShaderSourceARB = nullptr;
+  w->glCompileShaderARB = nullptr;
+  w->glGetObjectParameterivARB = nullptr;
+  w->glDeleteObjectARB = nullptr;
+  w->glAttachObjectARB = nullptr;
+  w->glDetachObjectARB = nullptr;
+  w->glGetInfoLogARB = nullptr;
+  w->glLinkProgramARB = nullptr;
+  w->glUseProgramObjectARB = nullptr;
+  w->glCreateProgramObjectARB = nullptr;
   w->has_arb_shader_objects = false;
-  w->glUniform1fvARB = NULL;
-  w->glUniform2fvARB = NULL;
-  w->glUniform3fvARB = NULL;
-  w->glUniform4fvARB = NULL;
-  w->glUniform1iARB = NULL;
-  w->glUniform2iARB = NULL;
-  w->glUniform3iARB = NULL;
-  w->glUniform4iARB = NULL;
-  w->glUniform1ivARB = NULL;
-  w->glUniform2ivARB = NULL;
-  w->glUniform3ivARB = NULL;
-  w->glUniform4ivARB = NULL;
-  w->glUniformMatrix2fvARB = NULL;
-  w->glUniformMatrix3fvARB = NULL;
-  w->glUniformMatrix4fvARB = NULL;
+  w->glUniform1fvARB = nullptr;
+  w->glUniform2fvARB = nullptr;
+  w->glUniform3fvARB = nullptr;
+  w->glUniform4fvARB = nullptr;
+  w->glUniform1iARB = nullptr;
+  w->glUniform2iARB = nullptr;
+  w->glUniform3iARB = nullptr;
+  w->glUniform4iARB = nullptr;
+  w->glUniform1ivARB = nullptr;
+  w->glUniform2ivARB = nullptr;
+  w->glUniform3ivARB = nullptr;
+  w->glUniform4ivARB = nullptr;
+  w->glUniformMatrix2fvARB = nullptr;
+  w->glUniformMatrix3fvARB = nullptr;
+  w->glUniformMatrix4fvARB = nullptr;
 
 
 #ifdef GL_ARB_shader_objects
@@ -1803,7 +1803,7 @@ glglue_resolve_symbols(cc_glglue * w)
     BIND_FUNCTION_WITH_WARN(glUniformMatrix4fvARB, COIN_PFNGLUNIFORMMATRIX4FVARBPROC);
 
 
-    w->glProgramParameteriEXT = NULL;
+    w->glProgramParameteriEXT = nullptr;
     if (cc_glglue_glext_supported(w, "GL_EXT_geometry_shader4")) {
       BIND_FUNCTION_WITH_WARN(glProgramParameteriEXT, COIN_PFNGLPROGRAMPARAMETERIEXT);
     }
@@ -1811,7 +1811,7 @@ glglue_resolve_symbols(cc_glglue * w)
   }
 #endif /* GL_ARB_shader_objects */
 
-  w->glGenQueries = NULL; /* so that cc_glglue_has_occlusion_query() works  */
+  w->glGenQueries = nullptr; /* so that cc_glglue_has_occlusion_query() works  */
 #if defined(GL_VERSION_1_5)
   if (cc_glglue_glversion_matches_at_least(w, 1, 5, 0)) {
     w->glGenQueries = (COIN_PFNGLGENQUERIESPROC)PROC(w, glGenQueries);
@@ -1826,7 +1826,7 @@ glglue_resolve_symbols(cc_glglue * w)
 #endif /* GL_VERSION_1_5 */
 
 #if defined(GL_ARB_occlusion_query)
-  if ((w->glGenQueries == NULL) && cc_glglue_glext_supported(w, "GL_ARB_occlusion_query")) {
+  if ((w->glGenQueries == nullptr) && cc_glglue_glext_supported(w, "GL_ARB_occlusion_query")) {
     w->glGenQueries = (COIN_PFNGLGENQUERIESPROC)PROC(w, glGenQueriesARB);
     w->glDeleteQueries = (COIN_PFNGLDELETEQUERIESPROC)PROC(w, glDeleteQueriesARB);
     w->glIsQuery = (COIN_PFNGLISQUERYPROC)PROC(w, glIsQueryARB);
@@ -1846,7 +1846,7 @@ glglue_resolve_symbols(cc_glglue * w)
         !w->glGetQueryiv ||
         !w->glGetQueryObjectiv ||
         !w->glGetQueryObjectuiv) {
-      w->glGenQueries = NULL; /* so that cc_glglue_has_occlusion_query() will return false */
+      w->glGenQueries = nullptr; /* so that cc_glglue_has_occlusion_query() will return false */
       if (COIN_DEBUG || coin_glglue_debug()) {
         cc_debugerror_postwarning("glglue_init",
                                   "glGenQueries found, but one or more of the other "
@@ -1855,7 +1855,7 @@ glglue_resolve_symbols(cc_glglue * w)
     }
   }
 
-  w->glVertexArrayRangeNV = NULL;
+  w->glVertexArrayRangeNV = nullptr;
 #if defined(GL_NV_vertex_array_range) && (defined(HAVE_GLX) || defined(HAVE_WGL))
   if (cc_glglue_glext_supported(w, "GL_NV_vertex_array_range")) {
     w->glVertexArrayRangeNV = (COIN_PFNGLVERTEXARRAYRANGENVPROC) PROC(w, glVertexArrayRangeNV);
@@ -1872,7 +1872,7 @@ glglue_resolve_symbols(cc_glglue * w)
       if (!w->glFlushVertexArrayRangeNV ||
           !w->glAllocateMemoryNV ||
           !w->glFreeMemoryNV) {
-        w->glVertexArrayRangeNV = NULL;
+        w->glVertexArrayRangeNV = nullptr;
         if (COIN_DEBUG || coin_glglue_debug()) {
           cc_debugerror_postwarning("glglue_init",
                                     "glVertexArrayRangeNV found, but one or more of the other "
@@ -2299,7 +2299,7 @@ cc_glglue_instance(int contextid)
   void * ptr;
   GLint gltmp;
 
-  cc_glglue * gi = NULL;
+  cc_glglue * gi = nullptr;
 
   CC_SYNC_BEGIN(cc_glglue_instance);
 
@@ -2330,7 +2330,7 @@ cc_glglue_instance(int contextid)
 
        Make it possible to disabled this assert because GLX in Mesa
        version 3.4.2 (GL_VENDOR "VA Linux Systems, Inc", GL_RENDERER
-       "Mesa GLX Indirect", GL_VERSION "1.2 Mesa 3.4.2") returns NULL
+       "Mesa GLX Indirect", GL_VERSION "1.2 Mesa 3.4.2") returns nullptr
        even though there really is a current context set up. (Reported
        by kintel.)
     */
@@ -2352,7 +2352,7 @@ cc_glglue_instance(int contextid)
        hook into SoContextHandler and kill off an instance when a GL
        context is taken out. 20051104 mortene. */
     gi = (cc_glglue*)malloc(sizeof(cc_glglue));
-    /* clear to set all pointers and variables to NULL or 0 */
+    /* clear to set all pointers and variables to nullptr or 0 */
     memset(gi, 0, sizeof(cc_glglue));
     /* FIXME: handle out-of-memory on malloc(). 20000928 mortene. */
 
@@ -2411,20 +2411,20 @@ cc_glglue_instance(int contextid)
 
     gi->rendererstr = (const char *)glGetString(GL_RENDERER);
     gi->extensionsstr = (const char *)glGetString(GL_EXTENSIONS);
-    // gi->extensionsstr = NULL;  /* for testing */
+    // gi->extensionsstr = nullptr;  /* for testing */
 
-    /* the above is deprecated and may return NULL, in which case we need to do it
+    /* the above is deprecated and may return nullptr, in which case we need to do it
        the new way, producing same results as the old way.. */
     
 #ifndef GL_NUM_EXTENSIONS
 # define GL_NUM_EXTENSIONS 0x821D
 #endif
-    if(gi->extensionsstr == NULL) {
+    if(gi->extensionsstr == nullptr) {
       typedef GLubyte* (APIENTRY * COIN_PFNGLGETSTRINGIPROC)(GLenum enm, GLuint idx);
       COIN_PFNGLGETSTRINGIPROC glGetStringi = 0;
       glGetStringi = (COIN_PFNGLGETSTRINGIPROC)cc_glglue_getprocaddress(gi,
                                                                         "glGetStringi");
-      if(glGetStringi != NULL) {
+      if(glGetStringi != nullptr) {
         GLint n = 0;
         glGetIntegerv(GL_NUM_EXTENSIONS, &n);
         if(n > 0) {
@@ -2455,7 +2455,7 @@ cc_glglue_instance(int contextid)
       }
       else {
         cc_debugerror_postwarning("cc_glglue_instance",
-                                  "glGetString(GL_EXTENSIONS) returned null, but glGetStringi is NULL, so unable to get extensions for this gl driver, version:",
+                                  "glGetString(GL_EXTENSIONS) returned null, but glGetStringi is nullptr, so unable to get extensions for this gl driver, version:",
                                   gi->versionstr /* , " vendor: ",
                                                      gi->vendorstr */ );
       }
@@ -2633,7 +2633,7 @@ cc_glglue_has_polygon_offset(const cc_glglue * w)
 static COIN_PFNGLPOLYGONOFFSETPROC
 glglue_glPolygonOffset(const cc_glglue * w)
 {
-  COIN_PFNGLPOLYGONOFFSETPROC poff = NULL;
+  COIN_PFNGLPOLYGONOFFSETPROC poff = nullptr;
 
   assert(w->glPolygonOffset ||  w->glPolygonOffsetEXT);
 
@@ -2661,7 +2661,7 @@ glglue_glPolygonOffset(const cc_glglue * w)
   /* If glPolygonOffset() is not available (and the function pointer
      was not set by any of the bug workaround if-checks above), fall
      back on extension. */
-  if (poff == NULL) { poff = w->glPolygonOffsetEXT; }
+  if (poff == nullptr) { poff = w->glPolygonOffsetEXT; }
 
   return poff;
 }
@@ -2906,7 +2906,7 @@ bool
 cc_glglue_has_multitexture(const cc_glglue * w)
 {
   if (!glglue_allow_newer_opengl(w)) return false;
-  return w->glActiveTexture != NULL;
+  return w->glActiveTexture != nullptr;
 }
 
 int
@@ -3227,14 +3227,14 @@ bool
 cc_glglue_has_color_tables(const cc_glglue * glue)
 {
   if (!glglue_allow_newer_opengl(glue)) return false;
-  return glue->glColorTable != NULL;
+  return glue->glColorTable != nullptr;
 }
 
 bool
 cc_glglue_has_color_subtables(const cc_glglue * glue)
 {
   if (!glglue_allow_newer_opengl(glue)) return false;
-  return glue->glColorSubTable != NULL;
+  return glue->glColorSubTable != nullptr;
 }
 
 void
@@ -3333,7 +3333,7 @@ cc_glglue_has_blendfuncseparate(const cc_glglue * glue)
 {
   if (!glglue_allow_newer_opengl(glue)) return false;
 
-  return glue->glBlendFuncSeparate != NULL;
+  return glue->glBlendFuncSeparate != nullptr;
 }
 
 void
@@ -3349,7 +3349,7 @@ bool
 cc_glglue_has_vertex_array(const cc_glglue * glue)
 {
   if (!glglue_allow_newer_opengl(glue)) return false;
-  return glue->glVertexPointer != NULL;
+  return glue->glVertexPointer != nullptr;
 }
 
 void
@@ -3476,7 +3476,7 @@ bool
 cc_glglue_has_nv_vertex_array_range(const cc_glglue * glue)
 {
   if (!glglue_allow_newer_opengl(glue)) return false;
-  return glue->glVertexArrayRangeNV != NULL;
+  return glue->glVertexArrayRangeNV != nullptr;
 }
 
 void
@@ -3514,9 +3514,9 @@ cc_glglue_has_vertex_buffer_object(const cc_glglue * glue)
 {
   if (!glglue_allow_newer_opengl(glue)) return false;
 
-  /* check only one function for speed. It's set to NULL when
+  /* check only one function for speed. It's set to nullptr when
      initializing if one of the other functions wasn't found */
-  return glue->glBindBuffer != NULL;
+  return glue->glBindBuffer != nullptr;
 }
 
 void
@@ -4323,9 +4323,9 @@ cc_glglue_has_occlusion_query(const cc_glglue * glue)
 {
   if (!glglue_allow_newer_opengl(glue)) return false;
 
-  /* check only one function for speed. It's set to NULL when
+  /* check only one function for speed. It's set to nullptr when
      initializing if one of the other functions wasn't found */
-  return glue->glGenQueries != NULL;
+  return glue->glGenQueries != nullptr;
 }
 
 void
@@ -4438,12 +4438,12 @@ cc_glglue_has_texture_env_combine(const cc_glglue * glue)
 /*!
   Returns current X11 display the OpenGL context is in. If none, or if
   the glXGetCurrentDisplay() method is not available (it was
-  introduced with GLX 1.3), returns \c NULL.
+  introduced with GLX 1.3), returns \c nullptr.
 */
 void *
 cc_glglue_glXGetCurrentDisplay(const cc_glglue * w)
 {
-  return w->glx.glXGetCurrentDisplay ? w->glx.glXGetCurrentDisplay() : NULL;
+  return w->glx.glXGetCurrentDisplay ? w->glx.glXGetCurrentDisplay() : nullptr;
 }
 
 /*** Offscreen buffer handling. *********************************************/
@@ -4507,7 +4507,7 @@ cc_glglue_context_create_offscreen(unsigned int width, unsigned int height)
   } else {
 #ifdef HAVE_NOGL
   assert(false && "unimplemented");
-  return NULL;
+  return nullptr;
 #elif defined(HAVE_GLX)
   return glxglue_context_create_offscreen(width, height);
 #elif defined(HAVE_WGL)
@@ -4524,7 +4524,7 @@ cc_glglue_context_create_offscreen(unsigned int width, unsigned int height)
 #endif
   }
   assert(false && "unimplemented");
-  return NULL;
+  return nullptr;
 }
 
 bool
@@ -4898,7 +4898,7 @@ cc_glglue_win32_HDC(void * COIN_UNUSED_ARG(ctx))
 #if defined(HAVE_WGL)
   return wglglue_context_win32_HDC(ctx);
 #else /* not WGL */
-  return NULL;
+  return nullptr;
 #endif /* not WGL */
 }
 void cc_glglue_win32_updateHDCBitmap(void * COIN_UNUSED_ARG(ctx))
@@ -4933,7 +4933,7 @@ proxy_mipmap_2d(int width, int height,
   int levels = compute_log(cc_max(width, height));
 
   glTexImage2D(GL_PROXY_TEXTURE_2D, 0, internalFormat, width, height, 0,
-               format, type, NULL);
+               format, type, nullptr);
   glGetTexLevelParameteriv(GL_PROXY_TEXTURE_2D, 0,
                            GL_TEXTURE_WIDTH, &w);
 
@@ -4945,7 +4945,7 @@ proxy_mipmap_2d(int width, int height,
     if (height > 1) height >>= 1;
     glTexImage2D(GL_PROXY_TEXTURE_2D, level, internalFormat, width,
                  height, 0, format, type,
-                 NULL);
+                 nullptr);
     glGetTexLevelParameteriv(GL_PROXY_TEXTURE_2D, 0,
                              GL_TEXTURE_WIDTH, &w);
     if (w == 0) return false;
@@ -4967,7 +4967,7 @@ proxy_mipmap_3d(const cc_glglue * glw, int width, int height, int depth,
 
   cc_glglue_glTexImage3D(glw, GL_PROXY_TEXTURE_3D, 0, internalFormat,
                          width, height, depth, 0, format, type,
-                         NULL);
+                         nullptr);
   glGetTexLevelParameteriv(GL_PROXY_TEXTURE_3D, 0,
                            GL_TEXTURE_WIDTH, &w);
   if (w == 0) return false;
@@ -4979,7 +4979,7 @@ proxy_mipmap_3d(const cc_glglue * glw, int width, int height, int depth,
     if (depth > 1) depth >>= 1;
     cc_glglue_glTexImage3D(glw, GL_PROXY_TEXTURE_3D, level, internalFormat,
                            width, height, depth, 0, format, type,
-                           NULL);
+                           nullptr);
     glGetTexLevelParameteriv(GL_PROXY_TEXTURE_3D, 0,
                              GL_TEXTURE_WIDTH, &w);
     if (w == 0) return false;
@@ -5186,7 +5186,7 @@ coin_glerror_string(GLenum errorcode)
   default:
     return unknown;
   }
-  return NULL; /* avoid compiler warning */
+  return nullptr; /* avoid compiler warning */
 }
 
 /* Simple utility function for dumping the current set of error codes
@@ -5222,7 +5222,7 @@ coin_catch_gl_errors(cc_string * str)
 void *
 coin_gl_current_context(void)
 {
-  void * ctx = NULL;
+  void * ctx = nullptr;
 
 #ifdef HAVE_GLX
   ctx = glXGetCurrentContext();
@@ -5234,7 +5234,7 @@ coin_gl_current_context(void)
 
 #if defined(HAVE_AGL) || defined(HAVE_CGL)
   /* Note: We cannot use aglGetCurrentContext() here, since that only
-     returns a value != NULL if the context has been set using
+     returns a value != nullptr if the context has been set using
      aglSetCurrentContext(). */
   ctx = CGLGetCurrentContext();
 #endif
@@ -5277,14 +5277,14 @@ coin_glglue_get_contextid(const cc_glglue * glue)
 static void cleanup_instance_created_list(void)
 {
   cc_list_destruct(gl_instance_created_cblist);
-  gl_instance_created_cblist = NULL;
+  gl_instance_created_cblist = nullptr;
 }
 
 void
 coin_glglue_add_instance_created_callback(coin_glglue_instance_created_cb * cb,
                                           void * closure)
 {
-  if (gl_instance_created_cblist == NULL) {
+  if (gl_instance_created_cblist == nullptr) {
     gl_instance_created_cblist = cc_list_construct();
     coin_atexit((coin_atexit_f *)cleanup_instance_created_list, CC_ATEXIT_NORMAL);
   }
@@ -5417,7 +5417,7 @@ coin_glglue_has_generate_mipmap(const cc_glglue * glue)
   if ((coin_runtime_os() == COIN_MSWINDOWS) && glue->vendor_is_ati) {
     return false;
   }
-  return (glue->glGenerateMipmap != NULL);
+  return (glue->glGenerateMipmap != nullptr);
 }
 
 void

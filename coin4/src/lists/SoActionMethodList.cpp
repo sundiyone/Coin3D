@@ -77,7 +77,7 @@ public:
 
 /*!
   The constructor.  The \a parentlist argument is the parent action's
-  action method list.  It can be \c NULL for action method lists that
+  action method list.  It can be \c nullptr for action method lists that
   are not based on inheriting from a parent action.
 */
 SoActionMethodList::SoActionMethodList(SoActionMethodList * const parentlist)
@@ -124,7 +124,7 @@ static void unsetActionMethod(SoAction *, SoNode *)
 
 /*!
   This method must be called as the last initialization step before
-  using the list. It fills in \c NULL entries with the parent's
+  using the list. It fills in \c nullptr entries with the parent's
   method.
 */
 void
@@ -142,10 +142,10 @@ SoActionMethodList::setUp(void)
       (*this)[SoNode::getActionMethodIndex(PRIVATE(this)->addedtypes[i])] = PRIVATE(this)->addedmethods[i];
     }
     
-    // make sure SoNode's action method is set to avoid a NULL action method
+    // make sure SoNode's action method is set to avoid a nullptr action method
     i = SoNode::getActionMethodIndex(SoNode::getClassTypeId());
-    if ((*this)[i] == NULL) {
-      if (PRIVATE(this)->parent == NULL) {
+    if ((*this)[i] == nullptr) {
+      if (PRIVATE(this)->parent == nullptr) {
         (*this)[i] = SoAction::nullAction;
       }
       else {
@@ -163,17 +163,17 @@ SoActionMethodList::setUp(void)
       SoType type = allnodes[i];
       int idx = SoNode::getActionMethodIndex(type);
       SoActionMethod m = (*this)[idx];
-      if (m == NULL) {
+      if (m == nullptr) {
         do {
           type = type.getParent();
           m = (*this)[SoNode::getActionMethodIndex(type)];
-        } while (m == NULL);
+        } while (m == nullptr);
         (*this)[idx] = m;
       }
     }
 
     // inherit unset methods from parent action
-    if (PRIVATE(this)->parent != NULL) {
+    if (PRIVATE(this)->parent != nullptr) {
       PRIVATE(this)->parent->setUp();
       n = this->getLength();
       for (i = 0; i < n; i++) {

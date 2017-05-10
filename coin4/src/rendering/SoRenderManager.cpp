@@ -228,14 +228,14 @@ SoRenderManager::SoRenderManager(void)
   PRIVATE(this)->dummynode = new SoInfo;
   PRIVATE(this)->dummynode->ref();
 
-  PRIVATE(this)->rootsensor = NULL;
-  PRIVATE(this)->scene = NULL;
-  PRIVATE(this)->camera = NULL;
-  PRIVATE(this)->rendercb = NULL;
-  PRIVATE(this)->rendercbdata = NULL;
+  PRIVATE(this)->rootsensor = nullptr;
+  PRIVATE(this)->scene = nullptr;
+  PRIVATE(this)->camera = nullptr;
+  PRIVATE(this)->rendercb = nullptr;
+  PRIVATE(this)->rendercbdata = nullptr;
 
-  PRIVATE(this)->stereostencilmask = NULL;
-  PRIVATE(this)->superimpositions = NULL;
+  PRIVATE(this)->stereostencilmask = nullptr;
+  PRIVATE(this)->superimpositions = nullptr;
 
   PRIVATE(this)->doublebuffer = true;
   PRIVATE(this)->deleteaudiorenderaction = true;
@@ -281,7 +281,7 @@ SoRenderManager::~SoRenderManager()
   if (PRIVATE(this)->rootsensor) delete PRIVATE(this)->rootsensor;
   if (PRIVATE(this)->redrawshot) delete PRIVATE(this)->redrawshot;
 
-  if (PRIVATE(this)->superimpositions != NULL) {
+  if (PRIVATE(this)->superimpositions != nullptr) {
     while (PRIVATE(this)->superimpositions->getLength() > 0) {
       this->removeSuperimposition((Superimposition *)(*PRIVATE(this)->superimpositions)[0]);
     }
@@ -292,7 +292,7 @@ SoRenderManager::~SoRenderManager()
 
   if (PRIVATE(this)->scene)
     PRIVATE(this)->scene->unref();
-  this->setCamera(NULL);
+  this->setCamera(nullptr);
 
   delete PRIVATE(this);
 }
@@ -1001,7 +1001,7 @@ SoRenderManager::initStencilBufferForInterleavedStereo(void)
          (s == SoRenderManager::INTERLEAVED_COLUMNS));
 
   // Find out whether or not we need to regenerate the mask data.
-  bool allocnewmask = (PRIVATE(this)->stereostencilmask == NULL);
+  bool allocnewmask = (PRIVATE(this)->stereostencilmask == nullptr);
 
   const SbVec2s neworigin = currentvp.getViewportOriginPixels();
   const SbVec2s newsize = currentvp.getViewportSizePixels();
@@ -1389,12 +1389,12 @@ SoRenderManager::redraw(void)
   scene upon detecting changes in the scene graph.
 
   The automatic redraw is turned on and off by setting either a valid
-  callback function with setRenderCallback(), or by passing \c NULL.
+  callback function with setRenderCallback(), or by passing \c nullptr.
  */
 bool
 SoRenderManager::isAutoRedraw(void) const
 {
-  return PRIVATE(this)->rendercb != NULL;
+  return PRIVATE(this)->rendercb != nullptr;
 }
 
 
@@ -1499,7 +1499,7 @@ SoRenderManager::setGLRenderAction(SoGLRenderAction * const action)
   }
   if (PRIVATE(this)->deleteglaction) {
     delete PRIVATE(this)->glaction;
-    PRIVATE(this)->glaction = NULL;
+    PRIVATE(this)->glaction = nullptr;
   }
 
   // If action change, we need to invalidate state to enable lazy GL
@@ -1622,7 +1622,7 @@ SoRenderManager::setAudioRenderAction(SoAudioRenderAction * const action)
 {
   if (PRIVATE(this)->deleteaudiorenderaction) {
     delete PRIVATE(this)->audiorenderaction;
-    PRIVATE(this)->audiorenderaction = NULL;
+    PRIVATE(this)->audiorenderaction = nullptr;
   }
 
   // If action change, we need to invalidate state to enable lazy GL

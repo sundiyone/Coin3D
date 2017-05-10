@@ -51,7 +51,7 @@
 // this is not thread-safe, but creating a new matrix action for
 // each picked point is not very efficient.
 //
-static SoGetMatrixAction *matrixAction = NULL;
+static SoGetMatrixAction *matrixAction = nullptr;
 
 //
 //  Will be called at the end of program to free static memory
@@ -61,7 +61,7 @@ static
 void clean_class()
 {
   delete matrixAction;
-  matrixAction = NULL;
+  matrixAction = nullptr;
 }
 
 /*!
@@ -87,7 +87,7 @@ SoPickedPoint::SoPickedPoint(const SoPickedPoint &pp)
     if (pp.detailList[i])
       this->detailList.append(pp.detailList[i]->copy());
     else
-      this->detailList.append(NULL);
+      this->detailList.append(nullptr);
   }
 }
 
@@ -111,7 +111,7 @@ SoPickedPoint::SoPickedPoint(const SoPath * const pathptr, SoState * const state
 
   int pathlen = ((SoFullPath*)this->path)->getLength();
   for (int i = 0; i < pathlen; i++) {
-    this->detailList.append(NULL);
+    this->detailList.append(nullptr);
   }
 }
 
@@ -195,7 +195,7 @@ SoPickedPoint::isOnGeometry() const
 }
 
 /*!
-  Returns detail for \a node. If \a node equals NULL, the detail
+  Returns detail for \a node. If \a node equals nullptr, the detail
   for the picked object is returned.
 */
 const SoDetail *
@@ -203,12 +203,12 @@ SoPickedPoint::getDetail(const SoNode * const node) const
 {
   int idx = node ? this->path->findNode(node) :
     ((SoFullPath*)this->path)->getLength() - 1;
-  return idx >= 0 ? this->detailList[idx] : NULL;
+  return idx >= 0 ? this->detailList[idx] : nullptr;
 }
 
 /*!
   Returns the matrix which converts from object (specified by \a node)
-  to world space. If \a node equals NULL, the object space of the
+  to world space. If \a node equals nullptr, the object space of the
   picked object will used.
 */
 const SbMatrix &
@@ -220,7 +220,7 @@ SoPickedPoint::getObjectToWorld(const SoNode * const node) const
 
 /*!
   Returns the matrix which converts from world to object (specified
-  by \a node) space. If \a node equals NULL, the object space of the
+  by \a node) space. If \a node equals nullptr, the object space of the
   picked object will used.
 */
 const SbMatrix &
@@ -232,7 +232,7 @@ SoPickedPoint::getWorldToObject(const SoNode * const node) const
 
 /*!
   Returns the matrix which converts from object (specified by \a node)
-  to image space. If \a node equals NULL, the object space of the
+  to image space. If \a node equals nullptr, the object space of the
   picked object will used.
 */
 const SbMatrix &
@@ -244,7 +244,7 @@ SoPickedPoint::getObjectToImage(const SoNode * const node) const
 
 /*!
   Returns the matrix which converts from image to object (specified
-  by \a node) space. If \a node equals NULL, the object space of the
+  by \a node) space. If \a node equals nullptr, the object space of the
   picked object will used.
 */
 const SbMatrix &
@@ -256,7 +256,7 @@ SoPickedPoint::getImageToObject(const SoNode * const node) const
 
 /*!
   Returns the object space point, in the object space specified by \a
-  node. If \a node equals \c NULL, the object space of the node where
+  node. If \a node equals \c nullptr, the object space of the node where
   the point was actually picked will be used (this is what one would
   usually be interested in).
 
@@ -275,7 +275,7 @@ SoPickedPoint::getObjectPoint(const SoNode * const node) const
 
 /*!
   Returns the object space (specified by \a node) normal. If
-  \a node equals NULL, the picked point object space will
+  \a node equals nullptr, the picked point object space will
   be used.
 */
 SbVec3f
@@ -291,7 +291,7 @@ SoPickedPoint::getObjectNormal(const SoNode * const node) const
 
 /*!
   Returns the object space (specified by \a node) texture coordinates.
-  If \a node equals NULL, the picked point object space will be used.
+  If \a node equals nullptr, the picked point object space will be used.
 */
 SbVec4f
 SoPickedPoint::getObjectTextureCoords(const SoNode * const node) const
@@ -335,7 +335,7 @@ SoPickedPoint::setMaterialIndex(const int index)
 
 /*!
   Sets the detail for \a node. \a node must be in the picked
-  path, of course. Set to NULL if you want to remove a detail
+  path, of course. Set to nullptr if you want to remove a detail
   for a node.
 */
 void
@@ -349,7 +349,7 @@ SoPickedPoint::setDetail(SoDetail *detail, SoNode *node)
 }
 
 //
-// applies a matrix action to the path. Stops at node if != NULL
+// applies a matrix action to the path. Stops at node if != nullptr
 //
 void
 SoPickedPoint::applyMatrixAction(const SoNode * const node) const
@@ -376,7 +376,7 @@ SoPickedPoint::applyMatrixAction(const SoNode * const node) const
 SoGetMatrixAction *
 SoPickedPoint::getMatrixAction() const
 {
-  if (matrixAction == NULL) {
+  if (matrixAction == nullptr) {
     matrixAction = new SoGetMatrixAction(this->viewport);
     coin_atexit((coin_atexit_f *)clean_class, CC_ATEXIT_NORMAL);
   }

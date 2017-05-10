@@ -219,14 +219,14 @@ SoScale2UniformDragger::setUpConnections(bool onoff, bool doitalways)
   if (onoff) {
     inherited::setUpConnections(onoff, doitalways);
 
-    SoScale2UniformDragger::fieldSensorCB(this, NULL);
+    SoScale2UniformDragger::fieldSensorCB(this, nullptr);
 
     if (this->fieldSensor->getAttachedField() != &this->scaleFactor) {
       this->fieldSensor->attach(&this->scaleFactor);
     }
   }
   else {
-    if (this->fieldSensor->getAttachedField() != NULL) {
+    if (this->fieldSensor->getAttachedField() != nullptr) {
       this->fieldSensor->detach();
     }
     inherited::setUpConnections(onoff, doitalways);

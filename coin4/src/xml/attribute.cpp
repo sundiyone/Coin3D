@@ -54,14 +54,14 @@ cc_xml_attr_new(void)
 {
   cc_xml_attr * attr = new cc_xml_attr;
   assert(attr);
-  attr->name = NULL;
-  attr->value = NULL;
+  attr->name = nullptr;
+  attr->value = nullptr;
   return attr;
 }
 
 /*!
   Creates a new cc_xml_attr object, with the given name and value information.
-  The \a value argument can be NULL.
+  The \a value argument can be nullptr.
 */
 
 cc_xml_attr *
@@ -101,7 +101,7 @@ cc_xml_attr_delete_x(cc_xml_attr * attr)
 
 /*!
   Sets the name-part of the attribute.  Old name-information will be freed.
-  The \a name argument can be NULL to clear the setting.
+  The \a name argument can be nullptr to clear the setting.
 */
 
 void
@@ -109,13 +109,13 @@ cc_xml_attr_set_name_x(cc_xml_attr * attr, const char * name)
 {
   if (attr->name) {
     delete [] attr->name;
-    attr->name = NULL;
+    attr->name = nullptr;
   }
   if (name) attr->name = cc_xml_strdup(name);
 }
 
 /*!
-  Returns the name-part of the attribute if one is set, and NULL otherwise.
+  Returns the name-part of the attribute if one is set, and nullptr otherwise.
 */
 
 const char *
@@ -126,7 +126,7 @@ cc_xml_attr_get_name(const cc_xml_attr * attr)
 
 /*!
   Sets the value-part of the attribute.  Old information will be freed.
-  The \a value argument can be NULL to clear the information.
+  The \a value argument can be nullptr to clear the information.
 */
 
 void
@@ -134,13 +134,13 @@ cc_xml_attr_set_value_x(cc_xml_attr * attr, const char * value)
 {
   if (attr->value) {
     delete [] attr->value;
-    attr->value = NULL;
+    attr->value = nullptr;
   }
   if (value) attr->value = cc_xml_strdup(value);
 }
 
 /*!
-  Returns the value part of the attribute if one is set, or NULL otherwise.
+  Returns the value part of the attribute if one is set, or nullptr otherwise.
 */
 
 const char *

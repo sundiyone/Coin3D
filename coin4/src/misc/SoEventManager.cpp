@@ -99,8 +99,8 @@ SoEventManager::SoEventManager(void)
   PRIVATE(this)->deletehandleeventaction = true;
   PRIVATE(this)->searchaction = new SoSearchAction;
 
-  PRIVATE(this)->camera = NULL;
-  PRIVATE(this)->scene = NULL;
+  PRIVATE(this)->camera = nullptr;
+  PRIVATE(this)->scene = nullptr;
 }
 
 /*!
@@ -111,14 +111,14 @@ SoEventManager::SoEventManager(void)
 */
 SoEventManager::~SoEventManager()
 {
-  this->setCamera(NULL);
-  this->setSceneGraph(NULL);
+  this->setCamera(nullptr);
+  this->setSceneGraph(nullptr);
 
   delete PRIVATE(this)->searchaction;
 
   if (PRIVATE(this)->deletehandleeventaction) {
     delete PRIVATE(this)->handleeventaction;
-    PRIVATE(this)->handleeventaction = NULL;
+    PRIVATE(this)->handleeventaction = nullptr;
   }
   for (int c = this->getNumSoScXMLStateMachines() - 1; c >= 0; --c) {
     SoScXMLStateMachine * sm = this->getSoScXMLStateMachine(c);
@@ -342,7 +342,7 @@ SoEventManager::actuallyProcessEvent(const SoEvent * const event)
   assert(PRIVATE(this)->handleeventaction);
 
   bool handled = false;
-  if ( PRIVATE(this)->handleeventaction->getState() != NULL &&
+  if ( PRIVATE(this)->handleeventaction->getState() != nullptr &&
        PRIVATE(this)->handleeventaction->getState()->getDepth() != 0 ) {
     // recursive invocation - action currently in use
 #if COIN_DEBUG
@@ -350,7 +350,7 @@ SoEventManager::actuallyProcessEvent(const SoEvent * const event)
                        "Recursive invocation detected. Delay processing event "
                        "until the current event is finished processing.");
 #endif // COIN_DEBUG
-  } else if ( PRIVATE(this)->scene == NULL ) {
+  } else if ( PRIVATE(this)->scene == nullptr ) {
     // nothing
   } else {
     PRIVATE(this)->handleeventaction->setEvent(event);
@@ -368,7 +368,7 @@ SoEventManager::actuallyProcessEvent(const SoEvent * const event)
 void
 SoEventManager::setHandleEventAction(SoHandleEventAction * handleeventaction)
 {
-  assert(handleeventaction && "SoEventManager::setHandleEventAction, action == NULL");
+  assert(handleeventaction && "SoEventManager::setHandleEventAction, action == nullptr");
 
   // remember old viewport region
   SbViewportRegion region = PRIVATE(this)->handleeventaction->getViewportRegion();

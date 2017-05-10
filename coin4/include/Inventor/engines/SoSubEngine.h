@@ -77,10 +77,10 @@ SoType _class_::classTypeId STATIC_SOTYPE_INIT
 PRIVATE_ENGINE_TYPESYSTEM_SOURCE(_class_); \
  \
 unsigned int _class_::classinstances = 0; \
-SoFieldData * _class_::inputdata = NULL; \
-const SoFieldData ** _class_::parentinputdata = NULL; \
-SoEngineOutputData * _class_::outputdata = NULL; \
-const SoEngineOutputData ** _class_::parentoutputdata = NULL; \
+SoFieldData * _class_::inputdata = nullptr; \
+const SoFieldData ** _class_::parentinputdata = nullptr; \
+SoEngineOutputData * _class_::outputdata = nullptr; \
+const SoEngineOutputData ** _class_::parentoutputdata = nullptr; \
  \
 const SoFieldData ** \
 _class_::getInputDataPtr(void) \
@@ -111,10 +111,10 @@ _class_::atexit_cleanup(void) \
 { \
   delete _class_::inputdata; \
   delete _class_::outputdata; \
-  _class_::inputdata = NULL; \
-  _class_::outputdata = NULL; \
-  _class_::parentinputdata = NULL; \
-  _class_::parentoutputdata = NULL; \
+  _class_::inputdata = nullptr; \
+  _class_::outputdata = nullptr; \
+  _class_::parentinputdata = nullptr; \
+  _class_::parentoutputdata = nullptr; \
   assert(_class_::classTypeId != SoType::badType()); \
   SoType::removeType(_class_::classTypeId.getName()); \
   _class_::classTypeId STATIC_SOTYPE_INIT; \
@@ -145,10 +145,10 @@ _class_::createInstance(void) \
     if (!_class_::inputdata) { \
       _class_::inputdata = \
         new SoFieldData(_class_::parentinputdata ? \
-                        *_class_::parentinputdata : NULL); \
+                        *_class_::parentinputdata : nullptr); \
       _class_::outputdata = \
         new SoEngineOutputData(_class_::parentoutputdata ? \
-                               *_class_::parentoutputdata : NULL); \
+                               *_class_::parentoutputdata : nullptr); \
     } \
     /* Extension classes from the application programmers should not be */ \
     /* considered native. This is important to get the export code to do */ \
@@ -189,7 +189,7 @@ _class_::createInstance(void) \
 #define SO_ENGINE_INIT_ABSTRACT_CLASS(_class_, _parentclass_, _parentname_) \
   do { \
     const char * classname = SO__QUOTE(_class_); \
-    PRIVATE_COMMON_ENGINE_INIT_CODE(_class_, classname, NULL, _parentclass_); \
+    PRIVATE_COMMON_ENGINE_INIT_CODE(_class_, classname, nullptr, _parentclass_); \
   } while (0)
 
 // *************************************************************************

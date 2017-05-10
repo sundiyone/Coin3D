@@ -33,7 +33,7 @@ class COIN_DLL_API SoGLCubeMapImage : public SoGLImage {
 public:
 
   SoGLCubeMapImage();
-  virtual void unref(SoState * state = NULL);
+  virtual void unref(SoState * state = nullptr);
 
   static SoType getClassTypeId(void);
   virtual SoType getTypeId(void) const ;
@@ -57,7 +57,7 @@ public:
                        const Wrap wrapt = REPEAT,
                        const float quality = 0.5f,
                        const int border = 0,
-                       SoState * createinstate = NULL);
+                       SoState * createinstate = nullptr);
 
   virtual void setData(const SbImage * image,
                        const Wrap wraps,
@@ -65,7 +65,7 @@ public:
                        const Wrap wrapr,
                        const float quality = 0.5f,
                        const int border = 0,
-                       SoState * createinstate = NULL);
+                       SoState * createinstate = nullptr);
 
   virtual SoGLDisplayList * getGLDisplayList(SoState * state);
 

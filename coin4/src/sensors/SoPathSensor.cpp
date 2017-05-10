@@ -105,8 +105,8 @@ void
 SoPathSensor::commonConstructor(void)
 {
   PRIVATE(this) = new SoPathSensorP;
-  PRIVATE(this)->path = NULL;
-  PRIVATE(this)->headnode = NULL;
+  PRIVATE(this)->path = nullptr;
+  PRIVATE(this)->headnode = nullptr;
   PRIVATE(this)->triggerfilter = PATH_AND_NODES;
 }
 
@@ -154,11 +154,11 @@ SoPathSensor::detach(void)
 {
   if (PRIVATE(this)->path) {
     PRIVATE(this)->path->removeAuditor(this, SoNotRec::SENSOR);
-    PRIVATE(this)->path = NULL;
+    PRIVATE(this)->path = nullptr;
   }
   if (PRIVATE(this)->headnode) {
     PRIVATE(this)->headnode->removeAuditor(this, SoNotRec::SENSOR);
-    PRIVATE(this)->headnode = NULL;
+    PRIVATE(this)->headnode = nullptr;
   }
   // unschedule so that we don't trigger a new callback
   if (this->isScheduled()) this->unschedule();

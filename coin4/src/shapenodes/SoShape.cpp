@@ -163,9 +163,9 @@
 class SoShapeP {
 public:
   SoShapeP() {
-    this->bboxcache = NULL;
-    this->pvcache = NULL;
-    this->bumprender = NULL;
+    this->bboxcache = nullptr;
+    this->pvcache = nullptr;
+    this->bumprender = nullptr;
     this->rendercnt = 0;
     this->flags = 0;
   }
@@ -242,7 +242,7 @@ public:
 
 double SoShapeP::bboxcachetimelimit;
 
-SbMutex * SoShapeP::mutex = NULL;
+SbMutex * SoShapeP::mutex = nullptr;
 
 #undef PRIVATE
 #define PRIVATE(p) ((p)->pimpl)
@@ -322,10 +322,10 @@ void
 SoShapeP::cleanup(void)
 {
   delete soshape_staticstorage;
-  soshape_staticstorage = NULL;
+  soshape_staticstorage = nullptr;
 
   delete SoShapeP::mutex;
-  SoShapeP::mutex = NULL;
+  SoShapeP::mutex = nullptr;
 }
 
 // *************************************************************************
@@ -397,7 +397,7 @@ SoShape::GLRender(SoGLRenderAction * action)
   // test for SoVertexShape node and push data onto the state before
   // calling generatePrimitives(). This is needed for SoMaterialBundle
   // to work correctly.
-  SoVertexProperty * vp = NULL;
+  SoVertexProperty * vp = nullptr;
   if (this->isOfType(SoVertexShape::getClassTypeId())) {
     vp = (SoVertexProperty*) ((SoVertexShape*)this)->vertexProperty.getValue();
   }
@@ -661,7 +661,7 @@ SoShape::shouldGLRender(SoGLRenderAction * action)
     if (lights.getLength()) {
       // lock since bumprender and pvcache is shared among all threads
       PRIVATE(this)->lock();
-      if (PRIVATE(this)->bumprender == NULL) {
+      if (PRIVATE(this)->bumprender == nullptr) {
         PRIVATE(this)->bumprender = new soshape_bumprender;
       }
       this->validatePVCache(action);
@@ -878,14 +878,14 @@ SoShape::computeObjectSpaceRay(SoRayPickAction * const action,
   only be called internally, when generatePrimitives() is used for
   picking (SoShape::rayPick() is not overridden).
 
-  This method returns \c NULL in Open Inventor, and subclasses will
+  This method returns \c nullptr in Open Inventor, and subclasses will
   need to override this method to create details for a SoPickedPoint.
 
   This is not necessary with Coin. Of course, if you choose to
   override it, it will work in the same way as Open Inventor.
 
   For this to work, you must supply a face or line detail when
-  generating primitives. If you supply \c NULL for the detail argument in
+  generating primitives. If you supply \c nullptr for the detail argument in
   SoShape::beginShape(), you'll have to override this method.
 */
 SoDetail *
@@ -905,7 +905,7 @@ SoShape::createTriangleDetail(SoRayPickAction * COIN_UNUSED_ARG(action),
   SoDebugError::postInfo("SoShape::createTriangleDetail",
                          "Unable to create triangle detail.");
 #endif // COIN_DEBUG
-  return NULL;
+  return nullptr;
 }
 
 /*!
@@ -913,14 +913,14 @@ SoShape::createTriangleDetail(SoRayPickAction * COIN_UNUSED_ARG(action),
   be called internally, when generatePrimitives() is used for picking
   (SoShape::rayPick() is not overridden).
 
-  This method returns \c NULL in Open Inventor, and subclasses will
+  This method returns \c nullptr in Open Inventor, and subclasses will
   need to override this method to create details for a SoPickedPoint.
 
   This is not necessary with Coin. Of course, if you choose to
   override it, it will work in the same way as Open Inventor.
 
   For this to work, you must supply a face or line detail when
-  generating primitives. If you supply \c NULL for the detail argument in
+  generating primitives. If you supply \c nullptr for the detail argument in
   SoShape::beginShape(), you'll have to override this method.
 */
 SoDetail *
@@ -939,7 +939,7 @@ SoShape::createLineSegmentDetail(SoRayPickAction * COIN_UNUSED_ARG(action),
   SoDebugError::postInfo("SoShape::createLineSegmentDetail",
                          "Unable to create line segment detail.");
 #endif // COIN_DEBUG
-  return NULL;
+  return nullptr;
 }
 
 /*!
@@ -947,7 +947,7 @@ SoShape::createLineSegmentDetail(SoRayPickAction * COIN_UNUSED_ARG(action),
   be called internally, when generatePrimitives() is used for picking
   (SoShape::rayPick() is not overridden).
 
-  This method returns \c NULL in Open Inventor, and subclasses will
+  This method returns \c nullptr in Open Inventor, and subclasses will
   need to override this method to create details for a SoPickedPoint.
 
   This is not necessary with Coin. Of course, if you choose to
@@ -962,7 +962,7 @@ SoShape::createPointDetail(SoRayPickAction * /* action */,
                            SoPickedPoint * /* pp */)
 {
   if (v->getDetail()) return v->getDetail()->copy();
-  return NULL;
+  return nullptr;
 }
 
 /*!
@@ -1372,7 +1372,7 @@ SoShape::GLRenderBoundingBox(SoGLRenderAction * action)
   glPushMatrix();
   glTranslatef(center[0], center[1], center[2]);
   sogl_render_cube(size[0], size[1], size[2], &mb,
-                   SOGL_NEED_NORMALS | SOGL_NEED_TEXCOORDS, NULL);
+                   SOGL_NEED_NORMALS | SOGL_NEED_TEXCOORDS, nullptr);
   glPopMatrix();
 }
 
@@ -1423,7 +1423,7 @@ SoShape::notify(SoNotList * nl)
 
 /*!
   Return the bounding box cache for this shape. It might return
-  NULL if no bounding box cache has been created. If not NULL, the
+  nullptr if no bounding box cache has been created. If not nullptr, the
   caller must check if the cache is valid before using it. This
   can be done using SoCache::isValid().
 
@@ -1457,7 +1457,7 @@ SoShape::getBBox(SoAction * action, SbBox3f & box, SbVec3f & center)
   if (PRIVATE(this)->bboxcache) {
     PRIVATE(this)->lock();
     PRIVATE(this)->bboxcache->unref();
-    PRIVATE(this)->bboxcache = NULL;
+    PRIVATE(this)->bboxcache = nullptr;
     PRIVATE(this)->unlock();
     // don't create bbox caches for shapes that change
     PRIVATE(this)->flags &= ~SoShapeP::SHOULD_BBOX_CACHE;
@@ -1469,7 +1469,7 @@ SoShape::getBBox(SoAction * action, SbBox3f & box, SbVec3f & center)
     // must push state to make cache dependencies work
     state->push();
     storedinvalid = SoCacheElement::setInvalid(false);
-    assert(PRIVATE(this)->bboxcache == NULL);
+    assert(PRIVATE(this)->bboxcache == nullptr);
     PRIVATE(this)->lock();
     PRIVATE(this)->bboxcache = new SoBoundingBoxCache(state);
     PRIVATE(this)->bboxcache->ref();
@@ -1493,7 +1493,7 @@ SoShape::getBBox(SoAction * action, SbBox3f & box, SbVec3f & center)
       // once. SoGLRenderAction and SoRayPickAction might need it.
       state->push();
       storedinvalid = SoCacheElement::setInvalid(false);
-      assert(PRIVATE(this)->bboxcache == NULL);
+      assert(PRIVATE(this)->bboxcache == nullptr);
       PRIVATE(this)->lock();
       PRIVATE(this)->bboxcache = new SoBoundingBoxCache(state);
       PRIVATE(this)->bboxcache->ref();
@@ -1561,13 +1561,13 @@ SoShape::startVertexArray(SoGLRenderAction * action,
       dovbo = false;
     }
   }
-  SoVBO * vertexvbo = dovbo ? vboelem->getVertexVBO() : NULL;
+  SoVBO * vertexvbo = dovbo ? vboelem->getVertexVBO() : nullptr;
   if (!vertexvbo) dovbo = false;
   bool didbind = false;
 
   if (colorpervertex) {
-    const GLvoid * dataptr = NULL;
-    SoVBO * colorvbo = dovbo ? vboelem->getColorVBO() : NULL;
+    const GLvoid * dataptr = nullptr;
+    SoVBO * colorvbo = dovbo ? vboelem->getColorVBO() : nullptr;
     SoGLLazyElement * lelem = (SoGLLazyElement*) SoLazyElement::getInstance(state);
     if (colorvbo) {
       lelem->updateColorVBO(colorvbo);
@@ -1590,8 +1590,8 @@ SoShape::startVertexArray(SoGLRenderAction * action,
     cc_glglue_glEnableClientState(glue, GL_COLOR_ARRAY);
   }
   if (texpervertex) {
-    const SoMultiTextureCoordinateElement * mtelem = NULL;
-    const bool * enabledunits = NULL;
+    const SoMultiTextureCoordinateElement * mtelem = nullptr;
+    const bool * enabledunits = nullptr;
     int lastenabled;
     
     enabledunits = SoMultiTextureEnabledElement::getEnabledUnits(state, lastenabled);
@@ -1625,11 +1625,11 @@ SoShape::startVertexArray(SoGLRenderAction * action,
 	if (SoGLDriverDatabase::isSupported(glue, SO_GL_MULTITEXTURE)) {
 	  cc_glglue_glClientActiveTexture(glue, GL_TEXTURE0 + i);
 	}
-        vbo = dovbo ? vboelem->getTexCoordVBO(i) : NULL;
+        vbo = dovbo ? vboelem->getTexCoordVBO(i) : nullptr;
         if (vbo) {
           vbo->bindBuffer(contextid);
           didbind = true;
-          tptr = NULL;
+          tptr = nullptr;
         }
         else {
           if (didbind) {
@@ -1642,9 +1642,9 @@ SoShape::startVertexArray(SoGLRenderAction * action,
       }
     }
   }
-  if (pervertexnormals != NULL) {
-    SoVBO * vbo = dovbo ? vboelem->getNormalVBO() : NULL;
-    const GLvoid * dataptr = NULL;
+  if (pervertexnormals != nullptr) {
+    SoVBO * vbo = dovbo ? vboelem->getNormalVBO() : nullptr;
+    const GLvoid * dataptr = nullptr;
     if (vbo) {
       vbo->bindBuffer(contextid);
       didbind = true;
@@ -1659,7 +1659,7 @@ SoShape::startVertexArray(SoGLRenderAction * action,
     cc_glglue_glNormalPointer(glue, GL_FLOAT, 0, dataptr);
     cc_glglue_glEnableClientState(glue, GL_NORMAL_ARRAY);
   }
-  const GLvoid * dataptr = NULL;
+  const GLvoid * dataptr = nullptr;
   if (vertexvbo) {
     vertexvbo->bindBuffer(contextid);
   }
@@ -1744,7 +1744,7 @@ void
 SoShape::validatePVCache(SoGLRenderAction * action)
 {
   SoState * state = action->getState();
-  if (PRIVATE(this)->pvcache == NULL ||
+  if (PRIVATE(this)->pvcache == nullptr ||
       !PRIVATE(this)->pvcache->isValid(state)) {
     if (PRIVATE(this)->pvcache) {
       PRIVATE(this)->pvcache->unref();

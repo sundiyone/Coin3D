@@ -37,9 +37,9 @@
   \verbatim
   ElevationGrid {
     eventIn      MFFloat  set_height
-    exposedField SFNode   color             NULL
-    exposedField SFNode   normal            NULL
-    exposedField SFNode   texCoord          NULL
+    exposedField SFNode   color             nullptr
+    exposedField SFNode   normal            nullptr
+    exposedField SFNode   texCoord          nullptr
     field        MFFloat  height            []      # (-inf,inf)
     field        SFBool   ccw               true
     field        SFBool   colorPerVertex    true
@@ -91,14 +91,14 @@
 
   The color field specifies per-vertex or per-quadrilateral colours
   for the ElevationGrid node depending on the value of colorPerVertex.
-  If the color field is NULL, the ElevationGrid node is rendered with
+  If the color field is nullptr, the ElevationGrid node is rendered with
   the overall attributes of the Shape node enclosing the ElevationGrid
   node (see 4.14, Lighting model).  
   
   The colorPerVertex field
   determines whether colours specified in the color field are applied
   to each vertex or each quadrilateral of the ElevationGrid node. If
-  colorPerVertex is false and the color field is not NULL, the color
+  colorPerVertex is false and the color field is not nullptr, the color
   field shall specify a Color node containing at least
   (xDimension-1)×(zDimension-1) colours; one for each quadrilateral,
   ordered as follows: 
@@ -113,7 +113,7 @@
   \endverbatim
   
   If
-  colorPerVertex is true and the color field is not NULL, the color
+  colorPerVertex is true and the color field is not nullptr, the color
   field shall specify a Color node containing at least xDimension ×
   zDimension colours, one for each vertex, ordered as follows:
 
@@ -126,7 +126,7 @@
   \endverbatim
 
   The normal field specifies per-vertex or per-quadrilateral normals
-  for the ElevationGrid node. If the normal field is NULL, the browser
+  for the ElevationGrid node. If the normal field is nullptr, the browser
   shall automatically generate normals, using the creaseAngle field to
   determine if and how normals are smoothed across the surface (see
   4.6.3.5, Crease angle field). 
@@ -134,7 +134,7 @@
   The normalPerVertex field determines whether normals are applied to
   each vertex or each quadrilateral of the ElevationGrid node
   depending on the value of normalPerVertex. If normalPerVertex is
-  false and the normal node is not NULL, the normal field shall
+  false and the normal node is not nullptr, the normal field shall
   specify a Normal node containing at least
   (xDimension-1)×(zDimension-1) normals; one for each quadrilateral,
   ordered as follows: 
@@ -148,7 +148,7 @@
     height[(i+1)+(j+1)×xDimension] and height[i+(j+1)×xDimension] 
   \endverbatim
 
-  If normalPerVertex is true and the normal field is not NULL, the
+  If normalPerVertex is true and the normal field is not nullptr, the
   normal field shall specify a Normal node containing at least
   xDimension × zDimension normals; one for each vertex, ordered as
   follows:
@@ -162,11 +162,11 @@
   \endverbatim
 
   The texCoord field specifies per-vertex texture coordinates for the
-  ElevationGrid node. If texCoord is NULL, default texture coordinates
+  ElevationGrid node. If texCoord is nullptr, default texture coordinates
   are applied to the geometry. The default texture coordinates range
   from (0,0) at the first vertex to (1,1) at the last vertex. The S
   texture coordinate is aligned with the positive X-axis, and the T
-  texture coordinate with positive Z-axis. If texCoord is not NULL, it
+  texture coordinate with positive Z-axis. If texCoord is not nullptr, it
   shall specify a TextureCoordinate node containing at least
   (xDimension)×(zDimension) texture coordinates; one for each vertex,
   ordered as follows:
@@ -349,9 +349,9 @@ SoVRMLElevationGrid::SoVRMLElevationGrid(void)
   SO_VRMLNODE_ADD_FIELD(zSpacing, (1.0f));
   SO_VRMLNODE_ADD_FIELD(xSpacing, (1.0f));
   SO_VRMLNODE_ADD_EMPTY_MFIELD(height);
-  SO_VRMLNODE_ADD_EXPOSED_FIELD(texCoord, (NULL));
-  SO_VRMLNODE_ADD_EXPOSED_FIELD(normal, (NULL));
-  SO_VRMLNODE_ADD_EXPOSED_FIELD(color, (NULL));
+  SO_VRMLNODE_ADD_EXPOSED_FIELD(texCoord, (nullptr));
+  SO_VRMLNODE_ADD_EXPOSED_FIELD(normal, (nullptr));
+  SO_VRMLNODE_ADD_EXPOSED_FIELD(color, (nullptr));
   SO_VRMLNODE_ADD_FIELD(colorPerVertex, (true));
   SO_VRMLNODE_ADD_FIELD(normalPerVertex, (true));
 }
@@ -401,7 +401,7 @@ SoVRMLElevationGrid::GLRender(SoGLRenderAction * action)
 
   if (!donorm) nbind = OVERALL;
 
-  const SbVec2f * tcoords = NULL;
+  const SbVec2f * tcoords = nullptr;
   SoVRMLTextureCoordinate * tnode = (SoVRMLTextureCoordinate*)
     this->texCoord.getValue();
 
@@ -410,11 +410,11 @@ SoVRMLElevationGrid::GLRender(SoGLRenderAction * action)
   mb.sendFirst();
 
   bool normalcache = false;
-  const SbVec3f * normals = NULL;
+  const SbVec3f * normals = nullptr;
   if (nbind != OVERALL) {
     SoVRMLNormal * nnode = (SoVRMLNormal*) this->normal.getValue();
     if (nnode) normals = nnode->vector.getValues(0);
-    if (normals == NULL) {
+    if (normals == nullptr) {
       normals = this->updateNormalCache(nbind);
       normalcache = true;
     }
@@ -685,18 +685,18 @@ SoVRMLElevationGrid::generatePrimitives(SoAction * action)
 
   if (!donorm) nbind = OVERALL;
 
-  const SbVec2f * tcoords = NULL;
+  const SbVec2f * tcoords = nullptr;
   SoVRMLTextureCoordinate * tnode = (SoVRMLTextureCoordinate*)
     this->texCoord.getValue();
 
   if (tnode) tcoords = tnode->point.getValues(0);
 
   bool normalcache = false;
-  const SbVec3f * normals = NULL;
+  const SbVec3f * normals = nullptr;
   if (nbind != OVERALL) {
     SoVRMLNormal * nnode = (SoVRMLNormal*) this->normal.getValue();
     if (nnode) normals = nnode->vector.getValues(0);
-    if (normals == NULL) {
+    if (normals == nullptr) {
       // updateNormalCache will readLock the normal cache. We unlock
       // at the end of this function.
       normals = this->updateNormalCache(nbind);
@@ -906,7 +906,7 @@ SoVRMLElevationGrid::updateNormalCache(Binding & nbind)
 
     const int xdim = this->xDimension.getValue();
     const int zdim = this->zDimension.getValue();
-    if (xdim < 2 || zdim < 2) return NULL;
+    if (xdim < 2 || zdim < 2) return nullptr;
 
     const float * h = this->height.getValues(0);
 

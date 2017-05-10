@@ -100,11 +100,11 @@ ScXMLParallelEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDoc
     SoDebugError::post("ScXMLParallelEltReader::read",
                        "invalid XML attributes");
     delete parallel;
-    return NULL;
+    return nullptr;
   }
 
   const char * extref = parallel->getSrcAttribute();
-  if ((extref != NULL) && (extref[0] != '\0')) {
+  if ((extref != nullptr) && (extref[0] != '\0')) {
     SbString reference(extref);
     char * eltnameref = const_cast<char *>(strchr(reference.getString(), '#'));
     if (eltnameref) {
@@ -296,13 +296,13 @@ ScXMLParallelEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDoc
         SoDebugError::post("ScXMLParallelEltReader::read",
                            "<parallel> elements can only have one <onentry> element");
         delete parallel;
-        return NULL;
+        return nullptr;
       }
       ScXMLEltReader * onentryreader = ScXMLOnEntryElt::getElementReader();
       ScXMLElt * onentryobj = onentryreader->read(parallel, element, doc, sm);
       if (unlikely(!onentryobj)) {
         delete parallel;
-        return NULL;
+        return nullptr;
       }
       assert(onentryobj->isOfType(ScXMLOnEntryElt::getClassTypeId()));
       parallel->setOnEntry(static_cast<ScXMLOnEntryElt *>(onentryobj));
@@ -314,13 +314,13 @@ ScXMLParallelEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDoc
         SoDebugError::post("ScXMLParallelEltReader::read",
                            "<parallel> elements can only have one <onexit> element");
         delete parallel;
-        return NULL;
+        return nullptr;
       }
       ScXMLEltReader * onexitreader = ScXMLOnExitElt::getElementReader();
       ScXMLElt * onexitobj = onexitreader->read(parallel, element, doc, sm);
       if (unlikely(!onexitobj)) {
         delete parallel;
-        return NULL;
+        return nullptr;
       }
       assert(onexitobj->isOfType(ScXMLOnExitElt::getClassTypeId()));
       parallel->setOnExit(static_cast<ScXMLOnExitElt *>(onexitobj));
@@ -332,7 +332,7 @@ ScXMLParallelEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDoc
       ScXMLElt * transitionobj = transitionreader->read(parallel, element, doc, sm);
       if (unlikely(!transitionobj)) {
         delete parallel;
-        return NULL;
+        return nullptr;
       }
       assert(transitionobj->isOfType(ScXMLTransitionElt::getClassTypeId()));
       parallel->addTransition(static_cast<ScXMLTransitionElt *>(transitionobj));
@@ -344,13 +344,13 @@ ScXMLParallelEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDoc
         SoDebugError::post("ScXMLInitialEltReader::read",
                            "<parallel> elements can contain only one <initial> element");
         delete parallel;
-        return NULL;
+        return nullptr;
       }
       ScXMLEltReader * initialreader = ScXMLInitialElt::getElementReader();
       ScXMLElt * initialobj = initialreader->read(parallel, element, doc, sm);
       if (unlikely(!initialobj)) {
         delete parallel;
-        return NULL;
+        return nullptr;
       }
       assert(initialobj->isOfType(ScXMLInitialElt::getClassTypeId()));
       parallel->setInitial(static_cast<ScXMLInitialElt *>(initialobj));
@@ -362,7 +362,7 @@ ScXMLParallelEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDoc
       ScXMLElt * stateobj = statereader->read(parallel, element, doc, sm);
       if (unlikely(!stateobj)) {
         delete parallel;
-        return NULL;
+        return nullptr;
       }
       assert(stateobj->isOfType(ScXMLStateElt::getClassTypeId()));
       parallel->addState(static_cast<ScXMLStateElt *>(stateobj));
@@ -374,7 +374,7 @@ ScXMLParallelEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDoc
       ScXMLElt * parallelobj = parallelreader->read(parallel, element, doc, sm);
       if (unlikely(!parallelobj)) {
         delete parallel;
-        return NULL;
+        return nullptr;
       }
       assert(parallelobj->isOfType(ScXMLParallelElt::getClassTypeId()));
       parallel->addParallel(static_cast<ScXMLParallelElt *>(parallelobj));
@@ -386,7 +386,7 @@ ScXMLParallelEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDoc
       ScXMLElt * finalobj = finalreader->read(parallel, element, doc, sm);
       if (unlikely(!finalobj)) {
         delete parallel;
-        return NULL;
+        return nullptr;
       }
       assert(finalobj->isOfType(ScXMLFinalElt::getClassTypeId()));
       parallel->addFinal(static_cast<ScXMLFinalElt *>(finalobj));
@@ -398,7 +398,7 @@ ScXMLParallelEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDoc
       ScXMLElt * historyobj = historyreader->read(parallel, element, doc, sm);
       if (unlikely(!historyobj)) {
         delete parallel;
-        return NULL;
+        return nullptr;
       }
       assert(historyobj->isOfType(ScXMLHistoryElt::getClassTypeId()));
       parallel->addHistory(static_cast<ScXMLHistoryElt *>(historyobj));
@@ -410,7 +410,7 @@ ScXMLParallelEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDoc
       ScXMLElt * anchorobj = anchorreader->read(parallel, element, doc, sm);
       if (unlikely(!anchorobj)) {
         delete parallel;
-        return NULL;
+        return nullptr;
       }
       assert(anchorobj->isOfType(ScXMLAnchorElt::getClassTypeId()));
       parallel->addAnchor(static_cast<ScXMLAnchorElt *>(anchorobj));
@@ -422,13 +422,13 @@ ScXMLParallelEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDoc
         SoDebugError::post("ScXMLParallelEltReader::read",
                            "<parallel> elements can only have one <datamodel> element");
         delete parallel;
-        return NULL;
+        return nullptr;
       }
       ScXMLEltReader * datamodelreader = ScXMLDataModelElt::getElementReader();
       ScXMLElt * datamodelobj = datamodelreader->read(parallel, element, doc, sm);
       if (unlikely(!datamodelobj)) {
         delete parallel;
-        return NULL;
+        return nullptr;
       }
       assert(datamodelobj->isOfType(ScXMLDataModelElt::getClassTypeId()));
       parallel->setDataModel(static_cast<ScXMLDataModelElt *>(datamodelobj));
@@ -445,7 +445,7 @@ ScXMLParallelEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDoc
       } else {
         SoDebugError::post("ScXML::readFile", "error reading <%s> element", elementtype);
         delete state;
-        return NULL;
+        return nullptr;
       }
     }
 #endif
@@ -455,7 +455,7 @@ ScXMLParallelEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDoc
                          "unexpected XML element '<%s>' found in <parallel>",
                          elementtype);
       delete parallel;
-      return NULL;
+      return nullptr;
     }
   }
 
@@ -467,12 +467,12 @@ ScXMLParallelEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDoc
 class ScXMLParallelElt::PImpl {
 public:
   PImpl(void)
-  : onentryptr(NULL),
-    onexitptr(NULL),
-    initialptr(NULL),
-    datamodelptr(NULL),
-    invokeptr(NULL)
-    //srcref(NULL)
+  : onentryptr(nullptr),
+    onexitptr(nullptr),
+    initialptr(nullptr),
+    datamodelptr(nullptr),
+    invokeptr(nullptr)
+    //srcref(nullptr)
   {
   }
 
@@ -523,13 +523,13 @@ ScXMLParallelElt::cleanClass(void)
 }
 
 ScXMLParallelElt::ScXMLParallelElt(void)
-: src(NULL)
+: src(nullptr)
 {
 }
 
 ScXMLParallelElt::~ScXMLParallelElt(void)
 {
-  this->setSrcAttribute(NULL);
+  this->setSrcAttribute(nullptr);
 }
 
 void
@@ -539,7 +539,7 @@ ScXMLParallelElt::setSrcAttribute(const char * srcstr)
     // FIXME: remove externally sources states?
   }
   SCXML__SET_ATTRIBUTE_VALUE(this->src, "src", srcstr);
-  if ((this->src != NULL) && (strcmp(this->src, "") != 0)) {
+  if ((this->src != nullptr) && (strcmp(this->src, "") != 0)) {
     // FIXME: scan string for #
     // FIXME: load externally referenced states
   }
@@ -715,7 +715,7 @@ ScXMLParallelElt::search(const char * attrname, const char * attrvalue) const
       return hit;
     }
   }
-  return NULL;
+  return nullptr;
 }
 
 SCXML_SINGLE_OBJECT_API_IMPL(ScXMLParallelElt, ScXMLOnEntryElt, PRIVATE(this)->onentryptr, OnEntry);
@@ -749,7 +749,7 @@ ScXMLParallelElt::isAtomicState(void) const
 {
   return ((PRIVATE(this)->statelist.size() == 0) &&
           (PRIVATE(this)->parallellist.size() == 0) &&
-          (PRIVATE(this)->invokeptr.get() != NULL));
+          (PRIVATE(this)->invokeptr.get() != nullptr));
 }
 
 #undef PRIVATE

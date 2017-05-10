@@ -109,7 +109,7 @@ make_dither_matrix(uint32_t * ptr, int size)
   int currsize = 2;
 
   uint32_t * currmatrix = two_by_two;
-  uint32_t * nextmatrix = NULL;
+  uint32_t * nextmatrix = nullptr;
   int nextsize;
 
   while (currsize < size) {
@@ -397,12 +397,12 @@ SoGLLazyElement::init(SoState * stateptr)
   this->glstate.diffuse = 0xccccccff;
   this->glstate.diffusenodeid = 0;
   this->glstate.transpnodeid = 0;
-  this->packedpointer = NULL;
+  this->packedpointer = nullptr;
   // when doing screen door rendering, we need to always supply 0xff as alpha.
   this->transpmask = (this->coinstate.transptype == SoGLRenderAction::SCREEN_DOOR) ? 0xff : 0x00;
-  this->colorpacker = NULL;
-  this->precachestate = NULL;
-  this->postcachestate = NULL;
+  this->colorpacker = nullptr;
+  this->precachestate = nullptr;
+  this->postcachestate = nullptr;
   this->opencacheflags = 0;
 
   // initialize this here to avoid UMR reports from
@@ -840,7 +840,7 @@ SoGLLazyElement::setPackedElt(SoNode * node, int32_t numcolors,
                               const uint32_t * colors, const bool packedtransparency)
 {
   inherited::setPackedElt(node, numcolors, colors, packedtransparency);
-  this->colorpacker = NULL;
+  this->colorpacker = nullptr;
   this->packedpointer = colors;
 }
 
@@ -1022,8 +1022,8 @@ SoGLLazyElement::endCaching(SoState * state)
     elem->precachestate->cachebitmask |= DIFFUSE_MASK;
   }
 
-  elem->precachestate = NULL;
-  elem->postcachestate = NULL;
+  elem->precachestate = nullptr;
+  elem->postcachestate = nullptr;
   elem->opencacheflags = 0;
 }
 

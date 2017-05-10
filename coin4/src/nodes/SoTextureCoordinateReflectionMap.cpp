@@ -68,7 +68,7 @@ public:
   static void cleanup_func(void);
 };
 
-SbVec4f * SoTextureCoordinateReflectionMapP::dummy_texcoords = NULL;
+SbVec4f * SoTextureCoordinateReflectionMapP::dummy_texcoords = nullptr;
 
 void
 SoTextureCoordinateReflectionMapP::cleanup_func(void)

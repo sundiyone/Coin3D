@@ -49,14 +49,14 @@ public:
   int getMaterialIndex() const;
   SoPath *getPath() const;
   bool isOnGeometry() const;
-  const SoDetail *getDetail(const SoNode * const node = NULL) const;
-  const SbMatrix &getObjectToWorld(const SoNode * const node = NULL) const;
-  const SbMatrix &getWorldToObject(const SoNode * const node = NULL) const;
-  const SbMatrix &getObjectToImage(const SoNode * const node = NULL) const;
-  const SbMatrix &getImageToObject(const SoNode * const node = NULL) const;
-  SbVec3f getObjectPoint(const SoNode * const node = NULL) const;
-  SbVec3f getObjectNormal(const SoNode * const node = NULL) const;
-  SbVec4f getObjectTextureCoords(const SoNode * const node = NULL) const;
+  const SoDetail *getDetail(const SoNode * const node = nullptr) const;
+  const SbMatrix &getObjectToWorld(const SoNode * const node = nullptr) const;
+  const SbMatrix &getWorldToObject(const SoNode * const node = nullptr) const;
+  const SbMatrix &getObjectToImage(const SoNode * const node = nullptr) const;
+  const SbMatrix &getImageToObject(const SoNode * const node = nullptr) const;
+  SbVec3f getObjectPoint(const SoNode * const node = nullptr) const;
+  SbVec3f getObjectNormal(const SoNode * const node = nullptr) const;
+  SbVec4f getObjectTextureCoords(const SoNode * const node = nullptr) const;
 
   void setObjectNormal(const SbVec3f &normal);
   void setObjectTextureCoords(const SbVec4f &texCoords);

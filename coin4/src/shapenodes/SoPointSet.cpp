@@ -212,7 +212,7 @@ SoPointSet::GLRender(SoGLRenderAction * action)
   SoVertexShape::getVertexData(state, tmp, normals,
                                needNormals);
 
-  if (normals == NULL && needNormals) {
+  if (normals == nullptr && needNormals) {
     needNormals = false;
     if (!didpush) {
       state->push();
@@ -247,7 +247,7 @@ SoPointSet::GLRender(SoGLRenderAction * action)
   
   if (dova && (mbind == PER_VERTEX)) {
     const SoGLVBOElement * vboelem = SoGLVBOElement::getInstance(state);
-    if (vboelem->getColorVBO() == NULL) {
+    if (vboelem->getColorVBO() == nullptr) {
       dova = false;
       // we might be able to do VA-rendering, but need to check the
       // diffuse color type first.
@@ -261,7 +261,7 @@ SoPointSet::GLRender(SoGLRenderAction * action)
   if (dova) {
     bool vbo = this->startVertexArray(action,
                                         coords,
-                                        (needNormals && (nbind != OVERALL)) ? normals : NULL,
+                                        (needNormals && (nbind != OVERALL)) ? normals : nullptr,
                                         doTextures,
                                         mbind == PER_VERTEX);
     didrenderasvbo = vbo;
@@ -273,9 +273,9 @@ SoPointSet::GLRender(SoGLRenderAction * action)
   }
   else {
     sogl_render_pointset(coords,
-                         nbind != OVERALL ? normals : NULL,
-                         mbind != OVERALL ? &mb : NULL,
-                         doTextures ? &tb : NULL,
+                         nbind != OVERALL ? normals : nullptr,
+                         mbind != OVERALL ? &mb : nullptr,
+                         doTextures ? &tb : nullptr,
                          numpts, idx);
   }
   if (didpush) 
@@ -293,7 +293,7 @@ SoPointSet::generateDefaultNormals(SoState *, SoNormalCache * nc)
 {
   // Overridden to clear normal cache, as it's not possible to
   // generate a normal for a point.
-  nc->set(0, NULL);
+  nc->set(0, nullptr);
   return true;
 }
 
@@ -323,7 +323,7 @@ SoPointSet::getPrimitiveCount(SoGetPrimitiveCountAction *action)
     SoNode *vpnode = this->vertexProperty.getValue();
     SoVertexProperty *vp = 
       (vpnode && vpnode->isOfType(SoVertexProperty::getClassTypeId())) ?
-      (SoVertexProperty *)vpnode : NULL;
+      (SoVertexProperty *)vpnode : nullptr;
     if (vp && vp->vertex.getNum()) {
       num = vp->vertex.getNum() - this->startIndex.getValue();
     }
@@ -358,7 +358,7 @@ SoPointSet::generatePrimitives(SoAction *action)
   SoVertexShape::getVertexData(action->getState(), coords, normals,
                                needNormals);
 
-  if (normals == NULL) needNormals = false;
+  if (normals == nullptr) needNormals = false;
 
   SoTextureCoordinateBundle tb(action, false, false);
   doTextures = tb.needCoordinates();

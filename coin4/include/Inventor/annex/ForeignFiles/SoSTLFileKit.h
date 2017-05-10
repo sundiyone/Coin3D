@@ -61,10 +61,10 @@ public:
   SoSFEnum colorization;
 
   static bool identify(const char * filename);
-  virtual bool canReadFile(const char * filename = NULL) const;
+  virtual bool canReadFile(const char * filename = nullptr) const;
   virtual bool readFile(const char * filename);
 
-  virtual bool canWriteFile(const char * filename = NULL) const;
+  virtual bool canWriteFile(const char * filename = nullptr) const;
   virtual bool writeFile(const char * filename);
 
 

@@ -45,7 +45,7 @@ class COIN_DLL_API SoGLImage {
 public:
 
   SoGLImage();
-  virtual void unref(SoState * state = NULL);
+  virtual void unref(SoState * state = nullptr);
 
   static SoType getClassTypeId(void);
   virtual SoType getTypeId(void) const ;
@@ -90,7 +90,7 @@ public:
                const Wrap wrapt = REPEAT,
                const float quality = 0.5f,
                const int border = 0,
-               SoState * createinstate = NULL);
+               SoState * createinstate = nullptr);
 
   void setData(const unsigned char * bytes,
                const SbVec3s & size,
@@ -100,14 +100,14 @@ public:
                const Wrap wrapr = REPEAT,
                const float quality = 0.5f,
                const int border = 0,
-               SoState * createinstate = NULL);
+               SoState * createinstate = nullptr);
 
   virtual void setData(const SbImage * image,
                        const Wrap wraps = REPEAT,
                        const Wrap wrapt = REPEAT,
                        const float quality = 0.5f,
                        const int border = 0,
-                       SoState * createinstate = NULL);
+                       SoState * createinstate = nullptr);
 
   virtual void setData(const SbImage * image,
                        const Wrap wraps,
@@ -115,7 +115,7 @@ public:
                        const Wrap wrapr,
                        const float quality = 0.5f,
                        const int border = 0,
-                       SoState * createinstate = NULL);
+                       SoState * createinstate = nullptr);
 
   // these flags can be used to set texture properties.
   enum Flags {
@@ -179,7 +179,7 @@ public:
   static void tagImage(SoState * state, SoGLImage * image);
   static void endFrame(SoState * state);
   static void setDisplayListMaxAge(const uint32_t maxage);
-  static void freeAllImages(SoState * state = NULL);
+  static void freeAllImages(SoState * state = nullptr);
 
   void setEndFrameCallback(void (*cb)(void *), void * closure);
   int getNumFramesSinceUsed(void) const;

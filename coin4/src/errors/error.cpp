@@ -49,11 +49,11 @@ extern "C" {
 #endif /* __cplusplus */
 
 #ifdef COIN_THREADSAFE
-static cc_mutex * cc_error_mutex = NULL;
+static cc_mutex * cc_error_mutex = nullptr;
 static void cc_error_mutex_cleanup(void) {
   if (cc_error_mutex) {
     cc_mutex_destruct(cc_error_mutex);
-    cc_error_mutex = NULL;
+    cc_error_mutex = nullptr;
   }
 }
 #endif /* COIN_THREADSAFE */
@@ -78,14 +78,14 @@ cc_error_default_handler_cb(const cc_error * err, void * COIN_UNUSED_ARG(data))
 }
 
 static cc_error_cb * cc_error_callback = cc_error_default_handler_cb;
-static void * cc_error_callback_data = NULL;
+static void * cc_error_callback_data = nullptr;
 static bool cc_error_cleanup_function_set = false;
 
 static void
 cc_error_cleanup(void)
 {
   cc_error_callback = cc_error_default_handler_cb;
-  cc_error_callback_data = NULL;
+  cc_error_callback_data = nullptr;
   cc_error_cleanup_function_set = false;
 }
 
@@ -122,10 +122,10 @@ cc_error_append_to_debug_string(cc_error * me, const char * str)
 void
 cc_error_handle(cc_error * me)
 {
-  void * arg = NULL;
+  void * arg = nullptr;
 
   cc_error_cb * function = cc_error_get_handler(&arg);
-  assert(function != NULL);
+  assert(function != nullptr);
 
 #ifdef COIN_THREADSAFE
   if (!cc_error_mutex) {
@@ -134,7 +134,7 @@ cc_error_handle(cc_error * me)
        e.g. SoDebugError::post*() will hang if it happens within a
        region where the global lock is already taken. 20050708 mortene.*/
     cc_mutex_global_lock();
-    if (cc_error_mutex == NULL) {
+    if (cc_error_mutex == nullptr) {
       cc_error_mutex = cc_mutex_construct();
       coin_atexit(cc_error_mutex_cleanup, CC_ATEXIT_MSG_SUBSYSTEM);
     }

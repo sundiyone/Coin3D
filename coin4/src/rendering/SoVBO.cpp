@@ -68,7 +68,7 @@ static SbHash<uint32_t, bool> * vbo_isfast_hash;
 SoVBO::SoVBO(const GLenum target, const GLenum usage)
   : target(target),
     usage(usage),
-    data(NULL),
+    data(nullptr),
     datasize(0),
     dataid(0),
     didalloc(false),
@@ -117,7 +117,7 @@ SoVBO::~SoVBO()
 static void vbo_atexit_cleanup(void)
 {
   delete vbo_isfast_hash;
-  vbo_isfast_hash = NULL;
+  vbo_isfast_hash = nullptr;
   vbo_vertex_count_min_limit = -1;
   vbo_vertex_count_max_limit = -1;
   vbo_render_as_vertex_arrays = -1;
@@ -127,7 +127,7 @@ static void vbo_atexit_cleanup(void)
 void
 SoVBO::init(void)
 {
-  coin_glglue_add_instance_created_callback(context_created, NULL);
+  coin_glglue_add_instance_created_callback(context_created, nullptr);
 
   vbo_isfast_hash = new SbHash<uint32_t, bool> (3);
   coin_atexit(vbo_atexit_cleanup, CC_ATEXIT_NORMAL);
@@ -288,7 +288,7 @@ SoVBO::getBufferData(const GLvoid *& data, intptr_t & size)
 void
 SoVBO::bindBuffer(uint32_t contextid)
 {
-  if ((this->data == NULL) ||
+  if ((this->data == nullptr) ||
       (this->datasize == 0)) {
     assert(0 && "no data in buffer");
     return;
@@ -411,7 +411,7 @@ bool
 SoVBO::isVBOFast(const uint32_t contextid)
 {
   bool result = true;
-  assert(vbo_isfast_hash != NULL);
+  assert(vbo_isfast_hash != nullptr);
   (void) vbo_isfast_hash->get(contextid, result);
   return result;
 }
@@ -433,7 +433,7 @@ SoVBO::testGLPerformance(const uint32_t contextid)
 {
   bool isfast;
   // did we alreay test this for this context?
-  assert(vbo_isfast_hash != NULL);
+  assert(vbo_isfast_hash != nullptr);
   if (vbo_isfast_hash->get(contextid, isfast)) return;
 
   // Run time test disabled. Our old test seemed to be buggy, and

@@ -99,7 +99,7 @@ public:
   class dldata {
   public:
     dldata(void)
-      : dlist(NULL), age(0) { }
+      : dlist(nullptr), age(0) { }
     dldata(SoGLDisplayList *dl)
       : dlist(dl),
         age(0) { }
@@ -118,7 +118,7 @@ public:
       dl = this->dlists[i].dlist;
       if (dl->getContext() == currcontext) return dl;
     }
-    return NULL;
+    return nullptr;
   }
 
   SbList <dldata> dlists;
@@ -151,7 +151,7 @@ public:
 
     while (i < n) {
       if (thisp->dlists[i].dlist->getContext() == (int) context) {
-        thisp->dlists[i].dlist->unref(NULL);
+        thisp->dlists[i].dlist->unref(nullptr);
         thisp->dlists.remove(i);
         n--;
       }
@@ -163,7 +163,7 @@ public:
 
 SoType SoGLCubeMapImageP::classTypeId STATIC_SOTYPE_INIT;
 #ifdef COIN_THREADSAFE
-SbMutex * SoGLCubeMapImageP::mutex = NULL;
+SbMutex * SoGLCubeMapImageP::mutex = nullptr;
 #endif // !COIN_THREADSAFE
 
 #define PRIVATE(obj) (obj->pimpl)
@@ -222,7 +222,7 @@ SoGLCubeMapImage::cleanupClass(void)
 {
 #ifdef COIN_THREADSAFE
   delete SoGLCubeMapImageP::mutex;
-  SoGLCubeMapImageP::mutex = NULL;
+  SoGLCubeMapImageP::mutex = nullptr;
 #endif // COIN_THREADSAFE
   SoGLCubeMapImageP::classTypeId STATIC_SOTYPE_INIT;
 }
@@ -254,7 +254,7 @@ SoGLCubeMapImage::setCubeMapImage(const Target target,
 
   PRIVATE(this)->lock();
   for (int i = 0; i < PRIVATE(this)->dlists.getLength(); i++) {
-    PRIVATE(this)->dlists[i].dlist->unref(NULL);
+    PRIVATE(this)->dlists[i].dlist->unref(nullptr);
   }
   PRIVATE(this)->dlists.truncate(0);
   PRIVATE(this)->unlock();
@@ -264,7 +264,7 @@ SoGLCubeMapImage::setCubeMapImage(const Target target,
   if (bytes) {
     this->SoGLImage::setData(bytes, size, numcomponents,
                              CLAMP_TO_EDGE, CLAMP_TO_EDGE,
-                             0.9f, 0, NULL);
+                             0.9f, 0, nullptr);
   }
 }
 

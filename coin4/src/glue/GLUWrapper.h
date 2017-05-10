@@ -107,7 +107,7 @@ typedef struct {
                                unsigned int release);
 
   /* 
-     GLU calls which might be used. Note that any of these can be NULL
+     GLU calls which might be used. Note that any of these can be nullptr
      pointers if the function is not available, unless marked as being
      always available. (That is, as long as GLU itself is available.)
   */

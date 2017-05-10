@@ -138,9 +138,9 @@ sogl_render_cone(const float radius,
                  const unsigned int flagsin,
                  SoState * state)
 {
-  const bool * unitenabled = NULL;
+  const bool * unitenabled = nullptr;
   int maxunit = 0;
-  const cc_glglue * glue = NULL;
+  const cc_glglue * glue = nullptr;
 
   int flags = flagsin;
 
@@ -308,9 +308,9 @@ sogl_render_cylinder(const float radius,
                      const unsigned int flagsin,
                      SoState * state)
 {
-  const bool * unitenabled = NULL;
+  const bool * unitenabled = nullptr;
   int maxunit = 0;
-  const cc_glglue * glue = NULL;
+  const cc_glglue * glue = nullptr;
 
   int flags = flagsin;
 
@@ -482,9 +482,9 @@ sogl_render_sphere(const float radius,
                    const unsigned int flagsin,
                    SoState * state)
 {
-  const bool * unitenabled = NULL;
+  const bool * unitenabled = nullptr;
   int maxunit = 0;
-  const cc_glglue * glue = NULL;
+  const cc_glglue * glue = nullptr;
 
   unsigned int flags = flagsin;
 
@@ -794,9 +794,9 @@ sogl_render_cube(const float width,
                  const unsigned int flagsin,
                  SoState * state)
 {
-  const bool * unitenabled = NULL;
+  const bool * unitenabled = nullptr;
   int maxunit = 0;
-  const cc_glglue * glue = NULL;
+  const cc_glglue * glue = nullptr;
 
   int flags = flagsin;
 
@@ -882,8 +882,8 @@ namespace { namespace SoGL { namespace IndexedLineSet {
                        const int32_t *texindices,
                        const int drawAsPoints)
   {
-    const SbVec3f * coords3d = NULL;
-    const SbVec4f * coords4d = NULL;
+    const SbVec3f * coords3d = nullptr;
+    const SbVec4f * coords4d = nullptr;
     const bool is3d = coords->is3D();
     if (is3d) {
       coords3d = coords->getArrayPtr3();
@@ -900,10 +900,10 @@ namespace { namespace SoGL { namespace IndexedLineSet {
     else glVertex4fv((const GLfloat*) (coords4d + _idx_));
 
     if ((AttributeBinding)MaterialBinding == PER_VERTEX_INDEXED) {
-      if (matindices == NULL) matindices = indices;
+      if (matindices == nullptr) matindices = indices;
     }
     if ((AttributeBinding)NormalBinding == PER_VERTEX_INDEXED) {
-      if (normindices == NULL) normindices = indices;
+      if (normindices == nullptr) normindices = indices;
     }
 
     int matnr = 0;
@@ -1270,13 +1270,13 @@ namespace { namespace SoGL { namespace FaceSet {
   {
 
     // just in case someone forgot
-    if (matindices == NULL) matindices = vertexindices;
-    if (normalindices == NULL) normalindices = vertexindices;
+    if (matindices == nullptr) matindices = vertexindices;
+    if (normalindices == nullptr) normalindices = vertexindices;
 
     int texidx = 0;
 
-    const SbVec3f * coords3d = NULL;
-    const SbVec4f * coords4d = NULL;
+    const SbVec3f * coords3d = nullptr;
+    const SbVec4f * coords4d = nullptr;
     const bool is3d = vertexlist->is3D();
     if (is3d) {
       coords3d = vertexlist->getArrayPtr3();
@@ -1786,8 +1786,8 @@ namespace { namespace SoGL { namespace TriStripSet {
   {
 
     // just in case someone forgot...
-    if (matindices == NULL) matindices = vertexindices;
-    if (normalindices == NULL) normalindices = vertexindices;
+    if (matindices == nullptr) matindices = vertexindices;
+    if (normalindices == nullptr) normalindices = vertexindices;
 
     int texidx = 0;
     const int32_t *viptr = vertexindices;
@@ -1796,8 +1796,8 @@ namespace { namespace SoGL { namespace TriStripSet {
     int32_t v1, v2, v3;
     int numverts = vertexlist->getNum();
 
-    const SbVec3f * coords3d = NULL;
-    const SbVec4f * coords4d = NULL;
+    const SbVec3f * coords3d = nullptr;
+    const SbVec4f * coords4d = nullptr;
     const bool is3d = vertexlist->is3D();
     if (is3d) {
       coords3d = vertexlist->getArrayPtr3();
@@ -1818,7 +1818,7 @@ namespace { namespace SoGL { namespace TriStripSet {
         (AttributeBinding)NormalBinding == PER_VERTEX_INDEXED ||
         (AttributeBinding)NormalBinding == PER_TRIANGLE_INDEXED ||
         (AttributeBinding)NormalBinding == PER_STRIP_INDEXED) {
-      assert(normals && "Aborting rendering of tristrip; got NULL normals");
+      assert(normals && "Aborting rendering of tristrip; got nullptr normals");
     }
 
     SbVec3f dummynormal(0.0f, 0.0f, 1.0f);
@@ -2403,15 +2403,15 @@ sogl_autocache_update(SoState * state, const int numprimitives, bool didusevbo)
 
 // **************************************************************************
 
-static SoOffscreenRenderer * offscreenrenderer = NULL;
-static SoCallback * offscreencallback = NULL;
+static SoOffscreenRenderer * offscreenrenderer = nullptr;
+static SoCallback * offscreencallback = nullptr;
 
 static void offscreenrenderer_cleanup(void)
 {
   offscreencallback->unref();
   delete offscreenrenderer;
-  offscreenrenderer = NULL;
-  offscreencallback = NULL;
+  offscreenrenderer = nullptr;
+  offscreencallback = nullptr;
 }
 
 // This is really obsoleted now that we have
@@ -2431,7 +2431,7 @@ void
 sogl_offscreencontext_callback(void (*cb)(void *, SoAction*),
                                void * closure)
 {
-  if (offscreenrenderer == NULL) {
+  if (offscreenrenderer == nullptr) {
     offscreenrenderer = new SoOffscreenRenderer(SbViewportRegion(32, 32));
     offscreencallback = new SoCallback;
     offscreencallback->ref();

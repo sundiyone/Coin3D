@@ -123,8 +123,8 @@ SoSearchAction::initClass(void)
 */
 SoSearchAction::SoSearchAction(void)
   : lookfor(0), interest(FIRST), searchall(false),
-    node(NULL), type(SoType::badType()), name(""),
-    path(NULL) // paths(0)
+    node(nullptr), type(SoType::badType()), name(""),
+    path(nullptr) // paths(0)
 {
   SO_ACTION_CONSTRUCTOR(SoSearchAction);
 }
@@ -296,7 +296,7 @@ SoSearchAction::isSearchingAll(void) const
 
 /*!
   Returns the path to the node of interest that matched the search
-  criterions. If no match was found, \c NULL is returned.
+  criterions. If no match was found, \c nullptr is returned.
 
   Note that if \c ALL matches are of interest, the result of a search
   action must be fetched through SoSearchAction::getPaths().
@@ -349,11 +349,11 @@ SoSearchAction::reset(void)
   this->interest = SoSearchAction::FIRST;
   this->searchall = false;
   this->chkderived = true;
-  this->node = NULL;
+  this->node = nullptr;
   this->type = SoType::badType();
   this->name = SbName::empty();
   if (this->path) this->path->unref();
-  this->path = NULL;
+  this->path = nullptr;
   this->paths.truncate(0);
 }
 
@@ -397,7 +397,7 @@ SoSearchAction::addPath(SoPath * const pathptr)
 
   switch (this->interest) {
   case FIRST:
-    assert(! this->path); // should be NULL
+    assert(! this->path); // should be nullptr
     this->path = pathptr;
     this->path->ref();
     this->setFound();
@@ -429,7 +429,7 @@ SoSearchAction::beginTraversal(SoNode * nodeptr)
 {
   this->paths.truncate(0);
   if (this->path) this->path->unref();
-  this->path = NULL;
+  this->path = nullptr;
 
   // For compatibility with older application code which is using the
   // now obsoleted 'duringSearchAll' flag.

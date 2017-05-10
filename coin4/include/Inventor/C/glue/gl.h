@@ -641,7 +641,7 @@ typedef struct cc_glglue_offscreen_cb_functions {
     void (*destruct)(cc_glglue_offscreen_data context);
 } cc_glglue_offscreen_cb_functions; 
 
-/* Set callback functions for external offscreen rendering. Pass NULL 
+/* Set callback functions for external offscreen rendering. Pass nullptr 
    to restore default, built-in offscreen rendering. 
  */
 COIN_DLL_API void cc_glglue_context_set_offscreen_cb_functions(cc_glglue_offscreen_cb_functions* p);

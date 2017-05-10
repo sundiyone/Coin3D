@@ -45,7 +45,7 @@
     exposedField SFFloat  minBack       1       # [0,inf)
     exposedField SFFloat  minFront      1       # [0,inf)
     exposedField SFFloat  priority      0       # [0,1]
-    exposedField SFNode   source        NULL
+    exposedField SFNode   source        nullptr
     field        SFBool   spatialize    true
   }
   \endverbatim
@@ -365,7 +365,7 @@ SoVRMLSound::SoVRMLSound(void)
 
   SO_VRMLNODE_INTERNAL_CONSTRUCTOR(SoVRMLSound);
 
-  SO_VRMLNODE_ADD_EXPOSED_FIELD(source, (NULL));
+  SO_VRMLNODE_ADD_EXPOSED_FIELD(source, (nullptr));
   SO_VRMLNODE_ADD_EXPOSED_FIELD(intensity, (1.0f));
   SO_VRMLNODE_ADD_EXPOSED_FIELD(priority, (0.0f));
   SO_VRMLNODE_ADD_EXPOSED_FIELD(location, (0.0f, 0.0f, 0.0f));
@@ -383,12 +383,12 @@ SoVRMLSound::SoVRMLSound(void)
   // because spatialize defaults to true
   // and OpenAL only spatializes mono buffers
 
-  PRIVATE(this)->currentAudioClip = NULL;
+  PRIVATE(this)->currentAudioClip = nullptr;
   PRIVATE(this)->playing = false;
   PRIVATE(this)->endoffile = false;
   PRIVATE(this)->waitingForAudioClipToFinish = false;
 
-  PRIVATE(this)->timersensor = NULL;
+  PRIVATE(this)->timersensor = nullptr;
 #ifdef HAVE_THREADS
   /* FIXME: Let the user override use of timer callback with an
      environment variable. 2003-01-16 thammer.  */
@@ -406,11 +406,11 @@ SoVRMLSound::SoVRMLSound(void)
   PRIVATE(this)->sourcesensor->attach(&this->source);
 
 #ifdef HAVE_THREADS
-  PRIVATE(this)->workerThread = NULL;
+  PRIVATE(this)->workerThread = nullptr;
 #endif
   PRIVATE(this)->exitthread = false;
   PRIVATE(this)->errorInThread = false;
-  PRIVATE(this)->audioBuffer = NULL;
+  PRIVATE(this)->audioBuffer = nullptr;
   PRIVATE(this)->bufferLength = 0;
 
   this->setBufferingProperties(SoVRMLSoundP::defaultBufferLength,
@@ -419,7 +419,7 @@ SoVRMLSound::SoVRMLSound(void)
 
   PRIVATE(this)->sourceId = 0;
 
-  PRIVATE(this)->cliphandle = NULL;
+  PRIVATE(this)->cliphandle = nullptr;
 
   static bool warningprintedonce = false;
 
@@ -517,11 +517,11 @@ SoVRMLSound::~SoVRMLSound(void)
 
   PRIVATE(this)->stopPlaying();
 
-  if (PRIVATE(this)->currentAudioClip != NULL)
+  if (PRIVATE(this)->currentAudioClip != nullptr)
     PRIVATE(this)->currentAudioClip->unref();
-  PRIVATE(this)->currentAudioClip = NULL;
+  PRIVATE(this)->currentAudioClip = nullptr;
 
-  if (PRIVATE(this)->audioBuffer != NULL)
+  if (PRIVATE(this)->audioBuffer != nullptr)
     delete[] PRIVATE(this)->audioBuffer;
 
 #ifdef HAVE_SOUND
@@ -683,7 +683,7 @@ void SoVRMLSound::audioRender(SoAudioRenderAction *action)
   if (!SoAudioDevice::instance()->haveSound())
     return;
 
-  if (PRIVATE(this)->currentAudioClip == NULL)
+  if (PRIVATE(this)->currentAudioClip == nullptr)
     return;
 
   SoSFBool * isActiveField = (SoSFBool *)PRIVATE(this)->currentAudioClip->getField("isActive");
@@ -1121,7 +1121,7 @@ SoVRMLSoundP::threadCallback()
     this->exitthreadmutex.unlock();
 #endif
   }
-  return NULL;
+  return nullptr;
 }
 
 void
@@ -1151,7 +1151,7 @@ bool SoVRMLSoundP::stopPlaying()
     if (this->timersensor->isScheduled())
       this->timersensor->unschedule();
     delete this->timersensor;
-    this->timersensor = NULL;
+    this->timersensor = nullptr;
   }
 
   /* FIXME: joining with workerThread will normally cause a lag of
@@ -1159,15 +1159,15 @@ bool SoVRMLSoundP::stopPlaying()
 
   // stop thread
 #ifdef HAVE_THREADS
-  if (this->workerThread!=NULL) {
+  if (this->workerThread!=nullptr) {
     this->exitthreadmutex.lock();
     this->exitthread = true;
     this->exitthreadcondvar.wakeAll();
     this->exitthreadmutex.unlock();
-    void *retval = NULL;
+    void *retval = nullptr;
     cc_thread_join(this->workerThread, &retval);
     cc_thread_destruct(this->workerThread);
-    this->workerThread = NULL;
+    this->workerThread = nullptr;
   }
 #endif // HAVE_THREADS
 
@@ -1238,7 +1238,7 @@ bool SoVRMLSoundP::stopPlaying()
      unqueues only processed buffers).
 
      So, we try explisitly setting the AL_BUFFER source attribute to
-     NULL, which is legal according to the OpenAL documentation (and
+     nullptr, which is legal according to the OpenAL documentation (and
      also redundant, wrt alSourceUnqueueBuffers according to the same
      documentation).
 
@@ -1308,7 +1308,7 @@ bool SoVRMLSoundP::startPlaying()
   this->playing = true;
   this->endoffile = false;
   this->waitingForAudioClipToFinish = false;
-  this->cliphandle = NULL;
+  this->cliphandle = nullptr;
 
   // Start timer or thread
   if (this->useTimerCallback) {
@@ -1317,7 +1317,7 @@ bool SoVRMLSoundP::startPlaying()
       if (this->timersensor->isScheduled())
         this->timersensor->unschedule();
       delete this->timersensor;
-      this->timersensor = NULL;
+      this->timersensor = nullptr;
     }
     this->errorInThread = false;
     // start new timer
@@ -1328,7 +1328,7 @@ bool SoVRMLSoundP::startPlaying()
   else {
     // stop existing thread, start new thread
 #ifdef HAVE_THREADS
-    if (this->workerThread!=NULL) {
+    if (this->workerThread!=nullptr) {
       /* FIXME: Verify that this will actually happen sometimes. Also
          verify that it is indeed necessary to stop and start the
          thread. 2003-01-20 thammer. */
@@ -1336,10 +1336,10 @@ bool SoVRMLSoundP::startPlaying()
       this->exitthread = true;
       this->exitthreadcondvar.wakeAll();
       this->exitthreadmutex.unlock();
-      void *retval = NULL;
+      void *retval = nullptr;
       cc_thread_join(this->workerThread, &retval);
       cc_thread_destruct(this->workerThread);
-      this->workerThread = NULL;
+      this->workerThread = nullptr;
     }
 
     this->workerThreadSleepTime = this->sleepTime;
@@ -1362,7 +1362,7 @@ void SoVRMLSoundP::fillBuffers()
   SbThreadAutoLock autoLock(&this->syncmutex);
 #endif
 
-  assert(this->currentAudioClip != NULL);
+  assert(this->currentAudioClip != nullptr);
   assert(this->hasValidAlSource());
 
   if (this->waitingForAudioClipToFinish) {
@@ -1396,7 +1396,7 @@ void SoVRMLSoundP::fillBuffers()
   // 20021021 thammer, kept for debugging purposes
   if (queued<=0) {
     // no buffers were queued, so there's nothing to do. This should
-    // only happen after audioclip::fillBuffer() returns NULL to
+    // only happen after audioclip::fillBuffer() returns nullptr to
     // indicate an EOF, and sound::fillBuffers() does not queue new
     // buffers after that
     #if COIN_DEBUG && DEBUG_AUDIO // debug
@@ -1420,7 +1420,7 @@ void SoVRMLSoundP::fillBuffers()
       // inform currentAudioClip() that the last buffer has been played,
       // so it can decide if it would like to stop playing
       int numchannels;
-      ret = this->currentAudioClip->read(this->cliphandle, NULL, 0, 
+      ret = this->currentAudioClip->read(this->cliphandle, nullptr, 0, 
                                          numchannels);
       assert (ret == 0); // or else the AudioClip isn't performing as it should
     }
@@ -1622,7 +1622,7 @@ void
 SoVRMLSoundP::sourceSensorCBWrapper(void * data, SoSensor *)
 {
   SoVRMLSoundP * thisp = (SoVRMLSoundP*) data;
-  thisp->sourceSensorCB(NULL);
+  thisp->sourceSensorCB(nullptr);
 }
 
 //
@@ -1644,7 +1644,7 @@ SoVRMLSoundP::sourceSensorCB(SoSensor *)
   if (!node->isOfType(SoVRMLAudioClip::getClassTypeId())) {
     SoDebugError::postWarning("SoVRMLSoundP::sourceSensorCB",
                               "Unknown source node type");
-    if (this->currentAudioClip != NULL) {
+    if (this->currentAudioClip != nullptr) {
       this->currentAudioClip->unref();
 #ifdef HAVE_THREADS
       this->syncmutex.unlock();
@@ -1654,15 +1654,15 @@ SoVRMLSoundP::sourceSensorCB(SoSensor *)
       this->syncmutex.lock();
 #endif
     }
-    this->currentAudioClip = NULL;
+    this->currentAudioClip = nullptr;
     return;
   }
 
   SoVRMLAudioClip *audioClip = (SoVRMLAudioClip *)node;
   if (audioClip != this->currentAudioClip) {
-    if (this->currentAudioClip != NULL) {
+    if (this->currentAudioClip != nullptr) {
       this->currentAudioClip->unref();
-      this->currentAudioClip = NULL;
+      this->currentAudioClip = nullptr;
 #ifdef HAVE_THREADS
       this->syncmutex.unlock();
 #endif
@@ -1671,12 +1671,12 @@ SoVRMLSoundP::sourceSensorCB(SoSensor *)
       this->syncmutex.lock();
 #endif
     }
-    if (audioClip!=NULL)
+    if (audioClip!=nullptr)
       audioClip->ref();
     this->currentAudioClip = audioClip;
   }
 
-  if (this->currentAudioClip == NULL)
+  if (this->currentAudioClip == nullptr)
     return;
 
   SoSFBool * isActiveField =

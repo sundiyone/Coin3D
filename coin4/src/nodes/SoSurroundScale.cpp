@@ -78,7 +78,7 @@
   main(int argc, char **argv)
   {
     QWidget * window = SoQt::init(argv[0]);
-    if (window == NULL) exit(1);
+    if (window == nullptr) exit(1);
 
     SoSeparator * root = new SoSeparator;
     root->ref();
@@ -407,7 +407,7 @@ SoSurroundScale::updateMySurroundParams(SoAction * action,
   SoPath * applypath = curpath->copy(0, curpathlen - numtocontainer);
   applypath->ref();
 
-  SoPath * resetpath = NULL;
+  SoPath * resetpath = nullptr;
   // if numtoreset is out of range, just ignore it and don't use a
   // reset path
   if ((numtoreset >= 0) && (numtoreset < numtocontainer)) {

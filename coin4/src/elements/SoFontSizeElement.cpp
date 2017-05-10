@@ -81,7 +81,7 @@ SoFontSizeElement::set(SoState * const state, SoNode * const node,
 void
 SoFontSizeElement::set(SoState * const state, const float fontSize)
 {
-  set(state, NULL, fontSize);
+  set(state, nullptr, fontSize);
 }
 
 //! FIXME: write doc.

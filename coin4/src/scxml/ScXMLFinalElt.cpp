@@ -73,7 +73,7 @@ ScXMLFinalEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocume
   // handle XML attributes
   if (unlikely(!final->handleXMLAttributes())) {
     delete final;
-    return NULL;
+    return nullptr;
   }
 
   const int numchildren = cc_xml_elt_get_num_children(xmlelt);
@@ -91,7 +91,7 @@ ScXMLFinalEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocume
         SoDebugError::post("ScXMLFinalEltReader::read",
                            "<final> element can only contain one <onentry> element");
         delete final;
-        return NULL;
+        return nullptr;
       }
 
       ScXMLEltReader * onentryreader = ScXMLOnEntryElt::getElementReader();
@@ -100,7 +100,7 @@ ScXMLFinalEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocume
 
       if (unlikely(!onentryelt)) {
         delete final;
-        return NULL;
+        return nullptr;
       }
       assert(final->isOfType(ScXMLOnEntryElt::getClassTypeId()));
       final->setOnEntry(static_cast<ScXMLOnEntryElt *>(onentryelt));
@@ -111,7 +111,7 @@ ScXMLFinalEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocume
         SoDebugError::post("ScXMLFinalEltReader::read",
                            "<final> element can only contain one <onexit> element");
         delete final;
-        return NULL;
+        return nullptr;
       }
 
       ScXMLEltReader * onexitreader = ScXMLOnExitElt::getElementReader();
@@ -120,7 +120,7 @@ ScXMLFinalEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocume
 
       if (unlikely(!onexitelt)) {
         delete final;
-        return NULL;
+        return nullptr;
       }
       assert(onexitelt->isOfType(ScXMLOnExitElt::getClassTypeId()));
       final->setOnExit(static_cast<ScXMLOnExitElt *>(onexitelt));
@@ -131,7 +131,7 @@ ScXMLFinalEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocume
                          "unexpected XML element '<%s>' found in <final>",
                          elementtype);
       delete final;
-      return NULL;
+      return nullptr;
     }
   }
 
@@ -142,7 +142,7 @@ ScXMLFinalEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocume
 
 class ScXMLFinalElt::PImpl {
 public:
-  PImpl(void) : onentry(NULL), onexit(NULL) { }
+  PImpl(void) : onentry(nullptr), onexit(nullptr) { }
 
   boost::scoped_ptr<ScXMLOnEntryElt> onentry;
   boost::scoped_ptr<ScXMLOnExitElt> onexit;
@@ -235,7 +235,7 @@ ScXMLFinalElt::search(const char * attrname, const char * attrvalue) const
       return hit;
     }
   }
-  return NULL;
+  return nullptr;
 }
 
 #undef PRIVATE

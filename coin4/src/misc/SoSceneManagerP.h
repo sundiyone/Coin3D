@@ -37,7 +37,7 @@ public:
   ~SoSceneManagerP();
 
   SoCamera * searchForCamera(SoNode * root,
-                             SoCamera * defcamera = NULL);
+                             SoCamera * defcamera = nullptr);
   static void renderCB(void * userdata, class SoRenderManager * mgr);
 
   SoCamera * camera;

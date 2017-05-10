@@ -80,7 +80,7 @@ SoBumpMapCoordinateElement::init(SoState * state)
 {
   inherited::init(state);
   this->numcoords = 0;
-  this->coords = NULL;
+  this->coords = nullptr;
 }
 
 //! FIXME: write doc.

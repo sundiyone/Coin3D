@@ -138,12 +138,12 @@ SoScXMLSeekTarget::cleanClass(void)
   SoScXMLSeekTarget::classTypeId = SoType::badType();
 }
 
-SoScXMLSeekTarget * SoScXMLSeekTarget::theSingleton = NULL;
+SoScXMLSeekTarget * SoScXMLSeekTarget::theSingleton = nullptr;
 
 SoScXMLSeekTarget *
 SoScXMLSeekTarget::constructSingleton(void)
 {
-  assert(SoScXMLSeekTarget::theSingleton == NULL);
+  assert(SoScXMLSeekTarget::theSingleton == nullptr);
   SoScXMLSeekTarget::theSingleton =
     static_cast<SoScXMLSeekTarget *>(SoScXMLSeekTarget::classTypeId.createInstance());
   return SoScXMLSeekTarget::theSingleton;
@@ -152,15 +152,15 @@ SoScXMLSeekTarget::constructSingleton(void)
 void
 SoScXMLSeekTarget::destructSingleton(void)
 {
-  assert(SoScXMLSeekTarget::theSingleton != NULL);
+  assert(SoScXMLSeekTarget::theSingleton != nullptr);
   delete SoScXMLSeekTarget::theSingleton;
-  SoScXMLSeekTarget::theSingleton = NULL;
+  SoScXMLSeekTarget::theSingleton = nullptr;
 }
 
 SoScXMLSeekTarget *
 SoScXMLSeekTarget::singleton(void)
 {
-  assert(SoScXMLSeekTarget::theSingleton != NULL);
+  assert(SoScXMLSeekTarget::theSingleton != nullptr);
   return SoScXMLSeekTarget::theSingleton;
 }
 
@@ -195,9 +195,9 @@ SoScXMLSeekTarget::DONE(void)
 }
 
 SoScXMLSeekTarget::SoScXMLSeekTarget(void)
-: searchaction(NULL),
-  getmatrixaction(NULL),
-  raypickaction(NULL)
+: searchaction(nullptr),
+  getmatrixaction(nullptr),
+  raypickaction(nullptr)
 {
   this->setEventTargetType(SOSCXML_NAVIGATION_TARGETTYPE);
   this->setEventTargetName("Seek");
@@ -210,15 +210,15 @@ SoScXMLSeekTarget::~SoScXMLSeekTarget(void)
 {
   if (this->raypickaction) {
     delete this->raypickaction;
-    this->raypickaction = NULL;
+    this->raypickaction = nullptr;
   }
   if (this->getmatrixaction) {
     delete this->getmatrixaction;
-    this->getmatrixaction = NULL;
+    this->getmatrixaction = nullptr;
   }
   if (this->searchaction) {
     delete this->searchaction;
-    this->searchaction = NULL;
+    this->searchaction = nullptr;
   }
 }
 

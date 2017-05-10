@@ -85,9 +85,9 @@ SoVRMLGeometry::initClass(void)
 SoVRMLGeometry::SoVRMLGeometry(void)
 {
   PRIVATE(this) = new SoVRMLGeometryP;
-  // supply a NULL-pointer as parent, since notifications will be 
+  // supply a nullptr-pointer as parent, since notifications will be 
   // handled by the fields that actually contain the node(s)
-  PRIVATE(this)->childlist = new SoChildList(NULL);
+  PRIVATE(this)->childlist = new SoChildList(nullptr);
   PRIVATE(this)->childlistvalid = false;
   SO_VRMLNODE_INTERNAL_CONSTRUCTOR(SoVRMLGeometry);
 }
@@ -147,7 +147,7 @@ void
 SoVRMLGeometry::search(SoSearchAction * action)
 {
   SoNode::search(action);
-  if (action->isFound() || this->getChildren() == NULL) return;
+  if (action->isFound() || this->getChildren() == nullptr) return;
 
   int numindices;
   const int * indices;

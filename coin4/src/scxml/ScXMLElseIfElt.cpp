@@ -73,7 +73,7 @@ ScXMLElseIfEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocum
   // handle XML attributes
   if (unlikely(!elseifelt->handleXMLAttributes())) {
     delete elseifelt;
-    return NULL;
+    return nullptr;
   }
 
   const int numchildren = cc_xml_elt_get_num_children(xmlelt);
@@ -88,7 +88,7 @@ ScXMLElseIfEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocum
     SoDebugError::post("ScXMLElseIfEltReader::read",
                        "<elseif> contains unexpected <%s> element", elementtype);
     delete elseifelt;
-    return NULL;
+    return nullptr;
   }
 
   return elseifelt;
@@ -119,13 +119,13 @@ ScXMLElseIfElt::cleanClass(void)
 }
 
 ScXMLElseIfElt::ScXMLElseIfElt(void)
-: cond(NULL)
+: cond(nullptr)
 {
 }
 
 ScXMLElseIfElt::~ScXMLElseIfElt(void)
 {
-  this->setCondAttribute(NULL);
+  this->setCondAttribute(nullptr);
 }
 
 void
@@ -168,7 +168,7 @@ ScXMLElseIfElt::search(const char * attrname, const char * attrvalue) const
       return this;
     }
   }
-  return NULL;
+  return nullptr;
 }
 
 #undef PRIVATE

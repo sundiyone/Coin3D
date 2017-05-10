@@ -117,7 +117,7 @@ SoPointLightManip::SoPointLightManip(void)
 */
 SoPointLightManip::~SoPointLightManip()
 {
-  this->setDragger(NULL);
+  this->setDragger(nullptr);
 
   delete this->colorFieldSensor;
   delete this->locationFieldSensor;
@@ -136,14 +136,14 @@ SoPointLightManip::setDragger(SoDragger * newdragger)
     olddragger->removeValueChangedCallback(SoPointLightManip::valueChangedCB, this);
     this->children->remove(0);
   }
-  if (newdragger != NULL) {
+  if (newdragger != nullptr) {
     if (this->children->getLength() > 0) {
       this->children->set(0, newdragger);
     }
     else {
       this->children->append(newdragger);
     }
-    SoPointLightManip::fieldSensorCB(this, NULL);
+    SoPointLightManip::fieldSensorCB(this, nullptr);
     newdragger->addValueChangedCallback(SoPointLightManip::valueChangedCB, this);
   }
 }
@@ -166,7 +166,7 @@ SoPointLightManip::getDragger(void)
 #endif // debug
     }
   }
-  return NULL;
+  return nullptr;
 }
 
 /*!
@@ -192,11 +192,11 @@ SoPointLightManip::replaceNode(SoPath * path)
     SbString partname = kit->getPartString(path);
     if (partname != "") {
       SoPointLight * oldpart = (SoPointLight *) kit->getPart(partname, true);
-      if (oldpart != NULL) {
+      if (oldpart != nullptr) {
         this->attachSensors(false);
         this->transferFieldValues(oldpart, this);
         this->attachSensors(true);
-        SoPointLightManip::fieldSensorCB(this, NULL);
+        SoPointLightManip::fieldSensorCB(this, nullptr);
         kit->setPart(partname, this);
         return true;
       }
@@ -224,7 +224,7 @@ SoPointLightManip::replaceNode(SoPath * path)
   this->attachSensors(false);
   this->transferFieldValues((SoPointLight *)fulltail, this);
   this->attachSensors(true);
-  SoPointLightManip::fieldSensorCB(this, NULL);
+  SoPointLightManip::fieldSensorCB(this, nullptr);
 
   ((SoGroup *)parent)->replaceChild(fulltail, this);
   this->unrefNoDelete();
@@ -379,7 +379,7 @@ SoPointLightManip::fieldSensorCB(void * m, SoSensor *)
 {
   SoPointLightManip * thisp = (SoPointLightManip *)m;
   SoDragger * dragger = thisp->getDragger();
-  if (dragger != NULL) {
+  if (dragger != nullptr) {
     SbVec3f location = thisp->location.getValue();
     SbMatrix matrix = dragger->getMotionMatrix();
     matrix[3][0] = location[0];

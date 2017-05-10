@@ -153,9 +153,9 @@ SoVRMLPixelTexture::SoVRMLPixelTexture(void)
 
   SO_VRMLNODE_INTERNAL_CONSTRUCTOR(SoVRMLPixelTexture);
 
-  SO_VRMLNODE_ADD_EXPOSED_FIELD(image, (SbVec2s(0,0), 0, NULL));
+  SO_VRMLNODE_ADD_EXPOSED_FIELD(image, (SbVec2s(0,0), 0, nullptr));
 
-  PRIVATE(this)->glimage = NULL;
+  PRIVATE(this)->glimage = nullptr;
   PRIVATE(this)->glimagevalid = false;
   PRIVATE(this)->readstatus = 1;
 }
@@ -165,7 +165,7 @@ SoVRMLPixelTexture::SoVRMLPixelTexture(void)
 */
 SoVRMLPixelTexture::~SoVRMLPixelTexture()
 {
-  if (PRIVATE(this)->glimage) PRIVATE(this)->glimage->unref(NULL);
+  if (PRIVATE(this)->glimage) PRIVATE(this)->glimage->unref(nullptr);
   delete PRIVATE(this);
 }
 
@@ -241,13 +241,13 @@ SoVRMLPixelTexture::GLRender(SoGLRenderAction * action)
     bool needbig = (scalepolicy == SoTextureScalePolicyElement::FRACTURE);
 
     if (needbig &&
-        (PRIVATE(this)->glimage == NULL ||
+        (PRIVATE(this)->glimage == nullptr ||
          PRIVATE(this)->glimage->getTypeId() != SoGLBigImage::getClassTypeId())) {
       if (PRIVATE(this)->glimage) PRIVATE(this)->glimage->unref(state);
       PRIVATE(this)->glimage = new SoGLBigImage();
     }
     else if (!needbig &&
-             (PRIVATE(this)->glimage == NULL ||
+             (PRIVATE(this)->glimage == nullptr ||
               PRIVATE(this)->glimage->getTypeId() != SoGLImage::getClassTypeId())) {
       if (PRIVATE(this)->glimage) PRIVATE(this)->glimage->unref(state);
       PRIVATE(this)->glimage = new SoGLImage();
@@ -274,7 +274,7 @@ SoVRMLPixelTexture::GLRender(SoGLRenderAction * action)
   PRIVATE(this)->unlock_glimage();
 
   SoGLMultiTextureImageElement::set(state, this, unit,
-                                    PRIVATE(this)->glimagevalid ? PRIVATE(this)->glimage : NULL,
+                                    PRIVATE(this)->glimagevalid ? PRIVATE(this)->glimage : nullptr,
                                     SoMultiTextureImageElement::MODULATE,
                                     SbColor(1.0f, 1.0f, 1.0f));
 

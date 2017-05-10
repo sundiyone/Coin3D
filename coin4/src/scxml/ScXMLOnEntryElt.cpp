@@ -72,7 +72,7 @@ ScXMLOnEntryEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocu
   // handle XML attributes
   if (unlikely(!onentry->handleXMLAttributes())) {
     delete onentry;
-    return NULL;
+    return nullptr;
   }
 
   const int numchildren = cc_xml_elt_get_num_children(xmlelt);
@@ -92,7 +92,7 @@ ScXMLOnEntryEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocu
       ScXMLElt * logobj = logreader->read(onentry, element, doc, sm);
       if (unlikely(!logobj)) {
         delete onentry;
-        return NULL;
+        return nullptr;
       }
       assert(logobj->isOfType(ScXMLLogElt::getClassTypeId()));
       onentry->addExecutable(static_cast<ScXMLLogElt *>(logobj));
@@ -104,7 +104,7 @@ ScXMLOnEntryEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocu
       ScXMLElt * eventobj = eventreader->read(onentry, element, doc, sm);
       if (unlikely(!eventobj)) {
         delete onentry;
-        return NULL;
+        return nullptr;
       }
       assert(eventobj->isOfType(ScXMLEventElt::getClassTypeId()));
       onentry->addExecutable(static_cast<ScXMLEventElt *>(eventobj));
@@ -116,7 +116,7 @@ ScXMLOnEntryEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocu
       ScXMLElt * assignobj = assignreader->read(onentry, element, doc, sm);
       if (unlikely(!assignobj)) {
         delete onentry;
-        return NULL;
+        return nullptr;
       }
       assert(assignobj->isOfType(ScXMLAssignElt::getClassTypeId()));
       onentry->addExecutable(static_cast<ScXMLAssignElt *>(assignobj));
@@ -128,7 +128,7 @@ ScXMLOnEntryEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocu
       ScXMLElt * sendobj = sendreader->read(onentry, element, doc, sm);
       if (unlikely(!sendobj)) {
         delete onentry;
-        return NULL;
+        return nullptr;
       }
       assert(sendobj->isOfType(ScXMLSendElt::getClassTypeId()));
       onentry->addExecutable(static_cast<ScXMLSendElt *>(sendobj));
@@ -140,7 +140,7 @@ ScXMLOnEntryEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocu
       ScXMLElt * ifobj = ifreader->read(onentry, element, doc, sm);
       if (unlikely(!ifobj)) {
         delete onentry;
-        return NULL;
+        return nullptr;
       }
       assert(ifobj->isOfType(ScXMLIfElt::getClassTypeId()));
       onentry->addExecutable(static_cast<ScXMLIfElt *>(ifobj));
@@ -152,7 +152,7 @@ ScXMLOnEntryEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocu
       ScXMLElt * scriptobj = scriptreader->read(onentry, element, doc, sm);
       if (unlikely(!scriptobj)) {
         delete onentry;
-        return NULL;
+        return nullptr;
       }
       assert(scriptobj->isOfType(ScXMLScriptElt::getClassTypeId()));
       onentry->addExecutable(static_cast<ScXMLScriptElt *>(scriptobj));
@@ -164,7 +164,7 @@ ScXMLOnEntryEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocu
       ScXMLElt * invokeobj = invokereader->read(onentry, element, doc, sm);
       if (unlikely(!invokeobj)) {
         delete onentry;
-        return NULL;
+        return nullptr;
       }
       assert(invokeobj->isOfType(ScXMLInvokeElt::getClassTypeId()));
       onentry->addExecutable(static_cast<ScXMLInvokeElt *>(invokeobj));
@@ -174,7 +174,7 @@ ScXMLOnEntryEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocu
                          "unexpected XML element '<%s>' found in <onentry>",
                          elementtype);
       delete onentry;
-      return NULL;
+      return nullptr;
     }
   }
   return onentry;
@@ -237,7 +237,7 @@ ScXMLOnEntryElt::search(const char * attrname, const char * attrvalue) const
   if (hit) {
     return hit;
   }
-  return NULL;
+  return nullptr;
 }
 
 // executable content

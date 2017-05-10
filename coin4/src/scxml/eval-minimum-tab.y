@@ -38,7 +38,7 @@
 #include <Inventor/scxml/ScXMLMinimumEvaluator.h>
 
 namespace {
-static ScXMLDataObj * root = NULL;
+static ScXMLDataObj * root = nullptr;
 }
 %}
 
@@ -90,5 +90,5 @@ scxml_minimum_get_root_obj(void)
 void
 scxml_minimum_clear_root_obj(void)
 {
-  root = NULL;
+  root = nullptr;
 }

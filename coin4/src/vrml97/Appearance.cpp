@@ -37,17 +37,17 @@
   \verbatim
 
   Appearance {
-    exposedField SFNode material          NULL
-    exposedField SFNode texture           NULL
-    exposedField SFNode textureTransform  NULL
+    exposedField SFNode material          nullptr
+    exposedField SFNode texture           nullptr
+    exposedField SFNode textureTransform  nullptr
   }
   \endverbatim
 
   The Appearance node specifies the visual properties of geometry. The
-  value for each of the fields in this node may be NULL. However, if
-  the field is non-NULL, it shall contain one node of the appropriate
+  value for each of the fields in this node may be nullptr. However, if
+  the field is non-nullptr, it shall contain one node of the appropriate
   type.  The material field, if specified, shall contain a VRMLMaterial
-  node. If the material field is NULL or unspecified, lighting is off
+  node. If the material field is nullptr or unspecified, lighting is off
   (all lights are ignored during rendering of the object that
   references this Appearance) and the unlit object colour is (1, 1,
   1). Details of the VRML lighting model are in 4.14, Lighting model
@@ -55,27 +55,27 @@
 
   The texture field, if specified, shall contain one of the various
   types of texture nodes (VRMLImageTexture, VRMLMovieTexture, or
-  VRMLPixelTexture).  If the texture node is NULL or the texture field
+  VRMLPixelTexture).  If the texture node is nullptr or the texture field
   is unspecified, the object that references this Appearance is not
   textured.  The textureTransform field, if specified, shall contain a
-  VRMLTextureTransform node. If the textureTransform is NULL or
+  VRMLTextureTransform node. If the textureTransform is nullptr or
   unspecified, the textureTransform field has no effect.
 
 */
 
 /*!
   \var SoSFNode SoVRMLAppearance::material
-  Can contain an SoVRMLMaterial node. Is NULL by default.
+  Can contain an SoVRMLMaterial node. Is nullptr by default.
 */
 
 /*!
   \var SoSFNode SoVRMLAppearance::texture
-  Can contain a texture node. Is NULL by default.
+  Can contain a texture node. Is nullptr by default.
 */
 
 /*!
   \var SoSFNode SoVRMLAppearance::textureTransform
-  Can contain an SoVRMLTextureTransform node. Is NULL by default.
+  Can contain an SoVRMLTextureTransform node. Is nullptr by default.
 */
 
 #include <Inventor/VRMLnodes/SoVRMLAppearance.h>
@@ -139,16 +139,16 @@ SoVRMLAppearance::initClass(void)
 SoVRMLAppearance::SoVRMLAppearance(void)
 {
   PRIVATE(this) = new SoVRMLAppearanceP;
-  // supply a NULL-pointer as parent, since notifications will be
+  // supply a nullptr-pointer as parent, since notifications will be
   // handled by the fields that actually contain the node(s)
-  PRIVATE(this)->childlist = new SoChildList(NULL);
+  PRIVATE(this)->childlist = new SoChildList(nullptr);
   PRIVATE(this)->childlistvalid = false;
 
   SO_VRMLNODE_INTERNAL_CONSTRUCTOR(SoVRMLAppearance);
 
-  SO_VRMLNODE_ADD_EXPOSED_FIELD(material, (NULL));
-  SO_VRMLNODE_ADD_EXPOSED_FIELD(texture, (NULL));
-  SO_VRMLNODE_ADD_EXPOSED_FIELD(textureTransform, (NULL));
+  SO_VRMLNODE_ADD_EXPOSED_FIELD(material, (nullptr));
+  SO_VRMLNODE_ADD_EXPOSED_FIELD(texture, (nullptr));
+  SO_VRMLNODE_ADD_EXPOSED_FIELD(textureTransform, (nullptr));
 }
 
 /*!

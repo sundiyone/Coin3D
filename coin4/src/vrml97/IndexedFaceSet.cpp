@@ -40,10 +40,10 @@
     eventIn       MFInt32 set_coordIndex
     eventIn       MFInt32 set_normalIndex
     eventIn       MFInt32 set_texCoordIndex
-    exposedField  SFNode  color             NULL
-    exposedField  SFNode  coord             NULL
-    exposedField  SFNode  normal            NULL
-    exposedField  SFNode  texCoord          NULL
+    exposedField  SFNode  color             nullptr
+    exposedField  SFNode  coord             nullptr
+    exposedField  SFNode  normal            nullptr
+    exposedField  SFNode  texCoord          nullptr
     field         SFBool  ccw               true
     field         MFInt32 colorIndex        []        # [-1,)
     field         SFBool  colorPerVertex    true
@@ -86,7 +86,7 @@
   between color field, normal field, textures, materials, and
   geometries are provided in 4.14, Lighting model.
 
-  If the color field is not NULL, it shall contain a Color node whose
+  If the color field is not nullptr, it shall contain a Color node whose
   colours are applied to the vertices or faces of the IndexedFaceSet
   as follows:
 
@@ -121,22 +121,22 @@
       in the coordIndex field is N, then there shall be N+1 colours in
       the Color node.
 
-  If the color field is NULL, the geometry shall be rendered normally
+  If the color field is nullptr, the geometry shall be rendered normally
   using the Material and texture defined in the Appearance node (see
   4.14, Lighting model, for details
   http://www.web3d.org/x3d/specifications/vrml/ISO-IEC-14772-VRML97/part1/concepts.html#4.6.5).
 
-  If the normal field is not NULL, it shall contain a Normal node
+  If the normal field is not nullptr, it shall contain a Normal node
   whose normals are applied to the vertices or faces of the
   IndexedFaceSet in a manner exactly equivalent to that described
   above for applying colours to vertices/faces (where normalPerVertex
   corresponds to colorPerVertex and normalIndex corresponds to
-  colorIndex). If the normal field is NULL, the browser shall
+  colorIndex). If the normal field is nullptr, the browser shall
   automatically generate normals, using creaseAngle to determine if
   and how normals are smoothed across shared vertices (see 4.6.3.5,
   Crease angle field).
 
-  If the texCoord field is not NULL, it shall contain a
+  If the texCoord field is not nullptr, it shall contain a
   TextureCoordinate node. The texture coordinates in that node are
   applied to the vertices of the IndexedFaceSet as follows: If the
   texCoordIndex field is not empty, then it is used to choose texture
@@ -153,7 +153,7 @@
   used to choose texture coordinates from the TextureCoordinate
   node. If the greatest index in the coordIndex field is N, then there
   shall be N+1 texture coordinates in the TextureCoordinate node.  If
-  the texCoord field is NULL, a default texture coordinate mapping is
+  the texCoord field is nullptr, a default texture coordinate mapping is
   calculated using the local coordinate system bounding box of the
   shape.  The longest dimension of the bounding box defines the S
   coordinates, and the next longest defines the T coordinates. If two
@@ -299,9 +299,9 @@ SoVRMLIndexedFaceSet::initClass(void) // static
 SoVRMLIndexedFaceSet::SoVRMLIndexedFaceSet(void)
 {
   PRIVATE(this) = new SoVRMLIndexedFaceSetP;
-  PRIVATE(this)->convexCache = NULL;
+  PRIVATE(this)->convexCache = nullptr;
   PRIVATE(this)->concavestatus = STATUS_UNKNOWN;
-  PRIVATE(this)->vaindexer = NULL;
+  PRIVATE(this)->vaindexer = nullptr;
 
   SO_VRMLNODE_INTERNAL_CONSTRUCTOR(SoVRMLIndexedFaceSet);
 
@@ -430,7 +430,7 @@ SoVRMLIndexedFaceSet::findNormalBinding(SoState * state) const
 void
 SoVRMLIndexedFaceSet::GLRender(SoGLRenderAction * action)
 {
-  if (this->coordIndex.getNum() < 3 || this->coord.getValue() == NULL) return;
+  if (this->coordIndex.getNum() < 3 || this->coord.getValue() == nullptr) return;
   SoState * state = action->getState();
 
   state->push();
@@ -468,8 +468,8 @@ SoVRMLIndexedFaceSet::GLRender(SoGLRenderAction * action)
 
   if (!sendNormals) {
     nbind = OVERALL;
-    normals = NULL;
-    nindices = NULL;
+    normals = nullptr;
+    nindices = nullptr;
   }
   else if (nbind == OVERALL) {
     if (normals) glNormal3fv(normals[0].getValue());
@@ -495,11 +495,11 @@ SoVRMLIndexedFaceSet::GLRender(SoGLRenderAction * action)
   if (doTextures) {
     if (tb.isFunction() && !tb.needIndices()) {
       tbind = NONE;
-      tindices = NULL;
+      tindices = nullptr;
     }
     else {
       tbind = PER_VERTEX_INDEXED;
-      if (tindices == NULL) tindices = cindices;
+      if (tindices == nullptr) tindices = cindices;
     }
   }
   bool convexcacheused = false;
@@ -522,24 +522,24 @@ SoVRMLIndexedFaceSet::GLRender(SoGLRenderAction * action)
 
   mb.sendFirst(); // make sure we have the correct material
 
-  SoGLLazyElement * lelem = NULL;
+  SoGLLazyElement * lelem = nullptr;
   const uint32_t contextid = action->getCacheContext();
 
   bool dova = 
     SoVBO::shouldRenderAsVertexArrays(state, contextid, numindices) &&
     !convexcacheused && !normalCacheUsed &&
-    ((nbind == OVERALL) || ((nbind == PER_VERTEX_INDEXED) && ((nindices == cindices) || (nindices == NULL)))) &&
+    ((nbind == OVERALL) || ((nbind == PER_VERTEX_INDEXED) && ((nindices == cindices) || (nindices == nullptr)))) &&
     ((tbind == NONE && !tb.needCoordinates()) || 
-     ((tbind == PER_VERTEX_INDEXED) && ((tindices == cindices) || (tindices == NULL)))) &&
-    ((mbind == NONE) || ((mbind == PER_VERTEX_INDEXED) && ((mindices == cindices) || (mindices == NULL)))) &&
+     ((tbind == PER_VERTEX_INDEXED) && ((tindices == cindices) || (tindices == nullptr)))) &&
+    ((mbind == NONE) || ((mbind == PER_VERTEX_INDEXED) && ((mindices == cindices) || (mindices == nullptr)))) &&
     SoGLDriverDatabase::isSupported(sogl_glue_instance(state), SO_GL_VERTEX_ARRAY);
 
   const SoGLVBOElement * vboelem = SoGLVBOElement::getInstance(state);
-  SoVBO * colorvbo = NULL;
+  SoVBO * colorvbo = nullptr;
 
   if (dova && (mbind != OVERALL)) {
     dova = false;
-    if ((mbind == PER_VERTEX_INDEXED) && ((mindices == cindices) || (mindices == NULL))) {
+    if ((mbind == PER_VERTEX_INDEXED) && ((mindices == cindices) || (mindices == nullptr))) {
       lelem = (SoGLLazyElement*) SoLazyElement::getInstance(state);
       colorvbo = vboelem->getColorVBO();
       if (colorvbo) dova = true;
@@ -556,12 +556,12 @@ SoVRMLIndexedFaceSet::GLRender(SoGLRenderAction * action)
   if (dova) {
     bool dovbo = this->startVertexArray(action,
                                           coords,
-                                          (nbind != OVERALL) ? normals : NULL,
+                                          (nbind != OVERALL) ? normals : nullptr,
                                           doTextures,
                                           mbind != OVERALL);
     didrenderasvbo = dovbo;
     LOCK_VAINDEXER(this);
-    if (PRIVATE(this)->vaindexer == NULL) {
+    if (PRIVATE(this)->vaindexer == nullptr) {
       SoVertexArrayIndexer * indexer = new SoVertexArrayIndexer;
       int i = 0;
       while (i < numindices) {
@@ -755,8 +755,8 @@ SoVRMLIndexedFaceSet::generatePrimitives(SoAction * action)
 
   if (!sendNormals) {
     nbind = OVERALL;
-    normals = NULL;
-    nindices = NULL;
+    normals = nullptr;
+    nindices = nullptr;
   }
   else if (normalCacheUsed && nbind == PER_VERTEX) {
     nbind = PER_VERTEX_INDEXED;
@@ -781,11 +781,11 @@ SoVRMLIndexedFaceSet::generatePrimitives(SoAction * action)
   if (doTextures) {
     if (tb.isFunction() && !tb.needIndices()) {
       tbind = NONE;
-      tindices = NULL;
+      tindices = nullptr;
     }
     else {
       tbind = PER_VERTEX_INDEXED;
-      if (tindices == NULL) tindices = cindices;
+      if (tindices == nullptr) tindices = cindices;
     }
   }
   
@@ -921,7 +921,7 @@ SoVRMLIndexedFaceSet::generateDefaultNormals(SoState * state,
                                              SoNormalCache * nc)
 {
   SoVRMLCoordinate * node = (SoVRMLCoordinate*) this->coord.getValue();
-  if (node == NULL) return true; // ok, empty ifs
+  if (node == nullptr) return true; // ok, empty ifs
 
   const SbVec3f * coords = node->point.getValues(0);
 
@@ -935,7 +935,7 @@ SoVRMLIndexedFaceSet::generateDefaultNormals(SoState * state,
                           coordIndex.getValues(0),
                           coordIndex.getNum(),
                           this->creaseAngle.getValue(),
-                          NULL, // face normals
+                          nullptr, // face normals
                           0,    // num face normals
                           this->ccw.getValue());
     break;
@@ -964,7 +964,7 @@ SoVRMLIndexedFaceSet::notify(SoNotList * list)
     LOCK_VAINDEXER(this);
     if (PRIVATE(this)->vaindexer) {
       delete PRIVATE(this)->vaindexer;
-      PRIVATE(this)->vaindexer = NULL;
+      PRIVATE(this)->vaindexer = nullptr;
     }
     UNLOCK_VAINDEXER(this);
   }
@@ -974,7 +974,7 @@ SoVRMLIndexedFaceSet::notify(SoNotList * list)
 //
 // internal method which checks if convex cache needs to be
 // used or (re)created. Returns true if convex cache must be
-// used. PRIVATE(this)->convexCache is then guaranteed to be != NULL.
+// used. PRIVATE(this)->convexCache is then guaranteed to be != nullptr.
 //
 bool
 SoVRMLIndexedFaceSet::useConvexCache(SoAction * action, 
@@ -1006,7 +1006,7 @@ SoVRMLIndexedFaceSet::useConvexCache(SoAction * action,
   if (PRIVATE(this)->convexCache && PRIVATE(this)->convexCache->isValid(state)) {
     // check if convex cache has normal indices. The convex cache
     // might be generated without normals.
-    if (normals == NULL || PRIVATE(this)->convexCache->getNormalIndices()) {
+    if (normals == nullptr || PRIVATE(this)->convexCache->getNormalIndices()) {
       return true;
     }
   }
@@ -1062,12 +1062,12 @@ SoVRMLIndexedFaceSet::useConvexCache(SoAction * action,
   }
 
   Binding tbind = PER_VERTEX_INDEXED;
-  if (tindices == NULL) tindices = cindices;
+  if (tindices == nullptr) tindices = cindices;
 
-  if (nbind == PER_VERTEX_INDEXED && nindices == NULL) {
+  if (nbind == PER_VERTEX_INDEXED && nindices == nullptr) {
     nindices = cindices;
   }
-  if (mbind == PER_VERTEX_INDEXED && mindices == NULL) {
+  if (mbind == PER_VERTEX_INDEXED && mindices == nullptr) {
     mindices = cindices;
   }
   PRIVATE(this)->convexCache->generate(coords, modelmatrix,

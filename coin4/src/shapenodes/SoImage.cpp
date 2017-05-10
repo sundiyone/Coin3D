@@ -251,7 +251,7 @@ SoImage::SoImage(void)
 
   SO_NODE_ADD_FIELD(vertAlignment, (SoImage::BOTTOM));
   SO_NODE_ADD_FIELD(horAlignment, (SoImage::LEFT));
-  SO_NODE_ADD_FIELD(image, (SbVec2s(0,0), 0, NULL));
+  SO_NODE_ADD_FIELD(image, (SbVec2s(0,0), 0, nullptr));
   SO_NODE_ADD_FIELD(filename, (""));
 
   SO_NODE_DEFINE_ENUM_VALUE(VertAlignment, BOTTOM);
@@ -325,7 +325,7 @@ SoImage::GLRender(SoGLRenderAction * action)
   if (size == SbVec2s(0,0)) return;
 
   const unsigned char * dataptr = this->image.getValue(orgsize, nc);
-  if (dataptr == NULL) return; // no image
+  if (dataptr == nullptr) return; // no image
 
   if (!this->shouldGLRender(action)) return;
 
@@ -478,7 +478,7 @@ SoImage::GLRender(SoGLRenderAction * action)
 
   glRasterPos3f(rpx, rpy, -nilpoint[2]);
 
-  if (offvp) { glBitmap(0,0,0,0,offsetx,offsety,NULL); }
+  if (offvp) { glBitmap(0,0,0,0,offsetx,offsety,nullptr); }
 
   glPixelStorei(GL_UNPACK_ROW_LENGTH, orgsize[0]);
   glPixelStorei(GL_UNPACK_SKIP_PIXELS, skipx);
@@ -811,7 +811,7 @@ SoImage::getImage(SbVec2s & size, int & nc)
   if (this->getSize() == SbVec2s(0,0)) {
     size = SbVec2s(0,0);
     nc = 0;
-    return NULL;
+    return nullptr;
   }
 
   if (this->width.getValue() >= 0 || this->height.getValue() >= 0) {
@@ -836,7 +836,7 @@ SoImage::getImage(SbVec2s & size, int & nc)
         this->resizedimagevalid = true;
       }
       else if (GLUWrapper()->available) {
-        this->resizedimage->setValue(newsize, nc, NULL);
+        this->resizedimage->setValue(newsize, nc, nullptr);
         const unsigned char * rezdata = this->resizedimage->getValue(newsize, nc);
         GLenum format;
         switch (nc) {

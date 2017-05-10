@@ -41,7 +41,7 @@
  * think this is better than parsing the expression every time.
  *
  * Call so_eval_parse() to build the tree structure. This method
- * returns NULL if an error occured. The actual error message
+ * returns nullptr if an error occured. The actual error message
  * can be found by using so_eval_error().
  *
  * Call so_eval_evaluate() to evaluate the expression. You should
@@ -86,7 +86,7 @@ extern "C" {
   /* evaluates the tree structure */
   void so_eval_evaluate(so_eval_node *node, const so_eval_cbdata *cbdata);
 
-  /* returns current error message, or NULL if none.
+  /* returns current error message, or nullptr if none.
      check this after calling so_eval_parse() */
   char * so_eval_error(void); /* defined in epsilon.y */
 

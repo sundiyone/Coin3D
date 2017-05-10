@@ -58,7 +58,7 @@ dict_default_hashfunc(const uintptr_t key)
 static unsigned int
 dict_get_index(cc_dict * ht, uintptr_t key)
 {
-  assert(ht != NULL);
+  assert(ht != nullptr);
   key = ht->hashfunc(key);
   return (unsigned int) (key % ht->size);
 }
@@ -244,12 +244,12 @@ cc_dict_remove(cc_dict * ht, uintptr_t key)
   unsigned int i = dict_get_index(ht, key);
 
   he = ht->buckets[i];
-  prev = NULL;
+  prev = nullptr;
   while (he) {
     next = he->next;
     if (he->key == key) {
       ht->elements--;
-      if (prev == NULL) {
+      if (prev == nullptr) {
         ht->buckets[i] = next;
       }
       else {

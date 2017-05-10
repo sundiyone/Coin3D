@@ -24,6 +24,7 @@
 #include "CoinOffscreenGLCanvas.h"
 
 #include <limits.h>
+#include <cstdlib> // atoi
 
 #include <Inventor/C/glue/gl.h>
 #include <Inventor/errors/SoDebugError.h>
@@ -46,8 +47,8 @@ unsigned int CoinOffscreenGLCanvas::tilesizeroof = UINT_MAX;
 CoinOffscreenGLCanvas::CoinOffscreenGLCanvas(void)
 {
   this->size = SbVec2s(0, 0);
-  this->context = NULL;
-  this->current_hdc = NULL;
+  this->context = nullptr;
+  this->current_hdc = nullptr;
 }
 
 CoinOffscreenGLCanvas::~CoinOffscreenGLCanvas()
@@ -170,7 +171,7 @@ CoinOffscreenGLCanvas::tryActivateGLContext(void)
 {
   if (this->size == SbVec2s(0, 0)) { return 0; }
 
-  if (this->context == NULL) {
+  if (this->context == nullptr) {
 #if defined(HAVE_WGL)
     /* NOTE: This discrepancy between the different glue flavors is due to a
     driver bug that causes the coordinates fed to the gl_FragCoord fragment
@@ -188,10 +189,10 @@ CoinOffscreenGLCanvas::tryActivateGLContext(void)
                              "Tried to create offscreen context of dimensions "
                              "<%d, %d> -- %s",
                              this->size[0], this->size[1],
-                             this->context == NULL ? "failed" : "succeeded");
+                             this->context == nullptr ? "failed" : "succeeded");
     }
 
-    if (this->context == NULL) { return 0; }
+    if (this->context == nullptr) { return 0; }
 
     // Set up mapping from GL context to SoGLRenderAction context id.
     this->renderid = SoGLCacheContextElement::getUniqueCacheContext();
@@ -295,9 +296,9 @@ CoinOffscreenGLCanvas::destructContext(void)
 
   cc_glglue_context_destruct(this->context);
 
-  this->context = NULL;
+  this->context = nullptr;
   this->renderid = 0;
-  this->current_hdc = NULL;
+  this->current_hdc = nullptr;
 }
 
 // *************************************************************************

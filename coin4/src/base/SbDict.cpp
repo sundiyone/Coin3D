@@ -67,7 +67,7 @@ SbDict::SbDict(const int entries)
 */
 SbDict::SbDict(const SbDict & from)
 {
-  this->hashtable = NULL;
+  this->hashtable = nullptr;
   this->operator=(from);
 }
 

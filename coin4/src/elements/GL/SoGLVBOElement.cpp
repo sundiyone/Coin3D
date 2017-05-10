@@ -131,7 +131,7 @@ SoGLVBOElement::setTexCoordVBO(SoState * state, const int unit, SoVBO * vbo)
   SoGLVBOElement * elem = getElement(state);
   const int n = PRIVATE(elem)->texcoordvbo.getLength();
   for (int i = n; i <= unit; i++) {
-    PRIVATE(elem)->texcoordvbo.append(NULL);
+    PRIVATE(elem)->texcoordvbo.append(nullptr);
   }
   PRIVATE(elem)->texcoordvbo[unit] = vbo;
 }
@@ -140,9 +140,9 @@ SoGLVBOElement::setTexCoordVBO(SoState * state, const int unit, SoVBO * vbo)
 void
 SoGLVBOElement::init(SoState * COIN_UNUSED_ARG(state))
 {
-  PRIVATE(this)->vertexvbo = NULL;
-  PRIVATE(this)->normalvbo = NULL;
-  PRIVATE(this)->colorvbo = NULL;
+  PRIVATE(this)->vertexvbo = nullptr;
+  PRIVATE(this)->normalvbo = nullptr;
+  PRIVATE(this)->colorvbo = nullptr;
   PRIVATE(this)->texcoordvbo.truncate(0);
 }
 
@@ -183,7 +183,7 @@ SoElement *
 SoGLVBOElement::copyMatchInfo(void) const
 {
   assert(0 && "should never get here");
-  return NULL;
+  return nullptr;
 }
 
 /*!
@@ -234,7 +234,7 @@ SoGLVBOElement::getTexCoordVBO(const int idx) const
   if (idx < PRIVATE(this)->texcoordvbo.getLength()) {
     return PRIVATE(this)->texcoordvbo[idx];
   }
-  return NULL;
+  return nullptr;
 }
 
 /*!

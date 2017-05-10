@@ -111,7 +111,7 @@ const int32_t *
 SoConvexDataCache::getCoordIndices(void) const
 {
   if (PRIVATE(this)->coordIndices.getLength()) return PRIVATE(this)->coordIndices.getArrayPtr();
-  return NULL;
+  return nullptr;
 }
 
 /*!
@@ -132,7 +132,7 @@ const int32_t *
 SoConvexDataCache::getMaterialIndices(void) const
 {
   if (PRIVATE(this)->materialIndices.getLength()) return PRIVATE(this)->materialIndices.getArrayPtr();
-  return NULL;
+  return nullptr;
 }
 
 /*!
@@ -153,7 +153,7 @@ const int32_t *
 SoConvexDataCache::getNormalIndices(void) const
 {
   if (PRIVATE(this)->normalIndices.getLength()) return PRIVATE(this)->normalIndices.getArrayPtr();
-  return NULL;
+  return nullptr;
 }
 
 /*!
@@ -174,7 +174,7 @@ const int32_t *
 SoConvexDataCache::getTexIndices(void) const
 {
   if (PRIVATE(this)->texIndices.getLength()) return PRIVATE(this)->texIndices.getArrayPtr();
-  return NULL;
+  return nullptr;
 }
 
 /*!
@@ -261,10 +261,10 @@ SoConvexDataCache::generate(const SoCoordinateElement * const coords,
   // FIXME: stupid to have a separate struct for each coordIndex
   // should only allocate enough to hold the largest polygon
   tessdata.vertexInfo = new tVertexInfo[numv];
-  tessdata.vertexIndex = NULL;
-  tessdata.matIndex = NULL;
-  tessdata.normIndex = NULL;
-  tessdata.texIndex = NULL;
+  tessdata.vertexIndex = nullptr;
+  tessdata.matIndex = nullptr;
+  tessdata.normIndex = nullptr;
+  tessdata.texIndex = nullptr;
   tessdata.firstvertex = true;
 
   // create tessellator

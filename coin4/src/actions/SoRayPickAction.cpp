@@ -160,7 +160,7 @@
 
 class SoRayPickActionP {
 public:
-  SoRayPickActionP(void) : owner(NULL) { }
+  SoRayPickActionP(void) : owner(nullptr) { }
 
   // Hidden private methods.
 
@@ -448,7 +448,7 @@ SoRayPickAction::getPickedPointList(void) const
 /*!
   Returns the picked point with \a index in the list of picked points.
 
-  Returns \c NULL if less than \a index + 1 points where picked during
+  Returns \c nullptr if less than \a index + 1 points where picked during
   the last raypick action.
 */
 SoPickedPoint *
@@ -458,7 +458,7 @@ SoRayPickAction::getPickedPoint(const int index) const
   if (index < PRIVATE(this)->pickedpointlist.getLength()) {
     return this->getPickedPointList()[index];
   }
-  return NULL;
+  return nullptr;
 }
 
 /*!
@@ -989,7 +989,7 @@ SoPickedPoint *
 SoRayPickAction::addIntersection(const SbVec3f & objectspacepoint_in, bool frontpick)
 {
   if (PRIVATE(this)->isFlagSet(SoRayPickActionP::CULL_BACKFACES) && !frontpick)
-    return NULL;
+    return nullptr;
 
   SbVec3d objectspacepoint;
   objectspacepoint.setValue(objectspacepoint_in);
@@ -1000,7 +1000,7 @@ SoRayPickAction::addIntersection(const SbVec3f & objectspacepoint_in, bool front
 
   if (!PRIVATE(this)->isFlagSet(SoRayPickActionP::PICK_ALL) && PRIVATE(this)->pickedpointlist.getLength()) {
     // got to test if new candidate is closer than old one
-    if (dist >= PRIVATE(this)->ppdistance[0]) return NULL; // farther
+    if (dist >= PRIVATE(this)->ppdistance[0]) return nullptr; // farther
     // remove old point
     PRIVATE(this)->pickedpointlist.truncate(0);
     PRIVATE(this)->ppdistance.truncate(0);

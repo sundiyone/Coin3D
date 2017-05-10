@@ -65,12 +65,12 @@ bool aglglue_context_is_using_pbuffer(void * COIN_UNUSED_ARG(ctx))
 
 void * aglglue_getprocaddress(const char * COIN_UNUSED_ARG(fname))
 {
-  return NULL;
+  return nullptr;
 }
 
 void * aglglue_context_create_offscreen(unsigned int COIN_UNUSED_ARG(width), 
                                         unsigned int COIN_UNUSED_ARG(height)) { 
-  assert(false); return NULL; 
+  assert(false); return nullptr; 
 }
 
 bool aglglue_context_make_current(void * COIN_UNUSED_ARG(ctx))
@@ -126,13 +126,13 @@ typedef GLboolean (* COIN_AGLTEXIMAGEPBUFFER) (AGLContext ctx,
                                                AGLPbuffer pbuffer, 
                                                GLint source);
 
-static COIN_AGLCREATEPBUFFER aglglue_aglCreatePBuffer = NULL;
-static COIN_AGLDESTROYPBUFFER aglglue_aglDestroyPBuffer = NULL;
-static COIN_AGLSETPBUFFER aglglue_aglSetPBuffer = NULL;
-static COIN_AGLTEXIMAGEPBUFFER aglglue_aglTexImagePBuffer = NULL;
+static COIN_AGLCREATEPBUFFER aglglue_aglCreatePBuffer = nullptr;
+static COIN_AGLDESTROYPBUFFER aglglue_aglDestroyPBuffer = nullptr;
+static COIN_AGLSETPBUFFER aglglue_aglSetPBuffer = nullptr;
+static COIN_AGLTEXIMAGEPBUFFER aglglue_aglTexImagePBuffer = nullptr;
 
 struct aglglue_contextdata;
-static bool (* aglglue_context_create)(struct aglglue_contextdata * ctx) = NULL;
+static bool (* aglglue_context_create)(struct aglglue_contextdata * ctx) = nullptr;
 
 static void
 aglglue_resolve_symbols()
@@ -187,13 +187,13 @@ aglglue_contextdata_init(unsigned int width, unsigned int height)
   struct aglglue_contextdata * ctx;
   ctx = (struct aglglue_contextdata *)malloc(sizeof(struct aglglue_contextdata));
 
-  ctx->drawable = NULL;
-  ctx->aglcontext = NULL;
-  ctx->storedcontext = NULL;
-  ctx->pixformat = NULL;
-  ctx->savedport = NULL;
-  ctx->savedgdh = NULL;
-  ctx->aglpbuffer = NULL; 
+  ctx->drawable = nullptr;
+  ctx->aglcontext = nullptr;
+  ctx->storedcontext = nullptr;
+  ctx->pixformat = nullptr;
+  ctx->savedport = nullptr;
+  ctx->savedgdh = nullptr;
+  ctx->aglpbuffer = nullptr; 
   ctx->width = width;
   ctx->height = height;
   ctx->pbufferisbound = false;
@@ -270,14 +270,14 @@ aglglue_context_create_software(struct aglglue_contextdata * ctx)
                            "Creating software buffer.");
   }
     
-  ctx->pixformat = aglChoosePixelFormat( NULL, 0, attrib );
+  ctx->pixformat = aglChoosePixelFormat( nullptr, 0, attrib );
   if (!ctx->pixformat) {
     cc_debugerror_postwarning("aglglue_context_create_software",
                               "Couldn't get RGBA AGL pixelformat.");
     return false;
   }
   
-  ctx->aglcontext = aglCreateContext(ctx->pixformat, NULL );
+  ctx->aglcontext = aglCreateContext(ctx->pixformat, nullptr );
   if (!ctx->aglcontext) {
     cc_debugerror_postwarning("aglglue_context_create_software",
                               "Couldn't create AGL context.");
@@ -299,7 +299,7 @@ aglglue_context_create_software(struct aglglue_contextdata * ctx)
   GetGWorld(&ctx->savedport, &ctx->savedgdh); 
   
   {
-    QDErr e = NewGWorld(&ctx->drawable, 32, &ctx->bounds, NULL, NULL, 0);
+    QDErr e = NewGWorld(&ctx->drawable, 32, &ctx->bounds, nullptr, nullptr, 0);
     if (e != noErr) {
       cc_debugerror_postwarning("aglglue_context_create_software",
                                 "Error creating GWorld: %d", e);
@@ -371,7 +371,7 @@ aglglue_context_create_pbuffer(struct aglglue_contextdata * ctx)
                            "Creating pBuffer.");
   }
 
-  ctx->pixformat = aglChoosePixelFormat (NULL, 0, attribs);
+  ctx->pixformat = aglChoosePixelFormat (nullptr, 0, attribs);
   error = aglGetError();
   if (error != AGL_NO_ERROR) {
     cc_debugerror_post("aglglue_context_create_pbuffer",
@@ -381,7 +381,7 @@ aglglue_context_create_pbuffer(struct aglglue_contextdata * ctx)
   }
   
   if (ctx->pixformat) {
-    ctx->aglcontext = aglCreateContext (ctx->pixformat, NULL);
+    ctx->aglcontext = aglCreateContext (ctx->pixformat, nullptr);
     error = aglGetError();
     if (error != AGL_NO_ERROR) {
       cc_debugerror_post("aglglue_context_create_pbuffer",
@@ -432,10 +432,10 @@ aglglue_context_create_offscreen(unsigned int width, unsigned int height)
   bool ok, pbuffer = false, ispbuffer = false;
 
   ctx = aglglue_contextdata_init(width, height);
-  if (!ctx) return NULL;
+  if (!ctx) return nullptr;
 
   /* Use cached function pointer for pBuffer vs SW context creation... */
-  if (aglglue_context_create != NULL) {
+  if (aglglue_context_create != nullptr) {
 
     ispbuffer = (aglglue_context_create == aglglue_context_create_pbuffer);
 
@@ -453,7 +453,7 @@ aglglue_context_create_offscreen(unsigned int width, unsigned int height)
       if (aglglue_context_create_software(ctx)) { return ctx; } 
       aglglue_contextdata_cleanup(ctx);
     }
-    return NULL;
+    return nullptr;
   }
 
   /* ... but the first time around, we have to figure out. */
@@ -473,7 +473,7 @@ aglglue_context_create_offscreen(unsigned int width, unsigned int height)
     return ctx;
   } else {
     aglglue_contextdata_cleanup(ctx);
-    return NULL;
+    return nullptr;
   }
 }
 
@@ -573,7 +573,7 @@ aglglue_context_reinstate_previous(void * ctx)
   } else { /* pBuffer support available */
 
     if (context->storedcontext) CGLSetCurrentContext(context->storedcontext);
-    else CGLSetCurrentContext(NULL);
+    else CGLSetCurrentContext(nullptr);
 
   } 
 }
@@ -634,25 +634,25 @@ bool
 aglglue_context_can_render_to_texture(void * ctx)
 {
   struct aglglue_contextdata * context = (struct aglglue_contextdata *)ctx;
-  return context->aglpbuffer != NULL;
+  return context->aglpbuffer != nullptr;
 }
 
 void 
 aglglue_cleanup(void)
 {
-  aglglue_aglCreatePBuffer = NULL;
-  aglglue_aglDestroyPBuffer = NULL;
-  aglglue_aglSetPBuffer = NULL;
-  aglglue_aglTexImagePBuffer = NULL;
+  aglglue_aglCreatePBuffer = nullptr;
+  aglglue_aglDestroyPBuffer = nullptr;
+  aglglue_aglSetPBuffer = nullptr;
+  aglglue_aglTexImagePBuffer = nullptr;
 
-  aglglue_context_create = NULL;
+  aglglue_context_create = nullptr;
 }
 
 // used to look up AGL specific functions
 void * 
 aglglue_getprocaddress(const char * fname)
 {
-  void * ret = NULL;
+  void * ret = nullptr;
   cc_libhandle h = cc_dl_handle_with_gl_symbols();
   if (h) {
     ret = cc_dl_sym(h, fname);

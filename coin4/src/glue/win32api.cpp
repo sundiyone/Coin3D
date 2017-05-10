@@ -49,17 +49,17 @@ void
 cc_win32_print_error(const char * callerfuncname, const char * apifuncname,
                      DWORD lasterror)
 {
-  char * outputstr = NULL;
-  LPTSTR buffer = NULL;
+  char * outputstr = nullptr;
+  LPTSTR buffer = nullptr;
   BOOL result = FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER |
                               FORMAT_MESSAGE_FROM_SYSTEM |
                               FORMAT_MESSAGE_IGNORE_INSERTS,
-                              NULL,
+                              nullptr,
                               lasterror,
                               0,
                               (LPTSTR)&buffer,
                               0,
-                              NULL);
+                              nullptr);
   if (!result) {
     cc_debugerror_post("cc_win32_print_error",
                        "FormatMessage() failed! "
@@ -71,7 +71,7 @@ cc_win32_print_error(const char * callerfuncname, const char * apifuncname,
 #ifdef UNICODE
   { /* Narrow from wide characters to 8-bit characters. */
     size_t len;
-    len = wcstombs(NULL, buffer, 0);
+    len = wcstombs(nullptr, buffer, 0);
     outputstr = (char *)LocalAlloc(0, len + 1);
     if (!outputstr) {
       cc_debugerror_post("cc_win32_print_error",
@@ -99,13 +99,13 @@ exitfunc:
 
   /* Don't call coin_LocalFree() here, to make sure we don't get a
      recursive call back here again. */
-  if (buffer && LocalFree(buffer) != NULL) {
+  if (buffer && LocalFree(buffer) != nullptr) {
     cc_debugerror_post("cc_win32_print_error",
                        "LocalFree() failed! (errorcode %d)",
                        GetLastError());
   }
   if (outputstr && (outputstr != (char *)buffer)) {
-    if (LocalFree(outputstr) != NULL) {
+    if (LocalFree(outputstr) != nullptr) {
       cc_debugerror_post("cc_win32_print_error",
                          "LocalFree() failed! (errorcode %d)",
                          GetLastError());
@@ -143,8 +143,8 @@ coin_GetTextFace(HDC hdc, /* handle to device context */
 {
   int copied = GetTextFace(hdc, nCount, lpFaceName);
 
-  if (copied == 0 && lpFaceName == NULL) {    
-    /* Due to a well known bug in Win95/98/ME, GetTextFace(-,-,NULL)
+  if (copied == 0 && lpFaceName == nullptr) {    
+    /* Due to a well known bug in Win95/98/ME, GetTextFace(-,-,nullptr)
        will return size=0. Our workaround is to just return a number
        assumed large enough for the length of the font name string. */
 
@@ -197,7 +197,7 @@ static void WINAPI
 coin_LocalFree(HLOCAL hMem) /* handle to local memory object */
 {
   const HLOCAL ptr = LocalFree(hMem);
-  if (ptr != NULL) {
+  if (ptr != nullptr) {
     cc_win32_print_error("coin_LocalFree", "LocalFree()", GetLastError());
     assert(false && "unexpected error");
   }
@@ -217,7 +217,7 @@ coin_SelectObject(HDC hdc, HGDIOBJ hgdiobj)
 
   previous = SelectObject(hdc, hgdiobj);
   if (((d == OBJ_REGION) && (previous == HGDI_ERROR)) ||
-      ((d == OBJ_REGION) && (previous == NULL))) {
+      ((d == OBJ_REGION) && (previous == nullptr))) {
     cc_win32_print_error("coin_SelectObject", "SelectObject()", GetLastError());
     
     /* not sure about this one, suddenly start assert'ing on

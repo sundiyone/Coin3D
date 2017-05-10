@@ -111,7 +111,7 @@ void * _class_::createInstance(void) { return static_cast<void *>(new _class_); 
 
 
 #define SO_ELEMENT_INIT_ABSTRACT_CLASS(_class_, _parent_) \
-  PRIVATE_SOELEMENT_INIT(_class_, _parent_, NULL)
+  PRIVATE_SOELEMENT_INIT(_class_, _parent_, nullptr)
 
 #define SO_ELEMENT_INIT_CLASS(_class_, _parent_) \
   PRIVATE_SOELEMENT_INIT(_class_, _parent_, &_class_::createInstance)

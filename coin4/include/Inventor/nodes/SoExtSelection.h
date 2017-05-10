@@ -27,7 +27,6 @@
 #include <Inventor/nodes/SoSubNode.h>
 #include <Inventor/nodes/SoSelection.h>
 #include <Inventor/fields/SoSFEnum.h>
-#include <stddef.h> // NULL
 
 #ifndef COIN_INTERNAL
 #include <Inventor/actions/SoCallbackAction.h>
@@ -115,15 +114,15 @@ public:
   const SbVec3f * getLassoCoordsWC(int & numCoords);
   const SoPathList & getSelectionPathList() const;
 
-  void setLassoFilterCallback(SoLassoSelectionFilterCB * f, void * userdata = NULL,
+  void setLassoFilterCallback(SoLassoSelectionFilterCB * f, void * userdata = nullptr,
                               const bool callonlyifselectable = true);
 
   void setTriangleFilterCallback(SoExtSelectionTriangleCB * func,
-                                 void * userdata = NULL);
+                                 void * userdata = nullptr);
   void setLineSegmentFilterCallback(SoExtSelectionLineSegmentCB * func,
-                                    void * userdata = NULL);
+                                    void * userdata = nullptr);
   void setPointFilterCallback(SoExtSelectionPointCB * func,
-                              void * userdata = NULL);
+                              void * userdata = nullptr);
   bool wasShiftDown(void) const;
 
 protected:

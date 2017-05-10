@@ -87,7 +87,7 @@ SoUnitsElement::init(SoState * state)
 void
 SoUnitsElement::set(SoState * const state, const Units units)
 {
-  set(state, NULL, units);
+  set(state, nullptr, units);
 }
 
 //! FIXME: write doc.

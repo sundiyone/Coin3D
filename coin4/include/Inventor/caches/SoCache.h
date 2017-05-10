@@ -29,14 +29,13 @@ class SoElement;
 class SoCacheP;
 
 #include <Inventor/SbBasic.h>
-#include <stddef.h> // for NULL
 
 class COIN_DLL_API SoCache {
 public:
   SoCache(SoState * const state);
 
   void ref(void);
-  void unref(SoState * state = NULL);
+  void unref(SoState * state = nullptr);
 
   void addElement(const SoElement * const elem);
 

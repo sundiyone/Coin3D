@@ -38,8 +38,8 @@
   IndexedLineSet {
     eventIn       MFInt32 set_colorIndex
     eventIn       MFInt32 set_coordIndex
-    exposedField  SFNode  color             NULL
-    exposedField  SFNode  coord             NULL
+    exposedField  SFNode  color             nullptr
+    exposedField  SFNode  coord             nullptr
     field         MFInt32 colorIndex        []     # [-1, inf)
     field         SFBool  colorPerVertex    true
     field         MFInt32 coordIndex        []     # [-1, inf)
@@ -60,7 +60,7 @@
   contains a Coordinate node.  Lines are not lit, are not
   texture-mapped, and do not participate in collision detection. The
   width of lines is implementation dependent and each line segment is
-  solid (i.e., not dashed).  If the color field is not NULL, it shall
+  solid (i.e., not dashed).  If the color field is not nullptr, it shall
   contain a Color node.  The colours are applied to the line(s) as
   follows: 
   
@@ -94,7 +94,7 @@
       the coordIndex field is N, there shall be N+1 colours in the Color
       node.  
 
-  If the color field is NULL and there is a Material defined for the
+  If the color field is nullptr and there is a Material defined for the
   Appearance affecting this IndexedLineSet, the emissiveColor of the
   Material shall be used to draw the lines. Details on lighting
   equations as they affect IndexedLineSet nodes are described in 4.14,
@@ -146,7 +146,7 @@
 
 class SoVRMLIndexedLineSetP {
  public:
-  SoVRMLIndexedLineSetP() : vaindexer(NULL) { }
+  SoVRMLIndexedLineSetP() : vaindexer(nullptr) { }
   ~SoVRMLIndexedLineSetP() { delete this->vaindexer; }
 
   enum Binding {
@@ -271,7 +271,7 @@ SoVRMLIndexedLineSet::GLRender(SoGLRenderAction * action)
   coords = SoCoordinateElement::getInstance(state);
   cindices = this->coordIndex.getValues(0);
   numindices = this->coordIndex.getNum();
-  mindices = this->colorIndex.getNum() ? this->colorIndex.getValues(0) : NULL;
+  mindices = this->colorIndex.getNum() ? this->colorIndex.getValues(0) : nullptr;
 
   SoVRMLIndexedLineSetP::Binding mbind =
     SoVRMLIndexedLineSetP::findMaterialBinding(this, state);
@@ -286,7 +286,7 @@ SoVRMLIndexedLineSet::GLRender(SoGLRenderAction * action)
   // place it here so that it will stay in stack scope
   uint32_t packedcolor;
 
-  if (this->color.getValue() == NULL) {
+  if (this->color.getValue() == nullptr) {
     // FIXME: the vrml97 spec states that the emissiveColor should be
     // used when no color node is found, but this doesn't work for
     // some Hydro models, since diffuseColor is used to set the color
@@ -309,7 +309,7 @@ SoVRMLIndexedLineSet::GLRender(SoGLRenderAction * action)
   SoMaterialBundle mb(action);
   mb.sendFirst(); // make sure we have the correct material
  
-  SoGLLazyElement * lelem = NULL;
+  SoGLLazyElement * lelem = nullptr;
   const uint32_t contextid = action->getCacheContext();
 
   bool dova = 
@@ -318,12 +318,12 @@ SoVRMLIndexedLineSet::GLRender(SoGLRenderAction * action)
     SoGLDriverDatabase::isSupported(sogl_glue_instance(state), SO_GL_VERTEX_ARRAY);
   
   const SoGLVBOElement * vboelem = SoGLVBOElement::getInstance(state);
-  SoVBO * colorvbo = NULL;
+  SoVBO * colorvbo = nullptr;
   
   if (dova && (mbind != SoVRMLIndexedLineSetP::OVERALL)) {
     dova = false;
     if ((mbind == SoVRMLIndexedLineSetP::PER_VERTEX_INDEXED) && 
-        ((mindices == cindices) || (mindices == NULL))) {
+        ((mindices == cindices) || (mindices == nullptr))) {
       lelem = (SoGLLazyElement*) SoLazyElement::getInstance(state);
       colorvbo = vboelem->getColorVBO();
       if (colorvbo) dova = true;
@@ -345,7 +345,7 @@ SoVRMLIndexedLineSet::GLRender(SoGLRenderAction * action)
                                           mbind != SoVRMLIndexedLineSetP::OVERALL);
     didrenderasvbo = dovbo;
     LOCK_VAINDEXER(this);
-    if (PRIVATE(this)->vaindexer == NULL) {
+    if (PRIVATE(this)->vaindexer == nullptr) {
       SoVertexArrayIndexer * indexer = new SoVertexArrayIndexer;
       
       int i = 0;
@@ -388,11 +388,11 @@ SoVRMLIndexedLineSet::GLRender(SoGLRenderAction * action)
     sogl_render_lineset((SoGLCoordinateElement*)coords,
                         cindices,
                         numindices,
-                        NULL,
-                        NULL,
+                        nullptr,
+                        nullptr,
                         &mb,
                         mindices,
-                        NULL, 0,
+                        nullptr, 0,
                         0,
                         (int)mbind,
                         0,
@@ -458,7 +458,7 @@ SoVRMLIndexedLineSet::generatePrimitives(SoAction * action)
   coords = SoCoordinateElement::getInstance(state);
   cindices = this->coordIndex.getValues(0);
   numindices = this->coordIndex.getNum();
-  matindices = this->colorIndex.getNum() ? this->colorIndex.getValues(0) : NULL;
+  matindices = this->colorIndex.getNum() ? this->colorIndex.getValues(0) : nullptr;
 
   SoVRMLIndexedLineSetP::Binding mbind =
     SoVRMLIndexedLineSetP::findMaterialBinding(this, state);
@@ -468,7 +468,7 @@ SoVRMLIndexedLineSet::generatePrimitives(SoAction * action)
   }
 
   if (mbind == SoVRMLIndexedLineSetP::PER_LINE || mbind == SoVRMLIndexedLineSetP::OVERALL) {
-    matindices = NULL;
+    matindices = nullptr;
   }
 
   int matnr = 0;
@@ -536,7 +536,7 @@ SoVRMLIndexedLineSet::notify(SoNotList * list)
     LOCK_VAINDEXER(this);
     if (PRIVATE(this)->vaindexer) {
       delete PRIVATE(this)->vaindexer;
-      PRIVATE(this)->vaindexer = NULL;
+      PRIVATE(this)->vaindexer = nullptr;
     }
     UNLOCK_VAINDEXER(this);
   }

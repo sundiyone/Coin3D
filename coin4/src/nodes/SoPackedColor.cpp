@@ -79,7 +79,7 @@
 
 class SoPackedColorP {
  public:
-  SoPackedColorP() : vbo(NULL) { }
+  SoPackedColorP() : vbo(nullptr) { }
   ~SoPackedColorP() { delete this->vbo; }
   bool transparent;
   bool checktransparent;
@@ -151,7 +151,7 @@ SoPackedColor::doAction(SoAction * action)
       if (SoGLVBOElement::shouldCreateVBO(state, num)) {
         bool dirty = false;
         setvbo = true;
-        if (PRIVATE(this)->vbo == NULL) {
+        if (PRIVATE(this)->vbo == nullptr) {
           PRIVATE(this)->vbo = new SoVBO(GL_ARRAY_BUFFER, GL_STATIC_DRAW);
           dirty = true;
         }
@@ -182,7 +182,7 @@ SoPackedColor::doAction(SoAction * action)
         }
       }
       else if (PRIVATE(this)->vbo) {
-        PRIVATE(this)->vbo->setBufferData(NULL, 0, 0);
+        PRIVATE(this)->vbo->setBufferData(nullptr, 0, 0);
       }
       SoBase::staticDataUnlock();
       if (setvbo) {

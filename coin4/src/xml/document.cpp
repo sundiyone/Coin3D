@@ -134,13 +134,13 @@ cc_xml_doc_expat_element_start_handler_cb(void * userdata, const XML_Char * elem
   XML_Parser parser = static_cast<XML_Parser>(userdata);
   cc_xml_doc * doc = static_cast<cc_xml_doc *>(XML_GetUserData(parser));
 
-  cc_xml_elt * elt = cc_xml_elt_new_from_data(elementtype, NULL);
+  cc_xml_elt * elt = cc_xml_elt_new_from_data(elementtype, nullptr);
   assert(elt);
 
   // FIXME: check if attribute values are automatically dequoted or not...
   // (dequote if not)
   if (attributes) {
-    for (int c = 0; attributes[c] != NULL; c += 2) {
+    for (int c = 0; attributes[c] != nullptr; c += 2) {
       cc_xml_attr * attr = cc_xml_attr_new_from_data(attributes[c], attributes[c+1]);
       cc_xml_elt_set_attribute_x(elt, attr);
     }
@@ -151,7 +151,7 @@ cc_xml_doc_expat_element_start_handler_cb(void * userdata, const XML_Char * elem
     cc_xml_elt_add_child_x(parent, elt);
   }
 
-  if ((doc->parsestack.getLength() == 0) && (doc->root == NULL)) {
+  if ((doc->parsestack.getLength() == 0) && (doc->root == nullptr)) {
     cc_xml_doc_set_root_x(doc, elt);
   }
 
@@ -190,7 +190,7 @@ cc_xml_doc_expat_element_end_handler_cb(void * userdata, const XML_Char * elemen
           cc_xml_elt_delete_x(topelt);
         } else {
           if (topelt == doc->root) {
-            cc_xml_doc_set_root_x(doc, NULL);
+            cc_xml_doc_set_root_x(doc, nullptr);
             cc_xml_elt_delete_x(topelt);
           } else {
             assert(!"invalid case - investigate");
@@ -270,7 +270,7 @@ cc_xml_doc_expat_character_data_handler_cb(void * userdata, const XML_Char * cda
           cc_xml_elt * parent = doc->parsestack[doc->parsestack.getLength()-1];
           cc_xml_elt_remove_child_x(parent, elt);
           cc_xml_elt_delete_x(elt);
-          elt = NULL;
+          elt = nullptr;
         }
       }
       break;
@@ -298,7 +298,7 @@ void
 cc_xml_doc_create_parser_x(cc_xml_doc * doc)
 {
   assert(doc && !doc->parser);
-  doc->parser = XML_ParserCreate(NULL);
+  doc->parser = XML_ParserCreate(nullptr);
   assert(doc->parser);
   XML_UseParserAsHandlerArg(doc->parser);
   XML_SetUserData(doc->parser, doc);
@@ -315,7 +315,7 @@ cc_xml_doc_delete_parser_x(cc_xml_doc * doc)
 {
   assert(doc && doc->parser);
   XML_ParserFree(doc->parser);
-  doc->parser = NULL;
+  doc->parser = nullptr;
 }
 
 } // anonymous namespace
@@ -336,14 +336,14 @@ cc_xml_doc_new(void)
 {
   cc_xml_doc * doc = new cc_xml_doc;
   assert(doc);
-  doc->parser = NULL;
-  doc->xmlversion = NULL;
-  doc->xmlencoding = NULL;
-  doc->filtercb = NULL;
-  doc->filtercbdata = NULL;
-  doc->filename = NULL;
-  doc->root = NULL;
-  doc->current = NULL;
+  doc->parser = nullptr;
+  doc->xmlversion = nullptr;
+  doc->xmlencoding = nullptr;
+  doc->filtercb = nullptr;
+  doc->filtercbdata = nullptr;
+  doc->filename = nullptr;
+  doc->root = nullptr;
+  doc->current = nullptr;
   return doc;
 }
 
@@ -420,7 +420,7 @@ cc_xml_read_file(const char * path) // parser.h convenience function
   assert(doc);
   if (!cc_xml_doc_read_file_x(doc, path)) {
     cc_xml_doc_delete_x(doc);
-    return NULL;
+    return nullptr;
   }
   return doc;
 }
@@ -437,7 +437,7 @@ cc_xml_doc_read_file_x(cc_xml_doc * doc, const char * path)
   assert(doc);
   if (doc->root) {
     cc_xml_elt_delete_x(doc->root);
-    doc->root = NULL;
+    doc->root = nullptr;
   }
 
   if (!doc->parser) {
@@ -481,7 +481,7 @@ cc_xml_read_buffer(const char * buffer) // parser.h convenience function
   size_t buflen = strlen(buffer);
   if (!cc_xml_doc_read_buffer_x(doc, buffer, buflen)) {
     cc_xml_doc_delete_x(doc);
-    return NULL;
+    return nullptr;
   }
   cc_xml_doc_set_filename_x(doc, "<memory buffer>");
   return doc;
@@ -510,7 +510,7 @@ cc_xml_doc_parse_buffer_partial_init_x(cc_xml_doc * doc) // maybe expose and req
 #ifdef DEV_DEBUG
   fprintf(stdout, "cc_xml_doc_parse_buffer_partial_init_x()\n");
 #endif // DEV_DEBUG
-  assert(doc->parser == NULL);
+  assert(doc->parser == nullptr);
   cc_xml_doc_create_parser_x(doc);
 }
 }
@@ -567,13 +567,13 @@ cc_xml_doc_set_filename_x(cc_xml_doc * doc, const char * path)
   assert(doc);
   if (doc->filename) {
     delete [] doc->filename;
-    doc->filename = NULL;
+    doc->filename = nullptr;
   }
   doc->filename = cc_xml_strdup(path);
 }
 
 /*!
-  Returns the filename attribute.  If nothing has been set, NULL is returned.
+  Returns the filename attribute.  If nothing has been set, nullptr is returned.
   If document was read from memory, "<memory buffer>" was returned.
 */
 
@@ -638,9 +638,9 @@ cc_xml_doc_strip_whitespace_x(cc_xml_doc * doc)
   return;
 #if 0 // FIXME
   cc_xml_path * path = cc_xml_path_new();
-  cc_xml_path_set_x(path, CC_XML_CDATA_TYPE, NULL);
+  cc_xml_path_set_x(path, CC_XML_CDATA_TYPE, nullptr);
   cc_xml_elt * elt = cc_xml_doc_find_element(doc, path);
-  while ( elt != NULL ) {
+  while ( elt != nullptr ) {
     cc_xml_elt * next = cc_xml_doc_find_next_element(doc, elt, path);
     if ( sc_whitespace_p(cc_xml_elt_get_data(elt)) )  {
       cc_xml_elt_remove_child_x(cc_xml_elt_get_parent(elt), elt);
@@ -747,7 +747,7 @@ cc_xml_doc_write_to_file(const cc_xml_doc * doc, const char * path)
   size_t bufsize = 0;
   boost::scoped_array<char> buffer;
   {
-    char * bufptr = NULL;
+    char * bufptr = nullptr;
     if (!cc_xml_doc_write_to_buffer(doc, bufptr, bufsize)) {
       return false;
     }
@@ -757,12 +757,12 @@ cc_xml_doc_write_to_file(const cc_xml_doc * doc, const char * path)
 
   const size_t bytes = strlen(buffer.get());
   assert(bufsize == bytes);
-  FILE * fp = NULL;
+  FILE * fp = nullptr;
   if (strcmp(path, "-") == 0)
     fp = stdout;
   else
     fp = fopen(path, "wb");
-  assert(fp != NULL);
+  assert(fp != nullptr);
   fwrite(buffer.get(), 1, bufsize, fp);
   if (strcmp(path, "-") != 0)
     fclose(fp);
@@ -774,7 +774,7 @@ cc_xml_doc_write_to_file(const cc_xml_doc * doc, const char * path)
 
 /*!
   Compare document DOM against other document DOM, and return path to first
-  difference.  Returns NULL if documents are equal.  To be used mostly for
+  difference.  Returns nullptr if documents are equal.  To be used mostly for
   testing the XML I/O code.
 */
 
@@ -785,7 +785,7 @@ cc_xml_doc_diff(const cc_xml_doc * COIN_UNUSED_ARG(doc), const cc_xml_doc * COIN
   COIN_STUB();
 #endif // DEV_DEBUG
   // FIXME: implement
-  return NULL;
+  return nullptr;
 }
 
 // In documentp.h
@@ -886,12 +886,12 @@ BOOST_AUTO_TEST_CASE(bufread)
 "  <b>hei</b>\n"
 "</test>\n";
   cc_xml_doc * doc1 = cc_xml_read_buffer(buffer);
-  BOOST_CHECK_MESSAGE(doc1 != NULL, "cc_xml_doc_read_buffer() failed");
+  BOOST_CHECK_MESSAGE(doc1 != nullptr, "cc_xml_doc_read_buffer() failed");
 
   boost::scoped_array<char> buffer2;
   size_t bytecount = 0;
   {
-    char * bufptr = NULL;
+    char * bufptr = nullptr;
     cc_xml_doc_write_to_buffer(doc1, bufptr, bytecount);
     buffer2.reset(bufptr);
   }
@@ -899,7 +899,7 @@ BOOST_AUTO_TEST_CASE(bufread)
   cc_xml_doc * doc2 = cc_xml_read_buffer(buffer2.get());
 
   cc_xml_path * diffpath = cc_xml_doc_diff(doc1, doc2);
-  BOOST_CHECK_MESSAGE(diffpath == NULL, "document read->write->read DOM differences");
+  BOOST_CHECK_MESSAGE(diffpath == nullptr, "document read->write->read DOM differences");
 
   cc_xml_doc_delete_x(doc1);
   cc_xml_doc_delete_x(doc2);

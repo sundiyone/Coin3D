@@ -58,7 +58,7 @@ bool SoCacheElement::invalidated = false;
 
 #ifdef COIN_THREADSAFE
 
-static SbTypedStorage <bool*> * invalidated_storage = NULL;
+static SbTypedStorage <bool*> * invalidated_storage = nullptr;
 
 static void
 cacheelement_cleanup(void)
@@ -101,7 +101,7 @@ void
 SoCacheElement::init(SoState * state)
 {
   inherited::init(state);
-  this->cache = NULL;
+  this->cache = nullptr;
 }
 
 // *************************************************************************
@@ -111,7 +111,7 @@ void
 SoCacheElement::push(SoState * state)
 {
   inherited::push(state);
-  this->cache = NULL;
+  this->cache = nullptr;
 }
 
 // Documented in superclass. Overridden to unref the cache, since the
@@ -127,7 +127,7 @@ SoCacheElement::pop(SoState * state, const SoElement * prevTopElement)
      );
   if (prev->cache) {
     prev->cache->unref();
-    prev->cache = NULL;
+    prev->cache = nullptr;
   }
   inherited::pop(state, prevTopElement);
   if (!this->anyOpen(state)) state->setCacheOpen(false);
@@ -156,7 +156,7 @@ SoCacheElement::set(SoState * const state, SoCache * const cache)
 }
 
 /*!
-  This method returns the cache, or NULL if there is no cache.
+  This method returns the cache, or nullptr if there is no cache.
 */
 
 SoCache *
@@ -234,7 +234,7 @@ SoElement *
 SoCacheElement::copyMatchInfo(void) const
 {
   assert(false && "this method should not be called for this element");
-  return NULL;
+  return nullptr;
 }
 
 /*!

@@ -155,9 +155,9 @@
 // *************************************************************************
 
 // private static variables
-ScXMLP::NamespaceDict * ScXMLP::namespaces = NULL;
-ScXMLP::TargettypeDict * ScXMLP::targettypes = NULL;
-ScXMLP::TypeDict * ScXMLP::profileevaluators = NULL;
+ScXMLP::NamespaceDict * ScXMLP::namespaces = nullptr;
+ScXMLP::TargettypeDict * ScXMLP::targettypes = nullptr;
+ScXMLP::TypeDict * ScXMLP::profileevaluators = nullptr;
 
 // *************************************************************************
 
@@ -355,7 +355,7 @@ ScXML::readFile(const char * filename)
 {
   ScXMLDocument * doc = ScXMLDocument::readFile(filename);
   if (!doc) {
-    return NULL;
+    return nullptr;
   }
 
   ScXMLStateMachine * statemachine = new SoScXMLStateMachine;
@@ -375,7 +375,7 @@ ScXML::readBuffer(const SbByteBuffer & bufferdata)
 {
   ScXMLDocument * doc = ScXMLDocument::readBuffer(bufferdata);
   if (!doc) {
-    return NULL;
+    return nullptr;
   }
 
   ScXMLStateMachine * statemachine = new SoScXMLStateMachine;
@@ -469,7 +469,7 @@ ScXMLP::getClassType(NamespaceDict * nsdict, const char * xmlns, const char * cl
   const SbName classnamename(classname);
   const char * key = classnamename.getString();
 
-  ScXMLP::TypeDict * typedict = NULL;
+  ScXMLP::TypeDict * typedict = nullptr;
 
   typedict = ScXMLP::getTypeDict(nsdict, xmlns);
   if (typedict) {
@@ -543,7 +543,7 @@ ScXMLP::readXMLData(cc_xml_doc * doc)
   // get a handle on the root element
   cc_xml_elt * root = cc_xml_doc_get_root(doc);
   if (strcmp(cc_xml_elt_get_type(root), "scxml") != 0) {
-    return NULL;
+    return nullptr;
   }
 
   // peek at xmlns attribute to get the correct object types instantiated
@@ -560,7 +560,7 @@ ScXMLP::readXMLData(cc_xml_doc * doc)
   assert(statemachine && statemachine->isOfType(ScXMLStateMachine::getClassTypeId()));
 
   // FIXME
-  ScXMLObject * documentobj = NULL;
+  ScXMLObject * documentobj = nullptr;
   // ScXMLObject * documentobj = ScXMLP::readScXMLDocument(statemachine, root, xmlns);
   assert(documentobj && documentobj->isOfType(ScXMLDocument::getClassTypeId()));
   ScXMLDocument * document = static_cast<ScXMLDocument *>(documentobj);
@@ -572,7 +572,7 @@ ScXMLP::readXMLData(cc_xml_doc * doc)
 
 // *************************************************************************
 
-void * ScXMLP::mutex = NULL;
+void * ScXMLP::mutex = nullptr;
 
 void
 ScXMLP::init(void)
@@ -588,9 +588,9 @@ ScXMLP::cleanup(void)
 {
   cleanup_namespacedict(ScXMLP::namespaces);
   delete ScXMLP::namespaces;
-  ScXMLP::namespaces = NULL;
+  ScXMLP::namespaces = nullptr;
   delete ScXMLP::profileevaluators;
-  ScXMLP::profileevaluators = NULL;
+  ScXMLP::profileevaluators = nullptr;
   cleanup_targettypes();
   CC_MUTEX_DESTRUCT(ScXMLP::mutex);
 }
@@ -633,7 +633,7 @@ ScXMLP::cleanup_targettypes(void)
     it++;
   }
   delete ScXMLP::targettypes;
-  ScXMLP::targettypes = NULL;
+  ScXMLP::targettypes = nullptr;
 }
 
 // *************************************************************************

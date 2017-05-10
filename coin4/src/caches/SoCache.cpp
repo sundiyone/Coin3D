@@ -143,7 +143,7 @@ public:
 SoCache::SoCache(SoState * const state)
 {
   PRIVATE(this) = new SoCacheP;
-  PRIVATE(this)->elementflags = NULL;
+  PRIVATE(this)->elementflags = nullptr;
   PRIVATE(this)->refcount = 0;
   PRIVATE(this)->invalidated = false;
   PRIVATE(this)->statedepth = state ? state->getDepth() : 0;
@@ -247,18 +247,18 @@ bool
 SoCache::isValid(const SoState * state) const
 {
   if (PRIVATE(this)->invalidated) return false;
-  return this->getInvalidElement(state) == NULL;
+  return this->getInvalidElement(state) == nullptr;
 }
 
 /*!
-  Returns the element that caused the invalidation. Returns \e NULL
+  Returns the element that caused the invalidation. Returns \e nullptr
   if the cache is valid, or if the cache was not invalidated
   bacause of an element.
 */
 const SoElement *
 SoCache::getInvalidElement(const SoState * const state) const
 {
-  if (PRIVATE(this)->invalidated) return NULL;
+  if (PRIVATE(this)->invalidated) return nullptr;
 
   // use local variables for speed
   int n = PRIVATE(this)->elements.getLength();
@@ -277,7 +277,7 @@ SoCache::getInvalidElement(const SoState * const state) const
       return elem;
     }
   }
-  return NULL;
+  return nullptr;
 }
 
 /*!

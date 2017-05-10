@@ -38,7 +38,7 @@
   export operations.
 
   Note that node pointers stored in field instances of this type may
-  be \c NULL pointers.
+  be \c nullptr pointers.
 
   \sa SoNode, SoSFNode
 
@@ -173,7 +173,7 @@ SoMFNode::set1Value(const int idx, SoNode * newval)
   // Expand array if necessary.
   if (idx >= this->num) {
 #ifdef COIN_INTERNAL_SOMFPATH
-    for (int i = this->num; i <= idx; i++) this->pathheads.append(NULL);
+    for (int i = this->num; i <= idx; i++) this->pathheads.append(nullptr);
 #endif // COIN_INTERNAL_SOMFPATH
     this->setNum(idx + 1);
   }
@@ -211,7 +211,7 @@ SoMFNode::set1Value(const int idx, SoNode * newval)
     this->setChangedIndex(idx);
     this->values[idx] = newval;
 #ifdef COIN_INTERNAL_SOMFPATH
-    this->pathheads[idx] = newval ? newval->getHead() : NULL;
+    this->pathheads[idx] = newval ? newval->getHead() : nullptr;
 #endif // COIN_INTERNAL_SOMFPATH
   }
 
@@ -280,7 +280,7 @@ SoMFNode::deleteValues(int start, int numarg)
   inherited::deleteValues(start, numarg);
 }
 
-// Overridden to insert NULL pointers in new array slots.
+// Overridden to insert nullptr pointers in new array slots.
 void
 SoMFNode::insertSpace(int start, int numarg)
 {
@@ -293,9 +293,9 @@ SoMFNode::insertSpace(int start, int numarg)
   inherited::insertSpace(start, numarg);
   for (int i=start; i < start+numarg; i++) {
 #ifdef COIN_INTERNAL_SOMFPATH
-    this->pathheads.insert(NULL, start);
+    this->pathheads.insert(nullptr, start);
 #endif // COIN_INTERNAL_SOMFPATH
-    this->values[i] = NULL;
+    this->values[i] = nullptr;
   }
 
   // Initialization done, now send notification.
@@ -642,7 +642,7 @@ BOOST_AUTO_TEST_CASE(NULLreading)
   // FIXME: We are forced to restore the global state before terminating,
   // or independent tests could fail. (sveinung 20071108)
   SoErrorCB * prevErrorCB = SoReadError::getHandlerCallback();
-  SoReadError::setHandlerCallback(readErrorHandler, NULL);
+  SoReadError::setHandlerCallback(readErrorHandler, nullptr);
 
   const char file[] =
     "[ DEF mycube Cube {} USE mycube ]";
@@ -652,7 +652,7 @@ BOOST_AUTO_TEST_CASE(NULLreading)
   BOOST_CHECK_MESSAGE(field.read(&in, SbName("test")),
                       "DEF/USE reading in SoMFNode is broken");
 
-  SoReadError::setHandlerCallback(prevErrorCB, NULL);
+  SoReadError::setHandlerCallback(prevErrorCB, nullptr);
 }
 
 #endif // COIN_TEST_SUITE

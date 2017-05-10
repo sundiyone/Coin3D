@@ -52,7 +52,7 @@
       
             // Now the function can be used like any other, e.g. like this:
             //
-            // nurbsProperty(NULL, 0, 0.0f);
+            // nurbsProperty(nullptr, 0, 0.0f);
       
         * Now, notice the "__stdcall" part of the function signature
           typedef. As you all probably know, this specifies the _assumed_
@@ -99,7 +99,7 @@
 #endif /* HAVE_CONFIG_H */
 
 #include <assert.h>
-#include <stddef.h> /* NULL definition. */
+#include <stddef.h> /* nullptr definition. */
 #include <stdlib.h> /* atoi() */
 #include <errno.h>
 #include <string.h> /* strlen(), strcpy(), strerror() */
@@ -374,7 +374,7 @@ cc_dirname(const char *path) {
   static char dirpath [MAXPATHLEN];
   const char * ptr;
 
-  if (path == NULL || *path == '\0') return NULL;
+  if (path == nullptr || *path == '\0') return nullptr;
 
   /* Get rid of trailing '/'s */ 
   ptr = path + strlen(path) - 1;
@@ -396,7 +396,7 @@ cc_dirname(const char *path) {
   }
 
   if ((unsigned int)(ptr - path + 1) > sizeof(dirpath)) {
-    return NULL;
+    return nullptr;
   }
 
   strncpy(dirpath, path, ptr - path + 1);
@@ -508,10 +508,10 @@ cc_build_search_list(const char * libname)
 
 #ifdef COIN_MACOS_10
   /* (4) Check if library exists as framework (as in OS Xs 'OpenAL') */
-  if ((libname != NULL) &&
-      (strstr(libname, ".dylib") == NULL) &&
-      (strstr(libname, ".so") == NULL) &&
-      (strstr(libname, ".dll") == NULL)) {
+  if ((libname != nullptr) &&
+      (strstr(libname, ".dylib") == nullptr) &&
+      (strstr(libname, ".so") == nullptr) &&
+      (strstr(libname, ".dll") == nullptr)) {
     cc_string_construct(&framework_path);
     const char * framework_prefix = "/Library/Frameworks/";
     const char * framework_ext = ".framework";
@@ -526,7 +526,7 @@ cc_build_search_list(const char * libname)
 }
 
 /* Returns the absolute path to file if file can be found in the
-   library and framework search path, NULL otherwise. It is the
+   library and framework search path, nullptr otherwise. It is the
    caller's responsibility to free the returned string. */
 
 static cc_string *
@@ -539,7 +539,7 @@ cc_find_file(const char * file)
 
   while (!end_reached) {
     char * currententry = strsep((char **) &listptr, ":");
-    end_reached = (listptr == NULL);
+    end_reached = (listptr == nullptr);
     if (currententry) {
       struct stat sbuf;
       cc_string_sprintf(path, "%s/%s", currententry, file);
@@ -578,7 +578,7 @@ cc_libhandle
 cc_dl_open(const char * filename)
 {
   cc_libhandle h = new struct cc_libhandle_struct;
-  h->nativehnd = NULL;
+  h->nativehnd = nullptr;
   h->libname = NULL_STR;
 
 #ifdef HAVE_DL_LIB
@@ -587,7 +587,7 @@ cc_dl_open(const char * filename)
   /* Mac OS X: Search for library shipped with bundled Inventor framework
      or directly in application bundle. */
 
-  if (h->nativehnd == NULL) {
+  if (h->nativehnd == nullptr) {
     cc_string * path = cc_find_file(filename);
     if (cc_string_length(path) > 0) {
       if (cc_dl_debugging()) {
@@ -601,7 +601,7 @@ cc_dl_open(const char * filename)
   }
 #endif /* HAVE_DYLD_RUNTIME_BINDING */
 
-  if (h->nativehnd == NULL) {
+  if (h->nativehnd == nullptr) {
     /* try loading path-less */
     h->nativehnd = dlopen(filename, RTLD_LAZY);
   }
@@ -613,7 +613,7 @@ cc_dl_open(const char * filename)
     or release mode.
 
     The libdl interface doesn't provide any means to do that, though,
-    so we'll just /assume/ that a NULL return means the library
+    so we'll just /assume/ that a nullptr return means the library
     couldn't be found.
 
     But if a special debugging environment variable is found, we'll
@@ -621,7 +621,7 @@ cc_dl_open(const char * filename)
     debugging:
   */
 
-  if (cc_dl_debugging() && (h->nativehnd == NULL)) {
+  if (cc_dl_debugging() && (h->nativehnd == nullptr)) {
     const char * e = dlerror();
     if (e) {
       cc_debugerror_post("cc_dl_open", "dlopen(\"%s\") failed with: '%s'", 
@@ -631,16 +631,16 @@ cc_dl_open(const char * filename)
 
 #elif defined (HAVE_DYLD_RUNTIME_BINDING) 
 
-  if (filename == NULL) {
+  if (filename == nullptr) {
 
     /* 
-       Simulate the behaviour of dlopen(NULL) by returning a handle to
+       Simulate the behaviour of dlopen(nullptr) by returning a handle to
        the first image loaded by the dynamic linker, which is the
        current process. See dyld(3).
 
        Note that this handle is not necessary for the dyld cc_dl_sym()
        implementation, but it makes it possible to use cc_dl_open() in
-       the "classic" dlopen() style (where a NULL return value would
+       the "classic" dlopen() style (where a nullptr return value would
        indicate failure).
     */ 
     h->nativehnd = _dyld_get_image_header(0);
@@ -678,11 +678,11 @@ cc_dl_open(const char * filename)
 
 #elif defined (HAVE_WINDLL_RUNTIME_BINDING)
 
-  /* We don't want to call LoadLibrary(NULL) because this causes a
+  /* We don't want to call LoadLibrary(nullptr) because this causes a
      crash on some Windows platforms (Crashes on Windows2000 has been
      reported). 20021101 thammer.
   */
-  if (filename != NULL) {
+  if (filename != nullptr) {
 
     /* Don't use GetModuleHandle(): LoadLibrary() will *not* load a
        new image if the module is already loaded, it will only inc the
@@ -695,7 +695,7 @@ cc_dl_open(const char * filename)
     */
     h->nativehnd = LoadLibrary(filename);
 
-    if (cc_dl_debugging() && (h->nativehnd == NULL)) {
+    if (cc_dl_debugging() && (h->nativehnd == nullptr)) {
       cc_string funcstr;
       cc_string_construct(&funcstr);
       cc_string_sprintf(&funcstr, "LoadLibrary(\"%s\")", filename ? filename : "(null)");
@@ -704,9 +704,9 @@ cc_dl_open(const char * filename)
     }
   }
   else {
-    h->nativehnd = GetModuleHandle(NULL);
-    if (cc_dl_debugging() && (h->nativehnd == NULL)) {
-      cc_win32_print_error("cc_dl_open", "GetModuleHandle(NULL)", GetLastError());
+    h->nativehnd = GetModuleHandle(nullptr);
+    if (cc_dl_debugging() && (h->nativehnd == nullptr)) {
+      cc_win32_print_error("cc_dl_open", "GetModuleHandle(nullptr)", GetLastError());
     }
   }
 
@@ -729,7 +729,7 @@ cc_dl_open(const char * filename)
   /* Handle attempt to look at running executable image and already
      loaded dynamic libraries. */
 
-  if (filename == NULL) {
+  if (filename == nullptr) {
     shl_t exehnd = (shl_t)0;
     void * dummy;
     int ret = shl_findsym(&exehnd, "main", TYPE_UNDEFINED, &dummy);
@@ -759,7 +759,7 @@ cc_dl_open(const char * filename)
       what.
     */
 
-    if ((h->nativehnd == NULL) && (cc_dl_debugging() || (errno != ENOENT))) {
+    if ((h->nativehnd == nullptr) && (cc_dl_debugging() || (errno != ENOENT))) {
       const char * e = strerror(errno);
       cc_debugerror_post("cc_dl_open", "shl_load(\"%s\") failed with: '%s'",
                          filename ? filename : "(null)", e);
@@ -768,9 +768,9 @@ cc_dl_open(const char * filename)
 
 #endif
 
-  if (h->nativehnd == NULL) {
+  if (h->nativehnd == nullptr) {
     delete h;
-    h = NULL;
+    h = nullptr;
   }
   else {
     h->libname = filename ? filename : NULL_STR;
@@ -800,11 +800,11 @@ cc_dl_open(const char * filename)
 void *
 cc_dl_sym(cc_libhandle handle, const char * symbolname)
 {
-  void * ptr = NULL;  
+  void * ptr = nullptr;  
 
 #ifdef HAVE_DL_LIB
 
-  if ((handle == NULL) || (handle->nativehnd == NULL)) return NULL;
+  if ((handle == nullptr) || (handle->nativehnd == nullptr)) return nullptr;
   ptr = dlsym((void *)handle->nativehnd, symbolname);
 
   if (cc_dl_debugging()) {
@@ -817,13 +817,13 @@ cc_dl_sym(cc_libhandle handle, const char * symbolname)
 
 #elif defined (HAVE_DYLD_RUNTIME_BINDING) 
 
-  /* Note: The dlopen() version returns NULL here if handle or
-     handle->nativehnd are NULL, but we do not need a handle for
+  /* Note: The dlopen() version returns nullptr here if handle or
+     handle->nativehnd are nullptr, but we do not need a handle for
      symbol lookup on Mac OS X - if we have one, it makes the lookup
      faster, but that's all, so we can get away with having no valid
      handle. */
 
-  NSSymbol symbol = NULL;
+  NSSymbol symbol = nullptr;
   char * mangledname;
   NSLinkEditErrors c;
   int e;
@@ -847,7 +847,7 @@ cc_dl_sym(cc_libhandle handle, const char * symbolname)
   } 
 
   /* If we did not specifically load the library ourselves
-     (handle->nativehnd being NULL), or if the symbol could not be
+     (handle->nativehnd being nullptr), or if the symbol could not be
      found in the library, let's try if we can find it in any of the
      loaded libs. */
 
@@ -856,7 +856,7 @@ cc_dl_sym(cc_libhandle handle, const char * symbolname)
   } 
 
   if (cc_dl_debugging()) {
-    if (symbol == NULL) {
+    if (symbol == nullptr) {
       NSLinkEditError(&c, &e, &file, &errstr);
       cc_debugerror_post("cc_dl_sym", "symbol %s not found: %s", 
                          symbolname, errstr);
@@ -864,15 +864,15 @@ cc_dl_sym(cc_libhandle handle, const char * symbolname)
   }
 
   free (mangledname);
-  ptr = symbol ? NSAddressOfSymbol(symbol) : NULL;  
+  ptr = symbol ? NSAddressOfSymbol(symbol) : nullptr;  
   
 #elif defined (HAVE_WINDLL_RUNTIME_BINDING)
 
-  if ((handle == NULL) || (handle->nativehnd == NULL)) return NULL;
+  if ((handle == nullptr) || (handle->nativehnd == nullptr)) return nullptr;
  
   ptr = dl_internal::cstyle_cast<void *>(GetProcAddress((HINSTANCE) handle->nativehnd, symbolname));
 
-  if (cc_dl_debugging() && (ptr == NULL)) {
+  if (cc_dl_debugging() && (ptr == nullptr)) {
     cc_string funcstr;
     cc_string_construct(&funcstr);
     cc_string_sprintf(&funcstr, "GetProcAddress(\"%s\", \"%s\")", handle->libname.getString(), symbolname);
@@ -979,7 +979,7 @@ cc_dl_close(cc_libhandle handle)
 cc_libhandle
 cc_dl_process_handle(void)
 {
-  return cc_dl_open(NULL);
+  return cc_dl_open(nullptr);
 }
 
 /*
@@ -1005,7 +1005,7 @@ cc_dl_coin_handle(void)
     /* (instead of "cc_dl_open", we could use any other function in
        the public API) */
 
-    if (func == NULL) {
+    if (func == nullptr) {
       /* in case we're using the --enable-linkhack dev hack */
       cc_libhandle gluehnd = cc_dl_open("libglueLINKHACK" DYNAMIC_LIBRARY_EXTENSION);
       if (gluehnd) {
@@ -1038,7 +1038,7 @@ cc_dl_coin_handle(void)
   /* In case of errors when checking if we got a valid image, make
      sure to clean up to avoid resource leak. */
   if (hnd) { cc_dl_close(hnd); }
-  return NULL;
+  return nullptr;
 }
 
 /*
@@ -1082,7 +1082,7 @@ cc_dl_opengl_handle(void)
   /* In case of errors when checking if we got a valid image, make
      sure to clean up to avoid resource leak. */
   if (hnd) { cc_dl_close(hnd); }
-  return NULL;
+  return nullptr;
 }
 
 /* 
@@ -1137,7 +1137,7 @@ cc_dl_handle_with_gl_symbols(void)
       cc_dl_close(hnd); /* OpenGL symbol not found, close again */
     }
   }
-  return NULL;
+  return nullptr;
 }
 
 /* ********************************************************************** */

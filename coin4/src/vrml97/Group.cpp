@@ -135,7 +135,7 @@ static void
 sovrmlgroup_storage_construct(void * data)
 {
   sovrmlgroup_storage * ptr = (sovrmlgroup_storage*) data;
-  ptr->glcachelist = NULL;
+  ptr->glcachelist = nullptr;
 }
 
 static void 
@@ -181,7 +181,7 @@ public:
   SoGLCacheList * getGLCacheList(const bool createifnull);
 
   void invalidateGLCaches(void) {
-    glcachestorage->applyToAll(invalidate_gl_cache, NULL);
+    glcachestorage->applyToAll(invalidate_gl_cache, nullptr);
   }
 
 #ifdef COIN_THREADSAFE
@@ -199,7 +199,7 @@ SoVRMLGroupP::getGLCacheList(const bool createifnull)
 {
   sovrmlgroup_storage * ptr = 
     (sovrmlgroup_storage*) this->glcachestorage->get();
-  if (createifnull && ptr->glcachelist == NULL) {
+  if (createifnull && ptr->glcachelist == nullptr) {
     ptr->glcachelist = new SoGLCacheList(SoVRMLGroup::getNumRenderCaches());
   }
   return ptr->glcachelist;
@@ -245,7 +245,7 @@ void
 SoVRMLGroup::commonConstructor(void)
 {
   PRIVATE(this) = new SoVRMLGroupP;
-  PRIVATE(this)->bboxcache = NULL;
+  PRIVATE(this)->bboxcache = nullptr;
   PRIVATE(this)->bboxcache_usecount = 0;
   PRIVATE(this)->bboxcache_destroycount = 0;
 
@@ -275,7 +275,7 @@ SoVRMLGroup::commonConstructor(void)
     maxcaches = -2; // so we don't request the envvar later if it is not set
     const char * maxcachesstr = coin_getenv("IV_SEPARATOR_MAX_CACHES");
     if (maxcachesstr) {
-      maxcaches = strtol(maxcachesstr, NULL, 10);
+      maxcaches = strtol(maxcachesstr, nullptr, 10);
       if ((maxcaches == LONG_MIN) || (maxcaches == LONG_MAX) || (maxcaches < 0)) {
         SoDebugError::post("SoVRMLGroup::commonConstructor",
                            "Environment variable IV_SEPARATOR_MAX_CACHES "
@@ -554,7 +554,7 @@ SoVRMLGroup::GLRenderBelowPath(SoGLRenderAction * action)
   SoState * state = action->getState();
   state->push();
   bool didcull = false;
-  SoGLCacheList * createcache = NULL;
+  SoGLCacheList * createcache = nullptr;
   if ((this->renderCaching.getValue() != OFF) && 
       (SoVRMLGroup::getNumRenderCaches() > 0)) {
     if (!state->isCacheOpen()) {

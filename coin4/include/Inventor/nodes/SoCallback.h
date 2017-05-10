@@ -37,7 +37,7 @@ public:
   static void initClass(void);
   SoCallback(void);
 
-  void setCallback(SoCallbackCB * function, void * userdata = NULL);
+  void setCallback(SoCallbackCB * function, void * userdata = nullptr);
 
   virtual void doAction(SoAction * action);
   virtual void callback(SoCallbackAction * action);

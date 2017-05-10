@@ -184,7 +184,7 @@ SoGLLightIdElement::getMaxGLSources(void)
 int32_t
 SoGLLightIdElement::increment(SoState * const state)
 {
-  return increment(state, NULL);
+  return increment(state, nullptr);
 }
 
 //! FIXME: write doc.

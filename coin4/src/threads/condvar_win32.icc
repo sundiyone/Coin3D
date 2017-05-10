@@ -38,22 +38,22 @@ internal_condvar_struct_init(cc_condvar * condvar_struct)
 {
   /* auto-reset, initially is non-signaled */
   condvar_struct->w32thread.eventhandle[EVENT_SIGNAL] =
-    CreateEvent(NULL, false, false, NULL);
-  if (condvar_struct->w32thread.eventhandle[EVENT_SIGNAL] == NULL) {
+    CreateEvent(nullptr, false, false, nullptr);
+  if (condvar_struct->w32thread.eventhandle[EVENT_SIGNAL] == nullptr) {
     if (COIN_DEBUG) {
       cc_win32_print_error("internal_condvar_struct_init",
-                           "CreateEvent(NULL,false,false,NULL)",
+                           "CreateEvent(nullptr,false,false,nullptr)",
                            GetLastError());
     }
     return CC_ERROR;
   }
   /* auto-reset, initially is non-signaled */
   condvar_struct->w32thread.eventhandle[EVENT_BROADCAST] =
-    CreateEvent(NULL, true, false, NULL);
-  if (condvar_struct->w32thread.eventhandle[EVENT_BROADCAST] == NULL) {
+    CreateEvent(nullptr, true, false, nullptr);
+  if (condvar_struct->w32thread.eventhandle[EVENT_BROADCAST] == nullptr) {
     if (COIN_DEBUG) {
       cc_win32_print_error("internal_condvar_struct_init",
-                           "CreateEvent(NULL,true,false,NULL)",
+                           "CreateEvent(nullptr,true,false,nullptr)",
                            GetLastError());
     }
     return CC_ERROR;

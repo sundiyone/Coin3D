@@ -124,14 +124,14 @@ SoScXMLEvent::cleanClass(void)
 }
 
 SoScXMLEvent::SoScXMLEvent(void)
-: soeventptr(NULL)
+: soeventptr(nullptr)
 {
 }
 
 SoScXMLEvent::~SoScXMLEvent(void)
 {
   delete this->soeventptr;
-  this->soeventptr = NULL;
+  this->soeventptr = nullptr;
 }
 
 /*!
@@ -148,7 +148,7 @@ SoScXMLEvent::setSoEvent(const SoEvent * soevent)
 {
   if (this->soeventptr) {
     delete this->soeventptr;
-    this->soeventptr = NULL;
+    this->soeventptr = nullptr;
   }
   if (soevent) {
     SoEvent * newevent =
@@ -159,7 +159,7 @@ SoScXMLEvent::setSoEvent(const SoEvent * soevent)
 }
 
 /*!
-  Returns the pointer to the stored SoEvent or NULL if no event has
+  Returns the pointer to the stored SoEvent or nullptr if no event has
   been stored yet.
 
   \sa setSoEvent
@@ -182,7 +182,7 @@ SoScXMLEvent::getSoEvent(void) const
 void
 SoScXMLEvent::setUpIdentifier(void)
 {
-  if (this->soeventptr == NULL) {
+  if (this->soeventptr == nullptr) {
     this->setEventName("");
     return;
   }
@@ -250,7 +250,7 @@ SoScXMLEvent::copyContents(const ScXMLEvent * rhs)
   inherited::copyContents(rhs);
   if (this->soeventptr) {
     delete this->soeventptr;
-    this->soeventptr = NULL;
+    this->soeventptr = nullptr;
   }
   const SoScXMLEvent * sorhs = static_cast<const SoScXMLEvent *>(rhs);
   if (sorhs->soeventptr) {

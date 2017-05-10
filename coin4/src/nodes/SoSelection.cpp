@@ -46,7 +46,7 @@
 
   \code
   extern SoSeparator * make_scenegraph( void );
-  static SoSelection * selection = NULL;
+  static SoSelection * selection = nullptr;
 
   // Callback function triggered for selection / deselection.
   void made_selection( void * userdata, SoPath * path )
@@ -266,7 +266,7 @@ static void
 soselection_cleanup(void)
 {
   delete soselection_searchAction;
-  soselection_searchAction = NULL;
+  soselection_searchAction = nullptr;
 }
 
 // *************************************************************************
@@ -340,11 +340,11 @@ SoSelection::init(void)
   this->finishCBList = new SoCallbackList;
   this->changeCBList = new SoCallbackList;
 
-  this->pickCBFunc = NULL;
-  this->pickCBData = NULL;
+  this->pickCBFunc = nullptr;
+  this->pickCBData = nullptr;
   this->callPickCBOnlyIfSelectable = false;
 
-  this->mouseDownPickPath = NULL;
+  this->mouseDownPickPath = nullptr;
   this->pickMatching = true;
 }
 
@@ -622,12 +622,12 @@ SoSelection::removeFinishCallback(SoSelectionClassCB * f, void * userData)
   Possible return values from the callback:
 
   <ul>
-  <li> NULL: simulate that nothing was picked. This will clear the
+  <li> nullptr: simulate that nothing was picked. This will clear the
     selection for the SINGLE policy. The handle event action will be
     halted.</li>
   <li> A path: the path will be selected/deselected. The handle event
     action will be halted. </li>
-  <li> A path containing only the Selection node: as NULL, but action
+  <li> A path containing only the Selection node: as nullptr, but action
     will not be halted. </li>
   <li> An empty path or a path not containing the Selection node: the
     pick will be ignored. </li>
@@ -726,7 +726,7 @@ SoSelection::performSingleSelection(SoPath * path)
 {
   // Make a copy of the path from the selection node down, to use for
   // comparisons versus already selected paths.
-  SoPath * cmppath = path ? this->copyFromThis(path) : NULL;
+  SoPath * cmppath = path ? this->copyFromThis(path) : nullptr;
   if (cmppath) { cmppath->ref(); }
 
   const int nrsel = this->getNumSelected();
@@ -775,7 +775,7 @@ SoSelection::performToggleSelection(SoPath * path)
 SoPath *
 SoSelection::copyFromThis(const SoPath * path) const
 {
-  SoPath * newpath = NULL;
+  SoPath * newpath = nullptr;
   path->ref();
   int i = path->findNode(this);
   if (i >= 0) {
@@ -845,7 +845,7 @@ SoSelection::handleEvent(SoHandleEventAction * action)
   if (SO_MOUSE_PRESS_EVENT(event, BUTTON1)) {
     if (this->mouseDownPickPath) {
       this->mouseDownPickPath->unref();
-      this->mouseDownPickPath = NULL;
+      this->mouseDownPickPath = nullptr;
     }
     const SoPickedPoint * pp = action->getPickedPoint();
     if (pp) {
@@ -889,7 +889,7 @@ SoSelection::handleEvent(SoHandleEventAction * action)
     }
     if (this->mouseDownPickPath) {
       this->mouseDownPickPath->unref();
-      this->mouseDownPickPath = NULL;
+      this->mouseDownPickPath = nullptr;
     }
   }
 }
@@ -897,11 +897,11 @@ SoSelection::handleEvent(SoHandleEventAction * action)
 
 // Uses a static search action to find path to node from this. If the
 // node is found, the returned path will be ref'ed. It's the caller's
-// responsibility to unref the returned path when != NULL.
+// responsibility to unref the returned path when != nullptr.
 SoPath *
 SoSelection::searchNode(SoNode * node) const
 {
-  if (soselection_searchAction == NULL) {
+  if (soselection_searchAction == nullptr) {
     soselection_searchAction = new SoSearchAction;
     soselection_searchAction->setInterest(SoSearchAction::FIRST);
     coin_atexit((coin_atexit_f*) soselection_cleanup, CC_ATEXIT_NORMAL);
@@ -928,11 +928,11 @@ SoSelection::getSelectionPath(SoHandleEventAction * action, bool & ignorepick,
 
   haltaction = false;
   ignorepick = false;
-  if (this->pickMatching && this->mouseDownPickPath == NULL) {
-    return NULL;
+  if (this->pickMatching && this->mouseDownPickPath == nullptr) {
+    return nullptr;
   }
   const SoPickedPoint * pp = action->getPickedPoint();
-  SoPath * selectionpath = NULL;
+  SoPath * selectionpath = nullptr;
   if (pp) {
     selectionpath = pp->getPath();
     // if there's no pickCBFunc we can just test against
@@ -940,7 +940,7 @@ SoSelection::getSelectionPath(SoHandleEventAction * action, bool & ignorepick,
     if (this->pickMatching && !this->pickCBFunc) {
       if (*(this->mouseDownPickPath) != *selectionpath) {
         ignorepick = true;
-        return NULL;
+        return nullptr;
       }
     }
     // if we have a pickCBFunc we have to get the pick filter path
@@ -951,7 +951,7 @@ SoSelection::getSelectionPath(SoHandleEventAction * action, bool & ignorepick,
 
       // From the SoSelection man-pages:
       // Possible return values from pickCBFunc:
-      // 1) NULL - behave as if nothing was picked, halt action
+      // 1) nullptr - behave as if nothing was picked, halt action
       // 2) path through the selection node - select/deselect path
       // 3) path containing only the selection node - as 1, but do not halt action 
       // 4) path not through the selection node - ignore event
@@ -960,7 +960,7 @@ SoSelection::getSelectionPath(SoHandleEventAction * action, bool & ignorepick,
             selectionpath->getNode(0) == this) {
           selectionpath->ref();
           selectionpath->unref();
-          selectionpath = NULL;
+          selectionpath = nullptr;
         }
         else if (selectionpath->findNode(this) >= 0) {
           if (*(this->mouseDownPickPath) == *selectionpath) {
@@ -971,18 +971,18 @@ SoSelection::getSelectionPath(SoHandleEventAction * action, bool & ignorepick,
             // mouse release didn't match mouse down
             selectionpath->ref();
             selectionpath->unref();
-            selectionpath = NULL;
+            selectionpath = nullptr;
             ignorepick = true;
           }
         }
         else { // path with this not in the path (most probably an empty path)
           selectionpath->ref();
           selectionpath->unref();
-          selectionpath = NULL;
+          selectionpath = nullptr;
           ignorepick = true;
         }
       }
-      else { // pickCBFunc returned NULL
+      else { // pickCBFunc returned nullptr
         haltaction = true;
       }
     }

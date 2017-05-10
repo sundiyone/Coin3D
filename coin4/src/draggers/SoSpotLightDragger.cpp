@@ -332,11 +332,11 @@ SoSpotLightDragger::setUpConnections(bool onoff, bool doitalways)
     SoDragger * therotator = coin_assert_cast<SoDragger *>(this->getAnyPart("rotator", false));
     this->unregisterChildDragger(therotator);
 
-    if (this->angleFieldSensor->getAttachedField() != NULL)
+    if (this->angleFieldSensor->getAttachedField() != nullptr)
       this->angleFieldSensor->detach();
-    if (this->rotFieldSensor->getAttachedField() != NULL)
+    if (this->rotFieldSensor->getAttachedField() != nullptr)
       this->rotFieldSensor->detach();
-    if (this->translFieldSensor->getAttachedField() != NULL)
+    if (this->translFieldSensor->getAttachedField() != nullptr)
       this->translFieldSensor->detach();
 
     inherited::setUpConnections(onoff, doitalways);

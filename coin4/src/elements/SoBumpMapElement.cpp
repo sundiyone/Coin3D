@@ -80,7 +80,7 @@ void
 SoBumpMapElement::init(SoState * state)
 {
   inherited::init(state);
-  this->image = NULL;
+  this->image = nullptr;
 }
 
 //! FIXME: write doc.

@@ -35,12 +35,12 @@
 
 #define SCXML__SET_ATTRIBUTE_VALUE(_ptr_, _name_, _value_)              \
   do {                                                                  \
-    if ((_ptr_ != NULL) &&                                              \
+    if ((_ptr_ != nullptr) &&                                              \
         (_ptr_ != this->getXMLAttribute(_name_))) {                     \
       delete [] _ptr_;                                                  \
     }                                                                   \
-    _ptr_ = NULL;                                                       \
-    if (_value_ != NULL) {                                              \
+    _ptr_ = nullptr;                                                       \
+    if (_value_ != nullptr) {                                              \
       if (_value_ == this->getXMLAttribute(_name_)) {                   \
         _ptr_ = const_cast<char *>(_value_);                            \
       } else {                                                          \
@@ -104,7 +104,7 @@ classname::SO__CONCAT(remove,singular)(objtype * obj)                   \
     std::find(objlist.begin(), objlist.end(), obj);                     \
   assert(it != objlist.end());                                          \
   objlist.erase(it);                                                    \
-  obj->setContainer(NULL);                                              \
+  obj->setContainer(nullptr);                                              \
 }                                                                       \
                                                                         \
 void                                                                    \
@@ -112,7 +112,7 @@ classname::SO__CONCAT(clearAll,plural)(void)                            \
 {                                                                       \
   std::vector<objtype *>::iterator it = objlist.begin();                \
   while (it != objlist.end()) {                                         \
-    (*it)->setContainer(NULL);                                          \
+    (*it)->setContainer(nullptr);                                          \
     ++it;                                                               \
   }                                                                     \
   objlist.clear();                                                      \

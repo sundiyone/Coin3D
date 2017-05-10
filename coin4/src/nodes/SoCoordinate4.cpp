@@ -71,7 +71,7 @@
 
 class SoCoordinate4P {
  public:
-  SoCoordinate4P() : vbo(NULL) { }
+  SoCoordinate4P() : vbo(nullptr) { }
   ~SoCoordinate4P() { delete this->vbo; }
   SoVBO * vbo;
 };
@@ -141,7 +141,7 @@ SoCoordinate4::GLRender(SoGLRenderAction * action)
   if (SoGLVBOElement::shouldCreateVBO(state, num)) {
     bool dirty = false;
     setvbo = true;
-    if (PRIVATE(this)->vbo == NULL) {
+    if (PRIVATE(this)->vbo == nullptr) {
       PRIVATE(this)->vbo = new SoVBO(GL_ARRAY_BUFFER, GL_STATIC_DRAW); 
       dirty =  true;
     }
@@ -156,7 +156,7 @@ SoCoordinate4::GLRender(SoGLRenderAction * action)
   }
   else if (PRIVATE(this)->vbo && PRIVATE(this)->vbo->getBufferDataId()) {
     // clear buffers to deallocate VBO memory
-    PRIVATE(this)->vbo->setBufferData(NULL, 0, 0);
+    PRIVATE(this)->vbo->setBufferData(nullptr, 0, 0);
   }
   SoBase::staticDataUnlock();
   if (setvbo) {

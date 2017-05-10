@@ -132,7 +132,7 @@ Separator {
 
 class SoTextureCoordinate2P {
  public:
-  SoTextureCoordinate2P() : vbo(NULL) { }
+  SoTextureCoordinate2P() : vbo(nullptr) { }
   ~SoTextureCoordinate2P() { delete this->vbo; }
   SoVBO * vbo;
 };
@@ -148,7 +148,7 @@ SoTextureCoordinate2::SoTextureCoordinate2(void)
 {
   PRIVATE(this) = new SoTextureCoordinate2P;
   SO_NODE_INTERNAL_CONSTRUCTOR(SoTextureCoordinate2);
-  SO_NODE_ADD_FIELD(point, (NULL));
+  SO_NODE_ADD_FIELD(point, (nullptr));
 }
 
 /*!
@@ -192,7 +192,7 @@ SoTextureCoordinate2::GLRender(SoGLRenderAction * action)
   int maxunits = cc_glglue_max_texture_units(glue);
   
   if (unit < maxunits) {
-    SoGLMultiTextureCoordinateElement::setTexGen(action->getState(), this, unit, NULL);
+    SoGLMultiTextureCoordinateElement::setTexGen(action->getState(), this, unit, nullptr);
     SoMultiTextureCoordinateElement::set2(action->getState(), this, unit,
                                           point.getNum(),
                                           point.getValues(0));
@@ -204,7 +204,7 @@ SoTextureCoordinate2::GLRender(SoGLRenderAction * action)
   if (SoGLVBOElement::shouldCreateVBO(state, num)) {
     setvbo = true;
     bool dirty = false;
-    if (PRIVATE(this)->vbo == NULL) {
+    if (PRIVATE(this)->vbo == nullptr) {
       PRIVATE(this)->vbo = new SoVBO(GL_ARRAY_BUFFER, GL_STATIC_DRAW); 
       dirty =  true;
     }
@@ -219,10 +219,10 @@ SoTextureCoordinate2::GLRender(SoGLRenderAction * action)
   }
   else if (PRIVATE(this)->vbo && PRIVATE(this)->vbo->getBufferDataId()) {
     // clear buffers to deallocate VBO memory
-    PRIVATE(this)->vbo->setBufferData(NULL, 0, 0);
+    PRIVATE(this)->vbo->setBufferData(nullptr, 0, 0);
   }
   SoBase::staticDataUnlock();
-  SoGLVBOElement::setTexCoordVBO(state, 0, setvbo ? PRIVATE(this)->vbo : NULL);
+  SoGLVBOElement::setTexCoordVBO(state, 0, setvbo ? PRIVATE(this)->vbo : nullptr);
 }
 
 // Documented in superclass.

@@ -47,9 +47,9 @@
 
 soshape_bigtexture::soshape_bigtexture(void)
 {
-  this->clipper = NULL;
-  this->pvlist = NULL;
-  this->regions = NULL;
+  this->clipper = nullptr;
+  this->pvlist = nullptr;
+  this->regions = nullptr;
   this->numallocregions = 0;
 }
 
@@ -92,7 +92,7 @@ soshape_bigtexture::beginShape(SoGLBigImage * imageptr,
   }
   this->numregions = num;
 
-  if (this->clipper == NULL) {
+  if (this->clipper == nullptr) {
     this->clipper = new SbClip(clipcb, this);
     this->pvlist = new SbList <SoPrimitiveVertex*>;
     this->regions = new bt_region[num];

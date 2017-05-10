@@ -97,7 +97,7 @@
 /*!
   \var SoSFNode SoShadowGroup::shadowMapScene
 
-  The shadow map scene graph. If this is NULL (the default), the node
+  The shadow map scene graph. If this is nullptr (the default), the node
   will behave as a normal SoDirectionalLight node.
 
 */
@@ -142,7 +142,7 @@ SO_NODE_SOURCE(SoShadowDirectionalLight);
 SoShadowDirectionalLight::SoShadowDirectionalLight(void)
 {
   SO_NODE_INTERNAL_CONSTRUCTOR(SoShadowDirectionalLight);
-  SO_NODE_ADD_FIELD(shadowMapScene, (NULL));
+  SO_NODE_ADD_FIELD(shadowMapScene, (nullptr));
   SO_NODE_ADD_FIELD(maxShadowDistance, (-1.0f));
   SO_NODE_ADD_FIELD(bboxCenter, (0.0f, 0.0f, 0.0f));
   SO_NODE_ADD_FIELD(bboxSize, (-1.0f, -1.0f, -1.0f));

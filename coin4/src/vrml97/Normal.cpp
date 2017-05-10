@@ -66,7 +66,7 @@ SO_NODE_SOURCE(SoVRMLNormal);
 
 class SoVRMLNormalP {
  public:
-  SoVRMLNormalP() : vbo(NULL) { }
+  SoVRMLNormalP() : vbo(nullptr) { }
   ~SoVRMLNormalP() { delete this->vbo; }
   
   SoVBO * vbo;
@@ -126,7 +126,7 @@ SoVRMLNormal::GLRender(SoGLRenderAction * action)
   if (SoGLVBOElement::shouldCreateVBO(state, num)) {
     setvbo = true;
     bool dirty = false;
-    if (PRIVATE(this)->vbo == NULL) {
+    if (PRIVATE(this)->vbo == nullptr) {
       PRIVATE(this)->vbo = new SoVBO(GL_ARRAY_BUFFER, GL_STATIC_DRAW); 
       dirty =  true;
     }
@@ -141,7 +141,7 @@ SoVRMLNormal::GLRender(SoGLRenderAction * action)
   }
   else if (PRIVATE(this)->vbo && PRIVATE(this)->vbo->getBufferDataId()) {
     // clear buffers to deallocate VBO memory
-    PRIVATE(this)->vbo->setBufferData(NULL, 0, 0);
+    PRIVATE(this)->vbo->setBufferData(nullptr, 0, 0);
   }
   SoBase::staticDataUnlock();
   if (setvbo) {

@@ -213,7 +213,7 @@ int
 SoEngine::getOutputs(SoEngineOutputList & l) const
 {
   const SoEngineOutputData * outputs = this->getOutputData();
-  if (outputs == NULL) return 0;
+  if (outputs == nullptr) return 0;
 
   int n = outputs->getNumOutputs();
   for (int i = 0; i < n; i++) {
@@ -223,20 +223,20 @@ SoEngine::getOutputs(SoEngineOutputList & l) const
 }
 
 /*!
-  Returns the output with name \a outputname, or \c NULL if no such
+  Returns the output with name \a outputname, or \c nullptr if no such
   output exists.
 */
 SoEngineOutput *
 SoEngine::getOutput(const SbName & outputname) const
 {
   const SoEngineOutputData * outputs = this->getOutputData();
-  if (outputs == NULL) return NULL;
+  if (outputs == nullptr) return nullptr;
   int n = outputs->getNumOutputs();
   for (int i = 0; i < n; i++) {
     if (outputs->getOutputName(i) == outputname)
       return outputs->getOutput(this, i);
   }
-  return NULL;
+  return nullptr;
 }
 
 /*!
@@ -248,7 +248,7 @@ SoEngine::getOutputName(const SoEngineOutput * output,
                         SbName & outputname) const
 {
   const SoEngineOutputData * outputs = this->getOutputData();
-  if (outputs == NULL) return false;
+  if (outputs == nullptr) return false;
 
   int n = outputs->getNumOutputs();
   for (int i = 0; i < n; i++) {
@@ -261,7 +261,7 @@ SoEngine::getOutputName(const SoEngineOutput * output,
 }
 
 /*!
-  Returns the engine named \a name, or \c NULL if no such engine
+  Returns the engine named \a name, or \c nullptr if no such engine
   exists.  If several engines have been registered under the same
   name, returns the \e last one which was registered.
 */
@@ -349,7 +349,7 @@ SoEngine::evaluateWrapper(void)
   // For the engines which dynamically allocates input fields and
   // outputs [*], they can be destructed before there's any
   // SoEngineOutputData set up -- for instance upon an error on
-  // import. So we need to check for a NULL value here.
+  // import. So we need to check for a nullptr value here.
   //
   // [*] (So far, that is: SoGate, SoConcatenate, SoSelectOne,
   //     SoConvertAll.)
@@ -376,7 +376,7 @@ SoEngine::evaluateWrapper(void)
 const SoFieldData **
 SoEngine::getInputDataPtr(void)
 {
-  return NULL; // base class has no output
+  return nullptr; // base class has no output
 }
 
 /*!
@@ -386,7 +386,7 @@ SoEngine::getInputDataPtr(void)
 const SoEngineOutputData **
 SoEngine::getOutputDataPtr(void)
 {
-  return NULL; // base class has no input
+  return nullptr; // base class has no input
 }
 
 // Documented in superclass.

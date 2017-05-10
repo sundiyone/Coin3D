@@ -134,9 +134,9 @@
 
 // *************************************************************************
 
-SbStringList * SoInput::dirsearchlist = NULL;
+SbStringList * SoInput::dirsearchlist = nullptr;
 
-static SbStorage * soinput_tls = NULL;
+static SbStorage * soinput_tls = nullptr;
 
 struct soinput_tls_data {
   SbStringList * searchlist;
@@ -582,7 +582,7 @@ SoInput::findProto(const SbName & name)
   if (info) {
     return info->findProto(name);
   }
-  return NULL;
+  return nullptr;
 }
 
 /*!
@@ -742,7 +742,7 @@ SoInput::setFilePointer(FILE * newFP)
   this->closeFile();
 
   const char * name = (newFP == coin_get_stdin()) ? "<stdin>" : "";
-  SoInput_Reader * reader = NULL;
+  SoInput_Reader * reader = nullptr;
 
   // delay creating the reader if we're reading from
   // stdin. SoInput_FileInfo will create it when we know that we're
@@ -879,7 +879,7 @@ SoInput::closeFile(void)
 bool
 SoInput::isValidFile(void)
 {
-  if (this->getTopOfStack() == NULL) return false;
+  if (this->getTopOfStack() == nullptr) return false;
 
   // Abstract away the stupidity of providing both isValidFile() and
   // isValidBuffer().
@@ -901,7 +901,7 @@ SoInput::isValidFile(void)
 bool
 SoInput::isValidBuffer(void)
 {
-  if (this->getTopOfStack() == NULL) return false;
+  if (this->getTopOfStack() == nullptr) return false;
 
   // Abstract away the stupidity of providing both isValidFile() and
   // isValidBuffer().
@@ -914,7 +914,7 @@ SoInput::isValidBuffer(void)
 
 /*!
   Returns file pointer of the file on top of the input stack. If the
-  "file" is actually a memory buffer, returns \c NULL.
+  "file" is actually a memory buffer, returns \c nullptr.
 
   Important note: do \e not use this method when the Coin library has
   been compiled as an MSWindows DLL, as passing FILE* instances back
@@ -928,11 +928,11 @@ SoInput::getCurFile(void) const
 {
   SoInput_FileInfo * fi = this->getTopOfStack();
   assert(fi);
-  return fi->isMemBuffer() ? NULL : fi->ivFilePointer();
+  return fi->isMemBuffer() ? nullptr : fi->ivFilePointer();
 }
 
 /*!
-  Returns the name of the file on top of the input stack. \c NULL will
+  Returns the name of the file on top of the input stack. \c nullptr will
   be returned if the toplevel "file" is a memory buffer.
 
   \sa getCurFile()
@@ -942,12 +942,12 @@ SoInput::getCurFileName(void) const
 {
   SoInput_FileInfo * fi = this->getTopOfStack();
   assert(fi);
-  return fi->isMemBuffer() ? NULL : fi->ivFilename().getString();
+  return fi->isMemBuffer() ? nullptr : fi->ivFilename().getString();
 }
 
 /*!
   Sets up the input stream for reading from the strings pointed to by a
-  NULL-terminated array of string pointers.  It is intended for reading
+  nullptr-terminated array of string pointers.  It is intended for reading
   memory-inlined scene graphs.
 
   The rationale for this function is that there is a compiler portability
@@ -967,10 +967,10 @@ SoInput::getCurFileName(void) const
       "  Cube {\n",
       "  }\n",
       "}\n",
-      NULL
+      nullptr
     };
     SoInput in;
-    if ( !in.setStringArray(inlinescenegraph) ) return NULL;
+    if ( !in.setStringArray(inlinescenegraph) ) return nullptr;
     return SoDB::readAll(&in);
   }
   \endcode
@@ -986,10 +986,10 @@ SoInput::setStringArray(const char * strings[])
 {
   size_t bufsize = 0;
   size_t i;
-  for (i = bufsize = 0; strings[i] != NULL; i++ )
+  for (i = bufsize = 0; strings[i] != nullptr; i++ )
     bufsize += strlen(strings[i]);
   char * buf = new char [bufsize + 1];
-  for (i = bufsize = 0; strings[i] != NULL; i++ ) {
+  for (i = bufsize = 0; strings[i] != nullptr; i++ ) {
     const size_t len = strlen(strings[i]);
     memcpy(buf+bufsize, strings[i], len);
     bufsize += len;
@@ -1011,7 +1011,7 @@ void
 SoInput::setBuffer(const void * bufpointer, size_t bufsize)
 {
   this->closeFile();
-  SoInput_Reader * reader = NULL;
+  SoInput_Reader * reader = nullptr;
 
   unsigned char * header = (unsigned char*) bufpointer;
   if ((bufsize >= 2) && (header[0] == 0x1f) && (header[1] == 0x8b)) {
@@ -1024,7 +1024,7 @@ SoInput::setBuffer(const void * bufpointer, size_t bufsize)
                                 "not available.");
     }
   }
-  if (reader == NULL) {
+  if (reader == nullptr) {
     reader = new SoInput_MemBufferReader(bufpointer, bufsize);
   }
   SoInput_FileInfo * newfile =
@@ -1906,7 +1906,7 @@ SoInput::findReference(const SbName & name) const
       return SoBase::getNamedBase(name, SoNode::getClassTypeId());
     }
   }
-  return NULL;
+  return nullptr;
 }
 
 /*!
@@ -2025,8 +2025,8 @@ SoInput::addEnvDirectoriesIdx(int startidx,
   // FIXME: the following "tokenizer" code could perhaps be factored
   // out and moved to e.g. SbStringList? 20030820 mortene.
 
-  if (separator == NULL) {
-    // use default separators if NULL
+  if (separator == nullptr) {
+    // use default separators if nullptr
     separator = ":\t ";
   }
   const char * end = p + strlen(p);
@@ -2135,7 +2135,7 @@ SoInput::init(void)
   // This will catch multiple initClass() calls (unless there's a
   // removeDirectories() in between them, which is unlikely to happen
   // inadvertently).
-  assert(SoInput::dirsearchlist == NULL);
+  assert(SoInput::dirsearchlist == nullptr);
 
   SoInput::dirsearchlist = new SbStringList;
   SoInput::addDirectoryFirst(".");
@@ -2152,9 +2152,9 @@ SoInput::clean(void)
 {
   SoInput::clearDirectories();
   delete SoInput::dirsearchlist;
-  SoInput::dirsearchlist = NULL;
+  SoInput::dirsearchlist = nullptr;
 
-  delete soinput_tls; soinput_tls = NULL;
+  delete soinput_tls; soinput_tls = nullptr;
 }
 
 /*!
@@ -2173,7 +2173,7 @@ SoInput::getPathname(const char * const filename)
   char drive[_MAX_DRIVE];
   char dir[_MAX_DIR];
 
-  _splitpath(filename, drive, dir, NULL, NULL);
+  _splitpath(filename, drive, dir, nullptr, nullptr);
 
   SbString s(drive);
   s += dir;
@@ -2182,7 +2182,7 @@ SoInput::getPathname(const char * const filename)
 #else // HAVE__SPLITPATH
 
   const char * ptr = strrchr(filename, '/');
-  if (ptr == NULL) return SbString("");
+  if (ptr == nullptr) return SbString("");
 
   SbString s = filename;
   return s.getSubString(0, ptr-filename);
@@ -2216,7 +2216,7 @@ SoInput::getBasename(const char * const filename)
   char fname[_MAX_FNAME];
   char ext[_MAX_EXT];
 
-  _splitpath(filename, NULL, NULL, fname, ext);
+  _splitpath(filename, nullptr, nullptr, fname, ext);
 
   SbString s(fname);
   s += ext;
@@ -2225,7 +2225,7 @@ SoInput::getBasename(const char * const filename)
 #else // UNIX systems
 
   const char * ptr = strrchr(filename, '/');
-  if (ptr == NULL) return SbString(filename);
+  if (ptr == nullptr) return SbString(filename);
 
   SbString s = filename;
   return s.getSubString(ptr - filename + 1, -1);
@@ -2253,7 +2253,7 @@ test_filename(const SbString & filename)
                          filename.getString(), fp ? "hit" : "miss");
 #endif // !COIN_DEBUG
 
-  if (fp != NULL) {
+  if (fp != nullptr) {
     fclose(fp);
     return true;
   }
@@ -2730,7 +2730,7 @@ char *
 SoInput::URLToFile(char * /* out_buf */, const char * /* in_buf */)
 {
   COIN_STUB();
-  return NULL;
+  return nullptr;
 }
 
 /*!
@@ -2770,7 +2770,7 @@ SoInput::getTopOfStack(void) const
 {
   if (this->filestack.getLength() == 0) {
     SoDebugError::post("SoInput::getTopOfStack", "no files in stack");
-    return NULL;
+    return nullptr;
   }
   return this->filestack[0];
 }
@@ -2783,7 +2783,7 @@ SoInput::getTopOfStack(void) const
   \a fullname, open the file and return the file pointer.
 
   If the file could either not be found or not opened for reading,
-  return \c NULL.
+  return \c nullptr.
 
   Important note: do \e not use this method when the Coin library has
   been compiled as an MSWindows DLL, as passing FILE* instances back
@@ -2803,7 +2803,7 @@ SoInput::findFile(const char * basename, SbString & fullname)
 
   if (strlen(basename) < 1) {
     SoDebugError::post("SoInput::findFile", "Was asked to find a file with no name!");
-    return NULL;
+    return nullptr;
   }
 
   const char * env = coin_getenv("COIN_DEBUG_SOINPUT_FINDFILE");
@@ -2831,7 +2831,7 @@ SoInput::findFile(const char * basename, SbString & fullname)
   SbString relativepath("");
   sl.insert(&relativepath, 0);
 
-  FILE * fp = NULL;
+  FILE * fp = nullptr;
   for (int diridx = 0; diridx < sl.getLength(); diridx++) {
     SbString n = * sl[diridx];
     const int namelen = n.getLength();
@@ -2844,7 +2844,7 @@ SoInput::findFile(const char * basename, SbString & fullname)
     struct stat buf;
     if ((stat(n.getString(), &buf) == 0) && !S_ISDIR(buf.st_mode)) {
       fp = fopen(n.getString(), "rb");
-      if (fp != NULL) {
+      if (fp != nullptr) {
         if (DEBUG_FILE_SEARCHING) {
           SoDebugError::postInfo("SoInput::findFile", "successfully fopened '%s'", n.getString());
         }
@@ -2881,7 +2881,7 @@ SoInput::findFile(const char * basename, SbString & fullname)
     }
   }
 
-  return NULL;
+  return nullptr;
 }
 
 #undef READ_NUM

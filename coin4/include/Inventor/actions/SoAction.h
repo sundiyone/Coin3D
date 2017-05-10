@@ -107,11 +107,11 @@ public:
   virtual SoNode * getCurPathTail(void);
   void usePathCode(int & numindices, const int * & indices);
   
-  void pushCurPath(const int childindex, SoNode * node = NULL);
+  void pushCurPath(const int childindex, SoNode * node = nullptr);
   void popCurPath(const PathCode prevpathcode);
   void pushCurPath(void);
   
-  void popPushCurPath(const int childindex, SoNode * node = NULL);
+  void popPushCurPath(const int childindex, SoNode * node = nullptr);
   void popCurPath(void);
 
 public:

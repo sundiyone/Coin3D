@@ -150,19 +150,19 @@ public:
 
 static SoVRMLInline::BboxVisibility
 sovrmlinline_bboxvisibility = SoVRMLInline::UNTIL_LOADED;
-static SoVRMLInlineFetchURLCB * sovrmlinline_fetchurlcb = NULL;
+static SoVRMLInlineFetchURLCB * sovrmlinline_fetchurlcb = nullptr;
 static void * sovrmlinline_fetchurlcbclosure;
 
-static SbColor * sovrmlinline_bboxcolor = NULL;
+static SbColor * sovrmlinline_bboxcolor = nullptr;
 static bool sovrmlinline_readassofile = true;
 
 static void
 sovrmlinline_cleanup(void)
 {
   delete sovrmlinline_bboxcolor;
-  sovrmlinline_bboxcolor = NULL;
+  sovrmlinline_bboxcolor = nullptr;
   sovrmlinline_bboxvisibility = SoVRMLInline::UNTIL_LOADED;
-  sovrmlinline_fetchurlcb = NULL;  
+  sovrmlinline_fetchurlcb = nullptr;  
   sovrmlinline_readassofile = true;
 }
 
@@ -235,7 +235,7 @@ SoVRMLInline::getFullURLName(void)
 SoGroup *
 SoVRMLInline::copyChildren(void) const
 {
-  if (PRIVATE(this)->children->getLength() == 0) return NULL;
+  if (PRIVATE(this)->children->getLength() == 0) return nullptr;
   assert(PRIVATE(this)->children->getLength() == 1);
   SoNode * rootcopy = (*(PRIVATE(this)->children))[0]->copy();
   assert(rootcopy->isOfType(SoGroup::getClassTypeId()));
@@ -278,7 +278,7 @@ SoVRMLInline::isURLDataRequested(void) const
 bool
 SoVRMLInline::isURLDataHere(void) const
 {
-  return this->getChildData() != NULL;
+  return this->getChildData() != nullptr;
 }
 
 /*!
@@ -312,7 +312,7 @@ SoVRMLInline::getChildData(void) const
   if (PRIVATE(this)->children->getLength()) {
     return (*PRIVATE(this)->children)[0];
   }
-  return NULL;
+  return nullptr;
 }
 
 /*!
@@ -410,7 +410,7 @@ SoVRMLInline::GLRender(SoGLRenderAction * action)
   SoNode * child = this->getChildData();
   if ((size[0] >= 0.0f && size[1] >= 0.0f && size[1] >= 0.0f) &&
       ((vis == ALWAYS) || 
-       (vis == UNTIL_LOADED && child == NULL))) {
+       (vis == UNTIL_LOADED && child == nullptr))) {
     SoState * state = action->getState();
     state->push();
 

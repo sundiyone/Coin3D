@@ -60,7 +60,7 @@ public:
   // an empty string.
   virtual const SbString & getFilename(void);
 
-  // default method returns NULL. Should only be overloaded if the
+  // default method returns nullptr. Should only be overloaded if the
   // reader uses FILE * to read data.
   virtual FILE * getFilePointer(void);
 

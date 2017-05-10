@@ -125,8 +125,8 @@ class SoSFImageP {
 public:
   SoSFImageP(void) {
     this->image = new SbImage;
-    this->freeimage = NULL;
-    this->deleteimage = NULL;
+    this->freeimage = nullptr;
+    this->deleteimage = nullptr;
   }
   ~SoSFImageP() {
     delete this->image;
@@ -219,12 +219,12 @@ SoSFImage::readValue(SoInput * in)
 #endif // debug
 
   if (!buffersize) {
-    PRIVATE(this)->image->setValue(SbVec2s(0,0), 0, NULL);
+    PRIVATE(this)->image->setValue(SbVec2s(0,0), 0, nullptr);
     return true;
   }
 
   // allocate image data and get new pointer back
-  PRIVATE(this)->image->setValue(size, nc, NULL);
+  PRIVATE(this)->image->setValue(size, nc, nullptr);
   unsigned char * pixblock = PRIVATE(this)->image->getValue(size, nc);
 
   // The binary image format of 2.1 and later tries to be less
@@ -351,10 +351,10 @@ SoSFImage::getValue() const
 /*!
   Initialize this field to \a size and \a nc.
 
-  If \a pixels is not \c NULL, the image data is copied from \a pixels
-  into this field.  If \a pixels is \c NULL, the image data is cleared
+  If \a pixels is not \c nullptr, the image data is copied from \a pixels
+  into this field.  If \a pixels is \c nullptr, the image data is cleared
   by setting all bytes to 0 (note that the behavior on passing a \c
-  NULL pointer is specific for Coin, Open Inventor will crash if you
+  nullptr pointer is specific for Coin, Open Inventor will crash if you
   try it).
 
   The image dimensions is given by the \a size argument, and the \a nc
@@ -389,11 +389,11 @@ SoSFImage::setValue(const SbVec2s & size, const int nc,
   // free old data
   if (PRIVATE(this)->freeimage) {
     free(PRIVATE(this)->freeimage);
-    PRIVATE(this)->freeimage = NULL;
+    PRIVATE(this)->freeimage = nullptr;
   }
   if (PRIVATE(this)->deleteimage) {
     delete[] PRIVATE(this)->deleteimage;
-    PRIVATE(this)->deleteimage = NULL;
+    PRIVATE(this)->deleteimage = nullptr;
   }
   // set new data
   switch (copypolicy) {
@@ -511,7 +511,7 @@ SoSFImage::getSubTexture(
   SoDebugError::postWarning("SoSFImage::getSubTexture",
                             "Not yet implemented for Coin. "
                             "Get in touch if you need this functionality.");
-  return NULL;
+  return nullptr;
 }
 
 /*!

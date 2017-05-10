@@ -93,12 +93,12 @@ class SoLineHighlightRenderActionP {
 public:
   SoLineHighlightRenderActionP(void)
     : colorpacker_storage(sizeof(void*), alloc_colorpacker, free_colorpacker),
-      owner(NULL)
+      owner(nullptr)
   {
     this->color = SbColor(1.0f, 0.0f, 0.0f);
     this->linepattern = 0xffff;
     this->linewidth = 3.0f;
-    this->searchaction = NULL;
+    this->searchaction = nullptr;
 
     // SoBase-derived objects should be dynamically allocated.
     this->postprocpath = new SoTempPath(32);
@@ -190,7 +190,7 @@ SoLineHighlightRenderAction::apply(SoNode * node)
   SoGLRenderAction::apply(node);
   
   if (this->hlVisible) {
-    if (PRIVATE(this)->searchaction == NULL) {
+    if (PRIVATE(this)->searchaction == nullptr) {
       PRIVATE(this)->searchaction = new SoSearchAction;
     }
     // Coin, and SGI Inventor, only supports one Selection node in a
@@ -361,18 +361,18 @@ SoLineHighlightRenderActionP::drawBoxes(SoPath * pathtothis,
   SoLinePatternElement::set(state, this->linepattern);
   SoTextureQualityElement::set(state, 0.0f);
   SoDrawStyleElement::set(state, SoDrawStyleElement::LINES);
-  SoPolygonOffsetElement::set(state, NULL, -1.0f, -1.0f, SoPolygonOffsetElement::LINES, true);
-  SoMaterialBindingElement::set(state, NULL, SoMaterialBindingElement::OVERALL); 
-  SoNormalElement::set(state, NULL, 0, NULL, false);
+  SoPolygonOffsetElement::set(state, nullptr, -1.0f, -1.0f, SoPolygonOffsetElement::LINES, true);
+  SoMaterialBindingElement::set(state, nullptr, SoMaterialBindingElement::OVERALL); 
+  SoNormalElement::set(state, nullptr, 0, nullptr, false);
  
-  SoOverrideElement::setNormalVectorOverride(state, NULL, true);
-  SoOverrideElement::setMaterialBindingOverride(state, NULL, true);
-  SoOverrideElement::setLightModelOverride(state, NULL, true);
-  SoOverrideElement::setDiffuseColorOverride(state, NULL, true);
-  SoOverrideElement::setLineWidthOverride(state, NULL, true);
-  SoOverrideElement::setLinePatternOverride(state, NULL, true);
-  SoOverrideElement::setDrawStyleOverride(state, NULL, true);
-  SoOverrideElement::setPolygonOffsetOverride(state, NULL, true);
+  SoOverrideElement::setNormalVectorOverride(state, nullptr, true);
+  SoOverrideElement::setMaterialBindingOverride(state, nullptr, true);
+  SoOverrideElement::setLightModelOverride(state, nullptr, true);
+  SoOverrideElement::setDiffuseColorOverride(state, nullptr, true);
+  SoOverrideElement::setLineWidthOverride(state, nullptr, true);
+  SoOverrideElement::setLinePatternOverride(state, nullptr, true);
+  SoOverrideElement::setDrawStyleOverride(state, nullptr, true);
+  SoOverrideElement::setPolygonOffsetOverride(state, nullptr, true);
   SoTextureOverrideElement::setQualityOverride(state, true);
 
   for (i = 0; i < pathlist->getLength(); i++) {

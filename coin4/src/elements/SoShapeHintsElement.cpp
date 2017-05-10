@@ -221,7 +221,7 @@ void SoShapeHintsElement::set(SoState * const state,
                               const ShapeType shapeType,
                               const FaceType faceType)
 {
-  set(state, NULL, vertexOrdering, shapeType, faceType);
+  set(state, nullptr, vertexOrdering, shapeType, faceType);
 }
 
 //! FIXME: write doc.

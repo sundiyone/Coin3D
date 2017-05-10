@@ -22,15 +22,15 @@
 // need to include SbRWMutex.h to make C++ call the actual destructor,
 // and not just default destructor
 #include <Inventor/threads/SbRWMutex.h>
-SbRWMutex * SoDBP::globalmutex = NULL;
+SbRWMutex * SoDBP::globalmutex = nullptr;
 #endif // COIN_THREADSAFE
-SbList<SoDB_HeaderInfo *> * SoDBP::headerlist = NULL;
-SoSensorManager * SoDBP::sensormanager = NULL;
-SoTimerSensor * SoDBP::globaltimersensor = NULL;
-UInt32ToInt16Map * SoDBP::converters = NULL;
+SbList<SoDB_HeaderInfo *> * SoDBP::headerlist = nullptr;
+SoSensorManager * SoDBP::sensormanager = nullptr;
+SoTimerSensor * SoDBP::globaltimersensor = nullptr;
+UInt32ToInt16Map * SoDBP::converters = nullptr;
 bool SoDBP::isinitialized = false;
 int SoDBP::notificationcounter = 0;
-SbList<SoDBP::ProgressCallbackInfo> * SoDBP::progresscblist = NULL;
+SbList<SoDBP::ProgressCallbackInfo> * SoDBP::progresscblist = nullptr;
 
 // *************************************************************************
 // FIXME: this should be moved into a function in tidsbits.c. 20050509 mortene.
@@ -108,7 +108,7 @@ void
 SoDBP::clean(void)
 {
   delete SoDBP::progresscblist;
-  SoDBP::progresscblist = NULL;
+  SoDBP::progresscblist = nullptr;
 
   // Avoid having the SoSensorManager instance trigging the callback
   // into the So@Gui@ class -- not only have it possible "died", but
@@ -118,24 +118,24 @@ SoDBP::clean(void)
   // the SoQt library, which wets its pants on the
   // SoDBP::globaltimersensor destruction under MSWindows if we don't
   // first nullify the callback function pointer.)
-  SoDBP::sensormanager->setChangedCallback(NULL, NULL);
+  SoDBP::sensormanager->setChangedCallback(nullptr, nullptr);
 
   delete SoDBP::globaltimersensor;
-  SoDBP::globaltimersensor = NULL;
+  SoDBP::globaltimersensor = nullptr;
   delete SoDBP::converters;
-  SoDBP::converters = NULL;
+  SoDBP::converters = nullptr;
 
   delete SoDBP::sensormanager;
-  SoDBP::sensormanager = NULL;
+  SoDBP::sensormanager = nullptr;
 
   for (int i = 0; i < SoDBP::headerlist->getLength(); i++)
     delete (*SoDBP::headerlist)[i];
   delete SoDBP::headerlist;
-  SoDBP::headerlist = NULL;
+  SoDBP::headerlist = nullptr;
 
 #ifdef COIN_THREADSAFE
   delete SoDBP::globalmutex;
-  SoDBP::globalmutex = NULL;
+  SoDBP::globalmutex = nullptr;
 #endif // COIN_THREADSAFE
 }
 
@@ -277,7 +277,7 @@ SoDBP::read3DSFile(SoInput * in)
 
 #endif // !HAVE_3DS_IMPORT_CAPABILITIES
 
-  return NULL;
+  return nullptr;
 }
 
 
@@ -286,7 +286,7 @@ SoDBP::progress(const SbName & itemid,
                 float fraction,
                 bool interruptible)
 {
-  if (SoDBP::progresscblist != NULL) {
+  if (SoDBP::progresscblist != nullptr) {
     for (int i = 0; i < SoDBP::progresscblist->getLength(); i++) {
       SoDBP::ProgressCallbackInfo info = (*SoDBP::progresscblist)[i];
       info.func(itemid, fraction, interruptible, info.userdata);

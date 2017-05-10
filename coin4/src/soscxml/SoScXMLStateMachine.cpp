@@ -56,7 +56,7 @@
 class SoScXMLStateMachine::PImpl {
 public:
   PImpl(void)
-    : scenegraphroot(NULL), activecamera(NULL), viewport(100, 100)
+    : scenegraphroot(nullptr), activecamera(nullptr), viewport(100, 100)
   { }
   ~PImpl(void) { }
 
@@ -157,7 +157,7 @@ bool
 SoScXMLStateMachine::processSoEvent(const SoEvent * event)
 {
   // FIXME: Not sure if this check should be here and not somewhere else,
-  // but removing this again makes us crash on NULL scenegraphs. kintel 20080729.
+  // but removing this again makes us crash on nullptr scenegraphs. kintel 20080729.
   if (PRIVATE(this)->scenegraphroot.get()) {
     boost::scoped_ptr<SoScXMLEvent> wrapperevent;
     wrapperevent.reset(new SoScXMLEvent);
@@ -323,7 +323,7 @@ SoScXMLStateMachine::getVariable(const char * key) const
       if (!camera) {
         SoDebugError::post("SoScXMLStateMachine::getVariable",
                            "queried for camera, but no camera is set.");
-        return NULL;
+        return nullptr;
       }
       const char * detail = subkey + 7;
       if (strcmp(detail, "getTypeId()") == 0) {

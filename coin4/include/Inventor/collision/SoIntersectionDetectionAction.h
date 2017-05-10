@@ -83,9 +83,9 @@ public:
   virtual void apply(SoPath * path);
   virtual void apply(const SoPathList & paths, bool obeysRules = false);
 
-  virtual void setFilterCallback(SoIntersectionFilterCB * cb, void * closure = NULL);
-  virtual void addIntersectionCallback(SoIntersectionCB * cb, void * closure  = NULL);
-  virtual void removeIntersectionCallback(SoIntersectionCB * cb, void * closure  = NULL);
+  virtual void setFilterCallback(SoIntersectionFilterCB * cb, void * closure = nullptr);
+  virtual void addIntersectionCallback(SoIntersectionCB * cb, void * closure  = nullptr);
+  virtual void removeIntersectionCallback(SoIntersectionCB * cb, void * closure  = nullptr);
 
 private:
   class PImpl;

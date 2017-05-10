@@ -40,7 +40,7 @@ SoVertexAttributeBundle::SoVertexAttributeBundle(SoAction * action, bool forrend
   : SoBundle(action)
 {
   this->elem = SoVertexAttributeElement::getInstance(this->state);
-  this->glelem = NULL;
+  this->glelem = nullptr;
   if (forrendering) {
     this->glelem = static_cast<const SoGLVertexAttributeElement *> (this->elem);
   }

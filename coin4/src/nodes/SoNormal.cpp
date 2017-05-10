@@ -68,7 +68,7 @@
 
 class SoNormalP {
  public:
-  SoNormalP() : vbo(NULL) { }
+  SoNormalP() : vbo(nullptr) { }
   ~SoNormalP() { delete this->vbo; }
 
   SoVBO * vbo;
@@ -86,7 +86,7 @@ SoNormal::SoNormal(void)
   PRIVATE(this) = new SoNormalP;
   SO_NODE_INTERNAL_CONSTRUCTOR(SoNormal);
 
-  SO_NODE_ADD_FIELD(vector, (NULL));
+  SO_NODE_ADD_FIELD(vector, (nullptr));
 }
 
 /*!
@@ -127,7 +127,7 @@ SoNormal::GLRender(SoGLRenderAction * action)
   if (SoGLVBOElement::shouldCreateVBO(state, num)) {
     setvbo = true;
     bool dirty = false;
-    if (PRIVATE(this)->vbo == NULL) {
+    if (PRIVATE(this)->vbo == nullptr) {
       PRIVATE(this)->vbo = new SoVBO(GL_ARRAY_BUFFER, GL_STATIC_DRAW); 
       dirty =  true;
     }
@@ -142,10 +142,10 @@ SoNormal::GLRender(SoGLRenderAction * action)
   }
   else if (PRIVATE(this)->vbo && PRIVATE(this)->vbo->getBufferDataId()) {
     // clear buffers to deallocate VBO memory
-    PRIVATE(this)->vbo->setBufferData(NULL, 0, 0);
+    PRIVATE(this)->vbo->setBufferData(nullptr, 0, 0);
   }
   SoBase::staticDataUnlock();
-  SoGLVBOElement::setNormalVBO(state, setvbo? PRIVATE(this)->vbo : NULL);
+  SoGLVBOElement::setNormalVBO(state, setvbo? PRIVATE(this)->vbo : nullptr);
 }
 
 // Doc in superclass.

@@ -41,7 +41,7 @@ SoOutput *
 SoTranSender::getOutput(void) const
 {
   COIN_STUB();
-  return NULL;
+  return nullptr;
 }
 
 void

@@ -32,14 +32,14 @@
 
 // *************************************************************************
 
-CGcontext SoGLCgShaderObject::cgContext = NULL;
+CGcontext SoGLCgShaderObject::cgContext = nullptr;
 int SoGLCgShaderObject::instanceCount = 0;
 
 SoGLCgShaderObject::SoGLCgShaderObject(const uint32_t cachecontext)
   : SoGLShaderObject(cachecontext)
 {
   SoGLCgShaderObject::instanceCount++;
-  this->cgProgram = NULL;
+  this->cgProgram = nullptr;
 }
 
 SoGLCgShaderObject::~SoGLCgShaderObject()
@@ -78,7 +78,7 @@ SoGLCgShaderObject::load(const char* sourceString)
   this->cgProfile = getProfile();
   //cgGLSetOptimalOptions(this->cgProfile);
 
-  glue_cgSetErrorCallback(NULL);
+  glue_cgSetErrorCallback(nullptr);
   glue_cgGetError(); // remove last error from stack
 
   this->cgProgram =
@@ -87,7 +87,7 @@ SoGLCgShaderObject::load(const char* sourceString)
                          sourceString,
                          this->cgProfile,
                          "main", // entry's function name
-                         NULL); // argument names
+                         nullptr); // argument names
   errorCode = glue_cgGetError();
 
   if (errorCode == CG_NO_ERROR) {
@@ -110,7 +110,7 @@ SoGLCgShaderObject::unload(void)
 {
   if (glue_cgIsProgram(this->cgProgram)) {
     glue_cgDestroyProgram(this->cgProgram);
-    this->cgProgram = NULL;
+    this->cgProgram = nullptr;
   }
 }
 

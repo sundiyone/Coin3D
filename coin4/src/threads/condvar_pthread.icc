@@ -32,7 +32,7 @@
 static int
 internal_condvar_struct_init(cc_condvar * condvar_struct)
 {
-  int status = pthread_cond_init(&(condvar_struct->pthread.condid), NULL);
+  int status = pthread_cond_init(&(condvar_struct->pthread.condid), nullptr);
   if (status != 0) {
     if (COIN_DEBUG)
       cc_debugerror_post("internal_condvar_struct_init",

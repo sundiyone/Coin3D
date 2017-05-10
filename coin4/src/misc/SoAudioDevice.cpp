@@ -49,6 +49,8 @@
 
 // *************************************************************************
 
+#include <cstdlib> // atoi
+
 #include <Inventor/misc/SoAudioDevice.h>
 
 #ifdef HAVE_CONFIG_H
@@ -87,7 +89,7 @@ private:
 #define PRIVATE(p) ((p)->pimpl)
 #define PUBLIC(p) ((p)->master)
 
-SoAudioDevice *SoAudioDeviceP::singleton = NULL;
+SoAudioDevice *SoAudioDeviceP::singleton = nullptr;
 
 // *************************************************************************
 
@@ -98,7 +100,7 @@ SoAudioDevice *SoAudioDeviceP::singleton = NULL;
 SoAudioDevice *
 SoAudioDevice::instance()
 {
-  if (SoAudioDeviceP::singleton == NULL) {
+  if (SoAudioDeviceP::singleton == nullptr) {
     SoAudioDeviceP::singleton = new SoAudioDevice();
 
     // Note: there is a known problem with the OpenAL driver on
@@ -118,7 +120,7 @@ void
 SoAudioDeviceP::clean()
 {
   if (SoAudioDeviceP::singleton) { delete SoAudioDeviceP::singleton; }
-  SoAudioDeviceP::singleton = NULL;
+  SoAudioDeviceP::singleton = nullptr;
 }
 
 // *************************************************************************
@@ -126,8 +128,8 @@ SoAudioDeviceP::clean()
 SoAudioDeviceP::SoAudioDeviceP(SoAudioDevice * master)
   : master(master)
 {
-  this->context = NULL;
-  this->device = NULL;
+  this->context = nullptr;
+  this->device = nullptr;
   this->enabled = false;
   this->initOK = false;
   this->lastGain = 1.0f;
@@ -147,7 +149,7 @@ SoAudioDeviceP::~SoAudioDeviceP()
 
 SoAudioDevice::SoAudioDevice()
 {
-  PRIVATE(this) = NULL;
+  PRIVATE(this) = nullptr;
 
   const char * env = coin_getenv("COIN_SOUND_DRIVER_NAME");
   (void)this->init("OpenAL", env ? env : "DirectSound3D");
@@ -271,7 +273,7 @@ SoAudioDevice::init(const SbString & devicetype, const SbString & devicename)
   PRIVATE(this)->device = 
     openal_wrapper()->alcOpenDevice((unsigned char*)devicename.getString());
 
-  if (PRIVATE(this)->device == NULL) {
+  if (PRIVATE(this)->device == nullptr) {
     SoDebugError::postWarning("SoAudioDevice::init",
                               "Failed to initialize OpenAL. "
                               "Sound will not be available.");
@@ -289,7 +291,7 @@ SoAudioDevice::init(const SbString & devicetype, const SbString & devicename)
   // 20021029 mortene.
 
   PRIVATE(this)->context = 
-    openal_wrapper()->alcCreateContext(PRIVATE(this)->device, NULL);
+    openal_wrapper()->alcCreateContext(PRIVATE(this)->device, nullptr);
   openal_wrapper()->alcMakeContextCurrent(PRIVATE(this)->context);
 
   // Clear Error Code

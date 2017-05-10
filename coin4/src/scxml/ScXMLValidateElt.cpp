@@ -68,7 +68,7 @@ ScXMLValidateEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDoc
   // handle XML attributes
   if (unlikely(!validate->handleXMLAttributes())) {
     delete validate;
-    return NULL;
+    return nullptr;
   }
 
   const int numchildren = cc_xml_elt_get_num_children(xmlelt);
@@ -84,7 +84,7 @@ ScXMLValidateEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDoc
     SoDebugError::post("ScXMLValidateEltReader::read",
                        "<validate> contains unexpected <%s> element", elementtype);
     delete validate;
-    return NULL;
+    return nullptr;
   }
 
   return validate;
@@ -114,14 +114,14 @@ ScXMLValidateElt::cleanClass(void)
 }
 
 ScXMLValidateElt::ScXMLValidateElt(void)
-: location(NULL),
-  schema(NULL)
+: location(nullptr),
+  schema(nullptr)
 {
 }
 ScXMLValidateElt::~ScXMLValidateElt(void)
 {
-  this->setLocationAttribute(NULL);
-  this->setSchemaAttribute(NULL);
+  this->setLocationAttribute(nullptr);
+  this->setSchemaAttribute(nullptr);
 }
 
 void
@@ -179,7 +179,7 @@ ScXMLValidateElt::search(const char * attrname, const char * attrvalue) const
       return this;
     }
   }
-  return NULL;
+  return nullptr;
 }
 
 void

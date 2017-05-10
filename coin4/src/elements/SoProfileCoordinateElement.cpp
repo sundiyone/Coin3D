@@ -38,7 +38,7 @@
 
 #include <Inventor/nodes/SoNode.h>
 
-SbVec2f * SoProfileCoordinateElement::initdefaultcoords = NULL;
+SbVec2f * SoProfileCoordinateElement::initdefaultcoords = nullptr;
 
 /*!
   \var SoProfileCoordinateElement::numCoords
@@ -97,7 +97,7 @@ SoProfileCoordinateElement::init(SoState * state)
   inherited::init(state);
   this->numCoords = 1;
   this->coords2 = SoProfileCoordinateElement::initdefaultcoords;
-  this->coords3 = NULL;
+  this->coords3 = nullptr;
   this->coordsAre2D = true;
 }
 
@@ -114,11 +114,11 @@ SoProfileCoordinateElement::set2(SoState * const state,
   assert(numCoords >= 0);
   SoProfileCoordinateElement * element =
     coin_safe_cast<SoProfileCoordinateElement *>
-    (getElement(state, classStackIndex, NULL));
+    (getElement(state, classStackIndex, nullptr));
   if (element) {
     element->numCoords = numCoords;
     element->coords2 = coords;
-    element->coords3 = NULL;
+    element->coords3 = nullptr;
     element->coordsAre2D = true;
     element->nodeId = node->getNodeId();
   }
@@ -136,10 +136,10 @@ SoProfileCoordinateElement::set3(SoState * const state,
   assert(numCoords >= 0);
   SoProfileCoordinateElement * element =
     coin_safe_cast<SoProfileCoordinateElement *>
-    (getElement(state, classStackIndex, NULL));
+    (getElement(state, classStackIndex, nullptr));
   if (element) {
     element->numCoords = numCoords;
-    element->coords2 = NULL;
+    element->coords2 = nullptr;
     element->coords3 = coords;
     element->coordsAre2D = false;
     element->nodeId = node->getNodeId();

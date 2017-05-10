@@ -250,8 +250,8 @@
     if (root) {
       root->ref();
       SoCallbackAction cbaction;
-      cbaction.addPreCallback(SoTexture2::getClassTypeId(), pre_tex2_cb, NULL);
-      cbaction.addPreCallback(SoShape::getClassTypeId(), pre_shape_cb, NULL);
+      cbaction.addPreCallback(SoTexture2::getClassTypeId(), pre_tex2_cb, nullptr);
+      cbaction.addPreCallback(SoShape::getClassTypeId(), pre_shape_cb, nullptr);
       cbaction.apply(root);
       root->unref();
       return 0;
@@ -313,7 +313,7 @@
   evaluation may have to be perfomed, so use getConstElement() instead
   if the instance shouldn't be modified.
 
-  If no instance is available and can not be made, \c NULL is
+  If no instance is available and can not be made, \c nullptr is
   returned.
 
   \sa const SoElement * SoElement::getConstElement(SoState * const state, const int stackIndex)
@@ -501,7 +501,7 @@ SoElement::initClass(void)
   // Make sure we only initialize once.
   assert(SoElement::classTypeId == SoType::badType());
   SoElement::classTypeId =
-    SoType::createType(SoType::badType(), "Element", NULL);
+    SoType::createType(SoType::badType(), "Element", nullptr);
 
   SoElement::classStackIndex = -1;
   SoElement::initElements();
@@ -522,8 +522,8 @@ SoElement::cleanup(void)
   for the elements type identifier..
 */
 SoElement::SoElement(void)
-  : nextup(NULL),
-    nextdown(NULL)
+  : nextup(nullptr),
+    nextdown(nullptr)
 {
 }
 
@@ -666,7 +666,7 @@ SoElement::getDepth() const
   returned instance is modified, strange, hard to find and generally
   wonderful bugs will most likely start to happen.)
 
-  If no instance can be returned, \c NULL is returned.
+  If no instance can be returned, \c nullptr is returned.
 
   \sa SoElement * SoElement::getElement(SoState * const state, const int stackIndex)
 */

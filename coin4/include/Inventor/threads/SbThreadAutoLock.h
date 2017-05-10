@@ -37,12 +37,12 @@ public:
   SbThreadAutoLock(SbMutex * mutexptr) {
     this->mutex = mutexptr;
     this->mutex->lock();
-    this->recmutex = NULL;
+    this->recmutex = nullptr;
   }
   SbThreadAutoLock(SbThreadMutex * mutexptr) {
     this->recmutex = mutexptr;
     this->recmutex->lock();
-    this->mutex = NULL;
+    this->mutex = nullptr;
   }
 
   ~SbThreadAutoLock() {

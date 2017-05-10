@@ -60,7 +60,7 @@ void *
 SoByteStream::getData(void)
 {
   COIN_STUB();
-  return NULL;
+  return nullptr;
 }
 
 uint32_t
@@ -74,14 +74,14 @@ SoPathList *
 SoByteStream::unconvert(SoByteStream * COIN_UNUSED_ARG(stream))
 {
   COIN_STUB();
-  return NULL;
+  return nullptr;
 }
 
 SoPathList *
 SoByteStream::unconvert(void * COIN_UNUSED_ARG(data), uint32_t COIN_UNUSED_ARG(bytesinstream))
 {
   COIN_STUB();
-  return NULL;
+  return nullptr;
 }
 
 void

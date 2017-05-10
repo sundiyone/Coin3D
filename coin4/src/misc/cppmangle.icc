@@ -32,7 +32,7 @@ static
 SbString
 gcc2_initClassMangling(const char * classname)
 {
-  assert(classname != NULL);
+  assert(classname != nullptr);
   const size_t len = strlen(classname);
   SbString mangling;
   mangling.sprintf("initClass__%d%s", len, classname);
@@ -48,7 +48,7 @@ static
 SbString
 gcc3_initClassMangling(const char * classname)
 {
-  assert(classname != NULL);
+  assert(classname != nullptr);
   const size_t len = strlen(classname);
   SbString mangling;
   mangling.sprintf("_ZN%d%s9initClassEv", len, classname);
@@ -65,7 +65,7 @@ static
 SbString
 msvc6_initClassMangling(const char * classname)
 {
-  assert(classname != NULL);
+  assert(classname != nullptr);
   SbString mangling;
   mangling.sprintf("?initClass@%s@@SAXXZ", classname);
   return mangling;
@@ -80,7 +80,7 @@ static
 SbString
 MIPSpro_CC_initClassMangling(const char * classname)
 {
-  assert(classname != NULL);
+  assert(classname != nullptr);
   const size_t len = strlen(classname);
   SbString mangling;
   mangling.sprintf("initClass__%d%sSGv", len, classname);
@@ -98,7 +98,7 @@ static
 SbString
 HPUX_aCC_initClassMangling(const char * classname)
 {
-  assert(classname != NULL);
+  assert(classname != nullptr);
   const size_t len = strlen(classname);
   SbString mangling;
   mangling.sprintf("initClass__%d%sSFv", len, classname);
@@ -116,7 +116,7 @@ static
 SbString
 sunCC_initClassMangling(const char * classname)
 {
-  assert(classname != NULL);
+  assert(classname != nullptr);
   size_t len = strlen(classname);
   SbString mangling;
   SbString mangled_len;
@@ -153,11 +153,11 @@ static mangleFunc * manglefunctions[] = {
   msvc6_initClassMangling,
   MIPSpro_CC_initClassMangling,
   sunCC_initClassMangling,
-  (mangleFunc *)NULL
+  (mangleFunc *)nullptr
 };
 
 /*
-  return the correct name mangling function, or NULL in case none seem
+  return the correct name mangling function, or nullptr in case none seem
   appropriate
 */
 
@@ -166,13 +166,13 @@ mangleFunc *
 getManglingFunction(void)
 {
   static bool initialized = false;
-  static mangleFunc * manglefunc = NULL;
+  static mangleFunc * manglefunc = nullptr;
   if (!initialized) {
     initialized = true;
     int i;
-    cc_libhandle handle = cc_dl_open(NULL);
-    if (handle == NULL) goto failure;
-    for (i = 0; (manglefunctions[i] != NULL) && (manglefunc == NULL); i++) {
+    cc_libhandle handle = cc_dl_open(nullptr);
+    if (handle == nullptr) goto failure;
+    for (i = 0; (manglefunctions[i] != nullptr) && (manglefunc == nullptr); i++) {
       mangleFunc * attempt = manglefunctions[i];
       SbString symbol(attempt("SoBase"));
       if (cc_dl_sym(handle, symbol.getString())) {
@@ -180,12 +180,12 @@ getManglingFunction(void)
       }
     }
     cc_dl_close(handle);
-    if (manglefunc == NULL) { goto failure; }
+    if (manglefunc == nullptr) { goto failure; }
   }
   return manglefunc;
 failure:
 #ifdef _MSC_VER
-  // LoadLibrary(NULL) doesn't work, so we fall-back on the MSVC++ mangling
+  // LoadLibrary(nullptr) doesn't work, so we fall-back on the MSVC++ mangling
   // scheme on MS Windows.
   manglefunc = msvc6_initClassMangling;
 #endif

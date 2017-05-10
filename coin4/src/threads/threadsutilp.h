@@ -42,7 +42,7 @@
 #define CC_MUTEX_CONSTRUCT(_mymutex_) \
   do { \
     cc_mutex_global_lock(); \
-    if (_mymutex_ == NULL) { \
+    if (_mymutex_ == nullptr) { \
       _mymutex_ = static_cast<void*>(cc_mutex_construct()); \
     } \
     cc_mutex_global_unlock(); \
@@ -50,7 +50,7 @@
 
 #define CC_MUTEX_DESTRUCT(_mymutex_) \
   cc_mutex_destruct(static_cast<cc_mutex*>(_mymutex_));     \
-  _mymutex_ = NULL
+  _mymutex_ = nullptr
 
 #define CC_MUTEX_LOCK(_mymutex_) \
   cc_mutex_lock(static_cast<cc_mutex *>(_mymutex_))

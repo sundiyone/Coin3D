@@ -216,7 +216,7 @@ void coin_flush_ascii85(FILE * fp,
 
 /*
   Parse version string of type <major>.<minor>.<patch>. <minor> or
-  <patch> might not be in the string. It's possible to supply NULL for
+  <patch> might not be in the string. It's possible to supply nullptr for
   minor and/or patch if you're not interested in minor and/or patch.
 */
 bool coin_parse_versionstring(const char * versionstr,

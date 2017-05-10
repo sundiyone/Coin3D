@@ -81,11 +81,11 @@ public:
   };
 
   SbImageP(void)
-    : bytes(NULL),
+    : bytes(nullptr),
       datatype(SETVALUEPTR_DATA),
       size(0,0,0),
       bpp(0),
-      schedulecb(NULL)
+      schedulecb(nullptr)
 #ifdef COIN_THREADSAFE
     , rwmutex(SbRWMutex::READ_PRECEDENCE)
 #endif // COIN_THREADSAFE
@@ -98,14 +98,14 @@ public:
         break;
       case INTERNAL_DATA:
         delete[] this->bytes;
-        this->bytes = NULL;
+        this->bytes = nullptr;
         break;
       case SIMAGE_DATA:
         simage_wrapper()->simage_free_image(this->bytes);
-        this->bytes = NULL;
+        this->bytes = nullptr;
         break;
       case SETVALUEPTR_DATA:
-        this->bytes = NULL;
+        this->bytes = nullptr;
         break;
       }
     }
@@ -155,12 +155,12 @@ extern "C" {
 
 static void SbImage_cleanup_callback(void) {
   delete SbImageP::readimagecallbacks;
-  SbImageP::readimagecallbacks = NULL;
+  SbImageP::readimagecallbacks = nullptr;
 }
 
 } // extern "C"
 
-SbList <SbImageP::ReadImageCBData> * SbImageP::readimagecallbacks = NULL;
+SbList <SbImageP::ReadImageCBData> * SbImageP::readimagecallbacks = nullptr;
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -281,7 +281,7 @@ SbImage::setValuePtr(const SbVec3s & size, const int bytesperpixel,
 {
   PRIVATE(this)->writeLock();
   PRIVATE(this)->schedulename = "";
-  PRIVATE(this)->schedulecb = NULL;
+  PRIVATE(this)->schedulecb = nullptr;
   PRIVATE(this)->freeData();
   PRIVATE(this)->bytes = const_cast<unsigned char *>(bytes);
   PRIVATE(this)->datatype = SbImageP::SETVALUEPTR_DATA;
@@ -303,8 +303,8 @@ SbImage::setValue(const SbVec2s & size, const int bytesperpixel,
 
 /*!
   Sets the image to \a size and \a bytesperpixel. If \a bytes !=
-  NULL, data is copied from \a bytes into this class' image data. If
-  \a bytes == NULL, the image data is left uninitialized.
+  nullptr, data is copied from \a bytes into this class' image data. If
+  \a bytes == nullptr, the image data is left uninitialized.
 
   The image data will always be allocated in multiples of four. This
   means that if you set an image with size == (1,1,1) and bytesperpixel
@@ -323,7 +323,7 @@ SbImage::setValue(const SbVec3s & size, const int bytesperpixel,
 {
   PRIVATE(this)->writeLock();
   PRIVATE(this)->schedulename = "";
-  PRIVATE(this)->schedulecb = NULL;
+  PRIVATE(this)->schedulecb = nullptr;
   if (PRIVATE(this)->bytes && PRIVATE(this)->datatype == SbImageP::INTERNAL_DATA) {
     // check for special case where we don't have to reallocate
     if (bytes && (size == PRIVATE(this)->size) && (bytesperpixel == PRIVATE(this)->bpp)) {
@@ -382,7 +382,7 @@ SbImage::getValue(SbVec3s & size, int & bytesperpixel) const
     bool scheduled = PRIVATE(this)->schedulecb(PRIVATE(this)->schedulename, const_cast<SbImage *>(this),
                                         PRIVATE(this)->scheduleclosure);
     if (scheduled) {
-      PRIVATE(this)->schedulecb = NULL;
+      PRIVATE(this)->schedulecb = nullptr;
     }
   }
   size = PRIVATE(this)->size;
@@ -517,7 +517,7 @@ SbImage::readFile(const SbString & filename,
   }
 #endif // COIN_DEBUG
     
-  this->setValue(SbVec3s(0,0,0), 0, NULL);
+  this->setValue(SbVec3s(0,0,0), 0, nullptr);
   return false;
 }
 
@@ -540,7 +540,7 @@ SbImage::operator==(const SbImage & image) const
   if (!PRIVATE(this)->schedulecb && !PRIVATE(&image)->schedulecb) {
     if (PRIVATE(this)->size != PRIVATE(&image)->size) ret = 0;
     else if (PRIVATE(this)->bpp != PRIVATE(&image)->bpp) ret = 0;
-    else if (PRIVATE(this)->bytes == NULL || PRIVATE(&image)->bytes == NULL) {
+    else if (PRIVATE(this)->bytes == nullptr || PRIVATE(&image)->bytes == nullptr) {
       ret = (PRIVATE(this)->bytes == PRIVATE(&image)->bytes);
     }
     else {
@@ -611,9 +611,9 @@ SbImage::scheduleReadFile(SbImageScheduleReadCB * cb,
                           const SbString * const * searchdirectories,
                           const int numdirectories)
 {
-  this->setValue(SbVec3s(0,0,0), 0, NULL);
+  this->setValue(SbVec3s(0,0,0), 0, nullptr);
   PRIVATE(this)->writeLock();
-  PRIVATE(this)->schedulecb = NULL;
+  PRIVATE(this)->schedulecb = nullptr;
   PRIVATE(this)->schedulename =
     this->searchForFile(filename, searchdirectories, numdirectories);
   int len = PRIVATE(this)->schedulename.getLength();
@@ -637,7 +637,7 @@ SbImage::hasData(void) const
 {
   bool ret;
   this->readLock();
-  ret = PRIVATE(this)->bytes != NULL;
+  ret = PRIVATE(this)->bytes != nullptr;
   this->readUnlock();
   return ret;
 }

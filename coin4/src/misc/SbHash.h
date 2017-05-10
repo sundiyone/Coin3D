@@ -40,7 +40,6 @@
 // *************************************************************************
 
 #include <assert.h>
-#include <stddef.h> // NULL
 #include <string.h> // memset()
 
 #include <Inventor/lists/SbList.h>
@@ -172,7 +171,7 @@ class SbHash {
       setNextUsedBucket();
     }
     iterator() {
-      this->elem = NULL;
+      this->elem = nullptr;
     }
 
     inline void setNextUsedBucket() {
@@ -182,7 +181,7 @@ class SbHash {
           return;
         }
       }
-      this->elem = NULL;
+      this->elem = nullptr;
     }
 
     inline void setNext(){
@@ -236,7 +235,7 @@ class SbHash {
       setNextUsedBucket();
     }
     const_iterator() {
-      this->elem = NULL;
+      this->elem = nullptr;
     }
 
     inline void setNextUsedBucket() {
@@ -246,7 +245,7 @@ class SbHash {
           return;
         }
       }
-      this->elem = NULL;
+      this->elem = nullptr;
     }
 
     inline void setNext(){
@@ -354,12 +353,12 @@ class SbHash {
   size_t erase(const Key & key)
   {
     unsigned int i = this->getIndex(key);
-    SbHashEntry * entry = this->buckets[i], * next, * prev = NULL;
+    SbHashEntry * entry = this->buckets[i], * next, * prev = nullptr;
     while (entry) {
       next = entry->next;
       if (entry->key == key) {
         this->elements--;
-        if (prev == NULL) {
+        if (prev == nullptr) {
           this->buckets[i] = next;
         }
         else {

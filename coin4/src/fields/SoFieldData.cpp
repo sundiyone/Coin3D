@@ -151,7 +151,7 @@ SoFieldData::SoFieldData(const SoFieldData & fd)
 
 /*!
   Copy constructor taking a pointer value as an argument. Handles \c
-  NULL pointers by behaving like the default constructor.
+  nullptr pointers by behaving like the default constructor.
 */
 SoFieldData::SoFieldData(const SoFieldData * fd)
 {
@@ -353,13 +353,13 @@ SoFieldData::addEnumValue(const char * enumname, const char * valuename,
 {
   CC_GLOBAL_LOCK;
   if (!this->hasEnumValue(enumname, valuename)) {
-    SoEnumEntry * e = NULL;
+    SoEnumEntry * e = nullptr;
 
     for (int i=0; !e && (i < this->enums.getLength()); i++) {
       if (this->enums[i]->nameoftype == enumname) e = this->enums[i];
     }
 
-    if (e == NULL) {
+    if (e == nullptr) {
       e = new SoEnumEntry(enumname);
       this->enums.append(e);
     }
@@ -389,8 +389,8 @@ SoFieldData::getEnumData(const char * enumname, int & num,
                          const int *& values, const SbName *& names)
 {
   num = 0;
-  values = NULL;
-  names = NULL;
+  values = nullptr;
+  names = nullptr;
 
   for (int i=0; i < this->enums.getLength(); i++) {
     SoEnumEntry * e = this->enums[i];
@@ -841,7 +841,7 @@ SoFieldData::readFieldDescriptions(SoInput * in, SoFieldContainer * object,
                            fieldtypename.getString(), fieldname.getString());
 #endif // debug
 
-    SoField * newfield = NULL;
+    SoField * newfield = nullptr;
     for (int i=0; !newfield && (i < this->fields.getLength()); i++) {
       if (this->fields[i]->name == fieldname) {
         newfield = this->getField(object, i);
@@ -973,11 +973,11 @@ SoFieldData::hasField(const char * name) const
 bool
 SoFieldData::hasEnumValue(const char * enumname, const char * valuename)
 {
-  SoEnumEntry * e = NULL;
+  SoEnumEntry * e = nullptr;
 
   for (int i=0; !e && (i < this->enums.getLength()); i++) {
     if (this->enums[i]->nameoftype == enumname) e = this->enums[i];
   }
-  if (e == NULL) return false;
+  if (e == nullptr) return false;
   return e->names.find(valuename) != -1;
 }

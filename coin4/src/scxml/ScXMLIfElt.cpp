@@ -79,7 +79,7 @@ ScXMLIfEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocument 
   // handle XML attributes
   if (unlikely(!ifelt->handleXMLAttributes())) {
     delete ifelt;
-    return NULL;
+    return nullptr;
   }
 
   ScXMLExecutableElt * conditional = ifelt;
@@ -99,13 +99,13 @@ ScXMLIfEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocument 
         SoDebugError::post("ScXMLIfEltReader::read",
                            "<if> can not contain <elseif> after and <else> element");
         delete ifelt;
-        return NULL;
+        return nullptr;
       }
       ScXMLEltReader * elseifreader = ScXMLElseIfElt::getElementReader();
       ScXMLElt * elseifelt = elseifreader->read(ifelt, element, doc, sm);
       if (unlikely(!elseifelt)) {
         delete ifelt;
-        return NULL;
+        return nullptr;
       }
       assert(elseifelt->isOfType(ScXMLElseIfElt::getClassTypeId()));
       ifelt->addElseIf(static_cast<ScXMLElseIfElt *>(elseifelt));
@@ -117,13 +117,13 @@ ScXMLIfEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocument 
         SoDebugError::post("ScXMLIfEltReader::read",
                            "<if> can not contain multiple <else> elements");
         delete ifelt;
-        return NULL;
+        return nullptr;
       }
       ScXMLEltReader * elsereader = ScXMLElseElt::getElementReader();
       ScXMLElt * elseelt = elsereader->read(ifelt, element, doc, sm);
       if (unlikely(!elseelt)) {
         delete ifelt;
-        return NULL;
+        return nullptr;
       }
       assert(elseelt->isOfType(ScXMLElseElt::getClassTypeId()));
       ifelt->setElse(static_cast<ScXMLElseElt *>(elseelt));
@@ -135,7 +135,7 @@ ScXMLIfEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocument 
       ScXMLElt * executableelt = executablereader->read(ifelt, element, doc, sm);
       if (unlikely(!executableelt)) {
         delete ifelt;
-        return NULL;
+        return nullptr;
       }
       assert(executableelt->isOfType(ScXMLIfElt::getClassTypeId()));
       ifelt->addExecutable(conditional, static_cast<ScXMLExecutableElt *>(executableelt));
@@ -145,7 +145,7 @@ ScXMLIfEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocument 
       ScXMLElt * executableelt = scriptreader->read(ifelt, element, doc, sm);
       if (unlikely(!executableelt)) {
         delete ifelt;
-        return NULL;
+        return nullptr;
       }
       assert(executableelt->isOfType(ScXMLScriptElt::getClassTypeId()));
       ifelt->addExecutable(conditional, static_cast<ScXMLExecutableElt *>(executableelt));
@@ -155,7 +155,7 @@ ScXMLIfEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocument 
       ScXMLElt * executableelt = logreader->read(ifelt, element, doc, sm);
       if (unlikely(!executableelt)) {
         delete ifelt;
-        return NULL;
+        return nullptr;
       }
       assert(executableelt->isOfType(ScXMLLogElt::getClassTypeId()));
       ifelt->addExecutable(conditional, static_cast<ScXMLExecutableElt *>(executableelt));
@@ -165,7 +165,7 @@ ScXMLIfEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocument 
       ScXMLElt * executableelt = assignreader->read(ifelt, element, doc, sm);
       if (unlikely(!executableelt)) {
         delete ifelt;
-        return NULL;
+        return nullptr;
       }
       assert(executableelt->isOfType(ScXMLAssignElt::getClassTypeId()));
       ifelt->addExecutable(conditional, static_cast<ScXMLExecutableElt *>(executableelt));
@@ -175,7 +175,7 @@ ScXMLIfEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocument 
       ScXMLElt * executableelt = eventreader->read(ifelt, element, doc, sm);
       if (unlikely(!executableelt)) {
         delete ifelt;
-        return NULL;
+        return nullptr;
       }
       assert(executableelt->isOfType(ScXMLEventElt::getClassTypeId()));
       ifelt->addExecutable(conditional, static_cast<ScXMLExecutableElt *>(executableelt));
@@ -185,7 +185,7 @@ ScXMLIfEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocument 
       ScXMLElt * executableelt = invokereader->read(ifelt, element, doc, sm);
       if (unlikely(!executableelt)) {
         delete ifelt;
-        return NULL;
+        return nullptr;
       }
       assert(executableelt->isOfType(ScXMLInvokeElt::getClassTypeId()));
       ifelt->addExecutable(conditional, static_cast<ScXMLExecutableElt *>(executableelt));
@@ -195,7 +195,7 @@ ScXMLIfEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocument 
       ScXMLElt * executableelt = sendreader->read(ifelt, element, doc, sm);
       if (unlikely(!executableelt)) {
         delete ifelt;
-        return NULL;
+        return nullptr;
       }
       assert(executableelt->isOfType(ScXMLSendElt::getClassTypeId()));
       ifelt->addExecutable(conditional, static_cast<ScXMLExecutableElt *>(executableelt));
@@ -205,7 +205,7 @@ ScXMLIfEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocument 
       ScXMLElt * executableelt = validatereader->read(ifelt, element, doc, sm);
       if (unlikely(!executableelt)) {
         delete ifelt;
-        return NULL;
+        return nullptr;
       }
       assert(executableelt->isOfType(ScXMLValidateElt::getClassTypeId()));
       ifelt->addExecutable(conditional, static_cast<ScXMLExecutableElt *>(executableelt));
@@ -215,7 +215,7 @@ ScXMLIfEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocument 
       SoDebugError::post("ScXMLIfEltReader::read",
                          "<if> contains unexpected <%s> element", elementtype);
       delete ifelt;
-      return NULL;
+      return nullptr;
     }
   }
 
@@ -226,7 +226,7 @@ ScXMLIfEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocument 
 
 class ScXMLIfElt::PImpl {
 public:
-  PImpl(void) : pub(NULL), elseelt(NULL)
+  PImpl(void) : pub(nullptr), elseelt(nullptr)
   {
   }
 
@@ -272,9 +272,9 @@ void
 ScXMLIfElt::PImpl::assureArrayForIdx(int idx)
 {
   while (int(this->executables.size()) < idx) {
-    this->executables.push_back(NULL);
+    this->executables.push_back(nullptr);
   }
-  if (this->executables.at(idx) == NULL) {
+  if (this->executables.at(idx) == nullptr) {
     this->executables.at(idx) = new std::vector<ScXMLExecutableElt *>;
   }
 }
@@ -285,7 +285,7 @@ ScXMLIfElt::PImpl::getArrayForIdx(int idx) const
   if (idx < int(this->executables.size())) {
     return this->executables.at(idx);
   }
-  return NULL;
+  return nullptr;
 }
 
 #undef PUBLIC
@@ -308,14 +308,14 @@ ScXMLIfElt::cleanClass(void)
 }
 
 ScXMLIfElt::ScXMLIfElt(void)
-: cond(NULL)
+: cond(nullptr)
 {
   pimpl->pub = this;
 }
 
 ScXMLIfElt::~ScXMLIfElt(void)
 {
-  this->setCondAttribute(NULL);
+  this->setCondAttribute(nullptr);
 }
 
 void
@@ -403,7 +403,7 @@ ScXMLIfElt::search(const char * attrname, const char * attrvalue) const
       return hit;
     }
   }
-  return NULL;
+  return nullptr;
 }
 
 void
@@ -412,8 +412,8 @@ ScXMLIfElt::execute(ScXMLStateMachine * statemachine) const
   ScXMLEvaluator * evaluator = statemachine->getEvaluator();
   assert(evaluator);
 
-  ScXMLDataObj * res = NULL;
-  ScXMLBoolDataObj * boolres = NULL;
+  ScXMLDataObj * res = nullptr;
+  ScXMLBoolDataObj * boolres = nullptr;
   res = evaluator->evaluate(this->getCondAttribute());
   if (res) {
     if (res->isOfType(ScXMLBoolDataObj::getClassTypeId())) {
@@ -496,16 +496,16 @@ ScXMLIfElt::getExecutable(const ScXMLExecutableElt * conditional, int idx) const
   int condidx = PRIVATE(this)->findIdx(conditional);
   if (unlikely(condidx == -1)) {
     assert(0 && "given conditional not found");
-    return NULL;
+    return nullptr;
   }
   std::vector<ScXMLExecutableElt *> * array = PRIVATE(this)->getArrayForIdx(condidx);
   if (unlikely(!array)) {
     assert(0 && "given conditional has no executables");
-    return NULL;
+    return nullptr;
   }
   if (unlikely(idx >= int(array->size()))) {
     assert(0 && "given idx too large for given conditional");
-    return NULL;
+    return nullptr;
   }
   return array->at(idx);
 }
@@ -562,7 +562,7 @@ ScXMLIfElt::clearAllExecutables(ScXMLExecutableElt * conditional)
     delete array->at(idx);
   }
   delete array;
-  PRIVATE(this)->executables.at(condidx) = NULL;
+  PRIVATE(this)->executables.at(condidx) = nullptr;
 }
 
 #undef PRIVATE

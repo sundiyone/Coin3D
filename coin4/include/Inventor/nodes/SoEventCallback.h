@@ -53,9 +53,9 @@ public:
   const SoPath * getPath(void);
 
   void addEventCallback(SoType eventtype, SoEventCallbackCB * f,
-                        void * userdata = NULL);
+                        void * userdata = nullptr);
   void removeEventCallback(SoType eventtype, SoEventCallbackCB * f,
-                           void * userdata = NULL);
+                           void * userdata = nullptr);
 
   SoHandleEventAction * getAction(void) const;
   const SoEvent * getEvent(void) const;

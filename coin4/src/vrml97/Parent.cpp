@@ -84,7 +84,7 @@ public:
 #endif // !COIN_THREADSAFE
 
   static SoInfo * getNullNode(void) {
-    if (SoVRMLParentP::nullnode == NULL) {
+    if (SoVRMLParentP::nullnode == nullptr) {
       SoVRMLParentP::nullnode = new SoInfo;
       SoVRMLParentP::nullnode->ref();
       SoVRMLParentP::nullnode->setName("SoVRMLParent::nullnode");
@@ -92,9 +92,9 @@ public:
     return SoVRMLParentP::nullnode;
   }
   static void freeNullNode(void) {
-    if (SoVRMLParentP::nullnode != NULL) {
+    if (SoVRMLParentP::nullnode != nullptr) {
       SoVRMLParentP::nullnode->unref();
-      SoVRMLParentP::nullnode = NULL;
+      SoVRMLParentP::nullnode = nullptr;
     }
   }
 
@@ -102,7 +102,7 @@ private:
   static SoInfo * nullnode;
 };
 
-SoInfo * SoVRMLParentP::nullnode = NULL;
+SoInfo * SoVRMLParentP::nullnode = nullptr;
 
 static void
 vrmlparent_cleanup(void)
@@ -121,7 +121,7 @@ void
 SoVRMLParent::initClass(void)
 {
   SO_NODE_INTERNAL_INIT_ABSTRACT_CLASS(SoVRMLParent, SO_VRML97_NODE_TYPE);
-  // used when the 'children' field contains NULL-nodes
+  // used when the 'children' field contains nullptr-nodes
   coin_atexit((coin_atexit_f*) vrmlparent_cleanup, CC_ATEXIT_NORMAL);
 }
 
@@ -164,10 +164,10 @@ SoVRMLParent::commonConstructor(void)
   // HACK WARNING: All children of this node are stored in the
   // children field. Avoid double notifications (because of
   // notification through SoChildList) be reallocating the SoChildList
-  // with a NULL-parent here. SoGroup will have allocated an
+  // with a nullptr-parent here. SoGroup will have allocated an
   // SoChildList in its constructor when we get here.
   delete this->SoGroup::children;
-  this->SoGroup::children = new SoChildList(NULL);
+  this->SoGroup::children = new SoChildList(nullptr);
 }
 
 /*!
@@ -401,10 +401,10 @@ SoVRMLParent::updateChildList(const SoNode * const * nodes,
   if (numChildren && (numnodes == numChildren)) {
     const SoNode ** clarr = (const SoNode**) cl.getArrayPtr();
     for (i = 0; i < numnodes; i++) {
-      // if the MFNode contains NULL values, we insert a dummy node
+      // if the MFNode contains nullptr values, we insert a dummy node
       // (of type SoInfo). This is to simplify the traversal code, and
       // to make it easier to check if the SoChildList is up-to-date
-      if (clarr[i] == NULL) {
+      if (clarr[i] == nullptr) {
         if (nodes[i] != SoVRMLParentP::getNullNode()) break;
       }
       else {

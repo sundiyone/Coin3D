@@ -121,7 +121,7 @@ SoField *
 SoFieldConverter::getConnectedInput(void)
 {
   COIN_OBSOLETED();
-  return NULL;
+  return nullptr;
 }
 
 /*!

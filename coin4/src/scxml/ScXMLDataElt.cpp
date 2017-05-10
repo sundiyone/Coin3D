@@ -95,7 +95,7 @@ ScXMLDataEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocumen
   // handle XML attributes
   if (unlikely(!data->handleXMLAttributes())) {
     delete data;
-    return NULL;
+    return nullptr;
   }
 
   const int numchildren = cc_xml_elt_get_num_children(xmlelt);
@@ -112,7 +112,7 @@ ScXMLDataEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocumen
                        "unexpected XML element '<%s>' found in <data>",
                        elementtype);
     delete data;
-    return NULL;
+    return nullptr;
   }
 
   return data;
@@ -143,17 +143,17 @@ ScXMLDataElt::cleanClass(void)
 }
 
 ScXMLDataElt::ScXMLDataElt(void)
-: ID(NULL),
-  src(NULL),
-  expr(NULL)
+: ID(nullptr),
+  src(nullptr),
+  expr(nullptr)
 {
 }
 
 ScXMLDataElt::~ScXMLDataElt(void)
 {
-  this->setIDAttribute(NULL);
-  this->setSrcAttribute(NULL);
-  this->setExprAttribute(NULL);
+  this->setIDAttribute(nullptr);
+  this->setSrcAttribute(nullptr);
+  this->setExprAttribute(nullptr);
 }
 
 void
@@ -226,7 +226,7 @@ ScXMLDataElt::search(const char * attrname, const char * attrvalue) const
       return this;
     }
   }
-  return NULL;
+  return nullptr;
 }
 
 void

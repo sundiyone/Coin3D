@@ -66,7 +66,7 @@ hash_default_hashfunc(const cc_hash_key key)
 static unsigned int
 hash_get_index(cc_hash * ht, cc_hash_key key)
 {
-  assert(ht != NULL);
+  assert(ht != nullptr);
   key = ht->hashfunc(key);
   return key % ht->size;
 }
@@ -256,12 +256,12 @@ cc_hash_remove(cc_hash * ht, cc_hash_key key)
   unsigned int i = hash_get_index(ht, key);
 
   he = ht->buckets[i];
-  prev = NULL;
+  prev = nullptr;
   while (he) {
     next = he->next;
     if (he->key == key) {
       ht->elements--;
-      if (prev == NULL) {
+      if (prev == nullptr) {
         ht->buckets[i] = next;
       }
       else {

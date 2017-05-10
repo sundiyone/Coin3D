@@ -95,8 +95,8 @@ public:
   SoIndexedNurbsCurveP(SoIndexedNurbsCurve * m)
   {
     this->owner = m;
-    this->nurbsrenderer = NULL;
-    this->offscreenctx = NULL;
+    this->nurbsrenderer = nullptr;
+    this->offscreenctx = nullptr;
   }
 
   ~SoIndexedNurbsCurveP()
@@ -288,7 +288,7 @@ SoIndexedNurbsCurve::generatePrimitives(SoAction * action)
     // offscreen context to be guaranteed to have a valid GL context
     // before making the GLU calls.
 
-    if (PRIVATE(this)->offscreenctx == NULL) {
+    if (PRIVATE(this)->offscreenctx == nullptr) {
       PRIVATE(this)->offscreenctx = cc_glglue_context_create_offscreen(32, 32);
     }
 
@@ -307,7 +307,7 @@ SoIndexedNurbsCurve::createLineSegmentDetail(SoRayPickAction * /* action */,
                                              const SoPrimitiveVertex * /* v2 */,
                                              SoPickedPoint * /* pp */)
 {
-  return NULL;
+  return nullptr;
 }
 
 typedef SoNurbsP<SoIndexedNurbsCurve>::coin_nurbs_cbdata coin_inc_cbdata;
@@ -329,7 +329,7 @@ SoIndexedNurbsCurveP::doNurbs(SoAction * action,
     return;
   }
 
-  if (this->nurbsrenderer == NULL) {
+  if (this->nurbsrenderer == nullptr) {
     this->nurbsrenderer = GLUWrapper()->gluNewNurbsRenderer();
 
     if (GLUWrapper()->versionMatchesAtLeast(1, 3, 0)) {
@@ -354,7 +354,7 @@ SoIndexedNurbsCurveP::doNurbs(SoAction * action,
       cbdata.vertex.setMaterialIndex(0);
       cbdata.vertex.setTextureCoords(SbVec4f(0.0f, 0.0f, 0.0f, 1.0f));
       cbdata.vertex.setPoint(SbVec3f(0.0f, 0.0f, 0.0f));
-      cbdata.vertex.setDetail(NULL);
+      cbdata.vertex.setDetail(nullptr);
     }
   }
 

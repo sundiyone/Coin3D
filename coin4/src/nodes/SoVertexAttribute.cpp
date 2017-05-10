@@ -176,11 +176,11 @@ SoVertexAttribute::SoVertexAttribute(void)
   PRIVATE(this)->attributedata = new SoVertexAttributeData;
   PRIVATE(this)->attributedata->name = SbName::empty();
   PRIVATE(this)->attributedata->index = -1;
-  PRIVATE(this)->attributedata->state = NULL;
-  PRIVATE(this)->attributedata->data = NULL;
+  PRIVATE(this)->attributedata->state = nullptr;
+  PRIVATE(this)->attributedata->data = nullptr;
   PRIVATE(this)->attributedata->shaderobj = 0;
-  PRIVATE(this)->attributedata->nodeid = NULL;
-  PRIVATE(this)->attributedata->vbo = NULL;
+  PRIVATE(this)->attributedata->nodeid = nullptr;
+  PRIVATE(this)->attributedata->vbo = nullptr;
 }
 
 SoVertexAttribute::~SoVertexAttribute(void)
@@ -266,7 +266,7 @@ SoVertexAttribute::GLRender(SoGLRenderAction * action)
   if (SoGLVBOElement::shouldCreateVBO(state, num)) {
     bool dirty = false;
     setvbo = true;
-    if (PRIVATE(this)->attributedata->vbo == NULL) {
+    if (PRIVATE(this)->attributedata->vbo == nullptr) {
       PRIVATE(this)->attributedata->vbo = new SoVBO;
       dirty = true;
     }
@@ -283,7 +283,7 @@ SoVertexAttribute::GLRender(SoGLRenderAction * action)
   else if (PRIVATE(this)->attributedata->vbo &&
            PRIVATE(this)->attributedata->vbo->getBufferDataId()) {
     // clear buffers to deallocate VBO memory
-    PRIVATE(this)->attributedata->vbo->setBufferData(NULL, 0, 0);
+    PRIVATE(this)->attributedata->vbo->setBufferData(nullptr, 0, 0);
   }
   SoBase::staticDataUnlock();
 }
@@ -337,7 +337,7 @@ SoVertexAttribute::readInstance(SoInput * in, unsigned short COIN_UNUSED_ARG(fla
       err = !this->typeName.read(in, typenamekey);
       if (!err) {
         if (PRIVATE(this)->valuesfield.get()) {
-          PRIVATE(this)->valuesfield.reset(NULL);
+          PRIVATE(this)->valuesfield.reset(nullptr);
         }
         SoType datatype = SoType::fromName(this->typeName.getValue());
         PRIVATE(this)->valuesfield.reset((SoMField *)datatype.createInstance());

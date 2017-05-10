@@ -69,8 +69,8 @@ SoVRMLVertexPoint::SoVRMLVertexPoint(void)
 {
   SO_VRMLNODE_INTERNAL_CONSTRUCTOR(SoVRMLVertexPoint);
 
-  SO_VRMLNODE_ADD_EXPOSED_FIELD(coord, (NULL));
-  SO_VRMLNODE_ADD_EXPOSED_FIELD(color, (NULL));
+  SO_VRMLNODE_ADD_EXPOSED_FIELD(coord, (nullptr));
+  SO_VRMLNODE_ADD_EXPOSED_FIELD(color, (nullptr));
 }
 
 /*!
@@ -140,7 +140,7 @@ SoVRMLVertexPoint::computeBBox(SoAction * COIN_UNUSED_ARG(action), SbBox3f & box
                                SbVec3f & center)
 {
   SoVRMLCoordinate * node = (SoVRMLCoordinate*) this->coord.getValue();
-  if (node == NULL) return;
+  if (node == nullptr) return;
 
   int num = node->point.getNum();
   const SbVec3f * coords = node->point.getValues(0);
@@ -168,7 +168,7 @@ SoVRMLVertexPoint::getPrimitiveCount(SoGetPrimitiveCountAction * action)
 bool
 SoVRMLVertexPoint::shouldGLRender(SoGLRenderAction * action)
 {
-  if (this->coord.getValue() == NULL) return false;
+  if (this->coord.getValue() == nullptr) return false;
   return inherited::shouldGLRender(action);
 }
 

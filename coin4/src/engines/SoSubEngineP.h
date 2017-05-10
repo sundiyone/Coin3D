@@ -63,7 +63,7 @@
 #define SO_ENGINE_INTERNAL_INIT_ABSTRACT_CLASS(_class_) \
   do { \
     const char * classname = SO__QUOTE(_class_); \
-    PRIVATE_COMMON_ENGINE_INIT_CODE(_class_, &classname[2], NULL, inherited); \
+    PRIVATE_COMMON_ENGINE_INIT_CODE(_class_, &classname[2], nullptr, inherited); \
   } while (0)
 
 
@@ -93,15 +93,15 @@ PRIVATE_SO_INTERPOLATE_EVALUATE(_class_, _type_, _valtype_, _interpexp_)
 #define SO_INTERNAL_ENGINE_SOURCE_DYNAMIC_IO(_class_) \
 PRIVATE_ENGINE_TYPESYSTEM_SOURCE(_class_); \
 unsigned int _class_::classinstances = 0; \
-SoFieldData * _class_::inputdata = NULL; \
-const SoFieldData ** _class_::parentinputdata = NULL; \
-SoEngineOutputData * _class_::outputdata = NULL; \
-const SoEngineOutputData ** _class_::parentoutputdata = NULL; \
+SoFieldData * _class_::inputdata = nullptr; \
+const SoFieldData ** _class_::parentinputdata = nullptr; \
+SoEngineOutputData * _class_::outputdata = nullptr; \
+const SoEngineOutputData ** _class_::parentoutputdata = nullptr; \
  \
 const SoFieldData ** _class_::getInputDataPtr(void) \
 { \
   assert(0 && "function not in use for _class_"); \
-  return NULL; \
+  return nullptr; \
 } \
  \
 const SoFieldData * _class_::getFieldData(void) const \
@@ -112,7 +112,7 @@ const SoFieldData * _class_::getFieldData(void) const \
 const SoEngineOutputData ** _class_::getOutputDataPtr(void) \
 { \
   assert(0 && "function not in use for _class_"); \
-  return NULL; \
+  return nullptr; \
 } \
  \
 const SoEngineOutputData * _class_::getOutputData(void) const \
@@ -130,10 +130,10 @@ _class_::atexit_cleanup(void) \
 { \
   delete _class_::inputdata; \
   delete _class_::outputdata; \
-  _class_::inputdata = NULL; \
-  _class_::outputdata = NULL; \
-  _class_::parentinputdata = NULL; \
-  _class_::parentoutputdata = NULL; \
+  _class_::inputdata = nullptr; \
+  _class_::outputdata = nullptr; \
+  _class_::parentinputdata = nullptr; \
+  _class_::parentoutputdata = nullptr; \
   _class_::classTypeId STATIC_SOTYPE_INIT; \
   _class_::classinstances = 0; \
 }

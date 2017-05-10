@@ -106,7 +106,7 @@ SoNodeKitPath::getTail(void) const
   SoDebugError::postInfo("SoNodeKitPath::getTail",
                          "no nodekit in path");
 #endif // debug
-  return NULL;
+  return nullptr;
 }
 
 /*!
@@ -127,7 +127,7 @@ SoNodeKitPath::getNode(const int idx) const
                          "index %d out of bounds", idx);
 #endif // COIN_DEBUG
 
-  return NULL;
+  return nullptr;
 }
 
 /*!
@@ -146,7 +146,7 @@ SoNodeKitPath::getNodeFromTail(const int idx) const
   SoDebugError::postInfo("SoNodeKitPath::getNodeFromTail",
                          "index %d out of bounds", idx);
 #endif // COIN_DEBUG
-  return NULL;
+  return nullptr;
 }
 
 /*!
@@ -202,7 +202,7 @@ SoNodeKitPath::append(SoBaseKit * childKit)
   if (this->getLength() == 0) this->setHead(childKit);
   else {
     SoBaseKit * tail = (SoBaseKit *) this->getTail();
-    assert(tail != NULL);
+    assert(tail != nullptr);
     SoSearchAction * sa = this->getSearchAction();
     sa->setNode(childKit);
     bool oldSearch = tail->isSearchingChildren();
@@ -280,7 +280,7 @@ void
 SoNodeKitPath::clean(void)
 {
   delete SoNodeKitPath::searchAction;
-  SoNodeKitPath::searchAction = NULL;
+  SoNodeKitPath::searchAction = nullptr;
 }
 
 //
@@ -289,7 +289,7 @@ SoNodeKitPath::clean(void)
 SoSearchAction *
 SoNodeKitPath::getSearchAction(void)
 {
-  if (SoNodeKitPath::searchAction == NULL) {
+  if (SoNodeKitPath::searchAction == nullptr) {
     SoNodeKitPath::searchAction = new SoSearchAction();
     searchAction->setInterest(SoSearchAction::FIRST);
     searchAction->setSearchingAll(false);

@@ -90,7 +90,7 @@ SoVectorOutput::openFile(const char * filename)
     PRIVATE(this)->fp = fp;
     PRIVATE(this)->didopen = true;
   }
-  return fp != NULL;
+  return fp != nullptr;
 }
 
 /*!

@@ -68,7 +68,7 @@ ScXMLContentEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocu
   // handle XML attributes
   if (unlikely(!content->handleXMLAttributes())) {
     delete content;
-    return NULL;
+    return nullptr;
   }
 
   const int numchildren = cc_xml_elt_get_num_children(xmlelt);
@@ -85,7 +85,7 @@ ScXMLContentEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocu
                        "unexpected XML element '<%s>' found in <content>",
                        elementtype);
     delete content;
-    return NULL;
+    return nullptr;
   }
 
 

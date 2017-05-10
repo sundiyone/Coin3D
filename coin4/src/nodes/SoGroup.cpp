@@ -70,7 +70,7 @@
     sa.apply(root);
     SoPath * p = sa.getPath();
     assert(p && "not found");
-    if (p->getLength() < 2) { return NULL; } // no parent
+    if (p->getLength() < 2) { return nullptr; } // no parent
     return (SoGroup *)p->getNodeFromTail(1);
   }
   \endcode
@@ -109,7 +109,7 @@
 	(mbe->getState() == SoButtonEvent::DOWN)) {
       if (global_pointlightmanip) {
 	global_root->removeChild(global_pointlightmanip);
-	global_pointlightmanip = NULL;
+	global_pointlightmanip = nullptr;
       }
     }
   }
@@ -227,7 +227,7 @@ public:
   static void childGLRenderProfiler(SoGroup * thisp, SoNode * child, SoGLRenderAction * action);
 };
 
-SoGroupP::GLRenderFunc * SoGroupP::glrenderfunc = NULL;
+SoGroupP::GLRenderFunc * SoGroupP::glrenderfunc = nullptr;
 
 // *************************************************************************
 
@@ -240,7 +240,7 @@ SO_NODE_SOURCE(SoGroup);
 */
 SoGroup::SoGroup(void)
 {
-  this->pimpl = NULL; // just set to NULL for now
+  this->pimpl = nullptr; // just set to nullptr for now
   SO_NODE_INTERNAL_CONSTRUCTOR(SoGroup);
 
   this->children = new SoChildList(this);
@@ -349,7 +349,7 @@ SoGroup::readChildren(SoInput * in)
   for (unsigned int i=0; !in->isBinary() || (i < numchildren); i++) {
     SoBase * child;
     if (SoBase::read(in, child, SoNode::getClassTypeId())) {
-      if (child == NULL) {
+      if (child == nullptr) {
 	if (in->eof()) {
 	  SoReadError::post(in, "Premature end of file");
 	  return false;
@@ -442,7 +442,7 @@ SoGroup::setOperation(const SoNotRec::OperationType opType,
 void
 SoGroup::addChild(SoNode * node)
 {
-  assert(node != NULL);
+  assert(node != nullptr);
   this->setOperation(SoNotRec::GROUP_ADDCHILD, node);
   this->getChildren()->append(node);
   this->setOperation();
@@ -467,7 +467,7 @@ SoGroup::insertChild(SoNode * child, int newchildindex)
     return;
   }
 #endif // COIN_DEBUG
-  this->setOperation(SoNotRec::GROUP_INSERTCHILD, child, NULL, newchildindex);
+  this->setOperation(SoNotRec::GROUP_INSERTCHILD, child, nullptr, newchildindex);
   this->getChildren()->insert(child, newchildindex);
   this->setOperation();
 }
@@ -491,7 +491,7 @@ SoGroup::removeChild(int childindex)
 #endif // COIN_DEBUG
   this->setOperation(SoNotRec::GROUP_REMOVECHILD,
 		     this->getChild(childindex),
-		     NULL, childindex);
+		     nullptr, childindex);
   this->getChildren()->remove(childindex);
   this->setOperation();
 }

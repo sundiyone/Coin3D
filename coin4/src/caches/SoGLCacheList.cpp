@@ -109,12 +109,12 @@ SoGLCacheList::SoGLCacheList(int numcaches)
 {
   PRIVATE(this) = new SoGLCacheListP;
   PRIVATE(this)->numcaches = numcaches;
-  PRIVATE(this)->opencache = NULL;
+  PRIVATE(this)->opencache = nullptr;
   PRIVATE(this)->autocachebits = 0;
   PRIVATE(this)->numused = 0;
   PRIVATE(this)->numdiscarded = 0;
   PRIVATE(this)->needclose = false;
-  PRIVATE(this)->invalidelement = NULL;
+  PRIVATE(this)->invalidelement = nullptr;
   PRIVATE(this)->numframesok = 0;
   PRIVATE(this)->numshapes = 0;
 
@@ -457,7 +457,7 @@ SoGLCacheList::open(SoGLRenderAction * action, bool autocache)
 
   PRIVATE(this)->needclose = true;
 
-  assert(PRIVATE(this)->opencache == NULL);
+  assert(PRIVATE(this)->opencache == nullptr);
   SoState * state = action->getState();
 
   // will be restored in close()
@@ -574,7 +574,7 @@ SoGLCacheList::close(SoGLRenderAction * action)
     // just throw away the open cache, it's invalid
     if (PRIVATE(this)->opencache) {
       PRIVATE(this)->opencache->unref();
-      PRIVATE(this)->opencache = NULL;
+      PRIVATE(this)->opencache = nullptr;
       PRIVATE(this)->numdiscarded += 1;
 
 #if COIN_DEBUG
@@ -598,7 +598,7 @@ SoGLCacheList::close(SoGLRenderAction * action)
     }
 #endif // debug
     PRIVATE(this)->itemlist.append(PRIVATE(this)->opencache);
-    PRIVATE(this)->opencache = NULL;
+    PRIVATE(this)->opencache = nullptr;
   }
 
   PRIVATE(this)->numshapes = SoGLCacheContextElement::getNumShapes(state);

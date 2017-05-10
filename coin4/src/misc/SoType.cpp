@@ -123,7 +123,6 @@
 #include <Inventor/SoType.h>
 
 #include <assert.h>
-#include <stdlib.h> // NULL
 #include <string.h> // strcmp()
 #include <cctype>   // toupper()
 
@@ -156,7 +155,7 @@ struct SoTypeData {
              const bool ispublic = false,
              const uint16_t theData = 0,
              const SoType theParent = SoType::badType(),
-             const SoType::instantiationMethod createMethod = NULL)
+             const SoType::instantiationMethod createMethod = nullptr)
     : name(theName), type(type), isPublic(ispublic), data(theData),
       parent(theParent), method(createMethod) { };
 
@@ -181,19 +180,19 @@ template class SbList<SoTypeData *>;
 // *************************************************************************
 
 // list of SoType internal data structures, indexed over SoType 'data' id.
-SbList<SoTypeData *> * SoType::typedatalist = NULL;
+SbList<SoTypeData *> * SoType::typedatalist = nullptr;
 
 // hash map from type name to SoType 'data' id.
 typedef SbHash<const char *, int16_t> Name2IdMap;
-static Name2IdMap * type_dict = NULL;
+static Name2IdMap * type_dict = nullptr;
 
 // hash map from type name to handle for dynamically loaded library
 typedef SbHash<const char *, cc_libhandle> Name2HandleMap;
-static Name2HandleMap * module_dict = NULL;
+static Name2HandleMap * module_dict = nullptr;
 
 // hash map for flagging all the shared library names we have tried
 typedef SbHash<const char *, void *> NameMap;
-static NameMap * dynload_tries = NULL;
+static NameMap * dynload_tries = nullptr;
 
 // *************************************************************************
 
@@ -222,7 +221,7 @@ SoType::init(void)
 
   // If any of these assert fails, it is probably because
   // SoType::init() has been called for a second time. --mortene
-  assert(SoType::typedatalist == NULL);
+  assert(SoType::typedatalist == nullptr);
 
   SoType::typedatalist = new SbList<SoTypeData *>;
   type_dict = new Name2IdMap;
@@ -241,13 +240,13 @@ SoType::clean(void)
   const int num = SoType::typedatalist->getLength();
   for (int i = 0; i < num; i++) delete (*SoType::typedatalist)[i];
   delete SoType::typedatalist;
-  SoType::typedatalist = NULL;
+  SoType::typedatalist = nullptr;
   delete dynload_tries;
-  dynload_tries = NULL;
+  dynload_tries = nullptr;
   delete type_dict;
-  type_dict = NULL;
+  type_dict = nullptr;
   delete module_dict;
-  module_dict = NULL;
+  module_dict = nullptr;
 }
 
 /*!
@@ -255,7 +254,7 @@ SoType::clean(void)
 
   Classes that do not inherit any other class should use
   SoType::badType() for the first argument. Abstract classes should
-  use \c NULL for the \a method argument.
+  use \c nullptr for the \a method argument.
 
   The value passed in for the \a data parameter can be retrieved with
   SoType::getData().
@@ -317,7 +316,7 @@ SoType::removeType(const SbName & name)
 
   type_dict->erase(name.getString());
   SoTypeData *typedata = (*SoType::typedatalist)[index];
-  (*SoType::typedatalist)[index] = NULL;
+  (*SoType::typedatalist)[index] = nullptr;
   delete typedata;
 
 #if COIN_DEBUG && 0 // debug
@@ -334,7 +333,7 @@ SoType::removeType(const SbName & name)
   The new type should be a C++ subclass of the original class type, but
   this won't be checked though.
 
-  If \c NULL is passed as the second argument, the type will be
+  If \c nullptr is passed as the second argument, the type will be
   considered uninstantiable -- it does not revert the configuration to
   the default setting as one might think.
 
@@ -507,7 +506,7 @@ SoType::fromName(const SbName name)
     if (env && atoi(env) > 0) enable_dynload = false;
   }
 
-  assert((type_dict != NULL) && "SoType static class data not yet initialized");
+  assert((type_dict != nullptr) && "SoType static class data not yet initialized");
 
   // It should be possible to specify a type name with the "So" prefix
   // and get the correct type id, even though the types in some type
@@ -527,7 +526,7 @@ SoType::fromName(const SbName name)
 
       // find out which C++ name mangling scheme the compiler uses
       static mangleFunc * manglefunc = getManglingFunction();
-      if ( manglefunc == NULL ) {
+      if ( manglefunc == nullptr ) {
         // dynamic loading is not yet supported for this compiler suite
         static long first = 1;
         if ( first ) {
@@ -542,12 +541,12 @@ SoType::fromName(const SbName name)
       }
       SbString mangled = manglefunc(name.getString());
 
-      if ( module_dict == NULL ) {
+      if ( module_dict == nullptr ) {
         module_dict = new Name2HandleMap;
       }
 
       // FIXME: should we search the application code for the initClass()
-      // symbol first?  dlopen(NULL) might not be portable enough, but it
+      // symbol first?  dlopen(nullptr) might not be portable enough, but it
       // could be a cool feature.  20030223 larsa
 
       // FIXME: We probably should use loadable modules (type MH_BUNDLE)
@@ -559,13 +558,13 @@ SoType::fromName(const SbName name)
 
       static const char * modulenamepatterns[] = {
         "%s.so", "lib%s.so", "%s.dll", "lib%s.dll", "%s.dylib", "lib%s.dylib",
-        NULL
+        nullptr
       };
 
       SbString modulenamestring;
-      cc_libhandle handle = NULL;
+      cc_libhandle handle = nullptr;
       int i;
-      for ( i = 0; (modulenamepatterns[i] != NULL) && (handle == NULL); i++ ) {
+      for ( i = 0; (modulenamepatterns[i] != nullptr) && (handle == nullptr); i++ ) {
         modulenamestring.sprintf(modulenamepatterns[i], name.getString());
 
         // We need to move the name string to an SbName since we use
@@ -575,13 +574,13 @@ SoType::fromName(const SbName name)
 
         // Register all the module names we have tried so we don't try
         // them again.
-        if (dynload_tries == NULL) dynload_tries = new NameMap;
+        if (dynload_tries == nullptr) dynload_tries = new NameMap;
         void * dummy;
         if (dynload_tries->get(module.getString(), dummy))
           continue; // already tried
-        dynload_tries->put(module.getString(), NULL);
+        dynload_tries->put(module.getString(), nullptr);
 
-        cc_libhandle idx = NULL;
+        cc_libhandle idx = nullptr;
         if ( module_dict->get(module.getString(), idx) ) {
           // Module has been loaded, but type is not yet finished initializing.
           // SoType::badType() is here the expected return value.  See below.
@@ -592,7 +591,7 @@ SoType::fromName(const SbName name)
         // instead of the LD_LIBRARY_PATH one?  20020216 larsa
 
         handle = cc_dl_open(module.getString());
-        if ( handle != NULL ) {
+        if ( handle != nullptr ) {
           // We register the module so we don't recurse infinitely in the
           // initClass() function which calls SoType::fromName() on itself
           // which expects SoType::badType() in return.  See above.
@@ -608,12 +607,12 @@ SoType::fromName(const SbName name)
         }
       }
 
-      if ( handle == NULL ) return SoType::badType();
+      if ( handle == nullptr ) return SoType::badType();
 
       // find and invoke the initClass() function.
       // FIXME: declspec stuff
       initClassFunction * initClass = (initClassFunction *) cc_dl_sym(handle, mangled.getString());
-      if ( initClass == NULL ) {
+      if ( initClass == nullptr ) {
         // FIXME: if a module is found and opened and initialization
         // fails, the remaining module name patterns are not tried.
         // might trigger as a problem one day...  2030224 larsa
@@ -828,13 +827,13 @@ SoType::getAllDerivedFrom(const SoType type, SoTypeList & list)
 bool
 SoType::canCreateInstance(void) const
 {
-  return ((*SoType::typedatalist)[(int)this->getKey()]->method != NULL);
+  return ((*SoType::typedatalist)[(int)this->getKey()]->method != nullptr);
 }
 
 /*!
   This method instantiates an object of the current type.
 
-  For types that can not be instantiated, \c NULL is returned.
+  For types that can not be instantiated, \c nullptr is returned.
 
   \DANGEROUS_ALLOC_RETURN
 
@@ -855,7 +854,7 @@ SoType::createInstance(void) const
                               " use SoType::canCreateInstance()",
                               this->getName().getString());
 #endif // COIN_DEBUG
-    return NULL;
+    return nullptr;
   }
 }
 

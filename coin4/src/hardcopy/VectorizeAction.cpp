@@ -219,7 +219,7 @@ SoVectorizeAction::~SoVectorizeAction()
 SoVectorOutput *
 SoVectorizeAction::getOutput(void) const
 {
-  if (PRIVATE(this)->output == NULL) {
+  if (PRIVATE(this)->output == nullptr) {
     PRIVATE(this)->output = new SoVectorOutput;
   }
   return PRIVATE(this)->output;

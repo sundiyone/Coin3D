@@ -270,13 +270,13 @@ SoIndexedTriangleStripSet::GLRender(SoGLRenderAction * action)
 
   if (dotextures) {
     if (tb.isFunction() && !tb.needIndices()) {
-      tindices = NULL;
+      tindices = nullptr;
     }
     else if (SoTextureCoordinateBindingElement::get(state) ==
              SoTextureCoordinateBindingElement::PER_VERTEX) {
-      tindices = NULL;
+      tindices = nullptr;
     }
-    else if (tindices == NULL) {
+    else if (tindices == nullptr) {
       tindices = cindices;
     }
   }
@@ -348,7 +348,7 @@ SoIndexedTriangleStripSet::generateDefaultNormals(SoState * state,
   SoNode *vpnode = this->vertexProperty.getValue();
   SoVertexProperty *vp = 
     (vpnode && vpnode->isOfType(SoVertexProperty::getClassTypeId())) ?
-    (SoVertexProperty *)vpnode : NULL;
+    (SoVertexProperty *)vpnode : nullptr;
   bool vpvtx = vp && (vp->vertex.getNum() > 0);
   bool vpnorm = vp && (vp->normal.getNum() > 0);
 
@@ -372,7 +372,7 @@ SoIndexedTriangleStripSet::generateDefaultNormals(SoState * state,
                           this->coordIndex.getValues(0),
                           this->coordIndex.getNum(),
                           SoCreaseAngleElement::get(state),
-                          NULL,
+                          nullptr,
                           -1,
                           ccw,
                           true);
@@ -487,21 +487,21 @@ SoIndexedTriangleStripSet::generatePrimitives(SoAction * action)
 
   if (dotextures) {
     if (tb.isFunction() && !tb.needIndices()) {
-      tindices = NULL;
+      tindices = nullptr;
     }
     else if (SoTextureCoordinateBindingElement::get(state) ==
              SoTextureCoordinateBindingElement::PER_VERTEX) {
-      tindices = NULL;
+      tindices = nullptr;
     }
-    else if (tindices == NULL) {
+    else if (tindices == nullptr) {
       tindices = cindices;
     }
   }
 
-  if (nbind == PER_VERTEX_INDEXED && nindices == NULL) {
+  if (nbind == PER_VERTEX_INDEXED && nindices == nullptr) {
     nindices = cindices;
   }
-  if (mbind == PER_VERTEX_INDEXED && mindices == NULL) {
+  if (mbind == PER_VERTEX_INDEXED && mindices == nullptr) {
     mindices = cindices;
   }
 

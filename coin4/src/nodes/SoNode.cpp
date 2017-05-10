@@ -81,13 +81,13 @@
 
   // myviewer will let go of it's reference to the root node, thereby
   // decreasing it's referencecount by 1
-  myviewer->setSceneGraph(NULL);
+  myviewer->setSceneGraph(nullptr);
 
   // root's refcount goes from +1 to 0, and it will self-destruct controllably
   root->unref();
   // avoid dangling pointer, in case "root" is attempted used again
   // (not really necessary, but good for smoking out bugs early)
-  root = NULL;
+  root = nullptr;
   \endcode
 
   For full information and tutorial-style introductions to all API
@@ -280,10 +280,10 @@
 uint32_t SoNode::nextUniqueId = 1;
 int SoNode::nextActionMethodIndex = 0;
 SoType SoNode::classTypeId STATIC_SOTYPE_INIT;
-static void * sonode_mutex = NULL;
+static void * sonode_mutex = nullptr;
 
 typedef SbHash<int16_t, uint32_t> Int16ToUInt32Map;
-static Int16ToUInt32Map * compatibility_dict = NULL;
+static Int16ToUInt32Map * compatibility_dict = nullptr;
 
 static void init_action_methods(void);
 
@@ -508,7 +508,7 @@ SoNode::initClass(void)
 
   CC_MUTEX_CONSTRUCT(sonode_mutex);
   SoNode::classTypeId =
-    SoType::createType(inherited::getClassTypeId(), "Node", NULL,
+    SoType::createType(inherited::getClassTypeId(), "Node", nullptr,
                        SoNode::nextActionMethodIndex++);
 
   // initialize the compatibility dict
@@ -754,7 +754,7 @@ SoNode *
 SoNode::getByName(const SbName & name)
 {
   SoBase * b = SoBase::getNamedBase(name, SoNode::getClassTypeId());
-  if (!b) return NULL;
+  if (!b) return nullptr;
   return (SoNode *)b;
 }
 
@@ -1293,7 +1293,7 @@ SoNode::audioRender(SoAudioRenderAction * COIN_UNUSED_ARG(action))
 SoChildList *
 SoNode::getChildren(void) const
 {
-  return NULL;
+  return nullptr;
 }
 
 /*!
@@ -1459,7 +1459,7 @@ SoNode::getNextNodeId(void)
 const SoFieldData **
 SoNode::getFieldDataPtr(void)
 {
-  return NULL;
+  return nullptr;
 }
 
 // Doc in super.

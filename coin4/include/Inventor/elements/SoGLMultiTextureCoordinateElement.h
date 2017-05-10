@@ -47,9 +47,9 @@ public:
   static  void setTexGen(SoState * const state, SoNode * const node,
                          const int unit,
                          SoTexCoordTexgenCB * const texgenFunc,
-                         void * const texgenData = NULL,
-                         SoTextureCoordinateFunctionCB * const func = NULL,
-                         void * const funcData = NULL);
+                         void * const texgenData = nullptr,
+                         SoTextureCoordinateFunctionCB * const func = nullptr,
+                         void * const funcData = nullptr);
 
   virtual CoordType getType(const int unit = 0) const;
 
@@ -60,7 +60,7 @@ public:
 
   class GLUnitData {
   public:
-    GLUnitData() : texgenCB(NULL), texgenData(NULL) {}
+    GLUnitData() : texgenCB(nullptr), texgenData(nullptr) {}
     GLUnitData(const GLUnitData & org) : texgenCB(org.texgenCB), texgenData(org.texgenData) {}
     SoTexCoordTexgenCB * texgenCB;
     void * texgenData;
@@ -86,16 +86,16 @@ public:
   void initMulti(SoState * state) const;
   static  void setTexGen(SoState * const state, SoNode * const node,
                          SoTexCoordTexgenCB * const texgenFunc,
-                         void * const texgenData = NULL,
-                         SoTextureCoordinateFunctionCB * const func = NULL,
-                         void * const funcData = NULL) {
+                         void * const texgenData = nullptr,
+                         SoTextureCoordinateFunctionCB * const func = nullptr,
+                         void * const funcData = nullptr) {
     setTexGen(state, node, 0, texgenFunc, texgenData, func, funcData);
   }
 
 protected:
   virtual void setElt(const int unit,
                       SoTexCoordTexgenCB *func,
-                      void *data = NULL);
+                      void *data = nullptr);
 
 private:
   void doCallback(const int unit) const;

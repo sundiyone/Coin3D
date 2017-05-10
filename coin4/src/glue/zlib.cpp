@@ -126,8 +126,8 @@ typedef struct {
   cc_zlibglue_crc32_t crc32;
 } cc_zlibglue_t;
 
-static cc_zlibglue_t * zlib_instance = NULL;
-static cc_libhandle zlib_libhandle = NULL;
+static cc_zlibglue_t * zlib_instance = nullptr;
+static cc_libhandle zlib_libhandle = nullptr;
 static int zlib_failed_to_load = 0;
 
 /* Cleans up at exit. */
@@ -137,12 +137,12 @@ zlibglue_cleanup(void)
 #ifdef ZLIB_RUNTIME_LINKING
   if (zlib_libhandle) {
     cc_dl_close(zlib_libhandle);
-    zlib_libhandle = NULL;
+    zlib_libhandle = nullptr;
   }
 #endif /* ZLIB_RUNTIME_LINKING */
   assert(zlib_instance);
   free(zlib_instance);
-  zlib_instance = NULL;
+  zlib_instance = nullptr;
   zlib_failed_to_load = 0;
 }
 
@@ -166,10 +166,10 @@ zlibglue_init(void)
       /* FIXME: should we get the system shared library name from an
          Autoconf check? 20000930 mortene. */
       const char * possiblelibnames[] = {
-        NULL, /* is set below */
+        nullptr, /* is set below */
         "zlib1", "zlib", "libz", "libz.so",
         "libz.dylib", 
-        NULL
+        nullptr
       };
 
       possiblelibnames[0] = coin_getenv("COIN_ZLIB_LIBNAME");
@@ -190,7 +190,7 @@ zlibglue_init(void)
 #define ZLIBGLUE_REGISTER_FUNC(_funcsig_, _funcname_) \
     do { \
       zi->_funcname_ = (_funcsig_)cc_dl_sym(zlib_libhandle, SO__QUOTE(_funcname_)); \
-      if (zi->_funcname_ == NULL) zi->available = 0; \
+      if (zi->_funcname_ == nullptr) zi->available = 0; \
     } while (0)
 
 #elif defined(ZLIBGLUE_ASSUME_ZLIB) /* !ZLIB_RUNTIME_LINKING */
@@ -203,7 +203,7 @@ zlibglue_init(void)
     zi->available = 0;
     /* Define ZLIBGLUE_REGISTER_FUNC macro. */
 #define ZLIBGLUE_REGISTER_FUNC(_funcsig_, _funcname_) \
-    zi->_funcname_ = NULL
+    zi->_funcname_ = nullptr
 
 #endif /* !ZLIBGLUE_ASSUME_ZLIB */
 

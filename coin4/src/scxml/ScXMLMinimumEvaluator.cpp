@@ -119,12 +119,12 @@ ScXMLMinimumEvaluator::setAtLocation(const char * COIN_UNUSED_ARG(location), ScX
 }
 
 /*!
-  Returns NULL. The minimum profile does not implement the data module.
+  Returns nullptr. The minimum profile does not implement the data module.
 */
 ScXMLDataObj *
 ScXMLMinimumEvaluator::locate(const char * COIN_UNUSED_ARG(location)) const
 {
-  return NULL;
+  return nullptr;
 }
 
 /*!
@@ -175,12 +175,12 @@ ScXMLInExprDataObj::createFor(const char * stateid)
 }
 
 ScXMLInExprDataObj::ScXMLInExprDataObj(void)
-: stateid(NULL)
+: stateid(nullptr)
 {
 }
 
 ScXMLInExprDataObj::ScXMLInExprDataObj(const char * stateidstr)
-: stateid(NULL)
+: stateid(nullptr)
 {
   this->setStateId(stateidstr);
 }
@@ -194,7 +194,7 @@ ScXMLInExprDataObj::setStateId(const char * stateidstr)
 {
   if (this->stateid) {
     delete [] this->stateid;
-    this->stateid = NULL;
+    this->stateid = nullptr;
   }
   if (stateidstr) {
     this->stateid = new char [strlen(stateidstr) + 1];
@@ -206,7 +206,7 @@ bool
 ScXMLInExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& pointer) const
 {
   assert(sm);
-  assert(pointer == NULL);
+  assert(pointer == nullptr);
   if (this->stateid) {
     sm->queueInternalEvent("error.eval.minimum.In.NO_STATE");
     return false;
@@ -259,7 +259,7 @@ ScXMLAppendOpExprDataObj::createFor(ScXMLDataObj * lhs, ScXMLDataObj * rhs)
 }
 
 ScXMLAppendOpExprDataObj::ScXMLAppendOpExprDataObj(void)
-: lhs(NULL), rhs(NULL)
+: lhs(nullptr), rhs(nullptr)
 {
 }
 
@@ -272,11 +272,11 @@ ScXMLAppendOpExprDataObj::~ScXMLAppendOpExprDataObj(void)
 {
   if (this->lhs) {
     delete this->lhs;
-    this->lhs = NULL;
+    this->lhs = nullptr;
   }
   if (this->rhs) {
     delete this->rhs;
-    this->rhs = NULL;
+    this->rhs = nullptr;
   }
 }
 
@@ -296,7 +296,7 @@ bool
 ScXMLAppendOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& pointer) const
 {
   assert(this->lhs && this->rhs);
-  ScXMLStringDataObj * lhsevaled = NULL, * rhsevaled = NULL;
+  ScXMLStringDataObj * lhsevaled = nullptr, * rhsevaled = nullptr;
 
   if (this->lhs->isOfType(ScXMLExprDataObj::getClassTypeId())) {
     ScXMLExprDataObj * lhsexpr = static_cast<ScXMLExprDataObj *>(this->lhs);
@@ -367,8 +367,8 @@ BOOST_AUTO_TEST_CASE(MimimumExpressions)
   boost::scoped_ptr<ScXMLStateMachine> sm(new ScXMLStateMachine);
   boost::scoped_ptr<ScXMLEvaluator> evaluator(new ScXMLMinimumEvaluator);
 
-  ScXMLDataObj * res = NULL;
-  ScXMLBoolDataObj * boolobj = NULL;
+  ScXMLDataObj * res = nullptr;
+  ScXMLBoolDataObj * boolobj = nullptr;
 
   //FIXME, this test is not finished. BFG 20090831
 

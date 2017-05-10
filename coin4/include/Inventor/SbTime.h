@@ -60,7 +60,7 @@ public:
   void getValue(struct timeval * tv) const;
   unsigned long getMsecValue(void) const;
   SbString format(const char * const fmt = "%S.%i") const;
-  SbString formatDate(const char * const fmt = NULL) const;
+  SbString formatDate(const char * const fmt = nullptr) const;
   bool parsedate(const char * const date);
   friend COIN_DLL_API SbTime operator+(const SbTime & t0, const SbTime & t1);
   friend COIN_DLL_API SbTime operator-(const SbTime & t0, const SbTime & t1);

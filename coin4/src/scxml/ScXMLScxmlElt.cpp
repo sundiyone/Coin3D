@@ -100,7 +100,7 @@ ScXMLScxmlEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocume
     SoDebugError::post("ScXMLScxmlEltReader::read",
                        "error: invalid XML attributes");
     delete scxml;
-    return NULL;
+    return nullptr;
   }
 
 #if 0
@@ -139,14 +139,14 @@ ScXMLScxmlEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocume
         SoDebugError::post("ScXMLScxmlEltReader::read",
                            "<scxml> can only contain one <initial> element");
         delete scxml;
-        return NULL;
+        return nullptr;
       }
       ScXMLEltReader * initialreader = ScXMLInitialElt::getElementReader();
       assert(initialreader);
       ScXMLElt * initialobj = initialreader->read(scxml, element, doc, sm);
       if (unlikely(!initialobj)) {
         delete scxml;
-        return NULL;
+        return nullptr;
       }
       assert(initialobj->isOfType(ScXMLInitialElt::getClassTypeId()));
       scxml->setInitial(static_cast<ScXMLInitialElt *>(initialobj));
@@ -159,7 +159,7 @@ ScXMLScxmlEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocume
       ScXMLElt * stateobj = statereader->read(scxml, element, doc, sm);
       if (unlikely(!stateobj)) {
         delete scxml;
-        return NULL;
+        return nullptr;
       }
       assert(stateobj->isOfType(ScXMLStateElt::getClassTypeId()));
       scxml->addState(static_cast<ScXMLStateElt *>(stateobj));
@@ -172,7 +172,7 @@ ScXMLScxmlEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocume
       ScXMLElt * parallelobj = parallelreader->read(scxml, element, doc, sm);
       if (unlikely(!parallelobj)) {
         delete scxml;
-        return NULL;
+        return nullptr;
       }
       assert(parallelobj->isOfType(ScXMLParallelElt::getClassTypeId()));
       scxml->addParallel(static_cast<ScXMLParallelElt *>(parallelobj));
@@ -185,7 +185,7 @@ ScXMLScxmlEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocume
       ScXMLElt * finalobj = finalreader->read(scxml, element, doc, sm);
       if (unlikely(!finalobj)) {
         delete scxml;
-        return NULL;
+        return nullptr;
       }
       assert(finalobj->isOfType(ScXMLFinalElt::getClassTypeId()));
       scxml->addFinal(static_cast<ScXMLFinalElt *>(finalobj));
@@ -193,18 +193,18 @@ ScXMLScxmlEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocume
 
     else if (strcmp(elementtype, "datamodel") == 0) {
       // <datamodel> - zero or one time
-      if (unlikely(scxml->getDataModel() != NULL)) {
+      if (unlikely(scxml->getDataModel() != nullptr)) {
         SoDebugError::post("ScXMLScxmlEltReader::read",
                            "<scxml> can only contain one <datamodel> element");
         delete scxml;
-        return NULL;
+        return nullptr;
       }
       ScXMLEltReader * datamodelreader = ScXMLDataModelElt::getElementReader();
       assert(datamodelreader);
       ScXMLElt * datamodelobj = datamodelreader->read(scxml, element, doc, sm);
       if (unlikely(!datamodelobj)) {
         delete scxml;
-        return NULL;
+        return nullptr;
       }
       assert(datamodelobj->isOfType(ScXMLDataModelElt::getClassTypeId()));
       scxml->setDataModel(static_cast<ScXMLDataModelElt *>(datamodelobj));
@@ -217,7 +217,7 @@ ScXMLScxmlEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocume
       ScXMLElt * scriptobj = scriptreader->read(scxml, element, doc, sm);
       if (unlikely(!scriptobj)) {
         delete scxml;
-        return NULL;
+        return nullptr;
       }
       assert(scriptobj->isOfType(ScXMLScriptElt::getClassTypeId()));
       scxml->addScript(static_cast<ScXMLScriptElt *>(scriptobj));
@@ -228,7 +228,7 @@ ScXMLScxmlEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocume
                          "unexpected XML element '<%s>' found in <scxml>",
                          elementtype);
       delete scxml;
-      return NULL;
+      return nullptr;
     }
   }
 
@@ -275,23 +275,23 @@ ScXMLScxmlElt::cleanClass(void)
 
 ScXMLScxmlElt::ScXMLScxmlElt(void)
 : referenced(false),
-  initial(NULL),
-  name(NULL),
-  xmlns(NULL),
-  version(NULL),
-  profile(NULL),
-  exmode(NULL)
+  initial(nullptr),
+  name(nullptr),
+  xmlns(nullptr),
+  version(nullptr),
+  profile(nullptr),
+  exmode(nullptr)
 {
 }
 
 ScXMLScxmlElt::~ScXMLScxmlElt(void)
 {
-  this->setInitialAttribute(NULL);
-  this->setNameAttribute(NULL);
-  // this->setXMLNSAttribute(NULL);
-  this->setVersionAttribute(NULL);
-  this->setProfileAttribute(NULL);
-  this->setExModeAttribute(NULL);
+  this->setInitialAttribute(nullptr);
+  this->setNameAttribute(nullptr);
+  // this->setXMLNSAttribute(nullptr);
+  this->setVersionAttribute(nullptr);
+  this->setProfileAttribute(nullptr);
+  this->setExModeAttribute(nullptr);
 }
 
 void
@@ -315,7 +315,7 @@ ScXMLScxmlElt::setInitialAttribute(const char * initialstr)
   {
     delete [] this->initial;
   }
-  this->initial = NULL;
+  this->initial = nullptr;
   if (initialstr) {
     if (initialstr == this->getXMLAttribute("initial")) {
       this->initial = const_cast<char *>(initialstr);
@@ -444,7 +444,7 @@ ScXMLScxmlElt::handleXMLAttributes(void)
   }
 
 #if 0
-  if (!this->referenced && this->initial == NULL) {
+  if (!this->referenced && this->initial == nullptr) {
     // requirement for root document, but not for referenced documents
     return false;
   }
@@ -571,7 +571,7 @@ ScXMLScxmlElt::search(const char * attrname, const char * attrvalue) const
     }
   }
 
-  return NULL;
+  return nullptr;
 }
 
 void

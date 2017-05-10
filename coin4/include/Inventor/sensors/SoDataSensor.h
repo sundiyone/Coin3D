@@ -26,7 +26,6 @@
 
 #include <Inventor/sensors/SoDelayQueueSensor.h>
 #include <Inventor/misc/SoNotRec.h>
-#include <stdlib.h> // for NULL definition
 
 class SoNode;
 class SoField;
@@ -41,7 +40,7 @@ public:
   SoDataSensor(SoSensorCB * func, void * data);
   virtual ~SoDataSensor(void);
 
-  void setDeleteCallback(SoSensorCB * function, void * data = NULL);
+  void setDeleteCallback(SoSensorCB * function, void * data = nullptr);
   SoNode * getTriggerNode(void) const;
   SoField * getTriggerField(void) const;
   SoPath * getTriggerPath(void) const;

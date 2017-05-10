@@ -137,12 +137,12 @@ SoScXMLRotateTarget::cleanClass(void)
   SoScXMLRotateTarget::classTypeId = SoType::badType();
 }
 
-SoScXMLRotateTarget * SoScXMLRotateTarget::theSingleton = NULL;
+SoScXMLRotateTarget * SoScXMLRotateTarget::theSingleton = nullptr;
 
 SoScXMLRotateTarget *
 SoScXMLRotateTarget::constructSingleton(void)
 {
-  assert(SoScXMLRotateTarget::theSingleton == NULL);
+  assert(SoScXMLRotateTarget::theSingleton == nullptr);
   SoScXMLRotateTarget::theSingleton =
     static_cast<SoScXMLRotateTarget *>(SoScXMLRotateTarget::classTypeId.createInstance());
   return SoScXMLRotateTarget::theSingleton;
@@ -151,15 +151,15 @@ SoScXMLRotateTarget::constructSingleton(void)
 void
 SoScXMLRotateTarget::destructSingleton(void)
 {
-  assert(SoScXMLRotateTarget::theSingleton != NULL);
+  assert(SoScXMLRotateTarget::theSingleton != nullptr);
   delete SoScXMLRotateTarget::theSingleton;
-  SoScXMLRotateTarget::theSingleton = NULL;
+  SoScXMLRotateTarget::theSingleton = nullptr;
 }
 
 SoScXMLRotateTarget *
 SoScXMLRotateTarget::singleton(void)
 {
-  assert(SoScXMLRotateTarget::theSingleton != NULL);
+  assert(SoScXMLRotateTarget::theSingleton != nullptr);
   return SoScXMLRotateTarget::theSingleton;
 }
 
@@ -408,7 +408,7 @@ SoScXMLRotateTarget::processOneEvent(const ScXMLEvent * event)
 void
 SoScXMLRotateTarget::reorientCamera(SoCamera * camera, const SbRotation & rot)
 {
-  if (camera == NULL) return;
+  if (camera == nullptr) return;
 
   // Find global coordinates of focal point.
   SbVec3f direction;

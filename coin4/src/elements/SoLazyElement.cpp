@@ -73,11 +73,11 @@
 #include <Inventor/misc/SoState.h>
 #include <Inventor/nodes/SoNode.h>
 
-static SbColor * lazy_defaultdiffuse = NULL;
-static float * lazy_defaulttransp = NULL;
-static int32_t * lazy_defaultindex = NULL;
-static uint32_t * lazy_defaultpacked = NULL;
-static SbColor * lazy_unpacked = NULL;
+static SbColor * lazy_defaultdiffuse = nullptr;
+static float * lazy_defaulttransp = nullptr;
+static int32_t * lazy_defaultindex = nullptr;
+static uint32_t * lazy_defaultpacked = nullptr;
+static SbColor * lazy_unpacked = nullptr;
 
 extern "C" {
 
@@ -89,7 +89,7 @@ lazyelement_cleanup(void)
   delete lazy_defaultindex;
   delete lazy_defaultpacked;
   delete lazy_unpacked;
-  lazy_defaultdiffuse = NULL; // Only need to NULL this; see initClass().
+  lazy_defaultdiffuse = nullptr; // Only need to nullptr this; see initClass().
 }
 
 } // extern "C"
@@ -124,7 +124,7 @@ SoLazyElement::initClass()
 {
   SO_ELEMENT_INIT_CLASS(SoLazyElement, inherited);
 
-  if (lazy_defaultdiffuse == NULL) {
+  if (lazy_defaultdiffuse == nullptr) {
     lazy_defaultdiffuse = new SbColor;
     lazy_defaulttransp = new float;
     lazy_defaultindex = new int32_t;
@@ -203,13 +203,13 @@ SoLazyElement::matches(const SoElement * COIN_UNUSED_ARG(element)) const
 }
 
 /*!
-  Just returns NULL in Coin.
+  Just returns nullptr in Coin.
 */
 SoElement *
 SoLazyElement::copyMatchInfo(void) const
 {
   assert(0 && "should never happen");
-  return NULL;
+  return nullptr;
 }
 
 /*!
@@ -230,7 +230,7 @@ SoLazyElement::setDiffuse(SoState * state, SoNode * node, int32_t numcolors,
                           const SbColor * colors, SoColorPacker * packer)
 {
   if (state->isElementEnabled(SoGLVBOElement::getClassStackIndex())) {
-    SoGLVBOElement::setColorVBO(state, NULL);
+    SoGLVBOElement::setColorVBO(state, nullptr);
   }
   SoLazyElement * elem = SoLazyElement::getInstance(state);
   if (numcolors && (elem->coinstate.diffusenodeid !=
@@ -251,7 +251,7 @@ SoLazyElement::setTransparency(SoState *state, SoNode *node, int32_t numvalues,
                                const float * transparency, SoColorPacker * packer)
 {
   if (state->isElementEnabled(SoGLVBOElement::getClassStackIndex())) {
-    SoGLVBOElement::setColorVBO(state, NULL);
+    SoGLVBOElement::setColorVBO(state, nullptr);
   }
   SoLazyElement * elem = SoLazyElement::getInstance(state);
   if (numvalues && (elem->coinstate.transpnodeid !=
@@ -274,7 +274,7 @@ SoLazyElement::setPacked(SoState * state, SoNode * node,
                          const bool packedtransparency)
 {
   if (state->isElementEnabled(SoGLVBOElement::getClassStackIndex())) {
-    SoGLVBOElement::setColorVBO(state, NULL);
+    SoGLVBOElement::setColorVBO(state, nullptr);
   }
   SoLazyElement * elem = SoLazyElement::getInstance(state);
   if (numcolors && elem->coinstate.diffusenodeid != node->getNodeId()) {
@@ -735,7 +735,7 @@ SoLazyElement::setMaterials(SoState * state, SoNode *node, uint32_t bitmask,
                             const bool istransparent)
 {
   if (state->isElementEnabled(SoGLVBOElement::getClassStackIndex())) {
-    SoGLVBOElement::setColorVBO(state, NULL);
+    SoGLVBOElement::setColorVBO(state, nullptr);
   }
   SoLazyElement * elem = SoLazyElement::getInstance(state);
 
@@ -772,7 +772,7 @@ SoLazyElement::setMaterials(SoState * state, SoNode *node, uint32_t bitmask,
     }
   }
 
-  SoLazyElement * welem = NULL;
+  SoLazyElement * welem = nullptr;
 
   if (eltbitmask) {
     welem = getWInstance(state);
@@ -901,7 +901,7 @@ const int32_t *
 SoLazyElement::getColorIndexPointer(void) const
 {
   assert(0 && "color index mode is not supported in Coin");
-  return NULL;
+  return nullptr;
 }
 
 // ! FIXME: write doc

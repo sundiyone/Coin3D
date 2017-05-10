@@ -106,7 +106,7 @@ classname::getClassTypeId(void)                                 \
   SCXML_OBJECT_ABSTRACT_SOURCE(classname)
 
 #define SCXML_ELEMENT_SOURCE(classname)                         \
-ScXMLEltReader * classname::elementReader = NULL;               \
+ScXMLEltReader * classname::elementReader = nullptr;            \
                                                                 \
 ScXMLEltReader *                                                \
 classname::getElementReader(void)                               \
@@ -136,10 +136,10 @@ classname::getElementReader(void)                               \
     thisclass::elementReader = new classname;                           \
   } while ( false )
 
-#define SCXML_ELEMENT_UNREGISTER_READER(thisclass) \
+#define SCXML_ELEMENT_UNREGISTER_READER(thisclass)                      \
   do {                                                                  \
     delete thisclass::elementReader;                                    \
-    thisclass::elementReader = NULL;                                    \
+    thisclass::elementReader = nullptr;                                 \
   } while ( false )
 
 // *************************************************************************

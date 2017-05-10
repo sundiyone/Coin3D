@@ -109,13 +109,13 @@ ScXMLObject::cleanClass(void)
 }
 
 ScXMLObject::ScXMLObject(void)
-: containerptr(NULL)
+: containerptr(nullptr)
 {
 }
 
 ScXMLObject::~ScXMLObject(void)
 {
-  this->containerptr = NULL;
+  this->containerptr = nullptr;
 }
 
 /*!

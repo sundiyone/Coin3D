@@ -49,10 +49,10 @@ public:
   static SoForeignFileKit * createForeignFileKit(const char * filename, bool exhaust = false);
 
   // foreign read support
-  virtual bool canReadFile(const char * filename = NULL) const;
+  virtual bool canReadFile(const char * filename = nullptr) const;
   virtual bool readFile(const char * filename);
   // foreign write support
-  virtual bool canWriteFile(const char * filename = NULL) const;
+  virtual bool canWriteFile(const char * filename = nullptr) const;
   virtual bool writeFile(const char * filename);
 
   /*!

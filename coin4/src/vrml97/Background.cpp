@@ -455,8 +455,8 @@ SoVRMLBackground::SoVRMLBackground(void)
   PRIVATE(this)->topurlsensor->setPriority(5);
 
   PRIVATE(this)->geometrybuilt = false;  
-  PRIVATE(this)->camera = NULL;
-  PRIVATE(this)->rootnode = NULL;
+  PRIVATE(this)->camera = nullptr;
+  PRIVATE(this)->rootnode = nullptr;
 }
 
 /*!
@@ -787,12 +787,12 @@ SoVRMLBackgroundP::buildGeometry(void)
   this->rootnode->addChild(scale);
   this->rootnode->addChild(cubedata);
   
-  this->frontface = NULL;
-  this->backface = NULL;
-  this->leftface = NULL;
-  this->rightface = NULL;
-  this->topface = NULL;
-  this->bottomface = NULL;
+  this->frontface = nullptr;
+  this->backface = nullptr;
+  this->leftface = nullptr;
+  this->rightface = nullptr;
+  this->topface = nullptr;
+  this->bottomface = nullptr;
 
   if (PUBLIC(this)->backUrl.getNum() != 0) {     
     const int32_t vindices[] = {4, 5, 6, 7, -1};
@@ -922,13 +922,13 @@ SoVRMLBackgroundP::modifyCubeFace(SoMFString & urls, SoSeparator * sep, const in
   SoVRMLImageTexture * tex;
 
   if (urls.getNum() == 0) {
-    if (sep != NULL) {
+    if (sep != nullptr) {
       sep->unref();
-      sep = NULL;
+      sep = nullptr;
     }
     return;
   }
-  else if (sep == NULL) { 
+  else if (sep == nullptr) { 
     sep = new SoSeparator;
     sep->ref();
 
@@ -1003,7 +1003,7 @@ background_geometrychangeCB(void * data, SoSensor * COIN_UNUSED_ARG(sensor))
   if (pimpl->rootnode) {
     pimpl->rootnode->removeAllChildren();
     pimpl->rootnode->unref();
-    pimpl->rootnode = NULL;
+    pimpl->rootnode = nullptr;
   }
   pimpl->buildGeometry();
 }

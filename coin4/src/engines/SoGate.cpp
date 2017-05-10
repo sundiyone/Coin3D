@@ -106,10 +106,10 @@ SO_INTERNAL_ENGINE_SOURCE_DYNAMIC_IO(SoGate);
 // used from import code or copy code.
 SoGate::SoGate(void)
 {
-  this->dynamicinput = NULL;
-  this->dynamicoutput = NULL;
-  this->input = NULL;
-  this->output = NULL;
+  this->dynamicinput = nullptr;
+  this->dynamicoutput = nullptr;
+  this->input = nullptr;
+  this->output = nullptr;
 }
 
 static bool
@@ -124,10 +124,10 @@ SoGate_valid_type(SoType t)
 */
 SoGate::SoGate(SoType type)
 {
-  this->dynamicinput = NULL;
-  this->dynamicoutput = NULL;
-  this->input = NULL;
-  this->output = NULL;
+  this->dynamicinput = nullptr;
+  this->dynamicoutput = nullptr;
+  this->input = nullptr;
+  this->output = nullptr;
 
 #if COIN_DEBUG
   if (!SoGate_valid_type(type)) {
@@ -156,7 +156,7 @@ SoGate::initClass(void)
 void
 SoGate::initialize(const SoType inputfieldtype)
 {
-  assert(this->input == NULL);
+  assert(this->input == nullptr);
   assert(SoGate_valid_type(inputfieldtype));
 
   SO_ENGINE_INTERNAL_CONSTRUCTOR(SoGate);

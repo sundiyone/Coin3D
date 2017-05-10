@@ -43,8 +43,8 @@ cc_xml_ent *
 cc_xml_ent_new(void)
 {
   cc_xml_ent * ent = new cc_xml_ent;
-  ent->name = NULL;
-  ent->value = NULL;
+  ent->name = nullptr;
+  ent->value = nullptr;
   return ent;
 }
 

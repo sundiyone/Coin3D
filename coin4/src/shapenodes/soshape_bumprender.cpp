@@ -430,7 +430,7 @@ soshape_bumprender::renderBumpSpecular(SoState * state,
 
   state->push();
   SoMultiTextureEnabledElement::disableAll(state);
-  SoGLMultiTextureEnabledElement::set(state, NULL, 0, true); // enable GL_TEXTURE_2D
+  SoGLMultiTextureEnabledElement::set(state, nullptr, 0, true); // enable GL_TEXTURE_2D
   
   SoGLImage * bumpimage = SoBumpMapElement::get(state);
   assert(bumpimage);
@@ -602,7 +602,7 @@ soshape_bumprender::renderBump(SoState * state,
     this->calcTSBCoords(cache, light);
   }
   SoMultiTextureEnabledElement::disableAll(state);
-  SoMultiTextureEnabledElement::set(state, NULL, 0, true);
+  SoMultiTextureEnabledElement::set(state, nullptr, 0, true);
 
   SoGLImage * bumpimage = SoBumpMapElement::get(state);
   assert(bumpimage);

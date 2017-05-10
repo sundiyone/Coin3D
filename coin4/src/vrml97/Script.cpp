@@ -167,8 +167,8 @@
 
 // *************************************************************************
 
-static SoVRMLScriptEvaluateCB * sovrmlscript_eval_cb = NULL;
-static void * sovrmlscript_eval_closure = NULL;
+static SoVRMLScriptEvaluateCB * sovrmlscript_eval_cb = nullptr;
+static void * sovrmlscript_eval_closure = nullptr;
 
 class SoVRMLScriptP {
 public:
@@ -179,7 +179,7 @@ public:
     this->isreading = false;
     this->isevaluating = false;
 #ifdef COIN_HAVE_JAVASCRIPT
-    this->engine = NULL;
+    this->engine = nullptr;
 #endif // !COIN_HAVE_JAVASCRIPT
   }
 
@@ -189,7 +189,7 @@ public:
 
 #ifdef COIN_HAVE_JAVASCRIPT
     // FIXME: this needs to be done in a nicer way. 20050720 erikgors.
-    if (this->engine != NULL)
+    if (this->engine != nullptr)
       this->shutdown();
 #endif // !COIN_HAVE_JAVASCRIPT
   }
@@ -235,7 +235,7 @@ SoVRMLScriptP::cleanup(void)
 #ifdef COIN_HAVE_JAVASCRIPT
   // FIXME: need to make sure this is added to atexit only after
   // the engine has started. 20050720 erikgors.
-  if (SoJavaScriptEngine::getRuntime() == NULL)
+  if (SoJavaScriptEngine::getRuntime() == nullptr)
     return;
 
   if (SoVRMLScriptP::useSpiderMonkey()) {
@@ -247,8 +247,8 @@ SoVRMLScriptP::cleanup(void)
 
   // reset static var
   SoVRMLScriptP::spidermonkey_init_failed = false;
-  sovrmlscript_eval_cb = NULL;
-  sovrmlscript_eval_closure = NULL;
+  sovrmlscript_eval_cb = nullptr;
+  sovrmlscript_eval_closure = nullptr;
 }
 
 // *************************************************************************
@@ -286,7 +286,7 @@ SoVRMLScriptP::useSpiderMonkey(void)
 {
   if (!SoVRMLScriptP::allowSpiderMonkey()) { return false; }
   if (!spidermonkey()->available) { return false; }
-  if (SoJavaScriptEngine::getRuntime() == NULL) { return false; }
+  if (SoJavaScriptEngine::getRuntime() == nullptr) { return false; }
   return true;
 }
 
@@ -311,7 +311,7 @@ SoVRMLScript::initClass(void) // static
 // *************************************************************************
 
 SoVRMLScript::SoVRMLScript(void)
-  : fielddata(NULL)
+  : fielddata(nullptr)
 {
   coin_atexit((coin_atexit_f *)SoVRMLScriptP::cleanup, CC_ATEXIT_NORMAL);
 
@@ -321,7 +321,7 @@ SoVRMLScript::SoVRMLScript(void)
       // FIXME: next line is a hack-ish way of checking whether init()
       // has already been done on the SoJavaScriptEngine class.
       // 20060207 mortene.
-      (SoJavaScriptEngine::getRuntime() == NULL)) {
+      (SoJavaScriptEngine::getRuntime() == nullptr)) {
     bool ok = SoJavaScriptEngine::init();
     if (!ok) { SoVRMLScriptP::spidermonkey_init_failed = true; }
   }
@@ -689,7 +689,7 @@ SoVRMLScript::readInstance(SoInput * in, unsigned short COIN_UNUSED_ARG(flags))
         ok = in->read(name, true);
       }
     }
-    else if ((builtinfield = this->getField(name)) != NULL) {
+    else if ((builtinfield = this->getField(name)) != nullptr) {
       err = !builtinfield->read(in, name);
       if (!err) {
         name = "";
@@ -735,7 +735,7 @@ SoVRMLScript::initFieldData(void)
 void
 SoVRMLScriptP::initialize(void)
 {
-  if (this->engine != NULL) {
+  if (this->engine != nullptr) {
     if (SoVRMLScriptP::debug()) {
       SoDebugError::postInfo("SoVRMLScriptP::initialize",
                              "restarting script engine");
@@ -765,14 +765,14 @@ SoVRMLScriptP::initialize(void)
         }
         continue;
       }
-      assert(this->engine == NULL);
+      assert(this->engine == nullptr);
       this->engine = new SoJavaScriptEngine;
       script = s.getSubString(jsPrefixlen);
       break;
     }
   }
 
-  if (this->engine == NULL) {
+  if (this->engine == nullptr) {
     static int first = 1;
     if (first) {
       SoDebugError::postWarning("SoVRMLScript::initialize",
@@ -824,14 +824,14 @@ SoVRMLScriptP::initialize(void)
       SoDebugError::postInfo("SoVRMLScriptP::initialize",
                              "executing script function \"%s\"", initialize.getString());
     }
-    this->engine->executeFunction(initialize, 0, NULL);
+    this->engine->executeFunction(initialize, 0, nullptr);
   }
 }
 
 void
 SoVRMLScriptP::shutdown(void)
 {
-  assert(this->engine != NULL);
+  assert(this->engine != nullptr);
 
   SbName shutdown("shutdown");
   if (this->engine->hasScriptField(shutdown)) {
@@ -839,11 +839,11 @@ SoVRMLScriptP::shutdown(void)
       SoDebugError::postInfo("SoVRMLScriptP::initialize",
                              "executing script function \"%s\"", shutdown.getString());
     }
-    this->engine->executeFunction(shutdown, 0, NULL);
+    this->engine->executeFunction(shutdown, 0, nullptr);
   }
 
   delete this->engine;
-  this->engine = NULL;
+  this->engine = nullptr;
 }
 
 #endif // !COIN_HAVE_JAVASCRIPT
@@ -866,7 +866,7 @@ SoVRMLScriptP::evaluate(void)
     sovrmlscript_eval_cb(sovrmlscript_eval_closure, PUBLIC(this));
   }
 #ifdef COIN_HAVE_JAVASCRIPT
-  else if (this->engine != NULL) {
+  else if (this->engine != nullptr) {
     this->executeFunctions();
   }
 #endif // !COIN_HAVE_JAVASCRIPT
@@ -927,7 +927,7 @@ SoVRMLScriptP::executeFunctions(void)
 #ifdef COIN_HAVE_JAVASCRIPT
   static SbName eventsProcessed("eventsProcessed");
   if (this->engine->hasScriptField(eventsProcessed)) {
-    this->engine->executeFunction(eventsProcessed, 0, NULL);
+    this->engine->executeFunction(eventsProcessed, 0, nullptr);
   }
 #endif // !COIN_HAVE_JAVASCRIPT
 

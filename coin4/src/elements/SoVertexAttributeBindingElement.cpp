@@ -89,7 +89,7 @@ SoVertexAttributeBindingElement::init(SoState * state)
 void
 SoVertexAttributeBindingElement::set(SoState * const state, const Binding binding)
 {
-  set(state, NULL, binding);
+  set(state, nullptr, binding);
 }
 
 //! FIXME: write doc.

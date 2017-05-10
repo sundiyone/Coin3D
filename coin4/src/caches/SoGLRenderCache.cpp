@@ -30,6 +30,7 @@
 // *************************************************************************
 
 #include <cassert>
+#include <cstdlib>
 
 #include <Inventor/caches/SoGLRenderCache.h>
 #include <Inventor/elements/SoGLCacheContextElement.h>
@@ -60,8 +61,8 @@ SoGLRenderCache::SoGLRenderCache(SoState * state)
   : SoCache(state)
 {
   PRIVATE(this) = new SoGLRenderCacheP;
-  PRIVATE(this)->displaylist = NULL;
-  PRIVATE(this)->openstate = NULL;
+  PRIVATE(this)->displaylist = nullptr;
+  PRIVATE(this)->openstate = nullptr;
 }
 
 /*!
@@ -70,7 +71,7 @@ SoGLRenderCache::SoGLRenderCache(SoState * state)
 SoGLRenderCache::~SoGLRenderCache()
 {
   // stuff should have been deleted in destroy()
-  assert(PRIVATE(this)->displaylist == NULL);
+  assert(PRIVATE(this)->displaylist == nullptr);
   assert(PRIVATE(this)->nestedcachelist.getLength() == 0);
   
   delete PRIVATE(this);
@@ -85,8 +86,8 @@ SoGLRenderCache::~SoGLRenderCache()
 void
 SoGLRenderCache::open(SoState * state)
 {
-  assert(PRIVATE(this)->displaylist == NULL);
-  assert(PRIVATE(this)->openstate == NULL); // cache should not be open
+  assert(PRIVATE(this)->displaylist == nullptr);
+  assert(PRIVATE(this)->openstate == nullptr); // cache should not be open
   PRIVATE(this)->openstate = state;
   PRIVATE(this)->displaylist =
     new SoGLDisplayList(state, SoGLDisplayList::DISPLAY_LIST);
@@ -102,10 +103,10 @@ SoGLRenderCache::open(SoState * state)
 void
 SoGLRenderCache::close(void)
 {
-  assert(PRIVATE(this)->openstate != NULL);
-  assert(PRIVATE(this)->displaylist != NULL);
+  assert(PRIVATE(this)->openstate != nullptr);
+  assert(PRIVATE(this)->displaylist != nullptr);
   PRIVATE(this)->displaylist->close(PRIVATE(this)->openstate);
-  PRIVATE(this)->openstate = NULL;
+  PRIVATE(this)->openstate = nullptr;
 }
 
 /*!
@@ -116,7 +117,7 @@ SoGLRenderCache::close(void)
 void
 SoGLRenderCache::call(SoState * state)
 {
-  assert(PRIVATE(this)->displaylist != NULL);
+  assert(PRIVATE(this)->displaylist != nullptr);
 
   static int COIN_NESTED_CACHING = -1;
   if (COIN_NESTED_CACHING < 0) {
@@ -193,7 +194,7 @@ SoGLRenderCache::destroy(SoState * state)
   PRIVATE(this)->nestedcachelist.truncate(0);
   if (PRIVATE(this)->displaylist) {
     PRIVATE(this)->displaylist->unref(state);
-    PRIVATE(this)->displaylist = NULL;
+    PRIVATE(this)->displaylist = nullptr;
   }
 }
 

@@ -277,14 +277,14 @@ static YY_BUFFER_STATE * yy_buffer_stack = 0; /**< Stack as an array. */
  * future we want to put the buffer states in a more general
  * "scanner state".
  *
- * Returns the top of the stack, or NULL.
+ * Returns the top of the stack, or nullptr.
  */
 #define YY_CURRENT_BUFFER ( (yy_buffer_stack) \
                           ? (yy_buffer_stack)[(yy_buffer_stack_top)] \
-                          : NULL)
+                          : nullptr)
 
 /* Same as previous macro, but useful when we know that the buffer stack is not
- * NULL or when we need an lvalue. For internal use only.
+ * nullptr or when we need an lvalue. For internal use only.
  */
 #define YY_CURRENT_BUFFER_LVALUE (yy_buffer_stack)[(yy_buffer_stack_top)]
 
@@ -1379,7 +1379,7 @@ static void scxml_minimum__load_buffer_state  (void)
  */
 void scxml_minimum_push_buffer_state (YY_BUFFER_STATE new_buffer )
 {
-    	if (new_buffer == NULL)
+    	if (new_buffer == nullptr)
 		return;
 
 	scxml_minimum_ensure_buffer_stack();
@@ -1413,7 +1413,7 @@ void scxml_minimum_pop_buffer_state (void)
 		return;
 
 	scxml_minimum__delete_buffer(YY_CURRENT_BUFFER );
-	YY_CURRENT_BUFFER_LVALUE = NULL;
+	YY_CURRENT_BUFFER_LVALUE = nullptr;
 	if ((yy_buffer_stack_top) > 0)
 		--(yy_buffer_stack_top);
 
@@ -1697,13 +1697,13 @@ int scxml_minimum_lex_destroy  (void)
     /* Pop the buffer stack, destroying each element. */
 	while(YY_CURRENT_BUFFER){
 		scxml_minimum__delete_buffer(YY_CURRENT_BUFFER  );
-		YY_CURRENT_BUFFER_LVALUE = NULL;
+		YY_CURRENT_BUFFER_LVALUE = nullptr;
 		scxml_minimum_pop_buffer_state();
 	}
 
 	/* Destroy the stack itself. */
 	scxml_minimum_free((yy_buffer_stack) );
-	(yy_buffer_stack) = NULL;
+	(yy_buffer_stack) = nullptr;
 
     /* Reset the globals. This is important in a non-reentrant scanner so the next time
      * scxml_minimum_lex() is called, initialization will occur. */

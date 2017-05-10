@@ -368,14 +368,14 @@ class SoOffscreenRendererP {
 public:
   SoOffscreenRendererP(SoOffscreenRenderer * masterptr,
                        const SbViewportRegion & vpr,
-                       SoGLRenderAction * glrenderaction = NULL)
+                       SoGLRenderAction * glrenderaction = nullptr)
   {
     this->master = masterptr;
     this->didreadbuffer = true;
 
     this->backgroundcolor.setValue(0,0,0);
     this->components = SoOffscreenRenderer::RGB;
-    this->buffer = NULL;
+    this->buffer = nullptr;
     this->bufferbytesize = 0;
     this->lastnodewasacamera = false;
 	
@@ -791,7 +791,7 @@ SoOffscreenRendererP::renderFromBase(SoBase * base)
 
   // needed to clear viewport after glViewport() is called from
   // SoGLRenderAction
-  this->renderaction->addPreRenderCallback(pre_render_cb, NULL);
+  this->renderaction->addPreRenderCallback(pre_render_cb, nullptr);
 
   // For debugging purposes, it has been made possible to use an
   // envvar to *force* tiled rendering even when it can be done in a
@@ -830,7 +830,7 @@ SoOffscreenRendererP::renderFromBase(SoBase * base)
     }
 
     // We have to grab cameras using this callback during rendering
-    this->visitedcamera = NULL;
+    this->visitedcamera = nullptr;
     this->renderaction->setAbortCallback(SoOffscreenRendererP::GLRenderAbortCallback, this);
 
     // Render entire scenegraph for each subscreen.
@@ -896,7 +896,7 @@ SoOffscreenRendererP::renderFromBase(SoBase * base)
       }
     }
 
-    this->renderaction->setAbortCallback(NULL, this);
+    this->renderaction->setAbortCallback(nullptr, this);
 
     if (!this->visitedcamera) {
       SoDebugError::postWarning("SoOffscreenRenderer::renderFromBase",
@@ -940,7 +940,7 @@ SoOffscreenRendererP::renderFromBase(SoBase * base)
     }
   }
 
-  this->renderaction->removePreRenderCallback(pre_render_cb, NULL);
+  this->renderaction->removePreRenderCallback(pre_render_cb, nullptr);
 
   // Restore old value.
   (void)SoGLBigImage::setChangeLimit(bigimagechangelimit);
@@ -1049,7 +1049,7 @@ SoOffscreenRenderer::getBuffer(void) const
   unwound to a native C++ type for multiplatform compatibility
   reasons.
 
-  Returned reference will contain a NULL value on other platforms.
+  Returned reference will contain a nullptr value on other platforms.
 
   Important limitation: if the current dimensions of the
   SoOffscreenRenderer instance are larger than what can be rendered

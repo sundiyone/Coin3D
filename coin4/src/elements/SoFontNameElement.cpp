@@ -38,7 +38,7 @@
 
 
 
-SbName * SoFontNameElement::defaultfontname = NULL;
+SbName * SoFontNameElement::defaultfontname = nullptr;
 
 /*!
   \fn SoFontNameElement::fontName

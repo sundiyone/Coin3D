@@ -75,7 +75,7 @@ cc_internal_queryperformancecounter(cc_time * COIN_UNUSED_ARG(t))
       highperf_tick = 1.0 / frequency.QuadPart;
 
       {
-        time_t tt = time(NULL);
+        time_t tt = time(nullptr);
         LARGE_INTEGER counter;
         (void)QueryPerformanceCounter(&counter);
         highperf_start = tt - ((double)counter.QuadPart * highperf_tick);
@@ -101,7 +101,7 @@ cc_internal_gettimeofday(cc_time * t)
 {
 #ifdef HAVE_GETTIMEOFDAY
   struct timeval tv;
-  int result = gettimeofday(&tv, NULL);
+  int result = gettimeofday(&tv, nullptr);
   if (COIN_DEBUG && (result < 0)) {
     cc_debugerror_postwarning("SbTime_gettimeofday",
                               "Something went wrong (invalid timezone "

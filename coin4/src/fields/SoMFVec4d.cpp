@@ -143,7 +143,7 @@ SoMFVec4d::setValue(double x, double y, double z, double w)
 void
 SoMFVec4d::setValue(const double xyzw[4])
 {
-  if (xyzw == NULL) this->setNum(0);
+  if (xyzw == nullptr) this->setNum(0);
   else this->setValue(SbVec4d(xyzw));
 }
 

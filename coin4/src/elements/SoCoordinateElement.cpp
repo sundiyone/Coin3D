@@ -41,7 +41,7 @@
 #include "SbBasicP.h"
 
 // static variables
-SbVec3f * SoCoordinateElement::initialdefaultcoords = NULL;
+SbVec3f * SoCoordinateElement::initialdefaultcoords = nullptr;
 
 /*!
   \fn SoCoordinateElement::numCoords
@@ -109,7 +109,7 @@ SoCoordinateElement::init(SoState * state)
   inherited::init(state);
   this->numCoords = 1;
   this->coords3D = SoCoordinateElement::initialdefaultcoords;
-  this->coords4D = NULL;
+  this->coords4D = nullptr;
   this->areCoords3D = true;
 }
 
@@ -122,7 +122,7 @@ SoCoordinateElement::set3(SoState * const state,
                           const SbVec3f * const coords)
 {
   if (state->isElementEnabled(SoGLVBOElement::getClassStackIndex())) {
-    SoGLVBOElement::setVertexVBO(state, NULL);
+    SoGLVBOElement::setVertexVBO(state, nullptr);
   }
   SoCoordinateElement * elem =
     coin_safe_cast<SoCoordinateElement *>
@@ -147,7 +147,7 @@ SoCoordinateElement::set4(SoState * const state,
                           const SbVec4f * const coords)
 {
   if (state->isElementEnabled(SoGLVBOElement::getClassStackIndex())) {
-    SoGLVBOElement::setVertexVBO(state, NULL);
+    SoGLVBOElement::setVertexVBO(state, nullptr);
   }
   SoCoordinateElement * elem = coin_safe_cast<SoCoordinateElement *>
     (

@@ -125,12 +125,12 @@ typedef struct {
   cc_ftglue_FT_Outline_Decompose_t FT_Outline_Decompose;
 } cc_ftglue_t;
 
-static cc_fcglue_t * fontconfig_instance = NULL;
-static cc_libhandle fontconfig_libhandle = NULL;
+static cc_fcglue_t * fontconfig_instance = nullptr;
+static cc_libhandle fontconfig_libhandle = nullptr;
 static int fontconfig_failed_to_load = 0;
 
-static cc_ftglue_t * freetype_instance = NULL;
-static cc_libhandle freetype_libhandle = NULL;
+static cc_ftglue_t * freetype_instance = nullptr;
+static cc_libhandle freetype_libhandle = nullptr;
 static int freetype_failed_to_load = 0;
 
 /* Cleans up fontconfig at exit. */
@@ -140,12 +140,12 @@ fcglue_cleanup(void)
 #ifdef FONTCONFIG_RUNTIME_LINKING
   if (fontconfig_libhandle) {
     cc_dl_close(fontconfig_libhandle);
-    fontconfig_libhandle = NULL;
+    fontconfig_libhandle = nullptr;
   }
 #endif /* FONTCONFIG_RUNTIME_LINKING */
   assert(fontconfig_instance);
   free(fontconfig_instance);
-  fontconfig_instance = NULL;
+  fontconfig_instance = nullptr;
   fontconfig_failed_to_load = 0;
 }
 
@@ -169,10 +169,10 @@ fcglue_init(void)
       /* FIXME: should we get the system shared library name from an
          Autoconf check? 20000930 mortene. */
       const char * possiblelibnames[] = {
-        NULL, /* is set below */
+        nullptr, /* is set below */
         "fontconfig", "libfontconfig", "libfontconfig.so",
         "libfontconfig.dylib",
-        NULL
+        nullptr
       };
       possiblelibnames[0] = coin_getenv("COIN_FONTCONFIG_LIBNAME");
       idx = possiblelibnames[0] ? 0 : 1;
@@ -191,7 +191,7 @@ fcglue_init(void)
 #define FCGLUE_REGISTER_FUNC(_funcsig_, _funcname_) \
     do { \
       fi->_funcname_ = (_funcsig_)cc_dl_sym(fontconfig_libhandle, SO__QUOTE(_funcname_)); \
-      if (fi->_funcname_ == NULL) fi->available = 0; \
+      if (fi->_funcname_ == nullptr) fi->available = 0; \
     } while (0)
 
 #elif defined(FONTCONFIGGLUE_ASSUME_FONTCONFIG) /* !FONTCONFIG_RUNTIME_LINKING */
@@ -204,7 +204,7 @@ fcglue_init(void)
     fi->available = 0;
     /* Define FCGLUE_REGISTER_FUNC macro. */
 #define FCGLUE_REGISTER_FUNC(_funcsig_, _funcname_) \
-    fi->_funcname_ = NULL
+    fi->_funcname_ = nullptr
 
 #endif /* !FONTCONFIGGLUE_ASSUME_FONTCONFIG */
 
@@ -319,12 +319,12 @@ ftglue_cleanup(void)
 #ifdef FREETYPE_RUNTIME_LINKING
   if (freetype_libhandle) {
     cc_dl_close(freetype_libhandle);
-    freetype_libhandle = NULL;
+    freetype_libhandle = nullptr;
   }
 #endif /* FREETYPE_RUNTIME_LINKING */
   assert(freetype_instance);
   free(freetype_instance);
-  freetype_instance = NULL;
+  freetype_instance = nullptr;
   freetype_failed_to_load = 0;
 }
 
@@ -348,10 +348,10 @@ ftglue_init(void)
       /* FIXME: should we get the system shared library name from an
          Autoconf check? 20000930 mortene. */
       const char * possiblelibnames[] = {
-        NULL, /* is set below */
+        nullptr, /* is set below */
         "freetype", "libfreetype", "libfreetype.so",
         "libfreetype.dylib",
-        NULL
+        nullptr
       };
       possiblelibnames[0] = coin_getenv("COIN_FREETYPE2_LIBNAME");
       idx = possiblelibnames[0] ? 0 : 1;
@@ -371,7 +371,7 @@ ftglue_init(void)
 #define FTGLUE_REGISTER_FUNC(_funcsig_, _funcname_) \
     do { \
       fi->_funcname_ = (_funcsig_)cc_dl_sym(freetype_libhandle, SO__QUOTE(_funcname_)); \
-      if (fi->_funcname_ == NULL) fi->available = 0; \
+      if (fi->_funcname_ == nullptr) fi->available = 0; \
     } while (0)
 
 #elif defined(FREETYPEGLUE_ASSUME_FREETYPE) /* !FREETYPE_RUNTIME_LINKING */
@@ -384,7 +384,7 @@ ftglue_init(void)
     fi->available = 0;
     /* Define FTGLUE_REGISTER_FUNC macro. */
 #define FTGLUE_REGISTER_FUNC(_funcsig_, _funcname_) \
-    fi->_funcname_ = NULL
+    fi->_funcname_ = nullptr
 
 #endif /* !FREETYPEGLUE_ASSUME_FREETYPE */
 

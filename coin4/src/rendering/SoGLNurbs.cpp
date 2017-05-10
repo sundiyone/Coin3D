@@ -62,26 +62,26 @@ sogl_calculate_nurbs_normals()
 }
 
 namespace {
-  SbStorage * sogl_coordstorage = NULL;
-  SbStorage * sogl_texcoordstorage = NULL;
-  SbStorage * sogl_normalstorage = NULL;
+  SbStorage * sogl_coordstorage = nullptr;
+  SbStorage * sogl_texcoordstorage = nullptr;
+  SbStorage * sogl_normalstorage = nullptr;
 
   void nurbs_coord_cleanup(void)
   {
     delete sogl_coordstorage;
-    sogl_coordstorage = NULL;
+    sogl_coordstorage = nullptr;
   }
 
   void nurbs_texcoord_cleanup(void)
   {
     delete sogl_texcoordstorage;
-    sogl_texcoordstorage = NULL;
+    sogl_texcoordstorage = nullptr;
   }
 
   void nurbs_normal_cleanup(void)
   {
     delete sogl_normalstorage;
-    sogl_normalstorage = NULL;
+    sogl_normalstorage = nullptr;
   }
 
   void sogl_alloc_coords(void * ptr)
@@ -99,7 +99,7 @@ namespace {
   SbList <float> *
   sogl_get_tmpcoordlist(void)
   {
-    if (sogl_coordstorage == NULL) {
+    if (sogl_coordstorage == nullptr) {
       sogl_coordstorage = new SbStorage(sizeof(void*), sogl_alloc_coords, sogl_dealloc_coords);
       coin_atexit((coin_atexit_f *)nurbs_coord_cleanup, CC_ATEXIT_NORMAL);
     }
@@ -110,7 +110,7 @@ namespace {
   SbList <float> *
   sogl_get_tmptexcoordlist(void)
   {
-    if (sogl_texcoordstorage == NULL) {
+    if (sogl_texcoordstorage == nullptr) {
       sogl_texcoordstorage = new SbStorage(sizeof(void*), sogl_alloc_coords, sogl_dealloc_coords);
       coin_atexit((coin_atexit_f *)nurbs_texcoord_cleanup, CC_ATEXIT_NORMAL);
     }
@@ -121,7 +121,7 @@ namespace {
   SbList <float> *
   sogl_get_tmpnormallist(void)
   {
-    if (sogl_normalstorage == NULL) {
+    if (sogl_normalstorage == nullptr) {
       sogl_normalstorage = new SbStorage(sizeof(void*), sogl_alloc_coords, sogl_dealloc_coords);
       coin_atexit((coin_atexit_f *)nurbs_normal_cleanup, CC_ATEXIT_NORMAL);
     }
@@ -837,7 +837,7 @@ namespace {
     char buffer[1024];
     static int fno = 0;
     sprintf(buffer, "normaltest%d.iv", fno++);
-    FILE* fp = NULL;
+    FILE* fp = nullptr;
     fp = fopen(buffer, "w");
     if ( fp ) fprintf(fp,"#Inventor V2.1 ascii\n"
                       "Separator {\n"
@@ -913,7 +913,7 @@ namespace {
       fprintf(fp,	"]\n"
               "}\n");
       fclose(fp);
-      fp = NULL;
+      fp = nullptr;
     }
   }
 
@@ -1062,7 +1062,7 @@ sogl_render_nurbs_surface(SoAction * action, SoShape * shape,
   }
   // generate normal map
   if (calculatenurbsnormals) {
-    GLfloat * ptrnormals = NULL;
+    GLfloat * ptrnormals = nullptr;
 
     SbList <float> * tmpnormallist = sogl_get_tmpnormallist();
     tmpnormallist->truncate(0);

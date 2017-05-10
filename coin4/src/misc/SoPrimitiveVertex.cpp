@@ -44,7 +44,7 @@ SoPrimitiveVertex::SoPrimitiveVertex(void)
     normal(0.0f, 0.0f, 1.0f),
     textureCoords(0.0f, 0.0f, 0.0f, 1.0f),
     materialIndex(0),
-    detail(NULL),
+    detail(nullptr),
     packedColor(0)
 {
 }
@@ -126,7 +126,7 @@ SoPrimitiveVertex::~SoPrimitiveVertex()
   \fn const SoDetail * SoPrimitiveVertex::getDetail(void) const
 
   Returns pointer to detail instance with more information about the
-  vertex. A detail instance may not be available, and if so \c NULL is
+  vertex. A detail instance may not be available, and if so \c nullptr is
   returned.
 */
 

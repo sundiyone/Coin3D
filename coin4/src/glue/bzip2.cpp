@@ -88,8 +88,8 @@ typedef struct {
 } cc_bzglue_t;
 
 
-static cc_bzglue_t * bzlib_instance = NULL;
-static cc_libhandle bzlib_libhandle = NULL;
+static cc_bzglue_t * bzlib_instance = nullptr;
+static cc_libhandle bzlib_libhandle = nullptr;
 static int bzlib_failed_to_load = 0;
 
 /* Cleans up at exit. */
@@ -99,12 +99,12 @@ bzglue_cleanup(void)
 #ifdef LIBBZIP2_RUNTIME_LINKING
   if (bzlib_libhandle) { 
     cc_dl_close(bzlib_libhandle); 
-    bzlib_libhandle = NULL;
+    bzlib_libhandle = nullptr;
   }
 #endif /* LIBBZIP2_RUNTIME_LINKING */
   assert(bzlib_instance);
   free(bzlib_instance);
-  bzlib_instance = NULL;
+  bzlib_instance = nullptr;
   bzlib_failed_to_load = 0;
 }
 
@@ -128,10 +128,10 @@ bzglue_init(void)
       /* FIXME: should we get the system shared library name from an
          Autoconf check? 20000930 mortene. */
       const char * possiblelibnames[] = {
-        NULL, /* is set below */ 
+        nullptr, /* is set below */ 
         "bz2", "libbz2", "libbz2.so",
         "libbz2.dylib", 
-        NULL
+        nullptr
       };
 
       possiblelibnames[0] = coin_getenv("COIN_BZIP2_LIBNAME");
@@ -151,7 +151,7 @@ bzglue_init(void)
 #define BZGLUE_REGISTER_FUNC(_funcsig_, _funcname_) \
     do { \
       bi->_funcname_ = (_funcsig_)cc_dl_sym(bzlib_libhandle, SO__QUOTE(_funcname_)); \
-      if (bi->_funcname_ == NULL) bi->available = 0; \
+      if (bi->_funcname_ == nullptr) bi->available = 0; \
     } while (0)
 
 #elif defined(BZGLUE_ASSUME_BZIP2) /* !LIBBZIP2_RUNTIME_LINKING */
@@ -164,7 +164,7 @@ bzglue_init(void)
     bi->available = 0;
     /* Define BZGLUE_REGISTER_FUNC macro. */
 #define BZGLUE_REGISTER_FUNC(_funcsig_, _funcname_) \
-    bi->_funcname_ = NULL
+    bi->_funcname_ = nullptr
 
 #endif /* !BZGLUE_ASSUME_BZIP2 */
 

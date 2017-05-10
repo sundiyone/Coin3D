@@ -106,7 +106,7 @@ public:
   void setup3DFontData();
 
   static SoGlyph * createSystemGlyph(const char character, const SbName & font);
-  static SoGlyph * createSystemGlyph(const unsigned int COIN_UNUSED_ARG(character), SoState * COIN_UNUSED_ARG(state)) {return NULL;};  static SoGlyph * createSystemGlyph(const char character, int fontid);
+  static SoGlyph * createSystemGlyph(const unsigned int COIN_UNUSED_ARG(character), SoState * COIN_UNUSED_ARG(state)) {return nullptr;};  static SoGlyph * createSystemGlyph(const char character, int fontid);
 };
 
 #define PRIVATE(p) ((p)->pimpl)
@@ -121,9 +121,9 @@ SoGlyph::SoGlyph(void)
   PRIVATE(this) = new SoGlyphP(this);
   PRIVATE(this)->refcount = 0;
   PRIVATE(this)->flags.didcalcbbox = 0;
-  PRIVATE(this)->coords = NULL;
-  PRIVATE(this)->faceidx = NULL;
-  PRIVATE(this)->edgeidx = NULL;
+  PRIVATE(this)->coords = nullptr;
+  PRIVATE(this)->faceidx = nullptr;
+  PRIVATE(this)->edgeidx = nullptr;
   PRIVATE(this)->ymin = 0.0f;
   PRIVATE(this)->ymax = 0.0f;
 
@@ -136,7 +136,7 @@ SoGlyph::SoGlyph(void)
 
   PRIVATE(this)->bitmapwidth = 0;
   PRIVATE(this)->bitmapheight = 0;
-  PRIVATE(this)->bitmap = NULL;
+  PRIVATE(this)->bitmap = nullptr;
 }
 
 /*!
@@ -217,7 +217,7 @@ SoGlyph::getEdgeIndices(void) const
 }
 
 /*!
-  Returns a pointer to the next clockwise edge. Returns NULL if
+  Returns a pointer to the next clockwise edge. Returns nullptr if
   none could be found.
 */
 const int *
@@ -236,12 +236,12 @@ SoGlyph::getNextCWEdge(const int edgeidx) const
     if (ptr[1] == findidx) return ptr;
     ptr += 2;
   }
-  return NULL;
+  return nullptr;
 }
 
 /*!
   Returns a pointer to the next counter clockwise edge.
-  NULL if none could be found.
+  nullptr if none could be found.
 */
 const int *
 SoGlyph::getNextCCWEdge(const int edgeidx) const
@@ -257,7 +257,7 @@ SoGlyph::getNextCCWEdge(const int edgeidx) const
     if (*ptr == findidx) return ptr;
     ptr += 2;
   }
-  return NULL;
+  return nullptr;
 }
 
 /*!
@@ -386,7 +386,7 @@ public:
   coin_glyph_info() {
     this->character = 0;
     this->size = 0.0;
-    this->glyph = NULL;
+    this->glyph = nullptr;
     this->angle = 0.0;
   }
   coin_glyph_info(const unsigned int characterarg, const float sizearg, const SbName &fontarg, SoGlyph *glypharg, const float anglearg)
@@ -422,14 +422,14 @@ public:
   float angle;
 };
 
-static SbList <coin_glyph_info> * activeGlyphs = NULL;
-static void * SoGlyph_mutex = NULL;
+static SbList <coin_glyph_info> * activeGlyphs = nullptr;
+static void * SoGlyph_mutex = nullptr;
 
 static void
 SoGlyph_cleanup(void)
 {
   delete activeGlyphs;
-  activeGlyphs = NULL;
+  activeGlyphs = nullptr;
   CC_MUTEX_DESTRUCT(SoGlyph_mutex);
 }
 
@@ -449,7 +449,7 @@ SoGlyph::getGlyph(const char character, const SbName & font)
   // 20030611 mortene.
   
   // Similar code in start of getGlyph(..., state) - keep in sync.
-  if (SoGlyph_mutex == NULL) {
+  if (SoGlyph_mutex == nullptr) {
     CC_MUTEX_CONSTRUCT(SoGlyph_mutex);
   }
 
@@ -461,7 +461,7 @@ SoGlyph::getGlyph(const char character, const SbName & font)
 
   CC_MUTEX_LOCK(SoGlyph_mutex);
 
-  if (activeGlyphs == NULL) {
+  if (activeGlyphs == nullptr) {
     activeGlyphs = new SbList <coin_glyph_info>;
     coin_atexit((coin_atexit_f *)SoGlyph_cleanup, CC_ATEXIT_NORMAL);
   }
@@ -484,12 +484,12 @@ SoGlyph::getGlyph(const char character, const SbName & font)
   // glyph. If none exist in the font, we should eventually fall back
   // on making a square in the code we're calling into. Move the code
   // below to handle this deeper down into the call-stack. 20030527 mortene.
-  if (glyph == NULL) { // no system font could be loaded
+  if (glyph == nullptr) { // no system font could be loaded
     glyph = new SoGlyph;
     if (character <= 32 || character >= 127) {
       // treat all these characters as spaces
       static int spaceidx[] = { -1 };
-      glyph->setCoords(NULL);
+      glyph->setCoords(nullptr);
       glyph->setFaceIndices(spaceidx);
       glyph->setEdgeIndices(spaceidx);
       PRIVATE(glyph)->bbox.setBounds(SbVec2f(0.0f, 0.0f), SbVec2f(0.2f, 0.0f));
@@ -557,13 +557,13 @@ SoGlyph::getGlyph(SoState * state,
   if (size != SbVec2s(0,0)) { fontsize = size; }
   
   // Similar code in start of getGlyph(..., fontname) - keep in sync.
-  if (SoGlyph_mutex == NULL) {
+  if (SoGlyph_mutex == nullptr) {
     CC_MUTEX_CONSTRUCT(SoGlyph_mutex);
   }
 
   CC_MUTEX_LOCK(SoGlyph_mutex);
   
-  if (activeGlyphs == NULL) {
+  if (activeGlyphs == nullptr) {
     activeGlyphs = new SbList <coin_glyph_info>;
     coin_atexit((coin_atexit_f *)SoGlyph_cleanup, CC_ATEXIT_NORMAL);
   }
@@ -642,7 +642,7 @@ SoGlyph::getKerning(const SoGlyph & rightglyph) const
   Bitmap for glyph. \a size and \a pos are return parameters.
   Antialiased bitmap graphics not yet supported.
 
-  Note that this function may return \c NULL if the glyph has no
+  Note that this function may return \c nullptr if the glyph has no
   visible pixels (as for e.g. the space character).
 
   The returned buffer should \e not be deallocated by the caller.
@@ -650,7 +650,7 @@ SoGlyph::getKerning(const SoGlyph & rightglyph) const
 unsigned char *
 SoGlyph::getBitmap(SbVec2s & size, SbVec2s & pos, const bool COIN_UNUSED_ARG(antialiased)) const
 {
-  if (PRIVATE(this)->bitmap == NULL) {
+  if (PRIVATE(this)->bitmap == nullptr) {
     PRIVATE(this)->bitmap = cc_flw_get_bitmap(PRIVATE(this)->fontidx, PRIVATE(this)->glyphidx);
   }
   struct cc_font_bitmap * bm = PRIVATE(this)->bitmap;
@@ -676,7 +676,7 @@ SoGlyphP::setup3DFontData(void)
   if (character <= 32 || character >= 127) {
     // treat all these characters as spaces
     static int spaceidx[] = { -1 };
-    PUBLIC(this)->setCoords(NULL);
+    PUBLIC(this)->setCoords(nullptr);
     PUBLIC(this)->setFaceIndices(spaceidx);
     PUBLIC(this)->setEdgeIndices(spaceidx);
     this->bbox.setBounds(SbVec2f(0.0f, 0.0f), SbVec2f(0.2f, 0.0f));
@@ -685,7 +685,7 @@ SoGlyphP::setup3DFontData(void)
   else {
     cc_font_vector_glyph * vector_glyph = cc_flw_get_vector_glyph(this->fontidx, this->character);
     
-    if (vector_glyph == NULL) {
+    if (vector_glyph == nullptr) {
       // Default hardcoded 3d font. Size = 1.0
       const int idx = this->character-33;
       PUBLIC(this)->setCoords((const SbVec2f *)coin_default3dfont_get_coords()[idx]);
@@ -707,13 +707,13 @@ SoGlyphP::setup3DFontData(void)
 SoGlyph *
 SoGlyphP::createSystemGlyph(const char COIN_UNUSED_ARG(character), int COIN_UNUSED_ARG(fontid))
 { 
-  return NULL;
+  return nullptr;
 }
 
 SoGlyph *
 SoGlyphP::createSystemGlyph(const char COIN_UNUSED_ARG(character), const SbName & COIN_UNUSED_ARG(font))
 {
-  return NULL;
+  return nullptr;
 }
 
 #undef PRIVATE

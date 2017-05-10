@@ -79,7 +79,7 @@ SoLineWidthElement::set(SoState * const state, SoNode * const node,
 void
 SoLineWidthElement::set(SoState * const state, const float lineWidth)
 {
-  SoLineWidthElement::set(state, NULL, lineWidth);
+  SoLineWidthElement::set(state, nullptr, lineWidth);
 }
 
 /*!

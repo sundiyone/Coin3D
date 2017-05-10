@@ -71,7 +71,7 @@ ScXMLInitialEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocu
   // handle XML attributes
   if (unlikely(!initial->handleXMLAttributes())) {
     delete initial;
-    return NULL;
+    return nullptr;
   }
 
   const int numchildren = cc_xml_elt_get_num_children(xmlelt);
@@ -90,14 +90,14 @@ ScXMLInitialEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocu
         SoDebugError::post("ScXMLInitialEltReader::read",
                            "<initial> can only contain one <transition> element");
         delete initial;
-        return NULL;
+        return nullptr;
       }
       ScXMLEltReader * transitionreader = ScXMLTransitionElt::getElementReader();
       assert(transitionreader);
       ScXMLElt * transitionobj = transitionreader->read(initial, element, doc, sm);
       if (unlikely(!transitionobj)) {
         delete initial;
-        return NULL;
+        return nullptr;
       }
 
       assert(transitionobj->isOfType(ScXMLTransitionElt::getClassTypeId()));
@@ -107,7 +107,7 @@ ScXMLInitialEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocu
                            "<initial> must contain a conditionless <transition> element");
         delete transitionelt;
         delete initial;
-        return NULL;
+        return nullptr;
       }
       initial->setTransition(transitionelt);
     }
@@ -117,7 +117,7 @@ ScXMLInitialEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocu
                          "unexpected XML element '<%s>' found in <initial>",
                          elementtype);
       delete initial;
-      return NULL;
+      return nullptr;
     }
   }
 
@@ -128,7 +128,7 @@ ScXMLInitialEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocu
 
 class ScXMLInitialElt::PImpl {
 public:
-  PImpl(void) : transitionptr(NULL) { }
+  PImpl(void) : transitionptr(nullptr) { }
 
   boost::scoped_ptr<ScXMLTransitionElt> transitionptr;
 };
@@ -184,7 +184,7 @@ ScXMLInitialElt::search(const char * attrname, const char * attrvalue) const
       return hit;
     }
   }
-  return NULL;
+  return nullptr;
 }
 
 SCXML_SINGLE_OBJECT_API_IMPL(ScXMLInitialElt, ScXMLTransitionElt, PRIVATE(this)->transitionptr, Transition);

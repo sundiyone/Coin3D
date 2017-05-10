@@ -142,13 +142,13 @@ const char * SoDBP::EnvVars::COIN_PROFILER_OVERLAY = "COIN_PROFILER_OVERLAY";
 
 // *************************************************************************
 
-static SbString * coin_versionstring = NULL;
+static SbString * coin_versionstring = nullptr;
 
 // atexit callback
 static void cleanup_func(void)
 {
   delete coin_versionstring;
-  coin_versionstring = NULL;
+  coin_versionstring = nullptr;
 }
 
 
@@ -334,28 +334,28 @@ SoDB::init(void)
 
   // Register all valid file format headers.
   SoDB::registerHeader(SbString("#Inventor V2.1 ascii   "), false, 2.1f,
-                       NULL, NULL, NULL);
+                       nullptr, nullptr, nullptr);
   SoDB::registerHeader(SbString("#Inventor V2.1 binary  "), true, 2.1f,
-                       NULL, NULL, NULL);
+                       nullptr, nullptr, nullptr);
 
   // FIXME: this is really only valid if the HAVE_VRML97 define is in
   // place. If it's not, we should register the header in a way so
   // that we spit out a /specific/ warning about why VRML97 is not
   // supported in the configuration of the compiled libCoin. 20020808 mortene.
   SoDB::registerHeader(SbString("#VRML V2.0 utf8"), false, 2.1f,
-                       NULL, NULL, NULL);
+                       nullptr, nullptr, nullptr);
 
   // FIXME: there are nodes in TGS' later Inventor versions that we do
   // not support, so it's not really correct to register 2.4 and 2.5
   // headers.  20010925 mortene.
   SoDB::registerHeader(SbString("#Inventor V2.4 ascii   "), false, 2.4f,
-                       NULL, NULL, NULL);
+                       nullptr, nullptr, nullptr);
   SoDB::registerHeader(SbString("#Inventor V2.4 binary  "), true, 2.4f,
-                       NULL, NULL, NULL);
+                       nullptr, nullptr, nullptr);
   SoDB::registerHeader(SbString("#Inventor V2.5 ascii   "), false, 2.5f,
-                       NULL, NULL, NULL);
+                       nullptr, nullptr, nullptr);
   SoDB::registerHeader(SbString("#Inventor V2.5 binary  "), true, 2.5f,
-                       NULL, NULL, NULL);
+                       nullptr, nullptr, nullptr);
   // FIXME: TGS has released many more versions than this. There are
   // at least 2.6, 3.0, 3.1 and 4.0, as of now. What should we do with
   // those? Simply add them in the same manner? Should investigate
@@ -363,9 +363,9 @@ SoDB::init(void)
   // written with these versions. 20040909 mortene.
 
   SoDB::registerHeader(SbString("#Inventor V2.0 ascii   "), false, 2.0f,
-                       NULL, NULL, NULL);
+                       nullptr, nullptr, nullptr);
   SoDB::registerHeader(SbString("#Inventor V2.0 binary  "), true, 2.0f,
-                       NULL, NULL, NULL);
+                       nullptr, nullptr, nullptr);
 
   // FIXME: this is erroneous, we don't _really_ support v1.x Inventor
   // files.  Should spit out a warning, and a helpful message on how
@@ -376,15 +376,15 @@ SoDB::init(void)
   // mechanism, and at least a few upgrader nodes for V1.0
   // stuff. Should investigate the exact status of this.
   SoDB::registerHeader(SbString("#Inventor V1.0 ascii   "), false, 1.0f,
-                       NULL, NULL, NULL);
+                       nullptr, nullptr, nullptr);
   SoDB::registerHeader(SbString("#Inventor V1.0 binary  "), true, 1.0f,
-                       NULL, NULL, NULL);
+                       nullptr, nullptr, nullptr);
 
   // The VRML 1 standard was made from SGI's Inventor V2.1 (and should
   // be a pure sub-set), so that's what we pretend the format version
   // is, internally.
   SoDB::registerHeader(SbString("#VRML V1.0 ascii   "), false, 2.1f,
-                       NULL, NULL, NULL);
+                       nullptr, nullptr, nullptr);
 
 
   // FIXME: should be more robust and accept a set of headers that
@@ -422,7 +422,7 @@ SoDB::init(void)
   SoDBP::globaltimersensor->schedule();
 
   // Force correct time on first getValue() from "realTime" field.
-  SoDBP::updateRealTimeFieldCB(NULL, NULL);
+  SoDBP::updateRealTimeFieldCB(nullptr, nullptr);
 
   // This should prove helpful for debugging the pervasive problem
   // under Win32 with loading multiple instances of the same library.
@@ -494,7 +494,7 @@ SoDB::cleanup(void)
 const char *
 SoDB::getVersion(void)
 {
-  if (coin_versionstring == NULL) {
+  if (coin_versionstring == nullptr) {
     coin_versionstring = new SbString("SIM Coin " COIN_VERSION);
     coin_atexit((coin_atexit_f *)cleanup_func, CC_ATEXIT_NORMAL);
   }
@@ -508,13 +508,13 @@ SoDB::getVersion(void)
   The reference count of the SoPath object will initially be zero.
 
   Returns \c false on error. Returns \c true with \a path equal to \a
-  NULL if we hit end of file instead of a new path specification in
+  nullptr if we hit end of file instead of a new path specification in
   the file.
 */
 bool
 SoDB::read(SoInput * in, SoPath *& path)
 {
-  path = NULL;
+  path = nullptr;
   SoBase * baseptr;
   if (!SoDB::read(in, baseptr))  return false;
   if (!baseptr) return true; // eof
@@ -533,7 +533,7 @@ SoDB::read(SoInput * in, SoPath *& path)
 
 /*!
   Instantiates and reads an object of type SoBase from \a in and
-  returns a pointer to it in \a base. \a base will be \c NULL on
+  returns a pointer to it in \a base. \a base will be \c nullptr on
   return if we hit end of file.
 
   The reference count of the base object will initially be zero.
@@ -550,13 +550,13 @@ SoDB::read(SoInput * in, SoBase *& base)
        SoForeignFileKit::getClassTypeId() != SoType::badType() &&
        SoForeignFileKit::isFileSupported(in)) {
     base = SoForeignFileKit::createForeignFileKit(in);
-    return (base != NULL);
+    return (base != nullptr);
   }
 #endif // NODEKITS
 
   if (!valid && SoDBP::is3dsFile(in)) {
     base = SoDBP::read3DSFile(in);
-    return (base != NULL);
+    return (base != nullptr);
   }
 
   // Header is only required when reading from a stream, if reading from
@@ -574,18 +574,18 @@ SoDB::read(SoInput * in, SoBase *& base)
   The reference count of the node will initially be zero.
 
   Returns \c false on error. Returns \c true with \a rootnode equal to
-  \c NULL if we hit end of file instead of a new node specification in
+  \c nullptr if we hit end of file instead of a new node specification in
   the file.
  */
 bool
 SoDB::read(SoInput * in, SoNode *& rootnode)
 {
-  rootnode = NULL;
+  rootnode = nullptr;
   SoBase * baseptr;
 
   if (SoDBP::is3dsFile(in)) {
     rootnode = SoDBP::read3DSFile(in);
-    return (rootnode != NULL);
+    return (rootnode != nullptr);
   }
 
   // allow engines at the top level of a file
@@ -647,7 +647,7 @@ SoDB::read(SoInput * in, SoNode *& rootnode)
   // memory resources it was using.)
   \endcode
 
-  Returns \c NULL on any error.
+  Returns \c nullptr on any error.
 
   Tip: a common operation to do after importing a scene graph is to
   pick out the memory pointers to one or more of the imported nodes
@@ -677,7 +677,7 @@ SoDB::readAllVRML(SoInput * in)
   return (SoVRMLGroup*)
     SoDB::readAllWrapper(in, SoVRMLGroup::getClassTypeId());
 #else // HAVE_VRML97
-  return NULL;
+  return nullptr;
 #endif // ! HAVE_VRML97
 }
 
@@ -697,7 +697,7 @@ SoDB::isValidHeader(const char * teststring)
 #if COIN_DEBUG
   if (!teststring) {
     SoDebugError::postWarning("SoDB::isValidHeader",
-                              "Passed a NULL string pointer.");
+                              "Passed a nullptr string pointer.");
     return false;
   }
 #endif // COIN_DEBUG
@@ -853,7 +853,7 @@ SoDB::getHeaderString(const int i)
   subsequent accesses to getGlobalField() by \a name. If a global
   field by the name and type already exists, returns a pointer to it.
   If a global field with the same name but a different type exists,
-  returns \c NULL.
+  returns \c nullptr.
 
   A global field can be deallocated by calling
   SoDB::renameGlobalField(), with the second argument set to an empty
@@ -869,7 +869,7 @@ SoDB::createGlobalField(const SbName & name, SoType type)
   SoField * f = SoDB::getGlobalField(name);
   if (f) {
     if (f->getTypeId() == type) return f;
-    else return NULL;
+    else return nullptr;
   }
 
 #if COIN_DEBUG
@@ -877,7 +877,7 @@ SoDB::createGlobalField(const SbName & name, SoType type)
     SoDebugError::postWarning("SoDB::createGlobalField",
                               "Can't create instance of field type ``%s''.",
                               type.getName().getString());
-    return NULL;
+    return nullptr;
   }
 #endif // COIN_DEBUG
 
@@ -890,7 +890,7 @@ SoDB::createGlobalField(const SbName & name, SoType type)
 
 /*!
   If there exist a global field with the given \a name, return a
-  pointer to it. If there is no field with this name, return \c NULL.
+  pointer to it. If there is no field with this name, return \c nullptr.
 
   Of particular interest is the \c realTime global field set up by the
   library on initialization. This field is used as a source field to
@@ -909,7 +909,7 @@ SoField *
 SoDB::getGlobalField(const SbName & name)
 {
   SoGlobalField * gf = SoGlobalField::getGlobalFieldContainer(name);
-  return gf ? gf->getGlobalField() : NULL;
+  return gf ? gf->getGlobalField() : nullptr;
 }
 
 /*!
@@ -925,7 +925,7 @@ SoDB::renameGlobalField(const SbName & from, const SbName & to)
   SoGlobalField * gf = SoGlobalField::getGlobalFieldContainer(from);
 
 #if COIN_DEBUG
-  if (gf == NULL) {
+  if (gf == nullptr) {
     SoDebugError::postWarning("SoDB::renameGlobalField",
                               "Couldn't find global field '%s' to rename.",
                               from.getString());
@@ -1203,7 +1203,7 @@ SoDB::readAllWrapper(SoInput * in, const SoType & grouptype)
 
   if (!valid && SoDBP::is3dsFile(in)) {
     SoSeparator * root3ds = SoDBP::read3DSFile(in);
-    if (root3ds == NULL) { return NULL; }
+    if (root3ds == nullptr) { return nullptr; }
 
     if (!SoSeparator::getClassTypeId().isDerivedFrom(grouptype)) {
       SoGroup * root = (SoGroup *)grouptype.createInstance();
@@ -1217,7 +1217,7 @@ SoDB::readAllWrapper(SoInput * in, const SoType & grouptype)
 
   if (!valid) {
     SoReadError::post(in, "Not a valid Inventor file.");
-    return NULL;
+    return nullptr;
   }
 
   const int stackdepth = in->filestack.getLength();
@@ -1228,7 +1228,7 @@ SoDB::readAllWrapper(SoInput * in, const SoType & grouptype)
     if (!SoDB::read(in, topnode)) {
       root->ref();
       root->unref();
-      return NULL;
+      return nullptr;
     }
     if (topnode) { root->addChild(topnode); }
   } while (topnode && in->skipWhiteSpace());
@@ -1359,7 +1359,7 @@ SoDB::readAllWrapper(SoInput * in, const SoType & grouptype)
 void
 SoDB::addProgressCallback(ProgressCallbackType * func, void * userdata)
 {
-  if (SoDBP::progresscblist == NULL) {
+  if (SoDBP::progresscblist == nullptr) {
     SoDBP::progresscblist = new SbList<SoDBP::ProgressCallbackInfo>;
   }
 
@@ -1544,8 +1544,8 @@ SoDB::createRoute(SoNode * fromnode, const char * eventout,
   if (tonodename == "") {
     tonodename = "<noname>";
   }
-  SoEngineOutput * output = NULL;
-  if (from == NULL && fromnode->isOfType(SoNodeEngine::getClassTypeId())) {
+  SoEngineOutput * output = nullptr;
+  if (from == nullptr && fromnode->isOfType(SoNodeEngine::getClassTypeId())) {
     output = ((SoNodeEngine*) fromnode)->getOutput(fromfieldname);
   }
 
@@ -1635,8 +1635,8 @@ SoDB::removeRoute(SoNode * fromnode, const char * eventout,
   SoField * from = find_route_field(fromnode, fromfieldname);
   SoField * to = find_route_field(tonode, tofieldname);
 
-  SoEngineOutput * output = NULL;
-  if (from == NULL && fromnode->isOfType(SoNodeEngine::getClassTypeId())) {
+  SoEngineOutput * output = nullptr;
+  if (from == nullptr && fromnode->isOfType(SoNodeEngine::getClassTypeId())) {
     output = ((SoNodeEngine*) fromnode)->getOutput(fromfieldname);
   }
 
@@ -1685,8 +1685,8 @@ BOOST_AUTO_TEST_CASE(globalRealTimeField)
   SoDB::getSensorManager()->processTimerQueue();
   SoSFTime * realtime = (SoSFTime *)SoDB::getGlobalField("realTime");
 
-  BOOST_REQUIRE(realtime != NULL);
-  BOOST_REQUIRE(realtime->getContainer() != NULL);
+  BOOST_REQUIRE(realtime != nullptr);
+  BOOST_REQUIRE(realtime->getContainer() != nullptr);
 
   // check that realtime field actually is initialized with something
   // close to actual time
@@ -1724,7 +1724,7 @@ BOOST_AUTO_TEST_CASE(readEmptyChildList)
   // FIXME: We are forced to restore the global state before terminating,
   // or independent tests could fail. (sveinung 20071108)
   SoErrorCB * prevErrorCB = SoReadError::getHandlerCallback();
-  SoReadError::setHandlerCallback(readErrorHandler, NULL);
+  SoReadError::setHandlerCallback(readErrorHandler, nullptr);
 
   static const char scene[] = "#VRML V2.0 utf8\n"
                               "DEF TestGroup Group { children }";
@@ -1735,9 +1735,9 @@ BOOST_AUTO_TEST_CASE(readEmptyChildList)
     SoGroup * group = (SoGroup *) SoNode::getByName("TestGroup");
     BOOST_CHECK_MESSAGE(group->getNumChildren() == 0, "Should have no children");
   }
-  BOOST_CHECK_MESSAGE(root == NULL, "Expected the import to fail");
+  BOOST_CHECK_MESSAGE(root == nullptr, "Expected the import to fail");
 
-  SoReadError::setHandlerCallback(prevErrorCB, NULL);
+  SoReadError::setHandlerCallback(prevErrorCB, nullptr);
 }
 
 BOOST_AUTO_TEST_CASE(readNullChildList)
@@ -1745,10 +1745,10 @@ BOOST_AUTO_TEST_CASE(readNullChildList)
   // FIXME: We are forced to restore the global state before terminating,
   // or independent tests could fail. (sveinung 20071108)
   SoErrorCB * prevErrorCB = SoReadError::getHandlerCallback();
-  SoReadError::setHandlerCallback(readErrorHandler, NULL);
+  SoReadError::setHandlerCallback(readErrorHandler, nullptr);
 
   static const char scene[] = "#VRML V2.0 utf8\n"
-                              "PROTO Object [ field MFNode testChildren NULL ] { }\n"
+                              "PROTO Object [ field MFNode testChildren nullptr ] { }\n"
                               "DEF TestObject Object { }";
   SoInput in;
   in.setBuffer((void *) scene, strlen(scene));
@@ -1758,9 +1758,9 @@ BOOST_AUTO_TEST_CASE(readNullChildList)
     SoMFNode * field = (SoMFNode *) object->getField("testChildren");
     BOOST_CHECK_MESSAGE(field->getNumNodes() == 0, "Should have no children");
   }
-  BOOST_CHECK_MESSAGE(root == NULL, "Expected the import to fail");
+  BOOST_CHECK_MESSAGE(root == nullptr, "Expected the import to fail");
 
-  SoReadError::setHandlerCallback(prevErrorCB, NULL);
+  SoReadError::setHandlerCallback(prevErrorCB, nullptr);
 }
 
 BOOST_AUTO_TEST_CASE(readInvalidChildList)
@@ -1768,16 +1768,16 @@ BOOST_AUTO_TEST_CASE(readInvalidChildList)
   // FIXME: We are forced to restore the global state before terminating,
   // or independent tests could fail. (sveinung 20071108)
   SoErrorCB * prevErrorCB = SoReadError::getHandlerCallback();
-  SoReadError::setHandlerCallback(readErrorHandler, NULL);
+  SoReadError::setHandlerCallback(readErrorHandler, nullptr);
 
   static const char scene[] = "#VRML V2.0 utf8\n"
                               "Group { children[0] }";
   SoInput in;
   in.setBuffer((void *) scene, strlen(scene));
   SoSeparator * root = SoDB::readAll(&in);
-  BOOST_CHECK_MESSAGE(root == NULL, "Expected the import to fail");
+  BOOST_CHECK_MESSAGE(root == nullptr, "Expected the import to fail");
 
-  SoReadError::setHandlerCallback(prevErrorCB, NULL);
+  SoReadError::setHandlerCallback(prevErrorCB, nullptr);
 }
 
 BOOST_AUTO_TEST_CASE(testAlternateRepNull)
@@ -1785,7 +1785,7 @@ BOOST_AUTO_TEST_CASE(testAlternateRepNull)
   // FIXME: We are forced to restore the global state before terminating,
   // or independent tests could fail. (sveinung 20071108)
   SoErrorCB * prevErrorCB = SoReadError::getHandlerCallback();
-  SoReadError::setHandlerCallback(readErrorHandler, NULL);
+  SoReadError::setHandlerCallback(readErrorHandler, nullptr);
 
   static const char scene[] = "#Inventor V2.1 ascii\n"
                               "ExtensionNode { fields [ SFNode alternateRep ] }";
@@ -1796,7 +1796,7 @@ BOOST_AUTO_TEST_CASE(testAlternateRepNull)
   root->ref();
   root->unref();
 
-  SoReadError::setHandlerCallback(prevErrorCB, NULL);
+  SoReadError::setHandlerCallback(prevErrorCB, nullptr);
 }
 
 BOOST_AUTO_TEST_CASE(testInitCleanup)
@@ -1842,7 +1842,7 @@ BOOST_AUTO_TEST_CASE(globalfield_import)
 
   SoInput * in = new SoInput;
   in->setBuffer(scene, strlen(scene));
-  SoNode * g = NULL;
+  SoNode * g = nullptr;
   const bool readok = SoDB::read(in, g);
 
   delete in;

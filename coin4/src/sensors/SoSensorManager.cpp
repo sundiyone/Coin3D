@@ -243,8 +243,8 @@ SoSensorManager::SoSensorManager(void)
 {
   PRIVATE(this) = new SoSensorManagerP;
 
-  PRIVATE(this)->queueChangedCB = NULL;
-  PRIVATE(this)->queueChangedCBData = NULL;
+  PRIVATE(this)->queueChangedCB = nullptr;
+  PRIVATE(this)->queueChangedCBData = nullptr;
 
   PRIVATE(this)->processingtimerqueue = false;
   PRIVATE(this)->processingdelayqueue = false;

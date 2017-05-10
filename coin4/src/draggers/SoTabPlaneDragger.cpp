@@ -249,7 +249,7 @@ SoTabPlaneDragger::SoTabPlaneDragger(void)
 
   this->createPrivateParts();
   this->prevsizex = this->prevsizey = 0.0f;
-  this->reallyAdjustScaleTabSize(NULL);
+  this->reallyAdjustScaleTabSize(nullptr);
   this->constraintState = CONSTRAINT_OFF;
   this->whatkind = WHATKIND_NONE;
   this->adjustTabs = true;
@@ -295,7 +295,7 @@ SoTabPlaneDragger::setUpConnections(bool onoff, bool doitalways)
   if (onoff) {
     inherited::setUpConnections(onoff, doitalways);
 
-    SoTabPlaneDragger::fieldSensorCB(this, NULL);
+    SoTabPlaneDragger::fieldSensorCB(this, nullptr);
 
     if (this->translFieldSensor->getAttachedField() != &this->translation) {
       this->translFieldSensor->attach(&this->translation);
@@ -305,10 +305,10 @@ SoTabPlaneDragger::setUpConnections(bool onoff, bool doitalways)
     }
   }
   else {
-    if (this->translFieldSensor->getAttachedField() != NULL) {
+    if (this->translFieldSensor->getAttachedField() != nullptr) {
       this->translFieldSensor->detach();
     }
-    if (this->scaleFieldSensor->getAttachedField() != NULL) {
+    if (this->scaleFieldSensor->getAttachedField() != nullptr) {
       this->scaleFieldSensor->detach();
     }
     inherited::setUpConnections(onoff, doitalways);
@@ -394,7 +394,7 @@ SoTabPlaneDragger::adjustScaleTabSize(void)
 /*!
   Recalculates the size of the tabs, based on the current view volume,
   the current viewport, the current model matrix and the current scale
-  factor. If \a action == \e NULL, a default size will be used.
+  factor. If \a action == \e nullptr, a default size will be used.
 */
 void
 SoTabPlaneDragger::reallyAdjustScaleTabSize(SoGLRenderAction *action)
@@ -404,7 +404,7 @@ SoTabPlaneDragger::reallyAdjustScaleTabSize(SoGLRenderAction *action)
 
   float sizex = 0.08f;
   float sizey = 0.08f;
-  if (action != NULL) {
+  if (action != nullptr) {
     SoState *state = action->getState();
     SbMatrix toworld = SoModelMatrixElement::get(state);
     toworld.multLeft(this->getMotionMatrix());
@@ -788,8 +788,8 @@ SoNode *
 SoTabPlaneDragger::getNodeFieldNode(const char *fieldname)
 {
   SoField * field = this->getField(fieldname);
-  assert(field != NULL);
-  assert(coin_assert_cast<SoSFNode *>(field)->getValue() != NULL);
+  assert(field != nullptr);
+  assert(coin_assert_cast<SoSFNode *>(field)->getValue() != nullptr);
   return coin_assert_cast<SoSFNode *>(field)->getValue();
 }
 

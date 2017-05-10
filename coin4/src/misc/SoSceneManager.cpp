@@ -93,11 +93,11 @@ SoSceneManager::SoSceneManager(void)
 
   PRIVATE(this) = new SoSceneManagerP(this);
 
-  PRIVATE(this)->rendercb = NULL;
-  PRIVATE(this)->rendercbdata = NULL;
+  PRIVATE(this)->rendercb = nullptr;
+  PRIVATE(this)->rendercbdata = nullptr;
 
-  PRIVATE(this)->scene = NULL;
-  PRIVATE(this)->camera = NULL;
+  PRIVATE(this)->scene = nullptr;
+  PRIVATE(this)->camera = nullptr;
 
   PRIVATE(this)->rendermanager = new SoRenderManager;
   PRIVATE(this)->eventmanager = new SoEventManager;
@@ -110,7 +110,7 @@ SoSceneManager::SoSceneManager(void)
  */
 SoSceneManager::~SoSceneManager()
 {
-  this->setSceneGraph(NULL);
+  this->setSceneGraph(nullptr);
   
   if (PRIVATE(this)->camera) PRIVATE(this)->camera->unref();
 
@@ -261,7 +261,7 @@ SoSceneManager::setSceneGraph(SoNode * const sceneroot)
     PRIVATE(this)->scene->ref();
     this->setCamera(PRIVATE(this)->searchForCamera(PRIVATE(this)->scene));
   } else {
-    this->setCamera(NULL);
+    this->setCamera(nullptr);
   }
   
   if (oldroot) oldroot->unref();
@@ -495,7 +495,7 @@ SoSceneManager::setRenderCallback(SoSceneManagerRenderCB * f,
   scene upon detecting changes in the scene graph.
 
   The automatic redraw is turned on and off by setting either a valid
-  callback function with setRenderCallback(), or by passing \c NULL.
+  callback function with setRenderCallback(), or by passing \c nullptr.
  */
 bool
 SoSceneManager::isAutoRedraw(void) const

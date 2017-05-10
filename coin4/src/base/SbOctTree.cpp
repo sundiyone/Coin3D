@@ -172,7 +172,7 @@ public:
   void debugTree(FILE *fp, const int indent) const;
 
 private:
-  bool isLeaf(void) const { return this->children[0] == NULL; }
+  bool isLeaf(void) const { return this->children[0] == nullptr; }
   bool isGroup(void) const { return ! this->isLeaf(); }
 
   unsigned int totalNumberOfItems(void) const;
@@ -235,7 +235,7 @@ add_to_array(SbList<void *> & array, void * ptr)
 SbOctTreeNode::SbOctTreeNode(const SbBox3f & b)
 {
   for (int i = 0; i < 8; i++) {
-    this->children[i] = NULL;
+    this->children[i] = nullptr;
   }
   this->nodesize = b;
 }
@@ -450,7 +450,7 @@ SbOctTreeNode::splitNode(const SbOctTreeFuncs & itemfuncs)
     if (this->children[i]->items.getLength() == n) {
       for (int j = 0; j < 8; j++) {
         delete this->children[j];
-        this->children[j] = NULL;
+        this->children[j] = nullptr;
       }
       return false;
     }

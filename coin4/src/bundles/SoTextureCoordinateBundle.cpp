@@ -87,7 +87,7 @@ SoTextureCoordinateBundle(SoAction * const action,
     SoMultiTextureEnabledElement::getEnabledUnits(this->state, lastenabled);
   bool needinit = lastenabled >= 0;
   bool glrender = forRendering || action->isOfType(SoGLRenderAction::getClassTypeId());
-  bool bumpenabled = glrender && (SoBumpMapElement::get(this->state) != NULL);
+  bool bumpenabled = glrender && (SoBumpMapElement::get(this->state) != nullptr);
 
   if (!needinit && !multienabled && !bumpenabled) return;
   
@@ -135,7 +135,7 @@ SoTextureCoordinateBundle(SoAction * const action,
   if (this->flags & FLAG_DIDPUSH) {
     this->coordElt = SoMultiTextureCoordinateElement::getInstance(this->state);
   }
-  this->glElt = NULL;
+  this->glElt = nullptr;
   if (glrender) {
     bool needindices = false;
     if (!needindices && this->isFunction()) {
@@ -203,7 +203,7 @@ SoTextureCoordinateBundle::needIndices(void) const
 const SbVec4f &
 SoTextureCoordinateBundle::get(const SbVec3f &point, const SbVec3f &normal)
 {
-  assert(this->coordElt != NULL && (this->flags & FLAG_FUNCTION));
+  assert(this->coordElt != nullptr && (this->flags & FLAG_FUNCTION));
   if (this->flags & FLAG_DEFAULT) {
     SbVec3f pt;
     if (this->flags & FLAG_3DTEXTURES) {

@@ -58,7 +58,7 @@
 
 class SoHandleEventActionP {
 public:
-  SoHandleEventActionP(void) : owner(NULL) { }
+  SoHandleEventActionP(void) : owner(nullptr) { }
 
   // Hidden private methods.
 
@@ -108,12 +108,12 @@ SoHandleEventAction::SoHandleEventAction(const SbViewportRegion & viewportregion
 {
   PRIVATE(this)->owner = this;
   PRIVATE(this)->viewport = viewportregion;
-  PRIVATE(this)->event = NULL;
-  PRIVATE(this)->grabber = NULL;
-  PRIVATE(this)->pickroot = NULL;
+  PRIVATE(this)->event = nullptr;
+  PRIVATE(this)->grabber = nullptr;
+  PRIVATE(this)->pickroot = nullptr;
   PRIVATE(this)->pickvalid = false;
   PRIVATE(this)->didpickall = false;
-  PRIVATE(this)->pickaction = NULL;
+  PRIVATE(this)->pickaction = nullptr;
 
   SO_ACTION_CONSTRUCTOR(SoHandleEventAction);
 }
@@ -254,18 +254,18 @@ SoHandleEventAction::setGrabber(SoNode * node)
 void
 SoHandleEventAction::releaseGrabber(void)
 {
-  // Store old grabber node and set current node to NULL before
+  // Store old grabber node and set current node to nullptr before
   // calling SoNode::grabEventsCleanup(), to avoid being vulnerable to
   // recursive calls from grabEventsCleanup() back to this method
   // (which happens from dragger classes).
 
   SoNode * old = PRIVATE(this)->grabber;
-  PRIVATE(this)->grabber = NULL;
+  PRIVATE(this)->grabber = nullptr;
   if (old) old->grabEventsCleanup();
 }
 
 /*!
-  Returns the grabber node, or \c NULL if no grabber is active.
+  Returns the grabber node, or \c nullptr if no grabber is active.
 */
 SoNode *
 SoHandleEventAction::getGrabber(void) const
@@ -365,7 +365,7 @@ SoHandleEventAction::beginTraversal(SoNode * node)
 SoRayPickAction *
 SoHandleEventActionP::getPickAction(void)
 {
-  if (this->pickaction == NULL) {
+  if (this->pickaction == nullptr) {
     this->pickaction = new SoRayPickAction(this->viewport);
   }
   return this->pickaction;

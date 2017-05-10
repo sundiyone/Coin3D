@@ -79,7 +79,7 @@ SoSwitchElement::init(SoState * state)
 void
 SoSwitchElement::set(SoState * const state, const int32_t index)
 {
-  set(state, NULL, index);
+  set(state, nullptr, index);
 }
 
 //! FIXME: write doc.

@@ -232,8 +232,8 @@
 
 // *************************************************************************
 
-SoEnabledElementsList * SoAction::enabledElements = NULL;
-SoActionMethodList * SoAction::methods = NULL;
+SoEnabledElementsList * SoAction::enabledElements = nullptr;
+SoActionMethodList * SoAction::methods = nullptr;
 SoType SoAction::classTypeId STATIC_SOTYPE_INIT;
 
 // *************************************************************************
@@ -331,13 +331,13 @@ SoType SoAction::classTypeId STATIC_SOTYPE_INIT;
   Default constructor, does all necessary toplevel initialization.
 */
 SoAction::SoAction(void)
-  : state(NULL),
-    traversalMethods(NULL),
+  : state(nullptr),
+    traversalMethods(nullptr),
     currentpath(8),
     currentpathcode(NO_PATH)
 {
   PRIVATE(this)->appliedcode = NODE;
-  PRIVATE(this)->applieddata.node = NULL;
+  PRIVATE(this)->applieddata.node = nullptr;
   PRIVATE(this)->terminated = false;
   PRIVATE(this)->prevenabledelementscounter = 0;
 
@@ -367,9 +367,9 @@ SoAction::initClass(void)
 {
   SoAction::classTypeId = SoType::createType(SoType::badType(), "SoAction");
 
-  // Pass NULL pointers for the parent lists.
-  SoAction::enabledElements = new SoEnabledElementsList(NULL);
-  SoAction::methods = new SoActionMethodList(NULL);
+  // Pass nullptr pointers for the parent lists.
+  SoAction::enabledElements = new SoEnabledElementsList(nullptr);
+  SoAction::methods = new SoActionMethodList(nullptr);
 
   // Override element is used everywhere.
   SoAction::enabledElements->enable(SoOverrideElement::getClassTypeId(),
@@ -391,9 +391,9 @@ void
 SoAction::atexit_cleanup(void)
 {
   delete SoAction::enabledElements;
-  SoAction::enabledElements = NULL;
+  SoAction::enabledElements = nullptr;
   delete SoAction::methods;
-  SoAction::methods = NULL;
+  SoAction::methods = nullptr;
   SoAction::classTypeId STATIC_SOTYPE_INIT;
 }
 
@@ -582,14 +582,14 @@ SoAction::apply(SoNode * root)
       SoType profileactiontype = SoProfilerP::getActionType();
       if (this->isOfType(SoProfilerP::getActionType())) {
         SoProfilerElement * pelt = SoProfilerElement::get(state);
-        if (pelt != NULL) {
+        if (pelt != nullptr) {
           const SbProfilingData & pdata = pelt->getProfilingData();
           SoProfilerP::dumpToConsole(pdata);
         }
       }
     }
 
-    PRIVATE(this)->applieddata.node = NULL;
+    PRIVATE(this)->applieddata.node = nullptr;
     root->unrefNoDelete();
   }
   PRIVATE(this)->appliedcode = storedcode;
@@ -698,7 +698,7 @@ SoAction::apply(const SoPathList & pathlist, bool obeysrules)
 
   PRIVATE(this)->applieddata.pathlistdata.origpathlist = &pathlist;
   PRIVATE(this)->applieddata.pathlistdata.pathlist = &pathlist;
-  PRIVATE(this)->applieddata.pathlistdata.compactlist = NULL;
+  PRIVATE(this)->applieddata.pathlistdata.compactlist = nullptr;
   PRIVATE(this)->appliedcode = PATH_LIST;
   this->currentpathcode = pathlist[0]->getFullLength() > 1 ?
     SoAction::IN_PATH : SoAction::BELOW_PATH;
@@ -712,7 +712,7 @@ SoAction::apply(const SoPathList & pathlist, bool obeysrules)
     this->beginTraversal(pathlist[0]->getHead());
     this->endTraversal(pathlist[0]->getHead());
     delete PRIVATE(this)->applieddata.pathlistdata.compactlist;
-    PRIVATE(this)->applieddata.pathlistdata.compactlist = NULL;
+    PRIVATE(this)->applieddata.pathlistdata.compactlist = nullptr;
   }
   else {
     // make copy of path list and make sure it obeys rules
@@ -731,12 +731,12 @@ SoAction::apply(const SoPathList & pathlist, bool obeysrules)
         PRIVATE(this)->applieddata.pathlistdata.compactlist = new SoCompactPathList(sortedlist);
       }
       else {
-        PRIVATE(this)->applieddata.pathlistdata.compactlist = NULL;
+        PRIVATE(this)->applieddata.pathlistdata.compactlist = nullptr;
       }
       this->beginTraversal(sortedlist[0]->getHead());
       this->endTraversal(sortedlist[0]->getHead());
       delete PRIVATE(this)->applieddata.pathlistdata.compactlist;
-      PRIVATE(this)->applieddata.pathlistdata.compactlist = NULL;
+      PRIVATE(this)->applieddata.pathlistdata.compactlist = nullptr;
     }
     else {
       // make one pass per head node. sortedlist is sorted on
@@ -762,11 +762,11 @@ SoAction::apply(const SoPathList & pathlist, bool obeysrules)
           PRIVATE(this)->applieddata.pathlistdata.compactlist = new SoCompactPathList(templist);
         }
         else {
-          PRIVATE(this)->applieddata.pathlistdata.compactlist = NULL;
+          PRIVATE(this)->applieddata.pathlistdata.compactlist = nullptr;
         }
         this->beginTraversal(templist[0]->getHead());
         delete PRIVATE(this)->applieddata.pathlistdata.compactlist;
-        PRIVATE(this)->applieddata.pathlistdata.compactlist = NULL;
+        PRIVATE(this)->applieddata.pathlistdata.compactlist = nullptr;
         templist.truncate(0);
       }
     }
@@ -788,7 +788,7 @@ SoAction::apply(const SoPathList & pathlist, bool obeysrules)
 void
 SoAction::apply(SoAction * beingApplied)
 {
-  assert(beingApplied != NULL);
+  assert(beingApplied != nullptr);
   switch ( beingApplied->getWhatAppliedTo() ) {
   case NODE:
     this->apply(beingApplied->getNodeAppliedTo());
@@ -818,7 +818,7 @@ void
 SoAction::invalidateState(void)
 {
   delete this->state;
-  this->state = NULL;
+  this->state = nullptr;
 }
 
 // *************************************************************************
@@ -846,12 +846,12 @@ SoAction::getWhatAppliedTo(void) const
   Returns a pointer to the node the action is being applied to.
 
   If action is not being applied to a node (but a path or a pathlist),
-  the method returns \c NULL.
+  the method returns \c nullptr.
 */
 SoNode *
 SoAction::getNodeAppliedTo(void) const
 {
-  return PRIVATE(this)->appliedcode == SoAction::NODE ? PRIVATE(this)->applieddata.node : NULL;
+  return PRIVATE(this)->appliedcode == SoAction::NODE ? PRIVATE(this)->applieddata.node : nullptr;
 }
 
 /*!
@@ -860,12 +860,12 @@ SoAction::getNodeAppliedTo(void) const
   modified by the caller.
 
   If action is not being applied to a path (but a node or a pathlist),
-  the method returns \c NULL.
+  the method returns \c nullptr.
 */
 SoPath *
 SoAction::getPathAppliedTo(void) const
 {
-  return PRIVATE(this)->appliedcode == SoAction::PATH ? PRIVATE(this)->applieddata.path : NULL;
+  return PRIVATE(this)->appliedcode == SoAction::PATH ? PRIVATE(this)->applieddata.path : nullptr;
 }
 
 /*!
@@ -874,7 +874,7 @@ SoAction::getPathAppliedTo(void) const
   should not be destroyed or modified by the caller.
 
   If action is not being applied to a path list (but a node or a
-  path), the method returns \c NULL.
+  path), the method returns \c nullptr.
 
   The returned pathlist pointer need not be equal to the list apply()
   was called with, as the action may have reorganized the path list
@@ -886,7 +886,7 @@ const SoPathList *
 SoAction::getPathListAppliedTo(void) const
 {
   return PRIVATE(this)->appliedcode == SoAction::PATH_LIST ?
-    PRIVATE(this)->applieddata.pathlistdata.pathlist : NULL;
+    PRIVATE(this)->applieddata.pathlistdata.pathlist : nullptr;
 }
 
 /*!
@@ -894,14 +894,14 @@ SoAction::getPathListAppliedTo(void) const
   applied to.
 
   If the action is not being applied to a path list (but a node or a
-  path), the method returns \c NULL.
+  path), the method returns \c nullptr.
 */
 
 const SoPathList *
 SoAction::getOriginalPathListAppliedTo(void) const
 {
   return PRIVATE(this)->appliedcode == SoAction::PATH_LIST ?
-    PRIVATE(this)->applieddata.pathlistdata.origpathlist : NULL;
+    PRIVATE(this)->applieddata.pathlistdata.origpathlist : nullptr;
 }
 
 /*!
@@ -1085,9 +1085,9 @@ SoAction::getState(void) const
       (SoEnabledElementsList::getCounter() != PRIVATE(this)->prevenabledelementscounter)) {
     SoAction * thisp = const_cast<SoAction*> (this);
     delete thisp->state;
-    thisp->state = NULL;
+    thisp->state = nullptr;
   }
-  if (this->state == NULL) {
+  if (this->state == nullptr) {
     // cast away constness to set state
     const_cast<SoAction*>(this)->state =
       new SoState(const_cast<SoAction*>(this), this->getEnabledElements().getElements());
@@ -1166,7 +1166,7 @@ SoAction::usePathCode(int & numindices, const int * & indices)
 }
 
 /*!
-  Pushes a NULL node onto the current path. Use this before
+  Pushes a nullptr node onto the current path. Use this before
   traversing all children when you know that the path code will not
   change while traversing children.
 
@@ -1176,7 +1176,7 @@ SoAction::usePathCode(int & numindices, const int * & indices)
 void
 SoAction::pushCurPath(void)
 {
-  this->currentpath.simpleAppend(static_cast<SoNode*>( NULL), -1);
+  this->currentpath.simpleAppend(static_cast<SoNode*>( nullptr), -1);
 }
 
 /*!
@@ -1189,8 +1189,8 @@ SoAction::pushCurPath(void)
 void
 SoAction::popPushCurPath(const int childindex, SoNode * node)
 {
-  if (node == NULL) {
-    this->currentpath.pop(); // pop off previous or NULL node
+  if (node == nullptr) {
+    this->currentpath.pop(); // pop off previous or nullptr node
     this->currentpath.append(childindex);
   }
   else {
@@ -1361,7 +1361,7 @@ SoAction::switchToNodeTraversal(SoNode * node)
 SoProfilerStats *
 SoActionP::getProfilerStatsNode(void)
 {
-  static SoProfilerStats * pstats = NULL;
+  static SoProfilerStats * pstats = nullptr;
   if (!pstats) {
     pstats = new SoProfilerStats;
     pstats->ref();
@@ -1373,11 +1373,11 @@ SoNode *
 SoActionP::getProfilerOverlay(void)
 {
   if (!SoProfiler::isEnabled() || !SoProfiler::isOverlayActive())
-    return NULL;
+    return nullptr;
 
-  static SoNode * nodekit = NULL;
+  static SoNode * nodekit = nullptr;
 #ifdef HAVE_NODEKITS
-  if (nodekit == NULL) {
+  if (nodekit == nullptr) {
     SoProfilerTopKit * kit = new SoProfilerTopKit;
     kit->ref();
     kit->setPart("profilingStats",

@@ -68,7 +68,7 @@ ScXMLScriptEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocum
   // handle XML attributes
   if (unlikely(!script->handleXMLAttributes())) {
     delete script;
-    return NULL;
+    return nullptr;
   }
 
   const int numchildren = cc_xml_elt_get_num_children(xmlelt);
@@ -84,7 +84,7 @@ ScXMLScriptEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocum
     SoDebugError::post("ScXMLScriptEltReader::read",
                        "<script> contains unexpected <%s> element", elementtype);
     delete script;
-    return NULL;
+    return nullptr;
    }
 
   return script;

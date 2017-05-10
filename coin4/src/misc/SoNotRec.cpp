@@ -58,8 +58,8 @@
   Constructor. Initializes the record with \a notifbase pointer.
 */
 SoNotRec::SoNotRec(SoBase * const notifbase) :
-  type((SoNotRec::Type)-1), base(notifbase), prev(NULL), index(-1),
-  fieldNumIndices(0), operationType(UNSPECIFIED), groupChild(NULL), groupPrevChild(NULL)
+  type((SoNotRec::Type)-1), base(notifbase), prev(nullptr), index(-1),
+  fieldNumIndices(0), operationType(UNSPECIFIED), groupChild(nullptr), groupPrevChild(nullptr)
 {
 }
 
@@ -139,7 +139,7 @@ SoNotRec::print(FILE * const file) const
                   this->base->getName().getString());
   }
   else {
-    (void)fprintf(file," base is NULL\n");
+    (void)fprintf(file," base is nullptr\n");
   }
 #endif // COIN_DEBUG
 }

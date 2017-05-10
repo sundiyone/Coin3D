@@ -111,11 +111,11 @@ extern "C" {
   typedef int (*s_params_get_t)(s_params * params, ...);
 
   typedef s_stream * (*s_stream_open_t)(const char * filename, 
-                                          s_params * params /* | NULL */);
+                                          s_params * params /* | nullptr */);
   typedef void * (*s_stream_get_buffer_t)(s_stream * stream, 
-                                           void * prealloc /* | NULL */,
-                                           int *size /* | NULL */,
-                                           s_params * params /* | NULL */);
+                                           void * prealloc /* | nullptr */,
+                                           int *size /* | nullptr */,
+                                           s_params * params /* | nullptr */);
   typedef void (*s_stream_close_t)(s_stream * stream);
   typedef void (*s_stream_destroy_t)(s_stream * stream);
   typedef s_params * (*s_stream_params_t)(s_stream * stream);

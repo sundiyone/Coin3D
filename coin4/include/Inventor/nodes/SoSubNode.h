@@ -95,8 +95,8 @@ SoType _class_::classTypeId STATIC_SOTYPE_INIT
 PRIVATE_NODE_TYPESYSTEM_SOURCE(_class_); \
  \
 unsigned int _class_::classinstances = 0; \
-const SoFieldData ** _class_::parentFieldData = NULL; \
-SoFieldData * _class_::fieldData = NULL; \
+const SoFieldData ** _class_::parentFieldData = nullptr; \
+SoFieldData * _class_::fieldData = nullptr; \
  \
 const SoFieldData ** \
 _class_::getFieldDataPtr(void) \
@@ -114,8 +114,8 @@ void \
 _class_::atexit_cleanup(void) \
 { \
   delete _class_::fieldData; \
-  _class_::fieldData = NULL; \
-  _class_::parentFieldData = NULL; \
+  _class_::fieldData = nullptr; \
+  _class_::parentFieldData = nullptr; \
   SoType::removeType(_class_::classTypeId.getName()); \
   _class_::classTypeId STATIC_SOTYPE_INIT; \
   _class_::classinstances = 0; \
@@ -152,7 +152,7 @@ _class_::createInstance(void) \
       /* Internal Coin nodes are handled properly though. pederb, 20041122 */ \
       _class_::fieldData = \
         new SoFieldData(_class_::parentFieldData ? \
-                        *_class_::parentFieldData : NULL); \
+                        *_class_::parentFieldData : nullptr); \
     } \
     /* Extension classes from the application programmers should not be \
        considered native. This is important to get the export code to do \
@@ -214,7 +214,7 @@ _class_::createInstance(void) \
 #define SO_NODE_INIT_ABSTRACT_CLASS(_class_, _parentclass_, _parentname_) \
   do { \
     const char * classname = SO__QUOTE(_class_); \
-    PRIVATE_COMMON_INIT_CODE(_class_, classname, NULL, _parentclass_); \
+    PRIVATE_COMMON_INIT_CODE(_class_, classname, nullptr, _parentclass_); \
   } while (0)
 
 

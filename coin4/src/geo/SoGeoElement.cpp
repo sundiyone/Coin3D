@@ -60,7 +60,7 @@ SoGeoElement::initClass(void)
 SoGeoElement::SoGeoElement(void)
 {
   PRIVATE(this) = new SoGeoElementP;
-  PRIVATE(this)->origin = NULL;
+  PRIVATE(this)->origin = nullptr;
 
   this->setTypeId(SoGeoElement::classTypeId);
   this->setStackIndex(SoGeoElement::classStackIndex);
@@ -106,7 +106,7 @@ void
 SoGeoElement::init(SoState * state)
 {
   inherited::init(state);
-  PRIVATE(this)->origin = NULL;
+  PRIVATE(this)->origin = nullptr;
 }
 
 //! FIXME: doc

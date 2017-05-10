@@ -69,7 +69,7 @@ SoVectorizeActionP::SoVectorizeActionP(SoVectorizeAction * p)
 
   this->clipper = new SbClip(clip_cb, this);
   this->shapeprojmatrix = SbMatrix::identity();
-  this->output = NULL;
+  this->output = nullptr;
 
   PUBLIC(this)->addTriangleCallback(SoShape::getClassTypeId(),
                                     SoVectorizeActionP::triangle_cb,
@@ -102,7 +102,7 @@ SoVectorizeActionP::SoVectorizeActionP(SoVectorizeAction * p)
                                 SoVectorizeActionP::post_anno_cb, this);
   // for view-frustum culling
   PUBLIC(this)->addPostCallback(SoCamera::getClassTypeId(),
-                                camera_cb, NULL);
+                                camera_cb, nullptr);
 
   this->page.startpos = SbVec2f(10.0f, 10.0f);
   this->page.size = SbVec2f(190.0f, 277.0f);

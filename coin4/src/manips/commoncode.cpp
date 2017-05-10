@@ -53,7 +53,7 @@
   \fn bool SoTransformManip::replaceManip(SoPath * path, SoTransform * newone) const
 
   Replaces this manipulator from the position specified by \a path
-  with \a newnode. If \a newnode is \c NULL, an SoTransform will be
+  with \a newnode. If \a newnode is \c nullptr, an SoTransform will be
   created for you.
 */
 
@@ -61,7 +61,7 @@
   \fn bool SoDirectionalLightManip::replaceManip(SoPath * path, SoDirectionalLight * newone) const
 
   Replaces this manipulator from the position specified by \a path
-  with \a newnode. If \a newnode is \c NULL, an SoDirectionalLight
+  with \a newnode. If \a newnode is \c nullptr, an SoDirectionalLight
   will be created for you.
 */
 
@@ -69,7 +69,7 @@
   \fn bool SoSpotLightManip::replaceManip(SoPath * path, SoSpotLight * newone) const
 
   Replaces this manipulator from the position specified by \a path
-  with \a newnode. If \a newnode is \c NULL, an SoSpotLight
+  with \a newnode. If \a newnode is \c nullptr, an SoSpotLight
   will be created for you.
 */
 
@@ -77,7 +77,7 @@
   \fn bool SoPointLightManip::replaceManip(SoPath * path, SoPointLight * newone) const
 
   Replaces this manipulator from the position specified by \a path
-  with \a newnode. If \a newnode is \c NULL, an SoPointLight
+  with \a newnode. If \a newnode is \c nullptr, an SoPointLight
   will be created for you.
 */
 
@@ -85,7 +85,7 @@
   \fn bool SoClipPlaneManip::replaceManip(SoPath * path, SoClipPlane * newone) const
 
   Replaces this manipulator from the position specified by \a path
-  with \a newnode. If \a newnode is \c NULL, an SoClipPlane
+  with \a newnode. If \a newnode is \c nullptr, an SoClipPlane
   will be created for you.
 */
 
@@ -109,7 +109,7 @@ _class_::replaceManip(SoPath * path, _parentclass_ * newone) const \
   } \
  \
   bool constructed = false; \
-  if (newone == NULL) { \
+  if (newone == nullptr) { \
     newone = new _parentclass_; \
     constructed = true; \
   } \

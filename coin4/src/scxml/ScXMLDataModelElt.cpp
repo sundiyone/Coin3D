@@ -70,7 +70,7 @@ ScXMLDataModelEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDo
   // handle XML attributes
   if (unlikely(!datamodel->handleXMLAttributes())) {
     delete datamodel;
-    return NULL;
+    return nullptr;
   }
 
   const int numchildren = cc_xml_elt_get_num_children(xmlelt);
@@ -90,7 +90,7 @@ ScXMLDataModelEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDo
       ScXMLElt * dataobj = datareader->read(datamodel, element, doc, sm);
       if (unlikely(!dataobj)) {
         delete datamodel;
-        return NULL;
+        return nullptr;
       }
       assert(dataobj->isOfType(ScXMLDataElt::getClassTypeId()));
       datamodel->addData(static_cast<ScXMLDataElt *>(dataobj));
@@ -101,7 +101,7 @@ ScXMLDataModelEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDo
                          "unexpected XML element '<%s>' found in <datamodel>",
                          elementtype);
       delete datamodel;
-      return NULL;
+      return nullptr;
     }
   }
 
@@ -141,13 +141,13 @@ ScXMLDataModelElt::cleanClass(void)
 }
 
 ScXMLDataModelElt::ScXMLDataModelElt(void)
-: schema(NULL)
+: schema(nullptr)
 {
 }
 
 ScXMLDataModelElt::~ScXMLDataModelElt(void)
 {
-  this->setSchemaAttribute(NULL);
+  this->setSchemaAttribute(nullptr);
 }
 
 void
@@ -201,7 +201,7 @@ ScXMLDataModelElt::search(const char * attrname, const char * attrvalue) const
     }
     ++it;
   }
-  return NULL;
+  return nullptr;
 }
 
 SCXML_LIST_OBJECT_API_IMPL(ScXMLDataModelElt, ScXMLDataElt, PRIVATE(this)->datalist, Data, Data);

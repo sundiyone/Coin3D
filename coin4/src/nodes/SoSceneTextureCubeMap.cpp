@@ -173,7 +173,7 @@ SoSceneTextureCubeMap::SoSceneTextureCubeMap(void)
   SO_NODE_CONSTRUCTOR(SoSceneTextureCubeMap);
 
   SO_NODE_ADD_FIELD(size, (256, 256));
-  SO_NODE_ADD_FIELD(scene, (NULL));
+  SO_NODE_ADD_FIELD(scene, (nullptr));
   SO_NODE_ADD_FIELD(backgroundColor, (0.0f, 0.0f, 0.0f));
   SO_NODE_ADD_FIELD(transparencyFunction, (NONE));
 
@@ -341,28 +341,28 @@ SoSceneTextureCubeMap::notify(SoNotList * list)
 SoSceneTextureCubeMapP::SoSceneTextureCubeMapP(SoSceneTextureCubeMap * apiptr)
 {
   this->api = apiptr;
-  this->glimage = NULL;
+  this->glimage = nullptr;
   this->glimagevalid = false;
-  this->glcontext = NULL;
+  this->glcontext = nullptr;
   this->pbuffervalid = false;
-  this->glaction = NULL;
+  this->glaction = nullptr;
   this->glcontextsize.setValue(-1,-1);
   this->glrectangle = false;
-  this->offscreenbuffer = NULL;
+  this->offscreenbuffer = nullptr;
   this->offscreenbuffersize = 0;
   this->canrendertotexture = false;
   this->contextid = -1;
-  this->cachedScene = NULL;
-  this->cachedCamera = NULL;
+  this->cachedScene = nullptr;
+  this->cachedCamera = nullptr;
   this->hadSceneCamera = false;
   this->hasSceneChanged = true;
 }
 
 SoSceneTextureCubeMapP::~SoSceneTextureCubeMapP()
 {
-  if (this->glimage) this->glimage->unref(NULL);
+  if (this->glimage) this->glimage->unref(nullptr);
   this->destroyCamera();
-  if (this->glcontext != NULL) {
+  if (this->glcontext != nullptr) {
     cc_glglue_context_destruct(this->glcontext);
   }
   delete[] this->offscreenbuffer;
@@ -380,16 +380,16 @@ SoSceneTextureCubeMapP::updatePBuffer(SoState * state, const float quality)
       (size == SbVec2s(0,0))) {
     if (this->glimage) {
       this->glimage->unref(state);
-      this->glimage = NULL;
+      this->glimage = nullptr;
     }
     if (this->glcontext) {
       cc_glglue_context_destruct(this->glcontext);
       this->glcontextsize.setValue(-1,-1);
-      this->glcontext = NULL;
+      this->glcontext = nullptr;
     }
     if (this->glaction) {
       delete this->glaction; 
-      this->glaction = NULL;
+      this->glaction = nullptr;
     }
     this->glimagevalid = false;
   }
@@ -400,7 +400,7 @@ SoSceneTextureCubeMapP::updatePBuffer(SoState * state, const float quality)
   size[0] = (short) coin_geq_power_of_two(size[0]);
   size[1] = (short) coin_geq_power_of_two(size[1]);
 
-  if (this->glcontext == NULL) {
+  if (this->glcontext == nullptr) {
     this->glcontextsize = size;
     // disabled until an pbuffer extension is available to create a
     // render-to-texture pbuffer that has a non power of two size.
@@ -455,8 +455,8 @@ SoSceneTextureCubeMapP::updatePBuffer(SoState * state, const float quality)
   }
 
   if (!this->pbuffervalid) {
-    assert(this->glaction != NULL);
-    assert(this->glcontext != NULL);
+    assert(this->glaction != nullptr);
+    assert(this->glcontext != nullptr);
     this->glaction->setTransparencyType((SoGLRenderAction::TransparencyType)
                                         SoShapeStyleElement::getTransparencyType(state));
 
@@ -491,11 +491,11 @@ SoSceneTextureCubeMapP::updatePBuffer(SoState * state, const float quality)
     cc_glglue_context_reinstate_previous(this->glcontext);
   }
 
-  if (!this->glimagevalid || (this->glimage == NULL)) {
+  if (!this->glimagevalid || (this->glimage == nullptr)) {
     // just delete old glimage
     if (this->glimage) {
       this->glimage->unref(state);
-      this->glimage = NULL;
+      this->glimage = nullptr;
     }
     this->glimage = new SoGLCubeMapImage;
     uint32_t flags = this->glimage->getFlags();
@@ -552,11 +552,11 @@ SoSceneTextureCubeMapP::destroyCamera(void)
 {
   if (this->cachedCamera) {
     this->cachedCamera->unref();
-    this->cachedCamera = NULL;
+    this->cachedCamera = nullptr;
   }
   if (this->cachedScene) {
     this->cachedScene->unref();
-    this->cachedScene = NULL;
+    this->cachedScene = nullptr;
   }
 }
 
@@ -571,8 +571,8 @@ SoSceneTextureCubeMapP::findCamera(void)
 
   SoPath * path = sa.getPath();
 
-  if (path == NULL)
-    return NULL;
+  if (path == nullptr)
+    return nullptr;
   else
     return (SoCamera *)path->getTail();
 }
@@ -585,7 +585,7 @@ SoSceneTextureCubeMapP::ensureCamera(void)
 
   this->hasSceneChanged = false;
   SoCamera * camera    = this->findCamera();
-  bool     hasCamera = (camera != NULL); // does the scene provide a camera?
+  bool     hasCamera = (camera != nullptr); // does the scene provide a camera?
 
   if (hasCamera) {
     if (this->cachedCamera != camera) {
@@ -594,7 +594,7 @@ SoSceneTextureCubeMapP::ensureCamera(void)
       this->cachedCamera->ref();
     }
   }
-  else if (this->hadSceneCamera || this->cachedCamera == NULL) {
+  else if (this->hadSceneCamera || this->cachedCamera == nullptr) {
     // create default camera:
     static int didwarn = 0;
     if (!didwarn) {
@@ -623,7 +623,7 @@ SoSceneTextureCubeMapP::ensureCamera(void)
       this->cachedScene->ref();
     }
   }
-  else if (this->cachedScene == NULL || this->hadSceneCamera) {
+  else if (this->cachedScene == nullptr || this->hadSceneCamera) {
     if (this->cachedScene) this->cachedScene->unref();
     SoSeparator * root = new SoSeparator();
     root->addChild(this->cachedCamera);

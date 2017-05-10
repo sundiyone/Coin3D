@@ -143,7 +143,7 @@ SoMFVec4s::setValue(short x, short y, short z, short w)
 void
 SoMFVec4s::setValue(const short xyzw[4])
 {
-  if (xyzw == NULL) this->setNum(0);
+  if (xyzw == nullptr) this->setNum(0);
   else this->setValue(SbVec4s(xyzw));
 }
 

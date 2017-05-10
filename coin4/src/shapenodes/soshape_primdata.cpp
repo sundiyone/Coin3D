@@ -42,19 +42,19 @@
 soshape_primdata::soshape_primdata(void)
 {
   this->counter = 0;
-  this->action = NULL;
-  this->shape = NULL;
+  this->action = nullptr;
+  this->shape = nullptr;
   this->faceCounter = 0;
   this->arraySize = 4;
   this->vertsArray = new SoPrimitiveVertex[this->arraySize];
   this->pointDetails = new SoPointDetail[this->arraySize];
-  this->faceDetail = NULL;
-  this->lineDetail = NULL;
+  this->faceDetail = nullptr;
+  this->lineDetail = nullptr;
   this->matPerFace = false;
   this->normPerFace = false;
 
-  this->tess = NULL;
-  this->glutess = NULL;
+  this->tess = nullptr;
+  this->glutess = nullptr;
 
   if (SbGLUTessellator::preferred()) {
     this->glutess = new SbGLUTessellator(soshape_primdata::tess_callback, this);
@@ -382,7 +382,7 @@ soshape_primdata::createPickDetail(void)
   case SoShape::POINTS:
     {
       assert(0 && "should not get here");
-      return NULL;
+      return nullptr;
     }
   case SoShape::LINES:
   case SoShape::LINE_STRIP:
@@ -394,7 +394,7 @@ soshape_primdata::createPickDetail(void)
     }
   default:
     assert(0 && "unknown shape type");
-    return NULL;
+    return nullptr;
   }
 }
 

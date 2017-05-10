@@ -318,7 +318,7 @@ SoVRMLTimeSensor::write(SoWriteAction * action)
   // corrected, remember to pass on the updates.
 
   // Disconnect from realTime field.
-  SoField * connectfield = NULL;
+  SoField * connectfield = nullptr;
   bool connectfromrealTime =
     this->timeIn.getConnectedField(connectfield) &&
     connectfield == SoDB::getGlobalField("realTime");

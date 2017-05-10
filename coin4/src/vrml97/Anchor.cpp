@@ -197,8 +197,8 @@ void
 SoVRMLAnchor::initClass(void) // static
 {
   SO_NODE_INTERNAL_INIT_CLASS(SoVRMLAnchor, SO_VRML97_NODE_TYPE);
-  SoVRMLAnchor::fetchurlcb = NULL;
-  SoVRMLAnchor::userdata = NULL;
+  SoVRMLAnchor::fetchurlcb = nullptr;
+  SoVRMLAnchor::userdata = nullptr;
 }
 
 

@@ -220,7 +220,7 @@ SoClipPlaneManip::SoClipPlaneManip(void)
  */
 SoClipPlaneManip::~SoClipPlaneManip()
 {
-  this->setDragger(NULL);
+  this->setDragger(nullptr);
 
   delete this->draggerPosFieldSensor;
   delete this->onFieldSensor;
@@ -246,9 +246,9 @@ SoClipPlaneManip::setDragger(SoDragger * newdragger)
     olddragger->removeValueChangedCallback(SoClipPlaneManip::valueChangedCB, this);
     this->children->remove(0);
   }
-  if (newdragger != NULL) {
+  if (newdragger != nullptr) {
     this->children->append(newdragger);
-    SoClipPlaneManip::fieldSensorCB(this, NULL);
+    SoClipPlaneManip::fieldSensorCB(this, nullptr);
     newdragger->addValueChangedCallback(SoClipPlaneManip::valueChangedCB, this);
   }
 }
@@ -270,7 +270,7 @@ SoClipPlaneManip::getDragger(void)
 #endif // debug
     }
   }
-  return NULL;
+  return nullptr;
 }
 
 // *************************************************************************
@@ -339,7 +339,7 @@ SoClipPlaneManip::replaceNode(SoPath * path)
     SbString partname = kit->getPartString(path);
     if (partname != "") {
       SoClipPlane *oldpart = (SoClipPlane*) kit->getPart(partname, true);
-      if (oldpart != NULL) {
+      if (oldpart != nullptr) {
         this->attachSensors(false);
         this->transferFieldValues(oldpart, this);
         this->attachSensors(true);
@@ -571,7 +571,7 @@ SoClipPlaneManip::fieldSensorCB(void * m, SoSensor * s)
   if (s == thisp->onFieldSensor) return; // FIXME: should we care? pederb, 2003-02-28
 
   SoDragger * dragger = thisp->getDragger();
-  if (dragger != NULL) {
+  if (dragger != nullptr) {
     SbMatrix matrix = dragger->getMotionMatrix();
 
     SbVec3f planept;

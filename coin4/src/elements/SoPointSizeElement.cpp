@@ -81,7 +81,7 @@ SoPointSizeElement::set(SoState * const state, SoNode * const node,
 void
 SoPointSizeElement::set(SoState * const state, const float pointSize)
 {
-  SoPointSizeElement::set(state, NULL, pointSize);
+  SoPointSizeElement::set(state, nullptr, pointSize);
 }
 
 /*!

@@ -119,7 +119,7 @@ using std::memcpy;
 
 SoType SoDebugError::classTypeId STATIC_SOTYPE_INIT;
 SoErrorCB * SoDebugError::callback = SoError::defaultHandlerCB;
-void * SoDebugError::callbackData = NULL;
+void * SoDebugError::callbackData = nullptr;
 
 // *************************************************************************
 
@@ -127,7 +127,7 @@ void * SoDebugError::callbackData = NULL;
 
 // variables for run-time breakpoints
 static int num_breakpoints = 0;
-static char ** breakpoints = NULL;
+static char ** breakpoints = nullptr;
 
 extern "C" {
 
@@ -138,7 +138,7 @@ debug_break_cleanup(void)
     delete[] breakpoints[i];
   }
   delete[] breakpoints;
-  breakpoints = NULL;
+  breakpoints = nullptr;
   num_breakpoints = 0;
 }
 
@@ -158,7 +158,7 @@ void
 SoDebugError::initClass(void)
 {
   SoDebugError::callback = SoError::defaultHandlerCB;
-  SoDebugError::callbackData = NULL;
+  SoDebugError::callbackData = nullptr;
   SoDebugError::classTypeId =
     SoType::createType(SoError::getClassTypeId(), "DebugError");
 
@@ -182,8 +182,8 @@ SoDebugError::initClass(void)
     ptr = cpy;
     const char * end = strchr(ptr, ' ');
     const char * tst = strchr(ptr, ',');
-    if (end == NULL || (tst && tst < end)) end = tst;
-    if (end == NULL) end = strchr(ptr, '\0');
+    if (end == nullptr || (tst && tst < end)) end = tst;
+    if (end == nullptr) end = strchr(ptr, '\0');
     int i = 0;
     while (end && i < num_breakpoints) {
       const ptrdiff_t len = end - ptr;
@@ -195,8 +195,8 @@ SoDebugError::initClass(void)
       if (ptr < (cpy + envstrlen)) {
         end = strchr(ptr, ' ');
         tst = strchr(ptr, ',');
-        if (end == NULL || (tst && tst < end)) end = tst;
-        if (end == NULL) end = strchr(ptr, 0);
+        if (end == nullptr || (tst && tst < end)) end = tst;
+        if (end == nullptr) end = strchr(ptr, 0);
       }
     }
     num_breakpoints = i; // just in case parsing failed for some reason
@@ -232,7 +232,7 @@ SoDebugError::callbackForwarder(const struct cc_debugerror * error,
   const char * dbgstrc = cc_string_get_text(dbgstr);
   wrappederr.setDebugString(dbgstrc);
 
-  assert(SoDebugError::callback != NULL);
+  assert(SoDebugError::callback != nullptr);
   SoDebugError::callback(&wrappederr, SoDebugError::callbackData);
 }
 
@@ -246,7 +246,7 @@ SoDebugError::setHandlerCallback(SoErrorCB * const function, void * const data)
     // an cc_debugerror and forwards control to the callback function
     // given as an argument to setHandlerCallback().
     cc_debugerror_set_handler_callback(
-       reinterpret_cast<cc_debugerror_cb *>(SoDebugError::callbackForwarder), NULL);
+       reinterpret_cast<cc_debugerror_cb *>(SoDebugError::callbackForwarder), nullptr);
   }
 
   SoDebugError::callback = function;

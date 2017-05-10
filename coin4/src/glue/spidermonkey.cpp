@@ -63,8 +63,8 @@ extern "C" {
 
 /* ******************************************************************** */
 
-static SpiderMonkey_t * spidermonkey_instance = NULL;
-static cc_libhandle spidermonkey_libhandle = NULL;
+static SpiderMonkey_t * spidermonkey_instance = nullptr;
+static cc_libhandle spidermonkey_libhandle = nullptr;
 static bool spidermonkey_failed_to_load = false;
 static int spidermonkey_is_initializing = 0;
 
@@ -90,13 +90,13 @@ spidermonkey_cleanup(void)
 #ifdef SPIDERMONKEY_RUNTIME_LINKING
   if (spidermonkey_libhandle) {
     cc_dl_close(spidermonkey_libhandle);
-    spidermonkey_libhandle = NULL;
+    spidermonkey_libhandle = nullptr;
   }
 #endif /* SPIDERMONKEY_RUNTIME_LINKING */
 
   assert(spidermonkey_instance);
   free(spidermonkey_instance);
-  spidermonkey_instance = NULL;
+  spidermonkey_instance = nullptr;
   spidermonkey_failed_to_load = false;
   spidermonkey_is_initializing = 0;
 }
@@ -135,7 +135,7 @@ spidermonkey(void)
 
     /* FIXME: there's a configure mortene. */
     const char * possiblelibnames[] = {
-      NULL, /* is set below */
+      nullptr, /* is set below */
       /* MSWindows DLL name */
       "js32",
 
@@ -146,7 +146,7 @@ spidermonkey(void)
       "libsmjs.so.1",
 
       /* terminator */
-      NULL
+      nullptr
     };
     possiblelibnames[0] = coin_getenv("COIN_SPIDERMONKEY_LIBNAME");
     idx = possiblelibnames[0] ? 0 : 1;
@@ -193,7 +193,7 @@ spidermonkey(void)
      from the API name. */
   #define REGISTER_FUNC_ALTERNATE(_funcname_, _altname_, _funcsig_) \
           sm->_funcname_ = (_funcsig_)cc_dl_sym(spidermonkey_libhandle, SO__QUOTE(_funcname_)); \
-          if (sm->_funcname_ == NULL) { sm->_funcname_ = (_funcsig_)cc_dl_sym(spidermonkey_libhandle, SO__QUOTE(_altname_)); } \
+          if (sm->_funcname_ == nullptr) { sm->_funcname_ = (_funcsig_)cc_dl_sym(spidermonkey_libhandle, SO__QUOTE(_altname_)); } \
           assert(sm->_funcname_)
 
 #elif defined(HAVE_SPIDERMONKEY_VIA_LINKTIME_LINKING) /* static linking */
@@ -210,7 +210,7 @@ spidermonkey(void)
   sm->available = 0;
 
   #define REGISTER_FUNC(_funcname_, _funcsig_) \
-          sm->_funcname_ = NULL
+          sm->_funcname_ = nullptr
 
   #define REGISTER_FUNC_ALTERNATE(_funcname_, _altname_, _funcsig_) \
           REGISTER_FUNC(_funcname_, _funcsig_)

@@ -292,7 +292,7 @@ public:
   int totalNumberOfFramesToPlay;
 };
 
-SoVRMLAudioClipP::StaticData * SoVRMLAudioClipP::staticdata = NULL;
+SoVRMLAudioClipP::StaticData * SoVRMLAudioClipP::staticdata = nullptr;
 
 static void
 cleanup_audioclip(void)
@@ -377,7 +377,7 @@ SoVRMLAudioClip::SoVRMLAudioClip(void)
   PRIVATE(this)->loop = false;
   PRIVATE(this)->soundHasFinishedPlaying = false;
 
-  PRIVATE(this)->stream = NULL;
+  PRIVATE(this)->stream = nullptr;
 
   PRIVATE(this)->channels = 0;
   PRIVATE(this)->bitspersample = 0;
@@ -471,8 +471,8 @@ SoVRMLAudioClip::getSampleRate()
 }
 
 /*! Sets callbacks for opening, reading, seeking, telling and closing
- an audio source. Specifying NULL for a function is OK, except for the
- read function. If a function set to NULL is later called, a default
+ an audio source. Specifying nullptr for a function is OK, except for the
+ read function. If a function set to nullptr is later called, a default
  implementation doing nothing is called in it's place. */
 
 void
@@ -493,8 +493,8 @@ SoVRMLAudioClip::setCallbacks(open_func *opencb, read_func *readcb,
 void * 
 SoVRMLAudioClip::open(const SbStringList &urlref)
 {
-  if (PRIVATE(this)->open == NULL)
-    return NULL;
+  if (PRIVATE(this)->open == nullptr)
+    return nullptr;
 
 #ifdef HAVE_THREADS
   SbThreadAutoLock autoLock(&PRIVATE(this)->syncmutex);
@@ -508,7 +508,7 @@ SoVRMLAudioClip::open(const SbStringList &urlref)
 int
 SoVRMLAudioClip::seek(void *datasource, long offset, int whence)
 {
-  if (PRIVATE(this)->seek == NULL)
+  if (PRIVATE(this)->seek == nullptr)
     return -1;
 
 #ifdef HAVE_THREADS
@@ -525,7 +525,7 @@ SoVRMLAudioClip::seek(void *datasource, long offset, int whence)
 long
 SoVRMLAudioClip::tell(void *datasource)
 {
-  if (PRIVATE(this)->tell == NULL)
+  if (PRIVATE(this)->tell == nullptr)
     return -1L;
 
 #ifdef HAVE_THREADS
@@ -541,7 +541,7 @@ SoVRMLAudioClip::tell(void *datasource)
 int
 SoVRMLAudioClip::close(void *datasource)
 {
-  if (PRIVATE(this)->close == NULL)
+  if (PRIVATE(this)->close == nullptr)
     return EOF;
 
 #ifdef HAVE_THREADS
@@ -555,7 +555,7 @@ SoVRMLAudioClip::close(void *datasource)
      \a datasource into \a buffer. Buffer must be allocated by the
      caller, and must be able to hold all the audio data (size = \a
      numframes * \a channels * sizeof(int16_t)). The function must
-     always fill the buffer completely unless \a buffer == NULL. 
+     always fill the buffer completely unless \a buffer == nullptr. 
 
      When an error occurs, or when end-of-file has been reached, 
      this function returns 0. Otherwise, the function should return
@@ -563,7 +563,7 @@ SoVRMLAudioClip::close(void *datasource)
 
      When the caller receives a return value of 0, it will queue the
      returned buffer for playing. When this buffer is finished playing,
-     the caller will call read() one final time, with \a buffer == NULL. 
+     the caller will call read() one final time, with \a buffer == nullptr. 
      The read() function can then set the isActive field to false, 
      free any resources allocated, etc.
 */
@@ -572,7 +572,7 @@ size_t
 SoVRMLAudioClip::read(void *datasource, void *buffer,
                       int numframes, int &channels)
 {
-  assert (PRIVATE(this)->read != NULL);
+  assert (PRIVATE(this)->read != nullptr);
 
 #ifdef HAVE_THREADS
   SbThreadAutoLock autoLock(&PRIVATE(this)->syncmutex);
@@ -728,7 +728,7 @@ void *
 SoVRMLAudioClipP::internal_open(const SbStringList & COIN_UNUSED_ARG(url), 
                                 SoVRMLAudioClip * COIN_UNUSED_ARG(clip))
 {
-  return NULL;
+  return nullptr;
 }
 
 size_t
@@ -756,7 +756,7 @@ SoVRMLAudioClipP::internal_read(void * COIN_UNUSED_ARG(datasource), void *buffer
     return 0;
   }
 
-  if (buffer == NULL) {
+  if (buffer == nullptr) {
     /* Note: The SoVRMLSound node has signalled that it has received
        an eof previously sent by this SoVRMLAudioClip, and it has
        played all buffers including the last one it received. This is
@@ -805,7 +805,7 @@ SoVRMLAudioClipP::internal_read(void * COIN_UNUSED_ARG(datasource), void *buffer
        only try the next if the current file fails.
        2003-01-16 thammer. */
 
-    if (this->stream==NULL) {
+    if (this->stream==nullptr) {
       if (this->currentPlaylistIndex >= this->playlist.getLength()) {
         if (this->loop)
           this->currentPlaylistIndex = 0;
@@ -847,7 +847,7 @@ SoVRMLAudioClipP::internal_read(void * COIN_UNUSED_ARG(datasource), void *buffer
       }
     }
 
-    assert(this->stream!=NULL);
+    assert(this->stream!=nullptr);
     assert(bitspersample == sizeof(int16_t) * 8);
 
     channelsdelivered = this->channels;
@@ -858,7 +858,7 @@ SoVRMLAudioClipP::internal_read(void * COIN_UNUSED_ARG(datasource), void *buffer
     simage_wrapper()->s_stream_get_buffer(this->stream,
                                           ((int16_t *)buffer) + 
                                           framepos*channelsdelivered,
-                                          &numread, NULL);
+                                          &numread, nullptr);
 
     channelsref = this->channels;
 
@@ -914,7 +914,7 @@ SoVRMLAudioClipP::loadUrl()
 
   for (int i=0; i<PUBLIC(this)->url.getNum(); i++) {
     const char * str = PUBLIC(this)->url[i].getString();
-    if ( (str == NULL) || (strlen(str)==0) )
+    if ( (str == nullptr) || (strlen(str)==0) )
       continue; // ignore empty url
 
     SbString filename =
@@ -947,7 +947,7 @@ void
 SoVRMLAudioClipP::urlSensorCBWrapper(void * data, SoSensor *)
 {
   SoVRMLAudioClipP * thisp = (SoVRMLAudioClipP*) data;
-  thisp->urlSensorCB(NULL);
+  thisp->urlSensorCB(nullptr);
 }
 
 //
@@ -966,7 +966,7 @@ void
 SoVRMLAudioClipP::loopSensorCBWrapper(void * data, SoSensor *)
 {
   SoVRMLAudioClipP * thisp = (SoVRMLAudioClipP*) data;
-  thisp->loopSensorCB(NULL);
+  thisp->loopSensorCB(nullptr);
 }
 
 //
@@ -988,7 +988,7 @@ void
 SoVRMLAudioClipP::startTimeSensorCBWrapper(void * data, SoSensor *)
 {
   SoVRMLAudioClipP * thisp = (SoVRMLAudioClipP*) data;
-  thisp->startTimeSensorCB(NULL);
+  thisp->startTimeSensorCB(nullptr);
 }
 
 //
@@ -1013,7 +1013,7 @@ void
 SoVRMLAudioClipP::stopTimeSensorCBWrapper(void * data, SoSensor *)
 {
   SoVRMLAudioClipP * thisp = (SoVRMLAudioClipP*) data;
-  thisp->stopTimeSensorCB(NULL);
+  thisp->stopTimeSensorCB(nullptr);
 }
 
 //
@@ -1041,7 +1041,7 @@ void
 SoVRMLAudioClipP::timerCBWrapper(void * data, SoSensor *)
 {
   SoVRMLAudioClipP * thisp = (SoVRMLAudioClipP*) data;
-  thisp->timerCB(NULL);
+  thisp->timerCB(nullptr);
 }
 
 //
@@ -1116,8 +1116,8 @@ SoVRMLAudioClipP::openFile(const char *filename)
   // FIXME: this is attempted again and again when the file can not be
   // opened. Once should be sufficient, and subsequent attempts should
   // be short-cutted somewhere before this in the call-chain. 20050627 mortene.
-  this->stream = simage_wrapper()->s_stream_open(filename, NULL);
-  if (this->stream == NULL) {
+  this->stream = simage_wrapper()->s_stream_open(filename, nullptr);
+  if (this->stream == nullptr) {
     // FIXME: sound should stop playing.  20021101 thammer
     SoDebugError::postWarning("SoVRMLAudioClipP::openFile",
                               "Couldn't open file '%s'.\n"
@@ -1142,11 +1142,11 @@ SoVRMLAudioClipP::openFile(const char *filename)
   this->channels = 0;
   this->bitspersample = 16;
   int samplerate = 0;
-  if (params != NULL) {
+  if (params != nullptr) {
     simage_wrapper()->s_params_get(params,
-                 "channels", S_INTEGER_PARAM_TYPE, &this->channels, NULL);
+                 "channels", S_INTEGER_PARAM_TYPE, &this->channels, nullptr);
     simage_wrapper()->s_params_get(params,
-                 "samplerate", S_INTEGER_PARAM_TYPE, &samplerate, NULL);
+                 "samplerate", S_INTEGER_PARAM_TYPE, &samplerate, nullptr);
   }
 
 #if COIN_DEBUG && DEBUG_AUDIO
@@ -1160,14 +1160,14 @@ SoVRMLAudioClipP::openFile(const char *filename)
 void
 SoVRMLAudioClipP::closeFile()
 {
-  if (this->stream != NULL) {
+  if (this->stream != nullptr) {
     if (!this->simageVersionOK("SoVRMLAudioClipP::closeFile")) {
       return;
     } else {
       simage_wrapper()->s_stream_close(this->stream);
       simage_wrapper()->s_stream_destroy(this->stream);
     }
-    this->stream = NULL;
+    this->stream = nullptr;
   }
 }
 

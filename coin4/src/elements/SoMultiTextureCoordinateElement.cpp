@@ -48,12 +48,12 @@
 SoMultiTextureCoordinateElement::UnitData::UnitData()
   : nodeid(0),
     whatKind(DEFAULT),
-    funcCB(NULL),
-    funcCBData(NULL),
+    funcCB(nullptr),
+    funcCBData(nullptr),
     numCoords(0),
-    coords2(NULL),
-    coords3(NULL),
-    coords4(NULL),
+    coords2(nullptr),
+    coords3(nullptr),
+    coords4(nullptr),
     coordsDimension(2)
 {
 }
@@ -124,7 +124,7 @@ SoMultiTextureCoordinateElement::setDefault(SoState * const state,
                                             const int unit)
 {
   if (state->isElementEnabled(SoGLVBOElement::getClassStackIndex())) {
-    SoGLVBOElement::setTexCoordVBO(state, unit, NULL);
+    SoGLVBOElement::setTexCoordVBO(state, unit, nullptr);
   }
   SoMultiTextureCoordinateElement * element =
     coin_assert_cast<SoMultiTextureCoordinateElement *>
@@ -147,7 +147,7 @@ SoMultiTextureCoordinateElement::setFunction(SoState * const state,
                                              void * const userdata)
 {
   if (state->isElementEnabled(SoGLVBOElement::getClassStackIndex())) {
-    SoGLVBOElement::setTexCoordVBO(state, unit, NULL);
+    SoGLVBOElement::setTexCoordVBO(state, unit, nullptr);
   }
 
   SoMultiTextureCoordinateElement * element =
@@ -161,9 +161,9 @@ SoMultiTextureCoordinateElement::setFunction(SoState * const state,
   ud.funcCB = func;
   ud.funcCBData = userdata;
   ud.whatKind = FUNCTION;
-  ud.coords2 = NULL;
-  ud.coords3 = NULL;
-  ud.coords4 = NULL;
+  ud.coords2 = nullptr;
+  ud.coords3 = nullptr;
+  ud.coords4 = nullptr;
   ud.numCoords = 0;
 }
 
@@ -177,7 +177,7 @@ SoMultiTextureCoordinateElement::set2(SoState * const state,
                                       const SbVec2f * const coords)
 {
   if (state->isElementEnabled(SoGLVBOElement::getClassStackIndex())) {
-    SoGLVBOElement::setTexCoordVBO(state, unit, NULL);
+    SoGLVBOElement::setTexCoordVBO(state, unit, nullptr);
   }
   SoMultiTextureCoordinateElement * element = coin_assert_cast<SoMultiTextureCoordinateElement *>
     (
@@ -191,8 +191,8 @@ SoMultiTextureCoordinateElement::set2(SoState * const state,
   ud.coordsDimension = 2;
   ud.numCoords = numCoords;
   ud.coords2 = coords;
-  ud.coords3 = NULL;
-  ud.coords4 = NULL;
+  ud.coords3 = nullptr;
+  ud.coords4 = nullptr;
   ud.whatKind = EXPLICIT;
 }
 
@@ -207,7 +207,7 @@ SoMultiTextureCoordinateElement::set3(SoState * const state,
                                       const SbVec3f * const coords)
 {
   if (state->isElementEnabled(SoGLVBOElement::getClassStackIndex())) {
-    SoGLVBOElement::setTexCoordVBO(state, unit, NULL);
+    SoGLVBOElement::setTexCoordVBO(state, unit, nullptr);
   }
   SoMultiTextureCoordinateElement * element =
     coin_assert_cast<SoMultiTextureCoordinateElement *>
@@ -221,9 +221,9 @@ SoMultiTextureCoordinateElement::set3(SoState * const state,
   ud.nodeid = node->getNodeId();
   ud.coordsDimension = 3;
   ud.numCoords = numCoords;
-  ud.coords2 = NULL;
+  ud.coords2 = nullptr;
   ud.coords3 = coords;
-  ud.coords4 = NULL;
+  ud.coords4 = nullptr;
   ud.whatKind = EXPLICIT;
 }
 
@@ -237,7 +237,7 @@ SoMultiTextureCoordinateElement::set4(SoState * const state,
                                       const SbVec4f * const coords)
 {
   if (state->isElementEnabled(SoGLVBOElement::getClassStackIndex())) {
-    SoGLVBOElement::setTexCoordVBO(state, unit, NULL);
+    SoGLVBOElement::setTexCoordVBO(state, unit, nullptr);
   }
   SoMultiTextureCoordinateElement * element =
     coin_assert_cast<SoMultiTextureCoordinateElement *>
@@ -251,8 +251,8 @@ SoMultiTextureCoordinateElement::set4(SoState * const state,
   ud.nodeid = node->getNodeId();
   ud.coordsDimension = 4;
   ud.numCoords = numCoords;
-  ud.coords2 = NULL;
-  ud.coords3 = NULL;
+  ud.coords2 = nullptr;
+  ud.coords3 = nullptr;
   ud.coords4 = coords;
   ud.whatKind = EXPLICIT;
 }

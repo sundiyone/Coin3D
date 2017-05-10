@@ -117,7 +117,7 @@ cc_string_grow_buffer(cc_string * me, size_t newsize)
      20050425 mortene. */
   newbuf = static_cast<char *>(malloc(newsize));
   if (debug) { printf("cc_string_grow_buffer: newbuf==%p\n", newbuf); }
-  assert(newbuf != NULL);
+  assert(newbuf != nullptr);
 
   (void) strcpy(newbuf, me->pointer);
 
@@ -156,7 +156,7 @@ cc_string_construct_new(void)
 {
   cc_string * me;
   me = static_cast<cc_string *>(malloc(sizeof(cc_string)));
-  assert(me != NULL);
+  assert(me != nullptr);
   cc_string_construct(me);
   return me;
 } /* cc_string_construct_new() */
@@ -192,7 +192,7 @@ cc_string_clean(cc_string * string_struct)
 void
 cc_string_destruct(cc_string * me)
 {
-  assert(me != NULL);
+  assert(me != nullptr);
   cc_string_clean(me);
   free(me);
 } /* cc_string_destruct() */
@@ -208,7 +208,7 @@ cc_string_set_text(cc_string * me, const char * text)
 {
   static char emptystring[] = "";
   size_t size;
-  if ( text == NULL ) text = emptystring;
+  if ( text == nullptr ) text = emptystring;
 
   if ( text >= me->pointer && text < (me->pointer + me->bufsize) ) {
     /* text is within own buffer */
@@ -242,7 +242,7 @@ cc_string_set_subtext(cc_string * me, const char * text, int start, int end)
   int len;
   size_t size;
 
-  if ( text == NULL ) text = emptystring;
+  if ( text == nullptr ) text = emptystring;
   len = cc_string_strnlen(text,end);
   if ( end == -1 ) end = len - 1;
 
@@ -496,7 +496,7 @@ void
 cc_string_apply(cc_string * string, cc_apply_f function)
 {
   int len, i;
-  assert(function != NULL);
+  assert(function != nullptr);
   len = cc_string_length(string);
   for ( i = 0; i < len; i++ )
     string->pointer[i] = function(string->pointer[i]);
@@ -621,7 +621,7 @@ cc_string_utf8_encode(char * buffer, size_t buflen, uint32_t value)
 uint32_t
 cc_string_utf8_get_char(const char * str)
 {
-  static const int disable_utf8 = (coin_getenv("COIN_DISABLE_UTF8") != NULL);
+  static const int disable_utf8 = (coin_getenv("COIN_DISABLE_UTF8") != nullptr);
   uint32_t value = 0;
   size_t declen = 0;
 
@@ -643,7 +643,7 @@ cc_string_utf8_get_char(const char * str)
 const char *
 cc_string_utf8_next_char(const char * str)
 {
-  static const int disable_utf8 = (coin_getenv("COIN_DISABLE_UTF8") != NULL);
+  static const int disable_utf8 = (coin_getenv("COIN_DISABLE_UTF8") != nullptr);
   uint32_t value = 0;
   size_t declen = 0;
 
@@ -665,7 +665,7 @@ cc_string_utf8_next_char(const char * str)
 size_t
 cc_string_utf8_validate_length(const char * str)
 {
-  static const int disable_utf8 = (coin_getenv("COIN_DISABLE_UTF8") != NULL);
+  static const int disable_utf8 = (coin_getenv("COIN_DISABLE_UTF8") != nullptr);
   const char * s = str;
   size_t declen = 0;
   size_t srclen = strlen(str);

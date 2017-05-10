@@ -67,7 +67,7 @@ ScXMLParamEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocume
   // handle XML attributes
   if (unlikely(!param->handleXMLAttributes())) {
     delete param;
-    return NULL;
+    return nullptr;
   }
 
   const int numchildren = cc_xml_elt_get_num_children(xmlelt);
@@ -83,7 +83,7 @@ ScXMLParamEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocume
     SoDebugError::post("ScXMLParamEltReader::read",
                        "<param> contains unexpected <%s> element", elementtype);
     delete param;
-    return NULL;
+    return nullptr;
    }
 
   return param;
@@ -113,15 +113,15 @@ ScXMLParamElt::cleanClass(void)
 }
 
 ScXMLParamElt::ScXMLParamElt(void)
-: name(NULL),
-  expr(NULL)
+: name(nullptr),
+  expr(nullptr)
 {
 }
 
 ScXMLParamElt::~ScXMLParamElt(void)
 {
-  this->setNameAttribute(NULL);
-  this->setExprAttribute(NULL);
+  this->setNameAttribute(nullptr);
+  this->setExprAttribute(nullptr);
 }
 
 void
@@ -179,7 +179,7 @@ ScXMLParamElt::search(const char * attrname, const char * attrvalue) const
       return this;
     }
   }
-  return NULL;
+  return nullptr;
 }
 
 #undef PRIVATE

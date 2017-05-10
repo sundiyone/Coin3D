@@ -64,7 +64,7 @@
 
 class SoCoordinate3P {
  public:
-  SoCoordinate3P() : vbo(NULL) { }
+  SoCoordinate3P() : vbo(nullptr) { }
   ~SoCoordinate3P() { delete this->vbo; }
   SoVBO * vbo;
 };
@@ -129,7 +129,7 @@ SoCoordinate3::GLRender(SoGLRenderAction * action)
   if (SoGLVBOElement::shouldCreateVBO(state, num)) {
     bool dirty = false;
     setvbo = true;
-    if (PRIVATE(this)->vbo == NULL) {
+    if (PRIVATE(this)->vbo == nullptr) {
       PRIVATE(this)->vbo = new SoVBO(GL_ARRAY_BUFFER, GL_STATIC_DRAW); 
       dirty =  true;
     }
@@ -144,10 +144,10 @@ SoCoordinate3::GLRender(SoGLRenderAction * action)
   }
   else if (PRIVATE(this)->vbo && PRIVATE(this)->vbo->getBufferDataId()) {
     // clear buffers to deallocate VBO memory
-    PRIVATE(this)->vbo->setBufferData(NULL, 0, 0);
+    PRIVATE(this)->vbo->setBufferData(nullptr, 0, 0);
   }
   SoBase::staticDataUnlock();
-  SoGLVBOElement::setVertexVBO(state, setvbo ? PRIVATE(this)->vbo : NULL);
+  SoGLVBOElement::setVertexVBO(state, setvbo ? PRIVATE(this)->vbo : nullptr);
 }
 
 // Doc from superclass.

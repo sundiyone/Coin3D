@@ -74,7 +74,7 @@ public:
   // Coin-3 support
   static void set(SoState * state, 
                   const bool enabled) {
-    set(state, NULL, 0, enabled);
+    set(state, nullptr, 0, enabled);
   }
 
   static void set(SoState * state, SoNode * node,

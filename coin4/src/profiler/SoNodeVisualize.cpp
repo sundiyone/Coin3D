@@ -129,7 +129,7 @@ namespace {
       for (it = this->nodemap.begin(), end = this->nodemap.end();
            it != end; ++it) {
         it->second->unref();
-        it->second = NULL;
+        it->second = nullptr;
       }
       this->nodemap.clear();
     }
@@ -228,16 +228,16 @@ SoNodeVisualize::SoNodeVisualize(void)
   SoRotation *rot=static_cast<SoRotation*>(this->getAnyPart("rotation",true));
   rot->rotation.setValue(SbVec3f(0, 1, 0), 1.5707963f);
 
-  this->parent=NULL;
+  this->parent=nullptr;
   this->dirty=true;
-  this->node=NULL;
+  this->node=nullptr;
 
 }
 
 SoNodeVisualize*
 SoNodeVisualize::visualize(SoNode * node) {
   this->node=node;
-  if (node!=NULL) {
+  if (node!=nullptr) {
     SoType type = node->getTypeId();
     //FIXME: Exhange all the named textures, with images
     //FIXME: Make the images better fitting for its shape
@@ -304,7 +304,7 @@ SoNodeVisualize::setupChildCatalog(SoNode * node,int depth) {
   lineS->coordIndex.finishEditing();
 
   //The lineSet should not have any vertex property yet
-  assert(lineS->vertexProperty.getValue()==NULL);
+  assert(lineS->vertexProperty.getValue()==nullptr);
 
   //Lets assign a vertex property with the proper length
   SoVertexProperty *vp=new SoVertexProperty();
@@ -370,7 +370,7 @@ SoNodeVisualize::recalculate() {
     SoIndexedLineSet * lineS =
       static_cast<SoIndexedLineSet*>(this->getAnyPart("lines",false));
 
-    assert(lineS->vertexProperty.getValue()!=NULL &&
+    assert(lineS->vertexProperty.getValue()!=nullptr &&
            "No vertexProperty available from setupChildCatalog");
 
     //Sets up the vertices of the lines between the nodes
@@ -434,7 +434,7 @@ SoNodeVisualize::traverse(SoProfilerStats * stats)
   //this->getChildrenGeometry()
   assert(stats && "Stats not set.");
   SoMaterial * material = static_cast<SoMaterial *>(this->color.getValue());
-  if (material == NULL) {
+  if (material == nullptr) {
     material = new SoMaterial;
     material->diffuseColor = SbVec3f(1.0f, 1.0f, 0.0f);
     material->transparency = 0.0f;
@@ -447,7 +447,7 @@ SoNodeVisualize::traverse(SoProfilerStats * stats)
   float transparency = material->transparency[0];
 
   float green = 0.0f;
-  if ((parent != NULL) && (this->node != NULL)) {
+  if ((parent != nullptr) && (this->node != nullptr)) {
     const unsigned long CRITICAL = 10;
 
     /*SoNode * parent = */this->parent->node;
@@ -513,7 +513,7 @@ SoNodeVisualize::recalculateWidth() {
 
   //If we have no childgeometry, or it is invisible, we occupy a 1x1 box
   if ((numGeometryChildren == 0) ||
-      (childrenswitch == NULL) ||
+      (childrenswitch == nullptr) ||
       (childrenswitch->whichChild.getValue() == SO_SWITCH_NONE))
     return SbVec2s(1,1);
 
@@ -643,7 +643,7 @@ SoNodeVisualize::handleEvent(SoHandleEventAction * action)
 
   //REVIEW: BFG - Not sure what I'm doing here, the getDetail is
   //from an example source
-  if (path->containsNode(shape) && pp->getDetail(shape) == NULL) {
+  if (path->containsNode(shape) && pp->getDetail(shape) == nullptr) {
     SbVec3f point = pp->getPoint();
     this->clicked();
   }
@@ -719,7 +719,7 @@ SoNodeVisualize::nodeNumChildren() {
 */
 void
 SoNodeVisualize::reset() {
-  this->node=NULL;
+  this->node=nullptr;
   SoSeparator * sep=static_cast<SoSeparator*>(this->getAnyPart("childGeometry",true));
   sep->removeAllChildren();
 }

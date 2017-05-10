@@ -77,8 +77,8 @@ private: \
 // *************************************************************************
 
 #define SO_ACTION_SOURCE(_classname_) \
-SoEnabledElementsList * _classname_::enabledElements = NULL; \
-SoActionMethodList * _classname_::methods = NULL; \
+SoEnabledElementsList * _classname_::enabledElements = nullptr; \
+SoActionMethodList * _classname_::methods = nullptr; \
 SoEnabledElementsList * _classname_::getClassEnabledElements(void) { return _classname_::enabledElements; } \
 SoActionMethodList * _classname_::getClassActionMethods(void) { return _classname_::methods; } \
 SoType _classname_::classTypeId STATIC_SOTYPE_INIT; \
@@ -105,9 +105,9 @@ void \
 _classname_::atexit_cleanup(void) \
 { \
   delete _classname_::enabledElements; \
-  _classname_::enabledElements = NULL; \
+  _classname_::enabledElements = nullptr; \
   delete _classname_::methods; \
-  _classname_::methods = NULL; \
+  _classname_::methods = nullptr; \
   _classname_::classTypeId STATIC_SOTYPE_INIT; \
 }
 

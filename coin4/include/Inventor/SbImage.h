@@ -27,7 +27,6 @@
 #include <Inventor/SbVec2s.h>
 #include <Inventor/SbVec3s.h>
 #include <Inventor/SbString.h>
-#include <stddef.h> // for NULL
 
 class SbImage;
 
@@ -57,7 +56,7 @@ public:
   SbVec3s getSize(void) const;
 
   bool readFile(const SbString & filename,
-                  const SbString * const * searchdirectories = NULL,
+                  const SbString * const * searchdirectories = nullptr,
                   const int numdirectories = 0);
 
   bool operator==(const SbImage & image) const;
@@ -88,7 +87,7 @@ public:
   bool scheduleReadFile(SbImageScheduleReadCB * cb,
                           void * closure,
                           const SbString & filename,
-                          const SbString * const * searchdirectories = NULL,
+                          const SbString * const * searchdirectories = nullptr,
                           const int numdirectories = 0);
 };
 

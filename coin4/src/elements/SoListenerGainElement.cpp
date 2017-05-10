@@ -82,7 +82,7 @@ SoListenerGainElement::set(SoState * const state, SoNode * const node,
 void
 SoListenerGainElement::set(SoState * const state, const float gain)
 {
-  SoListenerGainElement::set(state, NULL, gain);
+  SoListenerGainElement::set(state, nullptr, gain);
 }
 
 /*!

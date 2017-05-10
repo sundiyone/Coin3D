@@ -58,7 +58,7 @@ cc_flwct_exit(void)
 void *
 cc_flwct_get_font(const char * fontname, unsigned int pixelsize)
 {
-  return NULL;
+  return nullptr;
 }
 
 void
@@ -121,13 +121,13 @@ cc_flwct_done_glyph(void * font, int glyph)
 struct cc_font_bitmap *
 cc_flwct_get_bitmap(void * font, unsigned int glyph)
 {
-  return NULL;
+  return nullptr;
 }
 
 struct cc_font_vector_glyph *
 cc_flwct_get_vector_glyph(void * font, unsigned int glyphindex, float complexity)
 {
-  return NULL;
+  return nullptr;
 }
 
 #endif /* HAVE_CORETEXT */

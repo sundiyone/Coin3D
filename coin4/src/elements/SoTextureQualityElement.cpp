@@ -78,7 +78,7 @@ SoTextureQualityElement::set(SoState * const state, SoNode * const node,
 void
 SoTextureQualityElement::set(SoState * const state, const float quality)
 {
-  set(state, NULL, quality);
+  set(state, nullptr, quality);
 }
 
 /*!

@@ -165,7 +165,7 @@ typedef SbHash<const char *, void *> BogusSet;
 class SoOutputP {
 public:
   SoOutputP(void) {
-    this->writer = NULL;
+    this->writer = nullptr;
   }
   ~SoOutputP() {
     delete this->writer;
@@ -204,7 +204,7 @@ public:
     const int n = this->routestack.getLength();
     assert(n);
     SoOutputROUTEList * list = this->routestack[n-1];
-    if (list == NULL && createifnull) {
+    if (list == nullptr && createifnull) {
       list = new SoOutputROUTEList;
       this->routestack[n-1] = list;
     }
@@ -225,7 +225,7 @@ public:
     if (copyprev && prev) {
       this->defstack.append(new BogusSet(*prev));
     }
-    else this->defstack.append(NULL);
+    else this->defstack.append(nullptr);
   }
   void popDefNames(void) {
     assert(this->defstack.getLength());
@@ -236,7 +236,7 @@ public:
     const int idx = this->defstack.getLength() - 1;
     assert(idx >= 0);
     BogusSet * dict = this->defstack[idx];
-    if (createifnull && dict == NULL) {
+    if (createifnull && dict == nullptr) {
       dict = new BogusSet;
       this->defstack[idx] = dict;
     }
@@ -244,7 +244,7 @@ public:
   }
 
   SoOutput_Writer * getWriter(void) {
-    if (this->writer == NULL) {
+    if (this->writer == nullptr) {
       this->writer = SoOutput_Writer::createWriter(coin_get_stdout(), false,
                                                    this->compmethod, this->complevel);
     }
@@ -259,7 +259,7 @@ private:
 
 };
 
-static SbList <SbName> * SoOutput_compmethods = NULL;
+static SbList <SbName> * SoOutput_compmethods = nullptr;
 
 // *************************************************************************
 
@@ -267,7 +267,7 @@ static void
 SoOutput_compression_list_cleanup(void)
 {
   delete SoOutput_compmethods;
-  SoOutput_compmethods = NULL;
+  SoOutput_compmethods = nullptr;
 }
 
 static void
@@ -296,9 +296,9 @@ SoOutput_compression_list_init(void)
 SoOutput::SoOutput(void)
 {
   this->constructorCommon();
-  PRIVATE(this)->defstack.append(NULL);
+  PRIVATE(this)->defstack.append(nullptr);
 
-  SoWriterefCounter::create(this, NULL);
+  SoWriterefCounter::create(this, nullptr);
   PRIVATE(this)->counter = SoWriterefCounter::instance(this);
 }
 
@@ -308,11 +308,11 @@ SoOutput::SoOutput(void)
 */
 SoOutput::SoOutput(SoOutput * dictOut)
 {
-  assert(dictOut != NULL);
+  assert(dictOut != nullptr);
   this->constructorCommon();
 
   BogusSet * olddef = PRIVATE(dictOut)->getCurrentDefNames(false);
-  PRIVATE(this)->defstack.append(olddef ? new BogusSet(*olddef) : NULL);
+  PRIVATE(this)->defstack.append(olddef ? new BogusSet(*olddef) : nullptr);
 
   SoWriterefCounter::create(this, dictOut);
   PRIVATE(this)->counter = SoWriterefCounter::instance(this);
@@ -334,10 +334,10 @@ SoOutput::constructorCommon(void)
   PRIVATE(this)->disabledwriting = false;
   this->wroteHeader = false;
   PRIVATE(this)->writecompact = false;
-  PRIVATE(this)->headerstring = NULL;
+  PRIVATE(this)->headerstring = nullptr;
   PRIVATE(this)->indentlevel = 0;
   PRIVATE(this)->annotationbits = 0x00;
-  PRIVATE(this)->routestack.append(NULL);
+  PRIVATE(this)->routestack.append(nullptr);
 
   PRIVATE(this)->compmethod = SbName("NONE");
   PRIVATE(this)->complevel = 0.0f;;
@@ -375,7 +375,7 @@ SoOutput::setFilePointer(FILE * newFP)
 
 /*!
   Returns the current filepointer. If we're writing to a memory
-  buffer, \c NULL is returned.
+  buffer, \c nullptr is returned.
 
   Important note: do \e not use this method when the Coin library has
   been compiled as an MSWindows DLL, as passing FILE* instances back
@@ -417,7 +417,7 @@ SoOutput::openFile(const char * const fileName)
                               "Couldn't open file '%s' for writing.",
                               fileName);
   }
-  return newfile != NULL;
+  return newfile != nullptr;
 }
 
 /*!
@@ -430,7 +430,7 @@ void
 SoOutput::closeFile(void)
 {
   if (PRIVATE(this)->usercalledopenfile) {
-    PRIVATE(this)->setWriter(NULL);
+    PRIVATE(this)->setWriter(nullptr);
     PRIVATE(this)->usercalledopenfile = false;
   }
 }
@@ -507,7 +507,7 @@ SoOutput::getAvailableCompressionMethods(unsigned int & num)
   Writing will start at \a bufPointer + \a offset.
 
   If the buffer is filled up, \a reallocFunc is called to get more
-  memory. If \a reallocFunc returns \a NULL, further writing is
+  memory. If \a reallocFunc returns \a nullptr, further writing is
   disabled.
 
   Important note: remember that the resultant memory buffer after
@@ -677,7 +677,7 @@ void
 SoOutput::resetHeaderString(void)
 {
   delete PRIVATE(this)->headerstring;
-  PRIVATE(this)->headerstring = NULL;
+  PRIVATE(this)->headerstring = nullptr;
 }
 
 /*!
@@ -1163,14 +1163,14 @@ SoOutput::reset(void)
     delete PRIVATE(this)->routestack[0];
     PRIVATE(this)->routestack.removeFast(0);
   }
-  PRIVATE(this)->routestack.append(NULL);
+  PRIVATE(this)->routestack.append(nullptr);
 
   PRIVATE(this)->protostack.truncate(0);
   while (PRIVATE(this)->defstack.getLength()) {
     delete PRIVATE(this)->defstack[0];
     PRIVATE(this)->defstack.removeFast(0);
   }
-  PRIVATE(this)->defstack.append(NULL);
+  PRIVATE(this)->defstack.append(nullptr);
 
   PRIVATE(this)->disabledwriting = false;
   this->wroteHeader = false;
@@ -1245,7 +1245,7 @@ SoOutput::getAnnotation(void)
 
   Note that there will automatically be made an attempt at allocating
   more memory if the realloction callback function argument of
-  setBuffer() was not \a NULL.
+  setBuffer() was not \a nullptr.
 */
 bool
 SoOutput::makeRoomInBuf(size_t bytes)
@@ -1375,7 +1375,7 @@ SoOutput::setReference(const SoBase * base, int refid)
 void
 SoOutput::addDEFNode(SbName name)
 {
-  void * value = NULL;
+  void * value = nullptr;
   BogusSet * defnames = PRIVATE(this)->getCurrentDefNames(true);
   defnames->put(name.getString(), value);
 }
@@ -1446,7 +1446,7 @@ SoOutput::getCurrentProto(void) const
   if (PRIVATE(this)->protostack.getLength()) {
     return PRIVATE(this)->protostack[PRIVATE(this)->protostack.getLength()-1];
   }
-  return NULL;
+  return nullptr;
 }
 
 /*!

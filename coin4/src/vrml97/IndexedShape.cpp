@@ -114,26 +114,26 @@ SoVRMLIndexedShape::getVertexData(SoState * state,
   numcindices = this->coordIndex.getNum();
 
   mindices = this->colorIndex.getValues(0);
-  if (this->colorIndex.getNum() <= 0 || mindices[0] < 0) mindices = NULL;
+  if (this->colorIndex.getNum() <= 0 || mindices[0] < 0) mindices = nullptr;
 
   tindices = this->texCoordIndex.getValues(0);
-  if (this->texCoordIndex.getNum() <= 0 || tindices[0] < 0) tindices = NULL;
+  if (this->texCoordIndex.getNum() <= 0 || tindices[0] < 0) tindices = nullptr;
 
   normalcacheused = false;
-  nindices = NULL;
+  nindices = nullptr;
 
   if (neednormals) {
     nindices = this->normalIndex.getValues(0);
-    if (this->normalIndex.getNum() <= 0 || nindices[0] < 0) nindices = NULL;
+    if (this->normalIndex.getNum() <= 0 || nindices[0] < 0) nindices = nullptr;
     
-    if (normals == NULL) {
+    if (normals == nullptr) {
       SoNormalCache * nc = this->generateAndReadLockNormalCache(state);
       normals = nc->getNormals();
       nindices = nc->getIndices();
       normalcacheused = true;
       // if no normals were generated, unlock normal cache before
       // returning
-      if (normals == NULL) {
+      if (normals == nullptr) {
         this->readUnlockNormalCache();
         normalcacheused = false;
       }
@@ -160,7 +160,7 @@ SoVRMLIndexedShape::computeBBox(SoAction * COIN_UNUSED_ARG(action), SbBox3f & bo
                                 SbVec3f & center)
 {
   SoVRMLCoordinate * node = (SoVRMLCoordinate*) this->coord.getValue();
-  if (node == NULL) return;
+  if (node == nullptr) return;
 
   int numCoords = node->point.getNum();
   const SbVec3f * coords = node->point.getValues(0);

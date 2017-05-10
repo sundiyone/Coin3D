@@ -67,7 +67,7 @@ ScXMLEventEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocume
   // handle XML attributes
   if (unlikely(!event->handleXMLAttributes())) {
     delete event;
-    return NULL;
+    return nullptr;
   }
 
   const int numchildren = cc_xml_elt_get_num_children(xmlelt);
@@ -83,7 +83,7 @@ ScXMLEventEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocume
     SoDebugError::post("ScXMLEventEltReader::read",
                        "<event> contains unexpected <%s> element", elementtype);
     delete event;
-    return NULL;
+    return nullptr;
   }
 
   return event;
@@ -115,13 +115,13 @@ ScXMLEventElt::cleanClass(void)
 }
 
 ScXMLEventElt::ScXMLEventElt(void)
-: name(NULL)
+: name(nullptr)
 {
 }
 
 ScXMLEventElt::~ScXMLEventElt(void)
 {
-  this->setNameAttribute(NULL);
+  this->setNameAttribute(nullptr);
 }
 
 void
@@ -165,7 +165,7 @@ ScXMLEventElt::search(const char * attrname, const char * attrvalue) const
       return this;
     }
   }
-  return NULL;
+  return nullptr;
 }
 
 ScXMLEvent *

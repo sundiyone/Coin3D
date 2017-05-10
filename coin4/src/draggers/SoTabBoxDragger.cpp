@@ -283,10 +283,10 @@ SoTabBoxDragger::setUpConnections(bool onoff, bool doitalways)
       this->unregisterChildDragger(child);
     }
 
-    if (this->translFieldSensor->getAttachedField() != NULL) {
+    if (this->translFieldSensor->getAttachedField() != nullptr) {
       this->translFieldSensor->detach();
     }
-    if (this->scaleFieldSensor->getAttachedField() != NULL) {
+    if (this->scaleFieldSensor->getAttachedField() != nullptr) {
       this->scaleFieldSensor->detach();
     }
     inherited::setUpConnections(onoff, doitalways);

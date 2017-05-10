@@ -93,7 +93,7 @@ SoNonIndexedShape::computeCoordBBox(SoAction * action, int numVertices,
   SoNode *vpnode = this->vertexProperty.getValue();
   SoVertexProperty *vp = 
     (vpnode && vpnode->isOfType(SoVertexProperty::getClassTypeId())) ?
-    (SoVertexProperty *)vpnode : NULL;
+    (SoVertexProperty *)vpnode : nullptr;
   bool vpvtx = vp && (vp->vertex.getNum() > 0);
 
   const int numCoords = vpvtx ?

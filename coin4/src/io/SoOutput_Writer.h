@@ -48,7 +48,7 @@ public:
     BZ2FILE
   };
 
-  // default method returns NULL. Should return the FILE pointer if
+  // default method returns nullptr. Should return the FILE pointer if
   // the Writer uses stdio to write.
   virtual FILE * getFilePointer(void);
 

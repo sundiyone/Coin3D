@@ -52,7 +52,7 @@
   do { \
     SO_NODE_INTERNAL_CONSTRUCTOR(_class_); \
     SoBase::staticDataLock(); \
-    if (_class_::classcatalog == NULL) { \
+    if (_class_::classcatalog == nullptr) { \
       SoType mytype = SoType::fromName(SO__QUOTE(_class_)); \
       if (_class_::parentcatalogptr) \
         _class_::classcatalog = (*_class_::parentcatalogptr)->clone(mytype); \

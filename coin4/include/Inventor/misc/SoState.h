@@ -69,7 +69,7 @@ private:
 inline bool
 SoState::isElementEnabled(const int stackindex) const
 {
-  return (stackindex < this->numstacks) && (this->stack[stackindex] != NULL);
+  return (stackindex < this->numstacks) && (this->stack[stackindex] != nullptr);
 }
 
 inline const SoElement *

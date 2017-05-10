@@ -61,13 +61,13 @@ ScXMLAbstractStateElt::cleanClass(void)
 }
 
 ScXMLAbstractStateElt::ScXMLAbstractStateElt(void)
-: id(NULL)
+: id(nullptr)
 {
 }
 
 ScXMLAbstractStateElt::~ScXMLAbstractStateElt(void)
 {
-  this->setIdAttribute(NULL);
+  this->setIdAttribute(nullptr);
 }
 
 void
@@ -87,7 +87,7 @@ ScXMLAbstractStateElt::handleXMLAttributes(void)
   this->setIdAttribute(this->getXMLAttribute("id"));
 
   // validate
-  if ((this->id == NULL) || (std::strcmp(this->id, "") == 0)) {
+  if ((this->id == nullptr) || (std::strcmp(this->id, "") == 0)) {
     SoDebugError::postInfo("ScXMLAbstractStateElt::handleXMLAttributes",
                            "state element must have 'id' attribute");
     return false;
@@ -116,7 +116,7 @@ ScXMLAbstractStateElt::search(const char * attrname, const char * attrvalue) con
       return this;
     }
   }
-  return NULL;
+  return nullptr;
 }
 
 #undef PRIVATE

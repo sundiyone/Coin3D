@@ -67,7 +67,7 @@ ScXMLElseEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocumen
   // handle XML attributes
   if (unlikely(!elseelt->handleXMLAttributes())) {
     delete elseelt;
-    return NULL;
+    return nullptr;
   }
 
   const int numchildren = cc_xml_elt_get_num_children(xmlelt);
@@ -83,7 +83,7 @@ ScXMLElseEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocumen
     SoDebugError::post("ScXMLElseEltReader::read",
                        "<else> contains unexpected <%s> element", elementtype);
     delete elseelt;
-    return NULL;
+    return nullptr;
   }
 
   return elseelt;

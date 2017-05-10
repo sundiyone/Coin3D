@@ -53,7 +53,7 @@
 /* we test if Win32 TryEnterCriticalSection exists, and use Win32
    critical section if it does, and Win32 mutex if it doesn't */
 typedef BOOL (WINAPI * cc_mutex_TryEnterCriticalSection_func)(LPCRITICAL_SECTION);
-static cc_mutex_TryEnterCriticalSection_func cc_mutex_TryEnterCriticalSection = NULL; 
+static cc_mutex_TryEnterCriticalSection_func cc_mutex_TryEnterCriticalSection = nullptr; 
 #include "mutex_win32mutex.icc" 
 #include "mutex_win32cs.icc" 
 #endif /* USE_W32THREAD */
@@ -121,7 +121,7 @@ cc_mutex_construct(void)
 {
   cc_mutex * mutex;
   mutex = (cc_mutex *) malloc(sizeof(cc_mutex));
-  assert(mutex != NULL);
+  assert(mutex != nullptr);
   cc_mutex_struct_init(mutex);
 
   { /* debugging */
@@ -149,7 +149,7 @@ cc_mutex_destruct(cc_mutex * mutex)
     }
   }
 
-  assert(mutex != NULL);
+  assert(mutex != nullptr);
   cc_mutex_struct_clean(mutex);
   free(mutex);
 }
@@ -165,7 +165,7 @@ cc_mutex_lock(cc_mutex * mutex)
   bool timeit;
   cc_time start = 0.0;
 
-  assert(mutex != NULL);
+  assert(mutex != nullptr);
 
   timeit = (maxmutexlocktime != DBL_MAX) || (reportmutexlocktiming != DBL_MAX);
   if (timeit) { start = cc_time_gettimeofday(); }
@@ -203,7 +203,7 @@ int
 cc_mutex_try_lock(cc_mutex * mutex)
 {
   int ok;
-  assert(mutex != NULL);
+  assert(mutex != nullptr);
 #ifdef USE_W32THREAD
   if (cc_mutex_TryEnterCriticalSection)
     ok = win32_cs_try_lock(mutex);
@@ -223,7 +223,7 @@ void
 cc_mutex_unlock(cc_mutex * mutex)
 {
   int ok;
-  assert(mutex != NULL);
+  assert(mutex != nullptr);
 #ifdef USE_W32THREAD
   if (cc_mutex_TryEnterCriticalSection)
     ok = win32_cs_unlock(mutex);
@@ -236,13 +236,13 @@ cc_mutex_unlock(cc_mutex * mutex)
   assert(ok == CC_OK);
 }
 
-static cc_mutex * cc_global_mutex = NULL;
+static cc_mutex * cc_global_mutex = nullptr;
 
 static void
 cc_mutex_cleanup(void)
 {
   cc_mutex_destruct(cc_global_mutex);
-  cc_global_mutex = NULL;
+  cc_global_mutex = nullptr;
 }
 
 void
@@ -265,7 +265,7 @@ cc_mutex_init(void)
   
 #endif /* USE_W32THREAD */
 
-  if (cc_global_mutex == NULL) {
+  if (cc_global_mutex == nullptr) {
     cc_global_mutex = cc_mutex_construct();
     /* atexit priority makes this callback trigger after other cleanup
        functions. */
@@ -289,7 +289,7 @@ cc_mutex_global_lock(void)
      called (called from SoDB::init()). This is safe, since the
      application should not be multithreaded before SoDB::init() is
      called */
-  if (cc_global_mutex == NULL) cc_mutex_init();
+  if (cc_global_mutex == nullptr) cc_mutex_init();
   
   (void) cc_mutex_lock(cc_global_mutex);
 }

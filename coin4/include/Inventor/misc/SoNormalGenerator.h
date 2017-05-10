@@ -49,7 +49,7 @@ public:
             const SbVec3f &v3);
 
   void generate(const float creaseAngle,
-                const int32_t * striplens = NULL,
+                const int32_t * striplens = nullptr,
                 const int numstrips = 0);
 
   void generatePerStrip(const int32_t * striplens,

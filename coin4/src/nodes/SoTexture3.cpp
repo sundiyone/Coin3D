@@ -181,7 +181,7 @@ SoTexture3::SoTexture3(void)
   SO_NODE_INTERNAL_CONSTRUCTOR(SoTexture3);
 
   SO_NODE_ADD_FIELD(filenames, (""));
-  SO_NODE_ADD_FIELD(images, (SbVec3s(0, 0, 0), 0, NULL));
+  SO_NODE_ADD_FIELD(images, (SbVec3s(0, 0, 0), 0, nullptr));
   SO_NODE_ADD_FIELD(wrapR, (REPEAT));
   SO_NODE_ADD_FIELD(wrapS, (REPEAT));
   SO_NODE_ADD_FIELD(wrapT, (REPEAT));
@@ -201,7 +201,7 @@ SoTexture3::SoTexture3(void)
   SO_NODE_DEFINE_ENUM_VALUE(Model, BLEND);
   SO_NODE_SET_SF_ENUM_TYPE(model, Model);
 
-  this->glimage = NULL;
+  this->glimage = nullptr;
   this->glimagevalid = false;
   this->readstatus = 1;
 
@@ -218,7 +218,7 @@ SoTexture3::SoTexture3(void)
 */
 SoTexture3::~SoTexture3()
 {
-  if (this->glimage) this->glimage->unref(NULL);
+  if (this->glimage) this->glimage->unref(nullptr);
   delete this->filenamesensor;
 }
 
@@ -297,13 +297,13 @@ SoTexture3::GLRender(SoGLRenderAction * action)
 //        SoTextureScalePolicyElement::DONT_SCALE;
 
 //      if (needbig &&
-//          (this->glimage == NULL ||
+//          (this->glimage == nullptr ||
 //           this->glimage->getTypeId() != SoGLBigImage::getClassTypeId())) {
 //        if (this->glimage) this->glimage->unref(state);
 //        this->glimage = new SoGLBigImage();
 //      }
 //      else if (!needbig &&
-//               (this->glimage == NULL ||
+//               (this->glimage == nullptr ||
 //                this->glimage->getTypeId() != SoGLImage::getClassTypeId())) {
 //        if (this->glimage) this->glimage->unref(state);
 //        this->glimage = new SoGLImage();
@@ -333,7 +333,7 @@ SoTexture3::GLRender(SoGLRenderAction * action)
     SoGLMultiTextureEnabledElement::set(state, this, unit, false);
   }
   SoGLMultiTextureImageElement::set(state, this, unit,
-                                    this->glimagevalid ? this->glimage : NULL,
+                                    this->glimagevalid ? this->glimage : nullptr,
                                     (SoMultiTextureImageElement::Model) model.getValue(),
                                     this->blendColor.getValue());
   
@@ -467,7 +467,7 @@ SoTexture3::loadFilenames(SoInput * in)
                               size[1],
                               size[2]*numImages);
           volumenc = nc;
-          this->images.setValue(volumeSize, nc, NULL);
+          this->images.setValue(volumeSize, nc, nullptr);
         }
         else { // Verify size & components
           if (size[0] != volumeSize[0] ||

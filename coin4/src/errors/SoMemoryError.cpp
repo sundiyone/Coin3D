@@ -68,7 +68,7 @@
 
 SoType SoMemoryError::classTypeId STATIC_SOTYPE_INIT;
 SoErrorCB * SoMemoryError::callback = SoError::defaultHandlerCB;
-void * SoMemoryError::callbackData = NULL;
+void * SoMemoryError::callbackData = nullptr;
 
 // *************************************************************************
 
@@ -77,7 +77,7 @@ void
 SoMemoryError::initClass(void)
 {
   SoMemoryError::callback = SoError::defaultHandlerCB;
-  SoMemoryError::callbackData = NULL;
+  SoMemoryError::callbackData = nullptr;
   SoMemoryError::classTypeId =
     SoType::createType(SoError::getClassTypeId(), "MemoryError");
 }

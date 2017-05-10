@@ -90,7 +90,7 @@ SoUnknownNode::SoUnknownNode(void)
   this->classfielddata = new SoFieldData;
 
   this->isBuiltIn = false;
-  PRIVATE(this)->privatechildren = NULL;
+  PRIVATE(this)->privatechildren = nullptr;
   PRIVATE(this)->alternate = new SoChildList(this, 1);
 }
 
@@ -342,9 +342,9 @@ SoUnknownNode::copyContents(const SoFieldContainer * from,
       dstfield->copyConnection(dstfield);
     }
   }
-  if (PRIVATE(src)->privatechildren == NULL) return;
+  if (PRIVATE(src)->privatechildren == nullptr) return;
 
-  if (PRIVATE(this)->privatechildren == NULL) {
+  if (PRIVATE(this)->privatechildren == nullptr) {
     PRIVATE(this)->privatechildren = new SoChildList(this);
   }
 

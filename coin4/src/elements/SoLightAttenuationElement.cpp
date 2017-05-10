@@ -39,7 +39,7 @@
 
 // Dynamically allocated to avoid problems on systems which doesn't
 // handle static constructors.
-static SbVec3f * defaultattenuation = NULL;
+static SbVec3f * defaultattenuation = nullptr;
 
 extern "C" {
 

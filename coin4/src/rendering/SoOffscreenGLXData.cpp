@@ -35,7 +35,7 @@
 
 // *************************************************************************
 
-Display * SoOffscreenGLXData::display = NULL;
+Display * SoOffscreenGLXData::display = nullptr;
 static bool display_initialized = false;
 
 void
@@ -47,7 +47,7 @@ SoOffscreenGLXData::cleanup(void)
   // display cannot also lead to problems though... 20060208 kyrah
 #if 0
   XCloseDisplay(display);
-  display = NULL;
+  display = nullptr;
 #endif
 }
 
@@ -73,14 +73,14 @@ SoOffscreenGLXData::getDisplay(void)
     //
     // mortene@sim.no
 
-    SoOffscreenGLXData::display = XOpenDisplay(NULL);
+    SoOffscreenGLXData::display = XOpenDisplay(nullptr);
 
     if (!SoOffscreenGLXData::display) {
       SoDebugError::post("SoOffscreenGLXData::SoOffscreenGLXData",
                          "Couldn't connect to X11 DISPLAY.");
       // FIXME: will probably cause a crash later? If so, should be
       // more robust. 20020802 mortene.
-      return NULL;
+      return nullptr;
     }
   }
 

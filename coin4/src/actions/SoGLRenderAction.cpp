@@ -531,7 +531,7 @@
 
 class SoGLRenderActionP {
 public:
-  SoGLRenderActionP(void) : action(NULL) { }
+  SoGLRenderActionP(void) : action(nullptr) { }
 
   SoGLRenderAction * action;
   SbViewportRegion viewport;
@@ -695,8 +695,8 @@ SoGLRenderAction::SoGLRenderAction(const SbViewportRegion & viewportregion)
   // state hasn't been made yet.
   PRIVATE(this)->viewport = viewportregion;
 
-  PRIVATE(this)->passcallback = NULL;
-  PRIVATE(this)->passcallbackdata = NULL;
+  PRIVATE(this)->passcallback = nullptr;
+  PRIVATE(this)->passcallbackdata = nullptr;
   PRIVATE(this)->smoothing = false;
   PRIVATE(this)->currentpass = 0;
   PRIVATE(this)->numpasses = 1;
@@ -711,7 +711,7 @@ SoGLRenderAction::SoGLRenderAction(const SbViewportRegion & viewportregion)
   PRIVATE(this)->updateorigin.setValue(0.0f, 0.0f);
   PRIVATE(this)->updatesize.setValue(1.0f, 1.0f);
   PRIVATE(this)->rendering = SoGLRenderActionP::RENDERING_UNSET;
-  PRIVATE(this)->abortcallback = NULL;
+  PRIVATE(this)->abortcallback = nullptr;
   PRIVATE(this)->cachecontext = 0;
   PRIVATE(this)->needglinit = true;
   PRIVATE(this)->sortedlayersblendpasses = 4;
@@ -720,14 +720,14 @@ SoGLRenderAction::SoGLRenderAction(const SbViewportRegion & viewportregion)
   PRIVATE(this)->sortedlayersblendinitialized = false;
   PRIVATE(this)->sortedlayersblendcounter = 0;
   PRIVATE(this)->usenvidiaregistercombiners = false;
-  PRIVATE(this)->cachedprofilingsg = NULL;
+  PRIVATE(this)->cachedprofilingsg = nullptr;
   PRIVATE(this)->transpobjdepthwrite = false;
   PRIVATE(this)->transpdelayedrendertype = ONE_PASS;
   PRIVATE(this)->renderingtranspbackfaces = false;
 
   PRIVATE(this)->sortedobjectstrategy = BBOX_CENTER;
-  PRIVATE(this)->sortedobjectcb = NULL;
-  PRIVATE(this)->sortedobjectclosure = NULL;
+  PRIVATE(this)->sortedobjectcb = nullptr;
+  PRIVATE(this)->sortedobjectclosure = nullptr;
 }
 
 /*!
@@ -1016,7 +1016,7 @@ SoGLRenderAction::getSortedLayersNumPasses() const
 void
 SoGLRenderAction::beginTraversal(SoNode * node)
 {
-  if (PRIVATE(this)->cachedprofilingsg == NULL) {
+  if (PRIVATE(this)->cachedprofilingsg == nullptr) {
     if (node->isOfType(SoGroup::getClassTypeId()) &&
         (coin_assert_cast<SoGroup *>(node))->getNumChildren() > 0) {
       PRIVATE(this)->cachedprofilingsg = node;
@@ -1036,7 +1036,7 @@ SoGLRenderAction::beginTraversal(SoNode * node)
         for (int i = 0, n = plist.getLength(); i < n; ++i) {
           SoFullPath * path = reclassify_cast<SoFullPath *>(plist[i]);
           SoNode * tail = path->getTail();
-          if ((tail != NULL) &&
+          if ((tail != nullptr) &&
               (tail->isOfType(SoProfilerVisualizeKit::getClassTypeId()))) {
             SoProfilerVisualizeKit * viskit = coin_assert_cast<SoProfilerVisualizeKit *>(tail);
             viskit->root.setValue(node);
@@ -1123,7 +1123,7 @@ SoGLRenderAction::endTraversal(SoNode * node)
     if (delay == 0.0f) {
       node->touch();
     } else {
-      if (PRIVATE(this)->redrawSensor.get() == NULL) {
+      if (PRIVATE(this)->redrawSensor.get() == nullptr) {
         PRIVATE(this)->redrawSensor.reset(new SoAlarmSensor);
       }
       if (PRIVATE(this)->redrawSensor->isScheduled()) {
@@ -1133,7 +1133,7 @@ SoGLRenderAction::endTraversal(SoNode * node)
       PRIVATE(this)->redrawSensor->setData(node);
       PRIVATE(this)->redrawSensor->setTimeFromNow(SbTime(static_cast<double>(delay)));
       PRIVATE(this)->redrawSensor->schedule();
-      if (PRIVATE(this)->deleteSensor.get() == NULL) {
+      if (PRIVATE(this)->deleteSensor.get() == nullptr) {
         PRIVATE(this)->deleteSensor.reset(new SoNodeSensor);
       }
       PRIVATE(this)->deleteSensor->setDeleteCallback(SoGLRenderActionP::deleteNodeCB, &(PRIVATE(this).get()));
@@ -1167,9 +1167,9 @@ SoGLRenderActionP::deleteNodeCB(void * userdata, SoSensor * COIN_UNUSED_ARG(sens
 {
   assert(userdata);
   SoGLRenderActionP * thisp = static_cast<SoGLRenderActionP *>(userdata);
-  if (thisp->redrawSensor.get() != NULL) {
+  if (thisp->redrawSensor.get() != nullptr) {
     thisp->redrawSensor->unschedule();
-    thisp->redrawSensor->setData(NULL);
+    thisp->redrawSensor->setData(nullptr);
   }
 }
 
@@ -1583,7 +1583,7 @@ SoGLRenderActionP::addSortTransPath(SoPath * path)
 
   // check and handle callback first
   if ((this->sortedobjectstrategy == SoGLRenderAction::CUSTOM_CALLBACK) &&
-      (this->sortedobjectcb != NULL)) {
+      (this->sortedobjectcb != nullptr)) {
     this->sorttranspobjdistances.append(this->sortedobjectcb(this->sortedobjectclosure,
                                                              this->action));
     return;
@@ -2458,7 +2458,7 @@ SoGLRenderActionP::setupSortedLayersBlendTextures(const SoState * state)
     glGenTextures(1, &this->depthtextureid);
     glBindTexture(GL_TEXTURE_RECTANGLE_EXT, this->depthtextureid);
     glTexImage2D(GL_TEXTURE_RECTANGLE_EXT, 0, GL_DEPTH_COMPONENT24, canvassize[0], canvassize[1],
-                 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_INT, NULL);
+                 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_INT, nullptr);
     glTexParameteri(GL_TEXTURE_RECTANGLE_EXT, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_RECTANGLE_EXT, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_RECTANGLE_EXT, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);

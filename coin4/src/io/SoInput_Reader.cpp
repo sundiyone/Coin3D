@@ -79,7 +79,7 @@ SoInput_Reader::getFilename(void)
 FILE *
 SoInput_Reader::getFilePointer(void)
 {
-  return NULL;
+  return nullptr;
 }
 
 // creates the correct reader based on the file type in fp (will
@@ -89,7 +89,7 @@ SoInput_Reader::getFilePointer(void)
 SoInput_Reader *
 SoInput_Reader::createReader(FILE * fp, const SbString & fullname)
 {
-  SoInput_Reader * reader = NULL;
+  SoInput_Reader * reader = nullptr;
   bool trycompression = false;
 
 #ifdef HAVE_FSTAT

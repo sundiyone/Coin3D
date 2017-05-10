@@ -47,7 +47,7 @@
   the path.
 */
 SoLightPath::SoLightPath(SoNode *headnodeptr, const int approxlength)
-  : headnode(NULL),
+  : headnode(nullptr),
     indices(approxlength)
 {
   this->setHead(headnodeptr);
@@ -57,7 +57,7 @@ SoLightPath::SoLightPath(SoNode *headnodeptr, const int approxlength)
   A constructor. Supply the appriximate length of the path.
 */
 SoLightPath::SoLightPath(const int approxlength)
-  : headnode(NULL),
+  : headnode(nullptr),
     indices(approxlength)
 {
 }
@@ -162,8 +162,8 @@ SoLightPath::getNode(const int index) const
   for (int i = 1; i < index; i++) {
     int childidx = this->indices[i];
     SoChildList *children = node->getChildren();
-    node = NULL;
-    if (children == NULL || childidx < 0 || childidx >= children->getLength()) break;
+    node = nullptr;
+    if (children == nullptr || childidx < 0 || childidx >= children->getLength()) break;
     node = (*children)[childidx];
   }
   return node;
@@ -215,7 +215,7 @@ SoLightPath::makeTempPath(SoTempPath *path) const
     int childidx = this->indices[i];
     // check validity of path, return if invalid
     SoChildList *children = node->getChildren();
-    if (children == NULL || childidx < 0 || childidx >= children->getLength()) break;
+    if (children == nullptr || childidx < 0 || childidx >= children->getLength()) break;
     node = (*children)[childidx];
     path->append(childidx); // childidx should be ok
   }

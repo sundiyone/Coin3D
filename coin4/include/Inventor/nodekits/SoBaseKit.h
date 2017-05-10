@@ -72,7 +72,7 @@ public:
   SbString getPartString(const SoBase * part);
   virtual SoNodeKitPath * createPathToPart(const SbName & partname,
                                            bool makeifneeded,
-                                           const SoPath * pathtoextend = NULL);
+                                           const SoPath * pathtoextend = nullptr);
   virtual bool setPart(const SbName & partname, SoNode * from);
   bool set(const char * namevaluepairliststring);
   bool set(const char * partnamestring, const char * parameterstring);
@@ -118,7 +118,7 @@ protected:
                                               bool makeifneeded,
                                               bool leafcheck = false,
                                               bool publiccheck = false,
-                                              const SoPath * pathtoextend = NULL);
+                                              const SoPath * pathtoextend = nullptr);
   virtual bool setAnyPart(const SbName & partname, SoNode * from,
                             bool anypart = true);
   void createNodekitPartsList(void); // not part of Coin
@@ -142,7 +142,7 @@ private:
   friend class SoInteractionKit;
   static bool findPart(const SbString & partname, SoBaseKit *& kit,
                          int & partnum, bool & islist, int & listidx,
-                         const bool makeifneeded, SoPath * path = NULL,
+                         const bool makeifneeded, SoPath * path = nullptr,
                          const bool recsearch = false);
   static void atexit_cleanupkit(void);
 

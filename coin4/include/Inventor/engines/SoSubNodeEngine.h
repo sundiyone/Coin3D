@@ -45,8 +45,8 @@ private: \
 
 #define SO_NODEENGINE_ABSTRACT_SOURCE(_class_) \
 SO_NODE_ABSTRACT_SOURCE(_class_); \
-SoEngineOutputData * _class_::outputdata = NULL; \
-const SoEngineOutputData ** _class_::parentoutputdata = NULL; \
+SoEngineOutputData * _class_::outputdata = nullptr; \
+const SoEngineOutputData ** _class_::parentoutputdata = nullptr; \
  \
 const SoEngineOutputData ** \
 _class_::getOutputDataPtr(void) \
@@ -63,8 +63,8 @@ _class_::getOutputData(void) const \
 void \
 _class_::atexit_cleanupnodeengine(void) { \
   delete _class_::outputdata; \
-  _class_::outputdata = NULL; \
-  _class_::parentoutputdata = NULL; \
+  _class_::outputdata = nullptr; \
+  _class_::parentoutputdata = nullptr; \
   _class_::classTypeId STATIC_SOTYPE_INIT; \
 }
 
@@ -87,10 +87,10 @@ _class_::createInstance(void) \
     if (!_class_::fieldData) { \
       _class_::fieldData = \
         new SoFieldData(_class_::parentFieldData ? \
-                        *_class_::parentFieldData : NULL); \
+                        *_class_::parentFieldData : nullptr); \
       _class_::outputdata = \
         new SoEngineOutputData(_class_::parentoutputdata ? \
-                               *_class_::parentoutputdata : NULL); \
+                               *_class_::parentoutputdata : nullptr); \
     } \
     /* Extension classes from the application programmers should not be */ \
     /* considered native. This is important to get the export code to do */ \
@@ -131,7 +131,7 @@ _class_::createInstance(void) \
 #define SO_NODEENGINE_INIT_ABSTRACT_CLASS(_class_, _parentclass_, _parentname_) \
   do { \
     const char * classname = SO__QUOTE(_class_); \
-    PRIVATE_COMMON_INIT_CODE(_class_, classname, NULL, _parentclass_); \
+    PRIVATE_COMMON_INIT_CODE(_class_, classname, nullptr, _parentclass_); \
   } while (0)
 
 #define SO_NODEENGINE_ADD_OUTPUT(_output_, _type_) \

@@ -70,7 +70,7 @@
 
 class SoBoxHighlightRenderActionP {
 public:
-  SoBoxHighlightRenderActionP(void) : master(NULL) { }
+  SoBoxHighlightRenderActionP(void) : master(nullptr) { }
 
   SoBoxHighlightRenderAction * master;
   SoSearchAction * searchaction;
@@ -128,7 +128,7 @@ SoBoxHighlightRenderActionP::initBoxGraph()
 void
 SoBoxHighlightRenderActionP::drawHighlightBox(const SoPath * path)
 {
-  if (this->camerasearch == NULL) {
+  if (this->camerasearch == nullptr) {
     this->camerasearch = new SoSearchAction;
   }
 
@@ -143,7 +143,7 @@ SoBoxHighlightRenderActionP::drawHighlightBox(const SoPath * path)
   }
   this->camerasearch->reset();
 
-  if (this->bboxaction == NULL) {
+  if (this->bboxaction == nullptr) {
     this->bboxaction = new SoGetBoundingBoxAction(SbViewportRegion(100, 100));
   }
   this->bboxaction->setViewportRegion(PUBLIC(this)->getViewportRegion());
@@ -227,9 +227,9 @@ SoBoxHighlightRenderAction::init(void)
   PRIVATE(this)->basecolor->rgb.setValue(1.0f, 0.0f, 0.0f);
   PRIVATE(this)->drawstyle->linePattern = 0xffff;
   PRIVATE(this)->drawstyle->lineWidth = 3.0f;
-  PRIVATE(this)->searchaction = NULL;
-  PRIVATE(this)->camerasearch = NULL;
-  PRIVATE(this)->bboxaction = NULL;
+  PRIVATE(this)->searchaction = nullptr;
+  PRIVATE(this)->camerasearch = nullptr;
+  PRIVATE(this)->bboxaction = nullptr;
 
   // SoBase-derived objects should be dynamically allocated.
   PRIVATE(this)->postprocpath = new SoTempPath(32);
@@ -257,7 +257,7 @@ SoBoxHighlightRenderAction::apply(SoNode * node)
 {
   SoGLRenderAction::apply(node);
   if (this->hlVisible) {
-    if (PRIVATE(this)->searchaction == NULL) {
+    if (PRIVATE(this)->searchaction == nullptr) {
       PRIVATE(this)->searchaction = new SoSearchAction;
     }
     const bool searchall = false;

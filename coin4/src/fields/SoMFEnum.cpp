@@ -83,11 +83,11 @@ SO_MFIELD_VALUE_SOURCE(SoMFEnum, int, int);
 /* Constructor. */
 SoMFEnum::SoMFEnum(void)
 {
-  this->values = NULL;
+  this->values = nullptr;
   this->legalValuesSet = false;
   this->numEnums = 0;
-  this->enumValues = NULL;
-  this->enumNames = NULL;
+  this->enumValues = nullptr;
+  this->enumNames = nullptr;
 }
 
 /* Destructor. */

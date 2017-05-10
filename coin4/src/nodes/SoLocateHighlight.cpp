@@ -148,7 +148,7 @@ public:
   static void atexit_cleanup(void) {
     if (SoLocateHighlightP::currenthighlight) {
       SoLocateHighlightP::currenthighlight->unref();
-      SoLocateHighlightP::currenthighlight = NULL;
+      SoLocateHighlightP::currenthighlight = nullptr;
     }
   }
 #ifdef COIN_THREADSAFE
@@ -165,7 +165,7 @@ private:
 
 };
 
-SoFullPath * SoLocateHighlightP::currenthighlight = NULL;
+SoFullPath * SoLocateHighlightP::currenthighlight = nullptr;
 
 // *************************************************************************
 
@@ -325,7 +325,7 @@ SoLocateHighlight::turnoffcurrent(SoAction * action)
   }
   if (SoLocateHighlightP::currenthighlight) {
     SoLocateHighlightP::currenthighlight->unref();
-    SoLocateHighlightP::currenthighlight = NULL;
+    SoLocateHighlightP::currenthighlight = nullptr;
   }
 }
 

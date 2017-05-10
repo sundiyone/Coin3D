@@ -66,7 +66,7 @@ private:
   // that they need to be rewritten to behave correctly.
   SoAuditorList(const int) { }
   SoAuditorList(const SoAuditorList & l) : SbPList(l) { }
-  void * get(const int) const { return NULL; }
+  void * get(const int) const { return nullptr; }
   void set(const int, void * const) { }
   void copy(const SbPList &) { }
   void append(const void *) { }
@@ -75,11 +75,11 @@ private:
   void removeFast(const int) { }
   void truncate(const int, const int = 0) { }
   void push(const void *) { }
-  void * pop(void) { return NULL; }
+  void * pop(void) { return nullptr; }
   SbPList & operator=(const SbPList &) { return *this; }
-  operator void ** (void) { return static_cast<void **> (NULL); }
-  operator const void ** (void) const { return static_cast<const void **>(NULL); }
-  void * operator[](const int) const { return NULL; }
+  operator void ** (void) { return static_cast<void **> (nullptr); }
+  operator const void ** (void) const { return static_cast<const void **>(nullptr); }
+  void * operator[](const int) const { return nullptr; }
   void * & operator[](const int) { return SbPList::operator[](0); }
   bool operator==(const SbPList &) const { return 0; }
   bool operator!=(const SbPList &) const { return 0; }

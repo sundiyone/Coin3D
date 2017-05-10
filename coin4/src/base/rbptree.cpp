@@ -353,10 +353,10 @@ cc_rbptree_init(cc_rbptree * t)
 {
   CC_GLOBAL_LOCK;
   if (!rbptree_isinitialized) {
-    rbptree_sentinel.left = NULL;
-    rbptree_sentinel.right = NULL;
-    rbptree_sentinel.parent = NULL;
-    rbptree_sentinel.pointer = NULL;
+    rbptree_sentinel.left = nullptr;
+    rbptree_sentinel.right = nullptr;
+    rbptree_sentinel.parent = nullptr;
+    rbptree_sentinel.pointer = nullptr;
     rbptree_sentinel.color = RBPTREE_BLACK;
     rbptree_isinitialized = true;
     coin_atexit(static_cast<coin_atexit_f*>(rbptree_atexit_cleanup), CC_ATEXIT_NORMAL);
@@ -634,7 +634,7 @@ BOOST_AUTO_TEST_CASE(rbptree_stress)
     SbList<void *> values;
     for (i = 0; i < FILL_COUNT; ++i) {
       void * entry = reinterpret_cast<void *>(rand());
-      cc_rbptree_insert(&tree, entry, NULL);
+      cc_rbptree_insert(&tree, entry, nullptr);
       values.append(entry);
     }
     BOOST_ASSERT(cc_rbptree_size(&tree) == FILL_COUNT);
@@ -651,7 +651,7 @@ BOOST_AUTO_TEST_CASE(rbptree_stress)
     SbList<void *> values;
     for (i = 0; i < FILL_COUNT; ++i) {
       void * entry = reinterpret_cast<void *>(((c & 2) == 0) ? i : (FILL_COUNT - i));
-      cc_rbptree_insert(&tree, entry, NULL);
+      cc_rbptree_insert(&tree, entry, nullptr);
       values.append(entry);
     }
     BOOST_ASSERT(cc_rbptree_size(&tree) == FILL_COUNT);

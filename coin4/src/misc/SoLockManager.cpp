@@ -48,18 +48,18 @@
 
 class SoLockManager_pimpl {
 public:
-  SoLockManager_pimpl(void) { this->unlockstr = NULL; }
+  SoLockManager_pimpl(void) { this->unlockstr = nullptr; }
   ~SoLockManager_pimpl() { delete this->unlockstr; }
 
   char * unlockstr;
 };
 
-static SoLockManager_pimpl * solockmanager_pimpl = NULL;
+static SoLockManager_pimpl * solockmanager_pimpl = nullptr;
 
 static void solockmanager_cleanup(void)
 {
   delete solockmanager_pimpl;
-  solockmanager_pimpl = NULL;
+  solockmanager_pimpl = nullptr;
 }
 
 /*!
@@ -90,5 +90,5 @@ SoLockManager::SetUnlockString(char * unlockstr)
 char *
 SoLockManager::GetUnlockString(void)
 {
-  return solockmanager_pimpl ? solockmanager_pimpl->unlockstr : NULL;
+  return solockmanager_pimpl ? solockmanager_pimpl->unlockstr : nullptr;
 }

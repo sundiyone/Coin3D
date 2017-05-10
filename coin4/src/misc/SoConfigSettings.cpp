@@ -8,7 +8,7 @@
 
 
 namespace {
-  SoConfigSettings * singleton = NULL;
+  SoConfigSettings * singleton = nullptr;
   const char * VALID_OPTIONS[] = {
     "COIN_VBO",
     "COIN_WARNING_LEVEL"
@@ -49,7 +49,7 @@ void
 SoConfigSettings::destroy()
 {
   delete singleton;
-  singleton = NULL;
+  singleton = nullptr;
 }
 
 SoConfigSettings::SoConfigSettings()
@@ -79,7 +79,7 @@ SoConfigSettings::reinitialize()
   //disabling this for now. Write a configure test for this in the
   //future. BFG 20091013
 #if COIN_DEBUG && 0
-  for (char ** test = environ; *test != NULL; ++test) {
+  for (char ** test = environ; *test != nullptr; ++test) {
     char * first = strchr(*test,'=');
     if (first) {
       size_t n;

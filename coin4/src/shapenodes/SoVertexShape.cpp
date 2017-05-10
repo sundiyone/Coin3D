@@ -105,10 +105,10 @@ void
 SoVertexShapeP::cleanup(void)
 {
   delete SoVertexShapeP::normalcachemutex;
-  SoVertexShapeP::normalcachemutex = NULL;
+  SoVertexShapeP::normalcachemutex = nullptr;
 }
 
-SbRWMutex * SoVertexShapeP::normalcachemutex = NULL;
+SbRWMutex * SoVertexShapeP::normalcachemutex = nullptr;
 
 #define PRIVATE(obj) ((obj)->pimpl)
 
@@ -138,11 +138,11 @@ SoVertexShape::initClass(void)
 SoVertexShape::SoVertexShape(void)
 {
   PRIVATE(this) = new SoVertexShapeP;
-  PRIVATE(this)->normalcache = NULL;
+  PRIVATE(this)->normalcache = nullptr;
 
   SO_NODE_INTERNAL_CONSTRUCTOR(SoVertexShape);
 
-  SO_NODE_ADD_FIELD(vertexProperty, (NULL));
+  SO_NODE_ADD_FIELD(vertexProperty, (nullptr));
 }
 
 /*!
@@ -236,7 +236,7 @@ SoVertexShape::setNormalCache(SoState * const state,
 }
 
 /*!
-  Returns the current normal cache, or NULL if there is none.
+  Returns the current normal cache, or nullptr if there is none.
 */
 SoNormalCache *
 SoVertexShape::getNormalCache(void) const
@@ -281,7 +281,7 @@ SoVertexShape::generateAndReadLockNormalCache(SoState * const state)
   //
   if (!generateDefaultNormals(state, PRIVATE(this)->normalcache)) {
     // FIXME: implement SoNormalBundle
-    if (generateDefaultNormals(state, (SoNormalBundle *)NULL)) {
+    if (generateDefaultNormals(state, (SoNormalBundle *)nullptr)) {
       // FIXME: set generator in normal cache
     }
   }
@@ -306,7 +306,7 @@ SoVertexShape::getVertexData(SoState * state,
   coords = SoCoordinateElement::getInstance(state);
   assert(coords);
 
-  normals = NULL;
+  normals = nullptr;
   if (neednormals) {
     normals = SoNormalElement::getInstance(state)->getArrayPtr();
   }

@@ -68,13 +68,13 @@ struct cc_memalloc {
 };
 
 /*
- * allocate 'numbytes' bytes from 'memnode'. Returns NULL if
+ * allocate 'numbytes' bytes from 'memnode'. Returns nullptr if
  * the memory node is full.
  */
 static void *
 node_alloc(struct cc_memalloc_memnode * memnode, const int numbytes)
 {
-  unsigned char * ret = NULL;
+  unsigned char * ret = nullptr;
   if (memnode->currpos + numbytes <= memnode->size) {
     ret = memnode->block + memnode->currpos;
     memnode->currpos += numbytes;
@@ -113,10 +113,10 @@ create_memnode(cc_memalloc * allocator)
 static void *
 alloc_from_memnode(cc_memalloc * allocator)
 {
-  void * ret = NULL;
+  void * ret = nullptr;
 
   if (allocator->memnode) ret = node_alloc(allocator->memnode, allocator->chunksize);
-  if (ret == NULL) {
+  if (ret == nullptr) {
     allocator->memnode = create_memnode(allocator);
     ret = node_alloc(allocator->memnode, allocator->chunksize);
     /* FIXME: I've seen this assert() hit, but I couldn't easily
@@ -142,11 +142,11 @@ cc_memalloc_construct(const unsigned int unitsize)
   if (unitsize < sizeof(cc_memalloc_free)) {
     allocator->chunksize = sizeof(cc_memalloc_free);
   }
-  allocator->free = NULL;
-  allocator->memnode = NULL;
+  allocator->free = nullptr;
+  allocator->memnode = nullptr;
   allocator->num_allocated_units = 0;
 
-  cc_memalloc_set_strategy(allocator, NULL); /* will insert default handler */
+  cc_memalloc_set_strategy(allocator, nullptr); /* will insert default handler */
 
   return allocator;
 }
@@ -203,8 +203,8 @@ cc_memalloc_clear(cc_memalloc * allocator)
     free(node);
     node = tmp;
   }
-  allocator->free = NULL;
-  allocator->memnode = NULL;
+  allocator->free = nullptr;
+  allocator->memnode = nullptr;
 }
 
 extern "C" {
@@ -232,6 +232,6 @@ default_strategy(const int numunits_allocated)
 void
 cc_memalloc_set_strategy(cc_memalloc * allocator, cc_memalloc_strategy_cb * cb)
 {
-  if (cb == NULL) allocator->strategy = default_strategy;
+  if (cb == nullptr) allocator->strategy = default_strategy;
   else allocator->strategy = cb;
 }

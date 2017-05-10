@@ -49,7 +49,7 @@
   searchaction->apply(myscenegraphroot);
 
   SoPath * path = searchaction->getPath();
-  assert(path != NULL);
+  assert(path != nullptr);
 
   // Then apply the SoGetMatrixAction to get the full transformation
   // matrix from world space.

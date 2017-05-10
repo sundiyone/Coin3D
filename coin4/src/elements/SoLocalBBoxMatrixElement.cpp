@@ -117,7 +117,7 @@ SoLocalBBoxMatrixElement::copyMatchInfo(void) const
   SoDebugError::postInfo("SoLocalBBoxMatrixElement::copyMatchInfo",
                          "This method should never be called for this element.");
 #endif // COIN_DEBUG
-  return NULL;
+  return nullptr;
 }
 
 //! FIXME: write doc.

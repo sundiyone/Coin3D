@@ -42,7 +42,7 @@
  */
 SoFieldSensor::SoFieldSensor(void)
 {
-  this->convict = NULL;
+  this->convict = nullptr;
 }
 
 /*!
@@ -54,7 +54,7 @@ SoFieldSensor::SoFieldSensor(void)
 SoFieldSensor::SoFieldSensor(SoSensorCB * func, void * data)
   : inherited(func, data)
 {
-  this->convict = NULL;
+  this->convict = nullptr;
 }
 
 /*!
@@ -99,7 +99,7 @@ SoFieldSensor::detach(void)
 {
   if (this->convict) {
     this->convict->removeAuditor(this, SoNotRec::SENSOR);
-    this->convict = NULL;
+    this->convict = nullptr;
     if (this->isScheduled()) this->unschedule();
   }
 }
@@ -142,12 +142,12 @@ SoFieldSensor::dyingReference(void)
 
   this->invokeDeleteCallback();
 
-  if (this->getAttachedField() != NULL &&
+  if (this->getAttachedField() != nullptr &&
       this->getAttachedField()->getContainer() == dyingcontainer) {
     // sensor is attached, and to the same field-container
     this->detach();
     // FIXME: we could maybe do an exception for the globalfield-container,
-    // and for loose fields I assume have NULL for getContainer() - those cases
+    // and for loose fields I assume have nullptr for getContainer() - those cases
     // should be checked at the field-pointer level instead.
   }
 }

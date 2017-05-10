@@ -220,7 +220,7 @@ void
 SoWriteAction::beginTraversal(SoNode * node)
 {
 #if COIN_DEBUG
-  SoNodeSensor *sensor = NULL;
+  SoNodeSensor *sensor = nullptr;
 #endif
   if (this->continuing == false) { // Run through both stages.
     // call SoWriterefCounter::instance() before traversing to set the
@@ -230,7 +230,7 @@ SoWriteAction::beginTraversal(SoNode * node)
 
 #if COIN_DEBUG
     if (SoWriterefCounter::debugWriterefs()) {
-      sensor = new SoNodeSensor(sensorCB, NULL);
+      sensor = new SoNodeSensor(sensorCB, nullptr);
       sensor->setPriority(0);
       sensor->attach(node);
     }
@@ -317,13 +317,13 @@ BOOST_AUTO_TEST_CASE(GlobalField)
   SoOutput out;
   const int buffer_size = 1024;
   char * buffer = (char *)malloc(buffer_size);
-  out.setBuffer(buffer, buffer_size, NULL);
+  out.setBuffer(buffer, buffer_size, nullptr);
 
   SoWriteAction wa(&out);
   wa.apply((SoNode *)top);
 
   top->unref();
-  top = NULL;
+  top = nullptr;
 
   // read scene again to check if realTime field was written
   in.setBuffer((void *)buffer, strlen(buffer));

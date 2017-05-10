@@ -242,7 +242,7 @@ static int COIN_ENABLE_CONFORMANT_GL_CLAMP = -1;
 // *************************************************************************
 
 // buffer used for creating mipmap images
-static SbStorage * glimage_bufferstorage = NULL;
+static SbStorage * glimage_bufferstorage = nullptr;
 
 typedef struct {
   unsigned char * buffer;
@@ -255,9 +255,9 @@ static void
 glimage_buffer_construct(void * buffer)
 {
   soglimage_buffer * buf = (soglimage_buffer*) buffer;
-  buf->buffer = NULL;
+  buf->buffer = nullptr;
   buf->buffersize = 0;
-  buf->mipmapbuffer = NULL;
+  buf->mipmapbuffer = nullptr;
   buf->mipmapbuffersize = 0;
 }
 
@@ -273,8 +273,8 @@ glimage_buffer_destruct(void * buffer)
 static unsigned char *
 glimage_get_buffer(const int buffersize, const bool mipmap)
 {
-  soglimage_buffer * buf = NULL;
-  assert(glimage_bufferstorage != NULL);
+  soglimage_buffer * buf = nullptr;
+  assert(glimage_bufferstorage != nullptr);
 
   buf = (soglimage_buffer*)
     glimage_bufferstorage->get();
@@ -659,7 +659,7 @@ public:
   class dldata {
   public:
     dldata(void)
-      : dlist(NULL), age(0) { }
+      : dlist(nullptr), age(0) { }
     dldata(SoGLDisplayList *dl)
       : dlist(dl),
         age(0) { }
@@ -685,8 +685,8 @@ public:
 
 SoType SoGLImageP::classTypeId STATIC_SOTYPE_INIT;
 uint32_t SoGLImageP::current_glimageid = 1;
-SoGLImage::SoGLImageResizeCB * SoGLImageP::resizecb = NULL;
-void * SoGLImageP::resizeclosure = NULL;
+SoGLImage::SoGLImageResizeCB * SoGLImageP::resizecb = nullptr;
+void * SoGLImageP::resizeclosure = nullptr;
 #ifdef COIN_THREADSAFE
 SbMutex * SoGLImageP::mutex;
 #endif // COIN_THREADSAFE
@@ -820,15 +820,15 @@ void
 SoGLImage::cleanupClass(void)
 {
   delete glimage_bufferstorage;
-  glimage_bufferstorage = NULL;
+  glimage_bufferstorage = nullptr;
 #ifdef COIN_THREADSAFE
   delete SoGLImageP::mutex;
-  SoGLImageP::mutex = NULL;
+  SoGLImageP::mutex = nullptr;
 #endif // COIN_THREADSAFE
   SoGLImageP::classTypeId STATIC_SOTYPE_INIT;
 
-  SoGLImageP::resizecb = NULL;
-  SoGLImageP::resizeclosure = NULL;
+  SoGLImageP::resizecb = nullptr;
+  SoGLImageP::resizeclosure = nullptr;
   SoGLImageP::current_glimageid = 1;
 }
 
@@ -879,7 +879,7 @@ SoGLImage::isOfType(SoType type) const
                size[0], size[1],
                0,
                GL_DEPTH_COMPONENT,
-               GL_UNSIGNED_BYTE, NULL);
+               GL_UNSIGNED_BYTE, nullptr);
 
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
@@ -905,7 +905,7 @@ SoGLImage::setGLDisplayList(SoGLDisplayList * dl,
   PRIVATE(this)->unrefDLists(state);
   dl->ref();
   PRIVATE(this)->dlists.append(SoGLImageP::dldata(dl));
-  PRIVATE(this)->image = NULL; // we have no data. Texture is organized outside this image
+  PRIVATE(this)->image = nullptr; // we have no data. Texture is organized outside this image
   PRIVATE(this)->wraps = wraps;
   PRIVATE(this)->wrapt = wrapt;
   PRIVATE(this)->glimageid = SoGLImageP::getNextGLImageId(); // assign an unique id to this image
@@ -995,13 +995,13 @@ SoGLImage::setData(const SbImage * image,
   hardware.
 
   Normally, the OpenGL texture object isn't created until the first
-  time it is needed, but if \a createinstate is != NULL, the texture
+  time it is needed, but if \a createinstate is != nullptr, the texture
   object is created immediately. This is useful if you use a temporary
   buffer to hold the texture data. Be careful when using this feature,
   since the texture data might be needed at a later stage (for
   instance to create a texture object for another context).  It will
   not be possible to create texture objects for other cache contexts
-  when \a createinstate is != NULL.
+  when \a createinstate is != nullptr.
 
   Also if \a createinstate is supplied, and all the attributes are the
   same as the current data in the image, glTexSubImage() will be used
@@ -1009,7 +1009,7 @@ SoGLImage::setData(const SbImage * image,
   This is much faster on most OpenGL drivers, and is very useful, for
   instance when doing animated textures.
 
-  If you supply NULL for \a image, the instance will be reset, causing
+  If you supply nullptr for \a image, the instance will be reset, causing
   all display lists and memory to be freed.
 */
 void
@@ -1024,7 +1024,7 @@ SoGLImage::setData(const SbImage *image,
 {
   PRIVATE(this)->imageage = 0;
 
-  if (image == NULL) {
+  if (image == nullptr) {
     PRIVATE(this)->unrefDLists(createinstate);
     if (PRIVATE(this)->isregistered) SoGLImage::unregisterImage(this);
     PRIVATE(this)->init(); // init to default values
@@ -1041,7 +1041,7 @@ SoGLImage::setData(const SbImage *image,
   // faster for most drivers.
   if (createinstate) { // We need the state for cc_glglue
     const cc_glglue * glw = sogl_glue_instance(createinstate);
-    SoGLDisplayList *dl = NULL;
+    SoGLDisplayList *dl = nullptr;
 
     bool copyok =
       wraps == PRIVATE(this)->wraps &&
@@ -1049,7 +1049,7 @@ SoGLImage::setData(const SbImage *image,
       wrapr == PRIVATE(this)->wrapr &&
       border == PRIVATE(this)->border &&
       border == 0 && // haven't tested with borders yet. Play it safe.
-      (dl = PRIVATE(this)->findDL(createinstate)) != NULL;
+      (dl = PRIVATE(this)->findDL(createinstate)) != nullptr;
 
     SbVec3s size;
     int nc;
@@ -1068,7 +1068,7 @@ SoGLImage::setData(const SbImage *image,
       dl->ref();
       PRIVATE(this)->unrefDLists(createinstate);
       PRIVATE(this)->dlists.append(SoGLImageP::dldata(dl));
-      PRIVATE(this)->image = NULL; // data is temporary, and only for current context
+      PRIVATE(this)->image = nullptr; // data is temporary, and only for current context
       dl->call(createinstate);
 
       bool compress =
@@ -1108,7 +1108,7 @@ SoGLImage::setData(const SbImage *image,
       PRIVATE(this)->unrefDLists(createinstate);
       if (createinstate) {
         PRIVATE(this)->dlists.append(SoGLImageP::dldata(PRIVATE(this)->createGLDisplayList(createinstate)));
-        PRIVATE(this)->image = NULL; // data is assumed to be temporary
+        PRIVATE(this)->image = nullptr; // data is assumed to be temporary
       }
     }
   }
@@ -1177,7 +1177,7 @@ SoGLImage::~SoGLImage()
 {
   SoContextHandler::removeContextDestructionCallback(SoGLImageP::contextCleanup, PRIVATE(this));
   if (PRIVATE(this)->isregistered) SoGLImage::unregisterImage(this);
-  PRIVATE(this)->unrefDLists(NULL);
+  PRIVATE(this)->unrefDLists(nullptr);
   delete PRIVATE(this);
 }
 
@@ -1185,14 +1185,14 @@ SoGLImage::~SoGLImage()
   This class has a private destuctor since we want users to supply
   the current GL state when deleting the image. This is to make sure
   gl texture objects are freed as soon as possible. If you supply
-  NULL to this method, the gl texture objects won't be deleted
+  nullptr to this method, the gl texture objects won't be deleted
   until the next time an GLRenderAction is applied in the image's
   cache context(s).
 */
 void
 SoGLImage::unref(SoState *state)
 {
-  if (PRIVATE(this)->pbuffer) this->setPBuffer(state, NULL);
+  if (PRIVATE(this)->pbuffer) this->setPBuffer(state, nullptr);
   PRIVATE(this)->unrefDLists(state);
   delete this;
 }
@@ -1228,7 +1228,7 @@ SoGLImage::getImage(void) const
 
 /*!
   Returns or creates a SoGLDisplayList to be used for rendering.
-  Returns NULL if no SoDLDisplayList could be created.
+  Returns nullptr if no SoDLDisplayList could be created.
 */
 SoGLDisplayList *
 SoGLImage::getGLDisplayList(SoState *state)
@@ -1237,7 +1237,7 @@ SoGLImage::getGLDisplayList(SoState *state)
   SoGLDisplayList *dl = PRIVATE(this)->findDL(state);
   UNLOCK_GLIMAGE;
 
-  if (dl == NULL) {
+  if (dl == nullptr) {
     dl = PRIVATE(this)->createGLDisplayList(state);
     if (dl) {
       LOCK_GLIMAGE;
@@ -1368,8 +1368,8 @@ void
 SoGLImageP::init(void)
 {
   assert(this->isregistered == false);
-  this->image = NULL;
-  this->pbuffer = NULL;
+  this->image = nullptr;
+  this->pbuffer = nullptr;
   this->glsize.setValue(0,0,0);
   this->glcomp = 0;
   this->wraps = SoGLImage::CLAMP;
@@ -1382,7 +1382,7 @@ SoGLImageP::init(void)
   this->usealphatest = false;
   this->quality = 0.4f;
   this->imageage = 0;
-  this->endframecb = NULL;
+  this->endframecb = nullptr;
   this->glimageid = 0; // glimageid 0 is an empty image
 }
 
@@ -1606,9 +1606,9 @@ SoGLImageP::createGLDisplayList(SoState *state)
   SbVec3s size;
   int numcomponents;
   unsigned char *bytes =
-    this->image ? this->image->getValue(size, numcomponents) : NULL;
+    this->image ? this->image->getValue(size, numcomponents) : nullptr;
 
-  if (!this->pbuffer && !bytes) return NULL;
+  if (!this->pbuffer && !bytes) return nullptr;
 
   uint32_t xsize = size[0];
   uint32_t ysize = size[1];
@@ -1678,9 +1678,9 @@ SoGLImageP::checkTransparency(void)
   SbVec3s size;
   int numcomponents;
   unsigned char *bytes = this->image ?
-    this->image->getValue(size, numcomponents) : NULL;
+    this->image->getValue(size, numcomponents) : nullptr;
 
-  if (bytes == NULL) {
+  if (bytes == nullptr) {
     if (this->glcomp == 2 || this->glcomp == 4) {
       // we must assume it has transparency, and that we
       // can't use alpha testing
@@ -1898,7 +1898,7 @@ SoGLImageP::unrefDLists(SoState *state)
   this->dlists.truncate(0);
 }
 
-// find dl for a context, NULL if not found
+// find dl for a context, nullptr if not found
 SoGLDisplayList *
 SoGLImageP::findDL(SoState *state)
 {
@@ -1909,7 +1909,7 @@ SoGLImageP::findDL(SoState *state)
     dl = this->dlists[i].dlist;
     if (dl->getContext() == currcontext) return dl;
   }
-  return NULL;
+  return nullptr;
 }
 
 void
@@ -2062,7 +2062,7 @@ static void
 regimage_cleanup(void)
 {
   delete glimage_reglist;
-  glimage_reglist = NULL;
+  glimage_reglist = nullptr;
   glimage_maxage = 60;
 }
 
@@ -2177,7 +2177,7 @@ void
 SoGLImage::registerImage(SoGLImage *image)
 {
   LOCK_GLIMAGE;
-  if (glimage_reglist == NULL) {
+  if (glimage_reglist == nullptr) {
     coin_atexit((coin_atexit_f *)regimage_cleanup, CC_ATEXIT_NORMAL);
     glimage_reglist = new SbList<SoGLImage*>;
   }
@@ -2233,7 +2233,7 @@ SoGLImageP::contextCleanup(uint32_t context, void * closure)
 
   while (i < n) {
     if (thisp->dlists[i].dlist->getContext() == (int) context) {
-      thisp->dlists[i].dlist->unref(NULL);
+      thisp->dlists[i].dlist->unref(nullptr);
       thisp->dlists.remove(i);
       n--;
     }

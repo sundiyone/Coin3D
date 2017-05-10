@@ -107,8 +107,8 @@
 static SoType soproto_type;
 
 static SbList <SoProto*> * protolist;
-static SoFetchExternProtoCB * soproto_fetchextern_cb = NULL;
-static void * soproto_fetchextern_closure = NULL;
+static SoFetchExternProtoCB * soproto_fetchextern_cb = nullptr;
+static void * soproto_fetchextern_closure = nullptr;
 static void * soproto_mutex;
 
 // atexit callback
@@ -116,7 +116,7 @@ static void
 soproto_cleanup(void)
 {
   delete protolist;
-  protolist = NULL;
+  protolist = nullptr;
   CC_MUTEX_DESTRUCT(soproto_mutex);
 }
 
@@ -126,7 +126,7 @@ soproto_fetchextern_default_cb(SoInput * in,
                                const int numurls,
                                void * COIN_UNUSED_ARG(closure))
 {
-  if (numurls == 0) return NULL;
+  if (numurls == 0) return nullptr;
   SbString filename(urls[0]);
   SbString name("");
 
@@ -140,7 +140,7 @@ soproto_fetchextern_default_cb(SoInput * in,
   if (!in->pushFile(filename.getString())) {
     SoReadError::post(in, "Unable to find EXTERNPROTO file: ``%s''",
                       filename.getString());
-    return NULL;
+    return nullptr;
   }
 
   SoSeparator * root = SoDB::readAll(in);
@@ -163,11 +163,11 @@ soproto_fetchextern_default_cb(SoInput * in,
 
     SoReadError::post(in, "Unable to read EXTERNPROTO file: ``%s''",
                       filename.getString());
-    return NULL;
+    return nullptr;
   }
   else {
     root->ref();
-    SoProto * foundproto = NULL;
+    SoProto * foundproto = nullptr;
 
     SoSearchAction sa;
     sa.setType(SoProto::getClassTypeId());
@@ -180,7 +180,7 @@ soproto_fetchextern_default_cb(SoInput * in,
     if (pl.getLength() == 1) {
       foundproto = (SoProto*) pl[0]->getTail();
       if (name.getLength() && name != foundproto->getProtoName().getString()) {
-        foundproto = NULL;
+        foundproto = nullptr;
       }
     }
     else if (name.getLength()) {
@@ -201,7 +201,7 @@ soproto_fetchextern_default_cb(SoInput * in,
   }
 
   // just in case to fool stupid compilers
-  return NULL;
+  return nullptr;
 }
 
 // *************************************************************************
@@ -210,7 +210,7 @@ typedef SbHash<const char *, SoBase *> Name2SoBaseMap;
 
 class SoProtoP {
 public:
-  SoProtoP() : fielddata(NULL), defroot(NULL) { }
+  SoProtoP() : fielddata(nullptr), defroot(nullptr) { }
 
   SoFieldData * fielddata;
   SoGroup * defroot;
@@ -246,13 +246,13 @@ SoProto::initClass(void)
 {
   CC_MUTEX_CONSTRUCT(soproto_mutex);
   soproto_type = SoType::createType(SoNode::getClassTypeId(),
-                                    SbName("SoProto"), NULL,
+                                    SbName("SoProto"), nullptr,
                                     SoNode::nextActionMethodIndex++);
   protolist = new SbList<SoProto*>;
 
   coin_atexit((coin_atexit_f*) soproto_cleanup, CC_ATEXIT_NORMAL);
   // this will set a default callback
-  SoProto::setFetchExternProtoCallback(NULL, NULL);
+  SoProto::setFetchExternProtoCallback(nullptr, nullptr);
 }
 
 #define PRIVATE(obj) ((obj)->pimpl)
@@ -263,14 +263,14 @@ SoProto::initClass(void)
 SoProto::SoProto(const bool externproto)
 {
   PRIVATE(this) = new SoProtoP;
-  PRIVATE(this)->externurl = NULL;
+  PRIVATE(this)->externurl = nullptr;
   if (externproto) {
     PRIVATE(this)->externurl = new SoMFString;
   }
   PRIVATE(this)->fielddata = new SoFieldData;
   PRIVATE(this)->defroot = new SoGroup;
   PRIVATE(this)->defroot->ref();
-  PRIVATE(this)->extprotonode = NULL;
+  PRIVATE(this)->extprotonode = nullptr;
 
   CC_MUTEX_LOCK(soproto_mutex);
   protolist->insert(this, 0);
@@ -300,9 +300,9 @@ void
 SoProto::setFetchExternProtoCallback(SoFetchExternProtoCB * cb,
                                      void * closure)
 {
-  if (cb == NULL) {
+  if (cb == nullptr) {
     soproto_fetchextern_cb = soproto_fetchextern_default_cb;
-    soproto_fetchextern_closure = NULL;
+    soproto_fetchextern_closure = nullptr;
   }
   else {
     soproto_fetchextern_cb = cb;
@@ -311,17 +311,17 @@ SoProto::setFetchExternProtoCallback(SoFetchExternProtoCB * cb,
 }
 
 /*!
-  Returns the PROTO definition named \a name or NULL if not found.
+  Returns the PROTO definition named \a name or nullptr if not found.
 */
 SoProto *
 SoProto::findProto(const SbName & name)
 {
-  SoProto * ret = NULL;
+  SoProto * ret = nullptr;
   CC_MUTEX_LOCK(soproto_mutex);
   if (protolist) {
     const int n = protolist->getLength();
     SoProto * const * ptr = protolist->getArrayPtr();
-    for (int i = 0; (ret == NULL) && (i < n); i++) {
+    for (int i = 0; (ret == nullptr) && (i < n); i++) {
       if (ptr[i]->getProtoName() == name) ret = ptr[i];
     }
   }
@@ -379,7 +379,7 @@ SoProto::readInstance(SoInput * in, unsigned short COIN_UNUSED_ARG(flags))
                                                PRIVATE(this)->externurl->getValues(0),
                                                PRIVATE(this)->externurl->getNum(),
                                                soproto_fetchextern_closure);
-      if (proto == NULL) {
+      if (proto == nullptr) {
         SoReadError::post(in, "Error reading EXTERNPROTO definition.");
         ok = false;
       }
@@ -671,7 +671,7 @@ SoProto::findReference(const SbName & name) const
   SoBase * base;
 
   if (PRIVATE(this)->refdict.get(name.getString(), base)) { return base; }
-  return NULL;
+  return nullptr;
 }
 
 /*!
@@ -693,7 +693,7 @@ SoProto::addRoute(const SbName & fromnode, const SbName & fromfield,
 bool
 SoProto::readInterface(SoInput * in)
 {
-  bool ok = PRIVATE(this)->fielddata->readFieldDescriptions(in, this, 4, PRIVATE(this)->externurl == NULL);
+  bool ok = PRIVATE(this)->fielddata->readFieldDescriptions(in, this, 4, PRIVATE(this)->externurl == nullptr);
   if ( ok ) {
     const int numfields = PRIVATE(this)->fielddata->getNumFields();
     for (int i = 0; i < numfields; i++) {
@@ -721,7 +721,7 @@ SoProto::readDefinition(SoInput * in)
   while (ok) {
     ok = SoBase::read(in, child, SoNode::getClassTypeId());
     if (ok) {
-      if (child == NULL) {
+      if (child == nullptr) {
         if (in->eof()) {
           ok = false;
           SoReadError::post(in, "Premature end of file");
@@ -747,7 +747,7 @@ soproto_find_node(SoNode * root, SbName name, SoSearchAction & sa)
 
   sa.apply(root);
 
-  SoNode * ret = NULL;
+  SoNode * ret = nullptr;
 
   if (sa.getPath()) {
     ret = ((SoFullPath*)sa.getPath())->getTail();
@@ -867,8 +867,8 @@ SoProto::createInstanceRoot(SoProtoInstance * inst) const
     if (fromnode && tonode) {
       SoField * from = soproto_find_field(fromnode, fromfieldname);
       SoField * to = soproto_find_field(tonode, tofieldname);
-      SoEngineOutput * output = NULL;
-      if (from == NULL && fromnode->isOfType(SoNodeEngine::getClassTypeId())) {
+      SoEngineOutput * output = nullptr;
+      if (from == nullptr && fromnode->isOfType(SoNodeEngine::getClassTypeId())) {
         output = ((SoNodeEngine*) fromnode)->getOutput(fromfieldname);
       }
 
@@ -907,10 +907,10 @@ SoProto::createInstanceRoot(SoProtoInstance * inst) const
 static SoNode *
 locate_node_copy(SoNode * searchfor, SoNode * org, SoNode * cpy)
 {
-  if (org == NULL) return NULL;
-  if (cpy == NULL) return NULL;
+  if (org == nullptr) return nullptr;
+  if (cpy == nullptr) return nullptr;
 
-  if (org->getTypeId() != cpy->getTypeId()) return NULL;
+  if (org->getTypeId() != cpy->getTypeId()) return nullptr;
   if (org == searchfor) return cpy;
 
   const SoFieldData * fd = org->getFieldData();
@@ -923,7 +923,7 @@ locate_node_copy(SoNode * searchfor, SoNode * org, SoNode * cpy)
     // should never happen (in theory)
     SoDebugError::postWarning("SoProto::locate_node_copy",
                               "SoFieldData mismatch in PROTO scene.");
-    return NULL;
+    return nullptr;
   }
 
   int i;
@@ -933,7 +933,7 @@ locate_node_copy(SoNode * searchfor, SoNode * org, SoNode * cpy)
     SoField * orgf = fd->getField(org, i);
     if (orgf->getTypeId() == sosftype) {
       SoNode * orgnode = ((SoSFNode*) orgf)->getValue();
-      if (orgnode != NULL) {
+      if (orgnode != nullptr) {
         SoField * cpyf = fd2->getField(cpy, i);
         if (cpyf->getTypeId() == sosftype) {
           SoNode * found = locate_node_copy(searchfor, orgnode, ((SoSFNode*) cpyf)->getValue());
@@ -942,7 +942,7 @@ locate_node_copy(SoNode * searchfor, SoNode * org, SoNode * cpy)
         else {
           SoDebugError::postWarning("SoProto::locate_node_copy",
                                     "SoField mismatch in PROTO scene.");
-          return NULL;
+          return nullptr;
         }
       }
     }
@@ -957,7 +957,7 @@ locate_node_copy(SoNode * searchfor, SoNode * org, SoNode * cpy)
       if (found) return found;
     }
   }
-  return NULL;
+  return nullptr;
 }
 
 
@@ -981,7 +981,7 @@ SoProto::connectISRefs(SoProtoInstance * inst, SoNode * src, SoNode * dst) const
     SbName fieldname = PRIVATE(this)->isfieldlist[i];
     fieldname = soproto_find_fieldname(node, fieldname);
     SoField * dstfield = node->getField(fieldname);
-    SoEngineOutput * eventout = NULL;
+    SoEngineOutput * eventout = nullptr;
 
     if (!dstfield) {
       if (node->isOfType(SoNodeEngine::getClassTypeId())) {
@@ -1071,7 +1071,7 @@ SoProto::connectISRefs(SoProtoInstance * inst, SoNode * src, SoNode * dst) const
     }
     else {
       assert(dstfield);
-      SoEngineOutput * output = NULL;
+      SoEngineOutput * output = nullptr;
       if (inst->isOfType(SoNodeEngine::getClassTypeId())) {
         output = ((SoNodeEngine*) inst)->getOutput(iname);
       }

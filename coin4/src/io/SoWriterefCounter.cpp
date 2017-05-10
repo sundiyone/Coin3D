@@ -165,11 +165,11 @@ public:
   static SbString * refwriteprefix;
 
   static void atexit_cleanup(void) {
-    current = NULL;
+    current = nullptr;
     delete refwriteprefix;
-    refwriteprefix = NULL;
+    refwriteprefix = nullptr;
     delete outputdict;
-    outputdict = NULL;
+    outputdict = nullptr;
     CC_MUTEX_DESTRUCT(mutex);
   }
 
@@ -177,7 +177,7 @@ public:
 
 void * SoWriterefCounterP::mutex;
 SoOutput2SoWriterefCounterMap *  SoWriterefCounterP::outputdict;
-SoWriterefCounter *  SoWriterefCounterP::current = NULL; // used to be backwards compatible
+SoWriterefCounter *  SoWriterefCounterP::current = nullptr; // used to be backwards compatible
 SbString *  SoWriterefCounterP::refwriteprefix;
 
 #define PRIVATE(obj) obj->pimpl
@@ -186,7 +186,7 @@ SbString *  SoWriterefCounterP::refwriteprefix;
 
 SoWriterefCounter::SoWriterefCounter(SoOutput * out, SoOutput * copyfrom)
 {
-  SoWriterefCounterP * datafrom = NULL;
+  SoWriterefCounterP * datafrom = nullptr;
   if (copyfrom) {
     SoWriterefCounter * frominst = SoWriterefCounter::instance(copyfrom);
     datafrom = frominst->pimpl;
@@ -246,14 +246,14 @@ SoWriterefCounter::setInstancePrefix(const SbString & s)
 SoWriterefCounter *
 SoWriterefCounter::instance(SoOutput * out)
 {
-  if (out == NULL) {
+  if (out == nullptr) {
     // to be backwards compatible with old code
     return SoWriterefCounterP::current;
   }
 
   CC_MUTEX_LOCK(SoWriterefCounterP::mutex);
 
-  SoWriterefCounter * inst = NULL;
+  SoWriterefCounter * inst = nullptr;
 
   const bool ok = SoWriterefCounterP::outputdict->get(out, inst);
   assert(ok && "no instance");

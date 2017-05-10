@@ -42,7 +42,7 @@ public:
   static bool available(void);
 
   SbGLUTessellator(void (*callback)(void * v0, void * v1, void * v2,
-                                    void * data) = NULL, void * userdata = NULL);
+                                    void * data) = nullptr, void * userdata = nullptr);
   ~SbGLUTessellator(void);
 
   void beginPolygon(const SbVec3f & normal = SbVec3f(0.0f, 0.0f, 0.0f));

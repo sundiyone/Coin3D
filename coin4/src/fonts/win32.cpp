@@ -61,7 +61,7 @@
 bool cc_flww32_initialize(void) { return false; }
 void cc_flww32_exit(void) { }
 
-void * cc_flww32_get_font(const char * COIN_UNUSED_ARG(fontname), int COIN_UNUSED_ARG(sizey), float COIN_UNUSED_ARG(angle), float COIN_UNUSED_ARG(complexity)) { assert(false); return NULL; }
+void * cc_flww32_get_font(const char * COIN_UNUSED_ARG(fontname), int COIN_UNUSED_ARG(sizey), float COIN_UNUSED_ARG(angle), float COIN_UNUSED_ARG(complexity)) { assert(false); return nullptr; }
 void cc_flww32_get_font_name(void * COIN_UNUSED_ARG(font), cc_string * COIN_UNUSED_ARG(str)) { assert(false); }
 void cc_flww32_done_font(void * COIN_UNUSED_ARG(font)) { assert(false); }
 
@@ -71,8 +71,8 @@ void cc_flww32_get_bitmap_kerning(void * COIN_UNUSED_ARG(font), int COIN_UNUSED_
 void cc_flww32_get_vector_kerning(void * COIN_UNUSED_ARG(font), int COIN_UNUSED_ARG(glyph1), int COIN_UNUSED_ARG(glyph2), float * COIN_UNUSED_ARG(x), float * COIN_UNUSED_ARG(y)) { assert(false); }
 void cc_flww32_done_glyph(void * COIN_UNUSED_ARG(font), int COIN_UNUSED_ARG(glyph)) { assert(false); }
 
-struct cc_font_bitmap * cc_flww32_get_bitmap(void * COIN_UNUSED_ARG(font), int COIN_UNUSED_ARG(glyph)) { assert(false); return NULL; }
-struct cc_font_vector_glyph * cc_flww32_get_vector_glyph(void * COIN_UNUSED_ARG(font), unsigned int COIN_UNUSED_ARG(glyph), float COIN_UNUSED_ARG(complexity)){ assert(false); return NULL; }
+struct cc_font_bitmap * cc_flww32_get_bitmap(void * COIN_UNUSED_ARG(font), int COIN_UNUSED_ARG(glyph)) { assert(false); return nullptr; }
+struct cc_font_vector_glyph * cc_flww32_get_vector_glyph(void * COIN_UNUSED_ARG(font), unsigned int COIN_UNUSED_ARG(glyph), float COIN_UNUSED_ARG(complexity)){ assert(false); return nullptr; }
 
 
 #else /* HAVE_WIN32_API */
@@ -154,9 +154,9 @@ struct cc_flww32_globals_s {
 };
 
 static struct cc_flww32_globals_s cc_flww32_globals = {
-  NULL, /* devctx */
-  NULL,
-  NULL
+  nullptr, /* devctx */
+  nullptr,
+  nullptr
 };
 
 /* Callback functions for cleaning up kerninghash table */
@@ -204,8 +204,8 @@ cc_flww32_initialize(void)
   OSVERSIONINFO osvi;
   UINT previous;
 
-  cc_flww32_globals.devctx = CreateDC("DISPLAY", NULL, NULL, NULL);
-  if (cc_flww32_globals.devctx == NULL) {
+  cc_flww32_globals.devctx = CreateDC("DISPLAY", nullptr, nullptr, nullptr);
+  if (cc_flww32_globals.devctx == nullptr) {
     cc_win32_print_error("cc_flww32_initialize", "CreateDC()", GetLastError());
     return false;
   }
@@ -236,10 +236,10 @@ cc_flww32_initialize(void)
   cc_flww32_globals.fontsizehash = cc_dict_construct(17, 0.75f);
 
   /* Setup temporary glyph-struct used during for tessellation */
-  flww32_tessellator.vertexlist = NULL;
-  flww32_tessellator.faceindexlist = NULL;
-  flww32_tessellator.edgeindexlist = NULL;
-  flww32_tessellator.malloclist = NULL;
+  flww32_tessellator.vertexlist = nullptr;
+  flww32_tessellator.faceindexlist = nullptr;
+  flww32_tessellator.edgeindexlist = nullptr;
+  flww32_tessellator.malloclist = nullptr;
 
   /* Are we running Windows 95/98/Me? */
   ZeroMemory(&osvi, sizeof(OSVERSIONINFO));
@@ -273,7 +273,7 @@ cc_flww32_kerninghash_deleteCB1(uintptr_t key, void * val, void * closure)
 {
   cc_dict * khash;
   khash = (cc_dict *) val;
-  cc_dict_apply(khash, cc_flww32_kerninghash_deleteCB2, NULL);
+  cc_dict_apply(khash, cc_flww32_kerninghash_deleteCB2, nullptr);
   cc_dict_destruct(khash);
 }
 void
@@ -281,7 +281,7 @@ cc_flww32_kerninghash_deleteCB2(uintptr_t key, void * val, void * closure)
 {
   cc_dict * khash;
   khash = (cc_dict *) val;
-  cc_dict_apply(khash, cc_flww32_kerninghash_deleteCB3, NULL);
+  cc_dict_apply(khash, cc_flww32_kerninghash_deleteCB3, nullptr);
   cc_dict_destruct(khash);
 }
 void
@@ -316,7 +316,7 @@ namespace {
     this->identifier = identifier;
     SetLastError(0);
     this->previous = static_cast<HFONT>(SelectObject(this->dc, font));
-    if (this->previous == NULL){
+    if (this->previous == nullptr){
       DWORD lastError = GetLastError();
       SoDebugError::post(this->identifier, 
         "Could not select font. HDC: %p, HFONT: %p", this->dc, this->font);
@@ -372,7 +372,7 @@ static HFONT cc_flww32_create_font(const char* fontname, int sizey,
                                    float angle, BOOL bold, BOOL italic)
 {
   HFONT font;
-  static const int disable_utf8 = (coin_getenv("COIN_DISABLE_UTF8") != NULL);
+  static const int disable_utf8 = (coin_getenv("COIN_DISABLE_UTF8") != nullptr);
 
   if (disable_utf8) {
     font = CreateFont(-sizey,
@@ -440,7 +440,7 @@ static HFONT cc_flww32_create_font(const char* fontname, int sizey,
     cc_string_sprintf(str, "CreateFontW(%d, ..., '%s')", sizey, fontname);
     cc_win32_print_error("cc_flww32_get_font", cc_string_get_text(str), lasterr);
     cc_string_destruct(str);
-    return NULL;
+    return nullptr;
   }
   return font;
 }
@@ -448,7 +448,7 @@ static HFONT cc_flww32_create_font(const char* fontname, int sizey,
 /* ************************************************************************* */
 
 /* Allocates and returns a new font id matching the exact fontname.
-   Returns NULL on error.
+   Returns nullptr on error.
 */
 void *
 cc_flww32_get_font(const char * fontname, int sizey, float angle, float complexity)
@@ -480,7 +480,7 @@ cc_flww32_get_font(const char * fontname, int sizey, float angle, float complexi
 
   wfont = cc_flww32_create_font(fontname, sizey, angle, false, false);
   if (!wfont) {
-    return NULL;
+    return nullptr;
   }
 
   /*
@@ -561,9 +561,9 @@ cc_flww32_get_font(const char * fontname, int sizey, float angle, float complexi
   */
 
   FontContext fontContext(cc_flww32_globals.devctx, (HFONT)wfont, "cc_flww32_get_font");
-  if (!fontContext.isValid()) return NULL;
+  if (!fontContext.isValid()) return nullptr;
 
-  nrkpairs = GetKerningPairs(cc_flww32_globals.devctx, 0, NULL);
+  nrkpairs = GetKerningPairs(cc_flww32_globals.devctx, 0, nullptr);
   if (nrkpairs) {
 
     kpairs = (KERNINGPAIR *) malloc(nrkpairs * sizeof(KERNINGPAIR));
@@ -571,7 +571,7 @@ cc_flww32_get_font(const char * fontname, int sizey, float angle, float complexi
     ret = GetKerningPairs(cc_flww32_globals.devctx, nrkpairs, kpairs);
     if (ret == 0) {
       cc_win32_print_error("cc_flww32_get_font", "GetKerningPairs()", GetLastError());
-      return NULL;
+      return nullptr;
     }
 
     if (!cc_dict_get(cc_flww32_globals.font2kerninghash, (uintptr_t) wfont, (void **) &fontkerninghash)) {
@@ -632,7 +632,7 @@ cc_flww32_get_font_name(void * font, cc_string * str)
     return;
   }
 
-  size = cc_win32()->GetTextFace(cc_flww32_globals.devctx, 0, NULL);
+  size = cc_win32()->GetTextFace(cc_flww32_globals.devctx, 0, nullptr);
 
   /* 'size' will never be 0. Then GetTextFaceW would have asserted. */
   s = (char *)malloc(size);
@@ -673,7 +673,7 @@ cc_flww32_done_font(void * font)
 
   if (cc_dict_get(cc_flww32_globals.font2kerninghash, (uintptr_t)font, (void **) &khash)) {
     cc_dict_remove(cc_flww32_globals.font2kerninghash, (uintptr_t)font);
-    cc_dict_apply(khash, cc_flww32_kerninghash_deleteCB2, NULL);
+    cc_dict_apply(khash, cc_flww32_kerninghash_deleteCB2, nullptr);
     cc_dict_destruct(khash);
   }
 
@@ -703,7 +703,7 @@ cc_flww32_get_vector_advance(void * font, int glyph, float * x, float * y)
 {
   LOGFONT lfont;
   GLYPHMETRICS gm;
-  static const int disable_utf8 = (coin_getenv("COIN_DISABLE_UTF8") != NULL);
+  static const int disable_utf8 = (coin_getenv("COIN_DISABLE_UTF8") != nullptr);
 
   /* NOTE: Do not make this matrix 'static'. It seems like Win95/98/ME
      fails if the idmatrix is static. Newer versions seems to not mind
@@ -730,7 +730,7 @@ cc_flww32_get_vector_advance(void * font, int glyph, float * x, float * y)
 			  GGO_METRICS, /* format of data to return */
 			  &gm, /* metrics */
 			  0, /* size of buffer for data */
-			  NULL, /* buffer for data */
+			  nullptr, /* buffer for data */
 			  &identitymatrix); /* transformation matrix */
   } else {
     ret = GetGlyphOutlineW(cc_flww32_globals.devctx,
@@ -738,7 +738,7 @@ cc_flww32_get_vector_advance(void * font, int glyph, float * x, float * y)
 			   GGO_METRICS, /* format of data to return */
 			   &gm, /* metrics */
 			   0, /* size of buffer for data */
-			   NULL, /* buffer for data */
+			   nullptr, /* buffer for data */
 			   &identitymatrix); /* transformation matrix */
   }
 
@@ -747,7 +747,7 @@ cc_flww32_get_vector_advance(void * font, int glyph, float * x, float * y)
     cc_string_construct(&str);
     cc_string_sprintf(&str,
                       "GetGlyphOutlineW(HDC=%p, 0x%x '%c', GGO_METRICS, "
-                      "<metricsstruct>, 0, NULL, <idmatrix>)",
+                      "<metricsstruct>, 0, nullptr, <idmatrix>)",
                       cc_flww32_globals.devctx, glyph, (unsigned char)glyph);
     cc_win32_print_error("cc_flww32_get_vector_advance", cc_string_get_text(&str), GetLastError());
     cc_string_clean(&str);
@@ -771,7 +771,7 @@ void
 cc_flww32_get_bitmap_kerning(void * font, int glyph1, int glyph2, int * x, int * y)
 {
 
-  float * kerning = NULL;
+  float * kerning = nullptr;
   cc_dict * khash;
 
   if (cc_dict_get(cc_flww32_globals.font2kerninghash, (uintptr_t)font, (void **) &khash)) {
@@ -794,7 +794,7 @@ void
 cc_flww32_get_vector_kerning(void * font, int glyph1, int glyph2, float * x, float * y)
 {
 
-  float * kerning = NULL;
+  float * kerning = nullptr;
   cc_dict * khash;
   DWORD ret;
   DWORD size;
@@ -833,9 +833,9 @@ cc_flww32_done_glyph(void * font, int glyph)
 struct cc_font_bitmap *
 cc_flww32_get_bitmap(void * font, int glyph)
 {
-  struct cc_font_bitmap * bm = NULL;
+  struct cc_font_bitmap * bm = nullptr;
   GLYPHMETRICS gm;
-  static const int disable_utf8 = (coin_getenv("COIN_DISABLE_UTF8") != NULL);
+  static const int disable_utf8 = (coin_getenv("COIN_DISABLE_UTF8") != nullptr);
 
   /* NOTE: Do not make this matrix 'static'. It seems like Win95/98/ME
      fails if the idmatrix is static. Newer versions seems to not mind
@@ -846,12 +846,12 @@ cc_flww32_get_bitmap(void * font, int glyph)
                                 { 0, 0 }, { 0, 1 } };
   DWORD ret;
   DWORD size = 0;
-  uint8_t * w32bitmap = NULL;
+  uint8_t * w32bitmap = nullptr;
 
   /* Connect device context to font. */
   FontContext fontContext(cc_flww32_globals.devctx, (HFONT)font, "cc_flww32_get_bitmap");
   if (!fontContext.isValid()) {
-    return NULL;
+    return nullptr;
   }
 
   /* The GetGlyphOutlineW function retrieves the outline or bitmap for
@@ -864,7 +864,7 @@ cc_flww32_get_bitmap(void * font, int glyph)
 			  GGO_GRAY8_BITMAP, /* format of data to return */
 			  &gm, /* metrics */
 			  0, /* size of buffer for data */
-			  NULL, /* buffer for data */
+			  nullptr, /* buffer for data */
 			  &identitymatrix); /* transformation matrix */
   } else {
     ret = GetGlyphOutlineW(cc_flww32_globals.devctx,
@@ -872,7 +872,7 @@ cc_flww32_get_bitmap(void * font, int glyph)
 			   GGO_GRAY8_BITMAP, /* format of data to return */
 			   &gm, /* metrics */
 			   0, /* size of buffer for data */
-			   NULL, /* buffer for data */
+			   nullptr, /* buffer for data */
 			   &identitymatrix); /* transformation matrix */
   }
 
@@ -891,11 +891,11 @@ cc_flww32_get_bitmap(void * font, int glyph)
     cc_string_construct(&str);
     cc_string_sprintf(&str,
                       "GetGlyphOutlineW(HDC=%p, 0x%x '%c', GGO_GRAY8_BITMAP, "
-                      "<metricsstruct>, 0, NULL, <idmatrix>)",
+                      "<metricsstruct>, 0, nullptr, <idmatrix>)",
                       cc_flww32_globals.devctx, glyph, (unsigned char)glyph);
     cc_win32_print_error("cc_flww32_get_bitmap", cc_string_get_text(&str), GetLastError());
     cc_string_clean(&str);
-    return NULL;
+    return nullptr;
   }
 
   assert((ret < 1024*1024) && "bogus buffer size");
@@ -905,7 +905,7 @@ cc_flww32_get_bitmap(void * font, int glyph)
      for at least the space char glyph for some charsets. */
   if (size > 0) {
     w32bitmap = (uint8_t *)malloc(ret);
-    assert(w32bitmap != NULL); /* FIXME: be robust. 20030530 mortene. */
+    assert(w32bitmap != nullptr); /* FIXME: be robust. 20030530 mortene. */
 
     if (disable_utf8) {
       ret = GetGlyphOutline(cc_flww32_globals.devctx,
@@ -935,7 +935,7 @@ cc_flww32_get_bitmap(void * font, int glyph)
       cc_win32_print_error("cc_flww32_get_bitmap", cc_string_get_text(&str), GetLastError());
       cc_string_clean(&str);
       free(w32bitmap);
-      return NULL;
+      return nullptr;
     }
   }
 
@@ -948,12 +948,12 @@ cc_flww32_get_bitmap(void * font, int glyph)
   bm->rows = gm.gmBlackBoxY;
   bm->width = gm.gmBlackBoxX;
   bm->pitch = bm->width;
-  bm->buffer = NULL;
+  bm->buffer = nullptr;
   /* FIXME: mono hardcoded to false. what about bitmapped fonts? any
      chance we could get one? if yes, we need to query and handle this
      case appropriately. 20040929 tamer. */
   bm->mono = 0;
-  if (w32bitmap != NULL) { /* Could be NULL for at least space char glyph. */
+  if (w32bitmap != nullptr) { /* Could be nullptr for at least space char glyph. */
     unsigned int i, j;
     unsigned char *dst, * src, * next_row;
 
@@ -985,8 +985,8 @@ static void
 flww32_getVerticesFromPath(HDC hdc)
 {
 
-  LPPOINT p_points = NULL;
-  LPBYTE p_types = NULL;
+  LPPOINT p_points = nullptr;
+  LPBYTE p_types = nullptr;
   int numpoints, i, lastmoveto;
   uintptr_t tmp;
 
@@ -998,7 +998,7 @@ flww32_getVerticesFromPath(HDC hdc)
   }
 
   /* determine the number of endpoints in the path*/
-  numpoints = GetPath(hdc, NULL, NULL, 0);
+  numpoints = GetPath(hdc, nullptr, nullptr, 0);
   if (numpoints < 0) {
     cc_win32_print_error("flww32_getVerticesFromPath", "Failed when handeling TrueType font; "
                          "GetPath()", GetLastError());
@@ -1053,8 +1053,8 @@ flww32_getVerticesFromPath(HDC hdc)
         flww32_addTessVertex(p_points[i].x, p_points[i].y);
       }
     }
-    if (p_points != NULL) free(p_points);
-    if (p_types != NULL) free(p_types);
+    if (p_points != nullptr) free(p_points);
+    if (p_types != nullptr) free(p_types);
   }
 
 }
@@ -1072,27 +1072,27 @@ cc_flww32_get_vector_glyph(void * font, unsigned int glyph, float complexity)
   unsigned int size;
   uintptr_t cast_aid;
   UINT previous;
-  static const int disable_utf8 = (coin_getenv("COIN_DISABLE_UTF8") != NULL);
+  static const int disable_utf8 = (coin_getenv("COIN_DISABLE_UTF8") != nullptr);
 
 
   if (!GLUWrapper()->available) {
     SoDebugError::post("cc_flww32_get_vector_glyph",
                        "GLU library could not be loaded.");
-    return NULL;
+    return nullptr;
   }
 
-  if ((GLUWrapper()->gluNewTess == NULL) ||
-      (GLUWrapper()->gluTessCallback == NULL) ||
-      (GLUWrapper()->gluTessBeginPolygon == NULL) ||
-      (GLUWrapper()->gluTessEndContour == NULL) ||
-      (GLUWrapper()->gluTessEndPolygon == NULL) ||
-      (GLUWrapper()->gluDeleteTess == NULL) ||
-      (GLUWrapper()->gluTessVertex == NULL) ||
-      (GLUWrapper()->gluTessBeginContour == NULL)) {
+  if ((GLUWrapper()->gluNewTess == nullptr) ||
+      (GLUWrapper()->gluTessCallback == nullptr) ||
+      (GLUWrapper()->gluTessBeginPolygon == nullptr) ||
+      (GLUWrapper()->gluTessEndContour == nullptr) ||
+      (GLUWrapper()->gluTessEndPolygon == nullptr) ||
+      (GLUWrapper()->gluDeleteTess == nullptr) ||
+      (GLUWrapper()->gluTessVertex == nullptr) ||
+      (GLUWrapper()->gluTessBeginContour == nullptr)) {
     SoDebugError::post("cc_flww32_get_vector_glyph",
                        "Unable to bind required GLU tessellation "
                        "functions for 3D Win32 TrueType font support.");
-    return NULL;
+    return nullptr;
   }
 
 
@@ -1103,18 +1103,18 @@ cc_flww32_get_vector_glyph(void * font, unsigned int glyph, float complexity)
      there -- to simplify the client code below. 20031118 mortene. */
 
   /*
-     If NULL is returned due to an error, glyph3d.c will load the
+     If nullptr is returned due to an error, glyph3d.c will load the
      default font instead.
   */
 
   /* FIXME: don't do the DC- and bitmap-initialization for each and
      every glyph -- once should be enough. 20050706 mortene. */
 
-  memdc = CreateCompatibleDC(NULL);
-  if (memdc == NULL) {
+  memdc = CreateCompatibleDC(nullptr);
+  if (memdc == nullptr) {
     cc_win32_print_error("cc_flww32_get_vector_glyph","Error calling CreateCompatibleDC(). "
                          "Cannot vectorize font.", GetLastError());
-    return NULL;
+    return nullptr;
   }
 
   /* About this: see comment on SetTextAlign() call in
@@ -1122,30 +1122,30 @@ cc_flww32_get_vector_glyph(void * font, unsigned int glyph, float complexity)
   previous = SetTextAlign(memdc, TA_BASELINE);
   assert(previous != GDI_ERROR);
 
-  screendc = GetDC(NULL);
-  if (screendc == NULL) {
+  screendc = GetDC(nullptr);
+  if (screendc == nullptr) {
     cc_win32_print_error("cc_flww32_get_vector_glyph","Error calling GetDC(). "
                          "Cannot vectorize font.", GetLastError());
-    return NULL;
+    return nullptr;
   }
 
   membmp = CreateCompatibleBitmap(screendc, 300, 300);
-  if (membmp == NULL) {
+  if (membmp == nullptr) {
     cc_win32_print_error("cc_flww32_get_vector_glyph","Error calling CreateCompatibleBitmap(). "
                          "Cannot vectorize font.", GetLastError());
-    return NULL;
+    return nullptr;
   }
 
-  if (SelectObject(memdc, membmp) == NULL) {
+  if (SelectObject(memdc, membmp) == nullptr) {
     cc_win32_print_error("cc_flww32_get_vector_glyph","Error calling SelectObject(). "
                          "Cannot vectorize font.", GetLastError());
-    return NULL;
+    return nullptr;
   }
 
-  if (SelectObject(memdc, font) == NULL) {
+  if (SelectObject(memdc, font) == nullptr) {
     cc_win32_print_error("cc_flww32_get_vector_glyph","Error calling SelectObject(). "
                          "Cannot vectorize font.", GetLastError());
-    return NULL;
+    return nullptr;
   }
 
   if (SetBkMode(memdc, TRANSPARENT) == 0) {
@@ -1155,37 +1155,37 @@ cc_flww32_get_vector_glyph(void * font, unsigned int glyph, float complexity)
   }
   if (BeginPath(memdc) == 0) {
     cc_win32_print_error("cc_flww32_get_vector_glyph","Error calling BeginPath(). Cannot vectorize font.", GetLastError());
-    return NULL;
+    return nullptr;
   }
   if (disable_utf8) {
     glyph_str[0] = glyph;
     if (TextOut(memdc, 0, 0, glyph_str, 1) == 0) {
       cc_win32_print_error("cc_flww32_get_vector_glyph","Error calling TextOut(). Cannot vectorize font.", GetLastError());
-      return NULL;
+      return nullptr;
     }
   } else {
     glyph_strw[0] = glyph;
     if (TextOutW(memdc, 0, 0, glyph_strw, 1) == 0) {
       cc_win32_print_error("cc_flww32_get_vector_glyph","Error calling TextOutW(). Cannot vectorize font.", GetLastError());
-      return NULL;
+      return nullptr;
     }
   }
   if (EndPath(memdc) == 0) {
     cc_win32_print_error("cc_flww32_get_vector_glyph","Error calling EndPath(). Cannot vectorize font.", GetLastError());
-    return NULL;
+    return nullptr;
   }
 
   /* FIXME: very inefficient to do initialization of the GLU
      tessellator object, and the cc_list instances, for each and every
      glyph to vectorize -- do this only once. 20050706 mortene. */
 
-  if (flww32_tessellator.vertexlist == NULL)
+  if (flww32_tessellator.vertexlist == nullptr)
     flww32_tessellator.vertexlist = cc_list_construct();
-  if (flww32_tessellator.faceindexlist == NULL)
+  if (flww32_tessellator.faceindexlist == nullptr)
     flww32_tessellator.faceindexlist = cc_list_construct();
-  if (flww32_tessellator.edgeindexlist == NULL)
+  if (flww32_tessellator.edgeindexlist == nullptr)
     flww32_tessellator.edgeindexlist = cc_list_construct();
-  if (flww32_tessellator.malloclist == NULL)
+  if (flww32_tessellator.malloclist == nullptr)
     flww32_tessellator.malloclist = cc_list_construct();
 
   flww32_tessellator.tessellator_object = GLUWrapper()->gluNewTess();
@@ -1203,7 +1203,7 @@ cc_flww32_get_vector_glyph(void * font, unsigned int glyph, float complexity)
   GLUWrapper()->gluTessCallback(flww32_tessellator.tessellator_object, GLU_TESS_COMBINE, (gluTessCallback_cb_t)flww32_combineCallback);
   GLUWrapper()->gluTessCallback(flww32_tessellator.tessellator_object, GLU_TESS_ERROR, (gluTessCallback_cb_t)flww32_errorCallback);
 
-  GLUWrapper()->gluTessBeginPolygon(flww32_tessellator.tessellator_object, NULL);
+  GLUWrapper()->gluTessBeginPolygon(flww32_tessellator.tessellator_object, nullptr);
 
   flww32_getVerticesFromPath(memdc);
 
@@ -1413,7 +1413,7 @@ flww32_buildVertexList(struct cc_font_vector_glyph * newglyph, int size)
   }
 
   cc_list_destruct(flww32_tessellator.vertexlist);
-  flww32_tessellator.vertexlist = NULL;
+  flww32_tessellator.vertexlist = nullptr;
 }
 
 static void
@@ -1426,7 +1426,7 @@ flww32_cleanupMallocList(void)
       free(cc_list_get(flww32_tessellator.malloclist, i));
     }
     cc_list_destruct(flww32_tessellator.malloclist);
-    flww32_tessellator.malloclist = NULL;
+    flww32_tessellator.malloclist = nullptr;
   }
 }
 
@@ -1448,7 +1448,7 @@ flww32_buildEdgeIndexList(struct cc_font_vector_glyph * newglyph)
   }
 
   cc_list_destruct(flww32_tessellator.edgeindexlist);
-  flww32_tessellator.edgeindexlist = NULL;
+  flww32_tessellator.edgeindexlist = nullptr;
 }
 
 static void
@@ -1469,7 +1469,7 @@ flww32_buildFaceIndexList(struct cc_font_vector_glyph * newglyph)
   }
 
   cc_list_destruct(flww32_tessellator.faceindexlist);
-  flww32_tessellator.faceindexlist = NULL;
+  flww32_tessellator.faceindexlist = nullptr;
 
 }
 

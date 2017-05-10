@@ -107,12 +107,12 @@ SoScXMLSpinTarget::cleanClass(void)
   SoScXMLSpinTarget::classTypeId = SoType::badType();
 }
 
-SoScXMLSpinTarget * SoScXMLSpinTarget::theSingleton = NULL;
+SoScXMLSpinTarget * SoScXMLSpinTarget::theSingleton = nullptr;
 
 SoScXMLSpinTarget *
 SoScXMLSpinTarget::constructSingleton(void)
 {
-  assert(SoScXMLSpinTarget::theSingleton == NULL);
+  assert(SoScXMLSpinTarget::theSingleton == nullptr);
   SoScXMLSpinTarget::theSingleton =
     static_cast<SoScXMLSpinTarget *>(SoScXMLSpinTarget::classTypeId.createInstance());
   return SoScXMLSpinTarget::theSingleton;
@@ -121,15 +121,15 @@ SoScXMLSpinTarget::constructSingleton(void)
 void
 SoScXMLSpinTarget::destructSingleton(void)
 {
-  assert(SoScXMLSpinTarget::theSingleton != NULL);
+  assert(SoScXMLSpinTarget::theSingleton != nullptr);
   delete SoScXMLSpinTarget::theSingleton;
-  SoScXMLSpinTarget::theSingleton = NULL;
+  SoScXMLSpinTarget::theSingleton = nullptr;
 }
 
 SoScXMLSpinTarget *
 SoScXMLSpinTarget::singleton(void)
 {
-  assert(SoScXMLSpinTarget::theSingleton != NULL);
+  assert(SoScXMLSpinTarget::theSingleton != nullptr);
   return SoScXMLSpinTarget::theSingleton;
 }
 
@@ -244,7 +244,7 @@ SoScXMLSpinTarget::processOneEvent(const ScXMLEvent * event)
 void
 SoScXMLSpinTarget::reorientCamera(SoCamera * camera, const SbRotation & rot)
 {
-  if (camera == NULL) return;
+  if (camera == nullptr) return;
 
   // Find global coordinates of focal point.
   SbVec3f direction;

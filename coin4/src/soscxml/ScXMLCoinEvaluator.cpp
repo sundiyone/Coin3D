@@ -145,7 +145,7 @@ ScXMLCoinEvaluator::setAtLocation(const char * location, ScXMLDataObj * obj)
       PRIVATE(this)->temporaries.erase(it); // erase it
     }
 
-    ScXMLConstantDataObj * cobj = NULL;
+    ScXMLConstantDataObj * cobj = nullptr;
     if (obj->getTypeId().isDerivedFrom(ScXMLConstantDataObj::getClassTypeId())) {
       cobj = static_cast<ScXMLConstantDataObj *>(obj);
     } else {
@@ -183,7 +183,7 @@ ScXMLCoinEvaluator::setAtLocation(const char * location, ScXMLDataObj * obj)
       // no such datamodel variable
       return false;
     }
-    ScXMLConstantDataObj * cobj = NULL;
+    ScXMLConstantDataObj * cobj = nullptr;
     if (obj->getTypeId().isDerivedFrom(ScXMLConstantDataObj::getClassTypeId())) {
       cobj = static_cast<ScXMLConstantDataObj *>(obj);
     } else {
@@ -221,7 +221,7 @@ ScXMLCoinEvaluator::setAtLocation(const char * location, ScXMLDataObj * obj)
   //   location is scene graph?
   //   location is globalfield?
 
-  SoFieldContainer * fieldcontainer = NULL;
+  SoFieldContainer * fieldcontainer = nullptr;
   SbName fieldname(SbName::empty());
 
   if (strncmp(location, "coin:camera.", 12) == 0) {
@@ -283,11 +283,11 @@ ScXMLCoinEvaluator::locate(const char * location) const
     std::map<const char *, ScXMLDataObj *>::const_iterator it =
       PRIVATE(this)->temporaries.find(varname.getString());
     if (it == PRIVATE(this)->temporaries.end()) {
-      return NULL;
+      return nullptr;
     }
     return it->second;
   }
-  else if (strpbrk(location, ":.") == NULL) {
+  else if (strpbrk(location, ":.") == nullptr) {
     // maybe implicit location path
     SbName varname(location);
     std::map<const char *, ScXMLDataObj *>::const_iterator it =
@@ -305,37 +305,37 @@ ScXMLCoinEvaluator::locate(const char * location) const
     if (!dataelt) {
       // no such datamodel variable
       //printf("error: could not find data named '%s'\n", varname.getString());
-      return NULL;
+      return nullptr;
     }
     const char * expr = dataelt->getExprAttribute();
     ScXMLDataObj * obj = this->evaluate(expr);
     if (!obj) {
       // could not evaluate
       //printf("error: could not evaluate data named '%s'\n", varname.getString());
-      return NULL;
+      return nullptr;
     }
 
-    ScXMLConstantDataObj * cobj = NULL;
+    ScXMLConstantDataObj * cobj = nullptr;
     if (obj->getTypeId().isDerivedFrom(ScXMLConstantDataObj::getClassTypeId())) {
       cobj = static_cast<ScXMLConstantDataObj *>(obj);
     } else {
       if (!obj->getTypeId().isDerivedFrom(ScXMLExprDataObj::getClassTypeId())) {
         // illegal obj
         //printf("error: neither constant not expression ('%s')\n", varname.getString());
-        return NULL;
+        return nullptr;
       }
       ScXMLExprDataObj * expr = static_cast<ScXMLExprDataObj *>(obj);
       ScXMLDataObj * res = expr->evaluate(sm);
       if (!res) {
         // unable to evaluate
         //printf("error: evaluate for ('%s') failed\n", varname.getString());
-        return NULL;
+        return nullptr;
       }
       assert(res);
       if (!res->getTypeId().isDerivedFrom(ScXMLConstantDataObj::getClassTypeId())) {
         // did not evaluate
         //printf("error: evaluate for ('%s') and still not constant\n", varname.getString());
-        return NULL;
+        return nullptr;
       }
       cobj = static_cast<ScXMLConstantDataObj *>(res);
     }
@@ -354,21 +354,21 @@ ScXMLCoinEvaluator::locate(const char * location) const
     const char * assoc = event->getAssociation(assocname);
     if (!assoc) {
       // invalid event hook?
-      return NULL;
+      return nullptr;
     }
     ScXMLDataObj * dataobj = this->evaluate(assoc);
     if (!dataobj) {
-      return NULL;
+      return nullptr;
     }
     if (dataobj->getTypeId().isDerivedFrom(ScXMLExprDataObj::getClassTypeId())) {
       ScXMLExprDataObj * expr = static_cast<ScXMLExprDataObj *>(dataobj);
       dataobj = expr->evaluate(sm);
       if (!dataobj) {
-        return NULL;
+        return nullptr;
       }
     }
     if (!dataobj->getTypeId().isDerivedFrom(ScXMLConstantDataObj::getClassTypeId())) {
-      return NULL;
+      return nullptr;
     }
     return dataobj;
   }
@@ -379,7 +379,7 @@ ScXMLCoinEvaluator::locate(const char * location) const
   }
   if (strncmp(location, "coin:global.", 12) == 0) {
   }
-  return NULL;
+  return nullptr;
 }
 
 /*!
@@ -598,20 +598,20 @@ ScXMLCoinLengthFuncExprDataObj::createFor(ScXMLDataObj * obj)
     default:
       break;
     }
-    return NULL;
+    return nullptr;
   }
   else if (obj->isOfType(ScXMLExprDataObj::getClassTypeId())) {
     return new ScXMLCoinLengthFuncExprDataObj(obj);
   }
   else {
-    return NULL;
+    return nullptr;
   }
-  return NULL;
+  return nullptr;
 }
 
 
 ScXMLCoinLengthFuncExprDataObj::ScXMLCoinLengthFuncExprDataObj(void)
-: expr(NULL)
+: expr(nullptr)
 {
 }
 
@@ -624,7 +624,7 @@ ScXMLCoinLengthFuncExprDataObj::~ScXMLCoinLengthFuncExprDataObj(void)
 {
   if (this->expr) {
     delete this->expr;
-    this->expr = NULL;
+    this->expr = nullptr;
   }
 }
 
@@ -633,7 +633,7 @@ ScXMLCoinLengthFuncExprDataObj::setExpr(ScXMLDataObj * obj)
 {
   if (this->expr) {
     delete this->expr;
-    this->expr = NULL;
+    this->expr = nullptr;
   }
   this->expr = obj;
 }
@@ -642,7 +642,7 @@ bool
 ScXMLCoinLengthFuncExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj * & pointer) const
 {
   assert(this->expr);
-  ScXMLSbDataObj * evaled = NULL;
+  ScXMLSbDataObj * evaled = nullptr;
   if (this->expr->isOfType(ScXMLExprDataObj::getClassTypeId())) {
     ScXMLExprDataObj * rhsexpr = static_cast<ScXMLExprDataObj *>(this->expr);
     ScXMLDataObj * rhsevaled = rhsexpr->evaluate(sm);
@@ -732,11 +732,11 @@ template <class EXPECTED_TYPE>
 bool
 TestReturnValue(const std::string & evaluationString, typename DataObjDemangler< EXPECTED_TYPE >::RET_VAL retVal, boost::scoped_ptr<ScXMLEvaluator> & evaluator)
 {
-  ScXMLDataObj * res = NULL;
+  ScXMLDataObj * res = nullptr;
 
 
   res = evaluator->evaluate(evaluationString.c_str());
-  COIN_REQUIRE_MESSAGE(res != NULL, std::string("Evaluation returned nothing for expression: ") + evaluationString);
+  COIN_REQUIRE_MESSAGE(res != nullptr, std::string("Evaluation returned nothing for expression: ") + evaluationString);
   //FIXME: Should really remember to delete res before returning from this point on,
   //but don't bother about a memory leak when there are bigger fish to
   //fry. 20090613 BFG

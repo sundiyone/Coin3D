@@ -101,13 +101,13 @@ SoType SoFieldContainer::classTypeId STATIC_SOTYPE_INIT;
 
 // used by setUserData() and getUserData()
 typedef SbHash<const SoFieldContainer *, void *> UserDataMap;
-static UserDataMap * sofieldcontainer_userdata_dict = NULL;
+static UserDataMap * sofieldcontainer_userdata_dict = nullptr;
 
 void
 sofieldcontainer_userdata_cleanup(void)
 {
   delete sofieldcontainer_userdata_dict;
-  sofieldcontainer_userdata_dict = NULL;
+  sofieldcontainer_userdata_dict = nullptr;
 }
 
 // *************************************************************************
@@ -233,7 +233,7 @@ SoFieldContainer::initClass(void)
   assert(inherited::getClassTypeId() != SoType::badType());
 
   SoFieldContainer::classTypeId =
-    SoType::createType(inherited::getClassTypeId(), "FieldContainer", NULL);
+    SoType::createType(inherited::getClassTypeId(), "FieldContainer", nullptr);
 
   sofieldcontainer_userdata_dict = new UserDataMap;
   coin_atexit(sofieldcontainer_userdata_cleanup, CC_ATEXIT_NORMAL);
@@ -317,8 +317,8 @@ SoFieldContainer::fieldsAreEqual(const SoFieldContainer * container) const
 {
   const SoFieldData * fd0 = this->getFieldData();
 
-  if (fd0 == NULL) {
-    if (container->getFieldData() == NULL) return true;
+  if (fd0 == nullptr) {
+    if (container->getFieldData() == nullptr) return true;
     return false;
   }
 
@@ -339,8 +339,8 @@ SoFieldContainer::copyFieldValues(const SoFieldContainer * container,
 {
   const SoFieldData * fd0 = this->getFieldData();
 
-  if (fd0 == NULL) {
-    if (container->getFieldData() == NULL) return;
+  if (fd0 == nullptr) {
+    if (container->getFieldData() == nullptr) return;
 #if COIN_DEBUG
     SoDebugError::postInfo("SoFieldContainer::copyFieldValues",
                            "tried to copy from fieldcontainer of wrong type");
@@ -364,7 +364,7 @@ SoFieldContainer::copyFieldValues(const SoFieldContainer * container,
 bool
 SoFieldContainer::set(const char * const fielddata)
 {
-  return this->set(fielddata, NULL);
+  return this->set(fielddata, nullptr);
 }
 
 /*!
@@ -377,7 +377,7 @@ SoFieldContainer::set(const char * const fielddata)
 void
 SoFieldContainer::get(SbString & fielddata)
 {
-  this->get(fielddata, NULL);
+  this->get(fielddata, nullptr);
 }
 
 
@@ -392,12 +392,12 @@ int
 SoFieldContainer::getFields(SoFieldList & fields) const
 {
   const SoFieldData * fielddata = this->getFieldData();
-  if ( fielddata == NULL ) return 0;
+  if ( fielddata == nullptr ) return 0;
   const int numfields = fielddata->getNumFields();
   int fieldsadded = 0;
   for ( int i = 0; i < numfields; i++ ) {
     SoField * field = fielddata->getField(this, i);
-    assert(field != NULL);
+    assert(field != nullptr);
     switch ( field->getFieldType() ) {
     // these field types are ignored
     case SoField::EVENTIN_FIELD:
@@ -423,7 +423,7 @@ int
 SoFieldContainer::getAllFields(SoFieldList & fields) const
 {
   const SoFieldData * fielddata = this->getFieldData();
-  if ( fielddata == NULL ) return 0;
+  if ( fielddata == nullptr ) return 0;
   int numfields = fielddata->getNumFields();
   for ( int i=0; i < numfields; i++ )
     fields.append(fielddata->getField(this, i));
@@ -432,13 +432,13 @@ SoFieldContainer::getAllFields(SoFieldList & fields) const
 
 /*!
   This method returns a pointer to the field with \a name, or
-  \c NULL if no such field exists.
+  \c nullptr if no such field exists.
 */
 SoField *
 SoFieldContainer::getField(const SbName & name) const
 {
   const SoFieldData * fields = this->getFieldData();
-  if (!fields) return NULL;
+  if (!fields) return nullptr;
 
   const int numfields = fields->getNumFields();
   for (int i = 0; i < numfields; i++) {
@@ -446,29 +446,29 @@ SoFieldContainer::getField(const SbName & name) const
       return fields->getField(this, i);
   }
 
-  return NULL;
+  return nullptr;
 }
 
 /*!
   This method returns a pointer to the eventIn with name \a name,
-  or \c NULL if no such eventIn exists.
+  or \c nullptr if no such eventIn exists.
 */
 SoField *
 SoFieldContainer::getEventIn(const SbName & name) const
 {
   SoField * f = this->getField(name);
-  return (f && (f->getFieldType() == SoField::EVENTIN_FIELD)) ? f : NULL;
+  return (f && (f->getFieldType() == SoField::EVENTIN_FIELD)) ? f : nullptr;
 }
 
 /*!
   This method returns a pointer to the eventOut with name \a name,
-  or \c NULL if no such eventOut exists.
+  or \c nullptr if no such eventOut exists.
 */
 SoField *
 SoFieldContainer::getEventOut(const SbName & name) const
 {
   SoField * f = this->getField(name);
-  return (f && (f->getFieldType() == SoField::EVENTOUT_FIELD)) ? f : NULL;
+  return (f && (f->getFieldType() == SoField::EVENTOUT_FIELD)) ? f : nullptr;
 }
 
 
@@ -624,7 +624,7 @@ SoFieldContainer::get(SbString & fielddata, SoOutput * out)
   if (size > 0) {
     // Strip off header.
     char * start = strstr(static_cast<char *>(buffer), "\n\n");
-    if (start != NULL) {
+    if (start != nullptr) {
       start += 2;
       fielddata = start;
     }
@@ -736,12 +736,12 @@ SoFieldContainer::getIsBuiltIn(void) const
 
 /*!
   Returns a pointer to the class-wide field data storage object
-  for this instance. If no fields are present, returns \c NULL.
+  for this instance. If no fields are present, returns \c nullptr.
  */
 const SoFieldData *
 SoFieldContainer::getFieldData(void) const
 {
-  return NULL;
+  return nullptr;
 }
 
 
@@ -871,7 +871,7 @@ SoFieldContainer::addCopy(const SoFieldContainer * orig,
 
 /*!
   Returns the copy of \a orig, if any. If no copy exists, we return a
-  \c NULL pointer.
+  \c nullptr pointer.
  */
 SoFieldContainer *
 SoFieldContainer::checkCopy(const SoFieldContainer * orig)
@@ -886,7 +886,7 @@ SoFieldContainer::checkCopy(const SoFieldContainer * orig)
   // FIXME: ugly constness cast. 20050520 mortene.
   return const_cast<SoFieldContainer *>
     (
-     copiedinstances->get(orig, fccopy) ? fccopy : NULL
+     copiedinstances->get(orig, fccopy) ? fccopy : nullptr
      );
 }
 
@@ -905,7 +905,7 @@ SoFieldContainer::checkCopy(const SoFieldContainer * orig)
 
   If copyContents() is called directly (instead of using copy()), it's
   assumed that the user only wants to copy the field values, and we
-  just return NULL here. This is done to match how it's done in SGI
+  just return nullptr here. This is done to match how it's done in SGI
   Inventor.
 
   \sa checkCopy()
@@ -919,9 +919,9 @@ SoFieldContainer::findCopy(const SoFieldContainer * orig,
 
   // Sometimes copyContents() is called directly (initCopyDict() is
   // not called first) to just copy the fields of a single node. This
-  // is often done in SGI example code. We should just return NULL
+  // is often done in SGI example code. We should just return nullptr
   // here in those cases to be compatible with SGI Inventor.
-  if (copydict->copiedinstancestack->getLength() == 0) return NULL;
+  if (copydict->copiedinstancestack->getLength() == 0) return nullptr;
 
   SoFieldContainerCopyMap * copiedinstances = (*(copydict->copiedinstancestack))[0];
   ContentsCopiedMap * contentscopied  = (*(copydict->contentscopiedstack))[0];
@@ -931,7 +931,7 @@ SoFieldContainer::findCopy(const SoFieldContainer * orig,
 
   const SoNode * protonode = coin_safe_cast<const SoNode *>(orig);
   SoProtoInstance * protoinst = protonode ?
-    SoProtoInstance::findProtoInstance(protonode) : NULL;
+    SoProtoInstance::findProtoInstance(protonode) : nullptr;
 
   SoFieldContainer * cp = SoFieldContainer::checkCopy(orig);
   if (!cp) {
@@ -951,7 +951,7 @@ SoFieldContainer::findCopy(const SoFieldContainer * orig,
       newinst->copyContents(protoinst, false);
     }
     else {
-      const SoFieldContainer * ccp = NULL;
+      const SoFieldContainer * ccp = nullptr;
       if (orig->isOfType(SoProto::getClassTypeId())) {
         // just copy the pointer. A PROTO definition is
         // read-only. It's not possible to change it after it has been
@@ -1265,7 +1265,7 @@ SoFieldContainer::setUserData(void * userdata) const
 
 /*!
   Return the generic user data pointer for this field container, or
-  NULL if no user data has been set.
+  nullptr if no user data has been set.
 
   \sa setUserData()
   \since Coin 2.0
@@ -1273,11 +1273,11 @@ SoFieldContainer::setUserData(void * userdata) const
 void *
 SoFieldContainer::getUserData(void) const
 {
-  void * tmp = NULL;
+  void * tmp = nullptr;
   if (sofieldcontainer_userdata_dict->get(this, tmp)) {
     return tmp;
   }
-  return NULL;
+  return nullptr;
 }
 
 #undef FLAG_DONOTIFY

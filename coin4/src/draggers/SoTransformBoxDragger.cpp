@@ -397,13 +397,13 @@ SoTransformBoxDragger::setUpConnections(bool onoff, bool doitalways)
     this->removeChildDragger(coin_assert_cast<SoDragger *>(this->getAnyPart("translator5", false)));
     this->removeChildDragger(coin_assert_cast<SoDragger *>(this->getAnyPart("translator6", false)));
 
-    if (this->translFieldSensor->getAttachedField() != NULL) {
+    if (this->translFieldSensor->getAttachedField() != nullptr) {
       this->translFieldSensor->detach();
     }
-    if (this->rotFieldSensor->getAttachedField() != NULL) {
+    if (this->rotFieldSensor->getAttachedField() != nullptr) {
       this->rotFieldSensor->detach();
     }
-    if (this->scaleFieldSensor->getAttachedField() != NULL) {
+    if (this->scaleFieldSensor->getAttachedField() != nullptr) {
       this->scaleFieldSensor->detach();
     }
     inherited::setUpConnections(onoff, doitalways);

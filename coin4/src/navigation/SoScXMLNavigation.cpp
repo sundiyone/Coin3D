@@ -55,12 +55,12 @@ public:
   static void * syncmutex;
 };
 
-void * SoScXMLNavigation::PImpl::syncmutex = NULL;
+void * SoScXMLNavigation::PImpl::syncmutex = nullptr;
 
 void
 SoScXMLNavigation::initClasses(void)
 {
-  assert(PImpl::syncmutex == NULL);
+  assert(PImpl::syncmutex == nullptr);
   CC_MUTEX_CONSTRUCT(PImpl::syncmutex);
 
   SoScXMLNavigationTarget::initClass();
@@ -122,7 +122,7 @@ SoScXMLNavigation::cleanClasses(void)
   SoScXMLNavigationTarget::cleanClass();
 
   CC_MUTEX_DESTRUCT(PImpl::syncmutex);
-  PImpl::syncmutex = NULL;
+  PImpl::syncmutex = nullptr;
 }
 
 void

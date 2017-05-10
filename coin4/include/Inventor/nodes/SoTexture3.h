@@ -78,7 +78,7 @@ protected:
   void setReadStatus(int s);
 
 private:
-  bool loadFilenames(SoInput * in = NULL);
+  bool loadFilenames(SoInput * in = nullptr);
   int readstatus;
   class SoGLImage *glimage;
   bool glimagevalid;

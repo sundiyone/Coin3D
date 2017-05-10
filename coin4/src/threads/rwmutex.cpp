@@ -81,7 +81,7 @@ cc_rwmutex_construct(void)
 {
   cc_rwmutex * rwmutex;
   rwmutex = (cc_rwmutex *) malloc(sizeof(cc_rwmutex));
-  assert(rwmutex != NULL);
+  assert(rwmutex != nullptr);
   cc_rwmutex_struct_init(rwmutex);
 
   { /* debugging */
@@ -106,7 +106,7 @@ cc_rwmutex_construct_etc(enum cc_precedence policy)
   cc_rwmutex * rwmutex;
   assert((policy == CC_READ_PRECEDENCE) || (policy == CC_WRITE_PRECEDENCE));
   rwmutex = cc_rwmutex_construct();
-  assert(rwmutex != NULL);
+  assert(rwmutex != nullptr);
   rwmutex->policy = policy;
   return rwmutex;
 }
@@ -128,7 +128,7 @@ cc_rwmutex_destruct(cc_rwmutex * rwmutex)
     }
   }
 
-  assert(rwmutex != NULL);
+  assert(rwmutex != nullptr);
   cc_rwmutex_struct_clean(rwmutex);
   free(rwmutex);
 }
@@ -214,7 +214,7 @@ cc_rwmutex_write_unlock(cc_rwmutex * rwmutex)
 int
 cc_rwmutex_read_lock(cc_rwmutex * rwmutex)
 {
-  assert(rwmutex != NULL);
+  assert(rwmutex != nullptr);
   (void) cc_mutex_lock(&rwmutex->mutex);
   if (rwmutex->writers == 0) {
     rwmutex->readers++;
@@ -242,7 +242,7 @@ cc_rwmutex_read_lock(cc_rwmutex * rwmutex)
 int
 cc_rwmutex_read_try_lock(cc_rwmutex * rwmutex)
 {
-  assert(rwmutex != NULL);
+  assert(rwmutex != nullptr);
 
   (void) cc_mutex_lock(&rwmutex->mutex);
   if (rwmutex->writers == 0 &&

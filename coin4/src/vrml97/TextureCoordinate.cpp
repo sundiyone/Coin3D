@@ -92,7 +92,7 @@
 
 class SoVRMLTextureCoordinateP {
  public:
-  SoVRMLTextureCoordinateP() : vbo(NULL) { }
+  SoVRMLTextureCoordinateP() : vbo(nullptr) { }
   ~SoVRMLTextureCoordinateP() { delete this->vbo; }
   SoVBO * vbo;
 };
@@ -149,7 +149,7 @@ SoVRMLTextureCoordinate::GLRender(SoGLRenderAction * action)
 {
   SoState * state = action->getState();
   SoGLMultiTextureCoordinateElement::setTexGen(state,
-                                               this, 0, NULL);
+                                               this, 0, nullptr);
   SoVRMLTextureCoordinate::doAction((SoAction*)action);
 
   SoBase::staticDataLock();
@@ -158,7 +158,7 @@ SoVRMLTextureCoordinate::GLRender(SoGLRenderAction * action)
   if (SoGLVBOElement::shouldCreateVBO(state, num)) {
     setvbo = true;
     bool dirty = false;
-    if (PRIVATE(this)->vbo == NULL) {
+    if (PRIVATE(this)->vbo == nullptr) {
       PRIVATE(this)->vbo = new SoVBO(GL_ARRAY_BUFFER, GL_STATIC_DRAW); 
       dirty =  true;
     }
@@ -173,7 +173,7 @@ SoVRMLTextureCoordinate::GLRender(SoGLRenderAction * action)
   }
   else if (PRIVATE(this)->vbo && PRIVATE(this)->vbo->getBufferDataId()) {
     // clear buffers to deallocate VBO memory
-    PRIVATE(this)->vbo->setBufferData(NULL, 0, 0);
+    PRIVATE(this)->vbo->setBufferData(nullptr, 0, 0);
   }
   SoBase::staticDataUnlock();
   if (setvbo) {

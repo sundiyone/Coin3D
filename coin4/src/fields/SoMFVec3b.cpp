@@ -152,7 +152,7 @@ SoMFVec3b::setValue(int8_t x, int8_t y, int8_t z)
 void
 SoMFVec3b::setValue(const int8_t xyz[3])
 {
-  if (xyz == NULL) this->setNum(0);
+  if (xyz == nullptr) this->setNum(0);
   else this->setValue(SbVec3b(xyz));
 }
 

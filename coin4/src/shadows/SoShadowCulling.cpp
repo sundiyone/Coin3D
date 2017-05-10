@@ -124,16 +124,16 @@ SoShadowCulling::GLRender(SoGLRenderAction * action)
     SoGLShadowCullingElement::set(state, this, mode);
     
     if (mode == NO_CULLING) {
-      SoShapeHintsElement::set(state, NULL, 
+      SoShapeHintsElement::set(state, nullptr, 
                                SoShapeHintsElement::UNKNOWN_ORDERING,
                                SoShapeHintsElement::UNKNOWN_SHAPE_TYPE,
                                SoShapeHintsElement::UNKNOWN_FACE_TYPE);
-      SoOverrideElement::setShapeHintsOverride(state, NULL, true);
+      SoOverrideElement::setShapeHintsOverride(state, nullptr, true);
     }
     else {
       // FIXME: need to restore the previous ShapeHints settings in some way,
       // or require that this node is used only inside a separator
-      SoOverrideElement::setShapeHintsOverride(state, NULL, false);
+      SoOverrideElement::setShapeHintsOverride(state, nullptr, false);
     }
   }
 }

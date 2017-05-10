@@ -46,7 +46,7 @@
 
    20051202 mortene. */
 
-cc_sched * cc_sched_construct(int numthreads) { assert(false); return NULL; }
+cc_sched * cc_sched_construct(int numthreads) { assert(false); return nullptr; }
 void cc_sched_destruct(cc_sched * sched) { assert(false); }
 void cc_sched_set_num_threads(cc_sched * sched, int num) { assert(false); }
 int cc_sched_get_num_threads(cc_sched * sched) { assert(false); return 0; }
@@ -255,7 +255,7 @@ bool
 cc_sched_unschedule(cc_sched * sched, uint32_t schedid)
 {
   bool didremove = false;
-  void * item = NULL;
+  void * item = nullptr;
   cc_mutex_lock(sched->mutex);
 
   if (cc_dict_get(sched->schedid_dict, schedid, &item)) {

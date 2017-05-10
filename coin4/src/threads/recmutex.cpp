@@ -78,7 +78,7 @@ cc_recmutex_construct(void)
 {
   cc_recmutex * recmutex;
   recmutex = (cc_recmutex *) malloc(sizeof(cc_recmutex));
-  assert(recmutex != NULL);
+  assert(recmutex != nullptr);
   cc_recmutex_struct_init(recmutex);
 
   { /* debugging */
@@ -111,7 +111,7 @@ cc_recmutex_destruct(cc_recmutex * recmutex)
     }
   }
 
-  assert(recmutex != NULL);
+  assert(recmutex != nullptr);
   cc_recmutex_struct_clean(recmutex);
   free(recmutex);
 }
@@ -124,7 +124,7 @@ static int recmutex_lock_internal(cc_recmutex * recmutex, int wait)
   int level = -1; /* return -1 for recmutex_try_lock() if we couldn't get the mutex */
   unsigned long id = cc_thread_id();
   
-  assert(recmutex != NULL);
+  assert(recmutex != nullptr);
   cc_mutex_lock(&recmutex->mutex);
   if (recmutex->level == 0) {
     recmutex->level++;
@@ -181,7 +181,7 @@ int
 cc_recmutex_unlock(cc_recmutex * recmutex)
 {
   int level;
-  assert(recmutex != NULL);
+  assert(recmutex != nullptr);
   assert(recmutex->threadid == cc_thread_id());
   assert(recmutex->level > 0);
   cc_mutex_lock(&recmutex->mutex);

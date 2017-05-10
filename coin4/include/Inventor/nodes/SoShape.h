@@ -109,7 +109,7 @@ protected:
   void invokePointCallbacks(SoAction * const action,
                             const SoPrimitiveVertex * const v);
   void beginShape(SoAction * const action, const TriangleShape shapetype,
-                  SoDetail * const detail = NULL);
+                  SoDetail * const detail = nullptr);
   void shapeVertex(const SoPrimitiveVertex * const v);
   void endShape(void);
 

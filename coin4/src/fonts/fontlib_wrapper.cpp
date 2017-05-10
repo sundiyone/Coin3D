@@ -56,7 +56,7 @@
   modules (as they won't have to be made reentrant in any way).
 */
 
-static void * flw_global_lock = NULL;
+static void * flw_global_lock = nullptr;
 static int flw_global_font_index = 0;
 static bool initialized = false;
 static bool tried_init_freetype_fontlib = false;
@@ -126,7 +126,7 @@ struct cc_flw_font {
   int refcount;
 };
 
-static cc_dynarray * fontarray = NULL;
+static cc_dynarray * fontarray = nullptr;
 
 /* ********************************************************************** */
 
@@ -261,14 +261,14 @@ get_default_bitmap(unsigned int character, float wantedsize)
     bm->mono = 1;
     return bm;
   }
-  return NULL;
+  return nullptr;
 }
 
 static struct cc_flw_glyph *
 flw_glyphidx2glyphptr(struct cc_flw_font * fs, unsigned int glyphidx)
 {
   void * tmp;
-  struct cc_flw_glyph * gs = NULL;
+  struct cc_flw_glyph * gs = nullptr;
 
   if (cc_dict_get(fs->glyphdict, glyphidx, &tmp)) {
     gs = (struct cc_flw_glyph *) tmp;
@@ -313,7 +313,7 @@ fontstruct_rmfont(int font)
 {
   int i, n;
   int arrayindex;
-  struct cc_flw_font * fs = NULL;
+  struct cc_flw_font * fs = nullptr;
 
   n = cc_dynarray_length(fontarray);
   for (i = 0; i < n; i++) {
@@ -335,7 +335,7 @@ fontstruct_rmfont(int font)
 static struct cc_flw_font *
 flw_fontidx2fontptr(int fontidx)
 {
-  struct cc_flw_font * fs = NULL;
+  struct cc_flw_font * fs = nullptr;
   int i, n;
 
   n = (int) cc_dynarray_length(fontarray);
@@ -379,7 +379,7 @@ flw_exit(void)
 
   cc_dynarray_destruct(fontarray);
 
-  fontarray = NULL;
+  fontarray = nullptr;
   initialized = false;
 
   tried_init_freetype_fontlib = tried_init_win32_fontlib = false;
@@ -437,7 +437,7 @@ flw_find_font(const char * fontname, const unsigned int sizey,
      flw_initialize() is re-entrant, so this should be safe in a
      multithreaded environment.
   */
-  if (flw_global_lock == NULL) { flw_initialize(); }
+  if (flw_global_lock == nullptr) { flw_initialize(); }
 
   FLW_MUTEX_LOCK(flw_global_lock);
 
@@ -537,7 +537,7 @@ cc_flw_get_font_id(const char * fontname, unsigned int sizey,
 
   if (idx != -1) { return idx; }
 
-  font = NULL;
+  font = nullptr;
 
   FLW_MUTEX_LOCK(flw_global_lock);
 
@@ -626,12 +626,12 @@ cc_flw_get_glyph(int font, unsigned int character)
   gs = flw_glyphidx2glyphptr(fs, character);
 
   /* FIXME: should this perhaps rather be an assert()? 20050623 mortene. */
-  if (gs == NULL) {
+  if (gs == nullptr) {
 
     gs = (struct cc_flw_glyph *)malloc(sizeof(struct cc_flw_glyph));
     gs->character = character;
-    gs->bitmap = NULL;
-    gs->vector = NULL;
+    gs->bitmap = nullptr;
+    gs->vector = nullptr;
     /* These will be changed below if the glyph is found in a
        non-default font: */
     gs->nativeglyphidx = character;
@@ -848,7 +848,7 @@ cc_flw_get_bitmap(int font, unsigned int glyph)
   unsigned char * buf;
   struct cc_flw_font * fs;
   struct cc_flw_glyph * gs;
-  struct cc_font_bitmap * bm = NULL;
+  struct cc_font_bitmap * bm = nullptr;
   unsigned int i;
 
   FLW_MUTEX_LOCK(flw_global_lock);
@@ -857,7 +857,7 @@ cc_flw_get_bitmap(int font, unsigned int glyph)
   gs = flw_glyphidx2glyphptr(fs, glyph);
   assert(gs);
 
-  if (gs->bitmap == NULL) {
+  if (gs->bitmap == nullptr) {
 
     if (!gs->fromdefaultfont) {
       if (using_win32api()) {
@@ -905,8 +905,8 @@ cc_flw_get_vector_glyph(int font, unsigned int glyph)
   gs = flw_glyphidx2glyphptr(fs, glyph);
   assert(gs);
 
-  if (gs->vector == NULL && !gs->fromdefaultfont) {
-    struct cc_font_vector_glyph * vector_glyph = NULL;
+  if (gs->vector == nullptr && !gs->fromdefaultfont) {
+    struct cc_font_vector_glyph * vector_glyph = nullptr;
 
     if (using_freetype()) {
       vector_glyph = cc_flwft_get_vector_glyph(fs->nativefonthandle,

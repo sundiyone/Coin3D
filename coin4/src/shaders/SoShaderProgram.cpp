@@ -256,14 +256,14 @@ SoShaderProgram::SoShaderProgram(void)
 {
   SO_NODE_INTERNAL_CONSTRUCTOR(SoShaderProgram);
 
-  SO_NODE_ADD_FIELD(shaderObject, (NULL));
+  SO_NODE_ADD_FIELD(shaderObject, (nullptr));
   this->shaderObject.setNum(0);
   this->shaderObject.setDefault(true);
 
 
   PRIVATE(this) = new SoShaderProgramP(this);
-  PRIVATE(this)->enablecb = NULL;
-  PRIVATE(this)->enablecbclosure = NULL;
+  PRIVATE(this)->enablecb = nullptr;
+  PRIVATE(this)->enablecbclosure = nullptr;
 }
 
 /*!
@@ -345,7 +345,7 @@ SoShaderProgramP::GLRender(SoGLRenderAction * action)
 
   int i, cnt = PUBLIC(this)->shaderObject.getNum();
   if (cnt == 0) {
-    SoGLShaderProgramElement::set(state, PUBLIC(this), NULL);
+    SoGLShaderProgramElement::set(state, PUBLIC(this), nullptr);
     return;
   }
   // FIXME: (Martin 2004-09-21) find an alternative to invalidating the cache

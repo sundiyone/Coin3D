@@ -83,7 +83,7 @@ SoShadowStyleElement::init(SoState * state)
 void
 SoShadowStyleElement::set(SoState * const state, const int style)
 {
-  SoShadowStyleElement::set(state, NULL, style);
+  SoShadowStyleElement::set(state, nullptr, style);
 }
 
 //! FIXME: write doc.

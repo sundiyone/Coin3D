@@ -154,10 +154,10 @@ LINE    [^\n]*
 
 {WHITE}facet{WS}normal{WS}{FLOAT}{WS}{FLOAT}{WS}{FLOAT}{WHITE}$	{
 	  reader->hickups = 0; /* reset flex hickup counter */
-	  assert(reader->facet != NULL);
-	  if ( reader->info != NULL ) {
+	  assert(reader->facet != nullptr);
+	  if ( reader->info != nullptr ) {
 	    free(reader->info);
-	    reader->info = NULL;
+	    reader->info = nullptr;
 	  }
 	  stl_parse_real_triple(stl_yytext, &(reader->facet->nx), &(reader->facet->ny), &(reader->facet->nz));
 	}
@@ -168,7 +168,7 @@ LINE    [^\n]*
 
 {WHITE}vertex{WS}{FLOAT}{WS}{FLOAT}{WS}{FLOAT}{WHITE}$	{
 	  stl_real x = 0.0f, y = 0.0f, z = 0.0f;
-	  assert(reader->facet != NULL);
+	  assert(reader->facet != nullptr);
 	  stl_parse_real_triple(stl_yytext, &x, &y, &z);
 	  switch ( reader->vertex ) {
 	  case 0:
@@ -203,9 +203,9 @@ LINE    [^\n]*
 
 {WHITE}end{WHITE}solid{WHITE}{LINE}$	{
 	  char * ptr = stl_yytext;
-	  if ( reader->info != NULL ) {
+	  if ( reader->info != nullptr ) {
 	    free(reader->info);
-	    reader->info = NULL;
+	    reader->info = nullptr;
 	  }
 	  /* FIXME: this scanning is now incorrect if not "endsolid" */
 	  while ( *ptr && (*ptr == ' ' || *ptr == '\t') ) ptr++;
@@ -312,9 +312,9 @@ stl_parse_real_triple(char * text, stl_real * a, stl_real * b, stl_real * c)
   STL_SCAN_TO_WHITESPACE(text);
   STL_SCAN_TO_REAL(text);
   real3 = text;
-  if ( a ) *a = (stl_real) strtod(real1, NULL);
-  if ( b ) *b = (stl_real) strtod(real2, NULL);
-  if ( c ) *c = (stl_real) strtod(real3, NULL);
+  if ( a ) *a = (stl_real) strtod(real1, nullptr);
+  if ( b ) *b = (stl_real) strtod(real2, nullptr);
+  if ( c ) *c = (stl_real) strtod(real3, nullptr);
   return true;
 }
 
@@ -363,9 +363,9 @@ stl_reader_binary_facet(stl_reader * reader)
   } data;
 
 
-  assert(reader != NULL);
-  assert(reader->file != NULL);
-  assert(reader->facet != NULL);
+  assert(reader != nullptr);
+  assert(reader->file != nullptr);
+  assert(reader->facet != nullptr);
   readok &= fread(&data.bytes, 4, 1, reader->file);
   data.data = stl_ntohl(data.data);
   reader->facet->nx = data.real;
@@ -419,9 +419,9 @@ stl_writer_put_binary_facet(stl_writer * writer, stl_facet * facet)
     uint32_t data;
     float real;
   } data;
-  assert(writer != NULL);
-  assert(writer->file != NULL);
-  assert(writer->facet != NULL);
+  assert(writer != nullptr);
+  assert(writer->file != nullptr);
+  assert(writer->facet != nullptr);
   data.real = writer->facet->nx;
   data.data = stl_ntohl(data.data);
   writeok &= fwrite(&data.bytes, 4, 1, writer->file);
@@ -628,7 +628,7 @@ stl_facet *
 stl_facet_clone(stl_facet * facet)
 {
   stl_facet * clone;
-  assert(facet != NULL);
+  assert(facet != nullptr);
   clone = stl_facet_create_uninitialized();
   stl_facet_copy(facet, clone);
   return clone;
@@ -640,7 +640,7 @@ stl_facet_clone(stl_facet * facet)
 void
 stl_facet_destroy(stl_facet * facet)
 {
-  assert(facet != NULL);
+  assert(facet != nullptr);
   free(facet);
 } /* stl_facet_destroy() */
 
@@ -650,7 +650,7 @@ stl_facet_destroy(stl_facet * facet)
 void
 stl_facet_copy(stl_facet * source, stl_facet * target)
 {
-  assert(source != NULL && target != NULL);
+  assert(source != nullptr && target != nullptr);
   target->nx = source->nx;
   target->ny = source->ny;
   target->nz = source->nz;
@@ -672,7 +672,7 @@ stl_facet_copy(stl_facet * source, stl_facet * target)
 void
 stl_facet_set_normal(stl_facet * facet, stl_real x, stl_real y, stl_real z)
 {
-  assert(facet != NULL);
+  assert(facet != nullptr);
   facet->nx = x;
   facet->ny = y;
   facet->nz = z;
@@ -684,7 +684,7 @@ stl_facet_set_normal(stl_facet * facet, stl_real x, stl_real y, stl_real z)
 void
 stl_facet_get_normal(stl_facet * facet, stl_real * x, stl_real * y, stl_real * z)
 {
-  assert(facet != NULL);
+  assert(facet != nullptr);
   if ( x ) *x = facet->nx;
   if ( y ) *y = facet->ny;
   if ( z ) *z = facet->nz;
@@ -696,7 +696,7 @@ stl_facet_get_normal(stl_facet * facet, stl_real * x, stl_real * y, stl_real * z
 void
 stl_facet_set_vertex1(stl_facet * facet, stl_real x, stl_real y, stl_real z)
 {
-  assert(facet != NULL);
+  assert(facet != nullptr);
   facet->v1x = x;
   facet->v1y = y;
   facet->v1z = z;
@@ -708,7 +708,7 @@ stl_facet_set_vertex1(stl_facet * facet, stl_real x, stl_real y, stl_real z)
 void
 stl_facet_get_vertex1(stl_facet * facet, stl_real * x, stl_real * y, stl_real * z)
 {
-  assert(facet != NULL);
+  assert(facet != nullptr);
   if ( x ) *x = facet->v1x;
   if ( y ) *y = facet->v1y;
   if ( z ) *z = facet->v1z;
@@ -720,7 +720,7 @@ stl_facet_get_vertex1(stl_facet * facet, stl_real * x, stl_real * y, stl_real * 
 void
 stl_facet_set_vertex2(stl_facet * facet, stl_real x, stl_real y, stl_real z)
 {
-  assert(facet != NULL);
+  assert(facet != nullptr);
   facet->v2x = x;
   facet->v2y = y;
   facet->v2z = z;
@@ -732,7 +732,7 @@ stl_facet_set_vertex2(stl_facet * facet, stl_real x, stl_real y, stl_real z)
 void
 stl_facet_get_vertex2(stl_facet * facet, stl_real * x, stl_real * y, stl_real * z)
 {
-  assert(facet != NULL);
+  assert(facet != nullptr);
   if ( x ) *x = facet->v2x;
   if ( y ) *y = facet->v2y;
   if ( z ) *z = facet->v2z;
@@ -744,7 +744,7 @@ stl_facet_get_vertex2(stl_facet * facet, stl_real * x, stl_real * y, stl_real * 
 void
 stl_facet_set_vertex3(stl_facet * facet, stl_real x, stl_real y, stl_real z)
 {
-  assert(facet != NULL);
+  assert(facet != nullptr);
   facet->v3x = x;
   facet->v3y = y;
   facet->v3z = z;
@@ -756,7 +756,7 @@ stl_facet_set_vertex3(stl_facet * facet, stl_real x, stl_real y, stl_real z)
 void
 stl_facet_get_vertex3(stl_facet * facet, stl_real * x, stl_real * y, stl_real * z)
 {
-  assert(facet != NULL);
+  assert(facet != nullptr);
   if ( x ) *x = facet->v3x;
   if ( y ) *y = facet->v3y;
   if ( z ) *z = facet->v3z;
@@ -768,7 +768,7 @@ stl_facet_get_vertex3(stl_facet * facet, stl_real * x, stl_real * y, stl_real * 
 void
 stl_facet_set_padding(stl_facet * facet, unsigned int padding)
 {
-  assert(facet != NULL);
+  assert(facet != nullptr);
 } /* stl_facet_set_padding() */
 
 /* @stl_facet_get_padding@
@@ -777,7 +777,7 @@ stl_facet_set_padding(stl_facet * facet, unsigned int padding)
 unsigned int
 stl_facet_get_padding(stl_facet * facet)
 {
-  assert(facet != NULL);
+  assert(facet != nullptr);
   return 0;
 } /* stl_facet_get_padding() */
 
@@ -787,7 +787,7 @@ stl_facet_get_padding(stl_facet * facet)
 void
 stl_facet_set_color(stl_facet * facet, unsigned int rgb)
 {
-  assert(facet != NULL);
+  assert(facet != nullptr);
   facet->color = rgb;
 } /* stl_facet_set_color() */
 
@@ -798,7 +798,7 @@ This function returns the color of the facet, if one has been set.
 unsigned int
 stl_facet_get_color(stl_facet * facet)
 {
-  assert(facet != NULL);
+  assert(facet != nullptr);
   return facet->color;
 } /* stl_facet_get_color() */
 
@@ -814,14 +814,14 @@ stl_reader_create(const char * filename)
   int id;
   long length;
   unsigned char bytes[4];
-  assert(filename != NULL);
+  assert(filename != nullptr);
   reader = (stl_reader *) malloc(sizeof(stl_reader));
   assert(reader);
-  reader->filename = NULL;
-  reader->file = NULL;
-  reader->info = NULL;
-  reader->facet = NULL;
-  reader->error = NULL;
+  reader->filename = nullptr;
+  reader->file = nullptr;
+  reader->info = nullptr;
+  reader->facet = nullptr;
+  reader->error = nullptr;
   reader->flags = 0;
   reader->linenum = 0;
   reader->pending = STL_NO_PENDING;
@@ -830,9 +830,9 @@ stl_reader_create(const char * filename)
   reader->facets_total = 0;
   reader->hickups = 0;
   reader->file = fopen(filename, "rb");
-  if ( reader->file == NULL ) {
+  if ( reader->file == nullptr ) {
     free(reader);
-    return NULL;
+    return nullptr;
   }
   reader->filename = (char *) malloc(strlen(filename)+1);
   assert(reader->filename);
@@ -883,12 +883,12 @@ stl_reader_create(const char * filename)
   /* the file is not an stl file */
   (void)fclose(reader->file);
   free(reader->filename);
-  reader->filename = NULL;
+  reader->filename = nullptr;
   stl_facet_destroy(reader->facet);
-  reader->facet = NULL;
+  reader->facet = nullptr;
   free(reader);
   /* could return a reader with pending STL_ERROR and error message instead? */
-  return NULL;
+  return nullptr;
 } /* stl_reader_create() */
 
 /* @stl_reader_destroy@
@@ -897,22 +897,22 @@ stl_reader_create(const char * filename)
 void
 stl_reader_destroy(stl_reader * reader)
 {
-  assert(reader != NULL);
+  assert(reader != nullptr);
   if ( reader->filename ) {
     free(reader->filename);
-    reader->filename = NULL;
+    reader->filename = nullptr;
   }
   if ( reader->info ) {
     free(reader->info);
-    reader->info = NULL;
+    reader->info = nullptr;
   }
   if ( reader->file ) {
     fclose(reader->file);
-    reader->file = NULL;
+    reader->file = nullptr;
   }
   if ( reader->facet ) {
     stl_facet_destroy(reader->facet);
-    reader->facet = NULL;
+    reader->facet = nullptr;
   }
   free(reader);
 } /* stl_reader_destroy() */
@@ -923,7 +923,7 @@ stl_reader_destroy(stl_reader * reader)
 unsigned int
 stl_reader_flags(stl_reader * reader)
 {
-  assert(reader != NULL);
+  assert(reader != nullptr);
   return reader->flags;
 } /* stl_reader_flags() */
 
@@ -934,14 +934,14 @@ int
 stl_reader_peek(stl_reader * reader)
 {
   int peekval;
-  assert(reader != NULL);
+  assert(reader != nullptr);
   if ( reader->pending != STL_NO_PENDING ) {
     peekval = reader->pending;
     if ( reader->pending == STL_END ) {
       reader->pending = STL_ERROR;
     }
     if ( reader->pending == STL_BEGIN ) {
-      if ( reader->info != NULL ) {
+      if ( reader->info != nullptr ) {
         reader->pending = STL_INIT_INFO;
       } else {
         reader->pending = STL_NO_PENDING;
@@ -973,7 +973,7 @@ stl_reader_peek(stl_reader * reader)
 const char *
 stl_reader_get_info(stl_reader * reader)
 {
-  assert(reader != NULL);
+  assert(reader != nullptr);
   return reader->info;
 } /* stl_reader_get_info() */
 
@@ -983,8 +983,8 @@ stl_reader_get_info(stl_reader * reader)
 stl_facet *
 stl_reader_get_facet(stl_reader * reader)
 {
-  assert(reader != NULL);
-  assert(reader->facet != NULL);
+  assert(reader != nullptr);
+  assert(reader->facet != nullptr);
   return stl_facet_clone(reader->facet);
 } /* stl_reader_get_facet() */
 
@@ -994,8 +994,8 @@ stl_reader_get_facet(stl_reader * reader)
 void
 stl_reader_fill_facet(stl_reader * reader, stl_facet * facet)
 {
-  assert(reader != NULL);
-  assert(reader->facet != NULL);
+  assert(reader != nullptr);
+  assert(reader->facet != nullptr);
   facet->nx = reader->facet->nx;
   facet->ny = reader->facet->ny;
   facet->nz = reader->facet->nz;
@@ -1017,7 +1017,7 @@ stl_reader_fill_facet(stl_reader * reader, stl_facet * facet)
 const char *
 stl_reader_get_error(stl_reader * reader)
 {
-  assert(reader != NULL);
+  assert(reader != nullptr);
   return reader->error;
 } /* stl_reader_get_error() */
 
@@ -1027,7 +1027,7 @@ stl_reader_get_error(stl_reader * reader)
 int
 stl_reader_get_line_number(stl_reader * reader)
 {
-  assert(reader != NULL);
+  assert(reader != nullptr);
   return reader->linenum;
 }
 
@@ -1040,7 +1040,7 @@ stl_writer *
 stl_writer_create(const char * filename, unsigned int flags)
 {
   stl_writer * writer;
-  assert(filename != NULL);
+  assert(filename != nullptr);
   writer = (stl_writer *) malloc(sizeof(stl_writer));
   assert(writer);
   writer->filename = (char *) malloc(strlen(filename)+1);
@@ -1058,9 +1058,9 @@ stl_writer_create(const char * filename, unsigned int flags)
   }
   assert(writer->file);
   writer->facets = 0;
-  writer->error = NULL;
-  writer->facet = NULL;
-  writer->info = NULL;
+  writer->error = nullptr;
+  writer->facet = nullptr;
+  writer->info = nullptr;
   return writer;
 } /* stl_writer_create() */
 
@@ -1070,8 +1070,8 @@ stl_writer_create(const char * filename, unsigned int flags)
 int
 stl_writer_destroy(stl_writer * writer)
 {
-  assert(writer != NULL);
-  assert(writer->file != NULL);
+  assert(writer != nullptr);
+  assert(writer->file != nullptr);
   if ( writer->flags & STL_BINARY ) {
     int writeok = 1;
     unsigned char bytes[4];
@@ -1087,14 +1087,14 @@ stl_writer_destroy(stl_writer * writer)
     writer->linenum++;
   }
   fclose(writer->file);
-  writer->file = NULL;
-  if ( writer->info != NULL ) {
+  writer->file = nullptr;
+  if ( writer->info != nullptr ) {
     free(writer->info);
-    writer->info = NULL;
+    writer->info = nullptr;
   }
-  if ( writer->facet != NULL ) {
+  if ( writer->facet != nullptr ) {
     stl_facet_destroy(writer->facet);
-    writer->facet = NULL;
+    writer->facet = nullptr;
   }
   free(writer);
   return STL_OK;
@@ -1106,7 +1106,7 @@ stl_writer_destroy(stl_writer * writer)
 unsigned int
 stl_writer_get_flags(stl_writer * writer)
 {
-  assert(writer != NULL);
+  assert(writer != nullptr);
   return writer->flags & STL_PUBLIC_FLAGS;
 } /* stl_writer_flags() */
 
@@ -1116,13 +1116,13 @@ stl_writer_get_flags(stl_writer * writer)
 int
 stl_writer_set_info(stl_writer * writer, const char * info)
 {
-  assert(writer != NULL);
-  assert(writer->file != NULL);
-  if ( writer->info != NULL ) {
+  assert(writer != nullptr);
+  assert(writer->file != nullptr);
+  if ( writer->info != nullptr ) {
     free(writer->info);
-    writer->info = NULL;
+    writer->info = nullptr;
   }
-  if ( info == NULL ) {
+  if ( info == nullptr ) {
     return STL_OK;
   }
   if ( writer->facets != 0 ) {
@@ -1166,8 +1166,8 @@ stl_writer_get_facet(stl_writer * writer)
 int
 stl_writer_put_facet(stl_writer * writer, stl_facet * facet)
 {
-  assert(writer != NULL);
-  assert(writer->file != NULL);
+  assert(writer != nullptr);
+  assert(writer->file != nullptr);
   assert(facet);
 
   if ( writer->facets == 0 ) {
@@ -1189,7 +1189,7 @@ stl_writer_put_facet(stl_writer * writer, stl_facet * facet)
       if ( writer->info ) {
         fprintf(writer->file, "solid %s\n", writer->info);
         free(writer->info);
-        writer->info = NULL;
+        writer->info = nullptr;
       } else {
         fprintf(writer->file, "solid\n");
       }
@@ -1231,7 +1231,7 @@ This function returns the last error message for the writer object.
 const char *
 stl_writer_get_error(stl_writer * writer)
 {
-  assert(writer != NULL);
+  assert(writer != nullptr);
   return writer->error;
 } /* stl_writer_get_error() */
 

@@ -110,7 +110,7 @@ public:
 SoIndexedLineSet::SoIndexedLineSet()
 {
   PRIVATE(this) = new SoIndexedLineSetP;
-  PRIVATE(this)->vaindexer = NULL;
+  PRIVATE(this)->vaindexer = nullptr;
 
   SO_NODE_INTERNAL_CONSTRUCTOR(SoIndexedLineSet);
 }
@@ -256,7 +256,7 @@ SoIndexedLineSet::GLRender(SoGLRenderAction * action)
                 nindices, tindices, mindices, numindices,
                 sendNormals, normalCacheUsed);
 
-  if (sendNormals && normals == NULL) {
+  if (sendNormals && normals == nullptr) {
     if (!didpush) {
       state->push();
       didpush = true;
@@ -284,9 +284,9 @@ SoIndexedLineSet::GLRender(SoGLRenderAction * action)
   if (doTextures) {
     if (SoTextureCoordinateBindingElement::get(state) ==
         SoTextureCoordinateBindingElement::PER_VERTEX) {
-      tindices = NULL; // just in case
+      tindices = nullptr; // just in case
     }
-    else if (tindices == NULL) {
+    else if (tindices == nullptr) {
       tindices = cindices;
     }
   }
@@ -302,22 +302,22 @@ SoIndexedLineSet::GLRender(SoGLRenderAction * action)
     SoDrawStyleElement::get(state) == SoDrawStyleElement::POINTS;
 
   const uint32_t contextid = action->getCacheContext();
-  SoGLLazyElement * lelem = NULL;
+  SoGLLazyElement * lelem = nullptr;
 
   bool dova =
     !drawPoints &&
     SoVBO::shouldRenderAsVertexArrays(state, contextid, numindices) &&
-    ((nbind == OVERALL) || ((nbind == PER_VERTEX_INDEXED) && ((nindices == cindices) || (nindices == NULL)))) &&
+    ((nbind == OVERALL) || ((nbind == PER_VERTEX_INDEXED) && ((nindices == cindices) || (nindices == nullptr)))) &&
     (!doTextures || (tindices == cindices)) &&
-    ((mbind == OVERALL) || ((mbind == PER_VERTEX_INDEXED) && ((mindices == cindices) || (mindices == NULL)))) &&
+    ((mbind == OVERALL) || ((mbind == PER_VERTEX_INDEXED) && ((mindices == cindices) || (mindices == nullptr)))) &&
     SoGLDriverDatabase::isSupported(sogl_glue_instance(state), SO_GL_VERTEX_ARRAY);
 
   const SoGLVBOElement * vboelem = SoGLVBOElement::getInstance(state);
-  SoVBO * colorvbo = NULL;
+  SoVBO * colorvbo = nullptr;
 
   if (dova && (mbind != OVERALL)) {
     dova = false;
-    if ((mbind == PER_VERTEX_INDEXED) && ((mindices == cindices) || (mindices == NULL))) {
+    if ((mbind == PER_VERTEX_INDEXED) && ((mindices == cindices) || (mindices == nullptr))) {
       lelem = (SoGLLazyElement*) SoLazyElement::getInstance(state);
       colorvbo = vboelem->getColorVBO();
       if (colorvbo) dova = true;
@@ -334,12 +334,12 @@ SoIndexedLineSet::GLRender(SoGLRenderAction * action)
   if (dova) {
     bool dovbo = this->startVertexArray(action,
                                           coords,
-                                          nbind != OVERALL ? normals : NULL,
+                                          nbind != OVERALL ? normals : nullptr,
                                           doTextures,
                                           mbind != OVERALL);
     didrenderasvbo = dovbo;
     LOCK_VAINDEXER(this);
-    if (PRIVATE(this)->vaindexer == NULL) {
+    if (PRIVATE(this)->vaindexer == nullptr) {
       SoVertexArrayIndexer * indexer = new SoVertexArrayIndexer;
 
       int i = 0;
@@ -412,7 +412,7 @@ bool
 SoIndexedLineSet::generateDefaultNormals(SoState * COIN_UNUSED_ARG(state), SoNormalCache * nc)
 {
   // not possible to generate normals for IndexedLineSet
-  nc->set(0, NULL);
+  nc->set(0, nullptr);
   return true;
 }
 
@@ -486,7 +486,7 @@ SoIndexedLineSet::generatePrimitives(SoAction *action)
                 normindices, texindices, matindices, numindices,
                 sendNormals, normalCacheUsed);
 
-  if (normals == NULL) {
+  if (normals == nullptr) {
     sendNormals = false;
     nbind = OVERALL;
   }
@@ -510,28 +510,28 @@ SoIndexedLineSet::generatePrimitives(SoAction *action)
   if (doTextures) {
     if (SoTextureCoordinateBindingElement::get(state) ==
         SoTextureCoordinateBindingElement::PER_VERTEX) {
-      texindices = NULL; // just in case
+      texindices = nullptr; // just in case
     }
-    else if (texindices == NULL) {
+    else if (texindices == nullptr) {
       texindices = cindices;
     }
   }
 
-  if (mbind == PER_VERTEX_INDEXED && matindices == NULL) {
+  if (mbind == PER_VERTEX_INDEXED && matindices == nullptr) {
     matindices = cindices;
   }
-  if (nbind == PER_VERTEX_INDEXED && normindices == NULL) {
+  if (nbind == PER_VERTEX_INDEXED && normindices == nullptr) {
     normindices = cindices;
   }
   if (mbind == PER_VERTEX || mbind == PER_LINE || mbind == PER_SEGMENT) {
-    matindices = NULL;
+    matindices = nullptr;
   }
   if (nbind == PER_VERTEX || nbind == PER_LINE || nbind == PER_SEGMENT) {
-    normindices = NULL;
+    normindices = nullptr;
   }
 
-  if (nbind == OVERALL) normindices = NULL;
-  if (mbind == OVERALL) matindices = NULL;
+  if (nbind == OVERALL) normindices = nullptr;
+  if (mbind == OVERALL) matindices = nullptr;
 
   int matnr = 0;
   int normnr = 0;
@@ -769,7 +769,7 @@ SoIndexedLineSet::notify(SoNotList * list)
     LOCK_VAINDEXER(this);
     if (PRIVATE(this)->vaindexer) {
       delete PRIVATE(this)->vaindexer;
-      PRIVATE(this)->vaindexer = NULL;
+      PRIVATE(this)->vaindexer = nullptr;
     }
     UNLOCK_VAINDEXER(this);
   }

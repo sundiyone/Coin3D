@@ -79,7 +79,7 @@
 #define SO_NODE_INTERNAL_INIT_ABSTRACT_CLASS(_class_, _fileformats_) \
   do { \
     const char * classname = SO__QUOTE(_class_); \
-    PRIVATE_INTERNAL_COMMON_INIT_CODE(_class_, &classname[2], NULL, inherited); \
+    PRIVATE_INTERNAL_COMMON_INIT_CODE(_class_, &classname[2], nullptr, inherited); \
     SoNode::setCompatibilityTypes(_class_::getClassTypeId(), _fileformats_); \
   } while (0)
 

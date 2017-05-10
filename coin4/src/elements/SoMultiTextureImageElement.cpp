@@ -310,7 +310,7 @@ SoMultiTextureImageElement::getDefault(SbVec2s & size, int & numComponents)
 {
   size.setValue(0,0);
   numComponents = 0;
-  return NULL;
+  return nullptr;
 }
 
 /*!
@@ -322,7 +322,7 @@ SoMultiTextureImageElement::getDefault(SbVec3s & size, int & numComponents)
 {
   size.setValue(0,0,0);
   numComponents = 0;
-  return NULL;
+  return nullptr;
 }
 
 void

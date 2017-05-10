@@ -53,7 +53,7 @@ SoGlyphCache::SoGlyphCache(SoState * state)
   : SoCache(state)
 {
   PRIVATE(this) = new SoGlyphCacheP;
-  PRIVATE(this)->fontspec = NULL;
+  PRIVATE(this)->fontspec = nullptr;
 
 #if COIN_DEBUG
   if (coin_debug_caching_level() > 0) {
@@ -75,7 +75,7 @@ SoGlyphCache::~SoGlyphCache()
 #endif // debug
 
   int i;
-  this->readFontspec(NULL);
+  this->readFontspec(nullptr);
   for (i = 0; i < PRIVATE(this)->glyphlist2d.getLength(); i++) {
     cc_glyph2d_unref(PRIVATE(this)->glyphlist2d[i]);
   }
@@ -118,7 +118,7 @@ SoGlyphCache::readFontspec(SoState * state)
   if (PRIVATE(this)->fontspec) {
     cc_fontspec_clean(PRIVATE(this)->fontspec);
     delete PRIVATE(this)->fontspec;
-    PRIVATE(this)->fontspec = NULL;
+    PRIVATE(this)->fontspec = nullptr;
   }
   if (state) {
     PRIVATE(this)->fontspec = new cc_font_specification;

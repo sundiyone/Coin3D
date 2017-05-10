@@ -138,7 +138,7 @@ public:
   float getStereoOffset(void) const;
 
   void setRenderCallback(SoRenderManagerRenderCB * f,
-                         void * const userData = NULL);
+                         void * const userData = nullptr);
 
   bool isAutoRedraw(void) const;
   void setRedrawPriority(const uint32_t priority);

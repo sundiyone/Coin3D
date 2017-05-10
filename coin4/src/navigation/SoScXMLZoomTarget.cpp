@@ -152,12 +152,12 @@ SoScXMLZoomTarget::cleanClass(void)
   SoScXMLZoomTarget::classTypeId = SoType::badType();
 }
 
-SoScXMLZoomTarget * SoScXMLZoomTarget::theSingleton = NULL;
+SoScXMLZoomTarget * SoScXMLZoomTarget::theSingleton = nullptr;
 
 SoScXMLZoomTarget *
 SoScXMLZoomTarget::constructSingleton(void)
 {
-  assert(SoScXMLZoomTarget::theSingleton == NULL);
+  assert(SoScXMLZoomTarget::theSingleton == nullptr);
   SoScXMLZoomTarget::theSingleton =
     static_cast<SoScXMLZoomTarget *>(SoScXMLZoomTarget::classTypeId.createInstance());
   return SoScXMLZoomTarget::theSingleton;
@@ -166,15 +166,15 @@ SoScXMLZoomTarget::constructSingleton(void)
 void
 SoScXMLZoomTarget::destructSingleton(void)
 {
-  assert(SoScXMLZoomTarget::theSingleton != NULL);
+  assert(SoScXMLZoomTarget::theSingleton != nullptr);
   delete SoScXMLZoomTarget::theSingleton;
-  SoScXMLZoomTarget::theSingleton = NULL;
+  SoScXMLZoomTarget::theSingleton = nullptr;
 }
 
 SoScXMLZoomTarget *
 SoScXMLZoomTarget::singleton(void)
 {
-  assert(SoScXMLZoomTarget::theSingleton != NULL);
+  assert(SoScXMLZoomTarget::theSingleton != nullptr);
   return SoScXMLZoomTarget::theSingleton;
 }
 

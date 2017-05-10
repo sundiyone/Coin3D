@@ -76,7 +76,7 @@ SoCreaseAngleElement::set(SoState * const state, SoNode * const node,
 void
 SoCreaseAngleElement::set(SoState * const state, const float complexity)
 {
-  SoCreaseAngleElement::set(state, NULL, complexity);
+  SoCreaseAngleElement::set(state, nullptr, complexity);
 }
 
 /*!

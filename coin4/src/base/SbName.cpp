@@ -341,13 +341,13 @@ SbName::operator const char * (void) const
 /* anonymous namespace for management of the empty SbName instance */
 namespace {
 
-  SbName * emptyname = NULL;
+  SbName * emptyname = nullptr;
 
   void
   SbName_atexit(void) {
-    if (emptyname != NULL) {
+    if (emptyname != nullptr) {
       delete emptyname;
-      emptyname = NULL;
+      emptyname = nullptr;
     }
   }
 }
@@ -362,7 +362,7 @@ namespace {
 const SbName &
 SbName::empty(void) // static
 {
-  if (emptyname == NULL) {
+  if (emptyname == nullptr) {
     emptyname = new SbName("");
     coin_atexit(SbName_atexit, CC_ATEXIT_SBNAME);
   }

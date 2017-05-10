@@ -255,7 +255,7 @@ BOOST_AUTO_TEST_CASE(textinput)
   field3.setEnums(3, values2, names2);
 
   TestSuite::ResetReadErrorCount();
-  static const char * filters[] = { "Unknown SoSFBitMask bit mask value", NULL };
+  static const char * filters[] = { "Unknown SoSFBitMask bit mask value", nullptr };
   TestSuite::PushMessageSuppressFilters(filters);
   ok = field1.set("OTHER1"); // should output error
   BOOST_CHECK_MESSAGE(ok == false, "accepted 'OTHER1' erroneously");

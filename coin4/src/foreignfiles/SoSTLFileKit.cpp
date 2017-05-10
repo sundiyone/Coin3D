@@ -223,7 +223,7 @@ SoSTLFileKit::SoSTLFileKit(void)
 SoSTLFileKit::~SoSTLFileKit(void)
 {
   delete PRIVATE(this);
-  PRIVATE(this) = NULL;
+  PRIVATE(this) = nullptr;
 }
 
 // doc in inherited class

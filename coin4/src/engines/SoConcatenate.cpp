@@ -96,10 +96,10 @@ SO_INTERNAL_ENGINE_SOURCE_DYNAMIC_IO(SoConcatenate);
 // used from import code or copy code.
 SoConcatenate::SoConcatenate(void)
 {
-  this->dynamicinput = NULL;
-  this->dynamicoutput = NULL;
-  for (int i=0; i < SoConcatenate::NUMINPUTS; i++) this->input[i] = NULL;
-  this->output = NULL;
+  this->dynamicinput = nullptr;
+  this->dynamicoutput = nullptr;
+  for (int i=0; i < SoConcatenate::NUMINPUTS; i++) this->input[i] = nullptr;
+  this->output = nullptr;
 }
 
 static bool
@@ -115,10 +115,10 @@ SoConcatenate_valid_type(SoType t)
 */
 SoConcatenate::SoConcatenate(SoType type)
 {
-  this->dynamicinput = NULL;
-  this->dynamicoutput = NULL;
-  for (int i=0; i < SoConcatenate::NUMINPUTS; i++) this->input[i] = NULL;
-  this->output = NULL;
+  this->dynamicinput = nullptr;
+  this->dynamicoutput = nullptr;
+  for (int i=0; i < SoConcatenate::NUMINPUTS; i++) this->input[i] = nullptr;
+  this->output = nullptr;
 
 #if COIN_DEBUG
   if (!SoConcatenate_valid_type(type)) {
@@ -147,7 +147,7 @@ SoConcatenate::initClass(void)
 void
 SoConcatenate::initialize(const SoType inputfieldtype)
 {
-  assert(this->input[0] == NULL);
+  assert(this->input[0] == nullptr);
   assert(SoConcatenate_valid_type(inputfieldtype));
 
   SO_ENGINE_INTERNAL_CONSTRUCTOR(SoConcatenate);
@@ -256,7 +256,7 @@ SoConcatenate::copyContents(const SoFieldContainer * from,
 static void _fieldtype_##_transfer(SoMField * output, int outidx, SoMField * input) \
 { \
   _fieldtype_ * in = coin_assert_cast<_fieldtype_ *>(input); \
-  assert(in != NULL); \
+  assert(in != nullptr); \
   coin_assert_cast<_fieldtype_ *>(output)->setValues(outidx, in->getNum(), in->getValues(0)); \
 }
 

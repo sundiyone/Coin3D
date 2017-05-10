@@ -42,7 +42,7 @@
     exposedField SFBool   collide         true
     field        SFVec3f  bboxCenter      0 0 0      # (-,)
     field        SFVec3f  bboxSize        -1 -1 -1   # (0,) or -1,-1,-1
-    field        SFNode   proxy           NULL
+    field        SFNode   proxy           nullptr
     eventOut     SFTime   collideTime
   }
   \endverbatim
@@ -104,9 +104,9 @@
   that is used as a substitute for the Collision node's children
   during collision detection. The proxy is used strictly for collision
   detection; it is not drawn.  If the value of the collide field is
-  true and the proxy field is non-NULL, the proxy field defines the
+  true and the proxy field is non-nullptr, the proxy field defines the
   scene on which collision detection is performed. If the proxy value
-  is NULL, collision detection is performed against the children of
+  is nullptr, collision detection is performed against the children of
   the Collision node.  If proxy is specified, any descendent children
   of the Collision node are ignored during collision detection. If
   children is empty, collide is true, and proxy is specified,
@@ -182,7 +182,7 @@ SoVRMLCollision::commonConstructor(void)
   SO_VRMLNODE_INTERNAL_CONSTRUCTOR(SoVRMLCollision);
 
   SO_VRMLNODE_ADD_EXPOSED_FIELD(collide, (true));
-  SO_VRMLNODE_ADD_FIELD(proxy, (NULL));
+  SO_VRMLNODE_ADD_FIELD(proxy, (nullptr));
 
   SO_VRMLNODE_ADD_EVENT_OUT(collideTime);
 }

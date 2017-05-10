@@ -45,9 +45,9 @@ int SoRenderManagerRootSensor::debugrootnotifications = -1;
 SoRenderManagerP::SoRenderManagerP(SoRenderManager * publ)
 {
   this->publ = publ;
-  this->getmatrixaction = NULL;
-  this->getbboxaction = NULL;
-  this->searchaction = NULL;
+  this->getmatrixaction = nullptr;
+  this->getbboxaction = nullptr;
+  this->searchaction = nullptr;
 }
 
 SoRenderManagerP::~SoRenderManagerP()
@@ -222,7 +222,7 @@ SoRenderManager::Superimposition::Superimposition(SoNode * scene,
                                                   SoRenderManager * manager,
                                                   uint32_t flags)
 {
-  assert(scene != NULL);
+  assert(scene != nullptr);
   PRIVATE(this) = new SuperimpositionP;
 
   PRIVATE(this)->scene = scene;

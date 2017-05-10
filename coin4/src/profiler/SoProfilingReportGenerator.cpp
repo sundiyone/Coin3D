@@ -92,14 +92,14 @@ public:
 
 };
 
-SbMutex * SoProfilingReportGeneratorP::mutex = NULL;
+SbMutex * SoProfilingReportGeneratorP::mutex = nullptr;
 
 // *************************************************************************
 
 class SbProfilingReportSortCriteria {
 public:
   SbProfilingReportSortCriteria(void)
-    : numfunctions(0), functions(NULL)
+    : numfunctions(0), functions(nullptr)
   {
   }
 
@@ -219,7 +219,7 @@ SoProfilingReportGenerator::freeCriteria(SbProfilingReportSortCriteria * criteri
 class SbProfilingReportPrintCriteria {
 public:
   SbProfilingReportPrintCriteria(void)
-    : numfunctions(0), functions(NULL), needstringlengths(false)
+    : numfunctions(0), functions(nullptr), needstringlengths(false)
   {
   }
   ~SbProfilingReportPrintCriteria(void) {
@@ -354,13 +354,13 @@ SoProfilingReportGenerator::freeCriteria(SbProfilingReportPrintCriteria * criter
 
 // *************************************************************************
 
-static const SbProfilingData * profdata = NULL;
-static const int * arraystart = NULL;
-static const int * arrayend = NULL;
+static const SbProfilingData * profdata = nullptr;
+static const int * arraystart = nullptr;
+static const int * arrayend = nullptr;
 static SoProfilingReportGenerator::DataCategorization sortcategory = SoProfilingReportGenerator::TYPES;
-static SbProfilingReportSortCriteria * sortingconfig = NULL;
-static SbList<SbProfilingNodeNameKey> * namekeys = NULL;
-static SbList<SbProfilingNodeTypeKey> * typekeys = NULL;
+static SbProfilingReportSortCriteria * sortingconfig = nullptr;
+static SbList<SbProfilingNodeNameKey> * namekeys = nullptr;
+static SbList<SbProfilingNodeTypeKey> * typekeys = nullptr;
 static int longestnamelength = 0;
 static int longesttypenamelength = 0;
 
@@ -391,7 +391,7 @@ gencompare(const void * ptr1, const void * ptr2)
 void
 SoProfilingReportGenerator::init(void)
 {
-  assert(SoProfilingReportGeneratorP::mutex == NULL);
+  assert(SoProfilingReportGeneratorP::mutex == nullptr);
   SoProfilingReportGeneratorP::mutex = new SbMutex;
 }
 
@@ -443,8 +443,8 @@ SoProfilingReportGenerator::generate(const SbProfilingData & data,
     int c = 0;
     const int numindexes = data.getNumNodeEntries();
     if (numindexes == 0) {
-      profdata = NULL;
-      sortingconfig = NULL;
+      profdata = nullptr;
+      sortingconfig = nullptr;
       return;
     }
     boost::scoped_array<int> indexarray;
@@ -486,7 +486,7 @@ SoProfilingReportGenerator::generate(const SbProfilingData & data,
   }
   else if (categorization == NAMES) {
     int c = 0;
-    if (namekeys == NULL) {
+    if (namekeys == nullptr) {
       namekeys = new SbList<SbProfilingNodeNameKey>;
     } else {
       namekeys->truncate(0);
@@ -495,8 +495,8 @@ SoProfilingReportGenerator::generate(const SbProfilingData & data,
 
     const int numindexes = namekeys->getLength();
     if (numindexes == 0) {
-      profdata = NULL;
-      sortingconfig = NULL;
+      profdata = nullptr;
+      sortingconfig = nullptr;
       return;
     }
     boost::scoped_array<int> indexarray;
@@ -539,7 +539,7 @@ SoProfilingReportGenerator::generate(const SbProfilingData & data,
   }
   else if (categorization == TYPES) {
     int c = 0;
-    if (typekeys == NULL) {
+    if (typekeys == nullptr) {
       typekeys = new SbList<SbProfilingNodeTypeKey>;
     } else {
       typekeys->truncate(0);
@@ -548,8 +548,8 @@ SoProfilingReportGenerator::generate(const SbProfilingData & data,
 
     const int numindexes = typekeys->getLength();
     if (numindexes == 0) {
-      profdata = NULL;
-      sortingconfig = NULL;
+      profdata = nullptr;
+      sortingconfig = nullptr;
       return;
     }
     boost::scoped_array<int> indexarray;
@@ -594,10 +594,10 @@ SoProfilingReportGenerator::generate(const SbProfilingData & data,
     assert(!"no such data categorization implemented");
   }
 
-  profdata = NULL;
-  sortingconfig = NULL;
-  arraystart = NULL;
-  arrayend = NULL;
+  profdata = nullptr;
+  sortingconfig = nullptr;
+  arraystart = nullptr;
+  arrayend = nullptr;
 }
 
 #undef OUTPUT_PADDING

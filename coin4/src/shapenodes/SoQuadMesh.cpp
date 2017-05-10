@@ -157,6 +157,7 @@
 
 #include <math.h> // ilogb
 #include <float.h> // _logb
+#include <cstdlib> // atoi
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -364,8 +365,8 @@ namespace { namespace SoGL { namespace QuadMesh {
     assert(coords->getNum() - start >= rowsize * colsize);
 
     const bool is3d = coords->is3D();
-    const SbVec3f * coords3d = is3d ? coords->getArrayPtr3() : NULL;
-    const SbVec4f * coords4d = is3d ? NULL : coords->getArrayPtr4();
+    const SbVec3f * coords3d = is3d ? coords->getArrayPtr3() : nullptr;
+    const SbVec4f * coords4d = is3d ? nullptr : coords->getArrayPtr4();
 
     if (preciseLighting == false) {
 
@@ -463,9 +464,9 @@ namespace { namespace SoGL { namespace QuadMesh {
         }
       }
 
-      const SbVec3f *c1d3 = NULL,*c2d3 = NULL,*c3d3 = NULL,*c4d3 = NULL;
+      const SbVec3f *c1d3 = nullptr,*c2d3 = nullptr,*c3d3 = nullptr,*c4d3 = nullptr;
       SbVec3f ccd3;
-      const SbVec4f *c1d4 = NULL,*c2d4 = NULL,*c3d4 = NULL,*c4d4 = NULL;
+      const SbVec4f *c1d4 = nullptr,*c2d4 = nullptr,*c3d4 = nullptr,*c4d4 = nullptr;
       SbVec4f ccd4;
       SbVec4f sum234d4,sum134d4,sum124d4,sum123d4;
       SbVec4f vec1d4,vec2d4,vec3d4,vec4d4;
@@ -473,7 +474,7 @@ namespace { namespace SoGL { namespace QuadMesh {
       float w1,w2,w3,w4;
       const SbVec3f *n1,*n2,*n3,*n4;
       SbVec3f nc;
-      const SbVec4f *t1,*t2, * t3 = NULL, * t4 = NULL;
+      const SbVec4f *t1,*t2, * t3 = nullptr, * t4 = nullptr;
       SbVec4f tc;
 
       int curridx1 = 0;
@@ -880,9 +881,9 @@ SoQuadMesh::GLRender(SoGLRenderAction * action)
   Binding nbind = findNormalBinding(action->getState());
   if (!needNormals) nbind = OVERALL;
 
-  SoNormalCache * nc = NULL;
+  SoNormalCache * nc = nullptr;
 
-  if (needNormals && normals == NULL) {
+  if (needNormals && normals == nullptr) {
     nc = this->generateAndReadLockNormalCache(state);
     normals = nc->getNormals();
   }
@@ -1079,9 +1080,9 @@ SoQuadMesh::generatePrimitives(SoAction *action)
   Binding mbind = findMaterialBinding(action->getState());
   Binding nbind = findNormalBinding(action->getState());
 
-  SoNormalCache * nc = NULL;
+  SoNormalCache * nc = nullptr;
 
-  if (needNormals && normals == NULL) {
+  if (needNormals && normals == nullptr) {
     nc = this->generateAndReadLockNormalCache(state);
     normals = nc->getNormals();
   }

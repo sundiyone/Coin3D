@@ -198,9 +198,9 @@
 
 // *************************************************************************
 
-static const char * SO_SHADER_DIR = NULL;
-static SbHash<const char *, char *> * shader_dict = NULL;
-static SbHash<const char *, char *> * shader_builtin_dict = NULL;
+static const char * SO_SHADER_DIR = nullptr;
+static SbHash<const char *, char *> * shader_dict = nullptr;
+static SbHash<const char *, char *> * shader_builtin_dict = nullptr;
 
 static void
 soshader_cleanup(void)
@@ -315,7 +315,7 @@ SoShader::init(void)
 const char *
 SoShader::getNamedScript(const SbName & name, const Type type)
 {
-  char * shader = NULL;
+  char * shader = nullptr;
 
   if (SO_SHADER_DIR) {
     SbString filename(SO_SHADER_DIR);
@@ -358,7 +358,7 @@ SoShader::getNamedScript(const SbName & name, const Type type)
         fclose(fp);
       }
       else {
-        shader_dict->put(shadername, NULL);
+        shader_dict->put(shadername, nullptr);
         SoDebugError::postWarning("SoShader::getNamedScript",
                                   "Unable to find shader: %s",
                                   filename.getString());

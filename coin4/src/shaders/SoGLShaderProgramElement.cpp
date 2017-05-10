@@ -42,14 +42,14 @@ SoGLShaderProgramElement::initClass(void)
 
 SoGLShaderProgramElement::~SoGLShaderProgramElement()
 {
-  this->shaderProgram = NULL;
+  this->shaderProgram = nullptr;
 }
 
 void
 SoGLShaderProgramElement::init(SoState *state)
 {
   inherited::init(state);
-  this->shaderProgram = NULL;
+  this->shaderProgram = nullptr;
   this->enabled = false;
 }
 
@@ -131,7 +131,7 @@ SoGLShaderProgramElement::pop(SoState * state, const SoElement * prevTopElement)
       else this->shaderProgram->disable(state);
     }
   }
-  elem->shaderProgram = NULL;
+  elem->shaderProgram = nullptr;
 }
 
 

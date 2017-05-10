@@ -82,7 +82,7 @@ SoNormalCache::SoNormalCache(SoState * const state)
   : SoCache(state)
 {
   PRIVATE(this) = new SoNormalCacheP;
-  PRIVATE(this)->normalData.normals = NULL;
+  PRIVATE(this)->normalData.normals = nullptr;
   PRIVATE(this)->numNormals = 0;
 
 #if COIN_DEBUG
@@ -180,7 +180,7 @@ const int32_t *
 SoNormalCache::getIndices(void) const
 {
   if (PRIVATE(this)->indices.getLength()) return PRIVATE(this)->indices.getArrayPtr();
-  return NULL;
+  return nullptr;
 }
 
 //
@@ -260,9 +260,9 @@ SoNormalCache::generatePerVertex(const SbVec3f * const coords,
 
 
   int numfacenorm = numfacenormals;
-  SoNormalCache tempcache(NULL);
+  SoNormalCache tempcache(nullptr);
   const SbVec3f * facenorm = const_cast<SbVec3f *>(facenormals);
-  if (facenorm == NULL) {
+  if (facenorm == nullptr) {
     // use a SoNormalCache to store temporary data
     if (tristrip) {
       tempcache.generatePerFaceStrip(coords, numcoords, vindex, numvi, ccw);
@@ -906,7 +906,7 @@ SoNormalCache::generatePerVertexQuad(const SbVec3f * const coords,
   // avoid reallocations in growable array by setting the buffer size first
   PRIVATE(this)->normalArray.ensureCapacity(vPerRow * vPerColumn);
 
-  SoNormalCache tempcache(NULL);
+  SoNormalCache tempcache(nullptr);
   tempcache.generatePerFaceQuad(coords, numcoords, vPerRow, vPerColumn, ccw);
   const SbVec3f * facenormals = tempcache.getNormals();
   int numfacenormals = tempcache.getNum(); // Used for extra robustness
@@ -1123,7 +1123,7 @@ SoNormalCache::clearGenerator(void)
   if (PRIVATE(this)->numNormals == 0 && PRIVATE(this)->normalData.generator) {
     delete PRIVATE(this)->normalData.generator;
   }
-  PRIVATE(this)->normalData.normals = NULL;
+  PRIVATE(this)->normalData.normals = nullptr;
   PRIVATE(this)->numNormals = 0;
 }
 

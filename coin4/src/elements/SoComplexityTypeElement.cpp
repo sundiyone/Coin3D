@@ -93,7 +93,7 @@ SoComplexityTypeElement::init(SoState * state)
 void
 SoComplexityTypeElement::set(SoState * const state, const Type type)
 {
-  set(state, NULL, type);
+  set(state, nullptr, type);
 }
 
 //! FIXME: write doc.

@@ -92,8 +92,8 @@ public:
   }
 
   bool isMemBuffer(void) {
-    // if reader == NULL, it means that we're reading from stdin
-    if (this->reader == NULL) return false;
+    // if reader == nullptr, it means that we're reading from stdin
+    if (this->reader == nullptr) return false;
     return
       (this->getReader()->getType() == SoInput_Reader::MEMBUFFER) ||
       (this->getReader()->getType() == SoInput_Reader::GZMEMBUFFER);
@@ -124,13 +124,13 @@ public:
     return this->linenr;
   }
   FILE * ivFilePointer(void) {
-    // if reader == NULL, it means that we're reading from stdin
-    if (this->reader == NULL) return coin_get_stdin();
+    // if reader == nullptr, it means that we're reading from stdin
+    if (this->reader == nullptr) return coin_get_stdin();
     return this->getReader()->getFilePointer();
   }
   const SbString & ivFilename(void) {
-    // if reader == NULL, it means that we're reading from stdin
-    if (this->reader == NULL) return this->stdinname;
+    // if reader == nullptr, it means that we're reading from stdin
+    if (this->reader == nullptr) return this->stdinname;
     return this->getReader()->getFilename();
   }
   bool isEndOfFile(void) const {
@@ -163,7 +163,7 @@ public:
   SoProto * getCurrentProto(void) {
     const int n = this->protostack.getLength();
     if (n) return this->protostack[n-1];
-    return NULL;
+    return nullptr;
   }
 
   bool isSpace(const char c) {

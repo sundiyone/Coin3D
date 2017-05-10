@@ -37,8 +37,8 @@ public:
   SoCallbackList(void);
   ~SoCallbackList();
 
-  void addCallback(SoCallbackListCB * f, void * userData = NULL);
-  void removeCallback(SoCallbackListCB * f, void * userdata = NULL);
+  void addCallback(SoCallbackListCB * f, void * userData = nullptr);
+  void removeCallback(SoCallbackListCB * f, void * userdata = nullptr);
 
   void clearCallbacks(void);
   int getNumCallbacks(void) const;

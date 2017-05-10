@@ -39,7 +39,7 @@
 extern "C" {
 #endif /* __cplusplus */
 
-static cc_dict * sync_hash_table = NULL;
+static cc_dict * sync_hash_table = nullptr;
 
 static void
 sync_hash_cb(uintptr_t COIN_UNUSED_ARG(key), void * val, void * COIN_UNUSED_ARG(closure))
@@ -50,9 +50,9 @@ sync_hash_cb(uintptr_t COIN_UNUSED_ARG(key), void * val, void * COIN_UNUSED_ARG(
 static void
 sync_cleanup(void)
 {
-  cc_dict_apply(sync_hash_table, sync_hash_cb, NULL);
+  cc_dict_apply(sync_hash_table, sync_hash_cb, nullptr);
   cc_dict_destruct(sync_hash_table);
-  sync_hash_table = NULL;
+  sync_hash_table = nullptr;
 }
 
 /*
@@ -61,7 +61,7 @@ sync_cleanup(void)
 void
 cc_sync_init(void)
 {
-  if (sync_hash_table == NULL) {
+  if (sync_hash_table == nullptr) {
     /* the priority is set so to make this callback trigger late,
        after normal cleanup function which might still use a cc_sync
        instance */
@@ -83,7 +83,7 @@ cc_sync_begin(void * id)
   void * mutex;
 
   cc_mutex_global_lock();
-  if (sync_hash_table == NULL) {
+  if (sync_hash_table == nullptr) {
     cc_sync_init();
   }
   if (!cc_dict_get(sync_hash_table, (uintptr_t)id, &mutex)) {
@@ -119,7 +119,7 @@ cc_sync_free(void * id)
   void * mutex;
 
   cc_mutex_global_lock();
-  if (sync_hash_table == NULL) {
+  if (sync_hash_table == nullptr) {
     cc_sync_init();
   }
   if (cc_dict_get(sync_hash_table, (uintptr_t)id, &mutex)) {

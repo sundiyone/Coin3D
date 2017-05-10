@@ -81,7 +81,7 @@ SoLinePatternElement::init(SoState * state)
 void
 SoLinePatternElement::set(SoState * const state, const int32_t pattern)
 {
-  set(state, NULL, pattern);
+  set(state, nullptr, pattern);
 }
 
 //! FIXME: write doc.

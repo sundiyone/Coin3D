@@ -85,9 +85,9 @@ SoWindowElement::init(SoState * state)
 {
   inherited::init(state);
   this->window = 0;
-  this->context = NULL;
-  this->display = NULL;
-  this->glRenderAction = NULL;
+  this->context = nullptr;
+  this->display = nullptr;
+  this->glRenderAction = nullptr;
 }
 
 // doc in parent
@@ -118,7 +118,7 @@ SoElement *
 SoWindowElement::copyMatchInfo(void) const
 {
   assert(0 && "should never be called.");
-  return NULL;
+  return nullptr;
 }
 
 /*!

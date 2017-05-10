@@ -143,7 +143,7 @@ SoMFVec4ub::setValue(uint8_t x, uint8_t y, uint8_t z, uint8_t w)
 void
 SoMFVec4ub::setValue(const uint8_t xyzw[4])
 {
-  if (xyzw == NULL) this->setNum(0);
+  if (xyzw == nullptr) this->setNum(0);
   else this->setValue(SbVec4ub(xyzw));
 }
 

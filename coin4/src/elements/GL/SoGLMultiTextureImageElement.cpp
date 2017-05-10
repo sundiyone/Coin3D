@@ -170,7 +170,7 @@ SoGLMultiTextureImageElement::pop(SoState * state,
     if (thisud.glimage != prevud.glimage) this->updateGL(i);
     str.sprintf("coin_texunit%d_model", i);
     if (prog) prog->updateCoinParameter(state, SbName(str.getString()),
-                                        thisud.glimage != NULL ? this->getUnitData(i).model : 0);
+                                        thisud.glimage != nullptr ? this->getUnitData(i).model : 0);
   }
 }
 
@@ -208,7 +208,7 @@ SoGLMultiTextureImageElement::set(SoState * const state, SoNode * const node,
                    unit,
                    SbVec3s(0,0,0),
                    0,
-                   NULL,
+                   nullptr,
                    multi_translateWrap(image->getWrapS()),
                    multi_translateWrap(image->getWrapT()),
                    multi_translateWrap(image->getWrapR()),
@@ -220,7 +220,7 @@ SoGLMultiTextureImageElement::set(SoState * const state, SoNode * const node,
     // if (image->getImage()) image->getImage()->readLock();
   }
   else {
-    ud.glimage = NULL;
+    ud.glimage = nullptr;
     inherited::setDefault(state, node, unit);
   }
   elem->updateGL(unit);
@@ -264,7 +264,7 @@ SoGLMultiTextureImageElement::get(SoState * state,
     blendcolor = ud.blendColor;
     return PRIVATE(elem)->unitdata[unit].glimage;
   }
-  return NULL;
+  return nullptr;
 }
 
 /*!

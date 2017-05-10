@@ -87,7 +87,7 @@ SoAnnoText3FontSizeHintElement::set(SoState * const state, SoNode * const node,
 void
 SoAnnoText3FontSizeHintElement::set(SoState * const state, const FontSizeHint hint)
 {
-  set(state, NULL, hint);
+  set(state, nullptr, hint);
 }
 
 //! FIXME: write doc.

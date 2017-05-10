@@ -64,16 +64,16 @@ cc_xml_elt_new(void)
 {
   cc_xml_elt * elt = new cc_xml_elt;
   assert(elt);
-  elt->type = NULL;
-  elt->data = NULL;
-  elt->cdata = NULL;
-  elt->parent = NULL;
+  elt->type = nullptr;
+  elt->data = nullptr;
+  elt->cdata = nullptr;
+  elt->parent = nullptr;
   return elt;
 }
 
 /*!
   Creates a new element with the given type and attributes.
-  The \a attrs argument can be NULL.
+  The \a attrs argument can be nullptr.
 */
 
 cc_xml_elt *
@@ -143,7 +143,7 @@ cc_xml_elt_delete_x(cc_xml_elt * elt)
 
 /*!
   Sets the element type identifier.  The old value will be freed, if any.
-  The \a type argument can be NULL to just clear the old value.
+  The \a type argument can be nullptr to just clear the old value.
 */
 
 void
@@ -152,13 +152,13 @@ cc_xml_elt_set_type_x(cc_xml_elt * elt, const char * type)
   assert(elt);
   if (elt->type) {
     delete [] elt->type;
-    elt->type = NULL;
+    elt->type = nullptr;
   }
   if (type) elt->type = cc_xml_strdup(type);
 }
 
 /*!
-  Returns the element type identifier if one is set, and NULL otherwise.
+  Returns the element type identifier if one is set, and nullptr otherwise.
 */
 
 const char *
@@ -191,12 +191,12 @@ cc_xml_elt_set_cdata_x(cc_xml_elt * elt, const char * cdata)
   }
   if ( elt->cdata ) {
     delete [] elt->cdata;
-    elt->cdata = NULL;
+    elt->cdata = nullptr;
   }
   if ( cdata ) elt->cdata = cc_xml_strdup(cdata);
   if ( elt->data ) {
     delete [] elt->data;
-    elt->data = NULL;
+    elt->data = nullptr;
   }
   // Update data to whitespace-stripped cdata
   if( cdata) {
@@ -268,7 +268,7 @@ cc_xml_elt_set_attribute_x(cc_xml_elt * elt, cc_xml_attr * attr)
 void
 cc_xml_elt_set_attributes_x(cc_xml_elt * elt, cc_xml_attr ** attrs)
 {
-  for (int c = 0; attrs[c] != NULL; ++c) {
+  for (int c = 0; attrs[c] != nullptr; ++c) {
     cc_xml_elt_set_attribute_x(elt, attrs[c]);
   }
 }
@@ -282,7 +282,7 @@ cc_xml_elt_get_attribute(const cc_xml_elt * elt, const char * attrname)
     if (strcmp(attrname, cc_xml_attr_get_name(elt->attributes[c])) == 0)
       return elt->attributes[c];
   }
-  return NULL;
+  return nullptr;
 }
 
 int
@@ -389,9 +389,9 @@ cc_xml_elt_get_path(const cc_xml_elt * elt)
 {
   assert(elt);
   cc_xml_path * path = cc_xml_path_new();
-  while ( elt != NULL ) {
+  while ( elt != nullptr ) {
     const cc_xml_elt * parent = cc_xml_elt_get_parent(elt);
-    if ( parent != NULL ) {
+    if ( parent != nullptr ) {
       int idx = cc_xml_elt_get_child_type_index(parent, elt);
       cc_xml_path_prepend_x(path, elt->type, idx);
     }
@@ -404,7 +404,7 @@ cc_xml_elt *
 cc_xml_elt_get_child_of_type(const cc_xml_elt * elt, const char * type, int idx)
 {
   assert(elt);
-  if ( !elt->children.getLength() ) return NULL;
+  if ( !elt->children.getLength() ) return nullptr;
   int i;
   for ( i = 0; i < elt->children.getLength(); i++ ) {
     if ( strcmp(elt->children[i]->type, type) == 0 ) {
@@ -412,7 +412,7 @@ cc_xml_elt_get_child_of_type(const cc_xml_elt * elt, const char * type, int idx)
       idx -= 1;
     }
   }
-  return NULL;
+  return nullptr;
 }
 
 cc_xml_elt *
@@ -428,7 +428,7 @@ cc_xml_elt_get_child_of_type_x(cc_xml_elt * elt, const char * type, int idx)
       }
     }
   }
-  cc_xml_elt * child = NULL;
+  cc_xml_elt * child = nullptr;
   while ( idx >= 0 ) {
     child = cc_xml_elt_new();
     cc_xml_elt_set_type_x(child, type);
@@ -452,7 +452,7 @@ cc_xml_elt_add_child_x(cc_xml_elt * elt, cc_xml_elt * child)
 {
   assert(elt);
   assert(child);
-  if (child->parent != NULL) {
+  if (child->parent != nullptr) {
     // FIXME: ERROR - element already a child of another element
     return;
   }
@@ -476,7 +476,7 @@ cc_xml_elt_remove_child_x(cc_xml_elt * elt, cc_xml_elt * child)
   for (int i = 0; i < numchildren; ++i) {
     if (elt->children[i] == child) {
       elt->children.remove(i);
-      child->parent = NULL;
+      child->parent = nullptr;
       return;
     }
   }
@@ -488,7 +488,7 @@ cc_xml_elt_insert_child_x(cc_xml_elt * elt, cc_xml_elt * child, int idx)
 {
   assert(elt);
   assert(child);
-  if (child->parent != NULL) {
+  if (child->parent != nullptr) {
     // FIXME: error, child already a child of another element
     return;
   }
@@ -524,8 +524,8 @@ cc_xml_elt_get_boolean(const cc_xml_elt * elt, int * value)
     }
   }
   const char * data = cc_xml_elt_get_data(elt);
-  assert(value != NULL);
-  if ( data == NULL ) return false;
+  assert(value != nullptr);
+  if ( data == nullptr ) return false;
   if ( cc_xml_strieq(data, "true") ||
        cc_xml_strieq(data, "on") ||
        cc_xml_strieq(data, "t") ) {
@@ -554,8 +554,8 @@ cc_xml_elt_get_integer(const cc_xml_elt * elt, int * value)
     }
   }
   const char * data = cc_xml_elt_get_data(elt);
-  assert(value != NULL);
-  if ( data == NULL ) return false;
+  assert(value != nullptr);
+  if ( data == nullptr ) return false;
   if ( sscanf(data, "%d", value) == 1 ) return true;
   return false;
 }
@@ -573,8 +573,8 @@ cc_xml_elt_get_uint64(const cc_xml_elt * elt, uint64_t * value)
     }
   }
   const char * data = cc_xml_elt_get_data(elt);
-  assert(value != NULL);
-  if ( data == NULL ) return false;
+  assert(value != nullptr);
+  if ( data == nullptr ) return false;
   if ( sscanf(data, "%lld", value) == 1 ) return true; // FIXME: unsigned
   return false;
 }
@@ -592,8 +592,8 @@ cc_xml_elt_get_int64(const cc_xml_elt * elt, int64_t * value)
     }
   }
   const char * data = cc_xml_elt_get_data(elt);
-  assert(value != NULL);
-  if ( data == NULL ) return false;
+  assert(value != nullptr);
+  if ( data == nullptr ) return false;
   if ( sscanf(data, "%lld", value) == 1 ) return true;
   return false;
 }
@@ -611,8 +611,8 @@ cc_xml_elt_get_uint32(const cc_xml_elt * elt, uint32_t * value)
     }
   }
   const char * data = cc_xml_elt_get_data(elt);
-  assert(value != NULL);
-  if ( data == NULL ) return false;
+  assert(value != nullptr);
+  if ( data == nullptr ) return false;
   if ( sscanf(data, "%u", value) == 1 ) return true; // FIXME: unsigned
   return false;
 }
@@ -630,8 +630,8 @@ cc_xml_elt_get_int32(const cc_xml_elt * elt, int32_t * value)
     }
   }
   const char * data = cc_xml_elt_get_data(elt);
-  assert(value != NULL);
-  if ( data == NULL ) return false;
+  assert(value != nullptr);
+  if ( data == nullptr ) return false;
   if ( sscanf(data, "%u", value) == 1 ) return true;
   return false;
 }
@@ -649,8 +649,8 @@ cc_xml_elt_get_float(const cc_xml_elt * elt, float * value)
     }
   }
   const char * data = cc_xml_elt_get_data(elt);
-  assert(value != NULL);
-  if ( data == NULL ) return false;
+  assert(value != nullptr);
+  if ( data == nullptr ) return false;
   if ( sscanf(data, "%g", value) == 1 ) return true;
   return false;
 }
@@ -668,8 +668,8 @@ cc_xml_elt_get_double(const cc_xml_elt * elt, double * value)
     }
   }
   const char * data = cc_xml_elt_get_data(elt);
-  assert(value != NULL);
-  if ( data == NULL ) return false;
+  assert(value != nullptr);
+  if ( data == nullptr ) return false;
   if ( sscanf(data, "%lg", value) == 1 ) return true;
   return false;
 }
@@ -876,12 +876,12 @@ cc_xml_elt_dump_to_file(const cc_xml_elt * elt, int indent, FILE * fp)
   // todo
   // - support notation for empty elements and shortcuts
   // - document-wide settings?  how to propagate...
-  assert( elt && elt->type != NULL );
+  assert( elt && elt->type != nullptr );
   int i;
   if ( cc_xml_elt_get_num_children(elt) == 1 &&
        strcmp(COIN_XML_CDATA_TYPE, elt->children[0]->type) == 0 ) {
     for ( i = 0; i < indent; i++ ) fprintf(fp, " ");
-    if ( elt->children[0]->data != NULL )
+    if ( elt->children[0]->data != nullptr )
       fprintf(fp, "<%s>%s</%s>\n", elt->type, elt->children[0]->data, elt->type);
     else
       fprintf(fp, "<%s/>\n", elt->type);
@@ -895,7 +895,7 @@ cc_xml_elt_dump_to_file(const cc_xml_elt * elt, int indent, FILE * fp)
     }
     for ( i = 0; i < indent; i++ ) fprintf(fp, " ");
     fprintf(fp, "</%s>\n", elt->type);
-  } else if ( elt->data != NULL ) {
+  } else if ( elt->data != nullptr ) {
     for ( i = 0; i < indent; i++ ) fprintf(fp, " ");
     fprintf(fp, "%s\n", elt->data);
   }
@@ -929,13 +929,13 @@ cc_xml_elt_get_traversal_next(const cc_xml_elt * root, cc_xml_elt * here)
   // if we're here then 'here' has no children (except possibly cdata).
   do {
     cc_xml_elt * parent = cc_xml_elt_get_parent(here);
-    if (parent == NULL) return NULL; // here is the root
+    if (parent == nullptr) return nullptr; // here is the root
     int idx = cc_xml_elt_get_child_index(parent, here);
     // if 'here' was the last child then set here as parent..
     if (idx == (cc_xml_elt_get_num_children(parent) - 1)) {
       here = parent;
       // if we're back to root, simply quit..
-      if (here == root) return NULL;
+      if (here == root) return nullptr;
     } else {
       // there is more children than 'here' left, find someone thats not "cdata".
       do {
@@ -949,7 +949,7 @@ cc_xml_elt_get_traversal_next(const cc_xml_elt * root, cc_xml_elt * here)
     }
   } while (true);
 
-  return NULL;
+  return nullptr;
 } // cc_xml_elt_get_traversal_next()
 
 // *************************************************************************
@@ -959,7 +959,7 @@ cc_xml_elt_find(const cc_xml_elt * root, const cc_xml_path * path)
 {
   assert(root && path);
   cc_xml_elt * elt = const_cast<cc_xml_elt *>(root);
-  while ( (elt != NULL) && (!cc_xml_path_match_p(path, elt)) ) {
+  while ( (elt != nullptr) && (!cc_xml_path_match_p(path, elt)) ) {
     elt = cc_xml_elt_get_traversal_next(root, elt);
   }
   return elt;
@@ -972,7 +972,7 @@ cc_xml_elt_find_next(const cc_xml_elt * root, cc_xml_elt * from, cc_xml_path * p
   cc_xml_elt * elt = from;
   do {
     elt = cc_xml_elt_get_traversal_next(root, elt);
-  } while ( (elt != NULL) && (!cc_xml_path_match_p(path, elt)) );
+  } while ( (elt != nullptr) && (!cc_xml_path_match_p(path, elt)) );
   return elt;
 } // cc_xml_elt_find_next()
 

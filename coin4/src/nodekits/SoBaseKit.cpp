@@ -425,7 +425,7 @@
       rp.apply(viewer->getSceneManager()->getSceneGraph());
 
       SoPickedPoint * point = rp.getPickedPoint();
-      if (point == NULL) {
+      if (point == nullptr) {
         (void)fprintf(stderr, "\n** miss! **\n\n");
         return;
       }
@@ -478,7 +478,7 @@
 
     SoSeparator * root = SoDB::readAll(&input);
 
-    if (root == NULL) {
+    if (root == nullptr) {
       (void) fprintf(stderr, "Unable to read file: %s\n", argv[1]);
       return -1;
     }
@@ -638,7 +638,7 @@ SO_KIT_SOURCE(SoBaseKit);
 SoBaseKit::SoBaseKit(void)
 {
   PRIVATE(this) = new SoBaseKitP(this);
-  PRIVATE(this)->writedata = NULL;
+  PRIVATE(this)->writedata = nullptr;
 
   SO_KIT_INTERNAL_CONSTRUCTOR(SoBaseKit);
 
@@ -877,7 +877,7 @@ SoBaseKit::set(const char * namevaluepairliststring)
     int partNum;
     bool isList;
     int listIdx;
-    if (!SoBaseKit::findPart(partname, kit, partNum, isList, listIdx, true, NULL, true)) {
+    if (!SoBaseKit::findPart(partname, kit, partNum, isList, listIdx, true, nullptr, true)) {
 #if COIN_DEBUG
       SoDebugError::postWarning("SoBaseKit::set",
                                 "part ``%s'' not found",
@@ -946,10 +946,10 @@ SoBaseKit::set(const char * partnamestring, const char * parameterstring)
   bool isList;
   int listIdx;
   SoBaseKit * kit = this;
-  if (SoBaseKit::findPart(partname, kit, partNum, isList, listIdx, true, NULL, true)) {
+  if (SoBaseKit::findPart(partname, kit, partNum, isList, listIdx, true, nullptr, true)) {
     SoNode * node = PRIVATE(kit)->instancelist[partNum]->getValue();
     PRIVATE(kit)->instancelist[partNum]->setDefault(false);
-    assert(node != NULL); // makeifneeded was true in findPart call
+    assert(node != nullptr); // makeifneeded was true in findPart call
     if (isList) {
       assert(node->isOfType(SoNodeKitListPart::getClassTypeId()));
       SoNodeKitListPart * list = (SoNodeKitListPart *) node;
@@ -1078,7 +1078,7 @@ SoBaseKit::rayPick(SoRayPickAction * action)
   for (int i = 0; i < n; i++) {
     SoPickedPoint * pp = pplist[i];
     SoFullPath * path = (SoFullPath*) pp->getPath();
-    if (path->containsNode(this) && pp->getDetail(this) == NULL) {
+    if (path->containsNode(this) && pp->getDetail(this) == nullptr) {
       PRIVATE(this)->addKitDetail(path, pp);
     }
   }
@@ -1098,13 +1098,13 @@ SoBaseKit::search(SoSearchAction * action)
 static bool
 is_default_node(SoNode * node)
 {
-  SoNode * definstance = NULL;
+  SoNode * definstance = nullptr;
   const SoFieldData * fielddata = node->getFieldData();
   int i, n = fielddata->getNumFields();
   for (i = 0; i < n; i++) {
     SoField * field = fielddata->getField(node, i);
     if (field->isConnectionEnabled() && field->isConnected()) break;
-    if (definstance == NULL) {
+    if (definstance == nullptr) {
       definstance = (SoNode *)node->getTypeId().createInstance();
       definstance->ref();
     }
@@ -1156,7 +1156,7 @@ SoBaseKit::write(SoWriteAction * action)
       PRIVATE(this)->writedata->write(out, this);
       // we don't need it any more
       delete PRIVATE(this)->writedata;
-      PRIVATE(this)->writedata = NULL;
+      PRIVATE(this)->writedata = nullptr;
     }
     this->writeFooter(out);
   }
@@ -1263,7 +1263,7 @@ SoBaseKit::countMyFields(SoOutput * out)
 
   <OL>
 
-  <LI> field value is \c NULL and part is \c NULL by default </LI>
+  <LI> field value is \c nullptr and part is \c nullptr by default </LI>
 
   <LI> it is a leaf SoGroup or SoSeparator node with no children </LI>
 
@@ -1290,7 +1290,7 @@ SoBaseKit::setDefaultOnNonWritingFields(void)
 
     SoNode * node = field->getValue();
 
-    if (node == NULL) {
+    if (node == nullptr) {
       // first test listed in API doc above
       if (catalog->isNullByDefault(i)) { field->setDefault(true); }
       continue;
@@ -1336,8 +1336,8 @@ SoBaseKit::forceChildDrivenWriteRefs(SoOutput * out)
 {
   if (SoWriterefCounter::instance(out)->shouldWrite(this)) return true;
 
-  // if NULL we already did this test, found that we shouldn't write,
-  // deleted writedata and set writedata to NULL.
+  // if nullptr we already did this test, found that we shouldn't write,
+  // deleted writedata and set writedata to nullptr.
   if (!PRIVATE(this)->writedata) return false;
 
   const SoNodekitCatalog * catalog = this->getNodekitCatalog();
@@ -1370,7 +1370,7 @@ SoBaseKit::forceChildDrivenWriteRefs(SoOutput * out)
   }
   else {
     delete PRIVATE(this)->writedata;
-    PRIVATE(this)->writedata = NULL;
+    PRIVATE(this)->writedata = nullptr;
     return false;
   }
 }
@@ -1435,7 +1435,7 @@ SoBaseKit::printDiagram(void)
 void
 SoBaseKit::printSubDiagram(const SbName & rootname, int level)
 {
-  const SoNodekitCatalog * parentcatalog = NULL;
+  const SoNodekitCatalog * parentcatalog = nullptr;
   if (this->getTypeId() != SoBaseKit::getClassTypeId()) {
     SoType parenttype = this->getTypeId().getParent();
     SoBaseKit * parentobj = (SoBaseKit *)parenttype.createInstance();
@@ -1551,7 +1551,7 @@ SoNode *
 SoBaseKit::addToCopyDict(void) const
 {
   SoNode * cp = (SoNode*) SoFieldContainer::checkCopy(this);
-  if (cp == NULL) { // not copied?
+  if (cp == nullptr) { // not copied?
     cp = (SoNode*) this->getTypeId().createInstance();
     assert(cp);
     cp->ref();
@@ -1561,7 +1561,7 @@ SoBaseKit::addToCopyDict(void) const
     int n = PRIVATE(this)->instancelist.getLength();
     for (int i = 1; i < n; i++) {
       SoNode * node = PRIVATE(this)->instancelist[i]->getValue();
-      if (node != NULL) node->addToCopyDict();
+      if (node != nullptr) node->addToCopyDict();
     }
   }
   return cp;
@@ -1593,12 +1593,12 @@ SoBaseKit::copyContents(const SoFieldContainer * fromfc,
   SbList <bool> flaglist;
 
   // part 0 is this
-  partlist.append(NULL);
+  partlist.append(nullptr);
   flaglist.append(false);
 
   // initialize temporary lists
   for (i = 1; i < n; i++) {
-    partlist.append(NULL);
+    partlist.append(nullptr);
     flaglist.append(PRIVATE(this)->instancelist[i]->isDefault());
   }
 
@@ -1610,7 +1610,7 @@ SoBaseKit::copyContents(const SoFieldContainer * fromfc,
 
   // reset part fields
   for (i = 1; i < n; i++) {
-    PRIVATE(this)->instancelist[i]->setValue(NULL);
+    PRIVATE(this)->instancelist[i]->setValue(nullptr);
     PRIVATE(this)->instancelist[i]->setDefault(true);
   }
 
@@ -1639,7 +1639,7 @@ SoBaseKit::copyContents(const SoFieldContainer * fromfc,
   the catalog given by \a listname.
 
   If the list part (and its container) was not yet constructed, they
-  will be so if \a makeifneeded is \c true (otherwise, \c NULL will be
+  will be so if \a makeifneeded is \c true (otherwise, \c nullptr will be
   returned).
 */
 SoGroup *
@@ -1650,32 +1650,32 @@ SoBaseKit::getContainerNode(const SbName & listname, bool makeifneeded)
   bool isList;
   int listIdx;
   if (SoBaseKit::findPart(SbString(listname.getString()), kit, partNum,
-                          isList, listIdx, makeifneeded, NULL, true)) {
+                          isList, listIdx, makeifneeded, nullptr, true)) {
     SoNode * node = PRIVATE(kit)->instancelist[partNum]->getValue();
-    if (node == NULL) return NULL;
+    if (node == nullptr) return nullptr;
     assert(node->isOfType(SoNodeKitListPart::getClassTypeId()));
     SoNodeKitListPart * list = (SoNodeKitListPart *)node;
     return list->getContainerNode();
   }
-  return NULL;
+  return nullptr;
 }
 
 /*!
   Returns catalog part of the given \a partname.
 
   If the \a partname part is not in the nodekit's catalog, return \c
-  NULL.
+  nullptr.
 
   If the part is specified in the catalog, but has not yet been made,
   the function will either construct the part (if \a makeifneeded is
-  \c true) or just return \c NULL (if \a makeifneeded is \c false).
+  \c true) or just return \c nullptr (if \a makeifneeded is \c false).
 
   If \a leafcheck is \c true, a pointer to the part will only be
-  returned if it's a leaf in the catalog (otherwise \c NULL is
+  returned if it's a leaf in the catalog (otherwise \c nullptr is
   returned).
 
   If \a publiccheck is \c true, a pointer to the part will only be
-  returned if it's a public catalog part (otherwise \c NULL is
+  returned if it's a public catalog part (otherwise \c nullptr is
   returned).
 
 
@@ -1710,20 +1710,20 @@ SoBaseKit::getAnyPart(const SbName & partname, bool makeifneeded,
   SbString partstring(partname.getString());
 
   if (SoBaseKit::findPart(partstring, kit, partNum, isList, listIdx,
-                          makeifneeded, NULL, true)) {
+                          makeifneeded, nullptr, true)) {
 
     if (publiccheck && !kit->getNodekitCatalog()->isPublic(partNum)) {
       SoDebugError::postWarning("SoBaseKit::getAnyPart",
                                 "Part ``%s'' found in %s, but access is private.",
                                 partname.getString(),
                                 this->getTypeId().getName().getString());
-      return NULL;
+      return nullptr;
     }
 
     if (!leafcheck || kit->getNodekitCatalog()->isLeaf(partNum)) {
       if (isList) {
         SoNode * partnode = PRIVATE(kit)->instancelist[partNum]->getValue();
-        if (partnode == NULL) return NULL;
+        if (partnode == nullptr) return nullptr;
         assert(partnode->isOfType(SoNodeKitListPart::getClassTypeId()));
         SoNodeKitListPart * list = (SoNodeKitListPart *) partnode;
         if (listIdx >= 0 && listIdx < list->getNumChildren()) {
@@ -1765,7 +1765,7 @@ SoBaseKit::getAnyPart(const SbName & partname, bool makeifneeded,
                               this->getTypeId().getName().getString());
   }
 #endif // COIN_DEBUG
-  return NULL;
+  return nullptr;
 }
 
 /*!
@@ -1782,9 +1782,9 @@ SoBaseKit::getAnyPart(const SbName & partname, bool makeifneeded,
   \a pathtoextend is a path through the nodekit instance catalog
   hierarchy, where we should pick up and continue to create the path
   from where \a pathtoextend terminates. If \a pathtoextend is \c
-  NULL, we simply start at the "this" toplevel node.
+  nullptr, we simply start at the "this" toplevel node.
 
-  Returns \c NULL on failure, for any of the possible reasons
+  Returns \c nullptr on failure, for any of the possible reasons
   described above (part ends in non-leaf or private catalog entry,
   part is not syntactically valid or refers to non-existing catalog
   entries).
@@ -1806,7 +1806,7 @@ SoBaseKit::createPathToAnyPart(const SbName & partname, bool makeifneeded,
         SoDebugError::postWarning("SoBaseKit::createPathToAnyPart",
                                   "pathtoextend is illegal");
 #endif // COIN_DEBUG
-        return NULL;
+        return nullptr;
       }
       path->append(this); // this should be safe now
     }
@@ -1827,7 +1827,7 @@ SoBaseKit::createPathToAnyPart(const SbName & partname, bool makeifneeded,
     if ((leafcheck && ! catalog->isLeaf(partNum)) ||
         (publiccheck && ! catalog->isPublic(partNum))) {
       path->unref();
-      return NULL;
+      return nullptr;
     }
 
     SoNode * node = PRIVATE(kit)->instancelist[partNum]->getValue();
@@ -1843,7 +1843,7 @@ SoBaseKit::createPathToAnyPart(const SbName & partname, bool makeifneeded,
                                     listIdx, partname.getString());
 #endif // COIN_DEBUG
           path->unref();
-          return NULL;
+          return nullptr;
         }
         else if (listIdx == numlistchildren) {
           if (!list->canCreateDefaultChild()) {
@@ -1870,7 +1870,7 @@ SoBaseKit::createPathToAnyPart(const SbName & partname, bool makeifneeded,
     }
   }
   path->unref();
-  return NULL;
+  return nullptr;
 }
 
 /*!
@@ -1890,7 +1890,7 @@ SoBaseKit::setAnyPart(const SbName & partname, SoNode * from, bool anypart)
   // to create intermediate parts, but not the leaf part. For now we
   // just supply makeifneeded = true, and then immediately overwrite
   // the part here. pederb, 2004-06-07
-  if (SoBaseKit::findPart(partstring, kit, partNum, isList, listIdx, true, NULL, true)) {
+  if (SoBaseKit::findPart(partstring, kit, partNum, isList, listIdx, true, nullptr, true)) {
     if (anypart || kit->getNodekitCatalog()->isPublic(partNum)) {
       if (isList) {
         SoNode * partnode = PRIVATE(kit)->instancelist[partNum]->getValue();
@@ -1973,10 +1973,10 @@ SoBaseKit::createFieldList(void)
   // only do this if the catalog has been created
   if (catalog) {
     PRIVATE(this)->instancelist.truncate(0);
-    PRIVATE(this)->instancelist.append(NULL); // first catalog entry is "this"
+    PRIVATE(this)->instancelist.append(nullptr); // first catalog entry is "this"
     for (int i = 1; i < catalog->getNumEntries(); i++) {
       PRIVATE(this)->instancelist.append((SoSFNode *)this->getField(catalog->getName(i)));
-      assert(PRIVATE(this)->instancelist[i] != NULL);
+      assert(PRIVATE(this)->instancelist[i] != nullptr);
     }
   }
 }
@@ -1997,7 +1997,7 @@ SoBaseKit::createDefaultParts(void)
     for (int i = 1; i < PRIVATE(this)->instancelist.getLength(); i++) {
       if (!catalog->isNullByDefault(i)) {
         SoNode * old = PRIVATE(this)->instancelist[i]->getValue();
-        if ((old == NULL || ! old->isOfType(catalog->getDefaultType(i)) )) {
+        if ((old == nullptr || ! old->isOfType(catalog->getDefaultType(i)) )) {
           this->makePart(i);
           PRIVATE(this)->instancelist[i]->setDefault(true);
         }
@@ -2008,7 +2008,7 @@ SoBaseKit::createDefaultParts(void)
 
 /*!
   In Open Inventor, this method returns a pointer to a private class.
-  It will always return \c NULL in Coin.
+  It will always return \c nullptr in Coin.
 
   \sa createNodekitPartsList()
 */
@@ -2017,7 +2017,7 @@ SoBaseKit::getNodekitPartsList(void) const
 {
   assert(0 &&
          "SoBaseKit::getNodekitPartsList() obsoleted in Coin");
-  return NULL;
+  return nullptr;
 }
 
 /*!
@@ -2072,15 +2072,15 @@ SoBaseKit::readInstance(SoInput * in, unsigned short COIN_UNUSED_ARG(flags))
 
   // Dummy first element to get indices to match instancelist (where
   // the dummy "this" catalog entry is first).
-  nodelist.append(NULL);
+  nodelist.append(nullptr);
   defaultlist.append(false);
 
-  // copy all parts into nodelist, and then set all parts to NULL
+  // copy all parts into nodelist, and then set all parts to nullptr
   // and default before reading
   for (i = 1; i < PRIVATE(this)->instancelist.getLength(); i++) {
     nodelist.append(PRIVATE(this)->instancelist[i]->getValue());
     defaultlist.append(PRIVATE(this)->instancelist[i]->isDefault());
-    PRIVATE(this)->instancelist[i]->setValue(NULL);
+    PRIVATE(this)->instancelist[i]->setValue(nullptr);
     PRIVATE(this)->instancelist[i]->setDefault(true);
   }
 
@@ -2105,8 +2105,8 @@ SoBaseKit::readInstance(SoInput * in, unsigned short COIN_UNUSED_ARG(flags))
       if (!PRIVATE(this)->instancelist[i]->isDefault()) { // we've read a part
         nodelist.set(i, PRIVATE(this)->instancelist[i]->getValue());
         defaultlist[i] = false;
-        // set to NULL again so that setPart() will not get confused
-        PRIVATE(this)->instancelist[i]->setValue(NULL);
+        // set to nullptr again so that setPart() will not get confused
+        PRIVATE(this)->instancelist[i]->setValue(nullptr);
       }
     }
 
@@ -2150,10 +2150,10 @@ SoBaseKit::readInstance(SoInput * in, unsigned short COIN_UNUSED_ARG(flags))
 // kit might change during this search.
 //
 // compoundname parts are created during this search, so it might be necessary
-// to do a nodekit cleanup if part is not public, or if part is set to NULL.
+// to do a nodekit cleanup if part is not public, or if part is set to nullptr.
 //
 //
-// if path != NULL, kit-nodes will be appended to the path during the search
+// if path != nullptr, kit-nodes will be appended to the path during the search
 // The actual part is not added to the path. The head of the path should
 // be set to the kit-node performing the search.
 //
@@ -2184,12 +2184,12 @@ SoBaseKit::findPart(const SbString & partname, SoBaseKit *& kit, int & partnum,
   const char * startbracket = strchr(stringptr, '[');
 
   if (periodptr && (startbracket > periodptr))
-    startbracket = NULL; // will handle later
+    startbracket = nullptr; // will handle later
 
   islist = false; // set to false first
   SbString firstpartname;
   if (startbracket) { // get index
-    long int listindex = strtol(startbracket+1, NULL, 10);
+    long int listindex = strtol(startbracket+1, nullptr, 10);
     if (listindex == LONG_MIN || listindex == LONG_MAX) {
 #if COIN_DEBUG
       SoDebugError::postWarning("SoBaseKit::findPart",
@@ -2212,13 +2212,13 @@ SoBaseKit::findPart(const SbString & partname, SoBaseKit *& kit, int & partnum,
   if (partnum == SO_CATALOG_NAME_NOT_FOUND) {
     if (recsearch) { // search leaf nodekits for this part?
       SoBaseKit * orgkit = kit;
-      assert(path == NULL); // should not do recsearch when creating path
+      assert(path == nullptr); // should not do recsearch when creating path
       const SoNodekitCatalog * catalog = orgkit->getNodekitCatalog();
       for (int i = 1; i < PRIVATE(orgkit)->instancelist.getLength(); i++) {
         if (catalog->isLeaf(i) &&
             catalog->getType(i).isDerivedFrom(SoBaseKit::getClassTypeId())) {
           kit = (SoBaseKit *)PRIVATE(orgkit)->instancelist[i]->getValue();
-          bool didexist = kit != NULL;
+          bool didexist = kit != nullptr;
           if (!didexist) {
             orgkit->makePart(i);
             kit = (SoBaseKit *)PRIVATE(orgkit)->instancelist[i]->getValue();
@@ -2229,7 +2229,7 @@ SoBaseKit::findPart(const SbString & partname, SoBaseKit *& kit, int & partnum,
           }
           else if (!didexist) {
             // we created this part, remove it
-            orgkit->setPart(i, NULL);
+            orgkit->setPart(i, nullptr);
           }
         }
       }
@@ -2243,7 +2243,7 @@ SoBaseKit::findPart(const SbString & partname, SoBaseKit *& kit, int & partnum,
   SoSFNode * nodefield = PRIVATE(kit)->instancelist[partnum];
   assert(nodefield);
 
-  if (makeifneeded && nodefield->getValue() == NULL) {
+  if (makeifneeded && nodefield->getValue() == nullptr) {
     kit->makePart(partnum);
   }
 
@@ -2253,7 +2253,7 @@ SoBaseKit::findPart(const SbString & partname, SoBaseKit *& kit, int & partnum,
     int parent = catalog->getParentPartNumber(partnum);
     while (parent > 0) {
       SoNode * node = PRIVATE(kit)->instancelist[parent]->getValue();
-      if (node == NULL) {
+      if (node == nullptr) {
         assert(makeifneeded == false);
         break;
       }
@@ -2267,13 +2267,13 @@ SoBaseKit::findPart(const SbString & partname, SoBaseKit *& kit, int & partnum,
     }
   }
 
-  if (periodptr == NULL) {
+  if (periodptr == nullptr) {
     // singlename or singlelistname found, do not recurse any more
     return true; // all info has been found, just return true
   }
   else { // recurse
     SoNode * node = nodefield->getValue();
-    if (node == NULL) return false;
+    if (node == nullptr) return false;
     const ptrdiff_t startidx = periodptr - stringptr + 1;
     SbString newpartname = partname.getSubString((int)startidx);
     if (islist) {
@@ -2363,22 +2363,22 @@ SoBaseKit::setPart(const int partnum, SoNode * node)
   }
   int parentIdx = catalog->getParentPartNumber(partnum);
   assert(parentIdx >= 0 && parentIdx < PRIVATE(this)->instancelist.getLength());
-  SoNode * parent = NULL;
+  SoNode * parent = nullptr;
   if (parentIdx == 0) parent = this;
   else parent = PRIVATE(this)->instancelist[parentIdx]->getValue();
-  if (parent == NULL) {
+  if (parent == nullptr) {
     this->makePart(parentIdx);
     parent = PRIVATE(this)->instancelist[parentIdx]->getValue();
   }
-  assert(parent != NULL);
+  assert(parent != nullptr);
   SoChildList * childlist = parent->getChildren();
-  assert(childlist != NULL);
+  assert(childlist != nullptr);
 
   // if parent is a node derived from SoGroup, use the SoGroup access
   // functions to add/remove/insert children instead of SoChildList
   // directly. This is needed for VRML group nodes to work properly
   // inside node kits. pederb, 2004-06-23
-  SoGroup * parentgroup = NULL;
+  SoGroup * parentgroup = nullptr;
   if (parent->isOfType(SoGroup::getClassTypeId())) {
     parentgroup = (SoGroup*) parent;
   }
@@ -2401,7 +2401,7 @@ SoBaseKit::setPart(const int partnum, SoNode * node)
     return false;
   }
 
-  if (oldnode != NULL) { // part exists, replace
+  if (oldnode != nullptr) { // part exists, replace
     int oldIdx = childlist->find(oldnode);
     assert(oldIdx >= 0);
 
@@ -2453,7 +2453,7 @@ SoBaseKit::getRightSiblingIndex(const int partnum)
   int sibling = catalog->getRightSiblingPartNumber(partnum);
 
   // iterate until no more siblings or until we find an existing one
-  while (sibling >= 0 && PRIVATE(this)->instancelist[sibling]->getValue() == NULL) {
+  while (sibling >= 0 && PRIVATE(this)->instancelist[sibling]->getValue() == nullptr) {
     sibling = catalog->getRightSiblingPartNumber(sibling);
   }
   return sibling;
@@ -2525,7 +2525,7 @@ SoBaseKitP::testParentWrite(void)
     SoSFNode * field = this->instancelist[i];
     if (field->isDefault()) { // we might not write
       SoNode * node = field->getValue();
-      // don't write if NULL, of course
+      // don't write if nullptr, of course
       if (node) {
         int parent = catalog->getParentPartNumber(i);
         if (parent > 0) {
@@ -2564,7 +2564,7 @@ SoBaseKitP::copyParts(const SoBaseKit * srckit, SbList <SoNode*> & partlist,
     if (dstnode && catalog->getParentPartNumber(i) == 0) {
       SoNode * srcnode = srcfields[i]->getValue();
       assert(dstnode != srcnode);
-      assert(srcnode != NULL);
+      assert(srcnode != nullptr);
       assert(srcnode->getTypeId() == dstnode->getTypeId());
       srcnode->assertAlive();
       dstnode->assertAlive();

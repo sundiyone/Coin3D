@@ -184,7 +184,7 @@ static void
 so_lod_construct_data(void * closure)
 {
   so_lod_static_data * data = (so_lod_static_data*) closure;
-  data->bboxaction = NULL;
+  data->bboxaction = nullptr;
 }
 
 static void
@@ -194,7 +194,7 @@ so_lod_destruct_data(void * closure)
   delete data->bboxaction;
 }
 
-static SbStorage * so_lod_storage = NULL;
+static SbStorage * so_lod_storage = nullptr;
 
 // called from atexit
 static void
@@ -206,10 +206,10 @@ so_lod_cleanup(void)
 static SoGetBoundingBoxAction *
 so_lod_get_bbox_action(void)
 {
-  so_lod_static_data * data = NULL;
+  so_lod_static_data * data = nullptr;
   data = (so_lod_static_data*) so_lod_storage->get();
   
-  if (data->bboxaction == NULL) {
+  if (data->bboxaction == nullptr) {
     // The viewport region will be replaced every time the action is
     // used, so we can just feed it a dummy here.
     data->bboxaction = new SoGetBoundingBoxAction(SbViewportRegion());
@@ -292,7 +292,7 @@ void
 SoLevelOfDetail::commonConstructor(void)
 {
   PRIVATE(this) = new SoLevelOfDetailP;
-  PRIVATE(this)->bboxcache = NULL;
+  PRIVATE(this)->bboxcache = nullptr;
 
   SO_NODE_INTERNAL_CONSTRUCTOR(SoLevelOfDetail);
 

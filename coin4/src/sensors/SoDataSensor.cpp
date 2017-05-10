@@ -54,17 +54,17 @@
   Default constructor.
 */
 SoDataSensor::SoDataSensor(void)
-  : cbfunc(NULL),
-    cbdata(NULL),
+  : cbfunc(nullptr),
+    cbdata(nullptr),
     findpath(false),
-    triggerfield(NULL),
-    triggernode(NULL),
-    triggerpath(NULL),
+    triggerfield(nullptr),
+    triggernode(nullptr),
+    triggerpath(nullptr),
     triggeroperationtype(SoNotRec::UNSPECIFIED),
     triggerindex(-1),
     triggerfieldnumindices(0),
-    triggergroupchild(NULL),
-    triggergroupprevchild(NULL)
+    triggergroupchild(nullptr),
+    triggergroupprevchild(nullptr)
 {
 }
 
@@ -76,17 +76,17 @@ SoDataSensor::SoDataSensor(void)
 */
 SoDataSensor::SoDataSensor(SoSensorCB * func, void * data)
   : inherited(func, data),
-    cbfunc(NULL),
-    cbdata(NULL),
+    cbfunc(nullptr),
+    cbdata(nullptr),
     findpath(false),
-    triggerfield(NULL),
-    triggernode(NULL),
-    triggerpath(NULL),
+    triggerfield(nullptr),
+    triggernode(nullptr),
+    triggerpath(nullptr),
     triggeroperationtype(SoNotRec::UNSPECIFIED),
     triggerindex(-1),
     triggerfieldnumindices(0),
-    triggergroupchild(NULL),
-    triggergroupprevchild(NULL)
+    triggergroupchild(nullptr),
+    triggergroupprevchild(nullptr)
 {
 }
 
@@ -114,9 +114,9 @@ SoDataSensor::setDeleteCallback(SoSensorCB * function, void * data)
 
 /*!
   Returns a pointer to the node causing the sensor to trigger, or \c
-  NULL if there was no such node.
+  nullptr if there was no such node.
 
-  \c NULL will also be returned for sensors which are not immediate
+  \c nullptr will also be returned for sensors which are not immediate
   sensors (i.e. with priority equal to 0), as the result could
   otherwise be misleading (non-immediate sensors could have been
   scheduled and rescheduled multiple times, so there wouldn't be a
@@ -136,9 +136,9 @@ SoDataSensor::getTriggerNode(void) const
 
 /*!
   Returns a pointer to the field causing the sensor to trigger, or \c
-  NULL if the change didn't start at a field.
+  nullptr if the change didn't start at a field.
 
-  Only valid for immediate sensors (will return \c NULL otherwise),
+  Only valid for immediate sensors (will return \c nullptr otherwise),
   for the same reason as described for SoDataSensor::getTriggerNode().
 
   The result is only valid within the scope of a trigger(), so if you
@@ -241,7 +241,7 @@ SoDataSensor::getTriggerFieldNumIndices(void) const
 
 /*!
   Returns a pointer to the actual child node in the node that caused
-  the sensor to trigger, or \c NULL if there was no such node.
+  the sensor to trigger, or \c nullptr if there was no such node.
 
   Please note that this method is an extension to the original SGI
   Inventor API.
@@ -257,7 +257,7 @@ SoDataSensor::getTriggerGroupChild(void) const
 /*!
   Returns a pointer to the actual child node for a
   SoNotRec::GROUP_REPLACECHILD type of operation in the node that is
-  about to be replaced and caused the sensor to trigger, or \c NULL if
+  about to be replaced and caused the sensor to trigger, or \c nullptr if
   there was no such node.
 
   Please note that this method is an extension to the original SGI
@@ -276,15 +276,15 @@ void
 SoDataSensor::trigger(void)
 {
   inherited::trigger();
-  this->triggerfield = NULL;
-  this->triggernode = NULL;
+  this->triggerfield = nullptr;
+  this->triggernode = nullptr;
   if (this->triggerpath) this->triggerpath->unref();
-  this->triggerpath = NULL;
+  this->triggerpath = nullptr;
   this->triggeroperationtype = SoNotRec::UNSPECIFIED;
   this->triggerindex = -1;
   this->triggerfieldnumindices = 0;
-  this->triggergroupchild = NULL;
-  this->triggergroupprevchild = NULL;
+  this->triggergroupchild = nullptr;
+  this->triggergroupprevchild = nullptr;
 }
 
 /*!
@@ -301,17 +301,17 @@ SoDataSensor::trigger(void)
 void
 SoDataSensor::notify(SoNotList * l)
 {
-  if (this->triggerpath != NULL) {
+  if (this->triggerpath != nullptr) {
     this->triggerpath->unref();
-    this->triggerpath = NULL;
+    this->triggerpath = nullptr;
   }
-  this->triggerfield = NULL;
-  this->triggernode = NULL;
+  this->triggerfield = nullptr;
+  this->triggernode = nullptr;
 
   if (this->getPriority() == 0) {
     this->triggerfield = l->getLastField();
     SoNotRec * record = l->getFirstRecAtNode();
-    this->triggernode = (SoNode *) (record ? record->getBase() : NULL);
+    this->triggernode = (SoNode *) (record ? record->getBase() : nullptr);
 
     if (this->findpath && this->triggernode) {
       const SoNotRec * record = l->getLastRec();
@@ -332,8 +332,8 @@ SoDataSensor::notify(SoNotList * l)
     this->triggeroperationtype = record ? record->getOperationType() : SoNotRec::UNSPECIFIED;
     this->triggerindex = record ? record->getIndex() : -1;
     this->triggerfieldnumindices = record ? record->getFieldNumIndices() : 0;
-    this->triggergroupchild = (SoNode *) (record ? record->getGroupChild() : NULL);
-    this->triggergroupprevchild = (SoNode *) (record ? record->getGroupPrevChild() : NULL);
+    this->triggergroupchild = (SoNode *) (record ? record->getGroupChild() : nullptr);
+    this->triggergroupprevchild = (SoNode *) (record ? record->getGroupPrevChild() : nullptr);
   }
   this->schedule();
 }

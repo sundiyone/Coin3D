@@ -25,7 +25,6 @@
 \**************************************************************************/
 
 #include <Inventor/SbBasic.h>
-#include <stdlib.h> // For NULL definition.
 
 #ifndef COIN_INTERNAL
 // The next include for Open Inventor compatibility.
@@ -73,11 +72,11 @@ public:
   bool operator>(const SoType type) const;
 
   static const SoType createType(const SoType parent, const SbName name,
-                                 const instantiationMethod method = NULL,
+                                 const instantiationMethod method = nullptr,
                                  const uint16_t data = 0);
 
   static const SoType overrideType(const SoType originalType,
-                                   const instantiationMethod method = NULL);
+                                   const instantiationMethod method = nullptr);
 
   static bool removeType(const SbName & name);
 

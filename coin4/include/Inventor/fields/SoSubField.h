@@ -282,7 +282,7 @@ public: \
 _class_::_class_(void) \
 { \
   assert(_class_::classTypeId != SoType::badType()); \
-  this->values = NULL; \
+  this->values = nullptr; \
 } \
  \
 _class_::~_class_(void) \
@@ -424,7 +424,7 @@ _class_::allocValues(int newnum) \
   this->setChangedIndices(); \
   if (newnum == 0) { \
     if (!this->userDataIsUsed) delete[] this->values; /* don't fetch pointer through valuesPtr() (avoids void* cast) */ \
-    this->setValuesPtr(NULL); \
+    this->setValuesPtr(nullptr); \
     this->maxNum = 0; \
     this->userDataIsUsed = false; \
   } \

@@ -101,12 +101,12 @@ SoScXMLPanTarget::cleanClass(void)
   SoScXMLPanTarget::classTypeId = SoType::badType();
 }
 
-SoScXMLPanTarget * SoScXMLPanTarget::theSingleton = NULL;
+SoScXMLPanTarget * SoScXMLPanTarget::theSingleton = nullptr;
 
 SoScXMLPanTarget *
 SoScXMLPanTarget::constructSingleton(void)
 {
-  assert(SoScXMLPanTarget::theSingleton == NULL);
+  assert(SoScXMLPanTarget::theSingleton == nullptr);
   SoScXMLPanTarget::theSingleton =
     static_cast<SoScXMLPanTarget *>(SoScXMLPanTarget::classTypeId.createInstance());
   return SoScXMLPanTarget::theSingleton;
@@ -115,15 +115,15 @@ SoScXMLPanTarget::constructSingleton(void)
 void
 SoScXMLPanTarget::destructSingleton(void)
 {
-  assert(SoScXMLPanTarget::theSingleton != NULL);
+  assert(SoScXMLPanTarget::theSingleton != nullptr);
   delete SoScXMLPanTarget::theSingleton;
-  SoScXMLPanTarget::theSingleton = NULL;
+  SoScXMLPanTarget::theSingleton = nullptr;
 }
 
 SoScXMLPanTarget *
 SoScXMLPanTarget::singleton(void)
 {
-  assert(SoScXMLPanTarget::theSingleton != NULL);
+  assert(SoScXMLPanTarget::theSingleton != nullptr);
   return SoScXMLPanTarget::theSingleton;
 }
 
@@ -346,7 +346,7 @@ SoScXMLPanTarget::panCamera(SoCamera * camera,
                             const SbVec2f & previous,
                             const SbVec2f & current)
 {
-  if (camera == NULL) return; // can happen for empty scenegraph
+  if (camera == nullptr) return; // can happen for empty scenegraph
   if (current == previous) return; // useless invocation
 
   // Find projection points for the last and current mouse coordinates.

@@ -56,8 +56,8 @@
 #endif
 #endif /* OPENALWRAPPER_ASSUME_OPENAL */
 
-static openal_wrapper_t * openal_instance = NULL;
-static cc_libhandle openal_libhandle = NULL;
+static openal_wrapper_t * openal_instance = nullptr;
+static cc_libhandle openal_libhandle = nullptr;
 static int openal_failed_to_load = 0;
 static int openal_is_initializing = 0;
 
@@ -68,13 +68,13 @@ openal_wrapper_cleanup(void)
 #ifdef OPENAL_RUNTIME_LINKING
   if (openal_libhandle) {
     cc_dl_close(openal_libhandle);
-    openal_libhandle = NULL;
+    openal_libhandle = nullptr;
   }
 #endif /* OPENAL_RUNTIME_LINKING */
 
   assert(openal_instance);
   free(openal_instance);
-  openal_instance = NULL;
+  openal_instance = nullptr;
   openal_failed_to_load = 0;
   openal_is_initializing = 0;
 }
@@ -107,9 +107,9 @@ openal_wrapper(void)
     {
       int idx;
       const char * possiblelibnames[] = {
-        NULL, /* is set below */
+        nullptr, /* is set below */
         "openal", "openal32", "libopenal.so", "libopenal.dylib",
-        NULL
+        nullptr
       };
 
       possiblelibnames[0] = coin_getenv("COIN_OPENAL_LIBNAME");
@@ -141,7 +141,7 @@ openal_wrapper(void)
     oal->available = 0;
     oal->runtime = 0;
 #define OPENALWRAPPER_REGISTER_FUNC(_funcname_, _funcsig_) \
-    oal->_funcname_ = NULL
+    oal->_funcname_ = nullptr
 
 #endif /* !OPENALWRAPPER_ASSUME_OPENAL */
 

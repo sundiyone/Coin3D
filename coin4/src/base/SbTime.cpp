@@ -400,9 +400,9 @@ SbString
 SbTime::format(const char * const fmt) const
 {
 #if COIN_DEBUG
-  if (fmt==NULL) {
+  if (fmt==nullptr) {
     SoDebugError::postWarning("SbTime::format",
-                              "Format string is NULL.");
+                              "Format string is nullptr.");
     return SbString("");
   }
 #endif // COIN_DEBUG
@@ -513,7 +513,7 @@ SbTime::format(const char * const fmt) const
   your reference documentation for strftime() for information on the
   format modifiers available.
 
-  Default formatting is used if \a fmt is \c NULL. Note that the
+  Default formatting is used if \a fmt is \c nullptr. Note that the
   default formatting is different on Microsoft Windows systems versus
   all other systems. For Windows, it is \c "%#c", for other systems it
   is \c "%A, %D %r" (again, see system documentation on strftime() for
@@ -531,7 +531,7 @@ SbString
 SbTime::formatDate(const char * const fmt) const
 {
   const char * format = fmt;
-  if (format == NULL) {
+  if (format == nullptr) {
 #ifdef HAVE_WIN32_API
     format = "%#c";
 #else // ! HAVE_WIN32_API
@@ -551,7 +551,7 @@ SbTime::formatDate(const char * const fmt) const
 
   size_t ret = strftime(bufferpt, currentsize, format, ts);
   if ((ret == 0) || (ret == currentsize)) {
-    bufferpt = NULL;
+    bufferpt = nullptr;
     // The resulting string was too large, so we will allocate
     // a subsequently larger buffer until the date string fits.
     do {
@@ -595,7 +595,7 @@ SbTime::parsedate(const char * const date)
 #if COIN_DEBUG
   if (!date) {
     SoDebugError::postWarning("SbTime::parsedate",
-                              "date string is NULL.");
+                              "date string is nullptr.");
     return false;
   }
 #endif // COIN_DEBUG

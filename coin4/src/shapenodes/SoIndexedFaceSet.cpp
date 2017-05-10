@@ -287,8 +287,8 @@ SO_NODE_SOURCE(SoIndexedFaceSet);
 SoIndexedFaceSet::SoIndexedFaceSet()
 {
   PRIVATE(this) = new SoIndexedFaceSetP;
-  PRIVATE(this)->convexCache = NULL;
-  PRIVATE(this)->vaindexer = NULL;
+  PRIVATE(this)->convexCache = nullptr;
+  PRIVATE(this)->vaindexer = nullptr;
   PRIVATE(this)->concavestatus = STATUS_UNKNOWN;
 
   SO_NODE_INTERNAL_CONSTRUCTOR(SoIndexedFaceSet);
@@ -403,7 +403,7 @@ SoIndexedFaceSet::notify(SoNotList * list)
     LOCK_VAINDEXER(this);
     if (PRIVATE(this)->vaindexer) {
       delete PRIVATE(this)->vaindexer;
-      PRIVATE(this)->vaindexer = NULL;
+      PRIVATE(this)->vaindexer = nullptr;
     }
     UNLOCK_VAINDEXER(this);
   }
@@ -482,18 +482,18 @@ SoIndexedFaceSet::GLRender(SoGLRenderAction * action)
   if (doTextures) {
     if (tb.isFunction() && !tb.needIndices()) {
       tbind = NONE;
-      tindices = NULL;
+      tindices = nullptr;
     }
     // FIXME: just call inherited::areTexCoordsIndexed() instead of
     // the if-check? 20020110 mortene.
     else if (SoTextureCoordinateBindingElement::get(state) ==
              SoTextureCoordinateBindingElement::PER_VERTEX) {
       tbind = PER_VERTEX;
-      tindices = NULL;
+      tindices = nullptr;
     }
     else {
       tbind = PER_VERTEX_INDEXED;
-      if (tindices == NULL) tindices = cindices;
+      if (tindices == nullptr) tindices = cindices;
     }
   }
 
@@ -523,23 +523,23 @@ SoIndexedFaceSet::GLRender(SoGLRenderAction * action)
 #endif
 
   const uint32_t contextid = action->getCacheContext();
-  SoGLLazyElement * lelem = NULL;
+  SoGLLazyElement * lelem = nullptr;
   bool dova =
     SoVBO::shouldRenderAsVertexArrays(state, contextid, numindices) &&
     !convexcacheused && !normalCacheUsed &&
-    ((nbind == OVERALL) || ((nbind == PER_VERTEX_INDEXED) && ((nindices == cindices) || (nindices == NULL)))) &&
+    ((nbind == OVERALL) || ((nbind == PER_VERTEX_INDEXED) && ((nindices == cindices) || (nindices == nullptr)))) &&
     ((tbind == NONE && !tb.needCoordinates()) || // no 
-     ((tbind == PER_VERTEX_INDEXED) && ((tindices == cindices) || (tindices == NULL)))) &&
-    ((mbind == NONE) || ((mbind == PER_VERTEX_INDEXED) && ((mindices == cindices) || (mindices == NULL)))) &&
+     ((tbind == PER_VERTEX_INDEXED) && ((tindices == cindices) || (tindices == nullptr)))) &&
+    ((mbind == NONE) || ((mbind == PER_VERTEX_INDEXED) && ((mindices == cindices) || (mindices == nullptr)))) &&
     SoGLDriverDatabase::isSupported(sogl_glue_instance(state), SO_GL_VERTEX_ARRAY);
 
   const SoGLVBOElement * vboelem = SoGLVBOElement::getInstance(state);
-  SoVBO * colorvbo = NULL;
+  SoVBO * colorvbo = nullptr;
 
   bool didrenderasvbo = false;
   if (dova && (mbind != OVERALL)) {
     dova = false;
-    if ((mbind == PER_VERTEX_INDEXED) && ((mindices == cindices) || (mindices == NULL))) {
+    if ((mbind == PER_VERTEX_INDEXED) && ((mindices == cindices) || (mindices == nullptr))) {
       lelem = (SoGLLazyElement*) SoLazyElement::getInstance(state);
       colorvbo = vboelem->getColorVBO();
       if (colorvbo) dova = true;
@@ -555,13 +555,13 @@ SoIndexedFaceSet::GLRender(SoGLRenderAction * action)
   if (dova) {
     bool dovbo = this->startVertexArray(action,
                                           coords,
-                                          (nbind != OVERALL) ? normals : NULL,
+                                          (nbind != OVERALL) ? normals : nullptr,
                                           doTextures,
                                           mbind != OVERALL);
     didrenderasvbo = dovbo;
 
     LOCK_VAINDEXER(this);
-    if (PRIVATE(this)->vaindexer == NULL) {
+    if (PRIVATE(this)->vaindexer == nullptr) {
       SoVertexArrayIndexer * indexer = new SoVertexArrayIndexer;
       int i = 0;
       while (i < numindices) {
@@ -745,25 +745,25 @@ SoIndexedFaceSet::generatePrimitives(SoAction *action)
   if (doTextures) {
     if (tb.isFunction() && !tb.needIndices()) {
       tbind = NONE;
-      tindices = NULL;
+      tindices = nullptr;
     }
     // FIXME: just call inherited::areTexCoordsIndexed() instead of
     // the if-check? 20020110 mortene.
     else if (SoTextureCoordinateBindingElement::get(state) ==
              SoTextureCoordinateBindingElement::PER_VERTEX) {
       tbind = PER_VERTEX;
-      tindices = NULL;
+      tindices = nullptr;
     }
     else {
       tbind = PER_VERTEX_INDEXED;
-      if (tindices == NULL) tindices = cindices;
+      if (tindices == nullptr) tindices = cindices;
     }
   }
 
-  if (nbind == PER_VERTEX_INDEXED && nindices == NULL) {
+  if (nbind == PER_VERTEX_INDEXED && nindices == nullptr) {
     nindices = cindices;
   }
-  if (mbind == PER_VERTEX_INDEXED && mindices == NULL) {
+  if (mbind == PER_VERTEX_INDEXED && mindices == nullptr) {
     mindices = cindices;
   }
 
@@ -938,7 +938,7 @@ SoIndexedFaceSet::getPrimitiveCount(SoGetPrimitiveCountAction *action)
 //
 // internal method which checks if convex cache needs to be
 // used or (re)created. Returns true if convex cache must be
-// used. this->convexCache is then guaranteed to be != NULL.
+// used. this->convexCache is then guaranteed to be != nullptr.
 //
 bool
 SoIndexedFaceSet::useConvexCache(SoAction * action,
@@ -1042,13 +1042,13 @@ SoIndexedFaceSet::useConvexCache(SoAction * action,
   }
   else {
     tbind = PER_VERTEX_INDEXED;
-    if (tindices == NULL) tindices = cindices;
+    if (tindices == nullptr) tindices = cindices;
   }
 
-  if (nbind == PER_VERTEX_INDEXED && nindices == NULL) {
+  if (nbind == PER_VERTEX_INDEXED && nindices == nullptr) {
     nindices = cindices;
   }
-  if (mbind == PER_VERTEX_INDEXED && mindices == NULL) {
+  if (mbind == PER_VERTEX_INDEXED && mindices == nullptr) {
     mindices = cindices;
   }
   PRIVATE(this)->convexCache->generate(coords, modelmatrix,
@@ -1101,7 +1101,7 @@ SoIndexedFaceSet::generateDefaultNormals(SoState * state,
                           coordIndex.getValues(0),
                           coordIndex.getNum(),
                           SoCreaseAngleElement::get(state, this->getNodeType() == SoNode::VRML1),
-                          NULL,
+                          nullptr,
                           -1,
                           ccw);
     break;

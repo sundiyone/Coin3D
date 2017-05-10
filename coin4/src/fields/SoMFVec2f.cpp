@@ -139,7 +139,7 @@ SoMFVec2f::setValue(float x, float y)
 void
 SoMFVec2f::setValue(const float xy[2])
 {
-  if (xy == NULL) this->setNum(0);
+  if (xy == nullptr) this->setNum(0);
   else this->setValue(SbVec2f(xy));
 }
 

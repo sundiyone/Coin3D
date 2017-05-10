@@ -46,9 +46,9 @@ SoNormalBundle::SoNormalBundle(SoAction * action, bool forrendering)
 {
   this->state->push();
   this->node = action->getCurPathTail();
-  this->generator = NULL;
+  this->generator = nullptr;
   this->elem = SoNormalElement::getInstance(this->state);
-  this->glelem = NULL;
+  this->glelem = nullptr;
   if (forrendering) {
     this->glelem = static_cast<const SoGLNormalElement *>(this->elem);
   }
@@ -165,7 +165,7 @@ SoNormalBundle::getGeneratedNormals(void) const
   if (this->generator) {
     return this->generator->getNormals();
   }
-  return NULL;
+  return nullptr;
 }
 
 /*!

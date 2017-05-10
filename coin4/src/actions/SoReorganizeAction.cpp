@@ -289,14 +289,14 @@
 class SoReorganizeActionP {
  public:
   SoReorganizeActionP(void)
-    : master(NULL),
+    : master(nullptr),
       gennormals(true),
       gentexcoords(true),
       gentristrips(false),
       genvp(false),
       matchidx(true),
       cbaction(SbViewportRegion(640, 480)),
-      pvcache(NULL)
+      pvcache(nullptr)
   {
     cbaction.addTriangleCallback(SoVertexShape::getClassTypeId(), triangle_cb, this);
     cbaction.addLineSegmentCallback(SoVertexShape::getClassTypeId(), line_segment_cb, this);
@@ -403,7 +403,7 @@ SoReorganizeAction::~SoReorganizeAction(void)
 SoSeparator *
 SoReorganizeAction::getSimplifiedSceneGraph(void) const
 {
-  return NULL;
+  return nullptr;
 }
 
 void
@@ -469,7 +469,7 @@ SoReorganizeAction::areIndexArraysMatched(void) const
 SoSimplifier *
 SoReorganizeAction::getSimplifier(void) const
 {
-  return NULL;
+  return nullptr;
 }
 
 void
@@ -583,7 +583,7 @@ SoReorganizeActionP::triangle_cb(void * userdata, SoCallbackAction * action,
 
   if (!thisp->didinit) {
     if (thisp->initShape(action)) {
-      assert(thisp->pvcache == NULL);
+      assert(thisp->pvcache == nullptr);
       thisp->pvcache = new SoPrimitiveVertexCache(action->getState());
       thisp->pvcache->ref();
     }
@@ -604,7 +604,7 @@ SoReorganizeActionP::line_segment_cb(void * userdata, SoCallbackAction * action,
 
   if (!thisp->didinit) {
     if (thisp->initShape(action)) {
-      assert(thisp->pvcache == NULL);
+      assert(thisp->pvcache == nullptr);
       thisp->pvcache = new SoPrimitiveVertexCache(action->getState());
       thisp->pvcache->ref();
     }
@@ -710,7 +710,7 @@ SoReorganizeActionP::initShape(SoCallbackAction * action)
 void
 SoReorganizeActionP::replaceNode(SoFullPath * path)
 {
-  if (this->pvcache == NULL) return;
+  if (this->pvcache == nullptr) return;
   this->pvcache->fit(); // needed to do optimize-sort of data
 
   if (this->pvcache->getNumTriangleIndices()) {
@@ -730,7 +730,7 @@ SoReorganizeActionP::replaceNode(SoFullPath * path)
     }
   }
   this->pvcache->unref();
-  this->pvcache = NULL;
+  this->pvcache = nullptr;
 }
 
 SoVertexProperty *

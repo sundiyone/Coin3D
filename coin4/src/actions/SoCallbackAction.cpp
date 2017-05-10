@@ -52,8 +52,8 @@
    #include <Inventor/nodes/SoTranslation.h>
 
 
-   static SoCoordinate3 * coord3 = NULL;
-   static SoIndexedFaceSet * ifs = NULL;
+   static SoCoordinate3 * coord3 = nullptr;
+   static SoIndexedFaceSet * ifs = nullptr;
 
    static int coord3idx = 0;
 
@@ -113,7 +113,7 @@
      ifs->coordIndex.setNum(0);
 
      SoCallbackAction ca;
-     ca.addTriangleCallback(SoShape::getClassTypeId(), triangle_cb, NULL);
+     ca.addTriangleCallback(SoShape::getClassTypeId(), triangle_cb, nullptr);
      ca.apply(root);
 
      root->unref();
@@ -216,13 +216,13 @@
 
 class SoCallbackData { //internal class
 public:
-  SoCallbackData(void * cbfunc = NULL, void * userdata = NULL)
-    : func(cbfunc), data(userdata), next(NULL) {}
+  SoCallbackData(void * cbfunc = nullptr, void * userdata = nullptr)
+    : func(cbfunc), data(userdata), next(nullptr) {}
 
 
   void append(SoCallbackData * newdata) {
     SoCallbackData * cbdata = this;
-    while (cbdata->next != NULL) cbdata = cbdata->next;
+    while (cbdata->next != nullptr) cbdata = cbdata->next;
     cbdata->next = newdata;
   }
 
@@ -263,7 +263,7 @@ SoCallbackData::doNodeCallbacks(SoCallbackAction * action,
   SoCallbackData * cbdata = this;
   SoCallbackAction::Response response = SoCallbackAction::CONTINUE;
   while (cbdata) {
-    assert(cbdata->func != NULL);
+    assert(cbdata->func != nullptr);
     SoCallbackAction::SoCallbackActionCB * cbfunc =
       object_to_function_cast<SoCallbackAction::SoCallbackActionCB *>( cbdata->func);
     SoCallbackAction::Response ret = cbfunc(cbdata->data, action, node);
@@ -282,7 +282,7 @@ SoCallbackData::doTriangleCallbacks(SoCallbackAction * action,
 {
   SoCallbackData * cbdata = this;
   while (cbdata) {
-    assert(cbdata->func != NULL);
+    assert(cbdata->func != nullptr);
     SoTriangleCB * tricb = object_to_function_cast<SoTriangleCB *> (cbdata->func);
     tricb(cbdata->data, action, v1, v2, v3);
     cbdata = cbdata->next;
@@ -296,7 +296,7 @@ SoCallbackData::doLineSegmentCallbacks(SoCallbackAction * action,
 {
   SoCallbackData * cbdata = this;
   while (cbdata) {
-    assert(cbdata->func != NULL);
+    assert(cbdata->func != nullptr);
     SoLineSegmentCB * linecb = object_to_function_cast<SoLineSegmentCB *>( cbdata->func);
     linecb(cbdata->data, action, v1, v2);
     cbdata = cbdata->next;
@@ -309,7 +309,7 @@ SoCallbackData::doPointCallbacks(SoCallbackAction * action,
 {
   SoCallbackData * cbdata = this;
   while (cbdata) {
-    assert(cbdata->func != NULL);
+    assert(cbdata->func != nullptr);
     SoPointCB * ptcb = object_to_function_cast<SoPointCB *>( cbdata->func);
     ptcb(cbdata->data, action, v);
     cbdata = cbdata->next;
@@ -427,8 +427,8 @@ SoCallbackAction::commonConstructor(void)
 {
   SO_ACTION_CONSTRUCTOR(SoCallbackAction);
 
-  PRIVATE(this)->pretailcallback = NULL;
-  PRIVATE(this)->posttailcallback = NULL;
+  PRIVATE(this)->pretailcallback = nullptr;
+  PRIVATE(this)->posttailcallback = nullptr;
   PRIVATE(this)->viewportset = false;
   PRIVATE(this)->callbackall = false;
 }
@@ -474,7 +474,7 @@ SoCallbackAction::~SoCallbackAction()
 }
 
 //
-// for setting node callbacks. makes sure NULLs are filled in where not set
+// for setting node callbacks. makes sure nullptr are filled in where not set
 //
 static void
 set_callback_data_idx(SbList<SoCallbackData *> & list, const int idx,
@@ -482,10 +482,10 @@ set_callback_data_idx(SbList<SoCallbackData *> & list, const int idx,
 {
   int n = list.getLength();
   while (n <= idx) {
-    list.append(NULL);
+    list.append(nullptr);
     n++;
   }
-  if (list[idx] == NULL) list[idx] = new SoCallbackData(func, data);
+  if (list[idx] == nullptr) list[idx] = new SoCallbackData(func, data);
   else list[idx]->append(new SoCallbackData(func, data));
 }
 
@@ -530,7 +530,7 @@ SoCallbackAction::addPostCallback(const SoType type, SoCallbackActionCB * cb,
 void
 SoCallbackAction::addPreTailCallback(SoCallbackActionCB * cb, void * userdata)
 {
-  if (PRIVATE(this)->pretailcallback == NULL)
+  if (PRIVATE(this)->pretailcallback == nullptr)
     PRIVATE(this)->pretailcallback = new SoCallbackData(function_to_object_cast<void *>(cb), userdata);
   else
     PRIVATE(this)->pretailcallback->append(new SoCallbackData(function_to_object_cast<void *>(cb), userdata));
@@ -543,7 +543,7 @@ SoCallbackAction::addPreTailCallback(SoCallbackActionCB * cb, void * userdata)
 void
 SoCallbackAction::addPostTailCallback(SoCallbackActionCB * cb, void * userdata)
 {
-  if (PRIVATE(this)->posttailcallback == NULL)
+  if (PRIVATE(this)->posttailcallback == nullptr)
     PRIVATE(this)->posttailcallback = new SoCallbackData(function_to_object_cast<void *>(cb), userdata);
   else
     PRIVATE(this)->posttailcallback->append(new SoCallbackData(function_to_object_cast<void *>(cb), userdata));
@@ -1121,7 +1121,7 @@ SoCallbackAction::invokePreCallbacks(const SoNode * const node)
 
   int idx = static_cast<int>(node->getTypeId().getData());
 
-  if (idx < PRIVATE(this)->precallback.getLength() && PRIVATE(this)->precallback[idx] != NULL) {
+  if (idx < PRIVATE(this)->precallback.getLength() && PRIVATE(this)->precallback[idx] != nullptr) {
     PRIVATE(this)->response = PRIVATE(this)->precallback[idx]->doNodeCallbacks(this, node);
     if (PRIVATE(this)->response == SoCallbackAction::ABORT) {
       this->setTerminated(true);
@@ -1130,7 +1130,7 @@ SoCallbackAction::invokePreCallbacks(const SoNode * const node)
   }
 
   if (this->getWhatAppliedTo() == SoAction::PATH &&
-      this->getPathAppliedTo()->getTail() == node && PRIVATE(this)->pretailcallback != NULL) {
+      this->getPathAppliedTo()->getTail() == node && PRIVATE(this)->pretailcallback != nullptr) {
     PRIVATE(this)->response = PRIVATE(this)->pretailcallback->doNodeCallbacks(this, node);
     if (PRIVATE(this)->response == SoCallbackAction::ABORT) {
       this->setTerminated(true);
@@ -1153,7 +1153,7 @@ SoCallbackAction::invokePostCallbacks(const SoNode * const node)
   if (PRIVATE(this)->response == PRUNE) PRIVATE(this)->response = CONTINUE;
 
   int idx = static_cast<int>(node->getTypeId().getData());
-  if (idx < PRIVATE(this)->postcallback.getLength() && PRIVATE(this)->postcallback[idx] != NULL) {
+  if (idx < PRIVATE(this)->postcallback.getLength() && PRIVATE(this)->postcallback[idx] != nullptr) {
     PRIVATE(this)->response = static_cast<Response>(PRIVATE(this)->postcallback[idx]->doNodeCallbacks(this, node));
     if (PRIVATE(this)->response == SoCallbackAction::ABORT) {
       this->setTerminated(true);
@@ -1185,7 +1185,7 @@ SoCallbackAction::invokeTriangleCallbacks(const SoShape * const shape,
                                           const SoPrimitiveVertex * const v3)
 {
   int idx = static_cast<int>(shape->getTypeId().getData());
-  if (idx < PRIVATE(this)->trianglecallback.getLength() && PRIVATE(this)->trianglecallback[idx] != NULL)
+  if (idx < PRIVATE(this)->trianglecallback.getLength() && PRIVATE(this)->trianglecallback[idx] != nullptr)
     PRIVATE(this)->trianglecallback[idx]->doTriangleCallbacks(this, v1, v2, v3);
 }
 
@@ -1200,7 +1200,7 @@ SoCallbackAction::invokeLineSegmentCallbacks(const SoShape * const shape,
                                              const SoPrimitiveVertex * const v2)
 {
   int idx = static_cast<int>(shape->getTypeId().getData());
-  if (idx < PRIVATE(this)->linecallback.getLength() && PRIVATE(this)->linecallback[idx] != NULL)
+  if (idx < PRIVATE(this)->linecallback.getLength() && PRIVATE(this)->linecallback[idx] != nullptr)
     PRIVATE(this)->linecallback[idx]->doLineSegmentCallbacks(this, v1, v2);
 }
 
@@ -1214,7 +1214,7 @@ SoCallbackAction::invokePointCallbacks(const SoShape * const shape,
                                        const SoPrimitiveVertex * const v)
 {
   int idx = static_cast<int>(shape->getTypeId().getData());
-  if (idx < PRIVATE(this)->pointcallback.getLength() && PRIVATE(this)->pointcallback[idx] != NULL)
+  if (idx < PRIVATE(this)->pointcallback.getLength() && PRIVATE(this)->pointcallback[idx] != nullptr)
     PRIVATE(this)->pointcallback[idx]->doPointCallbacks(this, v);
 }
 

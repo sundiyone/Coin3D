@@ -65,7 +65,7 @@ public:
   bool autonodeunref;
 };
 
-JSRuntime * SoJavaScriptEngineP::runtime = NULL;
+JSRuntime * SoJavaScriptEngineP::runtime = nullptr;
 size_t SoJavaScriptEngineP::CONTEXT_STACK_CHUNK_SIZE = 8192; /* stack chunk size */
 JSClass SoJavaScriptEngineP::globalclass;
 
@@ -213,7 +213,7 @@ SoJavaScriptEngine::SoJavaScriptEngine()
   // the same global object? 20050719 erikgors.
   JSObject * global = PRIVATE(this)->global = 
     spidermonkey()->JS_NewObject(cx, &SoJavaScriptEngineP::globalclass, 
-                                 NULL, NULL);
+                                 nullptr, nullptr);
   if (!global) {
     SoDebugError::postWarning("SoJavaScriptEngine::SoJavaScriptEngine",
                               "SpiderMonkey Javascript engine available, "
@@ -321,7 +321,7 @@ SoJavaScriptEngine::setGlobal(JSObject * global)
 bool
 SoJavaScriptEngine::init(uint32_t maxBytes)
 {
-  assert(SoJavaScriptEngine::getRuntime() == NULL);
+  assert(SoJavaScriptEngine::getRuntime() == nullptr);
 
   if (!spidermonkey()->available) {
     SoDebugError::postWarning("SoJavaScriptEngine::init",
@@ -334,7 +334,7 @@ SoJavaScriptEngine::init(uint32_t maxBytes)
 
   JSRuntime * rt = spidermonkey()->JS_NewRuntime(maxBytes);
 
-  if (rt == NULL) {
+  if (rt == nullptr) {
     SoDebugError::post("SoJavaScriptEngine::init",
                        "SpiderMonkey Javascript engine available, "
                        "but failed to instantiate a JSRuntime!");
@@ -364,12 +364,12 @@ void
 SoJavaScriptEngine::shutdown(void)
 {
   JSRuntime * rt = SoJavaScriptEngine::getRuntime();
-  if (rt != NULL) {
+  if (rt != nullptr) {
     spidermonkey()->JS_DestroyRuntime(rt);
   }
 
   spidermonkey()->JS_ShutDown();
-  SoJavaScriptEngine::setRuntime(NULL);
+  SoJavaScriptEngine::setRuntime(nullptr);
 }
 
 bool
@@ -475,7 +475,7 @@ SoJavaScriptEngine::executeFunction(const SbName & name,
     }
 
     bool ok2 = true;
-    if (rval != NULL) {
+    if (rval != nullptr) {
       ok2 = jsval2field(rjsval, rval);
     }
     return ok2;
@@ -500,7 +500,7 @@ SoJavaScriptEngine::field2jsval(const SoField * f, jsval * v) const
   while (n --> 0) {
     const SoJavaScriptEngineP::JavascriptHandler & handler = PRIVATE(this)->handlerList[n];
 
-    if (handler.field2jsval != NULL && f->isOfType(handler.type)) {
+    if (handler.field2jsval != nullptr && f->isOfType(handler.type)) {
       handler.field2jsval(PRIVATE(this)->context, f, v);
       return true;
     }
@@ -513,7 +513,7 @@ SoJavaScriptEngine::field2jsval(const SoField * f, jsval * v) const
 /*!
   Returns the SoJavaScriptEngine associated with the given context.
   If the context isn't associated with an SoJavaScriptEngine it will 
-  return NULL.
+  return nullptr.
 
   NB! Setting the context private data (using JS_SetContextPrivate()) will
   overwrite this information and cause this method to return a garbage
@@ -541,7 +541,7 @@ SoJavaScriptEngine::jsval2field(const jsval v, SoField * f) const
   while (n --> 0) {
     const SoJavaScriptEngineP::JavascriptHandler & handler = PRIVATE(this)->handlerList[n];
 
-    if (handler.jsval2field != NULL && f->isOfType(handler.type)) {
+    if (handler.jsval2field != nullptr && f->isOfType(handler.type)) {
       if (handler.jsval2field(PRIVATE(this)->context, v, f)) {
         return true;
       }
@@ -565,7 +565,7 @@ SoJavaScriptEngine::jsval2field(const jsval v, SoField * f) const
   \a init is the class init function and will be called immediately 
   if specified.
   \a field2jsval and \a jsval2field will convert an SoField to a jsval 
-  or vice versa. Setting these to NULL is allowed but will result in the 
+  or vice versa. Setting these to nullptr is allowed but will result in the 
   fields not being accessible from JavaScript.
 
   New handlers will get precedence over old handlers.
@@ -584,7 +584,7 @@ SoJavaScriptEngine::addHandler(const SoType & type,
 
   PRIVATE(this)->handlerList.append(handler);
 
-  if (handler.init != NULL) {
+  if (handler.init != nullptr) {
     handler.init(PRIVATE(this)->context, PRIVATE(this)->global);
   }
 }

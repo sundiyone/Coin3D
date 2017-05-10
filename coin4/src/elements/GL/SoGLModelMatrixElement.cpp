@@ -45,6 +45,8 @@
 #include <Inventor/errors/SoDebugError.h>
 #endif // COIN_DEBUG
 
+#include <cstdlib>
+
 SO_ELEMENT_SOURCE(SoGLModelMatrixElement);
 
 static int COIN_HANDLE_STACK_OVERFLOW = 0;

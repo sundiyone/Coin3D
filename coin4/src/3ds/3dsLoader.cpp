@@ -389,8 +389,8 @@ typedef struct tagMaterial {
   bool hasTexture2Transform(tagContext *con);
   SoTexture2Transform* getSoTexture2Transform(tagContext *con);
 
-  tagMaterial() : matCache(NULL), texture2Cache(NULL),
-                  texture2TransformCache(NULL)  {}
+  tagMaterial() : matCache(nullptr), texture2Cache(nullptr),
+                  texture2TransformCache(nullptr)  {}
   ~tagMaterial()  {
     if (matCache) matCache->unref();
     if (texture2Cache) texture2Cache->unref();
@@ -460,11 +460,11 @@ typedef struct tagContext {
   SoShapeHints* genGetOneSidedHints();
   SoShapeHints* genGetTwoSidedHints();
 
-  tagContext(SoStream &stream) : s(stream), root(NULL), cObj(NULL),
+  tagContext(SoStream &stream) : s(stream), root(nullptr), cObj(nullptr),
       totalVertices(0), totalFaces(0),
-      vertexList(NULL), faceList(NULL),
-      genEmptyTexture(NULL), genEmptyTexTransform(NULL),
-      genOneSidedHints(NULL), genTwoSidedHints(NULL)  {}
+      vertexList(nullptr), faceList(nullptr),
+      genEmptyTexture(nullptr), genEmptyTexTransform(nullptr),
+      genOneSidedHints(nullptr), genTwoSidedHints(nullptr)  {}
   ~tagContext() {
       for (int i=matList.getLength()-1; i>=1; i--)
         delete matList[i];
@@ -572,7 +572,7 @@ read3dsFile(SoStream *in, SoSeparator *&root,
 #endif
 
   // center model and scale it
-  SoMatrixTransform *matrix = NULL;
+  SoMatrixTransform *matrix = nullptr;
   if (con.centerModel || modelSize != 0.f) {
     matrix = new SoMatrixTransform;
     con.root->addChild(matrix);
@@ -611,7 +611,7 @@ read3dsFile(SoStream *in, SoSeparator *&root,
   // handle errors
   if (con.s.isBad()) {
     con.root->unref();
-    con.root = NULL;
+    con.root = nullptr;
 
     SoDebugError::post("read3dsFile",
                        "3ds loading failed.");
@@ -642,7 +642,7 @@ read3dsFile(SoStream *in, SoSeparator *&root,
   // return root
   con.root->unrefNoDelete();
   root = con.root;
-  con.root = NULL;
+  con.root = nullptr;
 
   // debug info
   if (coin_debug_3ds() >= 2)
@@ -786,7 +786,7 @@ CHUNK(LoadNamedObject)
     if (con->cObj->getNumChildren() > 0)
       con->root->addChild(con->cObj);
     con->cObj->unref();
-    con->cObj = NULL;
+    con->cObj = nullptr;
   }
 }
 
@@ -830,9 +830,9 @@ CHUNK(LoadNTriObject)
   con->cObj = new SoSeparator;
   con->cObj->ref();
 
-  con->genCurrentTexture = NULL;
-  con->genCurrentTexTransform = NULL;
-  con->genCurrentMaterial = NULL;
+  con->genCurrentTexture = nullptr;
+  con->genCurrentTexTransform = nullptr;
+  con->genCurrentMaterial = nullptr;
   con->genTwoSided = -1;
 
   // create coordinates (in indexed mode)
@@ -986,9 +986,9 @@ CHUNK(LoadNTriObject)
 
   // clean up memory
   delete[] con->vertexList;
-  con->vertexList = NULL;
+  con->vertexList = nullptr;
   delete[] con->faceList;
-  con->faceList = NULL;
+  con->faceList = nullptr;
   for (int j=con->faceGroupList.getLength()-1; j>=0; j--) {
     delete con->faceGroupList[j];
     con->faceGroupList.removeFast(j);
@@ -1011,7 +1011,7 @@ CHUNK(LoadPointArray)
   con->s >> num;
 
   // alloc memory for Vertices
-  assert(con->vertexList == NULL && "Forgot to free memory.");
+  assert(con->vertexList == nullptr && "Forgot to free memory.");
   con->vertexList = new Vertex[num];
   con->numVertices = num;
 
@@ -1041,7 +1041,7 @@ CHUNK(LoadFaceArray)
   con->s >> num;
 
   // alloc memory for Faces
-  assert(con->faceList == NULL && "Forgot to free memory.");
+  assert(con->faceList == nullptr && "Forgot to free memory.");
   con->faceList = new Face[num];
   con->numFaces = num;
 
@@ -1053,7 +1053,7 @@ CHUNK(LoadFaceArray)
 
   // make sure vertices are present yet
   if (num > 0) {
-    if (con->vertexList == NULL) {
+    if (con->vertexList == nullptr) {
       assert(false && "Vertex list not present.");
       con->s.setBadBit();
       return;
@@ -1156,7 +1156,7 @@ CHUNK(LoadMshMatGroup)
 
   // make sure faces are present yet
   if (num > 0) {
-    if (con->faceList == NULL) {
+    if (con->faceList == nullptr) {
       assert(false && "Face list not present.");
       con->s.setBadBit();
       return;
@@ -1168,7 +1168,7 @@ CHUNK(LoadMshMatGroup)
   for (int i=0; i<num; i++) {
     con->s >> faceMatIndex;
     if (faceMatIndex < con->numFaces) {
-      assert(con->faceList[faceMatIndex].faceGroup == NULL &&
+      assert(con->faceList[faceMatIndex].faceGroup == nullptr &&
              "3ds file error: Two materials on one face.");
       con->faceList[faceMatIndex].faceGroup = mm;
       mm->faceList.append(&con->faceList[faceMatIndex]);
@@ -1202,7 +1202,7 @@ CHUNK(LoadTexVerts)
 
   // make sure vertices are present yet
   if (num > 0) {
-    if (con->vertexList == NULL) {
+    if (con->vertexList == nullptr) {
       assert(false && "Vertex list not present.");
       con->s.setBadBit();
       return;
@@ -1235,7 +1235,7 @@ CHUNK(LoadMatEntry)
     return;
   }
 
-  assert(con->cMat == NULL);
+  assert(con->cMat == nullptr);
   con->cMat = new Material;
   con->matList.append(con->cMat);
 
@@ -1264,7 +1264,7 @@ CHUNK(LoadMatEntry)
   con->cMat->matCache->ref();
   con->cMat->updateSoMaterial(0, con->cMat->matCache);
 
-  con->cMat = NULL;
+  con->cMat = nullptr;
 }
 
 
@@ -1626,7 +1626,7 @@ SbVec3f Face::getWeightedNormal(tagContext *con, uint16_t vertexIndex) const
 void Face::init(tagContext *con, uint16_t a, uint16_t b, uint16_t c, uint16_t f)
 {
   v1=a; v2=b; v3=c; flags=f;
-  faceGroup = NULL;
+  faceGroup = nullptr;
 
   isDegenerated = (con->vertexList[v2].point-con->vertexList[v1].point).cross(
       con->vertexList[v3].point - con->vertexList[v1].point).sqrLength() == 0.f;
@@ -1852,7 +1852,7 @@ bool DefaultFaceGroup::isEmpty(Context *con)
 {
   int num = con->numFaces;
   for (int i=0; i<num; i++)
-    if (con->faceList[i].faceGroup == NULL) return false;
+    if (con->faceList[i].faceGroup == nullptr) return false;
   return true;
 }
 
@@ -1875,7 +1875,7 @@ SoNormal* DefaultFaceGroup::createSoNormal(tagContext *con)
     SbVec3f *v = normals->vector.startEditing();
     for (int i=0; i<num; i++) {
       Face *f = &con->faceList[i];
-      if (f->faceGroup == NULL && !f->isDegenerated) {
+      if (f->faceGroup == nullptr && !f->isDegenerated) {
         *(v++) = f->getNormal(con);
         j++;
       }
@@ -1901,7 +1901,7 @@ SoCoordinate3* DefaultFaceGroup::createSoCoordinate3_n(tagContext *con)
   int j = 0;
   for (int i=0; i<num; i++) {
     Face *f = &con->faceList[i];
-    if (f->faceGroup == NULL && !f->isDegenerated) {
+    if (f->faceGroup == nullptr && !f->isDegenerated) {
       *(c++) = con->vertexList[f->v1].point;
       *(c++) = con->vertexList[f->v2].point;
       *(c++) = con->vertexList[f->v3].point;
@@ -1925,7 +1925,7 @@ SoTriangleStripSet* DefaultFaceGroup::createSoTriStripSet_n(tagContext *con)
   int j = 0;
   for (i=0; i<num; i++) {
     Face *f = &con->faceList[i];
-    if (f->faceGroup == NULL)  j++;
+    if (f->faceGroup == nullptr)  j++;
   }
   j -= con->numDefaultDegFaces;
 
@@ -1951,7 +1951,7 @@ SoIndexedTriangleStripSet* DefaultFaceGroup::createSoIndexedTriStripSet_i(tagCon
   int j = 0;
   for (i=0; i<num; i++) {
     Face *f = &con->faceList[i];
-    if (f->faceGroup == NULL)  j++;
+    if (f->faceGroup == nullptr)  j++;
   }
   j -= con->numDefaultDegFaces;
 
@@ -1960,7 +1960,7 @@ SoIndexedTriangleStripSet* DefaultFaceGroup::createSoIndexedTriStripSet_i(tagCon
   int32_t *c = triSet->coordIndex.startEditing();
   for (i=0; i<num; i++) {
     Face *f = &con->faceList[i];
-    if (f->faceGroup == NULL && !f->isDegenerated) {
+    if (f->faceGroup == nullptr && !f->isDegenerated) {
       *(c++) = f->v1;
       *(c++) = f->v2;
       *(c++) = f->v3;
@@ -1992,7 +1992,7 @@ SoMaterial* Material::getSoMaterial(Context COIN_UNUSED_ARG(*con))
 
 
 bool Material::hasTexture2(tagContext COIN_UNUSED_ARG(*con))
-{ return (texture2Cache != NULL); }
+{ return (texture2Cache != nullptr); }
 
 
 
@@ -2002,7 +2002,7 @@ SoTexture2* Material::getSoTexture2(tagContext COIN_UNUSED_ARG(*con))
 
 
 bool Material::hasTexture2Transform(tagContext COIN_UNUSED_ARG(*con))
-{ return (texture2TransformCache != NULL); }
+{ return (texture2TransformCache != nullptr); }
 
 
 

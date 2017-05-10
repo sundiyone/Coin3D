@@ -40,8 +40,8 @@ SoGLShaderProgram::SoGLShaderProgram(void)
   this->glslShaderProgram = new SoGLSLShaderProgram;
 
   this->isenabled = false;
-  this->enablecb = NULL;
-  this->enablecbclosure = NULL;
+  this->enablecb = nullptr;
+  this->enablecbclosure = nullptr;
 }
 
 SoGLShaderProgram::~SoGLShaderProgram()

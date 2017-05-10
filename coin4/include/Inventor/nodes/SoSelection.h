@@ -69,22 +69,22 @@ public:
   const SoPathList * getList(void) const;
   SoPath * getPath(const int index) const;
   SoPath * operator[](const int i) const;
-  void addSelectionCallback(SoSelectionPathCB * f, void * userData = NULL);
-  void removeSelectionCallback(SoSelectionPathCB * f, void * userData = NULL);
-  void addDeselectionCallback(SoSelectionPathCB * f, void * userData = NULL);
+  void addSelectionCallback(SoSelectionPathCB * f, void * userData = nullptr);
+  void removeSelectionCallback(SoSelectionPathCB * f, void * userData = nullptr);
+  void addDeselectionCallback(SoSelectionPathCB * f, void * userData = nullptr);
   void removeDeselectionCallback(SoSelectionPathCB * f,
-                                 void * userData = NULL);
-  void addStartCallback(SoSelectionClassCB * f, void * userData = NULL);
-  void removeStartCallback(SoSelectionClassCB * f, void * userData = NULL);
-  void addFinishCallback(SoSelectionClassCB * f, void * userData = NULL);
-  void removeFinishCallback(SoSelectionClassCB * f, void * userData = NULL);
-  void setPickFilterCallback(SoSelectionPickCB * f, void * userData = NULL,
+                                 void * userData = nullptr);
+  void addStartCallback(SoSelectionClassCB * f, void * userData = nullptr);
+  void removeStartCallback(SoSelectionClassCB * f, void * userData = nullptr);
+  void addFinishCallback(SoSelectionClassCB * f, void * userData = nullptr);
+  void removeFinishCallback(SoSelectionClassCB * f, void * userData = nullptr);
+  void setPickFilterCallback(SoSelectionPickCB * f, void * userData = nullptr,
                              const bool callOnlyIfSelectable = true);
   void setPickMatching(const bool pickMatching);
   bool isPickMatching(void) const;
   bool getPickMatching(void) const;
-  void addChangeCallback(SoSelectionClassCB * f, void * userData = NULL);
-  void removeChangeCallback(SoSelectionClassCB * f, void * userData = NULL);
+  void addChangeCallback(SoSelectionClassCB * f, void * userData = nullptr);
+  void removeChangeCallback(SoSelectionClassCB * f, void * userData = nullptr);
 
 protected:
   virtual ~SoSelection();

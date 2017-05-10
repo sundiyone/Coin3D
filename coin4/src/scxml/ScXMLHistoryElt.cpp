@@ -71,7 +71,7 @@ ScXMLHistoryEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocu
   // handle XML attributes
   if (unlikely(!history->handleXMLAttributes())) {
     delete history;
-    return NULL;
+    return nullptr;
   }
 
   const int numchildren = cc_xml_elt_get_num_children(xmlelt);
@@ -90,13 +90,13 @@ ScXMLHistoryEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocu
         SoDebugError::post("ScXMLHistoryEltReader::read",
                            "<history> elements can only have one <transition> element");
         delete history;
-        return NULL;
+        return nullptr;
       }
       ScXMLEltReader * transitionreader = ScXMLTransitionElt::getElementReader();
       ScXMLElt * transitionobj = transitionreader->read(history, element, doc, sm);
       if (unlikely(!transitionobj)) {
         delete history;
-        return NULL;
+        return nullptr;
       }
       assert(transitionobj->isOfType(ScXMLTransitionElt::getClassTypeId()));
       history->setTransition(static_cast<ScXMLTransitionElt *>(transitionobj));
@@ -107,7 +107,7 @@ ScXMLHistoryEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocu
                          "unexpected XML element '<%s>' found in <history>",
                          elementtype);
       delete history;
-      return NULL;
+      return nullptr;
     }
   }
 
@@ -118,7 +118,7 @@ ScXMLHistoryEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocu
 
 class ScXMLHistoryElt::PImpl {
 public:
-  PImpl(void) : transitionptr(NULL) { }
+  PImpl(void) : transitionptr(nullptr) { }
 
   boost::scoped_ptr<ScXMLTransitionElt> transitionptr;
 
@@ -143,15 +143,15 @@ ScXMLHistoryElt::cleanClass(void)
 }
 
 ScXMLHistoryElt::ScXMLHistoryElt(void)
-: id(NULL),
-  type(NULL)
+: id(nullptr),
+  type(nullptr)
 {
 }
 
 ScXMLHistoryElt::~ScXMLHistoryElt(void)
 {
-  this->setIdAttribute(NULL);
-  this->setTypeAttribute(NULL);
+  this->setIdAttribute(nullptr);
+  this->setTypeAttribute(nullptr);
 }
 
 void
@@ -218,7 +218,7 @@ ScXMLHistoryElt::search(const char * attrname, const char * attrvalue) const
       return this;
     }
   }
-  return NULL;
+  return nullptr;
 }
 
 SCXML_SINGLE_OBJECT_API_IMPL(ScXMLHistoryElt, ScXMLTransitionElt, PRIVATE(this)->transitionptr, Transition);

@@ -75,20 +75,20 @@ public:
   void setProjectorEpsilon(const float epsilon);
   float getProjectorEpsilon(void) const;
 
-  void addStartCallback(SoDraggerCB * func, void * data = NULL);
-  void removeStartCallback(SoDraggerCB * func, void * data = NULL);
-  void addMotionCallback(SoDraggerCB * func, void * data = NULL);
-  void removeMotionCallback(SoDraggerCB * func, void * data = NULL);
-  void addFinishCallback(SoDraggerCB * func, void * data = NULL);
-  void removeFinishCallback(SoDraggerCB * func, void * data = NULL);
-  void addValueChangedCallback(SoDraggerCB * func, void * data = NULL);
-  void removeValueChangedCallback(SoDraggerCB * func, void * data = NULL);
+  void addStartCallback(SoDraggerCB * func, void * data = nullptr);
+  void removeStartCallback(SoDraggerCB * func, void * data = nullptr);
+  void addMotionCallback(SoDraggerCB * func, void * data = nullptr);
+  void removeMotionCallback(SoDraggerCB * func, void * data = nullptr);
+  void addFinishCallback(SoDraggerCB * func, void * data = nullptr);
+  void removeFinishCallback(SoDraggerCB * func, void * data = nullptr);
+  void addValueChangedCallback(SoDraggerCB * func, void * data = nullptr);
+  void removeValueChangedCallback(SoDraggerCB * func, void * data = nullptr);
   void setMinGesture(int pixels);
   int getMinGesture(void) const;
   bool enableValueChangedCallbacks(bool newval);
   const SbMatrix & getMotionMatrix(void);
-  void addOtherEventCallback(SoDraggerCB * func, void * data = NULL);
-  void removeOtherEventCallback(SoDraggerCB * func, void * data = NULL);
+  void addOtherEventCallback(SoDraggerCB * func, void * data = nullptr);
+  void removeOtherEventCallback(SoDraggerCB * func, void * data = nullptr);
   void registerChildDragger(SoDragger * child);
   void unregisterChildDragger(SoDragger * child);
   void registerChildDraggerMovingIndependently(SoDragger * child);
@@ -131,9 +131,9 @@ public:
   static void workValuesIntoTransform(SbMatrix & mtx, const SbVec3f * translationptr, const SbRotation * rotationptr, const SbVec3f * scalefactorptr, const SbRotation * scaleorientationptr, const SbVec3f * centerptr);
   static void getTransformFast(SbMatrix & mtx, SbVec3f & translation, SbRotation & rotation, SbVec3f & scalefactor, SbRotation & scaleorientation, const SbVec3f & center);
   static void getTransformFast(SbMatrix & mtx, SbVec3f & translation, SbRotation & rotation, SbVec3f & scalefactor, SbRotation & scaleorientation);
-  static SbMatrix appendTranslation(const SbMatrix & mtx, const SbVec3f & translation, const SbMatrix * conversion = NULL);
-  static SbMatrix appendScale(const SbMatrix & mtx, const SbVec3f & scale, const SbVec3f & scalecenter, const SbMatrix * conversion = NULL);
-  static SbMatrix appendRotation(const SbMatrix & mtx, const SbRotation & rot, const SbVec3f & rotcenter, const SbMatrix * conversion = NULL);
+  static SbMatrix appendTranslation(const SbMatrix & mtx, const SbVec3f & translation, const SbMatrix * conversion = nullptr);
+  static SbMatrix appendScale(const SbMatrix & mtx, const SbVec3f & scale, const SbVec3f & scalecenter, const SbMatrix * conversion = nullptr);
+  static SbMatrix appendRotation(const SbMatrix & mtx, const SbRotation & rot, const SbVec3f & rotcenter, const SbMatrix * conversion = nullptr);
   static void initClass(void);
   static void initClasses(void);
 

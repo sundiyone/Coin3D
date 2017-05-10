@@ -62,13 +62,13 @@ struct cc_glyph3d {
 
 /* ********************************************************************** */
 
-static cc_dict * glyph3d_fonthash = NULL;
+static cc_dict * glyph3d_fonthash = nullptr;
 static int glyph3d_spaceglyphindices[] = { -1, -1 };
 static float glyph3d_spaceglyphvertices[] = { 0, 0 };
 static bool glyph3d_initialized = false;
 
 /* Mutex lock for the static ang global font hash */
-static void * glyph3d_fonthash_lock = NULL;
+static void * glyph3d_fonthash_lock = nullptr;
 
 /* Because the 3D glyphs are normalized when generated, a standard
    fontsize is used for all glyphs. This also prevent Windows from
@@ -101,7 +101,7 @@ cc_glyph3d_cleanup(void)
 {
   CC_MUTEX_DESTRUCT(glyph3d_fonthash_lock);
   cc_dict_destruct(glyph3d_fonthash);
-  glyph3d_fonthash = NULL;
+  glyph3d_fonthash = nullptr;
   glyph3d_initialized = false;
 }
 
@@ -135,11 +135,11 @@ cc_glyph3d_ref(uint32_t character, const cc_font_specification * spec)
   void * val;
   cc_font_specification * newspec;
   cc_string * fonttoload;
-  cc_list * glyphlist = NULL;
+  cc_list * glyphlist = nullptr;
 
   /* Beacuse this function is the entry point for glyph3d, the mutex
      is initialized here. */
-  if (glyph3d_fonthash_lock == NULL) 
+  if (glyph3d_fonthash_lock == nullptr) 
     cc_glyph3d_initialize();
   
   assert(spec);
@@ -214,7 +214,7 @@ cc_glyph3d_ref(uint32_t character, const cc_font_specification * spec)
 
   /* Setup builtin default font if no character was found */
   /* FIXME: this should be moved to fontlib_wrapper.c. 20050623 mortene. */
-  if (glyph->vectorglyph == NULL) {
+  if (glyph->vectorglyph == nullptr) {
     glyph->vectorglyph = (struct cc_font_vector_glyph *) malloc(sizeof(struct cc_font_vector_glyph));
     glyph->didallocvectorglyph = true;
 
@@ -262,7 +262,7 @@ const float *
 cc_glyph3d_getcoords(const cc_glyph3d * g)
 {
   const float * ptr = cc_flw_get_vector_glyph_coords(g->vectorglyph);
-  if (ptr == NULL) {    
+  if (ptr == nullptr) {    
     assert(g->vectorglyph->vertices && "Default vertices has not been initialized as expected!");
     return g->vectorglyph->vertices;
   }
@@ -273,7 +273,7 @@ const int *
 cc_glyph3d_getfaceindices(const cc_glyph3d * g)
 {
   const int * ptr = cc_flw_get_vector_glyph_faceidx(g->vectorglyph);
-  if (ptr == NULL) {      
+  if (ptr == nullptr) {      
     assert(g->vectorglyph->faceindices && "Default face indices has not been initialized as expected!");
     return g->vectorglyph->faceindices; 
   }
@@ -284,7 +284,7 @@ const int *
 cc_glyph3d_getedgeindices(const cc_glyph3d * g)
 {
   const int * ptr = cc_flw_get_vector_glyph_edgeidx(g->vectorglyph);
-  if (ptr == NULL) {    
+  if (ptr == nullptr) {    
     assert(g->vectorglyph->edgeindices && "Default edge indices has not been initialized as expected!");
     return g->vectorglyph->edgeindices; 
   }
@@ -315,7 +315,7 @@ cc_glyph3d_getnextcwedge(const cc_glyph3d * g, int edgeidx)
     ptr += 2;
   }
 
-  return NULL;
+  return nullptr;
 }
 
 const int *
@@ -341,7 +341,7 @@ cc_glyph3d_getnextccwedge(const cc_glyph3d * g, int edgeidx)
     ptr += 2;
   }
 
-  return NULL;
+  return nullptr;
 
 }
 

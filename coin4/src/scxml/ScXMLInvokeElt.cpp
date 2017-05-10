@@ -90,7 +90,7 @@ ScXMLInvokeEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocum
   // handle XML attributes
   if (unlikely(!invoke->handleXMLAttributes())) {
     delete invoke;
-    return NULL;
+    return nullptr;
   }
 
   const int numchildren = cc_xml_elt_get_num_children(xmlelt);
@@ -110,7 +110,7 @@ ScXMLInvokeEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocum
       ScXMLElt * paramobj = paramreader->read(invoke, element, doc, sm);
       if (unlikely(!paramobj)) {
         delete invoke;
-        return NULL;
+        return nullptr;
       }
 
       assert(paramobj->isOfType(ScXMLParamElt::getClassTypeId()));
@@ -123,7 +123,7 @@ ScXMLInvokeEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocum
         SoDebugError::post("ScXMLInvokeEltReader::read",
                            "<invoke> elements can only have one <finalize> child");
         delete invoke;
-        return NULL;
+        return nullptr;
       }
 
       ScXMLEltReader * finalizereader = ScXMLFinalizeElt::getElementReader();
@@ -131,7 +131,7 @@ ScXMLInvokeEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocum
       ScXMLElt * finalizeobj = finalizereader->read(invoke, element, doc, sm);
       if (unlikely(!finalizeobj)) {
         delete invoke;
-        return NULL;
+        return nullptr;
       }
 
       assert(finalizeobj->isOfType(ScXMLFinalizeElt::getClassTypeId()));
@@ -144,7 +144,7 @@ ScXMLInvokeEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocum
         SoDebugError::post("ScXMLInvokeEltReader::read",
                            "<invoke> elements can only have one <content> child");
         delete invoke;
-        return NULL;
+        return nullptr;
       }
 
       ScXMLEltReader * contentreader = ScXMLContentElt::getElementReader();
@@ -152,7 +152,7 @@ ScXMLInvokeEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocum
       ScXMLElt * contentobj = contentreader->read(invoke, element, doc, sm);
       if (unlikely(!contentobj)) {
         delete invoke;
-        return NULL;
+        return nullptr;
       }
 
       assert(contentobj->isOfType(ScXMLContentElt::getClassTypeId()));
@@ -163,7 +163,7 @@ ScXMLInvokeEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocum
     SoDebugError::post("ScXMLInvokeEltReader::read",
                        "<invoke> contains unexpected <%s> element", elementtype);
     delete invoke;
-    return NULL;
+    return nullptr;
    }
 
 
@@ -174,7 +174,7 @@ ScXMLInvokeEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocum
 
 class ScXMLInvokeElt::PImpl {
 public:
-  PImpl(void) : finalizeptr(NULL), contentptr(NULL) { }
+  PImpl(void) : finalizeptr(nullptr), contentptr(nullptr) { }
   ~PImpl(void)
   {
     SCXML__CLEAR_STD_VECTOR(this->paramlist, ScXMLParamElt *);
@@ -204,17 +204,17 @@ ScXMLInvokeElt::cleanClass(void)
 }
 
 ScXMLInvokeElt::ScXMLInvokeElt(void)
-: targettype(NULL),
-  src(NULL),
-  srcexpr(NULL)
+: targettype(nullptr),
+  src(nullptr),
+  srcexpr(nullptr)
 {
 }
 
 ScXMLInvokeElt::~ScXMLInvokeElt(void)
 {
-  this->setTargetTypeAttribute(NULL);
-  this->setSrcAttribute(NULL);
-  this->setSrcExprAttribute(NULL);
+  this->setTargetTypeAttribute(nullptr);
+  this->setSrcAttribute(nullptr);
+  this->setSrcExprAttribute(nullptr);
 }
 
 void
@@ -333,7 +333,7 @@ ScXMLInvokeElt::search(const char * attrname, const char * attrvalue) const
     }
   }
 
-  return NULL;
+  return nullptr;
 }
 
 SCXML_LIST_OBJECT_API_IMPL(ScXMLInvokeElt, ScXMLParamElt, PRIVATE(this)->paramlist, Param, Params);

@@ -67,7 +67,7 @@ ScXMLFinalizeEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDoc
   // handle XML attributes
   if (unlikely(!finalize->handleXMLAttributes())) {
     delete finalize;
-    return NULL;
+    return nullptr;
   }
 
   const int numchildren = cc_xml_elt_get_num_children(xmlelt);
@@ -83,7 +83,7 @@ ScXMLFinalizeEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDoc
     SoDebugError::post("ScXMLFinalizeEltReader::read",
                        "<finalize> contains unexpected <%s> element", elementtype);
     delete finalize;
-    return NULL;
+    return nullptr;
   }
 
   return finalize;

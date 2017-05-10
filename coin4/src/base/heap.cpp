@@ -122,7 +122,7 @@ cc_heap_construct(unsigned int size,
   assert(h->array);
   h->compare = comparecb;
   h->support_remove = support_remove;
-  h->hash = NULL;
+  h->hash = nullptr;
   if (support_remove) {
     h->hash = cc_dict_construct(size, 0.0f);
   }
@@ -184,24 +184,24 @@ cc_heap_add(cc_heap * h, void * o)
 
 /*!
   Returns the top element from the heap \a h. If the heap is empty,
-  NULL is returned.
+  nullptr is returned.
 */
 void *
 cc_heap_get_top(cc_heap * h)
 {
-  if (h->elements == 0) return NULL;
+  if (h->elements == 0) return nullptr;
   return h->array[0];
 }
 
 /*!
   Returns and removes the top element from the heap \a h. If the
-  heap is empty, NULL is returned.
+  heap is empty, nullptr is returned.
 */
 void *
 cc_heap_extract_top(cc_heap * h)
 {
   void * top;
-  if (h->elements == 0) return NULL;
+  if (h->elements == 0) return nullptr;
 
   top = h->array[0];
   h->array[0] = h->array[--h->elements];

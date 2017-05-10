@@ -50,13 +50,13 @@ SO_ENGINE_SOURCE(SoComputeBoundingBox);
   \var SoSFNode SoComputeBoundingBox::node
 
   If this input field is set and SoComputeBoundingBox::path is \c
-  NULL, the resultant bounding box will be the box encompassing the
+  nullptr, the resultant bounding box will be the box encompassing the
   scene graph rooted at this node pointer.
 */
 /*!
   \var SoSFPath SoComputeBoundingBox::path
 
-  If this input field is not \c NULL, the bounding box values of the
+  If this input field is not \c nullptr, the bounding box values of the
   given path will be set on the outputs.
 */
 /*!
@@ -88,8 +88,8 @@ SoComputeBoundingBox::SoComputeBoundingBox(void)
 {
   SO_ENGINE_INTERNAL_CONSTRUCTOR(SoComputeBoundingBox);
 
-  SO_ENGINE_ADD_INPUT(node,(NULL));
-  SO_ENGINE_ADD_INPUT(path,(NULL));
+  SO_ENGINE_ADD_INPUT(node,(nullptr));
+  SO_ENGINE_ADD_INPUT(path,(nullptr));
 
   SO_ENGINE_ADD_OUTPUT(min, SoSFVec3f);
   SO_ENGINE_ADD_OUTPUT(max, SoSFVec3f);
@@ -125,7 +125,7 @@ SoComputeBoundingBox::evaluate(void)
   if (!bboxpath && !bboxnode) {
     // Nothing to see, move along.. (we "un-dirty" the fields to avoid
     // them being re-evaluated again and again while the engine inputs
-    // are NULL).
+    // are nullptr).
     SO_ENGINE_OUTPUT(min, SoSFVec3f, setDirty(false));
     SO_ENGINE_OUTPUT(max, SoSFVec3f, setDirty(false));
     SO_ENGINE_OUTPUT(boxCenter, SoSFVec3f, setDirty(false));

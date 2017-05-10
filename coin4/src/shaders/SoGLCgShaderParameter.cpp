@@ -35,7 +35,7 @@
 
 SoGLCgShaderParameter::SoGLCgShaderParameter(void)
 {
-  this->cgParameter = NULL;
+  this->cgParameter = nullptr;
   this->cacheType = CG_UNKNOWN_TYPE;
   this->cacheName = "";
   this->cacheSize = 0;

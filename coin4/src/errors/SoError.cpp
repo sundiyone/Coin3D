@@ -64,8 +64,8 @@
 // *************************************************************************
 
 SoType SoError::classTypeId STATIC_SOTYPE_INIT;
-SoErrorCB * SoError::callback = NULL; // make use of default cc_error handler
-void * SoError::callbackData = NULL;
+SoErrorCB * SoError::callback = nullptr; // make use of default cc_error handler
+void * SoError::callbackData = nullptr;
 
 // *************************************************************************
 
@@ -81,7 +81,7 @@ SoError::callbackForwarder(const cc_error * error, void * COIN_UNUSED_ARG(data))
 {
   SoError wrappederr(error);
 
-  assert(SoError::callback != NULL);
+  assert(SoError::callback != nullptr);
   (*SoError::callback)(&wrappederr, SoError::callbackData);
 }
 
@@ -100,7 +100,7 @@ void
 SoError::initClass(void)
 {
   SoError::callback = defaultHandlerCB;
-  SoError::callbackData = NULL;
+  SoError::callbackData = nullptr;
   SoError::classTypeId =
     SoType::createType(SoType::badType(), SbName("Error"));
 }
@@ -166,14 +166,14 @@ void
 SoError::setHandlerCallback(SoErrorCB * const function, void * const data)
 {
   if (SoError::callback == SoError::defaultHandlerCB ||
-      SoError::callback == NULL) {
+      SoError::callback == nullptr) {
     // The user is overriding the default handler, so set up a
     // "converter" callback function that makes an SoError out of an
     // cc_error and forwards control to the callback function given as
     // an argument to setHandlerCallback().
     cc_error_set_handler_callback(
        reinterpret_cast<cc_error_cb *>(SoError::callbackForwarder),
-       NULL);
+       nullptr);
   }
 
   SoError::callback = function;

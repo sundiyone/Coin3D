@@ -122,7 +122,7 @@ SoSField::~SoSField()
 void
 SoSField::initClass(void)
 {
-  PRIVATE_FIELD_INIT_CLASS(SoSField, "SField", inherited, NULL);
+  PRIVATE_FIELD_INIT_CLASS(SoSField, "SField", inherited, nullptr);
 }
 
 void

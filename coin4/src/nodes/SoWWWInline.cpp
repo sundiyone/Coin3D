@@ -44,7 +44,7 @@
         name "<Undefined file>"
         bboxCenter 0 0 0
         bboxSize 0 0 0
-        alternateRep NULL
+        alternateRep nullptr
     }
   \endcode
 
@@ -144,10 +144,10 @@
 // *************************************************************************
 
 // static members
-SoWWWInlineFetchURLCB * SoWWWInline::fetchurlcb = NULL;
-void * SoWWWInline::fetchurlcbdata = NULL;
-SbColor * SoWWWInline::bboxcolor = NULL;
-static SbStorage * wwwinline_colorpacker_storage = NULL;
+SoWWWInlineFetchURLCB * SoWWWInline::fetchurlcb = nullptr;
+void * SoWWWInline::fetchurlcbdata = nullptr;
+SbColor * SoWWWInline::bboxcolor = nullptr;
+static SbStorage * wwwinline_colorpacker_storage = nullptr;
 SoWWWInline::BboxVisibility SoWWWInline::bboxvisibility = SoWWWInline::UNTIL_LOADED;
 bool SoWWWInline::readassofile = false;
 
@@ -167,12 +167,12 @@ void
 SoWWWInline::cleanup(void)
 {
   delete SoWWWInline::bboxcolor;
-  SoWWWInline::bboxcolor = NULL;
+  SoWWWInline::bboxcolor = nullptr;
   delete wwwinline_colorpacker_storage;
-  wwwinline_colorpacker_storage = NULL;
+  wwwinline_colorpacker_storage = nullptr;
 
-  SoWWWInline::fetchurlcb = NULL;
-  SoWWWInline::fetchurlcbdata = NULL;
+  SoWWWInline::fetchurlcb = nullptr;
+  SoWWWInline::fetchurlcbdata = nullptr;
   SoWWWInline::bboxvisibility = SoWWWInline::UNTIL_LOADED;
   SoWWWInline::readassofile = false;
 }
@@ -218,11 +218,11 @@ SoWWWInline::SoWWWInline()
   SO_NODE_ADD_FIELD(name, (SoWWWInlineP::UNDEFINED_FILE));
   SO_NODE_ADD_FIELD(bboxCenter, (0.0f, 0.0f, 0.0f));
   SO_NODE_ADD_FIELD(bboxSize, (0.0f, 0.0f, 0.0f));
-  SO_NODE_ADD_FIELD(alternateRep, (NULL));
+  SO_NODE_ADD_FIELD(alternateRep, (nullptr));
 
   // Instantiated dynamically to avoid problems on platforms with
   // systemloaders that hate static constructors in C++ libraries.
-  if (SoWWWInline::bboxcolor == NULL) {
+  if (SoWWWInline::bboxcolor == nullptr) {
     SoWWWInline::bboxcolor = new SbColor(0.8f, 0.8f, 0.8f);
     wwwinline_colorpacker_storage = new SbStorage(sizeof(void*), alloc_colorpacker, free_colorpacker);
     coin_atexit((coin_atexit_f *)SoWWWInline::cleanup, CC_ATEXIT_NORMAL);
@@ -274,7 +274,7 @@ SoWWWInline::copyChildren(void) const
 {
   SoChildList * children = this->getChildren();
 
-  if (children->getLength() == 0) return NULL;
+  if (children->getLength() == 0) return nullptr;
   assert(children->getLength() == 1);
   SoNode * rootcopy = (*children)[0]->copy();
   assert(rootcopy->isOfType(SoGroup::getClassTypeId()));
@@ -348,7 +348,7 @@ SoNode *
 SoWWWInline::getChildData(void) const
 {
   if (PRIVATE(this)->children->getLength()) { return (*PRIVATE(this)->children)[0]; }
-  return NULL;
+  return nullptr;
 }
 
 /*!
@@ -723,7 +723,7 @@ SoWWWInlineP::readNamedFile()
   Read children, either using the URL callback or by reading from
   local file directly.
 
-       fetchURLCB is NULL:   Use alternaterep. NB! Always uses alternate rep 
+       fetchURLCB is nullptr:   Use alternaterep. NB! Always uses alternate rep 
                              in this case.
   else name not set:         Do nothing
   else readassofile is true: Assume name points to a local file and load

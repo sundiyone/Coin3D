@@ -65,7 +65,7 @@
 
 class socontexthandler_cbitem {
 public:
-  socontexthandler_cbitem(void) : func(NULL), closure(NULL), idx(0) { }
+  socontexthandler_cbitem(void) : func(nullptr), closure(nullptr), idx(0) { }
 
   bool operator==(const socontexthandler_cbitem & theother) {
     return
@@ -132,7 +132,7 @@ socontexthandler_cleanup(void)
   }
 #endif // COIN_DEBUG
   delete socontexthandler_hashlist;
-  socontexthandler_hashlist = NULL;
+  socontexthandler_hashlist = nullptr;
   socontexthandler_idx = 0;
   CC_MUTEX_DESTRUCT(socontexthandler_mutex);
 }
@@ -158,7 +158,7 @@ SoContextHandler::destructingContext(uint32_t contextid)
 {
   CC_MUTEX_CONSTRUCT(socontexthandler_mutex);
   CC_MUTEX_LOCK(socontexthandler_mutex);
-  if (socontexthandler_hashlist == NULL) {
+  if (socontexthandler_hashlist == nullptr) {
     CC_MUTEX_UNLOCK(socontexthandler_mutex);
     return;
   }
@@ -220,7 +220,7 @@ SoContextHandler::addContextDestructionCallback(ContextDestructionCB * func,
 {
   CC_MUTEX_CONSTRUCT(socontexthandler_mutex);
   CC_MUTEX_LOCK(socontexthandler_mutex);
-  if (socontexthandler_hashlist == NULL) {
+  if (socontexthandler_hashlist == nullptr) {
     socontexthandler_hashlist = new SbHash<socontexthandler_cbitem, uint32_t> (64);
     // make this callback trigger after the SoGLCacheContext cleanup function
     // by setting priority to -1

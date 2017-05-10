@@ -89,12 +89,12 @@ SoScXMLFlightControlTarget::cleanClass(void)
   SoScXMLFlightControlTarget::classTypeId = SoType::badType();
 }
 
-SoScXMLFlightControlTarget * SoScXMLFlightControlTarget::theSingleton = NULL;
+SoScXMLFlightControlTarget * SoScXMLFlightControlTarget::theSingleton = nullptr;
 
 SoScXMLFlightControlTarget *
 SoScXMLFlightControlTarget::constructSingleton(void)
 {
-  assert(SoScXMLFlightControlTarget::theSingleton == NULL);
+  assert(SoScXMLFlightControlTarget::theSingleton == nullptr);
   SoScXMLFlightControlTarget::theSingleton =
     static_cast<SoScXMLFlightControlTarget *>(SoScXMLFlightControlTarget::classTypeId.createInstance());
   return SoScXMLFlightControlTarget::theSingleton;
@@ -103,15 +103,15 @@ SoScXMLFlightControlTarget::constructSingleton(void)
 void
 SoScXMLFlightControlTarget::destructSingleton(void)
 {
-  assert(SoScXMLFlightControlTarget::theSingleton != NULL);
+  assert(SoScXMLFlightControlTarget::theSingleton != nullptr);
   delete SoScXMLFlightControlTarget::theSingleton;
-  SoScXMLFlightControlTarget::theSingleton = NULL;
+  SoScXMLFlightControlTarget::theSingleton = nullptr;
 }
 
 SoScXMLFlightControlTarget *
 SoScXMLFlightControlTarget::singleton(void)
 {
-  assert(SoScXMLFlightControlTarget::theSingleton != NULL);
+  assert(SoScXMLFlightControlTarget::theSingleton != nullptr);
   return SoScXMLFlightControlTarget::theSingleton;
 }
 

@@ -5,7 +5,7 @@
 namespace CoinInternal {
   template<typename Target>
     Target
-    FromString(const SbString & input, bool * conversionOk = NULL ) {
+    FromString(const SbString & input, bool * conversionOk = nullptr ) {
     typename SbTypeInfo<Target>::SFieldType to;
     bool worked = to.set(input.getString());
     if (conversionOk)
@@ -37,7 +37,7 @@ template<class Then, class Else>
 
 template <typename T>
 struct Convert {
-  static T fromString(const SbString & input, bool * conversionOk = NULL)
+  static T fromString(const SbString & input, bool * conversionOk = nullptr)
   {
     T to;
     bool worked = to.fromString(input);
@@ -60,7 +60,7 @@ struct Convert {
 
 template <typename T>
 struct ConvertPrimitive {
-  static T fromString(const SbString & input, bool * conversionOk = NULL)
+  static T fromString(const SbString & input, bool * conversionOk = nullptr)
   {
     return CoinInternal::FromString<T>(input,conversionOk);
   }
@@ -74,7 +74,7 @@ struct ConvertPrimitive {
 
 template<typename Target>
 Target
-FromString(const SbString & input, bool * conversionOk = NULL)
+FromString(const SbString & input, bool * conversionOk = nullptr)
 {
   return IF<
     SbTypeInfo<Target>::isPrimitive,

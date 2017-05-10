@@ -88,7 +88,7 @@ void
 SoAnnoText3RenderPrintElement::set(SoState * const state,
                                    const RenderPrintType type)
 {
-  set(state, NULL, type);
+  set(state, nullptr, type);
 }
 
 //! FIXME: write doc.

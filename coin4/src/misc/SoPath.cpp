@@ -183,13 +183,13 @@ SoPath::setHead(SoNode * const node)
 }
 
 /*!
-  This method returns the head of the path, or \c NULL if the path is
+  This method returns the head of the path, or \c nullptr if the path is
   empty.
 */
 SoNode *
 SoPath::getHead(void) const
 {
-  if (this->getFullLength() == 0) return NULL;
+  if (this->getFullLength() == 0) return nullptr;
   return (SoNode *) this->nodes[0];
 }
 
@@ -305,7 +305,7 @@ SoPath::append(const SoPath * const frompath)
   SoChildList * tailchildren = tail->getChildren();
 
 #if COIN_DEBUG
-  if (tailchildren == NULL) {
+  if (tailchildren == nullptr) {
     SoDebugError::post("SoPath::append",
                        "The tail of this SoPath has no children node ('%s').\n",
                        tail->getTypeId().getName().getString());
@@ -348,7 +348,7 @@ has_hidden_children(const SoNode * node)
   assert(node);
 
   return
-    (node->getChildren() != NULL) &&
+    (node->getChildren() != nullptr) &&
     !node->isOfType(SoGroup::getClassTypeId());
 }
 
@@ -398,7 +398,7 @@ SoPath::getTail(void) const
 #if COIN_DEBUG
     SoDebugError::postWarning("SoPath::getTail", "empty path!");
 #endif // COIN_DEBUG
-    return NULL;
+    return nullptr;
   }
 
 #if COIN_DEBUG && 0 // debug
@@ -427,7 +427,7 @@ SoPath::getNode(const int index) const
   if (index < 0 || index >= this->getFullLength()) {
     SoDebugError::post("SoPath::getNode", "index %d is out of bounds.",
                        index);
-    return NULL;
+    return nullptr;
   }
 #endif // COIN_DEBUG
   return this->nodes[index];
@@ -444,7 +444,7 @@ SoPath::getNodeFromTail(const int index) const
   if (index < 0 || index >= this->getLength()) {
     SoDebugError::post("SoPath::getNodeFromTail",
                        "index %d is out of bounds.", index);
-    return NULL;
+    return nullptr;
   }
 #endif // COIN_DEBUG
   return this->nodes[this->getLength() - index - 1];
@@ -547,7 +547,7 @@ SoPath::truncate(const int length, const bool donotify)
     for (int l = 0; l < fp->getLength(); l++) {
       SoNode * n = fp->getNode(l);
       // FIXME: are there actually conditions where we can "legally" get
-      // a NULL pointer here? Or would that be an indication of an
+      // a nullptr pointer here? Or would that be an indication of an
       // internal error? 20020928 mortene.
       if (n) { n->assertAlive(); }
     }
@@ -703,7 +703,7 @@ SoPath::copy(const int startfromnodeindex, int numnodes) const
     SoDebugError::post("SoPath::copy",
                        "startfromnodeindex was out of bounds with %d.",
                        startfromnodeindex);
-    return NULL;
+    return nullptr;
   }
 #endif // COIN_DEBUG
   if (numnodes == 0) numnodes = this->getFullLength() - startfromnodeindex;
@@ -713,7 +713,7 @@ SoPath::copy(const int startfromnodeindex, int numnodes) const
       (startfromnodeindex + numnodes) > this->getFullLength()) {
     SoDebugError::post("SoPath::copy", "numnodes has invalid value %d",
                        numnodes);
-    return NULL;
+    return nullptr;
   }
 #endif // COIN_DEBUG
 
@@ -737,13 +737,13 @@ SoPath::copy(const int startfromnodeindex, int numnodes) const
 /*!
   This static method is for retrieving an SoPath by it's \a name.  The
   last registered SoPath with the given \a name is returned, or \c
-  NULL if no SoPath by \a name exists.
+  nullptr if no SoPath by \a name exists.
 */
 SoPath *
 SoPath::getByName(const SbName name)
 {
   SoBase * b = SoBase::getNamedBase(name, SoPath::getClassTypeId());
-  if (!b) return NULL;
+  if (!b) return nullptr;
   return (SoPath *)b;
 }
 
@@ -1150,7 +1150,7 @@ SoPath::setFirstHidden(void)
   const int nr = this->nodes.getLength();
   for (int i = 0; i < nr; i++) {
     const SoNode * n = this->nodes[i];
-    if (n == NULL) { continue; } // this is a valid case, for instance
+    if (n == nullptr) { continue; } // this is a valid case, for instance
                                  // if getLength() is called right
                                  // after SoAction::pushCurPath(void)
                                  // has been invoked

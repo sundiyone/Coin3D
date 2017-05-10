@@ -141,7 +141,7 @@ SoMFVec2d::setValue(double x, double y)
 void
 SoMFVec2d::setValue(const double xy[2])
 {
-  if (xy == NULL) this->setNum(0);
+  if (xy == nullptr) this->setNum(0);
   else this->setValue(SbVec2d(xy));
 }
 

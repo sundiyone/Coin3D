@@ -128,7 +128,7 @@ void
 SoFloatElement::set(const int stackIndex, SoState * const state,
                     const float value)
 {
-  SoFloatElement::set(stackIndex, state, NULL, value);
+  SoFloatElement::set(stackIndex, state, nullptr, value);
 }
 
 /*!
@@ -141,7 +141,7 @@ SoFloatElement::get(const int index, SoState * const state)
   const SoFloatElement * element = coin_safe_cast<const SoFloatElement *>
     (
      getConstElement(state, index)
-     ); //, NULL );
+     ); //, nullptr );
   if (element) { return element->data; }
   return 0.0f;
 }

@@ -40,7 +40,7 @@
   Initialize list.
 */
 SoNotList::SoNotList(void) :
-  head(NULL), tail(NULL), firstnoderec(NULL), lastfield(NULL), lastengine(NULL),
+  head(nullptr), tail(nullptr), firstnoderec(nullptr), lastfield(nullptr), lastengine(nullptr),
   // this is used in SoNode::notify() to stop a notification
   // when a node has already been notified.
   stamp(SoNode::getNextNodeId())
@@ -70,7 +70,7 @@ SoNotList::append(SoNotRec * const rec)
                            rec->getBase()->getName().getString());
   }
   else {
-    SoDebugError::postInfo("SoNotList::append", "%p - %p (base is NULL)",
+    SoDebugError::postInfo("SoNotList::append", "%p - %p (base is nullptr)",
                            this, rec);
   }
 #endif // debug
@@ -124,7 +124,7 @@ SoNotList::setLastType(const SoNotRec::Type type)
   switch (type) {
   case SoNotRec::FIELD:
   case SoNotRec::ENGINE:
-    this->firstnoderec = NULL;
+    this->firstnoderec = nullptr;
   default:
     break;
   }

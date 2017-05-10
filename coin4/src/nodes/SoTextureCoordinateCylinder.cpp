@@ -76,8 +76,8 @@ static void
 so_texcoordcylinder_construct_data(void * closure)
 {
   so_texcoordcylinder_data * data = (so_texcoordcylinder_data *) closure;
-  data->currentshape = NULL;
-  data->currentstate = NULL;
+  data->currentshape = nullptr;
+  data->currentstate = nullptr;
   data->origo = SbVec3f(0,0,0);
 }
 
@@ -97,7 +97,7 @@ public:
   SbVec4f calculateTextureCoordinate(SbVec3f point, SbVec3f n);
   
   so_texcoordcylinder_data * so_texcoord_get_data() {
-    so_texcoordcylinder_data * data = NULL;
+    so_texcoordcylinder_data * data = nullptr;
     data = (so_texcoordcylinder_data *) this->so_texcoord_storage->get();
     assert(data && "Error retrieving thread data.");
     return data;
@@ -254,7 +254,7 @@ SoTextureCoordinateCylinder::doAction(SoAction * action)
   so_texcoordcylinder_data * data = pimpl->so_texcoord_get_data();
 
   data->currentstate = action->getState();      
-  data->currentshape = NULL;  
+  data->currentshape = nullptr;  
   
   int unit = SoTextureUnitElement::get(data->currentstate);
   SoMultiTextureCoordinateElement::setFunction(data->currentstate, this,
@@ -269,7 +269,7 @@ SoTextureCoordinateCylinder::GLRender(SoGLRenderAction * action)
   so_texcoordcylinder_data * data = pimpl->so_texcoord_get_data();
 
   data->currentstate = action->getState();      
-  data->currentshape = NULL;  
+  data->currentshape = nullptr;  
   
   int unit = SoTextureUnitElement::get(data->currentstate);
   const cc_glglue * glue = cc_glglue_instance(SoGLCacheContextElement::get(action->getState()));

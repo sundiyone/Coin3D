@@ -204,7 +204,7 @@ SoBase::SoBase(void)
     CC_MUTEX_LOCK(SoBase::PImpl::allbaseobj_mutex);
     //void * dummy;
     assert(SoBase::PImpl::allbaseobj->find(this)==SoBase::PImpl::allbaseobj->const_end());
-    (*SoBase::PImpl::allbaseobj)[this]=NULL;
+    (*SoBase::PImpl::allbaseobj)[this]=nullptr;
     CC_MUTEX_UNLOCK(SoBase::PImpl::allbaseobj_mutex);
   }
 #endif // COIN_DEBUG
@@ -392,12 +392,12 @@ SoBase::cleanClass(void)
     delete iter->obj;
   }
 
-  delete SoBase::PImpl::allbaseobj; SoBase::PImpl::allbaseobj = NULL;
+  delete SoBase::PImpl::allbaseobj; SoBase::PImpl::allbaseobj = nullptr;
 
-  delete SoBase::PImpl::name2obj; SoBase::PImpl::name2obj = NULL;
-  delete SoBase::PImpl::obj2name; SoBase::PImpl::obj2name = NULL;
+  delete SoBase::PImpl::name2obj; SoBase::PImpl::name2obj = nullptr;
+  delete SoBase::PImpl::obj2name; SoBase::PImpl::obj2name = nullptr;
 
-  delete SoBase::PImpl::refwriteprefix; SoBase::PImpl::refwriteprefix = NULL;
+  delete SoBase::PImpl::refwriteprefix; SoBase::PImpl::refwriteprefix = nullptr;
 
   SoBase::classTypeId STATIC_SOTYPE_INIT;
 
@@ -636,7 +636,7 @@ SoBase::getName(void) const
   // you have invoked SoDB::cleanup().
   assert(SoBase::PImpl::obj2name);
 
-  //const char * value = NULL;
+  //const char * value = nullptr;
   CC_MUTEX_LOCK(SoBase::PImpl::obj2name_mutex);
   SbHash<const SoBase *, const char *>::const_iterator tmp = SoBase::PImpl::obj2name->find(this);
   bool found = (tmp != SoBase::PImpl::obj2name->const_end());
@@ -672,7 +672,7 @@ SoBase::setName(const SbName & newname)
   // in a debugger and check the backtrace.)  -mortene.
 #if 0 // debug
   static bool checked = false;
-  static const char * tracename = NULL;
+  static const char * tracename = nullptr;
   if (!checked) {
     tracename = coin_getenv("COIN_DEBUG_ASSERT_SOBASE_SETNAME");
     checked = true;
@@ -851,12 +851,12 @@ SoBase::getAuditors(void) const
 {
   CC_MUTEX_LOCK(SoBase::PImpl::auditor_mutex);
 
-  if (SoBase::PImpl::auditordict == NULL) {
+  if (SoBase::PImpl::auditordict == nullptr) {
     SoBase::PImpl::auditordict = new SbHash<const SoBase *, SoAuditorList *>();
     coin_atexit((coin_atexit_f*)SoBase::PImpl::cleanup_auditordict, CC_ATEXIT_NORMAL);
   }
 
-  SoAuditorList * l = NULL;
+  SoAuditorList * l = nullptr;
   SbHash<const SoBase *, SoAuditorList *>::const_iterator iter
     = 
     SoBase::PImpl::auditordict->find(this);
@@ -922,7 +922,7 @@ SoBase::addWriteReference(SoOutput * out, bool isfromfield)
 bool
 SoBase::shouldWrite(void)
 {
-  return SoWriterefCounter::instance(NULL)->shouldWrite(this);
+  return SoWriterefCounter::instance(nullptr)->shouldWrite(this);
 }
 
 /*!
@@ -949,7 +949,7 @@ SoBase::decrementCurrentWriteCounter(void)
   with the same type, returns the \e last one which was registered.
 
   If no object of a valid type or subtype has been registered with the
-  given name, returns \c NULL.
+  given name, returns \c nullptr.
 */
 SoBase *
 SoBase::getNamedBase(const SbName & name, SoType type)
@@ -968,7 +968,7 @@ SoBase::getNamedBase(const SbName & name, SoType type)
     }
   }
   CC_MUTEX_UNLOCK(SoBase::PImpl::name2obj_mutex);
-  return NULL;
+  return nullptr;
 }
 
 /*!
@@ -1011,7 +1011,7 @@ SoBase::getNamedBases(const SbName & name, SoBaseList & baselist, SoType type)
   expectedtype, or if there are attempts at referencing (through the
   \c USE keyword) unknown instances.
 
-  If we return \c true with \a base equal to \c NULL, three things
+  If we return \c true with \a base equal to \c nullptr, three things
   might have happened:
 
   1. End-of-file. Use SoInput::eof() after calling this method to
@@ -1022,11 +1022,11 @@ SoBase::getNamedBases(const SbName & name, SoBaseList & baselist, SoType type)
   nodes of a group has been read. Check if the next character in the
   stream is a '}' to detect the latter case.
 
-  3. A child was given as the \c NULL keyword. This can happen when
-  reading the contents of SoSFNode fields (note that NULL is not
+  3. A child was given as the \c nullptr keyword. This can happen when
+  reading the contents of SoSFNode fields (note that nullptr is not
   allowed for SoMFNode)
 
-  If \c true is returned and \a base is not \c NULL upon return, the
+  If \c true is returned and \a base is not \c nullptr upon return, the
   instance was allocated and initialized according to what was read
   from the \a in stream.
 */
@@ -1056,7 +1056,7 @@ SoBase::read(SoInput * in, SoBase *& base, SoType expectedtype)
   // 20060202 mortene.
 
   assert(expectedtype != SoType::badType());
-  base = NULL;
+  base = nullptr;
 
   SbName name;
   bool result = in->read(name, true);
@@ -1081,7 +1081,7 @@ SoBase::read(SoInput * in, SoBase *& base, SoType expectedtype)
   }
 
   // The SoInput stream does not start with a valid base name. Return
-  // true with base==NULL.
+  // true with base==nullptr.
   if (!result) return true;
 
   // If no valid name / identifier string is found, the return value
@@ -1173,7 +1173,7 @@ SoBase::getTraceRefs(void)
 bool
 SoBase::hasMultipleWriteRefs(void) const
 {
-  return SoWriterefCounter::instance(NULL)->getWriteref(this) > 1;
+  return SoWriterefCounter::instance(nullptr)->getWriteref(this) > 1;
 }
 
 // FIXME: temporary bug-workaround needed to test if we are exporting
@@ -1413,7 +1413,7 @@ SoBase::readRoute(SoInput * in)
 
     // parse from-string
     char * str1 = (char*) fromstring.getString();
-    char * str2 = str1 ? (char*) strchr(str1, '.') : NULL;
+    char * str2 = str1 ? (char*) strchr(str1, '.') : nullptr;
     if (str1 && str2) {
       *str2++ = 0;
 
@@ -1421,7 +1421,7 @@ SoBase::readRoute(SoInput * in)
       fromnodename = str1;
       fromfieldname = str2;
       str1 = (char*) tostring.getString();
-      str2 = str1 ? strchr(str1, '.') : NULL;
+      str2 = str1 ? strchr(str1, '.') : nullptr;
       if (str1 && str2) {
         *str2++ = 0;
         tonodename = str1;
