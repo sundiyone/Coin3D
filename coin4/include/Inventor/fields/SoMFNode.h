@@ -37,8 +37,8 @@ class COIN_DLL_API SoMFNode : public SoMField {
 public:
   static void initClass(void);
 
-  virtual void fixCopy(SbBool copyconnections);
-  virtual SbBool referencesCopy(void) const;
+  virtual void fixCopy(bool copyconnections);
+  virtual bool referencesCopy(void) const;
 
   void addNode(SoNode * node);
   void insertNode(SoNode * node, int idx);

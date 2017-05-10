@@ -44,13 +44,13 @@ public:
   virtual void deleteValues(int start, int num = -1);
   virtual void insertSpace(int start, int num);
 
-  SbBool set1(const int index, const char * const valuestring);
+  bool set1(const int index, const char * const valuestring);
   void get1(const int index, SbString & valuestring);
 
   static void initClass(void);
 
   virtual void enableDeleteValues(void);
-  virtual SbBool isDeleteValuesEnabled(void) const;
+  virtual bool isDeleteValuesEnabled(void) const;
 
 protected:
   SoMField(void);
@@ -70,16 +70,16 @@ protected:
 
   int num;
   int maxNum;
-  SbBool userDataIsUsed;
+  bool userDataIsUsed;
 
 private:
   virtual void deleteAllValues(void) = 0;
   virtual void copyValue(int to, int from) = 0;
-  virtual SbBool readValue(SoInput * in);
-  virtual SbBool read1Value(SoInput * in, int idx) = 0;
+  virtual bool readValue(SoInput * in);
+  virtual bool read1Value(SoInput * in, int idx) = 0;
   virtual void writeValue(SoOutput * out) const;
   virtual void write1Value(SoOutput * out, int idx) const = 0;
-  virtual SbBool readBinaryValues(SoInput * in, int num);
+  virtual bool readBinaryValues(SoInput * in, int num);
   virtual void writeBinaryValues(SoOutput * out) const;
   virtual int getNumValuesPerLine(void) const;
 

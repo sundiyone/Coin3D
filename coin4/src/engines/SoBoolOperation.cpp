@@ -28,7 +28,7 @@
 
   The multivalue fields SoBoolOperation::a and SoBoolOperation::b are
   combined according to the operations set in
-  SoBoolOperation::operation, with the resulting \c TRUE or \c FALSE
+  SoBoolOperation::operation, with the resulting \c true or \c false
   value set on SoBoolOperation::output.
 */
 
@@ -38,12 +38,12 @@
 */
 /*!
   \var SoBoolOperation::Operation SoBoolOperation::CLEAR
-  Always set SoBoolOperation::output to \c FALSE, no matter the input
+  Always set SoBoolOperation::output to \c false, no matter the input
   values.
 */
 /*!
   \var SoBoolOperation::Operation SoBoolOperation::SET
-  Always set SoBoolOperation::output to \c TRUE, no matter the input
+  Always set SoBoolOperation::output to \c true, no matter the input
   values.
 */
 /*!
@@ -147,8 +147,8 @@ SoBoolOperation::SoBoolOperation(void)
 {
   SO_ENGINE_INTERNAL_CONSTRUCTOR(SoBoolOperation);
 
-  SO_ENGINE_ADD_INPUT(a,(FALSE));
-  SO_ENGINE_ADD_INPUT(b,(FALSE));
+  SO_ENGINE_ADD_INPUT(a,(false));
+  SO_ENGINE_ADD_INPUT(b,(false));
   SO_ENGINE_ADD_INPUT(operation,(SoBoolOperation::A));
 
   SO_ENGINE_DEFINE_ENUM_VALUE(Operation, CLEAR);
@@ -202,19 +202,19 @@ SoBoolOperation::evaluate(void)
   SO_ENGINE_OUTPUT(inverse,SoMFBool,setNum(numOut));
 
   for (int i = 0; i < numOut; i++) {
-    SbBool tmp_a = numA==0 ? FALSE : (i < numA ? this->a[i] : this->a[numA-1]);
-    SbBool tmp_b = numB==0 ? FALSE : (i < numB ? this->b[i] : this->b[numB-1]);
+    bool tmp_a = numA==0 ? false : (i < numA ? this->a[i] : this->a[numA-1]);
+    bool tmp_b = numB==0 ? false : (i < numB ? this->b[i] : this->b[numB-1]);
     int tmp_op = numOp==0 ? SoBoolOperation::CLEAR :
       (i < numOp ? this->operation[i] : this->operation[numOp-1]);
 
-    SbBool val;
+    bool val;
 
     switch (tmp_op) {
     case SoBoolOperation::CLEAR:
-      val = FALSE;
+      val = false;
       break;
     case SoBoolOperation::SET:
-      val = TRUE;
+      val = true;
       break;
     case SoBoolOperation::A:
       val = tmp_a;
@@ -263,7 +263,7 @@ SoBoolOperation::evaluate(void)
       SoDebugError::postInfo("SoBoolOperation::evaluate",
                              "unknown bool operation");
 #endif // COIN_DEBUG
-      val = TRUE; // avoid compiler warning
+      val = true; // avoid compiler warning
       break;
     }
 

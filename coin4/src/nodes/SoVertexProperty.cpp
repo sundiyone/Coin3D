@@ -215,8 +215,8 @@ class SoVertexPropertyP {
       normalvbo(NULL),
       colorvbo(NULL)
   {
-    this->checktransparent = FALSE;
-    this->transparent = FALSE;
+    this->checktransparent = false;
+    this->transparent = false;
   }
   ~SoVertexPropertyP() {
     for (int i = 0; i < this->texcoordvbo.getLength(); i++) {
@@ -228,8 +228,8 @@ class SoVertexPropertyP {
   }
   
   SoVertexProperty * master;
-  SbBool transparent;
-  SbBool checktransparent;
+  bool transparent;
+  bool checktransparent;
 
   SoVBO * vertexvbo;
   SoVBO * normalvbo;
@@ -344,21 +344,21 @@ SoVertexProperty::doAction(SoAction *action)
   SoState * state = action->getState();
 
   uint32_t overrideflags = SoOverrideElement::getFlags(state);
-  SbBool glrender = action->isOfType(SoGLRenderAction::getClassTypeId());
+  bool glrender = action->isOfType(SoGLRenderAction::getClassTypeId());
   if (glrender) SoBase::staticDataLock();
 
   if (PRIVATE(this)->checktransparent) {
-    PRIVATE(this)->checktransparent = FALSE;
-    PRIVATE(this)->transparent = FALSE;
+    PRIVATE(this)->checktransparent = false;
+    PRIVATE(this)->transparent = false;
     int n = this->orderedRGBA.getNum();
     for (int i = 0; i < n; i++) {
       if ((this->orderedRGBA[i] & 0xff) != 0xff) {
-        PRIVATE(this)->transparent = TRUE;
+        PRIVATE(this)->transparent = true;
         break;
       }
     }
   }
-  const SbBool shouldcreatevbo = glrender ? SoGLVBOElement::shouldCreateVBO(state, this->vertex.getNum()) : FALSE;
+  const bool shouldcreatevbo = glrender ? SoGLVBOElement::shouldCreateVBO(state, this->vertex.getNum()) : false;
   this->updateVertex(state, glrender, shouldcreatevbo);
   this->updateNormal(state, overrideflags, glrender, shouldcreatevbo);
   this->updateMaterial(state, overrideflags, glrender, shouldcreatevbo);
@@ -398,14 +398,14 @@ SoVertexProperty::notify(SoNotList *list)
 {
   SoField *f = list->getLastField();
   if (f == &this->orderedRGBA) {
-    PRIVATE(this)->checktransparent = TRUE;
+    PRIVATE(this)->checktransparent = true;
   }
   inherited::notify(list);
 }
 
 
 void 
-SoVertexProperty::updateVertex(SoState * state, SbBool glrender, SbBool vbo)
+SoVertexProperty::updateVertex(SoState * state, bool glrender, bool vbo)
 {
   int num = this->vertex.getNum();
 
@@ -414,13 +414,13 @@ SoVertexProperty::updateVertex(SoState * state, SbBool glrender, SbBool vbo)
                               this->vertex.getValues(0));
     if (glrender) {
       if (vbo) {
-        SbBool dirty = FALSE;
+        bool dirty = false;
         if (PRIVATE(this)->vertexvbo == NULL) {
           PRIVATE(this)->vertexvbo = new SoVBO(GL_ARRAY_BUFFER, GL_STATIC_DRAW); 
-          dirty =  TRUE;
+          dirty =  true;
         }
         else if (PRIVATE(this)->vertexvbo->getBufferDataId() != this->getNodeId()) {
-          dirty = TRUE;
+          dirty = true;
         }
         if (dirty) {
           PRIVATE(this)->vertexvbo->setBufferData(this->vertex.getValues(0),
@@ -438,7 +438,7 @@ SoVertexProperty::updateVertex(SoState * state, SbBool glrender, SbBool vbo)
 }
 
 void 
-SoVertexProperty::updateTexCoord(SoState * state, SbBool glrender, SbBool vbo)
+SoVertexProperty::updateTexCoord(SoState * state, bool glrender, bool vbo)
 {
   const int numvertex = this->vertex.getNum();
   int num = this->texCoord3.getNum();
@@ -481,20 +481,20 @@ SoVertexProperty::updateTexCoord(SoState * state, SbBool glrender, SbBool vbo)
         }
       
         if (glrender) {
-          SbBool setvbo = FALSE;
+          bool setvbo = false;
 
           if (i >= PRIVATE(this)->texcoordvbo.getLength()) {
             PRIVATE(this)->texcoordvbo.append(NULL);
           }
           if ((numperunit == numvertex) && vbo) {
-            SbBool dirty = FALSE;
-            setvbo = TRUE;
+            bool dirty = false;
+            setvbo = true;
             if (PRIVATE(this)->texcoordvbo[i] == NULL) {
               PRIVATE(this)->texcoordvbo[i] = new SoVBO(GL_ARRAY_BUFFER, GL_STATIC_DRAW); 
-              dirty =  TRUE;
+              dirty =  true;
             }
             else if (PRIVATE(this)->texcoordvbo[i]->getBufferDataId() != this->getNodeId()) {
-              dirty = TRUE;
+              dirty = true;
             }
             if (dirty) {
               if (dim == 2) {
@@ -522,7 +522,7 @@ SoVertexProperty::updateTexCoord(SoState * state, SbBool glrender, SbBool vbo)
 }
   
 void 
-SoVertexProperty::updateNormal(SoState * state, uint32_t overrideflags, SbBool glrender, SbBool vbo)
+SoVertexProperty::updateNormal(SoState * state, uint32_t overrideflags, bool glrender, bool vbo)
 {
   const int numvertex = this->vertex.getNum();
   const int num = this->normal.getNum();
@@ -530,19 +530,19 @@ SoVertexProperty::updateNormal(SoState * state, uint32_t overrideflags, SbBool g
     SoNormalElement::set(state, this, num,
                          this->normal.getValues(0));
     if (this->isOverride()) {
-      SoOverrideElement::setNormalVectorOverride(state, this, TRUE);
+      SoOverrideElement::setNormalVectorOverride(state, this, true);
     }
     if (glrender) {
-      SbBool setvbo = FALSE;
+      bool setvbo = false;
       if ((num == numvertex) && vbo) {
-        SbBool dirty = FALSE;
-        setvbo = TRUE;
+        bool dirty = false;
+        setvbo = true;
         if (PRIVATE(this)->normalvbo == NULL) {
           PRIVATE(this)->normalvbo = new SoVBO(GL_ARRAY_BUFFER, GL_STATIC_DRAW); 
-          dirty =  TRUE;
+          dirty =  true;
         }
         else if (PRIVATE(this)->normalvbo->getBufferDataId() != this->getNodeId()) {
-          dirty = TRUE;
+          dirty = true;
         }
         if (dirty) {
           PRIVATE(this)->normalvbo->setBufferData(this->normal.getValues(0),
@@ -562,13 +562,13 @@ SoVertexProperty::updateNormal(SoState * state, uint32_t overrideflags, SbBool g
                                 (SoNormalBindingElement::Binding)
                                 this->normalBinding.getValue());
     if (this->isOverride()) {
-      SoOverrideElement::setNormalBindingOverride(state, this, TRUE);
+      SoOverrideElement::setNormalBindingOverride(state, this, true);
     }
   }
 }
 
 void 
-SoVertexProperty::updateMaterial(SoState * state, uint32_t overrideflags, SbBool glrender, SbBool vbo)
+SoVertexProperty::updateMaterial(SoState * state, uint32_t overrideflags, bool glrender, bool vbo)
 {
   const int numvertex = this->vertex.getNum();
   int num = this->orderedRGBA.getNum();
@@ -579,19 +579,19 @@ SoVertexProperty::updateMaterial(SoState * state, uint32_t overrideflags, SbBool
                              this->orderedRGBA.getValues(0),
                              PRIVATE(this)->transparent);
     if (this->isOverride()) {
-      SoOverrideElement::setDiffuseColorOverride(state, this, TRUE);
+      SoOverrideElement::setDiffuseColorOverride(state, this, true);
     }
     if (glrender) {
-      SbBool setvbo = FALSE;
+      bool setvbo = false;
       if ((num == numvertex) && vbo) {
-        SbBool dirty = FALSE;
-        setvbo = TRUE;
+        bool dirty = false;
+        setvbo = true;
         if (PRIVATE(this)->colorvbo == NULL) {
           PRIVATE(this)->colorvbo = new SoVBO(GL_ARRAY_BUFFER, GL_STATIC_DRAW);
-          dirty = TRUE;
+          dirty = true;
         }
         else if (PRIVATE(this)->colorvbo->getBufferDataId() != this->getNodeId()) {
-          dirty = TRUE;
+          dirty = true;
         }
         if (dirty) {
           if (coin_host_get_endianness() == COIN_HOST_IS_BIGENDIAN) {
@@ -626,7 +626,7 @@ SoVertexProperty::updateMaterial(SoState * state, uint32_t overrideflags, SbBool
                                   (SoMaterialBindingElement::Binding)
                                   this->materialBinding.getValue());
     if (this->isOverride()) {
-      SoOverrideElement::setMaterialBindingOverride(state, this, TRUE);
+      SoOverrideElement::setMaterialBindingOverride(state, this, true);
     }
   }
 }

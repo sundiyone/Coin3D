@@ -61,7 +61,7 @@ public:
 
 protected:
   virtual ~SoSpotLightDragger(void);
-  virtual SbBool setUpConnections(SbBool onoff, SbBool doitalways = FALSE);
+  virtual bool setUpConnections(bool onoff, bool doitalways = false);
   virtual void setDefaultOnNonWritingFields(void);
 
   static void startCB(void * f, SoDragger * d);

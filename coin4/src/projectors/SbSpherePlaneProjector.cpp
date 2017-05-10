@@ -46,7 +46,7 @@
   SbSphereSectionProjector::SbSphereSectionProjector().
 */
 SbSpherePlaneProjector::SbSpherePlaneProjector(const float edgetol,
-                                               const SbBool orienttoeye)
+                                               const bool orienttoeye)
   : inherited(edgetol, orienttoeye)
 {
 }
@@ -56,7 +56,7 @@ SbSpherePlaneProjector::SbSpherePlaneProjector(const float edgetol,
 */
 SbSpherePlaneProjector::SbSpherePlaneProjector(const SbSphere & sph,
                                                const float edgetol,
-                                               const SbBool orienttoeye)
+                                               const bool orienttoeye)
   : inherited(sph, edgetol, orienttoeye)
 {
 }
@@ -77,7 +77,7 @@ SbSpherePlaneProjector::project(const SbVec2f & point)
   SbLine projline = this->getWorkingLine(point);
   SbVec3f projpt;
 
-  SbBool tst = this->intersectSphereFront(projline, projpt);
+  bool tst = this->intersectSphereFront(projline, projpt);
   if (!tst || !this->isWithinTolerance(projpt)) {
     if (!this->tolPlane.intersect(projline, projpt)) {
 #if COIN_DEBUG
@@ -107,8 +107,8 @@ SbSpherePlaneProjector::getRotation(const SbVec3f & point1,
   tol2 deciding whether or not to use the tolerance setting.
 */
 SbRotation
-SbSpherePlaneProjector::getRotation(const SbVec3f & point1, const SbBool tol1,
-                                    const SbVec3f & point2, const SbBool tol2)
+SbSpherePlaneProjector::getRotation(const SbVec3f & point1, const bool tol1,
+                                    const SbVec3f & point2, const bool tol2)
 {
   if (tol1 && tol2) return inherited::getRotation(point1, point2);
   SbVec3f vec = point2 - point1;

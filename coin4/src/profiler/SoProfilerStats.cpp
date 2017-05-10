@@ -126,10 +126,10 @@ SoProfilerStatsP::doAction(SoAction * action)
   // every SoGLRenderAction traversal will set a flag that causes
   // the profiling data to be cleared at the next traversal, regardless of
   // type
-  static SbBool clear_state = FALSE;
+  static bool clear_state = false;
   if (clear_state) {
     this->clearProfilingData();
-    clear_state = FALSE;
+    clear_state = false;
   }
 
   this->action_timings.put(SoGLRenderAction::getClassTypeId().getKey(),
@@ -162,7 +162,7 @@ SoProfilerStatsP::doAction(SoAction * action)
     updateActionTimingFields(e);
     PUBLIC(this)->profilingUpdate.touch();
 
-    clear_state = TRUE;
+    clear_state = true;
   }
 } // doAction
 
@@ -189,7 +189,7 @@ SoProfilerStatsP::updateActionTimingMaps(SoProfilerElement * e,
 {
   int16_t type = action->getTypeId().getKey();
   SbTime time = SbTime::zero();
-  SbBool found = this->action_timings.get(type, time);
+  bool found = this->action_timings.get(type, time);
   if (found)
     time += e->getProfilingData().getActionDuration();
   else
@@ -370,17 +370,17 @@ SoProfilerStats::SoProfilerStats(void)
   SO_NODE_ADD_FIELD(profilingUpdate, ());
 
   this->renderedNodeType.setNum(0);
-  this->renderedNodeType.setDefault(TRUE);
+  this->renderedNodeType.setDefault(true);
   this->renderingTimePerNodeType.setNum(0);
-  this->renderingTimePerNodeType.setDefault(TRUE);
+  this->renderingTimePerNodeType.setDefault(true);
   this->renderingTimeMaxPerNodeType.setNum(0);
-  this->renderingTimeMaxPerNodeType.setDefault(TRUE);
+  this->renderingTimeMaxPerNodeType.setDefault(true);
   this->renderedNodeTypeCount.setNum(0);
-  this->renderedNodeTypeCount.setDefault(TRUE);
+  this->renderedNodeTypeCount.setDefault(true);
   this->profiledAction.setNum(0);
-  this->profiledAction.setDefault(TRUE);
+  this->profiledAction.setDefault(true);
   this->profiledActionTime.setNum(0);
-  this->profiledActionTime.setDefault(TRUE);
+  this->profiledActionTime.setDefault(true);
 
 }
 

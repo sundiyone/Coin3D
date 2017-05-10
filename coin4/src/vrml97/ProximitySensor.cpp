@@ -38,7 +38,7 @@
   ProximitySensor {
     exposedField SFVec3f    center      0 0 0    # (-,)
     exposedField SFVec3f    size        0 0 0    # [0,)
-    exposedField SFBool     enabled     TRUE
+    exposedField SFBool     enabled     true
     eventOut     SFBool     isActive
     eventOut     SFVec3f    position_changed
     eventOut     SFRotation orientation_changed
@@ -51,10 +51,10 @@
   exits, and moves within a region in space (defined by a box). 
   
   A proximity sensor is enabled or disabled by sending it an enabled
-  event with a value of TRUE or FALSE. A disabled sensor does not send
+  event with a value of true or false. A disabled sensor does not send
   events.
 
-  A ProximitySensor node generates isActive TRUE/FALSE events as the
+  A ProximitySensor node generates isActive true/false events as the
   viewer enters and exits the rectangular box defined by its center
   and size fields. Browsers shall interpolate viewer positions and
   timestamp the isActive events with the exact time the viewer first
@@ -67,9 +67,9 @@
   equal to zero. ProximitySensor nodes are affected by the
   hierarchical transformations of their parents.
 
-  The \e enterTime event is generated whenever the isActive TRUE event
+  The \e enterTime event is generated whenever the isActive true event
   is generated (user enters the box), and \e exitTime events are
-  generated whenever an isActive FALSE event is generated (user exits
+  generated whenever an isActive false event is generated (user exits
   the box).
 
   The \e position_changed and \e orientation_changed eventOuts send
@@ -106,19 +106,19 @@
 
   A ProximitySensor node with a box containing zero volume (i.e., any
   size field element of 0.0) cannot generate events. This is
-  equivalent to setting the enabled field to FALSE.
+  equivalent to setting the enabled field to false.
 
   A ProximitySensor read from a VRML file shall generate isActive
-  TRUE, position_changed, orientation_changed and enterTime events if
+  true, position_changed, orientation_changed and enterTime events if
   the sensor is enabled and the viewer is inside the proximity region.
 
   A ProximitySensor inserted into the transformation hierarchy shall
-  generate isActive TRUE, position_changed, orientation_changed and
+  generate isActive true, position_changed, orientation_changed and
   enterTime events if the sensor is enabled and the viewer is inside
   the proximity region.
   
   A ProximitySensor removed from the transformation hierarchy shall
-  generate isActive FALSE, position_changed, orientation_changed and
+  generate isActive false, position_changed, orientation_changed and
   exitTime events if the sensor is enabled and the viewer is inside
   the proximity region.
 
@@ -136,7 +136,7 @@
 
 /*!
   \var SoSFBool SoVRMLProximitySensor::enabled
-  Enable/disable sensor. Default value is TRUE.
+  Enable/disable sensor. Default value is true.
 */
 
 
@@ -217,7 +217,7 @@ SoVRMLProximitySensor::SoVRMLProximitySensor(void)
 
   SO_VRMLNODE_ADD_EXPOSED_FIELD(center, (0.0f, 0.0f, 0.0f));
   SO_VRMLNODE_ADD_EXPOSED_FIELD(size, (0.0f, 0.0f, 0.0f));
-  SO_VRMLNODE_ADD_EXPOSED_FIELD(enabled, (TRUE));
+  SO_VRMLNODE_ADD_EXPOSED_FIELD(enabled, (true));
 
   SO_VRMLNODE_ADD_EVENT_OUT(isActive);
   SO_VRMLNODE_ADD_EVENT_OUT(position_changed);
@@ -226,7 +226,7 @@ SoVRMLProximitySensor::SoVRMLProximitySensor(void)
   SO_VRMLNODE_ADD_EVENT_OUT(exitTime);
 
   // initialize eventOut values that we might read
-  this->isActive = FALSE;
+  this->isActive = false;
   this->position_changed = SbVec3f(0.0f, 0.0f, 0.0f);
   this->orientation_changed = SbRotation();
 }
@@ -239,10 +239,10 @@ SoVRMLProximitySensor::~SoVRMLProximitySensor()
 }
 
 // Doc in parent
-SbBool
+bool
 SoVRMLProximitySensor::affectsState(void) const
 {
-  return FALSE;
+  return false;
 }
 
 // Doc in parent
@@ -251,13 +251,13 @@ SoVRMLProximitySensor::doAction(SoAction * action)
 {
   if (!this->enabled.getValue()) return;
 
-  SbBool wasactive = this->isActive.getValue();
+  bool wasactive = this->isActive.getValue();
   SbVec3f s = this->size.getValue() * 0.5f;
   SbTime currtime = prox_get_current_time();
 
   if (s[0] <= 0.0f || s[1] <= 0.0f || s[2] <= 0.0f) {
     if (wasactive) {
-      this->isActive = FALSE;
+      this->isActive = false;
       this->exitTime = currtime;
     }
     return;
@@ -277,14 +277,14 @@ SoVRMLProximitySensor::doAction(SoAction * action)
   SbVec3f c = this->center.getValue();
   SbBox3f box(c[0]-s[0], c[1]-s[1], c[2]-s[2],
               c[0]+s[0], c[1]+s[1], c[2]+s[2]);
-  SbBool inside = box.intersect(viewer);
+  bool inside = box.intersect(viewer);
 
   SbRotation oldrot = this->orientation_changed.getValue();
   SbVec3f oldpos = this->position_changed.getValue();
 
   if (inside) {
     if (!wasactive) {
-      this->isActive = TRUE;
+      this->isActive = true;
       this->enterTime = currtime;
     }
     SbRotation newrot = SbRotation(vm).inverse();
@@ -296,7 +296,7 @@ SoVRMLProximitySensor::doAction(SoAction * action)
     }
   }
   else if (!inside && wasactive) {
-    this->isActive = FALSE;
+    this->isActive = false;
     this->exitTime = currtime;
   }  
 }

@@ -171,17 +171,17 @@ SoVertexShape::notify(SoNotList * nl)
   \COININTERNAL
 
   Subclasses should override this method to generate default normals
-  using the SoNormalBundle class. \c TRUE should be returned if
-  normals were generated, \c FALSE otherwise.
+  using the SoNormalBundle class. \c true should be returned if
+  normals were generated, \c false otherwise.
 
-  Default method returns \c FALSE.
+  Default method returns \c false.
 
   \COIN_FUNCTION_EXTENSION
 */
-SbBool
+bool
 SoVertexShape::generateDefaultNormals(SoState *, SoNormalBundle *)
 {
-  return FALSE;
+  return false;
 }
 
 // This documentation block has a copy in vrml97/VertexShape.cpp.
@@ -190,22 +190,22 @@ SoVertexShape::generateDefaultNormals(SoState *, SoNormalBundle *)
 
   Subclasses should override this method to generate default normals
   using the SoNormalCache class. This is more effective than using
-  SoNormalGenerator. Return \c TRUE if normals were generated, \c
-  FALSE otherwise.
+  SoNormalGenerator. Return \c true if normals were generated, \c
+  false otherwise.
 
-  Default method just returns \c FALSE.
+  Default method just returns \c false.
 
   \COIN_FUNCTION_EXTENSION
 */
-SbBool
+bool
 SoVertexShape::generateDefaultNormals(SoState * /* state */,
                                       SoNormalCache * /* nc */)
 {
-  return FALSE;
+  return false;
 }
 
 // doc from superclass
-SbBool
+bool
 SoVertexShape::shouldGLRender(SoGLRenderAction * action)
 {
   return SoShape::shouldGLRender(action);
@@ -269,7 +269,7 @@ SoVertexShape::generateAndReadLockNormalCache(SoState * const state)
   this->readUnlockNormalCache();
   this->writeLockNormalCache();
   
-  SbBool storeinvalid = SoCacheElement::setInvalid(FALSE);
+  bool storeinvalid = SoCacheElement::setInvalid(false);
   
   if (PRIVATE(this)->normalcache) PRIVATE(this)->normalcache->unref();
   state->push(); // need to push for cache dependencies
@@ -301,7 +301,7 @@ void
 SoVertexShape::getVertexData(SoState * state,
                              const SoCoordinateElement *& coords,
                              const SbVec3f *& normals,
-                             const SbBool neednormals)
+                             const bool neednormals)
 {
   coords = SoCoordinateElement::getInstance(state);
   assert(coords);

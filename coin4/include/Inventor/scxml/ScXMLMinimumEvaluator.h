@@ -42,7 +42,7 @@ public:
 
   virtual ScXMLDataObj * evaluate(const char * expression) const;
 
-  virtual SbBool setAtLocation(const char * location, ScXMLDataObj * obj);
+  virtual bool setAtLocation(const char * location, ScXMLDataObj * obj);
   virtual ScXMLDataObj * locate(const char * location) const;
 
   virtual void clearTemporaryVariables(void);
@@ -83,7 +83,7 @@ public:
 protected:
   char * stateid;
 
-  virtual SbBool evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& pointer) const;
+  virtual bool evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& pointer) const;
 
 }; // ScXMLMinimumDataObj
 
@@ -107,7 +107,7 @@ public:
   const ScXMLDataObj * getRHS(void) const { return this->rhs; }
 
 protected:
-  virtual SbBool evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& pointer) const;
+  virtual bool evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& pointer) const;
 
 private:
   ScXMLDataObj * lhs, * rhs;

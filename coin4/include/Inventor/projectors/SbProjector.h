@@ -40,7 +40,7 @@ public:
   const SbMatrix & getWorkingSpace(void) const;
   virtual SbProjector * copy(void) const = 0;
 
-  virtual SbBool tryProject(const SbVec2f & point, const float epsilon, SbVec3f & result);
+  virtual bool tryProject(const SbVec2f & point, const float epsilon, SbVec3f & result);
 
 protected:
   SbProjector(void);
@@ -52,7 +52,7 @@ protected:
   SbMatrix worldToWorking, workingToWorld;
 
   float findVanishingDistance(void) const;
-  SbBool verifyProjection(const SbVec3f & projpt) const;
+  bool verifyProjection(const SbVec3f & projpt) const;
 };
 
 #endif // !COIN_SBPROJECTOR_H

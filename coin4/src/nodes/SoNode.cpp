@@ -321,8 +321,8 @@ SoNode::setStateFlags(const unsigned int bits)
   this->stateflags |= bits;
 }
 
-// return TRUE if any of bits are set
-inline SbBool
+// return true if any of bits are set
+inline bool
 SoNode::getState(const unsigned int bits) const
 {
   return (this->stateflags & bits) != 0;
@@ -380,7 +380,7 @@ SoNode::~SoNode()
   If this node is a group node, children are also copied and we return
   a pointer to the root of a full copy of the subgraph rooted here.
 
-  If \a copyconnections is \c TRUE, we also copy the connections to
+  If \a copyconnections is \c true, we also copy the connections to
   fields within this node (and ditto for any children and children's
   children etc).
 
@@ -404,7 +404,7 @@ SoNode::~SoNode()
   for automatically handling of fields and other common data.
 */
 SoNode *
-SoNode::copy(SbBool copyconnections) const
+SoNode::copy(bool copyconnections) const
 {
   // FIXME: "de-virtualize" this method for next major Coin release?
   // See method documentation above. 20011220 mortene.
@@ -671,7 +671,7 @@ SoNode::initClasses(void)
 /*!
   Set the override flag.
 
-  If this flag is \c TRUE, the field values of this node will override
+  If this flag is \c true, the field values of this node will override
   the field values of other nodes of the same type during scene graph
   traversal.
 
@@ -687,7 +687,7 @@ SoNode::initClasses(void)
   mode.
 */
 void
-SoNode::setOverride(const SbBool state)
+SoNode::setOverride(const bool state)
 {
   if (state != this->getState(FLAG_OVERRIDE)) {
     // This change affects caches in the tree, so we must change our id
@@ -704,7 +704,7 @@ SoNode::setOverride(const SbBool state)
 
   \sa setOverride()
 */
-SbBool
+bool
 SoNode::isOverride(void) const
 {
   return this->getState(FLAG_OVERRIDE);
@@ -790,24 +790,24 @@ SoNode::doAction(SoAction * COIN_UNUSED_ARG(action))
 // Note that this documentation will also be used for all subclasses
 // which reimplements the method, so keep the doc "generic enough".
 /*!
-  Returns \c TRUE if the node could have any effect on the state
+  Returns \c true if the node could have any effect on the state
   during traversal.
 
-  If it returns \c FALSE, no data in the traversal-state will change
+  If it returns \c false, no data in the traversal-state will change
   from the pre-traversal state to the post-traversal state. The
-  SoSeparator node will for instance return \c FALSE, as it pushes and
+  SoSeparator node will for instance return \c false, as it pushes and
   pops the state before and after traversal of its children. All
-  SoShape nodes will also return \c FALSE, as just pushing out
+  SoShape nodes will also return \c false, as just pushing out
   geometry data to the rendering engine won't affect the actual
   rendering state.
 
-  The default method returns \c TRUE, on a "better safe than sorry"
+  The default method returns \c true, on a "better safe than sorry"
   philosophy.
 */
-SbBool
+bool
 SoNode::affectsState(void) const
 {
-  return TRUE;
+  return true;
 }
 
 /*!
@@ -905,7 +905,7 @@ SoNode::GLRenderS(SoAction * action, SoNode * node)
     cc_string_construct(&str);
     const unsigned int errs = coin_catch_gl_errors(&str);
     if (errs > 0) {
-      const SbBool extradebug = sogl_glerror_debugging();
+      const bool extradebug = sogl_glerror_debugging();
       SoDebugError::post("SoNode::GLRenderS",
                          "GL error: '%s', nodetype: %s %s",
                          cc_string_get_text(&str),
@@ -1151,7 +1151,7 @@ SoNode::search(SoSearchAction * action)
   if (action->isFound()) { return; }
 
   int lookfor = action->getFind();
-  SbBool hit = FALSE;
+  bool hit = false;
 
   // A little tidbit of history, which could be relevant when
   // answering support inquiries: Coin v1.0.0 was released with a bug
@@ -1175,7 +1175,7 @@ SoNode::search(SoSearchAction * action)
   }
 
   if (lookfor & SoSearchAction::TYPE) {
-    SbBool chkderived;
+    bool chkderived;
     SoType searchtype = action->getType(chkderived);
     hit = (this->getTypeId() == searchtype) ||
       (chkderived && this->getTypeId().isDerivedFrom(searchtype));
@@ -1225,10 +1225,10 @@ SoNode::write(SoWriteAction * action)
   if (proto) { node = proto; }
 
   if (out->getStage() == SoOutput::COUNT_REFS) {
-    node->addWriteReference(out, FALSE);
+    node->addWriteReference(out, false);
   }
   else if (out->getStage() == SoOutput::WRITE) {
-    if (node->writeHeader(out, FALSE, FALSE)) return;
+    if (node->writeHeader(out, false, false)) return;
 
     // check for special case where we actually have to write out an
     // SoEngineOutput "field". An engine output might be connected via
@@ -1383,7 +1383,7 @@ SoNode::addToCopyDict(void) const
       // the proto instance might have a field that has a pointer to
       // the root node. pederb, 2002-09-04
       SoFieldContainer::addCopy(this, cp);
-      newinst->copyContents(inst, FALSE);
+      newinst->copyContents(inst, false);
     }
     else {
       if (this->isOfType(SoProto::getClassTypeId())) {
@@ -1408,7 +1408,7 @@ SoNode::addToCopyDict(void) const
 
 // Doc in superclass.
 void
-SoNode::copyContents(const SoFieldContainer * from, SbBool copyconnections)
+SoNode::copyContents(const SoFieldContainer * from, bool copyconnections)
 {
   // workaround when copying PROTO definitions. A PROTO definition is
   // read-only, and we just copy the pointer (in
@@ -1433,7 +1433,7 @@ SoNode::copyThroughConnection(void) const
   // if a copy has been made, return the findCopy instance (findCopy
   // will run copyContents() the first time it's called on an
   // instance).
-  if (connfc) return SoFieldContainer::findCopy(this, TRUE);
+  if (connfc) return SoFieldContainer::findCopy(this, true);
   // if no copy has been made, just return self
   return (SoFieldContainer*) this;
 }
@@ -1463,12 +1463,12 @@ SoNode::getFieldDataPtr(void)
 }
 
 // Doc in super.
-SbBool
+bool
 SoNode::readInstance(SoInput * in, unsigned short flags)
 {
   // Overridden to set node type.
 
-  SbBool ret = inherited::readInstance(in, flags);
+  bool ret = inherited::readInstance(in, flags);
   if (ret) {
     if (in->isFileVRML1()) this->setNodeType(SoNode::VRML1);
     else if (in->isFileVRML2()) this->setNodeType(SoNode::VRML2);

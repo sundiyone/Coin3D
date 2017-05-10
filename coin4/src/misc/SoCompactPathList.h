@@ -47,7 +47,7 @@ public:
   void reset(void);
 
   void getChildren(int & numindices, const int *& indices);
-  SbBool push(int childindex);
+  bool push(int childindex);
   void pop(void);
 
   int getDepth(void) const;

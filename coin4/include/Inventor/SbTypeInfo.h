@@ -264,7 +264,7 @@ struct Vec<PrimitiveType,4>
 
 
 
-//This should have been a template for SbBool, but since SbBool is an
+//This should have been a template for bool, but since bool is an
 //int, we would risk unwanted behaviour for ints.
 template <>
 struct SbTypeInfo<bool> {
@@ -883,7 +883,7 @@ struct SbTypeInfo<SoSFBitMask> {
 template<>
 struct SbTypeInfo<SoSFBool> {
   typedef SoSFBool Type;
-  typedef SbBool DataType;
+  typedef bool DataType;
 };
 
 template<>
@@ -1177,7 +1177,7 @@ struct SbTypeInfo<SoMFBitMask> {
 template<>
 struct SbTypeInfo<SoMFBool> {
   typedef SoMFBool Type;
-  typedef SbBool DataType;
+  typedef bool DataType;
 };
 
 template<>

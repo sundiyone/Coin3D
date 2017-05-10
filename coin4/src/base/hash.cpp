@@ -188,11 +188,11 @@ cc_hash_clear(cc_hash * ht)
   Insert a new element in the hash table \a ht. \a key is the key used
   to identify the element, while \a val is the element value. If \a
   key is already used by another element, the element value will be
-  overwritten, and \e FALSE is returned. Otherwise a new element is
-  created and \e TRUE is returned.
+  overwritten, and \e false is returned. Otherwise a new element is
+  created and \e true is returned.
 
  */
-SbBool
+bool
 cc_hash_put(cc_hash * ht, cc_hash_key key, void * val)
 {
   unsigned int i = hash_get_index(ht, key);
@@ -202,7 +202,7 @@ cc_hash_put(cc_hash * ht, cc_hash_key key, void * val)
     if (he->key == key) {
       /* Replace the old value */
       he->val = val;
-      return FALSE;
+      return false;
     }
     he = he->next;
   }
@@ -219,17 +219,17 @@ cc_hash_put(cc_hash * ht, cc_hash_key key, void * val)
   if (ht->elements++ >= ht->threshold) {
     hash_resize(ht, (unsigned int) coin_geq_prime_number(ht->size + 1));
   }
-  return TRUE;
+  return true;
 }
 
 /*!
 
   Find the element with key value \a key. If found, the value is written to
-  \a val, and TRUE is returned. Otherwise FALSE is returned and \a val
+  \a val, and true is returned. Otherwise false is returned and \a val
   is not changed.
 
 */
-SbBool
+bool
 cc_hash_get(cc_hash * ht, cc_hash_key key, void ** val)
 {
   cc_hash_entry * he;
@@ -238,18 +238,18 @@ cc_hash_get(cc_hash * ht, cc_hash_key key, void ** val)
   while (he) {
     if (he->key == key) {
       *val = he->val;
-      return TRUE;
+      return true;
     }
     he = he->next;
   }
-  return FALSE;
+  return false;
 }
 
 /*!
   Attempt to remove the element with key value \a key. Returns
-  TRUE if found, FALSE otherwise.
+  true if found, false otherwise.
 */
-SbBool
+bool
 cc_hash_remove(cc_hash * ht, cc_hash_key key)
 {
   cc_hash_entry * he, *next, * prev;
@@ -268,12 +268,12 @@ cc_hash_remove(cc_hash * ht, cc_hash_key key)
         prev->next = next;
       }
       cc_memalloc_deallocate(ht->memalloc, (void*) he);
-      return TRUE;
+      return true;
     }
     prev = he;
     he = next;
   }
-  return FALSE;
+  return false;
 }
 
 /*!

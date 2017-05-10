@@ -54,45 +54,45 @@ public:
                          const float crease_angle,
                          const SbVec3f *facenormals = NULL,
                          const int numfacenormals = -1,
-                         const SbBool ccw = TRUE,
-                         const SbBool tristrip = FALSE);
+                         const bool ccw = true,
+                         const bool tristrip = false);
 
 
   void generatePerFace(const SbVec3f * const coords,
                        const unsigned int numcoords,
                        const int32_t *coordindices,
                        const int numcoorindices,
-                       const SbBool ccw);
+                       const bool ccw);
 
   void generatePerFaceStrip(const SbVec3f * const coords,
                             const unsigned int numcoords,
                             const int32_t *coordindices,
                             const int numcoorindices,
-                            const SbBool ccw);
+                            const bool ccw);
 
   void generatePerStrip(const SbVec3f * const coords,
                         const unsigned int numcoords,
                         const int32_t *coordindices,
                         const int numcoorindices,
-                        const SbBool ccw);
+                        const bool ccw);
 
   void generatePerVertexQuad(const SbVec3f * const coords,
                              const unsigned int numcoords,
                              const int vPerRow,
                              const int vPerColumn,
-                             const SbBool ccw);
+                             const bool ccw);
 
   void generatePerFaceQuad(const SbVec3f * const coords,
                            const unsigned int numcoords,
                            const int vPerRow,
                            const int vPerColumn,
-                           const SbBool ccw);
+                           const bool ccw);
 
   void generatePerRowQuad(const SbVec3f * const coords,
                           const unsigned int numcoords,
                           const int vPerRow,
                           const int vPerColumn,
-                          const SbBool ccw);
+                          const bool ccw);
 
 private:
   SoNormalCacheP * pimpl;

@@ -45,7 +45,7 @@ extern "C" {
     int advanceX; /* where to position pen for next glyph */
     int advanceY;
     unsigned char * buffer; /* bitmap data */
-    SbBool mono; /* monochrome or antialiased gray level bitmap */
+    bool mono; /* monochrome or antialiased gray level bitmap */
   };
 
   struct cc_font_vector_glyph {
@@ -55,7 +55,7 @@ extern "C" {
   };
 
 
-  SbBool cc_font_debug(void);
+  bool cc_font_debug(void);
 
 #ifdef __cplusplus
 }

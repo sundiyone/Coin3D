@@ -45,8 +45,8 @@ public:
 
   void invalidate(void);
   virtual void doAction(SoAction * action);
-  void setDoingTranslations(const SbBool val);
-  SbBool isDoingTranslations(void);
+  void setDoingTranslations(const bool val);
+  bool isDoingTranslations(void);
 
 protected:
   virtual ~SoSurroundScale();
@@ -57,18 +57,18 @@ protected:
   virtual void getMatrix(SoGetMatrixAction * action);
   virtual void pick(SoPickAction * action);
   void updateMySurroundParams(SoAction * action, const SbMatrix & inv);
-  void setIgnoreInBbox(const SbBool val);
-  SbBool isIgnoreInBbox(void);
+  void setIgnoreInBbox(const bool val);
+  bool isIgnoreInBbox(void);
 
 protected:
   SbVec3f cachedScale;
   SbVec3f cachedInvScale;
   SbVec3f cachedTranslation;
-  SbBool cacheOK;
-  SbBool doTranslations;
+  bool cacheOK;
+  bool doTranslations;
 
 private:
-  SbBool ignoreinbbox;
+  bool ignoreinbbox;
 };
 
 #endif // !COIN_SOSURROUNDSCALE_H

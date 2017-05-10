@@ -154,9 +154,9 @@ class SoBumpMapP {
 public:
   SoFieldSensor * filenamesensor;
   SoGLImage * glimage;
-  SbBool glimagevalid;
+  bool glimagevalid;
   SbImage convertedheightmap;
-  SbBool didconvert;
+  bool didconvert;
   int isgrayscale; // -1 = unknown, 0 = no, 1 = yes
 
   void testGrayscale(const unsigned char * srcptr,
@@ -195,8 +195,8 @@ SoBumpMap::SoBumpMap(void)
 {
   PRIVATE(this) = new SoBumpMapP;
   PRIVATE(this)->glimage = new SoGLImage;
-  PRIVATE(this)->glimagevalid = FALSE;
-  PRIVATE(this)->didconvert = FALSE;
+  PRIVATE(this)->glimagevalid = false;
+  PRIVATE(this)->didconvert = false;
   PRIVATE(this)->isgrayscale = -1;
 
   SO_NODE_INTERNAL_CONSTRUCTOR(SoBumpMap);
@@ -245,11 +245,11 @@ SoBumpMap::initClass(void)
 
 // Documented in superclass. Overridden to check if texture file (if
 // any) can be found and loaded.
-SbBool
+bool
 SoBumpMap::readInstance(SoInput * in, unsigned short flags)
 {
   PRIVATE(this)->filenamesensor->detach();
-  SbBool readOK = inherited::readInstance(in, flags);
+  bool readOK = inherited::readInstance(in, flags);
   if (readOK && !filename.isDefault() && filename.getValue() != "") {
     if (!this->loadFilename()) {
       SoReadError::post(in, "Could not read texture file '%s'",
@@ -257,7 +257,7 @@ SoBumpMap::readInstance(SoInput * in, unsigned short flags)
     }
   }
   PRIVATE(this)->filenamesensor->attach(&this->filename);
-  PRIVATE(this)->glimagevalid = FALSE;
+  PRIVATE(this)->glimagevalid = false;
   return readOK;
 }
 
@@ -288,7 +288,7 @@ SoBumpMap::GLRender(SoGLRenderAction * action)
         if (PRIVATE(this)->isgrayscale) {
           if (!PRIVATE(this)->didconvert) {
             SoHeightMapToNormalMap::convert(bytes, size, nc, PRIVATE(this)->convertedheightmap);
-            PRIVATE(this)->didconvert = TRUE;
+            PRIVATE(this)->didconvert = true;
           }
           bytes = PRIVATE(this)->convertedheightmap.getValue(size, nc);
         }
@@ -297,14 +297,14 @@ SoBumpMap::GLRender(SoGLRenderAction * action)
                                         bumpmap_translateWrap((Wrap)this->wrapS.getValue()),
                                         bumpmap_translateWrap((Wrap)this->wrapT.getValue()),
                                         1.0f); // max quality for bumpmaps
-        PRIVATE(this)->glimagevalid = TRUE;
+        PRIVATE(this)->glimagevalid = true;
       }
       SoBumpMapElement::set(state, this, PRIVATE(this)->glimage);
-      SoShapeStyleElement::setBumpmapEnabled(state, TRUE);
+      SoShapeStyleElement::setBumpmapEnabled(state, true);
     }
     else {
       SoBumpMapElement::set(state, this, NULL);
-      SoShapeStyleElement::setBumpmapEnabled(state, FALSE);
+      SoShapeStyleElement::setBumpmapEnabled(state, false);
     }
   }
   else {
@@ -330,10 +330,10 @@ SoBumpMap::doAction(SoAction * action)
   const unsigned char * bytes = this->image.getValue(size, nc);
 
   if (bytes && size != SbVec2s(0,0)) {
-    SoShapeStyleElement::setBumpmapEnabled(state, TRUE);
+    SoShapeStyleElement::setBumpmapEnabled(state, true);
   }
   else {
-    SoShapeStyleElement::setBumpmapEnabled(state, FALSE);
+    SoShapeStyleElement::setBumpmapEnabled(state, false);
   }
 }
 
@@ -359,12 +359,12 @@ SoBumpMap::notify(SoNotList * l)
   SoField * f = l->getLastField();
   if (f == &this->image) {
     // write image, not filename
-    this->filename.setDefault(TRUE);
-    this->image.setDefault(FALSE);
-    PRIVATE(this)->didconvert = FALSE;
+    this->filename.setDefault(true);
+    this->image.setDefault(false);
+    PRIVATE(this)->didconvert = false;
     PRIVATE(this)->isgrayscale = -1;
   }
-  PRIVATE(this)->glimagevalid = FALSE;
+  PRIVATE(this)->glimagevalid = false;
   inherited::notify(l);
 }
 
@@ -372,10 +372,10 @@ SoBumpMap::notify(SoNotList * l)
 // Called from readInstance() or when user changes the
 // filename field.
 //
-SbBool
+bool
 SoBumpMap::loadFilename(void)
 {
-  SbBool retval = FALSE;
+  bool retval = false;
   if (this->filename.getValue().getLength()) {
     SbImage tmpimage;
     const SbStringList & sl = SoInput::getDirectories();
@@ -385,16 +385,16 @@ SoBumpMap::loadFilename(void)
       SbVec2s size;
       unsigned char * bytes = tmpimage.getValue(size, nc);
       // disable notification on image while setting data from filename
-      // as a notify will cause a filename.setDefault(TRUE).
-      SbBool oldnotify = this->image.enableNotify(FALSE);
+      // as a notify will cause a filename.setDefault(true).
+      bool oldnotify = this->image.enableNotify(false);
       this->image.setValue(size, nc, bytes);
       this->image.enableNotify(oldnotify);
-      PRIVATE(this)->didconvert = FALSE;
+      PRIVATE(this)->didconvert = false;
       PRIVATE(this)->isgrayscale = -1;
-      retval = TRUE;
+      retval = true;
     }
   }
-  this->image.setDefault(TRUE); // write filename, not image
+  this->image.setDefault(true); // write filename, not image
   return retval;
 }
 

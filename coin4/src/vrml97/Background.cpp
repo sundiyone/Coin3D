@@ -61,9 +61,9 @@
   (<http://www.web3d.org/x3d/specifications/vrml/ISO-IEC-14772-VRML97/part1/concepts.html#4.6.10>).
   There exists a Background stack, in which the top-most Background on
   the stack is the currently active Background. To move a Background
-  to the top of the stack, a TRUE value is sent to the set_bind
+  to the top of the stack, a true value is sent to the set_bind
   eventIn.  Once active, the Background is then bound to the browsers
-  view. A FALSE value sent to set_bind removes the Background from the
+  view. A false value sent to set_bind removes the Background from the
   stack and unbinds it from the browser's view. More detail on the
   bind stack is described in 4.6.10, Bindable children nodes
   (<http://www.web3d.org/x3d/specifications/vrml/ISO-IEC-14772-VRML97/part1/concepts.html#4.6.10>).
@@ -290,7 +290,7 @@ static void background_vrmltexturechangeCB(void * data, SoSensor * sensor);
 static void background_bindingchangeCB(void * data, SoSensor * sensor);
 
 static float vrmlbackground_viewup[] = {0.0f, 1.0f, 0.0f};
-static SbBool vrmlbackground_viewup_set = FALSE;
+static bool vrmlbackground_viewup_set = false;
 
 // *************************************************************************
 
@@ -336,7 +336,7 @@ public:
   SoSeparator * rightface;
 
   SbStringList directoryList; // used for searching for textures
-  SbBool geometrybuilt;
+  bool geometrybuilt;
 
   void buildGeometry(void);
   void modifyCubeFace(SoMFString & urls, SoSeparator * facesep, const int32_t * vindices);
@@ -377,7 +377,7 @@ SoVRMLBackground::initClass(void) // static
       vrmlbackground_viewup[0] = v[0];
       vrmlbackground_viewup[1] = v[1];
       vrmlbackground_viewup[2] = v[2];
-      vrmlbackground_viewup_set = TRUE;
+      vrmlbackground_viewup_set = true;
     }
   }
 }
@@ -454,7 +454,7 @@ SoVRMLBackground::SoVRMLBackground(void)
   PRIVATE(this)->bottomurlsensor->setPriority(5);
   PRIVATE(this)->topurlsensor->setPriority(5);
 
-  PRIVATE(this)->geometrybuilt = FALSE;  
+  PRIVATE(this)->geometrybuilt = false;  
   PRIVATE(this)->camera = NULL;
   PRIVATE(this)->rootnode = NULL;
 }
@@ -522,7 +522,7 @@ SoVRMLBackground::GLRender(SoGLRenderAction * action)
   // set to identity before rendering subgraph
   SoModelMatrixElement::makeIdentity(state, this);  
 
-  SbBool test_out, write_out;
+  bool test_out, write_out;
   SoDepthBufferElement::DepthWriteFunction function_out;
   SbVec2f range_out;
   
@@ -571,7 +571,7 @@ SoVRMLBackgroundP::buildGeometry(void)
   // executed -- to match actual scene graph camera -- so we disable
   // notification from the camera to avoid non-stop continuous
   // redraws.
-  (void)this->camera->enableNotify(FALSE);
+  (void)this->camera->enableNotify(false);
 
   SoLightModel * lightmodel = new SoLightModel;
   lightmodel->model.setValue(SoLightModel::BASE_COLOR);
@@ -833,7 +833,7 @@ SoVRMLBackgroundP::buildGeometry(void)
   this->children->append(rootnode);
   angles.truncate(0);
  
-  this->geometrybuilt = TRUE;
+  this->geometrybuilt = true;
 }
 
 
@@ -903,8 +903,8 @@ SoVRMLBackgroundP::createCubeFace(const SoMFString & urls, SoSeparator * sep, co
     tex->url.set1Value(tex->url.getNum(), file);
   }
 
-  tex->repeatS.setValue(FALSE);
-  tex->repeatT.setValue(FALSE);
+  tex->repeatS.setValue(false);
+  tex->repeatT.setValue(false);
   SoIndexedFaceSet * faceset = new SoIndexedFaceSet;
   faceset->coordIndex.setValues(0, 5, vindices);
   faceset->textureCoordIndex.setValues(0, 5, tindices);
@@ -934,8 +934,8 @@ SoVRMLBackgroundP::modifyCubeFace(SoMFString & urls, SoSeparator * sep, const in
 
     tex = new SoVRMLImageTexture;
     tex->ref();
-    tex->repeatS.setValue(FALSE);
-    tex->repeatT.setValue(FALSE);
+    tex->repeatS.setValue(false);
+    tex->repeatT.setValue(false);
     const int32_t tindices[] = {1, 2, 3, 0, -1};
     SoIndexedFaceSet * faceset = new SoIndexedFaceSet;
     faceset->textureCoordIndex.setValues(0, 5, tindices);
@@ -963,8 +963,8 @@ background_vrmltexturechangeCB(void * data, SoSensor * sensor)
 
   SoVRMLImageTexture * tex = new SoVRMLImageTexture;
   tex->ref();
-  tex->repeatS.setValue(FALSE);
-  tex->repeatT.setValue(FALSE);
+  tex->repeatS.setValue(false);
+  tex->repeatT.setValue(false);
   const int32_t tindices[] = {1, 2, 3, 0, -1};
   SoIndexedFaceSet * faceset = new SoIndexedFaceSet;
   faceset->textureCoordIndex.setValues(0, 5, tindices);
@@ -1026,10 +1026,10 @@ background_bindingchangeCB(void * data, SoSensor * sensor)
   }
 }
 
-SbBool 
+bool 
 SoVRMLBackground::readInstance(SoInput * in, unsigned short flags)
 {
-  SbBool readOK = inherited::readInstance(in, flags);
+  bool readOK = inherited::readInstance(in, flags);
   if (readOK) {
     // store current search paths
     const SbStringList & sl = SoInput::getDirectories();

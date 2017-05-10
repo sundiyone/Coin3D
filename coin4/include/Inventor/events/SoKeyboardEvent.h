@@ -100,10 +100,10 @@ public:
   void setPrintableCharacter(const char c);
   char getPrintableCharacter(void) const;
 
-  static SbBool isKeyPressEvent(const SoEvent * e, Key whichKey);
-  static SbBool isKeyReleaseEvent(const SoEvent * e, Key whichKey);
+  static bool isKeyPressEvent(const SoEvent * e, Key whichKey);
+  static bool isKeyReleaseEvent(const SoEvent * e, Key whichKey);
 
-  static SbBool enumToString(Key enumval, SbString & stringrep);
+  static bool enumToString(Key enumval, SbString & stringrep);
 
 private:
   Key key;

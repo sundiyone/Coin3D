@@ -77,7 +77,7 @@ SoOutput_Writer::getFilePointer(void)
 
 SoOutput_Writer * 
 SoOutput_Writer::createWriter(FILE * fp, 
-                              const SbBool shouldclose,
+                              const bool shouldclose,
                               const SbName & compmethod,
                               const float level)
 {
@@ -108,7 +108,7 @@ SoOutput_Writer::createWriter(FILE * fp,
 // standard stdio FILE writer
 //
 
-SoOutput_FileWriter::SoOutput_FileWriter(FILE * fptr, const SbBool shouldclosearg)
+SoOutput_FileWriter::SoOutput_FileWriter(FILE * fptr, const bool shouldclosearg)
 {
   this->fp = fptr;
   this->shouldclose = shouldclosearg;
@@ -130,7 +130,7 @@ SoOutput_FileWriter::getType(void) const
 }
 
 size_t
-SoOutput_FileWriter::write(const char * buf, size_t numbytes, const SbBool COIN_UNUSED_ARG(binary))
+SoOutput_FileWriter::write(const char * buf, size_t numbytes, const bool COIN_UNUSED_ARG(binary))
 {
   assert(this->fp);
   return fwrite(buf, 1, numbytes, this->fp);
@@ -175,7 +175,7 @@ SoOutput_MemBufferWriter::getType(void) const
 }
 
 size_t
-SoOutput_MemBufferWriter::write(const char * constc, size_t length, const SbBool binary)
+SoOutput_MemBufferWriter::write(const char * constc, size_t length, const bool binary)
 {
   // Needs a \0 at the end if we're writing in ASCII.
   const size_t writelen = binary ? length : length + 1;
@@ -197,25 +197,25 @@ SoOutput_MemBufferWriter::bytesInBuf(void)
   return this->offset;
 }
 
-SbBool
+bool
 SoOutput_MemBufferWriter::makeRoomInBuf(size_t bytes)
 {
   if ((this->offset + bytes) > this->bufsize) {
     if (this->reallocfunc) {
       this->bufsize = SbMax(this->offset + bytes, 2 * this->bufsize);
       this->buf = (char*) this->reallocfunc(this->buf, this->bufsize);
-      if (this->buf) return TRUE;
+      if (this->buf) return true;
     }
-    return FALSE;
+    return false;
   }
-  return TRUE;
+  return true;
 }
 
 //
 // zlib writer
 //
 
-SoOutput_GZFileWriter::SoOutput_GZFileWriter(FILE * fp, const SbBool shouldclose, const float level)
+SoOutput_GZFileWriter::SoOutput_GZFileWriter(FILE * fp, const bool shouldclose, const float level)
 {
   this->gzfp = NULL;
 
@@ -255,7 +255,7 @@ SoOutput_GZFileWriter::getType(void) const
 }
 
 size_t
-SoOutput_GZFileWriter::write(const char * buf, size_t numbytes, const SbBool COIN_UNUSED_ARG(binary))
+SoOutput_GZFileWriter::write(const char * buf, size_t numbytes, const bool COIN_UNUSED_ARG(binary))
 {
   if (this->gzfp) {
     // FIXME: the numbytes cast (as size_t can be 64 bits wide) is
@@ -279,7 +279,7 @@ SoOutput_GZFileWriter::bytesInBuf(void)
 // bzip2 writer
 //
 
-SoOutput_BZ2FileWriter::SoOutput_BZ2FileWriter(FILE * fparg, const SbBool shouldclose, const float level)
+SoOutput_BZ2FileWriter::SoOutput_BZ2FileWriter(FILE * fparg, const bool shouldclose, const float level)
 {
   this->fp = shouldclose ? fparg : NULL;
   this->writecounter = 0;
@@ -318,7 +318,7 @@ SoOutput_BZ2FileWriter::getType(void) const
 }
 
 size_t
-SoOutput_BZ2FileWriter::write(const char * buf, size_t numbytes, const SbBool COIN_UNUSED_ARG(binary))
+SoOutput_BZ2FileWriter::write(const char * buf, size_t numbytes, const bool COIN_UNUSED_ARG(binary))
 {
   if (this->bzfp) {
     int bzerror = BZ_OK;

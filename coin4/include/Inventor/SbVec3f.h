@@ -64,10 +64,10 @@ public:
   const float * getValue(void) const { return vec; }
   void getValue(float & x, float & y, float & z) const { x = vec[0]; y = vec[1]; z = vec[2]; }
 
-  float & operator [] (int i) { return vec[i]; }
-  const float & operator [] (int i) const { return vec[i]; }
+  float & operator[](int i) { return vec[i]; }
+  const float & operator[](int i) const { return vec[i]; }
 
-  SbBool equals(const SbVec3f & v, float tolerance) const;
+  bool equals(const SbVec3f & v, float tolerance) const;
   SbVec3f cross(const SbVec3f & v) const;
   float dot(const SbVec3f & v) const { return vec[0] * v[0] + vec[1] * v[1] + vec[2] * v[2]; }
   SbVec3f getClosestAxis(void) const;
@@ -76,14 +76,14 @@ public:
   float normalize(void);
   void negate(void) { vec[0] = -vec[0]; vec[1] = -vec[1]; vec[2] = -vec[2]; }
 
-  SbVec3f & operator *= (float d) { vec[0] *= d; vec[1] *= d; vec[2] *= d; return *this; }
-  SbVec3f & operator /= (float d) { SbDividerChk("SbVec3f::operator/=(float)", d); return operator *= (1.0f / d); }
-  SbVec3f & operator += (const SbVec3f & v) { vec[0] += v[0]; vec[1] += v[1]; vec[2] += v[2]; return *this; }
-  SbVec3f & operator -= (const SbVec3f & v) { vec[0] -= v[0]; vec[1] -= v[1]; vec[2] -= v[2]; return *this; }
-  SbVec3f operator - (void) const { return SbVec3f(-vec[0], -vec[1], -vec[2]); }
+  SbVec3f & operator*=(float d) { vec[0] *= d; vec[1] *= d; vec[2] *= d; return *this; }
+  SbVec3f & operator/=(float d) { SbDividerChk("SbVec3f::operator/=(float)", d); return operator*=(1.0f / d); }
+  SbVec3f & operator+=(const SbVec3f & v) { vec[0] += v[0]; vec[1] += v[1]; vec[2] += v[2]; return *this; }
+  SbVec3f & operator-=(const SbVec3f & v) { vec[0] -= v[0]; vec[1] -= v[1]; vec[2] -= v[2]; return *this; }
+  SbVec3f operator-(void) const { return SbVec3f(-vec[0], -vec[1], -vec[2]); }
 
   SbString toString() const;
-  SbBool fromString(const SbString & str);
+  bool fromString(const SbString & str);
 
   void print(FILE * fp) const;
 
@@ -92,32 +92,32 @@ protected:
 
 }; // SbVec3f
 
-COIN_DLL_API inline SbVec3f operator * (const SbVec3f & v, float d) {
+COIN_DLL_API inline SbVec3f operator*(const SbVec3f & v, float d) {
   SbVec3f val(v); val *= d; return val;
 }
 
-COIN_DLL_API inline SbVec3f operator * (float d, const SbVec3f & v) {
+COIN_DLL_API inline SbVec3f operator*(float d, const SbVec3f & v) {
   SbVec3f val(v); val *= d; return val;
 }
 
-COIN_DLL_API inline SbVec3f operator / (const SbVec3f & v, float d) {
+COIN_DLL_API inline SbVec3f operator/(const SbVec3f & v, float d) {
   SbDividerChk("operator/(SbVec3f,float)", d);
   SbVec3f val(v); val /= d; return val;
 }
 
-COIN_DLL_API inline SbVec3f operator + (const SbVec3f & v1, const SbVec3f & v2) {
+COIN_DLL_API inline SbVec3f operator+(const SbVec3f & v1, const SbVec3f & v2) {
   SbVec3f v(v1); v += v2; return v;
 }
 
-COIN_DLL_API inline SbVec3f operator - (const SbVec3f & v1, const SbVec3f & v2) {
+COIN_DLL_API inline SbVec3f operator-(const SbVec3f & v1, const SbVec3f & v2) {
   SbVec3f v(v1); v -= v2; return v;
 }
 
-COIN_DLL_API inline int operator == (const SbVec3f & v1, const SbVec3f & v2) {
+COIN_DLL_API inline bool operator==(const SbVec3f & v1, const SbVec3f & v2) {
   return ((v1[0] == v2[0]) && (v1[1] == v2[1]) && (v1[2] == v2[2]));
 }
 
-COIN_DLL_API inline int operator != (const SbVec3f & v1, const SbVec3f & v2) {
+COIN_DLL_API inline bool operator!=(const SbVec3f & v1, const SbVec3f & v2) {
   return !(v1 == v2);
 }
 

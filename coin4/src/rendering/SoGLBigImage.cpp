@@ -511,11 +511,11 @@ SoGLBigImage::applySubImage(SoState * state, const int idx,
 /*!
   To avoid doing too much work in one frame, there is a limit on the
   number of subtextures that can be changed each frame. If this limit
-  is exceeded, this function will return TRUE, otherwise FALSE.
+  is exceeded, this function will return true, otherwise false.
 
   \sa setChangeLimit()
 */
-SbBool
+bool
 SoGLBigImage::exceededChangeLimit(void)
 {
   return PRIVATE(this)->getTls()->changecnt >= CHANGELIMIT;

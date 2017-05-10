@@ -26,7 +26,6 @@
 
 #include <assert.h>
 #include <stddef.h> // NULL definition
-#include <Inventor/SbBasic.h> // TRUE/FALSE
 
 // We usually implement inline functions below the class definition,
 // since we think that makes the file more readable. However, this is
@@ -197,15 +196,15 @@ public:
     return this->itembuffer[index];
   }
 
-  int operator==(const SbList<Type> & l) const {
-    if (this == &l) return TRUE;
-    if (this->numitems != l.numitems) return FALSE;
+  bool operator==(const SbList<Type> & l) const {
+    if (this == &l) return true;
+    if (this->numitems != l.numitems) return false;
     for (int i = 0; i < this->numitems; i++)
-      if (this->itembuffer[i] != l.itembuffer[i]) return FALSE;
-    return TRUE;
+      if (this->itembuffer[i] != l.itembuffer[i]) return false;
+    return true;
   }
 
-  int operator!=(const SbList<Type> & l) const {
+  bool operator!=(const SbList<Type> & l) const {
     return !(*this == l);
   }
 

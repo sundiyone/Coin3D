@@ -49,7 +49,7 @@ protected:
   virtual void computeBBox(SoAction * action,
                            SbBox3f & box, SbVec3f & center);
 
-  SbBool getVertexData(SoState * state,
+  bool getVertexData(SoState * state,
                        const SoCoordinateElement *& coords,
                        const SbVec3f *& normals,
                        const int32_t *& cindices,
@@ -57,8 +57,8 @@ protected:
                        const int32_t *& tindices,
                        const int32_t *& mindices,
                        int & numcindices,
-                       const SbBool neednormals,
-                       SbBool & normalcacheused);
+                       const bool neednormals,
+                       bool & normalcacheused);
 
 };
 

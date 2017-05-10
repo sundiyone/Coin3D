@@ -63,16 +63,16 @@ SoMFMatrix::initClass(void)
 // parent classes.
 #ifndef DOXYGEN_SKIP_THIS
 
-SbBool
+bool
 SoMFMatrix::read1Value(SoInput * in, int idx)
 {
   assert(idx < this->maxNum);
 
   float * ptr = this->values[idx][0];
   for (int i = 0; i < 16; i++) {
-    if (!in->read(ptr[i])) return FALSE;
+    if (!in->read(ptr[i])) return false;
   }
-  return TRUE;
+  return true;
 }
 
 void

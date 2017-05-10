@@ -138,7 +138,7 @@ sogl_render_cone(const float radius,
                  const unsigned int flagsin,
                  SoState * state)
 {
-  const SbBool * unitenabled = NULL;
+  const bool * unitenabled = NULL;
   int maxunit = 0;
   const cc_glglue * glue = NULL;
 
@@ -264,7 +264,7 @@ sogl_render_cone(const float radius,
 
   if (flags & SOGL_RENDER_BOTTOM) {
     if (flags & SOGL_MATERIAL_PER_PART) {
-      material->send(matnr, TRUE);
+      material->send(matnr, true);
     }
 
     glBegin(GL_TRIANGLE_FAN);
@@ -308,7 +308,7 @@ sogl_render_cylinder(const float radius,
                      const unsigned int flagsin,
                      SoState * state)
 {
-  const SbBool * unitenabled = NULL;
+  const bool * unitenabled = NULL;
   int maxunit = 0;
   const cc_glglue * glue = NULL;
 
@@ -411,7 +411,7 @@ sogl_render_cylinder(const float radius,
 
   if (flags & SOGL_RENDER_TOP) {
     if (flags & SOGL_MATERIAL_PER_PART) {
-      material->send(matnr, TRUE);
+      material->send(matnr, true);
     }
     glBegin(GL_TRIANGLE_FAN);
     glNormal3f(0.0f, 1.0f, 0.0f);
@@ -439,7 +439,7 @@ sogl_render_cylinder(const float radius,
   }
   if (flags & SOGL_RENDER_BOTTOM) {
     if (flags & SOGL_MATERIAL_PER_PART) {
-      material->send(matnr, TRUE);
+      material->send(matnr, true);
     }
     glBegin(GL_TRIANGLE_FAN);
     glNormal3f(0.0f, -1.0f, 0.0f);
@@ -482,7 +482,7 @@ sogl_render_sphere(const float radius,
                    const unsigned int flagsin,
                    SoState * state)
 {
-  const SbBool * unitenabled = NULL;
+  const bool * unitenabled = NULL;
   int maxunit = 0;
   const cc_glglue * glue = NULL;
 
@@ -794,7 +794,7 @@ sogl_render_cube(const float width,
                  const unsigned int flagsin,
                  SoState * state)
 {
-  const SbBool * unitenabled = NULL;
+  const bool * unitenabled = NULL;
   int maxunit = 0;
   const cc_glglue * glue = NULL;
 
@@ -824,7 +824,7 @@ sogl_render_cube(const float width,
     if (flags & SOGL_NEED_NORMALS)
       glNormal3fv((const GLfloat*)&sogl_cube_normals[i*3]);
     if (flags & SOGL_MATERIAL_PER_PART)
-      material->send(i, TRUE);
+      material->send(i, true);
     for (int j = 0; j < 4; j++) {
       if (flags & SOGL_NEED_3DTEXCOORDS) {
         glTexCoord3fv(sogl_cube_3dtexcoords[*iptr]);
@@ -884,7 +884,7 @@ namespace { namespace SoGL { namespace IndexedLineSet {
   {
     const SbVec3f * coords3d = NULL;
     const SbVec4f * coords4d = NULL;
-    const SbBool is3d = coords->is3D();
+    const bool is3d = coords->is3D();
     if (is3d) {
       coords3d = coords->getArrayPtr3();
     }
@@ -952,10 +952,10 @@ namespace { namespace SoGL { namespace IndexedLineSet {
 
         if ((AttributeBinding)MaterialBinding == PER_LINE ||
             (AttributeBinding)MaterialBinding == PER_VERTEX) {
-          materials->send(matnr++, TRUE);
+          materials->send(matnr++, true);
         } else if ((AttributeBinding)MaterialBinding == PER_LINE_INDEXED ||
                    (AttributeBinding)MaterialBinding == PER_VERTEX_INDEXED) {
-          materials->send(*matindices++, TRUE);
+          materials->send(*matindices++, true);
         }
 
         if ((AttributeBinding)NormalBinding == PER_LINE ||
@@ -967,7 +967,7 @@ namespace { namespace SoGL { namespace IndexedLineSet {
           currnormal = &normals[*normindices++];
           glNormal3fv((const GLfloat*) currnormal);
         }
-        if (TexturingEnabled == TRUE) {
+        if (TexturingEnabled == true) {
           texcoords->send(texindices ? *texindices++ : texidx++,coords->get3(previ), *currnormal);
         }
         i = (indices < end) ? *indices++ : -1;
@@ -985,9 +985,9 @@ namespace { namespace SoGL { namespace IndexedLineSet {
           }
 
           if ((AttributeBinding)MaterialBinding == PER_SEGMENT) {
-            materials->send(matnr++, TRUE);
+            materials->send(matnr++, true);
           } else if ((AttributeBinding)MaterialBinding == PER_SEGMENT_INDEXED) {
-            materials->send(*matindices++, TRUE);
+            materials->send(*matindices++, true);
           }
 
           if ((AttributeBinding)NormalBinding == PER_SEGMENT) {
@@ -1000,9 +1000,9 @@ namespace { namespace SoGL { namespace IndexedLineSet {
           SEND_VERTEX(previ);
 
           if ((AttributeBinding)MaterialBinding == PER_VERTEX) {
-            materials->send(matnr++, TRUE);
+            materials->send(matnr++, true);
           } else if ((AttributeBinding)MaterialBinding == PER_VERTEX_INDEXED) {
-            materials->send(*matindices++, TRUE);
+            materials->send(*matindices++, true);
           }
           if ((AttributeBinding)NormalBinding == PER_VERTEX) {
             currnormal = normals++;
@@ -1011,7 +1011,7 @@ namespace { namespace SoGL { namespace IndexedLineSet {
             currnormal = &normals[*normindices++];
             glNormal3fv((const GLfloat*)currnormal);
           }
-          if (TexturingEnabled == TRUE) {
+          if (TexturingEnabled == true) {
             texcoords->send(texindices ? *texindices++ : texidx++, coords->get3(i), *currnormal);
           }
           SEND_VERTEX(i);
@@ -1024,7 +1024,7 @@ namespace { namespace SoGL { namespace IndexedLineSet {
         if ((AttributeBinding)NormalBinding == PER_VERTEX_INDEXED) {
           normindices++;
         }
-        if (TexturingEnabled == TRUE) {
+        if (TexturingEnabled == true) {
           if (texindices) texindices++;
         }
       }
@@ -1061,10 +1061,10 @@ namespace { namespace SoGL { namespace IndexedLineSet {
 
         if ((AttributeBinding)MaterialBinding == PER_VERTEX_INDEXED ||
             (AttributeBinding)MaterialBinding == PER_LINE_INDEXED) {
-          materials->send(*matindices++, TRUE);
+          materials->send(*matindices++, true);
         } else if ((AttributeBinding)MaterialBinding == PER_VERTEX ||
                    (AttributeBinding)MaterialBinding == PER_LINE) {
-          materials->send(matnr++, TRUE);
+          materials->send(matnr++, true);
         }
 
         if ((AttributeBinding)NormalBinding == PER_VERTEX_INDEXED ||
@@ -1076,7 +1076,7 @@ namespace { namespace SoGL { namespace IndexedLineSet {
           currnormal = normals++;
           glNormal3fv((const GLfloat*) currnormal);
         }
-        if (TexturingEnabled == TRUE) {
+        if (TexturingEnabled == true) {
           texcoords->send(texindices ? *texindices++ : texidx++, coords->get3(i), *currnormal);
         }
 
@@ -1096,9 +1096,9 @@ namespace { namespace SoGL { namespace IndexedLineSet {
           }
 
           if ((AttributeBinding)MaterialBinding == PER_VERTEX) {
-            materials->send(matnr++, TRUE);
+            materials->send(matnr++, true);
           } else if ((AttributeBinding)MaterialBinding == PER_VERTEX_INDEXED) {
-            materials->send(*matindices++, TRUE);
+            materials->send(*matindices++, true);
           }
 
           if ((AttributeBinding)NormalBinding == PER_VERTEX) {
@@ -1108,7 +1108,7 @@ namespace { namespace SoGL { namespace IndexedLineSet {
             currnormal = &normals[*normindices++];
             glNormal3fv((const GLfloat*) currnormal);
           }
-          if (TexturingEnabled == TRUE) {
+          if (TexturingEnabled == true) {
             texcoords->send(texindices ? *texindices++ : texidx++, coords->get3(i), *currnormal);
           }
 
@@ -1124,7 +1124,7 @@ namespace { namespace SoGL { namespace IndexedLineSet {
         if ((AttributeBinding)NormalBinding == PER_VERTEX_INDEXED) {
           normindices++;
         }
-        if (TexturingEnabled == TRUE) {
+        if (TexturingEnabled == true) {
           if (texindices) texindices++;
         }
       }
@@ -1140,9 +1140,9 @@ namespace { namespace SoGL { namespace IndexedLineSet {
 
 #define SOGL_INDEXEDLINESET_GLRENDER_RESOLVE_ARG3(normalbinding, materialbinding, texturing, args) \
   if (texturing) { \
-    SOGL_INDEXEDLINESET_GLRENDER_CALL_FUNC(normalbinding, materialbinding, TRUE, args); \
+    SOGL_INDEXEDLINESET_GLRENDER_CALL_FUNC(normalbinding, materialbinding, true, args); \
   } else { \
-    SOGL_INDEXEDLINESET_GLRENDER_CALL_FUNC(normalbinding, materialbinding, FALSE, args); \
+    SOGL_INDEXEDLINESET_GLRENDER_CALL_FUNC(normalbinding, materialbinding, false, args); \
   }
 
 #define SOGL_INDEXEDLINESET_GLRENDER_RESOLVE_ARG2(normalbinding, materialbinding, texturing, args) \
@@ -1277,7 +1277,7 @@ namespace { namespace SoGL { namespace FaceSet {
 
     const SbVec3f * coords3d = NULL;
     const SbVec4f * coords4d = NULL;
-    const SbBool is3d = vertexlist->is3D();
+    const bool is3d = vertexlist->is3D();
     if (is3d) {
       coords3d = vertexlist->getArrayPtr3();
     }
@@ -1382,10 +1382,10 @@ namespace { namespace SoGL { namespace FaceSet {
       /* vertex 1 *********************************************************/
       if ((AttributeBinding)MaterialBinding == PER_VERTEX ||
           (AttributeBinding)MaterialBinding == PER_FACE) {
-        materials->send(matnr++, TRUE);
+        materials->send(matnr++, true);
       } else if ((AttributeBinding)MaterialBinding == PER_VERTEX_INDEXED ||
                  (AttributeBinding)MaterialBinding == PER_FACE_INDEXED) {
-        materials->send(*matindices++, TRUE);
+        materials->send(*matindices++, true);
       }
 
       if ((AttributeBinding)NormalBinding == PER_VERTEX ||
@@ -1414,16 +1414,16 @@ namespace { namespace SoGL { namespace FaceSet {
 
       /* vertex 2 *********************************************************/
       if ((AttributeBinding)MaterialBinding == PER_VERTEX) {
-        materials->send(matnr++, TRUE);
+        materials->send(matnr++, true);
       } else if ((AttributeBinding)MaterialBinding == PER_VERTEX_INDEXED) {
-        materials->send(*matindices++, TRUE);
+        materials->send(*matindices++, true);
       }
 
       // nvidia color-per-face-bug workaround
       if ((AttributeBinding)MaterialBinding == PER_FACE) {
-        materials->send(matnr-1, TRUE);
+        materials->send(matnr-1, true);
       } else if ((AttributeBinding)MaterialBinding == PER_FACE_INDEXED) {
-        materials->send(matindices[-1], TRUE);
+        materials->send(matindices[-1], true);
       }
 
       if ((AttributeBinding)NormalBinding == PER_VERTEX) {
@@ -1450,16 +1450,16 @@ namespace { namespace SoGL { namespace FaceSet {
 
       /* vertex 3 *********************************************************/
       if ((AttributeBinding)MaterialBinding == PER_VERTEX) {
-        materials->send(matnr++, TRUE);
+        materials->send(matnr++, true);
       } else if ((AttributeBinding)MaterialBinding == PER_VERTEX_INDEXED) {
-        materials->send(*matindices++, TRUE);
+        materials->send(*matindices++, true);
       }
 
       // nvidia color-per-face-bug workaround
       if ((AttributeBinding)MaterialBinding == PER_FACE) {
-        materials->send(matnr-1, TRUE);
+        materials->send(matnr-1, true);
       } else if ((AttributeBinding)MaterialBinding == PER_FACE_INDEXED) {
-        materials->send(matindices[-1], TRUE);
+        materials->send(matindices[-1], true);
       }
 
       if ((AttributeBinding)NormalBinding == PER_VERTEX) {
@@ -1487,16 +1487,16 @@ namespace { namespace SoGL { namespace FaceSet {
       if (mode != GL_TRIANGLES) {
         /* vertex 4 (quad or polygon)**************************************/
         if ((AttributeBinding)MaterialBinding == PER_VERTEX) {
-          materials->send(matnr++, TRUE);
+          materials->send(matnr++, true);
         } else if ((AttributeBinding)MaterialBinding == PER_VERTEX_INDEXED) {
-          materials->send(*matindices++, TRUE);
+          materials->send(*matindices++, true);
         }
 
         // nvidia color-per-face-bug workaround
         if ((AttributeBinding)MaterialBinding == PER_FACE) {
-          materials->send(matnr-1, TRUE);
+          materials->send(matnr-1, true);
         } else if ((AttributeBinding)MaterialBinding == PER_FACE_INDEXED) {
-          materials->send(matindices[-1], TRUE);
+          materials->send(matindices[-1], true);
         }
 
         if ((AttributeBinding)NormalBinding == PER_VERTEX) {
@@ -1524,16 +1524,16 @@ namespace { namespace SoGL { namespace FaceSet {
         if (mode == GL_POLYGON) {
           /* vertex 5 (polygon) ********************************************/
           if ((AttributeBinding)MaterialBinding == PER_VERTEX) {
-            materials->send(matnr++, TRUE);
+            materials->send(matnr++, true);
           } else if ((AttributeBinding)MaterialBinding == PER_VERTEX_INDEXED) {
-            materials->send(*matindices++, TRUE);
+            materials->send(*matindices++, true);
           }
 
           // nvidia color-per-face-bug workaround
           if ((AttributeBinding)MaterialBinding == PER_FACE) {
-            materials->send(matnr-1, TRUE);
+            materials->send(matnr-1, true);
           } else if ((AttributeBinding)MaterialBinding == PER_FACE_INDEXED) {
-            materials->send(matindices[-1], TRUE);
+            materials->send(matindices[-1], true);
           }
 
           if ((AttributeBinding)NormalBinding == PER_VERTEX) {
@@ -1576,16 +1576,16 @@ namespace { namespace SoGL { namespace FaceSet {
 
             /* vertex 6-n (polygon) *****************************************/
             if ((AttributeBinding)MaterialBinding == PER_VERTEX) {
-              materials->send(matnr++, TRUE);
+              materials->send(matnr++, true);
             } else if ((AttributeBinding)MaterialBinding == PER_VERTEX_INDEXED) {
-              materials->send(*matindices++, TRUE);
+              materials->send(*matindices++, true);
             }
 
             // nvidia color-per-face-bug workaround
             if ((AttributeBinding)MaterialBinding == PER_FACE) {
-              materials->send(matnr-1, TRUE);
+              materials->send(matnr-1, true);
             } else if ((AttributeBinding)MaterialBinding == PER_FACE_INDEXED) {
-              materials->send(matindices[-1], TRUE);
+              materials->send(matindices[-1], true);
             }
 
             if ((AttributeBinding)NormalBinding == PER_VERTEX) {
@@ -1798,7 +1798,7 @@ namespace { namespace SoGL { namespace TriStripSet {
 
     const SbVec3f * coords3d = NULL;
     const SbVec4f * coords4d = NULL;
-    const SbBool is3d = vertexlist->is3D();
+    const bool is3d = vertexlist->is3D();
     if (is3d) {
       coords3d = vertexlist->getArrayPtr3();
     }
@@ -1830,7 +1830,7 @@ namespace { namespace SoGL { namespace TriStripSet {
         (AttributeBinding)NormalBinding == PER_VERTEX_INDEXED ||
         (AttributeBinding)NormalBinding == PER_TRIANGLE_INDEXED ||
         (AttributeBinding)NormalBinding == PER_STRIP_INDEXED ||
-        TexturingEnabled == TRUE) {
+        TexturingEnabled == true) {
       if (normals) currnormal = normals;
     }
 
@@ -1864,11 +1864,11 @@ namespace { namespace SoGL { namespace TriStripSet {
       if ((AttributeBinding)MaterialBinding == PER_VERTEX ||
           (AttributeBinding)MaterialBinding == PER_STRIP ||
           (AttributeBinding)MaterialBinding == PER_TRIANGLE) {
-        materials->send(matnr++, TRUE);
+        materials->send(matnr++, true);
       } else if ((AttributeBinding)MaterialBinding == PER_VERTEX_INDEXED ||
                  (AttributeBinding)MaterialBinding == PER_STRIP_INDEXED ||
                  (AttributeBinding)MaterialBinding == PER_TRIANGLE_INDEXED) {
-        materials->send(*matindices++, TRUE);
+        materials->send(*matindices++, true);
       }
       if ((AttributeBinding)NormalBinding == PER_VERTEX ||
           (AttributeBinding)NormalBinding == PER_STRIP ||
@@ -1881,7 +1881,7 @@ namespace { namespace SoGL { namespace TriStripSet {
         currnormal = &normals[*normalindices++];
         glNormal3fv((const GLfloat*)currnormal);
       }
-      if (TexturingEnabled == TRUE) {
+      if (TexturingEnabled == true) {
         texcoords->send(texindices ? *texindices++ : texidx++,
                         vertexlist->get3(v1),
                         *currnormal);
@@ -1890,18 +1890,18 @@ namespace { namespace SoGL { namespace TriStripSet {
 
       /* vertex 2 *********************************************************/
       if ((AttributeBinding)MaterialBinding == PER_VERTEX) {
-        materials->send(matnr++, TRUE);
+        materials->send(matnr++, true);
       } else if ((AttributeBinding)MaterialBinding == PER_VERTEX_INDEXED) {
-        materials->send(*matindices++, TRUE);
+        materials->send(*matindices++, true);
       }
 
       // needed for nvidia color-per-face-bug workaround
       if ((AttributeBinding)MaterialBinding == PER_TRIANGLE ||
           (AttributeBinding)MaterialBinding == PER_STRIP) {
-        materials->send(matnr-1, TRUE);
+        materials->send(matnr-1, true);
       } else if ((AttributeBinding)MaterialBinding == PER_TRIANGLE_INDEXED ||
                  (AttributeBinding)MaterialBinding == PER_STRIP_INDEXED) {
-        materials->send(matindices[-1], TRUE);
+        materials->send(matindices[-1], true);
       }
       // end of nvidia workaround
 
@@ -1912,7 +1912,7 @@ namespace { namespace SoGL { namespace TriStripSet {
         currnormal = &normals[*normalindices++];
         glNormal3fv((const GLfloat*)currnormal);
       }
-      if (TexturingEnabled == TRUE) {
+      if (TexturingEnabled == true) {
         texcoords->send(texindices ? *texindices++ : texidx++,
                         vertexlist->get3(v2),
                         *currnormal);
@@ -1921,18 +1921,18 @@ namespace { namespace SoGL { namespace TriStripSet {
 
       /* vertex 3 *********************************************************/
       if ((AttributeBinding)MaterialBinding == PER_VERTEX) {
-        materials->send(matnr++, TRUE);
+        materials->send(matnr++, true);
       } else if ((AttributeBinding)MaterialBinding == PER_VERTEX_INDEXED) {
-        materials->send(*matindices++, TRUE);
+        materials->send(*matindices++, true);
       }
 
       // needed for nvidia color-per-face-bug workaround
       if ((AttributeBinding)MaterialBinding == PER_STRIP ||
           (AttributeBinding)MaterialBinding == PER_TRIANGLE) {
-        materials->send(matnr-1, TRUE);
+        materials->send(matnr-1, true);
       } else if ((AttributeBinding)MaterialBinding == PER_TRIANGLE_INDEXED ||
                  (AttributeBinding)MaterialBinding == PER_STRIP_INDEXED) {
-        materials->send(matindices[-1], TRUE);
+        materials->send(matindices[-1], true);
       }
       // end of nvidia workaround
 
@@ -1943,7 +1943,7 @@ namespace { namespace SoGL { namespace TriStripSet {
         currnormal = &normals[*normalindices++];
         glNormal3fv((const GLfloat*)currnormal);
       }
-      if (TexturingEnabled == TRUE) {
+      if (TexturingEnabled == true) {
         texcoords->send(texindices ? *texindices++ : texidx++,
                         vertexlist->get3(v3),
                         *currnormal);
@@ -1954,17 +1954,17 @@ namespace { namespace SoGL { namespace TriStripSet {
       while (v1 >= 0) {
         if ((AttributeBinding)MaterialBinding == PER_VERTEX ||
             (AttributeBinding)MaterialBinding == PER_TRIANGLE) {
-          materials->send(matnr++, TRUE);
+          materials->send(matnr++, true);
         } else if ((AttributeBinding)MaterialBinding == PER_VERTEX_INDEXED ||
                    (AttributeBinding)MaterialBinding == PER_TRIANGLE_INDEXED) {
-          materials->send(*matindices++, TRUE);
+          materials->send(*matindices++, true);
         }
 
         // needed for nvidia color-per-face-bug workaround
         if ((AttributeBinding)MaterialBinding == PER_STRIP) {
-          materials->send(matnr-1, TRUE);
+          materials->send(matnr-1, true);
         } else if ((AttributeBinding)MaterialBinding == PER_STRIP_INDEXED) {
-          materials->send(matindices[-1], TRUE);
+          materials->send(matindices[-1], true);
         }
         // end of nvidia workaround
 
@@ -1977,7 +1977,7 @@ namespace { namespace SoGL { namespace TriStripSet {
           currnormal = &normals[*normalindices++];
           glNormal3fv((const GLfloat*)currnormal);
         }
-        if (TexturingEnabled == TRUE) {
+        if (TexturingEnabled == true) {
           texcoords->send(texindices ? *texindices++ : texidx++,
                           vertexlist->get3(v1),
                           *currnormal);
@@ -1994,7 +1994,7 @@ namespace { namespace SoGL { namespace TriStripSet {
       if ((AttributeBinding)NormalBinding == PER_VERTEX_INDEXED) {
         normalindices++;
       }
-      if (TexturingEnabled == TRUE) {
+      if (TexturingEnabled == true) {
         if (texindices) texindices++;
       }
     }
@@ -2007,9 +2007,9 @@ namespace { namespace SoGL { namespace TriStripSet {
 
 #define SOGL_TRISTRIPSET_GLRENDER_RESOLVE_ARG3(normalbinding, materialbinding, texturing, args) \
   if (texturing) { \
-    SOGL_TRISTRIPSET_GLRENDER_CALL_FUNC(normalbinding, materialbinding, TRUE, args); \
+    SOGL_TRISTRIPSET_GLRENDER_CALL_FUNC(normalbinding, materialbinding, true, args); \
   } else { \
-    SOGL_TRISTRIPSET_GLRENDER_CALL_FUNC(normalbinding, materialbinding, FALSE, args); \
+    SOGL_TRISTRIPSET_GLRENDER_CALL_FUNC(normalbinding, materialbinding, false, args); \
   }
 
 #define SOGL_TRISTRIPSET_GLRENDER_RESOLVE_ARG2(normalbinding, materialbinding, texturing, args) \
@@ -2205,17 +2205,17 @@ sogl_render_pointset_m1n0t0(const SoGLCoordinateElement * coords,
 
   glBegin(GL_POINTS);
   for (i = 0; i < unroll; i++) {
-    mb->send(matnr++, TRUE);
+    mb->send(matnr++, true);
     coords->send(idx++);
-    mb->send(matnr++, TRUE);
+    mb->send(matnr++, true);
     coords->send(idx++);
-    mb->send(matnr++, TRUE);
+    mb->send(matnr++, true);
     coords->send(idx++);
-    mb->send(matnr++, TRUE);
+    mb->send(matnr++, true);
     coords->send(idx++);
   }
   for (i = 0; i < rest; i++) {
-    mb->send(matnr++, TRUE);
+    mb->send(matnr++, true);
     coords->send(idx++);
   }
   glEnd();
@@ -2235,7 +2235,7 @@ sogl_render_pointset_m1n0t1(const SoGLCoordinateElement * coords,
 
   glBegin(GL_POINTS);
   for (int i = 0; i < numpts; i++) {
-    mb->send(matnr++, TRUE);
+    mb->send(matnr++, true);
     tb->send(texnr++, coords->get3(idx), currnormal);
     coords->send(idx++);
   }
@@ -2254,7 +2254,7 @@ sogl_render_pointset_m1n1t0(const SoGLCoordinateElement * coords,
 
   glBegin(GL_POINTS);
   for (int i = 0; i < numpts; i++) {
-    mb->send(matnr++, TRUE);
+    mb->send(matnr++, true);
     glNormal3fv((const GLfloat*)normals++);
     coords->send(idx++);
   }
@@ -2274,7 +2274,7 @@ sogl_render_pointset_m1n1t1(const SoGLCoordinateElement * coords,
 
   glBegin(GL_POINTS);
   for (int i = 0; i < numpts; i++) {
-    mb->send(matnr++, TRUE);
+    mb->send(matnr++, true);
     tb->send(texnr++, coords->get3(idx), *normals);
     glNormal3fv((const GLfloat*)normals++);
     coords->send(idx++);
@@ -2329,7 +2329,7 @@ sogl_render_pointset(const SoGLCoordinateElement * coords,
 
 // Used by library code to decide whether or not to add extra
 // debugging checks for glGetError().
-SbBool
+bool
 sogl_glerror_debugging(void)
 {
   static int COIN_GLERROR_DEBUGGING = -1;
@@ -2337,7 +2337,7 @@ sogl_glerror_debugging(void)
     const char * str = coin_getenv("COIN_GLERROR_DEBUGGING");
     COIN_GLERROR_DEBUGGING = str ? atoi(str) : 0;
   }
-  return (COIN_GLERROR_DEBUGGING == 0) ? FALSE : TRUE;
+  return (COIN_GLERROR_DEBUGGING == 0) ? false : true;
 }
 
 static int SOGL_AUTOCACHE_REMOTE_MIN = 500000;
@@ -2351,9 +2351,9 @@ static int SOGL_AUTOCACHE_VBO_LIMIT = 65536;
   based on the number of primitives.
 */
 void
-sogl_autocache_update(SoState * state, const int numprimitives, SbBool didusevbo)
+sogl_autocache_update(SoState * state, const int numprimitives, bool didusevbo)
 {
-  static SbBool didtestenv = FALSE;
+  static bool didtestenv = false;
   if (!didtestenv) {
     const char * env;
     env = coin_getenv("COIN_AUTOCACHE_REMOTE_MIN");
@@ -2376,7 +2376,7 @@ sogl_autocache_update(SoState * state, const int numprimitives, SbBool didusevbo
     if (env) {
       SOGL_AUTOCACHE_VBO_LIMIT = atoi(env);
     }
-    didtestenv = TRUE;
+    didtestenv = true;
   }
 
   int minval = SOGL_AUTOCACHE_LOCAL_MIN;

@@ -264,9 +264,9 @@ SoImage::SoImage(void)
   SO_NODE_DEFINE_ENUM_VALUE(HorAlignment, RIGHT);
   SO_NODE_SET_SF_ENUM_TYPE(horAlignment, HorAlignment);
 
-  this->readstatus = TRUE;
-  this->transparency = FALSE;
-  this->testtransparency = FALSE;
+  this->readstatus = true;
+  this->transparency = false;
+  this->testtransparency = false;
 
   // use field sensor for filename since we will load an image if
   // filename changes. This is a time-consuming task which should
@@ -275,7 +275,7 @@ SoImage::SoImage(void)
   this->filenamesensor->setPriority(0);
   this->filenamesensor->attach(&this->filename);
   this->resizedimage = new SbImage;
-  this->resizedimagevalid = FALSE;
+  this->resizedimagevalid = false;
 }
 
 /*!
@@ -469,11 +469,11 @@ SoImage::GLRender(SoGLRenderAction * action)
 
 
   GLfloat rpx = xpos >= 0 ? xpos : 0.0f;
-  SbBool offvp = xpos < 0 ? TRUE : FALSE;
+  bool offvp = xpos < 0 ? true : false;
   GLfloat offsetx = xpos >= 0 ? 0.0f : xpos;
 
   GLfloat rpy = ypos >= 0 ? ypos : 0.0f;
-  offvp = offvp || ypos < 0 ? TRUE : FALSE;
+  offvp = offvp || ypos < 0 ? true : false;
   GLfloat offsety = ypos >= 0 ? 0.0f : ypos;
 
   glRasterPos3f(rpx, rpy, -nilpoint[2]);
@@ -524,7 +524,7 @@ SoImage::rayPick(SoRayPickAction * action)
 
     SbVec3f intersection;
     SbVec3f barycentric;
-    SbBool front;
+    bool front;
     SbVec3f v0,v1,v2,v3;
     this->getQuad(action->getState(), v0, v1, v2, v3);
 
@@ -614,19 +614,19 @@ SoImage::generatePrimitives(SoAction * action)
 }
 
 // Documented in superclass.
-SbBool
+bool
 SoImage::readInstance(SoInput * in, unsigned short flags)
 {
   // Overridden to load image file.
 
   this->filenamesensor->detach();
-  SbBool readOK = inherited::readInstance(in, flags);
+  bool readOK = inherited::readInstance(in, flags);
   this->setReadStatus(readOK);
   if (readOK && !filename.isDefault()) {
     if (!this->loadFilename()) {
       SoReadError::post(in, "Could not read image file '%s'",
                         filename.getValue().getString());
-      this->setReadStatus(FALSE);
+      this->setReadStatus(false);
     }
   }
   this->filenamesensor->attach(&this->filename);
@@ -639,18 +639,18 @@ SoImage::notify(SoNotList * list)
 {
   SoField *f = list->getLastField();
   if (f == &this->image) {
-    this->filename.setDefault(TRUE); // write image, not filename
-    this->testtransparency = TRUE;
-    this->resizedimagevalid = FALSE;
+    this->filename.setDefault(true); // write image, not filename
+    this->testtransparency = true;
+    this->resizedimagevalid = false;
   }
   else if (f == &this->width || f == &this->height) {
-    this->resizedimagevalid = FALSE;
+    this->resizedimagevalid = false;
   }
   inherited::notify(list);
 }
 
 /*!
-  Returns \e TRUE if node was read ok.
+  Returns \e true if node was read ok.
 */
 int
 SoImage::getReadStatus(void)
@@ -662,7 +662,7 @@ SoImage::getReadStatus(void)
   Set read status for this node.
 */
 void
-SoImage::setReadStatus(SbBool flag)
+SoImage::setReadStatus(bool flag)
 {
   this->readstatus = flag;
 }
@@ -833,7 +833,7 @@ SoImage::getImage(SbVec2s & size, int & nc)
                                           nc, int(newsize[0]), int(newsize[1]));
         this->resizedimage->setValue(newsize, nc, result);
         simage_wrapper()->simage_free_image(result);
-        this->resizedimagevalid = TRUE;
+        this->resizedimagevalid = true;
       }
       else if (GLUWrapper()->available) {
         this->resizedimage->setValue(newsize, nc, NULL);
@@ -864,7 +864,7 @@ SoImage::getImage(SbVec2s & size, int & nc)
         // restore to default
         glPixelStorei(GL_PACK_ALIGNMENT, 4);
         glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
-        this->resizedimagevalid = TRUE;
+        this->resizedimagevalid = true;
       }
 #if COIN_DEBUG
       else {
@@ -885,8 +885,8 @@ void
 SoImage::testTransparency(void)
 {
   if (!this->testtransparency) return;
-  this->testtransparency = FALSE;
-  this->transparency = FALSE;
+  this->testtransparency = false;
+  this->transparency = false;
   SbVec2s size;
   int nc;
   const unsigned char * data = this->image.getValue(size, nc);
@@ -908,10 +908,10 @@ SoImage::testTransparency(void)
 // Called from readInstance() or when user changes the
 // filename field.
 //
-SbBool
+bool
 SoImage::loadFilename(void)
 {
-  SbBool retval = FALSE;
+  bool retval = false;
   if (this->filename.getValue().getLength()) {
     SbImage tmpimage;
     const SbStringList & sl = SoInput::getDirectories();
@@ -921,15 +921,15 @@ SoImage::loadFilename(void)
       SbVec2s size;
       const unsigned char * bytes = tmpimage.getValue(size, nc);
       // disable notification on image while setting data from filename
-      // as a notify will cause a filename.setDefault(TRUE).
-      SbBool oldnotify = this->image.enableNotify(FALSE);
+      // as a notify will cause a filename.setDefault(true).
+      bool oldnotify = this->image.enableNotify(false);
       this->image.setValue(size, nc, bytes);
       this->image.enableNotify(oldnotify);
-      this->testtransparency = TRUE;
-      retval = TRUE;
+      this->testtransparency = true;
+      retval = true;
     }
   }
-  this->image.setDefault(TRUE); // write filename, not image
+  this->image.setDefault(true); // write filename, not image
   return retval;
 }
 
@@ -940,12 +940,12 @@ void
 SoImage::filenameSensorCB(void * data, SoSensor *)
 {
   SoImage * thisp = (SoImage*) data;
-  thisp->setReadStatus(TRUE);
+  thisp->setReadStatus(true);
   if (thisp->filename.getValue().getLength() &&
       !thisp->loadFilename()) {
     SoDebugError::postWarning("SoImage::filenameSensorCB",
                               "could not read image file '%s'",
                               thisp->filename.getValue().getString());
-    thisp->setReadStatus(FALSE);
+    thisp->setReadStatus(false);
   }
 }

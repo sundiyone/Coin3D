@@ -51,34 +51,35 @@
 
 #ifndef HAVE_CGL
 
-SbBool cglglue_context_is_using_pbuffer(void * COIN_UNUSED_ARG(ctx))
+bool cglglue_context_is_using_pbuffer(void * COIN_UNUSED_ARG(ctx))
 {
-  assert(FALSE); return FALSE;
+  assert(false); return false;
 }
 
 void * cglglue_getprocaddress(const char * COIN_UNUSED_ARG(fname))
 {
-  assert(FALSE); return NULL;
+  assert(false); return NULL;
 }
 
 void * cglglue_context_create_offscreen(unsigned int COIN_UNUSED_ARG(width), 
-                                        unsigned int COIN_UNUSED_ARG(height)) { 
-  assert(FALSE); return NULL; 
+                                        unsigned int COIN_UNUSED_ARG(height))
+{ 
+  assert(false); return NULL; 
 }
 
-SbBool cglglue_context_make_current(void * COIN_UNUSED_ARG(ctx))
-{ 
-  assert(FALSE); return FALSE; 
+bool cglglue_context_make_current(void * COIN_UNUSED_ARG(ctx))
+{
+  assert(false); return false; 
 }
 
 void cglglue_context_reinstate_previous(void * COIN_UNUSED_ARG(ctx)) 
 { 
-  assert(FALSE); 
+  assert(false); 
 }
 
 void cglglue_context_destruct(void * COIN_UNUSED_ARG(ctx)) 
 { 
-  assert(FALSE); 
+  assert(false); 
 }
 
 #else /* HAVE_CGL */
@@ -120,7 +121,6 @@ static COIN_CGLSETPBUFFER cglglue_CGLSetPBuffer = NULL;
 static COIN_CGLTEXIMAGEPBUFFER cglglue_CGLTexImagePBuffer = NULL;
 
 struct cglglue_contextdata;
-static SbBool (* cglglue_context_create)(struct cglglue_contextdata * ctx) = NULL;
 
 static void
 cglglue_resolve_symbols()
@@ -136,14 +136,13 @@ cglglue_resolve_symbols()
 }
 
 
-static SbBool
 cglglue_get_pbuffer_enable(void)
 {
   /* Make it possible to turn off pBuffer support completely.
      Mostly relevant for debugging purposes. */
   const char * env = coin_getenv("COIN_CGLGLUE_NO_PBUFFERS");
   if (env && atoi(env) > 0) { 
-    return FALSE; 
+    return false; 
   } else { 
     cglglue_resolve_symbols();
     return (cglglue_CGLCreatePBuffer && cglglue_CGLDestroyPBuffer && 
@@ -161,7 +160,6 @@ struct cglglue_contextdata {
   CGLPBufferObj cglpbuffer;
   unsigned int width;
   unsigned int height; 
-  SbBool pbufferisbound;
 };
 
 
@@ -179,7 +177,7 @@ cglglue_contextdata_init(unsigned int width, unsigned int height)
   ctx->cglpbuffer = NULL; 
   ctx->width = width;
   ctx->height = height;
-  ctx->pbufferisbound = FALSE;
+  ctx->pbufferisbound = false;
   return ctx;
 }
 
@@ -193,7 +191,6 @@ cglglue_contextdata_cleanup(struct cglglue_contextdata * ctx)
   free(ctx);
 }
 
-static SbBool
 cglglue_context_create_software(struct cglglue_contextdata * ctx)
 {
   // Sets up a single-buffered pixel format
@@ -249,7 +246,7 @@ cglglue_context_create_software(struct cglglue_contextdata * ctx)
     cc_debugerror_postwarning("cglglue_context_create_software",
                               "Couldn't get RGBA CGL pixelformat. %s",
                               CGLErrorString(err));
-    return FALSE;
+    return false;
   }
   
   err = CGLCreateContext(ctx->pixformat, NULL, &ctx->cglcontext);
@@ -258,7 +255,7 @@ cglglue_context_create_software(struct cglglue_contextdata * ctx)
                               "Couldn't create CGL context. %s",
                               CGLErrorString(err));
     cglglue_contextdata_cleanup(ctx);
-    return FALSE;
+    return false;
   } 
   
   if (coin_glglue_debug()) {
@@ -275,15 +272,14 @@ cglglue_context_create_software(struct cglglue_contextdata * ctx)
     cc_debugerror_post("cglglue_context_make_current",
                        "Error setting offscreen context. %s",
                        CGLError(err));
-    return FALSE;
+    return false;
   }
 
   
-  return TRUE;
+  return true;
 } 
 
 
-static SbBool
 cglglue_context_create_pbuffer(struct cglglue_contextdata * ctx)
 {
   /* FIXME: before we get here, we should have checked the requested
@@ -342,10 +338,10 @@ cglglue_context_create_pbuffer(struct cglglue_contextdata * ctx)
     cc_debugerror_post("cglglue_context_create_pbuffer",
                        "Couldn't create CGL Pixelformat: %s", 
                        CGLErrorString(err));
-    return FALSE;
+    return false;
   }
   
-  if (!ctx->pixformat) return FALSE;
+  if (!ctx->pixformat) return false;
 
   err = CGLCreateContext (ctx->pixformat, NULL, &ctx->cglcontext);
   if (err != kCGLNoError || !ctx->cglcontext) {
@@ -353,7 +349,7 @@ cglglue_context_create_pbuffer(struct cglglue_contextdata * ctx)
                        "Couldn't create CGL context: %s", 
                        CGLErrorString(err));
     cglglue_contextdata_cleanup(ctx);
-    return FALSE;
+    return false;
   }
   
   
@@ -379,9 +375,9 @@ cglglue_context_create_pbuffer(struct cglglue_contextdata * ctx)
     cc_debugerror_post("cglglue_context_create_pbuffer",
                        "Couldn't create CGL pBuffer: %s", 
                        CGLErrorString(err));
-    return FALSE;
+    return false;
   }
-  return TRUE;
+  return true;
 }
 
 
@@ -389,7 +385,7 @@ void *
 cglglue_context_create_offscreen(unsigned int width, unsigned int height)
 {
   struct cglglue_contextdata * ctx;
-  SbBool ok, pbuffer = FALSE, ispbuffer = FALSE;
+  bool ok, pbuffer = false, ispbuffer = false;
 
   ctx = cglglue_contextdata_init(width, height);
   if (!ctx) return NULL;
@@ -438,7 +434,7 @@ cglglue_context_create_offscreen(unsigned int width, unsigned int height)
 }
 
 
-SbBool
+bool
 cglglue_context_make_current(void * ctx)
 {
   struct cglglue_contextdata * context = (struct cglglue_contextdata *)ctx;
@@ -455,7 +451,7 @@ cglglue_context_make_current(void * ctx)
     }
 
     CGLSetCurrentContext(context->cglcontext);
-    return TRUE;
+    return true;
 
   } else { /* pBuffer support available */
 
@@ -473,14 +469,14 @@ cglglue_context_make_current(void * ctx)
       cc_debugerror_post("cglglue_context_make_current",
                          "Error getting virtual screen: %s", 
                          CGLErrorString(err));
-      return FALSE;
+      return false;
     }
     err = cglglue_CGLSetPBuffer(context->cglcontext, context->cglpbuffer, 0, 0, vs);
     if (err != kCGLNoError) {
       cc_debugerror_post("cglglue_context_make_current",
                          "cglSetPBuffer failed: %s", 
                          CGLErrorString(err));
-      return FALSE;
+      return false;
     }
 
     if (coin_glglue_debug()) {
@@ -488,7 +484,7 @@ cglglue_context_make_current(void * ctx)
                              "PBuffer Context (0x%X) Renderer: %s\n",
                              context->cglcontext, glGetString(GL_RENDERER));    
     }
-    return TRUE;
+    return true;
   }
 }
 
@@ -552,7 +548,7 @@ cglglue_context_bind_pbuffer(void * ctx)
                        CGLErrorString(err)); 
   }
   else {
-    context->pbufferisbound = TRUE;
+    context->pbufferisbound = true;
   }
 }
 
@@ -568,14 +564,14 @@ cglglue_context_release_pbuffer(void * ctx)
   }
 }
 
-SbBool 
+bool 
 cglglue_context_pbuffer_is_bound(void * ctx)
 {
   struct cglglue_contextdata * context = (struct cglglue_contextdata *)ctx;
   return (context->pbufferisbound);
 }
 
-SbBool 
+bool 
 cglglue_context_can_render_to_texture(void * ctx)
 {
   struct cglglue_contextdata * context = (struct cglglue_contextdata *)ctx;

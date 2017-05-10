@@ -65,32 +65,32 @@ extern "C" {
 /* Dummy versions of all functions. Only cc_flwft_initialize() will be
    used from generic wrapper. */
 
-SbBool cc_flwft_initialize(void) { return FALSE; }
+bool cc_flwft_initialize(void) { return false; }
 void cc_flwft_exit(void) { }
 
-void * cc_flwft_get_font(const char * fontname, const unsigned int pixelsize) { assert(FALSE); return NULL; }
-void cc_flwft_get_font_name(void * font, cc_string * str) { assert(FALSE); }
-void cc_flwft_done_font(void * font) { assert(FALSE); }
+void * cc_flwft_get_font(const char * fontname, const unsigned int pixelsize) { assert(false); return NULL; }
+void cc_flwft_get_font_name(void * font, cc_string * str) { assert(false); }
+void cc_flwft_done_font(void * font) { assert(false); }
 
 
-int cc_flwft_get_num_charmaps(void * font) { assert(FALSE); return 0; }
-const char * cc_flwft_get_charmap_name(void * font, int charmap) { assert(FALSE); return NULL; }
-void cc_flwft_set_charmap(void * font, int charmap) { assert(FALSE); }
-void cc_flwft_set_char_size(void * font, int height) { assert(FALSE); }
+int cc_flwft_get_num_charmaps(void * font) { assert(false); return 0; }
+const char * cc_flwft_get_charmap_name(void * font, int charmap) { assert(false); return NULL; }
+void cc_flwft_set_charmap(void * font, int charmap) { assert(false); }
+void cc_flwft_set_char_size(void * font, int height) { assert(false); }
 
 
-void cc_flwft_set_font_rotation(void * font, float angle) { assert(FALSE); }
+void cc_flwft_set_font_rotation(void * font, float angle) { assert(false); }
 
-int cc_flwft_get_glyph(void * font, unsigned int charidx) { assert(FALSE); return 0; }
-void cc_flwft_get_vector_advance(void * font, int glyph, float *x, float *y) { assert(FALSE); }
-void cc_flwft_get_vector_kerning(void * font, int glyph1, int glyph2, float *x, float *y) { assert(FALSE); }
-void cc_flwft_get_bitmap_kerning(void * font, int glyph1, int glyph2, int *x, int *y) { assert(FALSE); }
-void cc_flwft_done_glyph(void * font, int glyph) { assert(FALSE); }
+int cc_flwft_get_glyph(void * font, unsigned int charidx) { assert(false); return 0; }
+void cc_flwft_get_vector_advance(void * font, int glyph, float *x, float *y) { assert(false); }
+void cc_flwft_get_vector_kerning(void * font, int glyph1, int glyph2, float *x, float *y) { assert(false); }
+void cc_flwft_get_bitmap_kerning(void * font, int glyph1, int glyph2, int *x, int *y) { assert(false); }
+void cc_flwft_done_glyph(void * font, int glyph) { assert(false); }
 
-struct cc_font_bitmap * cc_flwft_get_bitmap(void * font, unsigned int glyph) { assert(FALSE); return NULL; }
-struct cc_font_vector_glyph * cc_flwft_get_vector_glyph(void * font, unsigned int glyph, float complexity) { assert(FALSE); return NULL; }
+struct cc_font_bitmap * cc_flwft_get_bitmap(void * font, unsigned int glyph) { assert(false); return NULL; }
+struct cc_font_vector_glyph * cc_flwft_get_vector_glyph(void * font, unsigned int glyph, float complexity) { assert(false); return NULL; }
 
-void cc_flwft_scale_vector_glyph_coords(struct cc_font_vector_glyph * vecglyph, float factor){ assert(FALSE); }
+void cc_flwft_scale_vector_glyph_coords(struct cc_font_vector_glyph * vecglyph, float factor){ assert(false); }
 
 
 #else /* HAVE_FREETYPE || FREETYPE_RUNTIME_LINKING */
@@ -154,13 +154,13 @@ static const int flwft_3dfontsize = 40;
 typedef struct flwft_tessellator_t {
   coin_GLUtessellator * tessellator_object;
   int tessellation_steps;
-  SbBool contour_open;
+  bool contour_open;
 
   GLenum triangle_mode;
   int triangle_fan_root_index;
   int triangle_indices[3];
   int triangle_index_counter;
-  SbBool triangle_strip_flipflop;
+  bool triangle_strip_flipflop;
 
   int vertex_counter;
   FT_Vector last_vertex;
@@ -348,20 +348,20 @@ static const char * fontfilenames[] = {
 
 /* ************************************************************************* */
 
-SbBool
+bool
 cc_flwft_initialize(void)
 {
   FT_Error error;
   FT_Int major, minor, patch;
 
   if (!cc_ftglue_available()) {
-    return FALSE;
+    return false;
   }
   error = cc_ftglue_FT_Init_FreeType(&library);
   if (error) {
     if (cc_font_debug()) cc_debugerror_post("cc_flwft_initialize", "error %d", error);
     library = NULL;
-    return FALSE;
+    return false;
   }
 
   cc_ftglue_FT_Library_Version(library, &major, &minor, &patch);
@@ -376,7 +376,7 @@ cc_flwft_initialize(void)
                        "Font rendering is disabled.");
     cc_ftglue_FT_Done_FreeType(library);
     library = NULL;
-    return FALSE;
+    return false;
   }
   assert((cc_flwft_globals.fontname2filename == NULL) && "call cc_flwft_initialize only once!");
 
@@ -386,7 +386,7 @@ cc_flwft_initialize(void)
     unsigned int i = 0;
     while (i < sizeof(fontfilenames) / sizeof(fontfilenames[0])) {
       void * val;
-      SbBool found, unused;
+      bool found, unused;
       cc_dynarray * array;
       const uintptr_t key = (uintptr_t)cc_namemap_get_address(fontfilenames[i]);
 
@@ -448,7 +448,7 @@ cc_flwft_initialize(void)
   flwft_tessellator.edgeindexlist = NULL;
   flwft_tessellator.malloclist = NULL;
 
-  return TRUE;
+  return true;
 }
 
 static void
@@ -563,7 +563,7 @@ find_font_file(const char * fontname, unsigned int pixelsize)
     unsigned int i, j, n;
     cc_dynarray * possiblefilenames;
     void * val;
-    SbBool found_in_hash;
+    bool found_in_hash;
     const uintptr_t key = (uintptr_t)cc_namemap_get_address(fontname);
     found_in_hash = cc_dict_get(cc_flwft_globals.fontname2filename, key, &val);
     if (!found_in_hash) {
@@ -589,7 +589,7 @@ find_font_file(const char * fontname, unsigned int pixelsize)
          functions which does the same around it. 20030604 mortene. */
       const unsigned int dirs = cc_dynarray_length(cc_flwft_globals.fontfiledirs);
       for (j = 0; j < dirs; j++) {
-        SbBool found = FALSE;
+        bool found = false;
 
         cc_string_set_text(&str, (const char *)cc_dynarray_get(cc_flwft_globals.fontfiledirs, j));
         cc_string_append_char(&str, '/');
@@ -886,7 +886,7 @@ cc_flwft_get_bitmap(void * font, unsigned int glyph)
   FT_Glyph g;
   FT_BitmapGlyph tfbmg;
   FT_Bitmap * tfbm;
-  SbBool mono;
+  bool mono;
 
   assert(font);
 
@@ -1053,12 +1053,12 @@ cc_flwft_get_vector_glyph(void * font, unsigned int glyphindex, float complexity
 
 
   flwft_tessellator.tessellator_object = GLUWrapper()->gluNewTess(); /* static object pointer */
-  flwft_tessellator.contour_open = FALSE;
+  flwft_tessellator.contour_open = false;
   flwft_tessellator.vertex_scale = 1.0f;
   flwft_tessellator.tessellation_steps = flwft_calctessellatorsteps(complexity);
   flwft_tessellator.triangle_mode = 0;
   flwft_tessellator.triangle_index_counter = 0;
-  flwft_tessellator.triangle_strip_flipflop = FALSE;
+  flwft_tessellator.triangle_strip_flipflop = false;
   flwft_tessellator.vertex_counter = 0;
 
   /* gluTessellator callbacks */
@@ -1150,7 +1150,7 @@ flwft_moveToCallback(FT_Vector * to, void * COIN_UNUSED_ARG(user))
   GLUWrapper()->gluTessBeginContour(flwft_tessellator.tessellator_object);
   flwft_tessellator.edge_start_vertex = flwft_tessellator.vertex_counter;
 
-  flwft_tessellator.contour_open = TRUE;
+  flwft_tessellator.contour_open = true;
   return 0;
 }
 
@@ -1381,7 +1381,7 @@ flwft_beginCallback(GLenum which)
   flwft_tessellator.triangle_mode = which;  
   flwft_tessellator.triangle_fan_root_index = (which==GL_TRIANGLE_FAN) ? -1 : 0;
   flwft_tessellator.triangle_index_counter = 0;
-  flwft_tessellator.triangle_strip_flipflop = FALSE;
+  flwft_tessellator.triangle_strip_flipflop = false;
 }
 
 static void

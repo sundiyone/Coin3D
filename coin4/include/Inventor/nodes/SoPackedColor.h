@@ -44,7 +44,7 @@ public:
   virtual void GLRender(SoGLRenderAction * action);
   virtual void callback(SoCallbackAction * action);
 
-  SbBool isTransparent(void);
+  bool isTransparent(void);
 
 protected:
   virtual ~SoPackedColor();

@@ -48,7 +48,7 @@ extern "C" {
 
 /* ********************************************************************** */
 
-SbBool cc_dl_available(void);
+bool cc_dl_available(void);
 
 cc_libhandle cc_dl_handle_with_gl_symbols(void);
 

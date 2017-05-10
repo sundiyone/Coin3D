@@ -24,11 +24,11 @@
  *
 \**************************************************************************/
 
-#include <Inventor/SbBasic.h> // for SbBool type
+#include <Inventor/SbBasic.h>
 
 class COIN_DLL_API SoInteraction {
 public:
-  static void init(void);
+  static void init();
 };
 
 #endif // !COIN_SOINTERACTION_H

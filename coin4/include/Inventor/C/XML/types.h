@@ -62,17 +62,17 @@ class SbXmlAttribute;
 class SbXmlEntity;
 class SbXmlPath;
 
-SbXmlDocument *  COIN_DLL_API cc_xml_wrap(cc_xml_doc * doc, int pass_ownership = FALSE);
-SbXmlElement *   COIN_DLL_API cc_xml_wrap(cc_xml_elt * elt, int pass_ownership = FALSE);
-SbXmlAttribute * COIN_DLL_API cc_xml_wrap(cc_xml_attr * attr, int pass_ownership = FALSE);
-SbXmlEntity *    COIN_DLL_API cc_xml_wrap(cc_xml_ent * ent, int pass_ownership = FALSE);
-SbXmlPath *      COIN_DLL_API cc_xml_wrap(cc_xml_path * path, int pass_ownership = FALSE);
+SbXmlDocument *  COIN_DLL_API cc_xml_wrap(cc_xml_doc * doc, int pass_ownership = false);
+SbXmlElement *   COIN_DLL_API cc_xml_wrap(cc_xml_elt * elt, int pass_ownership = false);
+SbXmlAttribute * COIN_DLL_API cc_xml_wrap(cc_xml_attr * attr, int pass_ownership = false);
+SbXmlEntity *    COIN_DLL_API cc_xml_wrap(cc_xml_ent * ent, int pass_ownership = false);
+SbXmlPath *      COIN_DLL_API cc_xml_wrap(cc_xml_path * path, int pass_ownership = false);
 
-cc_xml_doc *     COIN_DLL_API cc_xml_unwrap(SbXmlDocument * doc, int pass_ownership = FALSE);
-cc_xml_elt *     COIN_DLL_API cc_xml_unwrap(SbXmlElement * elt, int pass_ownership = FALSE);
-cc_xml_attr *    COIN_DLL_API cc_xml_unwrap(SbXmlAttribute * attr, int pass_ownership = FALSE);
-cc_xml_ent *     COIN_DLL_API cc_xml_unwrap(SbXmlEntity * ent, int pass_ownership = FALSE);
-cc_xml_path *    COIN_DLL_API cc_xml_unwrap(SbXmlPath * path, int pass_ownership = FALSE);
+cc_xml_doc *     COIN_DLL_API cc_xml_unwrap(SbXmlDocument * doc, int pass_ownership = false);
+cc_xml_elt *     COIN_DLL_API cc_xml_unwrap(SbXmlElement * elt, int pass_ownership = false);
+cc_xml_attr *    COIN_DLL_API cc_xml_unwrap(SbXmlAttribute * attr, int pass_ownership = false);
+cc_xml_ent *     COIN_DLL_API cc_xml_unwrap(SbXmlEntity * ent, int pass_ownership = false);
+cc_xml_path *    COIN_DLL_API cc_xml_unwrap(SbXmlPath * path, int pass_ownership = false);
 #endif /* 0 */
 
 #endif /* __cplusplus */

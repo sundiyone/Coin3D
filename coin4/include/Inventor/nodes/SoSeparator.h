@@ -69,18 +69,18 @@ public:
 
   static void setNumRenderCaches(const int howmany);
   static int getNumRenderCaches(void);
-  virtual SbBool affectsState(void) const;
+  virtual bool affectsState(void) const;
 
 protected:
   virtual ~SoSeparator();
 
-  virtual SbBool cullTest(SoState * state);
-  virtual SbBool cullTest(SoGLRenderAction * action, int & cullresults);
-  virtual SbBool readInstance(SoInput * in, unsigned short flags);
+  virtual bool cullTest(SoState * state);
+  virtual bool cullTest(SoGLRenderAction * action, int & cullresults);
+  virtual bool readInstance(SoInput * in, unsigned short flags);
 
 private:
   void commonConstructor(void);
-  SbBool cullTestNoPush(SoState * state);
+  bool cullTestNoPush(SoState * state);
 
   static int numrendercaches;
 

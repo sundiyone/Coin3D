@@ -51,7 +51,7 @@ public:
   SoSFVec3f separation2;
   SoSFVec3f separation3;
 
-  virtual SbBool affectsState(void) const;
+  virtual bool affectsState(void) const;
 
   virtual void doAction(SoAction * action);
   virtual void callback(SoCallbackAction * action);

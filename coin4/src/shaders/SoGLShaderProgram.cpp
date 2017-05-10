@@ -39,7 +39,7 @@ SoGLShaderProgram::SoGLShaderProgram(void)
   this->cgShaderProgram = new SoGLCgShaderProgram;
   this->glslShaderProgram = new SoGLSLShaderProgram;
 
-  this->isenabled = FALSE;
+  this->isenabled = false;
   this->enablecb = NULL;
   this->enablecbclosure = NULL;
 }
@@ -66,7 +66,7 @@ SoGLShaderProgram::addShaderObject(SoGLShaderObject *shader)
     this->glslShaderProgram->addShaderObject((SoGLSLShaderObject*)shader);
     break;
   default:
-    assert(FALSE && "shaderType unknown!");
+    assert(false && "shaderType unknown!");
   }
 }
 
@@ -90,9 +90,9 @@ SoGLShaderProgram::enable(SoState * state)
   this->cgShaderProgram->enable();
   this->glslShaderProgram->enable(glctx);
 
-  this->isenabled = TRUE;
+  this->isenabled = true;
   if (this->enablecb) {
-    this->enablecb(this->enablecbclosure, state, TRUE);
+    this->enablecb(this->enablecbclosure, state, true);
   }
 }
 
@@ -106,13 +106,13 @@ SoGLShaderProgram::disable(SoState * state)
   this->cgShaderProgram->disable();
   this->glslShaderProgram->disable(glctx);
 
-  this->isenabled = FALSE;
+  this->isenabled = false;
   if (this->enablecb) {
-    this->enablecb(this->enablecbclosure, state, FALSE);
+    this->enablecb(this->enablecbclosure, state, false);
   }
 }
 
-SbBool
+bool
 SoGLShaderProgram::isEnabled(void) const
 {
   return this->isenabled;
@@ -130,7 +130,7 @@ void
 SoGLShaderProgram::updateCoinParameter(SoState * state, const SbName & name, const int value)
 {
   if (this->glslShaderProgram) {
-    SbBool enabled = this->isenabled;
+    bool enabled = this->isenabled;
     if (!enabled) this->enable(state);
     this->glslShaderProgram->updateCoinParameter(state, name, value);
     if (!enabled) this->disable(state);
@@ -160,13 +160,13 @@ SoGLShaderProgram::getGLSLShaderProgramHandle(SoState * state) const
   return this->glslShaderProgram->getProgramHandle(glctx);
 }
 
-SbBool
+bool
 SoGLShaderProgram::glslShaderProgramLinked(void) const
 {
   if (this->glslShaderProgram) {
     return this->glslShaderProgram->neededLinking();
   }
-  return FALSE;
+  return false;
 }
 
 #if defined(SOURCE_HINT)

@@ -125,17 +125,17 @@ struct shared_matchable
     {
     }
 
-    bool operator !() const
+    bool operator!() const
     {
         return !this->xpr_;
     }
 
-    friend bool operator ==(shared_matchable<BidiIter> const &left, shared_matchable<BidiIter> const &right)
+    friend bool operator==(shared_matchable<BidiIter> const &left, shared_matchable<BidiIter> const &right)
     {
         return left.xpr_ == right.xpr_;
     }
 
-    friend bool operator !=(shared_matchable<BidiIter> const &left, shared_matchable<BidiIter> const &right)
+    friend bool operator!=(shared_matchable<BidiIter> const &left, shared_matchable<BidiIter> const &right)
     {
         return left.xpr_ != right.xpr_;
     }

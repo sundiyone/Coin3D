@@ -42,7 +42,7 @@ typedef void cc_wpool_f(void *);
   COIN_DLL_API void cc_wpool_set_num_workers(cc_wpool * pool, int newnum);
   COIN_DLL_API void cc_wpool_wait_all(cc_wpool * pool);
 
-  COIN_DLL_API SbBool cc_wpool_try_begin(cc_wpool * pool, int numworkersneeded);
+  COIN_DLL_API bool cc_wpool_try_begin(cc_wpool * pool, int numworkersneeded);
   COIN_DLL_API void cc_wpool_begin(cc_wpool * pool, int numworkersneeded);
   COIN_DLL_API void cc_wpool_start_worker(cc_wpool * pool,
                                           cc_wpool_f * workfunc, void * closure);

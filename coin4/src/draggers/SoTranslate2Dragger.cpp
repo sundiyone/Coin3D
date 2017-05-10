@@ -199,15 +199,15 @@ SoTranslate2Dragger::SoTranslate2Dragger(void)
 {
   SO_KIT_INTERNAL_CONSTRUCTOR(SoTranslate2Dragger);
 
-  SO_KIT_ADD_CATALOG_ENTRY(translatorSwitch, SoSwitch, TRUE, geomSeparator, feedbackSwitch, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(translator, SoSeparator, TRUE, translatorSwitch, translatorActive, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(translatorActive, SoSeparator, TRUE, translatorSwitch, "", TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(feedbackSwitch, SoSwitch, TRUE, geomSeparator, axisFeedbackSwitch, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(feedback, SoSeparator, TRUE, feedbackSwitch, feedbackActive, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(feedbackActive, SoSeparator, TRUE, feedbackSwitch, "", TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(axisFeedbackSwitch, SoSwitch, TRUE, geomSeparator, "", FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(xAxisFeedback, SoSeparator, TRUE, axisFeedbackSwitch, yAxisFeedback, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(yAxisFeedback, SoSeparator, TRUE, axisFeedbackSwitch, "", TRUE);
+  SO_KIT_ADD_CATALOG_ENTRY(translatorSwitch, SoSwitch, true, geomSeparator, feedbackSwitch, false);
+  SO_KIT_ADD_CATALOG_ENTRY(translator, SoSeparator, true, translatorSwitch, translatorActive, true);
+  SO_KIT_ADD_CATALOG_ENTRY(translatorActive, SoSeparator, true, translatorSwitch, "", true);
+  SO_KIT_ADD_CATALOG_ENTRY(feedbackSwitch, SoSwitch, true, geomSeparator, axisFeedbackSwitch, false);
+  SO_KIT_ADD_CATALOG_ENTRY(feedback, SoSeparator, true, feedbackSwitch, feedbackActive, true);
+  SO_KIT_ADD_CATALOG_ENTRY(feedbackActive, SoSeparator, true, feedbackSwitch, "", true);
+  SO_KIT_ADD_CATALOG_ENTRY(axisFeedbackSwitch, SoSwitch, true, geomSeparator, "", false);
+  SO_KIT_ADD_CATALOG_ENTRY(xAxisFeedback, SoSeparator, true, axisFeedbackSwitch, yAxisFeedback, true);
+  SO_KIT_ADD_CATALOG_ENTRY(yAxisFeedback, SoSeparator, true, axisFeedbackSwitch, "", true);
 
   if (SO_KIT_IS_FIRST_INSTANCE()) {
     SoInteractionKit::readDefaultParts("translate2Dragger.iv",
@@ -249,7 +249,7 @@ SoTranslate2Dragger::SoTranslate2Dragger(void)
 
   this->constraintState = CONSTRAINT_OFF;
 
-  this->setUpConnections(TRUE, TRUE);
+  this->setUpConnections(true, true);
 }
 
 /*!
@@ -266,12 +266,12 @@ SoTranslate2Dragger::~SoTranslate2Dragger()
 }
 
 // doc in superclass
-SbBool
-SoTranslate2Dragger::setUpConnections(SbBool onoff, SbBool doitalways)
+bool
+SoTranslate2Dragger::setUpConnections(bool onoff, bool doitalways)
 {
   if (!doitalways && this->connectionsSetUp == onoff) return onoff;
 
-  SbBool oldval = this->connectionsSetUp;
+  bool oldval = this->connectionsSetUp;
 
   if (onoff) {
     inherited::setUpConnections(onoff, doitalways);

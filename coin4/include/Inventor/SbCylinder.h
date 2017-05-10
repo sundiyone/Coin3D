@@ -38,8 +38,8 @@ public:
   void setRadius(const float r);
   const SbLine& getAxis(void) const;
   float getRadius(void) const;
-  SbBool intersect(const SbLine& l, SbVec3f& intersection) const;
-  SbBool intersect(const SbLine& l, SbVec3f& enter, SbVec3f& exit) const;
+  bool intersect(const SbLine& l, SbVec3f& intersection) const;
+  bool intersect(const SbLine& l, SbVec3f& enter, SbVec3f& exit) const;
 
   void print(FILE * file) const;
 

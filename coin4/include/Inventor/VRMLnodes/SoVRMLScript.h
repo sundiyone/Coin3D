@@ -62,7 +62,7 @@ public:
 
 protected:
   virtual ~SoVRMLScript();
-  virtual void copyContents(const SoFieldContainer * from, SbBool copyconn);
+  virtual void copyContents(const SoFieldContainer * from, bool copyconn);
   virtual void notify(SoNotList * list);
 private:
   static SoType classTypeId;
@@ -71,7 +71,7 @@ private:
   virtual const SoFieldData * getFieldData(void) const;
 
 private:
-  virtual SbBool readInstance(SoInput * in, unsigned short flags);
+  virtual bool readInstance(SoInput * in, unsigned short flags);
 
   static void eval_cb(void * data, SoSensor *);
   void initFieldData(void);

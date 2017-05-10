@@ -46,7 +46,7 @@ public:
   static void init(void);
 
 private:
-  static SbBool activateMutex(void);
+  static bool activateMutex(void);
   static void deactivateMutex(void);
   static SbString mutexName(void);
   static void * mutexhandle;

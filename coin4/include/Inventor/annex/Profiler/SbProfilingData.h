@@ -84,12 +84,12 @@ public:
   size_t getNodeFootprint(int idx, FootprintType type,
                           unsigned int queryflags = 0) const;
 
-  void setNodeFlag(const SoPath * path, NodeFlag flag, SbBool on);
-  void setNodeFlag(int idx, NodeFlag flag, SbBool on);
-  SbBool getNodeFlag(const SoPath * path, NodeFlag flag) const;
-  SbBool getNodeFlag(int idx, NodeFlag flag) const;
+  void setNodeFlag(const SoPath * path, NodeFlag flag, bool on);
+  void setNodeFlag(int idx, NodeFlag flag, bool on);
+  bool getNodeFlag(const SoPath * path, NodeFlag flag) const;
+  bool getNodeFlag(int idx, NodeFlag flag) const;
 
-  int getIndex(const SoPath * path, SbBool create = FALSE);
+  int getIndex(const SoPath * path, bool create = false);
   int getParentIndex(int idx) const;
 
   SoType getNodeType(int idx) const;
@@ -115,11 +115,11 @@ public:
   // statistics management
   void reset(void);
 
-  SbProfilingData & operator = (const SbProfilingData & rhs);
-  SbProfilingData & operator += (const SbProfilingData & rhs);
+  SbProfilingData & operator=(const SbProfilingData & rhs);
+  SbProfilingData & operator+=(const SbProfilingData & rhs);
 
-  int operator == (const SbProfilingData & rhs) const;
-  int operator != (const SbProfilingData & rhs) const;
+  bool operator==(const SbProfilingData & rhs) const;
+  bool operator!=(const SbProfilingData & rhs) const;
 
 
   // debug - return profiling data overhead
@@ -135,7 +135,7 @@ private:
 
   void constructorInit(void);
 
-  SbBool isPathMatch(const SoFullPath * path, int pathlen, int idx);
+  bool isPathMatch(const SoFullPath * path, int pathlen, int idx);
 
   int getIndexCreate(const SoFullPath * path, int pathlen);
   int getIndexNoCreate(const SoPath * path, int pathlen) const;

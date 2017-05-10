@@ -922,12 +922,12 @@ YY_RULE_SETUP
 case 2:
 YY_RULE_SETUP
 #line 68 "eval-coin.l"
-{ return SCXML_COIN_BOOL_TRUE; }
+{ return SCXML_COIN_BOOL_true; }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
 #line 69 "eval-coin.l"
-{ return SCXML_COIN_BOOL_FALSE; }
+{ return SCXML_COIN_BOOL_false; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP

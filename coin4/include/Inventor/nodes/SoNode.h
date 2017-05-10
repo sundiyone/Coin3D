@@ -53,8 +53,8 @@ public:
   enum Stage { FIRST_INSTANCE, PROTO_INSTANCE, OTHER_INSTANCE };
 #endif // !DOXYGEN_SKIP_THIS
 
-  void setOverride(const SbBool state);
-  SbBool isOverride(void) const;
+  void setOverride(const bool state);
+  bool isOverride(void) const;
 
   enum NodeType {
     INVENTOR     = 0x0000,
@@ -82,8 +82,8 @@ public:
   void setNodeType(const NodeType type);
   NodeType getNodeType(void) const;
 
-  virtual SoNode * copy(SbBool copyconnections = FALSE) const;
-  virtual SbBool affectsState(void) const;
+  virtual SoNode * copy(bool copyconnections = false) const;
+  virtual bool affectsState(void) const;
 
   virtual void doAction(SoAction * action);
   virtual void GLRender(SoGLRenderAction * action);
@@ -113,7 +113,7 @@ public:
   virtual void writeInstance(SoOutput * out);
   virtual SoNode * addToCopyDict(void) const;
   virtual void copyContents(const SoFieldContainer * from,
-                            SbBool copyconnections);
+                            bool copyconnections);
   virtual SoFieldContainer * copyThroughConnection(void) const;
 
 
@@ -143,7 +143,7 @@ protected:
   SoNode(void);
   virtual ~SoNode();
 
-  virtual SbBool readInstance(SoInput * in, unsigned short flags);
+  virtual bool readInstance(SoInput * in, unsigned short flags);
 
   static const SoFieldData ** getFieldDataPtr(void);
 
@@ -166,7 +166,7 @@ private:
   uint32_t stateflags;
   void clearStateFlags(const unsigned int bits);
   void setStateFlags(const unsigned int bits);
-  SbBool getState(const unsigned int bits) const;
+  bool getState(const unsigned int bits) const;
   static void cleanupClass(void);
 };
 

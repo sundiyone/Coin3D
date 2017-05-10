@@ -557,7 +557,7 @@ SbRotation::operator*=(const float s)
 
   \sa equals().
  */
-int
+bool
 operator==(const SbRotation & q1, const SbRotation & q2)
 {
   return (q1.quat == q2.quat);
@@ -570,7 +570,7 @@ operator==(const SbRotation & q1, const SbRotation & q2)
 
   \sa equals().
  */
-int
+bool
 operator!=(const SbRotation & q1, const SbRotation & q2)
 {
   return !(q1 == q2);
@@ -580,7 +580,7 @@ operator!=(const SbRotation & q1, const SbRotation & q2)
   Check the internal quaternion representation vectors for equality
   within the given tolerance.
  */
-SbBool
+bool
 SbRotation::equals(const SbRotation & r, float tolerance) const
 {
   return this->quat.equals(r.quat, tolerance);
@@ -707,10 +707,10 @@ SbRotation::toString() const
 /*!
   Convert from a string representation, return wether this is a valid conversion
 */
-SbBool
+bool
 SbRotation::fromString(const SbString & str)
 {
-  SbBool conversionOk;
+  bool conversionOk;
   *this = CoinInternal::FromString<SbRotation>(str,&conversionOk);
   return conversionOk;
 }
@@ -768,7 +768,7 @@ BOOST_AUTO_TEST_CASE(fromString) {
   ToTest foo;
   SbString test = "0 -1 0 1";
   ToTest trueVal(SbVec3f(0, -1, 0),  1);
-  SbBool conversionOk = foo.fromString(test);
+  bool conversionOk = foo.fromString(test);
   BOOST_CHECK_MESSAGE(conversionOk && trueVal == foo,
                       std::string("Mismatch between ") +  foo.toString().getString() + " and control " + trueVal.toString().getString());
 }
@@ -777,8 +777,8 @@ BOOST_AUTO_TEST_CASE(fromInvalidString) {
   ToTest foo;
   SbString test = "2.- 2 3 4";
   ToTest trueVal(1,2,3,4);
-  SbBool conversionOk = foo.fromString(test);
-  BOOST_CHECK_MESSAGE(conversionOk == FALSE,
+  bool conversionOk = foo.fromString(test);
+  BOOST_CHECK_MESSAGE(conversionOk == false,
                       std::string("Able to convert from ") + test.getString() + " which is not a valid " + SbTypeInfo<ToTest>::getTypeName() + " representation");
 }
 

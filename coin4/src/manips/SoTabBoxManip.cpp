@@ -77,7 +77,7 @@ SoTabBoxManip::SoTabBoxManip(void)
   this->setDragger(dragger);
 
   SoSurroundScale * ss =
-    (SoSurroundScale *)dragger->getPart("surroundScale", TRUE);
+    (SoSurroundScale *)dragger->getPart("surroundScale", true);
   ss->numNodesUpToContainer = 4;
   ss->numNodesUpToReset = 3;
 }

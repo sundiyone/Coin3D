@@ -69,7 +69,7 @@ SoLightElement::SoLightElement(void)
   this->setStackIndex(SoLightElement::classStackIndex);
   // this is safe since a node should never be deleted while it's
   // active during a traversal
-  this->lights.addReferences(FALSE);
+  this->lights.addReferences(false);
 }
 
 /*!
@@ -141,7 +141,7 @@ SoLightElement::init(SoState * state)
 {
   inherited::init(state);
   this->matrixlist = new SbList <SbMatrix>;
-  this->didalloc.state = TRUE;
+  this->didalloc.state = true;
 }
 
 // Documented in superclass. Overridden to copy lights to the new top

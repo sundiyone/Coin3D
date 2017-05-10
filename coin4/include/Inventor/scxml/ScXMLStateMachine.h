@@ -40,14 +40,14 @@ typedef void ScXMLStateMachineDeleteCB(void * userdata,
 typedef void ScXMLStateChangeCB(void * userdata,
                                 ScXMLStateMachine * statemachine,
                                 const char * stateidentifier,
-                                SbBool enterstate,
-                                SbBool success);
+                                bool enterstate,
+                                bool success);
 typedef void ScXMLParallelStateChangeCB(void * userdata,
                                         ScXMLStateMachine * statemachine,
                                         int numstates,
                                         const char ** stateidentifiers,
-                                        SbBool enterstate,
-                                        SbBool success);
+                                        bool enterstate,
+                                        bool success);
 
 class COIN_DLL_API ScXMLStateMachine : public ScXMLEventTarget {
   typedef ScXMLEventTarget inherited;
@@ -71,8 +71,8 @@ public:
 
   virtual void initialize(void);
 
-  virtual SbBool isActive(void) const;
-  virtual SbBool isFinished(void) const;
+  virtual bool isActive(void) const;
+  virtual bool isFinished(void) const;
 
   virtual int getNumActiveStates(void) const;
   virtual const ScXMLElt * getActiveState(int idx) const;
@@ -98,13 +98,13 @@ public:
   virtual void setEvaluator(ScXMLEvaluator * evaluator);
   ScXMLEvaluator * getEvaluator(void) const;
 
-  SbBool isModuleEnabled(const char * modulename) const;
+  bool isModuleEnabled(const char * modulename) const;
   int getNumEnabledModules(void) const;
   const char * getEnabledModuleName(int idx) const;
   void setEnabledModulesList(const SbList<const char *> & modulenames);
 
 protected:
-  virtual SbBool processOneEvent(const ScXMLEvent * event);
+  virtual bool processOneEvent(const ScXMLEvent * event);
 
 private:
   ScXMLStateMachine(const ScXMLStateMachine & rhs); // N/A

@@ -27,7 +27,7 @@
   \ingroup engines
 
   This engine will forward values from the SoGate::input field to the
-  SoGate::output field when the SoGate::enable field is \c TRUE.
+  SoGate::output field when the SoGate::enable field is \c true.
 
 
   Note that this engine's output field deviates a little from the
@@ -72,7 +72,7 @@
 /*!
   \var SoMField * SoGate::input
   The multivalue input field which we will forward to the output when
-  SoGate::enable is \c TRUE.
+  SoGate::enable is \c true.
 */
 /*!
   \var SoSFBool SoGate::enable
@@ -112,7 +112,7 @@ SoGate::SoGate(void)
   this->output = NULL;
 }
 
-static SbBool
+static bool
 SoGate_valid_type(SoType t)
 {
   return (t.isDerivedFrom(SoMField::getClassTypeId()) &&
@@ -161,7 +161,7 @@ SoGate::initialize(const SoType inputfieldtype)
 
   SO_ENGINE_INTERNAL_CONSTRUCTOR(SoGate);
   SO_ENGINE_ADD_INPUT(trigger, ());
-  SO_ENGINE_ADD_INPUT(enable, (FALSE));
+  SO_ENGINE_ADD_INPUT(enable, (false));
 
   // Instead of SO_ENGINE_ADD_INPUT().
   this->input = static_cast<SoMField *>(inputfieldtype.createInstance());
@@ -193,13 +193,13 @@ void
 SoGate::evaluate(void)
 {
   // Force update of slave fields.
-  this->output->enable(TRUE);
+  this->output->enable(true);
 
   SO_ENGINE_OUTPUT((*output), SoField, copyFrom(*this->input));
 
   // No more updates until either the SoGate::enable field or the
   // SoGate::trigger field is touched.
-  if (!this->enable.getValue()) this->output->enable(FALSE);
+  if (!this->enable.getValue()) this->output->enable(false);
 }
 
 // doc from parent
@@ -207,12 +207,12 @@ void
 SoGate::inputChanged(SoField * which)
 {
   if (which == &this->enable) {
-    SbBool enableval = this->enable.getValue();
+    bool enableval = this->enable.getValue();
     if (this->output->isEnabled() != enableval)
       this->output->enable(enableval);
   }
   else if (which == &this->trigger) {
-    this->output->enable(TRUE);
+    this->output->enable(true);
   }
   // Changes to the input field are handled automatically according to
   // the value of the SoGate::enable field.
@@ -220,7 +220,7 @@ SoGate::inputChanged(SoField * which)
 
 // Documented in superclass. Overridden to initialize type of gate
 // before reading.
-SbBool
+bool
 SoGate::readInstance(SoInput * in, unsigned short flagsarg)
 {
   // This code is identical to readInstance() of SoSelectOne and
@@ -232,21 +232,21 @@ SoGate::readInstance(SoInput * in, unsigned short flagsarg)
                       "\"type\" keyword is missing, erroneous format for "
                       "engine class '%s'.",
                       this->getTypeId().getName().getString());
-    return FALSE;
+    return false;
   }
   // need to use an SbString here, because SoInput::read( SbName & )
   // reads in '"MyName"' as is instead of as 'MyName'.
   SbString fieldname;
   if (!in->read(fieldname)) {
     SoReadError::post(in, "Couldn't read input type for engine.");
-    return FALSE;
+    return false;
   }
   SoType inputtype = SoType::fromName(fieldname);
   if (!SoGate_valid_type(inputtype)) {
     SoReadError::post(in, "Type \"%s\" for input field is not valid "
                       "(field must be non-abstract and a multi-value type).",
                       fieldname.getString());
-    return FALSE;
+    return false;
   }
 
   this->initialize(inputtype);
@@ -260,9 +260,9 @@ SoGate::writeInstance(SoOutput * out)
   // This code is identical to writeInstance() of SoSelectOne and
   // SoConcatenate, so migrate changes.
 
-  if (this->writeHeader(out, FALSE, TRUE)) return;
+  if (this->writeHeader(out, false, true)) return;
 
-  SbBool binarywrite = out->isBinary();
+  bool binarywrite = out->isBinary();
 
   if (!binarywrite) out->indent();
   out->write("type");
@@ -277,7 +277,7 @@ SoGate::writeInstance(SoOutput * out)
 
 // Documented in superclass.
 void
-SoGate::copyContents(const SoFieldContainer * from, SbBool copyconnections)
+SoGate::copyContents(const SoFieldContainer * from, bool copyconnections)
 {
   const SoGate * gatesrc = coin_assert_cast<const SoGate *>(from);
   if (gatesrc->input) { this->initialize(gatesrc->input->getTypeId()); }

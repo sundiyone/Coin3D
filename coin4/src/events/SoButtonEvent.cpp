@@ -116,7 +116,7 @@ SoButtonEvent::getState(void) const
   \since Coin 3.0
 */
 // Should we add stringToEnum as well perhaps?
-SbBool
+bool
 SoButtonEvent::enumToString(State enumval, SbString & stringrep)
 {
   switch (enumval) {
@@ -130,7 +130,7 @@ SoButtonEvent::enumToString(State enumval, SbString & stringrep)
     stringrep = "UNKNOWN";
     break;
   default:
-    return FALSE;
+    return false;
   }
-  return TRUE;
+  return true;
 }

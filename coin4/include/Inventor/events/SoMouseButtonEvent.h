@@ -50,10 +50,10 @@ public:
   void setButton(Button button);
   Button getButton(void) const;
 
-  static SbBool isButtonPressEvent(const SoEvent * e, Button whichButton);
-  static SbBool isButtonReleaseEvent(const SoEvent * e, Button whichButton);
+  static bool isButtonPressEvent(const SoEvent * e, Button whichButton);
+  static bool isButtonReleaseEvent(const SoEvent * e, Button whichButton);
 
-  static SbBool enumToString(Button enumval, SbString & stringrep);
+  static bool enumToString(Button enumval, SbString & stringrep);
 
 private:
   Button button;

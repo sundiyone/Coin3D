@@ -64,7 +64,7 @@ static double highperf_tick = -1;
 
 /* The Win32 QueryPerformanceCounter() strategy is based on code
    submitted by Jan Peciva (aka PCJohn). */
-static SbBool
+static bool
 cc_internal_queryperformancecounter(cc_time * COIN_UNUSED_ARG(t))
 {
 #ifdef HAVE_QUERYPERFORMANCECOUNTER
@@ -88,15 +88,15 @@ cc_internal_queryperformancecounter(cc_time * COIN_UNUSED_ARG(t))
     BOOL b = QueryPerformanceCounter(&counter);
     assert(b && "QueryPerformanceCounter() failed even though QueryPerformanceFrequency() worked");
     *t = (double)counter.QuadPart * highperf_tick + highperf_start;
-    return TRUE;
+    return true;
   }
-  return FALSE;
+  return false;
 #else /* !HAVE_QUERYPERFORMANCECOUNTER */
-  return FALSE;
+  return false;
 #endif /* !HAVE_QUERYPERFORMANCECOUNTER */
 }
 
-static SbBool
+static bool
 cc_internal_gettimeofday(cc_time * t)
 {
 #ifdef HAVE_GETTIMEOFDAY
@@ -109,13 +109,13 @@ cc_internal_gettimeofday(cc_time * t)
   }
   *t = tv.tv_sec;
   *t += static_cast<double>((tv.tv_usec))/1000000.0;
-  return TRUE;
+  return true;
 #else /* !HAVE_GETTIMEOFDAY */
-  return FALSE;
+  return false;
 #endif /* !HAVE_GETTIMEOFDAY */
 }
 
-static SbBool
+static bool
 cc_internal_ftime(cc_time * t)
 {
 #ifdef HAVE__FTIME
@@ -123,15 +123,15 @@ cc_internal_ftime(cc_time * t)
   _ftime(&timebuffer);
   /* FIXME: should use timezone field of struct _timeb aswell. 20011023 mortene. */
   *t = (double)timebuffer.time + (double)timebuffer.millitm / 1000.0;
-  return TRUE;
+  return true;
 #elif defined(HAVE_FTIME)
   struct timeb timebuffer;
   /* FIXME: should use timezone field of struct _timeb aswell. 20011023 mortene. */
   ftime(&timebuffer);
   *t = static_cast<double>(timebuffer.time) + static_cast<double>(timebuffer.millitm) / 1000.0;
-  return TRUE;
+  return true;
 #else /* HAVE_FTIME */
-  return FALSE;
+  return false;
 #endif /* !HAVE_FTIME */
 }
 

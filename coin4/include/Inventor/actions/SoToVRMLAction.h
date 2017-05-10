@@ -42,33 +42,33 @@ public:
 
   virtual void apply(SoNode * node);
   virtual void apply(SoPath * path);
-  virtual void apply(const SoPathList & pathlist, SbBool obeysrules = FALSE);
+  virtual void apply(const SoPathList & pathlist, bool obeysrules = false);
   
   SoNode * getVRMLSceneGraph(void) const;
   
-  void expandSoFile(SbBool flag);
-  SbBool areSoFileExpanded(void) const;
+  void expandSoFile(bool flag);
+  bool areSoFileExpanded(void) const;
   
   void setUrlName(const SbString name);
   SbString getUrlName(void) const;
   
-  void writeTexCoords(SbBool flag);
-  SbBool areTexCoordWritten(void) const;
+  void writeTexCoords(bool flag);
+  bool areTexCoordWritten(void) const;
   
-  void expandTexture2Node(SbBool flag);
-  SbBool areTexture2NodeExpanded(void) const;
+  void expandTexture2Node(bool flag);
+  bool areTexture2NodeExpanded(void) const;
   
-  void keepUnknownNodes(SbBool flag);
-  SbBool areUnknownNodeKept(void) const;
+  void keepUnknownNodes(bool flag);
+  bool areUnknownNodeKept(void) const;
   
-  void convertInlineNodes(SbBool flag);
-  SbBool doConvertInlineNodes(void) const;
+  void convertInlineNodes(bool flag);
+  bool doConvertInlineNodes(void) const;
   
-  void conditionalConversion(SbBool flag);
-  SbBool doConditionalConversion(void) const;
+  void conditionalConversion(bool flag);
+  bool doConditionalConversion(void) const;
   
-  void setVerbosity(SbBool flag);
-  SbBool isVerbose(void) const;
+  void setVerbosity(bool flag);
+  bool isVerbose(void) const;
 
 protected:
   virtual void beginTraversal(SoNode * node);

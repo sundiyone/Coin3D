@@ -84,14 +84,14 @@
 */
 
 /*!
-  \var SbBool SoSearchAction::duringSearchAll
+  \var bool SoSearchAction::duringSearchAll
 
   Obsoleted global flag, only present for compatibility reasons
   with old SGI / TGS Inventor application code.
 
-  It's set to \c TRUE when an SoSearchAction traversal with
-  SoSearchAction::isSearchingAll() equal to \c TRUE is started, and is
-  reset to \c FALSE again after traversal has finished.
+  It's set to \c true when an SoSearchAction traversal with
+  SoSearchAction::isSearchingAll() equal to \c true is started, and is
+  reset to \c false again after traversal has finished.
 
   (The flag is used by SGI / TGS Inventor in SoSwitch::affectsState()
   to know when SoSwitch::whichChild should behave as
@@ -105,7 +105,7 @@ public:
 
 SO_ACTION_SOURCE(SoSearchAction);
 
-SbBool SoSearchAction::duringSearchAll = FALSE;
+bool SoSearchAction::duringSearchAll = false;
 
 
 // Overridden from parent class.
@@ -113,7 +113,7 @@ void
 SoSearchAction::initClass(void)
 {
   SO_ACTION_INTERNAL_INIT_CLASS(SoSearchAction, SoAction);
-  SoSearchAction::duringSearchAll = FALSE;
+  SoSearchAction::duringSearchAll = false;
 }
 
 
@@ -122,7 +122,7 @@ SoSearchAction::initClass(void)
   settings, the SoSearchAction will ignore all nodes.
 */
 SoSearchAction::SoSearchAction(void)
-  : lookfor(0), interest(FIRST), searchall(FALSE),
+  : lookfor(0), interest(FIRST), searchall(false),
     node(NULL), type(SoType::badType()), name(""),
     path(NULL) // paths(0)
 {
@@ -170,14 +170,14 @@ SoSearchAction::getNode(void) const
 /*!
   Configures the SoSearchAction instance to search for nodes of the
   given \a type, and nodes of classes derived from the given \a type
-  if \a chkderived is \c TRUE.
+  if \a chkderived is \c true.
 
   The action will be configured to set the search "interest" to
   LookFor \c TYPE, so there is no need to call
   SoSearchAction::setFind().
 */
 void
-SoSearchAction::setType(const SoType typearg, const SbBool chkderivedarg)
+SoSearchAction::setType(const SoType typearg, const bool chkderivedarg)
 {
   this->type = typearg;
   this->chkderived = chkderivedarg;
@@ -189,7 +189,7 @@ SoSearchAction::setType(const SoType typearg, const SbBool chkderivedarg)
   classes of that type also returns a match.
 */
 SoType
-SoSearchAction::getType(SbBool & chkderivedref) const
+SoSearchAction::getType(bool & chkderivedref) const
 {
   chkderivedref = this->chkderived;
   return this->type;
@@ -268,10 +268,10 @@ SoSearchAction::getInterest(void) const
 
 /*!
   Specifies whether normal graph traversal should be done (\a
-  searchall is \c FALSE, which is the default setting), or if every
-  single node should be searched (\a searchall is \c TRUE).
+  searchall is \c false, which is the default setting), or if every
+  single node should be searched (\a searchall is \c true).
 
-  If the \a searchall flag is \c TRUE, even nodes considered "hidden"
+  If the \a searchall flag is \c true, even nodes considered "hidden"
   by other actions are searched (like for instance the disabled
   children of SoSwitch nodes).
 
@@ -280,7 +280,7 @@ SoSearchAction::getInterest(void) const
 
 */
 void
-SoSearchAction::setSearchingAll(const SbBool searchallarg)
+SoSearchAction::setSearchingAll(const bool searchallarg)
 {
   this->searchall = searchallarg;
 }
@@ -288,7 +288,7 @@ SoSearchAction::setSearchingAll(const SbBool searchallarg)
 /*!
   Returns the traversal method configuration of the action.
 */
-SbBool
+bool
 SoSearchAction::isSearchingAll(void) const
 {
   return this->searchall;
@@ -347,8 +347,8 @@ SoSearchAction::reset(void)
 {
   this->lookfor = 0;
   this->interest = SoSearchAction::FIRST;
-  this->searchall = FALSE;
-  this->chkderived = TRUE;
+  this->searchall = false;
+  this->chkderived = true;
   this->node = NULL;
   this->type = SoType::badType();
   this->name = SbName::empty();
@@ -365,7 +365,7 @@ SoSearchAction::reset(void)
 void
 SoSearchAction::setFound(void)
 {
-  this->setTerminated(TRUE);
+  this->setTerminated(true);
 }
 
 /*!
@@ -377,7 +377,7 @@ SoSearchAction::setFound(void)
   was searched for was found or not.  Use the result of getPath()
   / getPaths() if that is what you really are looking for.
 */
-SbBool
+bool
 SoSearchAction::isFound(void) const
 {
   return this->hasTerminated();
@@ -415,7 +415,7 @@ SoSearchAction::addPath(SoPath * const pathptr)
     break;
 
   default:
-    assert(FALSE && "Interest setting is invalid");
+    assert(false && "Interest setting is invalid");
     break;
   }
 }
@@ -437,5 +437,5 @@ SoSearchAction::beginTraversal(SoNode * nodeptr)
 
   this->traverse(nodeptr); // begin traversal at root node
 
-  SoSearchAction::duringSearchAll = FALSE;
+  SoSearchAction::duringSearchAll = false;
 }

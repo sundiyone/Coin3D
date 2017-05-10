@@ -596,7 +596,6 @@ make doxygen-doc
 @libdir@/libCoin.la
 @libdir@/libCoin.so
 @mandir@/man3/SbBSPTree.3
-@mandir@/man3/SbBool.3
 @mandir@/man3/SbBox2f.3
 @mandir@/man3/SbBox2s.3
 @mandir@/man3/SbBox3f.3
@@ -892,7 +891,7 @@ make uninstall
 
 # man pages
 cd @mandir@/man3
-rm SbBSPTree.3 SbBool.3 SbBox2f.3 SbBox2s.3 SbBox3f.3 SbColor.3 SbColor4f.3
+rm SbBSPTree.3 SbBox2f.3 SbBox2s.3 SbBox3f.3 SbColor.3 SbColor4f.3
 rm SbCylinder.3 SbCylinderPlaneProjector.3 SbCylinderProjector.3
 rm SbCylinderSectionProjector.3 SbCylinderSheetProjector.3 SbDict.3
 rm SbIntList.3 SbLine.3 SbLineProjector.3 SbList.3 SbMatrix.3 SbName.3

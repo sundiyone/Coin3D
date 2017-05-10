@@ -45,7 +45,7 @@ protected:
   virtual void setElt(const SbViewportRegion & viewportRegion);
 
 private:
-  SbBool initialized;
+  bool initialized;
   void updategl() const;
 };
 

@@ -160,17 +160,17 @@ static int recmutex_lock_internal(cc_recmutex * recmutex, int wait)
 int
 cc_recmutex_lock(cc_recmutex * recmutex)
 {
-  return recmutex_lock_internal(recmutex, TRUE);
+  return recmutex_lock_internal(recmutex, true);
 }
 
 /*
-  Attempts to lock a recursive mutex. Returns TRUE if thread got the lock
+  Attempts to lock a recursive mutex. Returns true if thread got the lock
   or already had the lock.
 */
 int 
 cc_recmutex_try_lock(cc_recmutex * recmutex)
 {
-  return recmutex_lock_internal(recmutex, FALSE) >= 0;
+  return recmutex_lock_internal(recmutex, false) >= 0;
 }
 
 /*

@@ -140,7 +140,7 @@
 class SoVRMLLODP  : public SoSoundElementHelper
 {
 public:
-  SbBool childlistvalid;
+  bool childlistvalid;
 };
 
 #define PRIVATE(obj) ((obj)->pimpl)
@@ -187,7 +187,7 @@ void
 SoVRMLLOD::commonConstructor(void)
 {
   PRIVATE(this) = new SoVRMLLODP;
-  PRIVATE(this)->childlistvalid = FALSE;
+  PRIVATE(this)->childlistvalid = false;
   
   SO_VRMLNODE_INTERNAL_CONSTRUCTOR(SoVRMLLOD);
 
@@ -207,10 +207,10 @@ SoVRMLLOD::commonConstructor(void)
 // *************************************************************************
 
 // Doc in parent
-SbBool
+bool
 SoVRMLLOD::affectsState(void) const // virtual
 {
-  return FALSE;
+  return false;
 }
 
 /*!
@@ -424,7 +424,7 @@ SoVRMLLOD::GLRenderBelowPath(SoGLRenderAction * action)
       // Separator node, enable this code by setting the environment
       // variable COIN_GLERROR_DEBUGGING to "1" to see exactly which
       // node caused the error.
-      static SbBool chkglerr = sogl_glerror_debugging();
+      static bool chkglerr = sogl_glerror_debugging();
       if (chkglerr) {
         cc_string str;
         cc_string_construct(&str);
@@ -499,7 +499,7 @@ void
 SoVRMLLOD::addChild(SoNode * child)
 {
   this->level.addNode(child);
-  PRIVATE(this)->childlistvalid = FALSE;
+  PRIVATE(this)->childlistvalid = false;
 }
 
 // Doc in parent
@@ -507,7 +507,7 @@ void
 SoVRMLLOD::insertChild(SoNode * child, int idx)
 {
   this->level.insertNode(child, idx);
-  PRIVATE(this)->childlistvalid = FALSE;
+  PRIVATE(this)->childlistvalid = false;
 }
 
 // Doc in parent
@@ -536,7 +536,7 @@ void
 SoVRMLLOD::removeChild(int idx)
 {
   this->level.removeNode(idx);
-  PRIVATE(this)->childlistvalid = FALSE;
+  PRIVATE(this)->childlistvalid = false;
 }
 
 // Doc in parent
@@ -544,7 +544,7 @@ void
 SoVRMLLOD::removeChild(SoNode * child)
 {
   this->level.removeNode(child);
-  PRIVATE(this)->childlistvalid = FALSE;
+  PRIVATE(this)->childlistvalid = false;
 }
 
 // Doc in parent
@@ -553,7 +553,7 @@ SoVRMLLOD::removeAllChildren(void)
 {
   this->level.removeAllNodes();
   SoGroup::children->truncate(0);
-  PRIVATE(this)->childlistvalid = TRUE;
+  PRIVATE(this)->childlistvalid = true;
 }
 
 // Doc in parent
@@ -561,7 +561,7 @@ void
 SoVRMLLOD::replaceChild(int idx, SoNode * child)
 {
   this->level.replaceNode(idx, child);
-  PRIVATE(this)->childlistvalid = FALSE;
+  PRIVATE(this)->childlistvalid = false;
 }
 
 // Doc in parent
@@ -570,7 +570,7 @@ SoVRMLLOD::replaceChild(SoNode * old,
                            SoNode * child)
 {
   this->level.replaceNode(old, child);
-  PRIVATE(this)->childlistvalid = FALSE;
+  PRIVATE(this)->childlistvalid = false;
 }
 
 // Doc in parent
@@ -579,33 +579,33 @@ SoVRMLLOD::notify(SoNotList * list)
 {
   SoField * f = list->getLastField();
   if (f == &this->level) {
-    PRIVATE(this)->childlistvalid = FALSE;
+    PRIVATE(this)->childlistvalid = false;
   }
   inherited::notify(list);
   PRIVATE(this)->notifyCalled();
 }
 
 // Doc in parent
-SbBool
+bool
 SoVRMLLOD::readInstance(SoInput * in,
                         unsigned short flags)
 {
   SoGroup::children->truncate(0);
-  SbBool oldnot = this->level.enableNotify(FALSE);
-  SbBool ret = inherited::readInstance(in, flags);
-  if (oldnot) this->level.enableNotify(TRUE);
-  PRIVATE(this)->childlistvalid = FALSE;
+  bool oldnot = this->level.enableNotify(false);
+  bool ret = inherited::readInstance(in, flags);
+  if (oldnot) this->level.enableNotify(true);
+  PRIVATE(this)->childlistvalid = false;
   return ret;
 }
 
 // Doc in parent
 void
 SoVRMLLOD::copyContents(const SoFieldContainer * from,
-                        SbBool copyConn)
+                        bool copyConn)
 {
   SoGroup::children->truncate(0);
   SoNode::copyContents(from, copyConn);
-  PRIVATE(this)->childlistvalid = FALSE;
+  PRIVATE(this)->childlistvalid = false;
 }
 
 /*!
@@ -644,7 +644,7 @@ SoVRMLLOD::getChildren(void) const
     SoVRMLParent::updateChildList(this->level.getValues(0),
                                   this->level.getNum(),
                                   *SoGroup::children);
-    ((SoVRMLLOD*)this)->pimpl->childlistvalid = TRUE;
+    ((SoVRMLLOD*)this)->pimpl->childlistvalid = true;
   }
   return SoGroup::children;
 }

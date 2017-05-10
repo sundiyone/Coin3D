@@ -336,24 +336,24 @@ static void _fromto_(SoField * from, SoField * to) \
 
 SOCONVERTALL_CAST_SFIELD2FIELD(SoSFBool_SoSFFloat, SoSFBool, SoSFFloat, float);
 SOCONVERTALL_CAST_SFIELD2FIELD(SoSFBool_SoMFFloat, SoSFBool, SoMFFloat, float);
-SOCONVERTALL_CAST_SFIELD2FIELD(SoSFFloat_SoSFBool, SoSFFloat, SoSFBool, SbBool);
-SOCONVERTALL_CAST_SFIELD2FIELD(SoSFFloat_SoMFBool, SoSFFloat, SoMFBool, SbBool);
+SOCONVERTALL_CAST_SFIELD2FIELD(SoSFFloat_SoSFBool, SoSFFloat, SoSFBool, bool);
+SOCONVERTALL_CAST_SFIELD2FIELD(SoSFFloat_SoMFBool, SoSFFloat, SoMFBool, bool);
 SOCONVERTALL_CAST_SFIELD2FIELD(SoSFBool_SoSFInt32, SoSFBool, SoSFInt32, int32_t);
 SOCONVERTALL_CAST_SFIELD2FIELD(SoSFBool_SoMFInt32, SoSFBool, SoMFInt32, int32_t);
-SOCONVERTALL_CAST_SFIELD2FIELD(SoSFInt32_SoSFBool, SoSFInt32, SoSFBool, SbBool);
-SOCONVERTALL_CAST_SFIELD2FIELD(SoSFInt32_SoMFBool, SoSFInt32, SoMFBool, SbBool);
+SOCONVERTALL_CAST_SFIELD2FIELD(SoSFInt32_SoSFBool, SoSFInt32, SoSFBool, bool);
+SOCONVERTALL_CAST_SFIELD2FIELD(SoSFInt32_SoMFBool, SoSFInt32, SoMFBool, bool);
 SOCONVERTALL_CAST_SFIELD2FIELD(SoSFBool_SoSFShort, SoSFBool, SoSFShort, short);
 SOCONVERTALL_CAST_SFIELD2FIELD(SoSFBool_SoMFShort, SoSFBool, SoMFShort, short);
-SOCONVERTALL_CAST_SFIELD2FIELD(SoSFShort_SoSFBool, SoSFShort, SoSFBool, SbBool);
-SOCONVERTALL_CAST_SFIELD2FIELD(SoSFShort_SoMFBool, SoSFShort, SoMFBool, SbBool);
+SOCONVERTALL_CAST_SFIELD2FIELD(SoSFShort_SoSFBool, SoSFShort, SoSFBool, bool);
+SOCONVERTALL_CAST_SFIELD2FIELD(SoSFShort_SoMFBool, SoSFShort, SoMFBool, bool);
 SOCONVERTALL_CAST_SFIELD2FIELD(SoSFBool_SoSFUInt32, SoSFBool, SoSFUInt32, unsigned short);
 SOCONVERTALL_CAST_SFIELD2FIELD(SoSFBool_SoMFUInt32, SoSFBool, SoMFUInt32, unsigned short);
-SOCONVERTALL_CAST_SFIELD2FIELD(SoSFUInt32_SoSFBool, SoSFUInt32, SoSFBool, SbBool);
-SOCONVERTALL_CAST_SFIELD2FIELD(SoSFUInt32_SoMFBool, SoSFUInt32, SoMFBool, SbBool);
+SOCONVERTALL_CAST_SFIELD2FIELD(SoSFUInt32_SoSFBool, SoSFUInt32, SoSFBool, bool);
+SOCONVERTALL_CAST_SFIELD2FIELD(SoSFUInt32_SoMFBool, SoSFUInt32, SoMFBool, bool);
 SOCONVERTALL_CAST_SFIELD2FIELD(SoSFBool_SoSFUShort, SoSFBool, SoSFUShort, unsigned short);
 SOCONVERTALL_CAST_SFIELD2FIELD(SoSFBool_SoMFUShort, SoSFBool, SoMFUShort, unsigned short);
-SOCONVERTALL_CAST_SFIELD2FIELD(SoSFUShort_SoSFBool, SoSFUShort, SoSFBool, SbBool);
-SOCONVERTALL_CAST_SFIELD2FIELD(SoSFUShort_SoMFBool, SoSFUShort, SoMFBool, SbBool);
+SOCONVERTALL_CAST_SFIELD2FIELD(SoSFUShort_SoSFBool, SoSFUShort, SoSFBool, bool);
+SOCONVERTALL_CAST_SFIELD2FIELD(SoSFUShort_SoMFBool, SoSFUShort, SoMFBool, bool);
 SOCONVERTALL_CAST_SFIELD2FIELD(SoSFColor_SoSFVec3f, SoSFColor, SoSFVec3f, SbVec3f);
 SOCONVERTALL_CAST_SFIELD2FIELD(SoSFColor_SoMFVec3f, SoSFColor, SoMFVec3f, SbVec3f);
 SOCONVERTALL_CAST_SFIELD2FIELD(SoSFVec3f_SoSFColor, SoSFVec3f, SoSFColor, SbColor);
@@ -411,15 +411,15 @@ static void _fromto_(SoField * from, SoField * to) \
 }
 
 SOCONVERTALL_CAST_MFIELD2SFIELD(SoMFBool_SoSFFloat, SoMFBool, SoSFFloat, float);
-SOCONVERTALL_CAST_MFIELD2SFIELD(SoMFFloat_SoSFBool, SoMFFloat, SoSFBool, SbBool);
+SOCONVERTALL_CAST_MFIELD2SFIELD(SoMFFloat_SoSFBool, SoMFFloat, SoSFBool, bool);
 SOCONVERTALL_CAST_MFIELD2SFIELD(SoMFBool_SoSFInt32, SoMFBool, SoSFInt32, int32_t);
-SOCONVERTALL_CAST_MFIELD2SFIELD(SoMFInt32_SoSFBool, SoMFInt32, SoSFBool, SbBool);
+SOCONVERTALL_CAST_MFIELD2SFIELD(SoMFInt32_SoSFBool, SoMFInt32, SoSFBool, bool);
 SOCONVERTALL_CAST_MFIELD2SFIELD(SoMFBool_SoSFShort, SoMFBool, SoSFShort, short);
-SOCONVERTALL_CAST_MFIELD2SFIELD(SoMFShort_SoSFBool, SoMFShort, SoSFBool, SbBool);
+SOCONVERTALL_CAST_MFIELD2SFIELD(SoMFShort_SoSFBool, SoMFShort, SoSFBool, bool);
 SOCONVERTALL_CAST_MFIELD2SFIELD(SoMFBool_SoSFUInt32, SoMFBool, SoSFUInt32, uint32_t);
-SOCONVERTALL_CAST_MFIELD2SFIELD(SoMFUInt32_SoSFBool, SoMFUInt32, SoSFBool, SbBool);
+SOCONVERTALL_CAST_MFIELD2SFIELD(SoMFUInt32_SoSFBool, SoMFUInt32, SoSFBool, bool);
 SOCONVERTALL_CAST_MFIELD2SFIELD(SoMFBool_SoSFUShort, SoMFBool, SoSFUShort, unsigned short);
-SOCONVERTALL_CAST_MFIELD2SFIELD(SoMFUShort_SoSFBool, SoMFUShort, SoSFBool, SbBool);
+SOCONVERTALL_CAST_MFIELD2SFIELD(SoMFUShort_SoSFBool, SoMFUShort, SoSFBool, bool);
 SOCONVERTALL_CAST_MFIELD2SFIELD(SoMFColor_SoSFVec3f, SoMFColor, SoSFVec3f, SbVec3f);
 SOCONVERTALL_CAST_MFIELD2SFIELD(SoMFVec3f_SoSFColor, SoMFVec3f, SoSFColor, SbColor);
 SOCONVERTALL_CAST_MFIELD2SFIELD(SoMFFloat_SoSFInt32, SoMFFloat, SoSFInt32, int32_t);
@@ -456,15 +456,15 @@ static void _fromto_(SoField * from, SoField * to) \
 }
 
 SOCONVERTALL_CAST_MFIELD2MFIELD(SoMFBool_SoMFFloat, SoMFBool, SoMFFloat, float);
-SOCONVERTALL_CAST_MFIELD2MFIELD(SoMFFloat_SoMFBool, SoMFFloat, SoMFBool, SbBool);
+SOCONVERTALL_CAST_MFIELD2MFIELD(SoMFFloat_SoMFBool, SoMFFloat, SoMFBool, bool);
 SOCONVERTALL_CAST_MFIELD2MFIELD(SoMFBool_SoMFInt32, SoMFBool, SoMFInt32, int32_t);
-SOCONVERTALL_CAST_MFIELD2MFIELD(SoMFInt32_SoMFBool, SoMFInt32, SoMFBool, SbBool);
+SOCONVERTALL_CAST_MFIELD2MFIELD(SoMFInt32_SoMFBool, SoMFInt32, SoMFBool, bool);
 SOCONVERTALL_CAST_MFIELD2MFIELD(SoMFBool_SoMFShort, SoMFBool, SoMFShort, short);
-SOCONVERTALL_CAST_MFIELD2MFIELD(SoMFShort_SoMFBool, SoMFShort, SoMFBool, SbBool);
+SOCONVERTALL_CAST_MFIELD2MFIELD(SoMFShort_SoMFBool, SoMFShort, SoMFBool, bool);
 SOCONVERTALL_CAST_MFIELD2MFIELD(SoMFBool_SoMFUInt32, SoMFBool, SoMFUInt32, uint32_t);
-SOCONVERTALL_CAST_MFIELD2MFIELD(SoMFUInt32_SoMFBool, SoMFUInt32, SoMFBool, SbBool);
+SOCONVERTALL_CAST_MFIELD2MFIELD(SoMFUInt32_SoMFBool, SoMFUInt32, SoMFBool, bool);
 SOCONVERTALL_CAST_MFIELD2MFIELD(SoMFBool_SoMFUShort, SoMFBool, SoMFUShort, unsigned short);
-SOCONVERTALL_CAST_MFIELD2MFIELD(SoMFUShort_SoMFBool, SoMFUShort, SoMFBool, SbBool);
+SOCONVERTALL_CAST_MFIELD2MFIELD(SoMFUShort_SoMFBool, SoMFUShort, SoMFBool, bool);
 SOCONVERTALL_CAST_MFIELD2MFIELD(SoMFColor_SoMFVec3f, SoMFColor, SoMFVec3f, SbVec3f);
 SOCONVERTALL_CAST_MFIELD2MFIELD(SoMFVec3f_SoMFColor, SoMFVec3f, SoMFColor, SbColor);
 SOCONVERTALL_CAST_MFIELD2MFIELD(SoMFFloat_SoMFInt32, SoMFFloat, SoMFInt32, int32_t);
@@ -586,7 +586,7 @@ static void time2string(const SbTime & t, SbString & s)
   // resolution at millisecond accuracy.
   if (t.getValue() < (60.0*60.0*24.0*365.0)) {
     cc_string storedlocale;
-    SbBool changed = coin_locale_set_portable(&storedlocale);
+    bool changed = coin_locale_set_portable(&storedlocale);
     s.sprintf("%.3f", t.getValue());
     if (changed) { coin_locale_reset(&storedlocale); }
   }
@@ -646,7 +646,7 @@ static void mftime_to_mfstring(SoField * from, SoField * to)
 // SoSFTrigger -> SoField.
 static void to_and_from_sftrigger(SoField * COIN_UNUSED_ARG(from), SoField * to)
 {
-  to->setDirty(FALSE);
+  to->setDirty(false);
 }
 
 static void
@@ -654,7 +654,7 @@ register_convertfunc(convert_func * f, SoType from, SoType to)
 {
   SoDB::addConverter(from, to, SoConvertAll::getClassTypeId());
   uint32_t val = (static_cast<uint32_t>(from.getKey()) << 16) + to.getKey();
-  SbBool nonexist = convertfunc_dict->put(val, f);
+  bool nonexist = convertfunc_dict->put(val, f);
   assert(nonexist);
 }
 
@@ -1119,7 +1119,7 @@ SoConvertAll::SoConvertAll(const SoType from, const SoType to)
 
     /* SoConvertAll is not considered native (doesn't really matter
        one way or the other). */
-    this->isBuiltIn = FALSE;
+    this->isBuiltIn = false;
   } // SO_ENGINE_CONSTRUCTOR replacement end
 
 
@@ -1132,7 +1132,7 @@ SoConvertAll::SoConvertAll(const SoType from, const SoType to)
 
   uint32_t val = (static_cast<uint32_t>(from.getKey()) << 16) + to.getKey();
   convert_func * ptr;
-  if (!convertfunc_dict->get(val, ptr)) { assert(FALSE); }
+  if (!convertfunc_dict->get(val, ptr)) { assert(false); }
   this->convertvalue = ptr;
 }
 

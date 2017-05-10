@@ -136,7 +136,7 @@ SoScrollingGraphKit::SoScrollingGraphKit(void)
   PRIVATE(this)->kit = this;
 
   SO_KIT_INTERNAL_CONSTRUCTOR(SoScrollingGraphKit);
-  SO_KIT_ADD_CATALOG_ENTRY(scene, SoSeparator, TRUE, this, "", FALSE);
+  SO_KIT_ADD_CATALOG_ENTRY(scene, SoSeparator, true, this, "", false);
   SO_KIT_INIT_INSTANCE();
 
   SO_KIT_DEFINE_ENUM_VALUE(GraphicsType, LINES);
@@ -167,7 +167,7 @@ SoScrollingGraphKit::SoScrollingGraphKit(void)
     sizeof(default_colors) / sizeof(default_colors[0]);
   this->colors.setNum(numdefaultcolors);
   this->colors.setValues(0, numdefaultcolors, default_colors);
-  this->colors.setDefault(TRUE);
+  this->colors.setDefault(true);
 
   SO_KIT_ADD_FIELD(viewportSize, (SbVec3f(512.0f, 512.0f, 0.0f)));
   SO_KIT_ADD_FIELD(position, (SbVec3f(4.0f, 4.0f, 0.0f)));
@@ -175,17 +175,17 @@ SoScrollingGraphKit::SoScrollingGraphKit(void)
 
   SO_KIT_ADD_FIELD(addKeys, (SbName::empty()));
   this->addKeys.setNum(0);
-  this->addKeys.setDefault(TRUE);
+  this->addKeys.setDefault(true);
   SO_KIT_ADD_FIELD(addValues, (0.0f));
   this->addValues.setNum(0);
-  this->addValues.setDefault(TRUE);
+  this->addValues.setDefault(true);
 
   PRIVATE(this)->addValuesSensor.reset(new SoFieldSensor);
   PRIVATE(this)->addValuesSensor->setFunction(SoScrollingGraphKit::addValuesCB);
   PRIVATE(this)->addValuesSensor->setData(this);
   PRIVATE(this)->addValuesSensor->attach(&(this->addValues));
 
-  PRIVATE(this)->chart = static_cast<SoSeparator *>(this->getAnyPart("scene", TRUE));
+  PRIVATE(this)->chart = static_cast<SoSeparator *>(this->getAnyPart("scene", true));
 }
 
 SoScrollingGraphKit::~SoScrollingGraphKit(void)

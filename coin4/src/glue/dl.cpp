@@ -463,7 +463,7 @@ cc_build_search_list(const char * libname)
     CFRelease(coinbundleurl);
     strcat(buf, "/Libraries:");
     cc_string_append_text(path, buf);
-  } while (FALSE);
+  } while (false);
 #endif // COIN_MACOSX_FRAMEWORK
 
 #ifdef COIN_MACOS_10
@@ -482,7 +482,7 @@ cc_build_search_list(const char * libname)
     CFRelease(appbundleurl);
     strcat(buf, "/Contents/MacOS:");
     cc_string_append_text(path, buf);
-  } while (FALSE);
+  } while (false);
 #endif // COIN_MACOS_10
 
   /* (3) default library search path  */
@@ -556,7 +556,7 @@ cc_find_file(const char * file)
 
 #endif /* HAVE_DYLD_RUNTIME_BINDING */
 
-/* Returns TRUE if run-time linking to dynamic libraries can be
+/* Returns true if run-time linking to dynamic libraries can be
    done. So far, these ways of doing run-time linking are supported:
 
    \li libdl.so: for Linux, SGI IRIX, Solaris, and other *nix & *BSD systems
@@ -564,13 +564,13 @@ cc_find_file(const char * file)
    \li libdld.so: for HP-UX (which also has libdl.so, BTW)
    \li dyld: for Mac OS X (with NSLookupAndBindSymbol() et al)
 */
-SbBool
+bool
 cc_dl_available(void)
 {
 #ifdef HAVE_DYNAMIC_LINKING
-  return TRUE;
+  return true;
 #else /* don't know how to do dynamic linking on this system */
-  return FALSE;
+  return false;
 #endif
 }
 

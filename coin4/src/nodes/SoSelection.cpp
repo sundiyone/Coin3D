@@ -89,7 +89,7 @@
     SoQtExaminerViewer * examinerviewer = new SoQtExaminerViewer( window );
     examinerviewer->setSceneGraph( selection );
     examinerviewer->setGLRenderAction( new SoBoxHighlightRenderAction );
-    examinerviewer->setViewing( FALSE );
+    examinerviewer->setViewing( false );
     examinerviewer->show();
 
     SoQt::show( window );
@@ -240,7 +240,7 @@
   \COININTERNAL
 */
 /*!
-  \var SbBool SoSelection::callPickCBOnlyIfSelectable
+  \var bool SoSelection::callPickCBOnlyIfSelectable
   \COININTERNAL
 */
 /*!
@@ -252,7 +252,7 @@
   \COININTERNAL
 */
 /*!
-  \var SbBool SoSelection::pickMatching
+  \var bool SoSelection::pickMatching
   \COININTERNAL
 */
 
@@ -342,10 +342,10 @@ SoSelection::init(void)
 
   this->pickCBFunc = NULL;
   this->pickCBData = NULL;
-  this->callPickCBOnlyIfSelectable = FALSE;
+  this->callPickCBOnlyIfSelectable = false;
 
   this->mouseDownPickPath = NULL;
-  this->pickMatching = TRUE;
+  this->pickMatching = true;
 }
 
 /*!
@@ -443,22 +443,22 @@ SoSelection::toggle(SoNode * node)
 }
 
 /*!
-  Return \e TRUE if \a path is in the list of selected objects.
+  Return \e true if \a path is in the list of selected objects.
 */
-SbBool
+bool
 SoSelection::isSelected(const SoPath * path) const
 {
   return this->findPath(path) >= 0;
 }
 
 /*!
-  Return \e TRUE if the path to \a node is in the list of selected objects.
+  Return \e true if the path to \a node is in the list of selected objects.
 */
-SbBool
+bool
 SoSelection::isSelected(SoNode * node) const
 {
   SoPath * path = this->searchNode(node);
-  SbBool ret = FALSE;
+  bool ret = false;
   if (path) {
     // don't ref() the path. searchNode() will ref it before returning
     ret = this->isSelected(path);
@@ -633,13 +633,13 @@ SoSelection::removeFinishCallback(SoSelectionClassCB * f, void * userData)
     pick will be ignored. </li>
   </ul>
 
-  if \a callOnlyIfSelectable is \c TRUE, the callback will only be
+  if \a callOnlyIfSelectable is \c true, the callback will only be
   called if the Selection node is in the picked path.  
 */
 void
 SoSelection::setPickFilterCallback(SoSelectionPickCB * f,
                                    void * userData,
-                                   const SbBool callOnlyIfSelectable)
+                                   const bool callOnlyIfSelectable)
 {
   this->pickCBFunc = f;
   this->pickCBData = userData;
@@ -647,7 +647,7 @@ SoSelection::setPickFilterCallback(SoSelectionPickCB * f,
 }
 
 /*!  
-  When \a pickmatchflag is \c TRUE (the default), the mouse button
+  When \a pickmatchflag is \c true (the default), the mouse button
   release pick must match the mouse button press pick before object is
   selected/deselected.
 
@@ -655,28 +655,28 @@ SoSelection::setPickFilterCallback(SoSelectionPickCB * f,
   programmers.
 */
 void
-SoSelection::setPickMatching(const SbBool pickmatchflag)
+SoSelection::setPickMatching(const bool pickmatchflag)
 {
   this->pickMatching = pickmatchflag;
 }
 
 /*!
-  Returns \e TRUE if pick matching is enabled.
+  Returns \e true if pick matching is enabled.
 
   \sa setPickMatching()
 */
-SbBool
+bool
 SoSelection::isPickMatching(void) const
 {
   return this->pickMatching;
 }
 
 /*!
-  Returns \e TRUE if pick matching is enabled.
+  Returns \e true if pick matching is enabled.
 
   \sa setPickMatching()
 */
-SbBool
+bool
 SoSelection::getPickMatching(void) const
 {
   return this->pickMatching;
@@ -707,9 +707,9 @@ SoSelection::removeChangeCallback(SoSelectionClassCB * f, void * userData)
 */
 void
 SoSelection::invokeSelectionPolicy(SoPath * path,
-                                   SbBool shiftdown)
+                                   bool shiftdown)
 {
-  SbBool toggle = this->policy.getValue() == SoSelection::TOGGLE ||
+  bool toggle = this->policy.getValue() == SoSelection::TOGGLE ||
     (this->policy.getValue() == SoSelection::SHIFT && shiftdown);
 
   if (toggle)
@@ -730,7 +730,7 @@ SoSelection::performSingleSelection(SoPath * path)
   if (cmppath) { cmppath->ref(); }
 
   const int nrsel = this->getNumSelected();
-  SbBool alreadyselected = FALSE;
+  bool alreadyselected = false;
 
   // Remove all selected paths already present, *except* if one of
   // them matches the new selection path -- then we'll just keep it.
@@ -740,7 +740,7 @@ SoSelection::performSingleSelection(SoPath * path)
     // If selection happened on an already selected path, just keep it
     // in and don't trigger a "deselect + select" pair of
     // notifications.
-    if (cmppath && (*selp == *cmppath)) { alreadyselected = TRUE; }
+    if (cmppath && (*selp == *cmppath)) { alreadyselected = true; }
     else { this->removePath(i); }
   }
 
@@ -841,7 +841,7 @@ SoSelection::handleEvent(SoHandleEventAction * action)
 
   const SoEvent * event = action->getEvent();
 
-  SbBool haltaction = FALSE;
+  bool haltaction = false;
   if (SO_MOUSE_PRESS_EVENT(event, BUTTON1)) {
     if (this->mouseDownPickPath) {
       this->mouseDownPickPath->unref();
@@ -864,7 +864,7 @@ SoSelection::handleEvent(SoHandleEventAction * action)
     }
   }
   else if (SO_MOUSE_RELEASE_EVENT(event, BUTTON1)) {
-    SbBool ignorepick = FALSE;
+    bool ignorepick = false;
     // call pick filter callback (called from getSelectionPath()) even
     // if the event was handled by a child node.
     SoPath * selpath = this->getSelectionPath(action, ignorepick, haltaction);
@@ -919,15 +919,15 @@ SoSelection::searchNode(SoNode * node) const
 // Returns the pick selection path. Considers pick filter callback.
 //
 SoPath *
-SoSelection::getSelectionPath(SoHandleEventAction * action, SbBool & ignorepick,
-                              SbBool & haltaction)
+SoSelection::getSelectionPath(SoHandleEventAction * action, bool & ignorepick,
+                              bool & haltaction)
 {
   //
   // handled like described in the man-pages for SoSelection
   //
 
-  haltaction = FALSE;
-  ignorepick = FALSE;
+  haltaction = false;
+  ignorepick = false;
   if (this->pickMatching && this->mouseDownPickPath == NULL) {
     return NULL;
   }
@@ -939,7 +939,7 @@ SoSelection::getSelectionPath(SoHandleEventAction * action, SbBool & ignorepick,
     // mouseDownPickPath and (possibly) return here.
     if (this->pickMatching && !this->pickCBFunc) {
       if (*(this->mouseDownPickPath) != *selectionpath) {
-        ignorepick = TRUE;
+        ignorepick = true;
         return NULL;
       }
     }
@@ -965,33 +965,33 @@ SoSelection::getSelectionPath(SoHandleEventAction * action, SbBool & ignorepick,
         else if (selectionpath->findNode(this) >= 0) {
           if (*(this->mouseDownPickPath) == *selectionpath) {
             // pick matched
-            haltaction = TRUE;
+            haltaction = true;
           }
           else {
             // mouse release didn't match mouse down
             selectionpath->ref();
             selectionpath->unref();
             selectionpath = NULL;
-            ignorepick = TRUE;
+            ignorepick = true;
           }
         }
         else { // path with this not in the path (most probably an empty path)
           selectionpath->ref();
           selectionpath->unref();
           selectionpath = NULL;
-          ignorepick = TRUE;
+          ignorepick = true;
         }
       }
       else { // pickCBFunc returned NULL
-        haltaction = TRUE;
+        haltaction = true;
       }
     }
     else { // no pickCBFunc or not a valid path
-      haltaction = FALSE;
+      haltaction = false;
     }
   }
   else if (this->mouseDownPickPath) {
-    ignorepick = TRUE;
+    ignorepick = true;
   }
   return selectionpath;
 }

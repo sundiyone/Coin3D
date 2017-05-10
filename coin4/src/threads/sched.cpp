@@ -46,21 +46,21 @@
 
    20051202 mortene. */
 
-cc_sched * cc_sched_construct(int numthreads) { assert(FALSE); return NULL; }
-void cc_sched_destruct(cc_sched * sched) { assert(FALSE); }
-void cc_sched_set_num_threads(cc_sched * sched, int num) { assert(FALSE); }
-int cc_sched_get_num_threads(cc_sched * sched) { assert(FALSE); return 0; }
+cc_sched * cc_sched_construct(int numthreads) { assert(false); return NULL; }
+void cc_sched_destruct(cc_sched * sched) { assert(false); }
+void cc_sched_set_num_threads(cc_sched * sched, int num) { assert(false); }
+int cc_sched_get_num_threads(cc_sched * sched) { assert(false); return 0; }
 uint32_t cc_sched_schedule(cc_sched * sched, 
                            cc_sched_f * workfunc, void * closure,
-                           float priority) { assert(FALSE); }
-void cc_sched_wait_all(cc_sched * sched) { assert(FALSE); }
-SbBool cc_sched_unschedule(cc_sched * sched, 
-                           uint32_t schedid) { assert(FALSE); }
+                           float priority) { assert(false); }
+void cc_sched_wait_all(cc_sched * sched) { assert(false); }
+bool cc_sched_unschedule(cc_sched * sched, 
+                           uint32_t schedid) { assert(false); }
 void cc_sched_set_num_allowed(cc_sched * sched, 
-                              int num)  { assert(FALSE); }
+                              int num)  { assert(false); }
 void cc_sched_change_priority(cc_sched * sched, 
                               uint32_t schedid, 
-                              float priority)  { assert(FALSE); }
+                              float priority)  { assert(false); }
 
 #else /* HAVE_THREADS */
 
@@ -103,15 +103,15 @@ sched_item_compare(void * o1, void * o2)
 }
 
 /* assumes mutex is locked */
-static SbBool
+static bool
 sched_try_trigger(cc_sched * sched)
 {
   if (cc_wpool_try_begin(sched->pool, 1)) {
     cc_wpool_start_worker(sched->pool, sched_worker_entry_point, sched);
     cc_wpool_end(sched->pool);
-    return TRUE;
+    return true;
   }
-  return FALSE;
+  return false;
 }
 
 void
@@ -149,11 +149,11 @@ cc_sched_construct(int numthreads)
   sched->pool = cc_wpool_construct(numthreads);
   sched->mutex = cc_mutex_construct();
  
-  sched->itemheap = cc_heap_construct(64, sched_item_compare, TRUE);
+  sched->itemheap = cc_heap_construct(64, sched_item_compare, true);
   sched->itemalloc = cc_memalloc_construct(sizeof(sched_item));
   sched->schedid_dict = cc_dict_construct(64, 0.75f);
   sched->schedid_counter = 1;
-  sched->iswaitingall = FALSE;
+  sched->iswaitingall = false;
   sched->numallowed = -1; /* Unlimited */
 
   return sched;
@@ -248,13 +248,13 @@ cc_sched_schedule(cc_sched * sched,
   Note that jobs are automatically unscheduled when triggered, just before
   calling the work function.
 
-  Returns TRUE if job was successfully removed, FALSE if job wasn't found
+  Returns true if job was successfully removed, false if job wasn't found
   in the internal dict.
 */
-SbBool
+bool
 cc_sched_unschedule(cc_sched * sched, uint32_t schedid)
 {
-  SbBool didremove = FALSE;
+  bool didremove = false;
   void * item = NULL;
   cc_mutex_lock(sched->mutex);
 
@@ -262,7 +262,7 @@ cc_sched_unschedule(cc_sched * sched, uint32_t schedid)
     cc_heap_remove(sched->itemheap, item);
     cc_dict_remove(sched->schedid_dict, schedid);
     cc_memalloc_deallocate(sched->itemalloc, item);
-    didremove = TRUE;
+    didremove = true;
   }
   cc_mutex_unlock(sched->mutex);
   return didremove;
@@ -289,7 +289,7 @@ void
 cc_sched_wait_all(cc_sched * sched)
 {
   cc_mutex_lock(sched->mutex);
-  sched->iswaitingall = TRUE;
+  sched->iswaitingall = true;
   /* Make sure all workers are doing something */
   while (!cc_heap_empty(sched->itemheap) && sched_try_trigger(sched)) { }
 
@@ -297,7 +297,7 @@ cc_sched_wait_all(cc_sched * sched)
   cc_wpool_wait_all(sched->pool);
 
   cc_mutex_lock(sched->mutex);
-  sched->iswaitingall = FALSE;
+  sched->iswaitingall = false;
   cc_mutex_unlock(sched->mutex);
 }
 

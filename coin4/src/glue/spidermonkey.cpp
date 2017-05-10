@@ -65,12 +65,12 @@ extern "C" {
 
 static SpiderMonkey_t * spidermonkey_instance = NULL;
 static cc_libhandle spidermonkey_libhandle = NULL;
-static SbBool spidermonkey_failed_to_load = FALSE;
+static bool spidermonkey_failed_to_load = false;
 static int spidermonkey_is_initializing = 0;
 
 /* ******************************************************************** */
 
-static SbBool
+static bool
 spidermonkey_debug(void)
 {
   static int dbg = -1;
@@ -97,7 +97,7 @@ spidermonkey_cleanup(void)
   assert(spidermonkey_instance);
   free(spidermonkey_instance);
   spidermonkey_instance = NULL;
-  spidermonkey_failed_to_load = FALSE;
+  spidermonkey_failed_to_load = false;
   spidermonkey_is_initializing = 0;
 }
 

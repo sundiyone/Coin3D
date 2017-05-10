@@ -43,17 +43,17 @@ public:
 
   virtual int getOutputs(SoEngineOutputList & l) const;
   SoEngineOutput * getOutput(const SbName & outputname) const;
-  SbBool getOutputName(const SoEngineOutput * output, SbName & outputname) const;
+  bool getOutputName(const SoEngineOutput * output, SbName & outputname) const;
   virtual const SoEngineOutputData * getOutputData(void) const = 0;
   static SoEngine * getByName(const SbName & name);
   static int getByName(const SbName & name, SoEngineList & el);
 
-  SbBool isNotifying(void) const;
+  bool isNotifying(void) const;
   virtual void notify(SoNotList * nl);
 
   SoEngine * copy(void) const;
   virtual SoFieldContainer * copyThroughConnection(void) const;
-  SbBool shouldCopy(void) const;
+  bool shouldCopy(void) const;
 
   virtual void writeInstance(SoOutput * out);
 
@@ -63,7 +63,7 @@ protected:
   virtual ~SoEngine(void);
   virtual void evaluate(void) = 0;
 
-  virtual SbBool readInstance(SoInput * in, unsigned short flags);
+  virtual bool readInstance(SoInput * in, unsigned short flags);
   virtual void inputChanged(SoField * which);
 
   static const SoFieldData ** getInputDataPtr(void);

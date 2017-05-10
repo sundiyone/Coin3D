@@ -35,7 +35,7 @@ public:
   virtual ~SoIdleSensor(void);
 
 private:
-  virtual SbBool isIdleOnly(void) const;
+  virtual bool isIdleOnly(void) const;
 };
 
 #endif // !COIN_SOIDLESENSOR_H

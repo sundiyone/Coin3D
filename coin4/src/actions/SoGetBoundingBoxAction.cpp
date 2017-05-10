@@ -350,7 +350,7 @@ SoGetBoundingBoxAction::getCenter(void) const
   coordinate system of the camera space or not.
 */
 void
-SoGetBoundingBoxAction::setInCameraSpace(const SbBool on)
+SoGetBoundingBoxAction::setInCameraSpace(const bool on)
 {
   if (on) this->flags |= SoGetBoundingBoxAction::CAMERA_SPACE;
   else this->flags &= ~SoGetBoundingBoxAction::CAMERA_SPACE;
@@ -359,7 +359,7 @@ SoGetBoundingBoxAction::setInCameraSpace(const SbBool on)
 /*!
   Returns whether the bounding box returned is to be in camera space.
 */
-SbBool
+bool
 SoGetBoundingBoxAction::isInCameraSpace(void) const
 {
   return (this->flags & SoGetBoundingBoxAction::CAMERA_SPACE) != 0;
@@ -376,7 +376,7 @@ SoGetBoundingBoxAction::isInCameraSpace(void) const
 
 void
 SoGetBoundingBoxAction::setResetPath(const SoPath * path,
-                                     const SbBool resetbefore,
+                                     const bool resetbefore,
                                      const ResetType what)
 {
   this->resetpath = path;
@@ -401,7 +401,7 @@ SoGetBoundingBoxAction::getResetPath(void) const
 
   \sa setResetPath(), getResetPath(), isResetBefore(), getWhatReset()
 */
-SbBool
+bool
 SoGetBoundingBoxAction::isResetPath(void) const
 {
   return this->resetpath != NULL;
@@ -413,7 +413,7 @@ SoGetBoundingBoxAction::isResetPath(void) const
 
   \sa setResetPath(), getResetPath(), isResetPath(), getWhatReset()
 */
-SbBool
+bool
 SoGetBoundingBoxAction::isResetBefore(void) const
 {
   return (this->flags & SoGetBoundingBoxAction::RESET_BEFORE) != 0;
@@ -531,7 +531,7 @@ SoGetBoundingBoxAction::extendBy(const SbXfBox3f & box)
 */
 void
 SoGetBoundingBoxAction::setCenter(const SbVec3f & centerarg,
-                                  const SbBool transformcenter)
+                                  const bool transformcenter)
 {
   assert(!this->isCenterSet());
   this->flags |= SoGetBoundingBoxAction::CENTER_SET;
@@ -552,7 +552,7 @@ SoGetBoundingBoxAction::setCenter(const SbVec3f & centerarg,
                          "center: <%f, %f, %f>, transformcenter: %s, "
                          "this->center: <%f, %f, %f>",
                          centerarg[0], centerarg[1], centerarg[2],
-                         transformcenter ? "TRUE" : "FALSE",
+                         transformcenter ? "true" : "false",
                          this->center[0], this->center[1], this->center[2]);
 #endif // debug
 }
@@ -561,7 +561,7 @@ SoGetBoundingBoxAction::setCenter(const SbVec3f & centerarg,
   \COININTERNAL
   Query about the center point during traversal.
 */
-SbBool
+bool
 SoGetBoundingBoxAction::isCenterSet(void) const
 {
   return (this->flags & SoGetBoundingBoxAction::CENTER_SET) != 0;

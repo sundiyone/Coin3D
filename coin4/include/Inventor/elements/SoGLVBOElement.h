@@ -41,7 +41,7 @@ class COIN_DLL_API SoGLVBOElement : public SoElement {
 
  public:
 
-  static SbBool shouldCreateVBO(SoState * state, const int numdata);
+  static bool shouldCreateVBO(SoState * state, const int numdata);
   static void setVertexVBO(SoState * state, SoVBO * vbo);
   static void setNormalVBO(SoState * state, SoVBO * vbo);
   static void setColorVBO(SoState * state, SoVBO * vbo);
@@ -53,7 +53,7 @@ class COIN_DLL_API SoGLVBOElement : public SoElement {
   virtual void init(SoState *state);
   virtual void push(SoState *state);
   virtual void pop(SoState *state, const SoElement * prevtopelement);
-  virtual SbBool matches(const SoElement * elt) const;
+  virtual bool matches(const SoElement * elt) const;
   virtual SoElement * copyMatchInfo(void) const;
 
   SoVBO * getVertexVBO(void) const;

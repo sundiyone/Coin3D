@@ -72,7 +72,7 @@ SoHandleBoxManip::SoHandleBoxManip(void)
   this->setDragger(dragger);
 
   SoSurroundScale * ss =
-    (SoSurroundScale *)dragger->getPart("surroundScale", TRUE);
+    (SoSurroundScale *)dragger->getPart("surroundScale", true);
   // FIXME: be robust here in case user supplied a faulty graph for
   // the dragger? Or is that taken care of by the import code in the
   // dragger? 20010909 mortene.

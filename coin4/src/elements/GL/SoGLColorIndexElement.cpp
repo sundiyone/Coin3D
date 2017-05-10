@@ -76,9 +76,9 @@ SoGLColorIndexElement::~SoGLColorIndexElement()
 }
 
 /*!
-  Returns \c TRUE if the current GL context is in color index mode.
+  Returns \c true if the current GL context is in color index mode.
 */
-SbBool
+bool
 SoGLColorIndexElement::isColorIndexMode(SoState * state)
 {
   return SoGLLazyElement::isColorIndex(state);

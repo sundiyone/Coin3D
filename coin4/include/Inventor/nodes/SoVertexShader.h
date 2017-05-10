@@ -35,7 +35,7 @@ public:
   SoVertexShader(void);
   virtual ~SoVertexShader();
 
-  static SbBool isSupported(SourceType sourceType);
+  static bool isSupported(SourceType sourceType);
 };
 
 #endif /* ! COIN_SOVERTEXSHADER_H */

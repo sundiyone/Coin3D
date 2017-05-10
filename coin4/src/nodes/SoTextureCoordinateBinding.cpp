@@ -154,10 +154,10 @@ SoTextureCoordinateBinding::pick(SoPickAction *action)
 }
 
 // Documented in superclass.
-SbBool
+bool
 SoTextureCoordinateBinding::readInstance(SoInput * in, unsigned short flags)
 {
-  SbBool ret = inherited::readInstance(in, flags);
+  bool ret = inherited::readInstance(in, flags);
   if (ret) {
     // test for obsolete values
     if (this->value.getValue() < 2) {

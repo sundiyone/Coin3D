@@ -154,8 +154,8 @@ public:
   SoFieldSensor * fieldsensor;
   SoSeparator * connectedseparator;
 
-  void connectFields(const SbBool onoff);
-  void attachSensor(const SbBool onoff);
+  void connectFields(const bool onoff);
+  void attachSensor(const bool onoff);
 
   static void sensorCB(void *, SoSensor *);
 
@@ -227,8 +227,8 @@ SoInteractionKit::SoInteractionKit(void)
 
   // Note: we must use "" instead of , , to humour MS VisualC++ 6.
 
-  SO_KIT_ADD_CATALOG_ENTRY(topSeparator, SoSeparator, TRUE, this, "", FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(geomSeparator, SoSeparator, TRUE, topSeparator, "", FALSE);
+  SO_KIT_ADD_CATALOG_ENTRY(topSeparator, SoSeparator, true, this, "", false);
+  SO_KIT_ADD_CATALOG_ENTRY(geomSeparator, SoSeparator, true, topSeparator, "", false);
 
   SO_KIT_INIT_INSTANCE();
 
@@ -236,7 +236,7 @@ SoInteractionKit::SoInteractionKit(void)
   PRIVATE(this)->fieldsensor = new SoFieldSensor(SoInteractionKit::fieldSensorCB, PRIVATE(this));
   PRIVATE(this)->fieldsensor->setPriority(0);
 
-  this->setUpConnections(TRUE, TRUE);
+  this->setUpConnections(true, true);
 }
 
 /*!
@@ -244,7 +244,7 @@ SoInteractionKit::SoInteractionKit(void)
 */
 SoInteractionKit::~SoInteractionKit()
 {
-  PRIVATE(this)->connectFields(FALSE);
+  PRIVATE(this)->connectFields(false);
   delete PRIVATE(this)->fieldsensor;
   delete PRIVATE(this);
 }
@@ -266,30 +266,30 @@ SoInteractionKit::initClass(void)
   picks on the surrogate path will be regarded as a pick on \a
   partname.
 */
-SbBool
+bool
 SoInteractionKit::setPartAsPath(const SbName & partname,
                                 SoPath * path)
 {
-  return this->setAnySurrogatePath(partname, path, TRUE, TRUE);
+  return this->setAnySurrogatePath(partname, path, true, true);
 }
 
 /*!
   Sets the value of \a partname to \a node, and sets the part's field
   to default (i.e. node will not be written on scene graph export).
 
-  If \a onlyifdefault is \c TRUE, \a partname is only set if it is
+  If \a onlyifdefault is \c true, \a partname is only set if it is
   already in the default state.
 
   The reason for this method is to make it possible for dragger
   subclasses to avoid having their default parts written out on
   export.
 */
-SbBool
+bool
 SoInteractionKit::setPartAsDefault(const SbName & partname,
                                    SoNode * node,
-                                   SbBool onlyifdefault)
+                                   bool onlyifdefault)
 {
-  return this->setAnyPartAsDefault(partname, node, FALSE, onlyifdefault);
+  return this->setAnyPartAsDefault(partname, node, false, onlyifdefault);
 }
 
 /*!
@@ -297,12 +297,12 @@ SoInteractionKit::setPartAsDefault(const SbName & partname,
 
   \sa setPartAsDefault()
 */
-SbBool
+bool
 SoInteractionKit::setPartAsDefault(const SbName & partname,
                                    const SbName & nodename,
-                                   SbBool onlyifdefault)
+                                   bool onlyifdefault)
 {
-  return this->setAnyPartAsDefault(partname, nodename, FALSE, onlyifdefault);
+  return this->setAnyPartAsDefault(partname, nodename, false, onlyifdefault);
 }
 
 
@@ -310,15 +310,15 @@ SoInteractionKit::setPartAsDefault(const SbName & partname,
   Checks if \a path is contained within any of the surrogate paths
   in any interaction kits from this node down. Returns information
   about the owner and the surrogate path if found, and \a fillargs is
-  \e TRUE. The returned path (\a pathToOwner) is not ref'ed, It's the
+  \e true. The returned path (\a pathToOwner) is not ref'ed, It's the
   callers responsibility to ref and unref this path.
 */
-SbBool
+bool
 SoInteractionKit::isPathSurrogateInMySubgraph(const SoPath * path,
                                               SoPath *& pathToOwner,
                                               SbName  & surrogatename,
                                               SoPath *& surrogatepath,
-                                              SbBool fillargs)
+                                              bool fillargs)
 {
   int idx = PRIVATE(this)->findSurrogateInPath(path);
   if (idx >= 0) {
@@ -327,13 +327,13 @@ SoInteractionKit::isPathSurrogateInMySubgraph(const SoPath * path,
       surrogatename = PRIVATE(this)->surrogatenamelist[idx];
       surrogatepath = PRIVATE(this)->surrogatepathlist[idx];
     }
-    return TRUE;
+    return true;
   }
   else {
     SoSearchAction sa;
     sa.setType(SoInteractionKit::getClassTypeId());
     sa.setFind(SoSearchAction::ALL);
-    sa.setSearchingAll(TRUE);
+    sa.setSearchingAll(true);
     sa.apply(this);
     SoPathList & pathlist = sa.getPaths();
     for (int i = 0; i < pathlist.getLength(); i++) {
@@ -346,24 +346,24 @@ SoInteractionKit::isPathSurrogateInMySubgraph(const SoPath * path,
           surrogatename = kit->pimpl->surrogatenamelist[idx];
           surrogatepath = kit->pimpl->surrogatepathlist[idx];
         }
-        return TRUE;
+        return true;
       }
     }
   }
-  return FALSE;
+  return false;
 }
 
 /*!
   \overload
 */
-SbBool
+bool
 SoInteractionKit::isPathSurrogateInMySubgraph(const SoPath * path)
 {
   SoPath * dummypath, * dummypath2;
   SbName dummyname;
 
   return this->isPathSurrogateInMySubgraph(path, dummypath,
-                                           dummyname, dummypath2, FALSE);
+                                           dummyname, dummypath2, false);
 }
 
 /*!
@@ -385,7 +385,7 @@ SoInteractionKit::setSwitchValue(SoNode * node, const int newVal)
 // Doc in superclass. Overridden to copy the surrogate lists.
 void
 SoInteractionKit::copyContents(const SoFieldContainer * fromFC,
-                               SbBool copyConnections)
+                               bool copyConnections)
 {
   int i;
   inherited::copyContents(fromFC, copyConnections);
@@ -405,17 +405,17 @@ SoInteractionKit::copyContents(const SoFieldContainer * fromFC,
 
 // Doc in superclass. Overridden to check topSeperator and fields
 // after reading.
-SbBool
+bool
 SoInteractionKit::readInstance(SoInput * in, unsigned short flags)
 {
-  SbBool ret = inherited::readInstance(in, flags); // will handle fields
+  bool ret = inherited::readInstance(in, flags); // will handle fields
   if (ret) {
     // remove surrogate paths where part != NULL and not an empty
     // group or separator
     int n = PRIVATE(this)->surrogatenamelist.getLength();
     for (int i = 0; i < n; i++) {
       SbName name = PRIVATE(this)->surrogatenamelist[i];
-      SoNode * node = this->getAnyPart(name, FALSE, FALSE, FALSE);
+      SoNode * node = this->getAnyPart(name, false, false, false);
       if (node && ((node->getTypeId() != SoGroup::getClassTypeId() &&
                     node->getTypeId() != SoSeparator::getClassTypeId()) ||
                    node->getChildren()->getLength())) {
@@ -470,7 +470,7 @@ SoInteractionKit::readDefaultParts(const char * fileName,
       fullname += dirsep;
     }
     fullname += fileName;
-    if (input.openFile(fullname.getString(), TRUE)) {
+    if (input.openFile(fullname.getString(), true)) {
       root = (SoNode *)SoDB::readAll(&input);
     }
     else if (COIN_DEBUG) {
@@ -505,27 +505,27 @@ SoInteractionKit::readDefaultParts(const char * fileName,
 
 /*!
   Protected version of setPartAsDefault(), to make it possible to set
-  non-leaf and private parts (if \a anypart is \c TRUE).
+  non-leaf and private parts (if \a anypart is \c true).
 
   \sa setPartAsDefault()
 */
-SbBool
+bool
 SoInteractionKit::setAnyPartAsDefault(const SbName & partname,
                                       SoNode * node,
-                                      SbBool COIN_UNUSED_ARG(anypart),
-                                      SbBool onlyifdefault)
+                                      bool COIN_UNUSED_ARG(anypart),
+                                      bool onlyifdefault)
 {
   SoBaseKit * kit = this;
   int partNum;
-  SbBool isList;
+  bool isList;
   int listIdx;
   if (SoBaseKit::findPart(SbString(partname.getString()), kit, partNum,
-                          isList, listIdx, TRUE)) {
+                          isList, listIdx, true)) {
     SoSFNode * field = kit->getCatalogInstances()[partNum];
     // FIXME: default check not working properly. pederb, 2000-01-21
     if (1 || (!onlyifdefault || field->isDefault())) {
       kit->setPart(partNum, node);
-      field->setDefault(TRUE);
+      field->setDefault(true);
     }
     else {
       if (COIN_DEBUG) {
@@ -539,22 +539,22 @@ SoInteractionKit::setAnyPartAsDefault(const SbName & partname,
                            "part %s not found", partname.getString());
   }
 
-  // FIXME: this method is _always_ returning FALSE, which seems
+  // FIXME: this method is _always_ returning false, which seems
   // completely bogus. 20020322 mortene.
-  return FALSE;
+  return false;
 }
 
 /*!
   Protected version of setPartAsDefault(), to make it possible to set
-  non-leaf and private parts (if anypart is \c TRUE).
+  non-leaf and private parts (if anypart is \c true).
 
   \sa setPartAsDefault()
 */
-SbBool
+bool
 SoInteractionKit::setAnyPartAsDefault(const SbName & partname,
                                       const SbName & nodename,
-                                      SbBool anypart,
-                                      SbBool onlyifdefault)
+                                      bool anypart,
+                                      bool onlyifdefault)
 {
   // FIXME: this is lame and error-prone -- default dragger-parts are
   // actually just stored outside any scenegraph, and then picked up
@@ -576,7 +576,7 @@ SoInteractionKit::setAnyPartAsDefault(const SbName & partname,
     ((SoText2 *)node)->string = "Default dragger part not found";
     return this->setAnyPartAsDefault(partname, node, anypart, onlyifdefault);
   }
-  return FALSE;
+  return false;
 }
 
 // FIXME: the API doc on setAnySurrogatePath() below stinks. Surrogate
@@ -594,18 +594,18 @@ SoInteractionKit::setAnyPartAsDefault(const SbName & partname,
 
   \sa setPartAsPath()
 */
-SbBool
+bool
 SoInteractionKit::setAnySurrogatePath(const SbName & partname,
                                       SoPath * path,
-                                      SbBool leafcheck,
-                                      SbBool publiccheck)
+                                      bool leafcheck,
+                                      bool publiccheck)
 {
   SoBaseKit * kit = this;
   int partNum;
-  SbBool isList;
+  bool isList;
   int listIdx;
   if (SoBaseKit::findPart(SbString(partname.getString()), kit, partNum,
-                          isList, listIdx, TRUE)) {
+                          isList, listIdx, true)) {
     assert(kit->isOfType(SoInteractionKit::getClassTypeId()));
     const SoNodekitCatalog * catalog = kit->getNodekitCatalog();
     if (leafcheck && !catalog->isLeaf(partNum)) {
@@ -613,14 +613,14 @@ SoInteractionKit::setAnySurrogatePath(const SbName & partname,
         SoDebugError::postInfo("SoInteractionKit::setAnySurrogatePath",
                                "part %s is not leaf", partname.getString());
       }
-      return FALSE;
+      return false;
     }
     if (publiccheck && !catalog->isPublic(partNum)) {
       if (COIN_DEBUG) {
         SoDebugError::postInfo("SoInteractionKit::setAnySurrogatePath",
                                "part %s is not public", partname.getString());
       }
-      return FALSE;
+      return false;
     }
     int parentIdx = catalog->getParentPartNumber(partNum);
     SoNode * parent = this->getCatalogInstances()[parentIdx]->getValue();
@@ -651,37 +651,37 @@ SoInteractionKit::setAnySurrogatePath(const SbName & partname,
     }
     // add the path
     ((SoInteractionKit *)kit)->pimpl->addSurrogatePath(path, catalog->getName(partNum));
-    return TRUE;
+    return true;
   }
   else if (COIN_DEBUG) {
     SoDebugError::postInfo("SoInteractionKit::setAnyPartAsDefault",
                            "part %s not found", partname.getString());
   }
-  return FALSE;
+  return false;
 }
 
 // doc in super
-SbBool
-SoInteractionKit::setUpConnections(SbBool onoff, SbBool doitalways)
+bool
+SoInteractionKit::setUpConnections(bool onoff, bool doitalways)
 {
   if (onoff == this->connectionsSetUp && !doitalways)
     return onoff;
 
   if (onoff) {
-    inherited::setUpConnections(onoff, FALSE);
-    PRIVATE(this)->connectFields(TRUE);
-    PRIVATE(this)->attachSensor(TRUE);
+    inherited::setUpConnections(onoff, false);
+    PRIVATE(this)->connectFields(true);
+    PRIVATE(this)->attachSensor(true);
   }
   else {
-    PRIVATE(this)->attachSensor(FALSE);
-    PRIVATE(this)->connectFields(FALSE);
-    inherited::setUpConnections(onoff, FALSE);
+    PRIVATE(this)->attachSensor(false);
+    PRIVATE(this)->connectFields(false);
+    inherited::setUpConnections(onoff, false);
   }
   return !(this->connectionsSetUp = onoff);
 }
 
 // Doc in superclass.
-SbBool
+bool
 SoInteractionKit::setPart(const int partNum, SoNode * node)
 {
   // Overriden to detect when part changes value. If a substitute path
@@ -696,15 +696,15 @@ static void
 test_set_default(SoSFEnum * field, int value)
 {
   if (!(field->isConnected() && field->isConnectionEnabled()) &&
-      field->getValue() == value) field->setDefault(TRUE);
+      field->getValue() == value) field->setDefault(true);
 }
 
 // doc in super
 void
 SoInteractionKit::setDefaultOnNonWritingFields(void)
 {
-  this->topSeparator.setDefault(TRUE);
-  this->geomSeparator.setDefault(TRUE);
+  this->topSeparator.setDefault(true);
+  this->geomSeparator.setDefault(true);
 
   test_set_default(&this->renderCaching, SoInteractionKit::AUTO);
   test_set_default(&this->boundingBoxCaching, SoInteractionKit::AUTO);
@@ -717,7 +717,7 @@ SoInteractionKit::setDefaultOnNonWritingFields(void)
     if (!catalog->isLeaf(i)) {
       SoNode * node = this->getCatalogInstances()[i]->getValue();
       if (node && node->getTypeId() == SoSwitch::getClassTypeId()) {
-        this->getCatalogInstances()[i]->setDefault(TRUE);
+        this->getCatalogInstances()[i]->setDefault(true);
       }
     }
   }
@@ -726,7 +726,7 @@ SoInteractionKit::setDefaultOnNonWritingFields(void)
 }
 
 // doc in super
-SbBool
+bool
 SoInteractionKit::setPart(const SbName & partname, SoNode * from)
 {
   // Overridden only to fool some incredibly stupid behaviour in the
@@ -748,7 +748,7 @@ SoInteractionKit::fieldSensorCB(void * d, SoSensor * s)
   Obsoleted in Coin.
 */
 void
-SoInteractionKit::connectSeparatorFields(SoSeparator * COIN_UNUSED_ARG(dest), SbBool onOff)
+SoInteractionKit::connectSeparatorFields(SoSeparator * COIN_UNUSED_ARG(dest), bool onOff)
 {
   COIN_OBSOLETED();
   SoDebugError::postWarning("SoInteractionKit::connectSeparatorFields",
@@ -831,7 +831,7 @@ SoInteractionKitP::addSurrogatePath(SoPath * path, const SbName & name)
 // connect fields in topSeparator to the fields in this node.
 //
 void
-SoInteractionKitP::connectFields(const SbBool onoff)
+SoInteractionKitP::connectFields(const bool onoff)
 {
   if (this->connectedseparator) { // always disconnect
     this->connectedseparator->renderCaching.disconnect();
@@ -858,7 +858,7 @@ SoInteractionKitP::connectFields(const SbBool onoff)
 // attach sensor to topSeparator if onoff, detach otherwise
 //
 void
-SoInteractionKitP::attachSensor(const SbBool onoff)
+SoInteractionKitP::attachSensor(const bool onoff)
 {
   if (onoff) {
     if (this->fieldsensor->getAttachedField() != &this->kit->topSeparator) {
@@ -878,7 +878,7 @@ SoInteractionKitP::sensorCB(void * data, SoSensor *)
 {
   SoInteractionKitP * thisp = (SoInteractionKitP*) data;
   if (thisp->connectedseparator != thisp->kit->topSeparator.getValue()) {
-    thisp->connectFields(TRUE);
+    thisp->connectFields(true);
   }
 }
 

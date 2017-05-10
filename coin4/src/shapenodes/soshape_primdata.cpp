@@ -50,8 +50,8 @@ soshape_primdata::soshape_primdata(void)
   this->pointDetails = new SoPointDetail[this->arraySize];
   this->faceDetail = NULL;
   this->lineDetail = NULL;
-  this->matPerFace = FALSE;
-  this->normPerFace = FALSE;
+  this->matPerFace = false;
+  this->normPerFace = false;
 
   this->tess = NULL;
   this->glutess = NULL;
@@ -129,11 +129,11 @@ soshape_primdata::endShape(void)
         this->glutess->endPolygon();
       }
       else {
-        // FIXME: the keepVertices==TRUE setting may not be necessary,
+        // FIXME: the keepVertices==true setting may not be necessary,
         // according to pederb. (The flag causes us to get callbacks
         // even on empty polygons -- probably not useful in Coin, as
         // it was for Rational Reducer.)  20060216 mortene.
-        this->tess->beginPolygon(TRUE);
+        this->tess->beginPolygon(true);
         for (int i = 0; i < counter; i++) {
           this->tess->addVertex(vertsArray[i].getPoint(), &vertsArray[i]);
         }

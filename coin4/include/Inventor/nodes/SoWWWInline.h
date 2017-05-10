@@ -71,8 +71,8 @@ public:
   SoGroup * copyChildren(void) const;
 
   void requestURLData(void);
-  SbBool isURLDataRequested(void) const;
-  SbBool isURLDataHere(void) const;
+  bool isURLDataRequested(void) const;
+  bool isURLDataHere(void) const;
   void cancelURLDataRequest(void);
 
   void setChildData(SoNode * urldata);
@@ -88,8 +88,8 @@ public:
   static void setBoundingBoxColor(SbColor & c);
   static const SbColor & getBoundingBoxColor(void);
 
-  static void setReadAsSoFile(SbBool onoff);
-  static SbBool getReadAsSoFile(void);
+  static void setReadAsSoFile(bool onoff);
+  static bool getReadAsSoFile(void);
 
   virtual void doAction(SoAction * action);
   virtual void doActionOnKidsOrBox(SoAction * action);
@@ -107,15 +107,15 @@ protected:
   virtual ~SoWWWInline();
 
   virtual void addBoundingBoxChild(SbVec3f center, SbVec3f size);
-  virtual SbBool readInstance(SoInput * in, unsigned short flags);
+  virtual bool readInstance(SoInput * in, unsigned short flags);
   virtual void copyContents(const SoFieldContainer * fromfC,
-                            SbBool copyconnections);
+                            bool copyconnections);
 
 private:
   friend class SoWWWInlineP;
   static SoWWWInlineFetchURLCB * fetchurlcb;
   static void * fetchurlcbdata;
-  static SbBool readassofile;
+  static bool readassofile;
   static SbColor * bboxcolor;
   static BboxVisibility bboxvisibility;
 

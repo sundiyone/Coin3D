@@ -162,7 +162,7 @@
 
 /*!
   \var SoSFBool SoDragger::isActive
-  Is \c TRUE whenever the user is interacting with the dragger. For
+  Is \c true whenever the user is interacting with the dragger. For
   compound draggers (draggers consisting of one or more subdraggers),
   the isActive field is updated only for the active subdragger, not
   for the compound dragger.
@@ -306,12 +306,12 @@ public:
   int mingesture;
   SoHandleEventAction * eventaction;
   SoDragger::ProjectorFrontSetting frontonprojector;
-  SbBool valuechangedcbenabled;
-  SbBool ignoreinbbox;
+  bool valuechangedcbenabled;
+  bool ignoreinbbox;
   const SoEvent * currentevent;
   SoPath * pickedpath;
   SoDraggerCache * draggercache;
-  SbBool didmousemove;
+  bool didmousemove;
 
   SoCallbackList startCB;
   SoCallbackList motionCB;
@@ -324,7 +324,7 @@ public:
   SbViewportRegion viewport;
   SbVec2s startlocaterpos;
   SoDragger * activechilddragger;
-  SbBool isgrabbing;
+  bool isgrabbing;
 
   SbName surrogatename;
   SoPath * surrogateownerpath;
@@ -348,26 +348,26 @@ SoDragger::SoDragger(void)
 {
   SO_KIT_INTERNAL_CONSTRUCTOR(SoDragger);
 
-  SO_KIT_ADD_CATALOG_ENTRY(motionMatrix, SoMatrixTransform, FALSE, topSeparator, geomSeparator, FALSE);
+  SO_KIT_ADD_CATALOG_ENTRY(motionMatrix, SoMatrixTransform, false, topSeparator, geomSeparator, false);
 
-  SO_KIT_ADD_FIELD(isActive, (FALSE));
+  SO_KIT_ADD_FIELD(isActive, (false));
 
   SO_KIT_INIT_INSTANCE();
 
   PRIVATE(this)->mingesture = 8;
   PRIVATE(this)->eventaction = NULL;
   PRIVATE(this)->frontonprojector = USE_PICK;
-  PRIVATE(this)->valuechangedcbenabled = TRUE;
-  PRIVATE(this)->ignoreinbbox = FALSE;
+  PRIVATE(this)->valuechangedcbenabled = true;
+  PRIVATE(this)->ignoreinbbox = false;
   PRIVATE(this)->currentevent = NULL;
   PRIVATE(this)->pickedpath = NULL;
   PRIVATE(this)->draggercache = NULL;
-  PRIVATE(this)->isgrabbing = FALSE;
+  PRIVATE(this)->isgrabbing = false;
   PRIVATE(this)->activechilddragger = NULL;
   PRIVATE(this)->surrogateownerpath = NULL;
   PRIVATE(this)->surrogatepath = NULL;
   PRIVATE(this)->cbaction = NULL;
-  PRIVATE(this)->didmousemove = FALSE;
+  PRIVATE(this)->didmousemove = false;
   PRIVATE(this)->projectorepsilon = 0.0f;
 }
 
@@ -707,10 +707,10 @@ SoDragger::getMinGesture(void) const
 
   \sa addValueChangedCallback()
 */
-SbBool
-SoDragger::enableValueChangedCallbacks(SbBool val)
+bool
+SoDragger::enableValueChangedCallbacks(bool val)
 {
-  SbBool oldval = PRIVATE(this)->valuechangedcbenabled;
+  bool oldval = PRIVATE(this)->valuechangedcbenabled;
   PRIVATE(this)->valuechangedcbenabled = val;
   return oldval;
 }
@@ -869,7 +869,7 @@ SoDragger::getPartToLocalMatrix(const SbName & partname, SbMatrix & parttolocalm
   SoPath * pathtothis = this->createPathToThis();
   assert(pathtothis);
   pathtothis->ref();
-  SoPath * path = reclassify_cast<SoPath *>(this->createPathToAnyPart(partname, FALSE, FALSE, FALSE, pathtothis));
+  SoPath * path = reclassify_cast<SoPath *>(this->createPathToAnyPart(partname, false, false, false, pathtothis));
   assert(path);
   pathtothis->unref();
 
@@ -1540,7 +1540,7 @@ SoDragger::setStartLocaterPosition(SbVec2s pos)
   also \c CTRL for the built-in draggers) that we should act upon and
   decide which direction the constraint should be set to.
 */
-SbBool
+bool
 SoDragger::isAdequateConstraintMotion(void)
 {
   SbVec2s delta =
@@ -1552,19 +1552,19 @@ SoDragger::isAdequateConstraintMotion(void)
   // or "float sqrt(float)".  mortene.
   double len = sqrt(double(delta[0]*delta[0] + delta[1]*delta[1]));
 
-  if (len >= static_cast<double>(PRIVATE(this)->mingesture)) return TRUE;
-  return FALSE;
+  if (len >= static_cast<double>(PRIVATE(this)->mingesture)) return true;
+  return false;
 }
 
 /*!
-  Checks if \a pickpath contains \a surrogatepath and returns \c TRUE
+  Checks if \a pickpath contains \a surrogatepath and returns \c true
   if the tail of \a surrogatepath is before any dragger in \a
   pickpath.
 */
-SbBool
+bool
 SoDragger::shouldGrabBasedOnSurrogate(const SoPath * pickpath, const SoPath * surrogatepath)
 {
-  if (!pickpath->containsPath(surrogatepath)) return FALSE;
+  if (!pickpath->containsPath(surrogatepath)) return false;
 
   const SoFullPath * pick = reclassify_cast<const SoFullPath *>(pickpath);
   const SoFullPath * surr = reclassify_cast<const SoFullPath *>(surrogatepath);
@@ -1574,11 +1574,11 @@ SoDragger::shouldGrabBasedOnSurrogate(const SoPath * pickpath, const SoPath * su
 
   for (int i = pick->getLength()-1; i >= 0; i--) {
     SoNode * node = pick->getNode(i);
-    if (node == tail) return TRUE;
+    if (node == tail) return true;
     if (node->isOfType(draggertype))
-      return FALSE;
+      return false;
   }
-  return FALSE;
+  return false;
 }
 
 /*!
@@ -1620,7 +1620,7 @@ SoDragger::handleEvent(SoHandleEventAction * action)
   // are called when the dragger is not active.
   //
   // If you disable autoredraws via
-  // SoGuiRenderArea::setAutoRedraw(FALSE) you must remember to add an
+  // SoGuiRenderArea::setAutoRedraw(false) you must remember to add an
   // otherEventCallback if you want to schedule a redraw when ctrl is
   // tapped.
 
@@ -1636,9 +1636,9 @@ SoDragger::handleEvent(SoHandleEventAction * action)
   else if (SO_MOUSE_PRESS_EVENT(event, BUTTON1)) {
     const SoPickedPoint * pp = action->getPickedPoint();
 
-    SbBool didpick = FALSE;
+    bool didpick = false;
 
-    if (pp && this->isPicked(pp->getPath())) didpick = TRUE;
+    if (pp && this->isPicked(pp->getPath())) didpick = true;
     else if (pp) { // check surrogate paths
       SoPath * owner, * path;
       SbName name;
@@ -1655,7 +1655,7 @@ SoDragger::handleEvent(SoHandleEventAction * action)
           PRIVATE(this)->surrogatepath = path;
           PRIVATE(this)->surrogatepath->ref();
           PRIVATE(this)->surrogatename = name;
-          didpick = TRUE;
+          didpick = true;
         }
         owner->unref();
         path->unref();
@@ -1668,8 +1668,8 @@ SoDragger::handleEvent(SoHandleEventAction * action)
       else
         this->updateDraggerCache(NULL);
 
-      this->isActive = TRUE;
-      PRIVATE(this)->didmousemove = FALSE;
+      this->isActive = true;
+      PRIVATE(this)->didmousemove = false;
       this->setCameraInfo(action);
       this->setStartingPoint(pp);
       this->eventHandled(event, action);
@@ -1679,16 +1679,16 @@ SoDragger::handleEvent(SoHandleEventAction * action)
       PRIVATE(this)->pickedpath->ref();
 
       PRIVATE(this)->startlocaterpos = event->getPosition();
-      PRIVATE(this)->isgrabbing = FALSE;
+      PRIVATE(this)->isgrabbing = false;
       this->saveStartParameters();
       PRIVATE(this)->startCB.invokeCallbacks(this);
     }
   }
   else if (this->isActive.getValue() && SO_MOUSE_RELEASE_EVENT(event, BUTTON1)) {
-    this->isActive = FALSE;
+    this->isActive = false;
     if (PRIVATE(this)->didmousemove) {
       this->eventHandled(event, action);
-      PRIVATE(this)->didmousemove = FALSE;
+      PRIVATE(this)->didmousemove = false;
     }
     if (PRIVATE(this)->isgrabbing) this->grabEventsCleanup();
     if (PRIVATE(this)->pickedpath) {
@@ -1710,11 +1710,11 @@ SoDragger::handleEvent(SoHandleEventAction * action)
   }
   else if (this->isActive.getValue() && event->isOfType(SoLocation2Event::getClassTypeId())) {
     this->eventHandled(event, action);
-    PRIVATE(this)->didmousemove = TRUE;
+    PRIVATE(this)->didmousemove = true;
     PRIVATE(this)->motionCB.invokeCallbacks(this);
     if (!PRIVATE(this)->isgrabbing) {
       this->grabEventsSetup();
-      PRIVATE(this)->isgrabbing = TRUE;
+      PRIVATE(this)->isgrabbing = true;
     }
   }
   else if (this->isActive.getValue()) {
@@ -1749,7 +1749,7 @@ SoDragger::transferMotion(SoDragger * child)
   Sets whether dragger geometry should be ignored when calculating bbox.
 */
 void
-SoDragger::setIgnoreInBbox(SbBool val)
+SoDragger::setIgnoreInBbox(bool val)
 {
   PRIVATE(this)->ignoreinbbox = val;
 }
@@ -1757,14 +1757,14 @@ SoDragger::setIgnoreInBbox(SbBool val)
 /*!
   Returns whether dragger geometry should be ignored when calculating bbox.
 */
-SbBool
+bool
 SoDragger::isIgnoreInBbox(void)
 {
   return PRIVATE(this)->ignoreinbbox;
 }
 
 // Documented in superclass. Overridden to ignore dragger bounding box
-// if SoDragger::isIgnoreInBbox() is \c TRUE.
+// if SoDragger::isIgnoreInBbox() is \c true.
 void
 SoDragger::getBoundingBox(SoGetBoundingBoxAction * action)
 {
@@ -1800,7 +1800,7 @@ SoDragger::setDefaultOnNonWritingFields(void)
   do { \
     SoField * f = this->getField(name); \
     if (f) { \
-      if ((coin_assert_cast<type *>(f))->getValue() == val) f->setDefault(TRUE); \
+      if ((coin_assert_cast<type *>(f))->getValue() == val) f->setDefault(true); \
     } \
   } while (0)
 
@@ -1811,10 +1811,10 @@ SoDragger::setDefaultOnNonWritingFields(void)
   CHECK_DEFAULT("rotation", SoSFRotation, SbRotation::identity());
 
   // check isActive
-  CHECK_DEFAULT("isActive", SoSFBool, FALSE);
+  CHECK_DEFAULT("isActive", SoSFBool, false);
 #undef CHECK_DEFAULT
 
-  this->motionMatrix.setDefault(TRUE);
+  this->motionMatrix.setDefault(true);
 
   inherited::setDefaultOnNonWritingFields();
 }
@@ -1895,14 +1895,14 @@ SoDragger::childOtherEventCB(void * data, SoDragger * child)
 }
 
 // Returns whether path goes through this node (dragger is picked).
-SbBool
+bool
 SoDragger::isPicked(SoPath * path)
 {
   // last dragger in path must be this one
   SoFullPath * fullpath = reclassify_cast<SoFullPath *>(path);
 
   int i = fullpath->findNode(this);
-  if (i < 0) return FALSE;
+  if (i < 0) return false;
 
   // if this is a composite dragger, the path will go through this
   // dragger, but it should not be regarded as picked if a child
@@ -1910,9 +1910,9 @@ SoDragger::isPicked(SoPath * path)
   int n = fullpath->getLength();
   for (++i; i < n; i++) {
     SoNode * node = fullpath->getNode(i);
-    if (node->isOfType(SoDragger::getClassTypeId())) return FALSE;
+    if (node->isOfType(SoDragger::getClassTypeId())) return false;
   }
-  return TRUE;
+  return true;
 }
 
 void

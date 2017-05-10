@@ -1,5 +1,5 @@
-#ifndef COIN_SBBOX_H
-#define COIN_SBBOX_H
+#ifndef COIN_SBVEC_H
+#define COIN_SBVEC_H
 
 /**************************************************************************\
  *
@@ -55,4 +55,4 @@
 #include <Inventor/SbVec4f.h>
 #include <Inventor/SbVec4d.h>
 
-#endif // !COIN_SBBOX_H
+#endif // !COIN_SBVEC_H

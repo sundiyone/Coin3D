@@ -307,17 +307,17 @@ SoAsciiText::GLRender(SoGLRenderAction * action)
   SoState * state = action->getState();
 
   // FIXME: implement this feature. 20040820 mortene.
-  static SbBool warned = FALSE;
+  static bool warned = false;
   if (!warned) {
     const int stackidx = SoTextOutlineEnabledElement::getClassStackIndex();
-    const SbBool outlinepresence = state->isElementEnabled(stackidx);
+    const bool outlinepresence = state->isElementEnabled(stackidx);
 
     if (outlinepresence && SoTextOutlineEnabledElement::get(state)) {
       SoDebugError::postWarning("SoAsciiText::GLRender",
                                 "Support for rendering SoAsciiText nodes in outline "
                                 "(i.e. heeding the SoTextOutlineEnabledElement) "
                                 "not yet implemented.");
-      warned = TRUE;
+      warned = true;
     }
   }
 
@@ -327,21 +327,21 @@ SoAsciiText::GLRender(SoGLRenderAction * action)
 
   const cc_font_specification * fontspec = PRIVATE(this)->cache->getCachedFontspec(); 
 
-  SbBool do2Dtextures = FALSE;
-  SbBool do3Dtextures = FALSE;
+  bool do2Dtextures = false;
+  bool do3Dtextures = false;
   if (SoGLMultiTextureEnabledElement::get(state, 0)) {
-    do2Dtextures = TRUE;
+    do2Dtextures = true;
     if (SoGLMultiTextureEnabledElement::getMode(state, 0) == SoGLMultiTextureEnabledElement::TEXTURE3D) {
-      do3Dtextures = TRUE;
+      do3Dtextures = true;
     }
   }
 
   // FIXME: implement proper support for 3D-texturing, and get rid of
   // this. 20020120 mortene.
   if (do3Dtextures) {
-    static SbBool first = TRUE;
+    static bool first = true;
     if (first) {
-      first = FALSE;
+      first = false;
       SoDebugError::postWarning("SoAsciiText::GLRender",
                                 "3D-textures not properly supported for this node type yet.");
     }
@@ -668,21 +668,21 @@ SoAsciiText::generatePrimitives(SoAction * action)
 
   const cc_font_specification * fontspec = PRIVATE(this)->cache->getCachedFontspec();
 
-  SbBool do2Dtextures = FALSE;
-  SbBool do3Dtextures = FALSE;
+  bool do2Dtextures = false;
+  bool do3Dtextures = false;
   if (SoMultiTextureEnabledElement::get(state, 0)) {
-    do2Dtextures = TRUE;
+    do2Dtextures = true;
     if (SoMultiTextureEnabledElement::getMode(state,0) ==
         SoMultiTextureEnabledElement::TEXTURE3D) {
-      do3Dtextures = TRUE;
+      do3Dtextures = true;
     }
   }
   // FIXME: implement proper support for 3D-texturing, and get rid of
   // this. 20020120 mortene.
   if (do3Dtextures) {
-    static SbBool first = TRUE;
+    static bool first = true;
     if (first) {
-      first = FALSE;
+      first = false;
       SoDebugError::postWarning("SoAsciiText::generatePrimitives",
                                 "3D-textures not properly supported for this node type yet.");
     }
@@ -835,7 +835,7 @@ SoAsciiTextP::setUpGlyphs(SoState * state, SoAsciiText * textnode)
   SoGlyphCache * oldcache = this->cache;
   
   state->push();
-  SbBool storedinvalid = SoCacheElement::setInvalid(FALSE);
+  bool storedinvalid = SoCacheElement::setInvalid(false);
   this->cache = new SoGlyphCache(state); 
   this->cache->ref();
   SoCacheElement::set(state, this->cache);

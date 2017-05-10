@@ -165,13 +165,13 @@ public:
   void invokePointCallbacks(const SoShape * const shape,
                             const SoPrimitiveVertex * const v);
 
-  SbBool shouldGeneratePrimitives(const SoShape * shape) const;
+  bool shouldGeneratePrimitives(const SoShape * shape) const;
 
   virtual SoNode * getCurPathTail(void);
   void setCurrentNode(SoNode * const node);
 
-  void setCallbackAll(SbBool callbackall);
-  SbBool isCallbackAll(void) const;
+  void setCallbackAll(bool callbackall);
+  bool isCallbackAll(void) const;
 
 protected:
   virtual void beginTraversal(SoNode * node);

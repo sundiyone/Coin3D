@@ -59,7 +59,7 @@ public:
                                   const float angle);
   SbVec2s getAdvance(void) const;
   SbVec2s getKerning(const SoGlyph & rightglyph) const;
-  unsigned char * getBitmap(SbVec2s & size, SbVec2s & pos, const SbBool antialiased) const;
+  unsigned char * getBitmap(SbVec2s & size, SbVec2s & pos, const bool antialiased) const;
 
 protected:
   SoGlyph(void);

@@ -185,36 +185,36 @@ SoCullElement::addPlane(SoState * state, const SbPlane &newplane)
 }
 
 /*!
-  Cull against \a box. If \a transform is \c TRUE, the box is assumed
+  Cull against \a box. If \a transform is \c true, the box is assumed
   to be in object space, and will be transformed into world space
-  using the model matrix.  Returns \c TRUE if box is outside one of
+  using the model matrix.  Returns \c true if box is outside one of
   the planes, and updates the element to detect when geometry is
   completely inside all planes.
 */
-SbBool
-SoCullElement::cullBox(SoState * state, const SbBox3f & box, const SbBool transform)
+bool
+SoCullElement::cullBox(SoState * state, const SbBox3f & box, const bool transform)
 {
-  return SoCullElement::docull(state, box, transform, TRUE);
+  return SoCullElement::docull(state, box, transform, true);
 }
 
 /*!
-  Cull against \a box. If \a transform is \c TRUE, the box is
+  Cull against \a box. If \a transform is \c true, the box is
   assumed to be in object space, and will be transformed into world
-  space using the model matrix.  Returns \c TRUE if box is outside one
+  space using the model matrix.  Returns \c true if box is outside one
   of the planes. This method will not update the element state, just
   perform a cull test against active planes.
 */
-SbBool
-SoCullElement::cullTest(SoState * state, const SbBox3f & box, const SbBool transform)
+bool
+SoCullElement::cullTest(SoState * state, const SbBox3f & box, const bool transform)
 {
-  return SoCullElement::docull(state, box, transform, FALSE);
+  return SoCullElement::docull(state, box, transform, false);
 }
 
 /*!
-  Returns \c TRUE if the current geometry is completely inside all
+  Returns \c true if the current geometry is completely inside all
   planes. There is no need to do a cull test if this is the case.
 */
-SbBool
+bool
 SoCullElement::completelyInside(SoState * state)
 {
   // use SoState::getConstElement() to avoid cache dependency on this element
@@ -228,11 +228,11 @@ SoCullElement::completelyInside(SoState * state)
 
 // Documented in superclass. Overridden to assert that this method is
 // not called for this element.
-SbBool
+bool
 SoCullElement::matches(const SoElement *) const
 {
   assert(0 && "should not get here");
-  return FALSE;
+  return false;
 }
 
 // Documented in superclass. Overridden to assert that this method is
@@ -247,9 +247,9 @@ SoCullElement::copyMatchInfo(void) const
 //
 // private method which does the actual culling
 //
-SbBool
-SoCullElement::docull(SoState * state, const SbBox3f & box, const SbBool transform,
-                      const SbBool updateelem)
+bool
+SoCullElement::docull(SoState * state, const SbBox3f & box, const bool transform,
+                      const bool updateelem)
 {
   // try to avoid a push if possible
   const SoCullElement * elem = coin_safe_cast<const SoCullElement *>
@@ -257,7 +257,7 @@ SoCullElement::docull(SoState * state, const SbBox3f & box, const SbBool transfo
      state->getElementNoPush(classStackIndex)
     );
 
-  if (!elem) return FALSE;
+  if (!elem) return false;
 
   int i, j;
   SbVec3f min, max;
@@ -266,12 +266,12 @@ SoCullElement::docull(SoState * state, const SbBox3f & box, const SbBool transfo
   SbVec3f pts[8];
 
   SbMatrix mm;
-  SbBool identity = ! transform;
+  bool identity = ! transform;
   if (transform) {
-    SbBool wasopen = state->isCacheOpen();
+    bool wasopen = state->isCacheOpen();
     // close the cache, since we don't create a cache dependency on
     // the model matrix element
-    state->setCacheOpen(FALSE);
+    state->setCacheOpen(false);
     mm = SoModelMatrixElement::get(state);
     state->setCacheOpen(wasopen);
   }
@@ -301,7 +301,7 @@ SoCullElement::docull(SoState * state, const SbBox3f & box, const SbBool transfo
         flags |= mask;
       }
       else if (out == 8) {
-        return TRUE;
+        return true;
       }
     }
   }
@@ -313,5 +313,5 @@ SoCullElement::docull(SoState * state, const SbBox3f & box, const SbBool transfo
        );
     elem->flags = flags;
   }
-  return FALSE;
+  return false;
 }

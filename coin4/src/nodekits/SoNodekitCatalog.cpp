@@ -58,7 +58,7 @@ public:
 
   SbName name, parentname, siblingname;
   SoType type, defaulttype, containertype;
-  SbBool isdefaultnull, islist, ispublic;
+  bool isdefaultnull, islist, ispublic;
   SoTypeList itemtypeslist;
 };
 
@@ -169,9 +169,9 @@ SoNodekitCatalog::getDefaultType(const SbName & name) const
 }
 
 /*!
-  Returns \c TRUE if the \a part is empty by default, otherwise \c FALSE.
+  Returns \c true if the \a part is empty by default, otherwise \c false.
 */
-SbBool
+bool
 SoNodekitCatalog::isNullByDefault(int part) const
 {
   assert( this->delayeditems.getLength() == 0 );
@@ -186,12 +186,12 @@ SoNodekitCatalog::isNullByDefault(int part) const
 // without the explicit \fn.
 
 /*!
-  \fn SbBool SoNodekitCatalog::isNullByDefault(const SbName & name) const
+  \fn bool SoNodekitCatalog::isNullByDefault(const SbName & name) const
 
-  Returns \c TRUE if part \a name is empty by default, otherwise \c
-  FALSE.
+  Returns \c true if part \a name is empty by default, otherwise \c
+  false.
 */
-SbBool
+bool
 SoNodekitCatalog::isNullByDefault(const SbName & name) const
 {
   assert(this->delayeditems.getLength() == 0);
@@ -199,10 +199,10 @@ SoNodekitCatalog::isNullByDefault(const SbName & name) const
 }
 
 /*!
-  Returns \c TRUE if the \a part is \e not a parent for any
+  Returns \c true if the \a part is \e not a parent for any
   other parts in the nodekit catalog.
 */
-SbBool
+bool
 SoNodekitCatalog::isLeaf(int part) const
 {
   assert( this->delayeditems.getLength() == 0);
@@ -211,16 +211,16 @@ SoNodekitCatalog::isLeaf(int part) const
 
   for (int i=0; i < this->items.getLength(); i++) {
     if ((i != part) && (this->items[part]->name == this->items[i]->parentname))
-      return FALSE;
+      return false;
   }
-  return TRUE;
+  return true;
 }
 
 /*!
-  Returns \c TRUE if the part \a name is \e not a parent for any
+  Returns \c true if the part \a name is \e not a parent for any
   other parts in the nodekit catalog.
 */
-SbBool
+bool
 SoNodekitCatalog::isLeaf(const SbName & name) const
 {
   assert(this->delayeditems.getLength() == 0);
@@ -329,9 +329,9 @@ SoNodekitCatalog::getRightSiblingPartNumber(const SbName & name) const
 }
 
 /*!
-  Returns \c TRUE if the given \a part is a list container.
+  Returns \c true if the given \a part is a list container.
 */
-SbBool
+bool
 SoNodekitCatalog::isList(int part) const
 {
   assert(this->delayeditems.getLength() == 0);
@@ -342,9 +342,9 @@ SoNodekitCatalog::isList(int part) const
 }
 
 /*!
-  Returns \c TRUE if the given part is a list container.
+  Returns \c true if the given part is a list container.
 */
-SbBool
+bool
 SoNodekitCatalog::isList(const SbName & name) const
 {
   assert(this->delayeditems.getLength() == 0);
@@ -406,10 +406,10 @@ SoNodekitCatalog::getListItemTypes(const SbName & name) const
 }
 
 /*!
-  Returns \c TRUE if \a part is visible and publicly available for
-  queries and modifications, \c FALSE if \a part is hidden.
+  Returns \c true if \a part is visible and publicly available for
+  queries and modifications, \c false if \a part is hidden.
 */
-SbBool
+bool
 SoNodekitCatalog::isPublic(int part) const
 {
   assert( this->delayeditems.getLength() == 0 );
@@ -419,10 +419,10 @@ SoNodekitCatalog::isPublic(int part) const
 }
 
 /*!
-  Returns \c TRUE if the part is visible and publicly available for
-  queries and modifications, \c FALSE if it is hidden.
+  Returns \c true if the part is visible and publicly available for
+  queries and modifications, \c false if it is hidden.
 */
-SbBool
+bool
 SoNodekitCatalog::isPublic(const SbName & name) const
 {
   assert(this->delayeditems.getLength() == 0);
@@ -466,22 +466,22 @@ static void SoNodekitCatalogPropagateDefaultInit( SoNodekitCatalog * pthis )
     if( !pthis->isNullByDefault( i ) ){
       SbName parent = pthis->getParentName( i );
       if( pthis->isNullByDefault( parent ) )
-        pthis->setNullByDefault( parent, FALSE );
+        pthis->setNullByDefault( parent, false );
     }
   }
 }
                                                
 
 /*!
-  Add a new entry to the catalog. Returns \c TRUE if add was ok.
+  Add a new entry to the catalog. Returns \c true if add was ok.
 */
-SbBool
+bool
 SoNodekitCatalog::addEntry(const SbName & name, SoType type,
-                           SoType defaulttype, SbBool isdefaultnull,
+                           SoType defaulttype, bool isdefaultnull,
                            const SbName & parentname,
                            const SbName & rightsiblingname,
-                           SbBool islist, SoType listcontainertype,
-                           SoType listitemtype, SbBool ispublic)
+                           bool islist, SoType listcontainertype,
+                           SoType listitemtype, bool ispublic)
 {
   // The elements of a nodekit catalog is conceptually ordered like a
   // tree, but implementation-wise we stuff them inside a list. This
@@ -532,14 +532,14 @@ SoNodekitCatalog::addEntry(const SbName & name, SoType type,
     newitem->itemtypeslist.append(listitemtype);
     newitem->ispublic = ispublic;
     
-    SbBool delay = FALSE;
+    bool delay = false;
     if (rightsibling != "" &&
         this->getPartNumber(this->items, rightsibling) == SO_CATALOG_NAME_NOT_FOUND) {
-      delay = TRUE;
+      delay = true;
     }
     else if (parent != "" &&
              this->getPartNumber(this->items, parent) == SO_CATALOG_NAME_NOT_FOUND) {
-      delay = TRUE;
+      delay = true;
     }  
     
     if (delay)
@@ -574,20 +574,20 @@ SoNodekitCatalog::addEntry(const SbName & name, SoType type,
       SoNodekitCatalogPropagateDefaultInit( this );
   }
   CC_GLOBAL_UNLOCK;
-  return TRUE;
+  return true;
 }
 
 // Add the item at the correct position in the entry list, where the
 // arguemtn "newitem" is guaranteed to have both parent and rigt
 // sibling (if any) present in the catalog.
-SbBool
+bool
 SoNodekitCatalog::reallyAddEntry(CatalogItem * newitem)
 {
   const int n = this->items.getLength();
   
   if (n == 0) {
     this->items.append(newitem);
-    return TRUE;
+    return true;
   }
 
   int position = -1;
@@ -614,7 +614,7 @@ SoNodekitCatalog::reallyAddEntry(CatalogItem * newitem)
     this->items.append(newitem);
   else 
     this->items.insert(newitem, position);
-  return TRUE;
+  return true;
 }
 
 /*!
@@ -687,7 +687,7 @@ SoNodekitCatalog::narrowTypes(const SbName & name,
   default.
 */
 void
-SoNodekitCatalog::setNullByDefault(const SbName & name, SbBool nullbydefault)
+SoNodekitCatalog::setNullByDefault(const SbName & name, bool nullbydefault)
 {
   assert(this->delayeditems.getLength() == 0);
 
@@ -705,7 +705,7 @@ SoNodekitCatalog::setNullByDefault(const SbName & name, SbBool nullbydefault)
   nodekit class catalogs have already been scanned (or are being scanned)
   during the recursion. You should normally just pass in an empty list.
 */
-SbBool
+bool
 SoNodekitCatalog::recursiveSearch(int part, const SbName & name,
                                   SoTypeList * checked) const
 {
@@ -720,7 +720,7 @@ SoNodekitCatalog::recursiveSearch(int part, const SbName & name,
   int end = (part == 0) ? this->getNumEntries()-1 : part;
 
   for (int i = start; i <= end; i++) {
-    if (name == this->getName(i)) return TRUE;
+    if (name == this->getName(i)) return true;
 
     SoType parttype = this->getType(i);
     if (parttype.isDerivedFrom(SoBaseKit::getClassTypeId())) {
@@ -729,14 +729,14 @@ SoNodekitCatalog::recursiveSearch(int part, const SbName & name,
         SoBaseKit * kit = (SoBaseKit *)parttype.createInstance();
         kit->ref();
         const SoNodekitCatalog * cat = kit->getNodekitCatalog();
-        SbBool result = cat->recursiveSearch(0, name, checked);
+        bool result = cat->recursiveSearch(0, name, checked);
         kit->unref();
-        if (result) return TRUE;
+        if (result) return true;
       }
     }
   }
 
-  return FALSE;
+  return false;
 }
 
 /*!
@@ -804,33 +804,33 @@ SoNodekitCatalog::addListItemType(const SbList<class CatalogItem *> & l,
 }
 
 // Overloaded to work with both delayed and "real" list of entries.
-SbBool
+bool
 SoNodekitCatalog::addListItemType(const SbList<class CatalogItem *> & l,
                                   const SbName & name, SoType type)
 {
   int part = this->getPartNumber(l, name);
-  if (part == SO_CATALOG_NAME_NOT_FOUND) return FALSE;
+  if (part == SO_CATALOG_NAME_NOT_FOUND) return false;
   this->addListItemType(l, part, type);
-  return TRUE;
+  return true;
 }
 
 /*!
   \internal
   \since Coin 2.3
 */
-SbBool 
+bool 
 SoNodekitCatalog::hasEntry(const SbName & name) const
 { 
-  if (this->getPartNumber(this->items, name) != SO_CATALOG_NAME_NOT_FOUND) return TRUE;
-  if (this->getPartNumber(this->delayeditems, name) != SO_CATALOG_NAME_NOT_FOUND) return TRUE;
-  return FALSE;
+  if (this->getPartNumber(this->items, name) != SO_CATALOG_NAME_NOT_FOUND) return true;
+  if (this->getPartNumber(this->delayeditems, name) != SO_CATALOG_NAME_NOT_FOUND) return true;
+  return false;
 }
 
 /*!
   \internal
   \since Coin 2.3
 */
-SbBool 
+bool 
 SoNodekitCatalog::hasListItemType(const SbName & name, SoType type) const
 {
   const SbList <class CatalogItem*> * lptr = &this->items;

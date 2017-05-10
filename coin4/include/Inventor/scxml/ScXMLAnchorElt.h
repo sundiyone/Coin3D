@@ -45,7 +45,7 @@ public:
   virtual void setSnapshotAttribute(const char * snapshot);
   const char * getSnapshotAttribute(void) const { return this->snapshot; }
 
-  virtual SbBool handleXMLAttributes(void);
+  virtual bool handleXMLAttributes(void);
 
   virtual void copyContents(const ScXMLElt * rhs);
 

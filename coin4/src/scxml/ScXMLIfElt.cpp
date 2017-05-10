@@ -326,16 +326,16 @@ ScXMLIfElt::setCondAttribute(const char * condstr)
 
 // const char * getCondAttribute(void) const { return this->cond; }
 
-SbBool
+bool
 ScXMLIfElt::handleXMLAttributes(void)
 {
   if (!inherited::handleXMLAttributes()) {
-    return FALSE;
+    return false;
   }
 
   this->setCondAttribute(this->getXMLAttribute("cond"));
 
-  return TRUE;
+  return true;
 }
 
 void

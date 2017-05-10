@@ -43,9 +43,9 @@ extern "C" {
   void cc_dict_destruct(cc_dict * ht);
   void cc_dict_clear(cc_dict * ht);
 
-  SbBool cc_dict_put(cc_dict * ht, uintptr_t key, void * val);
-  SbBool cc_dict_get(cc_dict * ht, uintptr_t key, void ** val);
-  SbBool cc_dict_remove(cc_dict * ht, uintptr_t key);
+  bool cc_dict_put(cc_dict * ht, uintptr_t key, void * val);
+  bool cc_dict_get(cc_dict * ht, uintptr_t key, void ** val);
+  bool cc_dict_remove(cc_dict * ht, uintptr_t key);
   void cc_dict_apply(cc_dict * ht, cc_dict_apply_func * func, void * closure);
 
   unsigned int cc_dict_get_num_elements(cc_dict * ht);

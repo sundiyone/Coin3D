@@ -50,14 +50,14 @@ public:
   int getPointCount(void) const;
   int getTextCount(void) const;
   int getImageCount(void) const;
-  SbBool containsNoPrimitives(void);
-  SbBool containsNonTriangleShapes(void);
+  bool containsNoPrimitives(void);
+  bool containsNonTriangleShapes(void);
 
-  SbBool is3DTextCountedAsTriangles(void);
-  void setCount3DTextAsTriangles(const SbBool flag);
+  bool is3DTextCountedAsTriangles(void);
+  void setCount3DTextAsTriangles(const bool flag);
 
-  SbBool canApproximateCount(void);
-  void setCanApproximate(const SbBool flag);
+  bool canApproximateCount(void);
+  void setCanApproximate(const bool flag);
 
   void setDecimationValue(SoDecimationTypeElement::Type type,
                           float percentage = 1.0);
@@ -85,9 +85,9 @@ private:
   int numtexts;
   int numimages;
 
-  SbBool textastris;
-  SbBool approx;
-  SbBool nonvertexastris;
+  bool textastris;
+  bool approx;
+  bool nonvertexastris;
   SoDecimationTypeElement::Type decimationtype;
   float decimationpercentage;
 

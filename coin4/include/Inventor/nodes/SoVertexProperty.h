@@ -75,10 +75,10 @@ protected:
   virtual void notify(SoNotList *list);
 
 private:
-  void updateVertex(SoState * state, SbBool glrender, SbBool vbo);
-  void updateTexCoord(SoState * state, SbBool glrender, SbBool vbo);
-  void updateNormal(SoState * state, uint32_t overrideflags, SbBool glrender, SbBool vbo);
-  void updateMaterial(SoState * state, uint32_t overrideflags, SbBool glrender, SbBool vbo);
+  void updateVertex(SoState * state, bool glrender, bool vbo);
+  void updateTexCoord(SoState * state, bool glrender, bool vbo);
+  void updateNormal(SoState * state, uint32_t overrideflags, bool glrender, bool vbo);
+  void updateMaterial(SoState * state, uint32_t overrideflags, bool glrender, bool vbo);
   SoVertexPropertyP * pimpl;
 };
 

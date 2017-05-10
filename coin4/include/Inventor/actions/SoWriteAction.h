@@ -49,14 +49,14 @@ public:
 
 protected:
   virtual void beginTraversal(SoNode * node);
-  virtual SbBool shouldCompactPathLists(void) const;
+  virtual bool shouldCompactPathLists(void) const;
 
 private:
   void commonConstructor(SoOutput * out);
 
   SoOutput * outobj;
-  SbBool localoutputalloc;
-  SbBool continuing;
+  bool localoutputalloc;
+  bool continuing;
 
 private:
   SbLazyPimplPtr<SoWriteActionP> pimpl;

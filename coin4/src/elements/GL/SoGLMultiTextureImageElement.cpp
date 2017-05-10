@@ -182,7 +182,7 @@ multi_translateWrap(const SoGLImage::Wrap wrap)
 }
 
 /*!
-  Sets the current texture. Id \a didapply is TRUE, it is assumed
+  Sets the current texture. Id \a didapply is true, it is assumed
   that the texture image already is the current GL texture. Do not
   use this feature unless you know what you're doing.
 */
@@ -227,7 +227,7 @@ SoGLMultiTextureImageElement::set(SoState * const state, SoNode * const node,
 
   // FIXME: check if it's possible to support for other units as well
   if ((unit == 0) && image && image->isOfType(SoGLBigImage::getClassTypeId())) {
-    SoShapeStyleElement::setBigImageEnabled(state, TRUE);
+    SoShapeStyleElement::setBigImageEnabled(state, true);
   }
   SoShapeStyleElement::setTransparentTexture(state,
                                              SoGLMultiTextureImageElement::hasTransparency(state));
@@ -268,24 +268,24 @@ SoGLMultiTextureImageElement::get(SoState * state,
 }
 
 /*!
-  Returns TRUE if any of the images have at least one transparent pixel.
+  Returns true if any of the images have at least one transparent pixel.
   
   \since Coin 3.1
 */
-SbBool 
+bool 
 SoGLMultiTextureImageElement::hasTransparency(SoState * state)
 {
   const SoGLMultiTextureImageElement * elem = (const SoGLMultiTextureImageElement*)
     getConstElement(state, classStackIndex);
   
   for (int i = 0; i <= PRIVATE(elem)->unitdata.getLength(); i++) {
-    if (elem->hasTransparency(i)) return TRUE;
+    if (elem->hasTransparency(i)) return true;
   }
-  return FALSE;
+  return false;
 }
 
 // doc from parent
-SbBool
+bool
 SoGLMultiTextureImageElement::hasTransparency(const int unit) const
 {
   if (unit < PRIVATE(this)->unitdata.getLength()) {
@@ -294,7 +294,7 @@ SoGLMultiTextureImageElement::hasTransparency(const int unit) const
       return ud.glimage->hasTransparency();
     }
   }
-  return FALSE;
+  return false;
 }
 
 void

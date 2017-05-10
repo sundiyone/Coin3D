@@ -41,7 +41,7 @@
 /*!
   Constructor.
 */
-SoNormalBundle::SoNormalBundle(SoAction * action, SbBool forrendering)
+SoNormalBundle::SoNormalBundle(SoAction * action, bool forrendering)
   : SoBundle(action)
 {
   this->state->push();
@@ -64,16 +64,16 @@ SoNormalBundle::~SoNormalBundle()
 }
 
 /*!
-  Returns FALSE if there are normals on the state. Otherwise
+  Returns false if there are normals on the state. Otherwise
   initGenerator() is called with \a numneeded as argument,
-  and TRUE is returned.
+  and true is returned.
 */
-SbBool 
+bool 
 SoNormalBundle::shouldGenerate(int numneeded)
 {
-  if (this->elem->getNum()) return FALSE;
+  if (this->elem->getNum()) return false;
   this->initGenerator(numneeded);
-  return TRUE;
+  return true;
 }
 
 /*!
@@ -84,7 +84,7 @@ void
 SoNormalBundle::initGenerator(int initnum)
 {
   delete this->generator;
-  SbBool ccw = SoShapeHintsElement::getVertexOrdering(this->state)
+  bool ccw = SoShapeHintsElement::getVertexOrdering(this->state)
     != SoShapeHintsElement::CLOCKWISE;
   this->generator = new SoNormalGenerator(ccw, initnum);
 }
@@ -142,7 +142,7 @@ SoNormalBundle::triangle(const SbVec3f & p1,
   pushed onto the current state.
 */
 void 
-SoNormalBundle::generate(int startindex, SbBool addtostate)
+SoNormalBundle::generate(int startindex, bool addtostate)
 {
   // we don't support startindex != 0 
   // The SoNonIndexedShape::startIndex field has been obsoleted by

@@ -73,7 +73,7 @@ SoMFVec4ub::initClass(void)
 // parent classes.
 #ifndef DOXYGEN_SKIP_THIS
 
-SbBool
+bool
 SoMFVec4ub::read1Value(SoInput * in, int idx)
 {
   assert(idx < this->maxNum);
@@ -161,23 +161,23 @@ BOOST_AUTO_TEST_CASE(initialized)
 
 BOOST_AUTO_TEST_CASE(textinput)
 {
-  SbBool ok;
+  bool ok;
   SoMFVec4ub field;
   ok = field.set("[]");
-  BOOST_CHECK_EQUAL(ok, TRUE);
+  BOOST_CHECK_EQUAL(ok, true);
   BOOST_CHECK_EQUAL(field.getNum(), 0);
   ok = field.set("1 2 3 4");
-  BOOST_CHECK_EQUAL(ok, TRUE);
+  BOOST_CHECK_EQUAL(ok, true);
   BOOST_CHECK_EQUAL(field.getNum(), 1);
   ok = field.set("[1 2 3 4]");
-  BOOST_CHECK_EQUAL(ok, TRUE);
+  BOOST_CHECK_EQUAL(ok, true);
   BOOST_CHECK_EQUAL(field.getNum(), 1);
   ok = field.set("[1 2 3 4 1 2 3 4]");
-  BOOST_CHECK_EQUAL(ok, TRUE);
+  BOOST_CHECK_EQUAL(ok, true);
   BOOST_CHECK_EQUAL(field.getNum(), 2);
   BOOST_CHECK_EQUAL(field[0], field[1]);
   ok = field.set("[1 2 3 4, 1 2 3 4,]");
-  BOOST_CHECK_EQUAL(ok, TRUE);
+  BOOST_CHECK_EQUAL(ok, true);
   BOOST_CHECK_EQUAL(field.getNum(), 2);
   BOOST_CHECK_EQUAL(field[0], field[1]);
 }

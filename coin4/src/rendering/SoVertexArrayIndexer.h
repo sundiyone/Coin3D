@@ -58,7 +58,7 @@ public:
   void endTarget(GLenum target);
 
   void close(void);
-  void render(const cc_glglue * glue, const SbBool renderasvbo, const uint32_t vbocontextid);
+  void render(const cc_glglue * glue, const bool renderasvbo, const uint32_t vbocontextid);
 
   int getNumVertices(void);
   int getNumIndices(void) const;
@@ -79,7 +79,7 @@ private:
   SbList <const GLint *> ciarray;
   SbList <GLint> indexarray;
   SoVBO * vbo;
-  SbBool use_shorts;
+  bool use_shorts;
 };
 
 #endif // COIN_VERTEXARRAYINDEXER_H

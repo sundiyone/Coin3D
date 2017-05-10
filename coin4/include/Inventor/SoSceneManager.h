@@ -46,16 +46,16 @@ public:
   SoSceneManager(void);
   virtual ~SoSceneManager();
 
-  virtual void render(const SbBool clearwindow = TRUE,
-                      const SbBool clearzbuffer = TRUE);
+  virtual void render(const bool clearwindow = true,
+                      const bool clearzbuffer = true);
   virtual void render(SoGLRenderAction * action,
-                      const SbBool initmatrices = TRUE,
-                      const SbBool clearwindow = TRUE,
-                      const SbBool clearzbuffer = TRUE);
+                      const bool initmatrices = true,
+                      const bool clearwindow = true,
+                      const bool clearzbuffer = true);
 
   void setCamera(SoCamera * camera);
   SoCamera * getCamera(void) const;
-  virtual SbBool processEvent(const SoEvent * const event);
+  virtual bool processEvent(const SoEvent * const event);
   void reinitialize(void);
   void scheduleRedraw(void);
   virtual void setSceneGraph(SoNode * const sceneroot);
@@ -72,17 +72,17 @@ public:
   const SbColor & getBackgroundColor(void) const;
   void setBackgroundIndex(const int index);
   int getBackgroundIndex(void) const;
-  void setRGBMode(const SbBool onOrOff);
-  SbBool isRGBMode(void) const;
+  void setRGBMode(const bool onOrOff);
+  bool isRGBMode(void) const;
   virtual void activate(void);
   virtual void deactivate(void);
   void setRenderCallback(SoSceneManagerRenderCB * f,
                          void * const userData = NULL);
-  SbBool isAutoRedraw(void) const;
+  bool isAutoRedraw(void) const;
   void setRedrawPriority(const uint32_t priority);
   uint32_t getRedrawPriority(void) const;
-  void setAntialiasing(const SbBool smoothing, const int numPasses);
-  void getAntialiasing(SbBool & smoothing, int & numPasses) const;
+  void setAntialiasing(const bool smoothing, const int numPasses);
+  void getAntialiasing(bool & smoothing, int & numPasses) const;
   void setGLRenderAction(SoGLRenderAction * const action);
   SoGLRenderAction * getGLRenderAction(void) const;
   void setAudioRenderAction(SoAudioRenderAction * const action);
@@ -91,8 +91,8 @@ public:
   SoHandleEventAction * getHandleEventAction(void) const;
 
   static uint32_t getDefaultRedrawPriority(void);
-  static void enableRealTimeUpdate(const SbBool flag);
-  static SbBool isRealTimeUpdateEnabled(void);
+  static void enableRealTimeUpdate(const bool flag);
+  static bool isRealTimeUpdateEnabled(void);
 
 protected:
   int isActive(void) const;

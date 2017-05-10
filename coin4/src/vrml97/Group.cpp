@@ -178,7 +178,7 @@ public:
 public:
   enum { YES, NO, MAYBE } hassoundchild;
 
-  SoGLCacheList * getGLCacheList(const SbBool createifnull);
+  SoGLCacheList * getGLCacheList(const bool createifnull);
 
   void invalidateGLCaches(void) {
     glcachestorage->applyToAll(invalidate_gl_cache, NULL);
@@ -195,7 +195,7 @@ public:
 };
 
 SoGLCacheList *
-SoVRMLGroupP::getGLCacheList(const SbBool createifnull)
+SoVRMLGroupP::getGLCacheList(const bool createifnull)
 {
   sovrmlgroup_storage * ptr = 
     (sovrmlgroup_storage*) this->glcachestorage->get();
@@ -363,34 +363,34 @@ SoVRMLGroup::getBoundingBox(SoGetBoundingBoxAction * action)
   SoState * state = action->getState();
 
   SbXfBox3f childrenbbox;
-  SbBool childrencenterset;
+  bool childrencenterset;
   SbVec3f childrencenter;
 
   // FIXME: AUTO is interpreted as ON for the boundingBoxCaching
   // field, but we should trigger some heuristics based on scene graph
   // "behavior" in the children subgraphs if the value is set to
   // AUTO. 19990513 mortene.
-  SbBool iscaching = this->boundingBoxCaching.getValue() != OFF;
+  bool iscaching = this->boundingBoxCaching.getValue() != OFF;
 
   switch (action->getCurPathCode()) {
   case SoAction::IN_PATH:
     // can't cache if we're not traversing all children
-    iscaching = FALSE;
+    iscaching = false;
     break;
   case SoAction::OFF_PATH:
     return; // no need to do any more work
   case SoAction::BELOW_PATH:
   case SoAction::NO_PATH:
     // check if this is a normal traversal
-    if (action->isInCameraSpace() || action->isResetPath()) iscaching = FALSE;
+    if (action->isInCameraSpace() || action->isResetPath()) iscaching = false;
     break;
   default:
-    iscaching = FALSE;
+    iscaching = false;
     assert(0 && "unknown path code");
     break;
   }
 
-  SbBool validcache = iscaching && PRIVATE(this)->bboxcache && PRIVATE(this)->bboxcache->isValid(state);
+  bool validcache = iscaching && PRIVATE(this)->bboxcache && PRIVATE(this)->bboxcache->isValid(state);
 
   if (iscaching && validcache) {
     SoCacheElement::addCacheDependency(state, PRIVATE(this)->bboxcache);
@@ -404,16 +404,16 @@ SoVRMLGroup::getBoundingBox(SoGetBoundingBoxAction * action)
   }
   else {
     SbXfBox3f abox = action->getXfBoundingBox();
-    SbBool storedinvalid = FALSE;
+    bool storedinvalid = false;
 
     // check if we should disable auto caching
     if (PRIVATE(this)->bboxcache_destroycount > 10 && this->boundingBoxCaching.getValue() == AUTO) {
       if (float(PRIVATE(this)->bboxcache_usecount) / float(PRIVATE(this)->bboxcache_destroycount) < 5.0f) { 
-        iscaching = FALSE;
+        iscaching = false;
       }
     }
     if (iscaching) {
-      storedinvalid = SoCacheElement::setInvalid(FALSE);
+      storedinvalid = SoCacheElement::setInvalid(false);
     }
     state->push();
 
@@ -458,7 +458,7 @@ SoVRMLGroup::getBoundingBox(SoGetBoundingBoxAction * action)
 #else
       action->resetCenter();
 #endif
-      action->setCenter(childrencenter, TRUE);
+      action->setCenter(childrencenter, true);
     }
   }
 }
@@ -475,12 +475,12 @@ SoVRMLGroup::getMatrix(SoGetMatrixAction * action)
 }
 
 // compute object space ray and test for intersection
-static SbBool
+static bool
 ray_intersect(SoRayPickAction * action, const SbBox3f & box)
 {
-  if (box.isEmpty()) return FALSE;
+  if (box.isEmpty()) return false;
   action->setObjectSpace();
-  return action->intersect(box, TRUE);
+  return action->intersect(box, true);
 }
 
 // Doc in parent
@@ -509,8 +509,8 @@ SoVRMLGroup::search(SoSearchAction * action)
 void
 SoVRMLGroup::write(SoWriteAction * action)
 {
-  this->boundingBoxCaching.setDefault(TRUE);
-  this->renderCaching.setDefault(TRUE);
+  this->boundingBoxCaching.setDefault(true);
+  this->renderCaching.setDefault(true);
   inherited::write(action);
 }
 
@@ -526,7 +526,7 @@ SoVRMLGroup::audioRender(SoAudioRenderAction * action)
   if (PRIVATE(this)->hassoundchild != SoVRMLGroupP::NO) {
     if (action->getPathCode(numindices, indices) != SoAction::IN_PATH) {
       action->getState()->push();
-      SoSoundElement::setSceneGraphHasSoundNode(state, this, FALSE);
+      SoSoundElement::setSceneGraphHasSoundNode(state, this, false);
       inherited::doAction(action);
       PRIVATE(this)->hassoundchild = SoSoundElement::sceneGraphHasSoundNode(state) ? 
         SoVRMLGroupP::YES : SoVRMLGroupP::NO;
@@ -553,12 +553,12 @@ SoVRMLGroup::GLRenderBelowPath(SoGLRenderAction * action)
 {
   SoState * state = action->getState();
   state->push();
-  SbBool didcull = FALSE;
+  bool didcull = false;
   SoGLCacheList * createcache = NULL;
   if ((this->renderCaching.getValue() != OFF) && 
       (SoVRMLGroup::getNumRenderCaches() > 0)) {
     if (!state->isCacheOpen()) {
-      didcull = TRUE;
+      didcull = true;
       if (this->cullTest(state)) {
         // we're outside the view frustum
         state->pop();
@@ -567,7 +567,7 @@ SoVRMLGroup::GLRenderBelowPath(SoGLRenderAction * action)
     }
     
     PRIVATE(this)->lock();
-    SoGLCacheList * glcachelist = PRIVATE(this)->getGLCacheList(TRUE);
+    SoGLCacheList * glcachelist = PRIVATE(this)->getGLCacheList(true);
     PRIVATE(this)->unlock();
     if (glcachelist->call(action)) {
 #if GLCACHE_DEBUG && 1 // debug
@@ -588,8 +588,8 @@ SoVRMLGroup::GLRenderBelowPath(SoGLRenderAction * action)
 
   if (createcache) createcache->open(action);
   
-  SbBool outsidefrustum = (createcache || state->isCacheOpen() || didcull) ? 
-    FALSE : this->cullTest(state);
+  bool outsidefrustum = (createcache || state->isCacheOpen() || didcull) ? 
+    false : this->cullTest(state);
   
   if (createcache || !outsidefrustum) {
     int n = this->getChildren()->getLength();
@@ -613,7 +613,7 @@ SoVRMLGroup::GLRenderBelowPath(SoGLRenderAction * action)
       // Separator node, enable this code by setting the environment
       // variable COIN_GLERROR_DEBUGGING to "1" to see exactly which
       // node caused the error.
-      static SbBool chkglerr = sogl_glerror_debugging();
+      static bool chkglerr = sogl_glerror_debugging();
       if (chkglerr) {
         cc_string str;
         cc_string_construct(&str);
@@ -711,15 +711,15 @@ SoVRMLGroup::notify(SoNotList * list)
 }
 
 /*!
-  Returns TRUE if children can be culled.
+  Returns true if children can be culled.
 */
-SbBool
+bool
 SoVRMLGroup::cullTest(SoState * state)
 {
-  if (this->renderCulling.getValue() == SoVRMLGroup::OFF) return FALSE;
-  if (SoCullElement::completelyInside(state)) return FALSE;
+  if (this->renderCulling.getValue() == SoVRMLGroup::OFF) return false;
+  if (SoCullElement::completelyInside(state)) return false;
   
-  SbBool outside = FALSE;
+  bool outside = false;
   if (PRIVATE(this)->bboxcache &&
       PRIVATE(this)->bboxcache->isValid(state)) {
     const SbBox3f & bbox = PRIVATE(this)->bboxcache->getProjectedBox();
@@ -733,13 +733,13 @@ SoVRMLGroup::cullTest(SoState * state)
 //
 // no-push culltest
 //
-SbBool
+bool
 SoVRMLGroup::cullTestNoPush(SoState * state)
 {
-  if (this->renderCulling.getValue() == SoVRMLGroup::OFF) return FALSE;
-  if (SoCullElement::completelyInside(state)) return FALSE;
+  if (this->renderCulling.getValue() == SoVRMLGroup::OFF) return false;
+  if (SoCullElement::completelyInside(state)) return false;
 
-  SbBool outside = FALSE;
+  bool outside = false;
   if (PRIVATE(this)->bboxcache &&
       PRIVATE(this)->bboxcache->isValid(state)) {
     const SbBox3f & bbox = PRIVATE(this)->bboxcache->getProjectedBox();

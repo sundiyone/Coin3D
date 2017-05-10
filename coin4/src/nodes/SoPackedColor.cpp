@@ -81,8 +81,8 @@ class SoPackedColorP {
  public:
   SoPackedColorP() : vbo(NULL) { }
   ~SoPackedColorP() { delete this->vbo; }
-  SbBool transparent;
-  SbBool checktransparent;
+  bool transparent;
+  bool checktransparent;
   SoVBO * vbo;
 };
 
@@ -100,8 +100,8 @@ SoPackedColor::SoPackedColor()
 
   SO_NODE_ADD_FIELD(orderedRGBA, (0xccccccff));
 
-  PRIVATE(this)->checktransparent = FALSE;
-  PRIVATE(this)->transparent = FALSE;
+  PRIVATE(this)->checktransparent = false;
+  PRIVATE(this)->transparent = false;
 }
 
 /*!
@@ -147,16 +147,16 @@ SoPackedColor::doAction(SoAction * action)
 
     if (state->isElementEnabled(SoGLVBOElement::getClassStackIndex())) {
       SoBase::staticDataLock();
-      SbBool setvbo = FALSE;
+      bool setvbo = false;
       if (SoGLVBOElement::shouldCreateVBO(state, num)) {
-        SbBool dirty = FALSE;
-        setvbo = TRUE;
+        bool dirty = false;
+        setvbo = true;
         if (PRIVATE(this)->vbo == NULL) {
           PRIVATE(this)->vbo = new SoVBO(GL_ARRAY_BUFFER, GL_STATIC_DRAW);
-          dirty = TRUE;
+          dirty = true;
         }
         else if (PRIVATE(this)->vbo->getBufferDataId() != this->getNodeId()) {
-          dirty = TRUE;
+          dirty = true;
         }
         if (dirty) {
           if (coin_host_get_endianness() == COIN_HOST_IS_BIGENDIAN) {
@@ -190,7 +190,7 @@ SoPackedColor::doAction(SoAction * action)
       }    
     }
     if (this->isOverride()) {
-      SoOverrideElement::setDiffuseColorOverride(state, this, TRUE);
+      SoOverrideElement::setDiffuseColorOverride(state, this, true);
     }
   }
 }
@@ -203,19 +203,19 @@ SoPackedColor::callback(SoCallbackAction * action)
 }
 
 /*!
-  Returns \c TRUE if there is at least one RGBA vector in the set
+  Returns \c true if there is at least one RGBA vector in the set
   which is not completely opaque.
  */
-SbBool
+bool
 SoPackedColor::isTransparent(void)
 {
   if (PRIVATE(this)->checktransparent) {
-    PRIVATE(this)->checktransparent = FALSE;
-    PRIVATE(this)->transparent = FALSE;
+    PRIVATE(this)->checktransparent = false;
+    PRIVATE(this)->transparent = false;
     int n = this->orderedRGBA.getNum();
     for (int i = 0; i < n; i++) {
       if ((this->orderedRGBA[i] & 0xff) != 0xff) {
-        PRIVATE(this)->transparent = TRUE;
+        PRIVATE(this)->transparent = true;
         break;
       }
     }
@@ -231,7 +231,7 @@ SoPackedColor::notify(SoNotList *list)
 
   SoField *f = list->getLastField();
   if (f == &this->orderedRGBA) {
-    PRIVATE(this)->checktransparent = TRUE;
+    PRIVATE(this)->checktransparent = true;
   }
   inherited::notify(list);
 }

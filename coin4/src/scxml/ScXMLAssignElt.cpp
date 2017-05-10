@@ -197,18 +197,18 @@ ScXMLAssignElt::setExprAttribute(const char * exprstr)
 
 // const char * getExprAttribute(void) const { return this->expr; }
 
-SbBool
+bool
 ScXMLAssignElt::handleXMLAttributes(void)
 {
   if (!inherited::handleXMLAttributes()) {
-    return FALSE;
+    return false;
   }
 
   this->setLocationAttribute(this->getXMLAttribute("location"));
   this->setDataIDAttribute(this->getXMLAttribute("dataID"));
   this->setExprAttribute(this->getXMLAttribute("expr"));
 
-  return TRUE;
+  return true;
 }
 
 void

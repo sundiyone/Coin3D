@@ -47,8 +47,8 @@ public:
   SoTransformManip(void);
 
   SoDragger * getDragger(void);
-  SbBool replaceNode(SoPath * p);
-  SbBool replaceManip(SoPath * p, SoTransform * newone) const;
+  bool replaceNode(SoPath * p);
+  bool replaceManip(SoPath * p, SoTransform * newone) const;
 
   virtual void doAction(SoAction * action);
   virtual void callback(SoCallbackAction * action);
@@ -67,7 +67,7 @@ protected:
   void setDragger(SoDragger * newdragger);
 
   virtual void copyContents(const SoFieldContainer * fromfc,
-                            SbBool copyconnections);
+                            bool copyconnections);
 
   static void transferFieldValues(const SoTransform * from, SoTransform * to);
   static void valueChangedCB(void * f, SoDragger * d);
@@ -80,7 +80,7 @@ protected:
   SoFieldSensor * scaleOrientFieldSensor;
   SoChildList * children;
 
-  void attachSensors(const SbBool onoff);
+  void attachSensors(const bool onoff);
 
 private:
   SbLazyPimplPtr<SoTransformManipP> pimpl;

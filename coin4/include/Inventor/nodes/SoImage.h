@@ -73,10 +73,10 @@ protected:
   virtual void generatePrimitives(SoAction * action);
   virtual void computeBBox(SoAction * action, SbBox3f & box, SbVec3f & center);
 
-  virtual SbBool readInstance(SoInput * in, unsigned short flags);
+  virtual bool readInstance(SoInput * in, unsigned short flags);
   virtual void notify(SoNotList * list);
   int getReadStatus(void);
-  void setReadStatus(SbBool flag);
+  void setReadStatus(bool flag);
 
 private:
   SbVec2s getSize(void) const;
@@ -85,13 +85,13 @@ private:
                SbVec3f &v2, SbVec3f &v3);
 
   const unsigned char * getImage(SbVec2s & size, int & nc);
-  SbBool loadFilename(void);
-  SbBool readstatus;
+  bool loadFilename(void);
+  bool readstatus;
   SbImage * resizedimage;
-  SbBool resizedimagevalid;
+  bool resizedimagevalid;
   class SoFieldSensor * filenamesensor;
-  SbBool transparency;
-  SbBool testtransparency;
+  bool transparency;
+  bool testtransparency;
   void testTransparency(void);
   static void filenameSensorCB(void *, SoSensor *);
 };

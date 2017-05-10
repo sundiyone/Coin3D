@@ -76,21 +76,21 @@ SoPathSwitch::SoPathSwitch(void)
 }
 
 
-static SbBool 
+static bool 
 is_matching_paths(const SoPath * currentpath, const SoPath * pathswitchpath)
 {
-  if (pathswitchpath == NULL) return FALSE;
+  if (pathswitchpath == NULL) return false;
 
   const SoFullPath * current = (const SoFullPath*) currentpath;
   const SoFullPath * swpath = (const SoFullPath *) pathswitchpath;
   
   int swidx = swpath->getLength() - 1;
-  if (swidx < 0) return TRUE; // an empty path will always match
+  if (swidx < 0) return true; // an empty path will always match
 
   int curidx = current->getLength() - 2; // last node is this node. Skip it.
   
-  // test if swpath is a valid path. Return FALSE if not.
-  if (swidx > curidx) return FALSE;
+  // test if swpath is a valid path. Return false if not.
+  if (swidx > curidx) return false;
 
   // we know curidx >= swidx
   while (swidx > 0) {
@@ -103,7 +103,7 @@ is_matching_paths(const SoPath * currentpath, const SoPath * pathswitchpath)
   if (swidx == 0) { // don't test index for head node
     return swpath->getHead() == current->getNode(curidx);
   }
-  return FALSE;
+  return false;
 }
 
 

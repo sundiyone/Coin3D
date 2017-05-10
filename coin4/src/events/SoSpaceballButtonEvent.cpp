@@ -48,12 +48,12 @@
 
 /*!
   \def SO_SPACEBALL_PRESS_EVENT(EVENT, BUTTON)
-  This macro evaluates to \c TRUE iff the \c EVENT represents a press on the
+  This macro evaluates to \c true iff the \c EVENT represents a press on the
   given \c BUTTON.
 */
 /*!
   \def SO_SPACEBALL_RELEASE_EVENT(EVENT, BUTTON)
-  This macro evaluates to \c TRUE iff the \c EVENT represents a release of the
+  This macro evaluates to \c true iff the \c EVENT represents a release of the
   given \c BUTTON.
 */
 
@@ -115,7 +115,7 @@ SoSpaceballButtonEvent::getButton(void) const
 
   \sa isButtonReleaseEvent(), isOfType(), getButton(), getState()
  */
-SbBool
+bool
 SoSpaceballButtonEvent::isButtonPressEvent(const SoEvent * e,
                                            SoSpaceballButtonEvent::Button
                                            whichButton)
@@ -137,7 +137,7 @@ SoSpaceballButtonEvent::isButtonPressEvent(const SoEvent * e,
 
   \sa isButtonPressEvent(), isOfType(), getButton(), getState()
  */
-SbBool
+bool
 SoSpaceballButtonEvent::isButtonReleaseEvent(const SoEvent * e,
                                              SoSpaceballButtonEvent::Button
                                              whichButton)
@@ -161,7 +161,7 @@ SoSpaceballButtonEvent::isButtonReleaseEvent(const SoEvent * e,
   \since Coin 3.0
 */
 // Should we add stringToEnum as well perhaps?
-SbBool
+bool
 SoSpaceballButtonEvent::enumToString(Button enumval, SbString & stringrep)
 {
   switch (enumval) {
@@ -196,7 +196,7 @@ SoSpaceballButtonEvent::enumToString(Button enumval, SbString & stringrep)
     stringrep = "PICK";
     break;
   default:
-    return FALSE;
+    return false;
   }
-  return TRUE;
+  return true;
 }

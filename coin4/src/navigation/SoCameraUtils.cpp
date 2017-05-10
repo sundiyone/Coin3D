@@ -39,15 +39,15 @@ public:
 
   SoOrthographicCamera * getCastCamera(void) const;
 
-  virtual void setZoomValue(float zoomvalue, SbBool limit = FALSE);
-  virtual void adjustZoomValue(float diffvalue, SbBool limit = TRUE); // diffvalue=0.0 is identity
-  virtual void adjustZoom(float factor, SbBool limit = TRUE); // factor=1.0 is identity
+  virtual void setZoomValue(float zoomvalue, bool limit = false);
+  virtual void adjustZoomValue(float diffvalue, bool limit = true); // diffvalue=0.0 is identity
+  virtual void adjustZoom(float factor, bool limit = true); // factor=1.0 is identity
 
   virtual float getZoomFactor(void) const;
 
-  virtual void setZoomValueByDolly(float zoomvalue, SbBool limit = FALSE);
-  virtual void adjustZoomByDollyDistance(float distance, SbBool limit = TRUE); // distance=0.0 is identity
-  virtual void adjustZoomByDolly(float factor, SbBool limit = TRUE); // factor=1.0 is identity
+  virtual void setZoomValueByDolly(float zoomvalue, bool limit = false);
+  virtual void adjustZoomByDollyDistance(float distance, bool limit = true); // distance=0.0 is identity
+  virtual void adjustZoomByDolly(float factor, bool limit = true); // factor=1.0 is identity
 
   virtual float getZoomByDollyFactor(void) const;
 
@@ -59,15 +59,15 @@ public:
 
   SoPerspectiveCamera * getCastCamera(void) const;
 
-  virtual void setZoomValue(float zoomvalue, SbBool limit = FALSE);
-  virtual void adjustZoomValue(float diffvalue, SbBool limit = TRUE); // diffvalue=0.0 is identity
-  virtual void adjustZoom(float factor, SbBool limit = TRUE); // factor=1.0 is identity
+  virtual void setZoomValue(float zoomvalue, bool limit = false);
+  virtual void adjustZoomValue(float diffvalue, bool limit = true); // diffvalue=0.0 is identity
+  virtual void adjustZoom(float factor, bool limit = true); // factor=1.0 is identity
 
   virtual float getZoomFactor(void) const;
 
-  virtual void setZoomValueByDolly(float zoomvalue, SbBool limit = FALSE);
-  virtual void adjustZoomByDollyDistance(float distance, SbBool limit = TRUE); // distance=0.0 is identity
-  virtual void adjustZoomByDolly(float factor, SbBool limit = TRUE); // factor=1.0 is identity
+  virtual void setZoomValueByDolly(float zoomvalue, bool limit = false);
+  virtual void adjustZoomByDollyDistance(float distance, bool limit = true); // distance=0.0 is identity
+  virtual void adjustZoomByDolly(float factor, bool limit = true); // factor=1.0 is identity
 
   virtual float getZoomByDollyFactor(void) const;
 
@@ -79,15 +79,15 @@ public:
 
   SoFrustumCamera * getCastCamera(void) const;
 
-  virtual void setZoomValue(float zoomvalue, SbBool limit = FALSE);
-  virtual void adjustZoomValue(float diffvalue, SbBool limit = TRUE); // diffvalue=0.0 is identity
-  virtual void adjustZoom(float factor, SbBool limit = TRUE); // factor=1.0 is identity
+  virtual void setZoomValue(float zoomvalue, bool limit = false);
+  virtual void adjustZoomValue(float diffvalue, bool limit = true); // diffvalue=0.0 is identity
+  virtual void adjustZoom(float factor, bool limit = true); // factor=1.0 is identity
 
   virtual float getZoomFactor(void) const;
 
-  virtual void setZoomValueByDolly(float zoomvalue, SbBool limit = FALSE);
-  virtual void adjustZoomByDollyDistance(float distance, SbBool limit = TRUE); // distance=0.0 is identity
-  virtual void adjustZoomByDolly(float factor, SbBool limit = TRUE); // factor=1.0 is identity
+  virtual void setZoomValueByDolly(float zoomvalue, bool limit = false);
+  virtual void adjustZoomByDollyDistance(float distance, bool limit = true); // distance=0.0 is identity
+  virtual void adjustZoomByDolly(float factor, bool limit = true); // factor=1.0 is identity
 
   virtual float getZoomByDollyFactor(void) const;
 
@@ -126,9 +126,9 @@ SoCameraManager::SoCameraManager(SoCamera * thecamera)
   assert(camera);
   camera->ref();
 
-  this->havezoomlimits = FALSE;
+  this->havezoomlimits = false;
   this->minzoom = this->maxzoom = 0.0f;
-  this->havezoombydollylimits = FALSE;
+  this->havezoombydollylimits = false;
   this->mindollydistance = this->maxdollydistance = this->unitydistance = 0.0f;
 }
 
@@ -143,16 +143,16 @@ SoCameraManager::setZoomLimits(float minzoomvalue, float maxzoomvalue)
 {
   if (minzoomvalue == 0.0f && maxzoomvalue == 0.0f) {
     this->minzoom = this->maxzoom = 0.0f;
-    this->havezoomlimits = FALSE;
+    this->havezoomlimits = false;
   }
   else {
     this->minzoom = minzoomvalue;
     this->maxzoom = maxzoomvalue;
-    this->havezoomlimits = TRUE;
+    this->havezoomlimits = true;
   }
 }
 
-SbBool
+bool
 SoCameraManager::getZoomLimits(float & minzoomvalue, float & maxzoomvalue) const
 {
   minzoomvalue = this->minzoom;
@@ -171,18 +171,18 @@ SoCameraManager::setZoomByDollyLimits(float mindollydist, float maxdollydist, fl
 {
   if (mindollydist == 0.0f && maxdollydist == 0.0f && unitydist == 0.0f) {
     this->mindollydistance = this->maxdollydistance = this->unitydistance =  0.0f;
-    this->havezoombydollylimits = FALSE;
+    this->havezoombydollylimits = false;
   }
   else {
     this->mindollydistance = mindollydist;
     this->maxdollydistance = maxdollydist;
     this->unitydistance = unitydist;
-    this->havezoombydollylimits = TRUE;
+    this->havezoombydollylimits = true;
   }
 
 }
 
-SbBool
+bool
 SoCameraManager::getZoomByDollyLimits(float & mindollydist, float & maxdollydist, float & unitydist) const
 {
   mindollydist = this->mindollydistance;
@@ -238,7 +238,7 @@ SoOrthoPerspectiveCameraManager::getCastCamera(void) const
 }
 
 void
-SoOrthoPerspectiveCameraManager::setZoomValue(float zoomvalue, SbBool limit)
+SoOrthoPerspectiveCameraManager::setZoomValue(float zoomvalue, bool limit)
 {
   static const float defaultangle = float(M_PI_4);
   static const float defaultheight = sin(defaultangle) / cos(defaultangle);
@@ -265,7 +265,7 @@ SoOrthoPerspectiveCameraManager::setZoomValue(float zoomvalue, SbBool limit)
 }
 
 void
-SoOrthoPerspectiveCameraManager::adjustZoomValue(float diffvalue, SbBool limit)
+SoOrthoPerspectiveCameraManager::adjustZoomValue(float diffvalue, bool limit)
 {
   float currentfactor = this->getZoomFactor();
   float newfactor = currentfactor + diffvalue;
@@ -273,7 +273,7 @@ SoOrthoPerspectiveCameraManager::adjustZoomValue(float diffvalue, SbBool limit)
 }
 
 void
-SoOrthoPerspectiveCameraManager::adjustZoom(float factor, SbBool limit)
+SoOrthoPerspectiveCameraManager::adjustZoom(float factor, bool limit)
 {
   float currentfactor = this->getZoomFactor();
   float newfactor = currentfactor * factor;
@@ -301,7 +301,7 @@ SoOrthoPerspectiveCameraManager::getZoomFactor(void) const
   camera would zoom in
 */
 void
-SoOrthoPerspectiveCameraManager::setZoomValueByDolly(float zoomvalue, SbBool limit)
+SoOrthoPerspectiveCameraManager::setZoomValueByDolly(float zoomvalue, bool limit)
 {
   if (!this->havezoombydollylimits) {
     // don't have the necessary information
@@ -344,7 +344,7 @@ SoOrthoPerspectiveCameraManager::setZoomValueByDolly(float zoomvalue, SbBool lim
 }
 
 void
-SoOrthoPerspectiveCameraManager::adjustZoomByDollyDistance(float distance, SbBool limit)
+SoOrthoPerspectiveCameraManager::adjustZoomByDollyDistance(float distance, bool limit)
 {
   SoOrthographicCamera * camera = this->getCastCamera();
   float focaldistance = camera->focalDistance.getValue();
@@ -354,7 +354,7 @@ SoOrthoPerspectiveCameraManager::adjustZoomByDollyDistance(float distance, SbBoo
 }
 
 void
-SoOrthoPerspectiveCameraManager::adjustZoomByDolly(float factor, SbBool limit)
+SoOrthoPerspectiveCameraManager::adjustZoomByDolly(float factor, bool limit)
 {
   float currentfactor = this->getZoomByDollyFactor();
   this->setZoomValueByDolly(currentfactor * factor, limit);
@@ -388,7 +388,7 @@ SoPerspectiveCameraManager::getCastCamera(void) const
 
 
 void
-SoPerspectiveCameraManager::setZoomValue(float inzoomvalue, SbBool limit)
+SoPerspectiveCameraManager::setZoomValue(float inzoomvalue, bool limit)
 {
   // default* defines what zoom=1.0 is
   static const float defaultangle = float(M_PI_4);
@@ -416,7 +416,7 @@ SoPerspectiveCameraManager::setZoomValue(float inzoomvalue, SbBool limit)
 }
 
 void
-SoPerspectiveCameraManager::adjustZoomValue(float diffvalue, SbBool limit)
+SoPerspectiveCameraManager::adjustZoomValue(float diffvalue, bool limit)
 {
   float zoomfactor = this->getZoomFactor();
   float newzoomfactor = zoomfactor + diffvalue;
@@ -424,7 +424,7 @@ SoPerspectiveCameraManager::adjustZoomValue(float diffvalue, SbBool limit)
 }
 
 void
-SoPerspectiveCameraManager::adjustZoom(float factor, SbBool limit)
+SoPerspectiveCameraManager::adjustZoom(float factor, bool limit)
 {
   float zoomfactor = this->getZoomFactor();
   float newzoomfactor = zoomfactor * factor;
@@ -449,7 +449,7 @@ SoPerspectiveCameraManager::getZoomFactor(void) const
 }
 
 void
-SoPerspectiveCameraManager::setZoomValueByDolly(float zoomvalue, SbBool COIN_UNUSED_ARG(limit))
+SoPerspectiveCameraManager::setZoomValueByDolly(float zoomvalue, bool COIN_UNUSED_ARG(limit))
 {
   if (!this->havezoombydollylimits) {
     // without unitydistance, we don't know anything
@@ -468,7 +468,7 @@ SoPerspectiveCameraManager::setZoomValueByDolly(float zoomvalue, SbBool COIN_UNU
 }
 
 void
-SoPerspectiveCameraManager::adjustZoomByDollyDistance(float distance, SbBool limit)
+SoPerspectiveCameraManager::adjustZoomByDollyDistance(float distance, bool limit)
 {
   SoPerspectiveCamera * camera = this->getCastCamera();
   float focaldistance = camera->focalDistance.getValue();
@@ -489,7 +489,7 @@ SoPerspectiveCameraManager::adjustZoomByDollyDistance(float distance, SbBool lim
 }
 
 void
-SoPerspectiveCameraManager::adjustZoomByDolly(float factor, SbBool limit)
+SoPerspectiveCameraManager::adjustZoomByDolly(float factor, bool limit)
 {
   SoPerspectiveCamera * camera = this->getCastCamera();
   float focaldistance = camera->focalDistance.getValue();
@@ -542,17 +542,17 @@ SoFrustumCameraManager::getCastCamera(void) const
 
 
 void
-SoFrustumCameraManager::setZoomValue(float COIN_UNUSED_ARG(zoomvalue), SbBool COIN_UNUSED_ARG(limit))
+SoFrustumCameraManager::setZoomValue(float COIN_UNUSED_ARG(zoomvalue), bool COIN_UNUSED_ARG(limit))
 {
 }
 
 void
-SoFrustumCameraManager::adjustZoomValue(float COIN_UNUSED_ARG(diffvalue), SbBool COIN_UNUSED_ARG(limit))
+SoFrustumCameraManager::adjustZoomValue(float COIN_UNUSED_ARG(diffvalue), bool COIN_UNUSED_ARG(limit))
 {
 }
 
 void
-SoFrustumCameraManager::adjustZoom(float COIN_UNUSED_ARG(factor), SbBool COIN_UNUSED_ARG(limit))
+SoFrustumCameraManager::adjustZoom(float COIN_UNUSED_ARG(factor), bool COIN_UNUSED_ARG(limit))
 {
 }
 
@@ -564,17 +564,17 @@ SoFrustumCameraManager::getZoomFactor(void) const
 
 
 void
-SoFrustumCameraManager::setZoomValueByDolly(float COIN_UNUSED_ARG(zoomvalue), SbBool COIN_UNUSED_ARG(limit))
+SoFrustumCameraManager::setZoomValueByDolly(float COIN_UNUSED_ARG(zoomvalue), bool COIN_UNUSED_ARG(limit))
 {
 }
 
 void
-SoFrustumCameraManager::adjustZoomByDollyDistance(float COIN_UNUSED_ARG(distance), SbBool COIN_UNUSED_ARG(limit))
+SoFrustumCameraManager::adjustZoomByDollyDistance(float COIN_UNUSED_ARG(distance), bool COIN_UNUSED_ARG(limit))
 {
 }
 
 void
-SoFrustumCameraManager::adjustZoomByDolly(float COIN_UNUSED_ARG(factor), SbBool COIN_UNUSED_ARG(limit))
+SoFrustumCameraManager::adjustZoomByDolly(float COIN_UNUSED_ARG(factor), bool COIN_UNUSED_ARG(limit))
 {
 }
 

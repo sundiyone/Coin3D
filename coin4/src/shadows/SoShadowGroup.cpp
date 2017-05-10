@@ -56,11 +56,11 @@
   <b>FILE FORMAT/DEFAULTS:</b>
   \code
     SoShadowGroup {
-      isActive TRUE
+      isActive true
       intensity 0.5
       precision 0.5
       quality 0.5
-      shadowCachingEnabled TRUE
+      shadowCachingEnabled true
       visibilityRadius -1.0
       visibilityFlag LONGEST_BBOX_EDGE_FACTOR
 
@@ -95,20 +95,20 @@
     Separator {
       Complexity { value 1.0 }
       Material { diffuseColor 1 1 0 specularColor 1 1 1 shininess 0.9 }
-      Shuttle { translation0 -3 1 0 translation1 3 -5 0 speed 0.25 on TRUE }
+      Shuttle { translation0 -3 1 0 translation1 3 -5 0 speed 0.25 on true }
       Translation { translation -5 0 2 }
       Sphere { radius 2.0 }
     }
 
     Separator {
       Material { diffuseColor 1 0 0 specularColor 1 1 1 shininess 0.9 }
-      Shuttle { translation0 0 -5 0 translation1 0 5 0 speed 0.15 on TRUE }
+      Shuttle { translation0 0 -5 0 translation1 0 5 0 speed 0.15 on true }
       Translation { translation 0 0 -3 }
       Cube { depth 1.8 }
     }
     Separator {
       Material { diffuseColor 0 1 0 specularColor 1 1 1 shininess 0.9 }
-      Shuttle { translation0 -5 0 0 translation1 5 0 0 speed 0.3 on TRUE }
+      Shuttle { translation0 -5 0 0 translation1 5 0 0 speed 0.3 on true }
       Translation { translation 0 0 -3 }
       Cube { }
     }
@@ -133,7 +133,7 @@
   \var SoSFBool SoShadowGroup::isActive
 
   Use this field to turn shadow rendering for the subgraph
-  on/off. Default value is TRUE.
+  on/off. Default value is true.
 */
 
 /*!
@@ -361,7 +361,7 @@ public:
     GLenum format = GL_RGBA;
     GLenum type = GL_FLOAT;
 
-    while (!coin_glglue_is_texture_size_legal(glue, maxsize, maxsize, 0, internalformat, format, type, TRUE)) {
+    while (!coin_glglue_is_texture_size_legal(glue, maxsize, maxsize, 0, internalformat, format, type, true)) {
       maxsize >>= 1;
     }
     const int TEXSIZE = coin_geq_power_of_two((int) (sg->precision.getValue() * SbMin(maxsize, maxtexsize)));
@@ -601,8 +601,8 @@ public:
     master(master),
     bboxaction(SbViewportRegion(SbVec2s(100,100))),
     matrixaction(SbViewportRegion(SbVec2s(100,100))),
-    shadowlightsvalid(FALSE),
-    needscenesearch(TRUE),
+    shadowlightsvalid(false),
+    needscenesearch(true),
     shaderprogram(NULL),
     vertexshader(NULL),
     fragmentshader(NULL),
@@ -613,8 +613,8 @@ public:
     lightmodel(NULL),
     twosided(NULL),
     numtexunitsinscene(1),
-    hasclipplanes(FALSE),
-    subgraphsearchenabled(TRUE)
+    hasclipplanes(false),
+    subgraphsearchenabled(true)
   {
     this->shaderprogram = new SoShaderProgram;
     this->shaderprogram->ref();
@@ -671,16 +671,16 @@ public:
       }
     }
   }
-  void getQuality(SoState * COIN_UNUSED_ARG(state), SbBool & perpixelspot, SbBool & perpixelother) {
+  void getQuality(SoState * COIN_UNUSED_ARG(state), bool & perpixelspot, bool & perpixelother) {
     float quality = this->master->quality.getValue();
-    perpixelspot = FALSE;
-    perpixelother = FALSE;
+    perpixelspot = false;
+    perpixelother = false;
 
     if (quality > 0.3) {
-      perpixelspot = TRUE;
+      perpixelspot = true;
     }
     if (quality > 0.7) {
-      perpixelother = TRUE;
+      perpixelother = true;
     }
   }
   void deleteShadowLights(void) {
@@ -694,9 +694,9 @@ public:
 
   static void shader_enable_cb(void * closure,
                                SoState * state,
-                               const SbBool enable);
+                               const bool enable);
 
-  void GLRender(SoGLRenderAction * action, const SbBool inpath);
+  void GLRender(SoGLRenderAction * action, const bool inpath);
   void setVertexShader(SoState * state);
   void setFragmentShader(SoState * state);
   void updateSpotCamera(SoState * state, SoShadowLightCache * cache, const SbMatrix & transform);
@@ -717,8 +717,8 @@ public:
   SoGetBoundingBoxAction bboxaction;
   SoGetMatrixAction matrixaction;
 
-  SbBool shadowlightsvalid;
-  SbBool needscenesearch;
+  bool shadowlightsvalid;
+  bool needscenesearch;
   SbList <SoShadowLightCache*> shadowlights;
 
   SoShaderProgram * shaderprogram;
@@ -737,8 +737,8 @@ public:
   SoShaderParameter1i * twosided;
 
   int numtexunitsinscene;
-  SbBool hasclipplanes;
-  SbBool subgraphsearchenabled;
+  bool hasclipplanes;
+  bool subgraphsearchenabled;
 };
 
 // *************************************************************************
@@ -757,11 +757,11 @@ SoShadowGroup::SoShadowGroup(void)
 
   SO_NODE_INTERNAL_CONSTRUCTOR(SoShadowGroup);
 
-  SO_NODE_ADD_FIELD(isActive, (TRUE));
+  SO_NODE_ADD_FIELD(isActive, (true));
   SO_NODE_ADD_FIELD(intensity, (0.5f));
   SO_NODE_ADD_FIELD(precision, (0.5f));
   SO_NODE_ADD_FIELD(quality, (0.5f));
-  SO_NODE_ADD_FIELD(shadowCachingEnabled, (TRUE));
+  SO_NODE_ADD_FIELD(shadowCachingEnabled, (true));
   SO_NODE_ADD_FIELD(visibilityNearRadius, (-1.0f));
   SO_NODE_ADD_FIELD(visibilityRadius, (-1.0f));
   SO_NODE_ADD_FIELD(epsilon, (0.00001f));
@@ -828,14 +828,14 @@ SoShadowGroup::init(void)
 
   \since Coin 3.1
 */
-SbBool
+bool
 SoShadowGroup::isSupported(void)
 {
   static int supp = -1;
   if (supp != -1) { return supp ? true : false; }
 
   void * glctx = cc_glglue_context_create_offscreen(256, 256);
-  SbBool ok = cc_glglue_context_make_current(glctx);
+  bool ok = cc_glglue_context_make_current(glctx);
   if (!ok) {
     SoDebugError::postWarning("SoShadowGroupP::isSupported",
                               "Could not open an OpenGL context.");
@@ -859,13 +859,13 @@ SoShadowGroup::isSupported(void)
 void
 SoShadowGroup::GLRenderBelowPath(SoGLRenderAction * action)
 {
-  PRIVATE(this)->GLRender(action, FALSE);
+  PRIVATE(this)->GLRender(action, false);
 }
 
 void
 SoShadowGroup::GLRenderInPath(SoGLRenderAction * action)
 {
-  PRIVATE(this)->GLRender(action, TRUE);
+  PRIVATE(this)->GLRender(action, true);
 }
 
 void
@@ -885,14 +885,14 @@ SoShadowGroup::notify(SoNotList * nl)
       SoNode * node = (SoNode*) rec->getBase();
       if (node->isOfType(SoGroup::getClassTypeId())) {
         // first rec was from a group node, we need to search the scene graph again
-        PRIVATE(this)->shadowlightsvalid = FALSE;
+        PRIVATE(this)->shadowlightsvalid = false;
 
         if (PRIVATE(this)->subgraphsearchenabled) {
-          PRIVATE(this)->needscenesearch = TRUE;
+          PRIVATE(this)->needscenesearch = true;
         }
       }
       else {
-        PRIVATE(this)->shadowlightsvalid = FALSE;
+        PRIVATE(this)->shadowlightsvalid = false;
       }
     }
   }
@@ -914,13 +914,13 @@ SoShadowGroup::notify(SoNotList * nl)
   disable this feature using this method. If you do disable this
   feature, make sure you enable it again before inserting a new spot
   light, or insert all spot lights in the scene graph before you
-  render the scene once, and just set "on" to FALSE if you want to toggle
+  render the scene once, and just set "on" to false if you want to toggle
   spot lights on/off on the fly.
 
   \since Coin 2.6
  */
 void
-SoShadowGroup::enableSubgraphSearchOnNotify(const SbBool onoff)
+SoShadowGroup::enableSubgraphSearchOnNotify(const bool onoff)
 {
   PRIVATE(this)->subgraphsearchenabled = onoff;
 }
@@ -955,17 +955,17 @@ SoShadowGroupP::updateShadowLights(SoGLRenderAction * action)
       if (!this->hasclipplanes) {
         this->searchaction.setType(SoClipPlane::getClassTypeId());
         this->searchaction.setInterest(SoSearchAction::FIRST);
-        this->searchaction.setSearchingAll(FALSE);
+        this->searchaction.setSearchingAll(false);
         this->searchaction.apply(PUBLIC(this));
         if (this->searchaction.getPath()) {
-          this->hasclipplanes = TRUE;
+          this->hasclipplanes = true;
         }
         this->searchaction.reset();
       }
       // first, search for texture unit nodes
       this->searchaction.setType(SoTextureUnit::getClassTypeId());
       this->searchaction.setInterest(SoSearchAction::ALL);
-      this->searchaction.setSearchingAll(FALSE);
+      this->searchaction.setSearchingAll(false);
       this->searchaction.apply(PUBLIC(this));
 
       int lastenabled;
@@ -984,12 +984,12 @@ SoShadowGroupP::updateShadowLights(SoGLRenderAction * action)
       this->searchaction.reset();
       this->searchaction.setType(SoLight::getClassTypeId());
       this->searchaction.setInterest(SoSearchAction::ALL);
-      this->searchaction.setSearchingAll(FALSE);
+      this->searchaction.setSearchingAll(false);
       this->searchaction.apply(PUBLIC(this));
       this->clearLightPaths();
       this->copyLightPaths(this->searchaction.getPaths());
       this->searchaction.reset();
-      this->needscenesearch = FALSE;
+      this->needscenesearch = false;
     }
     int maxunits = cc_glglue_max_texture_units(glue);
 
@@ -1060,7 +1060,7 @@ SoShadowGroupP::updateShadowLights(SoGLRenderAction * action)
         i2++;
       }
     }
-    this->shadowlightsvalid = TRUE;
+    this->shadowlightsvalid = true;
   }
   for (i = 0; i < this->shadowlights.getLength(); i++) {
     SoShadowLightCache * cache = this->shadowlights[i];
@@ -1145,7 +1145,7 @@ SoShadowGroupP::updateSpotCamera(SoState * COIN_UNUSED_ARG(state), SoShadowLight
   float visnear = PUBLIC(this)->visibilityNearRadius.getValue();
   float visfar = PUBLIC(this)->visibilityRadius.getValue();
 
-  SbBool needbbox =
+  bool needbbox =
     (visflag == SoShadowGroup::LONGEST_BBOX_EDGE_FACTOR) ||
     (visflag == SoShadowGroup::PROJECTED_BBOX_DEPTH_FACTOR) ||
     ((visnear < 0.0f) || (visfar < 0.0f));
@@ -1158,7 +1158,7 @@ SoShadowGroupP::updateSpotCamera(SoState * COIN_UNUSED_ARG(state), SoShadowLight
     if (ssnear > 0.0f && ssfar > ssnear) {
       visnear = ssnear;
       visfar = ssfar;
-      needbbox = FALSE;
+      needbbox = false;
     }
   }
   if (needbbox) {
@@ -1237,10 +1237,10 @@ SoShadowGroupP::updateDirectionalCamera(SoState * state, SoShadowLightCache * ca
 
   SbViewVolume vv = SoViewVolumeElement::get(state);
   const SbXfBox3f & worldbox = this->calcBBox(cache);
-  SbBool visible = TRUE;
+  bool visible = true;
   if (maxdist > 0.0f) {
     float nearv = vv.getNearDist();
-    if (maxdist < nearv) visible = FALSE;
+    if (maxdist < nearv) visible = false;
     else {
       maxdist -= nearv;
       float depth = vv.getDepth();
@@ -1251,7 +1251,7 @@ SoShadowGroupP::updateDirectionalCamera(SoState * state, SoShadowLightCache * ca
   SbBox3f isect;
   if (visible) {
     isect = vv.intersectionBox(worldbox);
-    if (isect.isEmpty()) visible = FALSE;
+    if (isect.isEmpty()) visible = false;
   }
   if (!visible) {
     if (cache->depthmap->scene.getValue() == cache->depthmapscene) {
@@ -1345,7 +1345,7 @@ namespace {
                 "vec3(gl_LightSource[%d].halfVector), normal, diffuse, specular);", i,i);
     gen.addMainStatement(str);
   }
-  void addSpotLight(SoShaderGenerator & gen, int i, SbBool needdist = FALSE) {
+  void addSpotLight(SoShaderGenerator & gen, int i, bool needdist = false) {
     initLightMaterial(gen, i);
     const char * dist = needdist ? "dist = " : "";
     SbString str;
@@ -1361,7 +1361,7 @@ namespace {
                 dist, i,i,i,i,i,i,i);
     gen.addMainStatement(str);
   }
-  void addDirSpotLight(SoShaderGenerator & gen, int i, SbBool needdist = FALSE) {
+  void addDirSpotLight(SoShaderGenerator & gen, int i, bool needdist = false) {
     initLightMaterial(gen, i);
     const char * dist = needdist ? "dist = " : "";
     SbString str;
@@ -1393,14 +1393,14 @@ SoShadowGroupP::setVertexShader(SoState * state)
 {
   int i;
   SoShaderGenerator & gen = this->vertexgenerator;
-  gen.reset(FALSE);
+  gen.reset(false);
 
-  SbBool storedinvalid = SoCacheElement::setInvalid(FALSE);
+  bool storedinvalid = SoCacheElement::setInvalid(false);
 
   state->push();
 
-  SbBool perpixelspot = FALSE;
-  SbBool perpixelother = FALSE;
+  bool perpixelspot = false;
+  bool perpixelother = false;
 
   this->getQuality(state, perpixelspot, perpixelother);
 
@@ -1421,24 +1421,24 @@ SoShadowGroupP::setVertexShader(SoState * state)
   for (i = 0; i < numshadowlights; i++) {
     SbString str;
     str.sprintf("varying vec4 shadowCoord%d;", i);
-    gen.addDeclaration(str, FALSE);
+    gen.addDeclaration(str, false);
 
     if (!perpixelspot) {
       str.sprintf("varying vec3 spotVertexColor%d;", i);
-      gen.addDeclaration(str, FALSE);
+      gen.addDeclaration(str, false);
     }
   }
 
   if (numshadowlights) {
-    gen.addDeclaration("uniform mat4 cameraTransform;", FALSE);
+    gen.addDeclaration("uniform mat4 cameraTransform;", false);
   }
-  gen.addDeclaration("varying vec3 ecPosition3;", FALSE);
-  gen.addDeclaration("varying vec3 fragmentNormal;", FALSE);
-  gen.addDeclaration("varying vec3 perVertexColor;", FALSE);
+  gen.addDeclaration("varying vec3 ecPosition3;", false);
+  gen.addDeclaration("varying vec3 fragmentNormal;", false);
+  gen.addDeclaration("varying vec3 perVertexColor;", false);
 
-  SbBool dirlight = FALSE;
-  SbBool pointlight = FALSE;
-  SbBool spotlight = FALSE;
+  bool dirlight = false;
+  bool pointlight = false;
+  bool spotlight = false;
   SbString str;
 
   gen.addMainStatement("vec4 ecPosition = gl_ModelViewMatrix * gl_Vertex;\n"
@@ -1461,16 +1461,16 @@ SoShadowGroupP::setVertexShader(SoState * state)
       SoLight * l = (SoLight*) lights[i];
       if (l->isOfType(SoDirectionalLight::getClassTypeId())) {
         addDirectionalLight(gen, i);
-        dirlight = TRUE;
+        dirlight = true;
       }
       else if (l->isOfType(SoSpotLight::getClassTypeId())) {
         addSpotLight(gen, i);
-        spotlight = TRUE;
+        spotlight = true;
       }
       else if (l->isOfType(SoPointLight::getClassTypeId())) {
         addPointLight(gen, i);
         gen.addMainStatement(str);
-        pointlight = TRUE;
+        pointlight = true;
       }
       else {
         SoDebugError::postWarning("SoShadowGroupP::setVertexShader",
@@ -1480,8 +1480,8 @@ SoShadowGroupP::setVertexShader(SoState * state)
       gen.addMainStatement("accambient += ambient; accdiffuse += diffuse; accspecular += specular;\n");
     }
 
-    if (dirlight) gen.addNamedFunction(SbName("lights/DirectionalLight"), FALSE);
-    if (pointlight) gen.addNamedFunction(SbName("lights/PointLight"), FALSE);
+    if (dirlight) gen.addNamedFunction(SbName("lights/DirectionalLight"), false);
+    if (pointlight) gen.addNamedFunction(SbName("lights/PointLight"), false);
 
     gen.addMainStatement("color = gl_FrontLightModelProduct.sceneColor + "
                          "  accambient * gl_FrontMaterial.ambient + "
@@ -1503,7 +1503,7 @@ SoShadowGroupP::setVertexShader(SoState * state)
     gen.addMainStatement(str);
 
     if (!perpixelspot) {
-      spotlight = TRUE;
+      spotlight = true;
       addSpotLight(gen, cache->lightid);
       str.sprintf("spotVertexColor%d = \n"
                   "  ambient.rgb * gl_FrontMaterial.ambient.rgb + "
@@ -1513,7 +1513,7 @@ SoShadowGroupP::setVertexShader(SoState * state)
     }
   }
 
-  if (spotlight) gen.addNamedFunction(SbName("lights/SpotLight"), FALSE);
+  if (spotlight) gen.addNamedFunction(SbName("lights/SpotLight"), false);
   int32_t fogType = this->getFog(state);
 
   switch (fogType) {
@@ -1573,14 +1573,14 @@ SoShadowGroupP::setFragmentShader(SoState * state)
   int i;
 
   SoShaderGenerator & gen = this->fragmentgenerator;
-  gen.reset(FALSE);
+  gen.reset(false);
 
-  SbBool perpixelspot = FALSE;
-  SbBool perpixelother = FALSE;
+  bool perpixelspot = false;
+  bool perpixelother = false;
   this->getQuality(state, perpixelspot, perpixelother);
 
   const cc_glglue * glue = cc_glglue_instance(SoGLCacheContextElement::get(state));
-  SbBool storedinvalid = SoCacheElement::setInvalid(FALSE);
+  bool storedinvalid = SoCacheElement::setInvalid(false);
   state->push();
 
   if (this->fragmentshadercache) {
@@ -1593,43 +1593,43 @@ SoShadowGroupP::setFragmentShader(SoState * state)
   SoCacheElement::set(state, this->fragmentshadercache);
 
   int numshadowlights = this->shadowlights.getLength();
-  SbBool dirspot = FALSE;
+  bool dirspot = false;
 
   // ATi doesn't seem to support gl_FrontFace in hardware. We've only
   // verified that nVidia supports it so far.
-  SbBool twosidetest = glue->vendor_is_nvidia && ((perpixelspot && numshadowlights) || perpixelother);
+  bool twosidetest = glue->vendor_is_nvidia && ((perpixelspot && numshadowlights) || perpixelother);
 
 
   if (numshadowlights) {
     SbString eps;
     eps.sprintf("const float EPSILON = %f;",
                 PUBLIC(this)->epsilon.getValue());
-    gen.addDeclaration(eps, FALSE);
+    gen.addDeclaration(eps, false);
     eps.sprintf("const float THRESHOLD = %f;",
                 PUBLIC(this)->threshold.getValue());
-    gen.addDeclaration(eps, FALSE);
+    gen.addDeclaration(eps, false);
   }
   for (i = 0; i < numshadowlights; i++) {
     SbString str;
     str.sprintf("uniform sampler2D shadowMap%d;", i);
-    gen.addDeclaration(str, FALSE);
+    gen.addDeclaration(str, false);
 
     str.sprintf("uniform float farval%d;", i);
-    gen.addDeclaration(str, FALSE);
+    gen.addDeclaration(str, false);
 
     str.sprintf("uniform float nearval%d;", i);
-    gen.addDeclaration(str, FALSE);
+    gen.addDeclaration(str, false);
 
     str.sprintf("varying vec4 shadowCoord%d;", i);
-    gen.addDeclaration(str, FALSE);
+    gen.addDeclaration(str, false);
 
     if (!perpixelspot) {
       str.sprintf("varying vec3 spotVertexColor%d;", i);
-      gen.addDeclaration(str, FALSE);
+      gen.addDeclaration(str, false);
     }
     if (this->shadowlights[i]->light->isOfType(SoDirectionalLight::getClassTypeId())) {
       str.sprintf("uniform vec4 lightplane%d;", i);
-      gen.addDeclaration(str, FALSE);
+      gen.addDeclaration(str, false);
     }
   }
 
@@ -1637,17 +1637,17 @@ SoShadowGroupP::setFragmentShader(SoState * state)
   if (numshadowlights) {
 #ifdef DISTRIBUTE_FACTOR
     str.sprintf("const float DISTRIBUTE_FACTOR = %.1f;\n", DISTRIBUTE_FACTOR);
-    gen.addDeclaration(str, FALSE);
+    gen.addDeclaration(str, false);
 #endif
   }
-  gen.addDeclaration("varying vec3 ecPosition3;", FALSE);
-  gen.addDeclaration("varying vec3 fragmentNormal;", FALSE);
-  gen.addDeclaration("varying vec3 perVertexColor;", FALSE);
+  gen.addDeclaration("varying vec3 ecPosition3;", false);
+  gen.addDeclaration("varying vec3 fragmentNormal;", false);
+  gen.addDeclaration("varying vec3 perVertexColor;", false);
 
   const SoNodeList & lights = SoLightElement::getLights(state);
 
   if (numshadowlights) {
-    gen.addNamedFunction("vsm/VsmLookup", FALSE);
+    gen.addNamedFunction("vsm/VsmLookup", false);
   }
   gen.addMainStatement("vec3 normal = normalize(fragmentNormal);\n");
   if (twosidetest) {
@@ -1672,13 +1672,13 @@ SoShadowGroupP::setFragmentShader(SoState * state)
                        "mydiffuse.a *= texcolor.a;\n");
 
   if (perpixelspot) {
-    SbBool spotlight = FALSE;
-    SbBool dirlight = FALSE;
+    bool spotlight = false;
+    bool dirlight = false;
     for (i = 0; i < numshadowlights; i++) {
       SoShadowLightCache * cache = this->shadowlights[i];
-      SbBool dirshadow = FALSE;
+      bool dirshadow = false;
       SbString str;
-      SbBool normalspot = FALSE;
+      bool normalspot = false;
       SbString insidetest = "&& coord.x >= 0.0 && coord.x <= 1.0 && coord.y >= 0.0 && coord.y <= 1.0)";
 
       SoLight * light = this->shadowlights[i]->light;
@@ -1686,17 +1686,17 @@ SoShadowGroupP::setFragmentShader(SoState * state)
         SoSpotLight * sl = static_cast<SoSpotLight*> (light);
         if (sl->dropOffRate.getValue() >= 0.0f) {
           insidetest = ")";
-          spotlight = TRUE;
-          normalspot = TRUE;
+          spotlight = true;
+          normalspot = true;
         }
         else {
           insidetest = ")";
-          dirspot = TRUE;
+          dirspot = true;
         }
       }
       else {
-        dirshadow = TRUE;
-        dirlight = TRUE;
+        dirshadow = true;
+        dirlight = true;
       }
       if (dirshadow) {
         str.sprintf("dist = dot(ecPosition3.xyz, lightplane%d.xyz) - lightplane%d.w;\n", i,i);
@@ -1705,10 +1705,10 @@ SoShadowGroupP::setFragmentShader(SoState * state)
       }
       else {
         if (normalspot) {
-          addSpotLight(gen, cache->lightid, TRUE);
+          addSpotLight(gen, cache->lightid, true);
         }
         else {
-          addDirSpotLight(gen, cache->lightid, TRUE);
+          addDirSpotLight(gen, cache->lightid, true);
         }
       }
       str.sprintf("coord = 0.5 * (shadowCoord%d.xyz / shadowCoord%d.w + vec3(1.0));\n", i , i);
@@ -1750,20 +1750,20 @@ SoShadowGroupP::setFragmentShader(SoState * state)
     }
 
     if (perpixelother) {
-      SbBool pointlight = FALSE;
+      bool pointlight = false;
       for (i = 0; i < lights.getLength(); i++) {
         SoLight * l = (SoLight*) lights[i];
         if (l->isOfType(SoDirectionalLight::getClassTypeId())) {
           addDirectionalLight(gen, i);
-          dirlight = TRUE;
+          dirlight = true;
         }
         else if (l->isOfType(SoSpotLight::getClassTypeId())) {
           addSpotLight(gen, i);
-          spotlight = TRUE;
+          spotlight = true;
         }
         else if (l->isOfType(SoPointLight::getClassTypeId())) {
           addPointLight(gen, i);
-          pointlight = TRUE;
+          pointlight = true;
         }
         else {
           SoDebugError::postWarning("SoShadowGroupP::setFragmentShader",
@@ -1775,10 +1775,10 @@ SoShadowGroupP::setFragmentShader(SoState * state)
         gen.addMainStatement("scolor += specular.rgb * gl_FrontMaterial.specular.rgb;\n");
       }
 
-      if (dirlight) gen.addNamedFunction(SbName("lights/DirectionalLight"), FALSE);
-      if (pointlight) gen.addNamedFunction(SbName("lights/PointLight"), FALSE);
+      if (dirlight) gen.addNamedFunction(SbName("lights/DirectionalLight"), false);
+      if (pointlight) gen.addNamedFunction(SbName("lights/PointLight"), false);
     }
-    if (spotlight) gen.addNamedFunction(SbName("lights/SpotLight"), FALSE);
+    if (spotlight) gen.addNamedFunction(SbName("lights/SpotLight"), false);
   }
 
   else {
@@ -1840,19 +1840,19 @@ SoShadowGroupP::setFragmentShader(SoState * state)
   }
 
   gen.addMainStatement("gl_FragColor = vec4(color, mydiffuse.a);");
-  gen.addDeclaration("uniform sampler2D textureMap0;\n", FALSE);
-  gen.addDeclaration("uniform int coin_texunit0_model;\n", FALSE);
+  gen.addDeclaration("uniform sampler2D textureMap0;\n", false);
+  gen.addDeclaration("uniform int coin_texunit0_model;\n", false);
   if (this->numtexunitsinscene > 1) {
-    gen.addDeclaration("uniform int coin_texunit1_model;\n", FALSE);
-    gen.addDeclaration("uniform sampler2D textureMap1;\n", FALSE);
+    gen.addDeclaration("uniform int coin_texunit1_model;\n", false);
+    gen.addDeclaration("uniform sampler2D textureMap1;\n", false);
   }
-  gen.addDeclaration("uniform int coin_light_model;\n", FALSE);
+  gen.addDeclaration("uniform int coin_light_model;\n", false);
   if (twosidetest) {
-    gen.addDeclaration("uniform int coin_two_sided_lighting;\n", FALSE);
+    gen.addDeclaration("uniform int coin_two_sided_lighting;\n", false);
   }
 
   if (dirspot) {
-    gen.addNamedFunction("lights/DirSpotLight", FALSE);
+    gen.addNamedFunction("lights/DirSpotLight", false);
   }
 
   this->fragmentshader->parameter.setNum(0);
@@ -1954,7 +1954,7 @@ SoShadowGroupP::setFragmentShader(SoState * state)
         }
         SbString uniform;
         uniform.sprintf("uniform float %s;\n", str.getString());
-        gen.addDeclaration(uniform, FALSE);
+        gen.addDeclaration(uniform, false);
         this->fragmentshader->parameter.set1Value(this->fragmentshader->parameter.getNum(), maxdist);
       }
 
@@ -1967,7 +1967,7 @@ SoShadowGroupP::setFragmentShader(SoState * state)
     }
   }
 
-  this->shadowlightsvalid = TRUE;
+  this->shadowlightsvalid = true;
   // never update unless the program has actually changed. Creating a
   // new GLSL program is very slow on current drivers.
   if (this->fragmentshader->sourceProgram.getValue() != gen.getShaderProgram()) {
@@ -2003,26 +2003,26 @@ SoShadowLightCache::createVSMProgram(void)
   SoShaderGenerator & vgen = this->vsm_vertex_generator;
   SoShaderGenerator & fgen = this->vsm_fragment_generator;
 
-  vgen.reset(FALSE);
+  vgen.reset(false);
 
-  SbBool dirlight = this->light->isOfType(SoDirectionalLight::getClassTypeId());
+  bool dirlight = this->light->isOfType(SoDirectionalLight::getClassTypeId());
 
-  vgen.addDeclaration("varying vec3 light_vec;", FALSE);
+  vgen.addDeclaration("varying vec3 light_vec;", false);
   vgen.addMainStatement("light_vec = (gl_ModelViewMatrix * gl_Vertex).xyz;\n"
                         "gl_Position = ftransform();");
 
   vshader->sourceProgram = vgen.getShaderProgram();
   vshader->sourceType = SoShaderObject::GLSL_PROGRAM;
 
-  fgen.reset(FALSE);
+  fgen.reset(false);
 #ifdef DISTRIBUTE_FACTOR
   SbString str;
   str.sprintf("const float DISTRIBUTE_FACTOR = %.1f;\n", DISTRIBUTE_FACTOR);
-  fgen.addDeclaration(str, FALSE);
+  fgen.addDeclaration(str, false);
 #endif
-  fgen.addDeclaration("varying vec3 light_vec;", FALSE);
-  fgen.addDeclaration("uniform float farval;", FALSE);
-  fgen.addDeclaration("uniform float nearval;", FALSE);
+  fgen.addDeclaration("varying vec3 light_vec;", false);
+  fgen.addDeclaration("uniform float farval;", false);
+  fgen.addDeclaration("uniform float nearval;", false);
   if (!dirlight)  {
     fgen.addMainStatement("float l = (length(light_vec) - nearval) / (farval-nearval);\n");
   }
@@ -2070,7 +2070,7 @@ SoShadowLightCache::createVSMProgram(void)
 void
 SoShadowGroupP::shader_enable_cb(void * closure,
                                  SoState * state,
-                                 const SbBool enable)
+                                 const bool enable)
 {
   SoShadowGroupP * thisp = (SoShadowGroupP*) closure;
 
@@ -2111,7 +2111,7 @@ SoShadowGroupP::supported(const cc_glglue * glue, SbString reason)
 }
 
 void
-SoShadowGroupP::GLRender(SoGLRenderAction * action, const SbBool inpath)
+SoShadowGroupP::GLRender(SoGLRenderAction * action, const bool inpath)
 {
   SoState * state = action->getState();
   const cc_glglue * glue = cc_glglue_instance(SoGLCacheContextElement::get(state));
@@ -2137,7 +2137,7 @@ SoShadowGroupP::GLRender(SoGLRenderAction * action, const SbBool inpath)
 
   if (!this->vertexshadercache || !this->vertexshadercache->isValid(state)) {
     // a bit hackish, but saves creating yet another cache
-    this->shadowlightsvalid = FALSE;
+    this->shadowlightsvalid = false;
   }
 
   SbMatrix camtransform = SoViewingMatrixElement::get(state).inverse();
@@ -2146,9 +2146,9 @@ SoShadowGroupP::GLRender(SoGLRenderAction * action, const SbBool inpath)
   }
 
   SoShadowStyleElement::set(state, PUBLIC(this), SoShadowStyleElement::CASTS_SHADOW_AND_SHADOWED);
-  SoShapeStyleElement::setShadowMapRendering(state, TRUE);
+  SoShapeStyleElement::setShadowMapRendering(state, true);
   this->updateShadowLights(action);
-  SoShapeStyleElement::setShadowMapRendering(state, FALSE);
+  SoShapeStyleElement::setShadowMapRendering(state, false);
 
   if (!this->vertexshadercache || !this->vertexshadercache->isValid(state)) {
     this->setVertexShader(state);
@@ -2159,10 +2159,10 @@ SoShadowGroupP::GLRender(SoGLRenderAction * action, const SbBool inpath)
   }
   this->shaderprogram->GLRender(action);
 
-  SoShapeStyleElement::setShadowsRendering(state, TRUE);
+  SoShapeStyleElement::setShadowsRendering(state, true);
   if (inpath) PUBLIC(this)->SoSeparator::GLRenderInPath(action);
   else PUBLIC(this)->SoSeparator::GLRenderBelowPath(action);
-  SoShapeStyleElement::setShadowsRendering(state, FALSE);
+  SoShapeStyleElement::setShadowsRendering(state, false);
   state->pop();
 }
 
@@ -2190,10 +2190,10 @@ SoShadowLightCache::createGaussFilter(const int texsize, const int size, const f
   SbString str;
 
   str.sprintf("const int KernelSize = %d;", kernelsize);
-  fgen.addDeclaration(str, FALSE);
-  fgen.addDeclaration("uniform vec2 offset[KernelSize];", FALSE);
-  fgen.addDeclaration("uniform float kernelvalue[KernelSize];", FALSE);
-  fgen.addDeclaration("uniform sampler2D baseimage;", FALSE);
+  fgen.addDeclaration(str, false);
+  fgen.addDeclaration("uniform vec2 offset[KernelSize];", false);
+  fgen.addDeclaration("uniform float kernelvalue[KernelSize];", false);
+  fgen.addDeclaration("uniform sampler2D baseimage;", false);
 
   fgen.addMainStatement(
                         "int i;\n"
@@ -2301,13 +2301,13 @@ SoShadowLightCache::shadowmap_glcallback(void * COIN_UNUSED_ARG(closure), SoActi
     SoLazyElement::setLightModel(state, SoLazyElement::BASE_COLOR);
     SoTextureQualityElement::set(state, 0.0f);
     SoMaterialBindingElement::set(state, NULL, SoMaterialBindingElement::OVERALL);
-    SoNormalElement::set(state, NULL, 0, NULL, FALSE);
+    SoNormalElement::set(state, NULL, 0, NULL, false);
 
 
-    SoOverrideElement::setNormalVectorOverride(state, NULL, TRUE);
-    SoOverrideElement::setMaterialBindingOverride(state, NULL, TRUE);
-    SoOverrideElement::setLightModelOverride(state, NULL, TRUE);
-    SoTextureOverrideElement::setQualityOverride(state, TRUE);
+    SoOverrideElement::setNormalVectorOverride(state, NULL, true);
+    SoOverrideElement::setMaterialBindingOverride(state, NULL, true);
+    SoOverrideElement::setLightModelOverride(state, NULL, true);
+    SoTextureOverrideElement::setQualityOverride(state, true);
   }
 }
 

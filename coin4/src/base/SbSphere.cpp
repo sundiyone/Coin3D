@@ -155,9 +155,9 @@ SbSphere::circumscribe(const SbBox3f &box)
   Finds the intersection enter point for the given line \a l
   on the sphere.
 
-  If the line does not intersect the sphere, \a FALSE is returned.
+  If the line does not intersect the sphere, \a false is returned.
  */
-SbBool
+bool
 SbSphere::intersect(const SbLine &l, SbVec3f &intersection) const
 {
   SbVec3f dummy;
@@ -169,10 +169,10 @@ SbSphere::intersect(const SbLine &l, SbVec3f &intersection) const
   return these in \a enter and \a exit. If the ray just "grazes"
   the sphere, the \a enter and \a exit points have equal values.
 
-  If the ray does not intersect the sphere, \a FALSE is returned, otherwise
-  we will return \a TRUE.
+  If the ray does not intersect the sphere, \a false is returned, otherwise
+  we will return \a true.
  */
-SbBool
+bool
 SbSphere::intersect(const SbLine &l, SbVec3f &enter, SbVec3f &exit) const
 {
 #if COIN_DEBUG
@@ -223,17 +223,17 @@ SbSphere::intersect(const SbLine &l, SbVec3f &enter, SbVec3f &exit) const
     if(t1 > t2) SbSwap(t1, t2);
     enter = linepos + t1*linedir;
     exit = linepos + t2*linedir;
-    return TRUE;
+    return true;
   }
   else {
-    return FALSE;
+    return false;
   }
 }
 
 /*!
-  Returns \a TRUE of the given point \a p lies within the sphere.
+  Returns \a true of the given point \a p lies within the sphere.
  */
-SbBool
+bool
 SbSphere::pointInside(const SbVec3f &p) const
 {
   return (p - center).length() < radius;

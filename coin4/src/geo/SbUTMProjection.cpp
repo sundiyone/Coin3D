@@ -32,10 +32,10 @@ SbUTMProjection::SbUTMProjection(const int utmzone,
 {
 }
 
-SbBool
+bool
 SbUTMProjection::isUTMProjection(void) const
 {
-  return TRUE;
+  return true;
 }
 
 void

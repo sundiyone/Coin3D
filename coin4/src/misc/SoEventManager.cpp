@@ -82,7 +82,7 @@ public:
   SoEventManager::NavigationState navigationstate;
   SoHandleEventAction * handleeventaction;
   SoSearchAction * searchaction;
-  SbBool deletehandleeventaction;
+  bool deletehandleeventaction;
   SoCamera * camera;
   SoNode * scene;
 
@@ -96,7 +96,7 @@ SoEventManager::SoEventManager(void)
 {
   PRIVATE(this)->navigationstate = SoEventManager::NO_NAVIGATION;
   PRIVATE(this)->handleeventaction = new SoHandleEventAction(SbViewportRegion(400, 400));
-  PRIVATE(this)->deletehandleeventaction = TRUE;
+  PRIVATE(this)->deletehandleeventaction = true;
   PRIVATE(this)->searchaction = new SoSearchAction;
 
   PRIVATE(this)->camera = NULL;
@@ -293,13 +293,13 @@ SoEventManager::getViewportRegion(void) const
   Handles the event. Depending on the navigation state, this forwards the event
   to the state machines and/or the scene graph.
 */
-SbBool
+bool
 SoEventManager::processEvent(const SoEvent * const event)
 {
   const SbViewportRegion & vp =
     PRIVATE(this)->handleeventaction->getViewportRegion();
 
-  SbBool status = FALSE;
+  bool status = false;
 
   int i = 0;
   switch (PRIVATE(this)->navigationstate) {
@@ -312,13 +312,13 @@ SoEventManager::processEvent(const SoEvent * const event)
       if (sm->isActive()) {
         sm->setViewportRegion(vp);
         if (sm->processSoEvent(event))
-          status = TRUE;
+          status = true;
       }
     }
     break;
   case SoEventManager::MIXED_NAVIGATION:
     if (this->actuallyProcessEvent(event)) {
-      status = TRUE;
+      status = true;
       break;
     }
     for (i = this->getNumSoScXMLStateMachines() - 1; i >= 0; --i) {
@@ -326,7 +326,7 @@ SoEventManager::processEvent(const SoEvent * const event)
       if (sm->isActive()) {
         sm->setViewportRegion(vp);
         if (sm->processSoEvent(event))
-          status = TRUE;
+          status = true;
       }
     }
   }
@@ -336,12 +336,12 @@ SoEventManager::processEvent(const SoEvent * const event)
 /*!
   Forwards the event to the scene graph.
 */
-SbBool
+bool
 SoEventManager::actuallyProcessEvent(const SoEvent * const event)
 {
   assert(PRIVATE(this)->handleeventaction);
 
-  SbBool handled = FALSE;
+  bool handled = false;
   if ( PRIVATE(this)->handleeventaction->getState() != NULL &&
        PRIVATE(this)->handleeventaction->getState()->getDepth() != 0 ) {
     // recursive invocation - action currently in use
@@ -375,7 +375,7 @@ SoEventManager::setHandleEventAction(SoHandleEventAction * handleeventaction)
   if (PRIVATE(this)->deletehandleeventaction) {
     delete PRIVATE(this)->handleeventaction;
   }
-  PRIVATE(this)->deletehandleeventaction = FALSE;
+  PRIVATE(this)->deletehandleeventaction = false;
   PRIVATE(this)->handleeventaction = handleeventaction;
   PRIVATE(this)->handleeventaction->setViewportRegion(region);
 }

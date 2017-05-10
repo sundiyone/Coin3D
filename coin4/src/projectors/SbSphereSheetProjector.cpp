@@ -48,7 +48,7 @@
     const float STEPSIZE = ((END - START) / STEPS);
 
     SbSphere s(SbVec3f(0, 0, 0), 0.8);
-    SbSphereSheetProjector ssp(s, TRUE); // last argument is orientToEye
+    SbSphereSheetProjector ssp(s, true); // last argument is orientToEye
 
     SbViewVolume volume;
     volume.ortho(-1, 1, -1, 1, -1, 1);
@@ -126,7 +126,7 @@
   \a orienttoeye decides whether or not the sheet should always be
   oriented towards the viewer.
 */
-SbSphereSheetProjector::SbSphereSheetProjector(const SbBool orienttoeye)
+SbSphereSheetProjector::SbSphereSheetProjector(const bool orienttoeye)
   : SbSphereProjector(orienttoeye)
 {
 }
@@ -135,7 +135,7 @@ SbSphereSheetProjector::SbSphereSheetProjector(const SbBool orienttoeye)
   Constructor with explicit definition of projection sphere.
 */
 SbSphereSheetProjector::SbSphereSheetProjector(const SbSphere & sph,
-                                               const SbBool orienttoeye)
+                                               const bool orienttoeye)
   : SbSphereProjector(sph, orienttoeye)
 {
 }
@@ -156,12 +156,12 @@ SbSphereSheetProjector::project(const SbVec2f & point)
   SbLine projline = this->getWorkingLine(point);
 
   SbVec3f spherehit;
-  SbBool atsphere = this->intersectSphereFront(projline, spherehit);
+  bool atsphere = this->intersectSphereFront(projline, spherehit);
 
   if (atsphere) { projline.setValue(spherehit, spherehit + -(this->planeDir)); }
 
   SbVec3f planehit;
-  SbBool atplane = this->tolPlane.intersect(projline, planehit);
+  bool atplane = this->tolPlane.intersect(projline, planehit);
 
   SbVec3f projpt;
 
@@ -198,7 +198,7 @@ SbSphereSheetProjector::project(const SbVec2f & point)
     float hyperbval = (1.0f / planardist) * v;
 
     // Now, find the direction of the hyperbolic value vector.
-    SbVec3f adddir(0.0f, 0.0f, 1.0f); // if orient-to-eye is FALSE
+    SbVec3f adddir(0.0f, 0.0f, 1.0f); // if orient-to-eye is false
     if (this->isOrientToEye()) { adddir = -projline.getDirection(); }
     if (!this->intersectFront) { adddir.negate(); }
 
@@ -246,5 +246,5 @@ SbSphereSheetProjector::setupPlane(void)
   this->planeDist = 0.0f;
   this->planePoint = this->sphere.getCenter();
   this->tolPlane = SbPlane(this->planeDir, this->planePoint);
-  this->needSetup = FALSE;
+  this->needSetup = false;
 }

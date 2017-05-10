@@ -41,18 +41,18 @@ public:
 
   virtual void apply(SoNode * node);
   virtual void apply(SoPath * path);
-  virtual void apply(const SoPathList & pathlist, SbBool obeysrules = FALSE);
+  virtual void apply(const SoPathList & pathlist, bool obeysrules = false);
   
   class SoVRMLGroup * getVRML2SceneGraph(void) const;
 
-  void reuseAppearanceNodes(SbBool appearance);
-  SbBool doReuseAppearanceNodes(void) const;
+  void reuseAppearanceNodes(bool appearance);
+  bool doReuseAppearanceNodes(void) const;
 
-  void reusePropertyNodes(SbBool property);
-  SbBool doReusePropertyNodes(void) const;
+  void reusePropertyNodes(bool property);
+  bool doReusePropertyNodes(void) const;
 
-  void reuseGeometryNodes(SbBool geometry);
-  SbBool doReuseGeometryNodes(void) const;
+  void reuseGeometryNodes(bool geometry);
+  bool doReuseGeometryNodes(void) const;
 
 protected:
   virtual void beginTraversal(SoNode * node);

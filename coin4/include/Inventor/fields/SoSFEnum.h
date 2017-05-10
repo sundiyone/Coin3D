@@ -43,13 +43,13 @@ public:
   int getEnum(const int idx, SbName & name) const;
 
 protected:
-  virtual SbBool findEnumValue(const SbName & name, int & val);
-  virtual SbBool findEnumName(int value, const SbName * & name) const;
+  virtual bool findEnumValue(const SbName & name, int & val);
+  virtual bool findEnumName(int value, const SbName * & name) const;
 
   int numEnums;
   int * enumValues;
   SbName * enumNames;
-  SbBool legalValuesSet;
+  bool legalValuesSet;
 };
 
 // These macros are called from both node and engine classes which
@@ -64,7 +64,7 @@ protected:
     const SbName * names; \
     _fieldstorage_->getEnumData(SO__QUOTE(_enumtype_), num, values, names); \
     this->_fieldname_.setEnums(num, values, names); \
-  } while (FALSE)
+  } while (false)
 
 
 #define SO_ENGINE_SET_SF_ENUM_TYPE(_fieldname_, _enumtype_) \

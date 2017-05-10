@@ -70,14 +70,14 @@ SoMFUInt32::initClass(void)
 // parent classes.
 #ifndef DOXYGEN_SKIP_THIS
 
-SbBool
+bool
 SoMFUInt32::read1Value(SoInput * in, int idx)
 {
   assert(idx < this->maxNum);
   unsigned int tmp;
-  if (!in->read(tmp)) return FALSE;
+  if (!in->read(tmp)) return false;
   this->values[idx] = tmp;
-  return TRUE;
+  return true;
 }
 
 void

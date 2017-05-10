@@ -35,7 +35,7 @@
   <b>FILE FORMAT/DEFAULTS:</b>
   \code
     SpotLight {
-        on TRUE
+        on true
         intensity 1
         color 1 1 1
         location 0 0 1

@@ -37,8 +37,8 @@
   \verbatim
   TimeSensor {
     exposedField SFTime   cycleInterval 1       # (0,inf)
-    exposedField SFBool   enabled       TRUE
-    exposedField SFBool   loop          FALSE
+    exposedField SFBool   enabled       true
+    exposedField SFBool   loop          false
     exposedField SFTime   startTime     0       # (-inf,inf)
     exposedField SFTime   stopTime      0       # (-inf,inf)
     eventOut     SFTime   cycleTime
@@ -56,8 +56,8 @@
   - initiating single occurrence events such as an alarm clock.
 
   The TimeSensor node contains two discrete eventOuts: \e isActive and
-  \e cycleTime. The \e isActive eventOut sends TRUE when the TimeSensor
-  node begins running, and FALSE when it stops running. The \e cycleTime
+  \e cycleTime. The \e isActive eventOut sends true when the TimeSensor
+  node begins running, and false when it stops running. The \e cycleTime
   eventOut sends a time event at \e startTime and at the beginning of
   each new cycle (useful for synchronization with other time-based
   objects).  The remaining eventOuts generate continuous events. The
@@ -65,19 +65,19 @@
   sends the completed fraction of the current cycle. The \e time eventOut
   sends the absolute time for a given simulation tick.  
 
-  If the enabled exposedField is TRUE, the TimeSensor node is enabled
-  and may be running. If a set_enabled FALSE event is received while
+  If the enabled exposedField is true, the TimeSensor node is enabled
+  and may be running. If a set_enabled false event is received while
   the TimeSensor node is running, the sensor performs the following
   actions: 
   
   - evaluates and sends all relevant outputs;
-  - sends a FALSE value for isActive;
+  - sends a false value for isActive;
   - disables itself.
 
   Events on the exposedFields of the TimeSensor node (e.g., \e
   set_startTime) are processed and their corresponding eventOuts
   (e.g., startTime_changed) are sent regardless of the state of the
-  enabled field. The remaining discussion assumes enabled is TRUE.
+  enabled field. The remaining discussion assumes enabled is true.
 
   The e\ loop, \e startTime, and \e stopTime exposedFields and the
   isActive eventOut and their effects on the TimeSensor node are discussed
@@ -95,7 +95,7 @@
   time).
 
   When a TimeSensor node becomes active, it generates an isActive =
-  TRUE event and begins generating time, fraction_changed, and
+  true event and begins generating time, fraction_changed, and
   cycleTime events which may be routed to other nodes to drive
   animation or simulated behaviours. The behaviour at read time is
   described below. The time event sends the absolute time for a given
@@ -125,7 +125,7 @@
   nonnegative floating point number.
 
   A TimeSensor node can be set up to be active at read time by
-  specifying loop TRUE (not the default) and stopTime less than or
+  specifying loop true (not the default) and stopTime less than or
   equal to startTime (satisfied by the default values). The time
   events output absolute times for each tick of the TimeSensor node
   simulation.  The time events shall start at the first simulation
@@ -138,12 +138,12 @@
   No guarantees are made with respect to how often a TimeSensor node
   generates time events, but a TimeSensor node shall generate events
   at least at every simulation tick. TimeSensor nodes are guaranteed
-  to generate final time and fraction_changed events. If loop is FALSE
-  at the end of the Nth cycleInterval and was TRUE at startTime + M
+  to generate final time and fraction_changed events. If loop is false
+  at the end of the Nth cycleInterval and was true at startTime + M
   cycleInterval for all 0 < M < N, the final time event will be
   generated with a value of (startTime + N cycleInterval) or
   stopTime (if stopTime > startTime), whichever value is less. If loop
-  is TRUE at the completion of every cycle, the final event is
+  is true at the completion of every cycle, the final event is
   generated as evaluated at stopTime (if stopTime > startTime) or
   never.
 
@@ -159,7 +159,7 @@
   current time and sends the final events based on the current time
   (note that stopTime is set as specified in the eventIn).
   
-  A TimeSensor read from a VRML file shall generate isActive TRUE,
+  A TimeSensor read from a VRML file shall generate isActive true,
   time and fraction_changed events if the sensor is enabled and all
   conditions for a TimeSensor to be active are met.  
 
@@ -172,12 +172,12 @@
 
 /*!
   \var SoSFBool SoVRMLTimeSensor::enabled
-  Used to enable/disable timer. Default value is TRUE.
+  Used to enable/disable timer. Default value is true.
 */
 
 /*!
   \var SoSFBool SoVRMLTimeSensor::loop
-  TRUE if timer should loop. Default value is FALSE.
+  true if timer should loop. Default value is false.
 */
 
 /*!
@@ -227,8 +227,8 @@ public:
   double cycletime;
   double cyclestart;
   float fraction;
-  SbBool loop;
-  SbBool running;
+  bool loop;
+  bool running;
 };
 
 #endif // DOXYGEN_SKIP_THIS
@@ -254,8 +254,8 @@ SoVRMLTimeSensor::SoVRMLTimeSensor(void)
   SO_NODEENGINE_INTERNAL_CONSTRUCTOR(SoVRMLTimeSensor);
 
   SO_VRMLNODE_ADD_EXPOSED_FIELD(cycleInterval, (1.0f));
-  SO_VRMLNODE_ADD_EXPOSED_FIELD(enabled, (TRUE));
-  SO_VRMLNODE_ADD_EXPOSED_FIELD(loop, (FALSE));
+  SO_VRMLNODE_ADD_EXPOSED_FIELD(enabled, (true));
+  SO_VRMLNODE_ADD_EXPOSED_FIELD(loop, (false));
   SO_VRMLNODE_ADD_EXPOSED_FIELD(startTime, (0.0f));
   SO_VRMLNODE_ADD_EXPOSED_FIELD(stopTime, (0.0f));
   SO_VRMLNODE_ADD_EVENT_IN(timeIn); // private
@@ -265,18 +265,18 @@ SoVRMLTimeSensor::SoVRMLTimeSensor(void)
   SO_NODEENGINE_ADD_OUTPUT(isActive, SoSFBool);
   SO_NODEENGINE_ADD_OUTPUT(time, SoSFTime);
 
-  this->isActive.enable(FALSE);
-  this->cycleTime.enable(FALSE);
+  this->isActive.enable(false);
+  this->cycleTime.enable(false);
 
   PRIVATE(this)->fraction = 0.0;
   PRIVATE(this)->cyclestart = 0.0;
   PRIVATE(this)->cycletime = 1.0;
-  PRIVATE(this)->running = FALSE;
-  PRIVATE(this)->loop = FALSE;
+  PRIVATE(this)->running = false;
+  PRIVATE(this)->loop = false;
   PRIVATE(this)->starttime = 0.0;
   PRIVATE(this)->stoptime = 0.0;
 
-  this->timeIn.enableNotify(FALSE);
+  this->timeIn.enableNotify(false);
   SoField * realtime = SoDB::getGlobalField("realTime");
   this->timeIn.connectFrom(realtime);
 
@@ -319,13 +319,13 @@ SoVRMLTimeSensor::write(SoWriteAction * action)
 
   // Disconnect from realTime field.
   SoField * connectfield = NULL;
-  SbBool connectfromrealTime =
+  bool connectfromrealTime =
     this->timeIn.getConnectedField(connectfield) &&
     connectfield == SoDB::getGlobalField("realTime");
-  SbBool defaultflag = this->timeIn.isDefault();
+  bool defaultflag = this->timeIn.isDefault();
   if (connectfromrealTime) {
     this->timeIn.disconnect();
-    this->timeIn.setDefault(TRUE);
+    this->timeIn.setDefault(true);
   }
 
   inherited::write(action);
@@ -334,7 +334,7 @@ SoVRMLTimeSensor::write(SoWriteAction * action)
   if (connectfromrealTime) {
     // Don't send notification when reconnecting to preserve the state
     // of the scenegraph between write passes.
-    this->timeIn.connectFrom(connectfield, TRUE);
+    this->timeIn.connectFrom(connectfield, true);
     this->timeIn.setDefault(defaultflag);
   }
 }
@@ -358,19 +358,19 @@ SoVRMLTimeSensor::inputChanged(SoField * which)
   // function to SoEngine::notify(). This is an optimization for this
   // engine to avoid transmission of notification to all slave fields
   // each time the timeIn field is updated.
-  this->fraction_changed.enable(FALSE);
-  this->isActive.enable(FALSE);
-  this->cycleTime.enable(FALSE);
+  this->fraction_changed.enable(false);
+  this->isActive.enable(false);
+  this->cycleTime.enable(false);
 
   if (which == &this->enabled) {
-    SbBool on = this->enabled.getValue();
+    bool on = this->enabled.getValue();
 
-    if (!on) this->timeIn.enableNotify(FALSE);
+    if (!on) this->timeIn.enableNotify(false);
 
     if (PRIVATE(this)->running && !on) {
-      PRIVATE(this)->running = FALSE;
-      this->fraction_changed.enable(TRUE);
-      this->isActive.enable(TRUE);
+      PRIVATE(this)->running = false;
+      this->fraction_changed.enable(true);
+      this->isActive.enable(true);
     }
     else if (!PRIVATE(this)->running && on) {
       which = &this->startTime; // warning, hack
@@ -379,7 +379,7 @@ SoVRMLTimeSensor::inputChanged(SoField * which)
 
   if (which == &this->loop) {
     PRIVATE(this)->loop = this->loop.getValue();
-    if (PRIVATE(this)->loop == TRUE && !this->timeIn.isNotifyEnabled())
+    if (PRIVATE(this)->loop == true && !this->timeIn.isNotifyEnabled())
       which = &this->startTime; // warning hack
   }
 
@@ -389,12 +389,12 @@ SoVRMLTimeSensor::inputChanged(SoField * which)
     if (!PRIVATE(this)->running) {
       PRIVATE(this)->starttime = this->startTime.getValue().getValue();
       if (currtime >= PRIVATE(this)->starttime) {
-        SbBool old = this->timeIn.enableNotify(TRUE);
-        assert(old == FALSE);
+        bool old = this->timeIn.enableNotify(true);
+        assert(old == false);
         which = &this->timeIn; // warning, hack
       } else {
         // enable to wait for timeIn to be >= starttime
-        this->timeIn.enableNotify(TRUE);
+        this->timeIn.enableNotify(true);
       }
     }
   }
@@ -403,37 +403,37 @@ SoVRMLTimeSensor::inputChanged(SoField * which)
     double currtime = this->timeIn.getValue().getValue();
     if (!PRIVATE(this)->running) {
       if (currtime >= PRIVATE(this)->starttime) {
-        this->isActive.enable(TRUE);
-        this->cycleTime.enable(TRUE);
+        this->isActive.enable(true);
+        this->cycleTime.enable(true);
         PRIVATE(this)->cyclestart = PRIVATE(this)->starttime;
-        PRIVATE(this)->running = TRUE;
+        PRIVATE(this)->running = true;
       }
       else return; // wait for startTime
     }
     PRIVATE(this)->currtime = currtime;
-    this->time.enable(TRUE);
-    this->fraction_changed.enable(TRUE);
+    this->time.enable(true);
+    this->fraction_changed.enable(true);
 
-    SbBool stopit = FALSE;
-    if (currtime >= PRIVATE(this)->stoptime && PRIVATE(this)->stoptime > PRIVATE(this)->starttime) stopit = TRUE;
+    bool stopit = false;
+    if (currtime >= PRIVATE(this)->stoptime && PRIVATE(this)->stoptime > PRIVATE(this)->starttime) stopit = true;
 
     double difftime = currtime - PRIVATE(this)->cyclestart;
 
     if (difftime > PRIVATE(this)->cycletime) {
-      this->cycleTime.enable(TRUE);
+      this->cycleTime.enable(true);
       double num = difftime / PRIVATE(this)->cycletime;
       PRIVATE(this)->cyclestart += PRIVATE(this)->cycletime * floor(num);
       difftime = currtime - PRIVATE(this)->cyclestart;
 
-      if (PRIVATE(this)->loop == FALSE) stopit = TRUE;
+      if (PRIVATE(this)->loop == false) stopit = true;
     }
     PRIVATE(this)->fraction = (float) (difftime / PRIVATE(this)->cycletime);
 
     if (stopit) {
-      PRIVATE(this)->running = FALSE;
-      this->isActive.enable(TRUE);
-      this->fraction_changed.enable(FALSE);
-      this->timeIn.enableNotify(FALSE);
+      PRIVATE(this)->running = false;
+      this->isActive.enable(true);
+      this->fraction_changed.enable(false);
+      this->timeIn.enableNotify(false);
     }
   }
   else if (which == &this->stopTime) {

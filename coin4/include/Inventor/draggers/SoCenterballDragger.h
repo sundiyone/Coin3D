@@ -72,7 +72,7 @@ protected:
   virtual ~SoCenterballDragger(void);
   void transferCenterDraggerMotion(SoDragger * childdragger);
   void setSwitches(SoDragger * activechild);
-  virtual SbBool setUpConnections(SbBool onoff, SbBool doitalways = FALSE);
+  virtual bool setUpConnections(bool onoff, bool doitalways = false);
   virtual void setDefaultOnNonWritingFields(void);
 
   static void fieldSensorCB(void * f, SoSensor * s);

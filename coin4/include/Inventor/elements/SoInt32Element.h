@@ -39,7 +39,7 @@ protected:
 public: // constructor / destructor / etc.
   virtual void init(SoState * state);
 
-  virtual SbBool matches(const SoElement * element) const;
+  virtual bool matches(const SoElement * element) const;
   virtual SoElement * copyMatchInfo(void) const;
 
   virtual void print(FILE * file) const;

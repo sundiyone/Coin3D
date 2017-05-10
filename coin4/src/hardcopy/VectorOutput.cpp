@@ -46,7 +46,7 @@
 class SoVectorOutputP {
 public:
   FILE * fp;
-  SbBool didopen;
+  bool didopen;
 };
 
 #define PRIVATE(p) (p->pimpl)
@@ -61,7 +61,7 @@ SoVectorOutput::SoVectorOutput(void)
 {
   PRIVATE(this) = new SoVectorOutputP;
   PRIVATE(this)->fp = coin_get_stdout();
-  PRIVATE(this)->didopen = FALSE;
+  PRIVATE(this)->didopen = false;
 }
 
 /*!
@@ -76,11 +76,11 @@ SoVectorOutput::~SoVectorOutput()
 // *************************************************************************
 
 /*!
-  Opens \a filename for output. Returns \e FALSE if file could not be
+  Opens \a filename for output. Returns \e false if file could not be
   opened for writing. If the file already exists, it will be
   truncated.
  */
-SbBool
+bool
 SoVectorOutput::openFile(const char * filename)
 {
   this->closeFile();
@@ -88,7 +88,7 @@ SoVectorOutput::openFile(const char * filename)
   FILE * fp = fopen(filename, "wb");
   if (fp) {
     PRIVATE(this)->fp = fp;
-    PRIVATE(this)->didopen = TRUE;
+    PRIVATE(this)->didopen = true;
   }
   return fp != NULL;
 }
@@ -102,7 +102,7 @@ SoVectorOutput::closeFile(void)
   if (PRIVATE(this)->didopen) {
     fclose(PRIVATE(this)->fp);
     PRIVATE(this)->fp = stdout;
-    PRIVATE(this)->didopen = FALSE;
+    PRIVATE(this)->didopen = false;
   }
 }
 

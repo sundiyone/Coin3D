@@ -221,7 +221,7 @@ SoGLLazyElement::sendLightModel(const int32_t model) const
 }
 
 inline void
-SoGLLazyElement::sendFlatshading(const SbBool onoff) const
+SoGLLazyElement::sendFlatshading(const bool onoff) const
 {
   if (onoff) glShadeModel(GL_FLAT);
   else glShadeModel(GL_SMOOTH);
@@ -254,7 +254,7 @@ SoGLLazyElement::sendVertexOrdering(const VertexOrdering ordering) const
 }
 
 inline void
-SoGLLazyElement::sendTwosideLighting(const SbBool onoff) const
+SoGLLazyElement::sendTwosideLighting(const bool onoff) const
 {
   glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, onoff ? GL_TRUE : GL_FALSE);
   this->glstate.twoside = (int32_t) onoff;
@@ -262,7 +262,7 @@ SoGLLazyElement::sendTwosideLighting(const SbBool onoff) const
 }
 
 inline void
-SoGLLazyElement::sendBackfaceCulling(const SbBool onoff) const
+SoGLLazyElement::sendBackfaceCulling(const bool onoff) const
 {
   if (onoff) glEnable(GL_CULL_FACE);
   else glDisable(GL_CULL_FACE);
@@ -331,7 +331,7 @@ SoGLLazyElement::enableBlending(const int sfactor, const int dfactor) const
 {
   glEnable(GL_BLEND);
   glBlendFunc((GLenum) sfactor, (GLenum) dfactor);
-  this->glstate.blending = TRUE;
+  this->glstate.blending = true;
   this->glstate.blend_sfactor = sfactor;
   this->glstate.blend_dfactor = dfactor;
   this->glstate.alpha_blend_sfactor = 0;
@@ -355,7 +355,7 @@ SoGLLazyElement::enableSeparateBlending(const cc_glglue * glue,
       // fall back to normal blending
     glBlendFunc((GLenum) sfactor, (GLenum) dfactor);
   }
-  this->glstate.blending = TRUE;
+  this->glstate.blending = true;
   this->glstate.blend_sfactor = sfactor;
   this->glstate.blend_dfactor = dfactor;
   this->glstate.alpha_blend_sfactor = alpha_sfactor;
@@ -367,7 +367,7 @@ inline void
 SoGLLazyElement::disableBlending(void) const
 {
   glDisable(GL_BLEND);
-  this->glstate.blending = FALSE;
+  this->glstate.blending = false;
   this->cachebitmask |= BLENDING_MASK;
 }
 
@@ -376,7 +376,7 @@ SoGLLazyElement::init(SoState * stateptr)
 {
   inherited::init(stateptr);
   this->state = stateptr; // needed to send GL texture
-  this->colorindex = FALSE;
+  this->colorindex = false;
   this->glstate.ambient.setValue(-1.0f, -1.0f, -1.0f);
   this->glstate.emissive.setValue(-1.0f, -1.0f, -1.0f);
   this->glstate.specular.setValue(-1.0f, -1.0f, -1.0f);
@@ -415,7 +415,7 @@ SoGLLazyElement::init(SoState * stateptr)
 
   GLboolean rgba;
   glGetBooleanv(GL_RGBA_MODE, &rgba);
-  if (!rgba) this->colorindex = TRUE;
+  if (!rgba) this->colorindex = true;
   else {
     this->sendPackedDiffuse(0xccccccff);
   }
@@ -521,7 +521,7 @@ SoGLLazyElement::sendDiffuseByIndex(const int index) const
 
 //! FIXME: write doc
 
-SbBool
+bool
 SoGLLazyElement::isColorIndex(SoState * state)
 {
   SoGLLazyElement * elem = getInstance(state);
@@ -746,7 +746,7 @@ SoGLLazyElement::reset(SoState * stateptr,  uint32_t mask) const
 void
 SoGLLazyElement::sendPackedDiffuse(SoState * state, const uint32_t diffuse)
 {
-  SbBool cacheopen = state->isCacheOpen();
+  bool cacheopen = state->isCacheOpen();
   SoGLLazyElement * elem = getInstance(state);
   if (elem->glstate.diffuse != diffuse) {
     elem->sendPackedDiffuse(diffuse);
@@ -760,7 +760,7 @@ SoGLLazyElement::sendPackedDiffuse(SoState * state, const uint32_t diffuse)
 void
 SoGLLazyElement::sendLightModel(SoState * state, const int32_t model)
 {
-  SbBool cacheopen = state->isCacheOpen();
+  bool cacheopen = state->isCacheOpen();
   SoGLLazyElement * elem = getInstance(state);
   if (elem->glstate.lightmodel != model) {
     elem->sendLightModel(model);
@@ -772,9 +772,9 @@ SoGLLazyElement::sendLightModel(SoState * state, const int32_t model)
 }
 
 void
-SoGLLazyElement::sendFlatshading(SoState * state, const SbBool onoff)
+SoGLLazyElement::sendFlatshading(SoState * state, const bool onoff)
 {
-  SbBool cacheopen = state->isCacheOpen();
+  bool cacheopen = state->isCacheOpen();
   SoGLLazyElement * elem = getInstance(state);
   if (elem->glstate.flatshading != onoff) {
     elem->sendFlatshading(onoff);
@@ -788,7 +788,7 @@ SoGLLazyElement::sendFlatshading(SoState * state, const SbBool onoff)
 void
 SoGLLazyElement::sendVertexOrdering(SoState * state, const VertexOrdering ordering)
 {
-  SbBool cacheopen = state->isCacheOpen();
+  bool cacheopen = state->isCacheOpen();
   SoGLLazyElement * elem = getInstance(state);
   if (elem->glstate.vertexordering != (int32_t) ordering) {
     elem->sendVertexOrdering(ordering);
@@ -800,9 +800,9 @@ SoGLLazyElement::sendVertexOrdering(SoState * state, const VertexOrdering orderi
 }
 
 void
-SoGLLazyElement::sendTwosideLighting(SoState * state, const SbBool onoff)
+SoGLLazyElement::sendTwosideLighting(SoState * state, const bool onoff)
 {
-  SbBool cacheopen = state->isCacheOpen();
+  bool cacheopen = state->isCacheOpen();
   SoGLLazyElement * elem = getInstance(state);
   if (elem->glstate.twoside != (int32_t) onoff) {
     elem->sendTwosideLighting(onoff);
@@ -814,9 +814,9 @@ SoGLLazyElement::sendTwosideLighting(SoState * state, const SbBool onoff)
 }
 
 void
-SoGLLazyElement::sendBackfaceCulling(SoState * state, const SbBool onoff)
+SoGLLazyElement::sendBackfaceCulling(SoState * state, const bool onoff)
 {
-  SbBool cacheopen = state->isCacheOpen();
+  bool cacheopen = state->isCacheOpen();
   SoGLLazyElement * elem = getInstance(state);
   if (elem->glstate.culling != (int32_t) onoff) {
     elem->sendBackfaceCulling(onoff);
@@ -837,7 +837,7 @@ SoGLLazyElement::setDiffuseElt(SoNode * node,  int32_t numcolors,
 
 void
 SoGLLazyElement::setPackedElt(SoNode * node, int32_t numcolors,
-                              const uint32_t * colors, const SbBool packedtransparency)
+                              const uint32_t * colors, const bool packedtransparency)
 {
   inherited::setPackedElt(node, numcolors, colors, packedtransparency);
   this->colorpacker = NULL;
@@ -892,7 +892,7 @@ SoGLLazyElement::setShininessElt(float value)
 }
 
 void
-SoGLLazyElement::setColorMaterialElt(SbBool value)
+SoGLLazyElement::setColorMaterialElt(bool value)
 {
   inherited::setColorMaterialElt(value);
 }
@@ -924,7 +924,7 @@ SoGLLazyElement::setMaterialElt(SoNode * node, uint32_t bitmask,
                                 const SbColor & emissive,
                                 const SbColor & specular,
                                 const float shininess,
-                                const SbBool istransparent)
+                                const bool istransparent)
 {
   inherited::setMaterialElt(node, bitmask,
                             packer, diffuse, numdiffuse,
@@ -940,19 +940,19 @@ SoGLLazyElement::setVertexOrderingElt(VertexOrdering ordering)
 }
 
 void
-SoGLLazyElement::setBackfaceCullingElt(SbBool onoff)
+SoGLLazyElement::setBackfaceCullingElt(bool onoff)
 {
   inherited::setBackfaceCullingElt(onoff);
 }
 
 void
-SoGLLazyElement::setTwosideLightingElt(SbBool onoff)
+SoGLLazyElement::setTwosideLightingElt(bool onoff)
 {
   inherited::setTwosideLightingElt(onoff);
 }
 
 void
-SoGLLazyElement::setShadeModelElt(SbBool flatshading)
+SoGLLazyElement::setShadeModelElt(bool flatshading)
 {
   inherited::setShadeModelElt(flatshading);
 }
@@ -1085,7 +1085,7 @@ SoGLLazyElement::postCacheCall(const SoState * state, const GLState * poststate)
   }
 }
 
-SbBool
+bool
 SoGLLazyElement::preCacheCall(const SoState * state, const GLState * prestate)
 {
   SoGLLazyElement * elem = getInstance(state);
@@ -1099,7 +1099,7 @@ SoGLLazyElement::preCacheCall(const SoState * state, const GLState * prestate)
       case LIGHT_MODEL_CASE:
         if (curr.lightmodel != prestate->lightmodel) {
           GLLAZY_DEBUG("light model failed");
-          return FALSE;
+          return false;
         }
         break;
       case DIFFUSE_CASE:
@@ -1108,37 +1108,37 @@ SoGLLazyElement::preCacheCall(const SoState * state, const GLState * prestate)
         if ((prestate->diffusenodeid != curr.diffusenodeid) ||
             (prestate->transpnodeid != curr.transpnodeid)) {
           GLLAZY_DEBUG("material dependency failed");
-          return FALSE;
+          return false;
         }
         break;
       case AMBIENT_CASE:
         if (curr.ambient != prestate->ambient) {
           GLLAZY_DEBUG("ambient failed");
-          return FALSE;
+          return false;
         }
         break;
       case SPECULAR_CASE:
         if (curr.specular != prestate->specular) {
           GLLAZY_DEBUG("specular failed");
-          return FALSE;
+          return false;
         }
         break;
       case EMISSIVE_CASE:
         if (curr.emissive != prestate->emissive) {
           GLLAZY_DEBUG("emissive failed");
-          return FALSE;
+          return false;
         }
         break;
       case SHININESS_CASE:
         if (curr.shininess != prestate->shininess) {
           GLLAZY_DEBUG("shininess failed");
-          return FALSE;
+          return false;
         }
         break;
       case BLENDING_CASE:
         if (curr.blending != prestate->blending) {
           GLLAZY_DEBUG("blending failed");
-          return FALSE;
+          return false;
         }
         if (prestate->blending) {
           if (curr.blend_sfactor != prestate->blend_sfactor ||
@@ -1146,51 +1146,51 @@ SoGLLazyElement::preCacheCall(const SoState * state, const GLState * prestate)
               curr.alpha_blend_sfactor != prestate->alpha_blend_sfactor ||
               curr.alpha_blend_dfactor != prestate->alpha_blend_dfactor) {
             GLLAZY_DEBUG("blending failed");
-            return FALSE;
+            return false;
           }
         }
         break;
       case TRANSPARENCY_CASE:
         if (curr.stipplenum != prestate->stipplenum) {
           GLLAZY_DEBUG("transparency failed");
-          return FALSE;
+          return false;
         }
         break;
       case VERTEXORDERING_CASE:
         if (curr.vertexordering != prestate->vertexordering) {
           GLLAZY_DEBUG("vertexordering failed");
-          return FALSE;
+          return false;
         }
         break;
       case CULLING_CASE:
         if (curr.culling != prestate->culling) {
           GLLAZY_DEBUG("culling failed");
-          return FALSE;
+          return false;
         }
         break;
       case TWOSIDE_CASE:
         if (curr.twoside != prestate->twoside) {
           GLLAZY_DEBUG("twoside failed");
-          return FALSE;
+          return false;
         }
         break;
       case SHADE_MODEL_CASE:
         if (curr.flatshading != prestate->flatshading) {
           GLLAZY_DEBUG("shade model failed");
-          return FALSE;
+          return false;
         }
         break;
       case ALPHATEST_CASE:
         if (curr.alphatestfunc != prestate->alphatestfunc ||
             curr.alphatestvalue != prestate->alphatestvalue) {
           GLLAZY_DEBUG("alphatest failed");
-          return FALSE;
+          return false;
         }
         break;
       }
     }
   }
-  return TRUE;
+  return true;
 }
 
 

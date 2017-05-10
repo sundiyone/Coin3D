@@ -76,8 +76,8 @@ public:
   void *context;
   void *device;
 
-  SbBool enabled;
-  SbBool initOK;
+  bool enabled;
+  bool initOK;
   float lastGain;
 
 private:
@@ -128,8 +128,8 @@ SoAudioDeviceP::SoAudioDeviceP(SoAudioDevice * master)
 {
   this->context = NULL;
   this->device = NULL;
-  this->enabled = FALSE;
-  this->initOK = FALSE;
+  this->enabled = false;
+  this->initOK = false;
   this->lastGain = 1.0f;
 }
 
@@ -182,7 +182,7 @@ SoAudioDevice::~SoAudioDevice()
   Windows, the default driver name is "DirectSound3D", which should
   normally be what the user wants.
 */
-SbBool
+bool
 SoAudioDevice::init(const SbString & devicetype, const SbString & devicename)
 {
   if (PRIVATE(this)) {
@@ -195,7 +195,7 @@ SoAudioDevice::init(const SbString & devicetype, const SbString & devicename)
 
   // Default disabled, as sound support through OpenAL caused crashes
   // under Linux.
-  SbBool initaudio = FALSE;
+  bool initaudio = false;
   // FIXME: nobody bothered to document what was crashing, and how and
   // why and how to solve it, though. *grumpf*.
   //
@@ -210,7 +210,7 @@ SoAudioDevice::init(const SbString & devicetype, const SbString & devicename)
   // 20030507 mortene.
 
 #ifdef HAVE_WIN32_API
-  initaudio = TRUE;
+  initaudio = true;
 #endif // HAVE_WIN32_API
 
   const char * env = coin_getenv("COIN_SOUND_ENABLE");
@@ -221,13 +221,13 @@ SoAudioDevice::init(const SbString & devicetype, const SbString & devicename)
                              "COIN_SOUND_ENABLE=1. Sound support on this platform is considered "
                              "experimental, and is therefore not enabled by default. "
                              SOUND_NOT_ENABLED_BY_DEFAULT_STRING );
-      initaudio = TRUE;
+      initaudio = true;
     }
     else if (initaudio && atoi(env) == 0) {
       SoDebugError::postInfo("SoAudioDevice::init", 
                              "Sound has been disabled because the environment variable "
                              "COIN_SOUND_ENABLE=0.");
-      initaudio = FALSE;
+      initaudio = false;
     }
   }
 
@@ -241,31 +241,31 @@ SoAudioDevice::init(const SbString & devicetype, const SbString & devicename)
                              "Sound has been disabled because the "
                              "environment variable COIN_SOUND_DISABLE was set.");
     }
-    initaudio = FALSE;
+    initaudio = false;
   }
 
 
-  if (!initaudio) { return FALSE; }
+  if (!initaudio) { return false; }
 
   if (devicetype != "OpenAL") {
     SoDebugError::postWarning("SoAudioDevice::init",
                               "devicetype != OpenAL - currently OpenAL is "
                               "the only supported device type for audio "
                               "rendering");
-    return FALSE;
+    return false;
   }
 
 #ifndef HAVE_SOUND
   SoDebugError::postWarning("SoAudioDevice::init",
                             "Sound support was forced off when building "
                             "this Coin binary.");
-  return FALSE;
+  return false;
 #endif // !HAVE_SOUND
 
   if (!openal_wrapper()->available) {
-    PRIVATE(this)->enabled = FALSE;
-    PRIVATE(this)->initOK = FALSE;
-    return FALSE;
+    PRIVATE(this)->enabled = false;
+    PRIVATE(this)->initOK = false;
+    return false;
   }
 
   PRIVATE(this)->device = 
@@ -275,7 +275,7 @@ SoAudioDevice::init(const SbString & devicetype, const SbString & devicename)
     SoDebugError::postWarning("SoAudioDevice::init",
                               "Failed to initialize OpenAL. "
                               "Sound will not be available.");
-    return FALSE;
+    return false;
   }
 
   // FIXME: the version string should be checked against the minimum
@@ -320,7 +320,7 @@ SoAudioDevice::init(const SbString & devicetype, const SbString & devicename)
                                 "alListenerfv(AL_POSITION,) failed. %s."
                                 "Sound will not be available.",
                                 coin_get_openal_error(error));
-    return FALSE;
+    return false;
   }
 
   openal_wrapper()->alListenerfv(AL_VELOCITY, alfloat3);
@@ -330,7 +330,7 @@ SoAudioDevice::init(const SbString & devicetype, const SbString & devicename)
                                 "alListenerfv(AL_VELOCITY,) failed. %s."
                                 "Sound will not be available.",
                                 coin_get_openal_error(error));
-    return FALSE;
+    return false;
   }
   
   openal_wrapper()->alListenerfv(AL_ORIENTATION, alfloat6);
@@ -340,7 +340,7 @@ SoAudioDevice::init(const SbString & devicetype, const SbString & devicename)
                                 "alListenerfv(AL_ORIENTATION,) failed. %s."
                                 "Sound will not be available.",
                                 coin_get_openal_error(error));
-    return FALSE;
+    return false;
   }
 
   openal_wrapper()->alListenerf(AL_GAIN, gain);
@@ -350,7 +350,7 @@ SoAudioDevice::init(const SbString & devicetype, const SbString & devicename)
                                 "alListenerf(AL_GAIN,) failed. %s."
                                 "Sound will not be available.",
                                 coin_get_openal_error(error));
-    return FALSE;
+    return false;
   }
 
   // Disable OpenAL's distance attenuation since it doesn't
@@ -371,8 +371,8 @@ SoAudioDevice::init(const SbString & devicetype, const SbString & devicename)
   // 2005-04-10 thammer
   openal_wrapper()->alDistanceModel(AL_NONE);
 
-  PRIVATE(this)->enabled = TRUE;
-  PRIVATE(this)->initOK = TRUE;
+  PRIVATE(this)->enabled = true;
+  PRIVATE(this)->initOK = true;
 
   if (coin_debug_audio() && PRIVATE(this)->initOK) {
     SoDebugError::postInfo("SoAudioDevice::init",
@@ -386,14 +386,14 @@ SoAudioDevice::init(const SbString & devicetype, const SbString & devicename)
   // AudioTools.cpp.
   coin_sound_enable_traverse();
 
-  return TRUE;
+  return true;
 }
 
 /*!
   returns true if the audio device has been initialized successfully.
  */
 
-SbBool SoAudioDevice::haveSound()
+bool SoAudioDevice::haveSound()
 {
   return PRIVATE(this)->initOK;
 }
@@ -402,19 +402,19 @@ SbBool SoAudioDevice::haveSound()
   Enables sound
  */
 
-SbBool SoAudioDevice::enable()
+bool SoAudioDevice::enable()
 {
   if (!this->haveSound())
-    return FALSE;
+    return false;
 
   if (PRIVATE(this)->enabled)
-    return TRUE; // already enabled
+    return true; // already enabled
 
-  PRIVATE(this)->enabled = TRUE;
+  PRIVATE(this)->enabled = true;
 
   openal_wrapper()->alcProcessContext(PRIVATE(this)->context);
 
-  return TRUE;
+  return true;
 }
 
 /*!
@@ -429,16 +429,16 @@ void SoAudioDevice::disable()
   if (!PRIVATE(this)->enabled)
     return; // already disabled
   
-  PRIVATE(this)->enabled = FALSE;
+  PRIVATE(this)->enabled = false;
 
   openal_wrapper()->alcSuspendContext(PRIVATE(this)->context);
 }
 
 /*!
-  Returns TRUE if audio is enabled.
+  Returns true if audio is enabled.
  */
 
-SbBool 
+bool 
 SoAudioDevice::isEnabled()
 {
   return PRIVATE(this)->enabled;
@@ -465,7 +465,7 @@ SoAudioDevice::setGain(float gain)
 }
 
 void 
-SoAudioDevice::mute(SbBool mute)
+SoAudioDevice::mute(bool mute)
 {
   if (mute) {
     float lastgain = PRIVATE(this)->lastGain;

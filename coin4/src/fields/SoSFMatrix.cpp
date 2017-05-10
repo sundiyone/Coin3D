@@ -62,14 +62,14 @@ SoSFMatrix::initClass(void)
 // parent classes.
 #ifndef DOXYGEN_SKIP_THIS
 
-SbBool
+bool
 SoSFMatrix::readValue(SoInput * in)
 {
   float * ptr = this->value[0];
   for (int i = 0; i < 16; i++) {
-    if (!in->read(ptr[i])) return FALSE;
+    if (!in->read(ptr[i])) return false;
   }
-  return TRUE;
+  return true;
 }
 
 void

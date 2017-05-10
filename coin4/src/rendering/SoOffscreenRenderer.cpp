@@ -38,7 +38,7 @@
   \code
   SoOffscreenRenderer myRenderer(vpregion);
   SoNode * root = myViewer->getSceneManager()->getSceneGraph();
-  SbBool ok = myRenderer.render(root);
+  bool ok = myRenderer.render(root);
   unsigned char * imgbuffer = myRenderer.getBuffer();
   // [then use image buffer in a texture, or write it to file, or whatever]
   \endcode
@@ -101,7 +101,7 @@
       interpolate->alpha = float(i) / (frames - 1);
 
       // Render the scene
-      SbBool ok = offscreenRenderer.render(root);
+      bool ok = offscreenRenderer.render(root);
 
       // Save the image to disk
       SbString filename = SbString("coinvideo-") + (i + 1) + ".jpg";
@@ -168,8 +168,8 @@
 
    // Control realTime field ourselves, so animations within the scene
    // follows "movie-time" and not "wallclock-time".
-   SoDB::enableRealTimeSensor(FALSE);
-   SoSceneManager::enableRealTimeUpdate(FALSE);
+   SoDB::enableRealTimeSensor(false);
+   SoSceneManager::enableRealTimeUpdate(false);
    SoSFTime * realtime = SoDB::getGlobalField("realTime");
    realtime->setValue(0.0);
   \endcode
@@ -371,13 +371,13 @@ public:
                        SoGLRenderAction * glrenderaction = NULL)
   {
     this->master = masterptr;
-    this->didreadbuffer = TRUE;
+    this->didreadbuffer = true;
 
     this->backgroundcolor.setValue(0,0,0);
     this->components = SoOffscreenRenderer::RGB;
     this->buffer = NULL;
     this->bufferbytesize = 0;
-    this->lastnodewasacamera = FALSE;
+    this->lastnodewasacamera = false;
 	
     if (glrenderaction) {
       this->renderaction = glrenderaction;
@@ -388,7 +388,7 @@ public:
       this->renderaction->setTransparencyType(SoGLRenderAction::SORTED_OBJECT_BLEND);
     }
 
-    this->didallocation = glrenderaction ? FALSE : TRUE;
+    this->didallocation = glrenderaction ? false : true;
     this->viewport = vpr;
 	this->useDC = false;
   }
@@ -398,26 +398,26 @@ public:
     if (this->didallocation) { delete this->renderaction; }
   }
 
-  static SbBool offscreenContextsNotSupported(void);
+  static bool offscreenContextsNotSupported(void);
 
   static const char * debugTileOutputPrefix(void);
 
   static SoGLRenderAction::AbortCode GLRenderAbortCallback(void *userData);
-  SbBool renderFromBase(SoBase * base);
+  bool renderFromBase(SoBase * base);
 
   void setCameraViewvolForTile(SoCamera * cam);
 
-  static SbBool writeToRGB(FILE * fp, unsigned int w, unsigned int h,
+  static bool writeToRGB(FILE * fp, unsigned int w, unsigned int h,
                            unsigned int nrcomponents, const uint8_t * imgbuf);
 
   SbViewportRegion viewport;
   SbColor backgroundcolor;
   SoOffscreenRenderer::Components components;
   SoGLRenderAction * renderaction;
-  SbBool didallocation;
+  bool didallocation;
 
   void updateDCBitmap();
-  SbBool useDC;
+  bool useDC;
 
   unsigned char * buffer;
   size_t bufferbytesize;
@@ -432,11 +432,11 @@ public:
   // Keeps track of the current tile to be rendered.
   SbVec2s currenttile;
 
-  SbBool lastnodewasacamera;
+  bool lastnodewasacamera;
   SoCamera * visitedcamera;
 
   // used for lazy readPixels()
-  SbBool didreadbuffer;
+  bool didreadbuffer;
 private:
   SoOffscreenRenderer * master;
 };
@@ -614,7 +614,7 @@ SoOffscreenRenderer::setGLRenderAction(SoGLRenderAction * action)
 
   if (PRIVATE(this)->didallocation) { delete PRIVATE(this)->renderaction; }
   PRIVATE(this)->renderaction = action;
-  PRIVATE(this)->didallocation = FALSE;
+  PRIVATE(this)->didallocation = false;
 }
 
 /*!
@@ -632,7 +632,7 @@ static void
 pre_render_cb(void * COIN_UNUSED_ARG(userdata), SoGLRenderAction * action)
 {
   glClear(GL_DEPTH_BUFFER_BIT|GL_COLOR_BUFFER_BIT);
-  action->setRenderingIsRemote(FALSE);
+  action->setRenderingIsRemote(false);
 }
 
 // *************************************************************************
@@ -659,12 +659,12 @@ SoOffscreenRendererP::GLRenderAbortCallback(void *userData)
 
   if (thisp->lastnodewasacamera) {
     thisp->setCameraViewvolForTile(thisp->visitedcamera);
-    thisp->lastnodewasacamera = FALSE;
+    thisp->lastnodewasacamera = false;
   }
 
   if (node->isOfType(SoCamera::getClassTypeId())) {
     thisp->visitedcamera = (SoCamera *) node;
-    thisp->lastnodewasacamera = TRUE;
+    thisp->lastnodewasacamera = true;
 
     // FIXME: this is not really entirely sufficient. If a camera is
     // already within a cached list upon the first invocation of a
@@ -688,31 +688,31 @@ SoOffscreenRendererP::GLRenderAbortCallback(void *userData)
 }
 
 // Collects common code from the two render() functions.
-SbBool
+bool
 SoOffscreenRendererP::renderFromBase(SoBase * base)
 {
   if (SoOffscreenRendererP::offscreenContextsNotSupported()) {
-    static SbBool first = TRUE;
+    static bool first = true;
     if (first) {
       SoDebugError::post("SoOffscreenRenderer::renderFromBase",
                          "SoOffscreenRenderer not compiled against any "
                          "window-system binding, it is defunct for this build.");
-      first = FALSE;
+      first = false;
     }
-    return FALSE;
+    return false;
   }
 
   const SbVec2s fullsize = this->viewport.getViewportSizePixels();
   this->glcanvas.setWantedSize(fullsize);
 
   // check if no possible canvas size was found
-  if (this->glcanvas.getActualSize() == SbVec2s(0, 0)) { return FALSE; }
+  if (this->glcanvas.getActualSize() == SbVec2s(0, 0)) { return false; }
 
   const uint32_t newcontext = this->glcanvas.activateGLContext();
   if (newcontext == 0) {
     SoDebugError::postWarning("SoOffscreenRenderer::renderFromBase",
                               "Could not set up an offscreen OpenGL context.");
-    return FALSE;
+    return false;
   }
 
   const SbVec2s glsize = this->glcanvas.getActualSize();
@@ -774,7 +774,7 @@ SoOffscreenRendererP::renderFromBase(SoBase * base)
   // If we need more space:
   const size_t bufsize =
     fullsize[0] * fullsize[1] * PUBLIC(this)->getComponents();
-  SbBool alloc = (bufsize > this->bufferbytesize);
+  bool alloc = (bufsize > this->bufferbytesize);
   // or if old buffer was much larger, free up the memory by fitting
   // to smaller size:
   alloc = alloc || (bufsize <= (this->bufferbytesize / 8));
@@ -817,13 +817,13 @@ SoOffscreenRendererP::renderFromBase(SoBase * base)
   // SoExtSelection, rather than adding some kind of "semi-private"
   // API to let SoExtSelection find out whether or not tiled rendering
   // is used). 20041028 mortene.
-  const SbBool tiledrendering =
+  const bool tiledrendering =
     forcetiled || (fullsize[0] > glsize[0]) || (fullsize[1] > glsize[1]);
 
   // Shall we use subscreen rendering or regular one-screen renderer?
   if (tiledrendering) {
     // we need to copy from GL to system memory if we're doing tiled rendering
-    this->didreadbuffer = TRUE;
+    this->didreadbuffer = true;
 
     for (int i=0; i < 2; i++) {
       this->numsubscreens[i] = (fullsize[i] + (glsize[i] - 1)) / glsize[i];
@@ -858,7 +858,7 @@ SoOffscreenRendererP::renderFromBase(SoBase * base)
         else if (base->isOfType(SoPath::getClassTypeId()))
           this->renderaction->apply((SoPath *)base);
         else {
-          assert(FALSE && "Cannot apply to anything else than an SoNode or an SoPath");
+          assert(false && "Cannot apply to anything else than an SoNode or an SoPath");
         }
 
         const unsigned int nrcomp = PUBLIC(this)->getComponents();
@@ -879,7 +879,7 @@ SoOffscreenRendererP::renderFromBase(SoBase * base)
 
           FILE * f = fopen(s.getString(), "wb");
           assert(f);
-          SbBool w = SoOffscreenRendererP::writeToRGB(f, fullsize[0], fullsize[1],
+          bool w = SoOffscreenRendererP::writeToRGB(f, fullsize[0], fullsize[1],
                                                       nrcomp, this->buffer);
           assert(w);
           const int r = fclose(f);
@@ -908,7 +908,7 @@ SoOffscreenRendererP::renderFromBase(SoBase * base)
   // Regular, non-tiled rendering.
   else {
     // do lazy buffer read (GL context is read in getBuffer())
-    this->didreadbuffer = FALSE;
+    this->didreadbuffer = false;
 	
 	SbViewportRegion region;
 
@@ -923,7 +923,7 @@ SoOffscreenRendererP::renderFromBase(SoBase * base)
     else if (base->isOfType(SoPath::getClassTypeId()))
       this->renderaction->apply((SoPath *)base);
     else  {
-      assert(FALSE && "Cannot apply to anything else than an SoNode or an SoPath");
+      assert(false && "Cannot apply to anything else than an SoNode or an SoPath");
     }
 
     if (CoinOffscreenGLCanvas::debug()) {
@@ -951,7 +951,7 @@ SoOffscreenRendererP::renderFromBase(SoBase * base)
   if(this->useDC)
 	this->updateDCBitmap();
 
-  return TRUE;
+  return true;
 }
 
 /*!
@@ -977,7 +977,7 @@ SoOffscreenRendererP::renderFromBase(SoBase * base)
   \code
   SoOffscreenRenderer * myRenderer = new SoOffscreenRenderer(vpregion);
   SoNode * root = myViewer->getSceneManager()->getSceneGraph();
-  SbBool ok = myRenderer->render(root);
+  bool ok = myRenderer->render(root);
   // [then use image buffer in a texture, or write it to file, or whatever]
   \endcode
 
@@ -996,7 +996,7 @@ SoOffscreenRendererP::renderFromBase(SoBase * base)
 
   \sa writeToRGB()
 */
-SbBool
+bool
 SoOffscreenRenderer::render(SoNode * scene)
 {
   return PRIVATE(this)->renderFromBase(scene);
@@ -1005,7 +1005,7 @@ SoOffscreenRenderer::render(SoNode * scene)
 /*!
   Render the \a scene path into our internal memory buffer.
 */
-SbBool
+bool
 SoOffscreenRenderer::render(SoPath * scene)
 {
   return PRIVATE(this)->renderFromBase(scene);
@@ -1027,7 +1027,7 @@ SoOffscreenRenderer::getBuffer(void) const
     PRIVATE(this)->glcanvas.readPixels(PRIVATE(this)->buffer, dims, dims[0],
                                        (unsigned int) this->getComponents());
     PRIVATE(this)->glcanvas.deactivateGLContext();
-    PRIVATE(this)->didreadbuffer = TRUE;
+    PRIVATE(this)->didreadbuffer = true;
   }
   return PRIVATE(this)->buffer;
 }
@@ -1090,7 +1090,7 @@ write_short(FILE * fp, unsigned short val)
   return fwrite(&tmp, 2, 1, fp);
 }
 
-SbBool
+bool
 SoOffscreenRendererP::writeToRGB(FILE * fp, unsigned int w, unsigned int h,
                                  unsigned int nrcomponents,
                                  const uint8_t * imgbuf)
@@ -1119,7 +1119,7 @@ SoOffscreenRendererP::writeToRGB(FILE * fp, unsigned int w, unsigned int h,
 
   unsigned char * tmpbuf = new unsigned char[w];
 
-  SbBool writeok = TRUE;
+  bool writeok = true;
   for (unsigned int c = 0; c < nrcomponents; c++) {
     for (unsigned int y = 0; y < h; y++) {
       for (unsigned int x = 0; x < w; x++) {
@@ -1141,17 +1141,17 @@ SoOffscreenRendererP::writeToRGB(FILE * fp, unsigned int w, unsigned int h,
 
 /*!
   Writes the buffer in SGI RGB format by appending it to the already
-  open file. Returns \c FALSE if writing fails.
+  open file. Returns \c false if writing fails.
 
   Important note: do \e not use this method when the Coin library has
   been compiled as an MSWindows DLL, as passing FILE* instances back
   or forth to DLLs is dangerous and will most likely cause a
   crash. This is an intrinsic limitation for MSWindows DLLs.
 */
-SbBool
+bool
 SoOffscreenRenderer::writeToRGB(FILE * fp) const
 {
-  if (SoOffscreenRendererP::offscreenContextsNotSupported()) { return FALSE; }
+  if (SoOffscreenRendererP::offscreenContextsNotSupported()) { return false; }
 
   SbVec2s size = PRIVATE(this)->viewport.getViewportSizePixels();
 
@@ -1165,32 +1165,32 @@ SoOffscreenRenderer::writeToRGB(FILE * fp) const
   SGI RGB format to the new file. If the file already exists, it will
   be overwritten (if permitted by the filesystem).
 
-  Returns \c TRUE if all went ok, otherwise \c FALSE.
+  Returns \c true if all went ok, otherwise \c false.
 */
-SbBool
+bool
 SoOffscreenRenderer::writeToRGB(const char * filename) const
 {
   FILE * rgbfp = fopen(filename, "wb");
   if (!rgbfp) {
     SoDebugError::postWarning("SoOffscreenRenderer::writeToRGB",
                               "couldn't open file '%s'", filename);
-    return FALSE;
+    return false;
   }
-  SbBool result = this->writeToRGB(rgbfp);
+  bool result = this->writeToRGB(rgbfp);
   (void)fclose(rgbfp);
   return result;
 }
 
 /*!
   Writes the buffer in Postscript format by appending it to the
-  already open file. Returns \c FALSE if writing fails.
+  already open file. Returns \c false if writing fails.
 
   Important note: do \e not use this method when the Coin library has
   been compiled as an MSWindows DLL, as passing FILE* instances back
   or forth to DLLs is dangerous and will most likely cause a
   crash. This is an intrinsic limitation for MSWindows DLLs.
 */
-SbBool
+bool
 SoOffscreenRenderer::writeToPostScript(FILE * fp) const
 {
   // just choose a page size of 8.5 x 11 inches (A4)
@@ -1202,18 +1202,18 @@ SoOffscreenRenderer::writeToPostScript(FILE * fp) const
   Postscript format to the new file. If the file already exists, it
   will be overwritten (if permitted by the filesystem).
 
-  Returns \c TRUE if all went ok, otherwise \c FALSE.
+  Returns \c true if all went ok, otherwise \c false.
 */
-SbBool
+bool
 SoOffscreenRenderer::writeToPostScript(const char * filename) const
 {
   FILE * psfp = fopen(filename, "wb");
   if (!psfp) {
     SoDebugError::postWarning("SoOffscreenRenderer::writeToPostScript",
                               "couldn't open file '%s'", filename);
-    return FALSE;
+    return false;
   }
-  SbBool result = this->writeToPostScript(psfp);
+  bool result = this->writeToPostScript(psfp);
   (void)fclose(psfp);
   return result;
 }
@@ -1227,11 +1227,11 @@ SoOffscreenRenderer::writeToPostScript(const char * filename) const
   or forth to DLLs is dangerous and will most likely cause a
   crash. This is an intrinsic limitation for MSWindows DLLs.
 */
-SbBool
+bool
 SoOffscreenRenderer::writeToPostScript(FILE * fp,
                                        const SbVec2f & printsize) const
 {
-  if (SoOffscreenRendererP::offscreenContextsNotSupported()) { return FALSE;}
+  if (SoOffscreenRendererP::offscreenContextsNotSupported()) { return false;}
 
   const SbVec2s size = PRIVATE(this)->viewport.getViewportSizePixels();
   const int nc = this->getComponents();
@@ -1246,7 +1246,7 @@ SoOffscreenRenderer::writeToPostScript(FILE * fp,
                            (short) ceil(size[1]*defaultdpi/dpi));
 
   cc_string storedlocale;
-  SbBool changed = coin_locale_set_portable(&storedlocale);
+  bool changed = coin_locale_set_portable(&storedlocale);
 
   fprintf(fp, "%%!PS-Adobe-2.0 EPSF-1.2\n");
   fprintf(fp, "%%%%BoundingBox: 0 %d %d %d\n",
@@ -1300,20 +1300,20 @@ SoOffscreenRenderer::writeToPostScript(FILE * fp,
     switch (nc) {
     default: // avoid warning
     case 1:
-      coin_output_ascii85(fp, src[cnt], tuple, linebuf, &tuplecnt, &linecnt, rowlen, FALSE);
+      coin_output_ascii85(fp, src[cnt], tuple, linebuf, &tuplecnt, &linecnt, rowlen, false);
       break;
     case 2:
-      coin_output_ascii85(fp, src[cnt*2], tuple, linebuf, &tuplecnt, &linecnt, rowlen, FALSE);
+      coin_output_ascii85(fp, src[cnt*2], tuple, linebuf, &tuplecnt, &linecnt, rowlen, false);
       break;
     case 3:
-      coin_output_ascii85(fp, src[cnt*3], tuple, linebuf, &tuplecnt, &linecnt, rowlen, FALSE);
-      coin_output_ascii85(fp, src[cnt*3+1], tuple, linebuf, &tuplecnt, &linecnt, rowlen, FALSE);
-      coin_output_ascii85(fp, src[cnt*3+2], tuple, linebuf, &tuplecnt, &linecnt, rowlen, FALSE);
+      coin_output_ascii85(fp, src[cnt*3], tuple, linebuf, &tuplecnt, &linecnt, rowlen, false);
+      coin_output_ascii85(fp, src[cnt*3+1], tuple, linebuf, &tuplecnt, &linecnt, rowlen, false);
+      coin_output_ascii85(fp, src[cnt*3+2], tuple, linebuf, &tuplecnt, &linecnt, rowlen, false);
       break;
     case 4:
-      coin_output_ascii85(fp, src[cnt*4], tuple, linebuf, &tuplecnt, &linecnt, rowlen, FALSE);
-      coin_output_ascii85(fp, src[cnt*4+1], tuple, linebuf, &tuplecnt, &linecnt,rowlen, FALSE);
-      coin_output_ascii85(fp, src[cnt*4+2], tuple, linebuf, &tuplecnt, &linecnt, rowlen, FALSE);
+      coin_output_ascii85(fp, src[cnt*4], tuple, linebuf, &tuplecnt, &linecnt, rowlen, false);
+      coin_output_ascii85(fp, src[cnt*4+1], tuple, linebuf, &tuplecnt, &linecnt,rowlen, false);
+      coin_output_ascii85(fp, src[cnt*4+2], tuple, linebuf, &tuplecnt, &linecnt, rowlen, false);
       break;
     }
     cnt++;
@@ -1331,7 +1331,7 @@ SoOffscreenRenderer::writeToPostScript(FILE * fp,
 
   if (changed) { coin_locale_reset(&storedlocale); }
 
-  return (SbBool) (ferror(fp) == 0);
+  return (bool) (ferror(fp) == 0);
 }
 
 /*!
@@ -1340,9 +1340,9 @@ SoOffscreenRenderer::writeToPostScript(FILE * fp,
   the file already exists, it will be overwritten (if permitted by the
   filesystem).
 
-  Returns \c TRUE if all went ok, otherwise \c FALSE.
+  Returns \c true if all went ok, otherwise \c false.
 */
-SbBool
+bool
 SoOffscreenRenderer::writeToPostScript(const char * filename,
                                        const SbVec2f & printsize) const
 {
@@ -1350,9 +1350,9 @@ SoOffscreenRenderer::writeToPostScript(const char * filename,
   if (!psfp) {
     SoDebugError::postWarning("SoOffscreenRenderer::writeToPostScript",
                               "couldn't open file '%s'", filename);
-    return FALSE;
+    return false;
   }
-  SbBool result = this->writeToPostScript(psfp, printsize);
+  bool result = this->writeToPostScript(psfp, printsize);
   (void)fclose(psfp);
   return result;
 }
@@ -1366,7 +1366,7 @@ SoOffscreenRenderer::writeToPostScript(const char * filename,
 // writeToPNG(), etc etc functions.
 
 /*!
-  Returns \c TRUE if the buffer can be saved as a file of type \a
+  Returns \c true if the buffer can be saved as a file of type \a
   filetypeextension, using SoOffscreenRenderer::writeToFile().  This
   function needs simage v1.1 or newer.
 
@@ -1405,7 +1405,7 @@ SoOffscreenRenderer::writeToPostScript(const char * filename,
 
   \sa  getNumWriteFiletypes(), getWriteFiletypeInfo(), writeToFile()
 */
-SbBool
+bool
 SoOffscreenRenderer::isWriteSupported(const SbName & filetypeextension) const
 {
   if (!simage_wrapper()->versionMatchesAtLeast(1,1,0)) {
@@ -1419,10 +1419,10 @@ SoOffscreenRenderer::isWriteSupported(const SbName & filetypeextension) const
                                "You need simage v1.1 for this functionality.");
       }
     }
-    return FALSE;
+    return false;
   }
   int ret = simage_wrapper()->simage_check_save_supported(filetypeextension.getString());
-  return ret ? TRUE : FALSE;
+  return ret ? true : false;
 }
 
 /*!
@@ -1564,7 +1564,7 @@ SoOffscreenRenderer::getWriteFiletypeInfo(const int idx,
 
   \sa isWriteSupported()
 */
-SbBool
+bool
 SoOffscreenRenderer::writeToFile(const SbString & filename, const SbName & filetypeextension) const
 {
   if (!simage_wrapper()->versionMatchesAtLeast(1,1,0)) {
@@ -1581,12 +1581,12 @@ SoOffscreenRenderer::writeToFile(const SbString & filename, const SbName & filet
       SoDebugError::post(BOOST_CURRENT_FUNCTION,
                          "simage version is older than 1.1.0, available version is %d.%d.%d", major,minor,micro);
     }
-    return FALSE;
+    return false;
   }
   if (SoOffscreenRendererP::offscreenContextsNotSupported()) {
     SoDebugError::post(BOOST_CURRENT_FUNCTION,
                        "Offscreen contexts not supported.");
-    return FALSE;
+    return false;
   }
 
   SbVec2s size = PRIVATE(this)->viewport.getViewportSizePixels();
@@ -1596,7 +1596,7 @@ SoOffscreenRenderer::writeToFile(const SbString & filename, const SbName & filet
                                                 bytes,
                                                 int(size[0]), int(size[1]), comp,
                                                 filetypeextension.getString());
-  return ret ? TRUE : FALSE;
+  return ret ? true : false;
 }
 
 // *************************************************************************
@@ -1617,11 +1617,11 @@ SoOffscreenRenderer::writeToFile(const SbString & filename, const SbName & filet
   \since Coin 3.1
 */
 void
-SoOffscreenRenderer::setPbufferEnable(SbBool COIN_UNUSED_ARG(enable))
+SoOffscreenRenderer::setPbufferEnable(bool COIN_UNUSED_ARG(enable))
 {
   // FIXME: change the semantics of this function from just ignoring
   // the input argument, to using it for shutting off pbuffers if
-  // FALSE?
+  // false?
   //
   // not sure there's really any good reason to do that, however.
   //
@@ -1633,7 +1633,7 @@ SoOffscreenRenderer::setPbufferEnable(SbBool COIN_UNUSED_ARG(enable))
 
   \since Coin 3.1
 */
-SbBool
+bool
 SoOffscreenRenderer::getPbufferEnable(void) const
 {
   // FIXME: should perhaps return a flag indicating whether or not the
@@ -1646,7 +1646,7 @@ SoOffscreenRenderer::getPbufferEnable(void) const
   //
   // mortene.
 
-  return TRUE;
+  return true;
 }
 
 // *************************************************************************
@@ -1673,7 +1673,7 @@ SoOffscreenRendererP::setCameraViewvolForTile(SoCamera * cam)
     { // FIXME: should really fix this bug, not just warn that it is
       // there. See item #191 in Coin/BUGS.txt for more information.
       // 20050714 mortene.
-      static SbBool first = TRUE;
+      static bool first = true;
       if (first) {
         SbString s;
         cam->viewportMapping.get(s);
@@ -1681,7 +1681,7 @@ SoOffscreenRendererP::setCameraViewvolForTile(SoCamera * cam)
                                   "The SoOffscreenRenderer does not yet work "
                                   "properly with the SoCamera::viewportMapping "
                                   "field set to '%s'", s.getString());
-        first = FALSE;
+        first = false;
       }
     }
     break;
@@ -1742,10 +1742,10 @@ SoOffscreenRendererP::setCameraViewvolForTile(SoCamera * cam)
 
 // *************************************************************************
 
-SbBool
+bool
 SoOffscreenRendererP::offscreenContextsNotSupported(void)
 {
-  // Returning FALSE means that offscreen rendering seems to be
+  // Returning false means that offscreen rendering seems to be
   // generally supported on the system.
   //
   // (It is however important to be robust and handle cases where it
@@ -1753,16 +1753,16 @@ SoOffscreenRendererP::offscreenContextsNotSupported(void)
   // other causes that may change during run-time.)
 
 #ifdef HAVE_GLX
-  return FALSE;
+  return false;
 #elif defined(HAVE_WGL)
-  return FALSE;
+  return false;
 #elif defined(COIN_MACOS_10)
-  return FALSE;
+  return false;
 #endif
 
   // No win-system GL binding was found, so we're sure that offscreen
   // rendering can *not* be done.
-  return TRUE;
+  return true;
 }
 
 // *************************************************************************

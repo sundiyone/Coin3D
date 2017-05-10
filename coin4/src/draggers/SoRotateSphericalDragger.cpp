@@ -82,7 +82,7 @@
   \COININTERNAL
 */
 /*!
-  \var SbBool SoRotateSphericalDragger::userProj
+  \var bool SoRotateSphericalDragger::userProj
   \COININTERNAL
 */
 /*!
@@ -158,12 +158,12 @@ SoRotateSphericalDragger::SoRotateSphericalDragger(void)
 {
   SO_KIT_INTERNAL_CONSTRUCTOR(SoRotateSphericalDragger);
 
-  SO_KIT_ADD_CATALOG_ENTRY(rotatorSwitch, SoSwitch, TRUE, geomSeparator, feedbackSwitch, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(rotator, SoSeparator, TRUE, rotatorSwitch, rotatorActive, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(rotatorActive, SoSeparator, TRUE, rotatorSwitch, "", TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(feedbackSwitch, SoSwitch, TRUE, geomSeparator, "", FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(feedback, SoSeparator, TRUE, feedbackSwitch, feedbackActive, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(feedbackActive, SoSeparator, TRUE, feedbackSwitch, "", TRUE);
+  SO_KIT_ADD_CATALOG_ENTRY(rotatorSwitch, SoSwitch, true, geomSeparator, feedbackSwitch, false);
+  SO_KIT_ADD_CATALOG_ENTRY(rotator, SoSeparator, true, rotatorSwitch, rotatorActive, true);
+  SO_KIT_ADD_CATALOG_ENTRY(rotatorActive, SoSeparator, true, rotatorSwitch, "", true);
+  SO_KIT_ADD_CATALOG_ENTRY(feedbackSwitch, SoSwitch, true, geomSeparator, "", false);
+  SO_KIT_ADD_CATALOG_ENTRY(feedback, SoSeparator, true, feedbackSwitch, feedbackActive, true);
+  SO_KIT_ADD_CATALOG_ENTRY(feedbackActive, SoSeparator, true, feedbackSwitch, "", true);
 
   if (SO_KIT_IS_FIRST_INSTANCE()) {
     SoInteractionKit::readDefaultParts("rotateSphericalDragger.iv",
@@ -189,7 +189,7 @@ SoRotateSphericalDragger::SoRotateSphericalDragger(void)
 
   // setup projector
   this->sphereProj = new SbSpherePlaneProjector();
-  this->userProj = FALSE;
+  this->userProj = false;
   this->addStartCallback(SoRotateSphericalDragger::startCB);
   this->addMotionCallback(SoRotateSphericalDragger::motionCB);
   this->addFinishCallback(SoRotateSphericalDragger::doneCB);
@@ -199,7 +199,7 @@ SoRotateSphericalDragger::SoRotateSphericalDragger(void)
   this->fieldSensor = new SoFieldSensor(SoRotateSphericalDragger::fieldSensorCB, this);
   this->fieldSensor->setPriority(0);
 
-  this->setUpConnections(TRUE, TRUE);
+  this->setUpConnections(true, true);
 }
 
 /*!
@@ -216,12 +216,12 @@ SoRotateSphericalDragger::~SoRotateSphericalDragger()
 }
 
 // Doc in superclass.
-SbBool
-SoRotateSphericalDragger::setUpConnections(SbBool onoff, SbBool doitalways)
+bool
+SoRotateSphericalDragger::setUpConnections(bool onoff, bool doitalways)
 {
   if (!doitalways && this->connectionsSetUp == onoff) return onoff;
 
-  SbBool oldval = this->connectionsSetUp;
+  bool oldval = this->connectionsSetUp;
 
   if (onoff) {
     inherited::setUpConnections(onoff, doitalways);
@@ -284,7 +284,7 @@ void
 SoRotateSphericalDragger::setProjector(SbSphereProjector * p)
 {
   if (!this->userProj) delete this->sphereProj;
-  this->userProj = TRUE;
+  this->userProj = true;
   this->sphereProj = p;
 }
 
@@ -303,7 +303,7 @@ SoRotateSphericalDragger::getProjector(void) const
 // Doc in superclass.
 void
 SoRotateSphericalDragger::copyContents(const SoFieldContainer * fromfc,
-                                       SbBool copyconnections)
+                                       bool copyconnections)
 {
   inherited::copyContents(fromfc, copyconnections);
   const SoRotateSphericalDragger * from = coin_assert_cast<const SoRotateSphericalDragger *>(fromfc);
@@ -318,7 +318,7 @@ SoRotateSphericalDragger::copyContents(const SoFieldContainer * fromfc,
     this->sphereProj = new SbSpherePlaneProjector();
   }
   // we copied or created a new one, and need to delete it
-  this->userProj = FALSE;
+  this->userProj = false;
 }
 
 /*! \COININTERNAL */
@@ -367,10 +367,10 @@ SoRotateSphericalDragger::dragStart(void)
 
   switch (this->getFrontOnProjector()) {
   case FRONT:
-    this->sphereProj->setFront(TRUE);
+    this->sphereProj->setFront(true);
     break;
   case BACK:
-    this->sphereProj->setFront(TRUE);
+    this->sphereProj->setFront(true);
     break;
   default: // avoid warnings
   case USE_PICK:

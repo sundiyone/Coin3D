@@ -51,7 +51,7 @@ public:
 
   void addPart(SoCylinder::Part part);
   void removePart(SoCylinder::Part part);
-  SbBool hasPart(SoCylinder::Part part) const;
+  bool hasPart(SoCylinder::Part part) const;
 
   virtual void rayPick(SoRayPickAction * action);
   virtual void getPrimitiveCount(SoGetPrimitiveCountAction * action);

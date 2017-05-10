@@ -87,39 +87,39 @@ SoProfilerOverlayKit::initClass(void)
 SoProfilerOverlayKit::SoProfilerOverlayKit(void)
 {
   SO_KIT_INTERNAL_CONSTRUCTOR(SoProfilerOverlayKit);
-  SO_KIT_ADD_CATALOG_ENTRY(topSeparator, SoSeparator, TRUE, this, "", FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(profilingStats, SoProfilerStats, FALSE,
-                           topSeparator, viewportInfo, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(viewportInfo, SoCallback, TRUE, topSeparator,
-                           overlayCamera, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(overlayCamera, SoOrthographicCamera, TRUE,
-                           topSeparator, depthTestOff, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(depthTestOff, SoCallback, TRUE, topSeparator,
-                           overlaySep, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(overlaySep, SoSeparator, TRUE, topSeparator,
-                           depthTestOn, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(depthTestOn, SoCallback, TRUE, topSeparator, "",
-                           FALSE);
+  SO_KIT_ADD_CATALOG_ENTRY(topSeparator, SoSeparator, true, this, "", false);
+  SO_KIT_ADD_CATALOG_ENTRY(profilingStats, SoProfilerStats, false,
+                           topSeparator, viewportInfo, true);
+  SO_KIT_ADD_CATALOG_ENTRY(viewportInfo, SoCallback, true, topSeparator,
+                           overlayCamera, false);
+  SO_KIT_ADD_CATALOG_ENTRY(overlayCamera, SoOrthographicCamera, true,
+                           topSeparator, depthTestOff, false);
+  SO_KIT_ADD_CATALOG_ENTRY(depthTestOff, SoCallback, true, topSeparator,
+                           overlaySep, false);
+  SO_KIT_ADD_CATALOG_ENTRY(overlaySep, SoSeparator, true, topSeparator,
+                           depthTestOn, false);
+  SO_KIT_ADD_CATALOG_ENTRY(depthTestOn, SoCallback, true, topSeparator, "",
+                           false);
 
   SO_KIT_INIT_INSTANCE();
 
   SO_KIT_ADD_FIELD(viewportSize, (SbVec3f(100.0f, 100.0f, 0.0f)));
 
   SoOrthographicCamera * camera =
-    static_cast<SoOrthographicCamera *>(this->getAnyPart("overlayCamera", TRUE));
+    static_cast<SoOrthographicCamera *>(this->getAnyPart("overlayCamera", true));
   camera->viewportMapping = SoCamera::LEAVE_ALONE;
 
   SoCallback * viewportCB =
-    static_cast<SoCallback *>(this->getAnyPart("viewportInfo", TRUE));
+    static_cast<SoCallback *>(this->getAnyPart("viewportInfo", true));
   assert(viewportCB &&
          (viewportCB->getTypeId() == SoCallback::getClassTypeId()));
   viewportCB->setCallback(grabViewportInfo, this);
 
   SoCallback * beforeCB =
-    static_cast<SoCallback *>(this->getAnyPart("depthTestOff", TRUE));
+    static_cast<SoCallback *>(this->getAnyPart("depthTestOff", true));
   beforeCB->setCallback(disableDepthTest);
   SoCallback * afterCB =
-    static_cast<SoCallback *>(this->getAnyPart("depthTestOn", TRUE));
+    static_cast<SoCallback *>(this->getAnyPart("depthTestOn", true));
   afterCB->setCallback(enableDepthTest);
 }
 
@@ -138,7 +138,7 @@ SoProfilerOverlayKit::~SoProfilerOverlayKit(void)
 void
 SoProfilerOverlayKit::addOverlayGeometry(SoNode * node)
 {
-  SoNode * sep = this->getAnyPart("overlaySep", TRUE);
+  SoNode * sep = this->getAnyPart("overlaySep", true);
   assert(sep->isOfType(SoGroup::getClassTypeId()));
   static_cast<SoGroup *>(sep)->addChild(node);
 }

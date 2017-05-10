@@ -53,7 +53,7 @@
         wrapT REPEAT
         model MODULATE
         blendColor 0 0 0
-        enableCompressedTexture FALSE
+        enableCompressedTexture false
     }
   \endcode
 
@@ -187,7 +187,7 @@ SoTexture3::SoTexture3(void)
   SO_NODE_ADD_FIELD(wrapT, (REPEAT));
   SO_NODE_ADD_FIELD(model, (MODULATE));
   SO_NODE_ADD_FIELD(blendColor, (0.0f, 0.0f, 0.0f));
-  SO_NODE_ADD_FIELD(enableCompressedTexture, (FALSE));
+  SO_NODE_ADD_FIELD(enableCompressedTexture, (false));
 
   SO_NODE_DEFINE_ENUM_VALUE(Wrap, REPEAT);
   SO_NODE_DEFINE_ENUM_VALUE(Wrap, CLAMP);
@@ -202,7 +202,7 @@ SoTexture3::SoTexture3(void)
   SO_NODE_SET_SF_ENUM_TYPE(model, Model);
 
   this->glimage = NULL;
-  this->glimagevalid = FALSE;
+  this->glimagevalid = false;
   this->readstatus = 1;
 
   // use field sensor for filename since we will load an image if
@@ -234,18 +234,18 @@ SoTexture3::initClass(void)
 
 
 // Documented in superclass.
-SbBool
+bool
 SoTexture3::readInstance(SoInput * in, unsigned short flags)
 {
   // Overridden to check if texture files (if any) can be found and
   // loaded.
 
   this->filenamesensor->detach();
-  SbBool readOK = inherited::readInstance(in, flags);
+  bool readOK = inherited::readInstance(in, flags);
   this->setReadStatus((int) readOK);
   if (readOK && !filenames.isDefault() && filenames.getNum()>0) {
     if (!this->loadFilenames(in)) {
-      this->setReadStatus(FALSE);
+      this->setReadStatus(false);
     }
   }
   this->filenamesensor->attach(&this->filenames);
@@ -270,14 +270,14 @@ SoTexture3::GLRender(SoGLRenderAction * action)
   int unit = SoTextureUnitElement::get(state);
   
   if (!SoGLDriverDatabase::isSupported(glue, SO_GL_3D_TEXTURES)) {
-    static SbBool first = TRUE;
+    static bool first = true;
     if (first) {
       SoDebugError::postWarning("SoTexture3::GLRender",
                                 "The current OpenGL context does not support 3D textures "
                                 "(This warning message is only shown once, but "
                                 "there could be more cases of this in the "
                                 "scene graph.).");
-      first = FALSE;
+      first = false;
     }
     return;
   }
@@ -292,7 +292,7 @@ SoTexture3::GLRender(SoGLRenderAction * action)
     SbVec3s size;
     const unsigned char *bytes = this->images.getValue(size, nc);
     //FIXME: 3D support in SoGLBigImage (kintel 20011113)
-//      SbBool needbig =
+//      bool needbig =
 //        SoTextureScalePolicyElement::get(state) ==
 //        SoTextureScalePolicyElement::DONT_SCALE;
 
@@ -322,7 +322,7 @@ SoTexture3::GLRender(SoGLRenderAction * action)
                              translateWrap((Wrap)this->wrapT.getValue()),
                              translateWrap((Wrap)this->wrapR.getValue()),
                              quality);
-      this->glimagevalid = TRUE;
+      this->glimagevalid = true;
     }
   }
 
@@ -330,7 +330,7 @@ SoTexture3::GLRender(SoGLRenderAction * action)
     SoGLMultiTextureEnabledElement::enableTexture3(state, this, unit);
   }
   else {
-    SoGLMultiTextureEnabledElement::set(state, this, unit, FALSE);
+    SoGLMultiTextureEnabledElement::set(state, this, unit, false);
   }
   SoGLMultiTextureImageElement::set(state, this, unit,
                                     this->glimagevalid ? this->glimage : NULL,
@@ -338,7 +338,7 @@ SoTexture3::GLRender(SoGLRenderAction * action)
                                     this->blendColor.getValue());
   
   if (this->isOverride() && unit == 0) {
-    SoTextureOverrideElement::setImageOverride(state, TRUE);
+    SoTextureOverrideElement::setImageOverride(state, true);
   }
 }
 
@@ -384,7 +384,7 @@ SoTexture3::doAction(SoAction *action)
     SoMultiTextureImageElement::setDefault(state, this, unit);
   }
   if (this->isOverride() && unit == 0) {
-    SoTextureOverrideElement::setImageOverride(state, TRUE);
+    SoTextureOverrideElement::setImageOverride(state, true);
   }
 }
 
@@ -422,11 +422,11 @@ SoTexture3::notify(SoNotList * l)
 
   SoField *f = l->getLastField();
   if (f == &this->images) {
-    this->glimagevalid = FALSE;
-    this->filenames.setDefault(TRUE); // write image, not filename
+    this->glimagevalid = false;
+    this->filenames.setDefault(true); // write image, not filename
   }
   else if (f == &this->wrapS || f == &this->wrapT || f == &this->wrapR) {
-    this->glimagevalid = FALSE;
+    this->glimagevalid = false;
   }
   inherited::notify(l);
 }
@@ -439,14 +439,14 @@ SoTexture3::notify(SoNotList * l)
 //FIXME: Recalc so all images have same w, h and nc (kintel 20011201)
 //FIXME: Rescale depth to be n^2 ? This might not work very well though
 //       if someone decides to add one layer at the time (kintel 20011201)
-SbBool
+bool
 SoTexture3::loadFilenames(SoInput * in)
 {
-  SbBool retval = FALSE;
+  bool retval = false;
   SbVec3s volumeSize(0,0,0);
   int volumenc;
   int numImages = this->filenames.getNum();
-  SbBool sizeError = FALSE;
+  bool sizeError = false;
   int i;
 
   // Fail on empty filenames
@@ -475,8 +475,8 @@ SoTexture3::loadFilenames(SoInput * in)
               //FIXME: always 1 or what? (kintel 20020110)
               size[2] != (volumeSize[2]/numImages) ||
               nc != volumenc) {
-            sizeError = TRUE;
-            retval = FALSE;
+            sizeError = true;
+            retval = false;
 
             SbString errstr;
             errstr.sprintf("Texture file #%d (%s) has wrong size:"
@@ -492,16 +492,16 @@ SoTexture3::loadFilenames(SoInput * in)
         }
         if (!sizeError) {
           // disable notification on images while setting data from the
-          // filenames as a notify will cause a filenames.setDefault(TRUE).
-          SbBool oldnotify = this->images.enableNotify(FALSE);
+          // filenames as a notify will cause a filenames.setDefault(true).
+          bool oldnotify = this->images.enableNotify(false);
           unsigned char *volbytes = this->images.startEditing(volumeSize,
                                                               volumenc);
           memcpy(volbytes+int(size[0])*int(size[1])*int(size[2])*nc*n,
                  imgbytes, int(size[0])*int(size[1])*int(size[2])*nc);
           this->images.finishEditing();
           this->images.enableNotify(oldnotify);
-          this->glimagevalid = FALSE; // recreate GL images in next GLRender()
-          retval = TRUE;
+          this->glimagevalid = false; // recreate GL images in next GLRender()
+          retval = true;
         }
       }
       else {
@@ -511,12 +511,12 @@ SoTexture3::loadFilenames(SoInput * in)
         if (in) SoReadError::post(in, errstr.getString());
         else SoDebugError::postWarning("SoTexture3::loadFilenames()",
                                        errstr.getString());
-        retval = FALSE;
+        retval = false;
       }
     }
   }
   //FIXME: If sizeError, invalidate texture? (kintel 20011113)
-  this->images.setDefault(TRUE); // write filenames, not images
+  this->images.setDefault(true); // write filenames, not images
   return retval;
 }
 
@@ -528,10 +528,10 @@ SoTexture3::filenameSensorCB(void * data, SoSensor *)
 {
   SoTexture3 *thisp = (SoTexture3 *)data;
 
-  thisp->setReadStatus(TRUE);
+  thisp->setReadStatus(true);
   if (thisp->filenames.getNum()<0 ||
       thisp->filenames[0].getLength() &&
       !thisp->loadFilenames()) {
-    thisp->setReadStatus(FALSE);
+    thisp->setReadStatus(false);
   }
 }

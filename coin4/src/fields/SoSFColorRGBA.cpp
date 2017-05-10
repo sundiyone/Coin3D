@@ -65,7 +65,7 @@ SoSFColorRGBA::initClass(void)
 // parent classes.
 #ifndef DOXYGEN_SKIP_THIS
 
-SbBool
+bool
 SoSFColorRGBA::readValue(SoInput * in)
 {
   return
@@ -156,15 +156,15 @@ BOOST_AUTO_TEST_CASE(initialized)
 
 BOOST_AUTO_TEST_CASE(textinput)
 {
-  SbBool ok;
+  bool ok;
   SoSFColorRGBA field;
   ok = field.set("0.0 .5 0 1");
-  BOOST_CHECK_MESSAGE(ok == TRUE, "could not set value");
+  BOOST_CHECK_MESSAGE(ok == true, "could not set value");
   BOOST_CHECK_EQUAL(field.getValue(), SbColorRGBA(0, .5, 0, 1));
   ok = field.set("0 0.5 1");
-  BOOST_CHECK_MESSAGE(ok == FALSE, "accepted invalid (missing component) value");
+  BOOST_CHECK_MESSAGE(ok == false, "accepted invalid (missing component) value");
   ok = field.set("1 2 3 4");
-  //BOOST_CHECK_MESSAGE(ok == FALSE, "accepted out-of-range value");
+  //BOOST_CHECK_MESSAGE(ok == false, "accepted out-of-range value");
 }
 
 #endif // COIN_TEST_SUITE

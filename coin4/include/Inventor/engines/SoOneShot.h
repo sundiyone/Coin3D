@@ -64,7 +64,7 @@ private:
   SbTime holdduration;
   float holdramp;
   SbTime starttime;
-  SbBool running;
+  bool running;
 };
 
 #endif // !COIN_SOONESHOT_H

@@ -37,9 +37,9 @@ protected:
 
 public:
   virtual void init(SoState * state);
-  static void set(SoState * const state, SbBool isOriented);
-  static SbBool get(SoState * state);
-  static SbBool getDefault(void);
+  static void set(SoState * const state, bool isOriented);
+  static bool get(SoState * state);
+  static bool getDefault(void);
 };
 
 #endif // !COIN_SOANNOTEXT3CHARORIENTELEMENT_H

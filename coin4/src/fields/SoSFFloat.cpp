@@ -62,7 +62,7 @@ SoSFFloat::initClass(void)
 // parent classes.
 #ifndef DOXYGEN_SKIP_THIS
 
-SbBool
+bool
 SoSFFloat::readValue(SoInput * in)
 {
   return in->read(this->value);

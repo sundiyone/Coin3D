@@ -36,9 +36,9 @@
 
   \verbatim
   CylinderSensor {
-    exposedField SFBool     autoOffset TRUE
+    exposedField SFBool     autoOffset true
     exposedField SFFloat    diskAngle  0.262       # (0,/2)
-    exposedField SFBool     enabled    TRUE
+    exposedField SFBool     enabled    true
     exposedField SFFloat    maxAngle   -1          # [-2,2]
     exposedField SFFloat    minAngle   0           # [-2,2]
     exposedField SFFloat    offset     0           # (-inf, inf)
@@ -55,11 +55,11 @@
   liable to generate events.
 
   The enabled exposed field enables and disables the CylinderSensor
-  node. If TRUE, the sensor reacts appropriately to user events. If
-  FALSE, the sensor does not track user input or send events. If
-  enabled receives a FALSE event and isActive is TRUE, the sensor
-  becomes disabled and deactivated, and outputs an isActive FALSE
-  event. If enabled receives a TRUE event the sensor is enabled and
+  node. If true, the sensor reacts appropriately to user events. If
+  false, the sensor does not track user input or send events. If
+  enabled receives a false event and isActive is true, the sensor
+  becomes disabled and deactivated, and outputs an isActive false
+  event. If enabled receives a true event the sensor is enabled and
   ready for user activation.
 
   A CylinderSensor node generates events when the pointing device is
@@ -71,7 +71,7 @@
   CylinderSensor.
 
   Upon activation of the pointing device while indicating the sensor's
-  geometry, an isActive TRUE event is sent. The initial acute angle
+  geometry, an isActive true event is sent. The initial acute angle
   between the bearing vector and the local Y-axis of the
   CylinderSensor node determines whether the sides of the invisible
   cylinder or the caps (disks) are used for manipulation. If the
@@ -86,7 +86,7 @@
   about the +Y-axis vector (from the initial intersection to the new
   intersection) plus the offset value. trackPoint_changed events
   reflect the unclamped drag position on the surface of this disk.
-  When the pointing device is deactivated and autoOffset is TRUE,
+  When the pointing device is deactivated and autoOffset is true,
   offset is set to the last value of rotation_changed and an
   offset_changed event is generated. See 4.6.7.4, Drag sensors
   (<http://www.web3d.org/x3d/specifications/vrml/ISO-IEC-14772-VRML97/part1/concepts.html#4.6.7.4>),
@@ -105,19 +105,19 @@
   +Y-axis vector plus the offset value. trackPoint_changed events
   reflect the unclamped drag position on the surface of the invisible
   cylinder. When the pointing device is deactivated and autoOffset is
-  TRUE, offset is set to the last rotation angle and an offset_changed
+  true, offset is set to the last rotation angle and an offset_changed
   event is generated.  More details are available in 4.6.7.4, Drag
   sensors
   (<http://www.web3d.org/x3d/specifications/vrml/ISO-IEC-14772-VRML97/part1/concepts.html#4.6.7.4>).
 
-  When the sensor generates an isActive TRUE event, it grabs all
+  When the sensor generates an isActive true event, it grabs all
   further motion events from the pointing device until it is released
-  and generates an isActive FALSE event (other pointing-device sensors
+  and generates an isActive false event (other pointing-device sensors
   shall not generate events during this time). Motion of the pointing
-  device while isActive is TRUE is referred to as a "drag." If a 2D
+  device while isActive is true is referred to as a "drag." If a 2D
   pointing device is in use, isActive events will typically reflect
   the state of the primary button associated with the device (i.e.,
-  isActive is TRUE when the primary button is pressed and FALSE when
+  isActive is true when the primary button is pressed and false when
   it is released).  If a 3D pointing device (e.g., a wand) is in use,
   isActive events will typically reflect whether the pointer is within
   or in contact with the sensor's geometry. 
@@ -133,7 +133,7 @@
   variety of ways (e.g., clamp all values to the cylinder and
   continuing to rotate as the point is dragged away from the
   cylinder). Each movement of the pointing device while isActive is
-  TRUE generates trackPoint_changed and rotation_changed events.  The
+  true generates trackPoint_changed and rotation_changed events.  The
   minAngle and maxAngle fields clamp rotation_changed events to a
   range of values. If minAngle is greater than maxAngle,
   rotation_changed events are not clamped. 
@@ -216,7 +216,7 @@ SoVRMLCylinderSensor::~SoVRMLCylinderSensor()
 }
 
 // Doc in parent
-SbBool
+bool
 SoVRMLCylinderSensor::dragStart(void)
 {
   // FIXME: heed the minAngle/maxAngle parameters.
@@ -226,9 +226,9 @@ SoVRMLCylinderSensor::dragStart(void)
   if (ptonline != thehitpt) {
     this->cylinderproj->setCylinder(SbCylinder(line, (ptonline-thehitpt).length()));
     this->rotation_changed = SbRotation(SbVec3f(0.0f, 1.0f, 0.0f), this->offset.getValue());
-    return TRUE;
+    return true;
   }
-  return FALSE;
+  return false;
 }
 
 // Doc in parent

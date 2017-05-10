@@ -222,7 +222,7 @@ struct CoinVrmlJsSFHandler {
     Base * data = (Base *)spidermonkey()->JS_GetPrivate(cx, obj);
     assert(data != NULL);
     basetype var = (*data)[index];
-    SbBool ok = spidermonkey()->JS_NewDoubleValue(cx, (double)var, rval);
+    bool ok = spidermonkey()->JS_NewDoubleValue(cx, (double)var, rval);
     assert(ok && "JS_NewDoubleValue failed");
     return JS_TRUE;
   }
@@ -289,7 +289,7 @@ struct CoinVrmlJsMFHandler {
     jsval * val = new jsval;
     JSObject * array = spidermonkey()->JS_NewArrayObject(cx, 0, NULL);
     *val = OBJECT_TO_JSVAL(array);
-    SbBool ok = spidermonkey()->JS_AddRoot(cx, val);
+    bool ok = spidermonkey()->JS_AddRoot(cx, val);
     assert(ok && "JS_AddRoot failed");
     spidermonkey()->JS_SetPrivate(cx, obj, val);
 
@@ -298,7 +298,7 @@ struct CoinVrmlJsMFHandler {
 
     for (i=0; i<argc; ++i) {
       if (SoJavaScriptEngine::getEngine(cx)->jsval2field(argv[i], field)) {
-        SbBool ok = spidermonkey()->JS_SetElement(cx, array, i, &argv[i]);
+        bool ok = spidermonkey()->JS_SetElement(cx, array, i, &argv[i]);
         assert(ok && "JS_SetElement failed");
       }
       else {
@@ -314,7 +314,7 @@ struct CoinVrmlJsMFHandler {
   {
     jsval * val = (jsval *)spidermonkey()->JS_GetPrivate(cx, obj);
     if (val != NULL) {
-      SbBool ok = spidermonkey()->JS_RemoveRoot(cx, val);
+      bool ok = spidermonkey()->JS_RemoveRoot(cx, val);
       assert(ok && "JS_RemoveRoot failed");
       delete val;
     }
@@ -330,7 +330,7 @@ struct CoinVrmlJsMFHandler {
   static void resize(JSContext * cx, JSObject * array, uint32_t newLength)
   {
     uint32_t length;
-    SbBool ok = spidermonkey()->JS_GetArrayLength(cx, array, &length);
+    bool ok = spidermonkey()->JS_GetArrayLength(cx, array, &length);
     assert(ok && "JS_GetArrayLength failed");
 
     if (length > newLength) {
@@ -393,7 +393,7 @@ struct CoinVrmlJsMFHandler {
         else {
           assert(0 && "this should not happen");
         }
-        SbBool ok = spidermonkey()->JS_SetElement(cx, array, length, &val);
+        bool ok = spidermonkey()->JS_SetElement(cx, array, length, &val);
         assert(ok && "JS_SetElement failed");
       }
     }
@@ -414,7 +414,7 @@ struct CoinVrmlJsMFHandler {
       if (SbName("length") == str) {
         assert(array != NULL);
         uint32_t length;
-        SbBool ok = spidermonkey()->JS_GetArrayLength(cx, JSVAL_TO_OBJECT(*array), &length);
+        bool ok = spidermonkey()->JS_GetArrayLength(cx, JSVAL_TO_OBJECT(*array), &length);
         assert(ok && "JS_GetArrayLength failed");
         *rval = INT_TO_JSVAL(length);
         return JS_TRUE;
@@ -438,7 +438,7 @@ struct CoinVrmlJsMFHandler {
 
       // resize if necessary
       uint32_t length;
-      SbBool ok = spidermonkey()->JS_GetArrayLength(cx, JSVAL_TO_OBJECT(*array), &length);
+      bool ok = spidermonkey()->JS_GetArrayLength(cx, JSVAL_TO_OBJECT(*array), &length);
       assert(ok && "JS_GetArrayLength failed");
       if (index >= (int)length) {
         resize(cx, JSVAL_TO_OBJECT(*array), index+1);
@@ -448,7 +448,7 @@ struct CoinVrmlJsMFHandler {
       // Check if val is not of wrong type
       if (SoJavaScriptEngine::getEngine(cx)->jsval2field(*val, field)) {
         // assign it
-        SbBool ok = spidermonkey()->JS_SetElement(cx, JSVAL_TO_OBJECT(*array), index, val);
+        bool ok = spidermonkey()->JS_SetElement(cx, JSVAL_TO_OBJECT(*array), index, val);
         assert(ok && "JS_SetElement failed");
         return JS_TRUE;
       }
@@ -473,7 +473,7 @@ struct CoinVrmlJsMFHandler {
   }
 
 
-  static SbBool jsval2field(JSContext * cx, const jsval v, SoField * f)
+  static bool jsval2field(JSContext * cx, const jsval v, SoField * f)
   {
     if (JSVAL_IS_OBJECT(v) &&
         spidermonkey()->JS_InstanceOf(cx, JSVAL_TO_OBJECT(v), &desc->cls, NULL)) {
@@ -497,9 +497,9 @@ struct CoinVrmlJsMFHandler {
         ((MFFieldClass *)f)->set1Value(i, field->getValue());
       }
       delete field;
-      return TRUE;
+      return true;
     }
-    return FALSE;
+    return false;
   }
 
   static void field2jsval(JSContext * cx, const SoField * f, jsval * v)
@@ -515,7 +515,7 @@ struct CoinVrmlJsMFHandler {
     SFFieldClass * field = (SFFieldClass *)SFFieldClass::createInstance();
     for (int i=0; i<num; ++i) {
       field->setValue(mf[i]);
-      SbBool ok = SoJavaScriptEngine::getEngine(cx)->field2jsval(field, &vals[i]);
+      bool ok = SoJavaScriptEngine::getEngine(cx)->field2jsval(field, &vals[i]);
       assert(ok && "field2jsval failed");
     }
 
@@ -673,7 +673,7 @@ static void SFNode_deleteCB(void * COIN_UNUSED_ARG(data), SoSensor * sensor)
 #else
   if(!CoinVrmlJs_sensorinfohash->get((unsigned long) node, tmp)) {
 #endif
-    assert(FALSE && "Trying to delete an unregistered SoNodeSensor. Internal error.");
+    assert(false && "Trying to delete an unregistered SoNodeSensor. Internal error.");
     return;
   }
 
@@ -1554,143 +1554,143 @@ static JSObject * SFNode_init(JSContext * cx, JSObject * obj)
 // *************************************************************************
 // jsval2field
 
-static SbBool SFBool_jsval2field(JSContext * cx, const jsval v, SoField * f)
+static bool SFBool_jsval2field(JSContext * cx, const jsval v, SoField * f)
 {
   if (JSVAL_IS_BOOLEAN(v)) {
-    const SbBool b = JSVAL_TO_BOOLEAN(v);
+    const bool b = JSVAL_TO_BOOLEAN(v);
     ((SoSFBool *)f)->setValue(b);
-    return TRUE;
+    return true;
   }
   else {
     JSBool b;
     if (spidermonkey()->JS_ValueToBoolean(cx, v, &b)) {
       ((SoSFBool *)f)->setValue(b);
-      return TRUE;
+      return true;
     }
   }
-  return FALSE;
+  return false;
 }
 
-static SbBool SFColor_jsval2field(JSContext * cx, const jsval v, SoField * f)
+static bool SFColor_jsval2field(JSContext * cx, const jsval v, SoField * f)
 {
   if (JSVAL_IS_SFCOLOR(cx, v)) {
     SbColor * color = (SbColor *)spidermonkey()->JS_GetPrivate(cx, JSVAL_TO_OBJECT(v));
     assert(color != NULL);
     ((SoSFColor *)f)->setValue(*color);
-    return TRUE;
+    return true;
   }
-  return FALSE;
+  return false;
 }
 
-static SbBool SFFloat_jsval2field(JSContext * cx, const jsval v, SoField * f)
+static bool SFFloat_jsval2field(JSContext * cx, const jsval v, SoField * f)
 {
   double number;
   if (jsval2double(cx, v, number)) {
     ((SoSFFloat *)f)->setValue((float)number);
-    return TRUE;
+    return true;
   }
-  return FALSE;
+  return false;
 }
 
-static SbBool SFInt32_jsval2field(JSContext * cx, const jsval v, SoField * f)
+static bool SFInt32_jsval2field(JSContext * cx, const jsval v, SoField * f)
 {
   int32_t val;
   if (jsval2int(cx, v, val)) {
     ((SoSFInt32 *)f)->setValue(val);
-    return TRUE;
+    return true;
   }
-  return FALSE;
+  return false;
 }
 
-static SbBool SFEnum_jsval2field(JSContext * cx, const jsval v, SoField * f)
+static bool SFEnum_jsval2field(JSContext * cx, const jsval v, SoField * f)
 {
   int32_t val;
   if (jsval2int(cx, v, val)) {
     ((SoSFInt32 *)f)->setValue(val);
-    return TRUE;
+    return true;
   }
-  return FALSE;
+  return false;
 }
 
-static SbBool SFNode_jsval2field(JSContext * cx, const jsval v, SoField * f)
+static bool SFNode_jsval2field(JSContext * cx, const jsval v, SoField * f)
 {
   if (JSVAL_IS_NULL(v)) {
     ((SoSFNode *)f)->setValue(NULL);
-    return TRUE;
+    return true;
   }
   if (JSVAL_IS_OBJECT(v) &&
       spidermonkey()->JS_InstanceOf(cx, JSVAL_TO_OBJECT(v), &CoinVrmlJs::SFNode.cls, NULL)) {
     SoNode * node = (SoNode *)spidermonkey()->JS_GetPrivate(cx, JSVAL_TO_OBJECT(v));
     ((SoSFNode *)f)->setValue(node);
-    return TRUE;
+    return true;
   }
-  return FALSE;
+  return false;
 }
 
-static SbBool SFRotation_jsval2field(JSContext * cx, const jsval v, SoField * f)
+static bool SFRotation_jsval2field(JSContext * cx, const jsval v, SoField * f)
 {
   if (JSVAL_IS_SFROTATION(cx, v)) {
     SbVec4f * rot = (SbVec4f *)spidermonkey()->JS_GetPrivate(cx, JSVAL_TO_OBJECT(v));
     assert(rot != NULL);
     SbVec3f axis((*rot)[0], (*rot)[1], (*rot)[2]);
     ((SoSFRotation *)f)->setValue(SbRotation(axis, (*rot)[3]));
-    return TRUE;
+    return true;
   }
-  return FALSE;
+  return false;
 }
 
-static SbBool SFString_jsval2field(JSContext * COIN_UNUSED_ARG(cx), const jsval v, SoField * f)
+static bool SFString_jsval2field(JSContext * COIN_UNUSED_ARG(cx), const jsval v, SoField * f)
 {
   if (JSVAL_IS_STRING(v)) {
     const char * str = spidermonkey()->JS_GetStringBytes(JSVAL_TO_STRING(v));
     ((SoSFString *)f)->setValue(str);
-    return TRUE;
+    return true;
   }
-  return FALSE;
+  return false;
 }
 
-static SbBool SFTime_jsval2field(JSContext * cx, const jsval v, SoField * f)
+static bool SFTime_jsval2field(JSContext * cx, const jsval v, SoField * f)
 {
   double number;
   if (jsval2double(cx, v, number)) {
     spidermonkey()->JS_ValueToNumber(cx, v, &number);
     ((SoSFTime*)f)->setValue(SbTime(number));
-    return TRUE;
+    return true;
   }
-  return FALSE;
+  return false;
 }
 
-static SbBool SFVec2f_jsval2field(JSContext * cx, const jsval v, SoField * f)
+static bool SFVec2f_jsval2field(JSContext * cx, const jsval v, SoField * f)
 {
   if (JSVAL_IS_SFVEC2F(cx, v)) {
     SbVec2f * vec = (SbVec2f *)spidermonkey()->JS_GetPrivate(cx, JSVAL_TO_OBJECT(v));
     assert(vec != NULL);
     ((SoSFVec2f *)f)->setValue(*vec);
-    return TRUE;
+    return true;
   }
-  return FALSE;
+  return false;
 }
 
-static SbBool SFVec3f_jsval2field(JSContext * cx, const jsval v, SoField * f)
+static bool SFVec3f_jsval2field(JSContext * cx, const jsval v, SoField * f)
 {
   if (JSVAL_IS_SFVEC3F(cx, v)) {
     SbVec3f * vec = (SbVec3f *)spidermonkey()->JS_GetPrivate(cx, JSVAL_TO_OBJECT(v));
     assert(vec != NULL);
     ((SoSFVec3f *)f)->setValue(*vec);
-    return TRUE;
+    return true;
   }
-  return FALSE;
+  return false;
 }
 
-static SbBool SFVec3d_jsval2field(JSContext * cx, const jsval v, SoField * f)
+static bool SFVec3d_jsval2field(JSContext * cx, const jsval v, SoField * f)
 {
   if (JSVAL_IS_SFVEC3D(cx, v)) {
     SbVec3d * vec = (SbVec3d *)spidermonkey()->JS_GetPrivate(cx, JSVAL_TO_OBJECT(v));
     assert(vec != NULL);
     ((SoSFVec3d *)f)->setValue(*vec);
-    return TRUE;
+    return true;
   }
-  return FALSE;
+  return false;
 }
 
 // *************************************************************************
@@ -1698,7 +1698,7 @@ static SbBool SFVec3d_jsval2field(JSContext * cx, const jsval v, SoField * f)
 
 static void SFBool_field2jsval(JSContext * COIN_UNUSED_ARG(cx), const SoField * f, jsval * v)
 {
-  const SbBool val = ((SoSFBool *)f)->getValue();
+  const bool val = ((SoSFBool *)f)->getValue();
   *v = BOOLEAN_TO_JSVAL(val);
 }
 

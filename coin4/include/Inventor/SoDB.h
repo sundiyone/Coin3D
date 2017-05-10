@@ -50,25 +50,25 @@ public:
   static void cleanup(void);
 
   static const char * getVersion(void);
-  static SbBool read(SoInput * input, SoPath *& path);
-  static SbBool read(SoInput * input, SoBase *& base);
-  static SbBool read(SoInput * input, SoNode *& rootnode);
+  static bool read(SoInput * input, SoPath *& path);
+  static bool read(SoInput * input, SoBase *& base);
+  static bool read(SoInput * input, SoNode *& rootnode);
   static SoSeparator * readAll(SoInput * input);
   static SoVRMLGroup * readAllVRML(SoInput * input);
-  static SbBool isValidHeader(const char * teststring);
-  static SbBool registerHeader(const SbString & headerstring,
-                               SbBool isbinary,
+  static bool isValidHeader(const char * teststring);
+  static bool registerHeader(const SbString & headerstring,
+                               bool isbinary,
                                float ivversion,
                                SoDBHeaderCB * precallback,
                                SoDBHeaderCB * postcallback,
                                void * userdata = NULL);
-  static SbBool getHeaderData(const SbString & headerstring,
-                              SbBool & isbinary,
+  static bool getHeaderData(const SbString & headerstring,
+                              bool & isbinary,
                               float & ivversion,
                               SoDBHeaderCB *& precallback,
                               SoDBHeaderCB *& postcallback,
                               void *& userdata,
-                              SbBool substringok = FALSE);
+                              bool substringok = false);
   static int getNumHeaders(void);
   static SbString getHeaderString(const int i);
   static SoField * createGlobalField(const SbName & name, SoType type);
@@ -77,7 +77,7 @@ public:
 
   static void setRealTimeInterval(const SbTime & interval);
   static const SbTime & getRealTimeInterval(void);
-  static void enableRealTimeSensor(SbBool on);
+  static void enableRealTimeSensor(bool on);
 
   static SoSensorManager * getSensorManager(void);
   static void setDelaySensorTimeout(const SbTime & t);
@@ -88,18 +88,18 @@ public:
   static void addConverter(SoType from, SoType to, SoType converter);
   static SoType getConverter(SoType from, SoType to);
 
-  static SbBool isInitialized(void);
+  static bool isInitialized(void);
 
   static void startNotify(void);
-  static SbBool isNotifying(void);
+  static bool isNotifying(void);
   static void endNotify(void);
 
-  typedef SbBool ProgressCallbackType(const SbName & itemid, float fraction,
-                                      SbBool interruptible, void * userdata);
+  typedef bool ProgressCallbackType(const SbName & itemid, float fraction,
+                                      bool interruptible, void * userdata);
   static void addProgressCallback(ProgressCallbackType * func, void * userdata);
   static void removeProgressCallback(ProgressCallbackType * func, void * userdata);
 
-  static SbBool isMultiThread(void);
+  static bool isMultiThread(void);
   static void readlock(void);
   static void readunlock(void);
   static void writelock(void);

@@ -72,18 +72,18 @@ public:
   SoSFRotation rotation;
   SoSFVec3f scaleFactor;
 
-  SbBool isAnimationEnabled(void);
-  void setAnimationEnabled(SbBool newval);
+  bool isAnimationEnabled(void);
+  void setAnimationEnabled(bool newval);
 
 protected:
   virtual ~SoTrackballDragger(void);
-  virtual SbBool setUpConnections(SbBool onoff, SbBool doitalways = FALSE);
+  virtual bool setUpConnections(bool onoff, bool doitalways = false);
   virtual void setDefaultOnNonWritingFields(void);
 
   void dragStart(void);
   void drag(void);
   void dragFinish(void);
-  void setAllPartsActive(SbBool onoroff);
+  void setAllPartsActive(bool onoroff);
 
   static void startCB(void * f, SoDragger * d);
   static void motionCB(void * f, SoDragger * d);
@@ -97,7 +97,7 @@ protected:
 
 private:
   SoNode * getNodeFieldNode(const char *fieldname);
-  void updateUserAxisSwitches(const SbBool setactive = FALSE);
+  void updateUserAxisSwitches(const bool setactive = false);
   static void timerSensorCB(void *, SoSensor *);
 
 private:

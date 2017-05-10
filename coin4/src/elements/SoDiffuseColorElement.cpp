@@ -89,12 +89,12 @@ void
 SoDiffuseColorElement::set(SoState * const state, SoNode * const node,
                            const int32_t numcolors,
                            const uint32_t * const colors,
-                           const SbBool packedtransparency)
+                           const bool packedtransparency)
 {
   SoLazyElement::setPacked(state, node, numcolors, colors, packedtransparency);
 }
 
-SbBool
+bool
 SoDiffuseColorElement::isPacked() const
 {
   SoLazyElement * lazy = SoLazyElement::getInstance(this->state);
@@ -112,7 +112,7 @@ SoDiffuseColorElement::getNum(void) const
 
 /*!
   Returns the color array. Don't use this unless
-  SoDiffuseColorElement::isPacked() returns \c FALSE.
+  SoDiffuseColorElement::isPacked() returns \c false.
 
   This method is not part of the original SGI Open Inventor v2.1 API.
 
@@ -135,7 +135,7 @@ SoDiffuseColorElement::getColorArrayPtr(void) const
 
 /*!
   Returns the packed color array. Don't use this unless
-  SoDiffuseColorElement::isPacked() returns \c TRUE.
+  SoDiffuseColorElement::isPacked() returns \c true.
 
   This method is not part of the original SGI Open Inventor v2.1 API.
 
@@ -164,7 +164,7 @@ SoDiffuseColorElement::get(const int index) const
   return SoLazyElement::getDiffuse(this->state, index);
 }
 
-SbBool
+bool
 SoDiffuseColorElement::hasPackedTransparency(void) const
 {
   return SoLazyElement::getInstance(this->state)->isTransparent();

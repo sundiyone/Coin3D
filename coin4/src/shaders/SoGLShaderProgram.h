@@ -50,7 +50,7 @@ public:
   void removeShaderObjects(void);
   void enable(SoState * state);
   void disable(SoState * state);
-  SbBool isEnabled(void) const;
+  bool isEnabled(void) const;
 
   void setEnableCallback(SoShaderProgramEnableCB * cb,
                          void * closure);
@@ -65,14 +65,14 @@ public:
 
   void getShaderObjectIds(SbList <uint32_t> & ids) const;
   uint32_t getGLSLShaderProgramHandle(SoState * state) const;
-  SbBool glslShaderProgramLinked(void) const;
+  bool glslShaderProgramLinked(void) const;
 private:
 
   class SoGLARBShaderProgram * arbShaderProgram;
   class SoGLCgShaderProgram  * cgShaderProgram;
   class SoGLSLShaderProgram  * glslShaderProgram;
 
-  SbBool isenabled;
+  bool isenabled;
   SoShaderProgramEnableCB * enablecb;
   void * enablecbclosure;
   SbList <uint32_t> objectids;

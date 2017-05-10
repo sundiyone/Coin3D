@@ -154,7 +154,7 @@ find_string_address(const char * s)
 }
 
 static const char *
-namemap_find_or_add_string(const char * str, SbBool addifnotfound)
+namemap_find_or_add_string(const char * str, bool addifnotfound)
 {
   unsigned long h, i;
   struct NamemapBucketEntry * entry;
@@ -197,7 +197,7 @@ namemap_find_or_add_string(const char * str, SbBool addifnotfound)
 const char *
 cc_namemap_get_address(const char * str)
 {
-  return namemap_find_or_add_string(str, TRUE);
+  return namemap_find_or_add_string(str, true);
 }
 
 /*!
@@ -209,7 +209,7 @@ cc_namemap_get_address(const char * str)
 const char *
 cc_namemap_peek_string(const char * str)
 {
-  return namemap_find_or_add_string(str, FALSE);
+  return namemap_find_or_add_string(str, false);
 }
 
 #undef CHUNK_SIZE

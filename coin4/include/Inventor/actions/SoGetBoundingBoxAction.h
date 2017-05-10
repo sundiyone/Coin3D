@@ -54,14 +54,14 @@ public:
 
   const SbVec3f & getCenter(void) const;
 
-  void setInCameraSpace(const SbBool flag);
-  SbBool isInCameraSpace(void) const;
+  void setInCameraSpace(const bool flag);
+  bool isInCameraSpace(void) const;
 
-  void setResetPath(const SoPath * path, const SbBool resetbefore = TRUE,
+  void setResetPath(const SoPath * path, const bool resetbefore = true,
                     const ResetType what = ALL);
   const SoPath * getResetPath(void) const;
-  SbBool isResetPath(void) const;
-  SbBool isResetBefore(void) const;
+  bool isResetPath(void) const;
+  bool isResetBefore(void) const;
   SoGetBoundingBoxAction::ResetType getWhatReset(void) const;
 
 
@@ -71,8 +71,8 @@ public:
   void extendBy(const SbBox3f & box);
   void extendBy(const SbXfBox3f & box);
 
-  void setCenter(const SbVec3f & center, const SbBool transformcenter);
-  SbBool isCenterSet(void) const;
+  void setCenter(const SbVec3f & center, const bool transformcenter);
+  bool isCenterSet(void) const;
   void resetCenter(void);
 
 protected:

@@ -128,19 +128,19 @@ classname::getElementReader(void)                               \
                          thisclass::createInstance);                    \
  /* ScXMLObject::registerClassType(xmlns, xmlclass,                     \
                                    thisclass::classTypeId); */          \
-  } while ( FALSE )
+  } while ( false )
 
 
 #define SCXML_ELEMENT_REGISTER_READER(thisclass, xmlelement, classname) \
   do {                                                                  \
     thisclass::elementReader = new classname;                           \
-  } while ( FALSE )
+  } while ( false )
 
 #define SCXML_ELEMENT_UNREGISTER_READER(thisclass) \
   do {                                                                  \
     delete thisclass::elementReader;                                    \
     thisclass::elementReader = NULL;                                    \
-  } while ( FALSE )
+  } while ( false )
 
 // *************************************************************************
 
@@ -150,7 +150,7 @@ classname::getElementReader(void)                               \
     assert(parenttype != SoType::badType());                            \
     thisclass::classTypeId =                                            \
       SoType::createType(parenttype, SbName(SO__QUOTE(thisclass)));     \
-  } while ( FALSE )
+  } while ( false )
 
 // *************************************************************************
 
@@ -164,7 +164,7 @@ classname::getElementReader(void)                               \
                          thisclass::createInstance);                    \
     ScXMLObject::registerInvokeClassType(xmlns, targettype, source,     \
                                          thisclass::classTypeId);       \
-  } while ( FALSE )
+  } while ( false )
 
 // *************************************************************************
 

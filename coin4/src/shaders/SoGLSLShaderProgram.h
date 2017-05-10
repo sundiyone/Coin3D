@@ -62,16 +62,16 @@ public:
   SoGLSLShaderProgram(void);
   ~SoGLSLShaderProgram();
 
-  COIN_GLhandle getProgramHandle(const cc_glglue * g, const SbBool create = FALSE);
-  SbBool neededLinking(void) const;
+  COIN_GLhandle getProgramHandle(const cc_glglue * g, const bool create = false);
+  bool neededLinking(void) const;
 
 protected:
   SbList <int> programParameters;
   SbList <SoGLSLShaderObject *> shaderObjects;
   SbHash<uint32_t, COIN_GLhandle> programHandles;
 
-  SbBool isExecutable;
-  SbBool neededlinking;
+  bool isExecutable;
+  bool neededlinking;
 
   int indexOfShaderObject(SoGLSLShaderObject * shaderObject);
   void ensureLinking(const cc_glglue * g);

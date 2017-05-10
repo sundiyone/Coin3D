@@ -46,15 +46,15 @@ public:
 
   static void set(SoState * const state, SoNode * const node,
                   const int32_t numcolors, const uint32_t * const colors,
-                  const SbBool packedtransparency = FALSE);
+                  const bool packedtransparency = false);
 
   static const SoDiffuseColorElement * getInstance(SoState *state);
 
   int32_t getNum(void) const;
   const SbColor &get(const int index) const;
 
-  SbBool isPacked(void) const;
-  SbBool hasPackedTransparency(void) const;
+  bool isPacked(void) const;
+  bool hasPackedTransparency(void) const;
 
   const SbColor *getColorArrayPtr() const;
   const uint32_t *getPackedArrayPtr() const;

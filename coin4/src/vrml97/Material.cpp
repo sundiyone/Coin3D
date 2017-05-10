@@ -232,7 +232,7 @@ SoVRMLMaterial::doAction(SoAction * action)
       PRIVATE(this)->tmpambient *= this->ambientIntensity.getValue();
     bitmask |= SoLazyElement::AMBIENT_MASK;
     if (this->isOverride()) {
-      SoOverrideElement::setAmbientColorOverride(state, this, TRUE);
+      SoOverrideElement::setAmbientColorOverride(state, this, true);
     }
   }
   if (!this->diffuseColor.isIgnored() &&
@@ -243,7 +243,7 @@ SoVRMLMaterial::doAction(SoAction * action)
     // other.
     bitmask |= SoLazyElement::DIFFUSE_MASK;
     if (this->isOverride()) {
-      SoOverrideElement::setDiffuseColorOverride(state, this, TRUE);
+      SoOverrideElement::setDiffuseColorOverride(state, this, true);
     }
   }
   if (!this->emissiveColor.isIgnored() &&
@@ -251,7 +251,7 @@ SoVRMLMaterial::doAction(SoAction * action)
 
     bitmask |= SoLazyElement::EMISSIVE_MASK;
     if (this->isOverride()) {
-      SoOverrideElement::setEmissiveColorOverride(state, this, TRUE);
+      SoOverrideElement::setEmissiveColorOverride(state, this, true);
     }
 
   }
@@ -259,14 +259,14 @@ SoVRMLMaterial::doAction(SoAction * action)
       !TEST_OVERRIDE(SPECULAR_COLOR)) {
     bitmask |= SoLazyElement::SPECULAR_MASK;
     if (this->isOverride()) {
-      SoOverrideElement::setSpecularColorOverride(state, this, TRUE);
+      SoOverrideElement::setSpecularColorOverride(state, this, true);
     }
   }
   if (!this->shininess.isIgnored() &&
       !TEST_OVERRIDE(SHININESS)) {
     bitmask |= SoLazyElement::SHININESS_MASK;
     if (this->isOverride()) {
-      SoOverrideElement::setShininessOverride(state, this, TRUE);
+      SoOverrideElement::setShininessOverride(state, this, true);
     }
   }
   if (!this->transparency.isIgnored() &&
@@ -278,7 +278,7 @@ SoVRMLMaterial::doAction(SoAction * action)
     // Inventor behavior), so overriding one will also override the
     // other.
     if (this->isOverride()) {
-      SoOverrideElement::setTransparencyOverride(state, this, TRUE);
+      SoOverrideElement::setTransparencyOverride(state, this, true);
     }
   }
 #undef TEST_OVERRIDE

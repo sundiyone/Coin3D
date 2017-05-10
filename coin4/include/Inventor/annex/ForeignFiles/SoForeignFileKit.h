@@ -29,7 +29,7 @@
 #include <Inventor/nodekits/SoSubKit.h>
 #include <Inventor/nodekits/SoBaseKit.h>
 
-typedef SbBool SoForeignFileIdentifyFunc(const char *);
+typedef bool SoForeignFileIdentifyFunc(const char *);
 
 class SoForeignFileKitP;
 
@@ -42,18 +42,18 @@ class COIN_DLL_API SoForeignFileKit : public SoBaseKit {
 public:
   static void initClass(void);
 
-  static SbBool isFileSupported(SoInput * in, SbBool exhaust = FALSE);
-  static SbBool isFileSupported(const char * filename, SbBool exhaust = FALSE);
+  static bool isFileSupported(SoInput * in, bool exhaust = false);
+  static bool isFileSupported(const char * filename, bool exhaust = false);
 
-  static SoForeignFileKit * createForeignFileKit(SoInput * in, SbBool exhaust = FALSE);
-  static SoForeignFileKit * createForeignFileKit(const char * filename, SbBool exhaust = FALSE);
+  static SoForeignFileKit * createForeignFileKit(SoInput * in, bool exhaust = false);
+  static SoForeignFileKit * createForeignFileKit(const char * filename, bool exhaust = false);
 
   // foreign read support
-  virtual SbBool canReadFile(const char * filename = NULL) const;
-  virtual SbBool readFile(const char * filename);
+  virtual bool canReadFile(const char * filename = NULL) const;
+  virtual bool readFile(const char * filename);
   // foreign write support
-  virtual SbBool canWriteFile(const char * filename = NULL) const;
-  virtual SbBool writeFile(const char * filename);
+  virtual bool canWriteFile(const char * filename = NULL) const;
+  virtual bool writeFile(const char * filename);
 
   /*!
     Converts (if necessary) the internal representation of the foreign file to a pure Coin scenegraph.
@@ -67,7 +67,7 @@ protected:
   SoForeignFileKit(void);
   virtual ~SoForeignFileKit(void);
 
-  static SbBool registerFileExtension(SoType handler, SbName extension, SoForeignFileIdentifyFunc * identify);
+  static bool registerFileExtension(SoType handler, SbName extension, SoForeignFileIdentifyFunc * identify);
 
 private:
   SoForeignFileKitP * pimpl;

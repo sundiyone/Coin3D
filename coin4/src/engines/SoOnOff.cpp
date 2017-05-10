@@ -37,18 +37,18 @@
   \var SoSFTrigger SoOnOff::on
 
   An input signal on this trigger makes the SoOnOff::isOn output
-  become \c TRUE.
+  become \c true.
 */
 /*!
   \var SoSFTrigger SoOnOff::off
 
   An input signal on this trigger makes the SoOnOff::isOn output
-  become \c FALSE.
+  become \c false.
 */
 /*!
   \var SoSFTrigger SoOnOff::toggle
 
-  An input signal on this trigger toggles the \c TRUE or \c FALSE
+  An input signal on this trigger toggles the \c true or \c false
   value of the SoOnOff::isOn output.
 */
 
@@ -77,7 +77,7 @@ SoOnOff::SoOnOff(void)
   SO_ENGINE_ADD_OUTPUT(isOn, SoSFBool);
   SO_ENGINE_ADD_OUTPUT(isOff, SoSFBool);
 
-  this->state = FALSE;
+  this->state = false;
 }
 
 // Documented in superclass.
@@ -106,7 +106,7 @@ SoOnOff::evaluate(void)
 void
 SoOnOff::inputChanged(SoField * which)
 {
-  if (which == &on) this->state = TRUE;
-  else if (which == &off) this->state = FALSE;
-  if (which == &toggle) this->state = this->state ? FALSE : TRUE;
+  if (which == &on) this->state = true;
+  else if (which == &off) this->state = false;
+  if (which == &toggle) this->state = this->state ? false : true;
 }

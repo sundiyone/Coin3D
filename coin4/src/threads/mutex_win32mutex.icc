@@ -32,7 +32,7 @@
 static int
 win32_mutex_struct_init(cc_mutex * mutex_struct)
 {
-  mutex_struct->w32thread.mutexhandle = CreateMutex(NULL, FALSE, NULL);
+  mutex_struct->w32thread.mutexhandle = CreateMutex(NULL, false, NULL);
   if (mutex_struct->w32thread.mutexhandle == NULL) {
     if (COIN_DEBUG) {
       cc_win32_print_error("win32_mutex_struct_init",
@@ -47,7 +47,7 @@ static int
 win32_mutex_struct_clean(cc_mutex * mutex_struct)
 {
   BOOL status = CloseHandle(mutex_struct->w32thread.mutexhandle);
-  if (status == FALSE) {
+  if (status == false) {
     if (COIN_DEBUG) {
       cc_win32_print_error("win32_mutex_struct_clean",
                            "CloseHandle()", GetLastError());
@@ -94,7 +94,7 @@ static int
 win32_mutex_unlock(cc_mutex * mutex)
 {
   BOOL status = ReleaseMutex(mutex->w32thread.mutexhandle);
-  if (status == FALSE) {
+  if (status == false) {
     if (COIN_DEBUG) {
       cc_win32_print_error("win32_mutex_unlock",
                            "ReleaseMutex()", GetLastError());

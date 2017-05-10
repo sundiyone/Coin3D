@@ -64,14 +64,14 @@ public:
   void extendBy(const SbVec3s & pt);
   void extendBy(const SbBox3s & box);
   void makeEmpty(void);
-  SbBool isEmpty(void) const { return (maxpt[0] < minpt[0]); }
-  SbBool hasVolume(void) const
+  bool isEmpty(void) const { return (maxpt[0] < minpt[0]); }
+  bool hasVolume(void) const
     { return ((maxpt[0] > minpt[0]) && (maxpt[1] > minpt[1]) && (maxpt[2] > minpt[2])); }
   int getVolume(void) const
     { short dx = 0, dy = 0, dz = 0; getSize(dx, dy, dz); return (dx * dy * dz); }
 
-  SbBool intersect(const SbVec3s & pt) const;
-  SbBool intersect(const SbBox3s & box) const;
+  bool intersect(const SbVec3s & pt) const;
+  bool intersect(const SbBox3s & box) const;
   SbVec3f getClosestPoint(const SbVec3f & pt) const;
 
   SbVec3f getCenter(void) const
@@ -92,11 +92,11 @@ protected:
 
 }; // SbBox3s
 
-COIN_DLL_API inline int operator == (const SbBox3s & b1, const SbBox3s & b2) {
+COIN_DLL_API inline bool operator==(const SbBox3s & b1, const SbBox3s & b2) {
   return ((b1.getMin() == b2.getMin()) && (b1.getMax() == b2.getMax()));
 }
 
-COIN_DLL_API inline int operator != (const SbBox3s & b1, const SbBox3s & b2) {
+COIN_DLL_API inline bool operator!=(const SbBox3s & b1, const SbBox3s & b2) {
   return !(b1 == b2);
 }
 

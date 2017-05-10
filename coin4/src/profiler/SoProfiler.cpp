@@ -102,29 +102,29 @@
 namespace {
 
   namespace profiler {
-    static SbBool initialized = FALSE;
+    static bool initialized = false;
 
-    static SbBool enabled = FALSE;
+    static bool enabled = false;
 
     namespace rendering {
-      static SbBool syncgl = FALSE;
+      static bool syncgl = false;
       static float redraw_rate = -1.0f;
     };
 
     namespace overlay {
-      static SbBool active = FALSE;
+      static bool active = false;
     };
 
     namespace console {
-      static SbBool active = FALSE;
-      static SbBool clear = FALSE;
-      static SbBool header = FALSE;
+      static bool active = false;
+      static bool clear = false;
+      static bool header = false;
       static int lines = 20;
       static SoProfilingReportGenerator::DataCategorization category =
         SoProfilingReportGenerator::NODES;
       static SoType actiontype = SoType::badType();
-      static SbBool onstdout = FALSE;
-      static SbBool onstderr = FALSE;
+      static bool onstdout = false;
+      static bool onstderr = false;
     };
 
   };
@@ -133,7 +133,7 @@ namespace {
   tokenize(const std::string & input, const std::string & delimiters, std::vector<std::string> & tokens, int count = -1)
   {
     std::string::size_type last_pos = 0, pos = 0;
-    while (TRUE) {
+    while (true) {
       --count;
       pos = input.find_first_of(delimiters, last_pos);
       if ((pos == std::string::npos) || (count == 0)) {
@@ -172,19 +172,19 @@ SoProfiler::init(void)
 
   SoProfilingReportGenerator::init();
 
-  profiler::enabled = TRUE;
+  profiler::enabled = true;
 
   //SoProfilerP::setActionType(SoRayPickAction::getClassTypeId());
   SoProfilerP::parseCoinProfilerOverlayVariable();
 
-  profiler::initialized = TRUE;
+  profiler::initialized = true;
 }
 
 /*!
   Returns whether profiling info is shown in an overlay fashion on
   the GL canvas or not.
 */
-SbBool
+bool
 SoProfiler::isOverlayActive(void)
 {
   return SoProfiler::isEnabled() && profiler::overlay::active;
@@ -193,7 +193,7 @@ SoProfiler::isOverlayActive(void)
 /*!
   Returns whether profiling info is shown on the console or not.
 */
-SbBool
+bool
 SoProfiler::isConsoleActive(void)
 {
   return SoProfiler::isEnabled() && profiler::console::active;
@@ -203,7 +203,7 @@ SoProfiler::isConsoleActive(void)
   Enable/disable the profiling subsystem at runtime.
 */
 void
-SoProfiler::enable(SbBool enable)
+SoProfiler::enable(bool enable)
 {
   if (!profiler::initialized) {
     assert(!"SoProfiler module not initialized");
@@ -217,13 +217,13 @@ SoProfiler::enable(SbBool enable)
   Returns whether profiling is enabled or not.
 */
 
-SbBool
+bool
 SoProfiler::isEnabled(void)
 {
   return profiler::enabled;
 }
 
-SbBool
+bool
 SoProfilerP::shouldContinuousRender(void)
 {
   return profiler::rendering::redraw_rate != -1.0f;
@@ -235,19 +235,19 @@ SoProfilerP::getContinuousRenderDelay(void)
   return profiler::rendering::redraw_rate;
 }
 
-SbBool
+bool
 SoProfilerP::shouldSyncGL(void)
 {
   return profiler::rendering::syncgl;
 }
 
-SbBool
+bool
 SoProfilerP::shouldClearConsole(void)
 {
   return profiler::console::clear;
 }
 
-SbBool
+bool
 SoProfilerP::shouldOutputHeaderOnConsole(void)
 {
   return profiler::console::header;
@@ -304,20 +304,20 @@ SoProfilerP::parseCoinProfilerVariable(void)
   if ((parameters.size() == 1) &&
       (parameters[0].find_first_not_of("+-0123456789 \t") == std::string::npos)) {
     // just have a numeral value (or nothing) - old semantics
-    profiler::enabled = atoi(parameters[0].data()) > 0 ? TRUE : FALSE;
+    profiler::enabled = atoi(parameters[0].data()) > 0 ? true : false;
   }
   else if (parameters.size() > 0) {
     std::vector<std::string>::iterator it = parameters.begin();
     while (it != parameters.end()) {
       if ((*it).compare("on") == 0) {
-        profiler::enabled = TRUE;
+        profiler::enabled = true;
       }
       else if ((*it).compare("off") == 0) {
-        profiler::enabled = FALSE;
+        profiler::enabled = false;
       }
       else if ((*it).compare("syncgl") == 0) {
-        profiler::enabled = TRUE;
-        profiler::rendering::syncgl = TRUE;
+        profiler::enabled = true;
+        profiler::rendering::syncgl = true;
       }
       else {
         SoDebugError::postWarning("SoProfilerP::parseCoinProfilerVariable",
@@ -338,7 +338,7 @@ SoProfilerP::parseCoinProfilerOverlayVariable(void)
 
   if (parameters.size() == 1 && atoi(parameters[0].data()) > 0) {
     // old behaviour, default setup
-    profiler::overlay::active = TRUE;
+    profiler::overlay::active = true;
     // SoDebugError::postInfo("SoProfiler::initialize", "default old behaviour parsing");
   }
   else if (parameters.size() > 0) {
@@ -346,7 +346,7 @@ SoProfilerP::parseCoinProfilerOverlayVariable(void)
 
     for (std::vector<std::string>::iterator it = parameters.begin(); it != parameters.end(); ++it) {
       if (it == parameters.begin()) {
-        profiler::overlay::active = TRUE;
+        profiler::overlay::active = true;
       }
 
       std::vector<std::string> param, subargs;
@@ -371,23 +371,23 @@ SoProfilerP::parseCoinProfilerOverlayVariable(void)
       }
 
       else if (param[0].compare("stdout") == 0) {
-        profiler::overlay::active = FALSE;
-        profiler::console::active = TRUE;
-        profiler::console::onstdout = TRUE;
+        profiler::overlay::active = false;
+        profiler::console::active = true;
+        profiler::console::onstdout = true;
       }
 
       else if (param[0].compare("stderr") == 0) {
-        profiler::overlay::active = FALSE;
-        profiler::console::active = TRUE;
-        profiler::console::onstderr = TRUE;
+        profiler::overlay::active = false;
+        profiler::console::active = true;
+        profiler::console::onstderr = true;
       }
 
       else if (param[0].compare("clear") == 0 && profiler::console::active) {
-        profiler::console::clear = TRUE;
+        profiler::console::clear = true;
       }
 
       else if (param[0].compare("header") == 0 && profiler::console::active) {
-        profiler::console::header = TRUE;
+        profiler::console::header = true;
       }
 
       else if (param[0].compare("lines") == 0) {
@@ -523,7 +523,7 @@ SoProfilerP::parseCoinProfilerOverlayVariable(void)
       }
     }
 
-    // profiler::overlay::active = TRUE;
+    // profiler::overlay::active = true;
   }
   else {
     // env variable is empty - don't activate overlay parts

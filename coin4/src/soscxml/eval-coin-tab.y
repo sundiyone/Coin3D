@@ -56,7 +56,7 @@ static ScXMLDataObj * root = NULL;
 %token SCXML_COIN_PAREN_OPEN SCXML_COIN_PAREN_CLOSE
 %token SCXML_COIN_EVENT_SCOPE
 
-%token SCXML_COIN_BOOL_TRUE SCXML_COIN_BOOL_FALSE
+%token SCXML_COIN_BOOL_true SCXML_COIN_BOOL_false
 %token <real> SCXML_COIN_REAL
 %token <stringptr> SCXML_COIN_STRING SCXML_COIN_SBVALUE
 
@@ -117,10 +117,10 @@ constexpr           : constboolexpr { $$ = $1; }
                     | constsbvalexpr { $$ = $1; }
                     ;
 
-constboolexpr       : SCXML_COIN_BOOL_TRUE
-                      { $$ = ScXMLBoolDataObj::createFor(TRUE); }
-                    | SCXML_COIN_BOOL_FALSE
-                      { $$ = ScXMLBoolDataObj::createFor(FALSE); }
+constboolexpr       : SCXML_COIN_BOOL_true
+                      { $$ = ScXMLBoolDataObj::createFor(true); }
+                    | SCXML_COIN_BOOL_false
+                      { $$ = ScXMLBoolDataObj::createFor(false); }
                     ;
 
 constsbvalexpr      : SCXML_COIN_SBVALUE

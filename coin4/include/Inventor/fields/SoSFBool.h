@@ -30,7 +30,7 @@
 class COIN_DLL_API SoSFBool : public SoSField {
   typedef SoSField inherited;
 
-  SO_SFIELD_HEADER(SoSFBool, SbBool, SbBool);
+  SO_SFIELD_HEADER(SoSFBool, bool, bool);
 
 public:
   static void initClass(void);

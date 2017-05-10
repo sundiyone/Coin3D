@@ -96,7 +96,7 @@ SoVRMLIndexedShape::~SoVRMLIndexedShape()
   Convenience method that will fetch data needed for rendering or
   generating primitives. Takes care of normal cache.
 */
-SbBool
+bool
 SoVRMLIndexedShape::getVertexData(SoState * state,
                                   const SoCoordinateElement *& coords,
                                   const SbVec3f *& normals,
@@ -105,8 +105,8 @@ SoVRMLIndexedShape::getVertexData(SoState * state,
                                   const int32_t *& tindices,
                                   const int32_t *& mindices,
                                   int & numcindices,
-                                  const SbBool neednormals,
-                                  SbBool & normalcacheused)
+                                  const bool neednormals,
+                                  bool & normalcacheused)
 {
   SoVRMLVertexShape::getVertexData(state, coords, normals, neednormals);
 
@@ -119,7 +119,7 @@ SoVRMLIndexedShape::getVertexData(SoState * state,
   tindices = this->texCoordIndex.getValues(0);
   if (this->texCoordIndex.getNum() <= 0 || tindices[0] < 0) tindices = NULL;
 
-  normalcacheused = FALSE;
+  normalcacheused = false;
   nindices = NULL;
 
   if (neednormals) {
@@ -130,16 +130,16 @@ SoVRMLIndexedShape::getVertexData(SoState * state,
       SoNormalCache * nc = this->generateAndReadLockNormalCache(state);
       normals = nc->getNormals();
       nindices = nc->getIndices();
-      normalcacheused = TRUE;
+      normalcacheused = true;
       // if no normals were generated, unlock normal cache before
       // returning
       if (normals == NULL) {
         this->readUnlockNormalCache();
-        normalcacheused = FALSE;
+        normalcacheused = false;
       }
     }
   }
-  return TRUE;
+  return true;
 }
 
 // Doc in parent

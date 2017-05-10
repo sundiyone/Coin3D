@@ -155,13 +155,13 @@ SoScXMLMiscTarget::~SoScXMLMiscTarget(void)
 }
 
 
-SbBool
+bool
 SoScXMLMiscTarget::processOneEvent(const ScXMLEvent * event)
 {
   assert(event);
 
   const SbName sessionid = this->getSessionId(event);
-  if (sessionid == SbName::empty()) { return FALSE; }
+  if (sessionid == SbName::empty()) { return false; }
 
   const SbName eventname(event->getEventName());
 
@@ -174,11 +174,11 @@ SoScXMLMiscTarget::processOneEvent(const ScXMLEvent * event)
   if (eventname == VIEW_ALL() || eventname == VIEW_ALL2 /* compat */) {
     // _sessionid
     SoScXMLStateMachine * statemachine = inherited::getSoStateMachine(event, sessionid);
-    if (!statemachine) { return FALSE; }
+    if (!statemachine) { return false; }
 
     const SbViewportRegion & viewport = statemachine->getViewportRegion();
     SoCamera * camera = inherited::getActiveCamera(event, sessionid);
-    if (!camera) { return FALSE; }
+    if (!camera) { return false; }
 
     SoNode * scenegraph = statemachine->getSceneGraphRoot();
     if (!scenegraph) {
@@ -187,7 +187,7 @@ SoScXMLMiscTarget::processOneEvent(const ScXMLEvent * event)
                                "while processing %s: no scene graph set",
                                eventname.getString());
       }
-      return FALSE;
+      return false;
     }
 
     camera->viewAll(scenegraph, viewport);
@@ -196,7 +196,7 @@ SoScXMLMiscTarget::processOneEvent(const ScXMLEvent * event)
   else if (eventname == REDRAW() || eventname == REDRAW2 /* compat */) {
     // _sessionid
     SoScXMLStateMachine * statemachine = inherited::getSoStateMachine(event, sessionid);
-    if (!statemachine) { return FALSE; }
+    if (!statemachine) { return false; }
 
     SoNode * scenegraph = statemachine->getSceneGraphRoot();
     if (!scenegraph) {
@@ -205,7 +205,7 @@ SoScXMLMiscTarget::processOneEvent(const ScXMLEvent * event)
                                "while processing %s: no scene graph set",
                                eventname.getString());
       }
-      return FALSE;
+      return false;
     }
 
     scenegraph->touch();
@@ -216,20 +216,20 @@ SoScXMLMiscTarget::processOneEvent(const ScXMLEvent * event)
     // focuspoint || _event.pickposition3 {SbVec3f}
     // [upvector] {SbVec3f}
     SoScXMLStateMachine * statemachine = inherited::getSoStateMachine(event, sessionid);
-    if (!statemachine) { return FALSE; }
+    if (!statemachine) { return false; }
 
     SoCamera * camera = inherited::getActiveCamera(event, sessionid);
-    if (!camera) { return FALSE; }
+    if (!camera) { return false; }
 
     SbVec3f focuspoint;
-    SbBool focusset = FALSE;
-    focusset = inherited::getEventSbVec3f(event, "_event.pickposition3", focuspoint, FALSE);
+    bool focusset = false;
+    focusset = inherited::getEventSbVec3f(event, "_event.pickposition3", focuspoint, false);
     if (!inherited::getEventSbVec3f(event, "focuspoint", focuspoint, !focusset)) {
-      return FALSE;
+      return false;
     }
 
     SbVec3f upvector;
-    SbBool useupvector = inherited::getEventSbVec3f(event, "upvector", upvector, FALSE);
+    bool useupvector = inherited::getEventSbVec3f(event, "upvector", upvector, false);
 
     if (useupvector) {
       camera->pointAt(focuspoint, upvector);
@@ -242,14 +242,14 @@ SoScXMLMiscTarget::processOneEvent(const ScXMLEvent * event)
     // _sessionid
     // focaldistance {real}
     SoScXMLStateMachine * statemachine = inherited::getSoStateMachine(event, sessionid);
-    if (!statemachine) { return FALSE; }
+    if (!statemachine) { return false; }
 
     SoCamera * camera = inherited::getActiveCamera(event, sessionid);
-    if (!camera) { return FALSE; }
+    if (!camera) { return false; }
 
     double focaldistance;
     if (!inherited::getEventDouble(event, "focaldistance", focaldistance)) {
-      return FALSE;
+      return false;
     }
 
     camera->focalDistance.setValue(static_cast<float>(focaldistance));
@@ -260,14 +260,14 @@ SoScXMLMiscTarget::processOneEvent(const ScXMLEvent * event)
     // position {SbVec3f}
 
     SoScXMLStateMachine * statemachine = inherited::getSoStateMachine(event, sessionid);
-    if (!statemachine) { return FALSE; }
+    if (!statemachine) { return false; }
 
     SoCamera * camera = inherited::getActiveCamera(event, sessionid);
-    if (!camera) { return FALSE; }
+    if (!camera) { return false; }
 
     SbVec3f position(0.0f, 0.0f, 0.0f);
     if (!inherited::getEventSbVec3f(event, "position", position)) {
-      return FALSE;
+      return false;
     }
 
     camera->position.setValue(position);
@@ -277,10 +277,10 @@ SoScXMLMiscTarget::processOneEvent(const ScXMLEvent * event)
     SoDebugError::post("SoScXMLMiscTarget::processOneEvent",
                        "received unknown event '%s'",
                        eventname.getString());
-    return FALSE;
+    return false;
   }
 
-  return TRUE;
+  return true;
 }
 
 #undef PRIVATE

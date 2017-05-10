@@ -48,7 +48,7 @@
     Rotor {
         rotation 0 0 1  0
         speed 1
-        on TRUE
+        on true
     }
   \endcode
 */
@@ -129,7 +129,7 @@ SoRotor::SoRotor(void)
   SO_NODE_INTERNAL_CONSTRUCTOR(SoRotor);
 
   SO_NODE_ADD_FIELD(speed, (1.0f));
-  SO_NODE_ADD_FIELD(on, (TRUE));
+  SO_NODE_ADD_FIELD(on, (true));
 
   SoField * f = SoDB::getGlobalField("realTime");
   PRIVATE(this)->rtfieldsensor = new SoFieldSensor(SoRotorP::rtFieldSensorCB, this);
@@ -176,7 +176,7 @@ SoRotorP::fieldSensorCB(void * d, SoSensor * s)
   SoRotor * thisp = (SoRotor *) d;
 
   if (s == PRIVATE(thisp)->onfieldsensor) {
-    if (thisp->on.getValue() == TRUE) {
+    if (thisp->on.getValue() == true) {
       thisp->rotation.getValue(PRIVATE(thisp)->startaxis, PRIVATE(thisp)->startangle);
       PRIVATE(thisp)->starttime = get_current_time();
     }

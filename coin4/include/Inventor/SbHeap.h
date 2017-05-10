@@ -51,9 +51,9 @@ public:
   void *operator[](const int idx);
 
   void newWeight(void *obj, int hpos = -1);
-  SbBool buildHeap(SbBool (*progresscb)(float percentage, void *data) = NULL,
+  bool buildHeap(bool (*progresscb)(float percentage, void *data) = NULL,
                    void *data = NULL);
-  SbBool traverseHeap(SbBool (*func)(void *, void *), void *userdata) const;
+  bool traverseHeap(bool (*func)(void *, void *), void *userdata) const;
 
 private:
   SbHeapFuncs funcs;

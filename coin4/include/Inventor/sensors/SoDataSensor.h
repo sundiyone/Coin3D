@@ -45,8 +45,8 @@ public:
   SoNode * getTriggerNode(void) const;
   SoField * getTriggerField(void) const;
   SoPath * getTriggerPath(void) const;
-  void setTriggerPathFlag(SbBool flag);
-  SbBool getTriggerPathFlag(void) const;
+  void setTriggerPathFlag(bool flag);
+  bool getTriggerPathFlag(void) const;
   SoNotRec::OperationType getTriggerOperationType(void) const;
   int getTriggerIndex(void) const;
   int getTriggerFieldNumIndices(void) const;
@@ -63,7 +63,7 @@ protected:
 private:
   SoSensorCB * cbfunc;
   void * cbdata;
-  SbBool findpath;
+  bool findpath;
   SoField * triggerfield;
   SoNode * triggernode;
   SoPath * triggerpath;

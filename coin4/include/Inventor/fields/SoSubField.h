@@ -59,12 +59,12 @@ public: \
  \
   virtual void copyFrom(const SoField & field); \
   const _class_ & operator=(const _class_ & field); \
-  virtual SbBool isSame(const SoField & field) const
+  virtual bool isSame(const SoField & field) const
 
 
 #define PRIVATE_SFIELD_IO_HEADER() \
 private: \
-  virtual SbBool readValue(SoInput * in); \
+  virtual bool readValue(SoInput * in); \
   virtual void writeValue(SoOutput * out) const
 
 
@@ -78,8 +78,8 @@ public: \
   void setValue(_valref_ newvalue); \
   _valref_ operator=(_valref_ newvalue) { this->setValue(newvalue); return this->value; } \
  \
-  int operator==(const _class_ & field) const; \
-  int operator!=(const _class_ & field) const { return ! operator==(field); }
+  bool operator==(const _class_ & field) const; \
+  bool operator!=(const _class_ & field) const { return ! operator==(field); }
 
 
 // FIXME: is really the operator=() definition below necessary?
@@ -145,7 +145,7 @@ _class_::setValue(_valref_ valuearg) { \
   this->valueChanged(); \
 } \
  \
-SbBool \
+bool \
 _class_::operator==(const _class_ & field) const \
 { \
   return (this->getValue() == field.getValue()); \
@@ -166,10 +166,10 @@ _class_::copyFrom(const SoField & field) \
   this->operator=(static_cast<const _class_ &>(field)); \
 } \
  \
-SbBool \
+bool \
 _class_::isSame(const SoField & field) const \
 { \
-  if (field.getTypeId() != this->getTypeId()) return FALSE; \
+  if (field.getTypeId() != this->getTypeId()) return false; \
   return this->operator==(static_cast<const _class_ &>(field)); \
 }
 
@@ -208,7 +208,7 @@ _class_::operator=(const _class_ & field) \
 
 #define PRIVATE_MFIELD_IO_HEADER() \
 private: \
-  virtual SbBool read1Value(SoInput * in, int idx); \
+  virtual bool read1Value(SoInput * in, int idx); \
   virtual void write1Value(SoOutput * out, int idx) const
 
 
@@ -232,13 +232,13 @@ public: \
 */ \
   const _valtype_ * getValues(const int start) const \
     { this->evaluate(); return const_cast<const _valtype_ *>(this->values + start); } \
-  int find(_valref_ value, SbBool addifnotfound = FALSE); \
+  int find(_valref_ value, bool addifnotfound = false); \
   void setValues(const int start, const int num, const _valtype_ * newvals); \
   void set1Value(const int idx, _valref_ value); \
   void setValue(_valref_ value); \
   _valref_ operator=(_valref_ val) { this->setValue(val); return val; } \
-  SbBool operator==(const _class_ & field) const; \
-  SbBool operator!=(const _class_ & field) const { return !operator==(field); } \
+  bool operator==(const _class_ & field) const; \
+  bool operator!=(const _class_ & field) const { return !operator==(field); } \
   _valtype_ * startEditing(void) { this->evaluate(); return this->values; } \
   void finishEditing(void) { this->valueChanged(); }
 
@@ -287,7 +287,7 @@ _class_::_class_(void) \
  \
 _class_::~_class_(void) \
 { \
-  this->enableNotify(FALSE); /* Avoid notifying destructed containers. */ \
+  this->enableNotify(false); /* Avoid notifying destructed containers. */ \
   this->deleteAllValues(); \
 }
 
@@ -336,7 +336,7 @@ _class_::setValuesPtr(void * ptr) \
 } \
  \
 int \
-_class_::find(_valref_ value, SbBool addifnotfound) \
+_class_::find(_valref_ value, bool addifnotfound) \
 { \
   evaluate(); \
   for (int i=0; i < this->num; i++) if (this->values[i] == value) return i; \
@@ -379,16 +379,16 @@ _class_::setValue(_valref_ value) \
   this->setChangedIndices(); \
 } \
  \
-SbBool \
+bool \
 _class_::operator==(const _class_ & field) const \
 { \
-  if (this == &field) return TRUE; \
-  if (this->getNum() != field.getNum()) return FALSE; \
+  if (this == &field) return true; \
+  if (this->getNum() != field.getNum()) return false; \
  \
   const _valtype_ * const lhs = this->getValues(0); \
   const _valtype_ * const rhs = field.getValues(0); \
-  for (int i = 0; i < this->num; i++) if (lhs[i] != rhs[i]) return FALSE; \
-  return TRUE; \
+  for (int i = 0; i < this->num; i++) if (lhs[i] != rhs[i]) return false; \
+  return true; \
 } \
  \
 /*! \COININTERNAL */ \
@@ -426,7 +426,7 @@ _class_::allocValues(int newnum) \
     if (!this->userDataIsUsed) delete[] this->values; /* don't fetch pointer through valuesPtr() (avoids void* cast) */ \
     this->setValuesPtr(NULL); \
     this->maxNum = 0; \
-    this->userDataIsUsed = FALSE; \
+    this->userDataIsUsed = false; \
   } \
   else if (newnum > this->maxNum || newnum < this->num) { \
     if (this->valuesPtr()) { \
@@ -450,12 +450,12 @@ _class_::allocValues(int newnum) \
  \
         delete[] this->values; /* don't fetch pointer through valuesPtr() (avoids void* cast) */ \
         this->setValuesPtr(newblock); \
-        this->userDataIsUsed = FALSE; \
+        this->userDataIsUsed = false; \
       } \
     } \
     else { \
       this->setValuesPtr(new _valtype_[newnum]); \
-      this->userDataIsUsed = FALSE; \
+      this->userDataIsUsed = false; \
       this->maxNum = newnum; \
     } \
   } \
@@ -500,7 +500,7 @@ _class_::setValuesPointer(const int numarg, _usertype_ * userdata) \
   this->makeRoom(0); \
   if (numarg > 0 && userdata) { \
     this->values = reinterpret_cast<_valtype_*>(userdata); /* reinterpret_cast is needed for certain special uses of this function, such as SoMFColor */ \
-    this->userDataIsUsed = TRUE; \
+    this->userDataIsUsed = true; \
     this->num = this->maxNum = numarg; \
     this->valueChanged(); \
   } \

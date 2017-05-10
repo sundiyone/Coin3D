@@ -71,7 +71,7 @@ protected:
 
   virtual void GLRender(SoGLRenderAction * action);
 
-  virtual SbBool setUpConnections(SbBool onoff, SbBool doitalways = FALSE);
+  virtual bool setUpConnections(bool onoff, bool doitalways = false);
   virtual void setDefaultOnNonWritingFields(void);
 
   void reallyAdjustScaleTabSize(SoGLRenderAction * action);
@@ -109,7 +109,7 @@ private:
   int constraintState;
   float prevsizex;
   float prevsizey;
-  SbBool adjustTabs;
+  bool adjustTabs;
   SbVec3f worldRestartPt;
   SbVec3f scaleCenter;
 

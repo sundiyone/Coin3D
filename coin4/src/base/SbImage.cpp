@@ -379,7 +379,7 @@ SbImage::getValue(SbVec3s & size, int & bytesperpixel) const
   PRIVATE(this)->readLock();
   if (PRIVATE(this)->schedulecb) {
     // start a thread to read the image.
-    SbBool scheduled = PRIVATE(this)->schedulecb(PRIVATE(this)->schedulename, const_cast<SbImage *>(this),
+    bool scheduled = PRIVATE(this)->schedulecb(PRIVATE(this)->schedulename, const_cast<SbImage *>(this),
                                         PRIVATE(this)->scheduleclosure);
     if (scheduled) {
       PRIVATE(this)->schedulecb = NULL;
@@ -433,14 +433,14 @@ SbImage::searchForFile(const SbString & basename,
   Reads image data from \a filename. In Coin, simage is used to
   load image files, and several common file formats are supported.
   simage can be downloaded from our webpages.  If loading
-  fails for some reason this method returns FALSE, and the instance
+  fails for some reason this method returns false, and the instance
   is set to an empty image. If the file is successfully loaded, the
   file image data is copied into this class.
 
   If \a numdirectories > 0, this method will search for \a filename
   in all directories in \a searchdirectories.
 */
-SbBool
+bool
 SbImage::readFile(const SbString & filename,
                   const SbString * const * searchdirectories,
                   const int numdirectories)
@@ -451,7 +451,7 @@ SbImage::readFile(const SbString & filename,
     // This is really an internal error, should perhaps assert. <mortene>.
     SoDebugError::post("SbImage::readFile",
                        "attempted to read file from empty filename.");
-    return FALSE;
+    return false;
   }
 
   SbString finalname = SbImage::searchForFile(filename, searchdirectories,
@@ -461,18 +461,18 @@ SbImage::readFile(const SbString & filename,
   if (SbImageP::readimagecallbacks) {
     for (int i = 0; i < SbImageP::readimagecallbacks->getLength(); i++) {
       SbImageP::ReadImageCBData cbdata = (*SbImageP::readimagecallbacks)[i];
-      if (finalname.getLength() > 0 && cbdata.cb(finalname, this, cbdata.closure)) return TRUE;
-      if (cbdata.cb(filename, this, cbdata.closure)) return TRUE;
+      if (finalname.getLength() > 0 && cbdata.cb(finalname, this, cbdata.closure)) return true;
+      if (cbdata.cb(filename, this, cbdata.closure)) return true;
     }
     if (!simage_wrapper()->available) {
-      return FALSE;
+      return false;
     }
   }
 
   if (finalname.getLength() == 0) {
     SoDebugError::post("SbImage::readFile",
                        "couldn't find '%s'.", filename.getString());
-    return FALSE;
+    return false;
   }
   
   // try simage
@@ -480,7 +480,7 @@ SbImage::readFile(const SbString & filename,
     SoDebugError::postWarning("SbImage::readFile",
                               "The simage library is not available, "
                               "can not import any images from disk.");
-    return FALSE;
+    return false;
   }
 
   assert(simage_wrapper()->simage_read_image);
@@ -500,7 +500,7 @@ SbImage::readFile(const SbString & filename,
     // and data pointer, and then we change the data type to simage
     // peder, 2002-03-22
     PRIVATE(this)->datatype = SbImageP::SIMAGE_DATA;
-    return TRUE;
+    return true;
   }
 #if COIN_DEBUG
   else {
@@ -518,21 +518,21 @@ SbImage::readFile(const SbString & filename,
 #endif // COIN_DEBUG
     
   this->setValue(SbVec3s(0,0,0), 0, NULL);
-  return FALSE;
+  return false;
 }
 
 /*!
-  \fn int SbImage::operator!=(const SbImage & image) const
+  \fn bool SbImage::operator!=(const SbImage & image) const
   Compare image of \a image with the image in this class and
-  return \c FALSE if they are equal.
+  return \c false if they are equal.
 */
 
 
 /*!
   Compare image of \a image with the image in this class and
-  return \c TRUE if they are equal.
+  return \c true if they are equal.
 */
-int
+bool
 SbImage::operator==(const SbImage & image) const
 {
   this->readLock();
@@ -604,7 +604,7 @@ SbImage::operator=(const SbImage & image)
   \sa readFile()
   \since Coin 2.0
 */
-SbBool
+bool
 SbImage::scheduleReadFile(SbImageScheduleReadCB * cb,
                           void * closure,
                           const SbString & filename,
@@ -626,16 +626,16 @@ SbImage::scheduleReadFile(SbImageScheduleReadCB * cb,
 }
 
 /*!
-  Returns \a TRUE if the image is not empty. This can be useful, since
+  Returns \a true if the image is not empty. This can be useful, since
   getValue() will start loading the image if scheduleReadFile() has
   been used to set the image data.
 
   \since Coin 2.0
 */
-SbBool 
+bool 
 SbImage::hasData(void) const
 {
-  SbBool ret;
+  bool ret;
   this->readLock();
   ret = PRIVATE(this)->bytes != NULL;
   this->readUnlock();
@@ -657,8 +657,8 @@ SbImage::getSize(void) const
 
 /*!
   Add a callback which will be called whenever Coin wants to read an
-  image file.  The callback should return TRUE if it was able to
-  successfully read and set the image data, and FALSE otherwise.
+  image file.  The callback should return true if it was able to
+  successfully read and set the image data, and false otherwise.
 
   The callback(s) will be called before attempting to use simage to
   load images.

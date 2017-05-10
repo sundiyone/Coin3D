@@ -589,16 +589,16 @@ SoElement::print(FILE * file) const
 }
 
 /*!
-  This function returns \c TRUE is the element matches another element
+  This function returns \c true is the element matches another element
   (of the same class), with respect to cache validity.
 
   If the application programmer's extension element has a matches()
   function, it should also have a copyMatchInfo() function.
 */
-SbBool
+bool
 SoElement::matches(const SoElement * COIN_UNUSED_ARG(element)) const
 {
-  return FALSE;
+  return false;
 }
 
 /*!

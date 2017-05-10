@@ -340,7 +340,7 @@ SoMaterial::SoMaterial(void)
   SO_NODE_ADD_FIELD(transparency, (0.0f));
 
   PRIVATE(this)->materialtype = TYPE_NORMAL;
-  PRIVATE(this)->transparencyflag = FALSE; // we know it's not transparent
+  PRIVATE(this)->transparencyflag = false; // we know it's not transparent
 }
 
 /*!
@@ -385,7 +385,7 @@ SoMaterial::GLRender(SoGLRenderAction * action)
 void
 SoMaterial::doAction(SoAction * action)
 {
-  SbBool istransparent = FALSE;
+  bool istransparent = false;
 
   SoState * state = action->getState();
 
@@ -397,7 +397,7 @@ SoMaterial::doAction(SoAction * action)
         SoProfilerElement * profilerelt = SoProfilerElement::get(state);
         assert(profilerelt);
         SbProfilingData & data = profilerelt->getProfilingData();
-        int entry = data.getIndex(action->getCurPath(), TRUE);
+        int entry = data.getIndex(action->getCurPath(), true);
         assert(entry != -1);
         size_t mem = data.getNodeFootprint(entry, SbProfilingData::MEMORY_SIZE);
         data.setNodeFootprint(entry, SbProfilingData::MEMORY_SIZE,
@@ -414,7 +414,7 @@ SoMaterial::doAction(SoAction * action)
       !TEST_OVERRIDE(AMBIENT_COLOR)) {
     bitmask |= SoLazyElement::AMBIENT_MASK;
     if (this->isOverride()) {
-      SoOverrideElement::setAmbientColorOverride(state, this, TRUE);
+      SoOverrideElement::setAmbientColorOverride(state, this, true);
     }
   }
   if (!this->diffuseColor.isIgnored() && this->diffuseColor.getNum() &&
@@ -425,28 +425,28 @@ SoMaterial::doAction(SoAction * action)
     // other.
     bitmask |= SoLazyElement::DIFFUSE_MASK;
     if (this->isOverride()) {
-      SoOverrideElement::setDiffuseColorOverride(state, this, TRUE);
+      SoOverrideElement::setDiffuseColorOverride(state, this, true);
     }
   }
   if (!this->emissiveColor.isIgnored() && this->emissiveColor.getNum() &&
       !TEST_OVERRIDE(EMISSIVE_COLOR)) {
     bitmask |= SoLazyElement::EMISSIVE_MASK;
     if (this->isOverride()) {
-      SoOverrideElement::setEmissiveColorOverride(state, this, TRUE);
+      SoOverrideElement::setEmissiveColorOverride(state, this, true);
     }
   }
   if (!this->specularColor.isIgnored() && this->specularColor.getNum() &&
       !TEST_OVERRIDE(SPECULAR_COLOR)) {
     bitmask |= SoLazyElement::SPECULAR_MASK;
     if (this->isOverride()) {
-      SoOverrideElement::setSpecularColorOverride(state, this, TRUE);
+      SoOverrideElement::setSpecularColorOverride(state, this, true);
     }
   }
   if (!this->shininess.isIgnored() && this->shininess.getNum() &&
       !TEST_OVERRIDE(SHININESS)) {
     bitmask |= SoLazyElement::SHININESS_MASK;
     if (this->isOverride()) {
-      SoOverrideElement::setShininessOverride(state, this, TRUE);
+      SoOverrideElement::setShininessOverride(state, this, true);
     }
   }
   if (!this->transparency.isIgnored() && this->transparency.getNum() &&
@@ -457,7 +457,7 @@ SoMaterial::doAction(SoAction * action)
     // other.
     bitmask |= SoLazyElement::TRANSPARENCY_MASK;
     if (this->isOverride()) {
-      SoOverrideElement::setTransparencyOverride(state, this, TRUE);
+      SoOverrideElement::setTransparencyOverride(state, this, true);
     }
     // if we don't know if material is transparent, run through all
     // values and test
@@ -466,14 +466,14 @@ SoMaterial::doAction(SoAction * action)
       const float * p = this->transparency.getValues(0);
       for (i = 0; i < n; i++) {
         if (p[i] > 0.0f) {
-          istransparent = TRUE;
+          istransparent = true;
           break;
         }
       }
       // we now know whether material is transparent or not
       PRIVATE(this)->transparencyflag = (int) istransparent;
     }
-    istransparent = (SbBool) PRIVATE(this)->transparencyflag;
+    istransparent = (bool) PRIVATE(this)->transparencyflag;
   }
 #undef TEST_OVERRIDE
 
@@ -527,9 +527,9 @@ SoMaterial::doAction(SoAction * action)
                                 istransparent);
     if (state->isElementEnabled(SoGLVBOElement::getClassStackIndex())) {
       SoBase::staticDataLock();
-      SbBool setvbo = FALSE;
+      bool setvbo = false;
       if (SoGLVBOElement::shouldCreateVBO(state, numdiffuse)) {
-        setvbo = TRUE;
+        setvbo = true;
         if (PRIVATE(this)->vbo == NULL) {
           PRIVATE(this)->vbo = new SoVBO(GL_ARRAY_BUFFER, GL_STATIC_DRAW);
         }

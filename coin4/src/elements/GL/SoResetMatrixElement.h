@@ -45,7 +45,7 @@ public:
 
 protected:
   virtual void setElt(const SbMatrix & matrix);
-  virtual SbBool matches(const SoElement * element) const;
+  virtual bool matches(const SoElement * element) const;
   virtual SoElement * copyMatchInfo(void) const;
 
 private:

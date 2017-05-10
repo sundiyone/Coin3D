@@ -61,13 +61,13 @@ SoMFPlane::initClass(void)
 // parent classes.
 #ifndef DOXYGEN_SKIP_THIS
 
-SbBool
+bool
 SoMFPlane::read1Value(SoInput * in, int idx)
 {
   SbPlane p;
-  if (!sosfplane_read_value(in, p)) return FALSE;
+  if (!sosfplane_read_value(in, p)) return false;
   this->set1Value(idx, p);
-  return TRUE;
+  return true;
 }
 
 void

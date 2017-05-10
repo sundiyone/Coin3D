@@ -42,8 +42,8 @@ public:
   void setViewportRegion(const SbViewportRegion & newregion);
   const SbViewportRegion & getViewportRegion(void);
 
-  void enableCulling(const SbBool flag);
-  SbBool isCullingEnabled(void) const;
+  void enableCulling(const bool flag);
+  bool isCullingEnabled(void) const;
 
 protected:
   SoPickAction(const SbViewportRegion & viewportregion);
@@ -54,7 +54,7 @@ protected:
   SbViewportRegion vpRegion;
 
 private:
-  SbBool cullingenabled;
+  bool cullingenabled;
 
 private:
   SbLazyPimplPtr<SoPickActionP> pimpl;

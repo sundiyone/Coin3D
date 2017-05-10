@@ -52,8 +52,8 @@
   \verbatim
   Script {
     exposedField MFString url           []
-    field        SFBool   directOutput  FALSE
-    field        SFBool   mustEvaluate  FALSE
+    field        SFBool   directOutput  false
+    field        SFBool   mustEvaluate  false
     # And any number of:
     eventIn      eventType eventName
     field        fieldType fieldName initialValue
@@ -109,12 +109,12 @@
   With the exception of the url field, exposedFields are not allowed
   in Script nodes.
 
-  If the Script node's \e mustEvaluate field is \c FALSE, the browser
+  If the Script node's \e mustEvaluate field is \c false, the browser
   may delay sending input events to the script until its outputs are
-  needed by the browser. If the \e mustEvaluate field is TRUE, the
+  needed by the browser. If the \e mustEvaluate field is true, the
   browser shall send input events to the script as soon as possible,
   regardless of whether the outputs are needed. The \e mustEvaluate
-  field shall be set to TRUE only if the Script node has effects that
+  field shall be set to true only if the Script node has effects that
   are not known to the browser (such as sending information across the
   network). Otherwise, poor performance may result.
 
@@ -123,13 +123,13 @@
   in as an eventIn), the script is able to read the contents of that
   node's exposed fields.
 
-  If the Script node's \e directOutput field is \c TRUE, the script
+  If the Script node's \e directOutput field is \c true, the script
   may also send events directly to any node to which it has access,
   and may dynamically establish or break routes.
 
-  If directOutput is \c FALSE (the default), the script may only
+  If directOutput is \c false (the default), the script may only
   affect the rest of the world via events sent through its
-  eventOuts. The results are undefined if directOutput is \c FALSE and
+  eventOuts. The results are undefined if directOutput is \c false and
   the script sends events directly to a node to which it has access.
 
   A script is able to communicate directly with the VRML browser to
@@ -176,8 +176,8 @@ public:
   {
     this->master = m;
     this->oneshotsensor = new SoOneShotSensor(SoVRMLScript::eval_cb, master);
-    this->isreading = FALSE;
-    this->isevaluating = FALSE;
+    this->isreading = false;
+    this->isevaluating = false;
 #ifdef COIN_HAVE_JAVASCRIPT
     this->engine = NULL;
 #endif // !COIN_HAVE_JAVASCRIPT
@@ -194,19 +194,19 @@ public:
 #endif // !COIN_HAVE_JAVASCRIPT
   }
 
-  static SbBool debug(void);
+  static bool debug(void);
   static void cleanup(void);
 
 #ifdef COIN_HAVE_JAVASCRIPT
   void initialize(void);
   void shutdown(void);
 
-  static SbBool allowSpiderMonkey(void);
-  static SbBool useSpiderMonkey(void);
+  static bool allowSpiderMonkey(void);
+  static bool useSpiderMonkey(void);
 #endif // !COIN_HAVE_JAVASCRIPT
   void evaluate(void);
 
-  SbBool isreading, isevaluating;
+  bool isreading, isevaluating;
   SoOneShotSensor * oneshotsensor;
 
   SbList<SbName> fieldnotifications, eventoutfields, eventinfields;
@@ -216,7 +216,7 @@ public:
   SoJavaScriptEngine * engine;
 #endif // !COIN_HAVE_JAVASCRIPT
 
-  static SbBool spidermonkey_init_failed;
+  static bool spidermonkey_init_failed;
 
 private:
   SoVRMLScript * master;
@@ -225,7 +225,7 @@ private:
 #define PUBLIC(p) ((p)->master)
 #define PRIVATE(p) ((p)->pimpl)
 
-SbBool SoVRMLScriptP::spidermonkey_init_failed = FALSE;
+bool SoVRMLScriptP::spidermonkey_init_failed = false;
 
 // *************************************************************************
 
@@ -246,14 +246,14 @@ SoVRMLScriptP::cleanup(void)
 #endif // !COIN_HAVE_JAVASCRIPT
 
   // reset static var
-  SoVRMLScriptP::spidermonkey_init_failed = FALSE;
+  SoVRMLScriptP::spidermonkey_init_failed = false;
   sovrmlscript_eval_cb = NULL;
   sovrmlscript_eval_closure = NULL;
 }
 
 // *************************************************************************
 
-SbBool
+bool
 SoVRMLScriptP::debug(void)
 {
   static int d = -1;
@@ -262,7 +262,7 @@ SoVRMLScriptP::debug(void)
     d = (env && (atoi(env) > 0)) ? 1 : 0;
 
   }
-  return d ? TRUE : FALSE;
+  return d ? true : false;
 }
 
 #ifdef COIN_HAVE_JAVASCRIPT
@@ -270,7 +270,7 @@ SoVRMLScriptP::debug(void)
 // The Javascript support is far from being compliant with the VRML
 // specification, and has so far been developed just for internal SIM
 // use, so one needs to explicitly activate it for now.
-SbBool
+bool
 SoVRMLScriptP::allowSpiderMonkey(void)
 {
   static int d = -1;
@@ -278,16 +278,16 @@ SoVRMLScriptP::allowSpiderMonkey(void)
     const char * env = coin_getenv("COIN_ALLOW_SPIDERMONKEY");
     d = (env && (atoi(env) > 0)) ? 1 : 0;
   }
-  return d ? TRUE : FALSE;
+  return d ? true : false;
 }
 
-SbBool
+bool
 SoVRMLScriptP::useSpiderMonkey(void)
 {
-  if (!SoVRMLScriptP::allowSpiderMonkey()) { return FALSE; }
-  if (!spidermonkey()->available) { return FALSE; }
-  if (SoJavaScriptEngine::getRuntime() == NULL) { return FALSE; }
-  return TRUE;
+  if (!SoVRMLScriptP::allowSpiderMonkey()) { return false; }
+  if (!spidermonkey()->available) { return false; }
+  if (SoJavaScriptEngine::getRuntime() == NULL) { return false; }
+  return true;
 }
 
 #endif // !COIN_HAVE_JAVASCRIPT
@@ -322,30 +322,30 @@ SoVRMLScript::SoVRMLScript(void)
       // has already been done on the SoJavaScriptEngine class.
       // 20060207 mortene.
       (SoJavaScriptEngine::getRuntime() == NULL)) {
-    SbBool ok = SoJavaScriptEngine::init();
-    if (!ok) { SoVRMLScriptP::spidermonkey_init_failed = TRUE; }
+    bool ok = SoJavaScriptEngine::init();
+    if (!ok) { SoVRMLScriptP::spidermonkey_init_failed = true; }
   }
 #endif // !COIN_HAVE_JAVASCRIPT
 
   PRIVATE(this) = new SoVRMLScriptP(this);
   this->setNodeType(SoNode::VRML2);
 
-  this->isBuiltIn = TRUE;
+  this->isBuiltIn = true;
   assert(SoVRMLScript::classTypeId != SoType::badType());
 
   this->url.setNum(0);
   this->url.setContainer(this);
 
-  // FIXME: directOutput should default be FALSE, according to the
+  // FIXME: directOutput should default be false, according to the
   // VRML97 spec doc. 20050526 mortene.
   // Looks more like a hint than a rule to me. Something we can
   // safely ignore. 20050712 erikgors.
-  this->directOutput.setValue(FALSE);
+  this->directOutput.setValue(false);
   this->directOutput.setContainer(this);
 
-  // FIXME: shouldn't mustEvaluate be default FALSE? Seems like it
+  // FIXME: shouldn't mustEvaluate be default false? Seems like it
   // from the VRML97 spec doc. 20050526 mortene.
-  this->mustEvaluate.setValue(FALSE);
+  this->mustEvaluate.setValue(false);
   this->mustEvaluate.setContainer(this);
 
   this->initFieldData();
@@ -453,8 +453,8 @@ SoVRMLScript::write(SoWriteAction * action)
   SoOutput * out = action->getOutput();
   if (out->getStage() == SoOutput::COUNT_REFS) {
     // We will always write NORMAL and EXPOSED fields, so do a
-    // setDefault(FALSE) on them. We will not write other field types,
-    // so do a setDefault(TRUE) on them.
+    // setDefault(false) on them. We will not write other field types,
+    // so do a setDefault(true) on them.
     for (i = 0; i < fd->getNumFields(); i++) {
       const SoField * f = fd->getField(this, i);
       SbName fieldname = fd->getFieldName(i);
@@ -462,27 +462,27 @@ SoVRMLScript::write(SoWriteAction * action)
           fieldname != MUSTEVALUATE) {
         if ((f->getFieldType() == SoField::NORMAL_FIELD) ||
             (f->getFieldType() == SoField::EXPOSED_FIELD)) {
-          ((SoField*)f)->setDefault(FALSE);
+          ((SoField*)f)->setDefault(false);
         }
-        else ((SoField*)f)->setDefault(TRUE);
+        else ((SoField*)f)->setDefault(true);
       }
     }
     inherited::write(action);
   }
   else if (out->getStage() == SoOutput::WRITE) {
-    if (this->writeHeader(out, FALSE, FALSE))
+    if (this->writeHeader(out, false, false))
       return;
     for (i = 0; i < fd->getNumFields(); i++) {
       const SoField * f = fd->getField(this, i);
       SbName fieldname = fd->getFieldName(i);
-      SbBool writevalue = FALSE;
+      bool writevalue = false;
       if (fieldname != URL && fieldname != DIRECTOUTPUT &&
           fieldname != MUSTEVALUATE) {
         out->indent();
         switch (f->getFieldType()) {
         case SoField::NORMAL_FIELD:        
           out->write("field ");
-          writevalue = TRUE;
+          writevalue = true;
           break;
         case SoField::EVENTIN_FIELD:
           out->write("eventIn ");
@@ -492,7 +492,7 @@ SoVRMLScript::write(SoWriteAction * action)
           break;
         case SoField::EXPOSED_FIELD:
           out->write("exposedField ");
-          writevalue = TRUE;
+          writevalue = true;
           break;
         default:
           break;
@@ -527,7 +527,7 @@ SoVRMLScript::write(SoWriteAction * action)
 // Doc in superclass
 void
 SoVRMLScript::copyContents(const SoFieldContainer * from,
-                           SbBool copyConn)
+                           bool copyConn)
 {
   assert(from->isOfType(SoVRMLScript::getClassTypeId()));
 
@@ -565,7 +565,7 @@ SoVRMLScript::notify(SoNotList * l)
     }
     else {
       SbName name;
-      SbBool ok = this->getFieldName(f, name);
+      bool ok = this->getFieldName(f, name);
       assert(ok);
 
       // We silently ignore events for non-eventIn fields
@@ -611,16 +611,16 @@ SoVRMLScript::getFieldData(void) const
 // *************************************************************************
 
 // Doc in superclass
-SbBool
+bool
 SoVRMLScript::readInstance(SoInput * in, unsigned short COIN_UNUSED_ARG(flags))
 {
   // avoid triggering the eval cb while reading the file.
-  PRIVATE(this)->isreading = TRUE;
+  PRIVATE(this)->isreading = true;
 
   SbName name(SbName::empty());
-  SbBool ok;
+  bool ok;
 
-  ok = in->read(name, TRUE);
+  ok = in->read(name, true);
 
   const SbName URL("url");
   const SbName DIRECTOUTPUT("directOutput");
@@ -630,7 +630,7 @@ SoVRMLScript::readInstance(SoInput * in, unsigned short COIN_UNUSED_ARG(flags))
   const SbName FIELD("field");
   const SbName EXPOSEDFIELD("exposedField");
 
-  SbBool err = FALSE;
+  bool err = false;
 
   SoField * builtinfield;
 
@@ -640,7 +640,7 @@ SoVRMLScript::readInstance(SoInput * in, unsigned short COIN_UNUSED_ARG(flags))
         name == FIELD ||
         name == EXPOSEDFIELD) {
       SbName ftype, fname;
-      err = ! (in->read(ftype, TRUE) && in->read(fname, TRUE));
+      err = ! (in->read(ftype, true) && in->read(fname, true));
       if (!err) {
         SoType type = SoType::fromName(ftype);
         if (type.isDerivedFrom(SoField::getClassTypeId()) && type.canCreateInstance()) {
@@ -677,7 +677,7 @@ SoVRMLScript::readInstance(SoInput * in, unsigned short COIN_UNUSED_ARG(flags))
           }
         }
         else {
-          err = TRUE;
+          err = true;
           SoReadError::post(in, "Unknown field type.");
         }
       }
@@ -686,23 +686,23 @@ SoVRMLScript::readInstance(SoInput * in, unsigned short COIN_UNUSED_ARG(flags))
       }
       if (!err) {
         name = "";
-        ok = in->read(name, TRUE);
+        ok = in->read(name, true);
       }
     }
     else if ((builtinfield = this->getField(name)) != NULL) {
       err = !builtinfield->read(in, name);
       if (!err) {
         name = "";
-        ok = in->read(name, TRUE);
+        ok = in->read(name, true);
       }
       else {
         SoReadError::post(in, "Error while reading field '%s'.", 
                           name.getString());
       }
     }
-    else ok = FALSE;
+    else ok = false;
   }
-  PRIVATE(this)->isreading = FALSE;
+  PRIVATE(this)->isreading = false;
   
   if (!err) {
     if (name != "") in->putBack(name.getString());
@@ -809,12 +809,12 @@ SoVRMLScriptP::initialize(void)
     this->engine->setScriptField(name, f);
   }
 
-  // Adding TRUE and FALSE to be bug-compatible. 20050719 erikgors.
+  // Adding true and false to be bug-compatible. 20050719 erikgors.
   SoSFBool * boolean = (SoSFBool *)SoSFBool::createInstance();
-  boolean->setValue(TRUE);
-  this->engine->setScriptField(SbName("TRUE"), boolean);
-  boolean->setValue(FALSE);
-  this->engine->setScriptField(SbName("FALSE"), boolean);
+  boolean->setValue(true);
+  this->engine->setScriptField(SbName("true"), boolean);
+  boolean->setValue(false);
+  this->engine->setScriptField(SbName("false"), boolean);
   delete boolean;
 
   // Run initialize function if it exists
@@ -873,9 +873,9 @@ SoVRMLScriptP::evaluate(void)
   else {
     // FIXME: improve on this to be of more informational value to
     // both the app programmer and end-user. 20050526 mortene.
-    static SbBool first = TRUE;
+    static bool first = true;
     if (first) {
-      first = FALSE;
+      first = false;
       SoDebugError::postWarning("SoVRMLScript::eval_cb",
                                 "No script language evaluation engine available.");
     }
@@ -891,9 +891,9 @@ SoVRMLScript::eval_cb(void * data, SoSensor *)
   // FIXME: this wrapping is too simple, we can loose important new
   // input events. What we need to do is ignoring any writes to the
   // output field(s) that are updated. 20050602 mortene.
-  PRIVATE(thisp)->isevaluating = TRUE;
+  PRIVATE(thisp)->isevaluating = true;
   PRIVATE(thisp)->evaluate();
-  PRIVATE(thisp)->isevaluating = FALSE;
+  PRIVATE(thisp)->isevaluating = false;
 }
 
 // *************************************************************************

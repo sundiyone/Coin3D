@@ -222,10 +222,10 @@ SoIndexedPointSet::GLRender(SoGLRenderAction * action)
 
   SoState * state = action->getState();
 
-  SbBool didpush = FALSE;
+  bool didpush = false;
   if (this->vertexProperty.getValue()) {
     state->push();
-    didpush = TRUE;
+    didpush = true;
     this->vertexProperty.getValue()->GLRender(action);
   }
 
@@ -235,7 +235,7 @@ SoIndexedPointSet::GLRender(SoGLRenderAction * action)
   }
 
   SoMaterialBundle mb(action);
-  SoTextureCoordinateBundle tb(action, TRUE, FALSE);
+  SoTextureCoordinateBundle tb(action, true, false);
 
   const SbVec3f * normals;
   int numindices;
@@ -243,12 +243,12 @@ SoIndexedPointSet::GLRender(SoGLRenderAction * action)
   const int32_t * nindices;
   const int32_t * tindices;
   const int32_t * mindices;
-  SbBool doTextures;
-  SbBool needNormals;
+  bool doTextures;
+  bool needNormals;
   const SoCoordinateElement * coords;
   Binding nbind, tbind, mbind;
 
-  SbBool normalCacheUsed;
+  bool normalCacheUsed;
 
   doTextures = tb.needCoordinates();
   needNormals = !mb.isColorOnly() || tb.isFunction();
@@ -263,10 +263,10 @@ SoIndexedPointSet::GLRender(SoGLRenderAction * action)
   }
 
   if (normals == NULL && needNormals) {
-    needNormals = FALSE;
+    needNormals = false;
     if (!didpush) {
       state->push();
-      didpush = TRUE;
+      didpush = true;
     }
     SoLazyElement::setLightModel(state, SoLazyElement::BASE_COLOR);
   }
@@ -310,7 +310,7 @@ SoIndexedPointSet::GLRender(SoGLRenderAction * action)
   const cc_glglue * glue = sogl_glue_instance(state);
   const uint32_t contextid = action->getCacheContext();
 
-  SbBool dova =
+  bool dova =
     SoVBO::shouldRenderAsVertexArrays(state, contextid, numindices) &&
     SoGLDriverDatabase::isSupported(glue, SO_GL_VERTEX_ARRAY) &&
     ((nbind == OVERALL) || ((nbind == PER_VERTEX_INDEXED) && (nindices == cindices))) &&
@@ -320,18 +320,18 @@ SoIndexedPointSet::GLRender(SoGLRenderAction * action)
   if (dova && (mbind == PER_VERTEX_INDEXED)) {
     const SoGLVBOElement * vboelem = SoGLVBOElement::getInstance(state);
     if (vboelem->getColorVBO() == NULL) {
-      dova = FALSE;
+      dova = false;
       // we might be able to do VA-rendering, but need to check the
       // diffuse color type first.
       SoGLLazyElement * lelem = (SoGLLazyElement*) SoLazyElement::getInstance(state);
       if (!lelem->isPacked() && lelem->getNumTransparencies() <= 1) {
-        dova = TRUE;
+        dova = true;
       }
     }
   }
-  SbBool didrenderasvbo = FALSE;
+  bool didrenderasvbo = false;
   if (dova) {
-    SbBool vbo = this->startVertexArray(action,
+    bool vbo = this->startVertexArray(action,
                                         glcoords,
                                         (needNormals && (nbind == PER_VERTEX_INDEXED)) ? normals : NULL,
                                         doTextures,
@@ -369,8 +369,8 @@ SoIndexedPointSet::GLRender(SoGLRenderAction * action)
       int32_t idx = cindices[i];
       if (idx < 0) continue;
 
-      if (mbind == PER_VERTEX_INDEXED) mb.send(mindices[i], TRUE);
-      else if (mbind == PER_VERTEX) mb.send(i, TRUE);
+      if (mbind == PER_VERTEX_INDEXED) mb.send(mindices[i], true);
+      else if (mbind == PER_VERTEX) mb.send(i, true);
 
       if (nbind == PER_VERTEX_INDEXED) currnormal = normals[nindices[i]];
       else if (nbind == PER_VERTEX) currnormal = normals[i];
@@ -402,22 +402,22 @@ SoIndexedPointSet::GLRender(SoGLRenderAction * action)
 }
 
 // Documented in superclass.
-SbBool
+bool
 SoIndexedPointSet::generateDefaultNormals(SoState *, SoNormalCache * nc)
 {
   // Overridden to clear normal cache, as it's not possible to
   // generate a normal for a point.
   nc->set(0, NULL);
-  return TRUE;
+  return true;
 }
 
 // Documented in superclass.
-SbBool
+bool
 SoIndexedPointSet::generateDefaultNormals(SoState * COIN_UNUSED_ARG(state), SoNormalBundle * COIN_UNUSED_ARG(bundle))
 {
   // Overridden to avoid (faulty) compiler warnings with some version
   // of g++.
-  return FALSE;
+  return false;
 }
 
 // doc from parent
@@ -450,7 +450,7 @@ SoIndexedPointSet::generatePrimitives(SoAction *action)
     this->vertexProperty.getValue()->doAction(action);
   }
 
-  SoTextureCoordinateBundle tb(action, FALSE, FALSE);
+  SoTextureCoordinateBundle tb(action, false, false);
 
   /*
     FIXME: the following code is almost identical to that in glRender.
@@ -462,15 +462,15 @@ SoIndexedPointSet::generatePrimitives(SoAction *action)
   const int32_t * nindices;
   const int32_t * tindices;
   const int32_t * mindices;
-  SbBool doTextures;
-  SbBool needNormals;
+  bool doTextures;
+  bool needNormals;
   const SoCoordinateElement * coords;
   Binding nbind, tbind, mbind;
 
-  SbBool normalCacheUsed;
+  bool normalCacheUsed;
 
   doTextures = tb.needCoordinates();
-  needNormals = TRUE;
+  needNormals = true;
 
   this->getVertexData(state, coords, normals, cindices,
                       nindices, tindices, mindices, numindices,
@@ -482,7 +482,7 @@ SoIndexedPointSet::generatePrimitives(SoAction *action)
   }
 
   if (normals == NULL) {
-    needNormals = FALSE;
+    needNormals = false;
   }
 
   nbind = OVERALL;

@@ -33,7 +33,7 @@
 class SoAction;
 class SoShape;
 
-SbBool sogl_calculate_nurbs_normals();
+bool sogl_calculate_nurbs_normals();
 
 void
 sogl_render_nurbs_surface(SoAction * action, SoShape * shape,
@@ -44,7 +44,7 @@ sogl_render_nurbs_surface(SoAction * action, SoShape * shape,
                           const int numsctrlpts, const int numtctrlpts,
                           const float * sknotvec, const float * tknotvec,
                           const int numsknot, const int numtknot,
-                          const SbBool glrender,
+                          const bool glrender,
                           const int numcoordindex = 0, const int32_t * coordindex = NULL,
                           const int numtexcoordindex = 0, const int32_t * texcoordindex = NULL);
 
@@ -53,8 +53,8 @@ void sogl_render_nurbs_curve(SoAction * action, SoShape * shape,
                              const int numctrlpts,
                              const float * knotvec,
                              const int numknots,
-                             const SbBool glrender,
-                             const SbBool drawaspoints = FALSE,
+                             const bool glrender,
+                             const bool drawaspoints = false,
                              const int numcoordindex = 0, const int32_t * coordindex = NULL);
 
 

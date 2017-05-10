@@ -112,8 +112,8 @@
 
     SoQtExaminerViewer * viewer = new SoQtExaminerViewer(window);
     viewer->setSceneGraph(root);
-    viewer->setViewing(FALSE);
-    viewer->setDecoration(FALSE);
+    viewer->setViewing(false);
+    viewer->setDecoration(false);
     viewer->show();
 
     SoQt::show(window);
@@ -244,9 +244,9 @@ SoSurroundScale::SoSurroundScale(void)
   SO_NODE_ADD_FIELD(numNodesUpToContainer, (0));
   SO_NODE_ADD_FIELD(numNodesUpToReset, (0));
 
-  this->cacheOK = FALSE;
-  this->ignoreinbbox = FALSE;
-  this->doTranslations = TRUE;
+  this->cacheOK = false;
+  this->ignoreinbbox = false;
+  this->doTranslations = true;
 }
 
 /*!
@@ -271,7 +271,7 @@ SoSurroundScale::initClass(void)
 void
 SoSurroundScale::invalidate(void)
 {
-  this->cacheOK = FALSE;
+  this->cacheOK = false;
 }
 
 // Doc in superclass.
@@ -296,7 +296,7 @@ SoSurroundScale::doAction(SoAction * action)
   ignored or not. Default behavior is to translate.
 */
 void
-SoSurroundScale::setDoingTranslations(const SbBool val)
+SoSurroundScale::setDoingTranslations(const bool val)
 {
   this->doTranslations = val;
 }
@@ -307,7 +307,7 @@ SoSurroundScale::setDoingTranslations(const SbBool val)
 
   \sa setDoingTranslations()
 */
-SbBool
+bool
 SoSurroundScale::isDoingTranslations(void)
 {
   return this->doTranslations;
@@ -396,13 +396,13 @@ SoSurroundScale::updateMySurroundParams(SoAction * action,
     this->cachedScale.setValue(1.0f, 1.0f, 1.0f);
     this->cachedInvScale.setValue(1.0f, 1.0f, 1.0f);
     this->cachedTranslation.setValue(0.0f, 0.0f, 0.0f);
-    this->cacheOK = FALSE;
+    this->cacheOK = false;
     return;
   }
 
   // make sure we don't get here when calculating the bbox
-  SbBool storedignore = this->isIgnoreInBbox();
-  this->setIgnoreInBbox(TRUE);
+  bool storedignore = this->isIgnoreInBbox();
+  this->setIgnoreInBbox(true);
 
   SoPath * applypath = curpath->copy(0, curpathlen - numtocontainer);
   applypath->ref();
@@ -429,7 +429,7 @@ SoSurroundScale::updateMySurroundParams(SoAction * action,
   // meaning we'll calculate the bbox of only the geometry
   // to the right of this branch, getting the wanted result.
   if (resetpath) {
-    bboxaction.setResetPath(resetpath, FALSE, SoGetBoundingBoxAction::ALL);
+    bboxaction.setResetPath(resetpath, false, SoGetBoundingBoxAction::ALL);
   }
   bboxaction.apply(applypath);
   applypath->unref();
@@ -474,7 +474,7 @@ SoSurroundScale::updateMySurroundParams(SoAction * action,
   }
 
   this->setIgnoreInBbox(storedignore);
-  this->cacheOK = TRUE;
+  this->cacheOK = true;
 }
 
 /*!
@@ -484,7 +484,7 @@ SoSurroundScale::updateMySurroundParams(SoAction * action,
   Default is to ignore our bounding box calculations.
 */
 void
-SoSurroundScale::setIgnoreInBbox(const SbBool val)
+SoSurroundScale::setIgnoreInBbox(const bool val)
 {
   this->ignoreinbbox = val;
 }
@@ -496,7 +496,7 @@ SoSurroundScale::setIgnoreInBbox(const SbBool val)
 
   \sa setIgnoreInBbox()
 */
-SbBool
+bool
 SoSurroundScale::isIgnoreInBbox(void)
 {
   return this->ignoreinbbox;

@@ -92,8 +92,8 @@ public:
   float angle;
   SbVec2s size;
   unsigned int character;
-  SbBool fonttypeis3d;
-  SbBool coordsinstalled;
+  bool fonttypeis3d;
+  bool coordsinstalled;
 
   int bitmapwidth;
   int bitmapheight;
@@ -129,10 +129,10 @@ SoGlyph::SoGlyph(void)
 
   /* Setting fonttype==3D as default since the 2D text node (SoText2)
      is no longer depending on the SoGlyph node (20030908 handegar) */
-  PRIVATE(this)->fonttypeis3d = TRUE;
+  PRIVATE(this)->fonttypeis3d = true;
 
   PRIVATE(this)->fontidx = 0;
-  PRIVATE(this)->coordsinstalled = FALSE;
+  PRIVATE(this)->coordsinstalled = false;
 
   PRIVATE(this)->bitmapwidth = 0;
   PRIVATE(this)->bitmapheight = 0;
@@ -167,10 +167,10 @@ void
 SoGlyph::setFontType(Fonttype type) const
 {
   if (type == SoGlyph::FONT3D) {
-    PRIVATE(this)->fonttypeis3d = TRUE;
+    PRIVATE(this)->fonttypeis3d = true;
   }
   else {
-    PRIVATE(this)->fonttypeis3d = FALSE;
+    PRIVATE(this)->fonttypeis3d = false;
   }  
 }
 
@@ -183,7 +183,7 @@ SoGlyph::getCoords(void) const
 {
   if (!PRIVATE(this)->coordsinstalled) {
     PRIVATE(this)->setup3DFontData();
-    PRIVATE(this)->coordsinstalled = TRUE;
+    PRIVATE(this)->coordsinstalled = true;
   }
   return PRIVATE(this)->coords;
 }
@@ -196,7 +196,7 @@ SoGlyph::getFaceIndices(void) const
 {
   if (!PRIVATE(this)->coordsinstalled) {
     PRIVATE(this)->setup3DFontData();
-    PRIVATE(this)->coordsinstalled = TRUE;
+    PRIVATE(this)->coordsinstalled = true;
   }
 
   return PRIVATE(this)->faceidx;
@@ -210,7 +210,7 @@ SoGlyph::getEdgeIndices(void) const
 {
   if (!PRIVATE(this)->coordsinstalled) {
     PRIVATE(this)->setup3DFontData();
-    PRIVATE(this)->coordsinstalled = TRUE;
+    PRIVATE(this)->coordsinstalled = true;
   }
   
   return PRIVATE(this)->edgeidx;
@@ -286,7 +286,7 @@ SoGlyph::getBoundingBox(void) const
 
     if (!PRIVATE(this)->coordsinstalled) {
       PRIVATE(this)->setup3DFontData();
-      PRIVATE(this)->coordsinstalled = TRUE;
+      PRIVATE(this)->coordsinstalled = true;
     }
 
     PRIVATE(thisp)->bbox.makeEmpty();
@@ -399,7 +399,7 @@ public:
   }
   
   // Note: bitmap glyphs have valid size, polygonal glyphs have size=-1.0
-  SbBool matches(const unsigned int characterarg, const float sizearg, 
+  bool matches(const unsigned int characterarg, const float sizearg, 
                  const SbName fontarg, const float anglearg) {
     return (this->character == characterarg) && (this->size == sizearg) && (this->font == fontarg) && (this->angle == anglearg);
   }
@@ -408,10 +408,10 @@ public:
   // to compile templates where these operators are referenced (even
   // if they are actually never used).
   
-  SbBool operator==(const coin_glyph_info & gi) {
+  bool operator==(const coin_glyph_info & gi) {
     return this->matches(gi.character, gi.size, gi.font, gi.angle) && this->glyph == gi.glyph;
   }
-  SbBool operator!=(const coin_glyph_info & gi) {
+  bool operator!=(const coin_glyph_info & gi) {
     return !(*this == gi);
   }
 
@@ -648,7 +648,7 @@ SoGlyph::getKerning(const SoGlyph & rightglyph) const
   The returned buffer should \e not be deallocated by the caller.
 */
 unsigned char *
-SoGlyph::getBitmap(SbVec2s & size, SbVec2s & pos, const SbBool COIN_UNUSED_ARG(antialiased)) const
+SoGlyph::getBitmap(SbVec2s & size, SbVec2s & pos, const bool COIN_UNUSED_ARG(antialiased)) const
 {
   if (PRIVATE(this)->bitmap == NULL) {
     PRIVATE(this)->bitmap = cc_flw_get_bitmap(PRIVATE(this)->fontidx, PRIVATE(this)->glyphidx);

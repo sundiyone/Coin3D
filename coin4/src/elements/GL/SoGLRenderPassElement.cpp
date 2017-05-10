@@ -69,7 +69,7 @@ SoGLRenderPassElement::init(SoState * state)
 
 //! FIXME: write doc.
 
-SbBool
+bool
 SoGLRenderPassElement::matches(const SoElement * element) const
 {
   return this->passnr == ((SoGLRenderPassElement*)element)->passnr;

@@ -57,7 +57,7 @@
 /*!
   \var SbPlaneProjector::needSetup
 
-  Set to \c TRUE whenever the plane needs to be recalculated according
+  Set to \c true whenever the plane needs to be recalculated according
   to the setting of the SbPlaneProjector::orientToEye flag.
  */
 /*!
@@ -74,7 +74,7 @@
   Constructor. Sets up a projection plane parallel with the XY-plane
   in world coordinates.
 */
-SbPlaneProjector::SbPlaneProjector(const SbBool orient)
+SbPlaneProjector::SbPlaneProjector(const bool orient)
   : plane(SbVec3f(0.0f, 0.0f, 1.0f), 0.0f),
     nonOrientPlane(SbVec3f(0.0f, 0.0f, 1.0f), 0.0f),
     orientToEye(orient),
@@ -85,7 +85,7 @@ SbPlaneProjector::SbPlaneProjector(const SbBool orient)
 /*!
   Constructor taking an explicit projection \a plane definition.
 */
-SbPlaneProjector::SbPlaneProjector(const SbPlane & plane, const SbBool orient)
+SbPlaneProjector::SbPlaneProjector(const SbPlane & plane, const bool orient)
   : plane(plane),
     nonOrientPlane(plane),
     orientToEye(orient),
@@ -93,7 +93,7 @@ SbPlaneProjector::SbPlaneProjector(const SbPlane & plane, const SbBool orient)
 {
 }
 
-SbBool 
+bool 
 SbPlaneProjector::tryProject(const SbVec2f & point, const float epsilon, SbVec3f & result)
 {
   if (this->needSetup) this->setupPlane();
@@ -101,15 +101,15 @@ SbPlaneProjector::tryProject(const SbVec2f & point, const float epsilon, SbVec3f
   SbLine projline = this->getWorkingLine(point);
   SbVec3f projpt;
 
-  SbBool ortho = this->viewVol.getProjectionType() == SbViewVolume::ORTHOGRAPHIC;
+  bool ortho = this->viewVol.getProjectionType() == SbViewVolume::ORTHOGRAPHIC;
   
-  SbBool ok = TRUE;
+  bool ok = true;
   if (epsilon > 0.0f) {
     SbPlane wrldplane = this->plane;
     wrldplane.transform(this->workingToWorld);
     const SbViewVolume & vv = this->getViewVolume();
     float dot = SbAbs(wrldplane.getNormal().dot(vv.getProjectionDirection()));
-    if (dot < epsilon) ok = FALSE;
+    if (dot < epsilon) ok = false;
     // some extra work is needed for perspective projections
     if (!ok && (vv.getProjectionType() == SbViewVolume::PERSPECTIVE)) {
       float neardist = vv.getNearDist();
@@ -125,12 +125,12 @@ SbPlaneProjector::tryProject(const SbVec2f & point, const float epsilon, SbVec3f
         dot = SbAbs(dir.dot(vv.getProjectionDirection())); 
         ok = SbAbs(1.0f - dot) > epsilon;
       }
-      else ok = TRUE;
+      else ok = true;
     }
   }
   if (ok) ok = this->plane.intersect(projline, projpt);
 
-  SbBool valid = ok;
+  bool valid = ok;
   if (ok && !ortho) valid = this->verifyProjection(projpt);
   
   if (!valid && !ortho && (epsilon == 0.0f)) {
@@ -148,7 +148,7 @@ SbPlaneProjector::tryProject(const SbVec2f & point, const float epsilon, SbVec3f
       SbVec3f dummy;
       if (wrldline.getClosestPoints(farline, dummy, projpt)) {
         this->worldToWorking.multVecMatrix(projpt, projpt);
-        valid = TRUE;
+        valid = true;
       }
     }
   }
@@ -181,11 +181,11 @@ SbPlaneProjector::tryProject(const SbVec2f & point, const float epsilon, SbVec3f
   "eye" of the viewer.
 */
 void
-SbPlaneProjector::setOrientToEye(const SbBool orienttoeye)
+SbPlaneProjector::setOrientToEye(const bool orienttoeye)
 {
   if (orienttoeye != this->orientToEye) {
     this->orientToEye = orienttoeye;
-    this->needSetup = TRUE;
+    this->needSetup = true;
   }
 }
 
@@ -205,7 +205,7 @@ SbPlaneProjector::project(const SbVec2f & point)
 /*!
   Returns the state of the plane orientation flag.
 */
-SbBool
+bool
 SbPlaneProjector::isOrientToEye(void) const
 {
   return this->orientToEye;
@@ -218,7 +218,7 @@ void
 SbPlaneProjector::setPlane(const SbPlane & planeref)
 {
   this->nonOrientPlane = this->plane = planeref;
-  this->needSetup = TRUE;
+  this->needSetup = true;
 }
 
 /*!
@@ -283,7 +283,7 @@ SbPlaneProjector::copy(void) const
 
 /*!
   Should be called whenever SbPlaneProjector::needSetup is \c
-  TRUE. Will recalculate projection plane.
+  true. Will recalculate projection plane.
 */
 void
 SbPlaneProjector::setupPlane(void)
@@ -298,5 +298,5 @@ SbPlaneProjector::setupPlane(void)
   else {
     this->plane = this->nonOrientPlane;
   }
-  this->needSetup = FALSE;
+  this->needSetup = false;
 }

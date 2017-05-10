@@ -96,14 +96,14 @@ static
 int
 path_node_match_p(path_node * node, const cc_xml_elt * elt)
 {
-  if ( strcmp(node->element, cc_xml_elt_get_type(elt)) != 0 ) return FALSE;
+  if ( strcmp(node->element, cc_xml_elt_get_type(elt)) != 0 ) return false;
   if ( node->idx != -1 ) {
     cc_xml_elt * parent = cc_xml_elt_get_parent(elt);
-    if ( parent == NULL ) return (node->idx == 0) ? TRUE : FALSE;
+    if ( parent == NULL ) return (node->idx == 0) ? true : false;
     int i = cc_xml_elt_get_child_type_index(parent, elt);
-    return (i == node->idx) ? TRUE : FALSE;
+    return (i == node->idx) ? true : false;
   }
-  return TRUE;
+  return true;
 }
 
 /* ********************************************************************** */
@@ -249,11 +249,11 @@ cc_xml_path_match_p(const cc_xml_path * path, const cc_xml_elt * elt)
       node = node->next;
       assert(node);
     }
-    if ( !path_node_match_p(node, elt) ) return FALSE;
+    if ( !path_node_match_p(node, elt) ) return false;
     elt = cc_xml_elt_get_parent(elt);
     assert(elt);
   }
-  return TRUE;
+  return true;
 } // cc_xml_path_match_p()
 
 void

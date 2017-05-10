@@ -256,7 +256,7 @@ SoMultiTextureImageElement::getImage(SoState * const state,
 
 //! FIXME: write doc.
 
-SbBool
+bool
 SoMultiTextureImageElement::containsTransparency(SoState * const state)
 {
   const SoMultiTextureImageElement * elem =
@@ -264,27 +264,27 @@ SoMultiTextureImageElement::containsTransparency(SoState * const state)
     (getConstElement(state, classStackIndex));
   
   for (int i = 0; i < PRIVATE(elem)->unitdata.getLength(); i++) {
-    if (elem->hasTransparency(i)) return TRUE;
+    if (elem->hasTransparency(i)) return true;
   }
-  return FALSE;
+  return false;
 }
 
 /*!
-  Called by containsTransparency(). Returns \e TRUE if image data has
+  Called by containsTransparency(). Returns \e true if image data has
   transparency. Default method does a very poor job of detecting this,
-  since it returns \e TRUE when the number of components are 2 or
+  since it returns \e true when the number of components are 2 or
   4. Override whenever it is important to know this
   (SoGLTextureImageElement overrides it to avoid transparency handling
   where possible).
 */
-SbBool
+bool
 SoMultiTextureImageElement::hasTransparency(const int unit) const
 {
   if (unit < PRIVATE(this)->unitdata.getLength()) {
     const UnitData & ud = PRIVATE(this)->unitdata[unit];
     return (ud.numComponents==2 || ud.numComponents==4);
   }
-  return FALSE;
+  return false;
 }
 
 const SoMultiTextureImageElement::UnitData &
@@ -335,21 +335,21 @@ SoMultiTextureImageElement::push(SoState * COIN_UNUSED_ARG(state))
   PRIVATE(this)->unitdata = PRIVATE(prev)->unitdata;
 }
 
-SbBool
+bool
 SoMultiTextureImageElement::matches(const SoElement * elem) const
 {
   const SoMultiTextureImageElement * e =
     coin_assert_cast<const SoMultiTextureImageElement *>
     (elem);
   const int n = PRIVATE(e)->unitdata.getLength();
-  if (n != PRIVATE(this)->unitdata.getLength()) return FALSE;
+  if (n != PRIVATE(this)->unitdata.getLength()) return false;
 
   for (int i = 0; i < n; i++) {
     if (PRIVATE(e)->unitdata[i].nodeid != PRIVATE(this)->unitdata[i].nodeid) {
-      return FALSE;
+      return false;
     }
   }
-  return TRUE;
+  return true;
 }
 
 SoElement *

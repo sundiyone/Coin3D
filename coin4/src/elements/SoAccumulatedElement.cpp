@@ -66,20 +66,20 @@ void
 SoAccumulatedElement::init(SoState * state)
 {
   inherited::init(state);
-  // this is FALSE until node id's are copied
-  this->recursecapture = FALSE;
+  // this is false until node id's are copied
+  this->recursecapture = false;
 }
 
 void
 SoAccumulatedElement::push(SoState * state)
 {
   inherited::push(state);
-  // this is FALSE until node id's are copied
-  this->recursecapture = FALSE;
+  // this is false until node id's are copied
+  this->recursecapture = false;
 }
 
 // Documented in superclass. Overridden to compare node ids.
-SbBool
+bool
 SoAccumulatedElement::matches(const SoElement * element) const
 {
   const SoAccumulatedElement * elem = coin_assert_cast<const SoAccumulatedElement *>(element);
@@ -94,7 +94,7 @@ SoAccumulatedElement::clearNodeIds(void)
 {
   this->nodeIds.truncate(0);
   // we do not depend on previous elements any more
-  this->recursecapture = FALSE;
+  this->recursecapture = false;
 }
 
 /*!
@@ -115,7 +115,7 @@ SoAccumulatedElement::setNodeId(const SoNode * const node)
   this->clearNodeIds();
   this->addNodeId(node);
   // we do not depend on previous elements any more
-  this->recursecapture = FALSE;
+  this->recursecapture = false;
 }
 
 // Documented in superclass. Overridden to copy node ids.
@@ -140,7 +140,7 @@ SoAccumulatedElement::copyNodeIds(const SoAccumulatedElement * copyfrom)
   this->nodeIds = copyfrom->nodeIds;
 
   // this elements uses data from previous element in stack
-  this->recursecapture = TRUE;
+  this->recursecapture = true;
 }
 
 // Documented in superclass. Overridden to capture more elements.

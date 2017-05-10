@@ -51,7 +51,7 @@ protected:
   virtual void notify(SoNotList * nl);
 
 private:
-  virtual SoNode * copy(SbBool copyconnections = FALSE) const;
+  virtual SoNode * copy(bool copyconnections = false) const;
   void deconnectInternalEngine(void);
   void reconnectInternalEngine(void);
 

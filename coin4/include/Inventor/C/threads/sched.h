@@ -54,7 +54,7 @@ typedef void cc_sched_f(void * closure);
                                           cc_sched_f * workfunc, 
                                           void * closure,
                                           float priority);
-  COIN_DLL_API SbBool cc_sched_unschedule(cc_sched * sched, 
+  COIN_DLL_API bool cc_sched_unschedule(cc_sched * sched, 
                                           uint32_t schedid); 
   COIN_DLL_API void cc_sched_wait_all(cc_sched * sched);
   COIN_DLL_API int cc_sched_get_num_remaining(cc_sched * sched);

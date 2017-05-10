@@ -39,7 +39,7 @@ extern "C" {
 
   /* This is the glue between the FLW and the Win32 API. */
 
-  SbBool cc_flww32_initialize(void);
+  bool cc_flww32_initialize(void);
   void cc_flww32_exit(void);
 
   void * cc_flww32_get_font(const char * fontname, int sizey, float angle, float complexity);

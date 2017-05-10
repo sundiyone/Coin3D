@@ -63,7 +63,7 @@ public:
 
 protected:
   virtual ~SoProtoInstance();
-  virtual SbBool readInstance(SoInput * in, unsigned short flags);
+  virtual bool readInstance(SoInput * in, unsigned short flags);
   virtual const char * getFileFormatName(void) const;
 
 private:

@@ -38,16 +38,16 @@ COIN_DLL_API void cc_fifo_delete(cc_fifo * fifo);
 
 COIN_DLL_API void cc_fifo_assign(cc_fifo * fifo, void * ptr, uint32_t type);
 COIN_DLL_API void cc_fifo_retrieve(cc_fifo * fifo, void ** ptr, uint32_t * type);
-COIN_DLL_API SbBool cc_fifo_try_retrieve(cc_fifo * fifo, void ** ptr, uint32_t * type);
+COIN_DLL_API bool cc_fifo_try_retrieve(cc_fifo * fifo, void ** ptr, uint32_t * type);
 
 COIN_DLL_API unsigned int cc_fifo_size(cc_fifo * fifo);
 
 COIN_DLL_API void cc_fifo_lock(cc_fifo * fifo);
 COIN_DLL_API void cc_fifo_unlock(cc_fifo * fifo);
 
-COIN_DLL_API SbBool cc_fifo_peek(cc_fifo * fifo, void ** item, uint32_t * type);
-COIN_DLL_API SbBool cc_fifo_contains(cc_fifo * fifo, void * item);
-COIN_DLL_API SbBool cc_fifo_reclaim(cc_fifo * fifo, void * item);
+COIN_DLL_API bool cc_fifo_peek(cc_fifo * fifo, void ** item, uint32_t * type);
+COIN_DLL_API bool cc_fifo_contains(cc_fifo * fifo, void * item);
+COIN_DLL_API bool cc_fifo_reclaim(cc_fifo * fifo, void * item);
 
 /* ********************************************************************** */
 

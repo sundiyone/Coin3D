@@ -55,11 +55,11 @@
 
 #include "tidbitsp.h"
 
-static SbBool nodekit_isinitialized = FALSE;
+static bool nodekit_isinitialized = false;
 
 static void nodekit_cleanup(void)
 {
-  nodekit_isinitialized = FALSE;
+  nodekit_isinitialized = false;
 }
 
 /*!
@@ -94,6 +94,6 @@ SoNodeKit::init(void)
   SoForeignFileKit::initClass();
 #endif // HAVE_NODEKITS
 
-  nodekit_isinitialized = TRUE;
+  nodekit_isinitialized = true;
   cc_coin_atexit_static_internal((coin_atexit_f*) nodekit_cleanup);
 }

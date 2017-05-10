@@ -129,16 +129,16 @@ SoEvent::~SoEvent()
 }
 
 /*!
-  Returns TRUE if this object either has the same type as the given
+  Returns true if this object either has the same type as the given
   \c type parameter, or if \c type belongs to a superclass of ourselves.
 */
-SbBool
+bool
 SoEvent::isOfType(SoType type) const
 {
   const SoType myType = this->getTypeId();
-  if (myType == type) return TRUE;
-  if (myType.isDerivedFrom(type)) return TRUE;
-  return FALSE;
+  if (myType == type) return true;
+  if (myType.isDerivedFrom(type)) return true;
+  return false;
 }
 
 /*!
@@ -231,9 +231,9 @@ SoEvent::getNormalizedPosition(const SbViewportRegion & vpRgn) const
   \sa wasShiftDown(), setCtrlDown(), setAltDown()
  */
 void
-SoEvent::setShiftDown(SbBool isDown)
+SoEvent::setShiftDown(bool isDown)
 {
-  this->modifiers.shiftdown = isDown ? TRUE : FALSE;
+  this->modifiers.shiftdown = isDown ? true : false;
 }
 
 /*!
@@ -241,7 +241,7 @@ SoEvent::setShiftDown(SbBool isDown)
 
   \sa wasCtrlDown(), wasAltDown(), getPosition(), getTime()
  */
-SbBool
+bool
 SoEvent::wasShiftDown(void) const
 {
   return this->modifiers.shiftdown;
@@ -254,9 +254,9 @@ SoEvent::wasShiftDown(void) const
   \sa wasCtrlDown(), setShiftDown(), setAltDown()
  */
 void
-SoEvent::setCtrlDown(SbBool isDown)
+SoEvent::setCtrlDown(bool isDown)
 {
-  this->modifiers.ctrldown = isDown ? TRUE : FALSE;
+  this->modifiers.ctrldown = isDown ? true : false;
 }
 
 /*!
@@ -264,7 +264,7 @@ SoEvent::setCtrlDown(SbBool isDown)
 
   \sa wasShiftDown(), wasAltDown(), getPosition(), getTime()
  */
-SbBool
+bool
 SoEvent::wasCtrlDown(void) const
 {
   return this->modifiers.ctrldown;
@@ -277,9 +277,9 @@ SoEvent::wasCtrlDown(void) const
   \sa wasAltDown(), setCtrlDown(), setShiftDown()
  */
 void
-SoEvent::setAltDown(SbBool isDown)
+SoEvent::setAltDown(bool isDown)
 {
-  this->modifiers.altdown = isDown ? TRUE : FALSE;
+  this->modifiers.altdown = isDown ? true : false;
 }
 
 /*!
@@ -287,7 +287,7 @@ SoEvent::setAltDown(SbBool isDown)
 
   \sa wasShiftDown(), wasCtrlDown(), getPosition(), getTime()
  */
-SbBool
+bool
 SoEvent::wasAltDown(void) const
 {
   return this->modifiers.altdown;

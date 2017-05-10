@@ -56,9 +56,9 @@ namespace {
 class SeekData : public SoScXMLNavigationTarget::Data {
 public:
   SeekData(void) {
-    seeking = FALSE;
+    seeking = false;
   }
-  SbBool seeking;
+  bool seeking;
   SbTime seekstart;
   float seektime;
   SbVec3f camerastartposition, cameraendposition;
@@ -99,7 +99,7 @@ SoScXMLSeekTarget::PImpl::getCameraCoordinateSystem(
 {
   assert(pub->searchaction);
   pub->searchaction->reset();
-  pub->searchaction->setSearchingAll(TRUE);
+  pub->searchaction->setSearchingAll(true);
   pub->searchaction->setInterest(SoSearchAction::FIRST);
   pub->searchaction->setNode(cameraarg);
   pub->searchaction->apply(root);
@@ -223,13 +223,13 @@ SoScXMLSeekTarget::~SoScXMLSeekTarget(void)
 }
 
 
-SbBool
+bool
 SoScXMLSeekTarget::processOneEvent(const ScXMLEvent * event)
 {
   assert(event);
 
   const SbName sessionid = this->getSessionId(event);
-  if (sessionid == SbName::empty()) { return FALSE; }
+  if (sessionid == SbName::empty()) { return false; }
 
   const SbName & eventname = event->getEventName();
 
@@ -238,14 +238,14 @@ SoScXMLSeekTarget::processOneEvent(const ScXMLEvent * event)
     assert(data);
 
     SoScXMLStateMachine * statemachine = this->getSoStateMachine(event, sessionid);
-    if (!statemachine) { return FALSE; }
+    if (!statemachine) { return false; }
 
     SoNode * sceneroot = statemachine->getSceneGraphRoot();
     if unlikely (!sceneroot) {
       SoDebugError::post("SoScXMLRotateTarget::processOneEvent",
                          "processing %s: state machine has no scene graph",
                          eventname.getString());
-      return FALSE;
+      return false;
     }
 
     SoCamera * camera = statemachine->getActiveCamera();
@@ -253,14 +253,14 @@ SoScXMLSeekTarget::processOneEvent(const ScXMLEvent * event)
       SoDebugError::post("SoScXMLRotateTarget::processOneEvent",
                          "processing %s: state machine has no current camera",
                          eventname.getString());
-      return FALSE;
+      return false;
     }
 
     SbVec2s screenpos;
     {
       SbVec2f mouseposn;
       if (!inherited::getEventSbVec2f(event, "mouseposition", mouseposn)) {
-        return FALSE;
+        return false;
       }
 
       SbVec2s vpsize = statemachine->getViewportRegion().getViewportSizePixels();
@@ -277,7 +277,7 @@ SoScXMLSeekTarget::processOneEvent(const ScXMLEvent * event)
     if (!picked) {
       statemachine->queueEvent(MISS());
       this->raypickaction->reset();
-      return TRUE;
+      return true;
     }
 
     SbVec3f hitpoint = picked->getPoint();
@@ -312,7 +312,7 @@ SoScXMLSeekTarget::processOneEvent(const ScXMLEvent * event)
     data->cameraendposition = hitpoint - fd * dir;
     data->cameraendorient = camera->orientation.getValue() * diffrot;
 
-    data->seeking = TRUE;
+    data->seeking = true;
   }
 
   else if (eventname == UPDATE()) {
@@ -320,18 +320,18 @@ SoScXMLSeekTarget::processOneEvent(const ScXMLEvent * event)
     assert(data);
 
     if (!data->seeking) {
-      return TRUE;
+      return true;
     }
 
     SoScXMLStateMachine * statemachine = this->getSoStateMachine(event, sessionid);
-    if (!statemachine) { return FALSE; }
+    if (!statemachine) { return false; }
 
     SoCamera * camera = statemachine->getActiveCamera();
     if unlikely (!camera) {
       SoDebugError::post("SoScXMLRotateTarget::processOneEvent",
                          "processing %s: state machine has no current camera",
                          eventname.getString());
-      return FALSE;
+      return false;
     }
 
     SbTime currenttime = SbTime::getTimeOfDay();
@@ -339,7 +339,7 @@ SoScXMLSeekTarget::processOneEvent(const ScXMLEvent * event)
     float t = float((currenttime.getValue() - data->seekstart.getValue()) / data->seektime);
     if (t >= 1.0f) t = 1.0f;
 
-    SbBool end = (t == 1.0f);
+    bool end = (t == 1.0f);
 
     t = (float) ((1.0 - cos(M_PI*t)) * 0.5);
 
@@ -352,7 +352,7 @@ SoScXMLSeekTarget::processOneEvent(const ScXMLEvent * event)
     if (end) {
       statemachine->queueEvent(DONE());
     }
-    return TRUE;
+    return true;
   }
 
   else if (eventname == END()) {
@@ -363,9 +363,9 @@ SoScXMLSeekTarget::processOneEvent(const ScXMLEvent * event)
     SoDebugError::post("SoScXMLSeekTarget::processOneEvent",
                        "processing %s: unknown event",
                        eventname.getString());
-    return FALSE;
+    return false;
   }
-  return TRUE;
+  return true;
 }
 
 #undef PRIVATE

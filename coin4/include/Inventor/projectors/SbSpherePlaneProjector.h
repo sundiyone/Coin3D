@@ -31,10 +31,10 @@ class COIN_DLL_API SbSpherePlaneProjector : public SbSphereSectionProjector {
 
 public:
   SbSpherePlaneProjector(const float edgetol = 0.9f,
-                         const SbBool orienttoeye = TRUE);
+                         const bool orienttoeye = true);
   SbSpherePlaneProjector(const SbSphere & sph,
                          const float edgetol = 0.9f,
-                         const SbBool orienttoeye = TRUE);
+                         const bool orienttoeye = true);
 
   virtual SbProjector * copy(void) const;
   virtual SbVec3f project(const SbVec2f & point);
@@ -42,8 +42,8 @@ public:
                                  const SbVec3f & point2);
 
 protected:
-  SbRotation getRotation(const SbVec3f & point1, const SbBool tol1,
-                         const SbVec3f & point2, const SbBool tol2);
+  SbRotation getRotation(const SbVec3f & point1, const bool tol1,
+                         const SbVec3f & point2, const bool tol2);
 };
 
 #endif // !COIN_SBSPHEREPLANEPROJECTOR_H

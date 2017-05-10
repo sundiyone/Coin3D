@@ -90,7 +90,7 @@ SoShapeHintsElement::pop(SoState * state, const SoElement * prevtopelement)
 
 //! FIXME: write doc.
 
-SbBool
+bool
 SoShapeHintsElement::matches(const SoElement * element) const
 {
   const SoShapeHintsElement * elem =

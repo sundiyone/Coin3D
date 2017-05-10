@@ -46,12 +46,12 @@ public:
   void rescheduleTimer(SoTimerSensor * s);
   void removeRescheduledTimer(SoTimerQueueSensor * s);
 
-  void processDelayQueue(SbBool isidle);
+  void processDelayQueue(bool isidle);
   void processImmediateQueue(void);
   void processTimerQueue(void);
 
-  SbBool isDelaySensorPending(void);
-  SbBool isTimerSensorPending(SbTime & tm);
+  bool isDelaySensorPending(void);
+  bool isTimerSensorPending(SbTime & tm);
 
   void setDelaySensorTimeout(const SbTime & t);
   const SbTime & getDelaySensorTimeout(void);

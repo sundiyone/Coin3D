@@ -40,12 +40,12 @@ public:
   int getLength(void) const;
 
   int operator!(void) const;
-  friend COIN_DLL_API int operator==(const SbName & lhs, const char * rhs);
-  friend COIN_DLL_API int operator==(const char * lhs, const SbName & rhs);
-  friend COIN_DLL_API int operator==(const SbName & lhs, const SbName & rhs);
-  friend COIN_DLL_API int operator!=(const SbName & lhs, const char * rhs);
-  friend COIN_DLL_API int operator!=(const char * lhs, const SbName & rhs);
-  friend COIN_DLL_API int operator!=(const SbName & lhs, const SbName & rhs);
+  friend COIN_DLL_API bool operator==(const SbName & lhs, const char * rhs);
+  friend COIN_DLL_API bool operator==(const char * lhs, const SbName & rhs);
+  friend COIN_DLL_API bool operator==(const SbName & lhs, const SbName & rhs);
+  friend COIN_DLL_API bool operator!=(const SbName & lhs, const char * rhs);
+  friend COIN_DLL_API bool operator!=(const char * lhs, const SbName & rhs);
+  friend COIN_DLL_API bool operator!=(const SbName & lhs, const SbName & rhs);
 
   operator const char * (void) const;
 
@@ -54,10 +54,10 @@ public:
   // better placed in SoOutput). This is a design flaw, but we can't
   // fix it without breaking API compatibility with the original SGI
   // Inventor.
-  static SbBool isIdentStartChar(const char c);
-  static SbBool isIdentChar(const char c);
-  static SbBool isBaseNameStartChar(const char c);
-  static SbBool isBaseNameChar(const char c);
+  static bool isIdentStartChar(const char c);
+  static bool isIdentChar(const char c);
+  static bool isBaseNameStartChar(const char c);
+  static bool isBaseNameChar(const char c);
 
   static const SbName & empty(void);
 
@@ -65,11 +65,11 @@ private:
   const char * permaaddress;
 };
 
-COIN_DLL_API int operator==(const SbName & lhs, const char * rhs);
-COIN_DLL_API int operator==(const char * lhs, const SbName & rhs);
-COIN_DLL_API int operator==(const SbName & lhs, const SbName & rhs);
-COIN_DLL_API int operator!=(const SbName & lhs, const char * rhs);
-COIN_DLL_API int operator!=(const char * lhs, const SbName & rhs);
-COIN_DLL_API int operator!=(const SbName & lhs, const SbName & rhs);
+COIN_DLL_API bool operator==(const SbName & lhs, const char * rhs);
+COIN_DLL_API bool operator==(const char * lhs, const SbName & rhs);
+COIN_DLL_API bool operator==(const SbName & lhs, const SbName & rhs);
+COIN_DLL_API bool operator!=(const SbName & lhs, const char * rhs);
+COIN_DLL_API bool operator!=(const char * lhs, const SbName & rhs);
+COIN_DLL_API bool operator!=(const SbName & lhs, const SbName & rhs);
 
 #endif // !COIN_SBNAME_H

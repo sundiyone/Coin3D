@@ -41,11 +41,11 @@
     exposedField SFNode   normal            NULL
     exposedField SFNode   texCoord          NULL
     field        MFFloat  height            []      # (-inf,inf)
-    field        SFBool   ccw               TRUE
-    field        SFBool   colorPerVertex    TRUE
+    field        SFBool   ccw               true
+    field        SFBool   colorPerVertex    true
     field        SFFloat  creaseAngle       0       # [0,inf]
-    field        SFBool   normalPerVertex   TRUE
-    field        SFBool   solid             TRUE
+    field        SFBool   normalPerVertex   true
+    field        SFBool   solid             true
     field        SFInt32  xDimension        0       # [0,inf)
     field        SFFloat  xSpacing          1.0     # (0,inf)
     field        SFInt32  zDimension        0       # [0,inf)
@@ -98,7 +98,7 @@
   The colorPerVertex field
   determines whether colours specified in the color field are applied
   to each vertex or each quadrilateral of the ElevationGrid node. If
-  colorPerVertex is FALSE and the color field is not NULL, the color
+  colorPerVertex is false and the color field is not NULL, the color
   field shall specify a Color node containing at least
   (xDimension-1)×(zDimension-1) colours; one for each quadrilateral,
   ordered as follows: 
@@ -113,7 +113,7 @@
   \endverbatim
   
   If
-  colorPerVertex is TRUE and the color field is not NULL, the color
+  colorPerVertex is true and the color field is not NULL, the color
   field shall specify a Color node containing at least xDimension ×
   zDimension colours, one for each vertex, ordered as follows:
 
@@ -134,7 +134,7 @@
   The normalPerVertex field determines whether normals are applied to
   each vertex or each quadrilateral of the ElevationGrid node
   depending on the value of normalPerVertex. If normalPerVertex is
-  FALSE and the normal node is not NULL, the normal field shall
+  false and the normal node is not NULL, the normal field shall
   specify a Normal node containing at least
   (xDimension-1)×(zDimension-1) normals; one for each quadrilateral,
   ordered as follows: 
@@ -148,7 +148,7 @@
     height[(i+1)+(j+1)×xDimension] and height[i+(j+1)×xDimension] 
   \endverbatim
 
-  If normalPerVertex is TRUE and the normal field is not NULL, the
+  If normalPerVertex is true and the normal field is not NULL, the
   normal field shall specify a Normal node containing at least
   xDimension × zDimension normals; one for each vertex, ordered as
   follows:
@@ -182,9 +182,9 @@
   The ccw, solid, and creaseAngle fields are described in 4.6.3,
   Shapes and geometry.  By default, the quadrilaterals are defined
   with a counterclockwise ordering.  Hence, the Y-component of the
-  normal is positive. Setting the ccw field to FALSE reverses the
+  normal is positive. Setting the ccw field to false reverses the
   normal direction. Backface culling is enabled when the solid field
-  is TRUE.  See Figure 6.5 for a depiction of the ElevationGrid node.
+  is true.  See Figure 6.5 for a depiction of the ElevationGrid node.
 
   <center>
   <img src="http://www.web3d.org/x3d/specifications/vrml/ISO-IEC-14772-VRML97/Images/ElevationGrid.gif">
@@ -196,12 +196,12 @@
 
 /*!
   \var SoSFBool SoVRMLElevationGrid::ccw
-  Specifies whether generated triangles are counterclockwise. Default value is TRUE.
+  Specifies whether generated triangles are counterclockwise. Default value is true.
 */
 
 /*!
   \var SoSFBool SoVRMLElevationGrid::solid
-  Specifies whether backface culling should be done. Default value is TRUE.
+  Specifies whether backface culling should be done. Default value is true.
 */
 
 /*!
@@ -251,12 +251,12 @@
 
 /*!
   \var SoSFBool SoVRMLElevationGrid::colorPerVertex
-  Specifies whether colors should be applied per vertex. Default value is TRUE.
+  Specifies whether colors should be applied per vertex. Default value is true.
 */
 
 /*!
   \var SoSFBool SoVRMLElevationGrid::normalPerVertex
-  Specifies whether normals should be applied per vertex. Default value is TRUE.
+  Specifies whether normals should be applied per vertex. Default value is true.
 */
 
 #include <Inventor/VRMLnodes/SoVRMLElevationGrid.h>
@@ -292,14 +292,14 @@
 class SoVRMLElevationGridP {
 public:
   SoVRMLElevationGridP(void)
-    : dirty(TRUE),
-      ngen(TRUE)
+    : dirty(true),
+      ngen(true)
 #ifdef COIN_THREADSAFE
       , mutex(SbRWMutex::READ_PRECEDENCE)
 #endif // COIN_THREADSAFE
   { }
 
-  SbBool dirty;
+  bool dirty;
   SoNormalGenerator ngen;
   SoVRMLElevationGrid::Binding nbind;
 
@@ -341,8 +341,8 @@ SoVRMLElevationGrid::SoVRMLElevationGrid(void)
 
   SO_VRMLNODE_INTERNAL_CONSTRUCTOR(SoVRMLElevationGrid);
 
-  SO_VRMLNODE_ADD_FIELD(ccw, (TRUE));
-  SO_VRMLNODE_ADD_FIELD(solid, (TRUE));
+  SO_VRMLNODE_ADD_FIELD(ccw, (true));
+  SO_VRMLNODE_ADD_FIELD(solid, (true));
   SO_VRMLNODE_ADD_FIELD(creaseAngle, (0.0f));
   SO_VRMLNODE_ADD_FIELD(zDimension, (0));
   SO_VRMLNODE_ADD_FIELD(xDimension, (0));
@@ -352,8 +352,8 @@ SoVRMLElevationGrid::SoVRMLElevationGrid(void)
   SO_VRMLNODE_ADD_EXPOSED_FIELD(texCoord, (NULL));
   SO_VRMLNODE_ADD_EXPOSED_FIELD(normal, (NULL));
   SO_VRMLNODE_ADD_EXPOSED_FIELD(color, (NULL));
-  SO_VRMLNODE_ADD_FIELD(colorPerVertex, (TRUE));
-  SO_VRMLNODE_ADD_FIELD(normalPerVertex, (TRUE));
+  SO_VRMLNODE_ADD_FIELD(colorPerVertex, (true));
+  SO_VRMLNODE_ADD_FIELD(normalPerVertex, (true));
 }
 
 /*!
@@ -393,8 +393,8 @@ SoVRMLElevationGrid::GLRender(SoGLRenderAction * action)
 
   SoMaterialBundle mb(action);
 
-  SbBool dotex = SoGLMultiTextureEnabledElement::get(state);
-  SbBool donorm = !mb.isColorOnly();
+  bool dotex = SoGLMultiTextureEnabledElement::get(state);
+  bool donorm = !mb.isColorOnly();
 
   Binding nbind = this->findNormalBinding();
   Binding mbind = this->findMaterialBinding();
@@ -409,14 +409,14 @@ SoVRMLElevationGrid::GLRender(SoGLRenderAction * action)
 
   mb.sendFirst();
 
-  SbBool normalcache = FALSE;
+  bool normalcache = false;
   const SbVec3f * normals = NULL;
   if (nbind != OVERALL) {
     SoVRMLNormal * nnode = (SoVRMLNormal*) this->normal.getValue();
     if (nnode) normals = nnode->vector.getValues(0);
     if (normals == NULL) {
       normals = this->updateNormalCache(nbind);
-      normalcache = TRUE;
+      normalcache = true;
     }
   }
 
@@ -430,12 +430,12 @@ SoVRMLElevationGrid::GLRender(SoGLRenderAction * action)
   int idx = 0;
   int idx2 = xdim;
 
-  SbBool drawasstrip = TRUE;
-  if (nbind == PER_VERTEX && normalcache) drawasstrip = FALSE; // crease angle normals
-  if (nbind == PER_QUAD && mbind == PER_VERTEX) drawasstrip = FALSE;
+  bool drawasstrip = true;
+  if (nbind == PER_VERTEX && normalcache) drawasstrip = false; // crease angle normals
+  if (nbind == PER_QUAD && mbind == PER_VERTEX) drawasstrip = false;
 
   if (nbind <= PER_QUAD && mbind <= PER_QUAD) {
-    SoGLLazyElement::sendFlatshading(state, TRUE);
+    SoGLLazyElement::sendFlatshading(state, true);
   }
 
   // FIXME: Probably too slow. Need several rendering loops
@@ -455,7 +455,7 @@ SoVRMLElevationGrid::GLRender(SoGLRenderAction * action)
         else glTexCoord2f(0.0f, float(z)/float(zdim-1));
       }
       if (mbind == PER_VERTEX) {
-        mb.send(idx, TRUE);
+        mb.send(idx, true);
       }
       glVertex3f(currx, h[0], currz);
       idx++;
@@ -468,7 +468,7 @@ SoVRMLElevationGrid::GLRender(SoGLRenderAction * action)
         else glTexCoord2f(0.0f, float(z+1)/float(zdim-1));
       }
       if (mbind == PER_VERTEX) {
-        mb.send(idx2, TRUE);
+        mb.send(idx2, true);
       }
       glVertex3f(currx, nexth[0], nextz);
       idx2++;
@@ -483,7 +483,7 @@ SoVRMLElevationGrid::GLRender(SoGLRenderAction * action)
           glNormal3fv(normals[idx].getValue());
         }
         if (mbind == PER_VERTEX) {
-          mb.send(idx, TRUE);
+          mb.send(idx, true);
         }
         glVertex3f(currx, h[x], currz);
         idx++;
@@ -500,7 +500,7 @@ SoVRMLElevationGrid::GLRender(SoGLRenderAction * action)
           normals++;
         }
         if (mbind != OVERALL) {
-          mb.send(idx2, TRUE);
+          mb.send(idx2, true);
         }
         glVertex3f(currx, nexth[x], nextz);
         idx2++;
@@ -539,7 +539,7 @@ SoVRMLElevationGrid::GLRender(SoGLRenderAction * action)
           else glTexCoord2f(float(x) / float(xdim-1), float(z+1)/float(zdim-1));
         }
         if (mbind == PER_VERTEX) {
-          mb.send(idx, TRUE);
+          mb.send(idx, true);
         }
         glVertex3f(currx, h[idx], nextz);
 
@@ -559,7 +559,7 @@ SoVRMLElevationGrid::GLRender(SoGLRenderAction * action)
           else glTexCoord2f(float(x+1)/float(xdim-1), float(z+1)/float(zdim-1));
         }
         if (mbind == PER_VERTEX) {
-          mb.send(idx, TRUE);
+          mb.send(idx, true);
         }
         glVertex3f(currx+xspace, h[idx], nextz);
 
@@ -579,7 +579,7 @@ SoVRMLElevationGrid::GLRender(SoGLRenderAction * action)
           else glTexCoord2f(float(x+1)/float(xdim-1), float(z)/float(zdim-1));
         }
         if (mbind == PER_VERTEX) {
-          mb.send(idx, TRUE);
+          mb.send(idx, true);
         }
         glVertex3f(currx+xspace, h[idx], currz);
 
@@ -597,10 +597,10 @@ SoVRMLElevationGrid::GLRender(SoGLRenderAction * action)
           else glTexCoord2f(float(x)/float(xdim-1), float(z)/float(zdim-1));
         }
         if (mbind == PER_VERTEX) {
-          mb.send(idx, TRUE);
+          mb.send(idx, true);
         }
         else if (mbind == PER_QUAD) {
-          mb.send(mcnt++, TRUE);
+          mb.send(mcnt++, true);
         }
         glVertex3f(currx, h[idx], currz);
         currx += xspace;
@@ -677,7 +677,7 @@ SoVRMLElevationGrid::generatePrimitives(SoAction * action)
 
   SoState * state = action->getState();
 
-  SbBool donorm = SoLazyElement::getLightModel(state) !=
+  bool donorm = SoLazyElement::getLightModel(state) !=
     SoLazyElement::BASE_COLOR;
 
   Binding nbind = this->findNormalBinding();
@@ -691,7 +691,7 @@ SoVRMLElevationGrid::generatePrimitives(SoAction * action)
 
   if (tnode) tcoords = tnode->point.getValues(0);
 
-  SbBool normalcache = FALSE;
+  bool normalcache = false;
   const SbVec3f * normals = NULL;
   if (nbind != OVERALL) {
     SoVRMLNormal * nnode = (SoVRMLNormal*) this->normal.getValue();
@@ -700,7 +700,7 @@ SoVRMLElevationGrid::generatePrimitives(SoAction * action)
       // updateNormalCache will readLock the normal cache. We unlock
       // at the end of this function.
       normals = this->updateNormalCache(nbind);
-      normalcache = TRUE;
+      normalcache = true;
     }
   }
 
@@ -884,7 +884,7 @@ SoVRMLElevationGrid::notify(SoNotList * list)
       f == &this->zDimension ||
       f == &this->xSpacing ||
       f == &this->zSpacing) {
-    PRIVATE(this)->dirty = TRUE;
+    PRIVATE(this)->dirty = true;
   }
   inherited::notify(list);
 }
@@ -942,7 +942,7 @@ SoVRMLElevationGrid::updateNormalCache(Binding & nbind)
       PRIVATE(this)->nbind = PER_VERTEX;
       PRIVATE(this)->ngen.generate(this->creaseAngle.getValue());
     }
-    PRIVATE(this)->dirty = FALSE;
+    PRIVATE(this)->dirty = false;
     PRIVATE(this)->writeUnlockNormalCache();
     PRIVATE(this)->readLockNormalCache();
   }

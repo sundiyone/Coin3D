@@ -34,7 +34,7 @@
 
 /*!
   \var SoSFBool SoVRMLLight::on
-  Enable/disable light. Default value is TRUE.
+  Enable/disable light. Default value is true.
 */
 
 /*!
@@ -75,7 +75,7 @@ SoVRMLLight::SoVRMLLight(void)
 {
   SO_VRMLNODE_INTERNAL_CONSTRUCTOR(SoVRMLLight);
 
-  SO_VRMLNODE_ADD_FIELD(on, (TRUE));
+  SO_VRMLNODE_ADD_FIELD(on, (true));
   SO_VRMLNODE_ADD_FIELD(intensity, (1.0f));
   SO_VRMLNODE_ADD_FIELD(color, (1.0f, 1.0f, 1.0f));
   SO_VRMLNODE_ADD_FIELD(ambientIntensity, (0.0f));

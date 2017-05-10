@@ -165,10 +165,10 @@ SoVRMLVertexPoint::getPrimitiveCount(SoGetPrimitiveCountAction * action)
 }
 
 // Doc in parent
-SbBool
+bool
 SoVRMLVertexPoint::shouldGLRender(SoGLRenderAction * action)
 {
-  if (this->coord.getValue() == NULL) return FALSE;
+  if (this->coord.getValue() == NULL) return false;
   return inherited::shouldGLRender(action);
 }
 

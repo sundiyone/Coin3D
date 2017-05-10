@@ -180,18 +180,18 @@ ScXMLDataElt::setExprAttribute(const char * exprstr)
 
 // const char * getExprAttribute(void) const { return this->expr; }
 
-SbBool
+bool
 ScXMLDataElt::handleXMLAttributes(void)
 {
   if (!inherited::handleXMLAttributes()) {
-    return FALSE;
+    return false;
   }
 
   this->setIDAttribute(this->getXMLAttribute("ID"));
   this->setSrcAttribute(this->getXMLAttribute("src"));
   this->setExprAttribute(this->getXMLAttribute("expr"));
 
-  return TRUE;
+  return true;
 }
 
 void

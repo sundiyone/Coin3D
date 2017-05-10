@@ -55,11 +55,11 @@ public:
   virtual void queueEvent(const ScXMLEvent * event);
   virtual void queueEvent(const SbName & eventid);
 
-  virtual SbBool processEventQueue(void);
+  virtual bool processEventQueue(void);
 
   // inter-system communication
-  virtual SbBool sendExternalEvent(const ScXMLSendElt * sendelt);
-  virtual SbBool sendInternalEvent(const ScXMLEventElt * sendelt);
+  virtual bool sendExternalEvent(const ScXMLSendElt * sendelt);
+  virtual bool sendInternalEvent(const ScXMLEventElt * sendelt);
 
   virtual void queueInternalEvent(const ScXMLEvent * event);
   virtual void queueInternalEvent(const SbName & eventid);
@@ -69,14 +69,14 @@ protected:
   char * targettype;
 
   const ScXMLEvent * currentevent;
-  SbBool isprocessingqueue;
+  bool isprocessingqueue;
 
   virtual void setCurrentEvent(const ScXMLEvent * event);
   virtual const ScXMLEvent * getNextEvent(void);
   virtual const ScXMLEvent * getNextInternalEvent(void);
   virtual const ScXMLEvent * getNextExternalEvent(void);
 
-  virtual SbBool processOneEvent(const ScXMLEvent * event);
+  virtual bool processOneEvent(const ScXMLEvent * event);
 
   static void registerEventTarget(ScXMLEventTarget * target, const char * sessionid = NULL);
   static void unregisterEventTarget(ScXMLEventTarget * target, const char * sessionid = NULL);

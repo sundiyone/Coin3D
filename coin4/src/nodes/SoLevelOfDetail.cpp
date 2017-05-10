@@ -450,30 +450,30 @@ SoLevelOfDetail::getBoundingBox(SoGetBoundingBoxAction * action)
   SoState * state = action->getState();
 
   SbXfBox3f childrenbbox;
-  SbBool childrencenterset;
+  bool childrencenterset;
   SbVec3f childrencenter;
 
-  SbBool iscaching = TRUE;
+  bool iscaching = true;
 
   switch (action->getCurPathCode()) {
   case SoAction::OFF_PATH:
   case SoAction::IN_PATH:
     // can't cache if we're not traversing all children
-    iscaching = FALSE;
+    iscaching = false;
     break;
     return; // no need to do any more work
   case SoAction::BELOW_PATH:
   case SoAction::NO_PATH:
     // check if this is a normal traversal
-    if (action->isInCameraSpace()) iscaching = FALSE;
+    if (action->isInCameraSpace()) iscaching = false;
     break;
   default:
-    iscaching = FALSE;
+    iscaching = false;
     assert(0 && "unknown path code");
     break;
   }
 
-  SbBool validcache = PRIVATE(this)->bboxcache && PRIVATE(this)->bboxcache->isValid(state);
+  bool validcache = PRIVATE(this)->bboxcache && PRIVATE(this)->bboxcache->isValid(state);
 
   if (iscaching && validcache) {
     SoCacheElement::addCacheDependency(state, PRIVATE(this)->bboxcache);
@@ -488,13 +488,13 @@ SoLevelOfDetail::getBoundingBox(SoGetBoundingBoxAction * action)
     // used to restore the bounding box after we have traversed children
     SbXfBox3f abox = action->getXfBoundingBox();
 
-    SbBool storedinvalid = FALSE;
+    bool storedinvalid = false;
     
     // always push since we update SoLocalBBoxMatrixElement
     state->push();
 
     if (iscaching) {
-      storedinvalid = SoCacheElement::setInvalid(FALSE);
+      storedinvalid = SoCacheElement::setInvalid(false);
 
       // if we get here, we know bbox cache is not created or is invalid
       PRIVATE(this)->lock();
@@ -538,7 +538,7 @@ SoLevelOfDetail::getBoundingBox(SoGetBoundingBoxAction * action)
 #else
       action->resetCenter();
 #endif
-      action->setCenter(childrencenter, TRUE);
+      action->setCenter(childrencenter, true);
     }
   }
 }

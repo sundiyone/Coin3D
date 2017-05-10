@@ -46,14 +46,14 @@ public:
     NOTEQUAL
   };
 
-  static void set(SoState * state, SbBool test, SbBool write,
+  static void set(SoState * state, bool test, bool write,
                   DepthWriteFunction function, SbVec2f range);
 
-  static void get(SoState * state, SbBool & test_out, SbBool & write_out,
+  static void get(SoState * state, bool & test_out, bool & write_out,
                   DepthWriteFunction & function_out, SbVec2f & range_out);
 
-  static SbBool getTestEnable(SoState * state);
-  static SbBool getWriteEnable(SoState * state);
+  static bool getTestEnable(SoState * state);
+  static bool getWriteEnable(SoState * state);
   static DepthWriteFunction getFunction(SoState * state);
   static SbVec2f getRange(SoState * state);
 
@@ -62,17 +62,17 @@ public:
   virtual void pop(SoState * state,
                    const SoElement * prevTopElement);
 
-  virtual SbBool matches(const SoElement * element) const;
+  virtual bool matches(const SoElement * element) const;
   virtual SoElement * copyMatchInfo(void) const;
 
 protected:
   virtual ~SoDepthBufferElement();
 
-  virtual void setElt(SbBool test, SbBool write,
+  virtual void setElt(bool test, bool write,
                       DepthWriteFunction function, SbVec2f range);
 
-  SbBool test;
-  SbBool write;
+  bool test;
+  bool write;
   DepthWriteFunction function;
   SbVec2f range;
 

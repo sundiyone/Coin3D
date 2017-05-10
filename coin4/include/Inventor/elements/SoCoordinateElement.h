@@ -46,7 +46,7 @@ public:
 
   static const SoCoordinateElement *getInstance(SoState * const state);
   int32_t getNum() const;
-  SbBool is3D() const;
+  bool is3D() const;
   const SbVec3f & get3(const int index) const;
   const SbVec4f & get4(const int index) const;
   const SbVec3f *getArrayPtr3() const;
@@ -62,7 +62,7 @@ protected:
   int32_t numCoords;
   const SbVec3f *coords3D;
   const SbVec4f *coords4D;
-  SbBool areCoords3D;
+  bool areCoords3D;
 
 private:
   static void clean(void);

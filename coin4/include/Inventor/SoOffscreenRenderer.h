@@ -67,29 +67,29 @@ public:
   const SbColor & getBackgroundColor(void) const;
   void setGLRenderAction(SoGLRenderAction * action);
   SoGLRenderAction * getGLRenderAction(void) const;
-  SbBool render(SoNode * scene);
-  SbBool render(SoPath * scene);
+  bool render(SoNode * scene);
+  bool render(SoPath * scene);
   unsigned char * getBuffer(void) const;
   const void * const & getDC(void) const;
 
-  SbBool writeToRGB(FILE * fp) const;
-  SbBool writeToPostScript(FILE * fp) const;
-  SbBool writeToPostScript(FILE * fp, const SbVec2f & printsize) const;
+  bool writeToRGB(FILE * fp) const;
+  bool writeToPostScript(FILE * fp) const;
+  bool writeToPostScript(FILE * fp, const SbVec2f & printsize) const;
 
-  SbBool writeToRGB(const char * filename) const;
-  SbBool writeToPostScript(const char * filename) const;
-  SbBool writeToPostScript(const char * filename, const SbVec2f & printsize) const;
+  bool writeToRGB(const char * filename) const;
+  bool writeToPostScript(const char * filename) const;
+  bool writeToPostScript(const char * filename, const SbVec2f & printsize) const;
 
-  SbBool isWriteSupported(const SbName & filetypeextension) const;
+  bool isWriteSupported(const SbName & filetypeextension) const;
   int getNumWriteFiletypes(void) const;
   void getWriteFiletypeInfo(const int idx,
                             SbPList & extlist,
                             SbString & fullname,
                             SbString & description);
-  SbBool writeToFile(const SbString & filename, const SbName & filetypeextension) const;
+  bool writeToFile(const SbString & filename, const SbName & filetypeextension) const;
 
-  void setPbufferEnable(SbBool enable);
-  SbBool getPbufferEnable(void) const;
+  void setPbufferEnable(bool enable);
+  bool getPbufferEnable(void) const;
 
 private:
   friend class SoOffscreenRendererP;

@@ -38,7 +38,7 @@
 #include <cstring>
 #include <cassert>
 
-#define STUB assert(FALSE && "Unimplemented SoStream behaviour.")
+#define STUB assert(false && "Unimplemented SoStream behaviour.")
 
 
 
@@ -50,7 +50,7 @@ SoStream::StreamEndianOrdering SoStream::getHostEndianOrdering()
   switch (coin_host_get_endianness()) {
   case COIN_HOST_IS_LITTLEENDIAN: return SoStream::LITTLE_ENDIAN_STREAM;
   case COIN_HOST_IS_BIGENDIAN: return SoStream::BIG_ENDIAN_STREAM;
-  default: assert(FALSE && "unknown byteordering"); return SoStream::HOST_DEP;
+  default: assert(false && "unknown byteordering"); return SoStream::HOST_DEP;
   }
 }
 
@@ -65,7 +65,7 @@ SoStream::StreamEndianOrdering SoStream::getEndianOrdering() const
 { return endianOrdering; }
 
 #define HTON(_type_) \
-static void hton_##_type_(_type_ value, char *buf, const SbBool needConv) \
+static void hton_##_type_(_type_ value, char *buf, const bool needConv) \
 { \
   union { \
     _type_ v; \
@@ -81,7 +81,7 @@ static void hton_##_type_(_type_ value, char *buf, const SbBool needConv) \
       buf[i] = b[i]; \
 }
 #define NTOH(_type_) \
-static _type_ ntoh_##_type_(char *buf, const SbBool needConv) \
+static _type_ ntoh_##_type_(char *buf, const bool needConv) \
 { \
   if (needConv) { \
     union { \
@@ -96,18 +96,18 @@ static _type_ ntoh_##_type_(char *buf, const SbBool needConv) \
     return *(reinterpret_cast<_type_*>(buf)); \
 }
 
-inline static void hton_uint8_t(uint8_t value, char *buf, const SbBool COIN_UNUSED_ARG(needConv))  { buf[0] = value; }
-inline static uint8_t ntoh_uint8_t(char *buf, const SbBool COIN_UNUSED_ARG(needConv))  { return buf[0]; }
-inline static void hton_int8_t(int8_t value, char *buf, const SbBool COIN_UNUSED_ARG(needConv))  { buf[0] = value; }
-inline static int8_t ntoh_int8_t(char *buf, const SbBool COIN_UNUSED_ARG(needConv))  { return buf[0]; }
+inline static void hton_uint8_t(uint8_t value, char *buf, const bool COIN_UNUSED_ARG(needConv))  { buf[0] = value; }
+inline static uint8_t ntoh_uint8_t(char *buf, const bool COIN_UNUSED_ARG(needConv))  { return buf[0]; }
+inline static void hton_int8_t(int8_t value, char *buf, const bool COIN_UNUSED_ARG(needConv))  { buf[0] = value; }
+inline static int8_t ntoh_int8_t(char *buf, const bool COIN_UNUSED_ARG(needConv))  { return buf[0]; }
 HTON(uint16_t);
 NTOH(uint16_t);
-inline static void hton_int16_t(int16_t value, char *buf, const SbBool needConv)  { hton_uint16_t(value, buf, needConv); }
-inline static int16_t ntoh_int16_t(char *buf, const SbBool needConv)  { return static_cast<int16_t>(ntoh_uint16_t(buf, needConv)); }
+inline static void hton_int16_t(int16_t value, char *buf, const bool needConv)  { hton_uint16_t(value, buf, needConv); }
+inline static int16_t ntoh_int16_t(char *buf, const bool needConv)  { return static_cast<int16_t>(ntoh_uint16_t(buf, needConv)); }
 HTON(uint32_t);
 NTOH(uint32_t);
-inline static void hton_int32_t(int32_t value, char *buf, const SbBool needConv)  { hton_uint32_t(value, buf, needConv); }
-inline static int32_t ntoh_int32_t(char *buf, const SbBool needConv)  { return static_cast<int32_t>(ntoh_uint32_t(buf, needConv)); }
+inline static void hton_int32_t(int32_t value, char *buf, const bool needConv)  { hton_uint32_t(value, buf, needConv); }
+inline static int32_t ntoh_int32_t(char *buf, const bool needConv)  { return static_cast<int32_t>(ntoh_uint32_t(buf, needConv)); }
 HTON(float);
 NTOH(float);
 HTON(double);
@@ -115,7 +115,7 @@ NTOH(double);
 
 
 #define SOSTREAM_RW_OP(_suffix_, _type_, _printString_, _readCode_) \
-SbBool SoStream::read##_suffix_(_type_ &value) \
+bool SoStream::read##_suffix_(_type_ &value) \
 { \
   if (isBinary()) { \
     char temp[sizeof(_type_)]; \
@@ -126,7 +126,7 @@ SbBool SoStream::read##_suffix_(_type_ &value) \
   } \
   return !isBad(); \
 } \
-SbBool SoStream::write##_suffix_(const _type_ value) \
+bool SoStream::write##_suffix_(const _type_ value) \
 { \
   if (isBinary()) { \
     char temp[sizeof(_type_)]; \
@@ -144,12 +144,12 @@ SbBool SoStream::write##_suffix_(const _type_ value) \
 #define SOSTREAM_INT_READ(_convertFunc_, _convertType_, _retType_, _check_) \
 do { \
   if (isBad()) \
-    return FALSE; \
+    return false; \
  \
   char buf[MAX_NUM_LENGTH]; \
   char *s = buf; \
   const char *e = &buf[MAX_NUM_LENGTH-1]; \
-  SbBool gotNum; \
+  bool gotNum; \
  \
   getChar(*s); \
   if (*s == '-' || *s == '+') \
@@ -173,14 +173,14 @@ do { \
     gotNum = readDigInt(s, e); \
   } \
  \
-  if (!gotNum) { setBadBit(); return FALSE; } \
+  if (!gotNum) { setBadBit(); return false; } \
  \
   char *ce; \
   s = '\0'; \
   _convertType_ tempVal = _convertFunc_(buf, &ce, 0); \
  \
   if (ce != s) \
-    assert(FALSE && "Wrong integer number buffer parsing."); \
+    assert(false && "Wrong integer number buffer parsing."); \
  \
   _check_ \
   value = static_cast<_retType_>(tempVal); \
@@ -203,12 +203,12 @@ do { \
 #define SOSTREAM_F_READ(_convertFunc_, _retType_) \
 do { \
   if (isBad()) \
-    return FALSE; \
+    return false; \
  \
   char buf[MAX_NUM_LENGTH]; \
   char *s = buf; \
   const char *e = &buf[MAX_NUM_LENGTH-1]; \
-  SbBool gotNum; \
+  bool gotNum; \
  \
   getChar(*s); \
   if (*s == '-' || *s == '+') \
@@ -242,7 +242,7 @@ do { \
         ungetChar(*s); \
     } \
     if (isBad()) \
-      return FALSE; \
+      return false; \
   } \
  \
   getChar(*s); \
@@ -253,7 +253,7 @@ do { \
  \
   if (!gotNum) { \
     setBadBit(); \
-    return FALSE; \
+    return false; \
   } \
  \
   getChar(*s); \
@@ -265,7 +265,7 @@ do { \
  \
     if (!readDigInt(s, e)) { \
       setBadBit(); \
-      return FALSE; \
+      return false; \
     } \
   } else \
     ungetChar(*s); \
@@ -277,35 +277,35 @@ gotAll: \
   double tempVal = _convertFunc_(buf, &ce); \
  \
   if (ce != s) \
-    assert(FALSE && "Wrong float number buffer parsing."); \
+    assert(false && "Wrong float number buffer parsing."); \
  \
   value = static_cast<_retType_>(tempVal); \
 } while(0)
 
 
 
-SbBool SoStream::getChar(char &c)
+bool SoStream::getChar(char &c)
 {
   assert(isBinary() && "getChar can be used for text files only.");
   if (!isReadable()) setBadBit();
-  if (isBad()) return FALSE;
+  if (isBad()) return false;
 
   switch(streamType) {
   case MEMORY:
     if (bufPos < bufferSize) {
       c = buffer[bufPos++];
-      return TRUE;
+      return true;
     }
     setBadBit();
-    return FALSE;
+    return false;
   case FILE_STREAM:
     STUB;
-    return FALSE;
+    return false;
   case SO_INPUT_WRAP:
     return soinput->read(c);
   default:
-    assert(FALSE);
-    return FALSE;
+    assert(false);
+    return false;
   }
 }
 
@@ -322,7 +322,7 @@ void SoStream::ungetChar(const char c)
       --bufPos;
       return;
     }
-    assert(FALSE && "Strange playing with file pointer.");
+    assert(false && "Strange playing with file pointer.");
     setBadBit();
   case FILE_STREAM:
     STUB;
@@ -331,7 +331,7 @@ void SoStream::ungetChar(const char c)
     soinput->putBack(c);
     return;
   default:
-    assert(FALSE && "not handled");
+    assert(false && "not handled");
     break;
   }
 }
@@ -384,7 +384,7 @@ size_t SoStream::readBinaryArray(void *buf, size_t size)
     else  return soinput->getNumBytesRead() - pos;
   }
   default:
-    assert(FALSE);
+    assert(false);
     return 0;
   }
 }
@@ -410,8 +410,8 @@ size_t SoStream::writeBinaryArray(void *buf, size_t size)
     bufPos += size;
     return size;
   }
-  case SO_INPUT_WRAP: assert(FALSE && "Unsupported operation."); return 0;
-  default: assert(FALSE); return 0;
+  case SO_INPUT_WRAP: assert(false && "Unsupported operation."); return 0;
+  default: assert(false); return 0;
   }
 }
 
@@ -426,17 +426,17 @@ SOSTREAM_RW_OP(UInt32, uint32_t, "0x%x", SOSTREAM_INT_READ(strtoul, uint32_t, ui
 
 
 
-SbBool SoStream::readDigInt(char COIN_UNUSED_ARG(*s), const char COIN_UNUSED_ARG(*e))
+bool SoStream::readDigInt(char COIN_UNUSED_ARG(*s), const char COIN_UNUSED_ARG(*e))
 {
   STUB;
-  return FALSE;
+  return false;
 }
 
 
-SbBool SoStream::readHexInt(char COIN_UNUSED_ARG(*s), const char COIN_UNUSED_ARG(*e))
+bool SoStream::readHexInt(char COIN_UNUSED_ARG(*s), const char COIN_UNUSED_ARG(*e))
 {
   STUB;
-  return FALSE;
+  return false;
 }
 
 
@@ -457,13 +457,13 @@ size_t SoStream::writeBuffer(void *buf, size_t bufSize)
 
 
 
-SbBool SoStream::readFromStream(SoStream &stream)
+bool SoStream::readFromStream(SoStream &stream)
 {
   size_t amount = stream.getSize() - stream.getPos();
   readFromStream(stream, amount);
   return !isBad();
 }
-SbBool SoStream::writeToStream(SoStream &stream)
+bool SoStream::writeToStream(SoStream &stream)
 {
   return stream.readFromStream(*this);
 }
@@ -492,17 +492,17 @@ size_t SoStream::writeToStream(SoStream &stream, size_t bytes)
 
 
 
-SbBool SoStream::readZString(char *buf, int bufSize)
+bool SoStream::readZString(char *buf, int bufSize)
 {
   uint8_t c;
   do {
-    if (bufSize-- == 0) { setBadBit(); return FALSE; }
+    if (bufSize-- == 0) { setBadBit(); return false; }
     operator >> (c);
     *(buf++) = c;
   } while (c != '\0');
   return !isBad();
 }
-SbBool SoStream::writeZString(const char *buf)
+bool SoStream::writeZString(const char *buf)
 {
   do {
     operator << (buf);
@@ -512,15 +512,15 @@ SbBool SoStream::writeZString(const char *buf)
 
 
 
-SbBool SoStream::readStream(SoStream COIN_UNUSED_ARG(&stream))
+bool SoStream::readStream(SoStream COIN_UNUSED_ARG(&stream))
 {
   STUB;
-  return FALSE;
+  return false;
 }
-SbBool SoStream::writeStream(const SoStream COIN_UNUSED_ARG(&stream))
+bool SoStream::writeStream(const SoStream COIN_UNUSED_ARG(&stream))
 {
   STUB;
-  return FALSE;
+  return false;
 }
 
 
@@ -547,12 +547,12 @@ void SoStream::setPos(size_t pos)
         num -= d;
       }
     } else {
-      assert(FALSE && "SoStream::setPos() to move back in the stream is not supported.");
+      assert(false && "SoStream::setPos() to move back in the stream is not supported.");
       setBadBit();
     }
     break;
   }
-  default:  assert(FALSE && "Unsupported operation."); break;
+  default:  assert(false && "Unsupported operation."); break;
   }
 }
 
@@ -562,7 +562,7 @@ size_t SoStream::getPos() const
   case FILE_STREAM:  return ftell(filep);
   case MEMORY:  return bufPos;
   case SO_INPUT_WRAP:  return soinput->getNumBytesRead();
-  default:  assert(FALSE); return 0;
+  default:  assert(false); return 0;
   }
 }
 
@@ -577,30 +577,30 @@ size_t SoStream::getSize() const
     return size;
   }
   case MEMORY:  return bufferSize;
-  case SO_INPUT_WRAP: assert(FALSE && "Unsupported operation."); return 0;
-  default: assert(FALSE); return 0;
+  case SO_INPUT_WRAP: assert(false && "Unsupported operation."); return 0;
+  default: assert(false); return 0;
   }
 }
 
 
-void SoStream::setBadBit()  { badBit = TRUE; }
-void SoStream::clearBadBit()  { badBit = FALSE; }
-SbBool SoStream::isBad() const  { return badBit; }
+void SoStream::setBadBit()  { badBit = true; }
+void SoStream::clearBadBit()  { badBit = false; }
+bool SoStream::isBad() const  { return badBit; }
 
-void SoStream::setAccessRights(SbBool readEnabled, SbBool writeEnabled)
+void SoStream::setAccessRights(bool readEnabled, bool writeEnabled)
 { readable = readEnabled; writeable = writeEnabled; }
-SbBool SoStream::isReadable() const  { return readable; }
-SbBool SoStream::isWriteable() const  { return writeable; }
+bool SoStream::isReadable() const  { return readable; }
+bool SoStream::isWriteable() const  { return writeable; }
 
 
-SbBool SoStream::reallocBuffer(size_t newSize)
+bool SoStream::reallocBuffer(size_t newSize)
 {
   assert(streamType == MEMORY);
   assert(newSize > 0);
 
   if (newSize <= bufferAllocSize) {
     bufferSize = newSize;
-    return TRUE;
+    return true;
   }
 
   size_t newAllocSize = size_t(bufferAllocSize * 1.5);
@@ -612,23 +612,23 @@ SbBool SoStream::reallocBuffer(size_t newSize)
     buffer = newBuffer;
     bufferSize = newSize;
     bufferAllocSize = newAllocSize;
-    return TRUE;
+    return true;
   } else
-    return FALSE;
+    return false;
 }
 
 
-void SoStream::setBinary(const SbBool flag)  { binaryStream = flag; }
-SbBool SoStream::isBinary() const  { return binaryStream; }
+void SoStream::setBinary(const bool flag)  { binaryStream = flag; }
+bool SoStream::isBinary() const  { return binaryStream; }
 
 
-SbBool SoStream::getBuffer(void *&buf, size_t &size) const
+bool SoStream::getBuffer(void *&buf, size_t &size) const
 {
   if (streamType != MEMORY)
-    return FALSE;
+    return false;
   buf = buffer;
   size = bufferSize;
-  return TRUE;
+  return true;
 }
 size_t SoStream::getBufferSize() const  { return bufferSize; }
 
@@ -694,9 +694,9 @@ void SoStream::storeBufferToFile(const char *const fileName)
 void SoStream::commonInit()
 {
   streamType = CLOSED;
-  binaryStream = FALSE;
-  badBit = FALSE;
-  readable = writeable = TRUE;
+  binaryStream = false;
+  badBit = false;
+  readable = writeable = true;
   endianOrdering = BIG_ENDIAN_STREAM;
   updateNeedEndianConversion();
 }
@@ -762,11 +762,11 @@ FILE* SoStream::getFilePointer()  const
   return static_cast<FILE*>(filep);
 }
 
-SbBool SoStream::openFile(const char *const fileName)
+bool SoStream::openFile(const char *const fileName)
 {
   FILE *f = fopen(fileName, "r+b");
   setFilePointer(f);
-  return TRUE;
+  return true;
 }
 void SoStream::closeFile()
 {

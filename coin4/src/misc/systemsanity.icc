@@ -69,7 +69,7 @@ struct GCCAssertBomber {
   int _y;
 };                                                                              
 
-static SbBool GCCAssertBomberFunc1() { return TRUE; }
+static bool GCCAssertBomberFunc1() { return true; }
 static GCCAssertBomber GCCAssertBomberFunc2() { return GCCAssertBomber(); }
 
 #define DUMP(string) printf("\t" string "\n")

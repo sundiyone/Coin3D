@@ -40,11 +40,11 @@ public:
 
   SoType getConnectionType(void) const;
   int getForwardConnections(SoFieldList & fl) const;
-  void enable(const SbBool flag);
-  SbBool isEnabled(void) const;
+  void enable(const bool flag);
+  bool isEnabled(void) const;
   SoEngine * getContainer(void) const;
   SoNodeEngine * getNodeContainer(void) const;
-  SbBool isNodeEngineOutput(void) const;
+  bool isNodeEngineOutput(void) const;
 
   void setContainer(SoEngine * engine);
   void setNodeContainer(SoNodeEngine * nodeengine);
@@ -56,15 +56,15 @@ public:
   void prepareToWrite(void) const;
   void doneWriting(void) const;
 
-  void touchSlaves(SoNotList * nl, SbBool donotify);
+  void touchSlaves(SoNotList * nl, bool donotify);
 
   SoFieldContainer * getFieldContainer(void);
 
 private:
-  SbBool enabled;
+  bool enabled;
   SoEngine * container; // FIXME: change to SoFieldContainer pointer
   SoFieldList slaves;
-  SbList<SbBool> fieldnotiflist;
+  SbList<bool> fieldnotiflist;
 };
 
 #endif // !COIN_SOENGINEOUTPUT_H

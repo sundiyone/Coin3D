@@ -23,11 +23,11 @@
 
 /*!
   \class SoSFBool SoSFBool.h Inventor/fields/SoSFBool.h
-  \brief The SoSFBool class is a container for an SbBool value.
+  \brief The SoSFBool class is a container for an bool value.
   \ingroup fields
 
   This field is used where nodes, engines or other field containers
-  needs to store a boolean on/off or TRUE/FALSE value, like for
+  needs to store a boolean on/off or true/false value, like for
   instance as the "on" field of the SoPointLight, SoSpotLight and
   SoDirectionalLight node classes.
 
@@ -48,7 +48,7 @@
 
 // *************************************************************************
 
-SO_SFIELD_SOURCE(SoSFBool, SbBool, SbBool);
+SO_SFIELD_SOURCE(SoSFBool, bool, bool);
 
 // *************************************************************************
 
@@ -65,13 +65,13 @@ SoSFBool::initClass(void)
 // parent classes.
 #ifndef DOXYGEN_SKIP_THIS
 
-SbBool
+bool
 SoSFBool::readValue(SoInput * in)
 {
-  SbBool val;
-  if (!sosfbool_read_value(in, val)) return FALSE;
+  bool val;
+  if (!sosfbool_read_value(in, val)) return false;
   this->value = val;
-  return TRUE;
+  return true;
 }
 
 void
@@ -97,35 +97,35 @@ BOOST_AUTO_TEST_CASE(initialized)
 
 BOOST_AUTO_TEST_CASE(textinput)
 {
-  SbBool ok;
+  bool ok;
   SoSFBool field;
-  ok = field.set("TRUE");
-  BOOST_CHECK_MESSAGE(ok == TRUE, "did not accept 'TRUE'");
-  BOOST_CHECK_EQUAL(field.getValue(), TRUE);
-  ok = field.set("FALSE");
-  BOOST_CHECK_MESSAGE(ok == TRUE, "did not accept 'FALSE'");
-  BOOST_CHECK_EQUAL(field.getValue(), FALSE);
+  ok = field.set("true");
+  BOOST_CHECK_MESSAGE(ok == true, "did not accept 'true'");
+  BOOST_CHECK_EQUAL(field.getValue(), true);
+  ok = field.set("false");
+  BOOST_CHECK_MESSAGE(ok == true, "did not accept 'false'");
+  BOOST_CHECK_EQUAL(field.getValue(), false);
 
   TestSuite::ResetReadErrorCount();
   static const char * filters[] = { "Invalid value", NULL };
   TestSuite::PushMessageSuppressFilters(filters);
   ok = field.set("MAYBE"); // emits two error messages
-  BOOST_CHECK_MESSAGE(ok == FALSE, "did accept 'MAYBE'");
+  BOOST_CHECK_MESSAGE(ok == false, "did accept 'MAYBE'");
   BOOST_CHECK_MESSAGE(TestSuite::GetReadErrorCount() == 1, "did not emit error");
   TestSuite::PopMessageSuppressFilters();
   TestSuite::ResetReadErrorCount();
 
   ok = field.set("0");
-  BOOST_CHECK_MESSAGE(ok == TRUE, "did not accept '0'");
-  BOOST_CHECK_EQUAL(field.getValue(), FALSE);
+  BOOST_CHECK_MESSAGE(ok == true, "did not accept '0'");
+  BOOST_CHECK_EQUAL(field.getValue(), false);
   ok = field.set("1");
-  BOOST_CHECK_MESSAGE(ok == TRUE, "did not accept '1'");
-  BOOST_CHECK_EQUAL(field.getValue(), TRUE);
+  BOOST_CHECK_MESSAGE(ok == true, "did not accept '1'");
+  BOOST_CHECK_EQUAL(field.getValue(), true);
 
   static const char * filters2[] = { "Illegal value", NULL };
   TestSuite::PushMessageSuppressFilters(filters2);
   ok = field.set("2");
-  BOOST_CHECK_MESSAGE(ok == FALSE, "did accept '2'");
+  BOOST_CHECK_MESSAGE(ok == false, "did accept '2'");
   TestSuite::PopMessageSuppressFilters();
   TestSuite::ResetReadErrorCount();
 }

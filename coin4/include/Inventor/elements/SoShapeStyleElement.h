@@ -62,15 +62,15 @@ public:
   virtual void push(SoState * state);
   virtual void pop(SoState * state, const SoElement * prevTopElement);
 
-  virtual SbBool matches(const SoElement * element) const;
+  virtual bool matches(const SoElement * element) const;
   virtual SoElement * copyMatchInfo(void) const;
 
   static const SoShapeStyleElement * get(SoState * const state);
 
   unsigned int getFlags(void) const;
-  SbBool mightNotRender(void) const;
-  SbBool needNormals(void) const;
-  SbBool needTexCoords(void) const;
+  bool mightNotRender(void) const;
+  bool needNormals(void) const;
+  bool needTexCoords(void) const;
   int getRenderCaseMask(void) const;
 
   static void setDrawStyle(SoState * const state, const int32_t value);
@@ -78,26 +78,26 @@ public:
                                 const int32_t value);
   static void setTransparencyType(SoState * const state,
                                   const int32_t value);
-  static void setTextureEnabled(SoState * const state, const SbBool value);
-  static void setTexture3Enabled(SoState * const state, const SbBool value);
+  static void setTextureEnabled(SoState * const state, const bool value);
+  static void setTexture3Enabled(SoState * const state, const bool value);
   static void setTextureFunction(SoState * const state,
-                                 const SbBool value);
+                                 const bool value);
   static void setLightModel(SoState * const state, const int32_t value);
-  static void setOverrides(SoState * const state, const SbBool value);
+  static void setOverrides(SoState * const state, const bool value);
 
-  static SbBool isScreenDoor(SoState * const state);
+  static bool isScreenDoor(SoState * const state);
   static int getTransparencyType(SoState * const state);
-  SbBool isTextureFunction(void) const;
+  bool isTextureFunction(void) const;
 
-  static void setBumpmapEnabled(SoState * state, const SbBool value);
-  static void setBigImageEnabled(SoState * state, const SbBool value);
-  static void setVertexArrayRendering(SoState * state, const SbBool value);
+  static void setBumpmapEnabled(SoState * state, const bool value);
+  static void setBigImageEnabled(SoState * state, const bool value);
+  static void setVertexArrayRendering(SoState * state, const bool value);
 
-  static void setTransparentMaterial(SoState * state, const SbBool value);
-  static void setTransparentTexture(SoState * state, const SbBool value);
+  static void setTransparentMaterial(SoState * state, const bool value);
+  static void setTransparentTexture(SoState * state, const bool value);
 
-  static void setShadowMapRendering(SoState * state, const SbBool value);
-  static void setShadowsRendering(SoState * state, const SbBool value);
+  static void setShadowMapRendering(SoState * state, const bool value);
+  static void setShadowsRendering(SoState * state, const bool value);
 
 private:
 

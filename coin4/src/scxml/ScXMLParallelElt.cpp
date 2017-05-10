@@ -547,16 +547,16 @@ ScXMLParallelElt::setSrcAttribute(const char * srcstr)
 
 // const char * ScXMLParallelElt::getSrcAttribute(void) const
 
-SbBool
+bool
 ScXMLParallelElt::handleXMLAttributes(void)
 {
   if (!inherited::handleXMLAttributes()) {
-    return FALSE;
+    return false;
   }
 
   this->setSrcAttribute(this->getXMLAttribute("src"));
 
-  return TRUE;
+  return true;
 }
 
 void
@@ -741,10 +741,10 @@ SCXML_SINGLE_OBJECT_API_IMPL(ScXMLParallelElt, ScXMLDataModelElt, PRIVATE(this)-
 // SCXML_SINGLE_OBJECT_API_IMPL(ScXMLParallelElt, ScXMLInvokeElt, PRIVATE(this)->invokeptr, Invoke);
 
 /*!
-  Returns TRUE if this is an "atomic state", which means that it has no
+  Returns true if this is an "atomic state", which means that it has no
   sub-states but contains executable content.
 */
-SbBool
+bool
 ScXMLParallelElt::isAtomicState(void) const
 {
   return ((PRIVATE(this)->statelist.size() == 0) &&

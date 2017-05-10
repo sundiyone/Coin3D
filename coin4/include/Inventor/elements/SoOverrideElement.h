@@ -70,110 +70,110 @@ public:
 
   virtual void push(SoState * state);
 
-  virtual SbBool matches(const SoElement * element) const;
+  virtual bool matches(const SoElement * element) const;
   virtual SoElement * copyMatchInfo(void) const;
 
   static uint32_t getFlags(SoState * const state) {
     return (static_cast<const SoOverrideElement*>(getConstElement(state, classStackIndex)))->flags;
   }
 
-  static SbBool getAmbientColorOverride(SoState * const state);
-  static SbBool getColorIndexOverride(SoState * const state);
-  static SbBool getComplexityOverride(SoState * const state);
-  static SbBool getComplexityTypeOverride(SoState * const state);
-  static SbBool getCreaseAngleOverride(SoState * const state);
-  static SbBool getDiffuseColorOverride(SoState * const state);
-  static SbBool getDrawStyleOverride(SoState * const state);
-  static SbBool getEmissiveColorOverride(SoState * const state);
-  static SbBool getFontNameOverride(SoState * const state);
-  static SbBool getFontSizeOverride(SoState * const state);
-  static SbBool getLightModelOverride(SoState * const state);
-  static SbBool getLinePatternOverride(SoState * const state);
-  static SbBool getLineWidthOverride(SoState * const state);
-  static SbBool getMaterialBindingOverride(SoState * const state);
-  static SbBool getPickStyleOverride(SoState * const state);
-  static SbBool getPointSizeOverride(SoState * const state);
-  static SbBool getPolygonOffsetOverride(SoState * const state);
-  static SbBool getShapeHintsOverride(SoState * const state);
-  static SbBool getShininessOverride(SoState * const state);
-  static SbBool getSpecularColorOverride(SoState * const state);
-  static SbBool getTransparencyOverride(SoState * const state);
-  static SbBool getTransparencyTypeOverride(SoState * const state);
-  static SbBool getNormalVectorOverride(SoState * const state);
-  static SbBool getNormalBindingOverride(SoState * const state);
+  static bool getAmbientColorOverride(SoState * const state);
+  static bool getColorIndexOverride(SoState * const state);
+  static bool getComplexityOverride(SoState * const state);
+  static bool getComplexityTypeOverride(SoState * const state);
+  static bool getCreaseAngleOverride(SoState * const state);
+  static bool getDiffuseColorOverride(SoState * const state);
+  static bool getDrawStyleOverride(SoState * const state);
+  static bool getEmissiveColorOverride(SoState * const state);
+  static bool getFontNameOverride(SoState * const state);
+  static bool getFontSizeOverride(SoState * const state);
+  static bool getLightModelOverride(SoState * const state);
+  static bool getLinePatternOverride(SoState * const state);
+  static bool getLineWidthOverride(SoState * const state);
+  static bool getMaterialBindingOverride(SoState * const state);
+  static bool getPickStyleOverride(SoState * const state);
+  static bool getPointSizeOverride(SoState * const state);
+  static bool getPolygonOffsetOverride(SoState * const state);
+  static bool getShapeHintsOverride(SoState * const state);
+  static bool getShininessOverride(SoState * const state);
+  static bool getSpecularColorOverride(SoState * const state);
+  static bool getTransparencyOverride(SoState * const state);
+  static bool getTransparencyTypeOverride(SoState * const state);
+  static bool getNormalVectorOverride(SoState * const state);
+  static bool getNormalBindingOverride(SoState * const state);
 
   static void setAmbientColorOverride(SoState * const state,
                                       SoNode * const node,
-                                      const SbBool override);
+                                      const bool override);
   static void setColorIndexOverride(SoState * const state,
                                     SoNode * const node,
-                                    const SbBool override);
+                                    const bool override);
   static void setComplexityOverride(SoState * const state,
                                     SoNode * const node,
-                                    const SbBool override);
+                                    const bool override);
   static void setComplexityTypeOverride(SoState * const state,
                                         SoNode * const node,
-                                        const SbBool override);
+                                        const bool override);
   static void setCreaseAngleOverride(SoState * const state,
                                      SoNode * const node,
-                                     const SbBool override);
+                                     const bool override);
   static void setDiffuseColorOverride(SoState * const state,
                                       SoNode * const node,
-                                      const SbBool override);
+                                      const bool override);
   static void setDrawStyleOverride(SoState * const state,
                                    SoNode * const node,
-                                   const SbBool override);
+                                   const bool override);
   static void setEmissiveColorOverride(SoState * const state,
                                        SoNode * const node,
-                                       const SbBool override);
+                                       const bool override);
   static void setFontNameOverride(SoState * const state,
                                   SoNode * const node,
-                                  const SbBool override);
+                                  const bool override);
   static void setFontSizeOverride(SoState * const state,
                                   SoNode * const node,
-                                  const SbBool override);
+                                  const bool override);
   static void setLightModelOverride(SoState * const state,
                                     SoNode * const node,
-                                    const SbBool override);
+                                    const bool override);
   static void setLinePatternOverride(SoState * const state,
                                      SoNode * const node,
-                                     const SbBool override);
+                                     const bool override);
   static void setLineWidthOverride(SoState * const state,
                                    SoNode * const node,
-                                   const SbBool override);
+                                   const bool override);
   static void setMaterialBindingOverride(SoState * const state,
                                          SoNode * const node,
-                                         const SbBool override);
+                                         const bool override);
   static void setPickStyleOverride(SoState * const state,
                                    SoNode * const node,
-                                   const SbBool override);
+                                   const bool override);
   static void setPointSizeOverride(SoState * const state,
                                    SoNode * const node,
-                                   const SbBool override);
+                                   const bool override);
   static void setPolygonOffsetOverride(SoState * const state,
                                        SoNode * const node,
-                                       const SbBool override);
+                                       const bool override);
   static void setShapeHintsOverride(SoState * const state,
                                     SoNode * const node,
-                                    const SbBool override);
+                                    const bool override);
   static void setShininessOverride(SoState * const state,
                                    SoNode * const node,
-                                   const SbBool override);
+                                   const bool override);
   static void setSpecularColorOverride(SoState * const state,
                                        SoNode * const node,
-                                       const SbBool override);
+                                       const bool override);
   static void setTransparencyOverride(SoState * const state,
                                       SoNode * const node,
-                                      const SbBool override);
+                                      const bool override);
   static void setTransparencyTypeOverride(SoState * const state,
                                           SoNode * const node,
-                                          const SbBool override);
+                                          const bool override);
   static void setNormalVectorOverride(SoState * const state,
                                       SoNode * const node,
-                                      const SbBool override);
+                                      const bool override);
   static void setNormalBindingOverride(SoState * const state,
                                        SoNode * const node,
-                                       const SbBool override);
+                                       const bool override);
 
   virtual void print(FILE * file) const;
 

@@ -47,7 +47,7 @@ public:
   SoSFBool isOver;
   SoSFTime touchTime;
 
-  virtual SbBool affectsState(void) const;
+  virtual bool affectsState(void) const;
   virtual void handleEvent(SoHandleEventAction * action);
 
 protected:
@@ -56,7 +56,7 @@ protected:
   virtual void notify(SoNotList * list);
 
 private:
-  SbBool isactive;
+  bool isactive;
 }; // class SoVRMLTouchSensor
 
 #endif // ! COIN_SOVRMLTOUCHSENSOR_H

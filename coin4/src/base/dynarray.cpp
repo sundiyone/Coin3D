@@ -131,7 +131,7 @@ cc_dynarray_get(const cc_dynarray * arr, unsigned int idx)
   return arr->plist[idx];
 }
 
-SbBool
+bool
 cc_dynarray_eq(const cc_dynarray * arr1, const cc_dynarray * arr2)
 {
   return (arr1->plist == arr2->plist);

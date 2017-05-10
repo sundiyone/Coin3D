@@ -47,16 +47,16 @@ public:
 
   static SoWriterefCounter * instance(SoOutput * out);
 
-  SbBool shouldWrite(const SoBase * base) const;
+  bool shouldWrite(const SoBase * base) const;
   SbName getWriteName(const SoBase * base) const;
-  SbBool hasMultipleWriteRefs(const SoBase * base) const;
+  bool hasMultipleWriteRefs(const SoBase * base) const;
   int getWriteref(const SoBase * base) const;
   void setWriteref(const SoBase * base, const int ref);
   void removeWriteref(const SoBase * base);
   void decrementWriteref(const SoBase * base);
   
-  SbBool isInGraph(const SoBase * base) const;
-  void setInGraph(const SoBase * base, const SbBool ingraph);
+  bool isInGraph(const SoBase * base) const;
+  void setInGraph(const SoBase * base, const bool ingraph);
   void debugCleanup(void);
   
   enum RefId {
@@ -71,7 +71,7 @@ public:
   void setReference(const SoBase * base, int refid);
   void removeSoBase2IdRef(const SoBase * base);
 
-  static SbBool debugWriterefs(void);
+  static bool debugWriterefs(void);
 
 protected:
   SoWriterefCounter(SoOutput * out, SoOutput * copyfrom);

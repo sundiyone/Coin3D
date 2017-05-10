@@ -42,18 +42,18 @@ protected:
     BUMP_MAP        = 0x4
   };
 public:
-  virtual SbBool matches(const SoElement *element) const;
+  virtual bool matches(const SoElement *element) const;
   virtual SoElement *copyMatchInfo() const;
 
   virtual void init(SoState *state);
   virtual void push(SoState *state);
-  static SbBool getQualityOverride(SoState *state);
-  static SbBool getImageOverride(SoState *state);
-  static SbBool getBumpMapOverride(SoState * state);
+  static bool getQualityOverride(SoState *state);
+  static bool getImageOverride(SoState *state);
+  static bool getBumpMapOverride(SoState * state);
 
-  static void setQualityOverride(SoState *state, const SbBool value);
-  static void setImageOverride(SoState *state, const SbBool value);
-  static void setBumpMapOverride(SoState *state, const SbBool value);
+  static void setQualityOverride(SoState *state, const bool value);
+  static void setImageOverride(SoState *state, const bool value);
+  static void setBumpMapOverride(SoState *state, const bool value);
 
   virtual void print(FILE *fp) const;
 

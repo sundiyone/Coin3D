@@ -63,13 +63,13 @@ SoSFInt32::initClass(void)
 // parent classes.
 #ifndef DOXYGEN_SKIP_THIS
 
-SbBool
+bool
 SoSFInt32::readValue(SoInput * in)
 {
   int tmp;
-  if (!in->read(tmp)) return FALSE;
+  if (!in->read(tmp)) return false;
   this->value = tmp;
-  return TRUE;
+  return true;
 }
 
 // Write integer value to output stream. Also used from SoMFInt32

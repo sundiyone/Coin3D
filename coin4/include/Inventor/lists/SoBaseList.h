@@ -45,11 +45,11 @@ public:
   SoBaseList & operator=(const SoBaseList & l);
   SoBase * operator[](const int i) const;
   void set(const int i, SoBase * const ptr);
-  void addReferences(const SbBool flag);
-  SbBool isReferencing(void) const;
+  void addReferences(const bool flag);
+  bool isReferencing(void) const;
 
 private:
-  SbBool referencing;
+  bool referencing;
 };
 
 #endif // !COIN_SOBASELIST_H

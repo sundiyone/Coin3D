@@ -61,7 +61,7 @@ protected:
   // sent events
   static const SbName & TRIGGER_SPIN(void);
 
-  virtual SbBool processOneEvent(const ScXMLEvent * event);
+  virtual bool processOneEvent(const ScXMLEvent * event);
 
 private:
   class PImpl;

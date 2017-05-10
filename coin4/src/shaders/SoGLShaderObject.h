@@ -49,7 +49,7 @@ public:
   const cc_glglue * GLContext(void) const;
   uint32_t getCacheContext(void) const;
 
-  virtual SbBool isLoaded(void) const = 0;
+  virtual bool isLoaded(void) const = 0;
   virtual void load(const char * sourceString) = 0;
   virtual void unload(void) = 0;
   virtual SoShader::Type shaderType(void) const = 0;
@@ -70,11 +70,11 @@ public:
   void setShaderType(const ShaderType type);
   ShaderType getShaderType(void) const;
 
-  void setIsActive(SbBool flag);
-  SbBool isActive(void) const;
+  void setIsActive(bool flag);
+  bool isActive(void) const;
 
-  void setParametersDirty(SbBool flag);
-  SbBool getParametersDirty(void) const;
+  void setParametersDirty(bool flag);
+  bool getParametersDirty(void) const;
 
 #if defined(SOURCE_HINT)
   SbString sourceHint; // either the file name or the first line of source code
@@ -86,8 +86,8 @@ protected:
 
 private:
   ShaderType shadertype;
-  SbBool isActiveFlag ;
-  SbBool paramsdirty;
+  bool isActiveFlag ;
+  bool paramsdirty;
   uint32_t id;
 };
 

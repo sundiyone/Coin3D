@@ -53,7 +53,7 @@ public:
   SoMFNode choice;
   SoSFInt32 whichChoice;
 
-  virtual SbBool affectsState(void) const;
+  virtual bool affectsState(void) const;
 
   void addChoice(SoNode * choice);
   void insertChoice(SoNode * choice, int idx);
@@ -93,8 +93,8 @@ protected:
   virtual ~SoVRMLSwitch(void);
 
   virtual void notify(SoNotList * list);
-  virtual SbBool readInstance(SoInput * in, unsigned short flags);
-  virtual void copyContents(const SoFieldContainer * from, SbBool copyConn);
+  virtual bool readInstance(SoInput * in, unsigned short flags);
+  virtual void copyContents(const SoFieldContainer * from, bool copyConn);
 
 private:
   void commonConstructor(void);

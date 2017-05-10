@@ -41,10 +41,10 @@ public:
 
   virtual int getOutputs(SoEngineOutputList & l) const;
   SoEngineOutput * getOutput(const SbName & outputname) const;
-  SbBool getOutputName(const SoEngineOutput * output, SbName & outputname) const;
+  bool getOutputName(const SoEngineOutput * output, SbName & outputname) const;
   virtual const SoEngineOutputData * getOutputData(void) const = 0;
 
-  SbBool isNotifying(void) const;
+  bool isNotifying(void) const;
   virtual void notify(SoNotList * nl);
 
   virtual void writeInstance(SoOutput * out);
@@ -54,7 +54,7 @@ protected:
   virtual ~SoNodeEngine(void);
   virtual void evaluate(void) = 0;
 
-  virtual SbBool readInstance(SoInput * in, unsigned short flags);
+  virtual bool readInstance(SoInput * in, unsigned short flags);
   virtual void inputChanged(SoField * which);
 
   static const SoFieldData ** getFieldDataPtr(void);

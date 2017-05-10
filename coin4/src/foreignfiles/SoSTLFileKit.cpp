@@ -164,16 +164,16 @@ SoSTLFileKit::initClass(void)
   Returns wether or not \a filename is identified as an STL file.
 */
 
-SbBool
+bool
 SoSTLFileKit::identify(const char * filename)
 {
   assert(filename);
   stl_reader * reader = stl_reader_create(filename);
   if ( !reader ) {
-    return FALSE;
+    return false;
   }
   stl_reader_destroy(reader);
-  return TRUE;
+  return true;
 }
 
 /*!
@@ -187,7 +187,7 @@ SoSTLFileKit::SoSTLFileKit(void)
   SO_KIT_INTERNAL_CONSTRUCTOR(SoSTLFileKit);
 
   SO_KIT_ADD_FIELD(info, (""));
-  SO_KIT_ADD_FIELD(binary, (FALSE));
+  SO_KIT_ADD_FIELD(binary, (false));
   SO_KIT_ADD_FIELD(colorization, (SoSTLFileKit::GREY));
 
   SO_KIT_DEFINE_ENUM_VALUE(Colorization, GREY);
@@ -197,21 +197,21 @@ SoSTLFileKit::SoSTLFileKit(void)
   SO_KIT_SET_SF_ENUM_TYPE(colorization, Colorization);
 
   SO_KIT_ADD_CATALOG_ENTRY(facets, SoIndexedFaceSet,
-                           FALSE, topSeparator, \x0, FALSE);
+                           false, topSeparator, \x0, false);
   SO_KIT_ADD_CATALOG_ENTRY(coordinates, SoCoordinate3,
-                           FALSE, topSeparator, facets, FALSE);
+                           false, topSeparator, facets, false);
   SO_KIT_ADD_CATALOG_ENTRY(material, SoMaterial,
-                           FALSE, topSeparator, coordinates, FALSE);
+                           false, topSeparator, coordinates, false);
   SO_KIT_ADD_CATALOG_ENTRY(materialbinding, SoMaterialBinding,
-                           FALSE, topSeparator, material, FALSE);
+                           false, topSeparator, material, false);
   SO_KIT_ADD_CATALOG_ENTRY(normals, SoNormal,
-                           FALSE, topSeparator, materialbinding, FALSE);
+                           false, topSeparator, materialbinding, false);
   SO_KIT_ADD_CATALOG_ENTRY(normalbinding, SoNormalBinding,
-                           FALSE, topSeparator, normals, FALSE);
+                           false, topSeparator, normals, false);
   SO_KIT_ADD_CATALOG_ENTRY(texture, SoTexture2,
-                           FALSE, topSeparator, normalbinding, FALSE);
+                           false, topSeparator, normalbinding, false);
   SO_KIT_ADD_CATALOG_ENTRY(shapehints, SoShapeHints,
-                           FALSE, topSeparator, texture, FALSE);
+                           false, topSeparator, texture, false);
 
   SO_KIT_INIT_INSTANCE();
 }
@@ -227,10 +227,10 @@ SoSTLFileKit::~SoSTLFileKit(void)
 }
 
 // doc in inherited class
-SbBool
+bool
 SoSTLFileKit::canReadFile(const char * filename) const
 {
-  if ( !filename ) return TRUE; // we can read STL files, in general
+  if ( !filename ) return true; // we can read STL files, in general
   return SoSTLFileKit::identify(filename);
 }
 
@@ -238,13 +238,13 @@ SoSTLFileKit::canReadFile(const char * filename) const
   Reads in an STL file.  Both ascii and binary files are supported.
   For binary files, the color extensions are not implemented yet.
 
-  Returns FALSE if \a filename could not be opened or parsed
+  Returns false if \a filename could not be opened or parsed
   correctly.
 
   \sa canReadFile
 */
 
-SbBool
+bool
 SoSTLFileKit::readFile(const char * filename)
 {
   assert(filename);
@@ -256,10 +256,10 @@ SoSTLFileKit::readFile(const char * filename)
     SoDebugError::postInfo("SoSTLFileKit::readFile",
                            "unable to create STL reader for '%s'.",
                            filename);
-    return FALSE;
+    return false;
   }
 
-  SbBool binary = (stl_reader_flags(reader) & STL_BINARY) ? TRUE : FALSE;
+  bool binary = (stl_reader_flags(reader) & STL_BINARY) ? true : false;
 
   SoShapeHints * hints =
     SO_GET_ANY_PART(this, "shapehints", SoShapeHints);
@@ -274,7 +274,7 @@ SoSTLFileKit::readFile(const char * filename)
   normalbinding->value = SoNormalBinding::PER_FACE_INDEXED;
 
   stl_facet * facet = stl_facet_create();
-  SbBool loop = TRUE, success = TRUE;
+  bool loop = true, success = true;
   while ( loop ) {
     const int peekval = stl_reader_peek(reader);
     if ( peekval == STL_BEGIN ) {
@@ -282,7 +282,7 @@ SoSTLFileKit::readFile(const char * filename)
       // FIXME: set info
     } else if ( peekval == STL_EXIT_INFO ) {
     } else if ( peekval == STL_END ) {
-      loop = FALSE;
+      loop = false;
     } else if ( peekval == STL_FACET ) {
       stl_real x, y, z;
       stl_reader_fill_facet(reader, facet);
@@ -303,7 +303,7 @@ SoSTLFileKit::readFile(const char * filename)
       }
       unsigned int data = stl_facet_get_padding(facet);
 
-      SbBool added = this->addFacet(vertex1, vertex2, vertex3, normal);
+      bool added = this->addFacet(vertex1, vertex2, vertex3, normal);
 
 #if defined(COIN_EXTRA_DEBUG) || 1
       if ( added && binary ) {
@@ -322,12 +322,12 @@ SoSTLFileKit::readFile(const char * filename)
                          stl_reader_get_error(reader),
                          PRIVATE(this)->numfacets,
                          stl_reader_get_line_number(reader));
-      loop = FALSE;
-      success = FALSE;
+      loop = false;
+      success = false;
       if (strcmp(stl_reader_get_error(reader), "premature end of file") == 0) {
         // this one we will accept though - models with missing
         // end-indicator have been found...
-        success = TRUE;
+        success = true;
       }
     }
   }
@@ -348,10 +348,10 @@ SoSTLFileKit::readFile(const char * filename)
 }
 
 // doc in inherited class
-SbBool
+bool
 SoSTLFileKit::canReadScene(void) const
 {
-  return TRUE;
+  return true;
 }
 
 /*!
@@ -361,7 +361,7 @@ SoSTLFileKit::canReadScene(void) const
   \sa canReadScene, canWriteFile, writeFile
 */
 
-SbBool
+bool
 SoSTLFileKit::readScene(SoNode * scene)
 {
   this->reset();
@@ -378,7 +378,7 @@ SoSTLFileKit::readScene(SoNode * scene)
 
   this->organizeModel();
 
-  return TRUE;
+  return true;
 }
 
 SoSeparator *
@@ -394,46 +394,46 @@ SoSTLFileKit::convert()
   SoShapeHints * shapehints_orig =
     SO_GET_ANY_PART(this, "shapehints", SoShapeHints);
   SoShapeHints * shapehints_copy = new SoShapeHints;
-  shapehints_copy->copyContents(shapehints_orig, FALSE);
+  shapehints_copy->copyContents(shapehints_orig, false);
   sceneroot->addChild(shapehints_copy);
 
   SoTexture2 * texture_orig = SO_GET_ANY_PART(this, "texture", SoTexture2);
   SoTexture2 * texture_copy = new SoTexture2;
-  texture_copy->copyContents(texture_orig, FALSE);
+  texture_copy->copyContents(texture_orig, false);
   sceneroot->addChild(texture_copy);
 
   SoNormalBinding * normalbinding_orig =
     SO_GET_ANY_PART(this, "normalbinding", SoNormalBinding);
   SoNormalBinding * normalbinding_copy = new SoNormalBinding;
-  normalbinding_copy->copyContents(normalbinding_orig, FALSE);
+  normalbinding_copy->copyContents(normalbinding_orig, false);
   sceneroot->addChild(normalbinding_copy);
 
   SoNormal * normals_orig = SO_GET_ANY_PART(this, "normals", SoNormal);
   SoNormal * normals_copy = new SoNormal;
-  normals_copy->copyContents(normals_orig, FALSE);
+  normals_copy->copyContents(normals_orig, false);
   sceneroot->addChild(normals_copy);
 
   SoMaterialBinding * materialbinding_orig =
     SO_GET_ANY_PART(this, "materialbinding", SoMaterialBinding);
   SoMaterialBinding * materialbinding_copy = new SoMaterialBinding;
-  materialbinding_copy->copyContents(materialbinding_orig, FALSE);
+  materialbinding_copy->copyContents(materialbinding_orig, false);
   sceneroot->addChild(materialbinding_copy);
 
   SoMaterial * material_orig = SO_GET_ANY_PART(this, "material", SoMaterial);
   SoMaterial * material_copy = new SoMaterial;
-  material_copy->copyContents(material_orig, FALSE);
+  material_copy->copyContents(material_orig, false);
   sceneroot->addChild(material_copy);
 
   SoCoordinate3 * coordinates_orig =
     SO_GET_ANY_PART(this, "coordinates", SoCoordinate3);
   SoCoordinate3 * coordinates_copy = new SoCoordinate3;
-  coordinates_copy->copyContents(coordinates_orig, FALSE);
+  coordinates_copy->copyContents(coordinates_orig, false);
   sceneroot->addChild(coordinates_copy);
 
   SoIndexedFaceSet * facets_orig =
     SO_GET_ANY_PART(this, "facets", SoIndexedFaceSet);
   SoIndexedFaceSet * facets_copy = new SoIndexedFaceSet;
-  facets_copy->copyContents(facets_orig, FALSE);
+  facets_copy->copyContents(facets_orig, false);
   sceneroot->addChild(facets_copy);
 
   // optimize/reorganize mesh
@@ -447,7 +447,7 @@ SoSTLFileKit::convert()
 }
 
 // doc in inherited class
-SbBool
+bool
 SoSTLFileKit::canWriteFile(const char * filename) const
 {
   return inherited::canWriteFile(filename);
@@ -459,7 +459,7 @@ SoSTLFileKit::canWriteFile(const char * filename) const
   \sa binary, info, canWriteFile, canReadScene
 */
 
-SbBool
+bool
 SoSTLFileKit::writeFile(const char * filename)
 {
   unsigned int flags = 0;
@@ -470,7 +470,7 @@ SoSTLFileKit::writeFile(const char * filename)
 
   stl_writer * writer = stl_writer_create(filename, flags);
   if ( !writer ) {
-    return FALSE;
+    return false;
   }
 
   stl_facet * facet = stl_facet_create();
@@ -483,7 +483,7 @@ SoSTLFileKit::writeFile(const char * filename)
       SoDebugError::post("SoSTLFileKit::writeFile",
                          "error: '%s'",
                          stl_writer_get_error(writer));
-      return FALSE;
+      return false;
     }
   }
 
@@ -495,7 +495,7 @@ SoSTLFileKit::writeFile(const char * filename)
 
   stl_writer_destroy(writer);
 
-  return TRUE;
+  return true;
 }
 
 // *************************************************************************
@@ -546,7 +546,7 @@ SoSTLFileKit::reset(void)
   \sa reset, organizeModel
 */
 
-SbBool
+bool
 SoSTLFileKit::addFacet(const SbVec3f & v1, const SbVec3f & v2, const SbVec3f & v3, const SbVec3f & n)
 {
   SoNormal * normals =
@@ -579,7 +579,7 @@ SoSTLFileKit::addFacet(const SbVec3f & v1, const SbVec3f & v2, const SbVec3f & v
     // possible and avoid vec3f-comparisons when index-comparisons
     // should have sufficed.
     PRIVATE(this)->numredundantfacets += 1;
-    return FALSE;
+    return false;
   }
 
 #if 0 // disabled (O(n^2))
@@ -599,7 +599,7 @@ SoSTLFileKit::addFacet(const SbVec3f & v1, const SbVec3f & v2, const SbVec3f & v
               (points[beg+2] == v2idx)) ) {
           // same vertices, same vertex ordering (we drop comparing normal)
           PRIVATE(this)->numredundantfacets += 1;
-          return FALSE;
+          return false;
         }
       }
     }
@@ -649,7 +649,7 @@ SoSTLFileKit::addFacet(const SbVec3f & v1, const SbVec3f & v2, const SbVec3f & v
   facets->normalIndex.set1Value(PRIVATE(this)->numfacets, nidx);
 
   PRIVATE(this)->numfacets++;
-  return TRUE;
+  return true;
 }
 
 /*!

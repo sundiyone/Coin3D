@@ -233,12 +233,12 @@ SoScXMLNavigationTarget::getActiveCamera(const ScXMLEvent * event, SbName sessio
 }
 
 /*!
-  Returns TRUE if a double was delivered with the event under the label \a label,
-  and FALSE otherwise. If \a required is TRUE, then errors will be given, otherwise
+  Returns true if a double was delivered with the event under the label \a label,
+  and false otherwise. If \a required is true, then errors will be given, otherwise
   this function will remain quiet.
 */
-SbBool
-SoScXMLNavigationTarget::getEventDouble(const ScXMLEvent * event, const char * label, double & dbl_out, SbBool required)
+bool
+SoScXMLNavigationTarget::getEventDouble(const ScXMLEvent * event, const char * label, double & dbl_out, bool required)
 {
   assert(event);
   const char * valuestr = event->getAssociation(label);
@@ -248,9 +248,9 @@ SoScXMLNavigationTarget::getEventDouble(const ScXMLEvent * event, const char * l
                          "while processing %s: required parameter '%s' not found.",
                          event->getEventName().getString(), label);
     }
-    return FALSE;
+    return false;
   }
-  SbBool conversionOk;
+  bool conversionOk;
   dbl_out = SbStringConvert::fromString<double>(valuestr,&conversionOk);
   if (!conversionOk) {
     if (required) {
@@ -264,18 +264,18 @@ SoScXMLNavigationTarget::getEventDouble(const ScXMLEvent * event, const char * l
                                   event->getEventName().getString(), label, valuestr);
       }
     }
-    return FALSE;
+    return false;
   }
-  return TRUE;
+  return true;
 }
 
 /*!
-  Returns TRUE if a string was delivered with the event under the label \a label,
-  and FALSE otherwise. If \a required is TRUE, then errors will be given, otherwise
+  Returns true if a string was delivered with the event under the label \a label,
+  and false otherwise. If \a required is true, then errors will be given, otherwise
   this function will remain quiet.
 */
-SbBool
-SoScXMLNavigationTarget::getEventString(const ScXMLEvent * event, const char * label, SbString & str_out, SbBool required)
+bool
+SoScXMLNavigationTarget::getEventString(const ScXMLEvent * event, const char * label, SbString & str_out, bool required)
 {
   assert(event);
   const char * valuestr = event->getAssociation(label);
@@ -285,7 +285,7 @@ SoScXMLNavigationTarget::getEventString(const ScXMLEvent * event, const char * l
                          "while processing %s: required parameter '%s' not found.",
                          event->getEventName().getString(), label);
     }
-    return FALSE;
+    return false;
   }
   if (valuestr[0] != '\'') {
     if (required) {
@@ -299,69 +299,69 @@ SoScXMLNavigationTarget::getEventString(const ScXMLEvent * event, const char * l
                                   event->getEventName().getString(), label, valuestr);
       }
     }
-    return FALSE;
+    return false;
   }
   else {
     boost::scoped_array<char> buf(new char [strlen(valuestr) + 1]);
     int res = sscanf(valuestr, "'%[^']'", buf.get());
     if (res == 1) {
       str_out = buf.get();
-      return TRUE;
+      return true;
     } else {
       SoDebugError::postWarning("SoScXMLNavigationTarget::getEventString",
                                 "while processing %s: parameter '%s' contains invalid string data (\"%s\").",
                                 event->getEventName().getString(), label, valuestr);
-      return FALSE;
+      return false;
     }
   }
-  return TRUE;
+  return true;
 }
 
 
 /*!
-  Returns TRUE if a boolean value was delivered with the event under the label \a label,
-  and FALSE otherwise. If \a required is TRUE, then errors will be given, otherwise
+  Returns true if a boolean value was delivered with the event under the label \a label,
+  and false otherwise. If \a required is true, then errors will be given, otherwise
   this function will remain quiet.
 */
-SbBool
-SoScXMLNavigationTarget::getEventSbBool(const ScXMLEvent * event, const char * label, SbBool & bool_out, SbBool required)
+bool
+SoScXMLNavigationTarget::getEventbool(const ScXMLEvent * event, const char * label, bool & bool_out, bool required)
 {
   assert(event);
   const char * valuestr = event->getAssociation(label);
   if (!valuestr) {
     if (required) {
-      SoDebugError::post("SoScXMLNavigationTarget::getEventSbBool",
+      SoDebugError::post("SoScXMLNavigationTarget::getEventbool",
                          "while processing %s: required parameter '%s' not found.",
                          event->getEventName().getString(), label);
     }
-    return FALSE;
+    return false;
   }
-  SbBool conversionOk;
+  bool conversionOk;
   bool_out = SbStringConvert::fromString<bool>(valuestr,&conversionOk);
   if (!conversionOk) {
     if (required) {
-      SoDebugError::post("SoScXMLNavigationTarget::getEventSbBool",
+      SoDebugError::post("SoScXMLNavigationTarget::getEventbool",
                          "while processing %s: parameter '%s' contains invalid bool data ('%s').",
                          event->getEventName().getString(), label, valuestr);
     } else {
       if (COIN_DEBUG) {
-        SoDebugError::postWarning("SoScXMLNavigationTarget::getEventSbBool",
+        SoDebugError::postWarning("SoScXMLNavigationTarget::getEventbool",
                                   "while processing %s: parameter '%s' contains invalid bool data ('%s').",
                                   event->getEventName().getString(), label, valuestr);
       }
     }
-    return FALSE;
+    return false;
   }
-  return TRUE;
+  return true;
 }
 
 /*!
-  Returns TRUE if an SbVec2f was delivered with the event under the label \a label,
-  and FALSE otherwise. If \a required is TRUE, then errors will be given, otherwise
+  Returns true if an SbVec2f was delivered with the event under the label \a label,
+  and false otherwise. If \a required is true, then errors will be given, otherwise
   this function will remain quiet.
 */
-SbBool
-SoScXMLNavigationTarget::getEventSbVec2f(const ScXMLEvent * event, const char * label, SbVec2f & vec_out, SbBool required)
+bool
+SoScXMLNavigationTarget::getEventSbVec2f(const ScXMLEvent * event, const char * label, SbVec2f & vec_out, bool required)
 {
   assert(event);
   const char * valuestr = event->getAssociation(label);
@@ -371,9 +371,9 @@ SoScXMLNavigationTarget::getEventSbVec2f(const ScXMLEvent * event, const char * 
                          "while processing %s: required parameter '%s' not found.",
                          event->getEventName().getString(), label);
     }
-    return FALSE;
+    return false;
   }
-  SbBool conversionOk;
+  bool conversionOk;
   vec_out = SbStringConvert::fromString<SbVec2f>(valuestr, &conversionOk);
   if (!conversionOk) {
     if (required) {
@@ -387,18 +387,18 @@ SoScXMLNavigationTarget::getEventSbVec2f(const ScXMLEvent * event, const char * 
                                   event->getEventName().getString(), label, valuestr);
       }
     }
-    return FALSE;
+    return false;
   }
-  return TRUE;
+  return true;
 }
 
 /*!
-  Returns TRUE if an SbVec3f was delivered with the event under the label \a label,
-  and FALSE otherwise. If \a required is TRUE, then errors will be given, otherwise
+  Returns true if an SbVec3f was delivered with the event under the label \a label,
+  and false otherwise. If \a required is true, then errors will be given, otherwise
   this function will remain quiet.
 */
-SbBool
-SoScXMLNavigationTarget::getEventSbVec3f(const ScXMLEvent * event, const char * label, SbVec3f & vec_out, SbBool required)
+bool
+SoScXMLNavigationTarget::getEventSbVec3f(const ScXMLEvent * event, const char * label, SbVec3f & vec_out, bool required)
 {
   assert(event);
   const char * valuestr = event->getAssociation(label);
@@ -408,9 +408,9 @@ SoScXMLNavigationTarget::getEventSbVec3f(const ScXMLEvent * event, const char * 
                          "while processing %s: required parameter '%s' not found.",
                          event->getEventName().getString(), label);
     }
-    return FALSE;
+    return false;
   }
-  SbBool conversionOk;
+  bool conversionOk;
   vec_out = SbStringConvert::fromString<SbVec3f>(valuestr, &conversionOk);
   if (!conversionOk) {
     if (required) {
@@ -424,18 +424,18 @@ SoScXMLNavigationTarget::getEventSbVec3f(const ScXMLEvent * event, const char * 
                                   event->getEventName().getString(), label, valuestr);
       }
     }
-    return FALSE;
+    return false;
   }
-  return TRUE;
+  return true;
 }
 
 /*!
-  Returns TRUE if an SbRotation was delivered with the event under the label \a label,
-  and FALSE otherwise. If \a required is TRUE, then errors will be given, otherwise
+  Returns true if an SbRotation was delivered with the event under the label \a label,
+  and false otherwise. If \a required is true, then errors will be given, otherwise
   this function will remain quiet.
 */
-SbBool
-SoScXMLNavigationTarget::getEventSbRotation(const ScXMLEvent * event, const char * label, SbRotation & rot_out, SbBool required)
+bool
+SoScXMLNavigationTarget::getEventSbRotation(const ScXMLEvent * event, const char * label, SbRotation & rot_out, bool required)
 {
   assert(event);
   const char * valuestr = event->getAssociation(label);
@@ -445,9 +445,9 @@ SoScXMLNavigationTarget::getEventSbRotation(const ScXMLEvent * event, const char
                          "while processing %s: required parameter '%s' not found.",
                          event->getEventName().getString(), label);
     }
-    return FALSE;
+    return false;
   }
-  SbBool conversionOk;
+  bool conversionOk;
   rot_out = SbStringConvert::fromString<SbRotation>(valuestr, &conversionOk);
   if (!conversionOk) {
     if (required) {
@@ -461,9 +461,9 @@ SoScXMLNavigationTarget::getEventSbRotation(const ScXMLEvent * event, const char
                                   event->getEventName().getString(), label, valuestr);
       }
     }
-    return FALSE;
+    return false;
   }
-  return TRUE;
+  return true;
 }
 
 #undef PRIVATE

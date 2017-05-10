@@ -47,8 +47,8 @@ public:
   SoPointLightManip(void);
 
   SoDragger * getDragger(void);
-  SbBool replaceNode(SoPath * path);
-  SbBool replaceManip(SoPath * path, SoPointLight * newone) const;
+  bool replaceNode(SoPath * path);
+  bool replaceManip(SoPath * path, SoPointLight * newone) const;
 
   virtual void doAction(SoAction * action);
   virtual void callback(SoCallbackAction * action);
@@ -66,7 +66,7 @@ protected:
 
   void setDragger(SoDragger * newdragger);
 
-  virtual void copyContents(const SoFieldContainer * fromfc, SbBool copyconnections);
+  virtual void copyContents(const SoFieldContainer * fromfc, bool copyconnections);
   static void transferFieldValues(const SoPointLight * from, SoPointLight * to);
 
   static void valueChangedCB(void * f, SoDragger * d);
@@ -77,7 +77,7 @@ protected:
   SoChildList * children;
 
 private:
-  void attachSensors(const SbBool onoff);
+  void attachSensors(const bool onoff);
 
 private:
   SbLazyPimplPtr<SoPointLightManipP> pimpl;

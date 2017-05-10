@@ -52,7 +52,7 @@
 class SoVRMLGeometryP {
 public:  
   SoChildList * childlist;
-  SbBool childlistvalid;
+  bool childlistvalid;
 
 #ifdef COIN_THREADSAFE
   SbMutex childlistmutex;
@@ -88,7 +88,7 @@ SoVRMLGeometry::SoVRMLGeometry(void)
   // supply a NULL-pointer as parent, since notifications will be 
   // handled by the fields that actually contain the node(s)
   PRIVATE(this)->childlist = new SoChildList(NULL);
-  PRIVATE(this)->childlistvalid = FALSE;
+  PRIVATE(this)->childlistvalid = false;
   SO_VRMLNODE_INTERNAL_CONSTRUCTOR(SoVRMLGeometry);
 }
 
@@ -102,7 +102,7 @@ SoVRMLGeometry::~SoVRMLGeometry()
 }
 
 // Doc in parent
-SbBool
+bool
 SoVRMLGeometry::shouldGLRender(SoGLRenderAction * action)
 {
   return inherited::shouldGLRender(action);
@@ -112,7 +112,7 @@ SoVRMLGeometry::shouldGLRender(SoGLRenderAction * action)
   Convenience method that updates the shape hints element.
 */
 void
-SoVRMLGeometry::setupShapeHints(SoState * state, const SbBool ccw, const SbBool solid)
+SoVRMLGeometry::setupShapeHints(SoState * state, const bool ccw, const bool solid)
 {
   if (!(SoOverrideElement::getFlags(state) & SoOverrideElement::SHAPE_HINTS)) {
     SoShapeHintsElement::set(state, this, 
@@ -135,7 +135,7 @@ SoVRMLGeometry::getChildren(void) const
     if (!PRIVATE(this)->childlistvalid) {
       SoVRMLGeometry * thisp = (SoVRMLGeometry*) this;
       SoVRMLParent::updateChildList(thisp, *(PRIVATE(thisp)->childlist));
-      PRIVATE(thisp)->childlistvalid = TRUE;
+      PRIVATE(thisp)->childlistvalid = true;
     }
     PRIVATE(this)->unlockChildList();
   }
@@ -165,7 +165,7 @@ SoVRMLGeometry::notify(SoNotList * list)
 {
   SoField * f = list->getLastField();
   if (f && f->getTypeId() == SoSFNode::getClassTypeId()) {
-    PRIVATE(this)->childlistvalid = FALSE;
+    PRIVATE(this)->childlistvalid = false;
   }
   inherited::notify(list);
 }
@@ -173,10 +173,10 @@ SoVRMLGeometry::notify(SoNotList * list)
 // Doc in parent
 void
 SoVRMLGeometry::copyContents(const SoFieldContainer * from,
-                             SbBool copyConn)
+                             bool copyConn)
 {
   inherited::copyContents(from, copyConn);
-  PRIVATE(this)->childlistvalid = FALSE;
+  PRIVATE(this)->childlistvalid = false;
   PRIVATE(this)->childlist->truncate(0);
 }
 

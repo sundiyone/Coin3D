@@ -54,14 +54,14 @@ class SoVBO {
   static int getVertexCountMaxLimit(void);
 
   static void testGLPerformance(const uint32_t contextid);
-  static SbBool shouldCreateVBO(SoState * state, const uint32_t contextid, const int numdata);
-  static SbBool shouldRenderAsVertexArrays(SoState * statea,
+  static bool shouldCreateVBO(SoState * state, const uint32_t contextid, const int numdata);
+  static bool shouldRenderAsVertexArrays(SoState * statea,
                                            const uint32_t contextid,
                                            const int numdata);
 
  private:
   static void context_created(const uint32_t contextid, void * closure);
-  static SbBool isVBOFast(const uint32_t contextid);
+  static bool isVBOFast(const uint32_t contextid);
   static void context_destruction_cb(uint32_t context, void * userdata);
   friend struct vbo_schedule;
   static void vbo_delete(void * closure, uint32_t contextid);
@@ -71,7 +71,7 @@ class SoVBO {
   const GLvoid * data;
   intptr_t datasize;
   uint32_t dataid;
-  SbBool didalloc;
+  bool didalloc;
 
   SbHash<uint32_t, GLuint> vbohash;
 };

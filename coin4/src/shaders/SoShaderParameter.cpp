@@ -347,7 +347,7 @@ SoShaderStateMatrixParameter::updateParameter(SoGLShaderObject *shader)
   case PROJECTION: type = CG_GL_PROJECTION_MATRIX; break;
   case TEXTURE: type = CG_GL_TEXTURE_MATRIX; break;
   case MODELVIEW_PROJECTION: type = CG_GL_MODELVIEW_PROJECTION_MATRIX; break;
-  default: assert(FALSE); break;
+  default: assert(false); break;
   }
 
   CGGLenum tform;
@@ -356,7 +356,7 @@ SoShaderStateMatrixParameter::updateParameter(SoGLShaderObject *shader)
   case TRANSPOSE: tform = CG_GL_MATRIX_TRANSPOSE; break;
   case INVERSE: tform = CG_GL_MATRIX_INVERSE; break;
   case INVERSE_TRANSPOSE: tform = CG_GL_MATRIX_INVERSE_TRANSPOSE; break;
-  default: assert(FALSE); break;
+  default: assert(false); break;
   }
 
   SoGLCgShaderParameter * param = (SoGLCgShaderParameter *)

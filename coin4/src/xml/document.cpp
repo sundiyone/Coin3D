@@ -158,7 +158,7 @@ cc_xml_doc_expat_element_start_handler_cb(void * userdata, const XML_Char * elem
   doc->parsestack.push(elt);
 
   if (doc->filtercb) {
-    doc->filtercb(doc->filtercbdata, doc, elt, TRUE);
+    doc->filtercb(doc->filtercbdata, doc, elt, true);
   }
 }
 
@@ -181,7 +181,7 @@ cc_xml_doc_expat_element_end_handler_cb(void * userdata, const XML_Char * elemen
   }
 
   if (doc->filtercb) {
-    switch (doc->filtercb(doc->filtercbdata, doc, topelt, FALSE)) {
+    switch (doc->filtercb(doc->filtercbdata, doc, topelt, false)) {
     case DISCARD:
       {
         cc_xml_elt * parent = cc_xml_elt_get_parent(topelt);
@@ -207,7 +207,7 @@ cc_xml_doc_expat_element_end_handler_cb(void * userdata, const XML_Char * elemen
   }
 }
 
-SbBool
+bool
 cc_xml_is_all_whitespace_p(const char * strptr)
 {
   while (*strptr) {
@@ -218,11 +218,11 @@ cc_xml_is_all_whitespace_p(const char * strptr)
     case '\r':
       break;
     default:
-      return FALSE;
+      return false;
     }
     ++strptr;
   }
-  return TRUE;
+  return true;
 }
 
 void
@@ -259,8 +259,8 @@ cc_xml_doc_expat_character_data_handler_cb(void * userdata, const XML_Char * cda
   //FIXME 2008-06-11 BFG: Possible leak of elt.
 
   if (doc->filtercb) {
-    doc->filtercb(doc->filtercbdata, doc, elt, TRUE);
-    cc_xml_filter_choice choice = doc->filtercb(doc->filtercbdata, doc, elt, FALSE);
+    doc->filtercb(doc->filtercbdata, doc, elt, true);
+    cc_xml_filter_choice choice = doc->filtercb(doc->filtercbdata, doc, elt, false);
     switch (choice) {
     case KEEP:
       break;
@@ -431,7 +431,7 @@ cc_xml_read_file(const char * path) // parser.h convenience function
   Deletes any old XML DOM the doc contains.
 */
 
-SbBool
+bool
 cc_xml_doc_read_file_x(cc_xml_doc * doc, const char * path)
 {
   assert(doc);
@@ -448,13 +448,13 @@ cc_xml_doc_read_file_x(cc_xml_doc * doc, const char * path)
   if (!fp) {
     // FIXME: error condition
     cc_xml_doc_delete_parser_x(doc);
-    return FALSE;
+    return false;
   }
 
   // read in file in 8K chunks, buffers kept by expat
 
-  SbBool error = FALSE;
-  SbBool final = FALSE;
+  bool error = false;
+  bool final = false;
 
   while (!final && !error) {
     void * buf = XML_GetBuffer(doc->parser, 8192);
@@ -491,7 +491,7 @@ namespace {
 void cc_xml_doc_parse_buffer_partial_init_x(cc_xml_doc * doc);
 }
 
-SbBool
+bool
 cc_xml_doc_read_buffer_x(cc_xml_doc * doc, const char * buffer, size_t buflen)
 {
 #ifdef DEV_DEBUG
@@ -515,7 +515,7 @@ cc_xml_doc_parse_buffer_partial_init_x(cc_xml_doc * doc) // maybe expose and req
 }
 }
 
-SbBool
+bool
 cc_xml_doc_parse_buffer_partial_x(cc_xml_doc * doc, const char * buffer, size_t buflen)
 {
   assert(doc);
@@ -526,7 +526,7 @@ cc_xml_doc_parse_buffer_partial_x(cc_xml_doc * doc, const char * buffer, size_t 
     cc_xml_doc_parse_buffer_partial_init_x(doc);
   }
 
-  XML_Status status = XML_Parse(doc->parser, buffer, static_cast<int>(buflen), FALSE);
+  XML_Status status = XML_Parse(doc->parser, buffer, static_cast<int>(buflen), false);
   if (status != XML_STATUS_OK) {
     cc_xml_doc_handle_parse_error(doc);
     // FIXME: should delete_parser() be invoked here?
@@ -535,7 +535,7 @@ cc_xml_doc_parse_buffer_partial_x(cc_xml_doc * doc, const char * buffer, size_t 
   return (status == XML_STATUS_OK);
 }
 
-SbBool
+bool
 cc_xml_doc_parse_buffer_partial_done_x(cc_xml_doc * doc, const char * buffer, size_t buflen)
 {
 #ifdef DEV_DEBUG
@@ -545,7 +545,7 @@ cc_xml_doc_parse_buffer_partial_done_x(cc_xml_doc * doc, const char * buffer, si
   if (!doc->parser) {
     cc_xml_doc_parse_buffer_partial_init_x(doc);
   }
-  XML_Status status = XML_Parse(doc->parser, buffer, static_cast<int>(buflen), TRUE);
+  XML_Status status = XML_Parse(doc->parser, buffer, static_cast<int>(buflen), true);
 
   if (status != XML_STATUS_OK) {
     cc_xml_doc_handle_parse_error(doc);
@@ -681,7 +681,7 @@ cc_xml_doc_create_element_x(cc_xml_doc * doc, cc_xml_path * path)
 
 // *************************************************************************
 
-SbBool
+bool
 cc_xml_doc_write_to_buffer(const cc_xml_doc * doc, char *& buffer, size_t & bytes)
 {
   assert(doc);
@@ -735,10 +735,10 @@ cc_xml_doc_write_to_buffer(const cc_xml_doc * doc, char *& buffer, size_t & byte
 
   buffer[bytes] = '\0';
 
-  return TRUE;
+  return true;
 }
 
-SbBool
+bool
 cc_xml_doc_write_to_file(const cc_xml_doc * doc, const char * path)
 {
   assert(doc);
@@ -749,7 +749,7 @@ cc_xml_doc_write_to_file(const cc_xml_doc * doc, const char * path)
   {
     char * bufptr = NULL;
     if (!cc_xml_doc_write_to_buffer(doc, bufptr, bufsize)) {
-      return FALSE;
+      return false;
     }
     assert(bufptr);
     buffer.reset(bufptr);
@@ -767,7 +767,7 @@ cc_xml_doc_write_to_file(const cc_xml_doc * doc, const char * path)
   if (strcmp(path, "-") != 0)
     fclose(fp);
 
-  return TRUE;
+  return true;
 }
 
 // *************************************************************************

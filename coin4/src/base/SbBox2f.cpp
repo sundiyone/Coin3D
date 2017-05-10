@@ -167,7 +167,7 @@ SbBox2f::makeEmpty(void)
 }
 
 /*!
-  \fn SbBool SbBox2f::isEmpty(void) const
+  \fn bool SbBox2f::isEmpty(void) const
 
   Check if this has been marked as an empty box.
 
@@ -175,7 +175,7 @@ SbBox2f::makeEmpty(void)
 */
 
 /*!
-  \fn SbBool SbBox2f::hasArea(void) const
+  \fn bool SbBox2f::hasArea(void) const
 
   Check if the box has "positive" area, i.e. the lower left corner is
   actually lower and more to the left than the other corner point.
@@ -243,26 +243,26 @@ SbBox2f::extendBy(const SbBox2f & box)
 /*!
   Check if \a point lies within the boundaries of this box.
  */
-SbBool
+bool
 SbBox2f::intersect(const SbVec2f & point) const
 {
   if ((point[0] >= this->minpt[0]) && (point[0] <= this->maxpt[0]) &&
-     (point[1] >= this->minpt[1]) && (point[1] <= this->maxpt[1])) return TRUE;
-  return FALSE;
+     (point[1] >= this->minpt[1]) && (point[1] <= this->maxpt[1])) return true;
+  return false;
 }
 
 /*!
   Check if \a box lies wholly or partly within the boundaries
   of this box.
  */
-SbBool
+bool
 SbBox2f::intersect(const SbBox2f & box) const
 {
   if ((box.getMax()[0] < this->getMin()[0]) ||
      (box.getMax()[1] < this->getMin()[1]) ||
      (box.getMin()[0] > this->getMax()[0]) ||
-     (box.getMin()[1] > this->getMax()[1])) return FALSE;
-  return TRUE;
+     (box.getMin()[1] > this->getMax()[1])) return false;
+  return true;
 }
 
 /*!

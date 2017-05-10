@@ -51,7 +51,7 @@ public:
 
   static SoType getClassTypeId(void);
   virtual SoType getTypeId(void) const;
-  SbBool isOfType(const SoType type) const;
+  bool isOfType(const SoType type) const;
 
   static void post(const char * const format, ...);
 

@@ -54,7 +54,7 @@ protected:
   SoVRMLVertexPoint(void);
   virtual ~SoVRMLVertexPoint();
 
-  virtual SbBool shouldGLRender(SoGLRenderAction * action);
+  virtual bool shouldGLRender(SoGLRenderAction * action);
   virtual void computeBBox(SoAction * action, SbBox3f & box,
                            SbVec3f & center);
 }; // class SoVRMLVertexPoint

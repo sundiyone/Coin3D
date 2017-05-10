@@ -171,7 +171,7 @@ textureCoordinateCylinderCallback(void * userdata,
 
   if (!node->isOfType(SoShape::getClassTypeId())) {
     // FIXME: A better way to handle this? (20040122 handegar)
-    assert(FALSE && "TextureCoordinateCylinder callback called for a non-SoShape node.");
+    assert(false && "TextureCoordinateCylinder callback called for a non-SoShape node.");
   }
 
   // Cast the node into a shape

@@ -76,18 +76,18 @@ public:
   virtual void callback(SoCallbackAction * action);
   virtual void rayPick(SoRayPickAction * action);
 
-  static SbBool readImage(const SbString & fname, int & w, int & h, int & nc,
+  static bool readImage(const SbString & fname, int & w, int & h, int & nc,
                           unsigned char *& bytes);
 protected:
   virtual ~SoTextureCubeMap();
 
-  virtual SbBool readInstance(SoInput * in, unsigned short flags);
+  virtual bool readInstance(SoInput * in, unsigned short flags);
   virtual void notify(SoNotList * list);
   int getReadStatus(void);
   void setReadStatus(int s);
 
 private:
-  SbBool loadFilename(const SbString & filename, SoSFImage * image);
+  bool loadFilename(const SbString & filename, SoSFImage * image);
   static void filenameSensorCB(void *, SoSensor *);
   SoSFImage * getImageField(const int idx);
 

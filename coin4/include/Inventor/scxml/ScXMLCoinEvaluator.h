@@ -42,7 +42,7 @@ public:
 
   virtual ScXMLDataObj * evaluate(const char * expression) const;
 
-  virtual SbBool setAtLocation(const char * location, ScXMLDataObj * obj);
+  virtual bool setAtLocation(const char * location, ScXMLDataObj * obj);
   virtual ScXMLDataObj * locate(const char * location) const;
 
   virtual void clearTemporaryVariables(void);
@@ -62,7 +62,7 @@ public:
   static void cleanClass(void);
 
 protected:
-  virtual SbBool evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj * & pointer) const;
+  virtual bool evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj * & pointer) const;
 
 };
 
@@ -74,7 +74,7 @@ public:
   static void cleanClass(void);
 
 protected:
-  virtual SbBool evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj * & pointer) const;
+  virtual bool evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj * & pointer) const;
 
 };
 
@@ -88,7 +88,7 @@ public:
   static ScXMLDataObj * createFor(ScXMLDataObj * lhs, ScXMLDataObj * rhs);
 
 protected:
-  virtual SbBool evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj * & pointer) const;
+  virtual bool evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj * & pointer) const;
 
 };
 
@@ -100,7 +100,7 @@ public:
   static void cleanClass(void);
 
 protected:
-  virtual SbBool evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj * & pointer) const;
+  virtual bool evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj * & pointer) const;
 
 };
 
@@ -112,7 +112,7 @@ public:
   static void cleanClass(void);
 
 protected:
-  virtual SbBool evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj * & pointer) const;
+  virtual bool evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj * & pointer) const;
 
 };
 
@@ -133,7 +133,7 @@ public:
   ScXMLDataObj * getExpr(void) const { return this->expr; }
 
 protected:
-  virtual SbBool evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj * & pointer) const;
+  virtual bool evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj * & pointer) const;
 
   ScXMLDataObj * expr;
 

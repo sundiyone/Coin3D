@@ -48,7 +48,7 @@ public:
   virtual void setExprAttribute(const char * expr);
   virtual const char * getExprAttribute(void) const { return this->expr; }
 
-  virtual SbBool handleXMLAttributes(void);
+  virtual bool handleXMLAttributes(void);
 
   virtual void copyContents(const ScXMLElt * rhs);
 

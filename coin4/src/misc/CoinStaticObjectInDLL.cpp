@@ -60,13 +60,13 @@ CoinStaticObjectInDLL * CoinStaticObjectInDLL::singleton = NULL;
 
 #ifndef HAVE_WIN32_API
 
-CoinStaticObjectInDLL::CoinStaticObjectInDLL(void) { assert(FALSE); }
-CoinStaticObjectInDLL::~CoinStaticObjectInDLL() { assert(FALSE); }
+CoinStaticObjectInDLL::CoinStaticObjectInDLL(void) { assert(false); }
+CoinStaticObjectInDLL::~CoinStaticObjectInDLL() { assert(false); }
 void CoinStaticObjectInDLL::init(void) { /* will be called, so don't assert */ }
 // dummy, avoid linker errors
 SbString CoinStaticObjectInDLL::mutexName(void) { return SbString(""); }
-SbBool CoinStaticObjectInDLL::activateMutex(void) {  assert(FALSE); return TRUE; }
-void CoinStaticObjectInDLL::deactivateMutex(void) { assert(FALSE); }
+bool CoinStaticObjectInDLL::activateMutex(void) {  assert(false); return true; }
+void CoinStaticObjectInDLL::deactivateMutex(void) { assert(false); }
 
 #else // HAVE_WIN32_API
 
@@ -100,7 +100,7 @@ static CoinStaticObjectInDLL dllobject;
 // Must use the C library getenv() calls below, not Coin's
 // coin_getenv(), since this code is executed before SoDB::init().
 
-static SbBool
+static bool
 debug(void)
 {
   static int dbg = -1;
@@ -111,7 +111,7 @@ debug(void)
   return dbg;
 }
 
-static SbBool
+static bool
 runtime_disabled(void)
 {
   static int val = -1;
@@ -224,9 +224,9 @@ CoinStaticObjectInDLL::init(void)
   }
 }
 
-// Returns TRUE if mutex was created ok, or FALSE if the mutex was
+// Returns true if mutex was created ok, or false if the mutex was
 // already created.
-SbBool
+bool
 CoinStaticObjectInDLL::activateMutex(void)
 {
   if (debug()) {
@@ -241,11 +241,11 @@ CoinStaticObjectInDLL::activateMutex(void)
   SetLastError(0); // so we don't react to an old error for the check below
 
   CoinStaticObjectInDLL::mutexhandle = (HANDLE)
-    CreateMutex(NULL, TRUE, CoinStaticObjectInDLL::mutexName().getString());
+    CreateMutex(NULL, true, CoinStaticObjectInDLL::mutexName().getString());
   // (The mutex is automatically destructed by the operating system
   // when the process exits.)
 
-  return (GetLastError() == ERROR_ALREADY_EXISTS) ? FALSE : TRUE;
+  return (GetLastError() == ERROR_ALREADY_EXISTS) ? false : true;
 }
 
 void

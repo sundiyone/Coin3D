@@ -51,16 +51,16 @@ public:
   static void set(SoState * state, 
                   SoNode * node,
                   const int unit,
-                  const SbBool enabled);
+                  const bool enabled);
 
-  static SbBool get(SoState * state, const int unit = 0);
+  static bool get(SoState * state, const int unit = 0);
   virtual void setElt(const int unit, const int mode);
 
   virtual void push(SoState * state);
-  virtual SbBool matches(const SoElement * elem) const;
+  virtual bool matches(const SoElement * elem) const;
   SoElement * copyMatchInfo(void) const;
 
-  static const SbBool * getEnabledUnits(SoState * state,
+  static const bool * getEnabledUnits(SoState * state,
                                         int & lastenabled);
   static const Mode * getActiveUnits(SoState * state,
                                      int & lastenabled);
@@ -73,18 +73,18 @@ public:
 
   // Coin-3 support
   static void set(SoState * state, 
-                  const SbBool enabled) {
+                  const bool enabled) {
     set(state, NULL, 0, enabled);
   }
 
   static void set(SoState * state, SoNode * node,
-                  const SbBool enabled) {
+                  const bool enabled) {
     set(state, node, 0, enabled);
   }
   
 protected:
   int getMaxUnits() const;
-  SbBool isEnabled(const int unit) const;
+  bool isEnabled(const int unit) const;
   Mode getMode(const int unit) const;
 
 private:

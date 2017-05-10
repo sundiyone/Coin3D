@@ -66,11 +66,11 @@ ScXMLECMAScriptEvaluator::evaluate(const char * COIN_UNUSED_ARG(expression)) con
   return NULL;
 }
 
-SbBool
+bool
 ScXMLECMAScriptEvaluator::setAtLocation(const char * COIN_UNUSED_ARG(location), ScXMLDataObj * COIN_UNUSED_ARG(obj))
 {
   // FIXME: not implemented
-  return FALSE;
+  return false;
 }
 
 ScXMLDataObj *

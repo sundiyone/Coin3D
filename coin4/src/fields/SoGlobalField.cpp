@@ -135,7 +135,7 @@ SoGlobalField::initClass(void)
   // don't reference count items in this list. We need the refcount to
   // go down to 0 to detect when a global field is no longer
   // referenced
-  SoGlobalField::allcontainers->addReferences(FALSE);
+  SoGlobalField::allcontainers->addReferences(false);
   coin_atexit(SoGlobalField::clean, CC_ATEXIT_NORMAL);
 }
 
@@ -254,7 +254,7 @@ SoGlobalField::setName(const SbName & newname)
 }
 
 // Read data for this SoGlobalField instance.
-SbBool
+bool
 SoGlobalField::readInstance(SoInput * in, unsigned short COIN_UNUSED_ARG(flags))
 {
   // A bit more coding and we could let the readInstance() method be
@@ -266,7 +266,7 @@ SoGlobalField::readInstance(SoInput * in, unsigned short COIN_UNUSED_ARG(flags))
 #define READ_VAL(val) \
   if (!in->read(val)) { \
     SoReadError::post(in, "Premature end of file"); \
-    return FALSE; \
+    return false; \
   }
 
   SbString str;
@@ -274,7 +274,7 @@ SoGlobalField::readInstance(SoInput * in, unsigned short COIN_UNUSED_ARG(flags))
   if (str != "type") {
     SoReadError::post(in, "invalid identifier, expected 'type', got '%s'",
                       str.getString());
-    return FALSE;
+    return false;
   }
 
   SbString typestr;
@@ -284,15 +284,15 @@ SoGlobalField::readInstance(SoInput * in, unsigned short COIN_UNUSED_ARG(flags))
   SoType fieldtype = SoType::fromName(type);
   if (fieldtype == SoType::badType()) {
     SoReadError::post(in, "invalid field type '%s'", type.getString());
-    return FALSE;
+    return false;
   }
   if (!fieldtype.canCreateInstance()) {
     SoReadError::post(in, "abstract type '%s'", type.getString());
-    return FALSE;
+    return false;
   }
   if (!fieldtype.isDerivedFrom(SoField::getClassTypeId())) {
     SoReadError::post(in, "'%s' not a field type", type.getString());
-    return FALSE;
+    return false;
   }
 
   if (in->isBinary()) {
@@ -301,7 +301,7 @@ SoGlobalField::readInstance(SoInput * in, unsigned short COIN_UNUSED_ARG(flags))
     if (nrfields != 1) {
       SoReadError::post(in, "%d fields for a globalfield node (should "
                         "always be 1)", nrfields);
-      return FALSE;
+      return false;
     }
   }
 
@@ -312,7 +312,7 @@ SoGlobalField::readInstance(SoInput * in, unsigned short COIN_UNUSED_ARG(flags))
   SoField * f = static_cast<SoField *>(fieldtype.createInstance());
   if (!f->read(in, fieldname)) {
     delete f;
-    return FALSE;
+    return false;
   }
 
   f->setContainer(this);
@@ -321,17 +321,17 @@ SoGlobalField::readInstance(SoInput * in, unsigned short COIN_UNUSED_ARG(flags))
 
 #undef READ_VAL
 
-  return TRUE;
+  return true;
 }
 
 // Overridden from SoBase to make sure we're accounted for, even
 // though we -- as a container for a global field -- only exists
 // through a field-to-field connection.
 void
-SoGlobalField::addWriteReference(SoOutput * out, SbBool COIN_UNUSED_ARG(isfromfield))
+SoGlobalField::addWriteReference(SoOutput * out, bool COIN_UNUSED_ARG(isfromfield))
 {
   assert(this->classfielddata);
-  inherited::addWriteReference(out, FALSE);
+  inherited::addWriteReference(out, false);
 }
 
 
@@ -341,7 +341,7 @@ SoGlobalField::writeInstance(SoOutput * out)
 {
   assert(this->classfielddata);
 
-  if (this->writeHeader(out, FALSE, FALSE)) return;
+  if (this->writeHeader(out, false, false)) return;
 
   SoField * f = this->getGlobalField();
   assert(f);
@@ -352,8 +352,8 @@ SoGlobalField::writeInstance(SoOutput * out)
   out->write(f->getTypeId().getName());
   if (!out->isBinary()) out->write('\n');
 
-  SbBool isdefault = f->isDefault();
-  f->setDefault(FALSE);
+  bool isdefault = f->isDefault();
+  f->setDefault(false);
   inherited::writeInstance(out);
   f->setDefault(isdefault);
 

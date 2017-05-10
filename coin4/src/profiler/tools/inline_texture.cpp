@@ -24,7 +24,7 @@ main(void)
 
   SoSearchAction searchaction;
   searchaction.setType(SoTexture2::getClassTypeId());
-  searchaction.setSearchingAll(TRUE);
+  searchaction.setSearchingAll(true);
   searchaction.setInterest(SoSearchAction::ALL);
 
   searchaction.apply(root);

@@ -190,11 +190,11 @@ SoJackDragger::SoJackDragger(void)
 {
   SO_KIT_INTERNAL_CONSTRUCTOR(SoJackDragger);
 
-  SO_KIT_ADD_CATALOG_ENTRY(surroundScale, SoSurroundScale, TRUE, topSeparator, antiSquish, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(antiSquish, SoAntiSquish, FALSE, topSeparator, scaler, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(scaler, SoScaleUniformDragger, TRUE, topSeparator, rotator, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(rotator, SoRotateSphericalDragger, TRUE, topSeparator, translator, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(translator, SoDragPointDragger, TRUE, topSeparator, geomSeparator, TRUE);
+  SO_KIT_ADD_CATALOG_ENTRY(surroundScale, SoSurroundScale, true, topSeparator, antiSquish, true);
+  SO_KIT_ADD_CATALOG_ENTRY(antiSquish, SoAntiSquish, false, topSeparator, scaler, true);
+  SO_KIT_ADD_CATALOG_ENTRY(scaler, SoScaleUniformDragger, true, topSeparator, rotator, true);
+  SO_KIT_ADD_CATALOG_ENTRY(rotator, SoRotateSphericalDragger, true, topSeparator, translator, true);
+  SO_KIT_ADD_CATALOG_ENTRY(translator, SoDragPointDragger, true, topSeparator, geomSeparator, true);
 
 
   if (SO_KIT_IS_FIRST_INSTANCE()) {
@@ -217,7 +217,7 @@ SoJackDragger::SoJackDragger(void)
   squish->sizing = SoAntiSquish::BIGGEST_DIMENSION;
   // if the antisquish node to recalculate its parameters on every
   // traversal, rotating this dragger destroys its geometry
-  squish->recalcAlways = FALSE;
+  squish->recalcAlways = false;
 
   this->addValueChangedCallback(SoJackDragger::valueChangedCB);
   this->rotFieldSensor = new SoFieldSensor(SoJackDragger::fieldSensorCB, this);
@@ -226,7 +226,7 @@ SoJackDragger::SoJackDragger(void)
   this->translFieldSensor->setPriority(0);
   this->scaleFieldSensor = new SoFieldSensor(SoJackDragger::fieldSensorCB, this);
   this->scaleFieldSensor->setPriority(0);
-  this->setUpConnections(TRUE, TRUE);
+  this->setUpConnections(true, true);
 }
 
 /*!
@@ -244,15 +244,15 @@ SoJackDragger::~SoJackDragger()
 }
 
 // Doc in superclass.
-SbBool
-SoJackDragger::setUpConnections(SbBool onoff, SbBool doitalways)
+bool
+SoJackDragger::setUpConnections(bool onoff, bool doitalways)
 {
   if (!doitalways && this->connectionsSetUp == onoff) return onoff;
 
   if (onoff) {
     inherited::setUpConnections(onoff, doitalways);
     SoDragger *child;
-    child = coin_assert_cast<SoDragger *>(this->getAnyPart("rotator", FALSE));
+    child = coin_assert_cast<SoDragger *>(this->getAnyPart("rotator", false));
     child->setPartAsDefault("rotator",
                             "jackRotatorRotator");
     child->setPartAsDefault("rotatorActive",
@@ -261,14 +261,14 @@ SoJackDragger::setUpConnections(SbBool onoff, SbBool doitalways)
                             "jackRotatorFeedback");
     this->addChildDragger(child);
 
-    child = coin_assert_cast<SoDragger *>(this->getAnyPart("scaler", FALSE));
+    child = coin_assert_cast<SoDragger *>(this->getAnyPart("scaler", false));
     child->setPartAsDefault("scaler", "jackScalerScaler");
     child->setPartAsDefault("scalerActive", "jackScalerScalerActive");
     child->setPartAsDefault("feedback", "jackScalerFeedback");
     child->setPartAsDefault("feedbackActive", "jackScalerFeedbackActive");
     this->addChildDragger(child);
 
-    child = coin_assert_cast<SoDragger *>(this->getAnyPart("translator", FALSE));
+    child = coin_assert_cast<SoDragger *>(this->getAnyPart("translator", false));
     child->setPartAsDefault("xTranslator.translator", "jackTranslatorLineTranslator");
     child->setPartAsDefault("yTranslator.translator", "jackTranslatorLineTranslator");
     child->setPartAsDefault("zTranslator.translator", "jackTranslatorLineTranslator");
@@ -321,12 +321,12 @@ SoJackDragger::setUpConnections(SbBool onoff, SbBool doitalways)
 void
 SoJackDragger::setDefaultOnNonWritingFields(void)
 {
-  this->translator.setDefault(TRUE);
-  this->rotator.setDefault(TRUE);
-  this->scaler.setDefault(TRUE);
+  this->translator.setDefault(true);
+  this->rotator.setDefault(true);
+  this->scaler.setDefault(true);
 
-  this->antiSquish.setDefault(TRUE);
-  this->surroundScale.setDefault(TRUE);
+  this->antiSquish.setDefault(true);
+  this->surroundScale.setDefault(true);
 
   inherited::setDefaultOnNonWritingFields();
 }
@@ -399,7 +399,7 @@ SoJackDragger::addChildDragger(SoDragger *child)
 void
 SoJackDragger::removeChildDragger(const char *childname)
 {
-  SoDragger * child = coin_assert_cast<SoDragger *>(this->getAnyPart(childname, FALSE));
+  SoDragger * child = coin_assert_cast<SoDragger *>(this->getAnyPart(childname, false));
   child->removeStartCallback(SoJackDragger::invalidateSurroundScaleCB, this);
   child->removeFinishCallback(SoJackDragger::invalidateSurroundScaleCB, this);
   this->unregisterChildDragger(child);

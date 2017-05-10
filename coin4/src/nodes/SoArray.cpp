@@ -251,7 +251,7 @@ SoArray::getBoundingBox(SoGetBoundingBoxAction * action)
   if (!incomingbox.isEmpty()) box.extendBy(incomingbox);
 
   if (numCenters != 0)
-    action->setCenter(acccenter / numCenters, FALSE);
+    action->setCenter(acccenter / numCenters, false);
 
 #else // "new" code, 19990423, pederb
 
@@ -323,7 +323,7 @@ SoArray::getBoundingBox(SoGetBoundingBoxAction * action)
   }
 
   if (numCenters != 0)
-    action->setCenter(acccenter / float(numCenters), FALSE);
+    action->setCenter(acccenter / float(numCenters), false);
 #endif // end of new code by pederb
 }
 
@@ -335,10 +335,10 @@ SoArray::GLRender(SoGLRenderAction * action)
 }
 
 // Doc in superclass.
-SbBool
+bool
 SoArray::affectsState(void) const
 {
-  return FALSE; // state is pushed/popped for each traversal
+  return false; // state is pushed/popped for each traversal
 }
 
 // Doc in superclass.

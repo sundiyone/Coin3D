@@ -42,10 +42,10 @@ public:
   virtual void pop(SoState * state, const SoElement * prevTopElement);
 
   static void set(SoState * const state, SoNode * const node,
-                  const SbBool enabled);
-  static void set(SoState * const state, const SbBool enabled);
-  static SbBool get(SoState * const state);
-  static SbBool getDefault(void);
+                  const bool enabled);
+  static void set(SoState * const state, const bool enabled);
+  static bool get(SoState * const state);
+  static bool getDefault(void);
 };
 
 #endif // !COIN_SOTEXTOUTLINEENABLEDELEMENT_H

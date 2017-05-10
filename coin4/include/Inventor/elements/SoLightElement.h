@@ -59,9 +59,9 @@ private:
   class so_light_elem_flag {
   public:
     so_light_elem_flag(void) {
-      this->state = FALSE;
+      this->state = false;
     }
-    SbBool state;
+    bool state;
   };
   so_light_elem_flag didalloc;
 };

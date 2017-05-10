@@ -56,7 +56,7 @@ public:
   SbVec3f getSightPoint(const float distFromEye) const;
   SbVec3f getPlanePoint(const float distFromEye,
                         const SbVec2f& normPoint) const;
-  SbRotation getAlignRotation(SbBool rightAngleOnly = FALSE) const;
+  SbRotation getAlignRotation(bool rightAngleOnly = false) const;
   float getWorldToScreenScale(const SbVec3f& worldCenter,
                               float normRadius) const;
   SbVec2f projectBox(const SbBox3f& box) const;
@@ -91,13 +91,13 @@ public:
   void transform(const SbMatrix &matrix);
   SbVec3f getViewUp(void) const;
 
-  SbBool intersect(const SbVec3f & p) const;
-  SbBool intersect(const SbVec3f & p0, const SbVec3f & p1,
+  bool intersect(const SbVec3f & p) const;
+  bool intersect(const SbVec3f & p0, const SbVec3f & p1,
                    SbVec3f & closestpoint) const;
-  SbBool intersect(const SbBox3f & box) const;
+  bool intersect(const SbBox3f & box) const;
   SbBox3f intersectionBox(const SbBox3f & box) const;
 
-  SbBool outsideTest(const SbPlane & p,
+  bool outsideTest(const SbPlane & p,
                      const SbVec3f & bmin, const SbVec3f & bmax) const;
   const SbDPViewVolume & getDPViewVolume(void) const;
 

@@ -45,10 +45,10 @@ extern "C" {
 
 /* ************************************************************************* */
 
-SbBool
+bool
 cc_flwct_initialize(void)
 {
-  return TRUE;
+  return true;
 }
 
 void

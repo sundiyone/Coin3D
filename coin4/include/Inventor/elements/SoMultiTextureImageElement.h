@@ -114,13 +114,13 @@ public:
   static Wrap getWrapT(SoState * const state, const int unit = 0);
   static Wrap getWrapR(SoState * const state, const int unit = 0);
 
-  static SbBool containsTransparency(SoState * const state);
+  static bool containsTransparency(SoState * const state);
 
   static const unsigned char * getDefault(SbVec2s & size, int & numComponents);
   static const unsigned char * getDefault(SbVec3s & size, int & numComponents);
 
   virtual void push(SoState * state);
-  virtual SbBool matches(const SoElement * elem) const;
+  virtual bool matches(const SoElement * elem) const;
   SoElement * copyMatchInfo(void) const;
 
   virtual void setElt(const int unit,
@@ -141,7 +141,7 @@ public:
                       const Model model, 
                       const SbColor & blendColor);
   
-  virtual SbBool hasTransparency(const int unit = 0) const;
+  virtual bool hasTransparency(const int unit = 0) const;
 
   class UnitData {
   public:

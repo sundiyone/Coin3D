@@ -79,7 +79,7 @@ SoGLModelMatrixElement::init(SoState * stateptr)
 {
   this->state = stateptr;
   this->viewEltNodeId = 0;
-  this->stackoverflow = FALSE;
+  this->stackoverflow = false;
   inherited::init(stateptr);
 }
 
@@ -105,7 +105,7 @@ SoGLModelMatrixElement::push(SoState * stateptr)
     if (!this->stackoverflow) {
       glPushMatrix();
       if (glGetError() == GL_STACK_OVERFLOW) {
-        this->stackoverflow = TRUE;
+        this->stackoverflow = true;
       }
     }
   }

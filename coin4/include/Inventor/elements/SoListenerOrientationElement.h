@@ -39,16 +39,16 @@ protected:
 public:
   virtual void init(SoState * state);
   static void set(SoState * const state, SoNode * const node,
-                  const SbRotation & orientation, SbBool setbylistener);
+                  const SbRotation & orientation, bool setbylistener);
 
   static const SbRotation & get(SoState * const state);
-  static SbBool isSetByListener(SoState * const state);
+  static bool isSetByListener(SoState * const state);
 
   virtual void print(FILE * file) const;
 
 protected:
   SbRotation orientation;
-  SbBool setbylistener;
+  bool setbylistener;
 };
 
 #endif // !COIN_SOLISTENERORIENTATIONELEMENT_H

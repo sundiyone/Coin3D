@@ -64,7 +64,7 @@ SoSFString::initClass(void)
 // parent classes.
 #ifndef DOXYGEN_SKIP_THIS
 
-SbBool
+bool
 SoSFString::readValue(SoInput * in)
 {
   return in->read(this->value);

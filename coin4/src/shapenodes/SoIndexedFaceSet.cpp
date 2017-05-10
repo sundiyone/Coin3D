@@ -417,10 +417,10 @@ SoIndexedFaceSet::GLRender(SoGLRenderAction * action)
   if (this->coordIndex.getNum() < 3) return;
   SoState * state = action->getState();
 
-  SbBool hasvp = FALSE;
+  bool hasvp = false;
   
   if (this->vertexProperty.getValue()) {
-    hasvp = TRUE;
+    hasvp = true;
     state->push();
     this->vertexProperty.getValue()->GLRender(action);
   }
@@ -441,14 +441,14 @@ SoIndexedFaceSet::GLRender(SoGLRenderAction * action)
   const int32_t * nindices;
   const int32_t * tindices;
   const int32_t * mindices;
-  SbBool doTextures;
-  SbBool normalCacheUsed;
+  bool doTextures;
+  bool normalCacheUsed;
 
   SoMaterialBundle mb(action);
 
-  SoTextureCoordinateBundle tb(action, TRUE, FALSE);
+  SoTextureCoordinateBundle tb(action, true, false);
   doTextures = tb.needCoordinates();
-  SbBool sendNormals = !mb.isColorOnly() || tb.isFunction();
+  bool sendNormals = !mb.isColorOnly() || tb.isFunction();
 
   this->getVertexData(state, coords, normals, cindices,
                       nindices, tindices, mindices, numindices,
@@ -497,7 +497,7 @@ SoIndexedFaceSet::GLRender(SoGLRenderAction * action)
     }
   }
 
-  SbBool convexcacheused = FALSE;
+  bool convexcacheused = false;
   if (this->useConvexCache(action, normals, nindices, normalCacheUsed)) {
     cindices = PRIVATE(this)->convexCache->getCoordIndices();
     numindices = PRIVATE(this)->convexCache->getNumCoordIndices();
@@ -511,7 +511,7 @@ SoIndexedFaceSet::GLRender(SoGLRenderAction * action)
     else if (nbind == PER_FACE) nbind = PER_FACE_INDEXED;
 
     if (tbind != NONE) tbind = PER_VERTEX_INDEXED;
-    convexcacheused = TRUE;
+    convexcacheused = true;
   }
 
   mb.sendFirst(); // make sure we have the correct material
@@ -524,7 +524,7 @@ SoIndexedFaceSet::GLRender(SoGLRenderAction * action)
 
   const uint32_t contextid = action->getCacheContext();
   SoGLLazyElement * lelem = NULL;
-  SbBool dova =
+  bool dova =
     SoVBO::shouldRenderAsVertexArrays(state, contextid, numindices) &&
     !convexcacheused && !normalCacheUsed &&
     ((nbind == OVERALL) || ((nbind == PER_VERTEX_INDEXED) && ((nindices == cindices) || (nindices == NULL)))) &&
@@ -536,24 +536,24 @@ SoIndexedFaceSet::GLRender(SoGLRenderAction * action)
   const SoGLVBOElement * vboelem = SoGLVBOElement::getInstance(state);
   SoVBO * colorvbo = NULL;
 
-  SbBool didrenderasvbo = FALSE;
+  bool didrenderasvbo = false;
   if (dova && (mbind != OVERALL)) {
-    dova = FALSE;
+    dova = false;
     if ((mbind == PER_VERTEX_INDEXED) && ((mindices == cindices) || (mindices == NULL))) {
       lelem = (SoGLLazyElement*) SoLazyElement::getInstance(state);
       colorvbo = vboelem->getColorVBO();
-      if (colorvbo) dova = TRUE;
+      if (colorvbo) dova = true;
       else {
         // we might be able to do VA-rendering, but need to check the
         // diffuse color type first.
         if (!lelem->isPacked() && lelem->getNumTransparencies() <= 1) {
-          dova = TRUE;
+          dova = true;
         }
       }
     }
   }
   if (dova) {
-    SbBool dovbo = this->startVertexArray(action,
+    bool dovbo = this->startVertexArray(action,
                                           coords,
                                           (nbind != OVERALL) ? normals : NULL,
                                           doTextures,
@@ -609,8 +609,8 @@ SoIndexedFaceSet::GLRender(SoGLRenderAction * action)
                             mbind != OVERALL);
   }
   else {
-    SoVertexAttributeBundle vab(action, TRUE);
-    SbBool doattribs = vab.doAttributes();
+    SoVertexAttributeBundle vab(action, true);
+    bool doattribs = vab.doAttributes();
 
     SoVertexAttributeBindingElement::Binding attribbind = 
       SoVertexAttributeBindingElement::get(state);
@@ -707,17 +707,17 @@ SoIndexedFaceSet::generatePrimitives(SoAction *action)
   const int32_t * nindices;
   const int32_t * tindices;
   const int32_t * mindices;
-  SbBool doTextures;
-  SbBool sendNormals;
-  SbBool normalCacheUsed;
+  bool doTextures;
+  bool sendNormals;
+  bool normalCacheUsed;
 
-  sendNormals = TRUE; // always generate normals
+  sendNormals = true; // always generate normals
 
   getVertexData(state, coords, normals, cindices,
                 nindices, tindices, mindices, numindices,
                 sendNormals, normalCacheUsed);
 
-  SoTextureCoordinateBundle tb(action, FALSE, FALSE);
+  SoTextureCoordinateBundle tb(action, false, false);
   doTextures = tb.needCoordinates();
 
   if (!sendNormals) nbind = OVERALL;
@@ -767,7 +767,7 @@ SoIndexedFaceSet::generatePrimitives(SoAction *action)
     mindices = cindices;
   }
 
-  SbBool convexcacheused = FALSE;
+  bool convexcacheused = false;
   if (this->useConvexCache(action, normals, nindices, normalCacheUsed)) {
     cindices = PRIVATE(this)->convexCache->getCoordIndices();
     numindices = PRIVATE(this)->convexCache->getNumCoordIndices();
@@ -781,7 +781,7 @@ SoIndexedFaceSet::generatePrimitives(SoAction *action)
     else if (nbind == PER_FACE) nbind = PER_FACE_INDEXED;
 
     if (tbind != NONE) tbind = PER_VERTEX_INDEXED;
-    convexcacheused = TRUE;
+    convexcacheused = true;
   }
 
   int texidx = 0;
@@ -937,23 +937,23 @@ SoIndexedFaceSet::getPrimitiveCount(SoGetPrimitiveCountAction *action)
 
 //
 // internal method which checks if convex cache needs to be
-// used or (re)created. Returns TRUE if convex cache must be
+// used or (re)created. Returns true if convex cache must be
 // used. this->convexCache is then guaranteed to be != NULL.
 //
-SbBool
+bool
 SoIndexedFaceSet::useConvexCache(SoAction * action,
                                  const SbVec3f * COIN_UNUSED_ARG(normals),
                                  const int32_t * nindices,
-                                 const SbBool normalsfromcache)
+                                 const bool normalsfromcache)
 {
   // we only want to use the convex data cache when rendering. All
   // other actions should work on the original data to ensure correct
   // part and face indices.
-  if (!action->isOfType(SoGLRenderAction::getClassTypeId())) return FALSE;
+  if (!action->isOfType(SoGLRenderAction::getClassTypeId())) return false;
   
   SoState * state = action->getState();
   if (SoShapeHintsElement::getFaceType(state) == SoShapeHintsElement::CONVEX)
-    return FALSE;
+    return false;
   
   if (PRIVATE(this)->concavestatus == STATUS_UNKNOWN) {
     const int32_t * ptr = this->coordIndex.getValues(0);
@@ -968,18 +968,18 @@ SoIndexedFaceSet::useConvexCache(SoAction * action,
       }
     }
   }
-  if (PRIVATE(this)->concavestatus == STATUS_CONVEX) return FALSE;
+  if (PRIVATE(this)->concavestatus == STATUS_CONVEX) return false;
 
   PRIVATE(this)->readLockConvexCache();
 
   if (PRIVATE(this)->convexCache && PRIVATE(this)->convexCache->isValid(state))
-    return TRUE;
+    return true;
 
   PRIVATE(this)->readUnlockConvexCache();
   PRIVATE(this)->writeLockConvexCache();
 
   if (PRIVATE(this)->convexCache) PRIVATE(this)->convexCache->unref();
-  SbBool storedinvalid = SoCacheElement::setInvalid(FALSE);
+  bool storedinvalid = SoCacheElement::setInvalid(false);
 
   // need to send matrix if we have some weird transformation
   SbMatrix modelmatrix = SoModelMatrixElement::get(state);
@@ -1001,14 +1001,14 @@ SoIndexedFaceSet::useConvexCache(SoAction * action,
   const int32_t * dummynindices;
   const int32_t * tindices;
   const int32_t * mindices;
-  SbBool dummy;
+  bool dummy;
 
   // normals was included as parameters to this function (to avoid
   // a double readLock on the normal cache), so tell getVertexData()
   // not to return normals.
   this->getVertexData(state, coords, dummynormals, cindices,
                       dummynindices, tindices, mindices, numindices,
-                      FALSE, dummy);
+                      false, dummy);
   
   // force a cache-dependency on SoNormalElement
   (void) SoNormalElement::getInstance(state);
@@ -1065,25 +1065,25 @@ SoIndexedFaceSet::useConvexCache(SoAction * action,
 
   PRIVATE(this)->readLockConvexCache();
 
-  return TRUE;
+  return true;
 }
 
 // Documented in superclass.
-SbBool
+bool
 SoIndexedFaceSet::generateDefaultNormals(SoState *, SoNormalBundle *)
 {
   // Normals are generated in normal cache.
-  return FALSE;
+  return false;
 }
 
 // Documented in superclass.
-SbBool
+bool
 SoIndexedFaceSet::generateDefaultNormals(SoState * state,
                                        SoNormalCache * nc)
 {
-  SbBool ccw = TRUE;
+  bool ccw = true;
   if (SoShapeHintsElement::getVertexOrdering(state) ==
-      SoShapeHintsElement::CLOCKWISE) ccw = FALSE;
+      SoShapeHintsElement::CLOCKWISE) ccw = false;
 
   const SbVec3f * coords = SoCoordinateElement::getInstance(state)->getArrayPtr3();
   assert(coords);
@@ -1118,7 +1118,7 @@ SoIndexedFaceSet::generateDefaultNormals(SoState * state,
   default:
     break;
   }
-  return TRUE;
+  return true;
 }
 
 #undef PRIVATE

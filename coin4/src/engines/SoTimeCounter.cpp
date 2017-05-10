@@ -57,7 +57,7 @@
 /*!
   \var SoSFBool SoTimeCounter::on
 
-  Set to \c FALSE to pause the counter. Default value is \c TRUE.
+  Set to \c false to pause the counter. Default value is \c true.
 */
 
 /*!
@@ -127,7 +127,7 @@ SoTimeCounter::SoTimeCounter(void)
   SO_ENGINE_ADD_INPUT(min, (0));
   SO_ENGINE_ADD_INPUT(max, (1));
   SO_ENGINE_ADD_INPUT(step, (1));
-  SO_ENGINE_ADD_INPUT(on, (TRUE));
+  SO_ENGINE_ADD_INPUT(on, (true));
   SO_ENGINE_ADD_INPUT(frequency, (1.0f));
   SO_ENGINE_ADD_INPUT(duty, (1.0f));
   SO_ENGINE_ADD_INPUT(reset, (0));
@@ -136,16 +136,16 @@ SoTimeCounter::SoTimeCounter(void)
   SO_ENGINE_ADD_OUTPUT(output, SoSFShort);
   SO_ENGINE_ADD_OUTPUT(syncOut, SoSFTrigger);
 
-  this->syncOut.enable(FALSE);
+  this->syncOut.enable(false);
 
   SoField * realtime = SoDB::getGlobalField("realTime");
   this->starttime = coin_assert_cast<SoSFTime *>(realtime)->getValue().getValue();
-  this->firstoutputenable = TRUE;
+  this->firstoutputenable = true;
   this->outputvalue = 0;
   this->cyclelen = 1.0;
   this->numsteps = 2;
   this->stepnum = 0;
-  this->ispaused = FALSE;
+  this->ispaused = false;
 
   this->timeIn.connectFrom(realtime);
 }
@@ -177,13 +177,13 @@ SoTimeCounter::writeInstance(SoOutput * out)
 
   // Disconnect from realTime field.
   SoField * connectfield = NULL;
-  SbBool connectfromrealTime =
+  bool connectfromrealTime =
     this->timeIn.getConnectedField(connectfield) &&
     connectfield == SoDB::getGlobalField("realTime");
-  SbBool defaultflag = this->timeIn.isDefault();
+  bool defaultflag = this->timeIn.isDefault();
   if (connectfromrealTime) {
     this->timeIn.disconnect();
-    this->timeIn.setDefault(TRUE);
+    this->timeIn.setDefault(true);
   }
 
   inherited::writeInstance(out);
@@ -192,7 +192,7 @@ SoTimeCounter::writeInstance(SoOutput * out)
   if (connectfromrealTime) {
     // Don't send notification when reconnecting to preserve the state
     // of the scenegraph between write passes.
-    this->timeIn.connectFrom(connectfield, TRUE);
+    this->timeIn.connectFrom(connectfield, true);
     this->timeIn.setDefault(defaultflag);
   }
 }
@@ -226,9 +226,9 @@ SoTimeCounter::evaluate(void)
 
   // Force update on slave fields (SO_ENGINE_OUTPUT checks
   // isEnabled()-value, and we want the setValue() to happen anyway).
-  this->output.enable(TRUE);
+  this->output.enable(true);
   SO_ENGINE_OUTPUT(output, SoSFShort, setValue(this->outputvalue));
-  // The isEnabled() flag will be set back to FALSE again upon the
+  // The isEnabled() flag will be set back to false again upon the
   // next invocation of SoTimeCounter::inputChanged().
 }
 
@@ -240,14 +240,14 @@ SoTimeCounter::inputChanged(SoField * which)
   // function to SoEngine::notify(). This is an optimization for this
   // engine to avoid transmission of notification to all slave fields
   // each time the timeIn field is updated.
-  this->output.enable(FALSE);
-  this->syncOut.enable(FALSE);
+  this->output.enable(false);
+  this->syncOut.enable(false);
 
   // Enable outputs on first call.
   if (this->firstoutputenable) {
-    this->firstoutputenable = FALSE;
-    this->output.enable(TRUE);
-    this->syncOut.enable(TRUE);
+    this->firstoutputenable = false;
+    this->output.enable(true);
+    this->syncOut.enable(true);
   }
 
   // First handle the case where the timeIn field has been changed, as
@@ -262,7 +262,7 @@ SoTimeCounter::inputChanged(SoField * which)
 
     if (difftime > this->cyclelen) {
       // Trigger syncOut once at start of cycle.
-      this->syncOut.enable(TRUE);
+      this->syncOut.enable(true);
 
       double num = difftime / this->cyclelen;
       this->starttime += this->cyclelen * floor(num);
@@ -281,10 +281,10 @@ SoTimeCounter::inputChanged(SoField * which)
     if (this->on.getValue() && this->ispaused) {
       this->starttime =
         this->timeIn.getValue().getValue() - this->pausetimeincycle;
-      this->ispaused = FALSE;
+      this->ispaused = false;
     }
     else if (!this->on.getValue() && !this->ispaused) {
-      this->ispaused = TRUE;
+      this->ispaused = true;
       this->pausetimeincycle =
         this->timeIn.getValue().getValue() - this->starttime;
     }
@@ -353,7 +353,7 @@ SoTimeCounter::inputChanged(SoField * which)
   // Could also optimize for the case where changes to the control
   // fields doesn't yield an immediate change to the output value, but
   // that doesn't seem worthwhile.
-  this->output.enable(TRUE);
+  this->output.enable(true);
 }
 
 

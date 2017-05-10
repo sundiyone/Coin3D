@@ -63,8 +63,8 @@ SoIdleSensor::~SoIdleSensor(void)
 
 // Only processed when application is idle -- not at delay queue
 // timeouts.
-SbBool
+bool
 SoIdleSensor::isIdleOnly(void) const
 {
-  return TRUE;
+  return true;
 }

@@ -97,10 +97,10 @@ SbHeap::emptyHeap(void)
 /*!
   Traverses each heap elements, and calls \a func for each element.
 */
-SbBool
-SbHeap::traverseHeap(SbBool (*func)(void *, void *), void *userdata) const
+bool
+SbHeap::traverseHeap(bool (*func)(void *, void *), void *userdata) const
 {
-  SbBool ok = TRUE;
+  bool ok = true;
   int hsize = this->heap.getLength() - 1;
 
   for(int i = 1; (i <= hsize) && ok; i++)
@@ -222,11 +222,11 @@ SbHeap::newWeight(void *obj, int hpos)
 /*!
   Builds heap out of randomly ordered data-structure.
 */
-SbBool
-SbHeap::buildHeap(SbBool (*progresscb)(float percentage, void *data),
+bool
+SbHeap::buildHeap(bool (*progresscb)(float percentage, void *data),
                   void *data)
 {
-  SbBool ok = TRUE;
+  bool ok = true;
   int hsize = this->heap.getLength()-1;
 
   int nrelems = hsize >> 1;

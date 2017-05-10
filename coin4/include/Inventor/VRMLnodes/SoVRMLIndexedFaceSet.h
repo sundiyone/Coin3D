@@ -52,8 +52,8 @@ public:
   virtual void GLRender( SoGLRenderAction * action );
   virtual void getPrimitiveCount( SoGetPrimitiveCountAction * action );
 
-  virtual SbBool generateDefaultNormals(SoState * s, SoNormalBundle * nb );
-  virtual SbBool generateDefaultNormals(SoState * state, SoNormalCache * nc);
+  virtual bool generateDefaultNormals(SoState * s, SoNormalBundle * nb );
+  virtual bool generateDefaultNormals(SoState * state, SoNormalCache * nc);
 
 protected:
   virtual ~SoVRMLIndexedFaceSet();
@@ -77,10 +77,10 @@ private:
 
   virtual void notify(SoNotList * list);
   
-  SbBool useConvexCache(SoAction * action, 
+  bool useConvexCache(SoAction * action, 
                         const SbVec3f * normals, 
                         const int32_t * nindices, 
-                        const SbBool normalsfromcache);
+                        const bool normalsfromcache);
   
   SoVRMLIndexedFaceSetP * pimpl;
 };

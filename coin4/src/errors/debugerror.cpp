@@ -35,7 +35,7 @@
 static cc_debugerror_cb * dbgerr_callback =
   reinterpret_cast<cc_debugerror_cb *>(cc_error_default_handler_cb);
 static void * dbgerr_callback_data = NULL;
-static SbBool dbgerr_cleanup_function_set = FALSE;
+static bool dbgerr_cleanup_function_set = false;
 
 extern "C" {
 
@@ -44,7 +44,7 @@ debugerror_cleanup(void)
 {
   dbgerr_callback = reinterpret_cast<cc_debugerror_cb *>(cc_error_default_handler_cb);
   dbgerr_callback_data = NULL;
-  dbgerr_cleanup_function_set = FALSE;
+  dbgerr_cleanup_function_set = false;
 }
 
 } // extern "C"
@@ -76,7 +76,7 @@ cc_debugerror_set_handler_callback(cc_debugerror_cb * function, void * data)
 
   if (!dbgerr_cleanup_function_set) {
     coin_atexit(debugerror_cleanup, CC_ATEXIT_MSG_SUBSYSTEM);
-    dbgerr_cleanup_function_set = TRUE;
+    dbgerr_cleanup_function_set = true;
   }
 }
 

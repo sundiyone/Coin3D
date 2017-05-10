@@ -89,7 +89,7 @@ SoUnknownNode::SoUnknownNode(void)
   /* Initialize a fielddata container for the instance. */
   this->classfielddata = new SoFieldData;
 
-  this->isBuiltIn = FALSE;
+  this->isBuiltIn = false;
   PRIVATE(this)->privatechildren = NULL;
   PRIVATE(this)->alternate = new SoChildList(this, 1);
 }
@@ -129,7 +129,7 @@ SoUnknownNode::atexit_cleanup(void)
   SoUnknownNode::classTypeId STATIC_SOTYPE_INIT;
 }
 
-SbBool
+bool
 SoUnknownNode::readInstance(SoInput * in, unsigned short flags)
 {
   if (SoInputP::debug()) {
@@ -139,15 +139,15 @@ SoUnknownNode::readInstance(SoInput * in, unsigned short flags)
   }
 
 
-  SbBool notbuiltin;
-  // The "error on unknown field" is FALSE, in case we are a group
+  bool notbuiltin;
+  // The "error on unknown field" is false, in case we are a group
   // node with children specified in the file.
-  if (!this->classfielddata->read(in, this, FALSE, notbuiltin)) return FALSE;
+  if (!this->classfielddata->read(in, this, false, notbuiltin)) return false;
 
-  if (notbuiltin == FALSE) {
+  if (notbuiltin == false) {
     SoReadError::post(in, "Node type ``%s'' not recognized.",
                       PRIVATE(this)->classname.getString());
-    return FALSE;
+    return false;
   }
 
   // Set pointer to alternateRep node, if SoSFNode field with this
@@ -175,7 +175,7 @@ SoUnknownNode::readInstance(SoInput * in, unsigned short flags)
     g->ref();
     if (!g->readChildren(in)) {
       g->unref();
-      return FALSE;
+      return false;
     }
 
 #if COIN_DEBUG && 0 // debug
@@ -206,7 +206,7 @@ SoUnknownNode::readInstance(SoInput * in, unsigned short flags)
     }
   }
 
-  return TRUE;
+  return true;
 }
 
 // The name used for the nodes of this type in scene file.
@@ -245,7 +245,7 @@ SoUnknownNode::write(SoWriteAction * action)
       if (PRIVATE(this)->privatechildren) PRIVATE(this)->privatechildren->traverse(action);
   }
   else if (out->getStage() == SoOutput::WRITE) {
-    if (this->writeHeader(out, PRIVATE(this)->privatechildren ? TRUE : FALSE, FALSE))
+    if (this->writeHeader(out, PRIVATE(this)->privatechildren ? true : false, false))
       return;
     this->getFieldData()->write(out, this);
     if (out->isBinary())
@@ -313,7 +313,7 @@ SoUnknownNode::addToCopyDict(void) const
 
 void 
 SoUnknownNode::copyContents(const SoFieldContainer * from,
-                            SbBool copyconnections)
+                            bool copyconnections)
 {
   int i;
   const SoUnknownNode * src = (const SoUnknownNode *) from;

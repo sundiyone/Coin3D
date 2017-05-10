@@ -164,7 +164,7 @@ SoGLRenderCache::getCacheContext(void) const
 
 // Documented in superclass. Overridden to test and update lazy GL
 // elements.
-SbBool
+bool
 SoGLRenderCache::isValid(const SoState * state) const
 {
   // pre and post cache state is handled in SoGLCacheList

@@ -54,9 +54,9 @@
 #define SO_NODEENGINE_INTERNAL_CONSTRUCTOR(_class_) \
   do { \
     SO_NODEENGINE_CONSTRUCTOR(_class_); \
-    /* Restore value of isBuiltIn flag (which is set to FALSE */ \
+    /* Restore value of isBuiltIn flag (which is set to false */ \
     /* in the SO_ENGINE_CONSTRUCTOR() macro). */ \
-    this->isBuiltIn = TRUE; \
+    this->isBuiltIn = true; \
   } while (0)
 
 #define SO_NODEENGINE_INTERNAL_INIT_CLASS(_class_) \

@@ -56,11 +56,11 @@ public:
   int getIndex(const SoEngine * engine, const SoEngineOutput * output) const;
   int getIndex(const SoNodeEngine * engine, const SoEngineOutput * output) const;
   const SoType & getType(int index) const;
-  SbBool readDescriptions(SoInput * input, SoEngine * engine) const;
+  bool readDescriptions(SoInput * input, SoEngine * engine) const;
   void writeDescriptions(SoOutput * out, SoEngine * engine) const;
 
 private:
-  SbBool hasOutput(const char * name) const;
+  bool hasOutput(const char * name) const;
   void addOutputInternal(const SoFieldContainer * base, const char *name,
                          const SoEngineOutput * output, SoType type);
   SoEngineOutput * getOutputInternal(const SoFieldContainer * base, int index) const;

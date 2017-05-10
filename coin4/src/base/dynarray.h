@@ -67,7 +67,7 @@ extern "C" {
 
   void ** cc_dynarray_get_arrayptr(const cc_dynarray * arr);
 
-  SbBool cc_dynarray_eq(const cc_dynarray * arr1, const cc_dynarray * arr2);
+  bool cc_dynarray_eq(const cc_dynarray * arr1, const cc_dynarray * arr2);
   
 #ifdef __cplusplus
 }

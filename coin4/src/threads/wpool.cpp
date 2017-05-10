@@ -85,14 +85,14 @@ wpool_idle_cb(cc_worker * worker, void * data)
 static void
 wpool_wait(cc_wpool * pool, int num)
 {
-  pool->iswaiting = TRUE;
+  pool->iswaiting = true;
   while (cc_list_get_length(pool->idlepool) < num) {
     /* wait() will atomically unlock the mutex, and wait
      * for signal. When signal arrived, the mutex will again be
      * atomically locked. */
     cc_condvar_wait(pool->waitcond, pool->mutex);
   }
-  pool->iswaiting = FALSE;
+  pool->iswaiting = false;
 }
 
 static void
@@ -134,7 +134,7 @@ cc_wpool_construct(int numworkers)
   pool->waitcond = cc_condvar_construct();
   pool->idlepool = cc_list_construct();
   pool->busypool = cc_list_construct();
-  pool->iswaiting = FALSE;
+  pool->iswaiting = false;
   pool->numworkers = 0;
 
   cc_wpool_set_num_workers(pool, numworkers);
@@ -221,8 +221,8 @@ cc_wpool_wait_all(cc_wpool * pool)
   Locks the pool so that workers can be started using the
   cc_wpool_start_worker() method. \a numworkersneeded should contain
   the minumum number of workers that is needed. If \numworkersneeded
-  workers are available, the pool will be locked and TRUE is returned.
-  Otherwise FALSE is returned.
+  workers are available, the pool will be locked and true is returned.
+  Otherwise false is returned.
 
   Usage pseudocode:
 
@@ -244,7 +244,7 @@ cc_wpool_wait_all(cc_wpool * pool)
 
   \sa cc_wpool_start_worker(), cc_wpool_end()
 */
-SbBool
+bool
 cc_wpool_try_begin(cc_wpool * pool, int numworkersneeded)
 {
   int n;
@@ -253,9 +253,9 @@ cc_wpool_try_begin(cc_wpool * pool, int numworkersneeded)
   n = cc_list_get_length(pool->idlepool);
   if (n < numworkersneeded) {
     wpool_unlock(pool);
-    return FALSE;
+    return false;
   }
-  return TRUE;
+  return true;
 }
 
 /*!

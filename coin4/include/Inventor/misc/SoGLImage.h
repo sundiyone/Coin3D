@@ -49,7 +49,7 @@ public:
 
   static SoType getClassTypeId(void);
   virtual SoType getTypeId(void) const ;
-  virtual SbBool isOfType(SoType type) const;
+  virtual bool isOfType(SoType type) const;
 
   enum Wrap {
     REPEAT = 0,
@@ -64,7 +64,7 @@ public:
     MIPMAP
   };
 
-  typedef SbBool SoGLImageResizeCB(SoState * state,
+  typedef bool SoGLImageResizeCB(SoState * state,
                                    const SbVec3s &newsize,
                                    unsigned char * destbuffer,
                                    ResizeReason reason,
@@ -151,8 +151,8 @@ public:
   const SbImage * getImage(void) const;
 
   virtual SoGLDisplayList * getGLDisplayList(SoState * state);
-  SbBool hasTransparency(void) const;
-  SbBool useAlphaTest(void) const;
+  bool hasTransparency(void) const;
+  bool useAlphaTest(void) const;
   Wrap getWrapS(void) const;
   Wrap getWrapT(void) const;
   Wrap getWrapR(void) const;

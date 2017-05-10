@@ -70,14 +70,14 @@ public:
   SoOutputDataEntry(const SoOutputDataEntry * oe) { this->copy(oe); }
   SoOutputDataEntry(const SoOutputDataEntry & oe) { this->copy(&oe); }
 
-  int operator==(const SoOutputDataEntry * oe) const
+  bool operator==(const SoOutputDataEntry * oe) const
   {
     return ((this->name == oe->name) && (this->ptroffset == oe->ptroffset) &&
             (this->type == oe->type));
   }
-  int operator!=(const SoOutputDataEntry * oe) const { return ! operator==(oe); }
-  int operator==(const SoOutputDataEntry & oe) const { return operator==(&oe); }
-  int operator!=(const SoOutputDataEntry & oe) const { return ! operator==(&oe); }
+  bool operator!=(const SoOutputDataEntry * oe) const { return ! operator==(oe); }
+  bool operator==(const SoOutputDataEntry & oe) const { return operator==(&oe); }
+  bool operator!=(const SoOutputDataEntry & oe) const { return ! operator==(&oe); }
 
   SbName name;
   SoType type;
@@ -202,11 +202,11 @@ SoEngineOutputData::getType(int index) const
 /*!
   FIXME: doc
 */
-SbBool
+bool
 SoEngineOutputData::readDescriptions(SoInput * COIN_UNUSED_ARG(in), SoEngine * COIN_UNUSED_ARG(engine)) const
 {
   COIN_STUB();
-  return FALSE;
+  return false;
 }
 
 /*
@@ -267,9 +267,9 @@ SoEngineOutputData::addOutputInternal(const SoFieldContainer * base, const char 
   // resolvable while still keeping compatibility. 20000915 mortene.
   if (type.isDerivedFrom(SoType::fromName("SFEnum")) ||
       type.isDerivedFrom(SoType::fromName("MFEnum"))) {
-    static SbBool warn = TRUE;
+    static bool warn = true;
     if (warn) {
-      warn = FALSE; // Warn only once.
+      warn = false; // Warn only once.
       SoDebugError::postWarning("SoEngineOutputData::addOutput",
                                 "Using as engine output a field which has "
                                 "enum type is not advisable, as it contains "
@@ -314,11 +314,11 @@ SoEngineOutputData::getIndexInternal(const SoFieldContainer * base, const SoEngi
   \internal
   \since Coin 2.3
 */
-SbBool
+bool
 SoEngineOutputData::hasOutput(const char * name) const
 {
   for (int i = 0; i < this->outputlist.getLength(); i++) {
-    if (this->outputlist[i]->name == name) return TRUE;
+    if (this->outputlist[i]->name == name) return true;
   }
-  return FALSE;
+  return false;
 }

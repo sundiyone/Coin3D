@@ -56,7 +56,7 @@ namespace {
     if(!kit->root.getValue())
       return;
 
-    SoNodeVisualize * nv = (SoNodeVisualize*)kit->getPart("visualtree", FALSE);
+    SoNodeVisualize * nv = (SoNodeVisualize*)kit->getPart("visualtree", false);
     if(nv){
       SoProfilerStats * stats = (SoProfilerStats*)kit->stats.getValue();
       assert(stats->getTypeId() == SoProfilerStats::getClassTypeId() &&
@@ -71,7 +71,7 @@ namespace {
     // in the scenegraph? Perhaps from Inventor/misc/SoNotRec.h or something. Now
     // we build the SoNodeVisualize-tree on every root-change
     SoProfilerVisualizeKit * kit = (SoProfilerVisualizeKit*)data;
-    if(!kit->getPart("visualtree", FALSE))
+    if(!kit->getPart("visualtree", false))
       if(kit->root.getValue())
         kit->setPart("visualtree", SoNodeVisualize::visualizeTree(kit->root.getValue(), 1));
   }
@@ -86,13 +86,13 @@ namespace {
         kit->statsTrigger.connectFrom(&statsnode->profilingUpdate);
       } else {
 #if COIN_DEBUG
-        static SbBool first = TRUE;
+        static bool first = true;
         if (first) {
           SoDebugError::postWarning("SoProfilerVisualizeKit.cpp rootChangedCB",
                                     "The node i SoProfilerVisualizeKit::stats"
                                     "must be of type SoProfilerStats.",
                                     kit->getTypeId().getName().getString());
-          first = FALSE;
+          first = false;
         }
 #endif // COIN_DEBUG
       }
@@ -130,9 +130,9 @@ void SoProfilerVisualizeKit::initClass()
 SoProfilerVisualizeKit::SoProfilerVisualizeKit()
 {
   SO_KIT_INTERNAL_CONSTRUCTOR(SoProfilerVisualizeKit);
-  SO_KIT_ADD_CATALOG_ENTRY(top, SoSeparator, FALSE, this, "", TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(pretree, SoGroup, FALSE, top, visualtree, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(visualtree, SoNodeVisualize, TRUE, top, "", TRUE);
+  SO_KIT_ADD_CATALOG_ENTRY(top, SoSeparator, false, this, "", true);
+  SO_KIT_ADD_CATALOG_ENTRY(pretree, SoGroup, false, top, visualtree, true);
+  SO_KIT_ADD_CATALOG_ENTRY(visualtree, SoNodeVisualize, true, top, "", true);
   SO_KIT_INIT_INSTANCE();
 
   SO_KIT_ADD_FIELD(stats, (NULL));
@@ -151,7 +151,7 @@ SoProfilerVisualizeKit::SoProfilerVisualizeKit()
   PRIVATE(this)->statsSensor.reset(new SoFieldSensor(statsCB, this));
   PRIVATE(this)->statsSensor->attach(&this->stats);
 
-  SoGroup * pretree = (SoGroup *)this->getAnyPart("pretree", TRUE);
+  SoGroup * pretree = (SoGroup *)this->getAnyPart("pretree", true);
 
   SoScale * treescale = new SoScale;
   treescale->scaleFactor.setValue(0.02f, 0.02f, 1.0f);

@@ -143,12 +143,12 @@ SoScale1Dragger::SoScale1Dragger(void)
 {
   SO_KIT_INTERNAL_CONSTRUCTOR(SoScale1Dragger);
 
-  SO_KIT_ADD_CATALOG_ENTRY(scalerSwitch, SoSwitch, TRUE, geomSeparator, feedbackSwitch, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(scaler, SoSeparator, TRUE, scalerSwitch, scalerActive, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(scalerActive, SoSeparator, TRUE, scalerSwitch, "", TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(feedbackSwitch, SoSwitch, TRUE, geomSeparator, "", FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(feedback, SoSeparator, TRUE, feedbackSwitch, feedbackActive, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(feedbackActive, SoSeparator, TRUE, feedbackSwitch, "", TRUE);
+  SO_KIT_ADD_CATALOG_ENTRY(scalerSwitch, SoSwitch, true, geomSeparator, feedbackSwitch, false);
+  SO_KIT_ADD_CATALOG_ENTRY(scaler, SoSeparator, true, scalerSwitch, scalerActive, true);
+  SO_KIT_ADD_CATALOG_ENTRY(scalerActive, SoSeparator, true, scalerSwitch, "", true);
+  SO_KIT_ADD_CATALOG_ENTRY(feedbackSwitch, SoSwitch, true, geomSeparator, "", false);
+  SO_KIT_ADD_CATALOG_ENTRY(feedback, SoSeparator, true, feedbackSwitch, feedbackActive, true);
+  SO_KIT_ADD_CATALOG_ENTRY(feedbackActive, SoSeparator, true, feedbackSwitch, "", true);
 
   if (SO_KIT_IS_FIRST_INSTANCE()) {
     SoInteractionKit::readDefaultParts("scale1Dragger.iv",
@@ -184,7 +184,7 @@ SoScale1Dragger::SoScale1Dragger(void)
   this->fieldSensor = new SoFieldSensor(SoScale1Dragger::fieldSensorCB, this);
   this->fieldSensor->setPriority(0);
 
-  this->setUpConnections(TRUE, TRUE);
+  this->setUpConnections(true, true);
 }
 
 /*!
@@ -201,12 +201,12 @@ SoScale1Dragger::~SoScale1Dragger()
 }
 
 // Doc in superclass.
-SbBool
-SoScale1Dragger::setUpConnections(SbBool onoff, SbBool doitalways)
+bool
+SoScale1Dragger::setUpConnections(bool onoff, bool doitalways)
 {
   if (!doitalways && this->connectionsSetUp == onoff) return onoff;
 
-  SbBool oldval = this->connectionsSetUp;
+  bool oldval = this->connectionsSetUp;
 
   if (onoff) {
     inherited::setUpConnections(onoff, doitalways);

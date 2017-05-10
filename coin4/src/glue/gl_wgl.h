@@ -28,7 +28,6 @@
 #error this is a private header file
 #endif
 
-#include <Inventor/SbBasic.h> // SbBool
 #include <Inventor/C/glue/gl.h>
 
 #ifdef __cplusplus
@@ -37,17 +36,17 @@ extern "C" {
 
 void * coin_wgl_getprocaddress(const cc_glglue * glue, const char * fname);
 
-void * wglglue_context_create_offscreen(unsigned int width, unsigned int height, SbBool texture = TRUE);
-SbBool wglglue_context_make_current(void * ctx);
+void * wglglue_context_create_offscreen(unsigned int width, unsigned int height, bool texture = true);
+bool wglglue_context_make_current(void * ctx);
 void wglglue_context_reinstate_previous(void * ctx);
 void wglglue_context_destruct(void * ctx);
 
 void wglglue_context_bind_pbuffer(void * ctx);
 void wglglue_context_release_pbuffer(void * ctx);
-SbBool wglglue_context_pbuffer_is_bound(void * ctx);
-SbBool wglglue_context_can_render_to_texture(void * ctx);
+bool wglglue_context_pbuffer_is_bound(void * ctx);
+bool wglglue_context_can_render_to_texture(void * ctx);
 
-SbBool wglglue_context_pbuffer_max(void * ctx, unsigned int * lims);
+bool wglglue_context_pbuffer_max(void * ctx, unsigned int * lims);
 
 /* This abomination is needed to support SoOffscreenRenderer::getDC(). */
 const void * wglglue_context_win32_HDC(void * ctx);

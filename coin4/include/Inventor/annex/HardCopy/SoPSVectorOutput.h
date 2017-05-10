@@ -34,8 +34,8 @@ public:
   SoPSVectorOutput();
   virtual ~SoPSVectorOutput();
 
-  void setColored(SbBool flag = TRUE);
-  SbBool getColored(void) const;
+  void setColored(bool flag = true);
+  bool getColored(void) const;
 
 private:
   SoPSVectorOutputP * pimpl;

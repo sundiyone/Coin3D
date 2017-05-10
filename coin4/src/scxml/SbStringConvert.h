@@ -67,19 +67,19 @@ template<typename Type, typename ArgumentType>
 template <typename T>
 struct ScXMLConvert {
     static
-    T fromString(const SbString & str, SbBool * conversionOk = NULL)
+    T fromString(const SbString & str, bool * conversionOk = NULL)
     {
       typename SbTypeInfo<T>::PrimitiveType tmpVal[SbTypeInfo<T>::Dimensions];
       SbString substr;
       int start = str.find("(");
       int end = str.find(")");
       if (start == -1 || end == -1) {
-        if (conversionOk) *conversionOk = FALSE;
+        if (conversionOk) *conversionOk = false;
         return T();
       }
       substr = str.getSubString(0, start-1);
       if (substr != SbTypeInfo<T>::getTypeName()) {
-        if (conversionOk) *conversionOk = FALSE;
+        if (conversionOk) *conversionOk = false;
         return T();
       }
       --end;
@@ -90,7 +90,7 @@ struct ScXMLConvert {
       SbIntList indices;
       substr.findAll(",",indices);
       if (indices.getLength()!= SbTypeInfo<T>::Dimensions-1) {
-        if (conversionOk) *conversionOk = FALSE;
+        if (conversionOk) *conversionOk = false;
         return T();
       }
       for (int i=0;i<SbTypeInfo<T>::Dimensions-1;++i) {
@@ -103,7 +103,7 @@ struct ScXMLConvert {
       SbString token = substr.getSubString(start,-1);
       typename SbTypeInfo<T>::PrimitiveType t = FromString< typename SbTypeInfo<T>::PrimitiveType > (token, conversionOk);
       tmpVal[SbTypeInfo<T>::Dimensions-1]=t;
-      if (conversionOk) *conversionOk = TRUE;
+      if (conversionOk) *conversionOk = true;
       return constructFromArray<SbTypeInfo<T>::Dimensions ,T, typename SbTypeInfo<T>::PrimitiveType >::constructor(tmpVal);
     }
 
@@ -122,7 +122,7 @@ struct ScXMLConvert {
 
 template<typename T>
 struct PrimitiveConvert {
-  static T fromString(const SbString & str, SbBool * conversionOk = NULL) {
+  static T fromString(const SbString & str, bool * conversionOk = NULL) {
       return FromString<T>(str, conversionOk);
   }
   static SbString toString(const T & in) {
@@ -148,7 +148,7 @@ public:
   
   template <typename T>
     static
-    T fromString(const SbString & str, SbBool * conversionOk = NULL)
+    T fromString(const SbString & str, bool * conversionOk = NULL)
     {
       return
         IF< SbTypeInfo<T>::isPrimitive, PrimitiveConvert<T>, ScXMLConvert<T> >::RET::fromString(str,conversionOk);

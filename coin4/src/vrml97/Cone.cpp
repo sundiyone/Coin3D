@@ -38,8 +38,8 @@
   Cone {
     field     SFFloat   bottomRadius 1        # (0, inf)
     field     SFFloat   height       2        # (0, inf)
-    field     SFBool    side         TRUE
-    field     SFBool    bottom       TRUE
+    field     SFBool    side         true
+    field     SFBool    bottom       true
   }
   \endverbatim
 
@@ -60,8 +60,8 @@
 
   The side field specifies whether sides of the cone are created and
   the bottom field specifies whether the bottom cap of the cone is
-  created. A value of TRUE specifies that this part of the cone
-  exists, while a value of FALSE specifies that this part does not
+  created. A value of true specifies that this part of the cone
+  exists, while a value of false specifies that this part does not
   exist (not rendered or eligible for collision or sensor intersection
   tests).  When a texture is applied to the sides of the cone, the
   texture wraps counterclockwise (from above) starting at the back of
@@ -91,12 +91,12 @@
 
 /*!
   \var SoSFBool SoVRMLCone::side
-  Enable/disable the cone side wall. Default value is TRUE.
+  Enable/disable the cone side wall. Default value is true.
 */
 
 /*!
   \var SoSFBool SoVRMLCone::bottom
-  Enable/disable the cone bottom. Default value is TRUE.
+  Enable/disable the cone bottom. Default value is true.
 */
 
 #include <Inventor/VRMLnodes/SoVRMLCone.h>
@@ -139,8 +139,8 @@ SoVRMLCone::SoVRMLCone(void)
   SO_VRMLNODE_ADD_FIELD(bottomRadius, (1.0f));
   SO_VRMLNODE_ADD_FIELD(height, (2.0f));
 
-  SO_VRMLNODE_ADD_FIELD(side, (TRUE));
-  SO_VRMLNODE_ADD_FIELD(bottom, (TRUE));
+  SO_VRMLNODE_ADD_FIELD(side, (true));
+  SO_VRMLNODE_ADD_FIELD(bottom, (true));
 }
 
 /*!
@@ -158,12 +158,12 @@ SoVRMLCone::GLRender(SoGLRenderAction * action)
 
   SoState * state = action->getState();
   
-  SbBool doTextures = SoGLMultiTextureEnabledElement::get(state);
+  bool doTextures = SoGLMultiTextureEnabledElement::get(state);
 
   SoMaterialBundle mb(action);
   mb.sendFirst();
 
-  SbBool sendNormals = !mb.isColorOnly() ||
+  bool sendNormals = !mb.isColorOnly() ||
     (SoMultiTextureCoordinateElement::getType(state) == SoMultiTextureCoordinateElement::FUNCTION);
 
   unsigned int flags = 0;
@@ -176,7 +176,7 @@ SoVRMLCone::GLRender(SoGLRenderAction * action)
   float complexity = this->getComplexityValue(action);
 
   // enable back face culling
-  SoGLShapeHintsElement::forceSend(state, TRUE, TRUE);
+  SoGLShapeHintsElement::forceSend(state, true, true);
 
   sogl_render_cone(this->bottomRadius.getValue(),
                    this->height.getValue(),

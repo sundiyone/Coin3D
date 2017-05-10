@@ -158,14 +158,14 @@ SoRotationXYZ::pick(SoPickAction * action)
 }
 
 // Doc from superclass.
-SbBool
+bool
 SoRotationXYZ::getVector(SbVec3f & rotvec) const
 {
   assert((int)axis.getValue() >= 0 && (int)axis.getValue() <= 2);
 
   rotvec.setValue(0.0f, 0.0f, 0.0f);
   rotvec[(int)axis.getValue()] = 1.0f;
-  return TRUE;
+  return true;
 }
 
 /*!

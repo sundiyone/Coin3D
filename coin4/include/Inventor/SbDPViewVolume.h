@@ -55,7 +55,7 @@ public:
   SbVec3d getSightPoint(const double distFromEye) const;
   SbVec3d getPlanePoint(const double distFromEye,
                         const SbVec2d& normPoint) const;
-  SbDPRotation getAlignRotation(SbBool rightAngleOnly = FALSE) const;
+  SbDPRotation getAlignRotation(bool rightAngleOnly = false) const;
   double getWorldToScreenScale(const SbVec3d& worldCenter,
                               double normRadius) const;
   SbVec2d projectBox(const SbBox3f& box) const;

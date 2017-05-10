@@ -79,7 +79,7 @@ SoListenerPositionElement::~SoListenerPositionElement(void)
 /*!
   Initializes the element to it's default value. The default
   value for the position is (0.0f, 0.0f, 0.0f) and the
-  default value for the setByListener flag is FALSE.
+  default value for the setByListener flag is false.
 */
 
 void
@@ -87,7 +87,7 @@ SoListenerPositionElement::init(SoState * state)
 {
   inherited::init(state);
   this->position = SbVec3f(0.0f, 0.0f, 0.0f);
-  this->setbylistener = FALSE;
+  this->setbylistener = false;
 }
 
 /*!
@@ -99,7 +99,7 @@ void
 SoListenerPositionElement::set(SoState * const state,
                                SoNode * const COIN_UNUSED_ARG(node),
                                const SbVec3f & position,
-                               SbBool setbylistener)
+                               bool setbylistener)
 {
   SoListenerPositionElement * elem =
     coin_safe_cast<SoListenerPositionElement *>
@@ -126,11 +126,11 @@ SoListenerPositionElement::get(SoState * const state)
 }
 
 /*!
-  Returns TRUE if the position was set by a SoListener node,
-  and FALSE if it was set by a SoCamera node
+  Returns true if the position was set by a SoListener node,
+  and false if it was set by a SoCamera node
 */
 
-SbBool
+bool
 SoListenerPositionElement::isSetByListener(SoState * const state)
 {
   const SoListenerPositionElement * elem =

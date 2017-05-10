@@ -117,9 +117,9 @@ SoDetail::~SoDetail()
 }
 
 /*!
-  Returns \c TRUE if \a type is derived from (or \e is) this class.
+  Returns \c true if \a type is derived from (or \e is) this class.
 */
-SbBool
+bool
 SoDetail::isOfType(const SoType type) const
 {
   return this->getTypeId().isDerivedFrom(type);

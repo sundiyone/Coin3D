@@ -98,9 +98,9 @@ SoGLDepthBufferElement::pop(SoState * COIN_UNUSED_ARG(state),
   Set this element's values.
 */
 void
-SoGLDepthBufferElement::setElt(SbBool test, SbBool write, DepthWriteFunction function, SbVec2f range)
+SoGLDepthBufferElement::setElt(bool test, bool write, DepthWriteFunction function, SbVec2f range)
 {
-  SbBool update =
+  bool update =
     (test != this->test) ||
     (write != this->write) ||
     (function != this->function) ||

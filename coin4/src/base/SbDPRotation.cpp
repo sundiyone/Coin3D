@@ -488,7 +488,7 @@ SbDPRotation::operator*=(const double s)
 
   \sa equals().
  */
-int
+bool
 operator==(const SbDPRotation & q1, const SbDPRotation & q2)
 {
   return (q1.quat == q2.quat);
@@ -501,7 +501,7 @@ operator==(const SbDPRotation & q1, const SbDPRotation & q2)
 
   \sa equals().
  */
-int
+bool
 operator!=(const SbDPRotation & q1, const SbDPRotation & q2)
 {
   return !(q1 == q2);
@@ -511,7 +511,7 @@ operator!=(const SbDPRotation & q1, const SbDPRotation & q2)
   Check the internal quaternion representation vectors for equality
   within the given tolerance.
  */
-SbBool
+bool
 SbDPRotation::equals(const SbDPRotation & r, double tolerance) const
 {
   return this->quat.equals(r.quat, tolerance);

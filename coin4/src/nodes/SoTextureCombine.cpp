@@ -413,13 +413,13 @@ SoTextureCombine::SoTextureCombine(void)
   SO_NODE_ADD_FIELD(alphaOperand, (SRC_ALPHA));
 
   this->rgbSource.setNum(0);
-  this->rgbSource.setDefault(TRUE);
+  this->rgbSource.setDefault(true);
   this->alphaSource.setNum(0);
-  this->alphaSource.setDefault(TRUE);
+  this->alphaSource.setDefault(true);
   this->rgbOperand.setNum(0);
-  this->rgbOperand.setDefault(TRUE);
+  this->rgbOperand.setDefault(true);
   this->alphaOperand.setNum(0);
-  this->alphaOperand.setDefault(TRUE);
+  this->alphaOperand.setDefault(true);
 
   SO_NODE_ADD_FIELD(rgbOperation, (MODULATE));
   SO_NODE_ADD_FIELD(alphaOperation, (MODULATE));
@@ -486,7 +486,7 @@ SoTextureCombine::GLRender(SoGLRenderAction * action)
   SoTextureCombine::Operation alphaop =
     (SoTextureCombine::Operation) this->alphaOperation.getValue();
 
-  SbBool supported = cc_glglue_glversion_matches_at_least(glue, 1, 3, 0);
+  bool supported = cc_glglue_glversion_matches_at_least(glue, 1, 3, 0);
 
   if (!supported) {
     supported = SoGLDriverDatabase::isSupported(glue, "GL_ARB_texture_env_combine");

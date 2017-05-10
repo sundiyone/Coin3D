@@ -44,19 +44,19 @@ public:
 
   virtual void init(SoState * state);
   static void set(SoState * state, SoNode * node, float factor, float units,
-                  Style styles, SbBool on);
+                  Style styles, bool on);
   static void get(SoState * state, float & factor, float & units,
-                  Style & styles, SbBool & on);
+                  Style & styles, bool & on);
   static void getDefault(float & factor, float & units, Style & styles,
-                         SbBool & on);
+                         bool & on);
 
 protected:
   Style style;
-  SbBool active;
+  bool active;
   float offsetfactor;
   float offsetunits;
 
-  virtual void setElt(float factor, float units, Style styles, SbBool on);
+  virtual void setElt(float factor, float units, Style styles, bool on);
 };
 
 #endif // !COIN_SOPOLYGONOFFSETELEMENT_H

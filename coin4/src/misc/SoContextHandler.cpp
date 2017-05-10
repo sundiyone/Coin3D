@@ -67,7 +67,7 @@ class socontexthandler_cbitem {
 public:
   socontexthandler_cbitem(void) : func(NULL), closure(NULL), idx(0) { }
 
-  int operator==(const socontexthandler_cbitem & theother) {
+  bool operator==(const socontexthandler_cbitem & theother) {
     return
       this->func == theother.func &&
       this->closure == theother.closure;

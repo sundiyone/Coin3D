@@ -63,11 +63,11 @@ public:
   void extendBy(const SbVec2s & point);
   void extendBy(const SbBox2s & box);
   void makeEmpty(void);
-  SbBool isEmpty(void) const { return (maxpt[0] < minpt[0]); }
-  SbBool hasArea(void) const { return ((maxpt[0] > minpt[0]) && (maxpt[1] > minpt[1])); }
+  bool isEmpty(void) const { return (maxpt[0] < minpt[0]); }
+  bool hasArea(void) const { return ((maxpt[0] > minpt[0]) && (maxpt[1] > minpt[1])); }
 
-  SbBool intersect(const SbVec2s & point) const;
-  SbBool intersect(const SbBox2s & box) const;
+  bool intersect(const SbVec2s & point) const;
+  bool intersect(const SbBox2s & box) const;
 
   SbVec2f getCenter(void) const { return SbVec2f((minpt[0] + maxpt[0]) * 0.5f, (minpt[1] + maxpt[1]) * 0.5f); }
   void getOrigin(short & originX, short & originY) const
@@ -90,11 +90,11 @@ private:
 
 }; // SbBox2s
 
-COIN_DLL_API inline int operator == (const SbBox2s & b1, const SbBox2s & b2) {
+COIN_DLL_API inline bool operator==(const SbBox2s & b1, const SbBox2s & b2) {
   return ((b1.getMin() == b2.getMin()) && (b1.getMax() == b2.getMax()));
 }
 
-COIN_DLL_API inline int operator != (const SbBox2s & b1, const SbBox2s & b2) {
+COIN_DLL_API inline bool operator!=(const SbBox2s & b1, const SbBox2s & b2) {
   return !(b1 == b2);
 }
 

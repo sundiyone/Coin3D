@@ -262,11 +262,11 @@ namespace { namespace SoGL { namespace TriStripSet {
                        int32_t idx,
                        const int32_t *ptr,
                        const int32_t *end,
-                       SbBool needNormals)
+                       bool needNormals)
   {
     const SbVec3f * coords3d = NULL;
     const SbVec4f * coords4d = NULL;
-    const SbBool is3d = coords->is3D();
+    const bool is3d = coords->is3D();
     if (is3d) {
       coords3d = coords->getArrayPtr3();
     }
@@ -306,10 +306,10 @@ namespace { namespace SoGL { namespace TriStripSet {
       if ((AttributeBinding)MaterialBinding == PER_STRIP ||
           (AttributeBinding)MaterialBinding == PER_FACE ||
           (AttributeBinding)MaterialBinding == PER_VERTEX) {
-        mb->send(matnr++, TRUE);
+        mb->send(matnr++, true);
       }
       
-      if (TexturingEnabled == TRUE) {
+      if (TexturingEnabled == true) {
         tb->send(texnr++, coords->get3(idx), *currnormal);
       }
       SEND_VERTEX(idx); // vertex 1
@@ -320,17 +320,17 @@ namespace { namespace SoGL { namespace TriStripSet {
         glNormal3fv((const GLfloat *)currnormal);
       }
       if ((AttributeBinding)MaterialBinding == PER_VERTEX) {
-        mb->send(matnr++, TRUE);
+        mb->send(matnr++, true);
       }
 
       // workaround for nvidia color-per-face-bug
       if ((AttributeBinding)MaterialBinding == PER_FACE ||
           (AttributeBinding)MaterialBinding == PER_STRIP) {
-        mb->send(matnr-1, TRUE);
+        mb->send(matnr-1, true);
       }
       // end of nvidia workaround
 
-      if (TexturingEnabled == TRUE) {
+      if (TexturingEnabled == true) {
         tb->send(texnr++, coords->get3(idx), *currnormal);
       }
       SEND_VERTEX(idx); // vertex 2
@@ -344,16 +344,16 @@ namespace { namespace SoGL { namespace TriStripSet {
         }
         if ((AttributeBinding)MaterialBinding == PER_FACE ||
             (AttributeBinding)MaterialBinding == PER_VERTEX) {
-          mb->send(matnr++, TRUE);
+          mb->send(matnr++, true);
         }
 
         // workaround for nvidia color-per-face-bug
         if ((AttributeBinding)MaterialBinding == PER_STRIP) {
-          mb->send(matnr-1, TRUE);
+          mb->send(matnr-1, true);
         }
         // end of nvidia workaround
 
-        if (TexturingEnabled == TRUE) {
+        if (TexturingEnabled == true) {
           tb->send(texnr++, coords->get3(idx), *currnormal);
         }
         SEND_VERTEX(idx); // vertex 3-n
@@ -378,9 +378,9 @@ SoTriangleStripSet::initClass(void)
 
 #define SOGL_TRISTRIPSET_GLRENDER_RESOLVE_ARG3(normalbinding, materialbinding, texturing, args) \
   if (texturing) {                                                        \
-    SOGL_TRISTRIPSET_GLRENDER_CALL_FUNC(normalbinding, materialbinding, TRUE, args); \
+    SOGL_TRISTRIPSET_GLRENDER_CALL_FUNC(normalbinding, materialbinding, true, args); \
   } else {                                                                \
-    SOGL_TRISTRIPSET_GLRENDER_CALL_FUNC(normalbinding, materialbinding, FALSE, args); \
+    SOGL_TRISTRIPSET_GLRENDER_CALL_FUNC(normalbinding, materialbinding, false, args); \
   }
 
 #define SOGL_TRISTRIPSET_GLRENDER_RESOLVE_ARG2(normalbinding, materialbinding, texturing, args) \
@@ -437,11 +437,11 @@ SoTriangleStripSet::GLRender(SoGLRenderAction * action)
   SoState * state = action->getState();
   this->fixNumVerticesPointers(state, ptr, end, dummyarray);
 
-  SbBool didpush = FALSE;
+  bool didpush = false;
 
   if (this->vertexProperty.getValue()) {
     state->push();
-    didpush = TRUE;
+    didpush = true;
     this->vertexProperty.getValue()->GLRender(action);
   }
 
@@ -451,10 +451,10 @@ SoTriangleStripSet::GLRender(SoGLRenderAction * action)
   if ((nbind == PER_FACE && mbind != PER_VERTEX) ||
       (mbind == PER_FACE && nbind != PER_VERTEX)) {
     if (!didpush) {
-      didpush = TRUE;
+      didpush = true;
       state->push();
     }
-    SoLazyElement::setShadeModel(state, TRUE);
+    SoLazyElement::setShadeModel(state, true);
   }
 
   if (!this->shouldGLRender(action)) {
@@ -465,13 +465,13 @@ SoTriangleStripSet::GLRender(SoGLRenderAction * action)
 
   const SoCoordinateElement * tmp;
   const SbVec3f * normals;
-  SbBool doTextures;
+  bool doTextures;
 
-  SoTextureCoordinateBundle tb(action, TRUE, FALSE);
+  SoTextureCoordinateBundle tb(action, true, false);
   doTextures = tb.needCoordinates();
 
   SoMaterialBundle mb(action);
-  SbBool needNormals = !mb.isColorOnly() || tb.isFunction();
+  bool needNormals = !mb.isColorOnly() || tb.isFunction();
 
   SoVertexShape::getVertexData(action->getState(), tmp, normals,
                                needNormals);
@@ -511,7 +511,7 @@ SoTriangleStripSet::GLRender(SoGLRenderAction * action)
   int numv = this->numVertices.getNum();
   // send approx number of triangles for autocache handling
   sogl_autocache_update(state, numv ?
-                        (this->numVertices[0]-2)*numv : 0, FALSE);
+                        (this->numVertices[0]-2)*numv : 0, false);
 }
 
 #undef SOGL_TRISTRIPSET_GLRENDER_CALL_FUNC
@@ -521,12 +521,12 @@ SoTriangleStripSet::GLRender(SoGLRenderAction * action)
 #undef SOGL_TRISTRIPSET_GLRENDER
 
 // doc from parent
-SbBool
+bool
 SoTriangleStripSet::generateDefaultNormals(SoState * state, SoNormalCache * nc)
 {
-  SbBool ccw = TRUE;
+  bool ccw = true;
   if (SoShapeHintsElement::getVertexOrdering(state) ==
-      SoShapeHintsElement::CLOCKWISE) ccw = FALSE;
+      SoShapeHintsElement::CLOCKWISE) ccw = false;
 
   const SoCoordinateElement * coords =
     SoCoordinateElement::getInstance(state);
@@ -550,7 +550,7 @@ SoTriangleStripSet::generateDefaultNormals(SoState * state, SoNormalCache * nc)
     striptri[1] = coords->get3(idx++);
     striptri[2] = coords->get3(idx++);
     gen->triangle(striptri[0], striptri[1], striptri[2]);
-    SbBool flag = FALSE;
+    bool flag = false;
     while (num--) {
       if (flag) striptri[1] = striptri[2];
       else striptri[0] = striptri[2];
@@ -576,7 +576,7 @@ SoTriangleStripSet::generateDefaultNormals(SoState * state, SoNormalCache * nc)
     break;
   }
   nc->set(gen);
-  return TRUE;
+  return true;
 }
 
 // doc from parent
@@ -607,12 +607,12 @@ SoTriangleStripSet::getPrimitiveCount(SoGetPrimitiveCountAction *action)
 }
 
 // Documented in superclass.
-SbBool
+bool
 SoTriangleStripSet::generateDefaultNormals(SoState * /* state */,
                                            SoNormalBundle * /* nb */)
 {
   // Normals are generated in normal cache.
-  return FALSE;
+  return false;
 }
 
 // Documented in superclass.
@@ -631,13 +631,13 @@ SoTriangleStripSet::generatePrimitives(SoAction *action)
 
   const SoCoordinateElement * coords;
   const SbVec3f * normals;
-  SbBool doTextures;
-  SbBool needNormals = TRUE;
+  bool doTextures;
+  bool needNormals = true;
 
   SoVertexShape::getVertexData(action->getState(), coords, normals,
                                needNormals);
 
-  SoTextureCoordinateBundle tb(action, FALSE, FALSE);
+  SoTextureCoordinateBundle tb(action, false, false);
   doTextures = tb.needCoordinates();
 
   Binding mbind = this->findMaterialBinding(action->getState());

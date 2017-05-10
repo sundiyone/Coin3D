@@ -35,7 +35,7 @@ public:
     { cc_fifo_assign(this->fifo, ptr, type); }
   void retrieve(void *& ptr, uint32_t &type)
     { cc_fifo_retrieve(this->fifo, &ptr, &type); }
-  SbBool tryRetrieve(void *& ptr, uint32_t & type)
+  bool tryRetrieve(void *& ptr, uint32_t & type)
     { return cc_fifo_try_retrieve(this->fifo, &ptr, &type); }
 
   unsigned int size(void) const { return cc_fifo_size(this->fifo); }
@@ -44,11 +44,11 @@ public:
   void unlock(void) const { cc_fifo_unlock(this->fifo); }
 
   // lock/unlock only needed around the following operations:
-  SbBool peek(void *& item, uint32_t & type) const
+  bool peek(void *& item, uint32_t & type) const
     { return cc_fifo_peek(this->fifo, &item, &type); }
-  SbBool contains(void * item) const
+  bool contains(void * item) const
     { return cc_fifo_contains(this->fifo, item); }
-  SbBool reclaim(void * item)
+  bool reclaim(void * item)
     { return cc_fifo_reclaim(this->fifo, item); }
 
 private:

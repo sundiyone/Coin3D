@@ -81,8 +81,8 @@ private:
   operator const void ** (void) const { return static_cast<const void **>(NULL); }
   void * operator[](const int) const { return NULL; }
   void * & operator[](const int) { return SbPList::operator[](0); }
-  int operator==(const SbPList &) const { return 0; }
-  int operator!=(const SbPList &) const { return 0; }
+  bool operator==(const SbPList &) const { return 0; }
+  bool operator!=(const SbPList &) const { return 0; }
 
   void doNotify(SoNotList * l, const void * auditor, const SoNotRec::Type type);
 

@@ -36,17 +36,17 @@ public:
   virtual ~SoBoundingBoxCache();
 
   void set(const SbXfBox3f & boundingbox,
-           SbBool centerset,
+           bool centerset,
            const SbVec3f & centerpoint);
 
   const SbXfBox3f & getBox() const;
   const SbBox3f & getProjectedBox() const;
 
-  SbBool isCenterSet() const;
+  bool isCenterSet() const;
   const SbVec3f & getCenter() const;
 
   static void setHasLinesOrPoints(SoState *state);
-  SbBool hasLinesOrPoints(void) const;
+  bool hasLinesOrPoints(void) const;
 
 private:
   SoBoundingBoxCacheP * pimpl;

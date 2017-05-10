@@ -36,18 +36,18 @@ public:
   // 20050719 erikgors.
   SoScriptEngine() { } 
   virtual ~SoScriptEngine() { } 
-  virtual SbBool executeScript(const SbName & name, 
+  virtual bool executeScript(const SbName & name, 
                                const SbString & script) const = 0;
-  virtual SbBool executeFile(const SbName & filename) const = 0;
-  virtual SbBool executeFunction(const SbName & name, int argc, 
+  virtual bool executeFile(const SbName & filename) const = 0;
+  virtual bool executeFunction(const SbName & name, int argc, 
                                  const SoField * argv, 
                                  SoField * rval = NULL) const = 0;
 
-  virtual SbBool setScriptField(const SbName & name, 
+  virtual bool setScriptField(const SbName & name, 
                                 const SoField * f) const = 0;
-  virtual SbBool getScriptField(const SbName & name, SoField * f) const = 0;
-  virtual SbBool unsetScriptField(const SbName & name) const = 0;
-  virtual SbBool hasScriptField(const SbName & name) const = 0;
+  virtual bool getScriptField(const SbName & name, SoField * f) const = 0;
+  virtual bool unsetScriptField(const SbName & name) const = 0;
+  virtual bool hasScriptField(const SbName & name) const = 0;
 };
 
 #endif // !COIN_SOSCRIPTENGINE_H

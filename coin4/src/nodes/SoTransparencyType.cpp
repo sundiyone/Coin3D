@@ -141,7 +141,7 @@ SoTransparencyType::doAction(SoAction * action)
     SoLazyElement::setTransparencyType(action->getState(),
                                        this->value.getValue());
     if (this->isOverride()) {
-      SoOverrideElement::setTransparencyTypeOverride(action->getState(), this, TRUE);
+      SoOverrideElement::setTransparencyTypeOverride(action->getState(), this, true);
     }
   }
 }

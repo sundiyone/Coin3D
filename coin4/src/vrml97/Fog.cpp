@@ -65,8 +65,8 @@
   http://www.web3d.org/x3d/specifications/vrml/ISO-IEC-14772-VRML97/part1/concepts.html#4.6.10),
   a Fog node stack exists, in which the top- most Fog node on the
   stack is currently active. To push a Fog node onto the top of the
-  stack, a TRUE value is sent to the set_bind eventIn. Once active,
-  the Fog node is bound to the browser view. A FALSE value sent to
+  stack, a true value is sent to the set_bind eventIn. Once active,
+  the Fog node is bound to the browser view. A false value sent to
   set_bind, pops the Fog node from the stack and unbinds it from the
   browser viewer.  More details on the Fog node stack can be found in
   4.6.10, Bindable children nodes

@@ -91,7 +91,7 @@ internal_join(cc_thread * thread,
     return CC_ERROR;
   }
   bstatus = GetExitCodeThread(thread->w32thread.threadhandle, &exitcode);
-  if (bstatus == FALSE) {
+  if (bstatus == false) {
     if (COIN_DEBUG) {
       cc_win32_print_error("internal_join", "GetExitCodeThread()",
                            GetLastError());

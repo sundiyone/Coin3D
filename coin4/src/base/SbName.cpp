@@ -155,10 +155,10 @@ SbName::getLength(void) const
   This method checks if the \a c character is a valid identifier start
   character for a name.
 
-  \sa SbBool SbName::isIdentChar(const char c)
+  \sa bool SbName::isIdentChar(const char c)
 
 */
-SbBool
+bool
 SbName::isIdentStartChar(const char c)
 {
   // There is an important reason why the cast below is necessary:
@@ -171,7 +171,7 @@ SbName::isIdentStartChar(const char c)
   // aswell as for other is*() function. 20021124 mortene.
   const unsigned char uc = static_cast<unsigned char>(c);
 
-  if (isdigit(uc)) return FALSE;
+  if (isdigit(uc)) return false;
   return SbName::isIdentChar(c);
 }
 
@@ -179,9 +179,9 @@ SbName::isIdentStartChar(const char c)
   This method checks if the \a c character is a valid character for a
   name.
 
-  \sa SbBool SbName::isIdentStartChar(const char c)
+  \sa bool SbName::isIdentStartChar(const char c)
 */
-SbBool
+bool
 SbName::isIdentChar(const char c)
 {
   // FIXME: isalnum() takes the current locale into account. This can
@@ -192,7 +192,7 @@ SbName::isIdentChar(const char c)
 }
 
 /*!
-  Returns \c TRUE if the given character is valid for use as the first
+  Returns \c true if the given character is valid for use as the first
   character of a name for an object derived from a class inheriting
   SoBase.
 
@@ -208,7 +208,7 @@ SbName::isIdentChar(const char c)
 
   \sa isBaseNameChar()
 */
-SbBool
+bool
 SbName::isBaseNameStartChar(const char c)
 {
   // FIXME: it seems silly to have this function here, instead of in
@@ -218,12 +218,12 @@ SbName::isBaseNameStartChar(const char c)
   // lead to "interesting" artifacts. We very likely need to audit and
   // fix our isalpha() calls in the Coin sourcecode to behave in the
   // exact manner that we expect them to. 20020319 mortene.
-  if (c == '_' || (coin_isascii(c) && isalpha(c))) return TRUE;
-  return FALSE;
+  if (c == '_' || (coin_isascii(c) && isalpha(c))) return true;
+  return false;
 }
 
 /*!
-  Returns \c TRUE if the given character is valid for use in naming
+  Returns \c true if the given character is valid for use in naming
   object instances of classes derived from SoBase.
 
   SoBase derived objects needs to be named in a manner which will not
@@ -240,20 +240,20 @@ SbName::isBaseNameStartChar(const char c)
 
   \sa isBaseNameStartChar()
 */
-SbBool
+bool
 SbName::isBaseNameChar(const char c)
 {
   // FIXME: it seems silly to have this function here, instead of in
   // SoBase. 20040611 mortene.
 
   static const char invalid[] = "\"\'+.\\{}";
-  if (c <= 0x20 || c >= 0x7f || strchr(invalid, c)) return FALSE;
-  return TRUE;
+  if (c <= 0x20 || c >= 0x7f || strchr(invalid, c)) return false;
+  return true;
 }
 
 /*!
-  This unary operator results in \c FALSE if the SbName object is
-  non-empty and \c TRUE if the SbName object is empty.  An empty name
+  This unary operator results in \c false if the SbName object is
+  non-empty and \c true if the SbName object is empty.  An empty name
   contains a null-length string.
 */
 int
@@ -263,30 +263,30 @@ SbName::operator!(void) const
 }
 
 /*!
-  This operator checks for equality and returns \c TRUE if so, and \c
-  FALSE otherwise.
+  This operator checks for equality and returns \c true if so, and \c
+  false otherwise.
 */
-int
+bool
 operator==(const SbName & lhs, const char * rhs)
 {
   return (strcmp(lhs.permaaddress, rhs) == 0);
 }
 
 /*!
-  This operator checks for equality and returns \c TRUE if so, and \c
-  FALSE otherwise.
+  This operator checks for equality and returns \c true if so, and \c
+  false otherwise.
 */
-int
+bool
 operator==(const char * lhs, const SbName & rhs)
 {
   return (strcmp(rhs.permaaddress, lhs) == 0);
 }
 
 /*!
-  This operator checks for equality and returns \c TRUE if so, and \c
-  FALSE otherwise.
+  This operator checks for equality and returns \c true if so, and \c
+  false otherwise.
 */
-int
+bool
 operator==(const SbName & lhs, const SbName & rhs)
 {
   // Due to the nature of permanent unique mappings of same strings to
@@ -296,30 +296,30 @@ operator==(const SbName & lhs, const SbName & rhs)
 }
 
 /*!
-  This operator checks for inequality and returns \c TRUE if so, and
-  \c FALSE if the names are equal.
+  This operator checks for inequality and returns \c true if so, and
+  \c false if the names are equal.
 */
-int
+bool
 operator!=(const SbName & lhs, const char * rhs)
 {
   return !(lhs == rhs);
 }
 
 /*!
-  This operator checks for inequality and returns \c TRUE if so, and
-  \c FALSE if the names are equal.
+  This operator checks for inequality and returns \c true if so, and
+  \c false if the names are equal.
 */
-int
+bool
 operator!=(const char * lhs, const SbName & rhs)
 {
   return !(lhs == rhs);
 }
 
 /*!
-  This operator checks for inequality and returns \c TRUE if so, and
-  \c FALSE if the names are equal.
+  This operator checks for inequality and returns \c true if so, and
+  \c false if the names are equal.
 */
-int
+bool
 operator!=(const SbName & lhs, const SbName & rhs)
 {
   return !(lhs == rhs);

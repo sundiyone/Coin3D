@@ -34,10 +34,10 @@ public:
   SbCondVar(void) { this->condvar = cc_condvar_construct(); }
   ~SbCondVar(void) { cc_condvar_destruct(this->condvar); }
 
-  SbBool wait(SbMutex & mutex) { 
+  bool wait(SbMutex & mutex) { 
     return cc_condvar_wait(this->condvar, mutex.mutex) == CC_OK; 
   }
-  SbBool timedWait(SbMutex & mutex, SbTime period) {
+  bool timedWait(SbMutex & mutex, SbTime period) {
     return cc_condvar_timed_wait(this->condvar, mutex.mutex, period.getValue()) == CC_OK;
   }
   

@@ -88,12 +88,12 @@ public:
   SoFieldEntry(const SoFieldEntry * fe) { this->copy(fe); }
   SoFieldEntry(const SoFieldEntry & fe) { this->copy(&fe); }
 
-  int operator==(const SoFieldEntry & fe) const {
+  bool operator==(const SoFieldEntry & fe) const {
     // don't consider ptroffset here, since this will not be equal
     // for fields containers with dynamic fields.
     return (this->name == fe.name);
   }
-  int operator!=(const SoFieldEntry & fe) const {
+  bool operator!=(const SoFieldEntry & fe) const {
     return ! operator==(&fe);
   }
 
@@ -114,11 +114,11 @@ public:
   SoEnumEntry(const SoEnumEntry * ee) { this->copy(ee); }
   SoEnumEntry(const SoEnumEntry & ee) { this->copy(&ee); }
 
-  int operator==(const SoEnumEntry & ee) const {
+  bool operator==(const SoEnumEntry & ee) const {
     return ((this->nameoftype == ee.nameoftype) &&
             (this->names == ee.names) && (this->values == ee.values));
   }
-  int operator!=(const SoEnumEntry & ee) const { return ! operator==(&ee); }
+  bool operator!=(const SoEnumEntry & ee) const { return ! operator==(&ee); }
 
   SbName nameoftype;
   SbList<SbName> names;
@@ -250,7 +250,7 @@ SoFieldData::addField(SoFieldContainer * base, const char * name,
 
 /*!
   Copy fields from container \a from to container \a to. If
-  \a copyconnections is \c TRUE, we'll also copy the connections
+  \a copyconnections is \c true, we'll also copy the connections
   field \a from has made.
 
   If you think the method signature is a bit strange, you're correct.
@@ -262,7 +262,7 @@ SoFieldData::addField(SoFieldContainer * base, const char * name,
  */
 void
 SoFieldData::overlay(SoFieldContainer * to, const SoFieldContainer * from,
-                     SbBool copyconnections) const
+                     bool copyconnections) const
 {
   if (to == from) return;
 
@@ -408,32 +408,32 @@ SoFieldData::getEnumData(const char * enumname, int & num,
 
 /*!
   Read field data from the \a in stream for fields belonging to \a
-  object. Returns \c TRUE if everything went ok, or \c FALSE if any
+  object. Returns \c true if everything went ok, or \c false if any
   error conditions occurs.
 
-  \a erroronunknownfield decides whether or not \c FALSE should be
+  \a erroronunknownfield decides whether or not \c false should be
   returned if a name identifier not recognized as a fieldname of \a
   object is encountered. Note that \a erroronunknownfield should be \c
-  FALSE if \a object is a container with child objects, otherwise the
+  false if \a object is a container with child objects, otherwise the
   code will fail upon the first child name specification.
 
-  If \a notbuiltin is \c TRUE on return, \a object is an unknown node
+  If \a notbuiltin is \c true on return, \a object is an unknown node
   or engine type. Unknown nodes are recognized by the \c fields
   keyword first in their file format definition, and unknown engines
   by the \c inputs keyword.
 
 */
-SbBool
+bool
 SoFieldData::read(SoInput * in, SoFieldContainer * object,
-                  SbBool erroronunknownfield, SbBool & notbuiltin) const
+                  bool erroronunknownfield, bool & notbuiltin) const
 {
-  notbuiltin = FALSE;
+  notbuiltin = false;
 
   if (in->isBinary()) {
     unsigned int fieldsval;
     if (!in->read(fieldsval)) {
       SoReadError::post(in, "Premature EOF");
-      return FALSE;
+      return false;
     }
 
     uint8_t numfields = static_cast<uint8_t>(fieldsval & 0xff);
@@ -448,7 +448,7 @@ SoFieldData::read(SoInput * in, SoFieldContainer * object,
 
     // Unknown node type, must read field descriptions.
     if (fieldflags & SoFieldData::NOTBUILTIN) {
-      if (!this->readFieldDescriptions(in, object, numfields)) return FALSE;
+      if (!this->readFieldDescriptions(in, object, numfields)) return false;
     }
 
     // Check for more flags, in case there's any we've missed.
@@ -470,13 +470,13 @@ SoFieldData::read(SoInput * in, SoFieldContainer * object,
                                 numfields, this->fields.getLength());
     }
 
-    if (numfields == 0) return TRUE;
+    if (numfields == 0) return true;
 
     for (int i=0; i < numfields; i++) {
       SbName fieldname;
-      if (!in->read(fieldname, TRUE) || !fieldname) {
+      if (!in->read(fieldname, true) || !fieldname) {
         SoReadError::post(in, "Couldn't read the name of field number %d", i);
-        return FALSE;
+        return false;
       }
 
       if (SoInputP::debugBinary()) {
@@ -484,28 +484,28 @@ SoFieldData::read(SoInput * in, SoFieldContainer * object,
                                "fieldname=='%s'", fieldname.getString());
       }
 
-      SbBool foundname;
+      bool foundname;
       if (!this->read(in, object, fieldname, foundname)) {
         if (!foundname) SoReadError::post(in, "Unknown field \"%s\" in \"%s\"",
                                           fieldname.getString(),
                                           object->getTypeId().getName().getString());
-        return FALSE;
+        return false;
       }
     }
   }
   else { // ASCII format.
-    SbBool firstidentifier = TRUE;
+    bool firstidentifier = true;
     SbName ROUTE_KEYWORD("ROUTE");
     SbName PROTO_KEYWORD("PROTO");
     SbName EXTERNPROTO_KEYWORD("EXTERNPROTO");
-    while (TRUE) {
+    while (true) {
       SbName fieldname;
-      if (!in->read(fieldname, TRUE)) return TRUE; // Terminates loop on "}"
+      if (!in->read(fieldname, true)) return true; // Terminates loop on "}"
 
       if (in->isFileVRML2()) {
         // test for the VRML97 ROUTE keyword
         if (fieldname == ROUTE_KEYWORD) {
-          if (!SoBase::readRoute(in)) return FALSE;
+          if (!SoBase::readRoute(in)) return false;
           continue; // skip to next field/route
         }
         // test for the VRML97 PROTO/EXTERNPROTO keyword
@@ -519,92 +519,92 @@ SoFieldData::read(SoInput * in, SoFieldContainer * object,
           else {
             proto->unref();
             SoReadError::post(in, "Error while parsing PROTO definition inside node");
-            return FALSE;
+            return false;
           }
           continue;  // skip to next field/route
         }
       }
 
-      SbBool readok;
+      bool readok;
       if (in->checkISReference(object, fieldname, readok)) {
         continue; // skip to next field
       }
       if (!readok) {
         SoReadError::post(in, "Error while searching for IS keyword for field \"%s\"",
                           fieldname.getString());
-        return FALSE;
+        return false;
       }
-      // This should be caught in SoInput::read(SbName, SbBool).
+      // This should be caught in SoInput::read(SbName, bool).
       assert(fieldname != "");
 
-      SbBool foundname;
+      bool foundname;
       if (!this->read(in, object, fieldname, foundname) && foundname)
-        return FALSE;
+        return false;
 
       if (!foundname) {
         // User extension node with explicit field definitions.
         if (firstidentifier && fieldname == "fields") {
-          notbuiltin = TRUE;
-          if (!this->readFieldDescriptions(in, object, 0)) return FALSE;
+          notbuiltin = true;
+          if (!this->readFieldDescriptions(in, object, 0)) return false;
         }
         // User extension engine with explicit input field definitions.
         else if (firstidentifier && fieldname == "inputs") {
-          notbuiltin = TRUE;
+          notbuiltin = true;
           // FIXME: read input defs and inputs (and output
           // defs?). 20000102 mortene.
           COIN_STUB();
-          return FALSE;
+          return false;
         }
         else if (erroronunknownfield) {
           SoReadError::post(in, "Unknown field \"%s\" in \"%s\"",
                             fieldname.getString(),
                             object->getTypeId().getName().getString());
-          return FALSE;
+          return false;
         }
         else {
           in->putBack(fieldname.getString());
-          return TRUE;
+          return true;
         }
       }
-      firstidentifier = FALSE;
+      firstidentifier = false;
     }
   }
 
-  return TRUE;
+  return true;
 }
 
 /*!
   Find field \a fieldname in \a object, and if it is available, set
-  \a foundname to \c TRUE and try to read the field specification
-  from \a in. If \a foundname is set to \c TRUE, the return value
+  \a foundname to \c true and try to read the field specification
+  from \a in. If \a foundname is set to \c true, the return value
   says whether or not the field specification could be read without
   any problems.
 
-  If \a fieldname is not part of \a object, returns \c FALSE with \a
-  foundname also set to \c FALSE.
+  If \a fieldname is not part of \a object, returns \c false with \a
+  foundname also set to \c false.
 */
-SbBool
+bool
 SoFieldData::read(SoInput * in, SoFieldContainer * object,
-                  const SbName & fieldname, SbBool & foundname) const
+                  const SbName & fieldname, bool & foundname) const
 {
   for (int i = 0; i < this->fields.getLength(); i++) {
     if (fieldname == this->getFieldName(i)) {
-      foundname = TRUE;
+      foundname = true;
       return this->getField(object, i)->read(in, fieldname);
     }
   }
 
-  foundname = FALSE;
+  foundname = false;
 
-  // Should return TRUE, according to how this function is supposed to
-  // work: it should only return FALSE on actual /parse/ errors, and
+  // Should return true, according to how this function is supposed to
+  // work: it should only return false on actual /parse/ errors, and
   // not "just" when the name of the read field is unknown.
   //
   // An example where this is necessary is where field names don't
   // match up directly for nodekits, but the field is actually in a
   // nested nodekit (i.e. a nodekit within another nodekit's catalog),
   // or is a composite name for a field in a nested nodekit.
-  return TRUE;
+  return true;
 }
 
 /*!
@@ -619,7 +619,7 @@ SoFieldData::write(SoOutput * out, const SoFieldContainer * object) const
   // for the binary format, since the number of fields and field
   // descriptions is printed in a byte before the field
   // descriptions. Phew, the OIV binary format sucks....
-  SbBool writeallfields = out->isBinary() && ! object->getIsBuiltIn();
+  bool writeallfields = out->isBinary() && ! object->getIsBuiltIn();
 
   uint16_t i;
 
@@ -720,7 +720,7 @@ SoFieldData::copy(const SoFieldData * src)
   Compares \a c1 and \a c2 to see if they have the same field data set
   and if the fields of \a c1 have the same values as the fields of \a c2.
 
-  Field connections are not considered (i.e. we will return \c TRUE if
+  Field connections are not considered (i.e. we will return \c true if
   the values of the fields of \a c1 are equal to the fields of \a c2,
   even if they differ in how they have made connections to other
   fields).
@@ -732,23 +732,23 @@ SoFieldData::copy(const SoFieldData * src)
   reasons this is a dynamic method in Open Inventor. So also in Coin,
   to keep compatibility.
 */
-SbBool
+bool
 SoFieldData::isSame(const SoFieldContainer * c1,
                     const SoFieldContainer * c2) const
 {
-  if (c1 == c2) return TRUE;
+  if (c1 == c2) return true;
 
   const SoFieldData * fd1 = c1->getFieldData();
   const SoFieldData * fd2 = c2->getFieldData();
-  if (!fd1 && !fd2) return TRUE;
-  if (!fd1 || !fd2) return FALSE;
-  if (*fd1 != *fd2) return FALSE;
+  if (!fd1 && !fd2) return true;
+  if (!fd1 || !fd2) return false;
+  if (*fd1 != *fd2) return false;
 
   int num = fd1->getNumFields();
   for (int i=0; i < num; i++)
-    if (*(fd1->getField(c1, i)) != *(fd2->getField(c2, i))) return FALSE;
+    if (*(fd1->getField(c1, i)) != *(fd2->getField(c2, i))) return false;
 
-  return TRUE;
+  return true;
 }
 
 /*!
@@ -758,20 +758,20 @@ SoFieldData::isSame(const SoFieldContainer * c1,
   \a numdescriptionsexpected is used for binary format import to know
   how many descriptions should be parsed.
 
-  If \a readfieldvalues is \e TRUE (the default), the field initial value
+  If \a readfieldvalues is \e true (the default), the field initial value
   is expected after the field name in the SoInput stream.
 
 */
-SbBool
+bool
 SoFieldData::readFieldDescriptions(SoInput * in, SoFieldContainer * object,
                                    int numdescriptionsexpected,
-                                   const SbBool readfieldvalues) const
+                                   const bool readfieldvalues) const
 {
   // These two macros are convenient for reading with error detection.
 #define READ_CHAR(c) \
     if (!in->read(c)) { \
       SoReadError::post(in, "Premature end of file"); \
-      return FALSE; \
+      return false; \
     }
 
   const SbName EVENTIN("eventIn");
@@ -785,7 +785,7 @@ SoFieldData::readFieldDescriptions(SoInput * in, SoFieldContainer * object,
     READ_CHAR(c);
     if (c != OPEN_BRACE_CHAR) {
       SoReadError::post(in, "Expected '%c', got '%c'", OPEN_BRACE_CHAR, c);
-      return FALSE;
+      return false;
     }
   }
 
@@ -793,15 +793,15 @@ SoFieldData::readFieldDescriptions(SoInput * in, SoFieldContainer * object,
 
     if (!in->isBinary()) {
       READ_CHAR(c);
-      if (c == CLOSE_BRACE_CHAR) return TRUE;
+      if (c == CLOSE_BRACE_CHAR) return true;
       else in->putBack(c);
     }
 
     SbName fieldtypename;
 
-    if (!in->read(fieldtypename, TRUE)) {
+    if (!in->read(fieldtypename, true)) {
       SoReadError::post(in, "Couldn't read name of field type");
-      return FALSE;
+      return false;
     }
 
     SbName fieldtype("");
@@ -810,9 +810,9 @@ SoFieldData::readFieldDescriptions(SoInput * in, SoFieldContainer * object,
         fieldtypename == FIELD ||
         fieldtypename == EXPOSEDFIELD) {
       fieldtype = fieldtypename;
-      if (!in->read(fieldtypename, TRUE)) {
+      if (!in->read(fieldtypename, true)) {
         SoReadError::post(in, "Couldn't read name of field type");
-        return FALSE;
+        return false;
       }
     }
 
@@ -821,17 +821,17 @@ SoFieldData::readFieldDescriptions(SoInput * in, SoFieldContainer * object,
         !type.isDerivedFrom(SoField::getClassTypeId())) {
       SoReadError::post(in, "Unknown field type '%s'",
                         fieldtypename.getString());
-      return FALSE;
+      return false;
     }
     else if (!type.canCreateInstance()) {
       SoReadError::post(in, "Abstract class type '%s'", fieldtypename.getString());
-      return FALSE;
+      return false;
     }
 
     SbName fieldname;
-    if (!in->read(fieldname, TRUE)) {
+    if (!in->read(fieldname, true)) {
       SoReadError::post(in, "Couldn't read name of field");
-      return FALSE;
+      return false;
     }
 
 
@@ -852,7 +852,7 @@ SoFieldData::readFieldDescriptions(SoInput * in, SoFieldContainer * object,
       SoFieldData * that = const_cast<SoFieldData *>(this);
       newfield = static_cast<SoField *>(type.createInstance());
       newfield->setContainer(object);
-      newfield->setDefault(TRUE);
+      newfield->setDefault(true);
       that->addField(object, fieldname.getString(), newfield);
     }
 
@@ -863,12 +863,12 @@ SoFieldData::readFieldDescriptions(SoInput * in, SoFieldContainer * object,
       else {
         newfield->setFieldType(SoField::EVENTOUT_FIELD);
       }
-      SbBool readok;
+      bool readok;
       (void) in->checkISReference(object, fieldname.getString(), readok);
       if (!readok) {
         SoReadError::post(in, "Error while searching for IS keyword for field '%s'",
                           fieldname.getString());
-        return FALSE;
+        return false;
       }
     }
     else if (fieldtype == FIELD || fieldtype == EXPOSEDFIELD) {
@@ -881,15 +881,15 @@ SoFieldData::readFieldDescriptions(SoInput * in, SoFieldContainer * object,
         if (fc) { s.sprintf(" of %s", fc->getTypeId().getName().getString()); }
         SoReadError::post(in, "Unable to read value for field '%s'%s",
                           fieldname.getString(), s.getString());
-        return FALSE;
+        return false;
       }
     }
 
-    SbBool readok;
+    bool readok;
     (void) in->checkISReference(object, fieldname, readok);
     if (!readok) {
       SoReadError::post(in, "Unable to search for IS keyword");
-      return FALSE;
+      return false;
     }
     if (!in->isBinary()) {
       READ_CHAR(c);
@@ -901,7 +901,7 @@ SoFieldData::readFieldDescriptions(SoInput * in, SoFieldContainer * object,
 
 #undef READ_CHAR
 
-  return TRUE;
+  return true;
 }
 
 
@@ -920,57 +920,57 @@ SoFieldData::writeFieldDescriptions(SoOutput * out,
     out->write("fields [ ");
   }
 
-  SbBool atleastonewritten = FALSE;
+  bool atleastonewritten = false;
   for (int i = 0; i < this->getNumFields(); i++) {
     const SoField * f = this->getField(object, i);
     if (!out->isBinary() && atleastonewritten) out->write(", ");
     out->write(static_cast<const char *>(f->getTypeId().getName()));
     if (!out->isBinary()) out->write(' ');
     out->write(static_cast<const char *>(this->getFieldName(i)));
-    atleastonewritten = TRUE;
+    atleastonewritten = true;
   }
 
   if (!out->isBinary()) out->write(" ]\n");
 }
 
 // Check for equality.
-int
+bool
 SoFieldData::operator==(const SoFieldData * fd) const
 {
   int i, n;
   n = this->enums.getLength();
-  if (n != fd->enums.getLength()) return FALSE;
+  if (n != fd->enums.getLength()) return false;
   for (i = 0; i < n; i++) {
-    if (*(this->enums[i]) != *(fd->enums[i])) return FALSE;
+    if (*(this->enums[i]) != *(fd->enums[i])) return false;
   }
 
   n = this->fields.getLength();
-  if (n != fd->fields.getLength()) return FALSE;
+  if (n != fd->fields.getLength()) return false;
   for (i = 0; i < n; i++) {
-    if (*(this->fields[i]) != *(fd->fields[i])) return FALSE;
+    if (*(this->fields[i]) != *(fd->fields[i])) return false;
   }
 
-  return TRUE;
+  return true;
 }
 
 /*!
   \internal
   \since Coin 2.3
 */
-SbBool
+bool
 SoFieldData::hasField(const char * name) const
 {
   for (int i = 0; i < this->fields.getLength(); i++) {
-    if (this->fields[i]->name == name) return TRUE;
+    if (this->fields[i]->name == name) return true;
   }
-  return FALSE;
+  return false;
 }
 
 /*!
   \internal
   \since Coin 2.3
 */
-SbBool
+bool
 SoFieldData::hasEnumValue(const char * enumname, const char * valuename)
 {
   SoEnumEntry * e = NULL;
@@ -978,6 +978,6 @@ SoFieldData::hasEnumValue(const char * enumname, const char * valuename)
   for (int i=0; !e && (i < this->enums.getLength()); i++) {
     if (this->enums[i]->nameoftype == enumname) e = this->enums[i];
   }
-  if (e == NULL) return FALSE;
+  if (e == NULL) return false;
   return e->names.find(valuename) != -1;
 }

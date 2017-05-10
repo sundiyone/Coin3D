@@ -46,19 +46,19 @@ public:
   
   static void setViewVolume(SoState * state, const SbViewVolume & vv);
   static void addPlane(SoState * state, const SbPlane & newplane);
-  static SbBool cullBox(SoState * state, const SbBox3f & box, const SbBool transform = TRUE);
-  static SbBool cullTest(SoState * state, const SbBox3f & box, const SbBool transform = TRUE);
-  static SbBool completelyInside(SoState * state);
+  static bool cullBox(SoState * state, const SbBox3f & box, const bool transform = true);
+  static bool cullTest(SoState * state, const SbBox3f & box, const bool transform = true);
+  static bool completelyInside(SoState * state);
 
-  virtual SbBool matches(const SoElement * elt) const;
+  virtual bool matches(const SoElement * elt) const;
   virtual SoElement * copyMatchInfo(void) const;
 
 private:
 
   enum { MAXPLANES = 32 };
 
-  static SbBool docull(SoState * state, const SbBox3f & box, const SbBool transform,
-                       const SbBool updateelem);
+  static bool docull(SoState * state, const SbBox3f & box, const bool transform,
+                       const bool updateelem);
 
   SbPlane plane[MAXPLANES];
   int numplanes;

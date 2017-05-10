@@ -2,7 +2,7 @@
 
 #
 # "0" is not a valid node.
-# SbBool SoSFNode::readValue(SoInput * in) will complain.
+# bool SoSFNode::readValue(SoInput * in) will complain.
 #
 
 Switch {

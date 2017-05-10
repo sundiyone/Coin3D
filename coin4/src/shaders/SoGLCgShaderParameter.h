@@ -81,8 +81,8 @@ private:
   SbString    cacheName;
   int         cacheSize;
 
-  SbBool isEqual(CGtype type1, CGtype type2);
-  SbBool isValid(const SoGLShaderObject * shader, const char * name, CGtype type, int * num=NULL);
+  bool isEqual(CGtype type1, CGtype type2);
+  bool isValid(const SoGLShaderObject * shader, const char * name, CGtype type, int * num=NULL);
 };
 
 #endif /* ! COIN_SOGLCGSHADER_H */

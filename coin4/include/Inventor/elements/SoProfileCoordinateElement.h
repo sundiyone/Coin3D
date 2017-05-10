@@ -54,7 +54,7 @@ public:
   const SbVec2f & get2(const int index) const;
   const SbVec3f & get3(const int index) const;
 
-  SbBool is2D(void) const;
+  bool is2D(void) const;
 
   static SbVec2f getDefault2(void);
   static SbVec3f getDefault3(void);
@@ -66,7 +66,7 @@ protected:
   int32_t numCoords;
   const SbVec2f * coords2;
   const SbVec3f * coords3;
-  SbBool coordsAre2D;
+  bool coordsAre2D;
 
 private:
   static void clean(void);

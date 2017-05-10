@@ -142,14 +142,14 @@ SoError::getTypeId(void) const
 }
 
 /*!
-  This method returns \c TRUE if the error instance is of - or derived
-  from - \a type, and \c FALSE otherwise.
+  This method returns \c true if the error instance is of - or derived
+  from - \a type, and \c false otherwise.
 */
-SbBool
+bool
 SoError::isOfType(const SoType type) const
 {
   const SoType myType = this->getTypeId();
-  return (myType == type) ? TRUE : myType.isDerivedFrom(type);
+  return (myType == type) ? true : myType.isDerivedFrom(type);
 }
 
 /*!

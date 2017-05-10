@@ -124,10 +124,10 @@ SoGLLightIdElement::increment(SoState * const state,
     if (element->data >= maxl) {
       element->data--;
 #if COIN_DEBUG
-      static SbBool warn = TRUE;
+      static bool warn = true;
 
       if (warn) { // warn only once
-        warn = FALSE;
+        warn = false;
         SoDebugError::postWarning("SoGLLightIdElement::increment",
                                   "Number of concurrent light sources in "
                                   "scene exceeds %d, which is the maximum "

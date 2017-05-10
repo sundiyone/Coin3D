@@ -1,4 +1,4 @@
-/**************************************************************************\
+/*
  *
  *  This file is part of the Coin 3D visualization library.
  *  Copyright (C) by Kongsberg Oil & Gas Technologies.
@@ -65,7 +65,7 @@ SoSFVec2b::initClass(void)
 // parent classes.
 #ifndef DOXYGEN_SKIP_THIS
 
-SbBool
+bool
 SoSFVec2b::readValue(SoInput * in)
 {
   return

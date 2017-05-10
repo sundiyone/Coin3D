@@ -215,43 +215,43 @@ SoDragPointDragger::SoDragPointDragger(void)
 {
   SO_KIT_INTERNAL_CONSTRUCTOR(SoDragPointDragger);
 
-  SO_KIT_ADD_CATALOG_ENTRY(noRotSep, SoSeparator, FALSE, topSeparator, rotXSep, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(planeFeedbackSep, SoSeparator, FALSE, topSeparator, geomSeparator, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(planeFeedbackSwitch, SoSwitch, FALSE, planeFeedbackSep, "", FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(planeFeedbackTranslation, SoTranslation, FALSE, planeFeedbackSep, planeFeedbackSwitch, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(rotX, SoRotation, TRUE, rotXSep, xzTranslatorSwitch, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(rotXSep, SoSeparator, FALSE, topSeparator, rotYSep, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(rotY, SoRotation, TRUE, rotYSep, zTranslatorSwitch, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(rotYSep, SoSeparator, FALSE, topSeparator, rotZSep, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(rotZ, SoRotation, TRUE, rotZSep, yTranslatorSwitch, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(rotZSep, SoSeparator, FALSE, topSeparator, xFeedbackSwitch, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(xFeedback, SoSeparator, TRUE, xFeedbackSep, "", TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(xFeedbackSep, SoSeparator, FALSE, xFeedbackSwitch, "", FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(xFeedbackSwitch, SoSwitch, FALSE, topSeparator, yFeedbackSwitch, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(xFeedbackTranslation, SoTranslation, FALSE, xFeedbackSep, xFeedback, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(xTranslator, SoTranslate1Dragger, TRUE, xTranslatorSwitch, "", TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(xTranslatorSwitch, SoSwitch, FALSE, noRotSep, xyTranslatorSwitch, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(xyFeedback, SoSeparator, TRUE, planeFeedbackSwitch, "", TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(xyTranslator, SoTranslate2Dragger, TRUE, xyTranslatorSwitch, "", TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(xyTranslatorSwitch, SoSwitch, FALSE, noRotSep, "", FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(xzFeedback, SoSeparator, TRUE, planeFeedbackSwitch, xyFeedback, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(xzTranslator, SoTranslate2Dragger, TRUE, xzTranslatorSwitch, "", TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(xzTranslatorSwitch, SoSwitch, FALSE, rotXSep, "", FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(yFeedback, SoSeparator, TRUE, yFeedbackSep, "", TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(yFeedbackSep, SoSeparator, FALSE, yFeedbackSwitch, "", FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(yFeedbackSwitch, SoSwitch, FALSE, topSeparator, zFeedbackSwitch, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(yFeedbackTranslation, SoTranslation, FALSE, yFeedbackSep, yFeedback, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(yTranslator, SoTranslate1Dragger, TRUE, yTranslatorSwitch, "", TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(yTranslatorSwitch, SoSwitch, FALSE, rotZSep, "", FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(yzFeedback, SoSeparator, TRUE, planeFeedbackSwitch, xzFeedback, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(yzTranslator, SoTranslate2Dragger, TRUE, yzTranslatorSwitch, "", TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(yzTranslatorSwitch, SoSwitch, FALSE, rotYSep, "", FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(zFeedback, SoSeparator, TRUE, zFeedbackSep, "", TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(zFeedbackSep, SoSeparator, FALSE, zFeedbackSwitch, "", FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(zFeedbackSwitch, SoSwitch, FALSE, topSeparator, planeFeedbackSep, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(zFeedbackTranslation, SoTranslation, FALSE, zFeedbackSep, zFeedback, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(zTranslator, SoTranslate1Dragger, TRUE, zTranslatorSwitch, "", TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(zTranslatorSwitch, SoSwitch, FALSE, rotYSep, yzTranslatorSwitch, FALSE);
+  SO_KIT_ADD_CATALOG_ENTRY(noRotSep, SoSeparator, false, topSeparator, rotXSep, false);
+  SO_KIT_ADD_CATALOG_ENTRY(planeFeedbackSep, SoSeparator, false, topSeparator, geomSeparator, false);
+  SO_KIT_ADD_CATALOG_ENTRY(planeFeedbackSwitch, SoSwitch, false, planeFeedbackSep, "", false);
+  SO_KIT_ADD_CATALOG_ENTRY(planeFeedbackTranslation, SoTranslation, false, planeFeedbackSep, planeFeedbackSwitch, false);
+  SO_KIT_ADD_CATALOG_ENTRY(rotX, SoRotation, true, rotXSep, xzTranslatorSwitch, false);
+  SO_KIT_ADD_CATALOG_ENTRY(rotXSep, SoSeparator, false, topSeparator, rotYSep, false);
+  SO_KIT_ADD_CATALOG_ENTRY(rotY, SoRotation, true, rotYSep, zTranslatorSwitch, false);
+  SO_KIT_ADD_CATALOG_ENTRY(rotYSep, SoSeparator, false, topSeparator, rotZSep, false);
+  SO_KIT_ADD_CATALOG_ENTRY(rotZ, SoRotation, true, rotZSep, yTranslatorSwitch, false);
+  SO_KIT_ADD_CATALOG_ENTRY(rotZSep, SoSeparator, false, topSeparator, xFeedbackSwitch, false);
+  SO_KIT_ADD_CATALOG_ENTRY(xFeedback, SoSeparator, true, xFeedbackSep, "", true);
+  SO_KIT_ADD_CATALOG_ENTRY(xFeedbackSep, SoSeparator, false, xFeedbackSwitch, "", false);
+  SO_KIT_ADD_CATALOG_ENTRY(xFeedbackSwitch, SoSwitch, false, topSeparator, yFeedbackSwitch, false);
+  SO_KIT_ADD_CATALOG_ENTRY(xFeedbackTranslation, SoTranslation, false, xFeedbackSep, xFeedback, false);
+  SO_KIT_ADD_CATALOG_ENTRY(xTranslator, SoTranslate1Dragger, true, xTranslatorSwitch, "", true);
+  SO_KIT_ADD_CATALOG_ENTRY(xTranslatorSwitch, SoSwitch, false, noRotSep, xyTranslatorSwitch, false);
+  SO_KIT_ADD_CATALOG_ENTRY(xyFeedback, SoSeparator, true, planeFeedbackSwitch, "", true);
+  SO_KIT_ADD_CATALOG_ENTRY(xyTranslator, SoTranslate2Dragger, true, xyTranslatorSwitch, "", true);
+  SO_KIT_ADD_CATALOG_ENTRY(xyTranslatorSwitch, SoSwitch, false, noRotSep, "", false);
+  SO_KIT_ADD_CATALOG_ENTRY(xzFeedback, SoSeparator, true, planeFeedbackSwitch, xyFeedback, true);
+  SO_KIT_ADD_CATALOG_ENTRY(xzTranslator, SoTranslate2Dragger, true, xzTranslatorSwitch, "", true);
+  SO_KIT_ADD_CATALOG_ENTRY(xzTranslatorSwitch, SoSwitch, false, rotXSep, "", false);
+  SO_KIT_ADD_CATALOG_ENTRY(yFeedback, SoSeparator, true, yFeedbackSep, "", true);
+  SO_KIT_ADD_CATALOG_ENTRY(yFeedbackSep, SoSeparator, false, yFeedbackSwitch, "", false);
+  SO_KIT_ADD_CATALOG_ENTRY(yFeedbackSwitch, SoSwitch, false, topSeparator, zFeedbackSwitch, false);
+  SO_KIT_ADD_CATALOG_ENTRY(yFeedbackTranslation, SoTranslation, false, yFeedbackSep, yFeedback, false);
+  SO_KIT_ADD_CATALOG_ENTRY(yTranslator, SoTranslate1Dragger, true, yTranslatorSwitch, "", true);
+  SO_KIT_ADD_CATALOG_ENTRY(yTranslatorSwitch, SoSwitch, false, rotZSep, "", false);
+  SO_KIT_ADD_CATALOG_ENTRY(yzFeedback, SoSeparator, true, planeFeedbackSwitch, xzFeedback, true);
+  SO_KIT_ADD_CATALOG_ENTRY(yzTranslator, SoTranslate2Dragger, true, yzTranslatorSwitch, "", true);
+  SO_KIT_ADD_CATALOG_ENTRY(yzTranslatorSwitch, SoSwitch, false, rotYSep, "", false);
+  SO_KIT_ADD_CATALOG_ENTRY(zFeedback, SoSeparator, true, zFeedbackSep, "", true);
+  SO_KIT_ADD_CATALOG_ENTRY(zFeedbackSep, SoSeparator, false, zFeedbackSwitch, "", false);
+  SO_KIT_ADD_CATALOG_ENTRY(zFeedbackSwitch, SoSwitch, false, topSeparator, planeFeedbackSep, false);
+  SO_KIT_ADD_CATALOG_ENTRY(zFeedbackTranslation, SoTranslation, false, zFeedbackSep, zFeedback, false);
+  SO_KIT_ADD_CATALOG_ENTRY(zTranslator, SoTranslate1Dragger, true, zTranslatorSwitch, "", true);
+  SO_KIT_ADD_CATALOG_ENTRY(zTranslatorSwitch, SoSwitch, false, rotYSep, yzTranslatorSwitch, false);
 
   if (SO_KIT_IS_FIRST_INSTANCE()) {
     SoInteractionKit::readDefaultParts("dragPointDragger.iv",
@@ -314,7 +314,7 @@ SoDragPointDragger::SoDragPointDragger(void)
   this->fieldSensor = new SoFieldSensor(SoDragPointDragger::fieldSensorCB, this);
   this->fieldSensor->setPriority(0);
 
-  this->setUpConnections(TRUE, TRUE);
+  this->setUpConnections(true, true);
 }
 
 /*!
@@ -330,40 +330,40 @@ SoDragPointDragger::~SoDragPointDragger()
 }
 
 // Doc in superclass.
-SbBool
-SoDragPointDragger::setUpConnections(SbBool onoff, SbBool doitalways)
+bool
+SoDragPointDragger::setUpConnections(bool onoff, bool doitalways)
 {
   if (!doitalways && this->connectionsSetUp == onoff) return onoff;
 
   if (onoff) {
     inherited::setUpConnections(onoff, doitalways);
 
-    SoDragger * xdragger = coin_assert_cast<SoDragger *>(this->getAnyPart("xTranslator", FALSE));
+    SoDragger * xdragger = coin_assert_cast<SoDragger *>(this->getAnyPart("xTranslator", false));
     xdragger->setPartAsDefault("translator", "dragPointXTranslatorTranslator");
     xdragger->setPartAsDefault("translatorActive", "dragPointXTranslatorTranslatorActive");
     this->registerDragger(xdragger);
 
-    SoDragger * ydragger = coin_assert_cast<SoDragger *>(this->getAnyPart("yTranslator", FALSE));
+    SoDragger * ydragger = coin_assert_cast<SoDragger *>(this->getAnyPart("yTranslator", false));
     ydragger->setPartAsDefault("translator", "dragPointYTranslatorTranslator");
     ydragger->setPartAsDefault("translatorActive", "dragPointYTranslatorTranslatorActive");
     this->registerDragger(ydragger);
 
-    SoDragger * zdragger = coin_assert_cast<SoDragger *>(this->getAnyPart("zTranslator", FALSE));
+    SoDragger * zdragger = coin_assert_cast<SoDragger *>(this->getAnyPart("zTranslator", false));
     zdragger->setPartAsDefault("translator", "dragPointZTranslatorTranslator");
     zdragger->setPartAsDefault("translatorActive", "dragPointZTranslatorTranslatorActive");
     this->registerDragger(zdragger);
 
-    SoDragger * xydragger = coin_assert_cast<SoDragger *>(this->getAnyPart("xyTranslator", FALSE));
+    SoDragger * xydragger = coin_assert_cast<SoDragger *>(this->getAnyPart("xyTranslator", false));
     xydragger->setPartAsDefault("translator", "dragPointXYTranslatorTranslator");
     xydragger->setPartAsDefault("translatorActive", "dragPointXYTranslatorTranslatorActive");
     this->registerDragger(xydragger);
 
-    SoDragger * xzdragger = coin_assert_cast<SoDragger *>(this->getAnyPart("xzTranslator", FALSE));
+    SoDragger * xzdragger = coin_assert_cast<SoDragger *>(this->getAnyPart("xzTranslator", false));
     xzdragger->setPartAsDefault("translator", "dragPointXZTranslatorTranslator");
     xzdragger->setPartAsDefault("translatorActive", "dragPointXZTranslatorTranslatorActive");
     this->registerDragger(xzdragger);
 
-    SoDragger * yzdragger = coin_assert_cast<SoDragger *>(this->getAnyPart("yzTranslator", FALSE));
+    SoDragger * yzdragger = coin_assert_cast<SoDragger *>(this->getAnyPart("yzTranslator", false));
     yzdragger->setPartAsDefault("translator", "dragPointYZTranslatorTranslator");
     yzdragger->setPartAsDefault("translatorActive", "dragPointYZTranslatorTranslatorActive");
     this->registerDragger(yzdragger);
@@ -393,18 +393,18 @@ SoDragPointDragger::setUpConnections(SbBool onoff, SbBool doitalways)
 void
 SoDragPointDragger::setDefaultOnNonWritingFields(void)
 {
-  this->xTranslator.setDefault(TRUE);
-  this->yTranslator.setDefault(TRUE);
-  this->zTranslator.setDefault(TRUE);
+  this->xTranslator.setDefault(true);
+  this->yTranslator.setDefault(true);
+  this->zTranslator.setDefault(true);
 
-  this->xyTranslator.setDefault(TRUE);
-  this->xzTranslator.setDefault(TRUE);
-  this->yzTranslator.setDefault(TRUE);
+  this->xyTranslator.setDefault(true);
+  this->xzTranslator.setDefault(true);
+  this->yzTranslator.setDefault(true);
 
-  this->planeFeedbackTranslation.setDefault(TRUE);
-  this->xFeedbackTranslation.setDefault(TRUE);
-  this->yFeedbackTranslation.setDefault(TRUE);
-  this->zFeedbackTranslation.setDefault(TRUE);
+  this->planeFeedbackTranslation.setDefault(true);
+  this->xFeedbackTranslation.setDefault(true);
+  this->yFeedbackTranslation.setDefault(true);
+  this->zFeedbackTranslation.setDefault(true);
 
   inherited::setDefaultOnNonWritingFields();
 }
@@ -590,7 +590,7 @@ SoDragPointDragger::registerDragger(SoDragger *dragger)
 void
 SoDragPointDragger::unregisterDragger(const char *name)
 {
-  SoDragger * dragger = coin_assert_cast<SoDragger *>(this->getAnyPart(name, FALSE));
+  SoDragger * dragger = coin_assert_cast<SoDragger *>(this->getAnyPart(name, false));
   this->unregisterChildDragger(dragger);
 }
 

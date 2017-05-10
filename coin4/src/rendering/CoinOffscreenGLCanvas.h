@@ -49,14 +49,14 @@ public:
                   unsigned int dstrowsize,
                   unsigned int nrcomponents) const;
 
-  static SbBool debug(void);
+  static bool debug(void);
 
-  static SbBool allowResourcehog(void);
+  static bool allowResourcehog(void);
 
   const void * const & getHDC(void) const; // ugliness to support SoOffscreenRenderer::getDC()
   void updateDCBitmap();	
 private:
-  static SbBool clampSize(SbVec2s & s);
+  static bool clampSize(SbVec2s & s);
   static void clampToPixelSizeRoof(SbVec2s & s);
   static SbVec2s getMaxTileSize(void);
   static unsigned int tilesizeroof;

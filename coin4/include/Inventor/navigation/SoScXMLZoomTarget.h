@@ -60,7 +60,7 @@ protected:
   SoScXMLZoomTarget(void);
   virtual ~SoScXMLZoomTarget(void);
 
-  virtual SbBool processOneEvent(const ScXMLEvent * event);
+  virtual bool processOneEvent(const ScXMLEvent * event);
 
 private:
   class PImpl;

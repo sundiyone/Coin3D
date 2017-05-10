@@ -106,10 +106,10 @@ SoNodeKitListPart::SoNodeKitListPart(void)
   // graph and notification will be propagated throught the scene
   // graph). If notification is enabled for this field, the trigger
   // path will be incorrect since it will stop at this node.
-  this->containerNode.enableNotify(FALSE);
-  this->containerNode.setDefault(TRUE);
+  this->containerNode.enableNotify(false);
+  this->containerNode.setDefault(true);
 
-  this->typelistlocked = FALSE;
+  this->typelistlocked = false;
   this->children = new SoChildList(this);
   this->children->append(this->containerNode.getValue());
 }
@@ -240,28 +240,28 @@ SoNodeKitListPart::addChildType(SoType typeToAdd)
 }
 
 /*!
-  Return \c TRUE if nodes of the \a typeToCheck class type can be added
+  Return \c true if nodes of the \a typeToCheck class type can be added
   to the list.
 */
-SbBool
+bool
 SoNodeKitListPart::isTypePermitted(SoType typeToCheck) const
 {
   int numtypes = this->allowedtypes.getLength();
 
   if ((numtypes == 0) && typeToCheck.isDerivedFrom(SoNode::getClassTypeId()))
-    return TRUE;
+    return true;
 
   for (int i=0; i < numtypes; i++) {
-    if (typeToCheck.isDerivedFrom(this->allowedtypes[i])) return TRUE;
+    if (typeToCheck.isDerivedFrom(this->allowedtypes[i])) return true;
   }
-  return FALSE;
+  return false;
 }
 
 /*!
-  Return \c TRUE if \a child has a class type which is permitted to be
+  Return \c true if \a child has a class type which is permitted to be
   in the list.
 */
-SbBool
+bool
 SoNodeKitListPart::isChildPermitted(const SoNode * child) const
 {
   return this->isTypePermitted(child->getTypeId());
@@ -284,14 +284,14 @@ SoNodeKitListPart::containerSet(const char * fieldDataString)
 void
 SoNodeKitListPart::lockTypes(void)
 {
-  this->typelistlocked = TRUE;
+  this->typelistlocked = true;
 }
 
 /*!
-  Returns \c TRUE if the list of allowable node types and the container
+  Returns \c true if the list of allowable node types and the container
   type have both been locked.
 */
-SbBool
+bool
 SoNodeKitListPart::isTypeLocked(void) const
 {
   return this->typelistlocked;
@@ -419,7 +419,7 @@ SoNodeKitListPart::replaceChild(SoNode * oldChild, SoNode * newChild)
 }
 
 // Documented in superclass.
-SbBool
+bool
 SoNodeKitListPart::affectsState(void) const
 {
   // Just "forwards" the call to the same method at the container
@@ -483,7 +483,7 @@ SoNodeKitListPart::getBoundingBox(SoGetBoundingBoxAction * action)
       action->resetCenter();
     }
   }
-  if (numacc) action->setCenter(acccenter / float(numacc), FALSE);
+  if (numacc) action->setCenter(acccenter / float(numacc), false);
 }
 
 /*!
@@ -570,21 +570,21 @@ SoNodeKitListPart::getContainerNode(void)
 // Documented in superclass. Overrides this method to set up internal
 // data according to what is contained within the imported field
 // values.
-SbBool
+bool
 SoNodeKitListPart::readInstance(SoInput * in, unsigned short flags)
 {
   if (inherited::readInstance(in, flags)) {
     this->syncInternalData();
-    return TRUE;
+    return true;
   }
-  return FALSE;
+  return false;
 }
 
 // Documented in superclass. Overrides this method to set up internal
 // data according to what is contained within the copied field values.
 void
 SoNodeKitListPart::copyContents(const SoFieldContainer * fromFC,
-                                SbBool copyConnections)
+                                bool copyConnections)
 {
   inherited::copyContents(fromFC, copyConnections);
   this->syncInternalData();
@@ -606,7 +606,7 @@ SoNodeKitListPart::syncInternalData(void)
   if (this->containerNode.getValue() == NULL) {
     SoType containerType = SoType::fromName(this->containerTypeName.getValue());
     this->containerNode.setValue((SoNode*)containerType.createInstance());
-    this->containerNode.setDefault(TRUE);
+    this->containerNode.setDefault(true);
   }
 
   if (this->children->getLength() == 0) {
@@ -618,8 +618,8 @@ SoNodeKitListPart::syncInternalData(void)
   }
 }
 
-// TRUE if default child can be created
-SbBool
+// true if default child can be created
+bool
 SoNodeKitListPart::canCreateDefaultChild(void) const
 {
   return this->getDefaultChildType() != SoType::badType();

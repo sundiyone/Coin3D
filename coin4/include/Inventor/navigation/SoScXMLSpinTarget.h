@@ -55,7 +55,7 @@ protected:
   SoScXMLSpinTarget(void);
   virtual ~SoScXMLSpinTarget(void);
 
-  virtual SbBool processOneEvent(const ScXMLEvent * event);
+  virtual bool processOneEvent(const ScXMLEvent * event);
 
 private:
   class PImpl;

@@ -126,9 +126,9 @@ SoVRMLSphere::GLRender(SoGLRenderAction * action)
   SoMaterialBundle mb(action);
   mb.sendFirst();
 
-  SbBool doTextures = SoGLMultiTextureEnabledElement::get(state);
+  bool doTextures = SoGLMultiTextureEnabledElement::get(state);
 
-  SbBool sendNormals = !mb.isColorOnly() ||
+  bool sendNormals = !mb.isColorOnly() ||
     (SoMultiTextureCoordinateElement::getType(state) == SoMultiTextureCoordinateElement::FUNCTION);
   
   float complexity = this->getComplexityValue(action);
@@ -138,7 +138,7 @@ SoVRMLSphere::GLRender(SoGLRenderAction * action)
   if (doTextures) flags |= SOGL_NEED_TEXCOORDS;
 
   // enable back face culling
-  SoGLShapeHintsElement::forceSend(state, TRUE, TRUE);
+  SoGLShapeHintsElement::forceSend(state, true, true);
 
   sogl_render_sphere(this->radius.getValue(),
                      (int)(SPHERE_NUM_SLICES * complexity),

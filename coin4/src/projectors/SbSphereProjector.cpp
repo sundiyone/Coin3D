@@ -60,7 +60,7 @@
 /*!
   \var SbSphereProjector::needSetup
 
-  Set to \c TRUE whenever the projection surface needs to be
+  Set to \c true whenever the projection surface needs to be
   recalculated according to the setting of the
   SbSphereProjector::orientToEye flag.
 */
@@ -75,11 +75,11 @@
 /*!
   Default constructor sets up a sphere at the origin with radius 1.
 */
-SbSphereProjector::SbSphereProjector(const SbBool orienttoeye)
-  : intersectFront(TRUE),
+SbSphereProjector::SbSphereProjector(const bool orienttoeye)
+  : intersectFront(true),
     sphere(SbVec3f(0.0f, 0.0f, 0.0f), 1.0f),
     orientToEye(orienttoeye),
-    needSetup(TRUE),
+    needSetup(true),
     lastPoint(0.0f, 0.0f, 0.0f)
 {
 }
@@ -88,11 +88,11 @@ SbSphereProjector::SbSphereProjector(const SbBool orienttoeye)
   Constructor taking an explicit \a sphere projection definition.
 */
 SbSphereProjector::SbSphereProjector(const SbSphere & s,
-                                     const SbBool orienttoeye)
-  : intersectFront(TRUE),
+                                     const bool orienttoeye)
+  : intersectFront(true),
     sphere(s),
     orientToEye(orienttoeye),
-    needSetup(TRUE),
+    needSetup(true),
     lastPoint(0.0f, 0.0f, 0.0f)
 {
 }
@@ -121,7 +121,7 @@ void
 SbSphereProjector::setSphere(const SbSphere & sph)
 {
   this->sphere = sph;
-  this->needSetup = TRUE;
+  this->needSetup = true;
 }
 
 /*!
@@ -135,19 +135,19 @@ SbSphereProjector::getSphere(void) const
 
 /*!
   Sets whether or not the projection surface should be oriented
-  towards the eye of the viewer. Default is \c TRUE.
+  towards the eye of the viewer. Default is \c true.
 */
 void
-SbSphereProjector::setOrientToEye(const SbBool orienttoeye)
+SbSphereProjector::setOrientToEye(const bool orienttoeye)
 {
   this->orientToEye = orienttoeye;
-  this->needSetup = TRUE;
+  this->needSetup = true;
 }
 
 /*!
   Returns the state of the sphere orientation flag.
 */
-SbBool
+bool
 SbSphereProjector::isOrientToEye(void) const
 {
   return this->orientToEye;
@@ -155,20 +155,20 @@ SbSphereProjector::isOrientToEye(void) const
 
 /*!
   Set whether to intersect with the outside of the sphere (\a infront
-  equal to \c TRUE), or the inside.
+  equal to \c true), or the inside.
 */
 void
-SbSphereProjector::setFront(const SbBool infront)
+SbSphereProjector::setFront(const bool infront)
 {
   this->intersectFront = infront;
-  this->needSetup = TRUE;
+  this->needSetup = true;
 }
 
 /*!
   Returns value of the flag which decides whether to intersect with
   the outside or inside of the sphere.
 */
-SbBool
+bool
 SbSphereProjector::isFront(void) const
 {
   return this->intersectFront;
@@ -178,7 +178,7 @@ SbSphereProjector::isFront(void) const
   Check if \a point is on the frontside or the backside of the
   cylinder.
 */
-SbBool
+bool
 SbSphereProjector::isPointInFront(const SbVec3f & point) const
 {
   const SbViewVolume & vv = this->getViewVolume();
@@ -200,25 +200,25 @@ SbSphereProjector::isPointInFront(const SbVec3f & point) const
   intersection point (if any) in \a result. Considers setFront()
   settings.
 
-  Returns \c TRUE if \a line actually hits the sphere, \c FALSE if it
+  Returns \c true if \a line actually hits the sphere, \c false if it
   doesn't intersect with it.
 */
-SbBool
+bool
 SbSphereProjector::intersectSphereFront(const SbLine & l, SbVec3f & result)
 {
   SbVec3f i0, i1;
   if (this->sphere.intersect(l, i0, i1)) {
     if (this->isFront()) result = i0;
     else result = i1;
-    return TRUE;
+    return true;
   }
-  return FALSE;
+  return false;
 }
 
 // Documented in superclass.
 void
 SbSphereProjector::setWorkingSpace(const SbMatrix & space)
 {
-  this->needSetup = TRUE;
+  this->needSetup = true;
   inherited::setWorkingSpace(space);
 }

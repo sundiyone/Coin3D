@@ -77,12 +77,12 @@
 //
 // got to have unique intersection funcs, therefore the standard
 // Inventor intersection functions won't do. E.g. SbBox3f::pointInside()
-// will return TRUE for all eight child-boxes if the center point of the
+// will return true for all eight child-boxes if the center point of the
 // parent box is tested, which is correct, but not really usable for an
 // oct tree.
 //
 
-static SbBool
+static bool
 intersect_box_sphere(const SbBox3f & box,
                      const SbSphere & sphere)
 {
@@ -97,7 +97,7 @@ intersect_box_sphere(const SbBox3f & box,
   return (dmin <= SbSqr(sphere.getRadius()));
 }
 
-static SbBool
+static bool
 intersect_box_box(const SbBox3f & box1, const SbBox3f & box2)
 {
   return ! (box1.getMin()[0] >= box2.getMax()[0] ||
@@ -108,7 +108,7 @@ intersect_box_box(const SbBox3f & box1, const SbBox3f & box2)
             box1.getMax()[2] < box2.getMin()[2]);
 }
 
-static SbBool
+static bool
 point_inside_box(const SbVec3f & pt, const SbBox3f & box)
 {
   return ! (pt[0] < box.getMin()[0] ||
@@ -119,7 +119,7 @@ point_inside_box(const SbVec3f & pt, const SbBox3f & box)
             pt[2] >= box.getMax()[2]);
 }
 
-static SbBool
+static bool
 box_inside_planes(const SbBox3f & box, const SbPlane * const planes,
                   const int numplanes)
 {
@@ -131,9 +131,9 @@ box_inside_planes(const SbBox3f & box, const SbPlane * const planes,
   SbVec3f center = (box.getMin() + box.getMax()) * 0.5f;
 
   for (int i = 0; i < numplanes; i++) {
-    if (planes[i].getDistance(center) < -radius) return FALSE;
+    if (planes[i].getDistance(center) < -radius) return false;
   }
-  return TRUE;
+  return true;
 }
 
 // *************************************************************************
@@ -152,33 +152,33 @@ public:
   void findItems(const SbVec3f &pos,
                  SbList <void*> &destarray,
                  const SbOctTreeFuncs &itemfuncs,
-                 const SbBool removeduplicates) const;
+                 const bool removeduplicates) const;
   void findItems(const SbBox3f &box,
                  SbList <void*> &destarray,
                  const SbOctTreeFuncs &itemfuncs,
-                 const SbBool removeduplicates) const;
+                 const bool removeduplicates) const;
   void findItems(const SbSphere &sphere,
                  SbList <void*> &destarray,
                  const SbOctTreeFuncs &itemfuncs,
-                 const SbBool removeduplicates) const;
+                 const bool removeduplicates) const;
   void findItems(const SbPlane * const planes,
                  const int numPlanes,
                  SbList <void*> &destarray,
                  const SbOctTreeFuncs &itemfuncs,
-                 const SbBool removeduplicates) const;
+                 const bool removeduplicates) const;
 
   const SbBox3f & getBBox(void) const { return this->nodesize; }
 
   void debugTree(FILE *fp, const int indent) const;
 
 private:
-  SbBool isLeaf(void) const { return this->children[0] == NULL; }
-  SbBool isGroup(void) const { return ! this->isLeaf(); }
+  bool isLeaf(void) const { return this->children[0] == NULL; }
+  bool isGroup(void) const { return ! this->isLeaf(); }
 
   unsigned int totalNumberOfItems(void) const;
 
   static void split3Way(const SbBox3f & box, SbBox3f * destarray);
-  SbBool splitNode(const SbOctTreeFuncs & funcs);
+  bool splitNode(const SbOctTreeFuncs & funcs);
 
   SbOctTreeNode * children[8];
   SbList <void*> items;
@@ -299,7 +299,7 @@ void
 SbOctTreeNode::findItems(const SbVec3f & pos,
                          SbList <void*> & destarray,
                          const SbOctTreeFuncs & itemfuncs,
-                         const SbBool removeduplicates) const
+                         const bool removeduplicates) const
 {
   if (this->isGroup()) {
     for (int i = 0; i < 8; i++) {
@@ -327,7 +327,7 @@ void
 SbOctTreeNode::findItems(const SbBox3f & box,
                          SbList <void*> & destarray,
                          const SbOctTreeFuncs & itemfuncs,
-                         const SbBool removeduplicates) const
+                         const bool removeduplicates) const
 {
   if (this->isGroup()) {
     for (int i = 0; i < 8; i++) {
@@ -354,7 +354,7 @@ void
 SbOctTreeNode::findItems(const SbSphere & sphere,
                          SbList <void*> & destarray,
                          const SbOctTreeFuncs & itemfuncs,
-                         const SbBool removeduplicates) const
+                         const bool removeduplicates) const
 {
   if (this->isGroup()) {
     for (int i = 0; i < 8; i++) {
@@ -382,7 +382,7 @@ SbOctTreeNode::findItems(const SbPlane * const planes,
                          const int numplanes,
                          SbList <void*> & destarray,
                          const SbOctTreeFuncs & itemfuncs,
-                         const SbBool removeduplicates) const
+                         const bool removeduplicates) const
 {
   if (this->isGroup()) {
     for (int i = 0; i < 8; i++) {
@@ -421,7 +421,7 @@ SbOctTreeNode::split3Way(const SbBox3f & box, SbBox3f * dest)
   }
 }
 
-SbBool
+bool
 SbOctTreeNode::splitNode(const SbOctTreeFuncs & itemfuncs)
 {
   SbBox3f childbox[8];
@@ -452,15 +452,15 @@ SbOctTreeNode::splitNode(const SbOctTreeFuncs & itemfuncs)
         delete this->children[j];
         this->children[j] = NULL;
       }
-      return FALSE;
+      return false;
     }
   }
 
   // Box was indeed split, we're now a group node, so truncate our
   // list of items and carry on with new tree structure.
 
-  this->items.truncate(0, TRUE);
-  return TRUE;
+  this->items.truncate(0, true);
+  return true;
 }
 
 // *************************************************************************
@@ -550,9 +550,9 @@ SbOctTree::removeItem(void * const item)
   Finds all items which contains the point \a pos. Items are
   returned in \a destarray.
 
-  If \a removeduplicates is TRUE (the default), \a destarray will not
+  If \a removeduplicates is true (the default), \a destarray will not
   contain duplicate items. This is not an optimized process, so if
-  you're looking for speed you should set this to FALSE and do
+  you're looking for speed you should set this to false and do
   your own postprocessing of the array of returned items.
 
   \DANGEROUS_ALLOC_RETURN
@@ -560,7 +560,7 @@ SbOctTree::removeItem(void * const item)
 void
 SbOctTree::findItems(const SbVec3f & pos,
                      SbList <void*> & destarray,
-                     const SbBool removeduplicates) const
+                     const bool removeduplicates) const
 {
   // FIXME: passing in an SbList is dangerous under MS Windows, as
   // allocation and deallocation can then happen on different
@@ -583,16 +583,16 @@ SbOctTree::findItems(const SbVec3f & pos,
 /*!
   Finds all items inside \a box. Items are returned in \a destarray.
 
-  If \a removeduplicates is TRUE (the default), \a destarray will not
+  If \a removeduplicates is true (the default), \a destarray will not
   contain duplicate items. This is not an optimized process, so if
-  you're looking for speed you should set this to FALSE and do
+  you're looking for speed you should set this to false and do
   your own postprocessing of the array of returned items.
 
   \DANGEROUS_ALLOC_RETURN
 */
 void
 SbOctTree::findItems(const SbBox3f & box, SbList <void*> & destarray,
-                     const SbBool removeduplicates) const
+                     const bool removeduplicates) const
 {
   assert(this->itemfuncs.insideboxfunc);
   this->topnode->findItems(box, destarray, this->itemfuncs, removeduplicates);
@@ -601,9 +601,9 @@ SbOctTree::findItems(const SbBox3f & box, SbList <void*> & destarray,
 /*!
   Finds all items inside \a sphere. Items are returned in \a destarray.
 
-  If \a removeduplicates is TRUE (the default), \a destarray will not
+  If \a removeduplicates is true (the default), \a destarray will not
   contain duplicate items. This is not an optimized process, so if
-  you're looking for speed you should set this to FALSE and do
+  you're looking for speed you should set this to false and do
   your own postprocessing of the array of returned items.
 
   \DANGEROUS_ALLOC_RETURN
@@ -611,7 +611,7 @@ SbOctTree::findItems(const SbBox3f & box, SbList <void*> & destarray,
 void
 SbOctTree::findItems(const SbSphere & sphere,
                      SbList <void*> & destarray,
-                     const SbBool removeduplicates) const
+                     const bool removeduplicates) const
 {
   assert(this->itemfuncs.insidespherefunc);
   this->topnode->findItems(sphere, destarray, this->itemfuncs, removeduplicates);
@@ -623,9 +623,9 @@ SbOctTree::findItems(const SbSphere & sphere,
   (partly) inside \e all planes are returned. Items are returned in \a
   destarray.
 
-  If \a removeduplicates is TRUE (the default), \a destarray will not
+  If \a removeduplicates is true (the default), \a destarray will not
   contain duplicate items. This is not an optimized process, so if
-  you're looking for speed you should set this to FALSE and do
+  you're looking for speed you should set this to false and do
   your own postprocessing of the array of returned items.
 
   \DANGEROUS_ALLOC_RETURN
@@ -634,7 +634,7 @@ void
 SbOctTree::findItems(const SbPlane * const planes,
                      const int numplanes,
                      SbList <void*> & destarray,
-                     const SbBool removeduplicates) const
+                     const bool removeduplicates) const
 {
   assert(this->itemfuncs.insideplanesfunc);
   this->topnode->findItems(planes, numplanes, destarray, this->itemfuncs,

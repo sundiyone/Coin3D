@@ -56,8 +56,8 @@ LINE                [^\n]*
 ID                  {LETTER}({LETTER}|{DIGIT}|[_])*("()")?
 MLID                {ID}("."{ID})*
 
-TRUE                ("TRUE"|"True"|"true")
-FALSE               ("FALSE"|"False"|"false")
+true                ("true"|"True"|"true")
+false               ("false"|"False"|"false")
 EVENTSCOPE          "_event."
 DATASCOPE           "_data."
 CAMERASCOPE         "coin:camera."
@@ -65,8 +65,8 @@ CAMERASCOPE         "coin:camera."
 %%
 
 {WS}                { }
-{TRUE}              { return SCXML_COIN_BOOL_TRUE; }
-{FALSE}             { return SCXML_COIN_BOOL_FALSE; }
+{true}              { return SCXML_COIN_BOOL_true; }
+{false}             { return SCXML_COIN_BOOL_false; }
 {FLOAT}             { scxml_coin_lval.real = atof(yytext); return SCXML_COIN_REAL; }
 M_PI                { scxml_coin_lval.real = M_PI; return SCXML_COIN_REAL; }
 M_PI_2              { scxml_coin_lval.real = M_PI_2; return SCXML_COIN_REAL; }

@@ -72,12 +72,12 @@
   front half is used.
 */
 SbSphereSectionProjector::SbSphereSectionProjector(const float edgetol,
-                                                   const SbBool orienttoeye)
+                                                   const bool orienttoeye)
   : inherited(orienttoeye),
     tolerance(edgetol),
     radialFactor(0.0f)
 {
-  // needSetup will be TRUE, and other members will be initialized later
+  // needSetup will be true, and other members will be initialized later
 }
 
 /*!
@@ -85,12 +85,12 @@ SbSphereSectionProjector::SbSphereSectionProjector(const float edgetol,
 */
 SbSphereSectionProjector::SbSphereSectionProjector(const SbSphere & sph,
                                                    const float edgetol,
-                                                   const SbBool orienttoeye)
+                                                   const bool orienttoeye)
   : inherited(sph, orienttoeye),
     tolerance(edgetol),
     radialFactor(0.0f)
 {
-  // needSetup will be TRUE, and other members will be initialized later
+  // needSetup will be true, and other members will be initialized later
 }
 
 // Documented in superclass.
@@ -109,7 +109,7 @@ SbSphereSectionProjector::project(const SbVec2f & point)
   SbLine projline = this->getWorkingLine(point);
   SbVec3f projpt;
 
-  SbBool tst = this->intersectSphereFront(projline, projpt);
+  bool tst = this->intersectSphereFront(projline, projpt);
   if (!tst || !this->isWithinTolerance(projpt)) {
     if (!this->tolPlane.intersect(projline, projpt)) {
 #if COIN_DEBUG
@@ -150,7 +150,7 @@ SbSphereSectionProjector::getRotation(const SbVec3f & point1,
 void
 SbSphereSectionProjector::setTolerance(const float edgetol)
 {
-  this->needSetup = TRUE;
+  this->needSetup = true;
   this->tolerance = edgetol;
 }
 
@@ -193,7 +193,7 @@ SbSphereSectionProjector::getRadialFactor(void) const
   Check if \a point is within the part of the sphere used for
   projections.
 */
-SbBool
+bool
 SbSphereSectionProjector::isWithinTolerance(const SbVec3f & point)
 {
   if (this->needSetup) this->setupTolerance();
@@ -225,5 +225,5 @@ SbSphereSectionProjector::setupTolerance(void)
   this->planePoint = this->sphere.getCenter() +
     this->planeDir * this->planeDist;
   this->tolPlane = SbPlane(this->planeDir, this->planePoint);
-  this->needSetup = FALSE;
+  this->needSetup = false;
 }

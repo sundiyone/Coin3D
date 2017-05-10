@@ -46,7 +46,7 @@
     exposedField SFFloat  minFront      1       # [0,inf)
     exposedField SFFloat  priority      0       # [0,1]
     exposedField SFNode   source        NULL
-    field        SFBool   spatialize    TRUE
+    field        SFBool   spatialize    true
   }
   \endverbatim
 
@@ -141,14 +141,14 @@
 
   The spatialize field specifies if the sound is perceived as being
   directionally located relative to the viewer. If the spatialize
-  field is TRUE and the viewer is located between the transformed
+  field is true and the viewer is located between the transformed
   inner and outer ellipsoids, the viewer's direction and the relative
   location of the Sound node should be taken into account during
   playback. Details outlining the minimum required spatialization
   functionality can be found in 7.3.4, Sound priority, attenuation,
   and spatialization
   (<http://www.web3d.org/x3d/specifications/vrml/ISO-IEC-14772-VRML97/part1/concepts.html#7.3.4>),
-  If the spatialize field is FALSE, then directional effects are
+  If the spatialize field is false, then directional effects are
   ignored, but the ellipsoid dimensions and intensity will still
   affect the loudness of the sound.  If the sound source is
   multi-channel (e.g., stereo), then the source should retain its
@@ -207,9 +207,9 @@
 
 /*!
   \var SoSFBool SoVRMLSound::spatialize
-  Set to TRUE if sound should be spatialized (directional effects 
+  Set to true if sound should be spatialized (directional effects 
   are applied) with respect to the viewer. Distance attenuation is 
-  always applied. Default value is TRUE.  
+  always applied. Default value is true.  
 */
 
 #include <Inventor/VRMLnodes/SoVRMLSound.h>
@@ -259,8 +259,8 @@ public:
   static void sourceSensorCBWrapper(void *, SoSensor *);
   void sourceSensorCB(SoSensor *);
 
-  SbBool stopPlaying();
-  SbBool startPlaying();
+  bool stopPlaying();
+  bool startPlaying();
 
   static void timercb(void * data, SoSensor *);
 
@@ -272,7 +272,7 @@ public:
 
   void generateAlSource();
   void deleteAlSource();
-  SbBool hasValidAlSource();
+  bool hasValidAlSource();
 
   SoFieldSensor * sourcesensor;
 
@@ -280,10 +280,10 @@ public:
   SbList<unsigned int> alBuffers;
 
   SoVRMLAudioClip *currentAudioClip;
-  SbBool playing;
-  SbBool useTimerCallback;
-  SbBool endoffile;
-  SbBool waitingForAudioClipToFinish;
+  bool playing;
+  bool useTimerCallback;
+  bool endoffile;
+  bool waitingForAudioClipToFinish;
 
   SoTimerSensor * timersensor;
 #ifdef HAVE_THREADS
@@ -292,8 +292,8 @@ public:
   SbMutex exitthreadmutex;
   SbCondVar exitthreadcondvar;
 #endif
-  volatile SbBool exitthread;
-  volatile SbBool errorInThread;
+  volatile bool exitthread;
+  volatile bool errorInThread;
 
   int16_t *audioBuffer;
   int channels;
@@ -353,7 +353,7 @@ SoVRMLSound::initClass(void)
 SoVRMLSound::SoVRMLSound(void)
 {
   // This is done to trigger the operation which sets up
-  // coin_sound_should_traverse() (which, when TRUE informs
+  // coin_sound_should_traverse() (which, when true informs
   // SoSceneManager that it should start applying an
   // SoAudioRenderAction on its scene graphs).
   //
@@ -375,26 +375,26 @@ SoVRMLSound::SoVRMLSound(void)
   SO_VRMLNODE_ADD_EXPOSED_FIELD(minBack, (1.0f));
   SO_VRMLNODE_ADD_EXPOSED_FIELD(maxBack, (10.0f));
 
-  SO_VRMLNODE_ADD_FIELD(spatialize, (TRUE));
+  SO_VRMLNODE_ADD_FIELD(spatialize, (true));
 
   PRIVATE(this) = new SoVRMLSoundP(this);
 
   PRIVATE(this)->channels = 1;
-  // because spatialize defaults to TRUE
+  // because spatialize defaults to true
   // and OpenAL only spatializes mono buffers
 
   PRIVATE(this)->currentAudioClip = NULL;
-  PRIVATE(this)->playing = FALSE;
-  PRIVATE(this)->endoffile = FALSE;
-  PRIVATE(this)->waitingForAudioClipToFinish = FALSE;
+  PRIVATE(this)->playing = false;
+  PRIVATE(this)->endoffile = false;
+  PRIVATE(this)->waitingForAudioClipToFinish = false;
 
   PRIVATE(this)->timersensor = NULL;
 #ifdef HAVE_THREADS
   /* FIXME: Let the user override use of timer callback with an
      environment variable. 2003-01-16 thammer.  */
-  PRIVATE(this)->useTimerCallback = FALSE;
+  PRIVATE(this)->useTimerCallback = false;
 #else
-  PRIVATE(this)->useTimerCallback = TRUE;
+  PRIVATE(this)->useTimerCallback = true;
 #endif // HAVE_THREADS
 
   /* FIXME: if (coin_debug_audio()), post info about which playback
@@ -408,8 +408,8 @@ SoVRMLSound::SoVRMLSound(void)
 #ifdef HAVE_THREADS
   PRIVATE(this)->workerThread = NULL;
 #endif
-  PRIVATE(this)->exitthread = FALSE;
-  PRIVATE(this)->errorInThread = FALSE;
+  PRIVATE(this)->exitthread = false;
+  PRIVATE(this)->errorInThread = false;
   PRIVATE(this)->audioBuffer = NULL;
   PRIVATE(this)->bufferLength = 0;
 
@@ -421,7 +421,7 @@ SoVRMLSound::SoVRMLSound(void)
 
   PRIVATE(this)->cliphandle = NULL;
 
-  static SbBool warningprintedonce = FALSE;
+  static bool warningprintedonce = false;
 
   // FIXME: I believe all this checking with HAVE_SOUND should be
   // unnecessary -- using SoAudioDevice::instance()->haveSound()
@@ -436,21 +436,21 @@ SoVRMLSound::SoVRMLSound(void)
 #ifdef HAVE_SOUND
   if (!warningprintedonce) {
     if (!SoAudioDevice::instance()->haveSound()) {
-      warningprintedonce = TRUE;
+      warningprintedonce = true;
 
       // FIXME: checking support platform and the COIN_SOUND_ENABLE
       // envvar is already done in SoAudioDevice.cpp -- I don't see
       // why it needs to be done again. Clean up. 20050627 mortene.
-      SbBool unsupportedplatform = TRUE;
+      bool unsupportedplatform = true;
 #ifdef _WIN32
-      unsupportedplatform = FALSE;
+      unsupportedplatform = false;
 #endif // _WIN32
-      SbBool forceenable = FALSE;
+      bool forceenable = false;
       if (unsupportedplatform) {
         const char * env;
         env = coin_getenv("COIN_SOUND_ENABLE");
         if (env && atoi(env))
-          forceenable = TRUE;
+          forceenable = true;
       }
 
       if (unsupportedplatform && (!forceenable)) {
@@ -502,7 +502,7 @@ SoVRMLSound::SoVRMLSound(void)
       "without sound support. If you'd like to have sound support in Coin, "
       "please reconfigure and rebuild the Coin library without specifying "
       "--disable-sound or --disable-vrml on the configure command line.");
-    warningprintedonce = TRUE;
+    warningprintedonce = true;
   }
 #endif // !HAVE_SOUND
 }
@@ -676,8 +676,8 @@ void SoVRMLSound::audioRender(SoAudioRenderAction *action)
   SbThreadAutoLock autoLock(&PRIVATE(this)->syncmutex);
 #endif
   SoState * state = action->getState();
-  SoSoundElement::setSceneGraphHasSoundNode(state, this, TRUE);
-  SoSoundElement::setSoundNodeIsPlaying(state, this, FALSE); 
+  SoSoundElement::setSceneGraphHasSoundNode(state, this, true);
+  SoSoundElement::setSoundNodeIsPlaying(state, this, false); 
   // ^-- might be changed below
 
   if (!SoAudioDevice::instance()->haveSound())
@@ -687,7 +687,7 @@ void SoVRMLSound::audioRender(SoAudioRenderAction *action)
     return;
 
   SoSFBool * isActiveField = (SoSFBool *)PRIVATE(this)->currentAudioClip->getField("isActive");
-  SbBool isactive = isActiveField->getValue();
+  bool isactive = isActiveField->getValue();
 
   if ( (!PRIVATE(this)->playing) &&
        ( (!isactive) || (!SoSoundElement::isPartOfActiveSceneGraph(state)) ) )
@@ -958,7 +958,7 @@ void SoVRMLSound::audioRender(SoAudioRenderAction *action)
     PRIVATE(this)->startPlaying();
   }
 
-  SoSoundElement::setSoundNodeIsPlaying(state, this, TRUE);
+  SoSoundElement::setSoundNodeIsPlaying(state, this, true);
 
 #endif // HAVE_SOUND
 }
@@ -1082,7 +1082,7 @@ SoVRMLSoundP::deleteAlSource()
 #endif
 }
 
-SbBool
+bool
 SoVRMLSoundP::hasValidAlSource()
 {
   return this->sourceId != 0;
@@ -1131,7 +1131,7 @@ SoVRMLSoundP::timercb(void * data, SoSensor * COIN_UNUSED_ARG(s))
   thisp->fillBuffers();
 }
 
-SbBool SoVRMLSoundP::stopPlaying()
+bool SoVRMLSoundP::stopPlaying()
 {
 #ifdef HAVE_SOUND
   #if COIN_DEBUG && DEBUG_AUDIO // debug
@@ -1139,10 +1139,10 @@ SbBool SoVRMLSoundP::stopPlaying()
   #endif // debug
 
   if (!SoAudioDevice::instance()->haveSound())
-    return FALSE;
+    return false;
 
   if (!this->playing)
-    return TRUE;
+    return true;
 
   int error;
 
@@ -1161,7 +1161,7 @@ SbBool SoVRMLSoundP::stopPlaying()
 #ifdef HAVE_THREADS
   if (this->workerThread!=NULL) {
     this->exitthreadmutex.lock();
-    this->exitthread = TRUE;
+    this->exitthread = true;
     this->exitthreadcondvar.wakeAll();
     this->exitthreadmutex.unlock();
     void *retval = NULL;
@@ -1171,9 +1171,9 @@ SbBool SoVRMLSoundP::stopPlaying()
   }
 #endif // HAVE_THREADS
 
-  this->errorInThread = FALSE;
+  this->errorInThread = false;
 
-  SbBool retval = TRUE;
+  bool retval = true;
 
 
   openal_wrapper()->alSourceStop(this->sourceId);
@@ -1181,7 +1181,7 @@ SbBool SoVRMLSoundP::stopPlaying()
     SoDebugError::postWarning("SoVRMLSound::stopPlaying",
                               "alSourceStop failed. %s",
                               coin_get_openal_error(error));
-    retval= FALSE;
+    retval= false;
   }
 
   /* Note: Rewinding will make sure state is AL_INITIAL, not just
@@ -1194,7 +1194,7 @@ SbBool SoVRMLSoundP::stopPlaying()
     SoDebugError::postWarning("SoVRMLSound::stopPlaying",
                               "alSourceRewind failed. %s",
                               coin_get_openal_error(error));
-    retval= FALSE;
+    retval= false;
   }
 
   int      processed;
@@ -1226,7 +1226,7 @@ SbBool SoVRMLSoundP::stopPlaying()
       SoDebugError::postWarning("SoVRMLSoundP::stopPlaying",
                                 "alSourceUnqueueBuffers failed. %s",
                                 coin_get_openal_error(error));
-      retval = FALSE;
+      retval = false;
     }
   }
 
@@ -1252,7 +1252,7 @@ SbBool SoVRMLSoundP::stopPlaying()
     SoDebugError::postWarning("SoVRMLSoundP::stopPlaying",
                               "alSourcei(,AL_BUFFER, AL_NONE) failed. %s",
                               coin_get_openal_error(error));
-    retval = FALSE;
+    retval = false;
   }
 
   openal_wrapper()->alGetSourcei(this->sourceId, AL_BUFFERS_QUEUED, &queued);
@@ -1262,11 +1262,11 @@ SbBool SoVRMLSoundP::stopPlaying()
   this->deleteAlSource();
   this->deleteAlBuffers();
 
-  this->playing = FALSE;
+  this->playing = false;
 
   return retval;
 #else
-  return FALSE;
+  return false;
 #endif // HAVE_SOUND
 }
 
@@ -1274,7 +1274,7 @@ extern "C" {
 typedef void * thread_f(void *);
 }
 
-SbBool SoVRMLSoundP::startPlaying()
+bool SoVRMLSoundP::startPlaying()
 {
 #ifdef HAVE_SOUND
   #if COIN_DEBUG && DEBUG_AUDIO
@@ -1282,10 +1282,10 @@ SbBool SoVRMLSoundP::startPlaying()
   #endif // debug
 
   if (!SoAudioDevice::instance()->haveSound())
-    return FALSE;
+    return false;
 
   if (this->playing)
-    return TRUE;
+    return true;
 
   int error;
 
@@ -1294,7 +1294,7 @@ SbBool SoVRMLSoundP::startPlaying()
   if (!this->hasValidAlSource())
     this->generateAlSource();
 
-  openal_wrapper()->alSourcei(this->sourceId, AL_LOOPING, FALSE);
+  openal_wrapper()->alSourcei(this->sourceId, AL_LOOPING, false);
   if ((error = openal_wrapper()->alGetError()) != AL_NO_ERROR) {
     SoDebugError::postWarning("SoVRMLSoundP::startPlaying",
                               "alSourcei(,AL_LOOPING,) failed. %s",
@@ -1302,12 +1302,12 @@ SbBool SoVRMLSoundP::startPlaying()
     if (this->hasValidAlSource())
       this->deleteAlSource();
 
-    return FALSE;
+    return false;
   }
 
-  this->playing = TRUE;
-  this->endoffile = FALSE;
-  this->waitingForAudioClipToFinish = FALSE;
+  this->playing = true;
+  this->endoffile = false;
+  this->waitingForAudioClipToFinish = false;
   this->cliphandle = NULL;
 
   // Start timer or thread
@@ -1319,7 +1319,7 @@ SbBool SoVRMLSoundP::startPlaying()
       delete this->timersensor;
       this->timersensor = NULL;
     }
-    this->errorInThread = FALSE;
+    this->errorInThread = false;
     // start new timer
     this->timersensor = new SoTimerSensor(timercb, this);
     this->timersensor->setInterval(this->sleepTime);
@@ -1333,7 +1333,7 @@ SbBool SoVRMLSoundP::startPlaying()
          verify that it is indeed necessary to stop and start the
          thread. 2003-01-20 thammer. */
       this->exitthreadmutex.lock();
-      this->exitthread = TRUE;
+      this->exitthread = true;
       this->exitthreadcondvar.wakeAll();
       this->exitthreadmutex.unlock();
       void *retval = NULL;
@@ -1343,15 +1343,15 @@ SbBool SoVRMLSoundP::startPlaying()
     }
 
     this->workerThreadSleepTime = this->sleepTime;
-    this->errorInThread = FALSE;
-    this->exitthread = FALSE;
+    this->errorInThread = false;
+    this->exitthread = false;
     this->workerThread = cc_thread_construct((thread_f *) this->threadCallbackWrapper, this);
 #endif // HAVE_THREADS
   }
 
-  return TRUE;
+  return true;
 #else
-  return FALSE;
+  return false;
 #endif // HAVE_SOUND
 }
 
@@ -1368,7 +1368,7 @@ void SoVRMLSoundP::fillBuffers()
   if (this->waitingForAudioClipToFinish) {
 #if COIN_DEBUG && DEBUG_AUDIO // debug
     SoDebugError::postInfo("SoVRMLSound::fillBuffers",
-                           "this->waitingForAudioClipToFinish == TRUE, "
+                           "this->waitingForAudioClipToFinish == true, "
                            "returning.");
 #endif // debug
     return;
@@ -1416,7 +1416,7 @@ void SoVRMLSoundP::fillBuffers()
                                                removedBuffers);
       delete[] removedBuffers;
     } else if (queued == 0) {
-      this->waitingForAudioClipToFinish = TRUE;
+      this->waitingForAudioClipToFinish = true;
       // inform currentAudioClip() that the last buffer has been played,
       // so it can decide if it would like to stop playing
       int numchannels;
@@ -1437,7 +1437,7 @@ void SoVRMLSoundP::fillBuffers()
           SoDebugError::post("SoVRMLSoundP::fillBuffers",
                              "alGenBuffers failed. %s",
                              coin_get_openal_error(error));
-          this->errorInThread = TRUE;
+          this->errorInThread = true;
           return;
         }
         this->alBuffers.push(bufferid);
@@ -1451,7 +1451,7 @@ void SoVRMLSoundP::fillBuffers()
                              "OpenAL error: %s.",
                              queued, processed,
                              coin_get_openal_error(error));
-          this->errorInThread = TRUE;
+          this->errorInThread = true;
           return;
         }
       }
@@ -1522,7 +1522,7 @@ void SoVRMLSoundP::fillBuffers()
                            this->currentAudioClip->getSampleRate(),
                            queued, processed,
                            coin_get_openal_error(error));
-        this->errorInThread = TRUE;
+        this->errorInThread = true;
         return;
       }
 
@@ -1535,12 +1535,12 @@ void SoVRMLSoundP::fillBuffers()
                            "OpenAL error: %s.",
                            queued, processed,
                            coin_get_openal_error(error));
-        this->errorInThread = TRUE;
+        this->errorInThread = true;
         return;
       }
 
       if (ret == 0) {
-        this->endoffile = TRUE;
+        this->endoffile = true;
         // AudioClip has reached EOF (or an error), so we shouldn't
         // fill any more buffers
       }
@@ -1561,7 +1561,7 @@ void SoVRMLSoundP::fillBuffers()
                                "alSourcePlay(sid=%d) failed: %s",
                                this->sourceId,
                                coin_get_openal_error(error));
-            this->errorInThread = TRUE;
+            this->errorInThread = true;
             return;
           }
           if (state == AL_STOPPED)
@@ -1681,7 +1681,7 @@ SoVRMLSoundP::sourceSensorCB(SoSensor *)
 
   SoSFBool * isActiveField =
     (SoSFBool *)this->currentAudioClip->getField("isActive");
-  SbBool isactive = isActiveField->getValue();
+  bool isactive = isActiveField->getValue();
 
   if ( this->playing && (!isactive) ) {
 #if COIN_DEBUG && DEBUG_AUDIO // debug

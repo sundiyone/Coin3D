@@ -251,13 +251,13 @@ struct regex_token_iterator
     }
 
     /// \post <tt>*this == that</tt>
-    regex_token_iterator<BidiIter> &operator =(regex_token_iterator<BidiIter> const &that)
+    regex_token_iterator<BidiIter> &operator=(regex_token_iterator<BidiIter> const &that)
     {
         this->impl_ = that.impl_; // COW
         return *this;
     }
 
-    friend bool operator ==(regex_token_iterator<BidiIter> const &left, regex_token_iterator<BidiIter> const &right)
+    friend bool operator==(regex_token_iterator<BidiIter> const &left, regex_token_iterator<BidiIter> const &right)
     {
         if(!left.impl_ || !right.impl_)
         {
@@ -267,17 +267,17 @@ struct regex_token_iterator
         return left.impl_->equal_to(*right.impl_);
     }
 
-    friend bool operator !=(regex_token_iterator<BidiIter> const &left, regex_token_iterator<BidiIter> const &right)
+    friend bool operator!=(regex_token_iterator<BidiIter> const &left, regex_token_iterator<BidiIter> const &right)
     {
         return !(left == right);
     }
 
-    value_type const &operator *() const
+    value_type const &operator*() const
     {
         return this->impl_->result_;
     }
 
-    value_type const *operator ->() const
+    value_type const *operator->() const
     {
         return &this->impl_->result_;
     }
@@ -298,14 +298,14 @@ struct regex_token_iterator
     /// match that was found. Then if last_end != end and subs[0] == -1 sets N equal to -1 and
     /// sets result equal to value_type(last_end, end). Otherwise sets *this equal to the end
     /// of sequence iterator.
-    regex_token_iterator<BidiIter> &operator ++()
+    regex_token_iterator<BidiIter> &operator++()
     {
         this->fork_(); // un-share the implementation
         this->next_();
         return *this;
     }
 
-    regex_token_iterator<BidiIter> operator ++(int)
+    regex_token_iterator<BidiIter> operator++(int)
     {
         regex_token_iterator<BidiIter> tmp(*this);
         ++*this;

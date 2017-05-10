@@ -98,17 +98,17 @@ class DollyData : public SoScXMLNavigationTarget::Data {
 public:
   DollyData(void) {
     lastpos = SbVec2f(0, 0);
-    rangeislimited = FALSE;
+    rangeislimited = false;
     absminfocaldistance = 0.0f;
     absmaxfocaldistance = 0.0f;
-    motionislinear = FALSE;
+    motionislinear = false;
   }
 
   SbVec2f lastpos;
-  SbBool rangeislimited;
+  bool rangeislimited;
   float absminfocaldistance;
   float absmaxfocaldistance;
-  SbBool motionislinear;
+  bool motionislinear;
 
 };
 
@@ -257,13 +257,13 @@ SoScXMLDollyTarget::~SoScXMLDollyTarget(void)
 /*!
   Dispatches incoming SCXML events to the corresponding functionality.
 */
-SbBool
+bool
 SoScXMLDollyTarget::processOneEvent(const ScXMLEvent * event)
 {
   assert(event);
 
   const SbName sessionid = this->getSessionId(event);
-  if (sessionid == SbName::empty()) { return FALSE; }
+  if (sessionid == SbName::empty()) { return false; }
 
   const SbName & eventname = event->getEventName();
 
@@ -280,24 +280,24 @@ SoScXMLDollyTarget::processOneEvent(const ScXMLEvent * event)
     assert(data);
 
     SoScXMLStateMachine * statemachine = this->getSoStateMachine(event, sessionid);
-    if unlikely (!statemachine) { return FALSE; }
+    if unlikely (!statemachine) { return false; }
 
     SbVec2f mousepos;
-    if (!inherited::getEventSbVec2f(event, "mouseposition", mousepos)) { return FALSE; }
+    if (!inherited::getEventSbVec2f(event, "mouseposition", mousepos)) { return false; }
     data->lastpos = mousepos;
 
     double absminfocaldistance, absmaxfocaldistance;
-    if (inherited::getEventDouble(event, "absminfocaldistance", absminfocaldistance, FALSE) &&
-        inherited::getEventDouble(event, "absmaxfocaldistance", absmaxfocaldistance, FALSE)) {
-      data->rangeislimited = TRUE;
+    if (inherited::getEventDouble(event, "absminfocaldistance", absminfocaldistance, false) &&
+        inherited::getEventDouble(event, "absmaxfocaldistance", absmaxfocaldistance, false)) {
+      data->rangeislimited = true;
       data->absminfocaldistance = float(absminfocaldistance);
       data->absmaxfocaldistance = float(absmaxfocaldistance);
     }
     else {
-      data->rangeislimited = FALSE;
+      data->rangeislimited = false;
     }
     double focaldistance;
-    if (inherited::getEventDouble(event, "setfocaldistance", focaldistance, FALSE)) {
+    if (inherited::getEventDouble(event, "setfocaldistance", focaldistance, false)) {
       // immediate setting of focal distance
       SoCamera * camera = statemachine->getActiveCamera();
       camera->focalDistance.setValue(float(focaldistance));
@@ -314,24 +314,24 @@ SoScXMLDollyTarget::processOneEvent(const ScXMLEvent * event)
         }
       }
       if (motiontypestr == "linear") {
-        data->motionislinear = TRUE;
+        data->motionislinear = true;
       }
       else if (motiontypestr == "exponential") {
-        data->motionislinear = FALSE;
+        data->motionislinear = false;
       }
       else {
         SoDebugError::post("SoScXMLDollyTarget::processOneEvent",
                            "while processing %s: event parameter 'motiontype' has invalid value '%s'.",
                            event->getEventName().getString(),
                            motiontypestr.getString());
-        data->motionislinear = FALSE;
+        data->motionislinear = false;
       }
     }
     else {
-      data->motionislinear = FALSE;
+      data->motionislinear = false;
     }
 
-    return TRUE;
+    return true;
   }
 
 
@@ -340,84 +340,84 @@ SoScXMLDollyTarget::processOneEvent(const ScXMLEvent * event)
     assert(data);
 
     SoScXMLStateMachine * statemachine = this->getSoStateMachine(event, sessionid);
-    if unlikely (!statemachine) { return FALSE; }
+    if unlikely (!statemachine) { return false; }
 
     SoCamera * camera = statemachine->getActiveCamera();
     if unlikely (!camera) {
       SoDebugError::post("SoScXMLDollyTarget::processOneEvent",
                          "while processing %s: no current camera",
                          eventname.getString());
-      return FALSE;
+      return false;
     }
 
     SbVec2f prevpos = data->lastpos;
     SbVec2f thispos;
     if (!inherited::getEventSbVec2f(event, "mouseposition", thispos)) {
-      return FALSE;
+      return false;
     }
     data->lastpos = thispos;
 
     // The value 20.0 is just a value found by trial.
     SoScXMLDollyTarget::dolly(camera, (thispos[1] - prevpos[1]) * 20.0f);
 
-    return TRUE;
+    return true;
   }
 
 
   else if (eventname == END()) {
     this->freeSessionData(sessionid);
-    return TRUE;
+    return true;
   }
 
 
   else if (eventname == JUMP()) {
     SoCamera * camera = inherited::getActiveCamera(event, sessionid);
-    if unlikely (!camera) { return FALSE; }
+    if unlikely (!camera) { return false; }
 
     double wanteddistance;
     if (!inherited::getEventDouble(event, "focaldistance", wanteddistance)) {
-      return FALSE;
+      return false;
     }
 
     SoScXMLDollyTarget::jump(camera, static_cast<float>(wanteddistance));
-    return TRUE;
+    return true;
   }
 
 
   else if (eventname == STEP_IN() || eventname == STEP_OUT()) {
     SoCamera * camera = inherited::getActiveCamera(event, sessionid);
-    if unlikely (!camera) { return FALSE; }
+    if unlikely (!camera) { return false; }
 
     double count = 1.0;
-    inherited::getEventDouble(event, "count", count, FALSE);
+    inherited::getEventDouble(event, "count", count, false);
     double stepsize = 1.0;
-    inherited::getEventDouble(event, "stepsize", stepsize, FALSE);
+    inherited::getEventDouble(event, "stepsize", stepsize, false);
 
     double absminfocaldistance = 0.0;
-    inherited::getEventDouble(event, "absminfocaldistance", absminfocaldistance, FALSE);
+    inherited::getEventDouble(event, "absminfocaldistance", absminfocaldistance, false);
     double absmaxfocaldistance = 0.0;
-    inherited::getEventDouble(event, "absmaxfocaldistance", absmaxfocaldistance, FALSE);
+    inherited::getEventDouble(event, "absmaxfocaldistance", absmaxfocaldistance, false);
 
     SbString motiontype("exponential");
-    inherited::getEventString(event, "motiontype", motiontype, FALSE);
-    SbBool exp = TRUE;
+    inherited::getEventString(event, "motiontype", motiontype, false);
+    bool exp = true;
     if (motiontype == "exponential") {
-      exp = TRUE;
+      exp = true;
     }
     else if (motiontype == "linear") {
-      exp = FALSE;
+      exp = false;
     }
     else {
       SoDebugError::post("SoScXMLDollyTarget::processOneEvent",
                          "while processing %s: 'motiontype' must be exponential or linear.",
                          eventname.getString());
-      return FALSE;
+      return false;
     }
 
     float diff = static_cast<float>(count * stepsize);
     if (eventname == STEP_IN()) { diff = -diff; }
     SoScXMLDollyTarget::step(camera, exp, float(diff), float(absminfocaldistance), float(absmaxfocaldistance));
-    return TRUE;
+    return true;
   }
 
 
@@ -425,10 +425,10 @@ SoScXMLDollyTarget::processOneEvent(const ScXMLEvent * event)
     SoDebugError::post("SoScXMLDollyTarget::processOneEvent",
                        "received unknown event '%s'",
                        eventname.getString());
-    return FALSE;
+    return false;
   }
 
-  return TRUE;
+  return true;
 }
 
 // *************************************************************************
@@ -541,7 +541,7 @@ SoScXMLDollyTarget::jump(SoCamera * camera, float focaldistance)
 /*!
   Steps the camera relative to its orientation and focal point by diff.
 
-  If \a exponential is FALSE, then the diff value is treated as an absolute
+  If \a exponential is false, then the diff value is treated as an absolute
   distance value.
 
   If \a mindistance and/or \a maxdistance is anything but 0.0, they are checked
@@ -549,10 +549,10 @@ SoScXMLDollyTarget::jump(SoCamera * camera, float focaldistance)
   range. Both are not needed, if only one is specified, only that part of the
   range will be used to limit the dollying.
 
-  If exponential is TRUE...FIXME
+  If exponential is true...FIXME
 */
 void
-SoScXMLDollyTarget::step(SoCamera * camera, SbBool exponential, float diff, float mindistance, float maxdistance)
+SoScXMLDollyTarget::step(SoCamera * camera, bool exponential, float diff, float mindistance, float maxdistance)
 {
   assert(camera);
   if (!exponential) {

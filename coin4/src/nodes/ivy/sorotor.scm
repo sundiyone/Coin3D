@@ -42,7 +42,7 @@
 (-> writeaction 'apply (-> viewer 'getscenegraph))
 
 ;; Read scenegraph with SoRotor in it.
-(let ((buffer "#Inventor V2.1 ascii\n\nSeparator { Rotor { speed 0.2  on TRUE }  Cube {} }")
+(let ((buffer "#Inventor V2.1 ascii\n\nSeparator { Rotor { speed 0.2  on true }  Cube {} }")
       (input (new-soinput)))
   (-> input 'setbuffer (void-cast buffer) (string-length buffer))
   (let ((sceneroot (sodb::readall input)))

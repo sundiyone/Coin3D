@@ -62,17 +62,17 @@ public:
 
   void addRoute(const SbName & fromnode, const SbName & fromfield,
                 const SbName & tonode, const SbName & tofield);
-  SbBool checkISReference(SoFieldContainer * container, const SbName & fieldname,
-                          SbBool & readok);
+  bool checkISReference(SoFieldContainer * container, const SbName & fieldname,
+                          bool & readok);
 
   virtual ~SoInput(void);
 
   virtual void setFilePointer(FILE * newFP);
-  virtual SbBool openFile(const char * fileName, SbBool okIfNotFound = FALSE);
-  virtual SbBool pushFile(const char * fileName);
+  virtual bool openFile(const char * fileName, bool okIfNotFound = false);
+  virtual bool pushFile(const char * fileName);
   virtual void closeFile(void);
-  virtual SbBool isValidFile(void);
-  virtual SbBool isValidBuffer(void);
+  virtual bool isValidFile(void);
+  virtual bool isValidBuffer(void);
   virtual FILE * getCurFile(void) const;
   virtual const char * getCurFileName(void) const;
   virtual void setBuffer(const void * bufpointer, size_t bufsize);
@@ -80,44 +80,45 @@ public:
   virtual size_t getNumBytesRead(void) const;
   virtual SbString getHeader(void);
   virtual float getIVVersion(void);
-  virtual SbBool isBinary(void);
+  virtual bool isBinary(void);
 
-  virtual SbBool get(char & c);
-  virtual SbBool getASCIIBuffer(char & c);
-  virtual SbBool getASCIIFile(char & c);
-  virtual SbBool readHex(uint32_t & l);
-  virtual SbBool read(char & c);
-  virtual SbBool read(char & c, SbBool skip);
-  virtual SbBool read(SbString & s);
-  virtual SbBool read(SbName & n, SbBool validIdent = FALSE);
-  virtual SbBool read(int & i);
-  virtual SbBool read(unsigned int & i);
-  virtual SbBool read(short & s);
-  virtual SbBool read(unsigned short & s);
-  virtual SbBool read(float & f);
-  virtual SbBool read(double & d);
-  virtual SbBool readByte(int8_t & b);
-  virtual SbBool readByte(uint8_t & b);
+  virtual bool get(char & c);
+  virtual bool getASCIIBuffer(char & c);
+  virtual bool getASCIIFile(char & c);
+  virtual bool readHex(uint32_t & l);
+  virtual bool read(bool & b);
+  virtual bool read(char & c);
+  virtual bool read(char & c, bool skip);
+  virtual bool read(SbString & s);
+  virtual bool read(SbName & n, bool validIdent = false);
+  virtual bool read(int & i);
+  virtual bool read(unsigned int & i);
+  virtual bool read(short & s);
+  virtual bool read(unsigned short & s);
+  virtual bool read(float & f);
+  virtual bool read(double & d);
+  virtual bool readByte(int8_t & b);
+  virtual bool readByte(uint8_t & b);
 #ifdef __CYGWIN__
   //These function are not virtual as they are meant to be only wrappers to the real function calls, due to limitations in Cygwin g++ type demangling.
-  SbBool read(long int & i);
-  SbBool read(long unsigned int & i);
+  bool read(long int & i);
+  bool read(long unsigned int & i);
 #endif //__CYGWIN__
-  virtual SbBool readBinaryArray(unsigned char * c, int length);
-  virtual SbBool readBinaryArray(int32_t * l, int length);
-  virtual SbBool readBinaryArray(float * f, int length);
-  virtual SbBool readBinaryArray(double * d, int length);
-  virtual SbBool eof(void) const;
+  virtual bool readBinaryArray(unsigned char * c, int length);
+  virtual bool readBinaryArray(int32_t * l, int length);
+  virtual bool readBinaryArray(float * f, int length);
+  virtual bool readBinaryArray(double * d, int length);
+  virtual bool eof(void) const;
 
-  SbBool isFileVRML1(void);
-  SbBool isFileVRML2(void);
+  bool isFileVRML1(void);
+  bool isFileVRML2(void);
   virtual void resetFilePointer(FILE * fptr);
 
   virtual void getLocationString(SbString & string) const;
   virtual void putBack(const char c);
   virtual void putBack(const char * str);
   virtual void addReference(const SbName & name, SoBase * base,
-                            SbBool addToGlobalDict = TRUE);
+                            bool addToGlobalDict = true);
   virtual void removeReference(const SbName & name);
   virtual SoBase * findReference(const SbName & name) const;
 
@@ -144,24 +145,24 @@ public:
 
 
 protected:
-  virtual SbBool popFile(void);
+  virtual bool popFile(void);
   void setIVVersion(float version);
   FILE * findFile(const char * fileName, SbString & fullName);
   void initFile(FILE * newFP, const char * fileName, SbString * fullName,
-                SbBool openedHere, SbDict * refDict = NULL);
-  SbBool checkHeader(SbBool bValidateBufferHeader = FALSE);
-  SbBool fromBuffer(void) const;
-  SbBool skipWhiteSpace(void);
+                bool openedHere, SbDict * refDict = NULL);
+  bool checkHeader(bool bValidateBufferHeader = false);
+  bool fromBuffer(void) const;
+  bool skipWhiteSpace(void);
   size_t freeBytesInBuf(void) const;
-  SbBool readInteger(int32_t & l);
-  SbBool readUnsignedInteger(uint32_t & l);
-  SbBool readReal(double & d);
-  SbBool readUnsignedIntegerString(char * str);
+  bool readInteger(int32_t & l);
+  bool readUnsignedInteger(uint32_t & l);
+  bool readReal(double & d);
+  bool readUnsignedIntegerString(char * str);
   int readDigits(char * str);
   int readHexDigits(char * str);
   int readChar(char * str, char charToRead);
 
-  SbBool makeRoomInBuf(size_t nBytes);
+  bool makeRoomInBuf(size_t nBytes);
   void convertShort(char * from, short * s);
   void convertInt32(char * from, int32_t * l);
   void convertFloat(char * from, float * f);
@@ -170,9 +171,9 @@ protected:
   void convertInt32Array(char * from, int32_t * to, int len);
   void convertFloatArray(char * from, float * to, int len);
   void convertDoubleArray(char * from, double * to, int len);
-  SbBool isFileURL(const char * url);
+  bool isFileURL(const char * url);
   char * URLToFile(char * out_buf, const char * in_buf);
-  SbBool IsURL(const char * c_strng);
+  bool IsURL(const char * c_strng);
 
   static void setDirectories(SbStringList * dirs);
 

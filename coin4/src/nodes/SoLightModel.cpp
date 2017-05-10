@@ -127,7 +127,7 @@ SoLightModel::doAction(SoAction * action)
     SoLazyElement::setLightModel(action->getState(),
                                  (int32_t) this->model.getValue());
     if (this->isOverride()) {
-      SoOverrideElement::setLightModelOverride(action->getState(), this, TRUE);
+      SoOverrideElement::setLightModelOverride(action->getState(), this, true);
     }
   }
 }

@@ -37,10 +37,10 @@ public:
     delete thread;
   }
 
-  SbBool join(void ** retval = 0L) {
+  bool join(void ** retval = 0L) {
     return cc_thread_join(this->thread, retval) == CC_OK;
   }
-  static SbBool join(SbThread * thread, void ** retval = 0L) {
+  static bool join(SbThread * thread, void ** retval = 0L) {
     return cc_thread_join(thread->thread, retval) == CC_OK;
   }
 

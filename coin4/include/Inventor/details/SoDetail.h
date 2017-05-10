@@ -38,7 +38,7 @@ public:
   virtual SoDetail * copy(void) const = 0;
 
   virtual SoType getTypeId(void) const = 0;
-  SbBool isOfType(const SoType type) const;
+  bool isOfType(const SoType type) const;
 
   static SoType getClassTypeId(void);
 

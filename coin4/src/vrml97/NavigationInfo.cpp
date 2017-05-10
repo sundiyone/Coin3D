@@ -38,7 +38,7 @@
   NavigationInfo {
     eventIn      SFBool   set_bind
     exposedField MFFloat  avatarSize      [0.25, 1.6, 0.75] # [0, inf)
-    exposedField SFBool   headlight       TRUE
+    exposedField SFBool   headlight       true
     exposedField SFFloat  speed           1.0               # [0, inf)
     exposedField MFString type            ["WALK", "ANY"]
     exposedField SFFloat  visibilityLimit 0.0               # [0, inf)
@@ -59,7 +59,7 @@
   Viewpoint nodes changes, the current NavigationInfo node shall be
   re-parented to it by the browser. Whenever the current
   NavigationInfo node changes, the new NavigationInfo node shall be
-  re-parented to the current Viewpoint node by the browser.  If a TRUE
+  re-parented to the current Viewpoint node by the browser.  If a true
   value is sent to the set_bind eventIn of a NavigationInfo node, the
   node is pushed onto the top of the NavigationInfo node stack. When a
   NavigationInfo node is bound, the browser uses the fields of the
@@ -69,8 +69,8 @@
   changes to the current Viewpoint node's coordinate system
   automatically change aspects (see below) of the NavigationInfo node
   values used in the browser (e.g., scale changes to any ancestors'
-  transformations). A FALSE value sent to set_bind pops the
-  NavigationInfo node from the stack, results in an isBound FALSE
+  transformations). A false value sent to set_bind pops the
+  NavigationInfo node from the stack, results in an isBound false
   event, and pops to the next entry in the stack which shall be
   re-parented to the current Viewpoint node. 4.6.10, Bindable children
   nodes, has more details on binding stacks
@@ -199,7 +199,7 @@
 
   The headlight field specifies whether a browser shall turn on a
   headlight. A headlight is a directional light that always points in
-  the direction the user is looking. Setting this field to TRUE allows
+  the direction the user is looking. Setting this field to true allows
   the browser to provide a headlight, possibly with user interface
   controls to turn it on and off. Scenes that enlist precomputed
   lighting (e.g., radiosity solutions) can turn the headlight off. The
@@ -239,7 +239,7 @@
 
 /*!
   \var SoSFBool SoVRMLNavigationInfo::headlight
-  Specifies whether headlight should be enabled. Default value is TRUE.
+  Specifies whether headlight should be enabled. Default value is true.
 */
 
 
@@ -269,17 +269,17 @@ SoVRMLNavigationInfo::SoVRMLNavigationInfo(void)
   SO_VRMLNODE_ADD_EXPOSED_FIELD(type, ("WALK"));
   this->type.setNum(2);
   this->type.set1Value(1, "ANY");
-  this->type.setDefault(TRUE);
+  this->type.setDefault(true);
 
   SO_VRMLNODE_ADD_EXPOSED_FIELD(speed, (1.0f));
   SO_VRMLNODE_ADD_EXPOSED_FIELD(avatarSize, (0.25f));
   this->avatarSize.setNum(3);
   this->avatarSize.set1Value(1, 1.6f);
   this->avatarSize.set1Value(2, 0.75f);
-  this->avatarSize.setDefault(TRUE);
+  this->avatarSize.setDefault(true);
 
   SO_VRMLNODE_ADD_EXPOSED_FIELD(visibilityLimit, (0.0f));
-  SO_VRMLNODE_ADD_EXPOSED_FIELD(headlight, (TRUE));
+  SO_VRMLNODE_ADD_EXPOSED_FIELD(headlight, (true));
 
   SO_VRMLNODE_ADD_EVENT_IN(set_bind);
   SO_VRMLNODE_ADD_EVENT_OUT(isBound);

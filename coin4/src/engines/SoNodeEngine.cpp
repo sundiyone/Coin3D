@@ -177,24 +177,24 @@ SoNodeEngine::getOutput(const SbName & outputname) const
 }
 
 /*!
-  Sets \outputname to the name of \a output. Returns \c FALSE if no
+  Sets \outputname to the name of \a output. Returns \c false if no
   such output is contained within the engine instance.
 */
-SbBool
+bool
 SoNodeEngine::getOutputName(const SoEngineOutput * output,
                         SbName & outputname) const
 {
   const SoEngineOutputData * outputs = this->getOutputData();
-  if (outputs == NULL) return FALSE;
+  if (outputs == NULL) return false;
 
   int n = outputs->getNumOutputs();
   for (int i = 0; i < n; i++) {
     if (outputs->getOutput(this, i) == output) {
       outputname = outputs->getOutputName(i);
-      return TRUE;
+      return true;
     }
   }
-  return FALSE;
+  return false;
 }
 
 /*!
@@ -288,7 +288,7 @@ SoNodeEngine::getOutputDataPtr(void)
 }
 
 // Documented in superclass.
-SbBool
+bool
 SoNodeEngine::readInstance(SoInput * in, unsigned short flagsarg)
 {
   // FIXME: I believe there's code missing here for reading
@@ -318,7 +318,7 @@ SoNodeEngine::writeOutputTypes(SoOutput * COIN_UNUSED_ARG(out))
   avoid double notification when an engine enables outputs during
   inputChanged().
 */
-SbBool
+bool
 SoNodeEngine::isNotifying(void) const
 {
   return (this->flags & FLAG_ISNOTIFYING) != 0;

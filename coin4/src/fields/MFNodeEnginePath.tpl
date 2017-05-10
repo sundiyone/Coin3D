@@ -88,7 +88,7 @@ SoMF_Typename_::setValuesPtr(void * ptr)
 }
 
 int
-SoMF_Typename_::find(So_Typename_ * value, SbBool addifnotfound)
+SoMF_Typename_::find(So_Typename_ * value, bool addifnotfound)
 {
   for (int i=0; i < this->num; i++) if ((*this)[i] == value) return i;
 
@@ -101,7 +101,7 @@ SoMF_Typename_::setValues(const int start, const int num, const So_Typename_ ** 
 {
   // Disable temporarily, so we under any circumstances will not send
   // more than one notification about the changes.
-  SbBool notificstate = this->enableNotify(FALSE);
+  bool notificstate = this->enableNotify(false);
   // Important note: the notification state is reset at the end, so
   // this function should *not* have multiple return-points.
 
@@ -126,7 +126,7 @@ SoMF_Typename_::set1Value(const int idx, So_Typename_ * newval)
 {
   // Disable temporarily, so we under no circumstances will send more
   // than one notification about the change.
-  SbBool notificstate = this->enableNotify(FALSE);
+  bool notificstate = this->enableNotify(false);
   // Important note: the notification state is reset at the end, so
   // this function should *not* have multiple return-points.
 
@@ -190,16 +190,16 @@ SoMF_Typename_::setValue(So_Typename_ * value)
   this->set1Value(0, value);
 }
 
-SbBool
+bool
 SoMF_Typename_::operator==(const SoMF_Typename_ & field) const
 {
-  if (this == &field) return TRUE;
-  if (this->getNum() != field.getNum()) return FALSE;
+  if (this == &field) return true;
+  if (this->getNum() != field.getNum()) return false;
 
   const So_Typename_ ** const lhs = this->getValues(0);
   const So_Typename_ ** const rhs = field.getValues(0);
-  for (int i = 0; i < num; i++) if (lhs[i] != rhs[i]) return FALSE;
-  return TRUE;
+  for (int i = 0; i < num; i++) if (lhs[i] != rhs[i]) return false;
+  return true;
 }
 
 /*!
@@ -248,7 +248,7 @@ SoMF_Typename_::insertSpace(int start, int num)
 {
   // Disable temporarily so we don't send notification prematurely
   // from inherited::insertSpace().
-  SbBool notificstate = this->enableNotify(FALSE);
+  bool notificstate = this->enableNotify(false);
   // Important note: the notification state is reset at the end, so
   // this function should *not* have multiple return-points.
 
@@ -278,11 +278,11 @@ SoMF_Typename_::copyValue(int to, int from)
 
 
 // Import a single _typename_.
-SbBool
+bool
 SoMF_Typename_::read1Value(SoInput * in, int index)
 {
   SoSF_Typename_ sf_typename_;
-  SbBool result = sf_typename_.readValue(in);
+  bool result = sf_typename_.readValue(in);
   if (result) this->set1Value(index, sf_typename_.getValue());
   return result;
 }
@@ -360,11 +360,11 @@ SoMF_Typename_::countWriteRefs(SoOutput * out) const
 //
 // <mortene@sim.no>
 void
-SoMF_Typename_::fixCopy(SbBool copyconnections)
+SoMF_Typename_::fixCopy(bool copyconnections)
 {
   // Disable temporarily, so we under no circumstances will send more
   // than one notification about the changes.
-  SbBool notificstate = this->enableNotify(FALSE);
+  bool notificstate = this->enableNotify(false);
   // Important note: the notification state is reset at the end, so
   // this function should *not* have multiple return-points.
 
@@ -398,24 +398,24 @@ SoMF_Typename_::fixCopy(SbBool copyconnections)
 }
 
 // Override from SoField to check _typename_ pointer.
-SbBool
+bool
 SoMF_Typename_::referencesCopy(void) const
 {
-  if (inherited::referencesCopy()) return TRUE;
+  if (inherited::referencesCopy()) return true;
 
   for (int i=0; i < this->getNum(); i++) {
     So_Typename_ * item = (*this)[i];
     if (item) {
 #if defined(COIN_INTERNAL_SOMFNODE) || defined(COIN_INTERNAL_SOMFENGINE)
-      if (SoFieldContainer::checkCopy((SoFieldContainer *)item)) return TRUE;
+      if (SoFieldContainer::checkCopy((SoFieldContainer *)item)) return true;
 #endif // COIN_INTERNAL_SOMFNODE || COIN_INTERNAL_SOMFENGINE
 #ifdef COIN_INTERNAL_SOMFPATH
-      if (item->getHead() && SoFieldContainer::checkCopy(item->getHead())) return TRUE;
+      if (item->getHead() && SoFieldContainer::checkCopy(item->getHead())) return true;
 #endif // COIN_INTERNAL_SOMFPATH
     }
   }
 
-  return FALSE;
+  return false;
 }
 
 // Kill the type-specific define.

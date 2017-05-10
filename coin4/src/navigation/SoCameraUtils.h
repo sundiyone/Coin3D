@@ -36,20 +36,20 @@ public:
   virtual ~SoCameraManager(void);
 
   virtual void setZoomLimits(float minzoomvalue = 0.0f, float maxzoomvalue = 0.0f);
-  virtual SbBool getZoomLimits(float & minzoomvalue, float & maxzoomvalue) const;
+  virtual bool getZoomLimits(float & minzoomvalue, float & maxzoomvalue) const;
 
-  virtual void setZoomValue(float zoomvalue, SbBool limit = FALSE) = 0;
-  virtual void adjustZoomValue(float diffvalue, SbBool limit = TRUE) = 0; // diffvalue=0.0 is identity
-  virtual void adjustZoom(float factor, SbBool limit = TRUE) = 0; // factor=1.0 is identity
+  virtual void setZoomValue(float zoomvalue, bool limit = false) = 0;
+  virtual void adjustZoomValue(float diffvalue, bool limit = true) = 0; // diffvalue=0.0 is identity
+  virtual void adjustZoom(float factor, bool limit = true) = 0; // factor=1.0 is identity
 
   virtual float getZoomValue(void) const;
 
   virtual void setZoomByDollyLimits(float mindollydistance = 0.0f, float maxdollydistance = 0.0f, float unitydistance = 0.0f);
-  virtual SbBool getZoomByDollyLimits(float & mindollydistance, float & maxdollydistance, float & unitydistance) const;
+  virtual bool getZoomByDollyLimits(float & mindollydistance, float & maxdollydistance, float & unitydistance) const;
 
-  virtual void setZoomValueByDolly(float zoomvalue, SbBool limit = FALSE) = 0;
-  virtual void adjustZoomByDollyDistance(float distance, SbBool limit = TRUE) = 0; // distance=0.0 is identity
-  virtual void adjustZoomByDolly(float factor, SbBool limit = TRUE) = 0; // factor=1.0 is identity
+  virtual void setZoomValueByDolly(float zoomvalue, bool limit = false) = 0;
+  virtual void adjustZoomByDollyDistance(float distance, bool limit = true) = 0; // distance=0.0 is identity
+  virtual void adjustZoomByDolly(float factor, bool limit = true) = 0; // factor=1.0 is identity
 
   virtual float getZoomByDollyValue(void) const;
 
@@ -61,9 +61,9 @@ public:
 protected:
   SoCameraManager(SoCamera * camera);
 
-  SbBool havezoomlimits;
+  bool havezoomlimits;
   float minzoom, maxzoom;
-  SbBool havezoombydollylimits;
+  bool havezoombydollylimits;
   float mindollydistance, maxdollydistance, unitydistance;
 
 private:

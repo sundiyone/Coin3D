@@ -204,13 +204,13 @@ SoScXMLRotateTarget::~SoScXMLRotateTarget(void)
 }
 
 
-SbBool
+bool
 SoScXMLRotateTarget::processOneEvent(const ScXMLEvent * event)
 {
   assert(event);
 
   SbName sessionid = this->getSessionId(event);
-  if (sessionid == SbName::empty()) { return FALSE; }
+  if (sessionid == SbName::empty()) { return false; }
 
   const SbName & eventname = event->getEventName();
 
@@ -220,10 +220,10 @@ SoScXMLRotateTarget::processOneEvent(const ScXMLEvent * event)
     assert(data);
 
     SoScXMLStateMachine * statemachine = inherited::getSoStateMachine(event, sessionid);
-    if (!statemachine) { return FALSE; }
+    if (!statemachine) { return false; }
 
     if (!inherited::getEventSbVec2f(event, "mouseposition", data->downposn)) {
-      return FALSE;
+      return false;
     }
 
     data->mouselog[0].posn = data->downposn;
@@ -231,12 +231,12 @@ SoScXMLRotateTarget::processOneEvent(const ScXMLEvent * event)
     data->logsize = 1;
 
     SoCamera * camera = inherited::getActiveCamera(event, sessionid);
-    if unlikely (!camera) { return FALSE; }
+    if unlikely (!camera) { return false; }
 
     // store current camera position
     data->cameraclone = static_cast<SoCamera *>(camera->copy());
 
-    return TRUE;
+    return true;
   }
 
   else if (eventname == UPDATE()) {
@@ -244,14 +244,14 @@ SoScXMLRotateTarget::processOneEvent(const ScXMLEvent * event)
     assert(data);
 
     SoScXMLStateMachine * statemachine = inherited::getSoStateMachine(event, sessionid);
-    if (!statemachine) { return FALSE; }
+    if (!statemachine) { return false; }
 
     SoCamera * camera = statemachine->getActiveCamera();
     if unlikely (!camera) {
       SoDebugError::post("SoScXMLRotateTarget::processOneEvent",
                          "while processing %s: no current camera",
                          eventname.getString());
-      return FALSE;
+      return false;
     }
 
     assert(data->cameraclone.get());
@@ -259,13 +259,13 @@ SoScXMLRotateTarget::processOneEvent(const ScXMLEvent * event)
       SoDebugError::post("SoScXMLRotateTarget::processOneEvent",
                          "while processing %s: camera type was changed",
                          eventname.getString());
-      return FALSE;
+      return false;
     }
 
     // get mouse position
     SbVec2f currentpos;
     if (!inherited::getEventSbVec2f(event, "mouseposition", currentpos)) {
-      return FALSE;
+      return false;
     }
 
     // update mouse log
@@ -287,18 +287,18 @@ SoScXMLRotateTarget::processOneEvent(const ScXMLEvent * event)
     camera->copyFieldValues(data->cameraclone.get());
     reorientCamera(camera, rot);
 
-    return TRUE;
+    return true;
   }
 
   else if (eventname == END()) {
-    SbBool triggerspincheck = FALSE; // default if not set
-    inherited::getEventSbBool(event, "triggerspin", triggerspincheck, FALSE);
+    bool triggerspincheck = false; // default if not set
+    inherited::getEventbool(event, "triggerspin", triggerspincheck, false);
 
     if (triggerspincheck) {
       RotateData * data = static_cast<RotateData *>(this->getSessionData(sessionid, NewRotateData));
       assert(data);
 
-      SbBool triggerspin = FALSE;
+      bool triggerspin = false;
       SbRotation spinrotation;
 
       if (data->logsize > 2) {
@@ -317,14 +317,14 @@ SoScXMLRotateTarget::processOneEvent(const ScXMLEvent * event)
           float radians;
           spinrotation.getValue(axis, radians);
           if ((radians > 0.01f) && (deltatime < 0.300)) {
-            triggerspin = TRUE;
+            triggerspin = true;
           }
         }
       }
 
       if (triggerspin) {
         SoScXMLStateMachine * statemachine = inherited::getSoStateMachine(event, sessionid);
-        if (!statemachine) { return FALSE; }
+        if (!statemachine) { return false; }
         SbString rotationstr;
         rotationstr = SbStringConvert::toString(spinrotation);
 
@@ -341,7 +341,7 @@ SoScXMLRotateTarget::processOneEvent(const ScXMLEvent * event)
     }
 
     this->freeSessionData(sessionid);
-    return TRUE;
+    return true;
   }
 
   else if (eventname == SET_FOCAL_POINT()) {
@@ -351,35 +351,35 @@ SoScXMLRotateTarget::processOneEvent(const ScXMLEvent * event)
     // [focaldistance] {double}
 
     SoScXMLStateMachine * statemachine = inherited::getSoStateMachine(event, sessionid);
-    if (!statemachine) { return FALSE; }
+    if (!statemachine) { return false; }
 
     SoCamera * camera = inherited::getActiveCamera(event, sessionid);
-    if unlikely (!camera) { return FALSE; }
+    if unlikely (!camera) { return false; }
 
     SbVec3f worldspace(0.0f, 0.0f, 0.0f);
     if (event->getAssociation("worldspace")) {
       SbString valuestr = event->getAssociation("worldspace");
       if (SbStringConvert::typeOf(valuestr) == SbStringConvert::SBVEC3F) {
         if (!inherited::getEventSbVec3f(event, "worldspace", worldspace)) {
-          return FALSE;
+          return false;
         }
       } else {
-        return FALSE;
+        return false;
       }
     }
 
     SbVec3f upvector(0.0f, 0.0f, 0.0f);
-    SbBool useupvector = inherited::getEventSbVec3f(event, "upvector", upvector, FALSE);
+    bool useupvector = inherited::getEventSbVec3f(event, "upvector", upvector, false);
 
     double focaldistance = 0.0f;
-    SbBool usefocaldistance = inherited::getEventDouble(event, "focaldistance", focaldistance, FALSE);
+    bool usefocaldistance = inherited::getEventDouble(event, "focaldistance", focaldistance, false);
 
     if (!useupvector) {
       // camera->pointAt() will turn the model away from its current up vector, so we
       // try to preserve the existing up vector here instead of calling the up-vector-less
       // version.
       camera->orientation.getValue().multVec(SbVec3f(0.0f, 1.0f, 0.0f), upvector);
-      useupvector = TRUE;
+      useupvector = true;
     }
 
     if (!useupvector) {
@@ -391,17 +391,17 @@ SoScXMLRotateTarget::processOneEvent(const ScXMLEvent * event)
       SoScXMLDollyTarget::jump(camera, float(focaldistance));
     }
 
-    return TRUE;
+    return true;
   }
 
   else {
     SoDebugError::post("SoScXMLRotateTarget::processOneEvent",
                        "processing %s: unknown event",
                        eventname.getString());
-    return FALSE;
+    return false;
   }
 
-  return TRUE;
+  return true;
 }
 
 // Rotate camera around its focal point.

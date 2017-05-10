@@ -64,12 +64,12 @@ protected:
   static SoScXMLStateMachine * getSoStateMachine(const ScXMLEvent * event, SbName sessionid);
   static SoCamera * getActiveCamera(const ScXMLEvent * event, SbName sessionid);
 
-  static SbBool getEventDouble(const ScXMLEvent * event, const char * label, double & dbl_out, SbBool required = TRUE);
-  static SbBool getEventString(const ScXMLEvent * event, const char * label, SbString & str_out, SbBool required = TRUE);
-  static SbBool getEventSbBool(const ScXMLEvent * event, const char * label, SbBool & bool_out, SbBool required = TRUE);
-  static SbBool getEventSbVec2f(const ScXMLEvent * event, const char * label, SbVec2f & vec_out, SbBool required = TRUE);
-  static SbBool getEventSbVec3f(const ScXMLEvent * event, const char * label, SbVec3f & vec_out, SbBool required = TRUE);
-  static SbBool getEventSbRotation(const ScXMLEvent * event, const char * label, SbRotation & rot_out, SbBool required = TRUE);
+  static bool getEventDouble(const ScXMLEvent * event, const char * label, double & dbl_out, bool required = true);
+  static bool getEventString(const ScXMLEvent * event, const char * label, SbString & str_out, bool required = true);
+  static bool getEventbool(const ScXMLEvent * event, const char * label, bool & bool_out, bool required = true);
+  static bool getEventSbVec2f(const ScXMLEvent * event, const char * label, SbVec2f & vec_out, bool required = true);
+  static bool getEventSbVec3f(const ScXMLEvent * event, const char * label, SbVec3f & vec_out, bool required = true);
+  static bool getEventSbRotation(const ScXMLEvent * event, const char * label, SbRotation & rot_out, bool required = true);
 
 private:
   class PImpl;

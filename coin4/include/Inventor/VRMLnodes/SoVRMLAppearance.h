@@ -51,7 +51,7 @@ public:
 
   virtual SoChildList * getChildren(void) const;
   virtual void notify(SoNotList * list);
-  virtual void copyContents(const SoFieldContainer * from, SbBool copyConn);
+  virtual void copyContents(const SoFieldContainer * from, bool copyConn);
 
 protected:
   virtual ~SoVRMLAppearance();

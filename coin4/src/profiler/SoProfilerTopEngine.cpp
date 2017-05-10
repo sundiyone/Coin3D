@@ -116,25 +116,25 @@ SoProfilerTopEngine::SoProfilerTopEngine(void)
 
   SO_ENGINE_ADD_INPUT(statisticsNames, (SbName::empty()));
   //this->statisticsNames.setNum(0);
-  //this->statisticsNames.setDefault(TRUE);
+  //this->statisticsNames.setDefault(true);
 
   SO_ENGINE_ADD_INPUT(statisticsTimings, (SbTime::zero()));
   //this->statisticsTimings.setNum(0);
-  //this->statisticsTimings.setDefault(TRUE);
+  //this->statisticsTimings.setDefault(true);
 
   SO_ENGINE_ADD_INPUT(statisticsTimingsMax, (SbTime::zero()));
   //this->statisticsTimingsMax.setNum(0);
-  //this->statisticsTimingsMax.setDefault(TRUE);
+  //this->statisticsTimingsMax.setDefault(true);
 
   SO_ENGINE_ADD_INPUT(statisticsCounts, (0));
   //this->statisticsCounts.setNum(0);
-  //this->statisticsCounts.setDefault(TRUE);
+  //this->statisticsCounts.setDefault(true);
 
   SO_ENGINE_ADD_INPUT(columns, (NAME));
   int cols[] = { NAME, COUNT, TIME_MSECS, TIME_PERCENT, TIME_MSECS_AVG, TIME_MSECS_MAX };
   this->columns.setNum(sizeof(cols) / sizeof(cols[0]));
   this->columns.setValues(0, sizeof(cols) / sizeof(cols[0]), cols);
-  this->columns.setDefault(TRUE);
+  this->columns.setDefault(true);
 
   SO_ENGINE_ADD_INPUT(sortOrder, (TIME_DEC));
   SO_ENGINE_ADD_INPUT(maxLines, (16));

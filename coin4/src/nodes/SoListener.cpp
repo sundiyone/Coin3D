@@ -166,7 +166,7 @@ SoListener::audioRender(SoAudioRenderAction *action)
     SbVec3f pos, worldpos;
     pos = this->position.getValue();
     SoModelMatrixElement::get(state).multVecMatrix(pos, worldpos); 
-    SoListenerPositionElement::set(state, this, worldpos, TRUE);
+    SoListenerPositionElement::set(state, this, worldpos, true);
 #if COIN_DEBUG && 0
     float x, y, z;
     worldpos.getValue(x, y, z);
@@ -181,7 +181,7 @@ SoListener::audioRender(SoAudioRenderAction *action)
     SbRotation so;
     SoModelMatrixElement::get(state).getTransform(t, r, s, so);
     r *= this->orientation.getValue();
-    SoListenerOrientationElement::set(state, this, r, TRUE);
+    SoListenerOrientationElement::set(state, this, r, true);
   }
   if (! this->dopplerVelocity.isIgnored())
     SoListenerDopplerElement::setDopplerVelocity(state, this, 

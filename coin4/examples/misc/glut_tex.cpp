@@ -97,7 +97,7 @@ idle_cb(void)
 
 // ----------------------------------------------------------------------
 
-SbBool
+bool
 generateTextureMap (SoNode *root, SoTexture2 *texture,
    short textureWidth, short textureHeight)
 {

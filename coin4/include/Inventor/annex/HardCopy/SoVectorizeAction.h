@@ -69,7 +69,7 @@ public:
 
   virtual void apply(SoNode * node);
   virtual void apply(SoPath * path);
-  virtual void apply(const SoPathList & pathlist, SbBool obeysrules = FALSE);
+  virtual void apply(const SoPathList & pathlist, bool obeysrules = false);
   
   void beginStandardPage(const PageSize & pagesize, const float border = 10.0f);
   
@@ -88,8 +88,8 @@ public:
   virtual void setOrientation(Orientation o);
   virtual Orientation getOrientation(void) const;
 
-  virtual void setBackgroundColor(SbBool bg, const SbColor & col = SbColor(0.0f, 0.0f, 0.0f));
-  virtual SbBool getBackgroundColor(SbColor & col) const;
+  virtual void setBackgroundColor(bool bg, const SbColor & col = SbColor(0.0f, 0.0f, 0.0f));
+  virtual bool getBackgroundColor(SbColor & col) const;
 
   virtual void setNominalWidth(float w, DimensionUnit u = MM);
   virtual float getNominalWidth(DimensionUnit u = MM) const;
@@ -153,11 +153,11 @@ public:
                                  DimensionUnit u = MM) const;
   virtual int getPenNum(void) const;
 
-  virtual void setColorPriority(SbBool priority); 
-  virtual SbBool getColorPriority(void) const;
+  virtual void setColorPriority(bool priority); 
+  virtual bool getColorPriority(void) const;
 
-  virtual void enableLighting(SbBool flag);
-  SbBool isLightingEnabled(void) const;
+  virtual void enableLighting(bool flag);
+  bool isLightingEnabled(void) const;
 
 protected:
   void setOutput(SoVectorOutput * output);

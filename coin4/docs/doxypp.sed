@@ -21,7 +21,7 @@ public:\
   virtual SoType getTypeId(void) const;\
   virtual void copyFrom(const SoField \& field);\
   const \1 \& operator=(const \1 \& field);\
-  virtual SbBool isSame(const SoField \& field) const/g
+  virtual bool isSame(const SoField \& field) const/g
 s/ *SO_SFIELD_DERIVED_VALUE_HEADER( *\([^,]*\), *\([^,]*\), *\([^)]*\))/  PRIVATE_SFIELD_IO_HEADER();\
 public:\
   \3 operator=(\3 newvalue)/g
@@ -35,7 +35,7 @@ public:\
   int operator==(const \1 \& field) const;\
   int operator!=(const \1 \& field) const/g
 s/ *PRIVATE_SFIELD_IO_HEADER(*)/private:\
-  virtual SbBool readValue(SoInput * in);\
+  virtual bool readValue(SoInput * in);\
   virtual void writeValue(SoOutput * out) const/g
 s/ *SO_MFIELD_VALUE_HEADER( *\([^,]*\), *\([^,]*\), *\([^)]*\))/  PRIVATE_MFIELD_IO_HEADER();\
 protected:\
@@ -49,20 +49,20 @@ protected:\
 public:\
   \3 operator[](const int idx) const; \
   const \2 * getValues(const int start) const; \
-  int find(\3 value, SbBool addifnotfound = FALSE); \
+  int find(\3 value, bool addifnotfound = false); \
   void setValues(const int start, const int num, const \2 * newvals); \
   void set1Value(const int idx, \3 value); \
   void setValue(_valref_ value); \
   \3 operator=(_valref_ val);\
-  SbBool operator==(const _class_ \& field) const;\
-  SbBool operator!=(const _class_ \& field) const;\
+  bool operator==(const _class_ \& field) const;\
+  bool operator!=(const _class_ \& field) const;\
   \2 * startEditing(void);\
   void finishEditing(void)/g
 s/ *SO_MFIELD_DERIVED_VALUE_HEADER( *\([^,]*\), *\([^,]*\), *\([^)]*\))/  PRIVATE_MFIELD_IO_HEADER();\
 public:\
   \3 operator=(\3 val)/g
 s/ *PRIVATE_MFIELD_IO_HEADER(.*)/private:\
-  virtual SbBool read1Value(SoInput * in, int idx);\
+  virtual bool read1Value(SoInput * in, int idx);\
   virtual void write1Value(SoOutput * out, int idx) const/g
 s/ *SO_MFIELD_SETVALUESPOINTER_HEADER(\([^)]*\))/  void setValuesPointer(const int num, const \1 * userdata);\
   void setValuesPointer(const int num, \1 * userdata)/g

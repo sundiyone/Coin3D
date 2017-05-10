@@ -51,8 +51,8 @@
 
 
 /*!
-  \var SbBool SoDelayQueueSensor::scheduled
-  \c TRUE if the sensor is currently scheduled.
+  \var bool SoDelayQueueSensor::scheduled
+  \c true if the sensor is currently scheduled.
 */
 
 /*!
@@ -60,7 +60,7 @@
  */
 SoDelayQueueSensor::SoDelayQueueSensor(void)
 {
-  this->scheduled = FALSE;
+  this->scheduled = false;
   this->priority = SoDelayQueueSensor::getDefaultPriority();
 }
 
@@ -73,7 +73,7 @@ SoDelayQueueSensor::SoDelayQueueSensor(void)
 SoDelayQueueSensor::SoDelayQueueSensor(SoSensorCB * func, void * data)
   : inherited(func, data)
 {
-  this->scheduled = FALSE;
+  this->scheduled = false;
   this->priority = SoDelayQueueSensor::getDefaultPriority();
 }
 
@@ -148,7 +148,7 @@ SoDelayQueueSensor::trigger(void)
 {
   // Overridden to clear scheduled flag before triggering.
 
-  this->scheduled = FALSE;
+  this->scheduled = false;
   inherited::trigger();
 }
 
@@ -165,7 +165,7 @@ SoDelayQueueSensor::schedule(void)
 {
   if (!this->scheduled) {
     SoDB::getSensorManager()->insertDelaySensor(this);
-    this->scheduled = TRUE;
+    this->scheduled = true;
   }
 }
 
@@ -187,7 +187,7 @@ SoDelayQueueSensor::unschedule(void)
 #endif // COIN_DEBUG
 
   SoDB::getSensorManager()->removeDelaySensor(this);
-  this->scheduled = FALSE;
+  this->scheduled = false;
 }
 
 /*!
@@ -195,7 +195,7 @@ SoDelayQueueSensor::unschedule(void)
 
   \sa schedule(), unschedule()
  */
-SbBool
+bool
 SoDelayQueueSensor::isScheduled(void) const
 {
   return this->scheduled;
@@ -208,13 +208,13 @@ SoDelayQueueSensor::isScheduled(void) const
 
   \sa SoDB::setDelaySensorTimeout()
  */
-SbBool
+bool
 SoDelayQueueSensor::isIdleOnly(void) const
 {
-  return FALSE;
+  return false;
 }
 
-SbBool
+bool
 SoDelayQueueSensor::isBefore(const SoSensor * s) const
 {
   return (this->priority < ((SoDelayQueueSensor *)s)->priority);

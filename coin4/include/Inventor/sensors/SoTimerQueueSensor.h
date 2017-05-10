@@ -38,15 +38,15 @@ public:
   const SbTime & getTriggerTime(void) const;
   virtual void schedule(void);
   virtual void unschedule(void);
-  virtual SbBool isScheduled(void) const;
+  virtual bool isScheduled(void) const;
   virtual void trigger(void);
 
 protected:
   void setTriggerTime(const SbTime & time);
-  SbBool scheduled;
+  bool scheduled;
 
 private:
-  virtual SbBool isBefore(const SoSensor * s) const;
+  virtual bool isBefore(const SoSensor * s) const;
   SbTime triggertime;
 };
 

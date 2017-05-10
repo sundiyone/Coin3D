@@ -110,12 +110,12 @@ ScXMLMinimumEvaluator::evaluate(const char * expression) const
 }
 
 /*!
-  Returns FALSE. The minimum profile does not implement the data module.
+  Returns false. The minimum profile does not implement the data module.
 */
-SbBool
+bool
 ScXMLMinimumEvaluator::setAtLocation(const char * COIN_UNUSED_ARG(location), ScXMLDataObj * COIN_UNUSED_ARG(obj))
 {
-  return FALSE;
+  return false;
 }
 
 /*!
@@ -202,14 +202,14 @@ ScXMLInExprDataObj::setStateId(const char * stateidstr)
   }
 }
 
-SbBool
+bool
 ScXMLInExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& pointer) const
 {
   assert(sm);
   assert(pointer == NULL);
   if (this->stateid) {
     sm->queueInternalEvent("error.eval.minimum.In.NO_STATE");
-    return FALSE;
+    return false;
   }
   for (int i = 0; i < sm->getNumActiveStates(); ++i) {
     const ScXMLElt * stateelt = sm->getActiveState(i);
@@ -217,12 +217,12 @@ ScXMLInExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& pointer)
       coin_assert_cast<const ScXMLAbstractStateElt *>(stateelt);
     const char * activestate = state->getIdAttribute();
     if (strcmp(activestate, this->stateid) == 0) {
-      pointer = new ScXMLBoolDataObj(TRUE);
-      return TRUE;
+      pointer = new ScXMLBoolDataObj(true);
+      return true;
     }
   }
-  pointer = new ScXMLBoolDataObj(FALSE);
-  return TRUE;
+  pointer = new ScXMLBoolDataObj(false);
+  return true;
 }
 
 // *************************************************************************
@@ -292,7 +292,7 @@ ScXMLAppendOpExprDataObj::setRHS(ScXMLDataObj * rhsptr)
   this->rhs = rhsptr;
 }
 
-SbBool
+bool
 ScXMLAppendOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& pointer) const
 {
   assert(this->lhs && this->rhs);
@@ -302,11 +302,11 @@ ScXMLAppendOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& po
     ScXMLExprDataObj * lhsexpr = static_cast<ScXMLExprDataObj *>(this->lhs);
     ScXMLDataObj * evaled = lhsexpr->evaluate(sm);
     if (!evaled) {
-      return FALSE;
+      return false;
     }
     if (!evaled->isOfType(ScXMLStringDataObj::getClassTypeId())) {
       sm->queueInternalEvent("error.eval.minimum.Append.INVALID_LHS");
-      return FALSE;
+      return false;
     }
     lhsevaled = static_cast<ScXMLStringDataObj *>(evaled);
   }
@@ -315,18 +315,18 @@ ScXMLAppendOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& po
   }
   else {
     sm->queueInternalEvent("error.eval.minimum.Append.INVALID_LHS");
-    return FALSE;
+    return false;
   }
 
   if (this->rhs->isOfType(ScXMLExprDataObj::getClassTypeId())) {
     ScXMLExprDataObj * rhsexpr = static_cast<ScXMLExprDataObj *>(this->rhs);
     ScXMLDataObj * evaled = rhsexpr->evaluate(sm);
     if (!evaled) {
-      return FALSE;
+      return false;
     }
     if (!evaled->isOfType(ScXMLStringDataObj::getClassTypeId())) {
       sm->queueInternalEvent("error.eval.minimum.Append.INVALID_RHS");
-      return FALSE;
+      return false;
     }
     rhsevaled = static_cast<ScXMLStringDataObj *>(evaled);
   }
@@ -335,7 +335,7 @@ ScXMLAppendOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& po
   }
   else {
     sm->queueInternalEvent("error.eval.minimum.Append.INVALID_RHS");
-    return FALSE;
+    return false;
   }
 
   boost::scoped_array<char> string(new char [strlen(lhsevaled->getString()) + strlen(rhsevaled->getString()) + 1]);
@@ -343,7 +343,7 @@ ScXMLAppendOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& po
   strcat(string.get(), rhsevaled->getString());
 
   pointer = new ScXMLStringDataObj(string.get());
-  return TRUE;
+  return true;
 }
 
 #ifdef COIN_TEST_SUITE

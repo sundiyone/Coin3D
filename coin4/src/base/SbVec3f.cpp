@@ -224,11 +224,11 @@ SbVec3f::cross(const SbVec3f & v) const
 */
 
 /*!
-  Compares the vector with \a v and returns \c TRUE if the distance
+  Compares the vector with \a v and returns \c true if the distance
   between the vectors is smaller or equal to the square root of
   \a tolerance.
 */
-SbBool
+bool
 SbVec3f::equals(const SbVec3f & v, float tolerance) const
 {
 #if COIN_DEBUG
@@ -593,10 +593,10 @@ SbVec3f::toString() const
 /*!
   Convert from a string representation, return wether this is a valid conversion
 */
-SbBool
+bool
 SbVec3f::fromString(const SbString & str)
 {
-  SbBool conversionOk;
+  bool conversionOk;
   *this = CoinInternal::FromString<SbVec3f>(str,&conversionOk);
   return conversionOk;
 }
@@ -631,7 +631,7 @@ BOOST_AUTO_TEST_CASE(fromString) {
   ToTest foo;
   SbString test = "0.333333343 -2 -3.0";
   ToTest trueVal(0.333333343,-2,-3);
-  SbBool conversionOk = foo.fromString(test);
+  bool conversionOk = foo.fromString(test);
   BOOST_CHECK_MESSAGE(conversionOk && trueVal == foo,
                       std::string("Mismatch between ") +  foo.toString().getString() + " and control " + trueVal.toString().getString());
 }
@@ -639,16 +639,16 @@ BOOST_AUTO_TEST_CASE(fromString) {
 BOOST_AUTO_TEST_CASE(fromInvalidString1) {
   ToTest foo;
   SbString test = "a 2 3";
-  SbBool conversionOk = foo.fromString(test);
-  BOOST_CHECK_MESSAGE(conversionOk == FALSE,
+  bool conversionOk = foo.fromString(test);
+  BOOST_CHECK_MESSAGE(conversionOk == false,
                       std::string("Able to convert from ") + test.getString() + " which is not a valid " + SbTypeInfo<ToTest>::getTypeName() + " representation");
 }
 
 BOOST_AUTO_TEST_CASE(fromInvalidString2) {
   ToTest foo;
   SbString test = "1,2,3";
-  SbBool conversionOk = foo.fromString(test);
-  BOOST_CHECK_MESSAGE(conversionOk == FALSE,
+  bool conversionOk = foo.fromString(test);
+  BOOST_CHECK_MESSAGE(conversionOk == false,
                       std::string("Able to convert from ") + test.getString() + " which is not a valid " + SbTypeInfo<ToTest>::getTypeName() + " representation");
 }
 

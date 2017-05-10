@@ -59,7 +59,7 @@ public:
   float det3(void) const;
   float det4(void) const;
 
-  SbBool equals(const SbMatrix & m, float tolerance) const;
+  bool equals(const SbMatrix & m, float tolerance) const;
 
 
   void getValue(SbMat & m) const;
@@ -78,9 +78,9 @@ public:
   void getTransform(SbVec3f & translation, SbRotation & rotation,
                     SbVec3f & scaleFactor, SbRotation & scaleOrientation,
                     const SbVec3f & center) const;
-  SbBool factor(SbMatrix & r, SbVec3f & s, SbMatrix & u, SbVec3f & t,
+  bool factor(SbMatrix & r, SbVec3f & s, SbMatrix & u, SbVec3f & t,
                 SbMatrix & proj);
-  SbBool LUDecomposition(int index[4], float & d);
+  bool LUDecomposition(int index[4], float & d);
   void LUBackSubstitution(int index[4], float b[4]) const;
   SbMatrix transpose(void) const;
   SbMatrix & multRight(const SbMatrix & m);
@@ -99,24 +99,24 @@ public:
   float * operator [](int i);
   const float * operator [](int i) const;
 
-  SbMatrix & operator =(const SbMat & m);
-  SbMatrix & operator =(const SbMatrix & m);
-  SbMatrix & operator =(const SbRotation & q);
-  SbMatrix & operator *=(const SbMatrix & m);
+  SbMatrix & operator=(const SbMat & m);
+  SbMatrix & operator=(const SbMatrix & m);
+  SbMatrix & operator=(const SbRotation & q);
+  SbMatrix & operator*=(const SbMatrix & m);
 
-  friend COIN_DLL_API SbMatrix operator *(const SbMatrix & m1, const SbMatrix & m2);
-  friend COIN_DLL_API int operator ==(const SbMatrix & m1, const SbMatrix & m2);
-  friend COIN_DLL_API int operator !=(const SbMatrix & m1, const SbMatrix & m2);
+  friend COIN_DLL_API SbMatrix operator*(const SbMatrix & m1, const SbMatrix & m2);
+  friend COIN_DLL_API bool operator==(const SbMatrix & m1, const SbMatrix & m2);
+  friend COIN_DLL_API bool operator!=(const SbMatrix & m1, const SbMatrix & m2);
 
 private:
   float matrix[4][4];
 
-  void operator /=(const float v);
-  void operator *=(const float v);
+  void operator/=(const float v);
+  void operator*=(const float v);
 };
 
-COIN_DLL_API SbMatrix operator *(const SbMatrix & m1, const SbMatrix & m2);
-COIN_DLL_API int operator ==(const SbMatrix & m1, const SbMatrix & m2);
-COIN_DLL_API int operator !=(const SbMatrix & m1, const SbMatrix & m2);
+COIN_DLL_API SbMatrix operator*(const SbMatrix & m1, const SbMatrix & m2);
+COIN_DLL_API bool operator==(const SbMatrix & m1, const SbMatrix & m2);
+COIN_DLL_API bool operator!=(const SbMatrix & m1, const SbMatrix & m2);
 
 #endif // !COIN_SBMATRIX_H

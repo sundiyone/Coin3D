@@ -196,17 +196,17 @@ SoSpotLightDragger::SoSpotLightDragger(void)
 {
   SO_KIT_INTERNAL_CONSTRUCTOR(SoSpotLightDragger);
 
-  SO_KIT_ADD_CATALOG_ENTRY(material, SoMaterial, TRUE, topSeparator, translatorSep, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(translatorSep, SoSeparator, TRUE, topSeparator, rotator, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(translatorRotInv, SoRotation, TRUE, translatorSep, translator, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(translator, SoDragPointDragger, TRUE, translatorSep, "", TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(rotator, SoRotateSphericalDragger, TRUE, topSeparator, beamSep, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(beamSep, SoSeparator, TRUE, topSeparator, geomSeparator, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(beamPlacement, SoTranslation, TRUE, beamSep, beamScale, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(beamScale, SoScale, TRUE, beamSep, beamSwitch, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(beamSwitch, SoSwitch, TRUE, beamSep, "", FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(beam, SoSeparator, TRUE, beamSwitch, beamActive, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(beamActive, SoSeparator, TRUE, beamSwitch, "", TRUE);
+  SO_KIT_ADD_CATALOG_ENTRY(material, SoMaterial, true, topSeparator, translatorSep, true);
+  SO_KIT_ADD_CATALOG_ENTRY(translatorSep, SoSeparator, true, topSeparator, rotator, false);
+  SO_KIT_ADD_CATALOG_ENTRY(translatorRotInv, SoRotation, true, translatorSep, translator, false);
+  SO_KIT_ADD_CATALOG_ENTRY(translator, SoDragPointDragger, true, translatorSep, "", true);
+  SO_KIT_ADD_CATALOG_ENTRY(rotator, SoRotateSphericalDragger, true, topSeparator, beamSep, true);
+  SO_KIT_ADD_CATALOG_ENTRY(beamSep, SoSeparator, true, topSeparator, geomSeparator, false);
+  SO_KIT_ADD_CATALOG_ENTRY(beamPlacement, SoTranslation, true, beamSep, beamScale, true);
+  SO_KIT_ADD_CATALOG_ENTRY(beamScale, SoScale, true, beamSep, beamSwitch, true);
+  SO_KIT_ADD_CATALOG_ENTRY(beamSwitch, SoSwitch, true, beamSep, "", false);
+  SO_KIT_ADD_CATALOG_ENTRY(beam, SoSeparator, true, beamSwitch, beamActive, true);
+  SO_KIT_ADD_CATALOG_ENTRY(beamActive, SoSeparator, true, beamSwitch, "", true);
 
   if (SO_KIT_IS_FIRST_INSTANCE()) {
     SoInteractionKit::readDefaultParts("spotLightDragger.iv",
@@ -252,10 +252,10 @@ SoSpotLightDragger::SoSpotLightDragger(void)
   this->angleFieldSensor = new SoFieldSensor(SoSpotLightDragger::fieldSensorCB, this);
   this->angleFieldSensor->setPriority(0);
 
-  this->translatorSep.setDefault(TRUE);
-  this->beamSep.setDefault(TRUE);
+  this->translatorSep.setDefault(true);
+  this->beamSep.setDefault(true);
 
-  this->setUpConnections(TRUE, TRUE);
+  this->setUpConnections(true, true);
 }
 
 /*!
@@ -274,14 +274,14 @@ SoSpotLightDragger::~SoSpotLightDragger()
 }
 
 // Doc in superclass.
-SbBool
-SoSpotLightDragger::setUpConnections(SbBool onoff, SbBool doitalways)
+bool
+SoSpotLightDragger::setUpConnections(bool onoff, bool doitalways)
 {
   if (!doitalways && this->connectionsSetUp == onoff) return onoff;
 
   if (onoff) {
     inherited::setUpConnections(onoff, doitalways);
-    SoDragger * therotator = coin_assert_cast<SoDragger *>(this->getAnyPart("rotator", FALSE));
+    SoDragger * therotator = coin_assert_cast<SoDragger *>(this->getAnyPart("rotator", false));
     therotator->setPartAsDefault("rotator", "spotLightRotatorRotator");
     therotator->setPartAsDefault("rotatorActive",
                               "spotLightRotatorRotatorActive");
@@ -290,7 +290,7 @@ SoSpotLightDragger::setUpConnections(SbBool onoff, SbBool doitalways)
     therotator->setPartAsDefault("feedbackActive",
                               "spotLightRotatorFeedbackActive");
 
-    SoDragger *thetranslator = coin_assert_cast<SoDragger *>(this->getAnyPart("translator", FALSE));
+    SoDragger *thetranslator = coin_assert_cast<SoDragger *>(this->getAnyPart("translator", false));
     thetranslator->setPartAsDefault("yzTranslator.translator",
                                  "spotLightTranslatorPlaneTranslator");
     thetranslator->setPartAsDefault("xzTranslator.translator",
@@ -327,9 +327,9 @@ SoSpotLightDragger::setUpConnections(SbBool onoff, SbBool doitalways)
       this->rotFieldSensor->attach(&this->rotation);
   }
   else {
-    SoDragger *thetranslator = coin_assert_cast<SoDragger *>(this->getAnyPart("translator", FALSE));
+    SoDragger *thetranslator = coin_assert_cast<SoDragger *>(this->getAnyPart("translator", false));
     this->unregisterChildDragger(thetranslator);
-    SoDragger * therotator = coin_assert_cast<SoDragger *>(this->getAnyPart("rotator", FALSE));
+    SoDragger * therotator = coin_assert_cast<SoDragger *>(this->getAnyPart("rotator", false));
     this->unregisterChildDragger(therotator);
 
     if (this->angleFieldSensor->getAttachedField() != NULL)
@@ -349,13 +349,13 @@ void
 SoSpotLightDragger::setDefaultOnNonWritingFields(void)
 {
   if (!(this->angle.isConnectionEnabled() && this->angle.isConnected()) &&
-      this->angle.getValue() == 1.0f) this->angle.setDefault(TRUE);
+      this->angle.getValue() == 1.0f) this->angle.setDefault(true);
   
-  this->translator.setDefault(TRUE);
-  this->rotator.setDefault(TRUE);
+  this->translator.setDefault(true);
+  this->rotator.setDefault(true);
   
-  this->translatorRotInv.setDefault(TRUE);
-  this->beamScale.setDefault(TRUE);
+  this->translatorRotInv.setDefault(true);
+  this->beamScale.setDefault(true);
 
   inherited::setDefaultOnNonWritingFields();
 }

@@ -36,7 +36,7 @@ public:
   SbTesselator(SbTesselatorCB * func = NULL, void * data = NULL);
   ~SbTesselator(void);
 
-  void beginPolygon(SbBool keepVertices = FALSE,
+  void beginPolygon(bool keepVertices = false,
                     const SbVec3f & normal = SbVec3f(0.0f, 0.0f, 0.0f));
   void addVertex(const SbVec3f &v, void * data);
   void endPolygon(void);

@@ -92,9 +92,9 @@ SoGetPrimitiveCountAction::commonConstructor(const SbViewportRegion & vp)
 {
   SO_ACTION_CONSTRUCTOR(SoGetPrimitiveCountAction);
 
-  this->textastris = TRUE;
-  this->approx = FALSE;
-  this->nonvertexastris = TRUE;
+  this->textastris = true;
+  this->approx = false;
+  this->nonvertexastris = true;
   this->pimpl->viewport = vp;
 }
 
@@ -159,7 +159,7 @@ SoGetPrimitiveCountAction::getImageCount(void) const
 /*!
   Returns whether there are any primitives in graph or not.
 */
-SbBool
+bool
 SoGetPrimitiveCountAction::containsNoPrimitives(void)
 {
   return
@@ -173,7 +173,7 @@ SoGetPrimitiveCountAction::containsNoPrimitives(void)
 /*!
   Returns whether there are non-triangular primitives in graph.
 */
-SbBool
+bool
 SoGetPrimitiveCountAction::containsNonTriangleShapes(void)
 {
   return
@@ -191,7 +191,7 @@ SoGetPrimitiveCountAction::containsNonTriangleShapes(void)
   \sa is3DTextCountedAsTriangles()
 */
 void
-SoGetPrimitiveCountAction::setCount3DTextAsTriangles(const SbBool flag)
+SoGetPrimitiveCountAction::setCount3DTextAsTriangles(const bool flag)
 {
   this->textastris = flag;
 }
@@ -201,7 +201,7 @@ SoGetPrimitiveCountAction::setCount3DTextAsTriangles(const SbBool flag)
 
   \sa is3DTextCountedAsTriangles()
 */
-SbBool
+bool
 SoGetPrimitiveCountAction::is3DTextCountedAsTriangles(void)
 {
   return this->textastris;
@@ -214,7 +214,7 @@ SoGetPrimitiveCountAction::is3DTextCountedAsTriangles(void)
 
   \sa setCanApproximate()
 */
-SbBool
+bool
 SoGetPrimitiveCountAction::canApproximateCount(void)
 {
   return this->approx;
@@ -225,7 +225,7 @@ SoGetPrimitiveCountAction::canApproximateCount(void)
   \sa canApproximateCount()
 */
 void
-SoGetPrimitiveCountAction::setCanApproximate(const SbBool flag)
+SoGetPrimitiveCountAction::setCanApproximate(const bool flag)
 {
   this->approx = flag;
 }

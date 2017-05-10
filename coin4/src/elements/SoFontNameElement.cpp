@@ -109,16 +109,16 @@ SoFontNameElement::get(SoState * const state)
 
 //! FIXME: write doc.
 
-SbBool
+bool
 SoFontNameElement::matches(const SoElement * element) const
 {
   if (this == element)
-    return TRUE;
+    return true;
   if (element->getTypeId() != SoFontNameElement::getClassTypeId())
-    return FALSE;
+    return false;
   if (this->fontName != coin_assert_cast<const SoFontNameElement *>(element)->fontName)
-    return FALSE;
-  return TRUE;
+    return false;
+  return true;
 }
 
 //! FIXME: write doc.

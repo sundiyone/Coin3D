@@ -63,7 +63,7 @@ SoSFVec2f::initClass(void)
 // parent classes.
 #ifndef DOXYGEN_SKIP_THIS
 
-SbBool
+bool
 SoSFVec2f::readValue(SoInput * in)
 {
   return

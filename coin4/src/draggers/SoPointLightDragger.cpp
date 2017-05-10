@@ -130,8 +130,8 @@ SoPointLightDragger::SoPointLightDragger(void)
 {
   SO_KIT_INTERNAL_CONSTRUCTOR(SoPointLightDragger);
 
-  SO_KIT_ADD_CATALOG_ENTRY(material, SoMaterial, TRUE, topSeparator, translator, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(translator, SoDragPointDragger, TRUE, topSeparator, geomSeparator, TRUE);
+  SO_KIT_ADD_CATALOG_ENTRY(material, SoMaterial, true, topSeparator, translator, true);
+  SO_KIT_ADD_CATALOG_ENTRY(translator, SoDragPointDragger, true, topSeparator, geomSeparator, true);
 
   if (SO_KIT_IS_FIRST_INSTANCE()) {
     SoInteractionKit::readDefaultParts("pointLightDragger.iv",
@@ -150,7 +150,7 @@ SoPointLightDragger::SoPointLightDragger(void)
   this->addValueChangedCallback(SoPointLightDragger::valueChangedCB);
   this->fieldSensor = new SoFieldSensor(SoPointLightDragger::fieldSensorCB, this);
   this->fieldSensor->setPriority(0);
-  this->setUpConnections(TRUE, TRUE);
+  this->setUpConnections(true, true);
 }
 
 /*!
@@ -166,14 +166,14 @@ SoPointLightDragger::~SoPointLightDragger()
 }
 
 // Doc in superclass.
-SbBool
-SoPointLightDragger::setUpConnections(SbBool onoff, SbBool doitalways)
+bool
+SoPointLightDragger::setUpConnections(bool onoff, bool doitalways)
 {
   if (!doitalways && this->connectionsSetUp == onoff) return onoff;
 
   if (onoff) {
     inherited::setUpConnections(onoff, doitalways);
-    SoDragger * child = coin_assert_cast<SoDragger *>(this->getAnyPart("translator", FALSE));
+    SoDragger * child = coin_assert_cast<SoDragger *>(this->getAnyPart("translator", false));
     child->setPartAsDefault("yzTranslator.translator",
                             "pointLightTranslatorPlaneTranslator");
     child->setPartAsDefault("xzTranslator.translator",
@@ -207,7 +207,7 @@ SoPointLightDragger::setUpConnections(SbBool onoff, SbBool doitalways)
     }
   }
   else {
-    SoDragger * child = coin_assert_cast<SoDragger *>(this->getAnyPart("translator", FALSE));
+    SoDragger * child = coin_assert_cast<SoDragger *>(this->getAnyPart("translator", false));
     this->unregisterChildDragger(child);
     if (this->fieldSensor->getAttachedField() != NULL) {
       this->fieldSensor->detach();
@@ -221,7 +221,7 @@ SoPointLightDragger::setUpConnections(SbBool onoff, SbBool doitalways)
 void
 SoPointLightDragger::setDefaultOnNonWritingFields(void)
 {
-  this->translator.setDefault(TRUE);
+  this->translator.setDefault(true);
 
   inherited::setDefaultOnNonWritingFields();
 }

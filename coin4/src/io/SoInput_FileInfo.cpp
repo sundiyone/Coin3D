@@ -60,7 +60,7 @@ SoInput_FileInfo::SoInput_FileInfo(SoInput_Reader * readerptr,
   this->threadbuflen[1] = -1;
   this->threadreadidx = 0;
   this->threadbufidx = 0;
-  this->threadeof = FALSE;
+  this->threadeof = false;
   this->readbuf = NULL;
 #else // HAVE_THREADS && SOINPUT_ASYNC_IO
   this->readbuf = new char[READBUFSIZE];
@@ -69,16 +69,16 @@ SoInput_FileInfo::SoInput_FileInfo(SoInput_Reader * readerptr,
   this->readbufidx = 0;
 
   this->header = NULL;
-  this->headerisread = FALSE;
+  this->headerisread = false;
   this->ivversion = 0.0f;
   this->linenr = 1;
   this->totalread = 0;
   this->lastputback = -1;
   this->lastchar = -1;
-  this->eof = FALSE;
-  this->isbinary = FALSE;
-  this->vrml1file = FALSE;
-  this->vrml2file = FALSE;
+  this->eof = false;
+  this->isbinary = false;
+  this->vrml1file = false;
+  this->vrml2file = false;
   this->prefunc = NULL;
   this->postfunc = NULL;
   this->stdinname = "<stdin>";
@@ -119,7 +119,7 @@ SoInput_FileInfo::sched_cb(void * closure)
     assert(thisp->threadbuflen[idx] == -1);
     size_t len = thisp->getReader()->readBuffer(thisp->threadbuf[idx], READBUFSIZE);
     if (len == 0) {
-      thisp->threadeof = TRUE;
+      thisp->threadeof = true;
       thisp->threadbuflen[idx] = 0;
     }
     else {
@@ -150,7 +150,7 @@ SoInput_FileInfo::doBufferRead(void)
   if (this->threadbuflen[idx] == 0) {
     this->readbufidx = 0;
     this->readbuflen = 0;
-    this->eof = TRUE;
+    this->eof = true;
 #if 0 // debug
     SoDebugError::postInfo("doBufferRead", "met Mr End-of-file");
 #endif // debug
@@ -176,7 +176,7 @@ SoInput_FileInfo::doBufferRead(void)
   if (len == 0) {
     this->readbufidx = 0;
     this->readbuflen = 0;
-    this->eof = TRUE;
+    this->eof = true;
 #if 0 // debug
     SoDebugError::postInfo("doBufferRead", "met Mr End-of-file");
 #endif // debug
@@ -195,7 +195,7 @@ SoInput_FileInfo::getNumBytesParsedSoFar(void) const
   return this->totalread + this->readbufidx - this->backbuffer.getLength();
 }
 
-SbBool
+bool
 SoInput_FileInfo::getChunkOfBytes(unsigned char * ptr, size_t length)
 {
   // Suck out any bytes from the backbuffer first.
@@ -222,7 +222,7 @@ SoInput_FileInfo::getChunkOfBytes(unsigned char * ptr, size_t length)
 
 void
 SoInput_FileInfo::addReference(const SbName & name, SoBase * base,
-                               SbBool /* addToGlobalDict */) // FIXME: why the unused arg?
+                               bool /* addToGlobalDict */) // FIXME: why the unused arg?
 {
   this->references.put(name.getString(), base);
 }
@@ -241,7 +241,7 @@ SoInput_FileInfo::findReference(const SbName & name) const
   return NULL;
 }
 
-SbBool
+bool
 SoInput_FileInfo::get(char & c)
 {
   if ((this->readbufidx == 0) && (this->backbuffer.getLength() > 0)) {
@@ -254,7 +254,7 @@ SoInput_FileInfo::get(char & c)
       this->doBufferRead();
       if (this->eof) {
         c = (char) EOF;
-        return FALSE;
+        return false;
       }
     }
 
@@ -268,7 +268,7 @@ SoInput_FileInfo::get(char & c)
   this->lastchar = c;
   this->lastputback = -1;
 
-  return TRUE;
+  return true;
 }
 
 void
@@ -293,7 +293,7 @@ SoInput_FileInfo::putBack(const char c)
     this->backbuffer.append(c);
   }
 
-  this->eof = FALSE;
+  this->eof = false;
 }
 
 void
@@ -328,27 +328,27 @@ SoInput_FileInfo::putBack(const char * const str)
     }
   }
 
-  this->eof = FALSE;
+  this->eof = false;
 }
 
-SbBool
+bool
 SoInput_FileInfo::skipWhiteSpace(void)
 {
   const char COMMENT_CHAR = '#';
 
-  while (TRUE) {
+  while (true) {
     char c;
-    SbBool gotchar;
+    bool gotchar;
     while ((gotchar = this->get(c)) && this->isSpace(c)) ;
 
-    if (!gotchar) return FALSE;
+    if (!gotchar) return false;
 
     if (c == COMMENT_CHAR) {
       while ((gotchar = this->get(c)) && (c != '\n') && (c != '\r')) ;
-      if (!gotchar) return FALSE;
+      if (!gotchar) return false;
       if (c == '\r') {
         gotchar = this->get(c);
-        if (!gotchar) return FALSE;
+        if (!gotchar) return false;
         if (c != '\n') this->putBack(c);
       }
     }
@@ -357,40 +357,40 @@ SoInput_FileInfo::skipWhiteSpace(void)
       break;
     }
   }
-  return TRUE;
+  return true;
 }
 
-// Returns TRUE if an attempt at reading the file header went
+// Returns true if an attempt at reading the file header went
 // without hitting EOF. Check this->ivversion != 0.0f to see if the
 // header parse actually succeeded.
 
 // The SoInput parameter is used in the precallback
-SbBool
+bool
 SoInput_FileInfo::readHeaderInternal(SoInput * soinput)
 {
-  this->headerisread = TRUE;
+  this->headerisread = true;
 
   this->header = "";
   this->ivversion = 0.0f;
-  this->vrml1file = FALSE;
-  this->vrml2file = FALSE;
+  this->vrml1file = false;
+  this->vrml2file = false;
 
   char c;
-  if (!this->get(c)) return FALSE;
+  if (!this->get(c)) return false;
 
   if (c != '#') {
     this->putBack(c);
-    return TRUE;
+    return true;
   }
 
   this->header += c;
 
   while (this->get(c) && (c != '\n') && (c != '\r')) this->header += c;
-  if (this->eof) return FALSE;
+  if (this->eof) return false;
 
   if (!SoDB::getHeaderData(this->header, this->isbinary, this->ivversion,
                            this->prefunc, this->postfunc, this->userdata,
-                           TRUE)) {
+                           true)) {
     SbString putback = this->header;
     putback += c;
     this->putBack(putback.getString()); // put back invalid header
@@ -402,15 +402,15 @@ SoInput_FileInfo::readHeaderInternal(SoInput * soinput)
 
     if (strncmp(vrml1string.getString(), this->header.getString(),
                 vrml1string.getLength()) == 0) {
-      this->vrml1file = TRUE;
+      this->vrml1file = true;
     }
     else if (strncmp(vrml2string.getString(), this->header.getString(),
                      vrml2string.getLength()) == 0) {
-      this->vrml2file = TRUE;
+      this->vrml2file = true;
     }
     if (this->prefunc) this->prefunc(this->userdata, soinput);
   }
-  return TRUE;
+  return true;
 }
 
 void
@@ -479,7 +479,7 @@ SoInput_FileInfo::getReader(void)
   return this->reader;
 }
 
-SbBool
+bool
 SoInput_FileInfo::readUnsignedIntegerString(char * str)
 {
   assert(!this->isBinary());
@@ -498,13 +498,13 @@ SoInput_FileInfo::readUnsignedIntegerString(char * str)
     s += this->readDigits(s);
 
   if (s - str < minSize)
-    return FALSE;
+    return false;
 
   *s = '\0';
-  return TRUE;
+  return true;
 }
 
-SbBool
+bool
 SoInput_FileInfo::readUnsignedInteger(uint32_t & l)
 {
   assert(!this->isBinary());
@@ -512,17 +512,17 @@ SoInput_FileInfo::readUnsignedInteger(uint32_t & l)
   // length. Ouch. 19990530 mortene.
   char str[512];
   if (! this->readUnsignedIntegerString(str))
-    return FALSE;
+    return false;
 
   // FIXME: check man page of strtoul and exploit the functionality
   // provided better -- it looks like we are duplicating some of the
   // effort. 19990530 mortene.
   l = strtoul(str, NULL, 0);
 
-  return TRUE;
+  return true;
 }
 
-SbBool
+bool
 SoInput_FileInfo::readInteger(int32_t & l)
 {
   assert(!this->isBinary());
@@ -530,14 +530,14 @@ SoInput_FileInfo::readInteger(int32_t & l)
   // length. Ouch. 19990530 mortene.
   char str[512];
   char * s = str;
-  SbBool minus = FALSE;
+  bool minus = false;
   if (this->readChar(s, '-')) {
-    minus = TRUE;
+    minus = true;
     s++;
   }
   else if (this->readChar(s, '+')) s++;
   if (! this->readUnsignedIntegerString(s))
-    return FALSE;
+    return false;
 
   // FIXME: check man page of strtol and exploit the functionality
   // provided better -- it looks like we are duplicating some of the
@@ -576,16 +576,16 @@ SoInput_FileInfo::readInteger(int32_t & l)
   }
   if (minus) l = -l;
 #endif // strtol replacement
-  return TRUE;
+  return true;
 }
 
-SbBool
+bool
 SoInput_FileInfo::readReal(double & d)
 {
   assert(!this->isBinary());
   const int BUFSIZE = 2048;
-  SbBool minus = FALSE;
-  SbBool gotNum = FALSE;
+  bool minus = false;
+  bool gotNum = false;
   int i, n;
   char str[BUFSIZE];
   char * s = str;
@@ -597,11 +597,11 @@ SoInput_FileInfo::readReal(double & d)
   if (n == 0) {
     n = this->readChar(s, '+');
   }
-  else minus = TRUE;
+  else minus = true;
   s += n;
 
   if ((n = this->readDigits(s)) > 0) {
-    gotNum = TRUE;
+    gotNum = true;
     number = 0.0;
     double mul = 1.0;
     for (i = 0; i < n; i++) {
@@ -617,7 +617,7 @@ SoInput_FileInfo::readReal(double & d)
     s++;
 
     if ((n = this->readDigits(s)) > 0) {
-      gotNum = TRUE;
+      gotNum = true;
       double mul = 0.1;
       for (i = 0; i < n; i++) {
         number += (s[i]-'0') * mul;
@@ -628,7 +628,7 @@ SoInput_FileInfo::readReal(double & d)
   }
 
   if (! gotNum)
-    return FALSE;
+    return false;
 
   if (minus) number = -number;
 
@@ -639,12 +639,12 @@ SoInput_FileInfo::readReal(double & d)
   if (n > 0) {
     s += n;
 
-    minus = FALSE;
+    minus = false;
     n = this->readChar(s, '-');
     if (n == 0) {
       n = this->readChar(s, '+');
     }
-    else minus = TRUE;
+    else minus = true;
     s += n;
 
     if ((n = this->readDigits(s)) > 0) {
@@ -659,11 +659,11 @@ SoInput_FileInfo::readReal(double & d)
       number *= pow(10.0, exponent);
     }
     else
-      return FALSE;
+      return false;
   }
 
   d = number;
-  return TRUE;
+  return true;
 }
 
 int

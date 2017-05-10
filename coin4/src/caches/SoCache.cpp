@@ -61,7 +61,7 @@
   do it like this:
   
   \verbatim
-  SbBool storedinvalid = SoCacheElement::setInvalid(FALSE);
+  bool storedinvalid = SoCacheElement::setInvalid(false);
   state->push();
   SoMyCache * cache = new SoMyCache(state);
   cache->ref();
@@ -129,7 +129,7 @@ public:
   SbList <SoElement *> elements;
   unsigned char * elementflags;
   int refcount;
-  SbBool invalidated;
+  bool invalidated;
   int statedepth;
 };
 
@@ -145,7 +145,7 @@ SoCache::SoCache(SoState * const state)
   PRIVATE(this) = new SoCacheP;
   PRIVATE(this)->elementflags = NULL;
   PRIVATE(this)->refcount = 0;
-  PRIVATE(this)->invalidated = FALSE;
+  PRIVATE(this)->invalidated = false;
   PRIVATE(this)->statedepth = state ? state->getDepth() : 0;
 
   int numidx = SoElement::getNumStackIndices();
@@ -241,12 +241,12 @@ SoCache::addCacheDependency(const SoState * state, SoCache * cache)
 }
 
 /*!
-  Return \e TRUE if this cache is valid, \e FALSE otherwise.
+  Return \e true if this cache is valid, \e false otherwise.
 */
-SbBool
+bool
 SoCache::isValid(const SoState * state) const
 {
-  if (PRIVATE(this)->invalidated) return FALSE;
+  if (PRIVATE(this)->invalidated) return false;
   return this->getInvalidElement(state) == NULL;
 }
 
@@ -286,7 +286,7 @@ SoCache::getInvalidElement(const SoState * const state) const
 void
 SoCache::invalidate(void)
 {
-  PRIVATE(this)->invalidated = TRUE;
+  PRIVATE(this)->invalidated = true;
 }
 
 /*!

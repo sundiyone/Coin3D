@@ -66,11 +66,11 @@ ScXMLXPathEvaluator::evaluate(const char * COIN_UNUSED_ARG(expression)) const
   return NULL;
 }
 
-SbBool
+bool
 ScXMLXPathEvaluator::setAtLocation(const char * COIN_UNUSED_ARG(location), ScXMLDataObj * COIN_UNUSED_ARG(obj))
 {
   // FIXME: not implemented
-  return FALSE;
+  return false;
 }
 
 ScXMLDataObj *

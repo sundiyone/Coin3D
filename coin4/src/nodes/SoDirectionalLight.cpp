@@ -44,7 +44,7 @@
   <b>FILE FORMAT/DEFAULTS:</b>
   \code
     DirectionalLight {
-        on TRUE
+        on true
         intensity 1
         color 1 1 1
         direction 0 0 -1

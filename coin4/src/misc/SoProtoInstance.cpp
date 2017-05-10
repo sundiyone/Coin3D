@@ -167,11 +167,11 @@ SoProtoInstance::getProtoName(void) const
 }
 
 // Doc in parent
-SbBool
+bool
 SoProtoInstance::readInstance(SoInput * in, unsigned short flags)
 {
   return inherited::readInstance(in, flags);
-  //  return FALSE;
+  //  return false;
 }
 
 /*!
@@ -207,7 +207,7 @@ SoProtoInstance::write(SoWriteAction * action)
 #if 0 // just testing, disabled pederb, 2002-06-18
   SoOutput * out = action->getOutput();
   if (out->getStage() == SoOutput::COUNT_REFS) {
-    this->addWriteReference(out, FALSE);
+    this->addWriteReference(out, false);
   }
   else if (out->getStage() == SoOutput::WRITE) {
   }
@@ -252,7 +252,7 @@ SoProtoInstance::copyFieldData(const SoFieldData * src)
     if (f->getFieldType() == SoField::NORMAL_FIELD ||
         f->getFieldType() == SoField::EXPOSED_FIELD) {
       cp->copyFrom(*f);
-      cp->fixCopy(TRUE);
+      cp->fixCopy(true);
     }
     cp->setFieldType(f->getFieldType());
     cp->setDefault(f->isDefault());

@@ -111,7 +111,7 @@ heap_heapify(cc_heap * h, uintptr_t i)
 cc_heap *
 cc_heap_construct(unsigned int size,
                   cc_heap_compare_cb * comparecb,
-                  SbBool support_remove)
+                  bool support_remove)
 {
   cc_heap * h = static_cast<cc_heap *>(malloc(sizeof(cc_heap)));
   assert(h);
@@ -218,8 +218,8 @@ cc_heap_extract_top(cc_heap * h)
 
 /*!
 
-  Remove \a o from the heap \a h; if present TRUE is returned,
-  otherwise FALSE.  Please note that the heap must have been created
+  Remove \a o from the heap \a h; if present true is returned,
+  otherwise false.  Please note that the heap must have been created
   with support_remove.
 
 */
@@ -229,10 +229,10 @@ cc_heap_remove(cc_heap * h, void * o)
   uintptr_t i;
   void * tmp;
 
-  if (!h->support_remove) return FALSE;
+  if (!h->support_remove) return false;
 
   if (!cc_dict_get(h->hash, reinterpret_cast<uintptr_t>(o), &tmp))
-    return FALSE;
+    return false;
 
   i = reinterpret_cast<uintptr_t>(tmp);
   assert(i < h->elements);
@@ -246,7 +246,7 @@ cc_heap_remove(cc_heap * h, void * o)
 
   cc_dict_remove(h->hash, reinterpret_cast<uintptr_t>(o));
 
-  return TRUE;
+  return true;
 }
 
 /*!
@@ -259,12 +259,12 @@ cc_heap_elements(cc_heap * h)
 }
 
 /*!
-  Returns TRUE of the heap \a h is empty; otherwise FALSE.
+  Returns true of the heap \a h is empty; otherwise false.
 */
-SbBool
+bool
 cc_heap_empty(cc_heap * h)
 {
-  return h->elements == 0 ? TRUE : FALSE;
+  return h->elements == 0 ? true : false;
 }
 
 #undef HEAP_LEFT

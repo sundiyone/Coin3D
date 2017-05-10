@@ -324,16 +324,16 @@ static float qmeshGetWeight(float value)
 
 // qmeshNormalize
 // v.length() must be in 0..sqrt(toLength2)/4 range
-static SbBool qmeshNormalize(SbVec3f & v, float toLength2)
+static bool qmeshNormalize(SbVec3f & v, float toLength2)
 {
   // FIXME: this function should be optimized by look-up table
   // (sqrt and divisions are expensive operations)
   float vl2 = v.sqrLength();
   if (vl2 > 0.f) {
     v *= (float) sqrt(toLength2 / (vl2 * 4.0));
-    return TRUE;
+    return true;
   }
-  return FALSE;
+  return false;
 }
 
 namespace { namespace SoGL { namespace QuadMesh {
@@ -354,20 +354,20 @@ namespace { namespace SoGL { namespace QuadMesh {
                        const SbVec3f *normals,
                        SoMaterialBundle * mb,
                        const SoTextureCoordinateBundle * tb,
-                       SbBool needNormals,
+                       bool needNormals,
                        int rowsize,
                        int colsize,
                        int start,
-                       SbBool preciseLighting)
+                       bool preciseLighting)
   {
     assert(rowsize >= 0 && colsize >= 0 && start >= 0);
     assert(coords->getNum() - start >= rowsize * colsize);
 
-    const SbBool is3d = coords->is3D();
+    const bool is3d = coords->is3D();
     const SbVec3f * coords3d = is3d ? coords->getArrayPtr3() : NULL;
     const SbVec4f * coords4d = is3d ? NULL : coords->getArrayPtr4();
 
-    if (preciseLighting == FALSE) {
+    if (preciseLighting == false) {
 
       // This is the same code as in SoGLCoordinateElement::send().
       // It is inlined here for speed (~15% speed increase).
@@ -397,7 +397,7 @@ namespace { namespace SoGL { namespace QuadMesh {
           glNormal3fv((const GLfloat *)currnormal);
         }
         if ((AttributeBinding)MaterialBinding == PER_ROW) {
-          mb->send(midx++,TRUE);
+          mb->send(midx++,true);
         }
 
         for (j = 0; j < rowsize; j++) {
@@ -415,14 +415,14 @@ namespace { namespace SoGL { namespace QuadMesh {
             }
           }
           if ((AttributeBinding)MaterialBinding == PER_VERTEX) {
-            mb->send(curridx, TRUE);
+            mb->send(curridx, true);
           }
           if ((AttributeBinding)MaterialBinding == PER_FACE) {
             // j != 1, since we send four vertices for the first quad, then two
             // vertices for all other quads
-            if (j != 1) mb->send(midx++, TRUE);
+            if (j != 1) mb->send(midx++, true);
           }
-          if (TexturingEnabled == TRUE) {
+          if (TexturingEnabled == true) {
             tb->send(curridx, coords->get3(start + curridx),
                      *currnormal);
           }
@@ -433,9 +433,9 @@ namespace { namespace SoGL { namespace QuadMesh {
             glNormal3fv((const GLfloat *)currnormal);
           }
           if ((AttributeBinding)MaterialBinding == PER_VERTEX) {
-            mb->send(curridx, TRUE);
+            mb->send(curridx, true);
           }
-          if (TexturingEnabled == TRUE) {
+          if (TexturingEnabled == true) {
             tb->send(curridx, coords->get3(start + curridx), *currnormal);
           }
           SEND_VERTEX(start + curridx);
@@ -444,7 +444,7 @@ namespace { namespace SoGL { namespace QuadMesh {
       }
 #undef SEND_VERTEX
 
-    } else { // PreciseLighting == TRUE
+    } else { // PreciseLighting == true
 
       // Alternative code for rendering with more precise lighting by
       // placing an extra vertice in the middle of the quad, and
@@ -485,7 +485,7 @@ namespace { namespace SoGL { namespace QuadMesh {
           glNormal3fv((const GLfloat *)currnormal);
         }
         if ((AttributeBinding)MaterialBinding == PER_ROW) {
-          mb->send(midx++, TRUE);
+          mb->send(midx++, true);
         }
 
         if (is3d) {
@@ -518,7 +518,7 @@ namespace { namespace SoGL { namespace QuadMesh {
           }
 
           if ((AttributeBinding)NormalBinding == PER_VERTEX ||
-              TexturingEnabled == TRUE) {
+              TexturingEnabled == true) {
             if (is3d) {
               s1 = ((*c1d3) - ccd3).sqrLength();
               s2 = ((*c2d3) - ccd3).sqrLength();
@@ -542,7 +542,7 @@ namespace { namespace SoGL { namespace QuadMesh {
             }
 
             if ((AttributeBinding)NormalBinding == PER_VERTEX ||
-                TexturingEnabled == TRUE) {
+                TexturingEnabled == true) {
               w1 = qmeshGetWeight(s1/s4) * 0.5f;
               w2 = qmeshGetWeight(s2/s3) * 0.5f;
               w3 = 0.5f - w2;
@@ -562,7 +562,7 @@ namespace { namespace SoGL { namespace QuadMesh {
                 SbPlane p1(*c1d3,*c2d3,*c4d3);
                 SbPlane p2(*c1d3,*c4d3,*c3d3);
                 SbVec3f n = p1.getNormal() + p2.getNormal();
-                SbBool quadok = qmeshNormalize(n, n1->sqrLength() + n2->sqrLength() +
+                bool quadok = qmeshNormalize(n, n1->sqrLength() + n2->sqrLength() +
                                                n3->sqrLength() + n4->sqrLength());
 #if COIN_DEBUG
                 if ( !quadok )
@@ -577,17 +577,17 @@ namespace { namespace SoGL { namespace QuadMesh {
           }
 
           if ((AttributeBinding)MaterialBinding == PER_VERTEX) {
-            assert(FALSE && "yet unimplemented");
+            assert(false && "yet unimplemented");
           }
 
-          if (TexturingEnabled == TRUE) {
+          if (TexturingEnabled == true) {
             t1 = t3;
             t2 = t4;
             if (!tb->isFunction()) {
               t3 = &((SoTextureCoordinateBundle*)tb)->get(curridx1);
               t4 = &((SoTextureCoordinateBundle*)tb)->get(curridx2);
             } else {
-              assert(FALSE && "unimplemented");
+              assert(false && "unimplemented");
             }
             tc = ((*t1)*w1 + (*t2)*w2 + (*t3)*w3 + (*t4)*w4);
           }
@@ -599,7 +599,7 @@ namespace { namespace SoGL { namespace QuadMesh {
             glNormal3fv((const GLfloat *)currnormal);
           }
           if ((AttributeBinding)MaterialBinding == PER_FACE) {
-            mb->send(curridx1, TRUE);
+            mb->send(curridx1, true);
           }
 
           // CENTER vertex
@@ -607,9 +607,9 @@ namespace { namespace SoGL { namespace QuadMesh {
             glNormal3fv(nc.getValue());
           }
           if ((AttributeBinding)MaterialBinding == PER_VERTEX) {
-            assert(FALSE && "unimplemented");
+            assert(false && "unimplemented");
           }
-          if (TexturingEnabled == TRUE) {
+          if (TexturingEnabled == true) {
             // tb->send(?curridx?, cc, nc) was replaced by
             // glTexCoord for center vertex
             glTexCoord4fv((const GLfloat*)&tc);
@@ -625,9 +625,9 @@ namespace { namespace SoGL { namespace QuadMesh {
             glNormal3fv(n1->getValue());
           }
           if ((AttributeBinding)MaterialBinding == PER_VERTEX) {
-            assert(FALSE && "unimplemented");
+            assert(false && "unimplemented");
           }
-          if (TexturingEnabled == TRUE) {
+          if (TexturingEnabled == true) {
             if (is3d) {
               if ((AttributeBinding)NormalBinding == PER_VERTEX) {
                 tb->send(curridx1-1, *c1d3, *n1);
@@ -655,7 +655,7 @@ namespace { namespace SoGL { namespace QuadMesh {
           if ((AttributeBinding)MaterialBinding == PER_VERTEX) {
             assert(!"unimplemented");
           }
-          if (TexturingEnabled == TRUE) {
+          if (TexturingEnabled == true) {
             if (is3d) {
               if ((AttributeBinding)NormalBinding == PER_VERTEX) {
                 tb->send(curridx2-1, *c2d3, *n2);
@@ -681,9 +681,9 @@ namespace { namespace SoGL { namespace QuadMesh {
             glNormal3fv(n4->getValue());
           }
           if ((AttributeBinding)MaterialBinding == PER_VERTEX) {
-            assert(FALSE && "unimplemented");
+            assert(false && "unimplemented");
           }
-          if (TexturingEnabled == TRUE) {
+          if (TexturingEnabled == true) {
             if (is3d) {
               if ((AttributeBinding)NormalBinding == PER_VERTEX) {
                 tb->send(curridx2, *c4d3, *n4);
@@ -711,7 +711,7 @@ namespace { namespace SoGL { namespace QuadMesh {
           if ((AttributeBinding)MaterialBinding == PER_VERTEX) {
             assert(!"unimplemented");
           }
-          if (TexturingEnabled == TRUE) {
+          if (TexturingEnabled == true) {
             if (is3d) {
               if ((AttributeBinding)NormalBinding == PER_VERTEX) {
                 tb->send(curridx1, *c3d3, *n3);
@@ -739,7 +739,7 @@ namespace { namespace SoGL { namespace QuadMesh {
           if ((AttributeBinding)MaterialBinding == PER_VERTEX) {
             assert(!"unimplemented");
           }
-          if (TexturingEnabled == TRUE) {
+          if (TexturingEnabled == true) {
             if (is3d) {
               if ((AttributeBinding)NormalBinding == PER_VERTEX) {
                 tb->send(curridx1-1, *c1d3, *n1);
@@ -790,9 +790,9 @@ SoQuadMesh::initClass(void)
 
 #define SOGL_QUADMESH_GLRENDER_RESOLVE_ARG3(normalbinding, materialbinding, texturing, args) \
   if (texturing) {                                                      \
-    SOGL_QUADMESH_GLRENDER_CALL_FUNC(normalbinding, materialbinding, TRUE, args); \
+    SOGL_QUADMESH_GLRENDER_CALL_FUNC(normalbinding, materialbinding, true, args); \
   } else {                                                              \
-    SOGL_QUADMESH_GLRENDER_CALL_FUNC(normalbinding, materialbinding, FALSE, args); \
+    SOGL_QUADMESH_GLRENDER_CALL_FUNC(normalbinding, materialbinding, false, args); \
   }
 
 #define SOGL_QUADMESH_GLRENDER_RESOLVE_ARG2(normalbinding, materialbinding, texturing, args) \
@@ -841,11 +841,11 @@ void
 SoQuadMesh::GLRender(SoGLRenderAction * action)
 {
   SoState * state = action->getState();
-  SbBool didpush = FALSE;
+  bool didpush = false;
 
   if (this->vertexProperty.getValue()) {
     state->push();
-    didpush = TRUE;
+    didpush = true;
     this->vertexProperty.getValue()->GLRender(action);
   }
 
@@ -858,16 +858,16 @@ SoQuadMesh::GLRender(SoGLRenderAction * action)
   const int colsize = this->verticesPerColumn.getValue();
 
   // send approx number of triangles for autocache handling
-  sogl_autocache_update(state, (rowsize-1)*(colsize-1)*2, FALSE);
+  sogl_autocache_update(state, (rowsize-1)*(colsize-1)*2, false);
 
   const SoCoordinateElement * tmp;
   const SbVec3f * normals;
-  SbBool doTextures;
+  bool doTextures;
 
   SoMaterialBundle mb(action);
-  SoTextureCoordinateBundle tb(action, TRUE, FALSE);
+  SoTextureCoordinateBundle tb(action, true, false);
   doTextures = tb.needCoordinates();
-  SbBool needNormals = !mb.isColorOnly() || tb.isFunction();
+  bool needNormals = !mb.isColorOnly() || tb.isFunction();
 
   SoVertexShape::getVertexData(action->getState(), tmp, normals,
                                needNormals);
@@ -893,7 +893,7 @@ SoQuadMesh::GLRender(SoGLRenderAction * action)
   // rendering. It must be after the SoMaterialBundle::sendFirst()
   // call.
   if ((nbind == PER_FACE) || (mbind == PER_FACE)) {
-    SoGLLazyElement::sendFlatshading(state, TRUE);
+    SoGLLazyElement::sendFlatshading(state, true);
   }
 
   // Check if precise lighting rendering is requested.
@@ -905,7 +905,7 @@ SoQuadMesh::GLRender(SoGLRenderAction * action)
 
   // Even if precise lighting rendering is requested, we need to check
   // that the rendering path is supported.
-  SbBool pl = preciselighting &&
+  bool pl = preciselighting &&
     coords->is3D() && (mbind != PER_VERTEX) && !tb.isFunction();
 
   // Robustness test to make sure the start index is positive
@@ -976,17 +976,17 @@ SoQuadMesh::GLRender(SoGLRenderAction * action)
 #undef SOGL_QUADMESH_GLRENDER
 
 // Documented in superclass.
-SbBool
+bool
 SoQuadMesh::generateDefaultNormals(SoState * state, SoNormalCache * nc)
 {
   // FIXME: consider creaseAngle? pederb, 20000809
 
   if (verticesPerRow.getValue() < 2 || verticesPerColumn.getValue() < 2)
-    return TRUE; // nothing to generate
+    return true; // nothing to generate
 
-  SbBool ccw = TRUE;
+  bool ccw = true;
   if (SoShapeHintsElement::getVertexOrdering(state) ==
-      SoShapeHintsElement::CLOCKWISE) ccw = FALSE;
+      SoShapeHintsElement::CLOCKWISE) ccw = false;
 
   const SbVec3f * coords = SoCoordinateElement::getInstance(state)->getArrayPtr3();
   assert(coords);
@@ -1021,10 +1021,10 @@ SoQuadMesh::generateDefaultNormals(SoState * state, SoNormalCache * nc)
     break;
   default:
     assert(0);
-    return FALSE;
+    return false;
     break;
   }
-  return TRUE;
+  return true;
 }
 
 // Documented in superclass.
@@ -1037,12 +1037,12 @@ SoQuadMesh::getPrimitiveCount(SoGetPrimitiveCountAction *action)
                           this->verticesPerColumn.getValue());
 }
 
-// Documented in superclass. Overridden to return FALSE. Normals are
+// Documented in superclass. Overridden to return false. Normals are
 // generated in normal cache.
-SbBool
+bool
 SoQuadMesh::generateDefaultNormals(SoState * /* state */, SoNormalBundle * /* nb */)
 {
-  return FALSE;
+  return false;
 }
 
 // Documented in superclass.
@@ -1065,13 +1065,13 @@ SoQuadMesh::generatePrimitives(SoAction *action)
   }
   const SoCoordinateElement *coords;
   const SbVec3f * normals;
-  SbBool doTextures;
-  SbBool needNormals = TRUE;
+  bool doTextures;
+  bool needNormals = true;
 
   SoVertexShape::getVertexData(action->getState(), coords, normals,
                                needNormals);
 
-  SoTextureCoordinateBundle tb(action, FALSE, FALSE);
+  SoTextureCoordinateBundle tb(action, false, false);
   doTextures = tb.needCoordinates();
 
   int start = this->startIndex.getValue();
@@ -1117,7 +1117,7 @@ SoQuadMesh::generatePrimitives(SoAction *action)
       pointDetail.setMaterialIndex(midx);
       vertex.setMaterialIndex(midx++);
     }
-    SbBool first = TRUE;
+    bool first = true;
     faceDetail.setFaceIndex(0);
     for (j = 0; j < rowsize; j++) {
       curridx = IDX(i,j);
@@ -1176,7 +1176,7 @@ SoQuadMesh::generatePrimitives(SoAction *action)
       pointDetail.setCoordinateIndex(start + curridx);
       vertex.setPoint(coords->get3(start + curridx));
       this->shapeVertex(&vertex);
-      if (first) first = FALSE;
+      if (first) first = false;
       else faceDetail.incFaceIndex();
     }
     this->endShape();

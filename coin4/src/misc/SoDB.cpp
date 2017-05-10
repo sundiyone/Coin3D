@@ -22,15 +22,15 @@
 \**************************************************************************/
 
 /*!
-  \class SbBool SbBasic.h Inventor/SbBasic.h
-  \brief SbBool is a compiler portable boolean type.
+  \class bool SbBasic.h Inventor/SbBasic.h
+  \brief bool is a compiler portable boolean type.
   \ingroup base
 
-  SbBool is meant to be a "compiler portable" way of defining a
+  bool is meant to be a "compiler portable" way of defining a
   boolean type, since there are older compilers out there which don't
   support the ISO-standard C++ \c bool keyword.
 
-  SbBool is not really a class, just a \c typedef.
+  bool is not really a class, just a \c typedef.
 */
 
 
@@ -333,28 +333,28 @@ SoDB::init(void)
   SoScXMLNavigation::initClasses();
 
   // Register all valid file format headers.
-  SoDB::registerHeader(SbString("#Inventor V2.1 ascii   "), FALSE, 2.1f,
+  SoDB::registerHeader(SbString("#Inventor V2.1 ascii   "), false, 2.1f,
                        NULL, NULL, NULL);
-  SoDB::registerHeader(SbString("#Inventor V2.1 binary  "), TRUE, 2.1f,
+  SoDB::registerHeader(SbString("#Inventor V2.1 binary  "), true, 2.1f,
                        NULL, NULL, NULL);
 
   // FIXME: this is really only valid if the HAVE_VRML97 define is in
   // place. If it's not, we should register the header in a way so
   // that we spit out a /specific/ warning about why VRML97 is not
   // supported in the configuration of the compiled libCoin. 20020808 mortene.
-  SoDB::registerHeader(SbString("#VRML V2.0 utf8"), FALSE, 2.1f,
+  SoDB::registerHeader(SbString("#VRML V2.0 utf8"), false, 2.1f,
                        NULL, NULL, NULL);
 
   // FIXME: there are nodes in TGS' later Inventor versions that we do
   // not support, so it's not really correct to register 2.4 and 2.5
   // headers.  20010925 mortene.
-  SoDB::registerHeader(SbString("#Inventor V2.4 ascii   "), FALSE, 2.4f,
+  SoDB::registerHeader(SbString("#Inventor V2.4 ascii   "), false, 2.4f,
                        NULL, NULL, NULL);
-  SoDB::registerHeader(SbString("#Inventor V2.4 binary  "), TRUE, 2.4f,
+  SoDB::registerHeader(SbString("#Inventor V2.4 binary  "), true, 2.4f,
                        NULL, NULL, NULL);
-  SoDB::registerHeader(SbString("#Inventor V2.5 ascii   "), FALSE, 2.5f,
+  SoDB::registerHeader(SbString("#Inventor V2.5 ascii   "), false, 2.5f,
                        NULL, NULL, NULL);
-  SoDB::registerHeader(SbString("#Inventor V2.5 binary  "), TRUE, 2.5f,
+  SoDB::registerHeader(SbString("#Inventor V2.5 binary  "), true, 2.5f,
                        NULL, NULL, NULL);
   // FIXME: TGS has released many more versions than this. There are
   // at least 2.6, 3.0, 3.1 and 4.0, as of now. What should we do with
@@ -362,9 +362,9 @@ SoDB::init(void)
   // with someone holding a TGS license how the header look for output
   // written with these versions. 20040909 mortene.
 
-  SoDB::registerHeader(SbString("#Inventor V2.0 ascii   "), FALSE, 2.0f,
+  SoDB::registerHeader(SbString("#Inventor V2.0 ascii   "), false, 2.0f,
                        NULL, NULL, NULL);
-  SoDB::registerHeader(SbString("#Inventor V2.0 binary  "), TRUE, 2.0f,
+  SoDB::registerHeader(SbString("#Inventor V2.0 binary  "), true, 2.0f,
                        NULL, NULL, NULL);
 
   // FIXME: this is erroneous, we don't _really_ support v1.x Inventor
@@ -375,15 +375,15 @@ SoDB::init(void)
   // UPDATE 20040909 mortene: pederb has implemented the "upgraders"
   // mechanism, and at least a few upgrader nodes for V1.0
   // stuff. Should investigate the exact status of this.
-  SoDB::registerHeader(SbString("#Inventor V1.0 ascii   "), FALSE, 1.0f,
+  SoDB::registerHeader(SbString("#Inventor V1.0 ascii   "), false, 1.0f,
                        NULL, NULL, NULL);
-  SoDB::registerHeader(SbString("#Inventor V1.0 binary  "), TRUE, 1.0f,
+  SoDB::registerHeader(SbString("#Inventor V1.0 binary  "), true, 1.0f,
                        NULL, NULL, NULL);
 
   // The VRML 1 standard was made from SGI's Inventor V2.1 (and should
   // be a pure sub-set), so that's what we pretend the format version
   // is, internally.
-  SoDB::registerHeader(SbString("#VRML V1.0 ascii   "), FALSE, 2.1f,
+  SoDB::registerHeader(SbString("#VRML V1.0 ascii   "), false, 2.1f,
                        NULL, NULL, NULL);
 
 
@@ -433,9 +433,9 @@ SoDB::init(void)
   const char * env = coin_getenv("COIN_DEBUG_LISTMODULES");
   if (env && (atoi(env) > 0)) { SoDBP::listWin32ProcessModules(); }
 
-  SoDBP::isinitialized = TRUE;
+  SoDBP::isinitialized = true;
 
-  // NOTE: SoDBP::isinitialized must be set to TRUE before this block,
+  // NOTE: SoDBP::isinitialized must be set to true before this block,
   // or you will get a "mysterious" crash on a mutex in
   // CoinStaticObjectInDLL.cpp.  Logically, it should not be flagged
   // before after initialization is done, but subsystems invoked from
@@ -472,7 +472,7 @@ void
 SoDB::finish(void)
 {
   coin_atexit_cleanup();
-  SoDBP::isinitialized = FALSE;
+  SoDBP::isinitialized = false;
 }
 
 /*!
@@ -507,28 +507,28 @@ SoDB::getVersion(void)
 
   The reference count of the SoPath object will initially be zero.
 
-  Returns \c FALSE on error. Returns \c TRUE with \a path equal to \a
+  Returns \c false on error. Returns \c true with \a path equal to \a
   NULL if we hit end of file instead of a new path specification in
   the file.
 */
-SbBool
+bool
 SoDB::read(SoInput * in, SoPath *& path)
 {
   path = NULL;
   SoBase * baseptr;
-  if (!SoDB::read(in, baseptr))  return FALSE;
-  if (!baseptr) return TRUE; // eof
+  if (!SoDB::read(in, baseptr))  return false;
+  if (!baseptr) return true; // eof
 
   if (!baseptr->isOfType(SoPath::getClassTypeId())) {
     SoReadError::post(in, "'%s' not derived from SoPath",
                       baseptr->getTypeId().getName().getString());
     baseptr->ref();
     baseptr->unref();
-    return FALSE;
+    return false;
   }
 
   path = (SoPath *)baseptr;
-  return TRUE;
+  return true;
 }
 
 /*!
@@ -538,12 +538,12 @@ SoDB::read(SoInput * in, SoPath *& path)
 
   The reference count of the base object will initially be zero.
 
-  Returns \c FALSE on error.
+  Returns \c false on error.
 */
-SbBool
+bool
 SoDB::read(SoInput * in, SoBase *& base)
 {
-  SbBool valid = in->isValidFile();
+  bool valid = in->isValidFile();
 
 #ifdef HAVE_NODEKITS
   if (!valid &&
@@ -562,7 +562,7 @@ SoDB::read(SoInput * in, SoBase *& base)
   // Header is only required when reading from a stream, if reading from
   // memory no header is required.
   if (!valid) {
-    return FALSE;
+    return false;
   }
   return SoBase::read(in, base, SoBase::getClassTypeId());
 }
@@ -573,11 +573,11 @@ SoDB::read(SoInput * in, SoBase *& base)
 
   The reference count of the node will initially be zero.
 
-  Returns \c FALSE on error. Returns \c TRUE with \a rootnode equal to
+  Returns \c false on error. Returns \c true with \a rootnode equal to
   \c NULL if we hit end of file instead of a new node specification in
   the file.
  */
-SbBool
+bool
 SoDB::read(SoInput * in, SoNode *& rootnode)
 {
   rootnode = NULL;
@@ -590,8 +590,8 @@ SoDB::read(SoInput * in, SoNode *& rootnode)
 
   // allow engines at the top level of a file
   do {
-    if (!SoDB::read(in, baseptr)) return FALSE;
-    if (!baseptr) return TRUE; // eof
+    if (!SoDB::read(in, baseptr)) return false;
+    if (!baseptr) return true; // eof
   } while (baseptr->isOfType(SoEngine::getClassTypeId()));
 
   if (!baseptr->isOfType(SoNode::getClassTypeId())) {
@@ -599,11 +599,11 @@ SoDB::read(SoInput * in, SoNode *& rootnode)
                       baseptr->getTypeId().getName().getString());
     baseptr->ref();
     baseptr->unref();
-    return FALSE;
+    return false;
   }
 
   rootnode = (SoNode *)baseptr;
-  return TRUE;
+  return true;
 }
 
 /*!
@@ -686,10 +686,10 @@ SoDB::readAllVRML(SoInput * in)
 
   \sa getHeaderData(), registerHeader()
  */
-SbBool
+bool
 SoDB::isValidHeader(const char * teststring)
 {
-  SbBool isbinary;
+  bool isbinary;
   float ivversion;
   SoDBHeaderCB * preload_cb, * postload_cb;
   void * userdata;
@@ -698,12 +698,12 @@ SoDB::isValidHeader(const char * teststring)
   if (!teststring) {
     SoDebugError::postWarning("SoDB::isValidHeader",
                               "Passed a NULL string pointer.");
-    return FALSE;
+    return false;
   }
 #endif // COIN_DEBUG
 
   return SoDB::getHeaderData(SbString(teststring), isbinary, ivversion,
-                             preload_cb, postload_cb, userdata, TRUE);
+                             preload_cb, postload_cb, userdata, true);
 }
 
 /*!
@@ -711,7 +711,7 @@ SoDB::isValidHeader(const char * teststring)
   file import. This is a convenient way for library users to register
   their own VRML or Coin derived file formats.
 
-  Set \a isbinary to \c TRUE if the file should be read as binary
+  Set \a isbinary to \c true if the file should be read as binary
   data, and set \a ivversion to indicate which Coin library version is
   needed to read the file.
 
@@ -719,14 +719,14 @@ SoDB::isValidHeader(const char * teststring)
   and after importing the custom format.
 
   If \a headerstring can not be accepted as a valid file format header
-  for Coin files, \c FALSE will be returned. A valid header \e must
+  for Coin files, \c false will be returned. A valid header \e must
   start with a '#' character, and not be more than 80 characters long.
 
   \sa getHeaderData()
 */
-SbBool
+bool
 SoDB::registerHeader(const SbString & headerstring,
-                     SbBool isbinary, float ivversion,
+                     bool isbinary, float ivversion,
                      SoDBHeaderCB * precallback, SoDBHeaderCB * postcallback,
                      void * userdata)
 {
@@ -738,7 +738,7 @@ SoDB::registerHeader(const SbString & headerstring,
                               "File header string must begin with '#', '%s'"
                               " invalid.", headerstring.getString());
 #endif // COIN_DEBUG
-    return FALSE;
+    return false;
   }
 
   // No more than 80 characters.
@@ -749,47 +749,47 @@ SoDB::registerHeader(const SbString & headerstring,
                               "or less, so '%s' is invalid.",
                               headerstring.getString());
 #endif // COIN_DEBUG
-    return FALSE;
+    return false;
   }
 
   SoDB_HeaderInfo * newheader =
     new SoDB_HeaderInfo(headerstring, isbinary, ivversion,
                         precallback, postcallback, userdata);
   SoDBP::headerlist->append(newheader);
-  return TRUE;
+  return true;
 }
 
 /*!
   Returns the settings for the given \a headerstring, if \a headerstring
   is a valid header.
 
-  If \a substringok is \c TRUE, ignore trailing characters in \a headerstring
+  If \a substringok is \c true, ignore trailing characters in \a headerstring
   when checking for validity.
 
-  If no valid header string by this name is found, \c FALSE is returned,
-  otherwise \c TRUE will be returned, and the other input arguments will
+  If no valid header string by this name is found, \c false is returned,
+  otherwise \c true will be returned, and the other input arguments will
   be set to their respective values.
 
   \sa isValidHeader(), registerHeader()
  */
-SbBool
-SoDB::getHeaderData(const SbString & headerstring, SbBool & isbinary,
+bool
+SoDB::getHeaderData(const SbString & headerstring, bool & isbinary,
                     float & ivversion, SoDBHeaderCB *& precallback,
                     SoDBHeaderCB *& postcallback, void *& userdata,
-                    SbBool substringok)
+                    bool substringok)
 {
   unsigned int hslen = headerstring.getLength();
-  if (hslen == 0) return FALSE;
+  if (hslen == 0) return false;
 
   // Disregard whitespace.
   while ((headerstring[hslen-1] == ' ') || (headerstring[hslen-1] == '\t')) {
     hslen--;
-    if (hslen == 0) return FALSE;
+    if (hslen == 0) return false;
   }
 
   SbString tryheader = headerstring.getSubString(0, hslen-1);
 
-  SbBool hit = FALSE;
+  bool hit = false;
   for (int i=0; (i < SoDB::getNumHeaders()) && !hit; i++) {
     SoDB_HeaderInfo * hi = (*SoDBP::headerlist)[i];
     SbString & s = hi->headerstring;
@@ -802,10 +802,10 @@ SoDB::getHeaderData(const SbString & headerstring, SbBool & isbinary,
     SbString regheader = s.getSubString(0, reglen-1);
 
     if (regheader == tryheader)
-      hit = TRUE;
+      hit = true;
     else if (substringok && (hslen > reglen) &&
              (regheader == tryheader.getSubString(0, reglen - 1)))
-      hit = TRUE;
+      hit = true;
 
     if (hit) {
       isbinary = hi->isbinary;
@@ -972,7 +972,7 @@ SoDB::setRealTimeInterval(const SbTime & interval)
   }
 #endif // COIN_DEBUG
 
-  SbBool isscheduled = SoDBP::globaltimersensor->isScheduled();
+  bool isscheduled = SoDBP::globaltimersensor->isScheduled();
   if (isscheduled) SoDBP::globaltimersensor->unschedule();
   SoDBP::globaltimersensor->setInterval(interval);
   if (isscheduled && interval != SbTime::zero())
@@ -1043,7 +1043,7 @@ int
 SoDB::doSelect(int COIN_UNUSED_ARG(nfds), void * COIN_UNUSED_ARG(readfds), void * COIN_UNUSED_ARG(writefds),
                void * COIN_UNUSED_ARG(exceptfds), struct timeval * COIN_UNUSED_ARG(usertimeout))
 {
-  assert(FALSE && "obsoleted method");
+  assert(false && "obsoleted method");
   return 0;
 }
 
@@ -1068,7 +1068,7 @@ void
 SoDB::addConverter(SoType from, SoType to, SoType converter)
 {
   const uint32_t linkid = (((uint32_t)from.getKey()) << 16) + to.getKey();
-  SbBool nonexist = SoDBP::converters->put(linkid, converter.getKey());
+  bool nonexist = SoDBP::converters->put(linkid, converter.getKey());
   if (!nonexist) {
 #if COIN_DEBUG
     SoDebugError::postWarning("SoDB::addConverter",
@@ -1101,11 +1101,11 @@ SoDB::getConverter(SoType from, SoType to)
 }
 
 /*!
-  Returns \c TRUE if init() has been called.
+  Returns \c true if init() has been called.
 
   \sa init()
  */
-SbBool
+bool
 SoDB::isInitialized(void)
 {
   return SoDBP::isinitialized;
@@ -1126,7 +1126,7 @@ SoDB::startNotify(void)
 /*!
   \COININTERNAL
  */
-SbBool
+bool
 SoDB::isNotifying(void)
 {
   return SoDBP::notificationcounter > 0;
@@ -1162,11 +1162,11 @@ SoDB::endNotify(void)
   \sa setRealTimeInterval(), getGlobalField()
 */
 void
-SoDB::enableRealTimeSensor(SbBool on)
+SoDB::enableRealTimeSensor(bool on)
 {
   assert(SoDB::isInitialized());
 
-  SbBool isscheduled = SoDBP::globaltimersensor->isScheduled();
+  bool isscheduled = SoDBP::globaltimersensor->isScheduled();
   if (isscheduled && !on) SoDBP::globaltimersensor->unschedule();
   else if (!isscheduled && on &&
            SoDBP::globaltimersensor->getInterval() != SbTime::zero())
@@ -1186,7 +1186,7 @@ SoDB::readAllWrapper(SoInput * in, const SoType & grouptype)
   assert(grouptype.canCreateInstance());
   assert(grouptype.isDerivedFrom(SoGroup::getClassTypeId()));
 
-  SbBool valid = in->isValidFile();
+  bool valid = in->isValidFile();
 
 #ifdef HAVE_NODEKITS
   if (!valid &&
@@ -1294,7 +1294,7 @@ SoDB::readAllWrapper(SoInput * in, const SoType & grouptype)
 /* *********************************************************************** */
 
 /*!
-  \typedef SbBool SoDB::ProgressCallbackType(const SbName & itemid, float fraction, SbBool interruptible, void * userdata)
+  \typedef bool SoDB::ProgressCallbackType(const SbName & itemid, float fraction, bool interruptible, void * userdata)
 
   Client code progress callback function must be static functions of
   this type.
@@ -1383,16 +1383,16 @@ SoDB::removeProgressCallback(ProgressCallbackType * func, void * userdata)
 }
 
 /*!
-  Returns \c TRUE if this is a thread safe version of Coin
+  Returns \c true if this is a thread safe version of Coin
   (i.e. it was configured and built with --enable-threadsafe).
 */
-SbBool
+bool
 SoDB::isMultiThread(void)
 {
 #ifdef COIN_THREADSAFE
-  return TRUE;
+  return true;
 #else // COIN_THREADSAFE
-  return FALSE;
+  return false;
 #endif // !COIN_THREADSAFE
 }
 
@@ -1550,15 +1550,15 @@ SoDB::createRoute(SoNode * fromnode, const char * eventout,
   }
 
   if (to && (from || output)) {
-    SbBool notnotify = FALSE;
-    SbBool append = FALSE;
+    bool notnotify = false;
+    bool append = false;
     if (output || from->getFieldType() == SoField::EVENTOUT_FIELD) {
-      notnotify = TRUE;
+      notnotify = true;
     }
 #if 0 // seems like (reading the VRML97 spec.) fanIn in allowed even to regular fields
-    if (to->getFieldType() == SoField::EVENTIN_FIELD) append = TRUE;
+    if (to->getFieldType() == SoField::EVENTIN_FIELD) append = true;
 #else // fanIn
-    append = TRUE;
+    append = true;
 #endif // fanIn fix
 
     // Check if we're already connected.
@@ -1598,7 +1598,7 @@ SoDB::createRoute(SoNode * fromnode, const char * eventout,
       }
     }
 
-    SbBool ok;
+    bool ok;
     if (from) ok = to->connectFrom(from, notnotify, append);
     else ok = to->connectFrom(output, notnotify, append);
     // Both known possible failure points are caught above.
@@ -1843,7 +1843,7 @@ BOOST_AUTO_TEST_CASE(globalfield_import)
   SoInput * in = new SoInput;
   in->setBuffer(scene, strlen(scene));
   SoNode * g = NULL;
-  const SbBool readok = SoDB::read(in, g);
+  const bool readok = SoDB::read(in, g);
 
   delete in;
 

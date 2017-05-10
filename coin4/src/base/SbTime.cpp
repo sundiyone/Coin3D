@@ -340,12 +340,12 @@ SbTime::getMsecValue(void) const
   // Check for overflow in the double->ulong cast at return.
   if (d > static_cast<double>(ULONG_MAX)) {
 #if COIN_DEBUG
-    static SbBool first = TRUE;
+    static bool first = true;
     if (first) {
       SoDebugError::postWarning("SbTime::getMsecValue",
                                 "timer overflow -- consider using "
                                 "SbTime::getValue() instead");
-      first = FALSE;
+      first = false;
     }
 #endif // COIN_DEBUG
 
@@ -581,9 +581,9 @@ SbTime::formatDate(const char * const fmt) const
   HH:MM:SS GMT), or the asctime() format (Wkdy Mnth D HH:MM:SS YYYY).
 
   Feeding an invalid date string to this method will make it return
-  \a FALSE.
+  \a false.
 */
-SbBool
+bool
 SbTime::parsedate(const char * const date)
 {
   // FIXME: make method 100% robust for erroneous date strings.
@@ -596,7 +596,7 @@ SbTime::parsedate(const char * const date)
   if (!date) {
     SoDebugError::postWarning("SbTime::parsedate",
                               "date string is NULL.");
-    return FALSE;
+    return false;
   }
 #endif // COIN_DEBUG
 
@@ -613,9 +613,9 @@ SbTime::parsedate(const char * const date)
   const char * dateptr = date;
   while (*dateptr != ' ' && *dateptr != '\t' && *dateptr != '\0')
     dateptr++; // we don't care if it's wednesday
-  if (*dateptr == '\0') return FALSE;
+  if (*dateptr == '\0') return false;
   dateptr -= 2; // step back
-  if ( dateptr < date ) return FALSE;
+  if ( dateptr < date ) return false;
   if (dateptr[0] != 'y' && dateptr[1] == ',') { // RFC 822 / RFC 1123 format
     // FORMAT: Wkd, DD Mnth YYYY HH:MM:SS GMT
 #if COIN_DEBUG && 0 // debug
@@ -630,7 +630,7 @@ SbTime::parsedate(const char * const date)
                            time.tm_mday);
 #endif // debug
     while (*dateptr != ' ' && *dateptr != '\t' && *dateptr != '\0') dateptr++;
-    if (*dateptr == '\0') return FALSE;
+    if (*dateptr == '\0') return false;
     while (*dateptr == ' ' || *dateptr == '\t') dateptr++;
 
     int i;
@@ -645,26 +645,26 @@ SbTime::parsedate(const char * const date)
       SoDebugError::post("SbTime::parsedate", "Can't grok month name '%s'.",
                          SbString(dateptr).getSubString(0, 2).getString());
 #endif // COIN_DEBUG
-      return FALSE;
+      return false;
     }
 
 #if COIN_DEBUG && 0 // debug
     SoDebugError::postInfo("SbTime::parseDate", "Month: %d", time.tm_mon);
 #endif // debug
     while (*dateptr != ' ' && *dateptr != '\t' && *dateptr != '\0') dateptr++;
-    if (*dateptr == '\0') return FALSE;
+    if (*dateptr == '\0') return false;
     while (*dateptr == ' ' || *dateptr == '\t') dateptr++;
     time.tm_year = atoi(dateptr) - 1900;
     while (*dateptr != ' ' && *dateptr != '\t' && *dateptr != '\0') dateptr++;
-    if (*dateptr == '\0') return FALSE;
+    if (*dateptr == '\0') return false;
     while (*dateptr == ' ' || *dateptr == '\t') dateptr++;
     time.tm_hour = atoi(dateptr);
     while (*dateptr != ':' && *dateptr != '\0') dateptr++;
-    if (*dateptr == '\0') return FALSE;
+    if (*dateptr == '\0') return false;
     dateptr++;
     time.tm_min = atoi(dateptr);
     while (*dateptr != ':' && *dateptr != '\0') dateptr++;
-    if (*dateptr == '\0') return FALSE;
+    if (*dateptr == '\0') return false;
     dateptr++;
     time.tm_sec = atoi(dateptr);
     time.tm_wday = 0;
@@ -693,26 +693,26 @@ SbTime::parsedate(const char * const date)
       SoDebugError::post("SbTime::parsedate", "Can't grok month name '%s'.",
                          SbString(dateptr).getSubString(0, 2).getString());
 #endif // COIN_DEBUG
-      return FALSE;
+      return false;
     }
 
     while (*dateptr != '-' && *dateptr != '\0') dateptr++;
-    if (*dateptr == '\0') return FALSE;
+    if (*dateptr == '\0') return false;
     dateptr++;
     // put number of years since 1900 into tm_year
     time.tm_year = atoi(dateptr);
     if ( time.tm_year < 70 ) time.tm_year += 100;
 
     while (*dateptr != ' ' && *dateptr != '\t' && *dateptr != '\0') dateptr++;
-    if (*dateptr == '\0') return FALSE;
+    if (*dateptr == '\0') return false;
     while (*dateptr == ' ' || *dateptr == '\t') dateptr++;
     time.tm_hour = atoi(dateptr);
     while (*dateptr != ':' && *dateptr != '\0') dateptr++;
-    if (*dateptr == '\0') return FALSE;
+    if (*dateptr == '\0') return false;
     dateptr++;
     time.tm_min = atoi(dateptr);
     while (*dateptr != ':' && *dateptr != '\0') dateptr++;
-    if (*dateptr == '\0') return FALSE;
+    if (*dateptr == '\0') return false;
     dateptr++;
     time.tm_sec = atoi(dateptr);
     time.tm_wday = 0;
@@ -725,7 +725,7 @@ SbTime::parsedate(const char * const date)
 #endif // debug
 
     while (*dateptr != ' ' && *dateptr != '\t' && *dateptr != '\0') dateptr++;
-    if (*dateptr == '\0') return FALSE;
+    if (*dateptr == '\0') return false;
     while (*dateptr == ' ' || *dateptr == '\t') dateptr++;
 
     int i;
@@ -740,27 +740,27 @@ SbTime::parsedate(const char * const date)
       SoDebugError::post("SbTime::parsedate", "Can't grok month name '%s'.",
                          SbString(dateptr).getSubString(0, 2).getString());
 #endif // COIN_DEBUG
-      return FALSE;
+      return false;
     }
 
     while (*dateptr != ' ' && *dateptr != '\t' && *dateptr != '\0') dateptr++;
-    if (*dateptr == '\0') return FALSE;
+    if (*dateptr == '\0') return false;
     while (*dateptr == ' ' || *dateptr == '\t') dateptr++;
     time.tm_mday = atoi(dateptr);
     while (*dateptr != ' ' && *dateptr != '\t' && *dateptr != '\0') dateptr++;
-    if (*dateptr == '\0') return FALSE;
+    if (*dateptr == '\0') return false;
     while (*dateptr == ' ' || *dateptr == '\t') dateptr++;
     time.tm_hour = atoi(dateptr);
     while (*dateptr != ':' && *dateptr != '\0') dateptr++;
-    if (*dateptr == '\0') return FALSE;
+    if (*dateptr == '\0') return false;
     dateptr++;
     time.tm_min = atoi(dateptr);
     while (*dateptr != ':' && *dateptr != '\0') dateptr++;
-    if (*dateptr == '\0') return FALSE;
+    if (*dateptr == '\0') return false;
     dateptr++;
     time.tm_sec = atoi(dateptr);
     while (*dateptr != ' ' && *dateptr != '\t' && *dateptr != '\0') dateptr++;
-    if (*dateptr == '\0') return FALSE;
+    if (*dateptr == '\0') return false;
     while (*dateptr == ' ' || *dateptr == '\t') dateptr++;
     time.tm_year = atoi(dateptr) - 1900;
     time.tm_wday = 0;
@@ -769,7 +769,7 @@ SbTime::parsedate(const char * const date)
   }
 
   this->dtime = static_cast<double>(mktime(&time));
-  return TRUE;
+  return true;
 }
 
 /*!
@@ -937,61 +937,61 @@ SbTime::operator %(const SbTime & tm) const
 /*!
   Check if the time value is equal to that of \a tm.
  */
-int
-SbTime::operator ==(const SbTime & tm) const
+bool
+SbTime::operator==(const SbTime & tm) const
 {
-  if (fabs(this->dtime-tm.dtime) < (SMALLEST_DOUBLE_TIMEUNIT/2.0)) return TRUE;
-  return FALSE;
+  if (fabs(this->dtime-tm.dtime) < (SMALLEST_DOUBLE_TIMEUNIT/2.0)) return true;
+  return false;
 }
 
 /*!
   Check if the time value is not equal to that of \a tm.
  */
-int
-SbTime::operator !=(const SbTime & tm) const
+bool
+SbTime::operator!=(const SbTime & tm) const
 {
   return !(*this == tm);
 }
 
 /*!
-  Compares with \a tm and return TRUE if less.
+  Compares with \a tm and return true if less.
  */
-SbBool
-SbTime::operator <(const SbTime & tm) const
+bool
+SbTime::operator<(const SbTime & tm) const
 {
   double diff = tm.dtime - this->dtime;
-  if ((diff>0.0) && (fabs(diff) > (SMALLEST_DOUBLE_TIMEUNIT/2.0))) return TRUE;
-  return FALSE;
+  if ((diff>0.0) && (fabs(diff) > (SMALLEST_DOUBLE_TIMEUNIT/2.0))) return true;
+  return false;
 }
 
 /*!
-  Compares with \a tm and return TRUE if larger than.
+  Compares with \a tm and return true if larger than.
  */
-SbBool
-SbTime::operator >(const SbTime & tm) const
+bool
+SbTime::operator>(const SbTime & tm) const
 {
   double diff = tm.dtime - this->dtime;
-  if ((diff<0.0) && (fabs(diff) > (SMALLEST_DOUBLE_TIMEUNIT/2.0))) return TRUE;
-  return FALSE;
+  if ((diff<0.0) && (fabs(diff) > (SMALLEST_DOUBLE_TIMEUNIT/2.0))) return true;
+  return false;
 }
 
 /*!
-  Compares with \a tm and return TRUE if less or equal.
+  Compares with \a tm and return true if less or equal.
  */
-SbBool
-SbTime::operator <=(const SbTime & tm) const
+bool
+SbTime::operator<=(const SbTime & tm) const
 {
-  if (*this < tm) return TRUE;
+  if (*this < tm) return true;
   return (*this == tm);
 }
 
 /*!
-  Compares with \a tm and return TRUE if larger or equal.
+  Compares with \a tm and return true if larger or equal.
  */
-SbBool
-SbTime::operator >=(const SbTime & tm) const
+bool
+SbTime::operator>=(const SbTime & tm) const
 {
-  if (*this > tm) return TRUE;
+  if (*this > tm) return true;
   return (*this == tm);
 }
 

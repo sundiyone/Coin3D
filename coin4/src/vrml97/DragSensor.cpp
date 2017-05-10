@@ -65,12 +65,12 @@
 /*!
   \var SoSFBool SoVRMLDragSensor::autoOffset
 
-  When \c TRUE, the offset field is updated when a dragging sequence
-  is finished.  Default value is \c TRUE.
+  When \c true, the offset field is updated when a dragging sequence
+  is finished.  Default value is \c true.
 */
 
 /*!
-  \fn SbBool SoVRMLDragSensor::dragStart(void)
+  \fn bool SoVRMLDragSensor::dragStart(void)
 
   \COININTERNAL
 
@@ -110,7 +110,7 @@ SoVRMLDragSensor::SoVRMLDragSensor(void)
   SO_NODE_CONSTRUCTOR(SoVRMLDragSensor);
 
   SO_VRMLNODE_ADD_EVENT_OUT(trackPoint_changed);
-  SO_VRMLNODE_ADD_EXPOSED_FIELD(autoOffset, (TRUE));
+  SO_VRMLNODE_ADD_EXPOSED_FIELD(autoOffset, (true));
 }
 
 /*!
@@ -126,7 +126,7 @@ SoVRMLDragSensor::handleEvent(SoHandleEventAction * action)
 {
   if (!this->enabled.getValue()) {
     if (this->isActive.getValue()) {
-      this->isActive = FALSE;
+      this->isActive = false;
       this->dragFinish();
     }
     inherited::handleEvent(action);
@@ -135,10 +135,10 @@ SoVRMLDragSensor::handleEvent(SoHandleEventAction * action)
 
   const SoEvent * event = action->getEvent();
 
-  SbBool buttondown = SO_MOUSE_PRESS_EVENT(event, BUTTON1);
-  SbBool buttonup = SO_MOUSE_RELEASE_EVENT(event, BUTTON1);
-  SbBool mousemove = event->isOfType(SoLocation2Event::getClassTypeId());
-  SbBool active = this->isActive.getValue();
+  bool buttondown = SO_MOUSE_PRESS_EVENT(event, BUTTON1);
+  bool buttonup = SO_MOUSE_RELEASE_EVENT(event, BUTTON1);
+  bool mousemove = event->isOfType(SoLocation2Event::getClassTypeId());
+  bool active = this->isActive.getValue();
 
   if ((!active && mousemove) ||
       (active && buttondown) ||
@@ -154,7 +154,7 @@ SoVRMLDragSensor::handleEvent(SoHandleEventAction * action)
   this->viewvolume = SoViewVolumeElement::get(state);
 
   if (!active && buttondown) {
-    SbBool hit = FALSE;
+    bool hit = false;
     const SoPickedPoint * pp = action->getPickedPoint();
     if (pp) {
       const SoFullPath * currpath = (const SoFullPath*) action->getCurPath();
@@ -170,14 +170,14 @@ SoVRMLDragSensor::handleEvent(SoHandleEventAction * action)
         this->world2obj = this->obj2world.inverse();
         this->world2obj.multVecMatrix(pp->getPoint(), this->hitpt);
         if (this->dragStart()) {
-          this->isActive = TRUE;
+          this->isActive = true;
         }
       }
     }
   }
   else if (active && buttonup) {
     this->dragFinish();
-    this->isActive = FALSE;
+    this->isActive = false;
   }
   else if (active && mousemove) {
     this->drag();

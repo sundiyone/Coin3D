@@ -97,11 +97,11 @@ coin_debug_audio(void)
 // SoAudioRenderAction being applied to the scene graph unless there
 // has been at least one sound-emitting node instantiated.
 
-static SbBool should_traverse = FALSE;
+static bool should_traverse = false;
 
 static void audio_cleanup(void) 
 {
-  should_traverse = FALSE;
+  should_traverse = false;
 }
 
 // Called from the constructor of SoVRMLAudioClip and SoVRMLSound.
@@ -118,13 +118,13 @@ static void audio_cleanup(void)
 void
 coin_sound_enable_traverse(void)
 {
-  should_traverse = TRUE;
+  should_traverse = true;
   coin_atexit((coin_atexit_f*) audio_cleanup, CC_ATEXIT_NORMAL);
 }
 
 // Called from SoSceneManager::render() to decide whether or not to
 // invoke its SoAudioRenderAction on its scene graph.
-SbBool
+bool
 coin_sound_should_traverse(void)
 {
   return should_traverse;

@@ -71,7 +71,7 @@
     }
 
     SoInput in;
-    SbBool ok = in.openFile(argv[1]);
+    bool ok = in.openFile(argv[1]);
     assert(ok);
     SoSeparator * root = SoDB::readAll(&in);
     assert(root);
@@ -80,8 +80,8 @@
 
     SoIntersectionDetectionAction ida;
     ida.addIntersectionCallback(intersectionCB, NULL);
-    ida.setManipsEnabled(FALSE);
-    ida.setDraggersEnabled(FALSE);
+    ida.setManipsEnabled(false);
+    ida.setDraggersEnabled(false);
     ida.setIntersectionDetectionEpsilon(10.0f);
 
     SbTime starttime = SbTime::getTimeOfDay();
@@ -213,12 +213,12 @@ public:
 
   static float staticepsilon;
   float epsilon;
-  SbBool epsilonset;
+  bool epsilonset;
   float getEpsilon(void) const;
 
-  SbBool draggersenabled;
-  SbBool manipsenabled;
-  SbBool internalsenabled;
+  bool draggersenabled;
+  bool manipsenabled;
+  bool internalsenabled;
 
   SoIntersectionDetectionAction::SoIntersectionFilterCB * filtercb;
   void * filterclosure;
@@ -238,8 +238,8 @@ public:
 
   void reset(void);
   void doIntersectionTesting(void);
-  void doPrimitiveIntersectionTesting(PrimitiveData * primitives1, PrimitiveData * primitives2, SbBool & cont);
-  void doInternalPrimitiveIntersectionTesting(PrimitiveData * primitives, SbBool & cont);
+  void doPrimitiveIntersectionTesting(PrimitiveData * primitives1, PrimitiveData * primitives2, bool & cont);
+  void doInternalPrimitiveIntersectionTesting(PrimitiveData * primitives, bool & cont);
 
   SoTypeList * prunetypes;
 
@@ -257,10 +257,10 @@ float SoIntersectionDetectionAction::PImpl::staticepsilon = 0.0f;
 SoIntersectionDetectionAction::PImpl::PImpl(void)
 {
   this->epsilon = 0.0f;
-  this->epsilonset = FALSE;
-  this->draggersenabled = TRUE;
-  this->manipsenabled = TRUE;
-  this->internalsenabled = FALSE;
+  this->epsilonset = false;
+  this->draggersenabled = true;
+  this->manipsenabled = true;
+  this->internalsenabled = false;
   this->filtercb = NULL;
   this->filterclosure = NULL;
   this->traverser = NULL;
@@ -289,7 +289,7 @@ SoIntersectionDetectionAction::PImpl::getEpsilon(void) const
 
 // *************************************************************************
 
-static SbBool
+static bool
 ida_debug(void)
 {
   static int dbg = -1;
@@ -297,7 +297,7 @@ ida_debug(void)
     const char * env = coin_getenv("COIN_DEBUG_INTERSECTIONDETECTIONACTION");
     dbg = env && atoi(env) > 0;
   }
-  return dbg == 0 ? FALSE : TRUE;
+  return dbg == 0 ? false : true;
 }
 
 // *************************************************************************
@@ -365,7 +365,7 @@ SoIntersectionDetectionAction::setIntersectionDetectionEpsilon(float epsilon)
 {
   assert(epsilon >= 0.0f);
   PRIVATE(this)->epsilon = epsilon;
-  PRIVATE(this)->epsilonset = TRUE;
+  PRIVATE(this)->epsilonset = true;
 }
 
 /*!
@@ -386,7 +386,7 @@ SoIntersectionDetectionAction::getIntersectionDetectionEpsilon(void) const
 */
 
 void
-SoIntersectionDetectionAction::setTypeEnabled(SoType type, SbBool enable)
+SoIntersectionDetectionAction::setTypeEnabled(SoType type, bool enable)
 {
   if ( enable ) {
     int idx = PRIVATE(this)->prunetypes->find(type);
@@ -398,7 +398,7 @@ SoIntersectionDetectionAction::setTypeEnabled(SoType type, SbBool enable)
 
 /*!
   Returns whether nodes of specific types are enabled or not.  The \a checkgroups
-  argument can be set to TRUE if you wan't the return value to reflect whether
+  argument can be set to true if you wan't the return value to reflect whether
   the node will be implicit enabled/disabled through the settings controlled by the
   setManipsEnabled() and setDraggersEnabled() functions.
 
@@ -410,15 +410,15 @@ SoIntersectionDetectionAction::setTypeEnabled(SoType type, SbBool enable)
   \sa setTypeEnabled()
 */
 
-SbBool
-SoIntersectionDetectionAction::isTypeEnabled(SoType type, SbBool checkgroups) const
+bool
+SoIntersectionDetectionAction::isTypeEnabled(SoType type, bool checkgroups) const
 {
-  if ( PRIVATE(this)->prunetypes->find(type) != -1 ) return FALSE;
+  if ( PRIVATE(this)->prunetypes->find(type) != -1 ) return false;
   if ( checkgroups ) {
     // is type a dragger?
 #ifdef HAVE_DRAGGERS
     if ( !PRIVATE(this)->draggersenabled &&
-         type.isDerivedFrom(SoDragger::getClassTypeId()) ) return FALSE;
+         type.isDerivedFrom(SoDragger::getClassTypeId()) ) return false;
 #endif // HAVE_DRAGGERS
 #ifdef HAVE_MANIPULATORS
     // is type a manip?
@@ -427,11 +427,11 @@ SoIntersectionDetectionAction::isTypeEnabled(SoType type, SbBool checkgroups) co
            type.isDerivedFrom(SoClipPlaneManip::getClassTypeId()) ||
            type.isDerivedFrom(SoDirectionalLightManip::getClassTypeId()) ||
            type.isDerivedFrom(SoPointLightManip::getClassTypeId()) ||
-           type.isDerivedFrom(SoSpotLightManip::getClassTypeId()) ) return FALSE;
+           type.isDerivedFrom(SoSpotLightManip::getClassTypeId()) ) return false;
     }
 #endif // HAVE_MANIPULATORS
   }
-  return TRUE;
+  return true;
 }
 
 /*!
@@ -445,7 +445,7 @@ SoIntersectionDetectionAction::isTypeEnabled(SoType type, SbBool checkgroups) co
 */
 
 void
-SoIntersectionDetectionAction::setManipsEnabled(SbBool enable)
+SoIntersectionDetectionAction::setManipsEnabled(bool enable)
 {
   PRIVATE(this)->manipsenabled = enable;
 }
@@ -463,7 +463,7 @@ SoIntersectionDetectionAction::setManipsEnabled(SbBool enable)
   \sa setManipsEnabled()
 */
 
-SbBool
+bool
 SoIntersectionDetectionAction::isManipsEnabled(void) const
 {
   return PRIVATE(this)->manipsenabled;
@@ -480,7 +480,7 @@ SoIntersectionDetectionAction::isManipsEnabled(void) const
 */
 
 void
-SoIntersectionDetectionAction::setDraggersEnabled(SbBool enable)
+SoIntersectionDetectionAction::setDraggersEnabled(bool enable)
 {
   PRIVATE(this)->draggersenabled = enable;
 }
@@ -495,7 +495,7 @@ SoIntersectionDetectionAction::setDraggersEnabled(SbBool enable)
   \sa setDraggersEnabled()
 */
 
-SbBool
+bool
 SoIntersectionDetectionAction::isDraggersEnabled(void) const
 {
   return PRIVATE(this)->draggersenabled;
@@ -505,13 +505,13 @@ SoIntersectionDetectionAction::isDraggersEnabled(void) const
   Sets whether nodes in the scene graph should be checked for intersecting
   primitives within themselves.
 
-  Default is \c FALSE.
+  Default is \c false.
 
   \sa isShapeInternalsEnabled()
 */
 
 void
-SoIntersectionDetectionAction::setShapeInternalsEnabled(SbBool enable)
+SoIntersectionDetectionAction::setShapeInternalsEnabled(bool enable)
 {
   PRIVATE(this)->internalsenabled = enable;
 }
@@ -520,12 +520,12 @@ SoIntersectionDetectionAction::setShapeInternalsEnabled(SbBool enable)
   Returns whether nodes in the scene graph will be checked for
   intersecting primitives within themselves.
 
-  The default value for this setting is \c FALSE.
+  The default value for this setting is \c false.
 
   \sa setShapeInternalsEnabled()
 */
 
-SbBool
+bool
 SoIntersectionDetectionAction::isShapeInternalsEnabled(void) const
 {
   return PRIVATE(this)->internalsenabled;
@@ -587,8 +587,8 @@ SoIntersectionDetectionAction::removeVisitationCallback(SoType type, SoIntersect
   testing is done approximately and will trigger the filter callback on
   boxes that are further from each other than the epsilon length.
 
-  If the callback returns TRUE, the intersection test will be performed.
-  If the callback returns FALSE, the intersection testing will be skipped.
+  If the callback returns true, the intersection test will be performed.
+  If the callback returns false, the intersection testing will be skipped.
 
   The API allows only one filter callback.
 */
@@ -650,7 +650,7 @@ SoIntersectionDetectionAction::apply(SoNode * node)
   // to work with from an invocation within an application framework.
 #if 0 // disabled
   SoOutput out;
-  SbBool ok = out.openFile("/tmp/assembly.wrl");
+  bool ok = out.openFile("/tmp/assembly.wrl");
   assert(ok);
   SoWriteAction wa(&out);
   wa.apply(node);
@@ -709,7 +709,7 @@ SoIntersectionDetectionAction::apply(SoPath * path)
 }
 
 void
-SoIntersectionDetectionAction::apply(const SoPathList & paths, SbBool obeysRules)
+SoIntersectionDetectionAction::apply(const SoPathList & paths, bool obeysRules)
 {
   PRIVATE(this)->reset();
 
@@ -800,7 +800,7 @@ public:
   SbMatrix invtransform;
 
 private:
-  static SbBool insideboxfunc(void * const item, const SbBox3f & box);
+  static bool insideboxfunc(void * const item, const SbBox3f & box);
 
   SoPath * path;
   SbList<SbTri3f*> triangles;
@@ -808,7 +808,7 @@ private:
   SbOctTree * octtree;
 };
 
-SbBool
+bool
 PrimitiveData::insideboxfunc(void * const item, const SbBox3f & box)
 {
   SbTri3f * tri = static_cast<SbTri3f *>(item);
@@ -865,9 +865,9 @@ ShapeData::triangleCB(void * closure, SoCallbackAction *,
     primitives->addTriangle(triangle);
   }
   else {
-    static SbBool warn = TRUE;
+    static bool warn = true;
     if (warn) {
-      warn = FALSE;
+      warn = false;
       SoDebugError::postWarning("ShapeData::triangleCB",
                                 "Found an invalid triangle while souping up "
                                 "triangle primitives from a shape for "
@@ -1146,7 +1146,7 @@ expand_SbXfBox3f(const SbXfBox3f & box, float epsilon)
 }
 
 // The callback test function for the SbOctTree.
-static SbBool
+static bool
 shapeinsideboxfunc(void * const item, const SbBox3f & box)
 {
   ShapeData * shape = static_cast<ShapeData *>(item);
@@ -1226,7 +1226,7 @@ SoIntersectionDetectionAction::PImpl::doIntersectionTesting(void)
     // FIXME: shouldn't we also invoke the filter-callback here? 20030403 mortene.
     if (this->internalsenabled) {
       nrselfisects++;
-      SbBool cont;
+      bool cont;
       this->doInternalPrimitiveIntersectionTesting(shape1->getPrimitives(), cont);
       if (!cont) { goto done; }
     }
@@ -1263,7 +1263,7 @@ SoIntersectionDetectionAction::PImpl::doIntersectionTesting(void)
         }
 
         SoOutput out;
-        SbBool ok = out.openFile("/tmp/shapechk.iv");
+        bool ok = out.openFile("/tmp/shapechk.iv");
         assert(ok);
         SoWriteAction wa(&out);
         wa.apply(root);
@@ -1292,7 +1292,7 @@ SoIntersectionDetectionAction::PImpl::doIntersectionTesting(void)
       if (!this->filtercb ||
           this->filtercb(this->filterclosure, shape1->path, shape2->path)) {
         nrshapeshapeisects++;
-        SbBool cont;
+        bool cont;
         this->doPrimitiveIntersectionTesting(shape1->getPrimitives(), shape2->getPrimitives(), cont);
         if (!cont) { goto done; }
       }
@@ -1311,9 +1311,9 @@ SoIntersectionDetectionAction::PImpl::doIntersectionTesting(void)
 void
 SoIntersectionDetectionAction::PImpl::doPrimitiveIntersectionTesting(PrimitiveData * primitives1,
                                                              PrimitiveData * primitives2,
-                                                             SbBool & cont)
+                                                             bool & cont)
 {
-  cont = TRUE;
+  cont = true;
 
   // for debugging
   if (ida_debug()) {
@@ -1386,11 +1386,11 @@ SoIntersectionDetectionAction::PImpl::doPrimitiveIntersectionTesting(PrimitiveDa
             break;
           case SoIntersectionDetectionAction::NEXT_SHAPE:
             // FIXME: remaining callbacks won't be invoked -- should they? 20030328 mortene.
-            cont = TRUE;
+            cont = true;
             goto done;
           case SoIntersectionDetectionAction::ABORT:
             // FIXME: remaining callbacks won't be invoked -- should they? 20030328 mortene.
-            cont = FALSE;
+            cont = false;
             goto done;
           default:
             assert(0);
@@ -1423,7 +1423,7 @@ done:
 // between distinct shapes.
 void
 SoIntersectionDetectionAction::PImpl::doInternalPrimitiveIntersectionTesting(PrimitiveData * primitives,
-                                                                     SbBool & cont)
+                                                                     bool & cont)
 {
   // for debugging
   if (ida_debug()) {
@@ -1437,7 +1437,7 @@ SoIntersectionDetectionAction::PImpl::doInternalPrimitiveIntersectionTesting(Pri
   // doInternalPrimitiveIntersectionTesting() into common
   // code. 20030328 mortene.
 
-  cont = TRUE;
+  cont = true;
   const int numprimitives = primitives->numTriangles();
   for (int i = 0; i < numprimitives; i++ ) {
     SbTri3f * t1 = static_cast<SbTri3f *>(primitives->getTriangle(i));
@@ -1467,10 +1467,10 @@ SoIntersectionDetectionAction::PImpl::doInternalPrimitiveIntersectionTesting(Pri
           case SoIntersectionDetectionAction::NEXT_PRIMITIVE:
             break;
           case SoIntersectionDetectionAction::NEXT_SHAPE:
-            cont = TRUE;
+            cont = true;
             goto done;
           case SoIntersectionDetectionAction::ABORT:
-            cont = FALSE;
+            cont = false;
             goto done;
           default:
             assert(0);

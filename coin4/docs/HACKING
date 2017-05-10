@@ -702,17 +702,6 @@ First, the larger issues:
 
         <URL:http://www.mozilla.org/hacking/portable-cpp.html>
 
-      We consider this a must read for any internal resources writing
-      production C++ code. One issue it's particularly easy to "sin"
-      against is the following:
-
-      Use the ``SbBool'' type instead of bool, and ``TRUE'' and
-      ``FALSE'' keywords instead of ``true'' and ``false''. Compilers
-      that do not support the ``bool'' type is still in widespread use
-      (SGI MIPSPro v7.30 is but one example), so we are using the more
-      portable ``SbBool'' instead to make sure our code build on those
-      systems.
-
 
   II. THE CHESHIRE CAT / THE BRIDGE PATTERN
 

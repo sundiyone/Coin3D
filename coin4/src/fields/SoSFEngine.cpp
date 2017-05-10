@@ -95,7 +95,7 @@ SoSFEngine::SoSFEngine(void)
 /* Destructor, dereferences the current engine pointer if necessary. */
 SoSFEngine::~SoSFEngine(void)
 {
-  this->enableNotify(FALSE);
+  this->enableNotify(false);
   this->setValue(NULL);
 }
 
@@ -149,31 +149,31 @@ SoSFEngine::setValue(SoEngine * newval)
 }
 
 // Compares to see if the \a field points to the same engine as this
-// field does, and returns \c TRUE if this is the case.
+// field does, and returns \c true if this is the case.
 //
 // Be aware that this method does \e not check for engine/subgraph
-// equality if the pointers are not the same, so \c FALSE is returned
+// equality if the pointers are not the same, so \c false is returned
 // even though the contents of the engine/subgraph are equal.
-SbBool
+bool
 SoSFEngine::operator==(const SoSFEngine & field) const
 {
   return (this->getValue() == field.getValue());
 }
 
 // Import engine.
-SbBool
+bool
 SoSFEngine::readValue(SoInput * in)
 {
   SoBase * baseptr;
-  if (!SoBase::read(in, baseptr, SoEngine::getClassTypeId())) return FALSE;
+  if (!SoBase::read(in, baseptr, SoEngine::getClassTypeId())) return false;
 
   if (in->eof()) {
     SoReadError::post(in, "Premature end of file");
-    return FALSE;
+    return false;
   }
 
   this->setValue(coin_assert_cast<SoEngine *>(baseptr));
-  return TRUE;
+  return true;
 }
 
 // Export engine.
@@ -250,7 +250,7 @@ SoSFEngine::countWriteRefs(SoOutput * out) const
 //
 // <mortene@sim.no>
 void
-SoSFEngine::fixCopy(SbBool copyconnections)
+SoSFEngine::fixCopy(bool copyconnections)
 {
   SoEngine * n = this->getValue();
   if (!n) return;
@@ -277,28 +277,28 @@ SoSFEngine::fixCopy(SbBool copyconnections)
 }
 
 // Override from SoField to check engine pointer.
-SbBool
+bool
 SoSFEngine::referencesCopy(void) const
 {
-  if (inherited::referencesCopy()) return TRUE;
+  if (inherited::referencesCopy()) return true;
 
   SoBase * n = this->getValue();
-  if (!n) return FALSE;
+  if (!n) return false;
 
   if (n->isOfType(SoNode::getClassTypeId()) ||
       n->isOfType(SoEngine::getClassTypeId())) {
-    if (SoFieldContainer::checkCopy(coin_assert_cast<SoFieldContainer *>(n))) return TRUE;
+    if (SoFieldContainer::checkCopy(coin_assert_cast<SoFieldContainer *>(n))) return true;
   }
   else if (n->isOfType(SoPath::getClassTypeId())) {
     SoPath * p = coin_assert_cast<SoPath *>(n);
-    if (p->getHead() == NULL) return FALSE;
-    if (SoFieldContainer::checkCopy(p->getHead())) return TRUE;
+    if (p->getHead() == NULL) return false;
+    if (SoFieldContainer::checkCopy(p->getHead())) return true;
   }
   else {
     assert(0 && "strange internal error");
   }
 
-  return FALSE;
+  return false;
 }
 
 // Kill the type-specific define.

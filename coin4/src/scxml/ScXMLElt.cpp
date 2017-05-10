@@ -183,14 +183,14 @@ ScXMLElt::getXMLAttribute(const char * attribute) const
   attributes on the object, and wants the object to handle them and
   report if the values were ok or if a read error should be produced.
 
-  \return TRUE if the attributes are ok, and FALSE on error.
+  \return true if the attributes are ok, and false on error.
 
-  This base class implementation does nothing and just returns TRUE.
+  This base class implementation does nothing and just returns true.
 */
-SbBool
+bool
 ScXMLElt::handleXMLAttributes(void)
 {
-  return TRUE;
+  return true;
 }
 
 /*!
@@ -245,19 +245,19 @@ ScXMLElt::setContainer(ScXMLElt * container)
 }
 
 /*!
-  This method returns TRUE if the object is contained within the given
-  \a object argument. Also if they are the same, TRUE will be returned.
-  Otherwise, FALSE is retured.
+  This method returns true if the object is contained within the given
+  \a object argument. Also if they are the same, true will be returned.
+  Otherwise, false is retured.
 */
-SbBool
+bool
 ScXMLElt::isContainedIn(const ScXMLElt * element) const
 {
   const ScXMLElt * lineageobj = this;
   while (lineageobj) {
-    if (lineageobj == element) return TRUE;
+    if (lineageobj == element) return true;
     lineageobj = lineageobj->getContainer();
   }
-  return FALSE;
+  return false;
 }
 
 #undef PRIVATE

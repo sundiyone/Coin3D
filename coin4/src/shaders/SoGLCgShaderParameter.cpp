@@ -230,19 +230,19 @@ SoGLCgShaderParameter::set4iv(const SoGLShaderObject * COIN_UNUSED_ARG(shader),
   // probably not supported. pederb, 20070530
 }
 
-SbBool
+bool
 SoGLCgShaderParameter::isEqual(CGtype type1, CGtype type2)
 {
   if (type1 == type2)
-    return TRUE;
+    return true;
   else if (type1 == CG_FLOAT && type2 == CG_FLOAT1)
-    return TRUE;
+    return true;
   else if (type1 == CG_FLOAT1 && type2 == CG_FLOAT)
-    return TRUE;
+    return true;
   else if (type1 == CG_INT && type2 == CG_INT1)
-    return TRUE;
+    return true;
   else if (type1 == CG_INT1 && type2 == CG_INT)
-    return TRUE;
+    return true;
 
   if (type2 == CG_INT) {
     switch (type1) {
@@ -250,20 +250,20 @@ SoGLCgShaderParameter::isEqual(CGtype type1, CGtype type2)
     case CG_SAMPLER2D:
     case CG_SAMPLER3D:
     case CG_SAMPLERRECT:
-    case CG_SAMPLERCUBE: return TRUE;
-    default: return FALSE;
+    case CG_SAMPLERCUBE: return true;
+    default: return false;
     }
   }
-  return FALSE;
+  return false;
 }
 
-SbBool
+bool
 SoGLCgShaderParameter::isValid(const SoGLShaderObject * shader,
                                const char* name, CGtype type, int * num)
 {
   assert(shader->shaderType() == SoShader::CG_SHADER);
 
-  if (strlen(name) == 0) return FALSE;
+  if (strlen(name) == 0) return false;
 
   // FIXME: how to handle a new compiled shader object? -- martin
   if (this->isEqual(this->cacheType, type) && (this->cacheName == name) &&
@@ -279,7 +279,7 @@ SoGLCgShaderParameter::isValid(const SoGLShaderObject * shader,
       }
       return (*num > 0);
     }
-    return TRUE;
+    return true;
   }
 
   CGprogram * cgProg = &((SoGLCgShaderObject*)shader)->cgProgram;
@@ -289,7 +289,7 @@ SoGLCgShaderParameter::isValid(const SoGLShaderObject * shader,
   this->cacheName   = name;
   this->cacheSize   = 0;
 
-  if (!glue_cgIsParameter(this->cgParameter)) return FALSE;
+  if (!glue_cgIsParameter(this->cgParameter)) return false;
 
   this->cacheType = glue_cgGetParameterType(this->cgParameter);
 
@@ -301,7 +301,7 @@ SoGLCgShaderParameter::isValid(const SoGLShaderObject * shader,
                               glue_cgGetTypeString(this->cacheType),
                               glue_cgGetTypeString(type));
     this->cacheType = CG_UNKNOWN_TYPE;
-    return FALSE;
+    return false;
   }
 
   // handle array
@@ -313,7 +313,7 @@ SoGLCgShaderParameter::isValid(const SoGLShaderObject * shader,
                                 "In main(): Dimension of %s is %d "
                                 "(only dim=1 is supported)",
                                 this->cacheName.getString(), dim);
-      return FALSE;
+      return false;
     }
     // FIXME: What about checking the array sub type? - 20050128 martin
 
@@ -330,7 +330,7 @@ SoGLCgShaderParameter::isValid(const SoGLShaderObject * shader,
       return (*num > 0);
     }
     else
-      return FALSE;
+      return false;
   }
   return glue_cgIsParameter(this->cgParameter);
 }

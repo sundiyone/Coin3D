@@ -44,7 +44,7 @@ public:
   static const SbVec3f &get(SoState * const state);
   static const SbVec3f & getDefault();
 
-  virtual SbBool matches(const SoElement * element) const;
+  virtual bool matches(const SoElement * element) const;
   virtual SoElement * copyMatchInfo(void) const;
 
   virtual void print(FILE * file) const;

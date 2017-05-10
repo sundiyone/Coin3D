@@ -115,7 +115,7 @@ SoClipPlaneElement::getNum() const
 */
 const SbPlane &
 SoClipPlaneElement::get(const int index,
-                        const SbBool inworldspace) const
+                        const bool inworldspace) const
 {
   assert(index >= 0 && index < this->planes.getLength());
   if (inworldspace) return this->planes.getArrayPtr()[index].wcPlane;

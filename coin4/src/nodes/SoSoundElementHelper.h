@@ -47,18 +47,18 @@ class SoSoundElementHelper {
 public:
   SoSoundElementHelper() {
     this->hassoundchild = SoSoundElementHelper::MAYBE;
-    this->soundchildplaying = FALSE;
-    this->shoulddosoundtraversal = TRUE;
+    this->soundchildplaying = false;
+    this->shoulddosoundtraversal = true;
   }
   
   void notifyCalled() {
     this->hassoundchild = SoSoundElementHelper::MAYBE;
-    this->soundchildplaying = FALSE;
-    this->shoulddosoundtraversal = TRUE;
+    this->soundchildplaying = false;
+    this->shoulddosoundtraversal = true;
   }
 
   void enableTraversingOfInactiveChildren() {
-    this->shoulddosoundtraversal = TRUE;
+    this->shoulddosoundtraversal = true;
   }
 
   void traverseInactiveChildren(SoNode *node, SoAction *action, int idx, 
@@ -77,37 +77,37 @@ public:
       for (int i=0; i<n; i++) {
         if (i != idx) {
           action->getState()->push();
-          SoSoundElement::setIsPartOfActiveSceneGraph(state, node, FALSE);
+          SoSoundElement::setIsPartOfActiveSceneGraph(state, node, false);
           children->traverse(action, i);
           action->getState()->pop();
         }
       }
-      this->shoulddosoundtraversal = FALSE;
+      this->shoulddosoundtraversal = false;
     }
   }
 
   void preAudioRender(SoNode *node, SoAction *action) {
-    this->lookforsoundnode = FALSE;
-    this->oldhassound = FALSE;
-    this->oldisplaying = FALSE;
+    this->lookforsoundnode = false;
+    this->oldhassound = false;
+    this->oldisplaying = false;
 
     int numindices;
     const int * indices;
     SoState * state = action->getState();
     if ((action->getPathCode(numindices, indices) != SoAction::IN_PATH) &&
         (this->hassoundchild != SoSoundElementHelper::NO) ) {
-      this->lookforsoundnode = TRUE;
+      this->lookforsoundnode = true;
       this->oldhassound = SoSoundElement::setSceneGraphHasSoundNode(state, 
-                                                            node, FALSE);
+                                                            node, false);
       this->oldisplaying = SoSoundElement::setSoundNodeIsPlaying(state, 
-                                                         node, FALSE);
+                                                         node, false);
     }
   }
 
   void postAudioRender(SoNode *node, SoAction *action) {
     if (this->lookforsoundnode) {
       SoState * state = action->getState();
-      SbBool soundnodefound = SoSoundElement::sceneGraphHasSoundNode(state);
+      bool soundnodefound = SoSoundElement::sceneGraphHasSoundNode(state);
       this->soundchildplaying = SoSoundElement::soundNodeIsPlaying(state);
       SoSoundElement::setSceneGraphHasSoundNode(state, node, this->oldhassound
                                                 || soundnodefound);
@@ -119,7 +119,7 @@ public:
   }
 
 private:
-  SbBool shouldDoSoundTraversal(SoAction *action, int idx, 
+  bool shouldDoSoundTraversal(SoAction *action, int idx, 
                               SoAction::PathCode pathcode) {
     return action->isOfType(SoAudioRenderAction::getClassTypeId()) &&
       (this->hassoundchild != SoSoundElementHelper::NO) &&
@@ -130,12 +130,12 @@ private:
   enum Alternatives { YES, NO, MAYBE };
 
   SoSoundElementHelper::Alternatives hassoundchild;
-  SbBool soundchildplaying;
-  SbBool shoulddosoundtraversal;
+  bool soundchildplaying;
+  bool shoulddosoundtraversal;
 
-  SbBool lookforsoundnode;
-  SbBool oldhassound;
-  SbBool oldisplaying;
+  bool lookforsoundnode;
+  bool oldhassound;
+  bool oldisplaying;
 
 };
 

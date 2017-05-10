@@ -47,7 +47,7 @@ public:
 
   virtual ScXMLDataObj * evaluate(const char * expression) const = 0;
 
-  virtual SbBool setAtLocation(const char * location, ScXMLDataObj * obj) = 0;
+  virtual bool setAtLocation(const char * location, ScXMLDataObj * obj) = 0;
   virtual ScXMLDataObj * locate(const char * location) const = 0;
 
   virtual void clearTemporaryVariables(void);
@@ -153,20 +153,20 @@ public:
   static void initClass(void);
   static void cleanClass(void);
 
-  static ScXMLDataObj * createFor(SbBool value);
+  static ScXMLDataObj * createFor(bool value);
 
   ScXMLBoolDataObj(void);
-  ScXMLBoolDataObj(SbBool value);
+  ScXMLBoolDataObj(bool value);
   virtual ~ScXMLBoolDataObj(void);
 
-  void setBool(SbBool value);
-  SbBool getBool(void) const { return this->value; }
+  void setBool(bool value);
+  bool getBool(void) const { return this->value; }
 
   virtual ScXMLDataObj * clone(void) const;
   virtual void convertToString(SbString & str) const;
 
 private:
-  SbBool value;
+  bool value;
 
 };
 
@@ -224,7 +224,7 @@ public:
   ScXMLDataObj * evaluate(ScXMLStateMachine * sm);
 
 protected:
-  virtual SbBool evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& pointer) const = 0;
+  virtual bool evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& pointer) const = 0;
 
 private:
   ScXMLDataObj * result;
@@ -248,7 +248,7 @@ public:
   void setReference(const char * reference);
   const char * getReference(void) const { return this->reference; }
 
-  virtual SbBool evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& pointer) const;
+  virtual bool evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& pointer) const;
 
 private:
   char * reference;
@@ -278,7 +278,7 @@ public:
   const ScXMLDataObj * getRHS(void) const { return this->rhs; }
 
 protected:
-  virtual SbBool evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& pointer) const;
+  virtual bool evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& pointer) const;
 
 private:
   ScXMLDataObj * lhs, * rhs;
@@ -305,7 +305,7 @@ public:
   const ScXMLDataObj * getRHS(void) const { return this->rhs; }
 
 protected:
-  virtual SbBool evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& pointer) const;
+  virtual bool evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& pointer) const;
 
 private:
   ScXMLDataObj * lhs, * rhs;
@@ -330,7 +330,7 @@ public:
   const ScXMLDataObj * getRHS(void) const { return this->rhs; }
 
 protected:
-  virtual SbBool evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& pointer) const;
+  virtual bool evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& pointer) const;
 
 private:
   ScXMLDataObj * rhs;
@@ -357,7 +357,7 @@ public:
   const ScXMLDataObj * getRHS(void) const { return this->rhs; }
 
 protected:
-  virtual SbBool evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& pointer) const;
+  virtual bool evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& pointer) const;
 
 private:
   ScXMLDataObj * lhs, * rhs;
@@ -387,7 +387,7 @@ public:
   const ScXMLDataObj * getRHS(void) const { return this->rhs; }
 
 protected:
-  virtual SbBool evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& pointer) const;
+  virtual bool evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& pointer) const;
 
 private:
   ScXMLDataObj * lhs, * rhs;
@@ -414,7 +414,7 @@ public:
   const ScXMLDataObj * getRHS(void) const { return this->rhs; }
 
 protected:
-  virtual SbBool evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& pointer) const;
+  virtual bool evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& pointer) const;
 
 private:
   ScXMLDataObj * lhs, * rhs;
@@ -441,7 +441,7 @@ public:
   const ScXMLDataObj * getRHS(void) const { return this->rhs; }
 
 protected:
-  virtual SbBool evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& pointer) const;
+  virtual bool evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& pointer) const;
 
 private:
   ScXMLDataObj * lhs, * rhs;
@@ -468,7 +468,7 @@ public:
   const ScXMLDataObj * getRHS(void) const { return this->rhs; }
 
 protected:
-  virtual SbBool evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& pointer) const;
+  virtual bool evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& pointer) const;
 
 private:
   ScXMLDataObj * lhs, * rhs;
@@ -493,7 +493,7 @@ public:
   const ScXMLDataObj * getRHS(void) const { return this->rhs; }
 
 protected:
-  virtual SbBool evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& pointer) const;
+  virtual bool evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& pointer) const;
 
 private:
   ScXMLDataObj * rhs;

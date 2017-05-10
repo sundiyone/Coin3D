@@ -32,10 +32,10 @@ class SoNormalBundleP;
 
 class COIN_DLL_API SoNormalBundle : public SoBundle {
 public:
-  SoNormalBundle(SoAction * action, SbBool forrendering);
+  SoNormalBundle(SoAction * action, bool forrendering);
   ~SoNormalBundle();
 
-  SbBool shouldGenerate(int numneeded);
+  bool shouldGenerate(int numneeded);
   void initGenerator(int initnum = 100);
   void beginPolygon(void);
   void polygonVertex(const SbVec3f & v);
@@ -45,7 +45,7 @@ public:
                 const SbVec3f & p2,
                 const SbVec3f & p3);
   void generate(int startindex = 0,
-                SbBool addtostate = TRUE);
+                bool addtostate = true);
   const SbVec3f * getGeneratedNormals(void) const;
   int getNumGeneratedNormals(void) const;
   void set(int32_t num, const SbVec3f * normals);

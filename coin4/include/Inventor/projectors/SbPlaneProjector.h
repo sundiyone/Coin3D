@@ -32,17 +32,17 @@ class COIN_DLL_API SbPlaneProjector : public SbProjector {
   typedef SbProjector inherited;
 
 public:
-  SbPlaneProjector(const SbBool orient = FALSE);
-  SbPlaneProjector(const SbPlane & plane, const SbBool orient = FALSE);
+  SbPlaneProjector(const bool orient = false);
+  SbPlaneProjector(const SbPlane & plane, const bool orient = false);
   virtual SbProjector * copy(void) const;
 
   virtual SbVec3f project(const SbVec2f & point);
-  virtual SbBool tryProject(const SbVec2f & point, const float epsilon, SbVec3f & result);
+  virtual bool tryProject(const SbVec2f & point, const float epsilon, SbVec3f & result);
 
   void setPlane(const SbPlane & plane);
   const SbPlane & getPlane(void) const;
-  void setOrientToEye(const SbBool orienttoeye);
-  SbBool isOrientToEye(void) const;
+  void setOrientToEye(const bool orienttoeye);
+  bool isOrientToEye(void) const;
   virtual SbVec3f getVector(const SbVec2f & viewpos1,
                             const SbVec2f & viewpos2);
   virtual SbVec3f getVector(const SbVec2f & viewpos);
@@ -54,8 +54,8 @@ protected:
 
 protected:
   SbPlane plane, nonOrientPlane;
-  SbBool orientToEye;
-  SbBool needSetup;
+  bool orientToEye;
+  bool needSetup;
   SbVec3f lastPoint;
 };
 

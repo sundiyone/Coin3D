@@ -440,7 +440,7 @@ SoMultiTextureCoordinateElement::getNum(const int unit) const
 //! FIXME: write doc. (for backwards compability. Use getDimension() instead).
 
 //$ EXPORT INLINE
-SbBool
+bool
 SoMultiTextureCoordinateElement::is2D(const int unit) const
 {
   assert(unit < PRIVATE(this)->unitdata.getLength());
@@ -505,19 +505,19 @@ SoMultiTextureCoordinateElement::push(SoState * COIN_UNUSED_ARG(state))
   PRIVATE(this)->unitdata = PRIVATE(prev)->unitdata;
 }
 
-SbBool
+bool
 SoMultiTextureCoordinateElement::matches(const SoElement * elem) const
 {
   const SoMultiTextureCoordinateElement * e =
     coin_assert_cast<const SoMultiTextureCoordinateElement *>(elem);
-  if (PRIVATE(e)->unitdata.getLength() != PRIVATE(this)->unitdata.getLength()) return FALSE;
+  if (PRIVATE(e)->unitdata.getLength() != PRIVATE(this)->unitdata.getLength()) return false;
   
   for (int i = 0; i < PRIVATE(this)->unitdata.getLength(); i++) {
     if (PRIVATE(e)->unitdata[i].nodeid != PRIVATE(this)->unitdata[i].nodeid) {
-      return FALSE;
+      return false;
     }
   }
-  return TRUE;
+  return true;
 }
 
 SoElement *

@@ -80,7 +80,7 @@ SoListenerOrientationElement::~SoListenerOrientationElement(void)
 /*!
   Initializes the element to it's default value. The default
   value for the orientation is (0.0f, 0.0f, 1.0f, 0.0f) and the
-  default value for the setByListener flag is FALSE.
+  default value for the setByListener flag is false.
 */
 
 void
@@ -88,7 +88,7 @@ SoListenerOrientationElement::init(SoState * state)
 {
   inherited::init(state);
   this->orientation = SbRotation(0.0f, 0.0f, 1.0f, 0.0f);
-  this->setbylistener = FALSE;
+  this->setbylistener = false;
 }
 
 /*!
@@ -100,7 +100,7 @@ void
 SoListenerOrientationElement::set(SoState * const state,
                                   SoNode * const COIN_UNUSED_ARG(node),
                                   const SbRotation & orientation,
-                                  SbBool setbylistener)
+                                  bool setbylistener)
 {
   SoListenerOrientationElement *elem =
     coin_safe_cast<SoListenerOrientationElement *>
@@ -127,11 +127,11 @@ SoListenerOrientationElement::get(SoState * const state)
 }
 
 /*!
-  Returns TRUE if the orientation was set by a SoListener node,
-  and FALSE if it was set by a SoCamera node
+  Returns true if the orientation was set by a SoListener node,
+  and false if it was set by a SoCamera node
 */
 
-SbBool
+bool
 SoListenerOrientationElement::isSetByListener(SoState * const state)
 {
   const SoListenerOrientationElement * elem =

@@ -39,7 +39,7 @@
 
 class SbGLUTessellator {
 public:
-  static SbBool available(void);
+  static bool available(void);
 
   SbGLUTessellator(void (*callback)(void * v0, void * v1, void * v2,
                                     void * data) = NULL, void * userdata = NULL);
@@ -49,7 +49,7 @@ public:
   void addVertex(const SbVec3f & v, void * data);
   void endPolygon(void);
 
-  static SbBool preferred(void);
+  static bool preferred(void);
 
 private:
   static void APIENTRY cb_begin(GLenum primitivetype, void * x);
@@ -66,7 +66,7 @@ private:
   GLenum triangletessmode;
   unsigned int vertexidx;
   void * vertexdata[2];
-  SbBool stripflipflop;
+  bool stripflipflop;
 };
 
 #endif // !COIN_SBGLUTESSELLATOR_H

@@ -32,16 +32,6 @@
 
 /* *********************************************************************** */
 
-/* Documented for Doxygen in SoDB.cpp. */
-typedef int SbBool;
-
-#ifndef FALSE
-#define FALSE 0
-#endif /* !FALSE */
-#ifndef TRUE
-#define TRUE  1
-#endif /* !TRUE */
-
 /* *********************************************************************** */
 
 /* Ye good olde min/max macros. No library would be complete without them. */

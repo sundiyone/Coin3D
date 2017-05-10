@@ -263,8 +263,8 @@ CoinQtWidget::~CoinQtWidget(void)
   PRIVATE(this) = NULL;
 }
 
-SbBool
-CoinQtWidget::setSceneGraph(SoNode * node, SbBool managed)
+bool
+CoinQtWidget::setSceneGraph(SoNode * node, bool managed)
 {
   if ( node == NULL ) {
     if ( PRIVATE(this)->publicroot ) {
@@ -287,7 +287,7 @@ CoinQtWidget::setSceneGraph(SoNode * node, SbBool managed)
     SoInput in;
     in.setStringArray(CoinQtWidgetP::superscene);
     SoNode * scene = NULL;
-    SbBool status = SoDB::read(&in, scene);
+    bool status = SoDB::read(&in, scene);
     if ( !status ) {
       assert(0);
       return FALSE;
@@ -589,7 +589,7 @@ CoinQtWidget::about(void)
   SoInput in;
   in.setStringArray(CoinQtWidgetP::aboutscene);
   SoNode * scene = NULL;
-  SbBool status = SoDB::read(&in, scene);
+  bool status = SoDB::read(&in, scene);
   if ( !status ) {
     assert(0);
     return;

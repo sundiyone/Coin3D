@@ -76,7 +76,7 @@ SoJackManip::SoJackManip(void)
   SoJackDragger *dragger = new SoJackDragger;
   this->setDragger(dragger);
 
-  SoSurroundScale *ss = (SoSurroundScale*) dragger->getPart("surroundScale", TRUE);
+  SoSurroundScale *ss = (SoSurroundScale*) dragger->getPart("surroundScale", true);
   assert(ss);
   ss->numNodesUpToContainer = 4;
   ss->numNodesUpToReset = 3;

@@ -42,7 +42,7 @@ public:
   static void initClass(void);
   static void init(void);
 
-  static SbBool isSupported(void);
+  static bool isSupported(void);
 
   SoShadowGroup(void);
 
@@ -70,7 +70,7 @@ public:
 
   virtual void notify(SoNotList * nl);
 
-  void enableSubgraphSearchOnNotify(const SbBool onoff);
+  void enableSubgraphSearchOnNotify(const bool onoff);
 
 protected:
   virtual ~SoShadowGroup();

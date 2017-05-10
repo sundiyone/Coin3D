@@ -132,16 +132,16 @@ ScXMLEventElt::setNameAttribute(const char * namestr)
 
 // const char * ScXMLEventElt::getNameAttribute(void) const
 
-SbBool
+bool
 ScXMLEventElt::handleXMLAttributes(void)
 {
   if (!inherited::handleXMLAttributes()) {
-    return FALSE;
+    return false;
   }
 
   this->setNameAttribute(this->getXMLAttribute("name"));
 
-  return TRUE;
+  return true;
 }
 
 void

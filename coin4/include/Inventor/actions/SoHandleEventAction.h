@@ -50,7 +50,7 @@ public:
   void setEvent(const SoEvent * ev);
   const SoEvent * getEvent(void) const;
   void setHandled(void);
-  SbBool isHandled(void) const;
+  bool isHandled(void) const;
   void setGrabber(SoNode * node);
   void releaseGrabber(void);
   SoNode * getGrabber(void) const;

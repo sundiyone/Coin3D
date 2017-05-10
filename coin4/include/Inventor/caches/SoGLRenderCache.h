@@ -44,7 +44,7 @@ public:
 
   int getCacheContext(void) const;
 
-  virtual SbBool isValid(const SoState * state) const;
+  virtual bool isValid(const SoState * state) const;
   virtual void addNestedCache(SoGLDisplayList * child);
 
   SoGLLazyElement::GLState * getPreLazyState(void);

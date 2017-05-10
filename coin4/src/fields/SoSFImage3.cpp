@@ -156,7 +156,7 @@ SoSFImage3::initClass(void)
   SO_SFIELD_INTERNAL_INIT_CLASS(SoSFImage3);
 }
 
-SbBool
+bool
 SoSFImage3::readValue(SoInput * in)
 {
   SbVec3s size;
@@ -164,7 +164,7 @@ SoSFImage3::readValue(SoInput * in)
   if (!in->read(size[0]) || !in->read(size[1]) || !in->read(size[2]) ||
       !in->read(nc)) {
     SoReadError::post(in, "Premature end of file reading images dimensions");
-    return FALSE;
+    return false;
   }
 
   // Note: empty images (dimensions 0x0x0) are allowed.
@@ -172,7 +172,7 @@ SoSFImage3::readValue(SoInput * in)
   if (size[0] < 0 || size[1] < 0 || size[2] < 0 || nc < 0 || nc > 4) {
     SoReadError::post(in, "Invalid image specification %dx%dx%dx%d",
                       size[0], size[1], size[2], nc);
-    return FALSE;
+    return false;
   }
 
   int buffersize = int(size[0]) * int(size[1]) * int(size[2]) * nc;
@@ -181,7 +181,7 @@ SoSFImage3::readValue(SoInput * in)
       (size[0] != 0 || size[1] != 0 || size[2] != 0 || nc != 0)) {
     SoReadError::post(in, "Invalid image specification %dx%dx%dx%d",
                       size[0], size[1], size[2], nc);
-    return FALSE;
+    return false;
   }
 
 #if COIN_DEBUG && 0 // debug
@@ -192,7 +192,7 @@ SoSFImage3::readValue(SoInput * in)
 
   if (!buffersize) {
     this->image->setValue(SbVec3s(0,0,0), 0, NULL);
-    return TRUE;
+    return true;
   }
 
   // allocate image data and get new pointer back
@@ -204,7 +204,7 @@ SoSFImage3::readValue(SoInput * in)
   if (in->isBinary() && in->getIVVersion() >= 2.1f) {
     if (!in->readBinaryArray(pixblock, buffersize)) {
       SoReadError::post(in, "Premature end of file reading images data");
-      return FALSE;
+      return false;
     }
   }
   else {
@@ -214,7 +214,7 @@ SoSFImage3::readValue(SoInput * in)
       unsigned int l;
       if (!in->read(l)) {
         SoReadError::post(in, "Premature end of file reading images data");
-        return FALSE;
+        return false;
       }
       for (int j = 0; j < nc; j++) {
         pixblock[byte++] =
@@ -222,7 +222,7 @@ SoSFImage3::readValue(SoInput * in)
       }
     }
   }
-  return TRUE;
+  return true;
 }
 
 void
@@ -276,16 +276,16 @@ SoSFImage3::writeValue(SoOutput * out) const
 
 
 /*!
-  \fn int SoSFImage3::operator!=(const SoSFImage3 & field) const
+  \fn bool SoSFImage3::operator!=(const SoSFImage3 & field) const
   Compare image of \a field with the image in this field and
-  return \c FALSE if they are equal.
+  return \c false if they are equal.
 */
 
 /*!
   Compare image of \a field with the image in this field and
-  return \c TRUE if they are equal.
+  return \c true if they are equal.
 */
-int
+bool
 SoSFImage3::operator==(const SoSFImage3 & field) const
 {
   return (*this->image) == (*field.image);

@@ -32,7 +32,7 @@
   <b>FILE FORMAT/DEFAULTS:</b>
   \code
     GeometryShader {
-      isActive TRUE
+      isActive true
       sourceType FILENAME
       sourceProgram ""
       parameter []
@@ -240,7 +240,7 @@ SoGeometryShader::GLRender(SoGLRenderAction * action)
   <i>Beware:</i> To get a correct answer, a valid OpenGL context must
   be available.
 */
-SbBool
+bool
 SoGeometryShader::isSupported(SourceType sourceType)
 {
   // The function signature is not very well designed, as we really
@@ -249,21 +249,21 @@ SoGeometryShader::isSupported(SourceType sourceType)
 
   void * ptr = coin_gl_current_context();
   assert(ptr && "No active OpenGL context found!");
-  if (!ptr) return FALSE; // Always bail out. Even when compiled in 'release' mode.
+  if (!ptr) return false; // Always bail out. Even when compiled in 'release' mode.
 
   const cc_glglue * glue = cc_glglue_instance_from_context_ptr(ptr);
 
   if (sourceType == ARB_PROGRAM) {
-    return FALSE;
+    return false;
   }
   else if (sourceType == GLSL_PROGRAM) {
     return SoGLDriverDatabase::isSupported(glue, SO_GL_ARB_SHADER_OBJECT);
   }
   // AFAIK Cg has no support for geometry shaders (yet).
   // pederb, 20070410
-  else if (sourceType == CG_PROGRAM) return FALSE;
+  else if (sourceType == CG_PROGRAM) return false;
 
-  return FALSE;
+  return false;
 }
 
 // *************************************************************************

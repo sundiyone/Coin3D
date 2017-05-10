@@ -75,7 +75,7 @@
   \var SoSFBool SoLight::on
 
   Whether light source should be on or off. The on-flag defaults to \c
-  TRUE.
+  true.
 */
 /*!
   \var SoSFFloat SoLight::intensity
@@ -100,7 +100,7 @@ SoLight::SoLight(void)
 {
   SO_NODE_INTERNAL_CONSTRUCTOR(SoLight);
 
-  SO_NODE_ADD_FIELD(on, (TRUE));
+  SO_NODE_ADD_FIELD(on, (true));
   SO_NODE_ADD_FIELD(intensity, (1.0f));
   SO_NODE_ADD_FIELD(color, (SbColor(1.0f, 1.0f, 1.0f)));
 }

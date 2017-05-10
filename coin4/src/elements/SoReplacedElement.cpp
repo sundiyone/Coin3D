@@ -83,13 +83,13 @@ SoReplacedElement::init(SoState * state)
 }
 
 // Documented in superclass.
-SbBool
+bool
 SoReplacedElement::matches(const SoElement * element) const
 {
   if ((coin_assert_cast<const SoReplacedElement *>(element))->nodeId ==
       this->nodeId)
-    return TRUE;
-  return FALSE;
+    return true;
+  return false;
 }
 
 // Documented in superclass.

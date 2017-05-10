@@ -93,13 +93,13 @@ SoAppearanceKit::SoAppearanceKit(void)
 
   // Note: we must use "" instead of , , to humour MS VisualC++ 6.
 
-  SO_KIT_ADD_CATALOG_ENTRY(lightModel, SoLightModel, TRUE, this, environment, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(environment, SoEnvironment, TRUE, this, drawStyle, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(drawStyle, SoDrawStyle, TRUE, this, material, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(material, SoMaterial, TRUE, this, complexity, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(complexity, SoComplexity, TRUE, this, texture2, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(texture2, SoTexture2, TRUE, this, font, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(font, SoFont, TRUE, this, "", TRUE);
+  SO_KIT_ADD_CATALOG_ENTRY(lightModel, SoLightModel, true, this, environment, true);
+  SO_KIT_ADD_CATALOG_ENTRY(environment, SoEnvironment, true, this, drawStyle, true);
+  SO_KIT_ADD_CATALOG_ENTRY(drawStyle, SoDrawStyle, true, this, material, true);
+  SO_KIT_ADD_CATALOG_ENTRY(material, SoMaterial, true, this, complexity, true);
+  SO_KIT_ADD_CATALOG_ENTRY(complexity, SoComplexity, true, this, texture2, true);
+  SO_KIT_ADD_CATALOG_ENTRY(texture2, SoTexture2, true, this, font, true);
+  SO_KIT_ADD_CATALOG_ENTRY(font, SoFont, true, this, "", true);
 
   SO_KIT_INIT_INSTANCE();
 }

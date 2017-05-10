@@ -87,7 +87,7 @@ SoPickAction::initClass(void)
   Constructor.
 */
 SoPickAction::SoPickAction(const SbViewportRegion & viewportregion)
-  : vpRegion(viewportregion), cullingenabled(TRUE)
+  : vpRegion(viewportregion), cullingenabled(true)
 {
   SO_ACTION_CONSTRUCTOR(SoPickAction);
 }
@@ -136,7 +136,7 @@ SoPickAction::beginTraversal(SoNode * node)
   on would be inefficient.
 */
 void
-SoPickAction::enableCulling(const SbBool flag)
+SoPickAction::enableCulling(const bool flag)
 {
   this->cullingenabled = flag;
 }
@@ -144,7 +144,7 @@ SoPickAction::enableCulling(const SbBool flag)
 /*!
   Returns the current state of the culling flag.
 */
-SbBool
+bool
 SoPickAction::isCullingEnabled(void) const
 {
   return this->cullingenabled;

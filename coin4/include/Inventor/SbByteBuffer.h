@@ -11,7 +11,7 @@
 #define SBBYTEBUFFER_PRIVATE_VARIABLES \
   size_t size_; \
   boost::shared_array<char> buffer; \
-  SbBool invalid; \
+  bool invalid; \
   static SbByteBuffer invalidBuffer_;
 
 #ifndef COIN_SBBYTEBUFFER_H
@@ -39,13 +39,13 @@ class COIN_DLL_API SbByteBuffer {
   SbByteBuffer(size_t size, const unsigned char * buffer);
   ~SbByteBuffer();
 
-  SbBool isValid() const;
+  bool isValid() const;
   size_t size() const;
-  SbBool empty() const;
+  bool empty() const;
 
   const char & operator[](size_t idx) const;
   SbByteBuffer & operator=(const SbByteBuffer & in);
-  SbBool operator==(const SbByteBuffer & that) const;
+  bool operator==(const SbByteBuffer & that) const;
   SbByteBuffer & operator+=(const SbByteBuffer & buf) {
     this->push(buf);
     return *this;

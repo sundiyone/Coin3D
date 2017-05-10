@@ -45,7 +45,7 @@ public:
 
   virtual void setName(const SbName & newname);
 
-  virtual void addWriteReference(SoOutput * out, SbBool isfromfield = FALSE);
+  virtual void addWriteReference(SoOutput * out, bool isfromfield = false);
   virtual void writeInstance(SoOutput * out);
 
   static SoGlobalField * getGlobalFieldContainer(const SbName & name);
@@ -56,7 +56,7 @@ public:
 protected:
   ~SoGlobalField();
 
-  virtual SbBool readInstance(SoInput * in, unsigned short flags);
+  virtual bool readInstance(SoInput * in, unsigned short flags);
 
 private:
   static void * createInstance(void);

@@ -216,7 +216,7 @@ static const char * normalrenderingvpprogram =
 
 // *************************************************************************
 
-SbBool bumphack = TRUE;
+bool bumphack = true;
 
 // *************************************************************************
 
@@ -248,8 +248,8 @@ soshape_bumprender_specularprogramdeletion(unsigned long COIN_UNUSED_ARG(key), v
 
 soshape_bumprender::soshape_bumprender(void)
 {
-  this->diffuseprogramsinitialized = FALSE;
-  this->programsinitialized = FALSE;
+  this->diffuseprogramsinitialized = false;
+  this->programsinitialized = false;
 }
 
 soshape_bumprender::~soshape_bumprender()
@@ -326,7 +326,7 @@ soshape_bumprender::initDiffusePrograms(const cc_glglue * glue, SoState * state)
 
   }
 
-  this->diffuseprogramsinitialized = TRUE;
+  this->diffuseprogramsinitialized = true;
 }
 
 void
@@ -394,7 +394,7 @@ soshape_bumprender::initPrograms(const cc_glglue * glue, SoState * state)
     (void) this->specularprogramdict.put(contextid, newstruct);
   }
 
-  this->programsinitialized = TRUE;
+  this->programsinitialized = true;
 }
 
 void
@@ -425,12 +425,12 @@ soshape_bumprender::renderBumpSpecular(SoState * state,
   const SbMatrix & bumpmapmatrix = SoBumpMapMatrixElement::get(state);
 
   int lastenabled;
-  const SbBool * enabled = 
+  const bool * enabled = 
     SoMultiTextureEnabledElement::getEnabledUnits(state, lastenabled); 
 
   state->push();
   SoMultiTextureEnabledElement::disableAll(state);
-  SoGLMultiTextureEnabledElement::set(state, NULL, 0, TRUE); // enable GL_TEXTURE_2D
+  SoGLMultiTextureEnabledElement::set(state, NULL, 0, true); // enable GL_TEXTURE_2D
   
   SoGLImage * bumpimage = SoBumpMapElement::get(state);
   assert(bumpimage);
@@ -583,14 +583,14 @@ soshape_bumprender::renderBump(SoState * state,
   const SbMatrix & bumpmapmatrix = SoBumpMapMatrixElement::get(state);
   
   int lastenabled;
-  const SbBool * enabled = 
+  const bool * enabled = 
     SoMultiTextureEnabledElement::getEnabledUnits(state, lastenabled); 
 
   state->push();
   // only use vertex program if two texture units (or less) are used
   // (only two units supported in the vertex program)
-  SbBool use_vertex_program = lastenabled <= 1 && SoGLDriverDatabase::isSupported(glue, SO_GL_ARB_VERTEX_PROGRAM);
-  use_vertex_program = FALSE; // FIXME: disabled until vertex program
+  bool use_vertex_program = lastenabled <= 1 && SoGLDriverDatabase::isSupported(glue, SO_GL_ARB_VERTEX_PROGRAM);
+  use_vertex_program = false; // FIXME: disabled until vertex program
                               // for point lights is implemented
   if (use_vertex_program) {
     if (!this->diffuseprogramsinitialized) {
@@ -602,7 +602,7 @@ soshape_bumprender::renderBump(SoState * state,
     this->calcTSBCoords(cache, light);
   }
   SoMultiTextureEnabledElement::disableAll(state);
-  SoMultiTextureEnabledElement::set(state, NULL, 0, TRUE);
+  SoMultiTextureEnabledElement::set(state, NULL, 0, true);
 
   SoGLImage * bumpimage = SoBumpMapElement::get(state);
   assert(bumpimage);
@@ -724,12 +724,12 @@ soshape_bumprender::renderNormal(SoState * state, const SoPrimitiveVertexCache *
 {
   const cc_glglue * glue = sogl_glue_instance(state);
   int lastenabled = -1;
-  //const SbBool * enabled = SoMultiTextureEnabledElement::getEnabledUnits(state, lastenabled);
+  //const bool * enabled = SoMultiTextureEnabledElement::getEnabledUnits(state, lastenabled);
 
   // only use vertex program if two texture units (or less) are used
   // (only two units supported in the vertex program)
-  SbBool use_vertex_program = lastenabled <= 1 && SoGLDriverDatabase::isSupported(glue, SO_GL_ARB_VERTEX_PROGRAM);
-  use_vertex_program = FALSE; // FIXME: disabled until vertex program
+  bool use_vertex_program = lastenabled <= 1 && SoGLDriverDatabase::isSupported(glue, SO_GL_ARB_VERTEX_PROGRAM);
+  use_vertex_program = false; // FIXME: disabled until vertex program
                               // for point lights is implemented
   if (use_vertex_program) {
     if (!this->diffuseprogramsinitialized) {
@@ -841,24 +841,24 @@ soshape_bumprender::initLight(SoLight * light, const SbMatrix & m)
     SoPointLight * pl = (SoPointLight*) light;
     this->lightvec = pl->location.getValue();
     m.multVecMatrix(this->lightvec, this->lightvec);
-    this->ispointlight = TRUE;
+    this->ispointlight = true;
   }
   else if (light->isOfType(SoDirectionalLight::getClassTypeId())) {
     SoDirectionalLight * dir = (SoDirectionalLight*)light;
     m.multDirMatrix(-(dir->direction.getValue()), this->lightvec);
-    this->ispointlight = FALSE;
+    this->ispointlight = false;
     NORMALIZE(this->lightvec);
   }
   else if (light->isOfType(SoSpotLight::getClassTypeId())) {
     SoSpotLight * pl = (SoSpotLight*) light;
     this->lightvec = pl->location.getValue();
     m.multVecMatrix(this->lightvec, this->lightvec);
-    this->ispointlight = TRUE;
+    this->ispointlight = true;
 
   }
   else {
     this->lightvec = SbVec3f(0.0f, 0.0f, 1.0f);
-    this->ispointlight = FALSE;
+    this->ispointlight = false;
 
   }
 }

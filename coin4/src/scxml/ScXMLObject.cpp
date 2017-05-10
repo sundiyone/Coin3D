@@ -123,7 +123,7 @@ ScXMLObject::~ScXMLObject(void)
 
   \sa SoBase::isOfType(SoType type) const
 */
-SbBool
+bool
 ScXMLObject::isOfType(SoType type) const
 {
   return this->getTypeId().isDerivedFrom(type);

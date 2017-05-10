@@ -50,7 +50,7 @@ public:
 
   void addPart(SoCone::Part part);
   void removePart(SoCone::Part part);
-  SbBool hasPart(SoCone::Part part) const;
+  bool hasPart(SoCone::Part part) const;
 
   virtual void GLRender(SoGLRenderAction * action);
   virtual void rayPick(SoRayPickAction * action);

@@ -216,12 +216,12 @@ SoIndexedTriangleStripSet::GLRender(SoGLRenderAction * action)
   // absolutely necessary.
   if (this->coordIndex.getNum() < 3) return;
 
-  SbBool didpush = FALSE;
+  bool didpush = false;
   SoState * state = action->getState();
 
   if (this->vertexProperty.getValue()) {
     state->push();
-    didpush = TRUE;
+    didpush = true;
     this->vertexProperty.getValue()->GLRender(action);
   }
 
@@ -236,9 +236,9 @@ SoIndexedTriangleStripSet::GLRender(SoGLRenderAction * action)
     
     if (!didpush) {
       state->push();
-      didpush = TRUE;
+      didpush = true;
     }
-    SoLazyElement::setShadeModel(state, TRUE);
+    SoLazyElement::setShadeModel(state, true);
   }
 
   if (!this->shouldGLRender(action)) {
@@ -255,17 +255,17 @@ SoIndexedTriangleStripSet::GLRender(SoGLRenderAction * action)
   const int32_t * nindices;
   const int32_t * tindices;
   const int32_t * mindices;
-  SbBool dotextures;
-  SbBool normalcacheused;
+  bool dotextures;
+  bool normalcacheused;
   SoMaterialBundle mb(action);
 
-  SbBool sendnormals = !mb.isColorOnly();
+  bool sendnormals = !mb.isColorOnly();
 
   this->getVertexData(state, coords, normals, cindices,
                       nindices, tindices, mindices, numindices,
                       sendnormals, normalcacheused);
 
-  SoTextureCoordinateBundle tb(action, TRUE, FALSE);
+  SoTextureCoordinateBundle tb(action, true, false);
   dotextures = tb.needCoordinates();
 
   if (dotextures) {
@@ -318,39 +318,39 @@ SoIndexedTriangleStripSet::GLRender(SoGLRenderAction * action)
     state->pop();
   }
   // send approx number of triangles for autocache handling
-  sogl_autocache_update(state, this->coordIndex.getNum() / 2, FALSE);
+  sogl_autocache_update(state, this->coordIndex.getNum() / 2, false);
 }
 
 // Documented in superclass.
-SbBool
+bool
 SoIndexedTriangleStripSet::generateDefaultNormals(SoState *, SoNormalBundle *)
 {
   // Normals are generated directly in normal cache.
-  return FALSE;
+  return false;
 }
 
 // doc in SoVertexShape
-SbBool
+bool
 SoIndexedTriangleStripSet::generateDefaultNormals(SoState * state,
                                                   SoNormalCache * nc)
 {
   // Note: default coordIndex field setting is [ 0 ] so this check is
   // absolutely necessary.
-  if (this->coordIndex.getNum() < 3) return FALSE;
+  if (this->coordIndex.getNum() < 3) return false;
 
-  SbBool ccw = TRUE;
+  bool ccw = true;
   const SoCoordinateElement * coordelem =
     SoCoordinateElement::getInstance(state);
 
   if (SoShapeHintsElement::getVertexOrdering(state) == SoShapeHintsElement::CLOCKWISE)
-    ccw = FALSE;
+    ccw = false;
 
   SoNode *vpnode = this->vertexProperty.getValue();
   SoVertexProperty *vp = 
     (vpnode && vpnode->isOfType(SoVertexProperty::getClassTypeId())) ?
     (SoVertexProperty *)vpnode : NULL;
-  SbBool vpvtx = vp && (vp->vertex.getNum() > 0);
-  SbBool vpnorm = vp && (vp->normal.getNum() > 0);
+  bool vpvtx = vp && (vp->vertex.getNum() > 0);
+  bool vpnorm = vp && (vp->normal.getNum() > 0);
 
   const SbVec3f * coords = vpvtx ?
     vp->vertex.getValues(0) :
@@ -375,7 +375,7 @@ SoIndexedTriangleStripSet::generateDefaultNormals(SoState * state,
                           NULL,
                           -1,
                           ccw,
-                          TRUE);
+                          true);
     break;
   case SoNormalBindingElement::PER_FACE:
   case SoNormalBindingElement::PER_FACE_INDEXED:
@@ -397,7 +397,7 @@ SoIndexedTriangleStripSet::generateDefaultNormals(SoState * state,
   default:
     break;
   }
-  return TRUE;
+  return true;
 }
 
 // private
@@ -474,15 +474,15 @@ SoIndexedTriangleStripSet::generatePrimitives(SoAction * action)
   const int32_t * nindices;
   const int32_t * tindices;
   const int32_t * mindices;
-  SbBool dotextures;
-  SbBool sendnormals = TRUE;
-  SbBool normalcacheused;
+  bool dotextures;
+  bool sendnormals = true;
+  bool normalcacheused;
 
   this->getVertexData(state, coords, normals, cindices,
                       nindices, tindices, mindices, numindices,
                       sendnormals, normalcacheused);
 
-  SoTextureCoordinateBundle tb(action, FALSE, FALSE);
+  SoTextureCoordinateBundle tb(action, false, false);
   dotextures = tb.needCoordinates();
 
   if (dotextures) {

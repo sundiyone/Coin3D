@@ -39,25 +39,25 @@ public:
   SbPlane(const SbVec3f& normal, const SbVec3f& point);
 
   void offset(const float d);
-  SbBool intersect(const SbLine& l, SbVec3f& intersection) const;
+  bool intersect(const SbLine& l, SbVec3f& intersection) const;
   void transform(const SbMatrix& matrix);
-  SbBool isInHalfSpace(const SbVec3f& point) const;
+  bool isInHalfSpace(const SbVec3f& point) const;
   float getDistance(const SbVec3f &point) const;
   const SbVec3f& getNormal(void) const;
   float getDistanceFromOrigin(void) const;
-  friend COIN_DLL_API int operator ==(const SbPlane& p1, const SbPlane& p2);
-  friend COIN_DLL_API int operator !=(const SbPlane& p1, const SbPlane& p2);
+  friend COIN_DLL_API bool operator==(const SbPlane& p1, const SbPlane& p2);
+  friend COIN_DLL_API bool operator!=(const SbPlane& p1, const SbPlane& p2);
 
   void print(FILE * file) const;
 
-  SbBool intersect(const SbPlane & pl, SbLine & line) const;
+  bool intersect(const SbPlane & pl, SbLine & line) const;
 
 private:
   SbVec3f normal;
   float distance;
 };
 
-COIN_DLL_API int operator ==(const SbPlane& p1, const SbPlane& p2);
-COIN_DLL_API int operator !=(const SbPlane& p1, const SbPlane& p2);
+COIN_DLL_API bool operator==(const SbPlane& p1, const SbPlane& p2);
+COIN_DLL_API bool operator!=(const SbPlane& p1, const SbPlane& p2);
 
 #endif // !COIN_SBPLANE_H

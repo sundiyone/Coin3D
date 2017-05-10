@@ -44,13 +44,13 @@ public:
   void extendBy(const SbVec3f & pt);
   void extendBy(const SbBox3f & bb);
   void extendBy(const SbXfBox3f & bb);
-  SbBool intersect(const SbVec3f & pt) const;
-  SbBool intersect(const SbBox3f & bb) const;
-  SbBool intersect(const SbXfBox3f & bb) const;
+  bool intersect(const SbVec3f & pt) const;
+  bool intersect(const SbBox3f & bb) const;
+  bool intersect(const SbXfBox3f & bb) const;
   void getSpan(const SbVec3f & direction, float & dMin, float & dMax) const;
   SbBox3f project(void) const;
-  friend COIN_DLL_API int operator ==(const SbXfBox3f & b1, const SbXfBox3f & b2);
-  friend COIN_DLL_API int operator !=(const SbXfBox3f & b1, const SbXfBox3f & b2);
+  friend COIN_DLL_API bool operator==(const SbXfBox3f & b1, const SbXfBox3f & b2);
+  friend COIN_DLL_API bool operator!=(const SbXfBox3f & b1, const SbXfBox3f & b2);
   // Must override the transform() method from SbBox3f, as the box and
   // the transform matrix are supposed to be kept separate in
   // SbXfBox3f. --mortene
@@ -71,7 +71,7 @@ private:
   SbMatrix matrix, invertedmatrix;
 };
 
-COIN_DLL_API int operator ==(const SbXfBox3f & b1, const SbXfBox3f & b2);
-COIN_DLL_API int operator !=(const SbXfBox3f & b1, const SbXfBox3f & b2);
+COIN_DLL_API bool operator==(const SbXfBox3f & b1, const SbXfBox3f & b2);
+COIN_DLL_API bool operator!=(const SbXfBox3f & b1, const SbXfBox3f & b2);
 
 #endif // !COIN_SBXFBOX3F_H

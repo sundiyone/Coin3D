@@ -70,7 +70,7 @@ private:
   GLenum target;
   GLuint identifier;
 
-  SbBool isValid(const SoGLShaderObject * shader, const int idx);
+  bool isValid(const SoGLShaderObject * shader, const int idx);
 };
 
 #endif /* ! COIN_SOGLARBSHADERPARAMETER_H */

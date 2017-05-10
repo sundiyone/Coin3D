@@ -208,57 +208,57 @@ SoToVRML2Action::initClass(void)
 */
 
 /*!
-  \fn void SoToVRML2Action::reuseAppearanceNodes(SbBool appearance)
+  \fn void SoToVRML2Action::reuseAppearanceNodes(bool appearance)
 
   Set the flag deciding if appearance nodes should be reused if possible.
-  The default is FALSE.
+  The default is false.
 
   Please note that support for reusing Appearance nodes is not implemented
   yet.
 */
 
 /*!
-  \fn SbBool SoToVRML2Action::doReuseAppearanceNodes(void) const
+  \fn bool SoToVRML2Action::doReuseAppearanceNodes(void) const
 
   Get the flag deciding if appearance nodes should be reused if possible.
-  The default is FALSE.
+  The default is false.
 
   Please note that support for reusing Appearance nodes is not implemented
-  yet, so this method will always return FALSE.
+  yet, so this method will always return false.
 */
 
 /*!
-  \fn void SoToVRML2Action::reusePropertyNodes(SbBool property)
+  \fn void SoToVRML2Action::reusePropertyNodes(bool property)
 
   Set the flag deciding if property nodes should be reused if possible.
-  The default is FALSE.
+  The default is false.
 */
 
 /*!
-  \fn SbBool SoToVRML2Action::doReusePropertyNodes(void) const
+  \fn bool SoToVRML2Action::doReusePropertyNodes(void) const
 
   Get the flag deciding if property nodes should be reused if possible.
-  The default is FALSE.
+  The default is false.
 */
 
 /*!
-  \fn void SoToVRML2Action::reuseGeometryNodes(SbBool geometry)
+  \fn void SoToVRML2Action::reuseGeometryNodes(bool geometry)
 
   Set the flag deciding if geometry nodes should be reused if possible.
-  The default is FALSE.
+  The default is false.
 
   Please note that support for reusing Geometry nodes is not implemented
   yet.
 */
 
 /*!
-  \fn SbBool SoToVRML2Action::doReuseGeometryNodes(void) const
+  \fn bool SoToVRML2Action::doReuseGeometryNodes(void) const
 
   Get the flag deciding if geometry nodes should be reused if possible.
-  The default is FALSE.
+  The default is false.
 
   Please note that support for reusing Geometry nodes is not implemented
-  yet, so this function will always return FALSE.
+  yet, so this function will always return false.
 */
 
 
@@ -277,15 +277,15 @@ SoToVRML2Action::SoToVRML2Action(void)
 SoToVRML2Action::~SoToVRML2Action() { }
 void SoToVRML2Action::apply(SoNode * node) { }
 void SoToVRML2Action::apply(SoPath * path) { }
-void SoToVRML2Action::apply(const SoPathList & pathlist, SbBool obeysrules) { }
+void SoToVRML2Action::apply(const SoPathList & pathlist, bool obeysrules) { }
 SoVRMLGroup * SoToVRML2Action::getVRML2SceneGraph(void) const { return NULL; }
 void SoToVRML2Action::beginTraversal(SoNode * node) { }
-void SoToVRML2Action::reuseAppearanceNodes(SbBool appearance) { }
-SbBool SoToVRML2Action::doReuseAppearanceNodes(void) const { return FALSE; }
-void SoToVRML2Action::reusePropertyNodes(SbBool property) { }
-SbBool SoToVRML2Action::doReusePropertyNodes(void) const { return FALSE; }
-void SoToVRML2Action::reuseGeometryNodes(SbBool geometry) { }
-SbBool SoToVRML2Action::doReuseGeometryNodes(void) const { return FALSE; }
+void SoToVRML2Action::reuseAppearanceNodes(bool appearance) { }
+bool SoToVRML2Action::doReuseAppearanceNodes(void) const { return false; }
+void SoToVRML2Action::reusePropertyNodes(bool property) { }
+bool SoToVRML2Action::doReusePropertyNodes(void) const { return false; }
+void SoToVRML2Action::reuseGeometryNodes(bool geometry) { }
+bool SoToVRML2Action::doReuseGeometryNodes(void) const { return false; }
 #else // HAVE_VRML97
 
 #include <Inventor/VRMLnodes/SoVRMLNodes.h>
@@ -296,7 +296,7 @@ SbBool SoToVRML2Action::doReuseGeometryNodes(void) const { return FALSE; }
 class SoToVRML2ActionP {
 public:
   SoToVRML2ActionP(void)
-    : master(NULL),nodefuse(FALSE),reuseAppearanceNodes(FALSE),reuseGeometryNodes(FALSE),
+    : master(NULL),nodefuse(false),reuseAppearanceNodes(false),reuseGeometryNodes(false),
       vrml2path(NULL),vrml2root(NULL),bboxaction(NULL),vrmlcoords(NULL),vrmlnormals(NULL),vrmlcolors(NULL),vrmltexcoords(NULL)
   {}
 
@@ -319,8 +319,8 @@ public:
     this->coloridx = NULL;
 
     recentTex2 = NULL;
-    do_post_primitives = FALSE;
-    didpush = FALSE;
+    do_post_primitives = false;
+    didpush = false;
 
     delete this->vrmlcoords;
     delete this->vrmlnormals;
@@ -370,10 +370,10 @@ public:
 
 
   SoToVRML2Action * master;
-  SbBool nodefuse;
-  SbBool reuseAppearanceNodes;
-  SbBool reusePropertyNodes;
-  SbBool reuseGeometryNodes;
+  bool nodefuse;
+  bool reuseAppearanceNodes;
+  bool reusePropertyNodes;
+  bool reuseGeometryNodes;
   SbHash<const SoNode *, SoGroup *> dict;
   SoCallbackAction cbaction;
   SoSearchAction searchaction;
@@ -389,8 +389,8 @@ public:
   SoGetBoundingBoxAction * bboxaction;
 
   SoTexture2 * recentTex2;
-  SbBool do_post_primitives;
-  SbBool didpush;
+  bool do_post_primitives;
+  bool didpush;
 
   static SoCallbackAction::Response unsupported_cb(void *, SoCallbackAction *, const SoNode *);
 
@@ -627,7 +627,7 @@ SoToVRML2Action::apply(SoPath * path)
 
 // Documented in superclass.
 void
-SoToVRML2Action::apply(const SoPathList & pathlist, SbBool obeysrules)
+SoToVRML2Action::apply(const SoPathList & pathlist, bool obeysrules)
 {
   PRIVATE(this)->init();
   PRIVATE(this)->cbaction.apply(pathlist, obeysrules);
@@ -647,57 +647,57 @@ SoToVRML2Action::getVRML2SceneGraph(void) const
 }
 
 void
-SoToVRML2Action::reuseAppearanceNodes(SbBool COIN_UNUSED_ARG(appearance))
+SoToVRML2Action::reuseAppearanceNodes(bool COIN_UNUSED_ARG(appearance))
 {
   // FIXME: not implemented yet. 20020808 mortene.
   COIN_STUB();
 }
 
-SbBool
+bool
 SoToVRML2Action::doReuseAppearanceNodes(void) const
 {
   // FIXME: not implemented yet. 20020808 mortene.
   COIN_STUB();
-  return FALSE;
+  return false;
 }
 
 void
-SoToVRML2Action::reusePropertyNodes(SbBool property)
+SoToVRML2Action::reusePropertyNodes(bool property)
 {
   PRIVATE(this)->reusePropertyNodes = property;
 }
 
-SbBool
+bool
 SoToVRML2Action::doReusePropertyNodes(void) const
 {
   return PRIVATE(this)->reusePropertyNodes;
 }
 
 void
-SoToVRML2Action::reuseGeometryNodes(SbBool COIN_UNUSED_ARG(geometry))
+SoToVRML2Action::reuseGeometryNodes(bool COIN_UNUSED_ARG(geometry))
 {
   // FIXME: not implemented yet. 20020808 mortene.
   COIN_STUB();
 }
 
-SbBool
+bool
 SoToVRML2Action::doReuseGeometryNodes(void) const
 {
   // FIXME: not implemented yet. 20020808 mortene.
-  return FALSE;
+  return false;
 }
 
 
 SoNode *
 SoToVRML2ActionP::search_for_recent_node(SoAction * action, const SoType & type)
 {
-  this->searchaction.setSearchingAll(FALSE);
+  this->searchaction.setSearchingAll(false);
   this->searchaction.setType(type);
   this->searchaction.setInterest(SoSearchAction::LAST);
 
 #ifdef HAVE_NODEKITS
-  SbBool old = SoBaseKit::isSearchingChildren();
-  SoBaseKit::setSearchingChildren(TRUE);
+  bool old = SoBaseKit::isSearchingChildren();
+  SoBaseKit::setSearchingChildren(true);
 #endif // HAVE_NODEKITS
 
   this->searchaction.apply(const_cast<SoPath *>(action->getCurPath()));
@@ -1272,9 +1272,9 @@ SoToVRML2ActionP::socone_cb(void * closure, SoCallbackAction * action, const SoN
     cone->bottomRadius = oldcone->bottomRadius.getValue();
   if (oldcone->height != cone->height)
     cone->height = oldcone->height.getValue();
-  SbBool bottom = (oldcone->parts.getValue() & SoCone::BOTTOM) ? TRUE : FALSE;
+  bool bottom = (oldcone->parts.getValue() & SoCone::BOTTOM) ? true : false;
   if (bottom != cone->bottom.getValue()) cone->bottom = bottom;
-  SbBool side = (oldcone->parts.getValue() & SoCone::SIDES) ? TRUE : FALSE;
+  bool side = (oldcone->parts.getValue() & SoCone::SIDES) ? true : false;
   if (side != cone->side.getValue()) cone->side = side;
 
   THISP(closure)->insert_shape(action, cone);
@@ -1295,11 +1295,11 @@ SoToVRML2ActionP::socylinder_cb(void * closure, SoCallbackAction * action, const
   if (oldcyl->height != cyl->height)
     cyl->height = oldcyl->height.getValue();
 
-  SbBool side = (oldcyl->parts.getValue() & SoCylinder::SIDES) ? TRUE : FALSE;
+  bool side = (oldcyl->parts.getValue() & SoCylinder::SIDES) ? true : false;
   if (side != cyl->side.getValue()) cyl->side = side;
-  SbBool top = (oldcyl->parts.getValue() & SoCylinder::TOP) ? TRUE : FALSE;
+  bool top = (oldcyl->parts.getValue() & SoCylinder::TOP) ? true : false;
   if (top != cyl->top.getValue()) cyl->top = top;
-  SbBool bottom = (oldcyl->parts.getValue() & SoCylinder::BOTTOM) ? TRUE : FALSE;
+  bool bottom = (oldcyl->parts.getValue() & SoCylinder::BOTTOM) ? true : false;
   if (bottom != cyl->bottom.getValue()) cyl->bottom = bottom;
 
   THISP(closure)->insert_shape(action, cyl);
@@ -1353,7 +1353,7 @@ SoToVRML2ActionP::soifs_cb(void * closure, SoCallbackAction * action, const SoNo
                                                 normalElem->getNum());
       if (action->getNormalBinding() != SoNormalBinding::PER_VERTEX_INDEXED &&
           action->getNormalBinding() != SoNormalBinding::PER_VERTEX) {
-        ifs->normalPerVertex = FALSE;
+        ifs->normalPerVertex = false;
       }
     }
   }
@@ -1371,7 +1371,7 @@ SoToVRML2ActionP::soifs_cb(void * closure, SoCallbackAction * action, const SoNo
       }
       if (action->getMaterialBinding() != SoMaterialBinding::PER_VERTEX_INDEXED &&
           action->getMaterialBinding() != SoMaterialBinding::PER_VERTEX) {
-        ifs->colorPerVertex = FALSE;
+        ifs->colorPerVertex = false;
       }
     }
   }
@@ -1464,7 +1464,7 @@ SoToVRML2ActionP::soils_cb(void * closure, SoCallbackAction * action, const SoNo
       }
       if (action->getMaterialBinding() != SoMaterialBinding::PER_VERTEX_INDEXED &&
           action->getMaterialBinding() != SoMaterialBinding::PER_VERTEX) {
-        ils->colorPerVertex = FALSE;
+        ils->colorPerVertex = false;
       }
     }
   }
@@ -1557,7 +1557,7 @@ SoToVRML2ActionP::soils_cb(void * closure, SoCallbackAction * action, const SoNo
     ils->colorIndex.setValues(0, coordIdx.getLength(),
                               coordIdx.getArrayPtr());
 
-    ils->colorPerVertex = TRUE;
+    ils->colorPerVertex = true;
   }
 
   THISP(closure)->insert_shape(action, ils);
@@ -1616,7 +1616,7 @@ SoToVRML2ActionP::solineset_cb(void * closure, SoCallbackAction * action, const 
                                                 colorElem->getNumDiffuse());
       }
       if (action->getMaterialBinding() != SoMaterialBinding::PER_VERTEX) {
-        ils->colorPerVertex = FALSE;
+        ils->colorPerVertex = false;
       }
     }
   }
@@ -1683,7 +1683,7 @@ SoToVRML2ActionP::solineset_cb(void * closure, SoCallbackAction * action, const 
     ils->colorIndex.setValues(0, coordIdx.getLength(),
                               coordIdx.getArrayPtr());
 
-    ils->colorPerVertex = TRUE;
+    ils->colorPerVertex = true;
   }
 
   THISP(closure)->insert_shape(action, ils);
@@ -1965,7 +1965,7 @@ SoToVRML2ActionP::sotoifs_cb(void * closure, SoCallbackAction * action, const So
 {
   SoToVRML2ActionP * thisp = THISP(closure);
 
-  thisp->didpush = FALSE;
+  thisp->didpush = false;
   // push state to handle SoVertexProperty node
   if (node->isOfType(SoVertexShape::getClassTypeId())) {
     SoNode * vpnode = coin_assert_cast<const SoVertexShape *>(node)->vertexProperty.getValue();
@@ -1973,7 +1973,7 @@ SoToVRML2ActionP::sotoifs_cb(void * closure, SoCallbackAction * action, const So
     if (vp) {
       action->getState()->push();
       vp->callback(action);
-      thisp->didpush = TRUE;
+      thisp->didpush = true;
     }
   }
   thisp->bsptree = new SbBSPTree;
@@ -1996,7 +1996,7 @@ SoToVRML2ActionP::sotoifs_cb(void * closure, SoCallbackAction * action, const So
     thisp->texidx = new SbList <int32_t>;
   }
 
-  thisp->do_post_primitives = TRUE;
+  thisp->do_post_primitives = true;
 
   return SoCallbackAction::CONTINUE;
 }
@@ -2034,7 +2034,7 @@ SoToVRML2ActionP::post_primitives_cb(void * closure, SoCallbackAction * action, 
 {
   SoToVRML2ActionP * thisp = THISP(closure);
   if (!thisp->do_post_primitives) return SoCallbackAction::CONTINUE;
-  thisp->do_post_primitives = FALSE;
+  thisp->do_post_primitives = false;
 
   SoVRMLGeometry * is;
   if (action->getDrawStyle() == SoDrawStyle::POINTS) {
@@ -2121,7 +2121,7 @@ SoToVRML2ActionP::post_primitives_cb(void * closure, SoCallbackAction * action, 
       ifs->ccw = action->getVertexOrdering() != SoShapeHints::CLOCKWISE;
     }
     else {
-      ifs->ccw = ccw_field ? ccw_field->getValue() : TRUE;
+      ifs->ccw = ccw_field ? ccw_field->getValue() : true;
     }
     ifs->solid = solid_field ? solid_field->getValue() : (SoShapeHintsElement::getShapeType(action->getState()) == SoShapeHintsElement::SOLID);
     ifs->convex = convex_field ? convex_field->getValue() : (action->getFaceType() == SoShapeHints::CONVEX);

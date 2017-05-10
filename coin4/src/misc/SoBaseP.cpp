@@ -77,13 +77,13 @@ SbHash<const SoBase *, const char *> * SoBase::PImpl::obj2name = NULL;
 // This is used for debugging purposes: it stores a pointer to all
 // SoBase-derived objects that have been allocated and not
 // deallocated.
-SbBool SoBase::PImpl::trackbaseobjects = FALSE;
+bool SoBase::PImpl::trackbaseobjects = false;
 void * SoBase::PImpl::allbaseobj_mutex = NULL;
 SoBaseSet * SoBase::PImpl::allbaseobj = NULL; // maps from SoBase * to NULL
 
 SbString * SoBase::PImpl::refwriteprefix = NULL;
 
-SbBool SoBase::PImpl::tracerefs = FALSE;
+bool SoBase::PImpl::tracerefs = false;
 uint32_t SoBase::PImpl::writecounter = 0;
 
 // *************************************************************************
@@ -93,7 +93,7 @@ SoNode *
 SoBase::PImpl::readNode(SoInput * in)
 {
   SbName name;
-  if (!in->read(name, TRUE)) return NULL;
+  if (!in->read(name, true)) return NULL;
   SoBase * node = NULL;
   if (!SoBase::PImpl::readBase(in, name, node)) return NULL;
   assert(node->isOfType(SoNode::getClassTypeId()));
@@ -106,7 +106,7 @@ SoBase::PImpl::removeName2Obj(SoBase * const base, const char * const name)
 {
   CC_MUTEX_LOCK(SoBase::PImpl::name2obj_mutex);
   SbHash<const char*, SbPList*>::const_iterator iter = SoBase::PImpl::name2obj->find(name);
-  SbBool found = (iter != SoBase::PImpl::name2obj->const_end());
+  bool found = (iter != SoBase::PImpl::name2obj->const_end());
   assert(found);
   
   SbPList * l = iter->obj;
@@ -203,13 +203,13 @@ SoBase::PImpl::rbptree_notify_cb(void * auditor, void * type, void * closure)
 
 // Reads the name of a reference after a "USE" keyword and finds the
 // ptr to the object which is being referenced.
-SbBool
+bool
 SoBase::PImpl::readReference(SoInput * in, SoBase *& base)
 {
   SbName refname;
-  if (!in->read(refname, FALSE)) {
+  if (!in->read(refname, false)) {
     SoReadError::post(in, "Premature end of file after \"%s\"", USE_KEYWORD);
-    return FALSE;
+    return false;
   }
 
   // This code to handles cases where USE ref name is
@@ -236,7 +236,7 @@ SoBase::PImpl::readReference(SoInput * in, SoBase *& base)
 
   if ((base = in->findReference(refname)) == NULL) {
     SoReadError::post(in, "Unknown reference \"%s\"", refname.getString());
-    return FALSE;
+    return false;
   }
 
   // when referencing an SoProtoInstance, we need to return the proto
@@ -250,11 +250,11 @@ SoBase::PImpl::readReference(SoInput * in, SoBase *& base)
                          "USE: '%s'", refname.getString());
 #endif // debug
 
-  return TRUE;
+  return true;
 }
 
 // Read the SoBase instance.
-SbBool
+bool
 SoBase::PImpl::readBase(SoInput * in, SbName & classname, SoBase *& base)
 {
   assert(classname != "");
@@ -264,7 +264,7 @@ SoBase::PImpl::readBase(SoInput * in, SbName & classname, SoBase *& base)
                          classname.getString());
 #endif // debug
 
-  SbBool ret = TRUE;
+  bool ret = true;
   base = NULL;
 
   SbName refname;
@@ -281,44 +281,44 @@ SoBase::PImpl::readBase(SoInput * in, SbName & classname, SoBase *& base)
       }
       else {
         proto->unref();
-        return FALSE;
+        return false;
       }
       base = proto;
-      return TRUE;
+      return true;
     }
   }
 
   if (classname == DEF_KEYWORD) {
-    if (!in->read(refname, FALSE) || !in->read(classname, TRUE)) {
+    if (!in->read(refname, false) || !in->read(classname, true)) {
       if (in->eof()) {
         SoReadError::post(in, "Premature end of file after %s", DEF_KEYWORD);
       }
       else {
         SoReadError::post(in, "Unable to read identifier after %s keyword", DEF_KEYWORD);
       }
-      ret = FALSE;
+      ret = false;
     }
 
     if (!refname) {
       SoReadError::post(in, "No name given after %s", DEF_KEYWORD);
-      ret = FALSE;
+      ret = false;
     }
 
     if (!classname) {
       SoReadError::post(in, "Invalid definition of %s", refname.getString());
-      ret = FALSE;
+      ret = false;
     }
   }
 
   if (ret) {
-    SbBool gotchar = FALSE; // Unnecessary, but kills a compiler warning.
+    bool gotchar = false; // Unnecessary, but kills a compiler warning.
     char c;
     if (!in->isBinary() && (!(gotchar = in->read(c)) || c != OPEN_BRACE)) {
       if (gotchar)
         SoReadError::post(in, "Expected '%c'; got '%c'", OPEN_BRACE, c);
       else
         SoReadError::post(in, "Expected '%c'; got EOF", OPEN_BRACE);
-      ret = FALSE;
+      ret = false;
     }
     else {
       ret = SoBase::PImpl::readBaseInstance(in, classname, refname, base);
@@ -329,7 +329,7 @@ SoBase::PImpl::readBase(SoInput * in, SbName & classname, SoBase *& base)
             SoReadError::post(in, "Expected '%c'; got '%c' for %s", CLOSE_BRACE, c, classname.getString());
           else
             SoReadError::post(in, "Expected '%c'; got EOF for %s", CLOSE_BRACE, classname.getString());
-          ret = FALSE;
+          ret = false;
         }
       }
     }
@@ -339,20 +339,20 @@ SoBase::PImpl::readBase(SoInput * in, SbName & classname, SoBase *& base)
 }
 
 // Read the SoBase instance.
-SbBool
+bool
 SoBase::PImpl::readBaseInstance(SoInput * in, const SbName & classname,
                                 const SbName & refname, SoBase *& base)
 {
   assert(classname != "");
 
-  SbBool needupgrade = FALSE;
+  bool needupgrade = false;
 
   // first, try creating an upgradable node, based on the version of
   // the input file.
   base = SoUpgrader::tryCreateNode(classname, in->getIVVersion());
   if (base) {
     // we need to upgrade the node after reading it
-    needupgrade = TRUE;
+    needupgrade = true;
   }
   else {
     // create normal Coin node
@@ -384,11 +384,11 @@ SoBase::PImpl::readBaseInstance(SoInput * in, const SbName & classname,
   {
     unsigned short flags = 0;
     if (in->isBinary() && (in->getIVVersion() > 2.0f)) {
-      const SbBool ok = in->read(flags);
+      const bool ok = in->read(flags);
       if (!ok) { goto failed; }
     }
 
-    const SbBool ok = base->readInstance(in, flags);
+    const bool ok = base->readInstance(in, flags);
     if (!ok) { goto failed; }
   }
 
@@ -428,7 +428,7 @@ SoBase::PImpl::readBaseInstance(SoInput * in, const SbName & classname,
       // apparently does not copy the new values into the old field,
       // but it seems logical to do so.
       SoFieldContainer::initCopyDict();
-      container->copyFieldValues(globalfield, TRUE); // Assign new global field values to old global field
+      container->copyFieldValues(globalfield, true); // Assign new global field values to old global field
       SoFieldContainer::copyDone();
 
       // Make sure to update the mapping in SoInput if necessary
@@ -460,7 +460,7 @@ SoBase::PImpl::readBaseInstance(SoInput * in, const SbName & classname,
     SoBase * oldbase = base;
     oldbase->ref();
     base = SoUpgrader::createUpgrade(oldbase);
-    assert(base && "should never happen (since needupgrade == TRUE)");
+    assert(base && "should never happen (since needupgrade == true)");
     oldbase->unref();
   }
 
@@ -468,7 +468,7 @@ SoBase::PImpl::readBaseInstance(SoInput * in, const SbName & classname,
     base = ((SoProtoInstance*) base)->getRootNode();
   }
 
-  return TRUE;
+  return true;
 
 failed:
   if (base) {
@@ -479,7 +479,7 @@ failed:
     base = NULL;
   }
 
-  return FALSE;
+  return false;
 }
 
 // Create a new instance of the "classname" type.
@@ -545,7 +545,7 @@ void
 SoBase::PImpl::flushInput(SoInput * in)
 {
 #if 0 // FIXME: obsoleted, see comment at the end of SoBase::readBase(). 20020531 mortene.
-  assert(FALSE);
+  assert(false);
 #else // obsoleted
   assert(!in->isBinary());
 
@@ -601,7 +601,7 @@ BOOST_AUTO_TEST_CASE(realTime_globalfield_import)
   SoInput * in = new SoInput;
   in->setBuffer(scene, strlen(scene));
   SoNode * g = NULL;
-  const SbBool readok = SoDB::read(in, g);
+  const bool readok = SoDB::read(in, g);
   assert(readok); // that import is ok is tested by a case in SoDB.cpp
   delete in;
 

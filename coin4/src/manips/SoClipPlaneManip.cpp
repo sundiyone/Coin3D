@@ -84,7 +84,7 @@
     ex->setBackgroundColor(SbColor(0.1f, 0.3f, 0.5f));
   
     SoInput input;
-    SbBool ok = input.openFile(argv[1]);
+    bool ok = input.openFile(argv[1]);
     if (!ok) {
       fprintf(stderr,"Unable to open file.\n");
       return -1;
@@ -278,7 +278,7 @@ SoClipPlaneManip::getDragger(void)
 // Documented in superclass. Overridden to copy the internal dragger
 // instance.
 void
-SoClipPlaneManip::copyContents(const SoFieldContainer * fromfc, SbBool copyconnections)
+SoClipPlaneManip::copyContents(const SoFieldContainer * fromfc, bool copyconnections)
 {
   assert(fromfc->isOfType(SoClipPlaneManip::getClassTypeId()));
   this->setDragger(((SoClipPlaneManip*)fromfc)->getDragger());
@@ -293,7 +293,7 @@ SoClipPlaneManip::copyContents(const SoFieldContainer * fromfc, SbBool copyconne
 void
 SoClipPlaneManip::setValue(const SbBox3f & box, const SbVec3f & planenormal, float draggerscalefactor)
 {
-  this->attachSensors(FALSE);
+  this->attachSensors(false);
   SbPlane newplane(planenormal, box.getCenter());
   this->plane = newplane;
   this->draggerPosition = box.getCenter();
@@ -309,10 +309,10 @@ SoClipPlaneManip::setValue(const SbBox3f & box, const SbVec3f & planenormal, flo
 
   SbMatrix matrix;
   matrix.setScale(s);
-  SbBool oldvalue = dragger->enableValueChangedCallbacks(FALSE);
+  bool oldvalue = dragger->enableValueChangedCallbacks(false);
   dragger->setMotionMatrix(matrix);
   (void) dragger->enableValueChangedCallbacks(oldvalue);
-  this->attachSensors(TRUE);
+  this->attachSensors(true);
   SoClipPlaneManip::fieldSensorCB(this, this->planeFieldSensor);
 }
 
@@ -321,7 +321,7 @@ SoClipPlaneManip::setValue(const SbBox3f & box, const SbVec3f & planenormal, flo
   The manipulator will copy the field data from the node, to make
   it affect the state in the same way as the node.
 */
-SbBool
+bool
 SoClipPlaneManip::replaceNode(SoPath * path)
 {
   SoFullPath *fullpath = (SoFullPath*)path;
@@ -331,24 +331,24 @@ SoClipPlaneManip::replaceNode(SoPath * path)
     SoDebugError::post("SoClipPlaneManip::replaceNode",
                        "End of path is not a SoClipPlane");
 #endif // debug
-    return FALSE;
+    return false;
   }
   SoNode *tail = path->getTail();
   if (tail->isOfType(SoBaseKit::getClassTypeId())) {
     SoBaseKit *kit = (SoBaseKit*) ((SoNodeKitPath*)path)->getTail();
     SbString partname = kit->getPartString(path);
     if (partname != "") {
-      SoClipPlane *oldpart = (SoClipPlane*) kit->getPart(partname, TRUE);
+      SoClipPlane *oldpart = (SoClipPlane*) kit->getPart(partname, true);
       if (oldpart != NULL) {
-        this->attachSensors(FALSE);
+        this->attachSensors(false);
         this->transferFieldValues(oldpart, this);
-        this->attachSensors(TRUE);
+        this->attachSensors(true);
         SoClipPlaneManip::fieldSensorCB(this, this->planeFieldSensor);
         kit->setPart(partname, this);
-        return TRUE;
+        return true;
       }
       else {
-        return FALSE;
+        return false;
       }
     }
   }
@@ -357,7 +357,7 @@ SoClipPlaneManip::replaceNode(SoPath * path)
     SoDebugError::post("SoClipPlaneManip::replaceNode",
                        "Path is too short");
 #endif // debug
-    return FALSE;
+    return false;
   }
   SoNode *parent = fullpath->getNodeFromTail(1);
   if (!parent->isOfType(SoGroup::getClassTypeId())) {
@@ -365,17 +365,17 @@ SoClipPlaneManip::replaceNode(SoPath * path)
     SoDebugError::post("SoClipPlaneManip::replaceNode",
                        "Parent node is not a group");
 #endif // debug
-    return FALSE;
+    return false;
   }
   this->ref();
-  this->attachSensors(FALSE);
+  this->attachSensors(false);
   this->transferFieldValues((SoClipPlane*)fulltail, this);
-  this->attachSensors(TRUE);
+  this->attachSensors(true);
   SoClipPlaneManip::fieldSensorCB(this, this->planeFieldSensor);
 
   ((SoGroup*)parent)->replaceChild(fulltail, this);
   this->unrefNoDelete();
-  return TRUE;
+  return true;
 }
 
 // doc from parent
@@ -439,7 +439,7 @@ SoClipPlaneManip::getBoundingBox(SoGetBoundingBoxAction * action)
     action->resetCenter();
   }
   if (numcenters != 0) {
-    action->setCenter(center / (float) numcenters, FALSE);
+    action->setCenter(center / (float) numcenters, false);
   }
 }
 
@@ -549,14 +549,14 @@ SoClipPlaneManip::valueChangedCB(void * m, SoDragger * dragger)
   // extract the translation-part of the matrix
   SbVec3f t = SbVec3f(matrix[3][0], matrix[3][1], matrix[3][2]);
 
-  thisp->attachSensors(FALSE);
+  thisp->attachSensors(false);
   if (thisp->plane.getValue() != plane) {
     thisp->plane = plane;
   }
   if (t != thisp->draggerPosition.getValue()) {
     thisp->draggerPosition = t;
   }
-  thisp->attachSensors(TRUE);
+  thisp->attachSensors(true);
 }
 
 /*!
@@ -593,17 +593,17 @@ SoClipPlaneManip::fieldSensorCB(void * m, SoSensor * s)
     dragger->setMotionMatrix(matrix);
 
     // make sure draggerPosition field is up-to-date
-    thisp->attachSensors(FALSE);
+    thisp->attachSensors(false);
     if (t != thisp->draggerPosition.getValue()) {
       thisp->draggerPosition = t;
     }
-    thisp->attachSensors(TRUE);
+    thisp->attachSensors(true);
   }
 }
 
 // Convenience method used to attach and detach field sensors.
 void
-SoClipPlaneManip::attachSensors(const SbBool onoff)
+SoClipPlaneManip::attachSensors(const bool onoff)
 {
   if (onoff) {
     this->planeFieldSensor->attach(&this->plane);

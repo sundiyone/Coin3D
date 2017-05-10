@@ -40,7 +40,7 @@ public:
 
   virtual ScXMLDataObj * evaluate(const char * expression) const;
 
-  virtual SbBool setAtLocation(const char * location, ScXMLDataObj * obj);
+  virtual bool setAtLocation(const char * location, ScXMLDataObj * obj);
   virtual ScXMLDataObj * locate(const char * location) const;
 
 private:

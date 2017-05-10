@@ -200,32 +200,32 @@ SbGeoAngle::operator/(double d) const
   return *this * d;
 }
 
- bool
+bool
 SbGeoAngle::operator==(const SbGeoAngle & p) const
 {
   return fabs(a - p.a) < ANGLE_TOLERANCE;
 }
 
- bool
+bool
 SbGeoAngle::operator!=(const SbGeoAngle & a) const
 {
   return !(*this == a);
 }
 
- bool
+bool
 SbGeoAngle::operator<(const SbGeoAngle & v) const
 {
   return this->a < v.a;
 }
 
 
- bool
+bool
 SbGeoAngle::operator>(const SbGeoAngle & v) const
 {
   return this->a > v.a;
 }
 
- bool
+bool
 SbGeoAngle::operator<=(const SbGeoAngle & v) const
 {
   return !(*this > v);

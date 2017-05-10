@@ -47,9 +47,9 @@
 #define SO_ENGINE_INTERNAL_CONSTRUCTOR(_class_) \
   do { \
     SO_ENGINE_CONSTRUCTOR(_class_); \
-    /* Restore value of isBuiltIn flag (which is set to FALSE */ \
+    /* Restore value of isBuiltIn flag (which is set to false */ \
     /* in the SO_ENGINE_CONSTRUCTOR() macro). */ \
-    this->isBuiltIn = TRUE; \
+    this->isBuiltIn = true; \
   } while (0)
 
 
@@ -83,7 +83,7 @@ SO_ENGINE_SOURCE(_class_); \
 _class_::_class_(void) \
 { \
   PRIVATE_SO_INTERPOLATE_CONSTRUCTOR(_class_, _type_, _valtype_, _default0_, _default1_); \
-  this->isBuiltIn = TRUE; \
+  this->isBuiltIn = true; \
 } \
  \
 PRIVATE_SO_INTERPOLATE_DESTRUCTOR(_class_) \

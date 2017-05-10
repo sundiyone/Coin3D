@@ -58,53 +58,53 @@ public:
 
   enum CacheEnabled { OFF, ON, AUTO };
 
-  virtual SbBool setPartAsPath(const SbName &partname,
+  virtual bool setPartAsPath(const SbName &partname,
                                SoPath *path);
-  virtual SbBool setPartAsDefault(const SbName &partname,
+  virtual bool setPartAsDefault(const SbName &partname,
                                   SoNode *node,
-                                  SbBool onlyifdefault = TRUE);
-  virtual SbBool setPartAsDefault(const SbName &partname,
+                                  bool onlyifdefault = true);
+  virtual bool setPartAsDefault(const SbName &partname,
                                   const SbName &nodename,
-                                  SbBool onlyifdefault = TRUE);
-  SbBool isPathSurrogateInMySubgraph(const SoPath *path,
+                                  bool onlyifdefault = true);
+  bool isPathSurrogateInMySubgraph(const SoPath *path,
                                      SoPath *&pathToOwner,
                                      SbName  &surrogatename,
                                      SoPath *&surrogatepath,
-                                     SbBool fillargs = TRUE);
-  SbBool isPathSurrogateInMySubgraph(const SoPath *path);
+                                     bool fillargs = true);
+  bool isPathSurrogateInMySubgraph(const SoPath *path);
   static void setSwitchValue(SoNode *node, const int newVal);
-  virtual SbBool setPart(const SbName & partname, SoNode * from);
+  virtual bool setPart(const SbName & partname, SoNode * from);
 
 protected:
   virtual ~SoInteractionKit();
   virtual void copyContents(const SoFieldContainer *fromFC,
-                            SbBool copyConnections);
+                            bool copyConnections);
 
-  virtual SbBool setPart(const int partNum, SoNode *node);
-  virtual SbBool readInstance(SoInput *in, unsigned short flags);
+  virtual bool setPart(const int partNum, SoNode *node);
+  virtual bool readInstance(SoInput *in, unsigned short flags);
   static void readDefaultParts(const char *fileName,
                                const char defaultBuffer[],
                                int defBufSize);
-  virtual SbBool setAnyPartAsDefault(const SbName &partname,
+  virtual bool setAnyPartAsDefault(const SbName &partname,
                                      SoNode *node,
-                                     SbBool anypart = TRUE,
-                                     SbBool onlyifdefault = TRUE);
-  virtual SbBool setAnyPartAsDefault(const SbName &partname,
+                                     bool anypart = true,
+                                     bool onlyifdefault = true);
+  virtual bool setAnyPartAsDefault(const SbName &partname,
                                      const SbName &nodename,
-                                     SbBool anypart = TRUE,
-                                     SbBool onlyifdefault = TRUE);
-  SbBool setAnySurrogatePath(const SbName &name,
+                                     bool anypart = true,
+                                     bool onlyifdefault = true);
+  bool setAnySurrogatePath(const SbName &name,
                              SoPath *path,
-                             SbBool leafcheck = FALSE,
-                             SbBool publiccheck = FALSE);
-  virtual SbBool setUpConnections(SbBool onoff, SbBool doitalways = FALSE);
+                             bool leafcheck = false,
+                             bool publiccheck = false);
+  virtual bool setUpConnections(bool onoff, bool doitalways = false);
   virtual void setDefaultOnNonWritingFields();
 
   SoFieldSensor *fieldSensor;
   static void fieldSensorCB(void *, SoSensor *);
   SoSeparator *oldTopSep;
 
-  void connectSeparatorFields( SoSeparator *dest, SbBool onOff );
+  void connectSeparatorFields( SoSeparator *dest, bool onOff );
 
 private:
   class SoInteractionKitP * pimpl;

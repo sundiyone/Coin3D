@@ -298,16 +298,16 @@ SoGroup::getNumChildren(void) const
 }
 
 // Doc from superclass.
-SbBool
+bool
 SoGroup::readInstance(SoInput * in, unsigned short flags)
 {
-  SbBool readfields = TRUE;
+  bool readfields = true;
 
   // Make sure we're compatible with binary format Inventor 1.0 and
   // 2.0 files.
   if (in->isBinary() && (in->getIVVersion() < 2.1f) &&
       this->getTypeId() == SoGroup::getClassTypeId()) {
-    readfields = FALSE;
+    readfields = false;
   }
 
   // Make sure we're compatible with binary format Inventor 1.0 files.
@@ -318,7 +318,7 @@ SoGroup::readInstance(SoInput * in, unsigned short flags)
       // goes for all SoGroup-derived nodes -- which may not be
       // correct. 20050706 mortene.
       this->isOfType(SoGroup::getClassTypeId())) {
-    readfields = FALSE;
+    readfields = false;
   }
 
   // This influences how SoFieldContainer::readInstance() handles
@@ -328,22 +328,22 @@ SoGroup::readInstance(SoInput * in, unsigned short flags)
 
   // For nodes with fields inheriting SoGroup, the fields must come
   // before the children, according to the file format specification.
-  if (readfields && !inherited::readInstance(in, flags)) return FALSE;
+  if (readfields && !inherited::readInstance(in, flags)) return false;
 
   return this->readChildren(in);
 }
 
 /*!
   Read all children of this node from \a in and attach them below this
-  group in left-to-right order. Returns \c FALSE upon read error.
+  group in left-to-right order. Returns \c false upon read error.
 */
-SbBool
+bool
 SoGroup::readChildren(SoInput * in)
 {
   unsigned int numchildren = 0; // used by binary format import
   if (in->isBinary() && !in->read(numchildren)) {
     SoReadError::post(in, "Premature end of file");
-    return FALSE;
+    return false;
   }
 
   for (unsigned int i=0; !in->isBinary() || (i < numchildren); i++) {
@@ -352,12 +352,12 @@ SoGroup::readChildren(SoInput * in)
       if (child == NULL) {
 	if (in->eof()) {
 	  SoReadError::post(in, "Premature end of file");
-	  return FALSE;
+	  return false;
 	}
 	else {
 	  if (in->isBinary()) {
 	    SoReadError::post(in, "Couldn't read valid identifier name");
-	    return FALSE;
+	    return false;
 	  }
 
 #if COIN_DEBUG && 0 // debug
@@ -368,7 +368,7 @@ SoGroup::readChildren(SoInput * in)
 	  }
 #endif // debug
 	  // Completed reading of children for ASCII format import.
-	  return TRUE;
+	  return true;
 	}
       }
       else {
@@ -379,18 +379,18 @@ SoGroup::readChildren(SoInput * in)
       // SoReadError::post() is called within the SoBase::read()
       // frame upon error conditions, so don't duplicate with
       // another error message here.  mortene.
-      return FALSE;
+      return false;
     }
   }
 
   // A successful import operation for binary format reading of child
   // nodes will exit here.
-  return TRUE;
+  return true;
 }
 
 // Overridden from parent.
 void
-SoGroup::copyContents(const SoFieldContainer * from, SbBool copyconnections)
+SoGroup::copyContents(const SoFieldContainer * from, bool copyconnections)
 {
   this->removeAllChildren();
 
@@ -575,7 +575,7 @@ SoGroup::getBoundingBox(SoGetBoundingBoxAction * action)
   }
 
   if (numcenters != 0)
-    action->setCenter(acccenter / float(numcenters), FALSE);
+    action->setCenter(acccenter / float(numcenters), false);
 }
 
 // *************************************************************************
@@ -650,7 +650,7 @@ SoGroup::GLRender(SoGLRenderAction * action)
       // Separator node, enable this code by setting the environment
       // variable COIN_GLERROR_DEBUGGING to "1" to see exactly which
       // node caused the error.
-      static SbBool chkglerr = sogl_glerror_debugging();
+      static bool chkglerr = sogl_glerror_debugging();
       if (chkglerr) {
 	cc_string str;
 	cc_string_construct(&str);
@@ -727,7 +727,7 @@ SoGroup::write(SoWriteAction * action)
     if (ref == 0) SoGroup::doAction((SoAction *)action);
   }
   else if (out->getStage() == SoOutput::WRITE) {
-    if (this->writeHeader(out, TRUE, FALSE)) return;
+    if (this->writeHeader(out, true, false)) return;
     this->getFieldData()->write(out, this);
     if (out->isBinary()) out->write(this->getNumChildren());
     SoGroup::doAction((SoAction *)action);

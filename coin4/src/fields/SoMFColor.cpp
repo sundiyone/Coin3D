@@ -70,7 +70,7 @@ SoMFColor::initClass(void)
 // parent classes.
 #ifndef DOXYGEN_SKIP_THIS
 
-SbBool
+bool
 SoMFColor::read1Value(SoInput * in, int idx)
 {
   assert(idx < this->maxNum);

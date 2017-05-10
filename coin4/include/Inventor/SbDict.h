@@ -65,10 +65,10 @@ public:
   void applyToAll(SbDictApplyDataFunc * rtn, void * data) const;
   void clear(void);
 
-  SbBool enter(const Key key, void * const value);
-  SbBool find(const Key key, void *& value) const;
+  bool enter(const Key key, void * const value);
+  bool find(const Key key, void *& value) const;
   void makePList(SbPList & keys, SbPList & values);
-  SbBool remove(const Key key);
+  bool remove(const Key key);
 
   void setHashingFunction(SbDictHashingFunc * func);
 

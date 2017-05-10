@@ -36,8 +36,8 @@
 
   \verbatim
   PlaneSensor {
-    exposedField SFBool  autoOffset          TRUE
-    exposedField SFBool  enabled             TRUE
+    exposedField SFBool  autoOffset          true
+    exposedField SFBool  enabled             true
     exposedField SFVec2f maxPosition         -1 -1     # (-,)
     exposedField SFVec2f minPosition         0 0       # (-,)
     exposedField SFVec3f offset              0 0 0     # (-,)
@@ -54,15 +54,15 @@
   liable to generate events.
 
   The \e enabled exposedField enables and disables the PlaneSensor.
-  If \e enabled is TRUE, the sensor reacts appropriately to user events.
-  If \e enabled is FALSE, the sensor does not track user input or send
+  If \e enabled is true, the sensor reacts appropriately to user events.
+  If \e enabled is false, the sensor does not track user input or send
   events. 
 
-  If \e enabled receives a FALSE event and \e isActive is
-  TRUE, the sensor becomes disabled and deactivated, and outputs an \e isActive
-  FALSE event. 
+  If \e enabled receives a false event and \e isActive is
+  true, the sensor becomes disabled and deactivated, and outputs an \e isActive
+  false event. 
   
-  If enabled receives a TRUE event, the sensor is enabled
+  If enabled receives a true event, the sensor is enabled
   and made ready for user activation.
 
   
@@ -74,7 +74,7 @@
   for details on using the pointing device to activate the PlaneSensor.
 
   Upon activation of the pointing device (e.g., mouse button down)
-  while indicating the sensor's geometry, an \e isActive TRUE event is
+  while indicating the sensor's geometry, an \e isActive true event is
   sent. Pointer motion is mapped into relative translation in the
   tracking plane, (a plane parallel to the sensor's local Z=0 plane
   and coincident with the initial point of intersection). For each
@@ -87,20 +87,20 @@
 
   \e trackPoint_changed events reflect the unclamped drag
   position on the surface of this plane. When the pointing device is
-  deactivated and \e autoOffset is TRUE, offset is set to the last
+  deactivated and \e autoOffset is true, offset is set to the last
   translation_changed value and an offset_changed event is generated.
   More details are provided in 4.6.7.4, Drag sensors
   (<http://www.web3d.org/x3d/specifications/vrml/ISO-IEC-14772-VRML97/part1/concepts.html#4.6.7.4>).
 
-  When the sensor generates an isActive TRUE event, it grabs all
+  When the sensor generates an isActive true event, it grabs all
   further motion events from the pointing device until it is
-  deactivated and generates an isActive FALSE event. Other pointing-device sensors shall not
+  deactivated and generates an isActive false event. Other pointing-device sensors shall not
   generate events during this time. Motion of the pointing device
-  while isActive is TRUE is referred to as a "drag". 
+  while isActive is true is referred to as a "drag". 
 
   If a 2D pointing device is in use, isActive events typically reflect
   the state of the primary button associated with the device (i.e.,
-  isActive is TRUE when the primary button is pressed, and is FALSE
+  isActive is true when the primary button is pressed, and is false
   when it is released).  
 
   If a 3D pointing device (e.g., wand) is in
@@ -125,7 +125,7 @@
   tracking plane while activated (e.g., above horizon line), browsers
   may interpret this in a variety ways (e.g., clamp all values to the
   horizon). Each movement of the pointing device, while isActive is
-  TRUE, generates \e trackPoint_changed and \e translation_changed events.
+  true, generates \e trackPoint_changed and \e translation_changed events.
   Further information about this behaviour can be found in 4.6.7.3,
   Pointing-device sensors
   (<http://www.web3d.org/x3d/specifications/vrml/ISO-IEC-14772-VRML97/part1/concepts.html#4.6.7.3>),
@@ -196,14 +196,14 @@ SoVRMLPlaneSensor::~SoVRMLPlaneSensor()
 }
 
 // doc in parent
-SbBool
+bool
 SoVRMLPlaneSensor::dragStart(void)
 {
   SbVec3f thehitpt = this->getLocalStartingPoint();
   this->planeproj->setPlane(SbPlane(SbVec3f(0.0f, 0.0f, 1.0f), thehitpt));
   this->translation_changed = this->offset.getValue();
 
-  return TRUE;
+  return true;
 }
 
 // doc in parent

@@ -44,72 +44,72 @@ public:
   static void initClasses(void);
   static void cleanupClass(void);
 
-  void setIgnored(SbBool ignore);
-  SbBool isIgnored(void) const;
+  void setIgnored(bool ignore);
+  bool isIgnored(void) const;
 
-  void setDefault(SbBool defaultVal);
-  SbBool isDefault(void) const;
+  void setDefault(bool defaultVal);
+  bool isDefault(void) const;
 
   virtual SoType getTypeId(void) const = 0;
 
   static SoType getClassTypeId(void);
-  SbBool isOfType(const SoType type) const;
+  bool isOfType(const SoType type) const;
 
-  void enableConnection(SbBool flag);
-  SbBool isConnectionEnabled(void) const;
+  void enableConnection(bool flag);
+  bool isConnectionEnabled(void) const;
 
   // Field<-Engine connection stuff.
-  SbBool connectFrom(SoEngineOutput * master,
-                     SbBool notnotify = FALSE, SbBool append = FALSE);
-  SbBool appendConnection(SoEngineOutput * master, SbBool notnotify = FALSE);
+  bool connectFrom(SoEngineOutput * master,
+                     bool notnotify = false, bool append = false);
+  bool appendConnection(SoEngineOutput * master, bool notnotify = false);
   void disconnect(SoEngineOutput * engineoutput);
-  SbBool isConnectedFromEngine(void) const;
-  SbBool getConnectedEngine(SoEngineOutput *& master) const;
+  bool isConnectedFromEngine(void) const;
+  bool getConnectedEngine(SoEngineOutput *& master) const;
 
   // Field<->Field connection stuff.
-  SbBool connectFrom(SoField * master,
-                     SbBool notnotify = FALSE, SbBool append = FALSE);
-  SbBool appendConnection(SoField * master, SbBool notnotify = FALSE);
+  bool connectFrom(SoField * master,
+                     bool notnotify = false, bool append = false);
+  bool appendConnection(SoField * master, bool notnotify = false);
   void disconnect(SoField * field);
-  SbBool isConnectedFromField(void) const;
-  SbBool getConnectedField(SoField *& master) const;
+  bool isConnectedFromField(void) const;
+  bool getConnectedField(SoField *& master) const;
   int getNumConnections(void) const;
   int getForwardConnections(SoFieldList & slavelist) const;
   int getConnections(SoFieldList & masterlist) const;
 
   void disconnect(void);
-  SbBool isConnected(void) const;
+  bool isConnected(void) const;
 
   void setContainer(SoFieldContainer * cont);
   SoFieldContainer * getContainer(void) const;
 
-  SbBool set(const char * valuestring);
+  bool set(const char * valuestring);
   void get(SbString & valuestring);
 
-  SbBool shouldWrite(void) const;
+  bool shouldWrite(void) const;
 
   virtual void touch(void);
   virtual void startNotify(void);
   virtual void notify(SoNotList * nlist);
-  SbBool enableNotify(SbBool on);
-  SbBool isNotifyEnabled(void) const;
+  bool enableNotify(bool on);
+  bool isNotifyEnabled(void) const;
 
   void addAuditor(void * f, SoNotRec::Type type);
   void removeAuditor(void * f, SoNotRec::Type type);
 
-  int operator ==(const SoField & f) const;
-  int operator !=(const SoField & f) const;
+  bool operator==(const SoField & f) const;
+  bool operator!=(const SoField & f) const;
 
   virtual void connectionStatusChanged(int numconnections);
-  SbBool isReadOnly(void) const;
-  virtual SbBool isSame(const SoField & f) const = 0;
+  bool isReadOnly(void) const;
+  virtual bool isSame(const SoField & f) const = 0;
   virtual void copyFrom(const SoField & f) = 0;
 
-  virtual void fixCopy(SbBool copyconnections);
-  virtual SbBool referencesCopy(void) const;
+  virtual void fixCopy(bool copyconnections);
+  virtual bool referencesCopy(void) const;
   void copyConnection(const SoField * fromfield);
 
-  virtual SbBool read(SoInput * input, const SbName & name);
+  virtual bool read(SoInput * input, const SbName & name);
   virtual void write(SoOutput * out, const SbName & name) const;
 
   virtual void countWriteRefs(SoOutput * out) const;
@@ -125,8 +125,8 @@ public:
   void setFieldType(int type);
   int getFieldType(void) const;
 
-  SbBool getDirty(void) const;
-  void setDirty(SbBool dirty);
+  bool getDirty(void) const;
+  void setDirty(bool dirty);
 
   void evaluate(void) const {
     if ((this->statusbits & (FLAG_EXTSTORAGE|FLAG_NEEDEVALUATION)) ==
@@ -136,14 +136,14 @@ public:
 protected:
   SoField(void);
 
-  void valueChanged(SbBool resetdefault = TRUE);
+  void valueChanged(bool resetdefault = true);
   virtual void evaluateConnection(void) const;
-  virtual SbBool readValue(SoInput * in) = 0;
+  virtual bool readValue(SoInput * in) = 0;
   virtual void writeValue(SoOutput * out) const = 0;
-  virtual SbBool readConnection(SoInput * in);
+  virtual bool readConnection(SoInput * in);
   virtual void writeConnection(SoOutput * out) const;
 
-  SbBool isDestructing(void) const;
+  bool isDestructing(void) const;
 
   virtual SoNotRec createNotRec(SoBase * cont);
 
@@ -180,17 +180,17 @@ private:
     ALLFILEFLAGS = IGNORED|CONNECTED|DEFAULT
   };
 
-  SbBool changeStatusBits(const unsigned int bits, const SbBool onoff);
+  bool changeStatusBits(const unsigned int bits, const bool onoff);
   void clearStatusBits(const unsigned int bits);
   void setStatusBits(const unsigned int bits);
-  SbBool getStatus(const unsigned int bits) const;
+  bool getStatus(const unsigned int bits) const;
   unsigned int statusbits;
   union {
     SoFieldContainer * container;
     class SoConnectStorage * storage;
   };
 
-  SbBool hasExtendedStorage(void) const;
+  bool hasExtendedStorage(void) const;
 };
 
 

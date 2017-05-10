@@ -87,26 +87,26 @@ public:
   TransparencyType getTransparencyType(void) const;
   void setTransparentDelayedObjectRenderType(TransparentDelayedObjectRenderType type);
   TransparentDelayedObjectRenderType getTransparentDelayedObjectRenderType(void) const;
-  void setSmoothing(const SbBool smooth);
-  SbBool isSmoothing(void) const;
+  void setSmoothing(const bool smooth);
+  bool isSmoothing(void) const;
   void setNumPasses(const int num);
   int getNumPasses(void) const;
-  void setPassUpdate(const SbBool flag);
-  SbBool isPassUpdate(void) const;
+  void setPassUpdate(const bool flag);
+  bool isPassUpdate(void) const;
   void setPassCallback(SoGLRenderPassCB * const func, void * const userdata);
   void setCacheContext(const uint32_t context);
   uint32_t getCacheContext(void) const;
 
   void addDelayedPath(SoPath * path);
-  SbBool isRenderingDelayedPaths(void) const;
+  bool isRenderingDelayedPaths(void) const;
 
-  SbBool handleTransparency(SbBool istransparent = FALSE);
+  bool handleTransparency(bool istransparent = false);
   void setCurPass(const int passnum, const int numpasses);
   int getCurPass(void) const;
-  SbBool abortNow(void);
+  bool abortNow(void);
 
-  void setRenderingIsRemote(SbBool isremote);
-  SbBool getRenderingIsRemote(void) const;
+  void setRenderingIsRemote(bool isremote);
+  bool getRenderingIsRemote(void) const;
 
   virtual void invalidateState(void);
 
@@ -120,11 +120,11 @@ public:
                                     SoGLSortedObjectOrderCB * cb = NULL,
                                     void * closure = NULL);
 
-  void setDelayedObjDepthWrite(SbBool write);
-  SbBool getDelayedObjDepthWrite(void) const;
+  void setDelayedObjDepthWrite(bool write);
+  bool getDelayedObjDepthWrite(void) const;
 
-  SbBool isRenderingTranspPaths(void) const;
-  SbBool isRenderingTranspBackfaces(void) const;
+  bool isRenderingTranspPaths(void) const;
+  bool isRenderingTranspBackfaces(void) const;
 
 protected:
   friend class SoGLRenderActionP; // calls beginTraversal

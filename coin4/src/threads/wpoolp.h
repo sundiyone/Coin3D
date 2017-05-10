@@ -43,7 +43,7 @@ struct cc_wpool {
   cc_list * idlepool;
   cc_list * busypool;
 
-  SbBool iswaiting;
+  bool iswaiting;
   int numworkers;
 
   cc_mutex * mutex;

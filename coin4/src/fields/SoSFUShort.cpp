@@ -62,7 +62,7 @@ SoSFUShort::initClass(void)
 // parent classes.
 #ifndef DOXYGEN_SKIP_THIS
 
-SbBool
+bool
 SoSFUShort::readValue(SoInput * in)
 {
   return in->read(this->value);

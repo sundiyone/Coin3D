@@ -36,11 +36,11 @@ public:
   SoVBOCache(SoState * state);
   virtual ~SoVBOCache();
 
-  SoVertexArrayIndexer * getVertexArrayIndexer(const SbBool createifnull = TRUE);
-  SoVBO * getCoordVBO(const SbBool createifnull = TRUE);
-  SoVBO * getNormalVBO(const SbBool createifnull = TRUE);
-  SoVBO * getColorVBO(const SbBool createifnull = TRUE);
-  SoVBO * getTexCoordVBO(const int unit, const SbBool createifnull = TRUE);
+  SoVertexArrayIndexer * getVertexArrayIndexer(const bool createifnull = true);
+  SoVBO * getCoordVBO(const bool createifnull = true);
+  SoVBO * getNormalVBO(const bool createifnull = true);
+  SoVBO * getColorVBO(const bool createifnull = true);
+  SoVBO * getTexCoordVBO(const int unit, const bool createifnull = true);
   
 private:
   SoVBOCacheP * pimpl;

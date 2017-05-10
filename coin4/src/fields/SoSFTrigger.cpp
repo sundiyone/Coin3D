@@ -95,9 +95,9 @@ SoSFTrigger::touch(void)
 
 /*!
   Since SoSFTrigger fields doesn't have any value, they are all
-  equal. So this method always returns \c TRUE.
+  equal. So this method always returns \c true.
  */
-int
+bool
 SoSFTrigger::operator==(const SoSFTrigger & COIN_UNUSED_ARG(trigger)) const
 {
   return 1;
@@ -105,9 +105,9 @@ SoSFTrigger::operator==(const SoSFTrigger & COIN_UNUSED_ARG(trigger)) const
 
 /*!
   Since SoSFTrigger fields doesn't have any value, they are all
-  equal. So this method always returns \c FALSE.
+  equal. So this method always returns \c false.
 */
-int
+bool
 SoSFTrigger::operator!=(const SoSFTrigger & COIN_UNUSED_ARG(trigger)) const
 {
   return 0;
@@ -129,11 +129,11 @@ SoSFTrigger::notify(SoNotList * l)
   inherited::notify(l);
 }
 
-// No value to read, so just return TRUE.
-SbBool
+// No value to read, so just return true.
+bool
 SoSFTrigger::readValue(SoInput * COIN_UNUSED_ARG(in))
 {
-  return TRUE;
+  return true;
 }
 
 // No value to write, just return.

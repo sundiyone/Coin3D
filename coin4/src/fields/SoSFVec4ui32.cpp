@@ -66,7 +66,7 @@ SoSFVec4ui32::initClass(void)
 // parent classes.
 #ifndef DOXYGEN_SKIP_THIS
 
-SbBool
+bool
 SoSFVec4ui32::readValue(SoInput * in)
 {
   return

@@ -152,7 +152,7 @@ public:
   void * offscreenctx;
   void * nurbsrenderer;
 
-  void doNurbs(SoAction * action, const SbBool glrender, const SbBool drawaspoints);
+  void doNurbs(SoAction * action, const bool glrender, const bool drawaspoints);
 
 private:
   SoNurbsCurve * owner;
@@ -214,7 +214,7 @@ SoNurbsCurve::GLRender(SoGLRenderAction * action)
   
   // Create lazy element for GL_AUTO_NORMAL ?
   glEnable(GL_AUTO_NORMAL);
-  PRIVATE(this)->doNurbs(action, TRUE, SoDrawStyleElement::get(action->getState()) == SoDrawStyleElement::POINTS);
+  PRIVATE(this)->doNurbs(action, true, SoDrawStyleElement::get(action->getState()) == SoDrawStyleElement::POINTS);
   glDisable(GL_AUTO_NORMAL);
 
   state->pop();
@@ -275,9 +275,9 @@ SoNurbsCurve::rayPick(SoRayPickAction * action)
     SoShape::rayPick(action); // do normal generatePrimitives() pick
   }
   else {
-    static SbBool firstpick = TRUE;
+    static bool firstpick = true;
     if (firstpick) {
-      firstpick = FALSE;
+      firstpick = false;
       SoDebugError::postWarning("SoNurbsCurve::rayPick",
                                 "Proper NURBS picking requires\n"
                                 "GLU version 1.3. Picking will be done on bounding box.");
@@ -336,7 +336,7 @@ SoNurbsCurve::generatePrimitives(SoAction * action)
 
     if (PRIVATE(this)->offscreenctx &&
         cc_glglue_context_make_current(PRIVATE(this)->offscreenctx)) {
-      PRIVATE(this)->doNurbs(action, FALSE, FALSE);
+      PRIVATE(this)->doNurbs(action, false, false);
       cc_glglue_context_reinstate_previous(PRIVATE(this)->offscreenctx);
     }
   }
@@ -356,7 +356,7 @@ typedef SoNurbsP<SoNurbsCurve>::coin_nurbs_cbdata coin_nc_cbdata;
 
 void
 SoNurbsCurveP::doNurbs(SoAction * action,
-                       const SbBool glrender, const SbBool drawaspoints)
+                       const bool glrender, const bool drawaspoints)
 {
   if (GLUWrapper()->available == 0 || !GLUWrapper()->gluNewNurbsRenderer) {
 #if COIN_DEBUG

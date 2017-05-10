@@ -61,8 +61,8 @@ public:
     PER_VERTEX_INDEXED  = SoMaterialBindingElement::PER_VERTEX_INDEXED
   };
 
-  virtual SbBool generateDefaultNormals(SoState * s, SoNormalBundle * nb);
-  virtual SbBool generateDefaultNormals(SoState * s, SoNormalCache * nc);
+  virtual bool generateDefaultNormals(SoState * s, SoNormalBundle * nb);
+  virtual bool generateDefaultNormals(SoState * s, SoNormalCache * nc);
 
   virtual void doAction(SoAction * action);
   virtual void GLRender(SoGLRenderAction * action);
@@ -76,7 +76,7 @@ protected:
   SoVRMLVertexShape(void);
   virtual ~SoVRMLVertexShape();
 
-  virtual SbBool shouldGLRender(SoGLRenderAction * action);
+  virtual bool shouldGLRender(SoGLRenderAction * action);
 
   void setNormalCache(SoState * s, int numNormals, SbVec3f * normals);
   SoNormalCache * getNormalCache(void) const;
@@ -85,7 +85,7 @@ protected:
   void getVertexData(SoState * state,
                      const SoCoordinateElement *& coords,
                      const SbVec3f *& normals,
-                     const SbBool neednormals);
+                     const bool neednormals);
 
   void readLockNormalCache(void);
   void readUnlockNormalCache(void);

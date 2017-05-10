@@ -52,13 +52,13 @@
 
 // *************************************************************************
 
-SbBool SoCacheElement::invalidated = FALSE;
+bool SoCacheElement::invalidated = false;
 
 // *************************************************************************
 
 #ifdef COIN_THREADSAFE
 
-static SbTypedStorage <SbBool*> * invalidated_storage = NULL;
+static SbTypedStorage <bool*> * invalidated_storage = NULL;
 
 static void
 cacheelement_cleanup(void)
@@ -79,11 +79,11 @@ void
 SoCacheElement::initClass(void)
 {
   SO_ELEMENT_INIT_CLASS(SoCacheElement, inherited);
-  SoCacheElement::invalidated = FALSE;
+  SoCacheElement::invalidated = false;
 
 #ifdef COIN_THREADSAFE
-  invalidated_storage = new SbTypedStorage <SbBool*> (sizeof(SbBool));
-  *(invalidated_storage->get()) = FALSE;
+  invalidated_storage = new SbTypedStorage <bool*> (sizeof(bool));
+  *(invalidated_storage->get()) = false;
   coin_atexit((coin_atexit_f*) cacheelement_cleanup, CC_ATEXIT_NORMAL);
 #endif // COIN_THREADSAFE
 }
@@ -130,7 +130,7 @@ SoCacheElement::pop(SoState * state, const SoElement * prevTopElement)
     prev->cache = NULL;
   }
   inherited::pop(state, prevTopElement);
-  if (!this->anyOpen(state)) state->setCacheOpen(FALSE);
+  if (!this->anyOpen(state)) state->setCacheOpen(false);
 }
 
 
@@ -150,7 +150,7 @@ SoCacheElement::set(SoState * const state, SoCache * const cache)
     elem->cache = cache;
     if (elem->cache) {
       elem->cache->ref();
-      state->setCacheOpen(TRUE);
+      state->setCacheOpen(true);
     }
   }
 }
@@ -166,10 +166,10 @@ SoCacheElement::getCache(void) const
 }
 
 /*!
-  This method returns TRUE if a cache is currently open.
+  This method returns true if a cache is currently open.
 */
 
-SbBool
+bool
 SoCacheElement::anyOpen(SoState * const state)
 {
   const SoCacheElement * elem = coin_assert_cast<const SoCacheElement *>
@@ -177,10 +177,10 @@ SoCacheElement::anyOpen(SoState * const state)
       state->getElementNoPush(classStackIndex)
       );
   while (elem) {
-    if (elem->cache) return TRUE;
+    if (elem->cache) return true;
     elem = coin_safe_cast<const SoCacheElement*>(elem->getNextInStack());
   }
-  return FALSE;
+  return false;
 }
 
 /*!
@@ -196,9 +196,9 @@ SoCacheElement::invalidate(SoState * const state)
 #endif // debug
 
 #ifdef COIN_THREADSAFE
-  *(invalidated_storage->get()) = TRUE;
+  *(invalidated_storage->get()) = true;
 #else // COIN_THREADSAFE
-  SoCacheElement::invalidated = TRUE;
+  SoCacheElement::invalidated = true;
 #endif // ! COIN_THREADSAFE
 
   const SoCacheElement * elem =
@@ -217,23 +217,23 @@ SoCacheElement::invalidate(SoState * const state)
   SoCacheElement objects should not be compared because you obviously don't
   cache them in the cache.
 */
-SbBool
+bool
 SoCacheElement::matches(const SoElement * COIN_UNUSED_ARG(element)) const
 {
-  assert(FALSE && "this method should not be called for this element");
-  return FALSE;
+  assert(false && "this method should not be called for this element");
+  return false;
 }
 
 /*!
   SoCacheElement objects should not be "copied" because you obviously don't
   cache them in the cache.
 
-  \sa SbBool SoCacheElement::matches(const SoElement * element) const
+  \sa bool SoCacheElement::matches(const SoElement * element) const
 */
 SoElement *
 SoCacheElement::copyMatchInfo(void) const
 {
-  assert(FALSE && "this method should not be called for this element");
+  assert(false && "this method should not be called for this element");
   return NULL;
 }
 
@@ -295,15 +295,15 @@ SoCacheElement::addCacheDependency(SoState * const state,
   \a newvalue.
 */
 
-SbBool
-SoCacheElement::setInvalid(const SbBool newvalue)
+bool
+SoCacheElement::setInvalid(const bool newvalue)
 {
 #ifdef COIN_THREADSAFE
-  SbBool * ptr = invalidated_storage->get();
-  SbBool oldval = *ptr;
+  bool * ptr = invalidated_storage->get();
+  bool oldval = *ptr;
   *ptr = newvalue;
 #else // COIN_THREADSAFE
-  SbBool oldval = SoCacheElement::invalidated;
+  bool oldval = SoCacheElement::invalidated;
   SoCacheElement::invalidated = newvalue;
 #endif // ! COIN_THREADSAFE
   return oldval;

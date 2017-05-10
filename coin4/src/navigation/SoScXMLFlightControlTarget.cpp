@@ -149,23 +149,23 @@ SoScXMLFlightControlTarget::~SoScXMLFlightControlTarget(void)
 {
 }
 
-SbBool
+bool
 SoScXMLFlightControlTarget::processOneEvent(const ScXMLEvent * event)
 {
   assert(event);
 
   const SbName sessionid = this->getSessionId(event);
-  if (sessionid == SbName::empty()) { return FALSE; }
+  if (sessionid == SbName::empty()) { return false; }
 
   const SbName & eventname = event->getEventName();
 
   if (eventname == PITCH()) {
     SoCamera * camera = inherited::getActiveCamera(event, sessionid);
-    if (!camera) { return FALSE; }
+    if (!camera) { return false; }
 
     double angle = 0.0f;
     if (!inherited::getEventDouble(event, "angle", angle)) {
-      return FALSE;
+      return false;
     }
 
     SoScXMLFlightControlTarget::pitch(camera, float(angle));
@@ -173,11 +173,11 @@ SoScXMLFlightControlTarget::processOneEvent(const ScXMLEvent * event)
 
   else if (eventname == YAW()) {
     SoCamera * camera = inherited::getActiveCamera(event, sessionid);
-    if (!camera) { return FALSE; }
+    if (!camera) { return false; }
 
     double angle = 0.0f;
     if (!inherited::getEventDouble(event, "angle", angle)) {
-      return FALSE;
+      return false;
     }
 
     SoScXMLFlightControlTarget::yaw(camera, float(angle));
@@ -185,11 +185,11 @@ SoScXMLFlightControlTarget::processOneEvent(const ScXMLEvent * event)
 
   else if (eventname == ROLL()) {
     SoCamera * camera = inherited::getActiveCamera(event, sessionid);
-    if (!camera) { return FALSE; }
+    if (!camera) { return false; }
 
     double angle = 0.0f;
     if (!inherited::getEventDouble(event, "angle", angle)) {
-      return FALSE;
+      return false;
     }
 
     SoScXMLFlightControlTarget::roll(camera, float(angle));
@@ -197,11 +197,11 @@ SoScXMLFlightControlTarget::processOneEvent(const ScXMLEvent * event)
 
   else if (eventname == RESET_ROLL()) {
     SoCamera * camera = inherited::getActiveCamera(event, sessionid);
-    if (!camera) { return FALSE; }
+    if (!camera) { return false; }
 
     SbVec3f upvec;
     if (!inherited::getEventSbVec3f(event, "upvector", upvec)) {
-      return FALSE;
+      return false;
     }
 
     SoScXMLFlightControlTarget::resetRoll(camera, upvec);
@@ -211,11 +211,11 @@ SoScXMLFlightControlTarget::processOneEvent(const ScXMLEvent * event)
     SoDebugError::post("SoScXMLFlightControlTarget::processOneEvent",
                        "received unknown event '%s'",
                        eventname.getString());
-    return FALSE;
+    return false;
   }
 
 
-  return TRUE;
+  return true;
 }
 
 void

@@ -157,14 +157,14 @@ ScXMLDataModelElt::setSchemaAttribute(const char * COIN_UNUSED_ARG(schema))
 
 // const char * ScXMLDataModelElt::getSchemaAttribute(void) const
 
-SbBool
+bool
 ScXMLDataModelElt::handleXMLAttributes(void)
 {
-  if (!inherited::handleXMLAttributes()) { return FALSE; }
+  if (!inherited::handleXMLAttributes()) { return false; }
 
   this->setSchemaAttribute(this->getXMLAttribute("schema"));
 
-  return TRUE;
+  return true;
 }
 
 void

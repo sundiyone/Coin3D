@@ -45,7 +45,7 @@ public:
   virtual void setNameAttribute(const char * name);
   virtual const char * getNameAttribute(void) const { return this->name; }
 
-  virtual SbBool handleXMLAttributes(void);
+  virtual bool handleXMLAttributes(void);
 
   virtual void copyContents(const ScXMLElt * rhs);
 

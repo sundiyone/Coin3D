@@ -536,10 +536,10 @@ public:
   SoGLRenderAction * action;
   SbViewportRegion viewport;
   int numpasses;
-  SbBool internal_multipass;
+  bool internal_multipass;
   SoGLRenderAction::TransparencyType transparencytype;
-  SbBool smoothing;
-  SbBool passupdate;
+  bool smoothing;
+  bool passupdate;
   SoGLRenderPassCB * passcallback;
   void * passcallbackdata;
   SoGLRenderAction::SoGLRenderAbortCB * abortcallback;
@@ -547,25 +547,25 @@ public:
   uint32_t cachecontext;
   int currentpass;
   SoPathList delayedpaths;
-  SbBool delayedpathrender;
-  SbBool transparencyrender;
+  bool delayedpathrender;
+  bool transparencyrender;
   SoPathList transpobjpaths;
   SoPathList sorttranspobjpaths;
   SbList<float> sorttranspobjdistances;
   SoGLRenderAction::TransparentDelayedObjectRenderType transpdelayedrendertype;
-  SbBool renderingtranspbackfaces;
+  bool renderingtranspbackfaces;
 
   boost::scoped_ptr<SoGetBoundingBoxAction> bboxaction;
   SbVec2f updateorigin, updatesize;
-  SbBool needglinit;
-  SbBool isrendering;
-  SbBool isrenderingoverlay;
-  SbBool transpobjdepthwrite;
+  bool needglinit;
+  bool isrendering;
+  bool isrenderingoverlay;
+  bool transpobjdepthwrite;
   SoCallbackList precblist;
 
   enum { RENDERING_UNSET, RENDERING_SET_DIRECT, RENDERING_SET_INDIRECT };
   int rendering;
-  SbBool isDirectRendering(const SoState * state) const;
+  bool isDirectRendering(const SoState * state) const;
   int sortedlayersblendpasses;
 
   SoNode * cachedprofilingsg;
@@ -576,10 +576,10 @@ public:
   GLuint sortedlayersblendprogramid;
   unsigned short viewportheight;
   unsigned short viewportwidth;
-  SbBool sortedlayersblendinitialized;
+  bool sortedlayersblendinitialized;
   SbMatrix sortedlayersblendprojectionmatrix;
   int sortedlayersblendcounter;
-  SbBool usenvidiaregistercombiners;
+  bool usenvidiaregistercombiners;
 
   SoGLRenderAction::SortedObjectOrderStrategy sortedobjectstrategy;
   SoGLSortedObjectOrderCB * sortedobjectcb;
@@ -588,8 +588,8 @@ public:
   void setupSortedLayersBlendTextures(const SoState * state);
   void doSortedLayersBlendRendering(const SoState * state, SoNode * node);
   void initSortedLayersBlendRendering(const SoState * state);
-  void renderOneBlendLayer(const SoState * state, SbBool shadow, SbBool update_ztex, SoNode * node);
-  void texgenEnable(SbBool enable);
+  void renderOneBlendLayer(const SoState * state, bool shadow, bool update_ztex, SoNode * node);
+  void texgenEnable(bool enable);
   void eyeLinearTexgen();
 
   // NVIDIA spesific methods for sorted layers blend
@@ -697,33 +697,33 @@ SoGLRenderAction::SoGLRenderAction(const SbViewportRegion & viewportregion)
 
   PRIVATE(this)->passcallback = NULL;
   PRIVATE(this)->passcallbackdata = NULL;
-  PRIVATE(this)->smoothing = FALSE;
+  PRIVATE(this)->smoothing = false;
   PRIVATE(this)->currentpass = 0;
   PRIVATE(this)->numpasses = 1;
-  PRIVATE(this)->internal_multipass = FALSE;
+  PRIVATE(this)->internal_multipass = false;
   PRIVATE(this)->transparencytype = SoGLRenderAction::BLEND;
-  PRIVATE(this)->delayedpathrender = FALSE;
-  PRIVATE(this)->transparencyrender = FALSE;
-  PRIVATE(this)->isrendering = FALSE;
-  PRIVATE(this)->isrenderingoverlay = FALSE;
-  PRIVATE(this)->passupdate = FALSE;
+  PRIVATE(this)->delayedpathrender = false;
+  PRIVATE(this)->transparencyrender = false;
+  PRIVATE(this)->isrendering = false;
+  PRIVATE(this)->isrenderingoverlay = false;
+  PRIVATE(this)->passupdate = false;
   PRIVATE(this)->bboxaction.reset(new SoGetBoundingBoxAction(viewportregion));
   PRIVATE(this)->updateorigin.setValue(0.0f, 0.0f);
   PRIVATE(this)->updatesize.setValue(1.0f, 1.0f);
   PRIVATE(this)->rendering = SoGLRenderActionP::RENDERING_UNSET;
   PRIVATE(this)->abortcallback = NULL;
   PRIVATE(this)->cachecontext = 0;
-  PRIVATE(this)->needglinit = TRUE;
+  PRIVATE(this)->needglinit = true;
   PRIVATE(this)->sortedlayersblendpasses = 4;
   PRIVATE(this)->viewportheight = 0;
   PRIVATE(this)->viewportwidth = 0;
-  PRIVATE(this)->sortedlayersblendinitialized = FALSE;
+  PRIVATE(this)->sortedlayersblendinitialized = false;
   PRIVATE(this)->sortedlayersblendcounter = 0;
-  PRIVATE(this)->usenvidiaregistercombiners = FALSE;
+  PRIVATE(this)->usenvidiaregistercombiners = false;
   PRIVATE(this)->cachedprofilingsg = NULL;
-  PRIVATE(this)->transpobjdepthwrite = FALSE;
+  PRIVATE(this)->transpobjdepthwrite = false;
   PRIVATE(this)->transpdelayedrendertype = ONE_PASS;
-  PRIVATE(this)->renderingtranspbackfaces = FALSE;
+  PRIVATE(this)->renderingtranspbackfaces = false;
 
   PRIVATE(this)->sortedobjectstrategy = BBOX_CENTER;
   PRIVATE(this)->sortedobjectcb = NULL;
@@ -854,7 +854,7 @@ SoGLRenderAction::setTransparencyType(const TransparencyType type)
 {
   if (PRIVATE(this)->transparencytype != type) {
     PRIVATE(this)->transparencytype = type;
-    PRIVATE(this)->needglinit = TRUE;
+    PRIVATE(this)->needglinit = true;
   }
 }
 
@@ -886,18 +886,18 @@ SoGLRenderAction::getTransparencyType(void) const
   Default value for this flag is to be \c off.
 */
 void
-SoGLRenderAction::setSmoothing(const SbBool smooth)
+SoGLRenderAction::setSmoothing(const bool smooth)
 {
   if (smooth != PRIVATE(this)->smoothing) {
     PRIVATE(this)->smoothing = smooth;
-    PRIVATE(this)->needglinit = TRUE;
+    PRIVATE(this)->needglinit = true;
   }
 }
 
 /*!
   Returns whether smoothing is set or not.
 */
-SbBool
+bool
 SoGLRenderAction::isSmoothing(void) const
 {
   return PRIVATE(this)->smoothing;
@@ -928,7 +928,7 @@ SoGLRenderAction::getNumPasses(void) const
   Sets whether each pass should render to screen or not.
 */
 void
-SoGLRenderAction::setPassUpdate(const SbBool flag)
+SoGLRenderAction::setPassUpdate(const bool flag)
 {
   PRIVATE(this)->passupdate = flag;
 }
@@ -938,7 +938,7 @@ SoGLRenderAction::setPassUpdate(const SbBool flag)
 
   \sa setPassUpdate()
 */
-SbBool
+bool
 SoGLRenderAction::isPassUpdate(void) const
 {
   return PRIVATE(this)->passupdate;
@@ -1026,10 +1026,10 @@ SoGLRenderAction::beginTraversal(SoNode * node)
       if (kit) {
         SoSearchAction sa;
         sa.setType(SoProfilerVisualizeKit::getClassTypeId());
-        sa.setSearchingAll(TRUE);
+        sa.setSearchingAll(true);
         sa.setInterest(SoSearchAction::ALL);
-        SbBool oldchildsearch = SoBaseKit::isSearchingChildren();
-        SoBaseKit::setSearchingChildren(TRUE);
+        bool oldchildsearch = SoBaseKit::isSearchingChildren();
+        SoBaseKit::setSearchingChildren(true);
         sa.apply(kit);
         SoBaseKit::setSearchingChildren(oldchildsearch);
         SoPathList plist = sa.getPaths();
@@ -1069,7 +1069,7 @@ SoGLRenderAction::beginTraversal(SoNode * node)
     err_before_init = glGetError();
   }
   if (PRIVATE(this)->needglinit) {
-    PRIVATE(this)->needglinit = FALSE;
+    PRIVATE(this)->needglinit = false;
 
     // we are always using GL_COLOR_MATERIAL in Coin
     glColorMaterial(GL_FRONT_AND_BACK, GL_DIFFUSE);
@@ -1182,9 +1182,9 @@ SoGLRenderActionP::deleteNodeCB(void * userdata, SoSensor * COIN_UNUSED_ARG(sens
   If you're using an SoCallback or a non-shape node to render your
   geometry, you can use this function to make sure your node is only
   rendered once. This function consider the \a istransparent
-  parameter, and when TRUE it will return TRUE on the first pass, and
-  FALSE on the second pass. For non-transparent objects it returns
-  FALSE on the first pass, TRUE on the second.
+  parameter, and when true it will return true on the first pass, and
+  false on the second pass. For non-transparent objects it returns
+  false on the first pass, true on the second.
 
   Please note that this function considers the current transparency
   type when deciding what to do. It will delay rendering only when the
@@ -1192,8 +1192,8 @@ SoGLRenderActionP::deleteNodeCB(void * userdata, SoSensor * COIN_UNUSED_ARG(sens
   transparency types, transparent objects are rendered in the same
   pass as opaque objects.
 */
-SbBool
-SoGLRenderAction::handleTransparency(SbBool istransparent)
+bool
+SoGLRenderAction::handleTransparency(bool istransparent)
 {
   SoState * thestate = this->getState();
   const cc_glglue *glue = sogl_glue_instance(thestate);
@@ -1221,10 +1221,10 @@ SoGLRenderAction::handleTransparency(SbBool istransparent)
       }
     }
 
-    // Must always return FALSE as everything must be rendered to the
+    // Must always return false as everything must be rendered to the
     // RGBA layers (which are blended together at the end of each
     // frame).
-    return FALSE;
+    return false;
   }
 
 
@@ -1234,7 +1234,7 @@ SoGLRenderAction::handleTransparency(SbBool istransparent)
       SoLazyElement::enableBlending(thestate, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     }
     else SoLazyElement::disableBlending(thestate);
-    return FALSE;
+    return false;
   }
 
   // below this point, shape is transparent, and we know that
@@ -1247,58 +1247,58 @@ SoGLRenderAction::handleTransparency(SbBool istransparent)
       if (this->isRenderingTranspBackfaces()) {
         if (SoShapeHintsElement::getShapeType(this->state) == SoShapeHintsElement::SOLID) {
           // just delay this until the next pass
-          return TRUE;
+          return true;
         }
         else {
-          SoLazyElement::setBackfaceCulling(this->state, TRUE);
+          SoLazyElement::setBackfaceCulling(this->state, true);
         }
       }
       else {
         if (SoShapeHintsElement::getShapeType(this->state) != SoShapeHintsElement::SOLID) {
-          SoLazyElement::setBackfaceCulling(this->state, TRUE);
+          SoLazyElement::setBackfaceCulling(this->state, true);
         }
       }
     }
     PRIVATE(this)->setupBlending(thestate, transptype);
-    return FALSE;
+    return false;
   }
   // check for special case when rendering delayed paths.  we don't
   // want to add these objects to the list of transparent objects, but
   // render right away.
   if (PRIVATE(this)->delayedpathrender) {
     PRIVATE(this)->setupBlending(thestate, transptype);
-    return FALSE;
+    return false;
   }
   switch (transptype) {
   case SoGLRenderAction::ADD:
     SoLazyElement::enableBlending(thestate, GL_SRC_ALPHA, GL_ONE);
-    return FALSE;
+    return false;
   case SoGLRenderAction::BLEND:
     SoLazyElement::enableBlending(thestate, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    return FALSE;
+    return false;
   case SoGLRenderAction::DELAYED_ADD:
   case SoGLRenderAction::DELAYED_BLEND:
     PRIVATE(this)->addTransPath(this->getCurPath()->copy());
-    SoCacheElement::setInvalid(TRUE);
+    SoCacheElement::setInvalid(true);
     if (thestate->isCacheOpen()) {
       SoCacheElement::invalidate(thestate);
     }
-    return TRUE; // delay render
+    return true; // delay render
   case SoGLRenderAction::SORTED_OBJECT_ADD:
   case SoGLRenderAction::SORTED_OBJECT_BLEND:
   case SoGLRenderAction::SORTED_OBJECT_SORTED_TRIANGLE_ADD:
   case SoGLRenderAction::SORTED_OBJECT_SORTED_TRIANGLE_BLEND:
     PRIVATE(this)->addSortTransPath(this->getCurPath()->copy());
-    SoCacheElement::setInvalid(TRUE);
+    SoCacheElement::setInvalid(true);
     if (thestate->isCacheOpen()) {
       SoCacheElement::invalidate(thestate);
     }
-    return TRUE; // delay render
+    return true; // delay render
   default:
     assert(0 && "should not get here");
     break;
   }
-  return FALSE;
+  return false;
 }
 
 /*!
@@ -1318,7 +1318,7 @@ SoGLRenderAction::setCurPass(const int passnum, const int numpasses)
 {
   PRIVATE(this)->currentpass = passnum;
   PRIVATE(this)->numpasses = numpasses;
-  PRIVATE(this)->internal_multipass = FALSE;
+  PRIVATE(this)->internal_multipass = false;
 }
 
 /*!
@@ -1332,15 +1332,15 @@ SoGLRenderAction::getCurPass(void) const
 }
 
 /*!
-  Returns \c TRUE if the render action should abort now based on user
+  Returns \c true if the render action should abort now based on user
   callback.
 
   \sa setAbortCallback()
 */
-SbBool
+bool
 SoGLRenderAction::abortNow(void)
 {
-  if (this->hasTerminated()) return TRUE;
+  if (this->hasTerminated()) return true;
 
 #if COIN_DEBUG && 0 // for dumping the scene graph during GLRender traversals
   static int debug = -1;
@@ -1361,23 +1361,23 @@ SoGLRenderAction::abortNow(void)
   }
 #endif // debug
 
-  SbBool abort = FALSE;
+  bool abort = false;
   if (PRIVATE(this)->abortcallback) {
     switch (PRIVATE(this)->abortcallback(PRIVATE(this)->abortcallbackdata)) {
     case CONTINUE:
       break;
     case ABORT:
-      this->setTerminated(TRUE);
-      abort = TRUE;
+      this->setTerminated(true);
+      abort = true;
       break;
     case PRUNE:
       // abort this node, but do not abort rendering
-      abort = TRUE;
+      abort = true;
       break;
     case DELAY:
       this->addDelayedPath(this->getCurPath()->copy());
       // prune this node
-      abort = TRUE;
+      abort = true;
       break;
     }
   }
@@ -1394,7 +1394,7 @@ SoGLRenderAction::abortNow(void)
   aggressive with the caching when rendering instructions are passed
   over the network.
 
-  Default value is \c FALSE. The value of the flag will not be changed
+  Default value is \c false. The value of the flag will not be changed
   internally from the Coin library code, as it is meant to be
   controlled from client code -- typically from the SoQt / SoXt /
   SoWin / SoGtk libraries.
@@ -1402,7 +1402,7 @@ SoGLRenderAction::abortNow(void)
   \sa getRenderingIsRemote()
  */
 void
-SoGLRenderAction::setRenderingIsRemote(SbBool isremote)
+SoGLRenderAction::setRenderingIsRemote(bool isremote)
 {
   PRIVATE(this)->rendering = isremote ?
     SoGLRenderActionP::RENDERING_SET_INDIRECT :
@@ -1414,12 +1414,12 @@ SoGLRenderAction::setRenderingIsRemote(SbBool isremote)
 
   \sa setRenderingIsRemote()
  */
-SbBool
+bool
 SoGLRenderAction::getRenderingIsRemote(void) const
 {
-  SbBool isdirect;
+  bool isdirect;
   if (PRIVATE(this)->rendering == SoGLRenderActionP::RENDERING_UNSET) {
-    isdirect = TRUE;
+    isdirect = true;
   }
   else {
     isdirect = PRIVATE(this)->rendering == SoGLRenderActionP::RENDERING_SET_DIRECT;
@@ -1443,7 +1443,7 @@ SoGLRenderAction::addDelayedPath(SoPath * path)
   Returns a flag indicating whether or not we are currently rendering
   from the list of delayed paths of the scene graph.
  */
-SbBool
+bool
 SoGLRenderAction::isRenderingDelayedPaths(void) const
 {
   return PRIVATE(this)->delayedpathrender;
@@ -1466,7 +1466,7 @@ void
 SoGLRenderAction::invalidateState(void)
 {
   inherited::invalidateState();
-  PRIVATE(this)->needglinit = TRUE;
+  PRIVATE(this)->needglinit = true;
 }
 
 // Sort paths with transparent objects before rendering.
@@ -1515,7 +1515,7 @@ SoGLRenderActionP::doPathSort(void)
   instance draw an image in the color buffer using this callback, you
   should make sure that the scene manager doesn't clear the buffer.
   This can be done either by calling SoSceneManager::render() with
-  both arguments FALSE, or, if you're using one of our GUI toolkits
+  both arguments false, or, if you're using one of our GUI toolkits
   (SoXt/SoQt/SoGtk/SoWin), call setClearBeforeRender() on the viewer.
 
   This method is an extension versus the Open Inventor API.
@@ -1655,10 +1655,10 @@ SoGLRenderActionP::addSortTransPath(SoPath * path)
 
 // Private function which "unwinds" the real value of the "rendering"
 // variable.
-SbBool
+bool
 SoGLRenderActionP::isDirectRendering(const SoState * state) const
 {
-  SbBool isdirect;
+  bool isdirect;
   if (this->rendering == RENDERING_UNSET) {
     const cc_glglue * w = sogl_glue_instance(state);
     isdirect = cc_glglue_isdirect(w);
@@ -1680,7 +1680,7 @@ SoGLRenderActionP::isDirectRendering(const SoState * state) const
 void
 SoGLRenderActionP::render(SoNode * node)
 {
-  this->isrendering = TRUE;
+  this->isrendering = true;
 
   SoState * state = this->action->getState();
   state->push();
@@ -1691,23 +1691,23 @@ SoGLRenderActionP::render(SoNode * node)
   SoLazyElement::disableBlending(state);
 
   SoViewportRegionElement::set(state, this->viewport);
-  SoDepthBufferElement::set(state, TRUE, TRUE,
+  SoDepthBufferElement::set(state, true, true,
                             SoDepthBufferElement::LEQUAL,
                             SbVec2f(0.0f, 1.0f));
   SoLazyElement::setTransparencyType(state,
                                      static_cast<int32_t>(this->transparencytype));
 
   if (this->transparencytype == SoGLRenderAction::SORTED_LAYERS_BLEND) {
-    SoOverrideElement::setTransparencyTypeOverride(state, node, TRUE);
+    SoOverrideElement::setTransparencyTypeOverride(state, node, true);
   }
 
-  SoLazyElement::setColorMaterial(state, TRUE);
+  SoLazyElement::setColorMaterial(state, true);
 
   SoGLUpdateAreaElement::set(state,
                              this->updateorigin, this->updatesize);
 
   SoGLCacheContextElement::set(state, this->cachecontext,
-                               FALSE, !this->isDirectRendering(state));
+                               false, !this->isDirectRendering(state));
   SoGLRenderPassElement::set(state, 0);
 
   this->precblist.invokeCallbacks(static_cast<void *>(this->action));
@@ -1719,13 +1719,13 @@ SoGLRenderActionP::render(SoNode * node)
     glGetIntegerv(GL_ACCUM_RED_BITS, &accumbits);
 
     if (accumbits == 0) {
-      static SbBool first = TRUE;
+      static bool first = true;
       if (first) {
         SoDebugError::postWarning("SoGLRenderActionP::render",
                                   "Multipass rendering requested,\nbut current "
                                   "GL context has no accumulation buffer - "
                                   "falling back to single pass\nrendering.");
-        first = FALSE;
+        first = false;
       }
       this->renderSingle(node);
     } else {
@@ -1739,25 +1739,25 @@ SoGLRenderActionP::render(SoNode * node)
     if (node == this->cachedprofilingsg) {
       SoNode * profileroverlay = SoActionP::getProfilerOverlay();
       if (profileroverlay) {
-        this->isrenderingoverlay = TRUE;
-        SoProfiler::enable(FALSE);
+        this->isrenderingoverlay = true;
+        SoProfiler::enable(false);
         this->renderSingle(profileroverlay);
-        SoProfiler::enable(TRUE);
-        this->isrenderingoverlay = FALSE;
+        SoProfiler::enable(true);
+        this->isrenderingoverlay = false;
       }
     } else {
-      static SbBool first = TRUE;
+      static bool first = true;
       if (first) {
         SoDebugError::postWarning("SoGLRenderAcionP::render",
                                   "Profiling overlay is only enabled for the first "
                                   "scene graph in the viewer.");
-        first = FALSE;
+        first = false;
       }
     }
   }
 
   state->pop();
-  this->isrendering = FALSE;
+  this->isrendering = false;
 }
 
 //
@@ -1806,10 +1806,10 @@ SoGLRenderActionP::renderSingle(SoNode * node)
 
   SoGLRenderPassElement::set(state, this->currentpass);
   SoGLCacheContextElement::set(state, this->cachecontext,
-                               FALSE, !this->isDirectRendering(state));
+                               false, !this->isDirectRendering(state));
 
-  assert(this->delayedpathrender == FALSE);
-  assert(this->transparencyrender == FALSE);
+  assert(this->delayedpathrender == false);
+  assert(this->transparencyrender == false);
 
   // Truncate just in case
   this->sorttranspobjpaths.truncate(0);
@@ -1853,17 +1853,17 @@ SoGLRenderActionP::renderSingle(SoNode * node)
   if ((this->transpobjpaths.getLength() || this->sorttranspobjpaths.getLength()) &&
       !this->action->hasTerminated()) {
 
-    this->transparencyrender = TRUE;
+    this->transparencyrender = true;
     // disable writing into the z-buffer when rendering transparent
     // objects
 
     if (!this->transpobjdepthwrite) {
-      SoDepthBufferElement::set(state, TRUE, FALSE,
+      SoDepthBufferElement::set(state, true, false,
                                 SoDepthBufferElement::LEQUAL,
                                 SbVec2f(0.0f, 1.0f));
     }
     SoGLCacheContextElement::set(state, this->cachecontext,
-                                 TRUE, !this->isDirectRendering(state));
+                                 true, !this->isDirectRendering(state));
 
     int numtransppasses = 1;
     switch (this->transpdelayedrendertype) {
@@ -1884,11 +1884,11 @@ SoGLRenderActionP::renderSingle(SoNode * node)
           switch (pass) {
           case 0:
             glCullFace(GL_FRONT);
-            this->renderingtranspbackfaces = TRUE;
+            this->renderingtranspbackfaces = true;
             break;
           case 1:
             glCullFace(GL_BACK);
-            this->renderingtranspbackfaces = FALSE;
+            this->renderingtranspbackfaces = false;
             break;
           }
         }
@@ -1901,30 +1901,30 @@ SoGLRenderActionP::renderSingle(SoNode * node)
         switch (pass) {
         case 0:
           glCullFace(GL_FRONT);
-          this->renderingtranspbackfaces = TRUE;
+          this->renderingtranspbackfaces = true;
           break;
         case 1:
           glCullFace(GL_BACK);
-          this->renderingtranspbackfaces = FALSE;
+          this->renderingtranspbackfaces = false;
           break;
         }
       }
       // Render all transparent paths that should not be sorted
-      this->action->apply(this->transpobjpaths, TRUE);
+      this->action->apply(this->transpobjpaths, true);
     }
     // enable writing again. FIXME: consider if it's ok to push/pop state instead
     if (!this->transpobjdepthwrite) {
-      SoDepthBufferElement::set(state, TRUE, TRUE,
+      SoDepthBufferElement::set(state, true, true,
                                 SoDepthBufferElement::LEQUAL,
                                 SbVec2f(0.0f, 1.0f));
     }
-    this->transparencyrender = FALSE;
+    this->transparencyrender = false;
   }
 
   if (this->delayedpaths.getLength() && !this->action->hasTerminated()) {
-    this->delayedpathrender = TRUE;
-    this->action->apply(this->delayedpaths, TRUE);
-    this->delayedpathrender = FALSE;
+    this->delayedpathrender = true;
+    this->action->apply(this->delayedpaths, true);
+    this->delayedpathrender = false;
   }
 
   // truncate lists to unref paths.
@@ -1965,18 +1965,18 @@ SoGLRenderActionP::setupBlending(SoState * state, const SoGLRenderAction::Transp
   \since Coin 3.0
 */
 void
-SoGLRenderAction::setDelayedObjDepthWrite(SbBool write)
+SoGLRenderAction::setDelayedObjDepthWrite(bool write)
 {
   PRIVATE(this)->transpobjdepthwrite = write;
 }
 
 /*!
   Return whether depth buffer updates should be done when rendering
-  delayed or sorted transparent objects. Default is FALSE.
+  delayed or sorted transparent objects. Default is false.
 
   \since Coin 3.0
 */
-SbBool
+bool
 SoGLRenderAction::getDelayedObjDepthWrite(void) const
 {
   return PRIVATE(this)->transpobjdepthwrite;
@@ -1984,24 +1984,24 @@ SoGLRenderAction::getDelayedObjDepthWrite(void) const
 
 /*!
 
-  Returns TRUE if the action is currently rendering delayed or sorted
+  Returns true if the action is currently rendering delayed or sorted
   transparent objects.
 
   \since Coin 3.0
 */
-SbBool
+bool
 SoGLRenderAction::isRenderingTranspPaths(void) const
 {
   return PRIVATE(this)->transparencyrender;
 }
 
 /*!
-  Returns TRUE if the action is currently rendering backfacing polygons
+  Returns true if the action is currently rendering backfacing polygons
   in NONSOLID_SEPARATE_BACKFACE_PASS mode.
 
   \since Coin 3.0
 */
-SbBool
+bool
 SoGLRenderAction::isRenderingTranspBackfaces(void) const
 {
   return PRIVATE(this)->renderingtranspbackfaces;
@@ -2036,7 +2036,7 @@ SoGLRenderActionP::doSortedLayersBlendRendering(const SoState * state, SoNode * 
   const cc_glglue *glue = sogl_glue_instance(state);
   this->initSortedLayersBlendRendering(state);
   this->setupSortedLayersBlendTextures(state);
-  this->sortedlayersblendinitialized = TRUE;
+  this->sortedlayersblendinitialized = true;
 
   glDisable(GL_BLEND);
 
@@ -2066,7 +2066,7 @@ SoGLRenderActionP::doSortedLayersBlendRendering(const SoState * state, SoNode * 
 }
 
 void
-SoGLRenderActionP::texgenEnable(SbBool enable)
+SoGLRenderActionP::texgenEnable(bool enable)
 {
     if (enable) {
         glEnable(GL_TEXTURE_GEN_S);
@@ -2106,7 +2106,7 @@ SoGLRenderActionP::eyeLinearTexgen()
 
 void
 SoGLRenderActionP::renderOneBlendLayer(const SoState * state,
-                                       SbBool peel, SbBool updatedepthtexture, SoNode * node)
+                                       bool peel, bool updatedepthtexture, SoNode * node)
 {
 
   const cc_glglue * glue = sogl_glue_instance(state);
@@ -2143,7 +2143,7 @@ SoGLRenderActionP::renderOneBlendLayer(const SoState * state,
 
       cc_glglue_glActiveTexture(glue, GL_TEXTURE3);
       glDisable(GL_TEXTURE_RECTANGLE_EXT);
-      this->texgenEnable(FALSE);
+      this->texgenEnable(false);
 
       glMatrixMode(GL_TEXTURE);
       glLoadIdentity();
@@ -2157,7 +2157,7 @@ SoGLRenderActionP::renderOneBlendLayer(const SoState * state,
       // Regular NViDIA register combiner clean-up
       cc_glglue_glActiveTexture(glue, GL_TEXTURE3);
       glDisable(GL_TEXTURE_RECTANGLE_EXT);
-      this->texgenEnable(FALSE);
+      this->texgenEnable(false);
 
       glMatrixMode(GL_TEXTURE);
       glLoadIdentity();
@@ -2209,7 +2209,7 @@ SoGLRenderActionP::initSortedLayersBlendRendering(const SoState * state)
 
   const char * envusenvidiarc = coin_getenv("COIN_SORTED_LAYERS_USE_NVIDIA_RC");
   if (envusenvidiarc && (atoi(envusenvidiarc) > 0))
-    this->usenvidiaregistercombiners = TRUE;
+    this->usenvidiaregistercombiners = true;
 
   this->rgbatextureids.reset(new GLuint[this->sortedlayersblendpasses]);
 
@@ -2267,7 +2267,7 @@ SoGLRenderActionP::setupFragmentProgram()
   glLoadIdentity();
   this->eyeLinearTexgen();
   glPopMatrix();
-  this->texgenEnable(TRUE);
+  this->texgenEnable(true);
 
   glMatrixMode(GL_TEXTURE);
   glLoadIdentity();
@@ -2311,7 +2311,7 @@ SoGLRenderActionP::setupRegisterCombinersNV()
   glPushMatrix();
   glLoadIdentity();
   this->eyeLinearTexgen();
-  this->texgenEnable(TRUE);
+  this->texgenEnable(true);
   glPopMatrix();
 
   glMatrixMode(GL_TEXTURE);
@@ -2330,7 +2330,7 @@ SoGLRenderActionP::setupRegisterCombinersNV()
   glPushMatrix();
   glLoadIdentity();
   this->eyeLinearTexgen();
-  this->texgenEnable(TRUE);
+  this->texgenEnable(true);
   glPopMatrix();
 
   glMatrixMode(GL_TEXTURE);
@@ -2356,7 +2356,7 @@ SoGLRenderActionP::setupRegisterCombinersNV()
     glLoadIdentity();
     this->eyeLinearTexgen();
     glPopMatrix();
-    this->texgenEnable(TRUE);
+    this->texgenEnable(true);
 
     glMatrixMode(GL_TEXTURE);
     glLoadIdentity();
@@ -2527,8 +2527,8 @@ SoGLRenderActionP::renderSortedLayersFP(const SoState * state)
   glDisable(GL_DEPTH_TEST);
   glClear(GL_COLOR_BUFFER_BIT);
 
-  SbBool cullface = glIsEnabled(GL_CULL_FACE);
-  SbBool lighting = glIsEnabled(GL_LIGHTING);
+  bool cullface = glIsEnabled(GL_CULL_FACE);
+  bool lighting = glIsEnabled(GL_LIGHTING);
 
   glDisable(GL_CULL_FACE);
   glDisable(GL_FRAGMENT_PROGRAM_ARB);
@@ -2588,7 +2588,7 @@ SoGLRenderActionP::renderSortedLayersNV(const SoState * state)
 
   // Must make sure that the GL_CULL_FACE state is preserved if the scene
   // contains both solid and non-solid shapes.
-  SbBool cullface = glIsEnabled(GL_CULL_FACE);
+  bool cullface = glIsEnabled(GL_CULL_FACE);
   glDisable(GL_CULL_FACE);
 
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

@@ -36,7 +36,7 @@
     Blinker {
         whichChild -1
         speed 1
-        on TRUE
+        on true
     }
   \endcode
 */
@@ -87,7 +87,7 @@ public:
 
     // if sensor/blinker isn't enabled, we need to manually set the whichChild field
     if (!thisp->counter->on.getValue()) {
-      SbBool old = thisp->master->whichChild.enableNotify(FALSE);
+      bool old = thisp->master->whichChild.enableNotify(false);
       thisp->master->whichChild = thisp->whichvalue;
       thisp->master->whichChild.enableNotify(old);
     }
@@ -129,9 +129,9 @@ SoBlinker::SoBlinker(void)
   SO_NODE_INTERNAL_CONSTRUCTOR(SoBlinker);
 
   SO_NODE_ADD_FIELD(speed, (1));
-  SO_NODE_ADD_FIELD(on, (TRUE));
+  SO_NODE_ADD_FIELD(on, (true));
   
-  this->whichChild.connectFrom(&PRIVATE(this)->counter->output, TRUE);
+  this->whichChild.connectFrom(&PRIVATE(this)->counter->output, true);
 }
 
 /*!
@@ -193,8 +193,8 @@ SoBlinker::notify(SoNotList * nl)
     // children to be added before the reset is actually done)
 
     // disable connection while reading whichChild to get the actual value set
-    SbBool old = this->whichChild.isConnectionEnabled();
-    this->whichChild.enableConnection(FALSE);
+    bool old = this->whichChild.isConnectionEnabled();
+    this->whichChild.enableConnection(false);
     PRIVATE(this)->whichvalue = this->whichChild.getValue();
     this->whichChild.enableConnection(old);
     PRIVATE(this)->whichChildSensor->schedule();
@@ -205,7 +205,7 @@ SoBlinker::notify(SoNotList * nl)
 
   if (PRIVATE(this)->counter->max.getValue() != lastchildidx) {
     // Wrap to avoid recursive invocation.
-    PRIVATE(this)->counter->enableNotify(FALSE);
+    PRIVATE(this)->counter->enableNotify(false);
 
     // Note that if we have one child, the counting should go from -1
     // to 0 (so the child is toggled on and off).
@@ -216,9 +216,9 @@ SoBlinker::notify(SoNotList * nl)
     // case whichChild was at the end.
     if (lastchildidx < this->whichChild.getValue()) {
       PRIVATE(this)->counter->reset.setValue(lastchildidx);
-      this->whichChild.setDirty(TRUE); // Force evaluate() on the field.
+      this->whichChild.setDirty(true); // Force evaluate() on the field.
     }
-    PRIVATE(this)->counter->enableNotify(TRUE);
+    PRIVATE(this)->counter->enableNotify(true);
   }
   
   inherited::notify(nl);
@@ -234,7 +234,7 @@ SoBlinker::notify(SoNotList * nl)
 
 // Overridden to decouple and reconnect engine around copy operation.
 SoNode *
-SoBlinker::copy(SbBool copyconnections) const
+SoBlinker::copy(bool copyconnections) const
 {
   // Decouple connections to/from internal engine to avoid it being
   // copied.
@@ -263,7 +263,7 @@ SoBlinker::deconnectInternalEngine(void)
   this->whichChild.disconnect(&PRIVATE(this)->counter->output);
 
   PRIVATE(this)->counter->on.disconnect(&this->on);
-  PRIVATE(this)->counter->on = FALSE;
+  PRIVATE(this)->counter->on = false;
   PRIVATE(this)->counter->frequency.disconnect(&this->speed);
 }
 
@@ -275,7 +275,7 @@ SoBlinker::reconnectInternalEngine(void)
   PRIVATE(this)->counter->frequency.connectFrom(&this->speed);
   PRIVATE(this)->counter->on.connectFrom(&this->on);
 
-  this->whichChild.connectFrom(&PRIVATE(this)->counter->output, TRUE);
+  this->whichChild.connectFrom(&PRIVATE(this)->counter->output, true);
 }
 
 #undef PRIVATE

@@ -45,21 +45,21 @@ public:
 
   static void set(SoState * const state, SoCache * const cache);
   SoCache * getCache(void) const;
-  static SbBool anyOpen(SoState * const state);
+  static bool anyOpen(SoState * const state);
   static void invalidate(SoState * const state);
-  virtual SbBool matches(const SoElement * element) const;
+  virtual bool matches(const SoElement * element) const;
   virtual SoElement * copyMatchInfo(void) const;
   SoCacheElement * getNextCacheElement(void) const;
 
   static void addElement(SoState * const state,
                          const SoElement * const element);
   static void addCacheDependency(SoState * const state, SoCache * const cache);
-  static SbBool setInvalid(const SbBool newvalue);
+  static bool setInvalid(const bool newvalue);
   static SoCache * getCurrentCache(SoState * const state);
 
 private:
   SoCache * cache;
-  static SbBool invalidated;
+  static bool invalidated;
 };
 
 #endif // !COIN_SOCACHEELEMENT_H

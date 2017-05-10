@@ -53,7 +53,7 @@ protected:
   SoVRMLVertexLine(void);
   virtual ~SoVRMLVertexLine();
 
-  virtual SbBool shouldGLRender(SoGLRenderAction * action);
+  virtual bool shouldGLRender(SoGLRenderAction * action);
 
 }; // class SoVRMLVertexLine
 

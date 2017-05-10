@@ -55,7 +55,7 @@ public:
   };
 
   typedef SoCallbackAction::Response SoIntersectionVisitationCB(void * closure, const SoPath * where);
-  typedef SbBool SoIntersectionFilterCB(void * closure, const SoPath * p1, const SoPath * p2);
+  typedef bool SoIntersectionFilterCB(void * closure, const SoPath * p1, const SoPath * p2);
   typedef Resp SoIntersectionCB(void * closure, const SoIntersectingPrimitive * p1, const SoIntersectingPrimitive * p2);
 
   void setIntersectionDetectionEpsilon(float epsilon);
@@ -64,24 +64,24 @@ public:
   static void setIntersectionEpsilon(float epsilon);
   static float getIntersectionEpsilon(void);
 
-  void setTypeEnabled(SoType type, SbBool enable);
-  SbBool isTypeEnabled(SoType type, SbBool checkgroups = FALSE) const;
+  void setTypeEnabled(SoType type, bool enable);
+  bool isTypeEnabled(SoType type, bool checkgroups = false) const;
 
-  void setManipsEnabled(SbBool enable);
-  SbBool isManipsEnabled(void) const;
+  void setManipsEnabled(bool enable);
+  bool isManipsEnabled(void) const;
 
-  void setDraggersEnabled(SbBool enable);
-  SbBool isDraggersEnabled(void) const;
+  void setDraggersEnabled(bool enable);
+  bool isDraggersEnabled(void) const;
 
-  void setShapeInternalsEnabled(SbBool enable);
-  SbBool isShapeInternalsEnabled(void) const;
+  void setShapeInternalsEnabled(bool enable);
+  bool isShapeInternalsEnabled(void) const;
 
   void addVisitationCallback(SoType type, SoIntersectionVisitationCB * cb, void * closure);
   void removeVisitationCallback(SoType type, SoIntersectionVisitationCB * cb, void * closure);
 
   virtual void apply(SoNode * node);
   virtual void apply(SoPath * path);
-  virtual void apply(const SoPathList & paths, SbBool obeysRules = FALSE);
+  virtual void apply(const SoPathList & paths, bool obeysRules = false);
 
   virtual void setFilterCallback(SoIntersectionFilterCB * cb, void * closure = NULL);
   virtual void addIntersectionCallback(SoIntersectionCB * cb, void * closure  = NULL);

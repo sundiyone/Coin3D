@@ -38,7 +38,7 @@ const char * coin_get_openal_error(int errcode);
 int coin_debug_audio(void);
 
 void coin_sound_enable_traverse(void);
-SbBool coin_sound_should_traverse(void);
+bool coin_sound_should_traverse(void);
 
 // *************************************************************************
 

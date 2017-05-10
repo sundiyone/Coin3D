@@ -33,10 +33,10 @@ class COIN_DLL_API SbCylinderSectionProjector : public SbCylinderProjector {
 
 public:
   SbCylinderSectionProjector(const float edgetol = 0.9f,
-                             const SbBool orienttoeye = TRUE);
+                             const bool orienttoeye = true);
   SbCylinderSectionProjector(const SbCylinder & cyl,
                              const float edgetol = 0.9f,
-                             const SbBool orienttoeye = TRUE);
+                             const bool orienttoeye = true);
 
   virtual SbProjector * copy(void) const;
   virtual SbVec3f project(const SbVec2f & point);
@@ -44,7 +44,7 @@ public:
                                  const SbVec3f & point2);
   void setTolerance(const float edgetol);
   float getTolerance(void) const;
-  SbBool isWithinTolerance(const SbVec3f & point);
+  bool isWithinTolerance(const SbVec3f & point);
 
 protected:
   virtual void setupTolerance(void);

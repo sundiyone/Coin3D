@@ -93,9 +93,9 @@ SoVRMLInterpolator::SoVRMLInterpolator(void) // protected
   // never set, we'll attempt to read an unitialized value when the
   // interpolator is destructed (all engines evaluates when
   // destructed)
-  this->set_fraction.enableNotify(FALSE);
+  this->set_fraction.enableNotify(false);
   this->set_fraction = 0.0f;
-  this->set_fraction.enableNotify(TRUE);
+  this->set_fraction.enableNotify(true);
   
   SO_VRMLNODE_ADD_EMPTY_EXPOSED_MFIELD(key);
 }

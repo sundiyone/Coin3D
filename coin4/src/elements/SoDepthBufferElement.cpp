@@ -62,8 +62,8 @@ void
 SoDepthBufferElement::init(SoState * state)
 {
   inherited::init(state);
-  this->test = TRUE;
-  this->write = TRUE;
+  this->test = true;
+  this->write = true;
   this->function = LEQUAL;
   this->range.setValue(0.0f, 1.0f);
 }
@@ -99,8 +99,8 @@ SoDepthBufferElement::pop(SoState * COIN_UNUSED_ARG(state),
 */
 void
 SoDepthBufferElement::set(SoState * state,
-                          SbBool test,
-                          SbBool write,
+                          bool test,
+                          bool write,
                           DepthWriteFunction function,
                           SbVec2f range)
 {
@@ -115,8 +115,8 @@ SoDepthBufferElement::set(SoState * state,
 */
 void
 SoDepthBufferElement::get(SoState * state,
-                          SbBool & test_out,
-                          SbBool & write_out,
+                          bool & test_out,
+                          bool & write_out,
                           DepthWriteFunction & function_out,
                           SbVec2f & range_out)
 {
@@ -131,7 +131,7 @@ SoDepthBufferElement::get(SoState * state,
 /*!
   Returns the depth test enabled state.
 */
-SbBool
+bool
 SoDepthBufferElement::getTestEnable(SoState * state)
 {
   const SoDepthBufferElement * elem =
@@ -142,7 +142,7 @@ SoDepthBufferElement::getTestEnable(SoState * state)
 /*!
   Returns the depth buffer write enabled state.
 */
-SbBool
+bool
 SoDepthBufferElement::getWriteEnable(SoState * state)
 {
   const SoDepthBufferElement * elem =
@@ -175,7 +175,7 @@ SoDepthBufferElement::getRange(SoState * state)
 /*!
   Internal Coin method.
 */
-SbBool
+bool
 SoDepthBufferElement::matches(const SoElement * element) const
 {
   const SoDepthBufferElement * elem =
@@ -206,7 +206,7 @@ SoDepthBufferElement::copyMatchInfo(void) const
   Virtual method to set the state to get derived elements updated.
 */
 void
-SoDepthBufferElement::setElt(SbBool test, SbBool write, DepthWriteFunction function, SbVec2f range)
+SoDepthBufferElement::setElt(bool test, bool write, DepthWriteFunction function, SbVec2f range)
 {
   this->test = test;
   this->write = write;

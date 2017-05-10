@@ -41,7 +41,7 @@ public:
 
   SoMFNode children;
 
-  virtual SbBool affectsState(void) const;
+  virtual bool affectsState(void) const;
   virtual void addChild(SoNode * child);
   virtual void insertChild(SoNode * child, int idx);
   virtual SoNode * getChild(int idx) const;
@@ -73,8 +73,8 @@ protected:
   SoMFNode removeChildren;
 
   virtual void notify(SoNotList * list);
-  virtual SbBool readInstance(SoInput * in, unsigned short flags);
-  virtual void copyContents(const SoFieldContainer * from, SbBool copyConn);
+  virtual bool readInstance(SoInput * in, unsigned short flags);
+  virtual void copyContents(const SoFieldContainer * from, bool copyConn);
 
 private:
   static void field_sensor_cb(void * data, SoSensor * sensor);

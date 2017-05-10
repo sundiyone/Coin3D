@@ -38,14 +38,14 @@ public:
   static void initClass(void);
 
   virtual void search(SoSearchAction * action);
-  virtual void copyContents(const SoFieldContainer * from, SbBool copyConn);
+  virtual void copyContents(const SoFieldContainer * from, bool copyConn);
 
 protected:
   SoVRMLGeometry(void);
   virtual ~SoVRMLGeometry();
 
-  void setupShapeHints(SoState * state, const SbBool ccw, const SbBool solid);
-  virtual SbBool shouldGLRender(SoGLRenderAction * action);
+  void setupShapeHints(SoState * state, const bool ccw, const bool solid);
+  virtual bool shouldGLRender(SoGLRenderAction * action);
   virtual SoChildList * getChildren(void) const;
   virtual void notify(SoNotList * list);
 

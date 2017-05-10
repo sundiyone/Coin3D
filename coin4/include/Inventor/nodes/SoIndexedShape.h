@@ -50,15 +50,15 @@ protected:
   virtual void computeBBox(SoAction * action, SbBox3f & box, SbVec3f & center);
   int getNumVerts(const int startCoord);
   void setupIndices(const int numParts, const int numFaces,
-                    const SbBool needNormals, const SbBool needTexCoords);
+                    const bool needNormals, const bool needTexCoords);
 
   const int32_t * getNormalIndices(void);
   const int32_t * getColorIndices(void);
   const int32_t * getTexCoordIndices(void);
 
-  static SbBool areTexCoordsIndexed(SoAction * action);
+  static bool areTexCoordsIndexed(SoAction * action);
 
-  SbBool getVertexData(SoState * state,
+  bool getVertexData(SoState * state,
                        const SoCoordinateElement *& coords,
                        const SbVec3f *& normals,
                        const int32_t *& cindices,
@@ -66,8 +66,8 @@ protected:
                        const int32_t *& tindices,
                        const int32_t *& mindices,
                        int & numcindices,
-                       const SbBool needNormals,
-                       SbBool & normalCacheUsed);
+                       const bool needNormals,
+                       bool & normalCacheUsed);
 };
 
 #endif // !COIN_SOINDEXEDSHAPE_H

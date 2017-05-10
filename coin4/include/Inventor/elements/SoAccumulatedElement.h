@@ -37,7 +37,7 @@ protected:
   virtual ~SoAccumulatedElement();
 
 public:
-  virtual SbBool matches(const SoElement * element) const;
+  virtual bool matches(const SoElement * element) const;
 
 protected:
   virtual void init(SoState * state);
@@ -53,7 +53,7 @@ protected:
   SbList <uint32_t> nodeIds;
 
 private:
-  SbBool recursecapture;
+  bool recursecapture;
 };
 
 #endif // !COIN_SOACCUMULATEDELEMENT_H

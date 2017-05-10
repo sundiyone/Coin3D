@@ -61,14 +61,14 @@ struct cc_rbptree_node {
 };
 
 static cc_rbptree_node rbptree_sentinel;
-static SbBool rbptree_isinitialized = FALSE;
+static bool rbptree_isinitialized = false;
 
 extern "C" {
 
 static void
 rbptree_atexit_cleanup(void)
 {
-  rbptree_isinitialized = FALSE;
+  rbptree_isinitialized = false;
 }
 
 }  // extern "C"
@@ -358,7 +358,7 @@ cc_rbptree_init(cc_rbptree * t)
     rbptree_sentinel.parent = NULL;
     rbptree_sentinel.pointer = NULL;
     rbptree_sentinel.color = RBPTREE_BLACK;
-    rbptree_isinitialized = TRUE;
+    rbptree_isinitialized = true;
     coin_atexit(static_cast<coin_atexit_f*>(rbptree_atexit_cleanup), CC_ATEXIT_NORMAL);
   }
   CC_GLOBAL_UNLOCK;
@@ -518,33 +518,33 @@ rbptree_remove_inline(cc_rbptree * t, const int idx)
 }
 
 /*!
- * Remove the (first) node with value \a p. Returns \e TRUE if \a p
- * is found and removed, \e FALSE otherwise.
+ * Remove the (first) node with value \a p. Returns \e true if \a p
+ * is found and removed, \e false otherwise.
  */
-SbBool
+bool
 cc_rbptree_remove(cc_rbptree * t, void * p)
 {
   cc_rbptree_node *z, * nil;
   nil = &rbptree_sentinel;
 
-  if (t->counter == 0) return FALSE;
+  if (t->counter == 0) return false;
   if (t->inlinepointer[0] == p) {
     rbptree_remove_inline(t, 0);
-    return TRUE;
+    return true;
   }
   if (t->counter > 1 && t->inlinepointer[1] == p) {
     rbptree_remove_inline(t, 1);
-    return TRUE;
+    return true;
   }
 
   z = rbptree_find(t, p);
   if (z == nil) {
-    return FALSE;
+    return false;
   }
   assert(z->pointer == static_cast<char *>(p));
   /* remove node from tree */
   rbptree_remove_node(t, z);
-  return TRUE;
+  return true;
 }
 
 /*!

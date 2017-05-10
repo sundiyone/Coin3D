@@ -199,7 +199,7 @@ so_nurbsprofile_cleanup(void)
 }
 
 static SbList <float> *
-so_nurbsprofile_get_coordlist(const SbBool tmplist)
+so_nurbsprofile_get_coordlist(const bool tmplist)
 {
   so_nurbsprofile_data * data = NULL;
   data = (so_nurbsprofile_data*) so_nurbsprofile_storage->get();
@@ -261,7 +261,7 @@ SoNurbsProfile::getTrimCurve(SoState * state, int32_t & numpoints,
                              int32_t & numknots, float *& knotvector)
 {
   SbList <float> * coordListNurbsProfile =
-    so_nurbsprofile_get_coordlist(FALSE);
+    so_nurbsprofile_get_coordlist(false);
 
   numknots = this->knotVector.getNum();
   if (numknots) knotvector = (float *)(this->knotVector.getValues(0));
@@ -329,7 +329,7 @@ static void APIENTRY
 nurbsprofile_tess_vertex(float * vertex)
 {
   SbList <float> * coordListNurbsProfile =
-    so_nurbsprofile_get_coordlist(FALSE);
+    so_nurbsprofile_get_coordlist(false);
 
   coordListNurbsProfile->append(vertex[0]);
   coordListNurbsProfile->append(vertex[1]);
@@ -355,10 +355,10 @@ SoNurbsProfile::getVertices(SoState * state, int32_t & numvertices,
   }
 
   SbList <float> * coordListNurbsProfile =
-    so_nurbsprofile_get_coordlist(FALSE);
+    so_nurbsprofile_get_coordlist(false);
 
   SbList <float> * nurbsProfileTempList =
-    so_nurbsprofile_get_coordlist(TRUE);
+    so_nurbsprofile_get_coordlist(true);
 
   nurbsProfileTempList->truncate(0);
   for (int i = 0; i < numpoints; i++) {
@@ -379,7 +379,7 @@ SoNurbsProfile::getVertices(SoState * state, int32_t & numvertices,
       GLUWrapper()->gluNurbsCallback(this->nurbsrenderer, (GLenum) GLU_NURBS_VERTEX,
                                      (gluNurbsCallback_cb_t)nurbsprofile_tess_vertex);
       GLUWrapper()->gluNurbsProperty(this->nurbsrenderer, (GLenum) GLU_NURBS_MODE, GLU_NURBS_TESSELLATOR);
-      GLUWrapper()->gluNurbsProperty(this->nurbsrenderer, (GLenum) GLU_AUTO_LOAD_MATRIX, FALSE);
+      GLUWrapper()->gluNurbsProperty(this->nurbsrenderer, (GLenum) GLU_AUTO_LOAD_MATRIX, false);
       GLUWrapper()->gluNurbsProperty(this->nurbsrenderer, (GLenum) GLU_DISPLAY_MODE, GLU_POINT);
       GLUWrapper()->gluNurbsProperty(this->nurbsrenderer, (GLenum) GLU_SAMPLING_METHOD, GLU_DOMAIN_DISTANCE);
     }

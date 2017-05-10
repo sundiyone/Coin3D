@@ -493,11 +493,11 @@ SbDPViewVolume::getPlanePoint(const double distFromEye,
   Returns a rotation that aligns an object so that its positive x-axis
   is to the right and its positive y-axis is up in the view volume.
   
-  If rightangleonly is TRUE, it will create a rotation that aligns the
+  If rightangleonly is true, it will create a rotation that aligns the
   x and y-axis with the closest orthogonal axes to right and up.
 */
 SbDPRotation
-SbDPViewVolume::getAlignRotation(SbBool rightangleonly) const
+SbDPViewVolume::getAlignRotation(bool rightangleonly) const
 {
   SbVec3d x,y,z;
   if (rightangleonly) {
@@ -586,8 +586,8 @@ SbDPViewVolume::getWorldToScreenScale(const SbVec3d& worldCenter,
 
     // Find tangent point of sphere.
     SbVec3f tangentpt;
-    SbBool result = p.intersect(tl, tangentpt);
-    assert(result != FALSE);
+    bool result = p.intersect(tl, tangentpt);
+    assert(result != false);
 
     // Return radius (which is equal to the scale factor, since we're
     // dealing with a unit sphere).

@@ -58,11 +58,11 @@
 
 static void * flw_global_lock = NULL;
 static int flw_global_font_index = 0;
-static SbBool initialized = FALSE;
-static SbBool tried_init_freetype_fontlib = FALSE;
-static SbBool tried_init_win32_fontlib = FALSE;
-static SbBool fontlib_freetype_available = FALSE;
-static SbBool fontlib_win32_available = FALSE;
+static bool initialized = false;
+static bool tried_init_freetype_fontlib = false;
+static bool tried_init_win32_fontlib = false;
+static bool fontlib_freetype_available = false;
+static bool fontlib_win32_available = false;
 
 
 /* Debug: enable this in case code hangs waiting for a lock.  A hang
@@ -104,7 +104,7 @@ static SbBool fontlib_win32_available = FALSE;
 struct cc_flw_glyph {
   unsigned int nativeglyphidx;
   unsigned int character;
-  SbBool fromdefaultfont;
+  bool fromdefaultfont;
 
   /* FIXME: these should have their own "fromdefaultfont" flags, since
      they may both be, even though the glyph was set up in FreeType or
@@ -121,7 +121,7 @@ struct cc_flw_font {
   unsigned int sizey;
   float angle;
   float complexity;
-  SbBool defaultfont;
+  bool defaultfont;
   int fontindex;
   int refcount;
 };
@@ -143,7 +143,7 @@ dump_cc_flw_font(const char * srcfunc, struct cc_flw_font * f)
                          cc_string_get_text(f->requestname),
                          f->glyphdict, f->sizey, f->angle,
                          f->complexity,
-                         f->defaultfont ? "TRUE" : "FALSE",
+                         f->defaultfont ? "true" : "false",
                          f->fontindex, f->refcount);
 }
 
@@ -154,7 +154,7 @@ dump_cc_flw_glyph(const char * srcfunc, struct cc_flw_glyph * g)
                          "nativeglyphidx==%u, bitmap==%p, vector==%p, "
                          "fromdefaultfont==%s, character=='%c'",
                          g->nativeglyphidx, g->bitmap, g->vector,
-                         g->fromdefaultfont ? "TRUE" : "FALSE",
+                         g->fromdefaultfont ? "true" : "false",
                          g->character);
 }
 
@@ -162,16 +162,16 @@ dump_cc_flw_glyph(const char * srcfunc, struct cc_flw_glyph * g)
 
 static void freetype_cleanup(void) { cc_flwft_exit(); }
 
-static SbBool
+static bool
 using_freetype(void)
 {
   if (!tried_init_freetype_fontlib) {
     const char * env;
 
-    tried_init_freetype_fontlib = TRUE;
+    tried_init_freetype_fontlib = true;
 
     env = coin_getenv("COIN_FORCE_FREETYPE_OFF");
-    fontlib_freetype_available = (env && (atoi(env) > 0)) ? FALSE : TRUE;
+    fontlib_freetype_available = (env && (atoi(env) > 0)) ? false : true;
     fontlib_freetype_available = fontlib_freetype_available && cc_flwft_initialize();
     if (cc_font_debug()) {
       cc_debugerror_postinfo("using_freetype",
@@ -192,16 +192,16 @@ using_freetype(void)
 
 static void win32api_cleanup(void) { cc_flww32_exit(); }
 
-static SbBool
+static bool
 using_win32api(void)
 {
   if (!tried_init_win32_fontlib) {
     const char * env;
 
-    tried_init_win32_fontlib = TRUE;
+    tried_init_win32_fontlib = true;
 
     env = coin_getenv("COIN_FORCE_WIN32FONTS_OFF");
-    fontlib_win32_available = (env && (atoi(env) > 0)) ? FALSE : TRUE;
+    fontlib_win32_available = (env && (atoi(env) > 0)) ? false : true;
     fontlib_win32_available = fontlib_win32_available && cc_flww32_initialize();
     if (cc_font_debug()) {
       cc_debugerror_postinfo("cc_flw_initialize",
@@ -225,7 +225,7 @@ using_win32api(void)
                                "over Win32 API");
       }
       cc_flww32_exit();
-      fontlib_win32_available = FALSE;
+      fontlib_win32_available = false;
     }
 
     if (fontlib_win32_available) {
@@ -370,7 +370,7 @@ flw_exit(void)
             cc_string_get_text(fs->requestname),
             fs->glyphdict, fs->sizey, fs->angle,
             fs->complexity,
-            fs->defaultfont ? "TRUE" : "FALSE",
+            fs->defaultfont ? "true" : "false",
             fs->fontindex, fs->refcount);
 #endif /* COIN_DEBUG */
 
@@ -380,10 +380,10 @@ flw_exit(void)
   cc_dynarray_destruct(fontarray);
 
   fontarray = NULL;
-  initialized = FALSE;
+  initialized = false;
 
-  tried_init_freetype_fontlib = tried_init_win32_fontlib = FALSE;
-  fontlib_freetype_available = fontlib_win32_available = FALSE;
+  tried_init_freetype_fontlib = tried_init_win32_fontlib = false;
+  fontlib_freetype_available = fontlib_win32_available = false;
 
   CC_MUTEX_DESTRUCT(flw_global_lock);
   flw_global_font_index = 0;
@@ -400,7 +400,7 @@ flw_initialize(void)
     FLW_MUTEX_UNLOCK(flw_global_lock);
     return;
   }
-  initialized = TRUE;
+  initialized = true;
 
   fontarray = cc_dynarray_new();
 
@@ -555,7 +555,7 @@ cc_flw_get_font_id(const char * fontname, unsigned int sizey,
 
   fs = (struct cc_flw_font *)malloc(sizeof(struct cc_flw_font));
   fs->nativefonthandle = font;
-  fs->defaultfont = font ? FALSE : TRUE;
+  fs->defaultfont = font ? false : true;
   fs->complexity = complexity;
   fs->glyphdict = cc_dict_construct(256, 0.7f);
   fs->fontindex = flw_global_font_index++;
@@ -580,7 +580,7 @@ cc_flw_get_font_id(const char * fontname, unsigned int sizey,
       cc_flwft_get_font_name(font, &realname);
     }
     else {
-      assert(FALSE && "incomplete code path");
+      assert(false && "incomplete code path");
     }
 
     cc_string_set_text(fs->fontname, cc_string_get_text(&realname));
@@ -635,7 +635,7 @@ cc_flw_get_glyph(int font, unsigned int character)
     /* These will be changed below if the glyph is found in a
        non-default font: */
     gs->nativeglyphidx = character;
-    gs->fromdefaultfont = TRUE;
+    gs->fromdefaultfont = true;
 
     if (!cc_dict_put(fs->glyphdict, character, gs)) {
       assert(0 && "glyph already exists");
@@ -647,7 +647,7 @@ cc_flw_get_glyph(int font, unsigned int character)
 
       if (glyph > 0) {
         gs->nativeglyphidx = glyph;
-        gs->fromdefaultfont = FALSE;
+        gs->fromdefaultfont = false;
       }
       else {
         /* Create glyph from default font, mark as default. */
@@ -912,13 +912,13 @@ cc_flw_get_vector_glyph(int font, unsigned int glyph)
       vector_glyph = cc_flwft_get_vector_glyph(fs->nativefonthandle,
                                                gs->nativeglyphidx,
                                                fs->complexity);
-      if (!vector_glyph) { gs->fromdefaultfont = TRUE; }
+      if (!vector_glyph) { gs->fromdefaultfont = true; }
     }
     else if (using_win32api()) {
       vector_glyph = cc_flww32_get_vector_glyph(fs->nativefonthandle,
                                                 gs->nativeglyphidx,
                                                 fs->complexity);
-      if (!vector_glyph) { gs->fromdefaultfont = TRUE; }
+      if (!vector_glyph) { gs->fromdefaultfont = true; }
     }
 
     gs->vector = vector_glyph;

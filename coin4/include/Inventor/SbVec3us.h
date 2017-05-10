@@ -56,64 +56,64 @@ public:
   const unsigned short * getValue(void) const { return vec; }
   void getValue(unsigned short & x, unsigned short & y, unsigned short & z) const { x = vec[0]; y = vec[1]; z = vec[2]; }
 
-  unsigned short & operator [] (int i) { return vec[i]; }
-  const unsigned short & operator [] (int i) const { return vec[i]; }
+  unsigned short & operator[](int i) { return vec[i]; }
+  const unsigned short & operator[](int i) const { return vec[i]; }
 
   int32_t dot(const SbVec3us & v) const { return vec[0] * v[0] + vec[1] * v[1] + vec[2] * v[2]; }
   void negate(void);
 
-  SbVec3us & operator *= (int d) { vec[0] *= d; vec[1] *= d; vec[2] *= d; return *this; }
-  SbVec3us & operator *= (double d);
-  SbVec3us & operator /= (int d) { SbDividerChk("SbVec3us::operator/=(int)", d); vec[0] /= d; vec[1] /= d; vec[2] /= d; return *this; }
-  SbVec3us & operator /= (double d) { SbDividerChk("SbVec3us::operator/=(double)", d); return operator *= (1.0 / d); }
-  SbVec3us & operator += (const SbVec3us & v) { vec[0] += v[0]; vec[1] += v[1]; vec[2] += v[2]; return *this; }
-  SbVec3us & operator -= (const SbVec3us & v) { vec[0] -= v[0]; vec[1] -= v[1]; vec[2] -= v[2]; return *this; }
-  SbVec3us operator - (void) const { SbVec3us v(*this); v.negate(); return v; }
+  SbVec3us & operator*=(int d) { vec[0] *= d; vec[1] *= d; vec[2] *= d; return *this; }
+  SbVec3us & operator*=(double d);
+  SbVec3us & operator/=(int d) { SbDividerChk("SbVec3us::operator/=(int)", d); vec[0] /= d; vec[1] /= d; vec[2] /= d; return *this; }
+  SbVec3us & operator/=(double d) { SbDividerChk("SbVec3us::operator/=(double)", d); return operator*=(1.0 / d); }
+  SbVec3us & operator+=(const SbVec3us & v) { vec[0] += v[0]; vec[1] += v[1]; vec[2] += v[2]; return *this; }
+  SbVec3us & operator-=(const SbVec3us & v) { vec[0] -= v[0]; vec[1] -= v[1]; vec[2] -= v[2]; return *this; }
+  SbVec3us operator-(void) const { SbVec3us v(*this); v.negate(); return v; }
 
 protected:
   unsigned short vec[3];
 
 }; // SbVec3us
 
-COIN_DLL_API inline SbVec3us operator * (const SbVec3us & v, int d) {
+COIN_DLL_API inline SbVec3us operator*(const SbVec3us & v, int d) {
   SbVec3us val(v); val *= d; return val;
 }
 
-COIN_DLL_API inline SbVec3us operator * (const SbVec3us & v, double d) {
+COIN_DLL_API inline SbVec3us operator*(const SbVec3us & v, double d) {
   SbVec3us val(v); val *= d; return val;
 }
 
-COIN_DLL_API inline SbVec3us operator * (int d, const SbVec3us & v) {
+COIN_DLL_API inline SbVec3us operator*(int d, const SbVec3us & v) {
   SbVec3us val(v); val *= d; return val;
 }
 
-COIN_DLL_API inline SbVec3us operator * (double d, const SbVec3us & v) {
+COIN_DLL_API inline SbVec3us operator*(double d, const SbVec3us & v) {
   SbVec3us val(v); val *= d; return val;
 }
 
-COIN_DLL_API inline SbVec3us operator / (const SbVec3us & v, int d) {
+COIN_DLL_API inline SbVec3us operator/(const SbVec3us & v, int d) {
   SbDividerChk("operator/(SbVec3us,int)", d);
   SbVec3us val(v); val /= d; return val;
 }
 
-COIN_DLL_API inline SbVec3us operator / (const SbVec3us & v, double d) {
+COIN_DLL_API inline SbVec3us operator/(const SbVec3us & v, double d) {
   SbDividerChk("operator/(SbVec3us,double)", d);
   SbVec3us val(v); val /= d; return val;
 }
 
-COIN_DLL_API inline SbVec3us operator + (const SbVec3us & v1, const SbVec3us & v2) {
+COIN_DLL_API inline SbVec3us operator+(const SbVec3us & v1, const SbVec3us & v2) {
   SbVec3us v(v1); v += v2; return v;
 }
 
-COIN_DLL_API inline SbVec3us operator - (const SbVec3us & v1, const SbVec3us & v2) {
+COIN_DLL_API inline SbVec3us operator-(const SbVec3us & v1, const SbVec3us & v2) {
   SbVec3us v(v1); v -= v2; return v;
 }
 
-COIN_DLL_API inline int operator == (const SbVec3us & v1, const SbVec3us & v2) {
+COIN_DLL_API inline bool operator==(const SbVec3us & v1, const SbVec3us & v2) {
   return ((v1[0] == v2[0]) && (v1[1] == v2[1]) && (v1[2] == v2[2]));
 }
 
-COIN_DLL_API inline int operator != (const SbVec3us & v1, const SbVec3us & v2) {
+COIN_DLL_API inline bool operator!=(const SbVec3us & v1, const SbVec3us & v2) {
   return !(v1 == v2);
 }
 

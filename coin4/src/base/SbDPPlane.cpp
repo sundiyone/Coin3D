@@ -139,12 +139,12 @@ SbDPPlane::offset(const double d)
 /*!
   Find the point on given line \a l intersecting the plane and return
   it in \a intersection. If the line is parallel to the plane,
-  we return \c FALSE, otherwise \c TRUE.
+  we return \c false, otherwise \c true.
 
   Do not pass an invalid line for the \a l parameter (i.e. with a
   null direction vector).
 */
-SbBool
+bool
 SbDPPlane::intersect(const SbDPLine & l, SbVec3d & intersection) const
 {
 #if COIN_DEBUG
@@ -154,7 +154,7 @@ SbDPPlane::intersect(const SbDPLine & l, SbVec3d & intersection) const
 #endif // COIN_DEBUG
 
   // Check if the line is parallel to the plane.
-  if((l.getDirection()).dot(this->normal) == 0.0f) return FALSE;
+  if((l.getDirection()).dot(this->normal) == 0.0f) return false;
 
   // From the discussion on SbDPLine::getClosestPoint() we know that
   // any point on the line can be expressed as:
@@ -181,7 +181,7 @@ SbDPPlane::intersect(const SbDPLine & l, SbVec3d & intersection) const
 
   intersection = l.getPosition() + t * l.getDirection();
 
-  return TRUE;
+  return true;
 }
 
 /*!
@@ -215,7 +215,7 @@ SbDPPlane::transform(const SbDPMatrix & matrix)
   Check if the given point lies in the halfspace of the plane which the
   plane normal vector is pointing.
 */
-SbBool
+bool
 SbDPPlane::isInHalfSpace(const SbVec3d & point) const
 {
   // This one is dead easy, we just take the dot product of the normal
@@ -227,8 +227,8 @@ SbDPPlane::isInHalfSpace(const SbVec3d & point) const
 #if 0 // not very efficient code, disabled 19991012 pederb
   SbVec3d pointToPlaneBase = point - (this->normal * this->distance);
   double dotWithNormal = this->normal.dot(pointToPlaneBase);
-  if(dotWithNormal >= 0.0f) return TRUE;
-  return FALSE;
+  if(dotWithNormal >= 0.0f) return true;
+  return false;
 #else // this code uses distance to plane instead
   return this->getDistance(point) >= 0.0f;
 #endif // new code
@@ -273,14 +273,14 @@ SbDPPlane::getDistanceFromOrigin(void) const
 
 /*!
   Intersect this plane with \a pl, and return the resulting line in \a
-  line. Returns \c TRUE if an intersection line can be found, and \c
-  FALSE if the planes are parallel.
+  line. Returns \c true if an intersection line can be found, and \c
+  false if the planes are parallel.
 
   \COIN_FUNCTION_EXTENSION
 
   \since Coin 2.0
 */
-SbBool
+bool
 SbDPPlane::intersect(const SbDPPlane & pl, SbDPLine & line) const
 {
   // Based on code from Graphics Gems III, Plane-to-Plane Intersection
@@ -321,14 +321,14 @@ SbDPPlane::intersect(const SbDPPlane & pl, SbDPLine & line) const
                   pl2n[1] * pl1w - pl1n[1] * pl2w);
   }
   else // xdir is zero, then no point of intersection exists
-    return FALSE;
+    return false;
 
   xpt *= invdet;
   invdet = 1.0f / static_cast<double>(sqrt(dir2[0] + dir2[1] + dir2[2]));
 
   xdir *= invdet;
   line.setPosDir(xpt, xdir);
-  return TRUE;
+  return true;
 }
 
 /*!
@@ -336,12 +336,12 @@ SbDPPlane::intersect(const SbDPPlane & pl, SbDPLine & line) const
 
   Check the two given planes for equality.
 */
-int
-operator ==(const SbDPPlane & p1, const SbDPPlane & p2)
+bool
+operator==(const SbDPPlane & p1, const SbDPPlane & p2)
 {
   if(p1.getDistanceFromOrigin() == p2.getDistanceFromOrigin() &&
-     p1.getNormal() == p2.getNormal()) return TRUE;
-  return FALSE;
+     p1.getNormal() == p2.getNormal()) return true;
+  return false;
 }
 
 /*!
@@ -349,8 +349,8 @@ operator ==(const SbDPPlane & p1, const SbDPPlane & p2)
 
   Check the two given planes for unequality.
 */
-int
-operator !=(const SbDPPlane & p1, const SbDPPlane & p2)
+bool
+operator!=(const SbDPPlane & p1, const SbDPPlane & p2)
 {
   return !(p1 == p2);
 }

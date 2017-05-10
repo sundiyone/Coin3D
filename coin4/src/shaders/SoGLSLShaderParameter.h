@@ -76,10 +76,10 @@ private:
   SbString cacheName;
   GLsizei cacheSize;
   GLenum cacheType;
-  SbBool isActive;
+  bool isActive;
   int32_t programid;
 
-  SbBool isValid(const SoGLShaderObject * shader, const char * name,
+  bool isValid(const SoGLShaderObject * shader, const char * name,
                  GLenum type, int * num = NULL);
 };
 

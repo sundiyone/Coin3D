@@ -53,8 +53,8 @@ protected:
 private:
   virtual void generatePrimitives(SoAction * action);
 
-  virtual SbBool generateDefaultNormals(SoState * state, SoNormalBundle * bundle);
-  virtual SbBool generateDefaultNormals(SoState * state, SoNormalCache * nc);
+  virtual bool generateDefaultNormals(SoState * state, SoNormalBundle * bundle);
+  virtual bool generateDefaultNormals(SoState * state, SoNormalCache * nc);
 
   enum Binding {
     OVERALL = 0,

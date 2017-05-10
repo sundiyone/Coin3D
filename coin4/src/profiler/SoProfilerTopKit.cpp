@@ -75,7 +75,7 @@ SoProfilerTopKitP::statsNodeChanged(void * userdata, SoSensor * COIN_UNUSED_ARG(
   SoProfilerTopKit * thisp = (SoProfilerTopKit *)userdata;
 
   SoProfilerStats * stats =
-    (SoProfilerStats *)thisp->getPart("profilingStats", FALSE);
+    (SoProfilerStats *)thisp->getPart("profilingStats", false);
   if (PRIVATE(thisp)->last_stats != stats) {
     PRIVATE(thisp)->last_stats = stats;
     PRIVATE(thisp)->detachFromStats();
@@ -93,7 +93,7 @@ SoProfilerTopKitP::detachFromStats()
   this->topListEngine->maxLines.disconnect();
 
   SoScrollingGraphKit * graph =
-    (SoScrollingGraphKit *) PUBLIC(this)->getAnyPart("graph", TRUE);
+    (SoScrollingGraphKit *) PUBLIC(this)->getAnyPart("graph", true);
   assert(graph && graph->isOfType(SoScrollingGraphKit::getClassTypeId()));
   graph->addKeys.disconnect();
   graph->addValues.disconnect();
@@ -104,7 +104,7 @@ SoProfilerTopKitP::attachToStats()
 {
   SoProfilerStats * statsNode =
     (SoProfilerStats *)PUBLIC(this)->getPart("profilingStats",
-                                             FALSE);
+                                             false);
   if (statsNode == NULL)
     return ;
 
@@ -116,7 +116,7 @@ SoProfilerTopKitP::attachToStats()
 
 
   SoScrollingGraphKit * graph =
-    (SoScrollingGraphKit *) PUBLIC(this)->getAnyPart("graph", TRUE);
+    (SoScrollingGraphKit *) PUBLIC(this)->getAnyPart("graph", true);
   assert(graph && graph->isOfType(SoScrollingGraphKit::getClassTypeId()));
   graph->addKeys.connectFrom(&statsNode->profiledAction);
   graph->addValues.connectFrom(&statsNode->profiledActionTime);
@@ -135,12 +135,12 @@ SoProfilerTopKit::SoProfilerTopKit(void)
   PRIVATE(this)->master = this;
 
   SO_KIT_INTERNAL_CONSTRUCTOR(SoProfilerTopKit);
-  SO_KIT_ADD_CATALOG_ENTRY(textSep, SoSeparator, TRUE, overlaySep, graph, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(color, SoBaseColor, TRUE, textSep, translation, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(translation, SoTranslation, TRUE, textSep, text, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(text, SoText2, TRUE, textSep, graph, FALSE);
+  SO_KIT_ADD_CATALOG_ENTRY(textSep, SoSeparator, true, overlaySep, graph, false);
+  SO_KIT_ADD_CATALOG_ENTRY(color, SoBaseColor, true, textSep, translation, false);
+  SO_KIT_ADD_CATALOG_ENTRY(translation, SoTranslation, true, textSep, text, false);
+  SO_KIT_ADD_CATALOG_ENTRY(text, SoText2, true, textSep, graph, false);
 
-  SO_KIT_ADD_CATALOG_ENTRY(graph, SoScrollingGraphKit, TRUE, overlaySep, "", FALSE);
+  SO_KIT_ADD_CATALOG_ENTRY(graph, SoScrollingGraphKit, true, overlaySep, "", false);
 
   SO_KIT_ADD_FIELD(txtColor, (1.0, 1.0, 1.0));
   SO_KIT_ADD_FIELD(lines, (16));
@@ -172,13 +172,13 @@ SoProfilerTopKit::SoProfilerTopKit(void)
   PRIVATE(this)->geometryEngine->B.connectFrom(&position);
 
   SoTranslation * transe = (SoTranslation *) this->getAnyPart("translation",
-                                                              TRUE);
+                                                              true);
   transe->translation.connectFrom(&(PRIVATE(this)->geometryEngine->oA));
 
-  SoText2 * txt = (SoText2 *) this->getAnyPart("text", TRUE);
+  SoText2 * txt = (SoText2 *) this->getAnyPart("text", true);
   txt->string.connectFrom(&PRIVATE(this)->topListEngine->prettyText);
 
-  SoBaseColor * colorNd = (SoBaseColor *) this->getAnyPart("color", TRUE);
+  SoBaseColor * colorNd = (SoBaseColor *) this->getAnyPart("color", true);
   colorNd->rgb.connectFrom(&this->txtColor);
 
   PRIVATE(this)->attachToStats();

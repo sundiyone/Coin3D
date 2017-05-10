@@ -205,8 +205,8 @@ SoNodeKitPath::append(SoBaseKit * childKit)
     assert(tail != NULL);
     SoSearchAction * sa = this->getSearchAction();
     sa->setNode(childKit);
-    SbBool oldSearch = tail->isSearchingChildren();
-    tail->setSearchingChildren(TRUE);
+    bool oldSearch = tail->isSearchingChildren();
+    tail->setSearchingChildren(true);
     sa->apply(tail);
     tail->setSearchingChildren(oldSearch);
     SoPath * path = sa->getPath();
@@ -234,9 +234,9 @@ SoNodeKitPath::append(const SoNodeKitPath * fromPath)
 }
 
 /*!
-  Returns \c TRUE if \a node is in this path.
+  Returns \c true if \a node is in this path.
 */
-SbBool
+bool
 SoNodeKitPath::containsNode(SoBaseKit * node) const
 {
   return SoPath::containsNode((SoNode *)node);
@@ -257,19 +257,19 @@ SoNodeKitPath::findFork(const SoNodeKitPath * path) const
 }
 
 /*!
-  Returns \c TRUE if paths are equal, \c FALSE otherwise.
+  Returns \c true if paths are equal, \c false otherwise.
 */
-int
+bool
 operator==(const SoNodeKitPath & p1, const SoNodeKitPath & p2)
 {
-  if (&p1 == &p2) return TRUE;
+  if (&p1 == &p2) return true;
   int n = p1.getLength();
-  if (n != p2.getLength()) return FALSE;
+  if (n != p2.getLength()) return false;
 
   for (int i = 0; i < n; i++) {
-    if (p1.getNode(i) != p2.getNode(i)) return FALSE;
+    if (p1.getNode(i) != p2.getNode(i)) return false;
   }
-  return TRUE;
+  return true;
 }
 
 
@@ -292,7 +292,7 @@ SoNodeKitPath::getSearchAction(void)
   if (SoNodeKitPath::searchAction == NULL) {
     SoNodeKitPath::searchAction = new SoSearchAction();
     searchAction->setInterest(SoSearchAction::FIRST);
-    searchAction->setSearchingAll(FALSE);
+    searchAction->setSearchingAll(false);
     coin_atexit((coin_atexit_f *)SoNodeKitPath::clean, CC_ATEXIT_NORMAL);
   }
   return SoNodeKitPath::searchAction;

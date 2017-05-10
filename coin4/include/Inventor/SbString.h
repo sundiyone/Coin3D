@@ -63,7 +63,7 @@ public:
 
   int getLength(void) const { return cc_string_length(&this->str); }
 
-  void makeEmpty(SbBool freeold = TRUE)
+  void makeEmpty(bool freeold = true)
   {
     if ( freeold ) cc_string_clear(&this->str);
     else cc_string_clear_no_free(&this->str);
@@ -117,19 +117,19 @@ public:
   }
 
   int find(const SbString & s) const;
-  SbBool findAll(const SbString & s, SbIntList & found) const;
+  bool findAll(const SbString & s, SbIntList & found) const;
 
   SbString lower() const;
   SbString upper() const;
 
   void print(std::FILE * fp) const;
 
-  friend int operator==(const SbString & sbstr, const char * s);
-  friend int operator==(const char * s, const SbString & sbstr);
-  friend int operator==(const SbString & str1, const SbString & str2);
-  friend int operator!=(const SbString & sbstr, const char * s);
-  friend int operator!=(const char * s, const SbString & sbstr);
-  friend int operator!=(const SbString & str1, const SbString & str2);
+  friend bool operator==(const SbString & sbstr, const char * s);
+  friend bool operator==(const char * s, const SbString & sbstr);
+  friend bool operator==(const SbString & str1, const SbString & str2);
+  friend bool operator!=(const SbString & sbstr, const char * s);
+  friend bool operator!=(const char * s, const SbString & sbstr);
+  friend bool operator!=(const SbString & str1, const SbString & str2);
   friend const SbString operator+(const SbString & str1, const SbString & str2);
   friend const SbString operator+(const SbString & sbstr, const char * s);
   friend const SbString operator+(const char * s, const SbString & sbstr);
@@ -138,18 +138,18 @@ private:
   struct cc_string str;
 };
 
-inline int operator==(const SbString & sbstr, const char * s)
+inline bool operator==(const SbString & sbstr, const char * s)
 { return (cc_string_compare_text(sbstr.str.pointer, s) == 0); }
-inline int operator==(const char * s, const SbString & sbstr)
+inline bool operator==(const char * s, const SbString & sbstr)
 { return (cc_string_compare_text(s, sbstr.str.pointer) == 0); }
-inline int operator==(const SbString & str1, const SbString & str2)
+inline bool operator==(const SbString & str1, const SbString & str2)
 { return (cc_string_compare_text(str1.str.pointer, str2.str.pointer) == 0); }
 
-inline int operator!=(const SbString & sbstr, const char * s)
+inline bool operator!=(const SbString & sbstr, const char * s)
 { return (cc_string_compare_text(sbstr.str.pointer, s) != 0); }
-inline int operator!=(const char * s, const SbString & sbstr)
+inline bool operator!=(const char * s, const SbString & sbstr)
 { return (cc_string_compare_text(s, sbstr.str.pointer) != 0); }
-inline int operator!=(const SbString & str1, const SbString & str2)
+inline bool operator!=(const SbString & str1, const SbString & str2)
 { return (cc_string_compare_text(str1.str.pointer, str2.str.pointer) != 0); }
 
 inline const SbString operator+(const SbString & str1, const SbString & str2)

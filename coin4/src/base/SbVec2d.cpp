@@ -110,12 +110,12 @@
 */
 
 /*!
-  Compares the vector with \a v and returns \c TRUE if the distance
+  Compares the vector with \a v and returns \c true if the distance
   between the vectors is smaller or equal to the square root of
   \a tolerance.
 */
 
-SbBool
+bool
 SbVec2d::equals(const SbVec2d& v, double tolerance) const
 {
 #if COIN_DEBUG
@@ -127,8 +127,8 @@ SbVec2d::equals(const SbVec2d& v, double tolerance) const
   double xdist = this->vec[0] - v[0];
   double ydist = this->vec[1] - v[1];
 
-  if((xdist*xdist + ydist*ydist) <= tolerance) return TRUE;
-  return FALSE;
+  if((xdist*xdist + ydist*ydist) <= tolerance) return true;
+  return false;
 }
 
 /*!

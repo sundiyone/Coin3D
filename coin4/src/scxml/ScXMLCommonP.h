@@ -48,7 +48,7 @@
         std::strcpy(_ptr_, _value_);                                    \
       }                                                                 \
     }                                                                   \
-  } while (FALSE)
+  } while (false)
 
 #define SCXML__CLEAR_STD_VECTOR(_listobj_, _elementtype_)               \
   do {                                                                  \
@@ -58,7 +58,7 @@
       ++it;                                                             \
     }                                                                   \
     _listobj_.clear();                                                  \
-  } while ( FALSE )
+  } while ( false )
 
 
 #define SCXML_SINGLE_OBJECT_API_IMPL(classname, objtype, pointer, singular) \

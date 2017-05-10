@@ -126,8 +126,8 @@ SbString::find(const SbString & strarg) const
 
 /*!
   All occurences of \a str is represented in \a found as indices to
-  the characters where \a str starts. If 1 or more is found, \c TRUE
-  is returned, else \c FALSE is returned.
+  the characters where \a str starts. If 1 or more is found, \c true
+  is returned, else \c false is returned.
 
   Note: SbString::findAll() is an extension to the original Open
   Inventor API.
@@ -136,7 +136,7 @@ SbString::find(const SbString & strarg) const
   \since Coin 2.0
 */
 
-SbBool
+bool
 SbString::findAll(const SbString & strarg, SbIntList & found) const
 {
   // The KMP string matching algorithm is used for this method
@@ -144,8 +144,8 @@ SbString::findAll(const SbString & strarg, SbIntList & found) const
   int lenstr = strarg.getLength();
   found.truncate(0);
 
-  if (!lenthis) return FALSE;
-  if (lenstr > lenthis) return FALSE;
+  if (!lenthis) return false;
+  if (lenstr > lenthis) return false;
 
   SbList<int> pi;
   compute_prefix_function(pi, strarg);
@@ -161,8 +161,8 @@ SbString::findAll(const SbString & strarg, SbIntList & found) const
       q = pi.operator[](q - 1);
     }
   }
-  if (!found.getLength()) return FALSE;
-  return TRUE;
+  if (!found.getLength()) return false;
+  return true;
 }
 
 /*!
@@ -316,10 +316,10 @@ SbString::print(std::FILE * fp) const
 */
 
 /*!
-  \fn void SbString::makeEmpty(SbBool freeold)
+  \fn void SbString::makeEmpty(bool freeold)
 
   This method clears the string, making it an empty string ("").
-  If \a freeold is \c TRUE (which is the default), the memory used by
+  If \a freeold is \c true (which is the default), the memory used by
   the old string is freed.  Otherwise, memory will be kept and reused
   when the string is manipulated later.
 */
@@ -367,12 +367,12 @@ SbString::print(std::FILE * fp) const
 /*!
   \fn int SbString::operator!(void) const
 
-  This unary operator results in \c TRUE if the current string is empty ("")
-  or \c FALSE otherwise.
+  This unary operator results in \c true if the current string is empty ("")
+  or \c false otherwise.
 */
 
 /*!
-  \fn int operator==(const SbString & str, const char * s)
+  \fn bool operator==(const SbString & str, const char * s)
 
   Equality operator. Check if the strings have the same contents.
 
@@ -380,7 +380,7 @@ SbString::print(std::FILE * fp) const
 */
 
 /*!
-  \fn int operator==(const char * s, const SbString & str)
+  \fn bool operator==(const char * s, const SbString & str)
 
   Equality operator. Check if the strings have the same contents.
 
@@ -388,7 +388,7 @@ SbString::print(std::FILE * fp) const
 */
 
 /*!
-  \fn int operator==(const SbString & str1, const SbString & str2)
+  \fn bool operator==(const SbString & str1, const SbString & str2)
 
   Equality operator. Check if the strings have the same contents.
 
@@ -396,7 +396,7 @@ SbString::print(std::FILE * fp) const
 */
 
 /*!
-  \fn int operator!=(const SbString & str, const char * s)
+  \fn bool operator!=(const SbString & str, const char * s)
 
   Inequality operator.
 
@@ -404,7 +404,7 @@ SbString::print(std::FILE * fp) const
 */
 
 /*!
-  \fn int operator!=(const char * s, const SbString & str)
+  \fn bool operator!=(const char * s, const SbString & str)
 
   Inequality operator.
 
@@ -412,7 +412,7 @@ SbString::print(std::FILE * fp) const
 */
 
 /*!
-  \fn int operator!=(const SbString & str1, const SbString & str2)
+  \fn bool operator!=(const SbString & str1, const SbString & str2)
 
   Inequality operator.
 

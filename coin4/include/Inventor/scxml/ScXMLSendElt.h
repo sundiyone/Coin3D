@@ -63,7 +63,7 @@ public:
   virtual void setHintsAttribute(const char * event);
   virtual const char * getHintsAttribute(void) const { return this->hints; }
 
-  virtual SbBool handleXMLAttributes(void);
+  virtual bool handleXMLAttributes(void);
 
   virtual void copyContents(const ScXMLElt * rhs);
 

@@ -72,7 +72,7 @@ SoNormalElement::set(SoState * const state,
                      SoNode * const node,
                      const int32_t numNormals,
                      const SbVec3f * const normals,
-                     const SbBool unitLength)
+                     const bool unitLength)
 {
   if (state->isElementEnabled(SoGLVBOElement::getClassStackIndex())) {
     SoGLVBOElement::setNormalVBO(state, NULL);
@@ -96,7 +96,7 @@ SoNormalElement::init(SoState *state)
   inherited::init(state);
   this->normals = NULL;
   this->numNormals = 0;
-  this->unitLength = FALSE;
+  this->unitLength = false;
 }
 
 //! FIXME: write doc.
@@ -139,7 +139,7 @@ SoNormalElement::getArrayPtr(void) const
 }
 
 //$ EXPORT INLINE
-SbBool
+bool
 SoNormalElement::areNormalsUnitLength(void) const
 {
   return this->unitLength;

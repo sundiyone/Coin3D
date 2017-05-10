@@ -129,8 +129,8 @@ public:
   SoSensorManagerP(void) : alive(ALIVE_PATTERN) { }
   ~SoSensorManagerP() { this->alive = 0xdeadbeef; /* set to whatever != ALIVE_PATTERN */ }
 
-  SbBool processingtimerqueue, processingdelayqueue;
-  SbBool processingimmediatequeue;
+  bool processingtimerqueue, processingdelayqueue;
+  bool processingimmediatequeue;
 
   // immediatequeue - stores SoDelayQueueSensors with priority 0. FIFO.
   // delayqueue   - stores SoDelayQueueSensor's in sorted order.
@@ -182,7 +182,7 @@ SoSensorManagerP::assertAlive(SoSensorManagerP * that)
                        "This is most likely to be the result of some grave "
                        "programming error in the internal library code. "
                        "Please report this problem");
-    assert(FALSE && "SoSensorManager-object no longer alive!");
+    assert(false && "SoSensorManager-object no longer alive!");
   }
 }
 
@@ -233,7 +233,7 @@ static void
 timeoutsensor_cb(void * userdata, SoSensor *)
 {
   SoSensorManager * thisp = (SoSensorManager *)userdata;
-  thisp->processDelayQueue(FALSE);
+  thisp->processDelayQueue(false);
 }
 
 /*!
@@ -246,9 +246,9 @@ SoSensorManager::SoSensorManager(void)
   PRIVATE(this)->queueChangedCB = NULL;
   PRIVATE(this)->queueChangedCBData = NULL;
 
-  PRIVATE(this)->processingtimerqueue = FALSE;
-  PRIVATE(this)->processingdelayqueue = FALSE;
-  PRIVATE(this)->processingimmediatequeue = FALSE;
+  PRIVATE(this)->processingtimerqueue = false;
+  PRIVATE(this)->processingdelayqueue = false;
+  PRIVATE(this)->processingimmediatequeue = false;
 
   PRIVATE(this)->delaysensortimeout.setValue(1.0/12.0);
   PRIVATE(this)->timeoutsensor = new SoAlarmSensor(timeoutsensor_cb, this);
@@ -446,7 +446,7 @@ SoSensorManager::processTimerQueue(void)
 #endif // debug
 
   assert(PRIVATE(this)->reschedulelist.getLength() == 0);
-  PRIVATE(this)->processingtimerqueue = TRUE;
+  PRIVATE(this)->processingtimerqueue = true;
 
   LOCK_TIMER_QUEUE(this);
 
@@ -484,7 +484,7 @@ SoSensorManager::processTimerQueue(void)
   }
   UNLOCK_RESCHEDULE_LIST(this);
 
-  PRIVATE(this)->processingtimerqueue = FALSE;
+  PRIVATE(this)->processingtimerqueue = false;
 
 #if DEBUG_TIMER_SENSORHANDLING // debug
   SoDebugError::postInfo("SoSensorManager::processTimerQueue",
@@ -512,7 +512,7 @@ SoSensorManager::processTimerQueue(void)
   \sa SoSensorManager::processImmediateQueue()
 */
 void
-SoSensorManager::processDelayQueue(SbBool isidle)
+SoSensorManager::processDelayQueue(bool isidle)
 {
   SoSensorManagerP::assertAlive(PRIVATE(this));
 
@@ -526,7 +526,7 @@ SoSensorManager::processDelayQueue(SbBool isidle)
                          "start: %d elements", PRIVATE(this)->delayqueue.getLength());
 #endif // debug
 
-  PRIVATE(this)->processingdelayqueue = TRUE;
+  PRIVATE(this)->processingdelayqueue = true;
 
   // triggerdict is used to store sensors that has already been
   // triggered. A sensor should only be triggered once during a call
@@ -585,7 +585,7 @@ SoSensorManager::processDelayQueue(SbBool isidle)
     this->insertDelaySensor(iter->obj);
   }
   PRIVATE(this)->reinsertdict.clear();
-  PRIVATE(this)->processingdelayqueue = FALSE;
+  PRIVATE(this)->processingdelayqueue = false;
 
   // If we still have pending sensors and the timeoutsensor
   // isn't currently scheduled, schedule it.
@@ -617,7 +617,7 @@ SoSensorManager::processImmediateQueue(void)
                          PRIVATE(this)->immediatequeue.getLength());
 #endif // debug
 
-  PRIVATE(this)->processingimmediatequeue = TRUE;
+  PRIVATE(this)->processingimmediatequeue = true;
 
   // FIXME: implement some better logic to break out of the
   // processing loop. Right now we break out if more than 10000
@@ -649,7 +649,7 @@ SoSensorManager::processImmediateQueue(void)
   }
   UNLOCK_IMMEDIATE_QUEUE(this);
 
-  PRIVATE(this)->processingimmediatequeue = FALSE;
+  PRIVATE(this)->processingimmediatequeue = false;
 }
 
 /*!
@@ -686,26 +686,26 @@ SoSensorManager::removeRescheduledTimer(SoTimerQueueSensor * s)
 }
 
 /*!
-  Returns \c TRUE if at least one delay sensor or immediate sensor is
-  present in the respective queue, otherwise \c FALSE.
+  Returns \c true if at least one delay sensor or immediate sensor is
+  present in the respective queue, otherwise \c false.
 */
-SbBool
+bool
 SoSensorManager::isDelaySensorPending(void)
 {
   SoSensorManagerP::assertAlive(PRIVATE(this));
 
   return (PRIVATE(this)->delayqueue.getLength() ||
-          PRIVATE(this)->immediatequeue.getLength()) ? TRUE : FALSE;
+          PRIVATE(this)->immediatequeue.getLength()) ? true : false;
 }
 
 /*!
-  Returns \c TRUE if at least one timer sensor is present in the
-  queue, otherwise \c FALSE.
+  Returns \c true if at least one timer sensor is present in the
+  queue, otherwise \c false.
 
   If sensors are pending, the time interval until the next one should
   be triggered will be put in the \a tm variable.
 */
-SbBool
+bool
 SoSensorManager::isTimerSensorPending(SbTime & tm)
 {
   SoSensorManagerP::assertAlive(PRIVATE(this));
@@ -714,11 +714,11 @@ SoSensorManager::isTimerSensorPending(SbTime & tm)
   if (PRIVATE(this)->timerqueue.getLength() > 0) {
     tm = PRIVATE(this)->timerqueue[0]->getTriggerTime();
     UNLOCK_TIMER_QUEUE(this);
-    return TRUE;
+    return true;
   }
 
   UNLOCK_TIMER_QUEUE(this);
-  return FALSE;
+  return false;
 }
 
 /*!
@@ -820,7 +820,7 @@ int
 SoSensorManager::doSelect(int COIN_UNUSED_ARG(nfds), void * COIN_UNUSED_ARG(readfds), void * COIN_UNUSED_ARG(writefds),
                           void * COIN_UNUSED_ARG(exceptfds), struct timeval * COIN_UNUSED_ARG(usertimeout))
 {
-  assert(FALSE && "obsoleted method");
+  assert(false && "obsoleted method");
   return 0;
 }
 

@@ -28,7 +28,7 @@ SbList<SoDB_HeaderInfo *> * SoDBP::headerlist = NULL;
 SoSensorManager * SoDBP::sensormanager = NULL;
 SoTimerSensor * SoDBP::globaltimersensor = NULL;
 UInt32ToInt16Map * SoDBP::converters = NULL;
-SbBool SoDBP::isinitialized = FALSE;
+bool SoDBP::isinitialized = false;
 int SoDBP::notificationcounter = 0;
 SbList<SoDBP::ProgressCallbackInfo> * SoDBP::progresscblist = NULL;
 
@@ -158,26 +158,26 @@ SoDBP::updateRealTimeFieldCB(void * COIN_UNUSED_ARG(data), SoSensor * COIN_UNUSE
   }
 }
 
-SbBool
+bool
 SoDBP::is3dsFile(SoInput * in)
 {
-  if (in->getNumBytesRead() > 0) { return FALSE; }
-  if (in->getHeader().getLength() > 0) { return FALSE; }
+  if (in->getNumBytesRead() > 0) { return false; }
+  if (in->getHeader().getLength() > 0) { return false; }
 
   char c1, c2;
-  if (!in->get(c1)) { return FALSE; }
-  if (!in->get(c2)) { in->putBack(c1); return FALSE; }
+  if (!in->get(c1)) { return false; }
+  if (!in->get(c2)) { in->putBack(c1); return false; }
   in->putBack(c2);
   in->putBack(c1);
 
   // FIXME: this seems like a rather weak test for 3D Studio format
   // files (1 out of every 65536 files with random data would return
-  // TRUE). Should check up on the format spec, and improve
+  // true). Should check up on the format spec, and improve
   // it. 20031117 mortene.
-  if (c1 != 0x4d) { return FALSE; }
-  if (c2 != 0x4d) { return FALSE; }
+  if (c1 != 0x4d) { return false; }
+  if (c2 != 0x4d) { return false; }
 
-  return TRUE;
+  return true;
 }
 
 #if defined(HAVE_WINDLL_RUNTIME_BINDING) && defined(HAVE_TLHELP32_H)
@@ -265,7 +265,7 @@ SoDBP::read3DSFile(SoInput * in)
 #ifdef HAVE_3DS_IMPORT_CAPABILITIES
 
   SoSeparator * b;
-  const SbBool ok = coin_3ds_read_file(in, b);
+  const bool ok = coin_3ds_read_file(in, b);
   if (ok) { return b; }
 
 #else // !HAVE_3DS_IMPORT_CAPABILITIES
@@ -284,7 +284,7 @@ SoDBP::read3DSFile(SoInput * in)
 void
 SoDBP::progress(const SbName & itemid,
                 float fraction,
-                SbBool interruptible)
+                bool interruptible)
 {
   if (SoDBP::progresscblist != NULL) {
     for (int i = 0; i < SoDBP::progresscblist->getLength(); i++) {

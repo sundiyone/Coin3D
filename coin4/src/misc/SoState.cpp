@@ -53,16 +53,16 @@
 */
 
 /*!
-  \fn SbBool SoState::isCacheOpen(void) const
+  \fn bool SoState::isCacheOpen(void) const
 
   Returns whether a cache is open.
 */
 
 /*!
-  \fn SbBool SoState::isElementEnabled(const int stackindex) const
+  \fn bool SoState::isElementEnabled(const int stackindex) const
 
-  This method returns TRUE if the element with the given element stack
-  index is enabled, and FALSE otherwise.
+  This method returns true if the element with the given element stack
+  index is enabled, and false otherwise.
 */
 
 /*!
@@ -107,7 +107,7 @@ public:
   SoAction * action;
   SoElement ** initial;
   int depth;
-  SbBool ispopping;
+  bool ispopping;
   class sostate_pushstore * pushstore;
 };
 
@@ -131,8 +131,8 @@ SoState::SoState(SoAction * theAction, const SoTypeList & enabledelements)
 
   PRIVATE(this)->action = theAction;
   PRIVATE(this)->depth = 0;
-  PRIVATE(this)->ispopping = FALSE;
-  this->cacheopen = FALSE;
+  PRIVATE(this)->ispopping = false;
+  this->cacheopen = false;
 
   int i;
 
@@ -283,7 +283,7 @@ SoState::push(void)
 void
 SoState::pop(void)
 {
-  PRIVATE(this)->ispopping = TRUE;
+  PRIVATE(this)->ispopping = true;
   PRIVATE(this)->depth--;
   int n = PRIVATE(this)->pushstore->elements.getLength();
   if (n) {
@@ -299,7 +299,7 @@ SoState::pop(void)
   }
   PRIVATE(this)->pushstore->elements.truncate(0);
   PRIVATE(this)->pushstore = PRIVATE(this)->pushstore->prev;
-  PRIVATE(this)->ispopping = FALSE;
+  PRIVATE(this)->ispopping = false;
 }
 
 /*!
@@ -336,7 +336,7 @@ SoState::getDepth(void) const
   Controls whether a cache is open.
 */
 void
-SoState::setCacheOpen(const SbBool open)
+SoState::setCacheOpen(const bool open)
 {
   this->cacheopen = open;
 }

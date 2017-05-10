@@ -36,7 +36,7 @@ protected:
   virtual ~SoGLColorIndexElement();
 
 public:
-  static SbBool isColorIndexMode(SoState * state);
+  static bool isColorIndexMode(SoState * state);
 
   virtual void init(SoState * state);
 

@@ -77,11 +77,11 @@ ScXMLAbstractStateElt::setIdAttribute(const char * idstr)
   // FIXME: validate id for lexcal conformance?
 }
 
-SbBool
+bool
 ScXMLAbstractStateElt::handleXMLAttributes(void)
 {
   if (!inherited::handleXMLAttributes()) {
-    return FALSE;
+    return false;
   }
 
   this->setIdAttribute(this->getXMLAttribute("id"));
@@ -90,10 +90,10 @@ ScXMLAbstractStateElt::handleXMLAttributes(void)
   if ((this->id == NULL) || (std::strcmp(this->id, "") == 0)) {
     SoDebugError::postInfo("ScXMLAbstractStateElt::handleXMLAttributes",
                            "state element must have 'id' attribute");
-    return FALSE;
+    return false;
   }
 
-  return TRUE;
+  return true;
 }
 
 void

@@ -29,7 +29,7 @@
 
 // *************************************************************************
 
-SbBool
+bool
 SbGLUTessellator::available(void)
 {
   return GLUWrapper()->available &&
@@ -69,7 +69,7 @@ SbGLUTessellator::cb_begin(GLenum mode, void * x)
 
   t->triangletessmode = mode;
   t->vertexidx = 0;
-  t->stripflipflop = FALSE;
+  t->stripflipflop = false;
 }
 
 void APIENTRY
@@ -98,7 +98,7 @@ SbGLUTessellator::cb_vertex(void * vertex_data, void * x)
 
       t->vertexdata[0] = t->vertexdata[1];
       t->vertexdata[1] = vertex_data;
-      t->stripflipflop = t->stripflipflop ? FALSE : TRUE;
+      t->stripflipflop = t->stripflipflop ? false : true;
     }
     break;
 
@@ -111,7 +111,7 @@ SbGLUTessellator::cb_vertex(void * vertex_data, void * x)
     break;
 
   default:
-    assert(FALSE);
+    assert(false);
     break;
   }
 
@@ -193,7 +193,7 @@ SbGLUTessellator::endPolygon(void)
 
 // Whether or not the SbGLUTessellator should be preferred over our
 // own Coin SbTesselator class, for tessellating faceset polygons.
-SbBool
+bool
 SbGLUTessellator::preferred(void)
 {
   static int v = -1;
@@ -210,7 +210,7 @@ SbGLUTessellator::preferred(void)
       v = 0;
     }
   }
-  return v ? TRUE : FALSE;
+  return v ? true : false;
 }
 
 // *************************************************************************

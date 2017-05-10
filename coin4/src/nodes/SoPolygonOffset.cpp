@@ -128,7 +128,7 @@
         factor 1
         units 1
         styles FILLED
-        on TRUE
+        on true
     }
   \endcode
 
@@ -250,7 +250,7 @@
   \var SoSFBool SoPolygonOffset::on
 
   Whether the offset is on or off. Default is for SoPolygonOffset::on
-  to be \c TRUE.
+  to be \c true.
 */
 
 
@@ -268,7 +268,7 @@ SoPolygonOffset::SoPolygonOffset(void)
   SO_NODE_ADD_FIELD(factor, (1.0f));
   SO_NODE_ADD_FIELD(units, (1.0f));
   SO_NODE_ADD_FIELD(styles, (SoPolygonOffset::FILLED));
-  SO_NODE_ADD_FIELD(on, (TRUE));
+  SO_NODE_ADD_FIELD(on, (true));
 
   SO_NODE_DEFINE_ENUM_VALUE(Style, FILLED);
   SO_NODE_DEFINE_ENUM_VALUE(Style, LINES);
@@ -303,7 +303,7 @@ SoPolygonOffset::doAction(SoAction * action)
   
   float factorval, units_val;
   SoPolygonOffsetElement::Style styles_val;
-  SbBool offset_on;
+  bool offset_on;
   
   factorval = this->factor.getValue();
   units_val = this->units.getValue();
@@ -318,7 +318,7 @@ SoPolygonOffset::doAction(SoAction * action)
                               offset_on);
   
   if (this->isOverride()) {
-    SoOverrideElement::setPolygonOffsetOverride(state, this, TRUE);
+    SoOverrideElement::setPolygonOffsetOverride(state, this, true);
   }
 }
 

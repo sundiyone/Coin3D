@@ -23,11 +23,11 @@
 
 /*!
   \class SoMFBool SoMFBool.h Inventor/fields/SoMFBool.h
-  \brief The SoMFBool class is a container for SbBool values.
+  \brief The SoMFBool class is a container for bool values.
   \ingroup fields
 
   This field is used where nodes, engines or other field containers
-  needs to store multiple boolean on/off or TRUE/FALSE values.
+  needs to store multiple boolean on/off or true/false values.
 
   This field supports application data sharing through a
   setValuesPointer() method. See SoMField documentation for
@@ -49,9 +49,9 @@
 
 // *************************************************************************
 
-SO_MFIELD_SOURCE_MALLOC(SoMFBool, SbBool, SbBool);
+SO_MFIELD_SOURCE_MALLOC(SoMFBool, bool, bool);
 
-SO_MFIELD_SETVALUESPOINTER_SOURCE(SoMFBool, SbBool, SbBool);
+SO_MFIELD_SETVALUESPOINTER_SOURCE(SoMFBool, bool, bool);
 
 // *************************************************************************
 
@@ -67,14 +67,14 @@ SoMFBool::initClass(void)
 // parent classes.
 #ifndef DOXYGEN_SKIP_THIS
 
-SbBool
+bool
 SoMFBool::read1Value(SoInput * in, int idx)
 {
   assert(idx < this->maxNum);
-  SbBool val;
-  if (!sosfbool_read_value(in, val)) return FALSE;
+  bool val;
+  if (!sosfbool_read_value(in, val)) return false;
   this->values[idx] = val;
-  return TRUE;
+  return true;
 }
 
 void
@@ -109,14 +109,14 @@ BOOST_AUTO_TEST_CASE(initialized)
 BOOST_AUTO_TEST_CASE(array_ops)
 {
   SoMFBool field;
-  field.set1Value(0, TRUE);
-  field.set1Value(1, FALSE);
-  field.set1Value(2, TRUE);
+  field.set1Value(0, true);
+  field.set1Value(1, false);
+  field.set1Value(2, true);
   BOOST_CHECK_EQUAL(field.getNum(), 3);
   field.deleteValues(1,1);
   BOOST_CHECK_EQUAL(field.getNum(), 2);
-  BOOST_CHECK_EQUAL(field[0], TRUE);
-  BOOST_CHECK_EQUAL(field[1], TRUE);
+  BOOST_CHECK_EQUAL(field[0], true);
+  BOOST_CHECK_EQUAL(field[1], true);
 }
 
 #endif // COIN_TEST_SUITE

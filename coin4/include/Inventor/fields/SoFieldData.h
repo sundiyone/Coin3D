@@ -48,7 +48,7 @@ public:
                 const SoField * field);
 
   void overlay(SoFieldContainer * to, const SoFieldContainer * from,
-               SbBool copyconnections) const;
+               bool copyconnections) const;
 
   int getNumFields(void) const;
   const SbName & getFieldName(int index) const;
@@ -59,34 +59,34 @@ public:
   void getEnumData(const char * enumname,
                    int & num, const int *& values, const SbName *& names);
 
-  SbBool read(SoInput * input, SoFieldContainer * object,
-              SbBool erroronunknownfield, SbBool & notbuiltin) const;
-  SbBool read(SoInput * input, SoFieldContainer * object,
-              const SbName & fieldname, SbBool & foundname) const;
+  bool read(SoInput * input, SoFieldContainer * object,
+              bool erroronunknownfield, bool & notbuiltin) const;
+  bool read(SoInput * input, SoFieldContainer * object,
+              const SbName & fieldname, bool & foundname) const;
   void write(SoOutput * out, const SoFieldContainer * object) const;
   void copy(const SoFieldData * src);
-  SbBool isSame(const SoFieldContainer * c1,
+  bool isSame(const SoFieldContainer * c1,
                 const SoFieldContainer * c2) const;
 
-  SbBool readFieldDescriptions(SoInput * input, SoFieldContainer * object,
+  bool readFieldDescriptions(SoInput * input, SoFieldContainer * object,
                                int numdescriptionsexpected,
-                               const SbBool readfieldvalues = TRUE) const;
+                               const bool readfieldvalues = true) const;
   void writeFieldDescriptions(SoOutput * out,
                               const SoFieldContainer * object) const;
 
 private:
-  SbBool hasField(const char * name) const;
-  SbBool hasEnumValue(const char * enumname, const char * valuename);
+  bool hasField(const char * name) const;
+  bool hasEnumValue(const char * enumname, const char * valuename);
 
   // Bitflags for control word in the file format.
   enum ControlWord {
     NOTBUILTIN = 0x40
   };
 
-  int operator==(const SoFieldData * fd) const;
-  int operator!=(const SoFieldData * fd) const { return ! operator==(fd); }
-  int operator==(const SoFieldData & fd) const { return operator==(&fd); }
-  int operator!=(const SoFieldData & fd) const { return ! operator==(&fd); }
+  bool operator==(const SoFieldData * fd) const;
+  bool operator!=(const SoFieldData * fd) const { return ! operator==(fd); }
+  bool operator==(const SoFieldData & fd) const { return operator==(&fd); }
+  bool operator!=(const SoFieldData & fd) const { return ! operator==(&fd); }
 
   void freeResources(void);
 

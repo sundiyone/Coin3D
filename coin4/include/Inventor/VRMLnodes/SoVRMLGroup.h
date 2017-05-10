@@ -78,14 +78,14 @@ public:
 protected:
   virtual ~SoVRMLGroup();
 
-  virtual SbBool cullTest(SoState * state);
+  virtual bool cullTest(SoState * state);
 
   static int numRenderCaches;
 
 private:
   SoVRMLGroupP * pimpl;
 
-  SbBool cullTestNoPush(SoState * state);
+  bool cullTestNoPush(SoState * state);
   void commonConstructor(void);
 
 }; // class SoVRMLGroup

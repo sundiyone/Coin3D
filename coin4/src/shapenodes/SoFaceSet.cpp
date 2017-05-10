@@ -290,14 +290,14 @@ namespace { namespace SoGL { namespace FaceSet {
                        int32_t idx,
                        const int32_t *ptr,
                        const int32_t *end,
-                       SbBool needNormals)
+                       bool needNormals)
   {
     // Make sure specified coordinate startindex is valid
     assert(idx >= 0);
 
     const SbVec3f * coords3d = NULL;
     const SbVec4f * coords4d = NULL;
-    const SbBool is3d = coords->is3D();
+    const bool is3d = coords->is3D();
     if (is3d) {
       coords3d = coords->getArrayPtr3();
     }
@@ -358,9 +358,9 @@ namespace { namespace SoGL { namespace FaceSet {
         glNormal3fv((const GLfloat *)currnormal);
       }
       if ((AttributeBinding)MaterialBinding != OVERALL) {
-        mb->send(matnr++, TRUE);
+        mb->send(matnr++, true);
       }
-      if (TexturingEnabled == TRUE) {
+      if (TexturingEnabled == true) {
         tb->send(texnr++, coords->get3(idx), *currnormal);
       }
       SEND_VERTEX(idx);
@@ -371,13 +371,13 @@ namespace { namespace SoGL { namespace FaceSet {
           glNormal3fv((const GLfloat *)currnormal);
         }
         if ((AttributeBinding)MaterialBinding == PER_VERTEX) {
-          mb->send(matnr++, TRUE);
+          mb->send(matnr++, true);
         } else if ((AttributeBinding)MaterialBinding != OVERALL) {
           // only needed for nvidia color-per-face bug workaround
-          mb->send(matnr-1, TRUE);
+          mb->send(matnr-1, true);
         }
 
-        if (TexturingEnabled == TRUE) {
+        if (TexturingEnabled == true) {
           tb->send(texnr++, coords->get3(idx), *currnormal);
         }
         SEND_VERTEX(idx);
@@ -403,9 +403,9 @@ SoFaceSet::initClass(void)
 
 #define SOGL_FACESET_GLRENDER_RESOLVE_ARG3(normalbinding, materialbinding, texturing, args) \
   if (texturing) {                                                       \
-    SOGL_FACESET_GLRENDER_CALL_FUNC(normalbinding, materialbinding, TRUE, args); \
+    SOGL_FACESET_GLRENDER_CALL_FUNC(normalbinding, materialbinding, true, args); \
   } else {                                                               \
-    SOGL_FACESET_GLRENDER_CALL_FUNC(normalbinding, materialbinding, FALSE, args); \
+    SOGL_FACESET_GLRENDER_CALL_FUNC(normalbinding, materialbinding, false, args); \
   }
 
 #define SOGL_FACESET_GLRENDER_RESOLVE_ARG2(normalbinding, materialbinding, texturing, args) \
@@ -482,11 +482,11 @@ SoFaceSet::GLRender(SoGLRenderAction * action)
     }
   }
 
-  SbBool didusevbo = FALSE;
+  bool didusevbo = false;
   SoState * state = action->getState();
   this->fixNumVerticesPointers(state, ptr, end, dummyarray);
 
-  SbBool storedinvalid = SoCacheElement::setInvalid(FALSE);
+  bool storedinvalid = SoCacheElement::setInvalid(false);
   state->push(); // for convex cache
 
   if (this->vertexProperty.getValue()) {
@@ -508,13 +508,13 @@ SoFaceSet::GLRender(SoGLRenderAction * action)
     // render normally
     const SoCoordinateElement * tmp;
     const SbVec3f * normals;
-    SbBool doTextures;
+    bool doTextures;
 
     SoMaterialBundle mb(action);
-    SoTextureCoordinateBundle tb(action, TRUE, FALSE);
+    SoTextureCoordinateBundle tb(action, true, false);
     doTextures = tb.needCoordinates();
 
-    SbBool needNormals = !mb.isColorOnly() || tb.isFunction();
+    bool needNormals = !mb.isColorOnly() || tb.isFunction();
 
     SoVertexShape::getVertexData(state, tmp, normals,
                                  needNormals);
@@ -565,7 +565,7 @@ SoFaceSet::GLRender(SoGLRenderAction * action)
         (nbind != PER_FACE) &&
         (mbind != PER_FACE) &&
         !tb.isFunction()) {
-      SbBool dovbo = this->startVertexArray(action,
+      bool dovbo = this->startVertexArray(action,
                                             coords,
                                             nbind == PER_VERTEX ? normals : NULL,
                                             doTextures,
@@ -620,12 +620,12 @@ SoFaceSet::GLRender(SoGLRenderAction * action)
 #undef SOGL_FACESET_GLRENDER
 
 // doc from parent
-SbBool
+bool
 SoFaceSet::generateDefaultNormals(SoState * state, SoNormalCache * nc)
 {
-  SbBool ccw = TRUE;
+  bool ccw = true;
   if (SoShapeHintsElement::getVertexOrdering(state) ==
-      SoShapeHintsElement::CLOCKWISE) ccw = FALSE;
+      SoShapeHintsElement::CLOCKWISE) ccw = false;
 
   SoNormalGenerator * gen =
     new SoNormalGenerator(ccw, this->numVertices.getNum() * 3);
@@ -642,7 +642,7 @@ SoFaceSet::generateDefaultNormals(SoState * state, SoNormalCache * nc)
   int numcoords = coords->getNum();
 
   // Robustness test to see if the startindex is valid.  If it is
-  // not, print error message and return FALSE.
+  // not, print error message and return false.
   if (idx < 0) {
     static uint32_t current_errors = 0;
     if (current_errors < 1) {
@@ -654,7 +654,7 @@ SoFaceSet::generateDefaultNormals(SoState * state, SoNormalCache * nc)
     current_errors++;
 
     // Unable to generate normals for illegal faceset
-    return FALSE;
+    return false;
   }
 
   // Generate normals for the faceset
@@ -672,7 +672,7 @@ SoFaceSet::generateDefaultNormals(SoState * state, SoNormalCache * nc)
       gen->endPolygon();
     }
     // If an invalid polygon has been specified, print errormessage
-    // and return FALSE.
+    // and return false.
     else {
       SoDebugError::postWarning("SoFaceSet::generateDefaultNormals", "Erroneous "
                                 "number of coordinates: %d specified for FaceSet. "
@@ -680,7 +680,7 @@ SoFaceSet::generateDefaultNormals(SoState * state, SoNormalCache * nc)
                                 num, numcoords - idx);
 
       // Not able to generate normals for invalid faceset
-      return FALSE;
+      return false;
     }
   }
 
@@ -696,16 +696,16 @@ SoFaceSet::generateDefaultNormals(SoState * state, SoNormalCache * nc)
     break;
   }
   nc->set(gen);
-  return TRUE;
+  return true;
 }
 
 // Documented in superclass.
-SbBool
+bool
 SoFaceSet::generateDefaultNormals(SoState * /* state */,
                                   SoNormalBundle * /* nb */)
 {
   // Normals are genereted directly in normal cache for this shape.
-  return FALSE;
+  return false;
 }
 
 // doc from parent
@@ -751,14 +751,14 @@ SoFaceSet::generatePrimitives(SoAction *action)
 
   const SoCoordinateElement *coords;
   const SbVec3f * normals;
-  SbBool doTextures;
+  bool doTextures;
 
-  SbBool needNormals = TRUE;
+  bool needNormals = true;
 
   SoVertexShape::getVertexData(state, coords, normals,
                                needNormals);
 
-  SoTextureCoordinateBundle tb(action, FALSE, FALSE);
+  SoTextureCoordinateBundle tb(action, false, false);
   doTextures = tb.needCoordinates();
 
   Binding mbind = this->findMaterialBinding(state);
@@ -886,12 +886,12 @@ SoFaceSet::notify(SoNotList * l)
 // internal method which checks if convex cache needs to be
 // used or (re)created. Renders the shape if convex cache needs to be used.
 //
-SbBool
+bool
 SoFaceSet::useConvexCache(SoAction * action)
 {
   SoState * state = action->getState();
   if (SoShapeHintsElement::getFaceType(state) == SoShapeHintsElement::CONVEX)
-    return FALSE;
+    return false;
 
   int32_t idx = this->startIndex.getValue();
   const int32_t * ptr = this->numVertices.getValues(0);;
@@ -909,12 +909,12 @@ SoFaceSet::useConvexCache(SoAction * action)
     else PRIVATE(this)->concavestatus = STATUS_CONVEX;
   }
   if (PRIVATE(this)->concavestatus == STATUS_CONVEX) {
-    return FALSE;
+    return false;
   }
 
   PRIVATE(this)->readLockConvexCache();
 
-  SbBool isvalid = PRIVATE(this)->convexCache && PRIVATE(this)->convexCache->isValid(state);
+  bool isvalid = PRIVATE(this)->convexCache && PRIVATE(this)->convexCache->isValid(state);
 
   SbMatrix modelmatrix;
   if (!isvalid) {
@@ -940,18 +940,18 @@ SoFaceSet::useConvexCache(SoAction * action)
 
   const SoCoordinateElement * tmp;
   const SbVec3f * normals;
-  SbBool doTextures;
+  bool doTextures;
 
   SoMaterialBundle mb(action);
 
-  SbBool needNormals = !mb.isColorOnly();
+  bool needNormals = !mb.isColorOnly();
 
   SoVertexShape::getVertexData(state, tmp, normals,
                                needNormals);
 
   const SoGLCoordinateElement * coords = (SoGLCoordinateElement *)tmp;
 
-  SoTextureCoordinateBundle tb(action, TRUE, FALSE);
+  SoTextureCoordinateBundle tb(action, true, false);
   doTextures = tb.needCoordinates();
 
   SoConvexDataCache::Binding mbind;
@@ -1044,8 +1044,8 @@ SoFaceSet::useConvexCache(SoAction * action)
   if (nbind == SoConvexDataCache::PER_VERTEX ||
       nbind == SoConvexDataCache::PER_FACE) realnbind++;
 
-  SoVertexAttributeBundle vab(action, TRUE);
-  SbBool doattribs = vab.doAttributes();
+  SoVertexAttributeBundle vab(action, true);
+  bool doattribs = vab.doAttributes();
 
   SoVertexAttributeBindingElement::Binding attribbind = 
     SoVertexAttributeBindingElement::get(state);
@@ -1080,7 +1080,7 @@ SoFaceSet::useConvexCache(SoAction * action)
 
   PRIVATE(this)->readUnlockConvexCache();
 
-  return TRUE;
+  return true;
 }
 
 #undef PRIVATE

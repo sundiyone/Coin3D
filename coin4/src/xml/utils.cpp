@@ -79,9 +79,9 @@ int
 cc_xml_strieq(const char * s1, const char * s2)
 {
   while ( *s1 && *s2 )
-    if ( tolower(*s1++) != tolower(*s2++) ) return FALSE;
-  if ( *s1 || *s2 ) return FALSE;
-  return TRUE;
+    if ( tolower(*s1++) != tolower(*s2++) ) return false;
+  if ( *s1 || *s2 ) return false;
+  return true;
 }
 
 #if 0
@@ -97,10 +97,10 @@ sc_whitespace_p(const char * string)
     case '\n':
       break;
     default:
-      return FALSE;
+      return false;
     }
     string++;
   }
-  return TRUE;
+  return true;
 }
 #endif

@@ -45,7 +45,7 @@ public:
                    const SbPlane & plane);
   static  const SoClipPlaneElement * getInstance(SoState * const state);
   int getNum(void) const;
-  const SbPlane & get(const int index, const SbBool inworldspace = TRUE) const;
+  const SbPlane & get(const int index, const bool inworldspace = true) const;
 
 private:
   class so_plane_data // internal
@@ -57,10 +57,10 @@ private:
     SbPlane plane;
     SbPlane wcPlane;
     // Needed by AIX compiler
-    SbBool operator==(const so_plane_data &spd) const {
+    bool operator==(const so_plane_data &spd) const {
       return spd.plane == plane && spd.wcPlane == wcPlane;
     }
-    SbBool operator!=(const so_plane_data &spd) const {
+    bool operator!=(const so_plane_data &spd) const {
       return spd.plane != plane || spd.wcPlane != wcPlane;
     }
   };

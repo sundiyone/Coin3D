@@ -125,10 +125,10 @@ SbDict::clear(void)
   a unique number, and \a value is the generic user data.
 
   \e If \a key does not exist in the dictionary, a new entry
-  is created and \c TRUE is returned. Otherwise, the generic user
-  data is changed to \a value, and \c FALSE is returned.
+  is created and \c true is returned. Otherwise, the generic user
+  data is changed to \a value, and \c false is returned.
 */
-SbBool
+bool
 SbDict::enter(const Key key, void * const value)
 {
   return cc_hash_put(this->hashtable, key, value);
@@ -136,20 +136,20 @@ SbDict::enter(const Key key, void * const value)
 
 /*!
   Searches for \a key in the dictionary. If an entry with this
-  key exists, \c TRUE is returned and the entry value is returned
-  in \a value. Otherwise, \c FALSE is returned.
+  key exists, \c true is returned and the entry value is returned
+  in \a value. Otherwise, \c false is returned.
 */
-SbBool
+bool
 SbDict::find(const Key key, void *& value) const
 {
   return cc_hash_get(this->hashtable, key, &value);
 }
 
 /*!
-  Removes the entry with key \a key. \c TRUE is returned if an entry
-  with this key was present, \c FALSE otherwise.
+  Removes the entry with key \a key. \c true is returned if an entry
+  with this key was present, \c false otherwise.
 */
-SbBool
+bool
 SbDict::remove(const Key key)
 {
   return cc_hash_remove(this->hashtable, key);

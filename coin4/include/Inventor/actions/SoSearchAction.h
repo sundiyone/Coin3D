@@ -48,27 +48,27 @@ public:
 
   void setNode(SoNode * const node);
   SoNode * getNode(void) const;
-  void setType(const SoType type, const SbBool chkderived = TRUE);
-  SoType getType(SbBool & chkderived) const;
+  void setType(const SoType type, const bool chkderived = true);
+  SoType getType(bool & chkderived) const;
   void setName(const SbName name);
   SbName getName(void) const;
   void setFind(const int what);
   int getFind(void) const;
   void setInterest(const Interest interest);
   Interest getInterest(void) const;
-  void setSearchingAll(const SbBool searchall);
-  SbBool isSearchingAll(void) const;
+  void setSearchingAll(const bool searchall);
+  bool isSearchingAll(void) const;
   SoPath * getPath(void) const;
   SoPathList & getPaths(void);
   void reset(void);
 
   void setFound(void);
-  SbBool isFound(void) const;
+  bool isFound(void) const;
   void addPath(SoPath * const path);
 
   // Obsoleted global flag, only present for compatibility reasons
   // with old SGI / TGS Inventor application code.
-  static SbBool duringSearchAll;
+  static bool duringSearchAll;
 
 protected:
   virtual void beginTraversal(SoNode * node);
@@ -76,7 +76,7 @@ protected:
 private:
   int lookfor;
   Interest interest;
-  SbBool searchall, chkderived;
+  bool searchall, chkderived;
   SoNode * node;
   SoType type;
   SbName name;

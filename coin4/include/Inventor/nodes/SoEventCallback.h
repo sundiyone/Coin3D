@@ -62,7 +62,7 @@ public:
   const SoPickedPoint * getPickedPoint(void) const;
 
   void setHandled(void);
-  SbBool isHandled(void) const;
+  bool isHandled(void) const;
 
   void grabEvents(void);
   void releaseEvents(void);
@@ -83,10 +83,10 @@ private:
     // to compile templates where these operators are referenced (even
     // if they are actually never used).
 
-    SbBool operator==(const CallbackInfo & cbi) {
+    bool operator==(const CallbackInfo & cbi) {
       return this->func == cbi.func && this->eventtype == cbi.eventtype && this->userdata == cbi.userdata;
     }
-    SbBool operator!=(const CallbackInfo & cbi) {
+    bool operator!=(const CallbackInfo & cbi) {
       return !(*this == cbi);
     }
   };

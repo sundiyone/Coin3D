@@ -35,7 +35,7 @@ public:
   SbLine(const SbVec3f & origin, const SbVec3f & point);
   void setValue(const SbVec3f & origin, const SbVec3f & point);
   void setPosDir(const SbVec3f & position, const SbVec3f & direction);
-  SbBool getClosestPoints(const SbLine & line2,
+  bool getClosestPoints(const SbLine & line2,
                           SbVec3f & ptOnThis, SbVec3f & ptOnLine2) const;
   SbVec3f getClosestPoint(const SbVec3f & point) const;
   const SbVec3f & getPosition(void) const;

@@ -37,9 +37,9 @@ static uint32_t shaderid = 0;
 
 SoGLShaderObject::SoGLShaderObject(const uint32_t cachecontext)
 {
-  this->isActiveFlag = TRUE;
+  this->isActiveFlag = true;
   this->shadertype = VERTEX;
-  this->paramsdirty = TRUE;
+  this->paramsdirty = true;
   this->glctx = cc_glglue_instance(cachecontext);
   this->cachecontext = cachecontext;
   this->id = ++shaderid;
@@ -72,24 +72,24 @@ SoGLShaderObject::getShaderType(void) const
   return this->shadertype;
 }
 
-void SoGLShaderObject::setIsActive(SbBool flag)
+void SoGLShaderObject::setIsActive(bool flag)
 {
   this->isActiveFlag = flag;
 }
 
-SbBool
+bool
 SoGLShaderObject::isActive(void) const
 {
-  return (!this->isLoaded()) ? FALSE : this->isActiveFlag;
+  return (!this->isLoaded()) ? false : this->isActiveFlag;
 }
 
 void
-SoGLShaderObject::setParametersDirty(SbBool flag)
+SoGLShaderObject::setParametersDirty(bool flag)
 {
   this->paramsdirty = flag;
 }
 
-SbBool
+bool
 SoGLShaderObject::getParametersDirty(void) const
 {
   return this->paramsdirty;

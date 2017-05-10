@@ -94,8 +94,8 @@
 #endif // COIN_DEBUG
 
 /*!
-  \var SbBool SoTimerQueueSensor::scheduled
-  \c TRUE if the sensor is currently scheduled.
+  \var bool SoTimerQueueSensor::scheduled
+  \c true if the sensor is currently scheduled.
 */
 
 
@@ -103,7 +103,7 @@
   Default constructor.
  */
 SoTimerQueueSensor::SoTimerQueueSensor(void)
-  : scheduled(FALSE)
+  : scheduled(false)
 {
 }
 
@@ -114,7 +114,7 @@ SoTimerQueueSensor::SoTimerQueueSensor(void)
   \sa setFunction(), setData()
  */
 SoTimerQueueSensor::SoTimerQueueSensor(SoSensorCB * func, void * data)
-  : inherited(func, data), scheduled(FALSE)
+  : inherited(func, data), scheduled(false)
 {
 }
 
@@ -162,7 +162,7 @@ SoTimerQueueSensor::setTriggerTime(const SbTime & time)
 void
 SoTimerQueueSensor::trigger(void)
 {
-  this->scheduled = FALSE;
+  this->scheduled = false;
   inherited::trigger();
 }
 
@@ -175,7 +175,7 @@ void
 SoTimerQueueSensor::schedule(void)
 {
 #if COIN_DEBUG
-  assert(this->scheduled == TRUE || this->scheduled == FALSE);
+  assert(this->scheduled == true || this->scheduled == false);
   if (this->isScheduled()) {
     SoDebugError::postWarning("SoTimerQueueSensor::schedule",
                               "already scheduled!");
@@ -184,7 +184,7 @@ SoTimerQueueSensor::schedule(void)
 #endif // COIN_DEBUG
 
   SoDB::getSensorManager()->insertTimerSensor(this);
-  this->scheduled = TRUE;
+  this->scheduled = true;
 }
 
 /*!
@@ -196,7 +196,7 @@ void
 SoTimerQueueSensor::unschedule(void)
 {
 #if COIN_DEBUG
-  assert(this->scheduled == TRUE || this->scheduled == FALSE);
+  assert(this->scheduled == true || this->scheduled == false);
   if (!this->isScheduled()) {
     SoDebugError::postWarning("SoTimerQueueSensor::unschedule",
                               "not scheduled!");
@@ -204,7 +204,7 @@ SoTimerQueueSensor::unschedule(void)
   }
 #endif // COIN_DEBUG
   SoDB::getSensorManager()->removeTimerSensor(this);
-  this->scheduled = FALSE;
+  this->scheduled = false;
 }
 
 /*!
@@ -212,13 +212,13 @@ SoTimerQueueSensor::unschedule(void)
 
   \sa schedule(), unschedule()
  */
-SbBool
+bool
 SoTimerQueueSensor::isScheduled(void) const
 {
   return this->scheduled;
 }
 
-SbBool
+bool
 SoTimerQueueSensor::isBefore(const SoSensor * s) const
 {
   return (this->triggertime < ((SoTimerQueueSensor *)s)->triggertime);

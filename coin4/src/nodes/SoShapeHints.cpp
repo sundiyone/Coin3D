@@ -338,19 +338,19 @@ SoShapeHints::doAction(SoAction * action)
   if (!this->vertexOrdering.isIgnored() && !TEST_OVERRIDE(SHAPE_HINTS)) {
     vo = (SoShapeHintsElement::VertexOrdering) this->vertexOrdering.getValue();
     if (this->isOverride()) {
-      SoOverrideElement::setShapeHintsOverride(state, this, TRUE);
+      SoOverrideElement::setShapeHintsOverride(state, this, true);
     }
   }
   if (!this->shapeType.isIgnored() && !TEST_OVERRIDE(SHAPE_HINTS)) {
     st = (SoShapeHintsElement::ShapeType) this->shapeType.getValue();
     if (this->isOverride()) {
-      SoOverrideElement::setShapeHintsOverride(state, this, TRUE);
+      SoOverrideElement::setShapeHintsOverride(state, this, true);
     }
   }
   if (!this->faceType.isIgnored() && !TEST_OVERRIDE(SHAPE_HINTS)) {
     ft = (SoShapeHintsElement::FaceType) this->faceType.getValue();
     if (this->isOverride()) {
-      SoOverrideElement::setShapeHintsOverride(state, this, TRUE);
+      SoOverrideElement::setShapeHintsOverride(state, this, true);
     }
   }
   SoShapeHintsElement::set(action->getState(), this,
@@ -368,7 +368,7 @@ SoShapeHints::doAction(SoAction * action)
     }
     SoCreaseAngleElement::set(state, this, ca);
     if (this->isOverride()) {
-      SoOverrideElement::setCreaseAngleOverride(state, this, TRUE);
+      SoOverrideElement::setCreaseAngleOverride(state, this, true);
     }
   }
 #undef TEST_OVERRIDE

@@ -52,7 +52,7 @@ private:
   virtual void evaluate(void);
   virtual void inputChanged(SoField * which);
 
-  SbBool state;
+  bool state;
 };
 
 #endif // !COIN_SOONOFF_H

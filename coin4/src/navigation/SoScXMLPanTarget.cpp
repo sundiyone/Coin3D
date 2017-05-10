@@ -167,13 +167,13 @@ SoScXMLPanTarget::~SoScXMLPanTarget(void)
 {
 }
 
-SbBool
+bool
 SoScXMLPanTarget::processOneEvent(const ScXMLEvent * event)
 {
   assert(event);
 
   const SbName sessionid = inherited::getSessionId(event);
-  if (sessionid == SbName::empty()) { return FALSE; }
+  if (sessionid == SbName::empty()) { return false; }
 
   const SbName & eventname = event->getEventName();
 
@@ -182,20 +182,20 @@ SoScXMLPanTarget::processOneEvent(const ScXMLEvent * event)
     assert(data);
 
     SoScXMLStateMachine * statemachine = inherited::getSoStateMachine(event, sessionid);
-    if unlikely (!statemachine) { return FALSE; }
+    if unlikely (!statemachine) { return false; }
 
     SoCamera * camera = inherited::getActiveCamera(event, sessionid);
-    if unlikely (!camera) { return FALSE; }
+    if unlikely (!camera) { return false; }
 
     if (!inherited::getEventSbVec2f(event, "mouseposition", data->lastpos)) {
-      return FALSE;
+      return false;
     }
 
     const SbViewportRegion & vp = statemachine->getViewportRegion();
     SbViewVolume vv = camera->getViewVolume(vp.getViewportAspectRatio());
     data->panplane = vv.getPlane(camera->focalDistance.getValue());
 
-    return TRUE;
+    return true;
   }
 
   else if (eventname == UPDATE()) {
@@ -205,14 +205,14 @@ SoScXMLPanTarget::processOneEvent(const ScXMLEvent * event)
     assert(data);
 
     SoScXMLStateMachine * statemachine = inherited::getSoStateMachine(event, sessionid);
-    if unlikely (!statemachine) { return FALSE; }
+    if unlikely (!statemachine) { return false; }
 
     SoCamera * camera = inherited::getActiveCamera(event, sessionid);
-    if unlikely (!camera) { return FALSE; }
+    if unlikely (!camera) { return false; }
 
     SbVec2f position;
     if (!inherited::getEventSbVec2f(event, "mouseposition", position)) {
-      return FALSE;
+      return false;
     }
 
     const SbViewportRegion & vp = statemachine->getViewportRegion();
@@ -222,13 +222,13 @@ SoScXMLPanTarget::processOneEvent(const ScXMLEvent * event)
                                 data->lastpos, position);
 
     data->lastpos = position;
-    return TRUE;
+    return true;
   }
 
   else if (eventname == END()) {
     // _sessionid
     this->freeSessionData(sessionid);
-    return TRUE;
+    return true;
   }
 
   else if (eventname == SET_FOCAL_POINT()) {
@@ -237,40 +237,40 @@ SoScXMLPanTarget::processOneEvent(const ScXMLEvent * event)
     // [focaldistance] {float}
     // [upvector] {SbVec3f}
     SoScXMLStateMachine * statemachine = inherited::getSoStateMachine(event, sessionid);
-    if unlikely (!statemachine) { return FALSE; }
+    if unlikely (!statemachine) { return false; }
 
     SoCamera * camera = inherited::getActiveCamera(event, sessionid);
-    if unlikely (!camera) { return FALSE; }
+    if unlikely (!camera) { return false; }
 
-    SbBool isworldspace = FALSE;
+    bool isworldspace = false;
     SbVec3f worldspace(0.0f, 0.0f, 0.0f);
     SbVec2f screenspace(0.0f, 0.0f);
     if (event->getAssociation("worldspace")) {
-      // if we have a pick-based position and we had a miss, worldspace would contain 'FALSE',
+      // if we have a pick-based position and we had a miss, worldspace would contain 'false',
       // not an SbVec3f
       SbString valuestr = event->getAssociation("worldspace");
       if (SbStringConvert::typeOf(valuestr) == SbStringConvert::SBVEC3F &&
-          inherited::getEventSbVec3f(event, "worldspace", worldspace, FALSE)) {
-        isworldspace = TRUE;
+          inherited::getEventSbVec3f(event, "worldspace", worldspace, false)) {
+        isworldspace = true;
       } else {
-        return FALSE;
+        return false;
       }
     }
-    else if (inherited::getEventSbVec2f(event, "screenspace", screenspace, FALSE)) {
-      isworldspace = FALSE;
+    else if (inherited::getEventSbVec2f(event, "screenspace", screenspace, false)) {
+      isworldspace = false;
     }
     else {
       SoDebugError::post("SoScXMLPanTarget::processOneEvent",
                          "while processing %s: a 'worldspace' or 'screenspace' coordinate must be specified.",
                          eventname.getString());
-      return FALSE;
+      return false;
     }
 
     double focaldistance = 0.0;
-    SbBool usefocaldistance = inherited::getEventDouble(event, "focaldistance", focaldistance, FALSE);
+    bool usefocaldistance = inherited::getEventDouble(event, "focaldistance", focaldistance, false);
 
     SbVec3f upvector(0.0f, 0.0f, 0.0f);
-    SbBool useupvector = inherited::getEventSbVec3f(event, "upvector", upvector, FALSE);
+    bool useupvector = inherited::getEventSbVec3f(event, "upvector", upvector, false);
 
     if (isworldspace) {
       SoScXMLPanTarget::panSetFocalPoint(camera, worldspace);
@@ -295,32 +295,32 @@ SoScXMLPanTarget::processOneEvent(const ScXMLEvent * event)
       }
     }
 
-    return TRUE;
+    return true;
   }
 
   else if (eventname == MOVE()) {
     // _sessionid
     // translation {SbVec3f}
     // factor {double=1.0}
-    // [cameraspace] {boolean=FALSE}
+    // [cameraspace] {boolean=false}
     SoScXMLStateMachine * statemachine = inherited::getSoStateMachine(event, sessionid);
-    if unlikely (!statemachine) { return FALSE; }
+    if unlikely (!statemachine) { return false; }
 
     SoCamera * camera = inherited::getActiveCamera(event, sessionid);
-    if unlikely (!camera) { return FALSE; }
+    if unlikely (!camera) { return false; }
 
     SbVec3f translation(0.0f, 0.0f, 0.0f);
     if (!inherited::getEventSbVec3f(event, "translation", translation)) {
-      return FALSE;
+      return false;
     }
 
     double factor = 1.0;
-    inherited::getEventDouble(event, "factor", factor, FALSE);
+    inherited::getEventDouble(event, "factor", factor, false);
 
     translation *= static_cast<float>(factor);
 
-    SbBool iscameraspace = FALSE;
-    inherited::getEventSbBool(event, "cameraspace", iscameraspace, FALSE);
+    bool iscameraspace = false;
+    inherited::getEventbool(event, "cameraspace", iscameraspace, false);
 
     SoScXMLPanTarget::translateCamera(camera, translation, iscameraspace);
   }
@@ -329,10 +329,10 @@ SoScXMLPanTarget::processOneEvent(const ScXMLEvent * event)
     SoDebugError::post("SoScXMLPanTarget::processOneEvent",
                        "while processing %s: unknown event",
                        eventname.getString());
-    return FALSE;
+    return false;
   }
 
-  return TRUE;
+  return true;
 }
 
 
@@ -379,7 +379,7 @@ SoScXMLPanTarget::panSetFocalPoint(SoCamera * camera, const SbVec3f & focalpoint
 }
 
 void
-SoScXMLPanTarget::translateCamera(SoCamera * camera, const SbVec3f & translation, SbBool cameraspace)
+SoScXMLPanTarget::translateCamera(SoCamera * camera, const SbVec3f & translation, bool cameraspace)
 {
   assert(camera);
   if (!cameraspace) {

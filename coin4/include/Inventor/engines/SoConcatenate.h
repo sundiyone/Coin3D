@@ -50,13 +50,13 @@ private:
 
   virtual void evaluate(void);
 
-  virtual SbBool readInstance(SoInput * in, unsigned short flags);
+  virtual bool readInstance(SoInput * in, unsigned short flags);
   virtual void writeInstance(SoOutput * out);
 
   void initialize(const SoType inputfieldtype);
 
   virtual void copyContents(const SoFieldContainer * from,
-                            SbBool copyconnections);
+                            bool copyconnections);
 
   // SoConcatenate instances uses a dynamic set of inputs and outputs,
   // as they are not common for all instances of the class (like for

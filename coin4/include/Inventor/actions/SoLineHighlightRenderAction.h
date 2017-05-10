@@ -43,9 +43,9 @@ public:
 
   virtual void apply(SoNode * node);
   virtual void apply(SoPath * path);
-  virtual void apply(const SoPathList & pathlist, SbBool obeysrules = FALSE);
-  void setVisible(const SbBool visible);
-  SbBool isVisible(void) const;
+  virtual void apply(const SoPathList & pathlist, bool obeysrules = false);
+  void setVisible(const bool visible);
+  bool isVisible(void) const;
   void setColor(const SbColor & color);
   const SbColor & getColor(void);
   void setLinePattern(uint16_t pattern);
@@ -54,7 +54,7 @@ public:
   float getLineWidth(void) const;
 
 protected:
-  SbBool hlVisible;
+  bool hlVisible;
   // Some protected members are missing compared to OIV here.
   // I doubt that anyone will use them though, since it looked
   // like they should have been private. We chose to implement this

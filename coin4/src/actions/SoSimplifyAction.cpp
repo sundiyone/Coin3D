@@ -84,7 +84,7 @@ SoSimplifyAction::apply(SoPath * path)
 }
 
 void 
-SoSimplifyAction::apply(const SoPathList & pathlist, SbBool obeysrules)
+SoSimplifyAction::apply(const SoPathList & pathlist, bool obeysrules)
 {
   inherited::apply(pathlist, obeysrules);
 }

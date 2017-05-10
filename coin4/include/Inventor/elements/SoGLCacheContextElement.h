@@ -48,16 +48,16 @@ protected:
 public:
   virtual void init(SoState * state);
 
-  virtual SbBool matches(const SoElement * elt) const;
+  virtual bool matches(const SoElement * elt) const;
   virtual SoElement * copyMatchInfo(void) const;
   static void set(SoState * state, int context,
-                  SbBool twopasstransparency,
-                  SbBool remoterendering);
+                  bool twopasstransparency,
+                  bool remoterendering);
   static int get(SoState * state);
   static int getExtID(const char * str);
   static void getOpenGLVersion(SoState * state, int & major, int & minor);
-  static SbBool extSupported(SoState * state, int extid);
-  static SbBool areMipMapsFast(SoState * state);
+  static bool extSupported(SoState * state, int extid);
+  static bool areMipMapsFast(SoState * state);
   enum {
     DO_AUTO_CACHE = 1,
     DONT_AUTO_CACHE
@@ -65,7 +65,7 @@ public:
   static void shouldAutoCache(SoState * state, int bits);
   static void setAutoCacheBits(SoState * state, int bits);
   static int resetAutoCacheBits(SoState * state);
-  static SbBool getIsRemoteRendering(SoState * state);
+  static bool getIsRemoteRendering(SoState * state);
 
   static uint32_t getUniqueCacheContext(void);
 
@@ -85,14 +85,14 @@ private:
 
 private:
   int context;
-  SbBool twopass;
+  bool twopass;
   int autocachebits;
   int numshapes;
   int numseparators;
 
   enum { RENDERING_UNSET, RENDERING_SET_DIRECT, RENDERING_SET_INDIRECT };
   int rendering;
-  SbBool isDirectRendering(SoState * state) const;
+  bool isDirectRendering(SoState * state) const;
 };
 
 // *************************************************************************

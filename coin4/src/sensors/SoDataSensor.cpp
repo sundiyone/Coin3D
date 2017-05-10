@@ -56,7 +56,7 @@
 SoDataSensor::SoDataSensor(void)
   : cbfunc(NULL),
     cbdata(NULL),
-    findpath(FALSE),
+    findpath(false),
     triggerfield(NULL),
     triggernode(NULL),
     triggerpath(NULL),
@@ -78,7 +78,7 @@ SoDataSensor::SoDataSensor(SoSensorCB * func, void * data)
   : inherited(func, data),
     cbfunc(NULL),
     cbdata(NULL),
-    findpath(FALSE),
+    findpath(false),
     triggerfield(NULL),
     triggernode(NULL),
     triggerpath(NULL),
@@ -180,7 +180,7 @@ SoDataSensor::getTriggerPath(void) const
   \sa getTriggerPathFlag(), getTriggerPath()
 */
 void
-SoDataSensor::setTriggerPathFlag(SbBool flag)
+SoDataSensor::setTriggerPathFlag(bool flag)
 {
   this->findpath = flag;
 }
@@ -191,7 +191,7 @@ SoDataSensor::setTriggerPathFlag(SbBool flag)
 
   \sa setTriggerPathFlag(), getTriggerPath()
 */
-SbBool
+bool
 SoDataSensor::getTriggerPathFlag(void) const
 {
   return this->findpath;

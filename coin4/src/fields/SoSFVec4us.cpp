@@ -66,7 +66,7 @@ SoSFVec4us::initClass(void)
 // parent classes.
 #ifndef DOXYGEN_SKIP_THIS
 
-SbBool
+bool
 SoSFVec4us::readValue(SoInput * in)
 {
   return
@@ -122,15 +122,15 @@ BOOST_AUTO_TEST_CASE(textinput)
   const char * filters[] = { "read error", NULL }; // all read error messages
   TestSuite::ResetReadErrorCount();
   // TestSuite::PushMessageSuppressFilters(filters);
-  SbBool ok;
+  bool ok;
   ok = field.set("-3 4 32 3"); // should emit error message on '-3'
-  BOOST_CHECK_EQUAL(ok, FALSE);
+  BOOST_CHECK_EQUAL(ok, false);
   //BOOST_CHECK_EQUAL(TestSuite::GetReadErrorCount(), 1);
   ok = field.set("3 525 32 3"); // should emit error message on '525'
-  //BOOST_CHECK_EQUAL(ok, FALSE);
+  //BOOST_CHECK_EQUAL(ok, false);
   //BOOST_CHECK_EQUAL(TestSuite::GetReadErrorCount(), 2);
   ok = field.set("3 32 3"); // error on account of too few numbers
-  BOOST_CHECK_EQUAL(ok, FALSE);
+  BOOST_CHECK_EQUAL(ok, false);
   //BOOST_CHECK_EQUAL(TestSuite::GetReadErrorCount(), 3);
   // TestSuite::PopMessageSuppressFilters();
   TestSuite::ResetReadErrorCount();

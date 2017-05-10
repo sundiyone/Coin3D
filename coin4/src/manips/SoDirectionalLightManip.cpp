@@ -108,7 +108,7 @@ SoDirectionalLightManip::SoDirectionalLightManip(void)
   this->colorFieldSensor = new SoFieldSensor(SoDirectionalLightManip::fieldSensorCB, this);
   this->colorFieldSensor->setPriority(0);
 
-  this->attachSensors(TRUE);
+  this->attachSensors(true);
   this->setDragger(new SoDirectionalLightDragger);
 }
 
@@ -173,7 +173,7 @@ SoDirectionalLightManip::getDragger(void)
   manipulator will copy the field data from the node, to make it
   affect the state in the same way as the node.
 */
-SbBool
+bool
 SoDirectionalLightManip::replaceNode(SoPath * path)
 {
   SoFullPath * fullpath = (SoFullPath *)path;
@@ -183,24 +183,24 @@ SoDirectionalLightManip::replaceNode(SoPath * path)
     SoDebugError::post("SoDirectionalLightManip::replaceNode",
                        "End of path is not a SoDirectionalLight");
 #endif // debug
-    return FALSE;
+    return false;
   }
   SoNode * tail = path->getTail();
   if (tail->isOfType(SoBaseKit::getClassTypeId())) {
     SoBaseKit * kit = (SoBaseKit *) ((SoNodeKitPath *)path)->getTail();
     SbString partname = kit->getPartString(path);
     if (partname != "") {
-      SoDirectionalLight * oldpart = (SoDirectionalLight *) kit->getPart(partname, TRUE);
+      SoDirectionalLight * oldpart = (SoDirectionalLight *) kit->getPart(partname, true);
       if (oldpart != NULL) {
-        this->attachSensors(FALSE);
+        this->attachSensors(false);
         this->transferFieldValues(oldpart, this);
-        this->attachSensors(TRUE);
+        this->attachSensors(true);
         SoDirectionalLightManip::fieldSensorCB(this, NULL);
         kit->setPart(partname, this);
-        return TRUE;
+        return true;
       }
       else {
-        return FALSE;
+        return false;
       }
     }
   }
@@ -209,7 +209,7 @@ SoDirectionalLightManip::replaceNode(SoPath * path)
     SoDebugError::post("SoDirectionalLightManip::replaceNode",
                        "Path is too short");
 #endif // debug
-    return FALSE;
+    return false;
   }
   SoNode * parent = fullpath->getNodeFromTail(1);
   if (!parent->isOfType(SoGroup::getClassTypeId())) {
@@ -217,17 +217,17 @@ SoDirectionalLightManip::replaceNode(SoPath * path)
     SoDebugError::post("SoDirectionalLightManip::replaceNode",
                        "Parent node is not a group");
 #endif // debug
-    return FALSE;
+    return false;
   }
   this->ref();
-  this->attachSensors(FALSE);
+  this->attachSensors(false);
   this->transferFieldValues((SoDirectionalLight *)fulltail, this);
-  this->attachSensors(TRUE);
+  this->attachSensors(true);
   SoDirectionalLightManip::fieldSensorCB(this, NULL);
 
   ((SoGroup *)parent)->replaceChild(fulltail, this);
   this->unrefNoDelete();
-  return TRUE;
+  return true;
 }
 
 // documented in superclass
@@ -291,7 +291,7 @@ SoDirectionalLightManip::getBoundingBox(SoGetBoundingBoxAction * action)
     action->resetCenter();
   }
   if (numcenters != 0) {
-    action->setCenter(center / (float) numcenters, FALSE);
+    action->setCenter(center / (float) numcenters, false);
   }
 }
 
@@ -370,11 +370,11 @@ SoDirectionalLightManip::valueChangedCB(void * m, SoDragger * dragger)
                        "Invalid motion matrix.");
 #endif // debug
   }
-  thisp->attachSensors(FALSE);
+  thisp->attachSensors(false);
   if (thisp->direction.getValue() != direction) {
     thisp->direction = direction;
   }
-  thisp->attachSensors(TRUE);
+  thisp->attachSensors(true);
 }
 
 /*!
@@ -395,7 +395,7 @@ SoDirectionalLightManip::fieldSensorCB(void * m, SoSensor *)
     matrix.setTransform(t, r, s, so);
     dragger->setMotionMatrix(matrix);
 
-    SoMaterial * material = (SoMaterial *)dragger->getPart("material", TRUE);
+    SoMaterial * material = (SoMaterial *)dragger->getPart("material", true);
     if (material->emissiveColor.getNum() != 1 ||
         material->emissiveColor[0].getValue() != thisp->color.getValue()) {
       // replace with new material since the material is reused between
@@ -412,7 +412,7 @@ SoDirectionalLightManip::fieldSensorCB(void * m, SoSensor *)
 // instance.
 void
 SoDirectionalLightManip::copyContents(const SoFieldContainer * fromfc,
-                                      SbBool copyconnections)
+                                      bool copyconnections)
 {
   assert(fromfc->isOfType(SoDirectionalLightManip::getClassTypeId()));
   this->setDragger(((SoDirectionalLightManip *)fromfc)->getDragger());
@@ -431,7 +431,7 @@ SoDirectionalLightManip::transferFieldValues(const SoDirectionalLight * from,
 }
 
 void
-SoDirectionalLightManip::attachSensors(const SbBool onoff)
+SoDirectionalLightManip::attachSensors(const bool onoff)
 {
   if (onoff) {
     this->directionFieldSensor->attach(&this->direction);

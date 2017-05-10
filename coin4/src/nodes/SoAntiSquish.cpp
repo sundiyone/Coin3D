@@ -38,7 +38,7 @@
   <b>FILE FORMAT/DEFAULTS:</b>
   \code
     AntiSquish {
-        recalcAlways TRUE
+        recalcAlways true
         sizing AVERAGE_DIMENSION
     }
   \endcode
@@ -72,9 +72,9 @@
   \var SoSFBool SoAntiSquish::recalcAlways
 
   Whether to automatically have the unsquishing parameters
-  recalculated for every traversal. Default value is \c TRUE.
+  recalculated for every traversal. Default value is \c true.
 
-  You can set this to \c FALSE and manually invoke
+  You can set this to \c false and manually invoke
   SoAntiSquish::recalc() if you need closer control of the geometry
   influenced by this node.
 */
@@ -91,7 +91,7 @@ SoAntiSquish::SoAntiSquish(void)
 {
   SO_NODE_INTERNAL_CONSTRUCTOR(SoAntiSquish);
 
-  SO_NODE_ADD_FIELD(recalcAlways, (TRUE));
+  SO_NODE_ADD_FIELD(recalcAlways, (true));
   SO_NODE_ADD_FIELD(sizing, (SoAntiSquish::AVERAGE_DIMENSION));
 
   SO_NODE_DEFINE_ENUM_VALUE(Sizing, X);
@@ -103,8 +103,8 @@ SoAntiSquish::SoAntiSquish(void)
   SO_NODE_DEFINE_ENUM_VALUE(Sizing, LONGEST_DIAGONAL);
   SO_NODE_SET_SF_ENUM_TYPE(sizing, Sizing);
 
-  this->matrixvalid = FALSE;
-  this->inversevalid = FALSE;
+  this->matrixvalid = false;
+  this->inversevalid = false;
 }
 
 /*!
@@ -125,10 +125,10 @@ SoAntiSquish::initClass(void)
 void
 SoAntiSquish::getBoundingBox(SoGetBoundingBoxAction * action)
 {
-  SbBool matrixwasvalid = this->matrixvalid;
+  bool matrixwasvalid = this->matrixvalid;
   SoAntiSquish::doAction(action);
-  if (this->recalcAlways.getValue() == FALSE) {
-    // Usually when recalcAlways is FALSE, SoAntiSquish::recalc() is
+  if (this->recalcAlways.getValue() == false) {
+    // Usually when recalcAlways is false, SoAntiSquish::recalc() is
     // called by manipulators at the same time as
     // SoSurroundScale::invalidate() is called. This means that the
     // first time we get here is often because SoSurrondScale applied
@@ -136,14 +136,14 @@ SoAntiSquish::getBoundingBox(SoGetBoundingBoxAction * action)
     // calculate the surround scale for. This is _not_ the scene graph
     // we want to anti-squish so we should recalculate it the next time
     // we get here.
-    if (matrixwasvalid == FALSE) {
-      this->matrixvalid = FALSE;
+    if (matrixwasvalid == false) {
+      this->matrixvalid = false;
     }
   }
 }
 
 /*!
-  If SoAntiSquish::recalcAlways has been set to \c FALSE, you must
+  If SoAntiSquish::recalcAlways has been set to \c false, you must
   call this method whenever the transformations before this node in
   the graph has changed.
 
@@ -152,7 +152,7 @@ SoAntiSquish::getBoundingBox(SoGetBoundingBoxAction * action)
 void
 SoAntiSquish::recalc(void)
 {
-  this->matrixvalid = FALSE;
+  this->matrixvalid = false;
 }
 
 /*!
@@ -164,11 +164,11 @@ SoAntiSquish::doAction(SoAction * action)
 {
   SoState * state = action->getState();
   if (!this->matrixvalid || this->recalcAlways.getValue()) {
-    this->matrixvalid = TRUE;
-    this->inversevalid = FALSE;
+    this->matrixvalid = true;
+    this->inversevalid = false;
     this->unsquishedmatrix =
       this->getUnsquishingMatrix(SoModelMatrixElement::get(state),
-                                 FALSE, this->inversematrix);
+                                 false, this->inversematrix);
   }
   SoModelMatrixElement::mult(action->getState(), this, this->unsquishedmatrix);
 }
@@ -193,10 +193,10 @@ SoAntiSquish::getMatrix(SoGetMatrixAction * action)
 {
   if (!this->matrixvalid || !this->inversevalid ||
       this->recalcAlways.getValue()) {
-    this->matrixvalid = TRUE;
-    this->inversevalid = TRUE;
+    this->matrixvalid = true;
+    this->inversevalid = true;
     this->unsquishedmatrix = this->getUnsquishingMatrix(action->getMatrix(),
-                                                        TRUE,
+                                                        true,
                                                         this->inversematrix);
   }
 
@@ -217,12 +217,12 @@ SoAntiSquish::pick(SoPickAction * action)
   Calculate and return the matrix needed to "unsquish" the \a
   squishedmatrix.
 
-  If \a calcinverse is \c TRUE, store the inverse of the
+  If \a calcinverse is \c true, store the inverse of the
   unsquishmatrix in \a getinverse.
 */
 SbMatrix
 SoAntiSquish::getUnsquishingMatrix(const SbMatrix & squishedmatrix,
-                                   const SbBool calcinverse,
+                                   const bool calcinverse,
                                    SbMatrix & getinverse)
 {
   SbRotation r, so;

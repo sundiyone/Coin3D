@@ -78,7 +78,7 @@ SoGLTextureEnabledElement::~SoGLTextureEnabledElement(void)
 void
 SoGLTextureEnabledElement::set(SoState * const state,
                                SoNode * const node,
-                               const SbBool enabled)
+                               const bool enabled)
 {
   inherited::set(state, node, enabled);
   SoShapeStyleElement::setTextureEnabled(state, enabled);
@@ -94,7 +94,7 @@ void
 SoGLTextureEnabledElement::enableRectangle(SoState * state, SoNode * node)
 {
   SoInt32Element::set(classStackIndex, state, node, (int32_t) RECTANGLE);
-  SoShapeStyleElement::setTextureEnabled(state, TRUE);
+  SoShapeStyleElement::setTextureEnabled(state, true);
 }
 
 /*!
@@ -105,7 +105,7 @@ void
 SoGLTextureEnabledElement::enableCubeMap(SoState * state, SoNode * node)
 {
   SoInt32Element::set(classStackIndex, state, node, (int32_t) CUBEMAP);
-  SoShapeStyleElement::setTextureEnabled(state, TRUE);
+  SoShapeStyleElement::setTextureEnabled(state, true);
 }
 
 /*!
@@ -153,7 +153,7 @@ SoGLTextureEnabledElement::pop(SoState * state,
   Sets the state of the element.
 */
 void
-SoGLTextureEnabledElement::set(SoState * const state, const SbBool enabled)
+SoGLTextureEnabledElement::set(SoState * const state, const bool enabled)
 {
   SoGLTextureEnabledElement::set(state, NULL, enabled);
 }
@@ -162,7 +162,7 @@ SoGLTextureEnabledElement::set(SoState * const state, const SbBool enabled)
 /*!
   Return current state of this element.
 */
-SbBool
+bool
 SoGLTextureEnabledElement::get(SoState * const state)
 {
   return inherited::get(state);
@@ -170,9 +170,9 @@ SoGLTextureEnabledElement::get(SoState * const state)
 
 
 /*!
-  Returns default state of this element (FALSE).
+  Returns default state of this element (false).
 */
-SbBool
+bool
 SoGLTextureEnabledElement::getDefault(void)
 {
   return inherited::getDefault();

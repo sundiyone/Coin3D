@@ -154,16 +154,16 @@ SoVRMLTextureCoordinate::GLRender(SoGLRenderAction * action)
 
   SoBase::staticDataLock();
   const int num = this->point.getNum();
-  SbBool setvbo = FALSE;
+  bool setvbo = false;
   if (SoGLVBOElement::shouldCreateVBO(state, num)) {
-    setvbo = TRUE;
-    SbBool dirty = FALSE;
+    setvbo = true;
+    bool dirty = false;
     if (PRIVATE(this)->vbo == NULL) {
       PRIVATE(this)->vbo = new SoVBO(GL_ARRAY_BUFFER, GL_STATIC_DRAW); 
-      dirty =  TRUE;
+      dirty =  true;
     }
     else if (PRIVATE(this)->vbo->getBufferDataId() != this->getNodeId()) {
-      dirty = TRUE;
+      dirty = true;
     }
     if (dirty) {
       PRIVATE(this)->vbo->setBufferData(this->point.getValues(0),

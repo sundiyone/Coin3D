@@ -63,7 +63,7 @@ SbLineProjector::SbLineProjector(void)
 }
 
 // Documented in superclass
-SbBool 
+bool 
 SbLineProjector::tryProject(const SbVec2f & point, const float epsilon, SbVec3f & result)
 {
   // first project the line into screen space to find the 2D point
@@ -100,7 +100,7 @@ SbLineProjector::tryProject(const SbVec2f & point, const float epsilon, SbVec3f 
   SbVec3f projpt, dummy;
 
   // check how parallel the lines are
-  SbBool nonparallel = TRUE;  
+  bool nonparallel = true;  
   if (epsilon > 0.0f) {
     const SbViewVolume & vv = this->getViewVolume();
     float dot = SbAbs(wrldline.getDirection().dot(vv.getProjectionDirection())); 
@@ -115,7 +115,7 @@ SbLineProjector::tryProject(const SbVec2f & point, const float epsilon, SbVec3f 
         dot = SbAbs(dir.dot(vv.getProjectionDirection())); 
         nonparallel = SbAbs(1.0f - dot) > epsilon;
       }
-      else nonparallel = TRUE;
+      else nonparallel = true;
     }
   }
   

@@ -251,7 +251,7 @@ sopick_pick_cylinder(const float r,
 
   float r2 = r * r;
 
-  SbBool matperpart = flags & SOPICK_MATERIAL_PER_PART;
+  bool matperpart = flags & SOPICK_MATERIAL_PER_PART;
 
   if ((numPicked < 2) && (flags & SOPICK_TOP)) {
     SbPlane top(SbVec3f(0.0f, 1.0f, 0.0f), halfh);

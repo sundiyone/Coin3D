@@ -104,7 +104,7 @@
 
 class SoVRMLSwitchP : public SoSoundElementHelper {
 public:
-  SbBool childlistvalid;
+  bool childlistvalid;
 
 #ifdef COIN_THREADSAFE
   SbMutex childlistmutex;
@@ -154,7 +154,7 @@ void
 SoVRMLSwitch::commonConstructor(void)
 {
   PRIVATE(this) = new SoVRMLSwitchP;
-  PRIVATE(this)->childlistvalid = FALSE;
+  PRIVATE(this)->childlistvalid = false;
 
   SO_VRMLNODE_INTERNAL_CONSTRUCTOR(SoVRMLSwitch);
 
@@ -179,16 +179,16 @@ SoVRMLSwitch::~SoVRMLSwitch(void)
 }
 
 // Doc in parent
-SbBool
+bool
 SoVRMLSwitch::affectsState(void) const // virtual
 {
   int idx = this->whichChoice.getValue();
-  if (idx == SO_SWITCH_NONE) return FALSE;
-  if (idx >= this->getNumChildren()) return FALSE;
-  if (idx >= 0 && !this->getChild(idx)->affectsState()) return FALSE;
+  if (idx == SO_SWITCH_NONE) return false;
+  if (idx >= this->getNumChildren()) return false;
+  if (idx >= 0 && !this->getChild(idx)->affectsState()) return false;
 
   // FIXME: cover SO_SWITCH_INHERIT and SO_SWITCH_ALL.
-  return TRUE;
+  return true;
 }
 
 /*!
@@ -327,7 +327,7 @@ SoVRMLSwitch::doAction(SoAction * action)
         }
       }
       if (numcenters != 0) {
-        bbaction->setCenter(acccenter / float(numcenters), FALSE);
+        bbaction->setCenter(acccenter / float(numcenters), false);
       }
     }
     else { // not a getBoundingBoxAction
@@ -460,7 +460,7 @@ void
 SoVRMLSwitch::addChild(SoNode * child)
 {
   this->choice.addNode(child);
-  PRIVATE(this)->childlistvalid = FALSE;
+  PRIVATE(this)->childlistvalid = false;
 }
 
 // Doc in parent
@@ -468,7 +468,7 @@ void
 SoVRMLSwitch::insertChild(SoNode * child, int idx)
 {
   this->choice.insertNode(child, idx);
-  PRIVATE(this)->childlistvalid = FALSE;
+  PRIVATE(this)->childlistvalid = false;
 }
 
 // Doc in parent
@@ -497,7 +497,7 @@ void
 SoVRMLSwitch::removeChild(int idx)
 {
   this->choice.removeNode(idx);
-  PRIVATE(this)->childlistvalid = FALSE;
+  PRIVATE(this)->childlistvalid = false;
 }
 
 // Doc in parent
@@ -505,7 +505,7 @@ void
 SoVRMLSwitch::removeChild(SoNode * child)
 {
   this->choice.removeNode(child);
-  PRIVATE(this)->childlistvalid = FALSE;
+  PRIVATE(this)->childlistvalid = false;
 }
 
 // Doc in parent
@@ -514,7 +514,7 @@ SoVRMLSwitch::removeAllChildren(void)
 {
   this->choice.removeAllNodes();
   SoGroup::children->truncate(0);
-  PRIVATE(this)->childlistvalid = TRUE;
+  PRIVATE(this)->childlistvalid = true;
 }
 
 // Doc in parent
@@ -522,7 +522,7 @@ void
 SoVRMLSwitch::replaceChild(int idx, SoNode * child)
 {
   this->choice.replaceNode(idx, child);
-  PRIVATE(this)->childlistvalid = FALSE;
+  PRIVATE(this)->childlistvalid = false;
 }
 
 // Doc in parent
@@ -531,7 +531,7 @@ SoVRMLSwitch::replaceChild(SoNode * old,
                            SoNode * child)
 {
   this->choice.replaceNode(old, child);
-  PRIVATE(this)->childlistvalid = FALSE;
+  PRIVATE(this)->childlistvalid = false;
 }
 
 // Doc in parent
@@ -540,7 +540,7 @@ SoVRMLSwitch::notify(SoNotList * list)
 {
   SoField * f = list->getLastField();
   if (f == &this->choice) {
-    PRIVATE(this)->childlistvalid = FALSE;
+    PRIVATE(this)->childlistvalid = false;
   }
 
   SoNotRec * rec = list->getLastRec();
@@ -554,7 +554,7 @@ SoVRMLSwitch::notify(SoNotList * list)
   //   whichChild 1
   //   Separator {
   //     Rotor {
-  //       on TRUE
+  //       on true
   //       speed 1
   //     }
   //   }
@@ -563,17 +563,17 @@ SoVRMLSwitch::notify(SoNotList * list)
   //   }
   // }
 
-  SbBool ignoreit = FALSE;
+  bool ignoreit = false;
 
   if (rec && (f == &this->choice)) { // we got a notification from one of the children, check which
     int which = this->whichChoice.getValue();
-    if (which == -1) ignoreit = TRUE; // also ignore if no children are traversed
+    if (which == -1) ignoreit = true; // also ignore if no children are traversed
     else if (which >= 0) {
       // get previous notrec to find the node the notification passed through
       rec = (SoNotRec*) rec->getPrevious();
       if (rec) {
         int fromchild = this->findChild((SoNode*) rec->getBase());
-        if (fromchild >= 0 && fromchild != which) ignoreit = TRUE;
+        if (fromchild >= 0 && fromchild != which) ignoreit = true;
       }
     }
   }
@@ -586,26 +586,26 @@ SoVRMLSwitch::notify(SoNotList * list)
 
 
 // Doc in parent
-SbBool
+bool
 SoVRMLSwitch::readInstance(SoInput * in,
                            unsigned short flags)
 {
   SoGroup::children->truncate(0);
-  SbBool oldnot = this->choice.enableNotify(FALSE);
-  SbBool ret = inherited::readInstance(in, flags);
-  if (oldnot) this->choice.enableNotify(TRUE);
-  PRIVATE(this)->childlistvalid = FALSE;
+  bool oldnot = this->choice.enableNotify(false);
+  bool ret = inherited::readInstance(in, flags);
+  if (oldnot) this->choice.enableNotify(true);
+  PRIVATE(this)->childlistvalid = false;
   return ret;
 }
 
 // Doc in parent
 void
 SoVRMLSwitch::copyContents(const SoFieldContainer * from,
-                           SbBool copyConn)
+                           bool copyConn)
 {
   SoGroup::children->truncate(0);
   SoNode::copyContents(from, copyConn);
-  PRIVATE(this)->childlistvalid = FALSE;
+  PRIVATE(this)->childlistvalid = false;
 }
 
 // Doc in parent
@@ -622,7 +622,7 @@ SoVRMLSwitch::getChildren(void) const
       SoVRMLParent::updateChildList(this->choice.getValues(0),
                                     this->choice.getNum(),
                                     *SoGroup::children);
-      PRIVATE(this)->childlistvalid = TRUE;
+      PRIVATE(this)->childlistvalid = true;
     }
     PRIVATE(this)->unlockChildList();
   }

@@ -58,7 +58,7 @@ FILE * coin_get_stderr(void);
 
 void coin_atexit_cleanup(void);
 
-SbBool coin_is_exiting(void);
+bool coin_is_exiting(void);
 
 /* this enum contains all values that are available for use for the
    third argument to coin_atexit_func() -- no other values than these
@@ -171,7 +171,7 @@ void coin_atexit_func(const char * name, coin_atexit_f * fp, coin_atexit_priorit
 
   \code
   cc_string storedlocale;
-  SbBool changed = coin_locale_set_portable(&storedlocale);
+  bool changed = coin_locale_set_portable(&storedlocale);
 
   // [code with locale-aware functions]
 
@@ -183,7 +183,7 @@ void coin_atexit_func(const char * name, coin_atexit_f * fp, coin_atexit_priorit
   the *printf() functions.
 */
 
-SbBool coin_locale_set_portable(cc_string * storeold);
+bool coin_locale_set_portable(cc_string * storeold);
 void coin_locale_reset(cc_string * storedold);
 
 /*
@@ -204,7 +204,7 @@ void coin_output_ascii85(FILE * fp,
                          unsigned char * linebuf,
                          int * tuplecnt, int * linecnt,
                          const int rowlen,
-                         const SbBool flush);
+                         const bool flush);
 
 void coin_flush_ascii85(FILE * fp,
                         unsigned char * tuple,
@@ -219,14 +219,14 @@ void coin_flush_ascii85(FILE * fp,
   <patch> might not be in the string. It's possible to supply NULL for
   minor and/or patch if you're not interested in minor and/or patch.
 */
-SbBool coin_parse_versionstring(const char * versionstr,
+bool coin_parse_versionstring(const char * versionstr,
                                 int * major,
                                 int * minor,
                                 int * patch);
 
 /* ********************************************************************** */
 
-SbBool coin_getcwd(cc_string * str);
+bool coin_getcwd(cc_string * str);
 
 /* ********************************************************************** */
 

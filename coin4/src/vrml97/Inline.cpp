@@ -143,7 +143,7 @@
 class SoVRMLInlineP {
 public:
   SbString fullurlname;
-  SbBool isrequested;
+  bool isrequested;
   SoChildList * children;
   SoFieldSensor * urlsensor;
 };
@@ -154,7 +154,7 @@ static SoVRMLInlineFetchURLCB * sovrmlinline_fetchurlcb = NULL;
 static void * sovrmlinline_fetchurlcbclosure;
 
 static SbColor * sovrmlinline_bboxcolor = NULL;
-static SbBool sovrmlinline_readassofile = TRUE;
+static bool sovrmlinline_readassofile = true;
 
 static void
 sovrmlinline_cleanup(void)
@@ -163,7 +163,7 @@ sovrmlinline_cleanup(void)
   sovrmlinline_bboxcolor = NULL;
   sovrmlinline_bboxvisibility = SoVRMLInline::UNTIL_LOADED;
   sovrmlinline_fetchurlcb = NULL;  
-  sovrmlinline_readassofile = TRUE;
+  sovrmlinline_readassofile = true;
 }
 
 SO_NODE_SOURCE(SoVRMLInline);
@@ -187,7 +187,7 @@ SoVRMLInline::initClass(void)
 SoVRMLInline::SoVRMLInline(void)
 {
   PRIVATE(this) = new SoVRMLInlineP;
-  PRIVATE(this)->isrequested = FALSE;
+  PRIVATE(this)->isrequested = false;
   PRIVATE(this)->children = new SoChildList(this);
 
   SO_VRMLNODE_INTERNAL_CONSTRUCTOR(SoVRMLInline);
@@ -255,7 +255,7 @@ SoVRMLInline::getChildren(void) const
 void
 SoVRMLInline::requestURLData(void)
 {
-  PRIVATE(this)->isrequested = TRUE;
+  PRIVATE(this)->isrequested = true;
   if (sovrmlinline_fetchurlcb) {
     sovrmlinline_fetchurlcb(PRIVATE(this)->fullurlname,
                             sovrmlinline_fetchurlcbclosure,
@@ -264,18 +264,18 @@ SoVRMLInline::requestURLData(void)
 }
 
 /*!
-  Returns TRUE if the URL data has been requested.
+  Returns true if the URL data has been requested.
 */
-SbBool
+bool
 SoVRMLInline::isURLDataRequested(void) const
 {
   return PRIVATE(this)->isrequested;
 }
 
 /*!
-  Returns TRUE if the data has been loaded.
+  Returns true if the data has been loaded.
 */
-SbBool
+bool
 SoVRMLInline::isURLDataHere(void) const
 {
   return this->getChildData() != NULL;
@@ -287,7 +287,7 @@ SoVRMLInline::isURLDataHere(void) const
 void
 SoVRMLInline::cancelURLDataRequest(void)
 {
-  PRIVATE(this)->isrequested = FALSE;
+  PRIVATE(this)->isrequested = false;
 }
 
 /*!
@@ -296,7 +296,7 @@ SoVRMLInline::cancelURLDataRequest(void)
 void
 SoVRMLInline::setChildData(SoNode * urldata)
 {
-  PRIVATE(this)->isrequested = FALSE;
+  PRIVATE(this)->isrequested = false;
   PRIVATE(this)->children->truncate(0);
   if (urldata) {
     PRIVATE(this)->children->append(urldata);
@@ -366,7 +366,7 @@ SoVRMLInline::getBoundingBoxColor(void)
   Sets whether Inline nodes should be treated as a normal Inventor SoFile node.
 */
 void
-SoVRMLInline::setReadAsSoFile(SbBool enable)
+SoVRMLInline::setReadAsSoFile(bool enable)
 {
   sovrmlinline_readassofile = enable;
 }
@@ -374,7 +374,7 @@ SoVRMLInline::setReadAsSoFile(SbBool enable)
 /*!
   Returns whether Inline nodes is read as SoFile nodes.
 */
-SbBool
+bool
 SoVRMLInline::getReadAsSoFile(void)
 {
   return sovrmlinline_readassofile;
@@ -484,7 +484,7 @@ SoVRMLInline::getBoundingBox(SoGetBoundingBoxAction * action)
                 center[2]+size[2]);
     if (!box.isEmpty()) {
       action->extendBy(box);
-      action->setCenter(center, TRUE);
+      action->setCenter(center, true);
     }
   }
   else {
@@ -515,7 +515,7 @@ SoVRMLInline::getBoundingBox(SoGetBoundingBoxAction * action)
     }
     
     if (numcenters != 0)
-      action->setCenter(acccenter / float(numcenters), FALSE);
+      action->setCenter(acccenter / float(numcenters), false);
   }
 }
 
@@ -565,11 +565,11 @@ SoVRMLInline::addBoundingBoxChild(SbVec3f COIN_UNUSED_ARG(center),
 }
 
 // Doc in parent
-SbBool
+bool
 SoVRMLInline::readInstance(SoInput * in,
                            unsigned short flags)
 {
-  SbBool ret = TRUE;
+  bool ret = true;
 
   PRIVATE(this)->urlsensor->detach();
   if (sovrmlinline_readassofile) {
@@ -589,7 +589,7 @@ SoVRMLInline::readInstance(SoInput * in,
 // Doc in parent
 void
 SoVRMLInline::copyContents(const SoFieldContainer * from,
-                           SbBool copyconnections)
+                           bool copyconnections)
 {
   PRIVATE(this)->children->truncate(0);
   inherited::copyContents(from, copyconnections);
@@ -597,7 +597,7 @@ SoVRMLInline::copyContents(const SoFieldContainer * from,
   SoVRMLInline * inlinenode = (SoVRMLInline *)from;
   PRIVATE(this)->fullurlname = inlinenode->pimpl->fullurlname;
   // the request will go to the original node, not this one.
-  PRIVATE(this)->isrequested = FALSE;
+  PRIVATE(this)->isrequested = false;
 
   if (inlinenode->pimpl->children->getLength() == 0) return;
 
@@ -612,11 +612,11 @@ SoVRMLInline::copyContents(const SoFieldContainer * from,
 /*!
   Read the (local) file named in the SoVRMLInline::url field.
 */
-SbBool
+bool
 SoVRMLInline::readLocalFile(SoInput * in)
 {
   if (this->url.getNum() == 0) {
-    return TRUE;
+    return true;
   }
 
   SbString filename = this->url[0];
@@ -624,7 +624,7 @@ SoVRMLInline::readLocalFile(SoInput * in)
   // If we can't find file, ignore it. Note that this does not match
   // the way Inventor works, which will make the whole read process
   // exit with a failure code.
-  if (!in->pushFile(filename.getString())) return TRUE;
+  if (!in->pushFile(filename.getString())) return true;
 
   PRIVATE(this)->fullurlname = in->getCurFileName();
 
@@ -646,7 +646,7 @@ SoVRMLInline::readLocalFile(SoInput * in)
       // Make sure the stack is really popped on EOF. Popping happens
       // when attempting to read when the current file in the stack is
       // at EOF.
-      SbBool gotchar = in->get(dummy);
+      bool gotchar = in->get(dummy);
       if (gotchar) in->putBack(dummy);
     }
 
@@ -656,7 +656,7 @@ SoVRMLInline::readLocalFile(SoInput * in)
                       filename.getString());
   }
 
-  return TRUE;
+  return true;
 }
 
 // Callback for the field sensor.

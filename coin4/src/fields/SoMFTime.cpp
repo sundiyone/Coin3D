@@ -63,14 +63,14 @@ SoMFTime::initClass(void)
 // parent classes.
 #ifndef DOXYGEN_SKIP_THIS
 
-SbBool
+bool
 SoMFTime::read1Value(SoInput * in, int idx)
 {
   assert(idx < this->maxNum);
   SbTime p;
-  if (!sosftime_read_value(in, p)) return FALSE;
+  if (!sosftime_read_value(in, p)) return false;
   this->values[idx] = p;
-  return TRUE;
+  return true;
 }
 
 void

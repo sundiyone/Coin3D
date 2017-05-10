@@ -142,7 +142,7 @@ SoForeignFileKit::SoForeignFileKit(void)
 
   SO_KIT_INTERNAL_CONSTRUCTOR(SoForeignFileKit);
 
-  SO_KIT_ADD_CATALOG_ENTRY(topSeparator, SoSeparator, TRUE, this, \x0, FALSE);
+  SO_KIT_ADD_CATALOG_ENTRY(topSeparator, SoSeparator, true, this, \x0, false);
 
   SO_KIT_INIT_INSTANCE();
 }
@@ -158,7 +158,7 @@ SoForeignFileKit::~SoForeignFileKit(void)
   
   FIXME: \e identify is not implemented
  */
-SbBool
+bool
 SoForeignFileKit::registerFileExtension(SoType handler, SbName extension, SoForeignFileIdentifyFunc * COIN_UNUSED_ARG(identify))
 {
   assert(SoForeignFileKitP::fileexts != NULL);
@@ -173,16 +173,16 @@ SoForeignFileKit::registerFileExtension(SoType handler, SbName extension, SoFore
   }
 
   if (SoForeignFileKitP::fileexts->put(extension.getString(), handler)) {
-    return TRUE;
+    return true;
   }
-  return FALSE;
+  return false;
 }
 
 /*!
   Creates an instance of a suitable SoForeignFileKit subtype.
   Returns NULL on failure or a kit with refcount of 1 on success.
 */
-static SoForeignFileKit *create_foreignfilekit(const char *filename, SbBool exhaust)
+static SoForeignFileKit *create_foreignfilekit(const char *filename, bool exhaust)
 {
   assert(SoForeignFileKitP::fileexts != NULL);
 
@@ -230,11 +230,11 @@ static SoForeignFileKit *create_foreignfilekit(const char *filename, SbBool exha
   
   FIXME: \e exhaust is not implemented.
  */
-SbBool
-SoForeignFileKit::isFileSupported(const char * filename, SbBool exhaust)
+bool
+SoForeignFileKit::isFileSupported(const char * filename, bool exhaust)
 {
   SoForeignFileKit * foreignfile = create_foreignfilekit(filename, exhaust);
-  SbBool success = (foreignfile != NULL);
+  bool success = (foreignfile != NULL);
   if (foreignfile) foreignfile->unref();
   return success;
 }
@@ -245,13 +245,13 @@ SoForeignFileKit::isFileSupported(const char * filename, SbBool exhaust)
 
   Will return false if file is not supported or /e in is not representing a normal file.
  */
-SbBool
-SoForeignFileKit::isFileSupported(SoInput * in, SbBool exhaust)
+bool
+SoForeignFileKit::isFileSupported(SoInput * in, bool exhaust)
 {
   assert(in);
   if (in->getCurFileName() == NULL || in->getNumBytesRead() > 0) {
     // can only read proper files, from the beginning
-    return FALSE;
+    return false;
   }
   return SoForeignFileKit::isFileSupported(in->getCurFileName(), exhaust);
 }
@@ -264,7 +264,7 @@ SoForeignFileKit::isFileSupported(SoInput * in, SbBool exhaust)
   FIXME: \e exhaust is not implemented.
  */
 SoForeignFileKit *
-SoForeignFileKit::createForeignFileKit(const char * filename, SbBool exhaust)
+SoForeignFileKit::createForeignFileKit(const char * filename, bool exhaust)
 {
   SoForeignFileKit * foreignfile = create_foreignfilekit(filename, exhaust);
   if (foreignfile) {
@@ -283,12 +283,12 @@ SoForeignFileKit::createForeignFileKit(const char * filename, SbBool exhaust)
   the other ieFileSupported() method.
 */
 SoForeignFileKit *
-SoForeignFileKit::createForeignFileKit(SoInput * in, SbBool exhaust)
+SoForeignFileKit::createForeignFileKit(SoInput * in, bool exhaust)
 {
   assert(in);
   if (in->getCurFileName() == NULL || in->getNumBytesRead() > 0) {
     // can only read proper files, from the beginning
-    return FALSE;
+    return nullptr;
   }
   SoForeignFileKit * kit =
     SoForeignFileKit::createForeignFileKit(in->getCurFileName(), exhaust);
@@ -308,10 +308,10 @@ SoForeignFileKit::createForeignFileKit(SoInput * in, SbBool exhaust)
 /*!
   Checks if this concrete class can read the given file.
 */
-SbBool
+bool
 SoForeignFileKit::canReadFile(const char * COIN_UNUSED_ARG(filename)) const
 {
-  return FALSE;
+  return false;
 }
 
 /*!
@@ -319,19 +319,19 @@ SoForeignFileKit::canReadFile(const char * COIN_UNUSED_ARG(filename)) const
   If successful, Coin should now be able to render the scene.
   If you need a pure Coin scenegraph, call convert().
 */
-SbBool
+bool
 SoForeignFileKit::readFile(const char * COIN_UNUSED_ARG(filename))
 {
-  return FALSE;
+  return false;
 }
 
 /*!
   Checks if this concrete class can write to the given file.
 */
-SbBool
+bool
 SoForeignFileKit::canWriteFile(const char * COIN_UNUSED_ARG(filename)) const
 {
-  return FALSE;
+  return false;
 }
 
 /*!
@@ -339,10 +339,10 @@ SoForeignFileKit::canWriteFile(const char * COIN_UNUSED_ARG(filename)) const
 
   \sa canWriteFile
 */
-SbBool
+bool
 SoForeignFileKit::writeFile(const char * COIN_UNUSED_ARG(filename))
 {
-  return FALSE;
+  return false;
 }
 
 #undef PRIVATE

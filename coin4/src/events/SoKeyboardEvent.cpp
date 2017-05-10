@@ -69,12 +69,12 @@
 
 /*!
   \def SO_KEY_PRESS_EVENT(EVENT, KEY)
-  This macro evaluates to \c TRUE iff the \c EVENT represents a press on the
+  This macro evaluates to \c true iff the \c EVENT represents a press on the
   given \c KEY.
 */
 /*!
   \def SO_KEY_RELEASE_EVENT(EVENT, KEY)
-  This macro evaluates to \c TRUE iff the \c EVENT represents a release of the
+  This macro evaluates to \c true iff the \c EVENT represents a release of the
   given \c KEY.
 */
 
@@ -282,7 +282,7 @@ SoKeyboardEvent::getKey(void) const
 
   \sa isKeyReleaseEvent(), isOfType(), getKey(), getState()
  */
-SbBool
+bool
 SoKeyboardEvent::isKeyPressEvent(const SoEvent * e,
                                  SoKeyboardEvent::Key whichKey)
 {
@@ -298,7 +298,7 @@ SoKeyboardEvent::isKeyPressEvent(const SoEvent * e,
 
   \sa isKeyPressEvent(), isOfType(), getKey(), getState()
  */
-SbBool
+bool
 SoKeyboardEvent::isKeyReleaseEvent(const SoEvent * e,
                                    SoKeyboardEvent::Key whichKey)
 {
@@ -363,16 +363,16 @@ SoKeyboardEvent::getPrintableCharacter(void) const
   \since Coin 3.0
 */
 // Should we add stringToEnum as well perhaps?
-SbBool
+bool
 SoKeyboardEvent::enumToString(Key enumval, SbString & stringrep)
 {
   if (enumval >= SoKeyboardEvent::A && enumval <= SoKeyboardEvent::Z) {
     stringrep.sprintf("%c", 'A' + (enumval - SoKeyboardEvent::A));
-    return TRUE;
+    return true;
   }
   if (enumval >= SoKeyboardEvent::F1 && enumval <= SoKeyboardEvent::F12) {
     stringrep.sprintf("F%d", 1 + (enumval - SoKeyboardEvent::F1));
-    return TRUE;
+    return true;
   }
 
   switch (enumval) {
@@ -587,7 +587,7 @@ SoKeyboardEvent::enumToString(Key enumval, SbString & stringrep)
     stringrep = "GRAVE";
     break;
   default:
-    return FALSE;
+    return false;
   }
-  return TRUE;
+  return true;
 }

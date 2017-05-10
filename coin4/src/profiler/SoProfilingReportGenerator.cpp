@@ -219,7 +219,7 @@ SoProfilingReportGenerator::freeCriteria(SbProfilingReportSortCriteria * criteri
 class SbProfilingReportPrintCriteria {
 public:
   SbProfilingReportPrintCriteria(void)
-    : numfunctions(0), functions(NULL), needstringlengths(FALSE)
+    : numfunctions(0), functions(NULL), needstringlengths(false)
   {
   }
   ~SbProfilingReportPrintCriteria(void) {
@@ -228,7 +228,7 @@ public:
 
   int numfunctions;
   SoProfilingReportGeneratorP::PrintFunction ** functions;
-  SbBool needstringlengths;
+  bool needstringlengths;
 };
 
 /*!
@@ -254,11 +254,11 @@ SoProfilingReportGenerator::getReportPrintCriteria(const SbList<Column> & order)
     switch (order[idx]) {
     case SoProfilingReportGenerator::NAME:
       criteria->functions[idx] = SoProfilingReportGeneratorP::printName;
-      criteria->needstringlengths = TRUE;
+      criteria->needstringlengths = true;
       break;
     case SoProfilingReportGenerator::TYPE:
       criteria->functions[idx] = SoProfilingReportGeneratorP::printType;
-      criteria->needstringlengths = TRUE;
+      criteria->needstringlengths = true;
       break;
     case SoProfilingReportGenerator::COUNT:
       criteria->functions[idx] = SoProfilingReportGeneratorP::printCount;
@@ -421,7 +421,7 @@ SoProfilingReportGenerator::generate(const SbProfilingData & data,
                                      SbProfilingReportSortCriteria * sort,
                                      SbProfilingReportPrintCriteria * print,
                                      int count,
-                                     SbBool addheader,
+                                     bool addheader,
                                      ReportCB * reportcallback,
                                      void * userdata)
 {

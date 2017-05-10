@@ -199,7 +199,7 @@ SoGLARBShaderParameter::set4iv(const SoGLShaderObject * COIN_UNUSED_ARG(shader),
 }
 
 //FIXME: no type checking implemented 20050128 martin
-SbBool
+bool
 SoGLARBShaderParameter::isValid(const SoGLShaderObject * shader, const int idx)
 {
   assert(shader);
@@ -207,5 +207,5 @@ SoGLARBShaderParameter::isValid(const SoGLShaderObject * shader, const int idx)
 
   this->target     = ((SoGLARBShaderObject*)shader)->target;
   this->identifier = idx;
-  return TRUE;
+  return true;
 }

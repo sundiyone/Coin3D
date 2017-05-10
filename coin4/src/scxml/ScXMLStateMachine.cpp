@@ -73,14 +73,14 @@
 
 struct EventInfo {
   const ScXMLEvent * eventptr;
-  SbBool deallocate;
+  bool deallocate;
 };
 
 class ScXMLStateMachine::PImpl {
 public:
   PImpl(void)
     : pub(NULL),
-      active(FALSE), finished(FALSE),
+      active(false), finished(false),
       name(SbName::empty()), sessionid(SbName::empty()),
       loglevel(3),
       description(NULL),
@@ -99,8 +99,8 @@ public:
 
   ScXMLStateMachine * pub;
 
-  SbBool active;
-  SbBool finished;
+  bool active;
+  bool finished;
 
   SbName name;
   SbName sessionid;
@@ -122,7 +122,7 @@ public:
   typedef std::pair<ScXMLStateChangeCB *, void *> StateChangeCBInfo;
   typedef std::vector<StateChangeCBInfo> StateChangeCallbackList;
   StateChangeCallbackList statechangecallbacklist;
-  void invokeStateChangeCallbacks(const char * identifier, SbBool enterstate);
+  void invokeStateChangeCallbacks(const char * identifier, bool enterstate);
 
   boost::scoped_ptr<ScXMLTransitionElt> initializer;
 
@@ -223,8 +223,8 @@ ScXMLStateMachine::setDescription(ScXMLDocument * document)
   assert(!PRIVATE(this)->active);
   PRIVATE(this)->description = document;
   PRIVATE(this)->initializer.reset(NULL);
-  PRIVATE(this)->active = FALSE;
-  PRIVATE(this)->finished = FALSE;
+  PRIVATE(this)->active = false;
+  PRIVATE(this)->finished = false;
   PRIVATE(this)->activestatelist.clear();
 
   // set up the correct evalutor and identify the modules that are enabled
@@ -307,8 +307,8 @@ void
 ScXMLStateMachine::initialize(void)
 {
   assert(!PRIVATE(this)->active);
-  PRIVATE(this)->active = TRUE;
-  PRIVATE(this)->finished = FALSE;
+  PRIVATE(this)->active = true;
+  PRIVATE(this)->finished = false;
   PRIVATE(this)->activestatelist.clear();
   this->processOneEvent(NULL); // process the 'initial' initializer
   this->processEventQueue(); // process any pending events from the initial-processing
@@ -320,7 +320,7 @@ ScXMLStateMachine::initialize(void)
   Processes one event.
   This is an internal inner event-loop utility function.
 */
-SbBool
+bool
 ScXMLStateMachine::processOneEvent(const ScXMLEvent * event)
 {
   // this function seriously needs more structuring
@@ -373,7 +373,7 @@ ScXMLStateMachine::processOneEvent(const ScXMLEvent * event)
     if (this->getEvaluator())
       this->getEvaluator()->clearTemporaryVariables();
     this->setCurrentEvent(NULL);
-    return FALSE;
+    return false;
   }
 
   // we handle all targetless transitions first
@@ -517,12 +517,12 @@ ScXMLStateMachine::processOneEvent(const ScXMLEvent * event)
   // inspect target states for substates + <initial> children
   std::vector<ScXMLElt *>::iterator appendit = newstateslist.begin();
   while (appendit != newstateslist.end()) {
-    SbBool pushedsubstate = FALSE;
+    bool pushedsubstate = false;
     ScXMLElt * newstate = *appendit;
 
-    SbBool settled = FALSE;
+    bool settled = false;
     while (!settled) {
-      settled = TRUE;
+      settled = true;
       if (newstate->isOfType(ScXMLStateElt::getClassTypeId())) {
         ScXMLStateElt * state = static_cast<ScXMLStateElt *>(newstate);
         if (state->getNumStates() > 0 || state->getNumParallels() > 0) {
@@ -569,8 +569,8 @@ ScXMLStateMachine::processOneEvent(const ScXMLEvent * event)
             PRIVATE(this)->enterState(targetobj);
 
             newstate = targetobj;
-            settled = FALSE; // need to loop over on new state one more time
-          } while ( FALSE );
+            settled = false; // need to loop over on new state one more time
+          } while ( false );
 
         } else {
           // no substates in this state - can be marked as the deepest active state
@@ -581,14 +581,14 @@ ScXMLStateMachine::processOneEvent(const ScXMLEvent * event)
           }
 
           PRIVATE(this)->activestatelist.push_back(state);
-          pushedsubstate = TRUE; // need to avoid adding parent state before doing outer loop
+          pushedsubstate = true; // need to avoid adding parent state before doing outer loop
           ++appendit;
         }
       } else {
         // non-ScXMLStateElt object (ScXMLFinalElt for instance)
         if (newstate != *appendit) {
           PRIVATE(this)->activestatelist.push_back(newstate);
-          pushedsubstate = TRUE; // need to avoid adding parent state before doing outer loop
+          pushedsubstate = true; // need to avoid adding parent state before doing outer loop
           ++appendit;
         }
       }
@@ -605,7 +605,7 @@ ScXMLStateMachine::processOneEvent(const ScXMLEvent * event)
   if (this->getEvaluator())
     this->getEvaluator()->clearTemporaryVariables();
   this->setCurrentEvent(NULL);
-  return TRUE; // transitions have been taken
+  return true; // transitions have been taken
 }
 
 // *************************************************************************
@@ -613,7 +613,7 @@ ScXMLStateMachine::processOneEvent(const ScXMLEvent * event)
 /*!
   Returns whether the state machine is active or not.
 */
-SbBool
+bool
 ScXMLStateMachine::isActive(void) const
 {
   return PRIVATE(this)->active;
@@ -622,7 +622,7 @@ ScXMLStateMachine::isActive(void) const
 /*!
   Returns whether the state machine has run to completion or not.
 */
-SbBool
+bool
 ScXMLStateMachine::isFinished(void) const
 {
   return PRIVATE(this)->finished;
@@ -713,7 +713,7 @@ ScXMLStateMachine::PImpl::invokeDeleteCallbacks(void)
   enters and exits states that are tagged as "tasks" for logging purposes.
   This is what the Boolean "task" attribute in the state element sets up.
 
-  The \a success argument is currently unsupported (will always be TRUE),
+  The \a success argument is currently unsupported (will always be true),
   but has been preemptively added to avoid a signature change later.
 
   \sa addStateChangeCallback
@@ -749,12 +749,12 @@ ScXMLStateMachine::removeStateChangeCallback(ScXMLStateChangeCB * callback, void
   Invoke all the state change callbacks.
 */
 void
-ScXMLStateMachine::PImpl::invokeStateChangeCallbacks(const char * identifier, SbBool enterstate)
+ScXMLStateMachine::PImpl::invokeStateChangeCallbacks(const char * identifier, bool enterstate)
 {
   StateChangeCallbackList::const_iterator it =
     this->statechangecallbacklist.begin();
   while (it != this->statechangecallbacklist.end()) {
-    (it->first)(it->second, PUBLIC(this), identifier, enterstate, TRUE);
+    (it->first)(it->second, PUBLIC(this), identifier, enterstate, true);
     ++it;
   }
 }
@@ -889,7 +889,7 @@ ScXMLStateMachine::PImpl::exitState(ScXMLElt * object)
   if (object->isOfType(ScXMLStateElt::getClassTypeId())) {
     ScXMLStateElt * state = static_cast<ScXMLStateElt *>(object);
     const char * id = state->getIdAttribute();
-    this->invokeStateChangeCallbacks(id, FALSE);
+    this->invokeStateChangeCallbacks(id, false);
     ScXMLOnExitElt * onexit = state->getOnExit();
     if (onexit) {
       onexit->execute(PUBLIC(this));
@@ -912,8 +912,8 @@ ScXMLStateMachine::PImpl::enterState(ScXMLElt * object)
       if (container->isOfType(ScXMLDocument::getClassTypeId())) {
         // there is not ParentID to post a ParentID.done event in
         // this case. study SCXML state to see what to do?
-        this->finished = TRUE;
-        this->active = FALSE;
+        this->finished = true;
+        this->active = false;
       } else {
         SoDebugError::post("ScXMLStateMachine::PImpl::enterState",
                            "<final> container has no id - can't post done-event");
@@ -927,7 +927,7 @@ ScXMLStateMachine::PImpl::enterState(ScXMLElt * object)
   else if (object->isOfType(ScXMLStateElt::getClassTypeId())) {
     ScXMLStateElt * state = static_cast<ScXMLStateElt *>(object);
     const char * id = state->getIdAttribute();
-    this->invokeStateChangeCallbacks(id, TRUE);
+    this->invokeStateChangeCallbacks(id, true);
     ScXMLOnEntryElt * onentry = state->getOnEntry();
     if (onentry) {
       onentry->execute(PUBLIC(this));
@@ -947,15 +947,15 @@ ScXMLStateMachine::getEvaluator(void) const
   return PRIVATE(this)->evaluator;
 }
 
-SbBool
+bool
 ScXMLStateMachine::isModuleEnabled(const char * modulename) const
 {
   for (int i = 0; i < PRIVATE(this)->modules.getLength(); ++i) {
     if (strcmp(modulename, PRIVATE(this)->modules[i]) == 0) {
-      return TRUE;
+      return true;
     }
   }
-  return FALSE;
+  return false;
 }
 
 int

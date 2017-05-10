@@ -203,7 +203,7 @@ static void do_triangle(void *vo, void *v1, void *v2, void *data);
 // struct used to hold data for the tessellator callback
 //
 typedef struct {
-  SbBool firstvertex;
+  bool firstvertex;
   tVertexInfo *vertexInfo;
   SoConvexDataCache::Binding matbind;
   SoConvexDataCache::Binding normbind;
@@ -237,7 +237,7 @@ SoConvexDataCache::generate(const SoCoordinateElement * const coords,
                          "generating convex data");
 #endif
 
-  SbBool identity = matrix == SbMatrix::identity();
+  bool identity = matrix == SbMatrix::identity();
 
   // remove old data
   PRIVATE(this)->coordIndices.truncate(0);
@@ -265,12 +265,12 @@ SoConvexDataCache::generate(const SoCoordinateElement * const coords,
   tessdata.matIndex = NULL;
   tessdata.normIndex = NULL;
   tessdata.texIndex = NULL;
-  tessdata.firstvertex = TRUE;
+  tessdata.firstvertex = true;
 
   // create tessellator
   SbGLUTessellator glutess(do_triangle, &tessdata);
   SbTesselator tess(do_triangle, &tessdata);
-  const SbBool gt = SbGLUTessellator::preferred();
+  const bool gt = SbGLUTessellator::preferred();
 
   // if PER_FACE binding, the binding must change to PER_FACE_INDEXED
   // if convexify data is used.
@@ -366,7 +366,7 @@ vertex_tri(tVertexInfo *info, tTessData *tessdata)
     tessdata->texIndex->append(info->texnr);
     tessdata->numtexind++;
   }
-  tessdata->firstvertex = FALSE;
+  tessdata->firstvertex = false;
 }
 
 //
@@ -376,7 +376,7 @@ static void
 do_triangle(void *v0, void *v1, void *v2, void *data)
 {
   tTessData *tessdata = static_cast<tTessData *>(data);
-  tessdata->firstvertex = TRUE;
+  tessdata->firstvertex = true;
   vertex_tri(static_cast<tVertexInfo *>(v0), tessdata);
   vertex_tri(static_cast<tVertexInfo *>(v1), tessdata);
   vertex_tri(static_cast<tVertexInfo *>(v2), tessdata);

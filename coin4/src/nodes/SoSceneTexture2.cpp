@@ -335,7 +335,7 @@ class SoSceneTexture2P {
     GLuint fbo_frameBuffer;
     GLuint fbo_depthBuffer;
     SbVec2s fbo_size;
-    SbBool fbo_mipmap;
+    bool fbo_mipmap;
     SoGLDisplayList * fbo_texture;
     SoGLDisplayList * fbo_depthmap;
     int32_t cachecontext;
@@ -347,7 +347,7 @@ class SoSceneTexture2P {
         this->fbo_texture = NULL;
         this->fbo_depthmap = NULL;
         this->fbo_size.setValue(-1,-1);
-        this->fbo_mipmap = FALSE;
+        this->fbo_mipmap = false;
     }
   };
 
@@ -368,10 +368,10 @@ public:
   SoGLImage * glimage;
   int32_t glimagecontext;
   
-  SbBool buffervalid;
+  bool buffervalid;
 
-  SbBool glimagevalid;
-  SbBool glrectangle;
+  bool glimagevalid;
+  bool glrectangle;
 
   void updateBuffer(SoState * state, const float quality);
   void updateFrameBuffer(SoState * state, const float quality);
@@ -379,14 +379,14 @@ public:
   SoGLRenderAction * glaction;
   static void prerendercb(void * userdata, SoGLRenderAction * action);
 
-  SbBool createFramebufferObjects(const cc_glglue * glue, SoState * state,
+  bool createFramebufferObjects(const cc_glglue * glue, SoState * state,
                                   const SoSceneTexture2::Type type,
-                                  const SbBool warn);
+                                  const bool warn);
   void deleteFrameBufferObjects(const cc_glglue * glue, SoState * state);
-  SbBool checkFramebufferStatus(const cc_glglue * glue, const SbBool warn);
+  bool checkFramebufferStatus(const cc_glglue * glue, const bool warn);
 
   SoGLRenderAction::TransparencyType getTransparencyType(SoState * state);
-  SbBool shouldCreateMipmap(SoState * state) {
+  bool shouldCreateMipmap(SoState * state) {
     float q = SoTextureQualityElement::get(state);
     return q > 0.5f;
   }
@@ -394,7 +394,7 @@ public:
 #ifdef COIN_THREADSAFE
   SbMutex mutex;
 #endif // COIN_THREADSAFE
-  SbBool canrendertotexture;
+  bool canrendertotexture;
   unsigned char * offscreenbuffer;
   int offscreenbuffersize;
 };
@@ -523,8 +523,8 @@ SoSceneTexture2::GLRender(SoGLRenderAction * action)
   // pbuffer/framebuffer if the context has changed since it was
   // created.
   if (cachecontext != PRIVATE(this)->glimagecontext) {
-    PRIVATE(this)->glimagevalid = FALSE;
-    PRIVATE(this)->buffervalid = FALSE;
+    PRIVATE(this)->glimagevalid = false;
+    PRIVATE(this)->buffervalid = false;
     // this will force the pbuffers and/or framebuffers to be recreated
     PRIVATE(this)->glcontextsize = SbVec2s(-1, -1);
     if (PRIVATE(this)->fbodata) {
@@ -537,7 +537,7 @@ SoSceneTexture2::GLRender(SoGLRenderAction * action)
     PRIVATE(this)->updateBuffer(state, quality);
 
     // don't cache when we change the glimage
-    SoCacheElement::setInvalid(TRUE);
+    SoCacheElement::setInvalid(true);
     if (state->isCacheOpen()) {
       SoCacheElement::invalidate(state);
     }
@@ -600,14 +600,14 @@ SoSceneTexture2::doAction(SoAction * COIN_UNUSED_ARG(action))
                                (int)this->wrapS.getValue(),
                                (SoTextureImageElement::Model) model.getValue(),
                                this->blendColor.getValue());
-    SoTextureEnabledElement::set(state, this, TRUE);
+    SoTextureEnabledElement::set(state, this, true);
   }
   else {
     SoTextureImageElement::setDefault(state, this);
-    SoTextureEnabledElement::set(state, this, FALSE);
+    SoTextureEnabledElement::set(state, this, false);
   }
   if (this->isOverride()) {
-    SoTextureOverrideElement::setImageOverride(state, TRUE);
+    SoTextureOverrideElement::setImageOverride(state, true);
   }
 #endif // disabled
 }
@@ -635,7 +635,7 @@ SoSceneTexture2::notify(SoNotList * list)
       f == &this->size ||
       f == &this->type) {
     // rerender scene
-    PRIVATE(this)->buffervalid = FALSE;
+    PRIVATE(this)->buffervalid = false;
   }
   else if (f == &this->wrapS ||
            f == &this->wrapT ||
@@ -643,7 +643,7 @@ SoSceneTexture2::notify(SoNotList * list)
            f == &this->transparencyFunction ||
            f == &this->sceneTransparencyType) {
     // no need to render scene again, but update the texture object
-    PRIVATE(this)->glimagevalid = FALSE;
+    PRIVATE(this)->glimagevalid = false;
   }
   inherited::notify(list);
 }
@@ -666,16 +666,16 @@ SoSceneTexture2P::SoSceneTexture2P(SoSceneTexture2 * apiptr)
 {
   this->api = apiptr;
   this->glcontext = NULL;
-  this->buffervalid = FALSE;
-  this->glimagevalid = FALSE;
+  this->buffervalid = false;
+  this->glimagevalid = false;
   this->glimage = NULL;
   this->glimagecontext = 0;
   this->glaction = NULL;
   this->glcontextsize.setValue(-1,-1);
-  this->glrectangle = FALSE;
+  this->glrectangle = false;
   this->offscreenbuffer = NULL;
   this->offscreenbuffersize = 0;
-  this->canrendertotexture = FALSE;
+  this->canrendertotexture = false;
   this->contextid = -1;
   this->fbodata = NULL;
 }
@@ -700,7 +700,7 @@ SoSceneTexture2P::updateBuffer(SoState * state, const float quality)
   glFlush();
   const cc_glglue * glue = cc_glglue_instance(SoGLCacheContextElement::get(state));
 
-  SbBool candofbo = SoGLDriverDatabase::isSupported(glue, SO_GL_FRAMEBUFFER_OBJECT);
+  bool candofbo = SoGLDriverDatabase::isSupported(glue, SO_GL_FRAMEBUFFER_OBJECT);
   if (candofbo) {
     // can't render to a FBO if we have a delayed transparency type
     // involving path traversal in a second pass.
@@ -711,7 +711,7 @@ SoSceneTexture2P::updateBuffer(SoState * state, const float quality)
     case SoGLRenderAction::SCREEN_DOOR:
       break;
     default:
-      candofbo = FALSE;
+      candofbo = false;
       break;
     }
   }
@@ -734,7 +734,7 @@ SoSceneTexture2P::updateFrameBuffer(SoState * state, const float COIN_UNUSED_ARG
 
   int cachecontext = SoGLCacheContextElement::get(state);
   const cc_glglue * glue = cc_glglue_instance(cachecontext);
-  SbBool mipmap = this->shouldCreateMipmap(state);
+  bool mipmap = this->shouldCreateMipmap(state);
 
   fbo_data * fbodata = this->fbodata;
   if (!fbodata) {
@@ -773,18 +773,18 @@ SoSceneTexture2P::updateFrameBuffer(SoState * state, const float COIN_UNUSED_ARG
       this->glimage->setFlags(flags);
     }
 
-    SbBool finished = FALSE;
+    bool finished = false;
 
     SoSceneTexture2::Type type = (SoSceneTexture2::Type) PUBLIC(this)->type.getValue();
     while (!finished) {
       this->deleteFrameBufferObjects(glue, state);
-      finished = TRUE;
-      SbBool warn = type == SoSceneTexture2::RGBA32F ? FALSE : TRUE;
+      finished = true;
+      bool warn = type == SoSceneTexture2::RGBA32F ? false : true;
 
       if (!this->createFramebufferObjects(glue, state, type, warn)) {
         if (type == SoSceneTexture2::RGBA32F) { // common case. Fall back to 16 bit floating point textures
           type = SoSceneTexture2::RGBA16F;
-          finished = FALSE;
+          finished = false;
         }
       }
     }
@@ -804,7 +804,7 @@ SoSceneTexture2P::updateFrameBuffer(SoState * state, const float COIN_UNUSED_ARG
   state->push();
 
   // reset OpenGL/Coin state
-  SoGLShaderProgramElement::enable(state, FALSE);
+  SoGLShaderProgramElement::enable(state, false);
   SoLazyElement::setToDefault(state);
   SoShapeStyleElement::setTransparencyType(state, (int32_t) this->getTransparencyType(state));
   SoLazyElement::setTransparencyType(state, (int32_t) this->getTransparencyType(state));
@@ -828,7 +828,7 @@ SoSceneTexture2P::updateFrameBuffer(SoState * state, const float COIN_UNUSED_ARG
 
   // set up framebuffer for rendering
   cc_glglue_glBindFramebuffer(glue, GL_FRAMEBUFFER_EXT, fbodata->fbo_frameBuffer);
-  this->checkFramebufferStatus(glue, TRUE);
+  this->checkFramebufferStatus(glue, true);
 
   SoViewportRegionElement::set(state, SbViewportRegion(fbodata->fbo_size));
   SbVec4f col = PUBLIC(this)->backgroundColor.getValue();
@@ -869,7 +869,7 @@ SoSceneTexture2P::updateFrameBuffer(SoState * state, const float COIN_UNUSED_ARG
   }
 
   cc_glglue_glBindFramebuffer(glue, GL_FRAMEBUFFER_EXT, (GLuint)oldfb);
-  this->checkFramebufferStatus(glue, TRUE);
+  this->checkFramebufferStatus(glue, true);
 
 
   // restore old clear color
@@ -886,8 +886,8 @@ SoSceneTexture2P::updateFrameBuffer(SoState * state, const float COIN_UNUSED_ARG
                                              SoLazyElement::TWOSIDE_MASK|
                                              SoLazyElement::SHADE_MODEL_MASK);
 
-  this->buffervalid = TRUE;
-  this->glimagevalid = TRUE;
+  this->buffervalid = true;
+  this->glimagevalid = true;
 }
 
 void
@@ -914,7 +914,7 @@ SoSceneTexture2P::updatePBuffer(SoState * state, const float quality)
       delete this->glaction;
       this->glaction = NULL;
     }
-    this->glimagevalid = FALSE;
+    this->glimagevalid = false;
   }
   if (size == SbVec2s(0,0)) return;
 
@@ -942,12 +942,12 @@ SoSceneTexture2P::updatePBuffer(SoState * state, const float quality)
         }
       }
     }
-    this->glrectangle = FALSE;
+    this->glrectangle = false;
     if (!coin_is_power_of_two(this->glcontextsize[0]) ||
         !coin_is_power_of_two(this->glcontextsize[1])) {
       // we only get here if the OpenGL driver can handle non power of
       // two textures/pbuffers.
-      this->glrectangle = TRUE;
+      this->glrectangle = true;
     }
     // FIXME: make it possible to specify what kind of context you want
     // (RGB or RGBA, I guess). pederb, 2003-11-27
@@ -966,7 +966,7 @@ SoSceneTexture2P::updatePBuffer(SoState * state, const float quality)
 
     this->glaction->setTransparencyType(this->getTransparencyType(state));
     this->glaction->setCacheContext(this->contextid);
-    this->glimagevalid = FALSE;
+    this->glimagevalid = false;
   }
 
   if (!this->buffervalid) {
@@ -1043,8 +1043,8 @@ SoSceneTexture2P::updatePBuffer(SoState * state, const float quality)
                            translateWrap((SoSceneTexture2::Wrap)PUBLIC(this)->wrapT.getValue()),
                            quality);
   }
-  this->glimagevalid = TRUE;
-  this->buffervalid = TRUE;
+  this->glimagevalid = true;
+  this->buffervalid = true;
 }
 
 void
@@ -1129,10 +1129,10 @@ static void soscenetexture2_translate_type(SoSceneTexture2::Type type, GLenum & 
   }
 }
 
-SbBool
+bool
 SoSceneTexture2P::createFramebufferObjects(const cc_glglue * glue, SoState * state,
                                            const SoSceneTexture2::Type type,
-                                           const SbBool warn)
+                                           const bool warn)
 {
   fbo_data * fbodata = this->fbodata;
   assert(fbodata);  
@@ -1182,7 +1182,7 @@ SoSceneTexture2P::createFramebufferObjects(const cc_glglue * glue, SoState * sta
   GLenum wraps = (GLenum) PUBLIC(this)->wrapS.getValue();
   GLenum wrapt = (GLenum) PUBLIC(this)->wrapT.getValue();
 
-  SbBool clamptoborder_ok =
+  bool clamptoborder_ok =
     SoGLDriverDatabase::isSupported(glue, "GL_ARB_texture_border_clamp") ||
     SoGLDriverDatabase::isSupported(glue, "GL_SGIS_texture_border_clamp");
 
@@ -1261,7 +1261,7 @@ SoSceneTexture2P::createFramebufferObjects(const cc_glglue * glue, SoState * sta
                                       GL_RENDERBUFFER_EXT,
                                       fbodata->fbo_depthBuffer);
 
-  SbBool ret = this->checkFramebufferStatus(glue, warn);
+  bool ret = this->checkFramebufferStatus(glue, warn);
   cc_glglue_glBindFramebuffer(glue, GL_FRAMEBUFFER_EXT, (GLint)oldfb);
 
   return ret;
@@ -1302,8 +1302,8 @@ SoSceneTexture2P::deleteFrameBufferObjects(const cc_glglue * glue, SoState * sta
   fbodata->fbo_depthBuffer = GL_INVALID_VALUE;
 }
 
-SbBool
-SoSceneTexture2P::checkFramebufferStatus(const cc_glglue * glue, const SbBool warn)
+bool
+SoSceneTexture2P::checkFramebufferStatus(const cc_glglue * glue, const bool warn)
 {
   // check if the buffers have been successfully set up
   GLenum status = cc_glglue_glCheckFramebufferStatus(glue, GL_FRAMEBUFFER_EXT);
@@ -1339,9 +1339,9 @@ SoSceneTexture2P::checkFramebufferStatus(const cc_glglue * glue, const SbBool wa
       SoDebugError::post("SoSceneTexture2P::createFramebufferObjects",
                          "GL Framebuffer error: %s", error.getString());
     }
-    return FALSE;
+    return false;
   }
-  return TRUE;
+  return true;
 }
 
 SoGLRenderAction::TransparencyType

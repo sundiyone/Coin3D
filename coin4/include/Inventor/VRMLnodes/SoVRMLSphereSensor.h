@@ -45,7 +45,7 @@ public:
 
 protected:
 
-  virtual SbBool dragStart(void);
+  virtual bool dragStart(void);
   virtual void drag(void);
   virtual void dragFinish(void);
 

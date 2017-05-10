@@ -36,11 +36,11 @@
 
   \verbatim
   Cylinder {
-    field    SFBool    bottom  TRUE
+    field    SFBool    bottom  true
     field    SFFloat   height  2         # (0,)
     field    SFFloat   radius  1         # (0,)
-    field    SFBool    side    TRUE
-    field    SFBool    top     TRUE
+    field    SFBool    side    true
+    field    SFBool    top     true
   }
   \endverbatim
 
@@ -54,8 +54,8 @@
 
   The cylinder has three parts: the side, the top (Y = +height/2) and
   the bottom (Y = -height/2).  Each part has an associated SFBool
-  field that indicates whether the part exists (TRUE) or does not
-  exist (FALSE). Parts which do not exist are not rendered and not
+  field that indicates whether the part exists (true) or does not
+  exist (false). Parts which do not exist are not rendered and not
   eligible for intersection tests (e.g., collision detection or sensor
   activation).
 
@@ -93,17 +93,17 @@
 
 /*!
   \var SoSFBool SoVRMLCylinder::side
-  Enable/disable the cylinder side wall. Default value is TRUE.
+  Enable/disable the cylinder side wall. Default value is true.
 */
 
 /*!
   \var SoSFBool SoVRMLCylinder::top
-  Enable/disable the cylinder top. Default value is TRUE.
+  Enable/disable the cylinder top. Default value is true.
 */
 
 /*!
   \var SoSFBool SoVRMLCylinder::bottom
-  Enable/disable the cylinder bottom. Default value is TRUE.
+  Enable/disable the cylinder bottom. Default value is true.
 */
 
 #include <Inventor/VRMLnodes/SoVRMLCylinder.h>
@@ -147,9 +147,9 @@ SoVRMLCylinder::SoVRMLCylinder(void)
 
   SO_VRMLNODE_ADD_FIELD(radius, (1.0f));
   SO_VRMLNODE_ADD_FIELD(height, (2.0f));
-  SO_VRMLNODE_ADD_FIELD(side, (TRUE));
-  SO_VRMLNODE_ADD_FIELD(top, (TRUE));
-  SO_VRMLNODE_ADD_FIELD(bottom, (TRUE));
+  SO_VRMLNODE_ADD_FIELD(side, (true));
+  SO_VRMLNODE_ADD_FIELD(top, (true));
+  SO_VRMLNODE_ADD_FIELD(bottom, (true));
 }
 
 /*!
@@ -172,7 +172,7 @@ SoVRMLCylinder::GLRender(SoGLRenderAction * action)
 
   unsigned int flags = 0;
 
-  SbBool sendNormals = !mb.isColorOnly() ||
+  bool sendNormals = !mb.isColorOnly() ||
     (SoMultiTextureCoordinateElement::getType(state) == SoMultiTextureCoordinateElement::FUNCTION);
   
   if (sendNormals)
@@ -187,7 +187,7 @@ SoVRMLCylinder::GLRender(SoGLRenderAction * action)
   float complexity = this->getComplexityValue(action);
 
   // enable back face culling
-  SoGLShapeHintsElement::forceSend(state, TRUE, TRUE);
+  SoGLShapeHintsElement::forceSend(state, true, true);
 
   sogl_render_cylinder(this->radius.getValue(),
                        this->height.getValue(),

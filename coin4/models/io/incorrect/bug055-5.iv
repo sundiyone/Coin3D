@@ -2,7 +2,7 @@
 
 #
 # Should correctly abort read in 
-# SbBool SoGroup::readChildren(SoInput * in)
+# bool SoGroup::readChildren(SoInput * in)
 # However, we are ignoring the NULL completely. No real harm done.
 #
 

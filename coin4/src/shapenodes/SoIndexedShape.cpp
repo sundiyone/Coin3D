@@ -138,7 +138,7 @@ SoIndexedShape::computeBBox(SoAction * action, SbBox3f & box, SbVec3f & center)
   SoVertexProperty *vp = 
     (vpnode && vpnode->isOfType(SoVertexProperty::getClassTypeId())) ?
     (SoVertexProperty *)vpnode : NULL;
-  SbBool vpvtx = vp && (vp->vertex.getNum() > 0);
+  bool vpvtx = vp && (vp->vertex.getNum() > 0);
   if (!vpvtx) {
     coordelem = SoCoordinateElement::getInstance(state);
   }
@@ -211,7 +211,7 @@ SoIndexedShape::computeBBox(SoAction * action, SbBox3f & box, SbVec3f & center)
 
   \sa SoTextureCoordinateBinding
 */
-SbBool
+bool
 SoIndexedShape::areTexCoordsIndexed(SoAction * action)
 {
   return SoTextureCoordinateBindingElement::get(action->getState()) ==
@@ -243,8 +243,8 @@ SoIndexedShape::getNumVerts(const int startCoord)
 void
 SoIndexedShape::setupIndices(const int /* numParts */,
                              const int /* numFaces */,
-                             const SbBool /* needNormals */,
-                             const SbBool /* needTexCoords */)
+                             const bool /* needNormals */,
+                             const bool /* needTexCoords */)
 {
   COIN_OBSOLETED();
 }
@@ -298,7 +298,7 @@ SoIndexedShape::getTexCoordIndices()
   This method was not part of the original SGI Open Inventor API, and
   is an extension specific for Coin.
 */
-SbBool
+bool
 SoIndexedShape::getVertexData(SoState * state,
                               const SoCoordinateElement *& coords,
                               const SbVec3f *& normals,
@@ -307,8 +307,8 @@ SoIndexedShape::getVertexData(SoState * state,
                               const int32_t *& tindices,
                               const int32_t *& mindices,
                               int & numcindices,
-                              const SbBool needNormals,
-                              SbBool & normalCacheUsed)
+                              const bool needNormals,
+                              bool & normalCacheUsed)
 {
   SoVertexShape::getVertexData(state, coords, normals, needNormals);
   
@@ -321,7 +321,7 @@ SoIndexedShape::getVertexData(SoState * state,
   tindices = this->textureCoordIndex.getValues(0);
   if (this->textureCoordIndex.getNum() <= 0 || tindices[0] < 0) tindices = NULL;
 
-  normalCacheUsed = FALSE;
+  normalCacheUsed = false;
   nindices = NULL;
   if (needNormals) {
     nindices = this->normalIndex.getValues(0);
@@ -331,15 +331,15 @@ SoIndexedShape::getVertexData(SoState * state,
       SoNormalCache * nc = this->generateAndReadLockNormalCache(state);
       normals = nc->getNormals();
       nindices = nc->getIndices();
-      normalCacheUsed = TRUE;
+      normalCacheUsed = true;
      
       // if no normals were generated, unlock normal cache before
       // returning
       if (normals == NULL) {
         this->readUnlockNormalCache();
-        normalCacheUsed = FALSE;
+        normalCacheUsed = false;
       }
     }
   }
-  return TRUE;
+  return true;
 }

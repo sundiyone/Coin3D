@@ -31,10 +31,10 @@
 
 class COIN_DLL_API SoNormalGenerator {
 public:
-  SoNormalGenerator(const SbBool ccw, const int approxVertices = 64);
+  SoNormalGenerator(const bool ccw, const int approxVertices = 64);
   ~SoNormalGenerator();
 
-  void reset(const SbBool ccw);
+  void reset(const bool ccw);
   
   void beginPolygon();
   void polygonVertex(const SbVec3f &v);
@@ -71,8 +71,8 @@ private:
   SbList <SbVec3f> faceNormals;
   SbList <SbVec3f> vertexNormals;
 
-  SbBool ccw;
-  SbBool perVertex;
+  bool ccw;
+  bool perVertex;
   int currFaceStart;
 
   SbVec3f calcFaceNormal();

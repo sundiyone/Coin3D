@@ -37,7 +37,7 @@ public:
   SoFragmentShader(void);
   virtual ~SoFragmentShader();
   
-  static SbBool isSupported(SourceType sourceType);
+  static bool isSupported(SourceType sourceType);
 };
 
 #endif /* ! COIN_SOFRAGMENTSHADER_H */

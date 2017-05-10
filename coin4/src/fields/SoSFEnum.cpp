@@ -76,8 +76,8 @@
   Array of enumeration values. Maps 1-to-1 with the enumNames.
 */
 /*!
-  \var SbBool SoSFEnum::legalValuesSet
-  Is \c TRUE if a set of enum name-to-value mappings has been set.
+  \var bool SoSFEnum::legalValuesSet
+  Is \c true if a set of enum name-to-value mappings has been set.
 */
 
 // *************************************************************************
@@ -97,7 +97,7 @@ SoSFEnum::SoSFEnum(void)
   this->enumValues = NULL;
   this->enumNames  = NULL;
   this->numEnums = 0;
-  this->legalValuesSet = FALSE;
+  this->legalValuesSet = false;
 }
 
 /* Destructor. */
@@ -141,7 +141,7 @@ SoSFEnum::setEnums(const int num, const int * vals, const SbName * names)
   this->enumValues = new int[num];
   this->enumNames = new SbName[num];
   this->numEnums = num;
-  this->legalValuesSet = TRUE;
+  this->legalValuesSet = true;
 
   for (int i = 0; i < this->numEnums; i++) {
     this->enumValues[i] = vals[i];
@@ -153,40 +153,40 @@ SoSFEnum::setEnums(const int num, const int * vals, const SbName * names)
   Return in \a val the enumeration value which matches the given
   enumeration \a name.
 
-  Returns \c TRUE if \a name is a valid enumeration string, otherwise
-  \c FALSE.
+  Returns \c true if \a name is a valid enumeration string, otherwise
+  \c false.
 */
-SbBool
+bool
 SoSFEnum::findEnumValue(const SbName & name, int & val)
 {
   // Look through names table for one that matches
   for (int i = 0; i < this->numEnums; i++) {
     if (name == this->enumNames[i]) {
       val = this->enumValues[i];
-      return TRUE;
+      return true;
     }
   }
-  return FALSE;
+  return false;
 }
 
 /*!
   Set the enumeration \a name which matches the given enumeration
   value.
 
-  Returns \c TRUE if \a value is a valid enumeration value, otherwise
-  \c FALSE.
+  Returns \c true if \a value is a valid enumeration value, otherwise
+  \c false.
 */
-SbBool
+bool
 SoSFEnum::findEnumName(int valuearg, const SbName *& name) const
 {
   // Look through values table for one that matches
   for (int i = 0; i < this->numEnums; i++) {
     if (valuearg == this->enumValues[i]) {
       name = &(this->enumNames[i]);
-      return TRUE;
+      return true;
     }
   }
-  return FALSE;
+  return false;
 }
 
 // No need to document readValue() and writeValue() here, as the
@@ -194,28 +194,28 @@ SoSFEnum::findEnumName(int valuearg, const SbName *& name) const
 // parent classes.
 #ifndef DOXYGEN_SKIP_THIS
 
-SbBool
+bool
 SoSFEnum::readValue(SoInput * in)
 {
   SbName n;
   int val;
 
   // Read mnemonic value as a character string identifier
-  if (!in->read(n, TRUE)) {
+  if (!in->read(n, true)) {
     // If we don't have any legal values for this field,
     // give some slack and accept integer values.
     if (this->legalValuesSet || !in->read(val)) {
       SoReadError::post(in, "Couldn't read enumeration name");
-      return FALSE;
+      return false;
     }
   }
   else {
     if (!this->findEnumValue(n, val)) {
       // If we read an enum field written by an extension node,
       // we won't have any defined enum values. This is indicated by
-      // this->legalValuesSet == FALSE. If this is the case, define
+      // this->legalValuesSet == false. If this is the case, define
       // any encountered enum values on the fly but keep legalValuesSet
-      // to FALSE in order not to fool built-in enum field to accept
+      // to false in order not to fool built-in enum field to accept
       // illegal values.
       if (!this->legalValuesSet) {
         int *newvalues = new int[this->numEnums+1];
@@ -236,12 +236,12 @@ SoSFEnum::readValue(SoInput * in)
       }
       else {
         SoReadError::post(in, "Unknown enumeration value \"%s\"", n.getString());
-        return FALSE;
+        return false;
       }
     }
   }
   this->value = val;
-  return TRUE;
+  return true;
 }
 
 void
@@ -266,7 +266,7 @@ SoSFEnum::writeValue(SoOutput * out) const
 
   SbName name;
   const SoFieldContainer * thecontainer = this->getContainer();
-  const SbBool fname = thecontainer && thecontainer->getFieldName(this, name);
+  const bool fname = thecontainer && thecontainer->getFieldName(this, name);
   SbString s("");
   if (fname) { s.sprintf(" \"%s\"", name.getString()); }
 
@@ -277,23 +277,23 @@ SoSFEnum::writeValue(SoOutput * out) const
 }
 
 /*!
-  Compare this field with \a f and return \c TRUE if they are
+  Compare this field with \a f and return \c true if they are
   equal.
 */
-int
+bool
 SoSFEnum::operator==(const SoSFEnum & f) const
 {
   // Check for value mismatch first.
-  if (this->getValue() != f.getValue()) return FALSE;
+  if (this->getValue() != f.getValue()) return false;
 
   // Check that we have the same enumeration mappings.
-  if (this->numEnums != f.numEnums) return FALSE;
+  if (this->numEnums != f.numEnums) return false;
   for (int i = 0; i < this->numEnums; i++) {
-    if (this->enumValues[i] != f.enumValues[i]) return FALSE;
-    if (this->enumNames[i] != f.enumNames[i]) return FALSE;
+    if (this->enumValues[i] != f.enumValues[i]) return false;
+    if (this->enumNames[i] != f.enumNames[i]) return false;
   }
 
-  return TRUE;
+  return true;
 }
 
 /*!

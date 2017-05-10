@@ -57,7 +57,7 @@ public:
 
   virtual void GLRender(SoGLRenderAction * action);
 
-  static SbBool isSupported(SourceType sourceType);
+  static bool isSupported(SourceType sourceType);
 
 };
 

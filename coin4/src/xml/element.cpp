@@ -503,10 +503,10 @@ cc_xml_elt_replace_child_x(cc_xml_elt * elt, cc_xml_elt * oldchild, cc_xml_elt *
 {
   assert(elt);
   int idx = cc_xml_elt_get_child_index(elt, oldchild);
-  if ( idx == -1 ) return FALSE;
+  if ( idx == -1 ) return false;
   cc_xml_elt_remove_child_x(elt, oldchild);
   cc_xml_elt_insert_child_x(elt, newchild, idx);
-  return TRUE;
+  return true;
 }
 
 // *************************************************************************
@@ -525,20 +525,20 @@ cc_xml_elt_get_boolean(const cc_xml_elt * elt, int * value)
   }
   const char * data = cc_xml_elt_get_data(elt);
   assert(value != NULL);
-  if ( data == NULL ) return FALSE;
+  if ( data == NULL ) return false;
   if ( cc_xml_strieq(data, "true") ||
        cc_xml_strieq(data, "on") ||
        cc_xml_strieq(data, "t") ) {
-    *value = TRUE;
-    return TRUE;
+    *value = true;
+    return true;
   }
   if ( cc_xml_strieq(data, "false") ||
        cc_xml_strieq(data, "off") ||
        cc_xml_strieq(data, "f") ) {
-    *value = FALSE;
-    return TRUE;
+    *value = false;
+    return true;
   }
-  return FALSE;
+  return false;
 }
 
 int
@@ -555,8 +555,8 @@ cc_xml_elt_get_integer(const cc_xml_elt * elt, int * value)
   }
   const char * data = cc_xml_elt_get_data(elt);
   assert(value != NULL);
-  if ( data == NULL ) return FALSE;
-  if ( sscanf(data, "%d", value) == 1 ) return TRUE;
+  if ( data == NULL ) return false;
+  if ( sscanf(data, "%d", value) == 1 ) return true;
   return false;
 }
 
@@ -574,9 +574,9 @@ cc_xml_elt_get_uint64(const cc_xml_elt * elt, uint64_t * value)
   }
   const char * data = cc_xml_elt_get_data(elt);
   assert(value != NULL);
-  if ( data == NULL ) return FALSE;
-  if ( sscanf(data, "%lld", value) == 1 ) return TRUE; // FIXME: unsigned
-  return FALSE;
+  if ( data == NULL ) return false;
+  if ( sscanf(data, "%lld", value) == 1 ) return true; // FIXME: unsigned
+  return false;
 }
 
 int
@@ -593,9 +593,9 @@ cc_xml_elt_get_int64(const cc_xml_elt * elt, int64_t * value)
   }
   const char * data = cc_xml_elt_get_data(elt);
   assert(value != NULL);
-  if ( data == NULL ) return FALSE;
-  if ( sscanf(data, "%lld", value) == 1 ) return TRUE;
-  return FALSE;
+  if ( data == NULL ) return false;
+  if ( sscanf(data, "%lld", value) == 1 ) return true;
+  return false;
 }
 
 int
@@ -612,9 +612,9 @@ cc_xml_elt_get_uint32(const cc_xml_elt * elt, uint32_t * value)
   }
   const char * data = cc_xml_elt_get_data(elt);
   assert(value != NULL);
-  if ( data == NULL ) return FALSE;
-  if ( sscanf(data, "%u", value) == 1 ) return TRUE; // FIXME: unsigned
-  return FALSE;
+  if ( data == NULL ) return false;
+  if ( sscanf(data, "%u", value) == 1 ) return true; // FIXME: unsigned
+  return false;
 }
 
 int
@@ -631,9 +631,9 @@ cc_xml_elt_get_int32(const cc_xml_elt * elt, int32_t * value)
   }
   const char * data = cc_xml_elt_get_data(elt);
   assert(value != NULL);
-  if ( data == NULL ) return FALSE;
-  if ( sscanf(data, "%u", value) == 1 ) return TRUE;
-  return FALSE;
+  if ( data == NULL ) return false;
+  if ( sscanf(data, "%u", value) == 1 ) return true;
+  return false;
 }
 
 int
@@ -650,9 +650,9 @@ cc_xml_elt_get_float(const cc_xml_elt * elt, float * value)
   }
   const char * data = cc_xml_elt_get_data(elt);
   assert(value != NULL);
-  if ( data == NULL ) return FALSE;
-  if ( sscanf(data, "%g", value) == 1 ) return TRUE;
-  return FALSE;
+  if ( data == NULL ) return false;
+  if ( sscanf(data, "%g", value) == 1 ) return true;
+  return false;
 }
 
 int
@@ -669,9 +669,9 @@ cc_xml_elt_get_double(const cc_xml_elt * elt, double * value)
   }
   const char * data = cc_xml_elt_get_data(elt);
   assert(value != NULL);
-  if ( data == NULL ) return FALSE;
-  if ( sscanf(data, "%lg", value) == 1 ) return TRUE;
-  return FALSE;
+  if ( data == NULL ) return false;
+  if ( sscanf(data, "%lg", value) == 1 ) return true;
+  return false;
 }
 
 void
@@ -947,7 +947,7 @@ cc_xml_elt_get_traversal_next(const cc_xml_elt * root, cc_xml_elt * here)
 
       } while (idx != (cc_xml_elt_get_num_children(parent) - 1));
     }
-  } while (TRUE);
+  } while (true);
 
   return NULL;
 } // cc_xml_elt_get_traversal_next()

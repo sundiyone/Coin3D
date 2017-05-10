@@ -44,14 +44,14 @@ class SbRWMutex;
 
 class SoDB_HeaderInfo {
 public:
-  SoDB_HeaderInfo(const SbString & hs, const SbBool bin, const float ver,
+  SoDB_HeaderInfo(const SbString & hs, const bool bin, const float ver,
                   SoDBHeaderCB * pre, SoDBHeaderCB * post, void * ud)
     : headerstring(hs), isbinary(bin), ivversion(ver),
         preload_cb(pre), postload_cb(post), userdata(ud)
     { }
 
   SbString headerstring;
-  SbBool isbinary;
+  bool isbinary;
   float ivversion;
   SoDBHeaderCB * preload_cb, * postload_cb;
   void * userdata;
@@ -83,20 +83,20 @@ public:
   static SoTimerSensor * globaltimersensor;
   static UInt32ToInt16Map * converters;
   static int notificationcounter;
-  static SbBool isinitialized;
+  static bool isinitialized;
 
-  static SbBool is3dsFile(SoInput * in);
+  static bool is3dsFile(SoInput * in);
   static SoSeparator * read3DSFile(SoInput * in);
 
   static void progress(const SbName & itemid,
                        float fraction,
-                       SbBool interruptible);
+                       bool interruptible);
 
   struct ProgressCallbackInfo {
     SoDB::ProgressCallbackType * func;
     void * userdata;
 
-    int operator==(const ProgressCallbackInfo & a) {
+    bool operator==(const ProgressCallbackInfo & a) {
       return (a.func == this->func) && (a.userdata == this->userdata);
     }
   };

@@ -33,10 +33,10 @@ class SbName;
 
 class COIN_DLL_API SoGLDriverDatabase {
 public:
-  static SbBool isSupported(const cc_glglue * context, const SbName & feature);
-  static SbBool isBroken(const cc_glglue * context, const SbName & feature);
-  static SbBool isSlow(const cc_glglue * context, const SbName & feature);
-  static SbBool isFast(const cc_glglue * context, const SbName & feature);
+  static bool isSupported(const cc_glglue * context, const SbName & feature);
+  static bool isBroken(const cc_glglue * context, const SbName & feature);
+  static bool isSlow(const cc_glglue * context, const SbName & feature);
+  static bool isFast(const cc_glglue * context, const SbName & feature);
 
   static SbName getComment(const cc_glglue * context, const SbName & feature);
 

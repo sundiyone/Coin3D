@@ -592,7 +592,7 @@ glue_cgDestroyEffect(CGeffect COIN_UNUSED_ARG(effect))
 CGbool 
 glue_cgIsEffect(CGeffect COIN_UNUSED_ARG(effect))
 {
-  return FALSE;
+  return false;
 }
 
 void 

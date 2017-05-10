@@ -54,13 +54,13 @@ public:
   virtual void GLRender(SoGLRenderAction * action);
   virtual void write(SoWriteAction * action);
   virtual void copyContents(const SoFieldContainer * from, 
-                            SbBool copyconnections); 
+                            bool copyconnections); 
   virtual void notify(SoNotList * l);
 
 protected:
   virtual ~SoVertexAttribute(void);
 
-  virtual SbBool readInstance(SoInput * in, unsigned short flags);
+  virtual bool readInstance(SoInput * in, unsigned short flags);
 
 private:
   static SoType classTypeId;

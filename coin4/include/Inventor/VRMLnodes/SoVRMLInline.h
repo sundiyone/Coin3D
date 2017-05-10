@@ -65,8 +65,8 @@ public:
 
   SoGroup * copyChildren(void) const;
   void requestURLData(void);
-  SbBool isURLDataRequested(void) const;
-  SbBool isURLDataHere(void) const;
+  bool isURLDataRequested(void) const;
+  bool isURLDataHere(void) const;
 
   void cancelURLDataRequest(void);
   void setChildData(SoNode * urlData);
@@ -77,8 +77,8 @@ public:
   static BboxVisibility getBoundingBoxVisibility(void);
   static void setBoundingBoxColor(SbColor & color);
   static SbColor & getBoundingBoxColor(void);
-  static void setReadAsSoFile(SbBool enable);
-  static SbBool getReadAsSoFile(void);
+  static void setReadAsSoFile(bool enable);
+  static bool getReadAsSoFile(void);
 
   virtual void doAction(SoAction * action);
   virtual void callback(SoCallbackAction * action);
@@ -96,9 +96,9 @@ protected:
 
 private:
   virtual void addBoundingBoxChild(SbVec3f center, SbVec3f size);
-  virtual SbBool readInstance(SoInput * in, unsigned short flags);
-  virtual void copyContents(const SoFieldContainer * from, SbBool copyconn);
-  virtual SbBool readLocalFile(SoInput * in);
+  virtual bool readInstance(SoInput * in, unsigned short flags);
+  virtual void copyContents(const SoFieldContainer * from, bool copyconn);
+  virtual bool readLocalFile(SoInput * in);
 
   static void urlFieldModified(void * userdata, SoSensor * sensor);
 

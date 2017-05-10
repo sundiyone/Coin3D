@@ -35,7 +35,7 @@ public:
                   const SbGeoEllipsoid & e,
                   double FE = 0.0, double FN = 0.0);
 
-  virtual SbBool isUTMProjection(void) const;
+  virtual bool isUTMProjection(void) const;
 
   void setUTMZone(const int utmzone);
   int getUTMZone(void) const;

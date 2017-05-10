@@ -325,7 +325,7 @@ SoChildList::traverse(SoAction * const action, const int first, const int last)
   // mortene.
   uintptr_t chksum = 0xdeadbeef;
   for (i = first; i <= last; i++) { chksum ^= (uintptr_t)(*this)[i]; }
-  SbBool changedetected = FALSE;
+  bool changedetected = false;
 #endif // COIN_DEBUG
 
   SoAction::PathCode pathcode = action->getCurPathCode();
@@ -338,7 +338,7 @@ SoChildList::traverse(SoAction * const action, const int first, const int last)
     for (i = first; (i <= last) && !action->hasTerminated(); i++) {
 #if COIN_DEBUG
       if (i >= this->getLength()) {
-        changedetected = TRUE;
+        changedetected = true;
         break;
       }
 #endif // COIN_DEBUG
@@ -352,7 +352,7 @@ SoChildList::traverse(SoAction * const action, const int first, const int last)
     for (i = first; (i <= last) && !action->hasTerminated(); i++) {      
 #if COIN_DEBUG
       if (i >= this->getLength()) {
-        changedetected = TRUE;
+        changedetected = true;
         break;
       }
 #endif // COIN_DEBUG
@@ -369,7 +369,7 @@ SoChildList::traverse(SoAction * const action, const int first, const int last)
     for (i = first; (i <= last) && !action->hasTerminated(); i++) {
 #if COIN_DEBUG
       if (i >= this->getLength()) {
-        changedetected = TRUE;
+        changedetected = true;
         break;
       }
 #endif // COIN_DEBUG
@@ -392,7 +392,7 @@ SoChildList::traverse(SoAction * const action, const int first, const int last)
 #if COIN_DEBUG
   if (!changedetected) {
     for (i = last; i >= first; i--) { chksum ^= (uintptr_t)(*this)[i]; }
-    if (chksum != 0xdeadbeef) changedetected = TRUE;
+    if (chksum != 0xdeadbeef) changedetected = true;
   }
   if (changedetected) {
     SoDebugError::postWarning("SoChildList::traverse",

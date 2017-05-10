@@ -56,7 +56,7 @@ public:
       SoCompactPathList * compactlist;
     } pathlistdata;
   } applieddata;
-  SbBool terminated;
+  bool terminated;
   SbList <SbList<int> *> pathcodearray;
   int prevenabledelementscounter;
 

@@ -47,8 +47,8 @@ private:
   virtual void trigger(void);
 
   SbTime base, interval;
-  SbBool setbasetime;
-  SbBool istriggering;
+  bool setbasetime;
+  bool istriggering;
 };
 
 #endif // !COIN_SOTIMERSENSOR_H

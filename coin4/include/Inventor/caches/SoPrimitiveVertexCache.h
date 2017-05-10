@@ -49,7 +49,7 @@ public:
     ALL = (NORMAL|TEXCOORD|COLOR)
   };
 
-  virtual SbBool isValid(const SoState * state) const;
+  virtual bool isValid(const SoState * state) const;
   void close(SoState * state);
 
   void renderTriangles(SoState * state, const int arrays = ALL) const;
@@ -75,7 +75,7 @@ public:
   const GLint * getTriangleIndices(void) const;
   int32_t getTriangleIndex(const int idx) const;
 
-  SbBool colorPerVertex(void) const;
+  bool colorPerVertex(void) const;
   const SbVec4f * getMultiTextureCoordinateArray(const int unit) const;
 
   int getNumLineIndices(void) const;

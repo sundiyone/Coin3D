@@ -168,7 +168,7 @@ SbBox3i32::makeEmpty(void)
   maxpt.setValue(-std::numeric_limits<int32_t>::max(), -std::numeric_limits<int32_t>::max(), -std::numeric_limits<int32_t>::max());
 }
 
-SbBool
+bool
 SbBox3i32::intersect(const SbVec3i32 & pt) const
 {
   return !(pt[0] < minpt[0] || pt[0] > maxpt[0] ||
@@ -176,7 +176,7 @@ SbBox3i32::intersect(const SbVec3i32 & pt) const
            pt[2] < minpt[2] || pt[2] > maxpt[2]);
 }
 
-SbBool
+bool
 SbBox3i32::intersect(const SbBox3i32 & bb) const
 {
   return !((bb.maxpt[0] < minpt[0]) || (bb.minpt[0] > maxpt[0]) ||
@@ -184,7 +184,7 @@ SbBox3i32::intersect(const SbBox3i32 & bb) const
            (bb.maxpt[2] < minpt[2]) || (bb.minpt[2] > maxpt[2]));
 }
 
-SbBool
+bool
 SbBox3i32::intersect(const SbVec3f & pt) const
 {
   SbVec3i32 ptmax(pt), ptmin(pt);
@@ -196,7 +196,7 @@ SbBox3i32::intersect(const SbVec3f & pt) const
            (ptmin[2] < minpt[2]) || (ptmax[2] > maxpt[2]));
 }
 
-SbBool
+bool
 SbBox3i32::outside(const SbMatrix & MVP, int & cullbits) const
 {
   // FIXME: this function is untested (code written by
@@ -222,12 +222,12 @@ SbBox3i32::outside(const SbMatrix & MVP, int & cullbits) const
         else if (val > 1.0f) outsidepos++;
         else inside++;
       }
-      if (outsidepos == 8) return TRUE;
-      if (outsideneg == 8) return TRUE;
+      if (outsidepos == 8) return true;
+      if (outsideneg == 8) return true;
       if (inside == 8) cullbits ^= (1<<j);
     }
   }
-  return FALSE;
+  return false;
 }
 
 SbVec3f

@@ -31,11 +31,11 @@ class SoVertexAttributeBundleP;
 
 class COIN_DLL_API SoVertexAttributeBundle : public SoBundle {
 public:
-  SoVertexAttributeBundle(SoAction * action, SbBool forrendering);
+  SoVertexAttributeBundle(SoAction * action, bool forrendering);
   ~SoVertexAttributeBundle();
 
   void send(int index) const;
-  SbBool doAttributes(void) const;
+  bool doAttributes(void) const;
   
 private:
   const SoVertexAttributeElement * elem;

@@ -36,14 +36,14 @@ class COIN_DLL_API SoAudioDevice {
 public:
   static SoAudioDevice * instance();
 
-  SbBool init(const SbString & devicetype, const SbString & devicename);
+  bool init(const SbString & devicetype, const SbString & devicename);
 
-  SbBool enable();
+  bool enable();
   void disable();
-  SbBool isEnabled();
-  SbBool haveSound();
+  bool isEnabled();
+  bool haveSound();
   void setGain(float gain);
-  void mute(SbBool mute=TRUE);
+  void mute(bool mute=true);
 
 private:
   SoAudioDevice();

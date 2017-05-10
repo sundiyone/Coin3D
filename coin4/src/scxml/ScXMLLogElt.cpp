@@ -153,18 +153,18 @@ ScXMLLogElt::setLevelAttribute(const char * levelstr)
 
 // const char * getLevelAttribute(void) const { return this->level; }
 
-SbBool
+bool
 ScXMLLogElt::handleXMLAttributes(void)
 {
   if (!inherited::handleXMLAttributes()) {
-    return FALSE;
+    return false;
   }
 
   this->setLabelAttribute(this->getXMLAttribute("label"));
   this->setExprAttribute(this->getXMLAttribute("expr"));
   this->setLevelAttribute(this->getXMLAttribute("level"));
 
-  return TRUE;
+  return true;
 }
 
 void

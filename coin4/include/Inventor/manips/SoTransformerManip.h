@@ -38,8 +38,8 @@ public:
   static void initClass(void);
   SoTransformerManip(void);
 
-  SbBool isLocateHighlighting(void);
-  void setLocateHighlighting(SbBool onoff);
+  bool isLocateHighlighting(void);
+  void setLocateHighlighting(bool onoff);
 
   void unsquishKnobs(void);
 

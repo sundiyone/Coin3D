@@ -71,7 +71,7 @@ SoMFVec3b::initClass(void)
 // parent classes.
 #ifndef DOXYGEN_SKIP_THIS
 
-SbBool
+bool
 SoMFVec3b::read1Value(SoInput * in, int idx)
 {
 #if 1 // 12-25% speed increase when this is activated. pederb, 2004-02-17
@@ -82,9 +82,9 @@ SoMFVec3b::read1Value(SoInput * in, int idx)
     in->readByte(this->values[idx][2]);
 #else // end of new, optimized version
   SbVec3b v;
-  if (!sosfvec3b_read_value(in, v)) return FALSE;
+  if (!sosfvec3b_read_value(in, v)) return false;
   this->set1Value(idx, v);
-  return TRUE;
+  return true;
 #endif // old, slower version
 }
 

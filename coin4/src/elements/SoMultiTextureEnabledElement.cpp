@@ -32,13 +32,13 @@
 */
 
 /*!
-  \fn void SoMultiTextureEnabledElement::set(SoState * state, const SbBool enabled)
+  \fn void SoMultiTextureEnabledElement::set(SoState * state, const bool enabled)
   
   Coin-3 support.
 */
 
 /*!
-  \fn void SoMultiTextureEnabledElement::set(SoState * state, SoNode* node, const SbBool enabled)
+  \fn void SoMultiTextureEnabledElement::set(SoState * state, SoNode* node, const bool enabled)
   
   Coin-3 support.
 */
@@ -54,7 +54,7 @@
 
 class SoMultiTextureEnabledElementP {
  public:
-  SbList <SbBool> enabled;
+  SbList <bool> enabled;
   SbList<SoMultiTextureEnabledElement::Mode> mode;
 };
 
@@ -95,7 +95,7 @@ void
 SoMultiTextureEnabledElement::set(SoState * state,
                                   SoNode * COIN_UNUSED_ARG(node),
                                   const int unit,
-                                  const SbBool enabled)
+                                  const bool enabled)
 {
   SoMultiTextureEnabledElement * elem =
     coin_assert_cast<SoMultiTextureEnabledElement *>
@@ -123,7 +123,7 @@ SoMultiTextureEnabledElement::init(SoState * COIN_UNUSED_ARG(state))
 /*!
   Return current state of this element for \a unit.
 */
-SbBool
+bool
 SoMultiTextureEnabledElement::get(SoState * state, const int unit)
 {
   const SoMultiTextureEnabledElement * elem =
@@ -133,7 +133,7 @@ SoMultiTextureEnabledElement::get(SoState * state, const int unit)
   if (unit < PRIVATE(elem)->enabled.getLength()) {
     return PRIVATE(elem)->enabled[unit];
   }
-  return FALSE;
+  return false;
 }
 
 /*!
@@ -144,7 +144,7 @@ SoMultiTextureEnabledElement::setElt(const int unit, const int mode_in)
 {
   Mode mode = static_cast<Mode>(mode_in);
   for (int i = PRIVATE(this)->enabled.getLength(); i <= unit; i++) { 
-    PRIVATE(this)->enabled.append(FALSE);
+    PRIVATE(this)->enabled.append(false);
     PRIVATE(this)->mode.append(DISABLED);
   }
   PRIVATE(this)->enabled[unit] = mode != DISABLED;
@@ -152,12 +152,12 @@ SoMultiTextureEnabledElement::setElt(const int unit, const int mode_in)
 }
 
 /*!
-  Returns a pointer to a boolean array. TRUE means unit is enabled and
+  Returns a pointer to a boolean array. true means unit is enabled and
   that texture coordinates must be sent to the unit. \a lastenabled
   is set to the last enabled unit.
 
 */
-const SbBool *
+const bool *
 SoMultiTextureEnabledElement::getEnabledUnits(SoState * state,
                                               int & lastenabled)
 {
@@ -179,15 +179,15 @@ SoMultiTextureEnabledElement::getEnabledUnits(SoState * state,
 }
 
 /*!
-  Returns TRUE if unit is enabled (Mode == DISABLED).
+  Returns true if unit is enabled (Mode == DISABLED).
 */
-SbBool
+bool
 SoMultiTextureEnabledElement::isEnabled(const int unit) const
 {
   if (unit < PRIVATE(this)->enabled.getLength()) {
     return PRIVATE(this)->enabled[unit];
   }
-  return FALSE;
+  return false;
 }
 
 // doc in parent
@@ -201,19 +201,19 @@ SoMultiTextureEnabledElement::push(SoState * COIN_UNUSED_ARG(state))
   PRIVATE(this)->enabled = PRIVATE(prev)->enabled;
 }
 
-SbBool
+bool
 SoMultiTextureEnabledElement::matches(const SoElement * elem) const
 {
   const SoMultiTextureEnabledElement * e =
     coin_assert_cast<const SoMultiTextureEnabledElement *>(elem);
-  if (PRIVATE(e)->mode.getLength() != PRIVATE(this)->mode.getLength()) return FALSE;
+  if (PRIVATE(e)->mode.getLength() != PRIVATE(this)->mode.getLength()) return false;
   
   for (int i = 0; i < PRIVATE(e)->mode.getLength(); i++) {
     if (PRIVATE(e)->mode[i] != PRIVATE(this)->mode[i]) {
-      return FALSE;
+      return false;
     }
   }
-  return TRUE;
+  return true;
 }
 
 SoElement *
@@ -312,7 +312,7 @@ void
 SoMultiTextureEnabledElement::disableAll(SoState * state)
 {
   int lastenabled;
-  const SbBool * enabled = getEnabledUnits(state, lastenabled);
+  const bool * enabled = getEnabledUnits(state, lastenabled);
   if (enabled) {
     SoMultiTextureEnabledElement * elem =
       coin_assert_cast<SoMultiTextureEnabledElement *>
@@ -320,11 +320,11 @@ SoMultiTextureEnabledElement::disableAll(SoState * state)
 
     for (int i = 0; i <= lastenabled; i++) {
       if (enabled[i]) {
-        elem->setElt(i, FALSE);
+        elem->setElt(i, false);
       }
     }
   }
-  SoShapeStyleElement::setTextureEnabled(state, FALSE);
+  SoShapeStyleElement::setTextureEnabled(state, false);
 }
 
 /*!

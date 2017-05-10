@@ -66,7 +66,7 @@ SoSFVec4ub::initClass(void)
 // parent classes.
 #ifndef DOXYGEN_SKIP_THIS
 
-SbBool
+bool
 SoSFVec4ub::readValue(SoInput * in)
 {
   return
@@ -120,10 +120,10 @@ BOOST_AUTO_TEST_CASE(initialized)
 BOOST_AUTO_TEST_CASE(textinput)
 {
   TestSuite::ResetReadErrorCount();
-  SbBool ok;
+  bool ok;
   SoSFVec4ub field;
   ok = field.set("1 2 3 4");
-  BOOST_CHECK_MESSAGE(ok == TRUE, "SoSFVec4ub read error");
+  BOOST_CHECK_MESSAGE(ok == true, "SoSFVec4ub read error");
   BOOST_CHECK_EQUAL(field.getValue(), SbVec4ub(1, 2, 3, 4));
   BOOST_CHECK_EQUAL(TestSuite::GetReadErrorCount(), 0);
   TestSuite::ResetReadErrorCount();

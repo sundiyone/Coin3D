@@ -106,7 +106,7 @@ SoPickedPoint::SoPickedPoint(const SoPath * const pathptr, SoState * const state
   this->objNormal = this->normal = SbVec3f(0,0,1);
   this->objTexCoords = this->texCoords = SbVec4f(0,0,0,1);
   this->materialIndex = 0;
-  this->onGeometry = TRUE;
+  this->onGeometry = true;
   this->viewport = SoViewportRegionElement::get(stateptr);
 
   int pathlen = ((SoFullPath*)this->path)->getLength();
@@ -184,11 +184,11 @@ SoPickedPoint::getPath() const
 }
 
 /*!
-  Returns TRUE if this picked point is on the actual geometry of the
-  picked object, or FALSE if not (it might for instance be on the
+  Returns true if this picked point is on the actual geometry of the
+  picked object, or false if not (it might for instance be on the
   bounding box if picking was done on bounding boxes).
 */
-SbBool
+bool
 SoPickedPoint::isOnGeometry() const
 {
   return this->onGeometry;

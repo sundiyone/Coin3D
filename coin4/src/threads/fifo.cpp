@@ -125,7 +125,7 @@ cc_fifo_retrieve(cc_fifo * fifo, void ** ptr, uint32_t * type)
   cc_fifo_item * item;
   assert(fifo != NULL && ptr != NULL);
   cc_mutex_lock(&fifo->access);
-  while ( TRUE ) {
+  while ( true ) {
     if ( fifo->elements == 0 ) {
       cc_condvar_wait(&fifo->sleep, &fifo->access);
     } else {
@@ -141,18 +141,18 @@ cc_fifo_retrieve(cc_fifo * fifo, void ** ptr, uint32_t * type)
   }
 }
 
-SbBool
+bool
 cc_fifo_try_retrieve(cc_fifo * fifo, void ** ptr, uint32_t * type)
 {
   cc_fifo_item * item;
   assert(fifo != NULL && ptr != NULL);
   /* FIXME: consider cc_mutex_try_lock()? to escape even a failed lock */
   if ( ! cc_mutex_try_lock(&fifo->access) ) {
-    return FALSE;
+    return false;
   }
   if ( fifo->elements == 0 ) {
     cc_mutex_unlock(&fifo->access);
-    return FALSE;
+    return false;
   }
   item = i_unlink_head(fifo);
   *ptr = item->item;
@@ -160,7 +160,7 @@ cc_fifo_try_retrieve(cc_fifo * fifo, void ** ptr, uint32_t * type)
   cc_fifo_item_delete(item);
   cc_mutex_unlock(&fifo->access);
   cc_condvar_wake_one(&fifo->sleep);
-  return TRUE;
+  return true;
 }
 
 /* ********************************************************************** */
@@ -202,7 +202,7 @@ cc_fifo_lock(cc_fifo * fifo)
   cc_mutex_lock(&fifo->access);
 }
 
-SbBool
+bool
 cc_fifo_try_lock(cc_fifo * fifo)
 {
   assert(fifo != NULL);
@@ -218,30 +218,30 @@ cc_fifo_unlock(cc_fifo * fifo)
 
 /* ********************************************************************** */
 
-SbBool
+bool
 cc_fifo_peek(cc_fifo * fifo, void ** item, uint32_t * type)
 {
   assert(fifo != NULL);
-  if ( fifo->head == NULL ) return FALSE;
+  if ( fifo->head == NULL ) return false;
   *item = fifo->head->item;
   if ( type != NULL ) *type = fifo->head->type;
-  return TRUE;
+  return true;
 }
 
-SbBool
+bool
 cc_fifo_contains(cc_fifo * fifo, void * itemptr)
 {
   cc_fifo_item * item;
   assert(fifo != NULL);
   item = fifo->head;
   while ( item != NULL ) {
-    if ( item->item == itemptr ) return TRUE;
+    if ( item->item == itemptr ) return true;
     item = item->next;
   }
-  return FALSE;
+  return false;
 }
 
-SbBool
+bool
 cc_fifo_reclaim(cc_fifo * fifo, void * itemptr)
 {
   cc_fifo_item * item, * prev;
@@ -258,12 +258,12 @@ cc_fifo_reclaim(cc_fifo * fifo, void * itemptr)
       item->type = 0;
       item->next = fifo->free;
       fifo->free = item;
-      return TRUE;
+      return true;
     }
     prev = item;
     item = item->next;
   }
-  return FALSE;
+  return false;
 }
 
 /* ********************************************************************** */
@@ -346,10 +346,10 @@ i_unlink_head(cc_fifo * fifo) /* static */
 */
 
 /*!
-  \fn SbBool SbFifo::tryRetrieve(void *& ptr, uint32_t & type)
+  \fn bool SbFifo::tryRetrieve(void *& ptr, uint32_t & type)
 
   Tries to read a pointer from the queue. If no data can be read, \c
-  FALSE is returned, and \c TRUE otherwise. The function does not
+  false is returned, and \c true otherwise. The function does not
   block.
 */
 
@@ -372,19 +372,19 @@ i_unlink_head(cc_fifo * fifo) /* static */
 */
 
 /*!
-  \fn SbBool SbFifo::peek(void *& item, uint32_t & type) const
+  \fn bool SbFifo::peek(void *& item, uint32_t & type) const
 
   Peeks at the head item of the queue without removing it.  In the
-  case where the fifo is empty, \c FALSE is returned.
+  case where the fifo is empty, \c false is returned.
 
   The queue must be locked with SbFifo::lock() before using this
   function, then unlocked.
 */
 
 /*!
-  \fn SbBool SbFifo::contains(void * item) const
+  \fn bool SbFifo::contains(void * item) const
 
-  Returns \c TRUE or \c FALSE depending on whether the item is in the
+  Returns \c true or \c false depending on whether the item is in the
   queue.
 
   The queue must be locked with SbFifo::lock() before using this
@@ -392,10 +392,10 @@ i_unlink_head(cc_fifo * fifo) /* static */
 */
 
 /*!
-  \fn SbBool SbFifo::reclaim(void * item)
+  \fn bool SbFifo::reclaim(void * item)
 
   This function removes the given \a item from the queue.  Returns \c
-  TRUE or \c FALSE depending on whether the item was in the queue in
+  true or \c false depending on whether the item was in the queue in
   the first place.
 
   The queue must be locked with SbFifo::lock() before using this

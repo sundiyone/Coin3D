@@ -41,7 +41,7 @@ public:
 
   virtual void GLRender(SoGLRenderAction * action);
   virtual void getPrimitiveCount(SoGetPrimitiveCountAction * action);
-  virtual SbBool generateDefaultNormals(SoState * state, SoNormalBundle * nb);
+  virtual bool generateDefaultNormals(SoState * state, SoNormalBundle * nb);
 
 protected:
   virtual ~SoTriangleStripSet();
@@ -49,7 +49,7 @@ protected:
   virtual void generatePrimitives(SoAction * action);
   virtual void computeBBox(SoAction * action, SbBox3f & box, SbVec3f & center);
 
-  virtual SbBool generateDefaultNormals(SoState *, SoNormalCache *);
+  virtual bool generateDefaultNormals(SoState *, SoNormalCache *);
 
 private:
   enum Binding {

@@ -60,11 +60,11 @@ protected:
   virtual void pick(SoPickAction * action);
 
   SbMatrix getUnsquishingMatrix(const SbMatrix & squishedmatrix,
-                                const SbBool calcinverse,
+                                const bool calcinverse,
                                 SbMatrix & getinverse);
 private:
   SbMatrix unsquishedmatrix, inversematrix;
-  SbBool matrixvalid, inversevalid;
+  bool matrixvalid, inversevalid;
 };
 
 #endif // !COIN_SOANTISQUISH_H

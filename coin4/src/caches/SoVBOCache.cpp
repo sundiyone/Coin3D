@@ -77,11 +77,11 @@ SoVBOCache::~SoVBOCache()
 }
 
 /*!
-  Returns the vertex array indexer. If \a createifnull is TRUE, a
+  Returns the vertex array indexer. If \a createifnull is true, a
   indexer will be created if it doesn't exist.
 */
 SoVertexArrayIndexer * 
-SoVBOCache::getVertexArrayIndexer(const SbBool createifnull)
+SoVBOCache::getVertexArrayIndexer(const bool createifnull)
 {
   if (createifnull && (this->pimpl->vaindexer == NULL)) {
     this->pimpl->vaindexer = new SoVertexArrayIndexer;
@@ -90,11 +90,11 @@ SoVBOCache::getVertexArrayIndexer(const SbBool createifnull)
 }
 
 /*!
-  Returns the coordinate VBO instance. If \a createifnull is TRUE, a
+  Returns the coordinate VBO instance. If \a createifnull is true, a
   VBO instance will be created if it doesn't exist.
 */
 SoVBO * 
-SoVBOCache::getCoordVBO(const SbBool createifnull)
+SoVBOCache::getCoordVBO(const bool createifnull)
 {
   if (createifnull && (this->pimpl->coordvbo == NULL)) {
     this->pimpl->coordvbo = new SoVBO;
@@ -103,12 +103,12 @@ SoVBOCache::getCoordVBO(const SbBool createifnull)
 }
 
 /*!
-  Returns the normal vertex VBO instance. If \a createifnull is TRUE, a
+  Returns the normal vertex VBO instance. If \a createifnull is true, a
   VBO instance will be created if it doesn't exist.
 */
 
 SoVBO * 
-SoVBOCache::getNormalVBO(const SbBool createifnull)
+SoVBOCache::getNormalVBO(const bool createifnull)
 {
   if (createifnull && (this->pimpl->normalvbo == NULL)) {
     this->pimpl->normalvbo = new SoVBO;
@@ -117,11 +117,11 @@ SoVBOCache::getNormalVBO(const SbBool createifnull)
 }
 
 /*!
-  Returns the color VBO instance. If \a createifnull is TRUE, a
+  Returns the color VBO instance. If \a createifnull is true, a
   VBO instance will be created if it doesn't exist.
 */
 SoVBO * 
-SoVBOCache::getColorVBO(const SbBool createifnull)
+SoVBOCache::getColorVBO(const bool createifnull)
 {
   if (createifnull && (this->pimpl->colorvbo == NULL)) {
     this->pimpl->colorvbo = new SoVBO;
@@ -130,11 +130,11 @@ SoVBOCache::getColorVBO(const SbBool createifnull)
 }
 
 /*!
-  Returns the texture coordinate VBO instance. If \a createifnull is TRUE, a
+  Returns the texture coordinate VBO instance. If \a createifnull is true, a
   VBO instance will be created if it doesn't exist.
 */
 SoVBO * 
-SoVBOCache::getTexCoordVBO(const int unit, const SbBool createifnull)
+SoVBOCache::getTexCoordVBO(const int unit, const bool createifnull)
 {
   if (createifnull) {
     while (this->pimpl->texcoordvbo.getLength() <= unit) {

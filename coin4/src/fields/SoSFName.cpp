@@ -67,7 +67,7 @@ SoSFName::initClass(void)
 // parent classes.
 #ifndef DOXYGEN_SKIP_THIS
 
-SbBool
+bool
 SoSFName::readValue(SoInput * in)
 {
   // Reading as SbString instead of as SbName, because the semantics
@@ -75,10 +75,10 @@ SoSFName::readValue(SoInput * in)
   // node or field names, and doesn't e.g. handle quotes as expected
   // for a "free-form" string.
   SbString s;
-  SbBool ok = in->read(s);
-  if (!ok) return FALSE;
+  bool ok = in->read(s);
+  if (!ok) return false;
   this->value = s;
-  return TRUE;
+  return true;
 }
 
 // Write SbName value to output stream. Also used from SoMFName class.

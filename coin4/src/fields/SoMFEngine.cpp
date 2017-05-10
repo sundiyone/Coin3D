@@ -118,7 +118,7 @@ SoMFEngine::setValuesPtr(void * ptr)
 }
 
 int
-SoMFEngine::find(SoEngine * value, SbBool addifnotfound)
+SoMFEngine::find(SoEngine * value, bool addifnotfound)
 {
   for (int i=0; i < this->num; i++) if ((*this)[i] == value) return i;
 
@@ -131,7 +131,7 @@ SoMFEngine::setValues(const int start, const int numarg, const SoEngine ** newva
 {
   // Disable temporarily, so we under any circumstances will not send
   // more than one notification about the changes.
-  SbBool notificstate = this->enableNotify(FALSE);
+  bool notificstate = this->enableNotify(false);
   // Important note: the notification state is reset at the end, so
   // this function should *not* have multiple return-points.
 
@@ -158,7 +158,7 @@ SoMFEngine::set1Value(const int idx, SoEngine * newval)
 {
   // Disable temporarily, so we under no circumstances will send more
   // than one notification about the change.
-  SbBool notificstate = this->enableNotify(FALSE);
+  bool notificstate = this->enableNotify(false);
   // Important note: the notification state is reset at the end, so
   // this function should *not* have multiple return-points.
 
@@ -224,16 +224,16 @@ SoMFEngine::setValue(SoEngine * value)
   this->set1Value(0, value);
 }
 
-SbBool
+bool
 SoMFEngine::operator==(const SoMFEngine & field) const
 {
-  if (this == &field) return TRUE;
-  if (this->getNum() != field.getNum()) return FALSE;
+  if (this == &field) return true;
+  if (this->getNum() != field.getNum()) return false;
 
   const SoEngine ** const lhs = this->getValues(0);
   const SoEngine ** const rhs = field.getValues(0);
-  for (int i = 0; i < this->num; i++) if (lhs[i] != rhs[i]) return FALSE;
-  return TRUE;
+  for (int i = 0; i < this->num; i++) if (lhs[i] != rhs[i]) return false;
+  return true;
 }
 
 /*!
@@ -282,7 +282,7 @@ SoMFEngine::insertSpace(int start, int numarg)
 {
   // Disable temporarily so we don't send notification prematurely
   // from inherited::insertSpace().
-  SbBool notificstate = this->enableNotify(FALSE);
+  bool notificstate = this->enableNotify(false);
   // Important note: the notification state is reset at the end, so
   // this function should *not* have multiple return-points.
 
@@ -312,11 +312,11 @@ SoMFEngine::copyValue(int to, int from)
 
 
 // Import a single engine.
-SbBool
+bool
 SoMFEngine::read1Value(SoInput * in, int index)
 {
   SoSFEngine sfengine;
-  SbBool result = sfengine.readValue(in);
+  bool result = sfengine.readValue(in);
   if (result) this->set1Value(index, sfengine.getValue());
   return result;
 }
@@ -394,11 +394,11 @@ SoMFEngine::countWriteRefs(SoOutput * out) const
 //
 // <mortene@sim.no>
 void
-SoMFEngine::fixCopy(SbBool copyconnections)
+SoMFEngine::fixCopy(bool copyconnections)
 {
   // Disable temporarily, so we under no circumstances will send more
   // than one notification about the changes.
-  SbBool notificstate = this->enableNotify(FALSE);
+  bool notificstate = this->enableNotify(false);
   // Important note: the notification state is reset at the end, so
   // this function should *not* have multiple return-points.
 
@@ -432,24 +432,24 @@ SoMFEngine::fixCopy(SbBool copyconnections)
 }
 
 // Override from SoField to check engine pointer.
-SbBool
+bool
 SoMFEngine::referencesCopy(void) const
 {
-  if (inherited::referencesCopy()) return TRUE;
+  if (inherited::referencesCopy()) return true;
 
   for (int i=0; i < this->getNum(); i++) {
     SoEngine * item = (*this)[i];
     if (item) {
 #if defined(COIN_INTERNAL_SOMFNODE) || defined(COIN_INTERNAL_SOMFENGINE)
-      if (SoFieldContainer::checkCopy(coin_assert_cast<SoFieldContainer *>(item))) return TRUE;
+      if (SoFieldContainer::checkCopy(coin_assert_cast<SoFieldContainer *>(item))) return true;
 #endif // COIN_INTERNAL_SOMFNODE || COIN_INTERNAL_SOMFENGINE
 #ifdef COIN_INTERNAL_SOMFPATH
-      if (item->getHead() && SoFieldContainer::checkCopy(item->getHead())) return TRUE;
+      if (item->getHead() && SoFieldContainer::checkCopy(item->getHead())) return true;
 #endif // COIN_INTERNAL_SOMFPATH
     }
   }
 
-  return FALSE;
+  return false;
 }
 
 // Kill the type-specific define.

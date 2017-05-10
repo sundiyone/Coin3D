@@ -95,11 +95,11 @@ static void send_attribs(const Key & COIN_UNUSED_ARG(key),
 
 #if COIN_DEBUG
   if (dataindex >= data->data->getNum()) {
-    static SbBool first = TRUE;
+    static bool first = true;
     if (first) {
       SoDebugError::post("SoGLVertexAttributeElement::send",
                          "attribute index out of bounds.");
-      first = FALSE;
+      first = false;
     }
   }
 #endif

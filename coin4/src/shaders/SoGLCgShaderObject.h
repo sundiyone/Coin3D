@@ -44,7 +44,7 @@ public:
   SoGLCgShaderObject(const uint32_t cachecontext);
   virtual ~SoGLCgShaderObject();
 
-  virtual SbBool isLoaded(void) const;
+  virtual bool isLoaded(void) const;
   virtual void load(const char * sourceString);
   virtual void unload(void);
   virtual SoShader::Type shaderType(void) const;

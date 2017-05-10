@@ -37,7 +37,7 @@
   \verbatim
   VisibilitySensor {
     exposedField SFVec3f center   0 0 0      # (-,)
-    exposedField SFBool  enabled  TRUE
+    exposedField SFBool  enabled  true
     exposedField SFVec3f size     0 0 0      # [0,)
     eventOut     SFTime  enterTime
     eventOut     SFTime  exitTime
@@ -53,15 +53,15 @@
   attention of the user or to improve performance.
 
   The \e enabled field enables and disables the VisibilitySensor node.
-  If enabled is set to FALSE, the VisibilitySensor node does not send
-  events. If enabled is TRUE, the VisibilitySensor node detects
+  If enabled is set to false, the VisibilitySensor node does not send
+  events. If enabled is true, the VisibilitySensor node detects
   changes to the visibility status of the box specified and sends
-  events through the isActive eventOut. A TRUE event is output to
+  events through the isActive eventOut. A true event is output to
   isActive when any portion of the box impacts the rendered view. A
-  FALSE event is sent when the box has no effect on the view. Browsers
-  shall guarantee that, if isActive is FALSE, the box has absolutely
+  false event is sent when the box has no effect on the view. Browsers
+  shall guarantee that, if isActive is false, the box has absolutely
   no effect on the rendered view. Browsers may err liberally when
-  isActive is TRUE. For example, the box may affect the rendering.
+  isActive is true. For example, the box may affect the rendering.
 
   The exposed fields \e center and \e size specify the object space
   location of the box centre and the extents of the box (i.e., width,
@@ -69,15 +69,15 @@
   hierarchical transformations of its parents. The components of the
   size field shall be greater than or equal to zero.
 
-  The \e enterTime event is generated whenever the isActive TRUE event
+  The \e enterTime event is generated whenever the isActive true event
   is generated, and exitTime events are generated whenever isActive
-  FALSE events are generated. A VisibilitySensor read from a VRML file
-  shall generate isActive TRUE and enterTime events if the sensor is
+  false events are generated. A VisibilitySensor read from a VRML file
+  shall generate isActive true and enterTime events if the sensor is
   enabled and the visibility box is visible. A VisibilitySensor
   inserted into the transformation hierarchy shall generate isActive
-  TRUE and enterTime events if the sensor is enabled and the
+  true and enterTime events if the sensor is enabled and the
   visibility box is visible. A VisibilitySensor removed from the
-  transformation hierarchy shall generate isActive FALSE and exitTime
+  transformation hierarchy shall generate isActive false and exitTime
   events if the sensor is enabled and the visibility box is visible.
 
   Each VisibilitySensor node behaves independently of all other
@@ -105,7 +105,7 @@
 
 /*!
   \var SoSFBool SoVRMLVisibilitySensor::enabled
-  Enable/disable sensor. Default value is TRUE.
+  Enable/disable sensor. Default value is true.
 */
 
 /*!
@@ -166,12 +166,12 @@ SoVRMLVisibilitySensor::SoVRMLVisibilitySensor(void)
 
   SO_VRMLNODE_ADD_EXPOSED_FIELD(center, (0.0f, 0.0f, 0.0f));
   SO_VRMLNODE_ADD_EXPOSED_FIELD(size, (0.0f, 0.0f, 0.0f));
-  SO_VRMLNODE_ADD_EXPOSED_FIELD(enabled, (TRUE));
+  SO_VRMLNODE_ADD_EXPOSED_FIELD(enabled, (true));
 
   SO_VRMLNODE_ADD_EVENT_OUT(enterTime);
   SO_VRMLNODE_ADD_EVENT_OUT(exitTime);
   SO_VRMLNODE_ADD_EVENT_OUT(isActive);
-  this->isActive = FALSE;
+  this->isActive = false;
 }
 
 /*!
@@ -188,26 +188,26 @@ SoVRMLVisibilitySensor::GLRender(SoGLRenderAction * action)
   SbVec3f c = this->center.getValue();
   SbVec3f s = this->size.getValue();
 
-  SbBool wasvisible = this->isActive.getValue();
-  SbBool visible = FALSE;
+  bool wasvisible = this->isActive.getValue();
+  bool visible = false;
 
   if (s != SbVec3f(0.0f, 0.0f, 0.0f)) {
     SbBox3f box(c[0]-s[0], c[1]-s[1], c[2]-s[2],
                 c[0]+s[0], c[1]+s[1], c[2]+s[2]);
-    if (!SoCullElement::cullTest(action->getState(), box, TRUE)) {
+    if (!SoCullElement::cullTest(action->getState(), box, true)) {
       // FIXME: the SoCullElement cull test only tests if box is outside
       // one of the planes, and the box might not be culled even if it's
       // not visible for some cases. pederb, 2002-05-16
-      visible = TRUE;
+      visible = true;
     }
   }
   if (visible && !wasvisible) {
     this->enterTime = visibilitysensor_get_current_time();
-    this->isActive = TRUE;
+    this->isActive = true;
   }
   else if (!visible && wasvisible) {
     this->exitTime = visibilitysensor_get_current_time();
-    this->isActive = FALSE;
+    this->isActive = false;
   }
 }
 

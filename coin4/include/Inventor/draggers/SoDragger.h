@@ -85,7 +85,7 @@ public:
   void removeValueChangedCallback(SoDraggerCB * func, void * data = NULL);
   void setMinGesture(int pixels);
   int getMinGesture(void) const;
-  SbBool enableValueChangedCallbacks(SbBool newval);
+  bool enableValueChangedCallbacks(bool newval);
   const SbMatrix & getMotionMatrix(void);
   void addOtherEventCallback(SoDraggerCB * func, void * data = NULL);
   void removeOtherEventCallback(SoDraggerCB * func, void * data = NULL);
@@ -145,13 +145,13 @@ protected:
   SbVec2s getLocaterPosition(void);
   SbVec2s getStartLocaterPosition(void) const;
   void setStartLocaterPosition(SbVec2s p);
-  SbBool isAdequateConstraintMotion(void);
-  virtual SbBool shouldGrabBasedOnSurrogate(const SoPath * pickpath, const SoPath * surrogatepath);
+  bool isAdequateConstraintMotion(void);
+  virtual bool shouldGrabBasedOnSurrogate(const SoPath * pickpath, const SoPath * surrogatepath);
   void setCameraInfo(SoAction * action);
   virtual void handleEvent(SoHandleEventAction * ha);
   void transferMotion(SoDragger * child);
-  void setIgnoreInBbox(SbBool newval);
-  SbBool isIgnoreInBbox(void);
+  void setIgnoreInBbox(bool newval);
+  bool isIgnoreInBbox(void);
   virtual void getBoundingBox(SoGetBoundingBoxAction * action);
   void setActiveChildDragger(SoDragger * newchilddragger);
   SoDragger * getActiveChildDragger(void) const;
@@ -171,7 +171,7 @@ protected:
 
 private:
   void updateElements(class SoState * state);
-  SbBool isPicked(SoPath * path);
+  bool isPicked(SoPath * path);
   void eventHandled(const SoEvent * event, SoHandleEventAction * action);
   static float minscale;
   

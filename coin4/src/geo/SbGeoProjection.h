@@ -35,7 +35,7 @@ public:
                   double FE = 0.0, double FN = 0.0);
   virtual ~SbGeoProjection();
 
-  virtual SbBool isUTMProjection(void) const;
+  virtual bool isUTMProjection(void) const;
 
   virtual void project(const SbGeoAngle & phi,    // latitude
                        const SbGeoAngle & lambda, // longitude

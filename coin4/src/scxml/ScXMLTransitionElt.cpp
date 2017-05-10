@@ -61,7 +61,7 @@
   expression language depends on which profile the SCXML state machine uses.
 
   The \c "minimum" profile only specifies one function, which is the
-  \c In({ID}) function.  In() evaluates to TRUE if the state machine is
+  \c In({ID}) function.  In() evaluates to true if the state machine is
   currently in the state with the given ID.
 
   The \c "x-coin" profile implements a number of expressions that evaluates to
@@ -281,7 +281,7 @@ ScXMLTransitionElt::ScXMLTransitionElt(void)
   cond(NULL),
   target(NULL),
   anchor(NULL),
-  needprefixmatching(FALSE),
+  needprefixmatching(false),
   eventkey(SbName::empty()),
   targetkey(SbName::empty())
 {
@@ -303,7 +303,7 @@ ScXMLTransitionElt::setEventAttribute(const char * eventstr)
   }
   this->event = NULL;
   this->eventkey = SbName::empty();
-  this->needprefixmatching = FALSE;
+  this->needprefixmatching = false;
 
   if (eventstr) {
     // You can do *-matching on event identifiers in transitions.
@@ -313,7 +313,7 @@ ScXMLTransitionElt::setEventAttribute(const char * eventstr)
     // any form of generic pattern matching here...
     const char * ptr = strstr(eventstr, ".*");
     if ((ptr != NULL) && (strlen(ptr) == 2)) {
-      this->needprefixmatching = TRUE;
+      this->needprefixmatching = true;
       // we'll chop off the pattern matching key and use the boolean
       const int len = strlen(eventstr) - 1;
       this->event = new char [ len ];
@@ -354,10 +354,10 @@ ScXMLTransitionElt::setAnchorAttribute(const char * anchorstr)
 
 // const char * ScXMLTransition::getAnchorAttribute(void) const
 
-SbBool
+bool
 ScXMLTransitionElt::handleXMLAttributes(void)
 {
-  if (!inherited::handleXMLAttributes()) return FALSE;
+  if (!inherited::handleXMLAttributes()) return false;
 
   this->setEventAttribute(this->getXMLAttribute("event"));
   this->setCondAttribute(this->getXMLAttribute("cond"));
@@ -368,10 +368,10 @@ ScXMLTransitionElt::handleXMLAttributes(void)
     SoDebugError::post("ScXMLTransitionElt::handleXMLAttributes",
                        "only one of 'target' and 'anchor' may be specified at once");
 
-    return FALSE;
+    return false;
   }
 
-  return TRUE;
+  return true;
 }
 
 void
@@ -428,12 +428,12 @@ ScXMLTransitionElt::search(const char * attrname, const char * attrvalue) const
   A conditionless transition should always be taken.
 */
 
-SbBool
+bool
 ScXMLTransitionElt::isConditionLess(void) const
 {
-  if (this->cond == NULL) return TRUE;
-  if (strlen(this->cond) == 0) return TRUE;
-  return FALSE;
+  if (this->cond == NULL) return true;
+  if (strlen(this->cond) == 0) return true;
+  return false;
 }
 
 /*!
@@ -445,7 +445,7 @@ ScXMLTransitionElt::isConditionLess(void) const
   reenter it again.
 */
 
-SbBool
+bool
 ScXMLTransitionElt::isTargetLess(void) const
 {
   return (this->target == NULL);
@@ -454,28 +454,28 @@ ScXMLTransitionElt::isTargetLess(void) const
 /*!
   Returns whether this transition is referencing its container or not.
 
-  If TRUE, this means you should end up in the same state as you
+  If true, this means you should end up in the same state as you
   started with when doing this transition.  Note however that as
   opposed to a targetless transition, this transition should actually
   exit the state and then reenter it again.  Executable content will
   be invoked after exiting the state, before reentering.
 */
 
-SbBool
+bool
 ScXMLTransitionElt::isSelfReferencing(void) const
 {
   if (this->target != NULL && this->getContainer()) {
     const char * containerid = this->getContainer()->getXMLAttribute("id");
-    if (strcmp(containerid, this->target) == 0) return TRUE;
+    if (strcmp(containerid, this->target) == 0) return true;
   }
-  return FALSE;
+  return false;
 }
 
 /*!
-  This function returns TRUE if the transition matches the given \a eventobj
-  object and FALSE otherwise.
+  This function returns true if the transition matches the given \a eventobj
+  object and false otherwise.
 */
-SbBool
+bool
 ScXMLTransitionElt::isEventMatch(const ScXMLEvent * eventobj) const
 {
   static const SbName globallkey("*");
@@ -483,40 +483,40 @@ ScXMLTransitionElt::isEventMatch(const ScXMLEvent * eventobj) const
   SbName eventid = eventobj->getEventName();
 
   if ((this->eventkey == SbName::empty()) ||
-      (this->eventkey == globallkey)) return TRUE;
+      (this->eventkey == globallkey)) return true;
 
   if (!this->needprefixmatching) {
     return (eventid == this->eventkey);
   }
 
-  if (this->eventkey == eventid) return TRUE;
+  if (this->eventkey == eventid) return true;
 
   const int keylen = strlen(this->eventkey.getString());
   if (keylen < static_cast<int>(strlen(eventid.getString()))) {
     if ((eventid.getString()[keylen] == '.') &&
         strncmp(this->eventkey.getString(), eventid.getString(), keylen) == 0) {
-      return TRUE; // this->event matches up to eventobj token separator
+      return true; // this->event matches up to eventobj token separator
     }
   }
 
-  return FALSE;
+  return false;
 }
 
 // executable content
 
 /*!
   This function uses the statemachine evaluator to evaluate its condition expression, and
-  returns TRUE or FALSE based on the evaluation.
+  returns true or false based on the evaluation.
 
   On expression error, error events are emit'ed to the SCXML state machine.
 
-  If the transition is conditionless, this function will return TRUE.
+  If the transition is conditionless, this function will return true.
 */
-SbBool
+bool
 ScXMLTransitionElt::evaluateCondition(ScXMLStateMachine * statemachine)
 {
   if (this->isConditionLess()) {
-    return TRUE;
+    return true;
   }
   ScXMLEvaluator * evaluator = statemachine->getEvaluator();
   assert(evaluator);
@@ -533,7 +533,7 @@ ScXMLTransitionElt::evaluateCondition(ScXMLStateMachine * statemachine)
                              this->getCondAttribute());
         }
         statemachine->queueInternalEvent("error.InvalidCondExpr.Transition");
-        return FALSE;
+        return false;
       }
     }
     if (res->isOfType(ScXMLBoolDataObj::getClassTypeId())) {
@@ -542,14 +542,14 @@ ScXMLTransitionElt::evaluateCondition(ScXMLStateMachine * statemachine)
     }
     else {
       statemachine->queueInternalEvent("error.eval.minimum.Transition.NO_TRUTH_COND_EXPRESSION");
-      return FALSE;
+      return false;
     }
   }
   else {
     statemachine->queueInternalEvent("error.eval.minimum.Transition.INVALID_COND_EXPRESSION");
-    return FALSE;
+    return false;
   }
-  return TRUE;
+  return true;
 }
 
 /*!

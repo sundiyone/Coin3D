@@ -38,8 +38,8 @@
 SoTempPath::SoTempPath(const int approxlength)
   : SoFullPath(approxlength)
 {
-  this->auditPath(FALSE);
-  this->nodes.addReferences(FALSE);
+  this->auditPath(false);
+  this->nodes.addReferences(false);
 }
 
 /*!
@@ -52,7 +52,7 @@ SoTempPath::simpleAppend(SoNode * const node, const int index)
 {
   // this will make SoPath rescan the path for hidden children the
   // next time getLength() is called.
-  this->firsthiddendirty = TRUE;
+  this->firsthiddendirty = true;
 
   // just append node and index
   this->nodes.append(node);
@@ -69,7 +69,7 @@ SoTempPath::replaceTail(SoNode * const node, const int index)
 {
   // this will make SoPath rescan the path for hidden children the
   // next time getLength() is called.
-  this->firsthiddendirty = TRUE;
+  this->firsthiddendirty = true;
 
   // just replace the last node and index
   const int i = this->nodes.getLength() - 1;

@@ -116,7 +116,7 @@ In Detail:
 	* src/shaders/SoGLShaderParameter.[h|cpp]
 	API clean up
 	  - got rid of 'SoShader::ValueType type' instance variable
-	  - got rid of 'SbBool isFloat..()' and 'SbBool isReferenced()' methods
+	  - got rid of 'bool isFloat..()' and 'bool isReferenced()' methods
 	  - changed 'void set..()' to take 'const SoGLShaderObject*' instead
 	    of 'const cc_glglue*'
 	Support of array and matrix parameters
@@ -126,20 +126,20 @@ In Detail:
 	* src/shaders/SoGLARBShaderParameter.[h|cpp]
 	  - changed API according to new SoGLShaderParameter API
 	  - constructor does not take arguments anymore
-	  - added 'SbBool isValid(..)' private method
+	  - added 'bool isValid(..)' private method
 	
 	* src/shaders/SoGLCgShaderParameter.[h|cpp]
 	  - changed API according to new SoGLShaderParameter API
 	  - constructor does not take arguments anymore
 	  - removed 'cgProgram' instance variable
 	  - introduced 'cacheType', 'cacheName', 'cacheSize' instance varibales
-	  - added 'SbBool isEqual(..)' and 'SbBool isValid(..)' private methods
+	  - added 'bool isEqual(..)' and 'bool isValid(..)' private methods
 	  - got rid of some private methods
 
 	* src/shaders/SoGLSLShaderParameter.[h|cpp]
 	  - changed API according to new SoGLShaderParameter API
 	  - constructor does not take arguments anymore
-	  - added 'SbBool isValid(..)' private method
+	  - added 'bool isValid(..)' private method
 	  - renamed 'name' instance variable to 'chacheName'
 	  - added 'cacheSize' and 'cacheType' instance variables
 	  - got rid of 'getParameterTypeFor(..)'
@@ -152,7 +152,7 @@ In Detail:
 	  src/shaders/SoShaderParameter.cpp:
 	API clean up
 	  - removed 'void reset()'
-	  - moved 'SbBool ensureParameter(..)' to 'void ensureParameter(..)' to
+	  - moved 'bool ensureParameter(..)' to 'void ensureParameter(..)' to
 	    get rid of enoying SoShader::ValueType
 	  - removed class SoShaderParameterSampler2D, since this is not part 
 	    of TGS and wasn't implemented anyway (was copied accidentally)

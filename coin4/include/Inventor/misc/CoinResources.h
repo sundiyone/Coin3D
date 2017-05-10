@@ -33,7 +33,7 @@ namespace CoinResources {
   void init(void);
   SbByteBuffer get(const char * resloc);
 
-  SbBool set(const char * resloc,
+  bool set(const char * resloc,
                     const SbByteBuffer & buffer,
                     ResourceFlags flags = NONE);
 

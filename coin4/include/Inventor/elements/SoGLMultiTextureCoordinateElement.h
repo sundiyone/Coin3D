@@ -66,7 +66,7 @@ public:
     void * texgenData;
   };
 
-  void initRender(const SbBool * enabled, const int maxenabled) const;
+  void initRender(const bool * enabled, const int maxenabled) const;
 
   // Coin-3 support
   void send(const int index) const {
@@ -100,7 +100,7 @@ protected:
 private:
   void doCallback(const int unit) const;
   SoGLMultiTextureCoordinateElementP * pimpl;
-  mutable const SbBool * multienabled;
+  mutable const bool * multienabled;
   mutable int multimax;
 };
 

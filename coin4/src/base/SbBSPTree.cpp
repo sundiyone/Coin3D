@@ -330,7 +330,7 @@ coin_bspnode::split()
 
 
   // will never be used anymore
-  this->indices.truncate(0, TRUE);
+  this->indices.truncate(0, true);
 }
 
 //
@@ -513,8 +513,8 @@ SbBSPTree::clear(const int COIN_UNUSED_ARG(initsize))
 {
   delete this->topnode;
   this->topnode = NULL;
-  this->pointsArray.truncate(0, TRUE);
-  this->userdataArray.truncate(0, TRUE);
+  this->pointsArray.truncate(0, true);
+  this->userdataArray.truncate(0, true);
   this->topnode = new coin_bspnode(&this->pointsArray);
   this->boundingBox.makeEmpty();
 }

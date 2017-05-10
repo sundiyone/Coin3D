@@ -56,7 +56,7 @@
 SoMaterialBundle::SoMaterialBundle(SoAction *action)
   : SoBundle(action)
 {
-  this->firsttime = TRUE; // other members will be set in setUpElements
+  this->firsttime = true; // other members will be set in setUpElements
 
   // HACK warning: The colorindex data member is used as a
   // bitmask. Needed to store some extra flags in this class. pederb,
@@ -85,7 +85,7 @@ SoMaterialBundle::~SoMaterialBundle()
 void
 SoMaterialBundle::setUpMultiple(void)
 {
-  this->setupElements(FALSE);
+  this->setupElements(false);
 }
 
 /*!
@@ -95,19 +95,19 @@ SoMaterialBundle::setUpMultiple(void)
 void
 SoMaterialBundle::sendFirst(void)
 {
-  this->setupElements(FALSE);
+  this->setupElements(false);
 }
 
 /*!
   Sends material values with index \a index to GL. Will test
   whether the current index equals \a index before sending.
 
-  \a betweenBeginEnd should be \c TRUE if your program is
+  \a betweenBeginEnd should be \c true if your program is
   between a glBegin() and glEnd() (it is illegal to change the
   polygon stipple between a glBegin() and glEnd()).
 */
 void
-SoMaterialBundle::send(const int index, const SbBool betweenbeginend)
+SoMaterialBundle::send(const int index, const bool betweenbeginend)
 {
   if (this->firsttime) this->setupElements(betweenbeginend);
   //if (index != this->currindex || (this->coloronly & FLAG_NVIDIA_BUG)) {
@@ -128,15 +128,15 @@ SoMaterialBundle::send(const int index, const SbBool betweenbeginend)
 void
 SoMaterialBundle::forceSend(const int index)
 {
-  if (this->firsttime) this->setupElements(FALSE);
+  if (this->firsttime) this->setupElements(false);
   this->reallySend(index);
   this->currindex = index;
 }
 
 /*!
-  Returns \c TRUE if the current light model is BASE_COLOR.
+  Returns \c true if the current light model is BASE_COLOR.
 */
-SbBool
+bool
 SoMaterialBundle::isColorOnly(void) const
 {
   return (this->coloronly & FLAG_COLORONLY) != 0;
@@ -155,7 +155,7 @@ SoMaterialBundle::reallySend(const int index)
 // private method. Stores info and element pointers.
 //
 void
-SoMaterialBundle::setupElements(const SbBool isbetweenbeginend)
+SoMaterialBundle::setupElements(const bool isbetweenbeginend)
 {
   this->lazyelem = static_cast<const SoGLLazyElement *>(SoLazyElement::getInstance(this->state));
   this->currindex = 0;
@@ -166,7 +166,7 @@ SoMaterialBundle::setupElements(const SbBool isbetweenbeginend)
   else {
     this->lazyelem->send(this->state, SoLazyElement::ALL_MASK); 
   }
-  this->firsttime = FALSE;
+  this->firsttime = false;
 }
 
 #undef FLAG_COLORONLY

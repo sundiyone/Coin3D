@@ -63,7 +63,7 @@ SoSFBox3f::initClass(void)
 #ifndef DOXYGEN_SKIP_THIS
 
 
-SbBool
+bool
 SoSFBox3f::readValue(SoInput * in)
 {
   float min[3];
@@ -75,10 +75,10 @@ SoSFBox3f::readValue(SoInput * in)
       !in->read(max[1]) ||
       !in->read(max[2])) {
     SoReadError::post(in, "Couldn't read SoSFBox3f");
-    return FALSE;
+    return false;
   }
   this->setValue(min[0], min[1], min[2], max[0], max[1], max[2]);
-  return TRUE;
+  return true;
 }
 
 void

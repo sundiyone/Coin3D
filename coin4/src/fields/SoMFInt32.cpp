@@ -68,14 +68,14 @@ SoMFInt32::initClass(void)
 // This is implemented in the SoSFInt32 class.
 extern void sosfint32_write_value(SoOutput * out, int32_t val);
 
-SbBool
+bool
 SoMFInt32::read1Value(SoInput * in, int idx)
 {
   assert(idx < this->maxNum);
   int tmp;
-  if (!in->read(tmp)) return FALSE;
+  if (!in->read(tmp)) return false;
   this->values[idx] = tmp;
-  return TRUE;
+  return true;
 }
 
 void

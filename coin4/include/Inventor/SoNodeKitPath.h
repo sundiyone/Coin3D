@@ -42,10 +42,10 @@ public:
   void pop(void);
   void append(SoBaseKit * childKit);
   void append(const SoNodeKitPath * fromPath);
-  SbBool containsNode(SoBaseKit * node) const;
+  bool containsNode(SoBaseKit * node) const;
   int findFork(const SoNodeKitPath * path) const;
 
-  friend COIN_DLL_API int operator==(const SoNodeKitPath & p1, const SoNodeKitPath & p2);
+  friend COIN_DLL_API bool operator==(const SoNodeKitPath & p1, const SoNodeKitPath & p2);
 
 protected:
   SoNodeKitPath(const int approxLength);
@@ -69,6 +69,6 @@ private:
   void replaceIndex(SoNode *parent,const int index,SoNode *newChild);
 };
 
-COIN_DLL_API int operator==(const SoNodeKitPath & p1, const SoNodeKitPath & p2);
+COIN_DLL_API bool operator==(const SoNodeKitPath & p1, const SoNodeKitPath & p2);
 
 #endif // !COIN_SONODEKITPATH_H

@@ -40,8 +40,8 @@ public:
   static ScXMLStateMachine * readFile(const char * filename);
   static ScXMLStateMachine * readBuffer(const SbByteBuffer & buffer);
 
-  static SbBool registerEvaluatorType(SbName profilename, SoType evaluatortype);
-  static SbBool unregisterEvaluatorType(SbName profilename, SoType evaluatortype);
+  static bool registerEvaluatorType(SbName profilename, SoType evaluatortype);
+  static bool unregisterEvaluatorType(SbName profilename, SoType evaluatortype);
   static SoType getEvaluatorTypeForProfile(SbName profilename);
 
 }; // ScXML

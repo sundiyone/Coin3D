@@ -63,12 +63,12 @@ public:
   static SbHash<const char *, SbPList *> * name2obj;
   static SbHash<const SoBase *, const char *> * obj2name;
 
-  static SbBool trackbaseobjects;
+  static bool trackbaseobjects;
   static void * allbaseobj_mutex;
   static SoBaseSet * allbaseobj; // maps from SoBase * to NULL
 
   static SbString * refwriteprefix;
-  static SbBool tracerefs;
+  static bool tracerefs;
   static uint32_t writecounter;
 
   static void cleanup_auditordict(void);
@@ -78,9 +78,9 @@ public:
 
   static void check_for_leaks(void);
 
-  static SbBool readReference(SoInput * in, SoBase *& base);
-  static SbBool readBase(SoInput * in, SbName & classname, SoBase *& base);
-  static SbBool readBaseInstance(SoInput * in, const SbName & classname,
+  static bool readReference(SoInput * in, SoBase *& base);
+  static bool readBase(SoInput * in, SbName & classname, SoBase *& base);
+  static bool readBaseInstance(SoInput * in, const SbName & classname,
                                  const SbName & refname, SoBase *& base);
 
   static SoBase * createInstance(SoInput * in, const SbName & classname);

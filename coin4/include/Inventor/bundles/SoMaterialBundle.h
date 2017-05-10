@@ -39,17 +39,17 @@ public:
   void setUpMultiple(void);
   void sendFirst(void);
   void forceSend(const int index);
-  SbBool isColorOnly(void) const;
+  bool isColorOnly(void) const;
   
-  void send(const int index, const SbBool betweenbeginend);
+  void send(const int index, const bool betweenbeginend);
   
 private:
 
   void reallySend(const int index);
-  void setupElements(const SbBool isbetweenbeginend);
+  void setupElements(const bool isbetweenbeginend);
 
-  SbBool firsttime;
-  SbBool coloronly;
+  bool firsttime;
+  bool coloronly;
   int currindex;
   const SoGLLazyElement * lazyelem;
 };

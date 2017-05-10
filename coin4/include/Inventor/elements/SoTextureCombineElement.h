@@ -80,7 +80,7 @@ public:
                   const float rgbscale,
                   const float alphascale);
 
-  static SbBool isDefault(SoState * const state,
+  static bool isDefault(SoState * const state,
                           const int unit);
 
   static void get(SoState * const state,
@@ -96,7 +96,7 @@ public:
                   float & alphascale);
 
   virtual void push(SoState * state);
-  virtual SbBool matches(const SoElement * elem) const;
+  virtual bool matches(const SoElement * elem) const;
   SoElement * copyMatchInfo(void) const;
 
   virtual void setElt(const int unit,

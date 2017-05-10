@@ -41,13 +41,13 @@ extern "C" {
 struct cc_worker {
   cc_thread * thread;
 
-  SbBool threadisrunning;
+  bool threadisrunning;
   cc_mutex * mutex;
   cc_condvar * cond;
   cc_mutex * beginmutex;
   cc_condvar * begincond;
 
-  SbBool shutdown;
+  bool shutdown;
   void (*workfunc)(void *);
   void * workclosure;
 

@@ -60,23 +60,23 @@ public:
   SoSFBool binary;
   SoSFEnum colorization;
 
-  static SbBool identify(const char * filename);
-  virtual SbBool canReadFile(const char * filename = NULL) const;
-  virtual SbBool readFile(const char * filename);
+  static bool identify(const char * filename);
+  virtual bool canReadFile(const char * filename = NULL) const;
+  virtual bool readFile(const char * filename);
 
-  virtual SbBool canWriteFile(const char * filename = NULL) const;
-  virtual SbBool writeFile(const char * filename);
+  virtual bool canWriteFile(const char * filename = NULL) const;
+  virtual bool writeFile(const char * filename);
 
 
-  SbBool canReadScene(void) const;
-  SbBool readScene(SoNode * scene);
+  bool canReadScene(void) const;
+  bool readScene(SoNode * scene);
   virtual SoSeparator *convert();
 
 protected:
   virtual ~SoSTLFileKit(void);
 
   void reset(void);
-  SbBool addFacet(const SbVec3f & v1, const SbVec3f & v2, const SbVec3f & v3,
+  bool addFacet(const SbVec3f & v1, const SbVec3f & v2, const SbVec3f & v3,
                   const SbVec3f & normal);
   void organizeModel(void);
 

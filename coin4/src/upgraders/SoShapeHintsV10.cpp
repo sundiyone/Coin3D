@@ -92,14 +92,14 @@ SoShapeHintsV10::createUpgrade(void) const
     SoShapeHintsElement::UNKNOWN_FACE_TYPE;
   
   if (this->hints.isIgnored()) {
-    pp->shapeType.setIgnored(TRUE);
-    pp->vertexOrdering.setIgnored(TRUE);
-    pp->faceType.setIgnored(TRUE);
+    pp->shapeType.setIgnored(true);
+    pp->vertexOrdering.setIgnored(true);
+    pp->faceType.setIgnored(true);
   }
 
   pp->creaseAngle = this->creaseAngle.getValue();
   if (this->creaseAngle.isIgnored()) {
-    pp->creaseAngle.setIgnored(TRUE);
+    pp->creaseAngle.setIgnored(true);
   }
 
   pp->unrefNoDelete();

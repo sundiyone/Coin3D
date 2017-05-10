@@ -37,23 +37,23 @@ public:
                                  const SbVec3f & point2) = 0;
   void setCylinder(const SbCylinder & cyl);
   const SbCylinder & getCylinder(void) const;
-  void setOrientToEye(const SbBool orienttoeye);
-  SbBool isOrientToEye(void) const;
-  void setFront(const SbBool infront);
-  SbBool isFront(void) const;
-  SbBool isPointInFront(const SbVec3f & point) const;
+  void setOrientToEye(const bool orienttoeye);
+  bool isOrientToEye(void) const;
+  void setFront(const bool infront);
+  bool isFront(void) const;
+  bool isPointInFront(const SbVec3f & point) const;
   virtual void setWorkingSpace(const SbMatrix & space);
 
 protected:
-  SbCylinderProjector(const SbBool orienttoeye);
-  SbCylinderProjector(const SbCylinder & cylinder, const SbBool orienttoeye);
+  SbCylinderProjector(const bool orienttoeye);
+  SbCylinderProjector(const SbCylinder & cylinder, const bool orienttoeye);
 
-  SbBool intersectCylinderFront(const SbLine & line, SbVec3f & result);
+  bool intersectCylinderFront(const SbLine & line, SbVec3f & result);
 
-  SbBool intersectFront;
+  bool intersectFront;
   SbCylinder cylinder;
-  SbBool orientToEye;
-  SbBool needSetup;
+  bool orientToEye;
+  bool needSetup;
   SbVec3f lastPoint;
 };
 

@@ -55,7 +55,7 @@ protected:
   static const SbName & MISS(void);
   static const SbName & DONE(void);
 
-  virtual SbBool processOneEvent(const ScXMLEvent * event);
+  virtual bool processOneEvent(const ScXMLEvent * event);
 
 private:
   SoSearchAction * searchaction;

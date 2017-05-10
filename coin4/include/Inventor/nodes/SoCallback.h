@@ -54,7 +54,7 @@ protected:
   virtual ~SoCallback();
 
   virtual void copyContents(const SoFieldContainer * from,
-                            SbBool copyconnections);
+                            bool copyconnections);
 
 private:
   SoCallbackCB * cbfunc;

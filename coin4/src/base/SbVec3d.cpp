@@ -221,11 +221,11 @@ SbVec3d::cross(const SbVec3d & v) const
 */
 
 /*!
-  Compares the vector with \a v and returns \c TRUE if the distance
+  Compares the vector with \a v and returns \c true if the distance
   between the vectors is smaller or equal to the square root of
   \a tolerance.
 */
-SbBool
+bool
 SbVec3d::equals(const SbVec3d & v, double tolerance) const
 {
 #if COIN_DEBUG
@@ -530,10 +530,10 @@ SbVec3d::toString() const
 /*!
   Convert from a string representation, return wether this is a valid conversion
 */
-SbBool
+bool
 SbVec3d::fromString(const SbString & str)
 {
-  SbBool conversionOk;
+  bool conversionOk;
   *this = CoinInternal::FromString<SbVec3d>(str,&conversionOk);
   return conversionOk;
 }
@@ -565,7 +565,7 @@ BOOST_AUTO_TEST_CASE(fromString) {
   ToTest foo;
   SbString test = "0.3333333333333333 -2 -3.0";
   ToTest trueVal(0.3333333333333333,-2,-3);
-  SbBool conversionOk = foo.fromString(test);
+  bool conversionOk = foo.fromString(test);
   BOOST_CHECK_MESSAGE(conversionOk && trueVal == foo,
                       std::string("Mismatch between ") +  foo.toString().getString() + " and control " + trueVal.toString().getString());
 }

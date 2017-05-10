@@ -79,14 +79,14 @@ cc_error_default_handler_cb(const cc_error * err, void * COIN_UNUSED_ARG(data))
 
 static cc_error_cb * cc_error_callback = cc_error_default_handler_cb;
 static void * cc_error_callback_data = NULL;
-static SbBool cc_error_cleanup_function_set = FALSE;
+static bool cc_error_cleanup_function_set = false;
 
 static void
 cc_error_cleanup(void)
 {
   cc_error_callback = cc_error_default_handler_cb;
   cc_error_callback_data = NULL;
-  cc_error_cleanup_function_set = FALSE;
+  cc_error_cleanup_function_set = false;
 }
 
 void
@@ -158,7 +158,7 @@ cc_error_set_handler_callback(cc_error_cb * func, void * data)
 
   if (!cc_error_cleanup_function_set) {
     coin_atexit((coin_atexit_f*) cc_error_cleanup, CC_ATEXIT_MSG_SUBSYSTEM);
-    cc_error_cleanup_function_set = TRUE;
+    cc_error_cleanup_function_set = true;
   }
 }
 

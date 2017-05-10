@@ -40,7 +40,7 @@ class SoGLARBShaderObject : public SoGLShaderObject
 {
   friend class SoGLARBShaderParameter;
 public:
-  virtual SbBool isLoaded(void) const;
+  virtual bool isLoaded(void) const;
   virtual void load(const char *sourceString);
   virtual void unload(void);
   virtual SoShader::Type shaderType(void) const;

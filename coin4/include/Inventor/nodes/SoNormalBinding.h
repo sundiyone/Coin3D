@@ -63,7 +63,7 @@ public:
 protected:
   virtual ~SoNormalBinding();
 
-  virtual SbBool readInstance(SoInput * in, unsigned short flags);
+  virtual bool readInstance(SoInput * in, unsigned short flags);
 };
 
 #endif // !COIN_SONORMALBINDING_H

@@ -39,7 +39,7 @@ public:
   ScXMLObject(void);
   virtual ~ScXMLObject(void);
 
-  SbBool isOfType(SoType type) const;
+  bool isOfType(SoType type) const;
 
 protected:
   static void registerClassType(const char * xmlns,

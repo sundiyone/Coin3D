@@ -41,15 +41,15 @@ public:
   void setValue(void);
   void getValue(void) const;
 
-  int operator==(const SoSFTrigger & trigger) const;
-  int operator!=(const SoSFTrigger & trigger) const;
+  bool operator==(const SoSFTrigger & trigger) const;
+  bool operator!=(const SoSFTrigger & trigger) const;
 
   virtual void startNotify(void);
   virtual void notify(SoNotList * l);
   virtual void touch(void);
 
 private:
-  virtual SbBool readValue(SoInput * in);
+  virtual bool readValue(SoInput * in);
   virtual void writeValue(SoOutput * out) const;
 };
 

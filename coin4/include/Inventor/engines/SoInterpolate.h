@@ -109,7 +109,7 @@ SO_ENGINE_SOURCE(_class_); \
 _class_::_class_(void) \
 { \
   PRIVATE_SO_INTERPOLATE_CONSTRUCTOR(_class_, _type_, _valtype_, _default0_, _default1_); \
-  this->isBuiltIn = FALSE; \
+  this->isBuiltIn = false; \
 } \
  \
 PRIVATE_SO_INTERPOLATE_DESTRUCTOR(_class_) \

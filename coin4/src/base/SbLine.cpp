@@ -117,9 +117,9 @@ SbLine::setPosDir(const SbVec3f & position, const SbVec3f & direction)
 
 /*!
   Returns the two closest points on the lines.  If the lines are
-  parallel, all points are equally close and we return \c FALSE. If
+  parallel, all points are equally close and we return \c false. If
   the lines are not parallel, the point positions will be stored in \a
-  ptOnThis and \a ptOnLine2, and we'll return \c TRUE.
+  ptOnThis and \a ptOnLine2, and we'll return \c true.
 
   Note that both SbLine instances are considered to be infinite in
   both directions from their definition points, as far as this
@@ -127,7 +127,7 @@ SbLine::setPosDir(const SbVec3f & position, const SbVec3f & direction)
 
   \sa getClosestPoint().
 */
-SbBool
+bool
 SbLine::getClosestPoints(const SbLine& line2,
                          SbVec3f& ptOnThis, SbVec3f& ptOnLine2) const
 {
@@ -180,12 +180,12 @@ SbLine::getClosestPoints(const SbLine& line2,
   const float eps = 1.0e-06f;
   if (t < -1.0f + eps || t > 1.0f-eps) {
     // lines are parallel
-    return FALSE;
+    return false;
   }
   t = (u.dot(d1) - t * u.dot(d2)) / (1-t*t);
   ptOnThis = p1 + t * d1;
   ptOnLine2 = line2.getClosestPoint(ptOnThis);
-  return TRUE;
+  return true;
 #else // old version
 
 #if COIN_DEBUG
@@ -199,8 +199,8 @@ SbLine::getClosestPoints(const SbLine& line2,
 
   // Check if the lines are parallel.
   // FIXME: should probably use equals() here.
-  if(line2.dir == this->dir) return FALSE;
-  else if(line2.dir == -this->dir) return FALSE;
+  if(line2.dir == this->dir) return false;
+  else if(line2.dir == -this->dir) return false;
 
 
   // From the discussion on getClosestPoint(), we know that the point
@@ -295,7 +295,7 @@ SbLine::getClosestPoints(const SbLine& line2,
   ptOnLine2 = line2.pos + line2.dir * t;
   ptOnThis = this->getClosestPoint(ptOnLine2);
 
-  return TRUE;
+  return true;
 #endif
 }
 

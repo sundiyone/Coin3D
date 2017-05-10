@@ -95,7 +95,7 @@ _class_::createInstance(void) \
     /* Extension classes from the application programmers should not be */ \
     /* considered native. This is important to get the export code to do */ \
     /* the Right Thing. */ \
-    this->isBuiltIn = FALSE; \
+    this->isBuiltIn = false; \
     SoBase::staticDataUnlock(); \
   } while (0)
 

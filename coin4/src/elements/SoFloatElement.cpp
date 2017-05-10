@@ -66,15 +66,15 @@ SoFloatElement::~SoFloatElement(void)
 }
 
 // doc in super
-SbBool
+bool
 SoFloatElement::matches(const SoElement * element) const
 {
   assert(element);
-  if (getTypeId() != element->getTypeId()) { return FALSE; }
+  if (getTypeId() != element->getTypeId()) { return false; }
   if (this->data != (coin_assert_cast<const SoFloatElement *>(element)->data)) {
-    return FALSE;
+    return false;
   }
-  return TRUE;
+  return true;
 }
 
 // doc in super

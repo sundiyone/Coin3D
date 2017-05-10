@@ -73,7 +73,7 @@ static int GLU_is_initializing = 0;
 
 /* ******************************************************************** */
 
-static SbBool
+static bool
 GLUWrapper_debug(void)
 {
   static int dbg = -1;
@@ -153,14 +153,14 @@ GLUWrapper_set_version(const GLubyte * versionstr)
 
   { /* Run-time help for debugging GLU problems on remote sites. */
 #ifdef HAVE_SUPERGLU
-    const SbBool superglu = TRUE;
+    const bool superglu = true;
 #else
-    const SbBool superglu = FALSE;
+    const bool superglu = false;
 #endif /* !HAVE_SUPERGLU */
 #ifdef GLU_RUNTIME_LINKING
-    const SbBool runtime = TRUE;
+    const bool runtime = true;
 #else
-    const SbBool runtime = FALSE;
+    const bool runtime = false;
 #endif /* !GLU_RUNTIME_LINKING */
 
     if (GLUWrapper_debug()) {

@@ -289,13 +289,13 @@ SoFont::doAction(SoAction * action)
   if (!name.isIgnored() && !TEST_OVERRIDE(FONT_NAME)) {
     SoFontNameElement::set(state, this, this->name.getValue());
     if (this->isOverride()) {
-      SoOverrideElement::setFontNameOverride(state, this, TRUE);
+      SoOverrideElement::setFontNameOverride(state, this, true);
     }
   }
   if (!size.isIgnored() && !TEST_OVERRIDE(FONT_SIZE)) {
     SoFontSizeElement::set(state, this, this->size.getValue());
     if (this->isOverride()) {
-      SoOverrideElement::setFontSizeOverride(state, this, TRUE);
+      SoOverrideElement::setFontSizeOverride(state, this, true);
     }
   }
 

@@ -77,8 +77,8 @@
      SCXML_COIN_PAREN_OPEN = 258,
      SCXML_COIN_PAREN_CLOSE = 259,
      SCXML_COIN_EVENT_SCOPE = 260,
-     SCXML_COIN_BOOL_TRUE = 261,
-     SCXML_COIN_BOOL_FALSE = 262,
+     SCXML_COIN_BOOL_true = 261,
+     SCXML_COIN_BOOL_false = 262,
      SCXML_COIN_REAL = 263,
      SCXML_COIN_STRING = 264,
      SCXML_COIN_SBVALUE = 265,
@@ -103,8 +103,8 @@
 #define SCXML_COIN_PAREN_OPEN 258
 #define SCXML_COIN_PAREN_CLOSE 259
 #define SCXML_COIN_EVENT_SCOPE 260
-#define SCXML_COIN_BOOL_TRUE 261
-#define SCXML_COIN_BOOL_FALSE 262
+#define SCXML_COIN_BOOL_true 261
+#define SCXML_COIN_BOOL_false 262
 #define SCXML_COIN_REAL 263
 #define SCXML_COIN_STRING 264
 #define SCXML_COIN_SBVALUE 265
@@ -530,7 +530,7 @@ static const char *const yytname[] =
 {
   "$end", "error", "$undefined", "SCXML_COIN_PAREN_OPEN",
   "SCXML_COIN_PAREN_CLOSE", "SCXML_COIN_EVENT_SCOPE",
-  "SCXML_COIN_BOOL_TRUE", "SCXML_COIN_BOOL_FALSE", "SCXML_COIN_REAL",
+  "SCXML_COIN_BOOL_true", "SCXML_COIN_BOOL_false", "SCXML_COIN_REAL",
   "SCXML_COIN_STRING", "SCXML_COIN_SBVALUE", "SCXML_COIN_IDENTIFIER",
   "SCXML_COIN_IN_FUNC", "SCXML_COIN_LENGTH_FUNC", "SCXML_COIN_OP_NOT",
   "SCXML_COIN_OP_AND", "SCXML_COIN_OP_OR", "SCXML_COIN_OP_EQUALS",
@@ -1538,12 +1538,12 @@ yyreduce:
 
   case 13:
 #line 121 "eval-coin-tab.y"
-    { (yyval.scxmlobj) = ScXMLBoolDataObj::createFor(TRUE); ;}
+    { (yyval.scxmlobj) = ScXMLBoolDataObj::createFor(true); ;}
     break;
 
   case 14:
 #line 123 "eval-coin-tab.y"
-    { (yyval.scxmlobj) = ScXMLBoolDataObj::createFor(FALSE); ;}
+    { (yyval.scxmlobj) = ScXMLBoolDataObj::createFor(false); ;}
     break;
 
   case 15:

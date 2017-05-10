@@ -120,8 +120,8 @@ SoElapsedTime::SoElapsedTime(void)
 
   SO_ENGINE_ADD_INPUT(timeIn, (SbTime::zero()));
   SO_ENGINE_ADD_INPUT(speed, (1));
-  SO_ENGINE_ADD_INPUT(on, (TRUE));
-  SO_ENGINE_ADD_INPUT(pause, (FALSE));
+  SO_ENGINE_ADD_INPUT(on, (true));
+  SO_ENGINE_ADD_INPUT(pause, (false));
   SO_ENGINE_ADD_INPUT(reset, ());
 
   SO_ENGINE_ADD_OUTPUT(timeOut, SoSFTime);
@@ -171,7 +171,7 @@ SoElapsedTime::inputChanged(SoField * which)
 
   // Default to turn output off, only turn it back on if the engine is
   // running.
-  this->timeOut.enable(FALSE);
+  this->timeOut.enable(false);
 
   if (which == &this->reset) {
     this->currtime = SbTime::zero();
@@ -210,13 +210,13 @@ SoElapsedTime::writeInstance(SoOutput * out)
 
   // Disconnect from realTime field.
   SoField * connectfield = NULL;
-  SbBool connectfromrealTime =
+  bool connectfromrealTime =
     this->timeIn.getConnectedField(connectfield) &&
     connectfield == SoDB::getGlobalField("realTime");
-  SbBool defaultflag = this->timeIn.isDefault();
+  bool defaultflag = this->timeIn.isDefault();
   if (connectfromrealTime) {
     this->timeIn.disconnect();
-    this->timeIn.setDefault(TRUE);
+    this->timeIn.setDefault(true);
   }
 
   inherited::writeInstance(out);
@@ -225,7 +225,7 @@ SoElapsedTime::writeInstance(SoOutput * out)
   if (connectfromrealTime) {
     // Don't send notification when reconnecting to preserve the state
     // of the scenegraph between write passes.
-    this->timeIn.connectFrom(connectfield, TRUE);
+    this->timeIn.connectFrom(connectfield, true);
     this->timeIn.setDefault(defaultflag);
   }
 }

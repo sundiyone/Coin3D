@@ -83,7 +83,7 @@ public:
                       const SbVec3f & normal) const;
 
   int32_t getNum(const int unit = 0) const;
-  SbBool is2D(const int unit = 0) const;
+  bool is2D(const int unit = 0) const;
   int32_t getDimension(const int unit = 0) const;
 
   const SbVec2f & get2(const int unit, const int index) const;
@@ -111,7 +111,7 @@ public:
   };
 
   virtual void push(SoState * state);
-  virtual SbBool matches(const SoElement * elem) const;
+  virtual bool matches(const SoElement * elem) const;
   SoElement * copyMatchInfo(void) const;
 
   // Coin-3 support

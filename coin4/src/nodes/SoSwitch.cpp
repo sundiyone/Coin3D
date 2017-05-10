@@ -282,9 +282,9 @@ SoSwitch::doAction(SoAction * action)
         // be robust for index out of range
         if (idx >= this->getNumChildren()) {
 #if COIN_DEBUG
-          static SbBool first = TRUE;
+          static bool first = true;
           if (first) {
-            first = FALSE;
+            first = false;
             SbString s("(warning will be printed once, but there might be more cases of this problem).");
             int lastidx = this->getNumChildren()-1;
             if (lastidx >= 0) {
@@ -313,12 +313,12 @@ SoSwitch::doAction(SoAction * action)
 }
 
 // Documented in superclass.
-SbBool
+bool
 SoSwitch::affectsState(void) const
 {
   // Overridden because when this function is called we don't know
   // which "mode" the traversing action is in. If it's an
-  // SoSearchAction with isSearchingAll() set to TRUE, we should
+  // SoSearchAction with isSearchingAll() set to true, we should
   // behave as if whichChild == SO_SWITCH_ALL, for instance.
   //
   // (To handle this exact case, SGI and TGS Inventor seems to use a
@@ -327,16 +327,16 @@ SoSwitch::affectsState(void) const
   //
   // So to be safe, we _always_ behave as if whichChild is set to
   // traverse all children. The worst that can happen is that we get a
-  // "false positive", ie TRUE when it should be FALSE. That means the
+  // "false positive", ie true when it should be false. That means the
   // action needs to traverse one level further down onto one of our
   // children -- which will just take a miniscule amount of additional
   // processing time.
 
   int n = this->getNumChildren();
   for (int i=0; i < n; i++) {
-    if (this->getChild(i)->affectsState()) { return TRUE; }
+    if (this->getChild(i)->affectsState()) { return true; }
   }
-  return FALSE;
+  return false;
 }
 
 // Documented in superclass.
@@ -394,13 +394,13 @@ SoSwitch::write(SoWriteAction * action)
 
   SoOutput * out = action->getOutput();
   if (out->getStage() == SoOutput::COUNT_REFS) {
-    this->addWriteReference(out, FALSE);
+    this->addWriteReference(out, false);
     // Only increase number of writereferences to the top level node
     // in a tree which is used multiple times.
     if (!SoWriterefCounter::instance(out)->hasMultipleWriteRefs(this)) this->getChildren()->traverse(action);
   }
   else if (out->getStage() == SoOutput::WRITE) {
-    if (this->writeHeader(out, TRUE, FALSE)) return;
+    if (this->writeHeader(out, true, false)) return;
     this->getFieldData()->write(out, this);
     if (out->isBinary()) out->write(this->getNumChildren());
     this->getChildren()->traverse(action);
@@ -442,7 +442,7 @@ SoSwitch::notify(SoNotList * nl)
   //   whichChild 1
   //   Separator {
   //     Rotor {
-  //       on TRUE
+  //       on true
   //       speed 1
   //     }
   //   }
@@ -451,16 +451,16 @@ SoSwitch::notify(SoNotList * nl)
   //   }
   // }
 
-  SbBool ignoreit = FALSE;
+  bool ignoreit = false;
 
   // if getBase() == this, the notification is from a field under this
   // node, and should _not_ be ignored
   if (rec && (rec->getBase() != (SoBase*) this)) {
     int which = this->whichChild.getValue();
-    if (which == -1) ignoreit = TRUE; // also ignore if no children are traversed
+    if (which == -1) ignoreit = true; // also ignore if no children are traversed
     else if (which >= 0) {
       int fromchild = this->findChild((SoNode*) rec->getBase());
-      if (fromchild >= 0 && fromchild != which) ignoreit = TRUE;
+      if (fromchild >= 0 && fromchild != which) ignoreit = true;
     }
   }
   

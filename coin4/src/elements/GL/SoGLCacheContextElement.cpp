@@ -61,7 +61,7 @@ SO_ELEMENT_SOURCE(SoGLCacheContextElement);
 typedef struct {
   SbName extname;
   SbList <int> context;
-  SbList <SbBool> supported;
+  SbList <bool> supported;
 } so_glext_info;
 
 typedef struct {
@@ -186,7 +186,7 @@ SoGLCacheContextElement::init(SoState * COIN_UNUSED_ARG(state))
 {
   // these values will be set up in set(), but initialize them anyway
   this->context = 0;
-  this->twopass = FALSE;
+  this->twopass = false;
   this->rendering = RENDERING_UNSET;
   this->autocachebits = 0;
   this->numshapes = 0;
@@ -194,7 +194,7 @@ SoGLCacheContextElement::init(SoState * COIN_UNUSED_ARG(state))
 }
 
 // doc from parent
-SbBool
+bool
 SoGLCacheContextElement::matches(const SoElement * elt) const
 {
   const SoGLCacheContextElement * elem = (SoGLCacheContextElement*) elt;
@@ -222,8 +222,8 @@ SoGLCacheContextElement::copyMatchInfo(void) const
 */
 void
 SoGLCacheContextElement::set(SoState * state, int context,
-                             SbBool twopasstransparency,
-                             SbBool remoterendering)
+                             bool twopasstransparency,
+                             bool remoterendering)
 {
   SoGLCacheContextElement * elem = (SoGLCacheContextElement *)
     state->getElementNoPush(classStackIndex);
@@ -286,11 +286,11 @@ SoGLCacheContextElement::getExtID(const char * str)
 }
 
 /*!
-  Returns TRUE if the extension is supported for the current context.
+  Returns true if the extension is supported for the current context.
   \a extid must be an id returned from getExtId(). The test result
   is cached so this method is pretty fast and can be used run-time.
 */
-SbBool
+bool
 SoGLCacheContextElement::extSupported(SoState * state, int extid)
 {
   CC_MUTEX_LOCK(glcache_mutex);
@@ -308,7 +308,7 @@ SoGLCacheContextElement::extSupported(SoState * state, int extid)
     }
   }
   const cc_glglue * w = sogl_glue_instance(state);
-  SbBool supported = SoGLDriverDatabase::isSupported(w, info->extname.getString());
+  bool supported = SoGLDriverDatabase::isSupported(w, info->extname.getString());
   info->context.append(currcontext);
   info->supported.append(supported);
 
@@ -335,12 +335,12 @@ SoGLCacheContextElement::getOpenGLVersion(SoState * state,
 
 /*!
   Returns if mipmapped textures are fast for the current context.
-  In Coin, we just return TRUE for the moment.
+  In Coin, we just return true for the moment.
 */
-SbBool
+bool
 SoGLCacheContextElement::areMipMapsFast(SoState * COIN_UNUSED_ARG(state))
 {
-  return TRUE; // FIXME: how do we test this? pederb 20001003
+  return true; // FIXME: how do we test this? pederb 20001003
 }
 
 /*!
@@ -424,10 +424,10 @@ SoGLCacheContextElement::setAutoCacheBits(SoState * state, int bits)
 
 // Private function which "unwinds" the real value of the "rendering"
 // variable.
-SbBool
+bool
 SoGLCacheContextElement::isDirectRendering(SoState * state) const
 {
-  SbBool isdirect;
+  bool isdirect;
   if (this->rendering == RENDERING_UNSET) {
     const cc_glglue * w = sogl_glue_instance(state);
     isdirect = cc_glglue_isdirect(w);
@@ -456,9 +456,9 @@ SoGLCacheContextElement::resetAutoCacheBits(SoState * state)
 }
 
 /*!
-  Returns \c TRUE if rendering is indirect / remote.
+  Returns \c true if rendering is indirect / remote.
 */
-SbBool
+bool
 SoGLCacheContextElement::getIsRemoteRendering(SoState * state)
 {
   const SoGLCacheContextElement *elem = (const SoGLCacheContextElement *)

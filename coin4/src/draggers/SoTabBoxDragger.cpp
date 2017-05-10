@@ -180,26 +180,26 @@ SoTabBoxDragger::SoTabBoxDragger(void)
 {
   SO_KIT_INTERNAL_CONSTRUCTOR(SoTabBoxDragger);
 
-  SO_KIT_ADD_CATALOG_ENTRY(surroundScale, SoSurroundScale, TRUE, topSeparator, tabPlane1Sep, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(tabPlane1Sep, SoSeparator, FALSE, topSeparator, tabPlane2Sep, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(tabPlane1Xf, SoTransform, TRUE, tabPlane1Sep, tabPlane1, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(tabPlane1, SoTabPlaneDragger, TRUE, tabPlane1Sep, "", TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(tabPlane2Sep, SoSeparator, FALSE, topSeparator, tabPlane3Sep, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(tabPlane2Xf, SoTransform, TRUE, tabPlane2Sep, tabPlane2, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(tabPlane2, SoTabPlaneDragger, TRUE, tabPlane2Sep, "", TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(tabPlane3Sep, SoSeparator, FALSE, topSeparator, tabPlane4Sep, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(tabPlane3Xf, SoTransform, TRUE, tabPlane3Sep, tabPlane3, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(tabPlane3, SoTabPlaneDragger, TRUE, tabPlane3Sep, "", TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(tabPlane4Sep, SoSeparator, FALSE, topSeparator, tabPlane5Sep, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(tabPlane4Xf, SoTransform, TRUE, tabPlane4Sep, tabPlane4, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(tabPlane4, SoTabPlaneDragger, TRUE, tabPlane4Sep, "", TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(tabPlane5Sep, SoSeparator, FALSE, topSeparator, tabPlane6Sep, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(tabPlane5Xf, SoTransform, TRUE, tabPlane5Sep, tabPlane5, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(tabPlane5, SoTabPlaneDragger, TRUE, tabPlane5Sep, "", TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(tabPlane6Sep, SoSeparator, FALSE, topSeparator, geomSeparator, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(tabPlane6Xf, SoTransform, TRUE, tabPlane6Sep, tabPlane6, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(tabPlane6, SoTabPlaneDragger, TRUE, tabPlane6Sep, "", TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(boxGeom, SoSeparator, TRUE, geomSeparator, "", TRUE);
+  SO_KIT_ADD_CATALOG_ENTRY(surroundScale, SoSurroundScale, true, topSeparator, tabPlane1Sep, true);
+  SO_KIT_ADD_CATALOG_ENTRY(tabPlane1Sep, SoSeparator, false, topSeparator, tabPlane2Sep, false);
+  SO_KIT_ADD_CATALOG_ENTRY(tabPlane1Xf, SoTransform, true, tabPlane1Sep, tabPlane1, false);
+  SO_KIT_ADD_CATALOG_ENTRY(tabPlane1, SoTabPlaneDragger, true, tabPlane1Sep, "", true);
+  SO_KIT_ADD_CATALOG_ENTRY(tabPlane2Sep, SoSeparator, false, topSeparator, tabPlane3Sep, false);
+  SO_KIT_ADD_CATALOG_ENTRY(tabPlane2Xf, SoTransform, true, tabPlane2Sep, tabPlane2, false);
+  SO_KIT_ADD_CATALOG_ENTRY(tabPlane2, SoTabPlaneDragger, true, tabPlane2Sep, "", true);
+  SO_KIT_ADD_CATALOG_ENTRY(tabPlane3Sep, SoSeparator, false, topSeparator, tabPlane4Sep, false);
+  SO_KIT_ADD_CATALOG_ENTRY(tabPlane3Xf, SoTransform, true, tabPlane3Sep, tabPlane3, false);
+  SO_KIT_ADD_CATALOG_ENTRY(tabPlane3, SoTabPlaneDragger, true, tabPlane3Sep, "", true);
+  SO_KIT_ADD_CATALOG_ENTRY(tabPlane4Sep, SoSeparator, false, topSeparator, tabPlane5Sep, false);
+  SO_KIT_ADD_CATALOG_ENTRY(tabPlane4Xf, SoTransform, true, tabPlane4Sep, tabPlane4, false);
+  SO_KIT_ADD_CATALOG_ENTRY(tabPlane4, SoTabPlaneDragger, true, tabPlane4Sep, "", true);
+  SO_KIT_ADD_CATALOG_ENTRY(tabPlane5Sep, SoSeparator, false, topSeparator, tabPlane6Sep, false);
+  SO_KIT_ADD_CATALOG_ENTRY(tabPlane5Xf, SoTransform, true, tabPlane5Sep, tabPlane5, false);
+  SO_KIT_ADD_CATALOG_ENTRY(tabPlane5, SoTabPlaneDragger, true, tabPlane5Sep, "", true);
+  SO_KIT_ADD_CATALOG_ENTRY(tabPlane6Sep, SoSeparator, false, topSeparator, geomSeparator, false);
+  SO_KIT_ADD_CATALOG_ENTRY(tabPlane6Xf, SoTransform, true, tabPlane6Sep, tabPlane6, false);
+  SO_KIT_ADD_CATALOG_ENTRY(tabPlane6, SoTabPlaneDragger, true, tabPlane6Sep, "", true);
+  SO_KIT_ADD_CATALOG_ENTRY(boxGeom, SoSeparator, true, geomSeparator, "", true);
 
   if (SO_KIT_IS_FIRST_INSTANCE()) {
     SoInteractionKit::readDefaultParts("tabBoxDragger.iv",
@@ -228,7 +228,7 @@ SoTabBoxDragger::SoTabBoxDragger(void)
 
   this->scaleFieldSensor = new SoFieldSensor(SoTabBoxDragger::fieldSensorCB, this);
   this->translFieldSensor = new SoFieldSensor(SoTabBoxDragger::fieldSensorCB, this);
-  this->setUpConnections(TRUE, TRUE);
+  this->setUpConnections(true, true);
 }
 
 
@@ -246,8 +246,8 @@ SoTabBoxDragger::~SoTabBoxDragger()
 }
 
 // Doc in superclass.
-SbBool
-SoTabBoxDragger::setUpConnections(SbBool onoff, SbBool doitalways)
+bool
+SoTabBoxDragger::setUpConnections(bool onoff, bool doitalways)
 {
   if (!doitalways && this->connectionsSetUp == onoff) return onoff;
 
@@ -257,7 +257,7 @@ SoTabBoxDragger::setUpConnections(SbBool onoff, SbBool doitalways)
     SoDragger *child;
     for (int i = 1; i <= 6; i++) {
       str.sprintf("tabPlane%d", i);
-      child = coin_assert_cast<SoDragger *>(this->getAnyPart(str.getString(), FALSE));
+      child = coin_assert_cast<SoDragger *>(this->getAnyPart(str.getString(), false));
       child->setPartAsDefault("translator", "tabBoxTranslator");
       child->setPartAsDefault("scaleTabMaterial", "tabBoxScaleTabMaterial");
       child->setPartAsDefault("scaleTabHints", "tabBoxScaleTabHints");
@@ -277,7 +277,7 @@ SoTabBoxDragger::setUpConnections(SbBool onoff, SbBool doitalways)
     SoDragger *child;
     for (int i = 1; i <= 6; i++) {
       str.sprintf("tabPlane%d", i);
-      child = coin_assert_cast<SoDragger *>(this->getAnyPart(str.getString(), FALSE));
+      child = coin_assert_cast<SoDragger *>(this->getAnyPart(str.getString(), false));
       child->removeStartCallback(SoTabBoxDragger::invalidateSurroundScaleCB, this);
       child->removeFinishCallback(SoTabBoxDragger::invalidateSurroundScaleCB, this);
       this->unregisterChildDragger(child);
@@ -298,14 +298,14 @@ SoTabBoxDragger::setUpConnections(SbBool onoff, SbBool doitalways)
 void
 SoTabBoxDragger::setDefaultOnNonWritingFields(void)
 {
-  this->surroundScale.setDefault(TRUE);
+  this->surroundScale.setDefault(true);
 
-  this->tabPlane1.setDefault(TRUE);
-  this->tabPlane2.setDefault(TRUE);
-  this->tabPlane3.setDefault(TRUE);
-  this->tabPlane4.setDefault(TRUE);
-  this->tabPlane5.setDefault(TRUE);
-  this->tabPlane6.setDefault(TRUE);
+  this->tabPlane1.setDefault(true);
+  this->tabPlane2.setDefault(true);
+  this->tabPlane3.setDefault(true);
+  this->tabPlane4.setDefault(true);
+  this->tabPlane5.setDefault(true);
+  this->tabPlane6.setDefault(true);
 
   inherited::setDefaultOnNonWritingFields();
 }
@@ -363,27 +363,27 @@ SoTabBoxDragger::initTransformNodes(void)
   SoTransform *tf;
   tf = SO_GET_ANY_PART(this, "tabPlane1Xf", SoTransform);
   tf->translation = SbVec3f(0.0f, 0.0f, 1.0f);
-  this->tabPlane1Xf.setDefault(TRUE);
+  this->tabPlane1Xf.setDefault(true);
   tf = SO_GET_ANY_PART(this, "tabPlane2Xf", SoTransform);
   tf->translation = SbVec3f(0.0f, 0.0f, -1.0f);
   tf->rotation = SbRotation(SbVec3f(1.0f, 0.0f, 0.0f), static_cast<float>(M_PI));
-  this->tabPlane2Xf.setDefault(TRUE);
+  this->tabPlane2Xf.setDefault(true);
   tf = SO_GET_ANY_PART(this, "tabPlane3Xf", SoTransform);
   tf->translation = SbVec3f(1.0f, 0.0f, 0.0f);
   tf->rotation = SbRotation(SbVec3f(0.0f, 1.0f, 0.0f), (static_cast<float>(M_PI))*0.5f);
-  this->tabPlane3Xf.setDefault(TRUE);
+  this->tabPlane3Xf.setDefault(true);
   tf = SO_GET_ANY_PART(this, "tabPlane4Xf", SoTransform);
   tf->translation = SbVec3f(-1.0f, 0.0f, 0.0f);
   tf->rotation = SbRotation(SbVec3f(0.0f, 1.0f, 0.0f), (-static_cast<float>(M_PI))*0.5f);
-  this->tabPlane4Xf.setDefault(TRUE);
+  this->tabPlane4Xf.setDefault(true);
   tf = SO_GET_ANY_PART(this, "tabPlane5Xf", SoTransform);
   tf->translation = SbVec3f(0.0f, 1.0f, 0.0f);
   tf->rotation = SbRotation(SbVec3f(1.0f, 0.0f, 0.0f), (-static_cast<float>(M_PI))*0.5f);
-  this->tabPlane5Xf.setDefault(TRUE);
+  this->tabPlane5Xf.setDefault(true);
   tf = SO_GET_ANY_PART(this, "tabPlane6Xf", SoTransform);
   tf->translation = SbVec3f(0.0f, -1.0f, 0.0f);
   tf->rotation = SbRotation(SbVec3f(1.0f, 0.0f, 0.0f), (static_cast<float>(M_PI))*0.5f);
-  this->tabPlane6Xf.setDefault(TRUE);
+  this->tabPlane6Xf.setDefault(true);
 
 }
 

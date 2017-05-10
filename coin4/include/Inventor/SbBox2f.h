@@ -63,11 +63,11 @@ public:
   void extendBy(const SbVec2f & point);
   void extendBy(const SbBox2f & box);
   void makeEmpty(void);
-  SbBool isEmpty(void) const { return (maxpt[0] < minpt[0]); }
-  SbBool hasArea(void) const { return ((maxpt[0] > minpt[0]) && (maxpt[1] > minpt[1])); }
+  bool isEmpty(void) const { return (maxpt[0] < minpt[0]); }
+  bool hasArea(void) const { return ((maxpt[0] > minpt[0]) && (maxpt[1] > minpt[1])); }
 
-  SbBool intersect(const SbVec2f & point) const;
-  SbBool intersect(const SbBox2f & box) const;
+  bool intersect(const SbVec2f & point) const;
+  bool intersect(const SbBox2f & box) const;
   SbVec2f getClosestPoint(const SbVec2f & point) const;
 
   SbVec2f getCenter(void) const { return (minpt + maxpt) * 0.5f; }
@@ -91,11 +91,11 @@ protected:
 
 }; // SbBox2f
 
-COIN_DLL_API inline int operator == (const SbBox2f & b1, const SbBox2f & b2) {
+COIN_DLL_API inline bool operator==(const SbBox2f & b1, const SbBox2f & b2) {
   return ((b1.getMin() == b2.getMin()) && (b1.getMax() == b2.getMax()));
 }
 
-COIN_DLL_API inline int operator != (const SbBox2f & b1, const SbBox2f & b2) {
+COIN_DLL_API inline bool operator!=(const SbBox2f & b1, const SbBox2f & b2) {
   return !(b1 == b2);
 }
 

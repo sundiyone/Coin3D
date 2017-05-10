@@ -64,8 +64,8 @@
   Array of enumeration values. Maps 1-to-1 with the enumNames.
 */
 /*!
-  \var SbBool SoMFEnum::legalValuesSet
-  Is \c TRUE if a set of enum name-to-value mappings has been set.
+  \var bool SoMFEnum::legalValuesSet
+  Is \c true if a set of enum name-to-value mappings has been set.
 */
 
 // *************************************************************************
@@ -84,7 +84,7 @@ SO_MFIELD_VALUE_SOURCE(SoMFEnum, int, int);
 SoMFEnum::SoMFEnum(void)
 {
   this->values = NULL;
-  this->legalValuesSet = FALSE;
+  this->legalValuesSet = false;
   this->numEnums = 0;
   this->enumValues = NULL;
   this->enumNames = NULL;
@@ -93,7 +93,7 @@ SoMFEnum::SoMFEnum(void)
 /* Destructor. */
 SoMFEnum::~SoMFEnum()
 {
-  this->enableNotify(FALSE); /* Avoid notifying destructed containers. */
+  this->enableNotify(false); /* Avoid notifying destructed containers. */
   this->deleteAllValues();
   delete[] this->enumValues;
   delete[] this->enumNames;
@@ -115,28 +115,28 @@ SoMFEnum::initClass(void)
 // parent classes.
 #ifndef DOXYGEN_SKIP_THIS
 
-SbBool
+bool
 SoMFEnum::read1Value(SoInput * in, int idx)
 {
   SbName n;
   int val;
 
   // Read mnemonic value as a character string identifier
-  if (!in->read(n, TRUE)) {
+  if (!in->read(n, true)) {
     // If we don't have any legal values for this field,
     // give some slack and accept integer values.
     if (this->legalValuesSet || !in->read(val)) {
       SoReadError::post(in, "Couldn't read enumeration name");
-      return FALSE;
+      return false;
     }
   }
   else {
     if (!this->findEnumValue(n, val)) {
       // If we read an enum field written by an extension node,
       // we won't have any defined enum values. This is indicated by
-      // this->legalValuesSet == FALSE. If this is the case, define
+      // this->legalValuesSet == false. If this is the case, define
       // any encountered enum values on the fly but keep legalValuesSet
-      // to FALSE in order not to fool built-in enum field to accept
+      // to false in order not to fool built-in enum field to accept
       // illegal values.
       if (!this->legalValuesSet) {
         int *newvalues = new int[this->numEnums+1];
@@ -157,14 +157,14 @@ SoMFEnum::read1Value(SoInput * in, int idx)
       }
       else {
         SoReadError::post(in, "Unknown enumeration value \"%s\"", n.getString());
-        return FALSE;
+        return false;
       }
     }
   }
 
   assert(idx < this->maxNum);
   this->values[idx] = val;
-  return TRUE;
+  return true;
 }
 
 // FIXME: this should share code with SoSFEnum::writeValue(). 20031205 mortene.
@@ -243,7 +243,7 @@ SoMFEnum::setEnums(const int numarg, const int * const vals,
   this->enumValues = new int[numarg];
   this->enumNames = new SbName[numarg];
   this->numEnums = numarg;
-  this->legalValuesSet = TRUE;
+  this->legalValuesSet = true;
 
   for (int i = 0; i < this->numEnums; i++) {
     this->enumValues[i] = vals[i];
@@ -255,40 +255,40 @@ SoMFEnum::setEnums(const int numarg, const int * const vals,
   Return in \a val the enumeration value which matches the given
   enumeration \a name.
 
-  Returns \c TRUE if \a name is a valid enumeration string, otherwise
-  \c FALSE.
+  Returns \c true if \a name is a valid enumeration string, otherwise
+  \c false.
 */
-SbBool
+bool
 SoMFEnum::findEnumValue(const SbName & name, int & val)
 {
   // Look through names table for one that matches
   for (int i = 0; i < this->numEnums; i++) {
     if (name == this->enumNames[i]) {
       val = this->enumValues[i];
-      return TRUE;
+      return true;
     }
   }
-  return FALSE;
+  return false;
 }
 
 /*!
   Set the enumeration \a name which matches the given enumeration
   value.
 
-  Returns \c TRUE if \a value is a valid enumeration value, otherwise
-  \c FALSE.
+  Returns \c true if \a value is a valid enumeration value, otherwise
+  \c false.
 */
-SbBool
+bool
 SoMFEnum::findEnumName(int value, const SbName * & name) const
 {
   // Look through values table for one that matches
   for (int i = 0; i < this->numEnums; i++) {
     if (value == this->enumValues[i]) {
       name = &(this->enumNames[i]);
-      return TRUE;
+      return true;
     }
   }
-  return FALSE;
+  return false;
 }
 
 /*!

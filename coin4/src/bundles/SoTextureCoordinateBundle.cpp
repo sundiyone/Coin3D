@@ -67,15 +67,15 @@
 
 /*!
   Constructor with \a action being the action applied to the node.
-  The \a forRendering parameter must be \e TRUE if the bundle is to
+  The \a forRendering parameter must be \e true if the bundle is to
   be used for sending texture coordinates to GL during rendering.
-  The \a setUpDefault must be \e TRUE if default texture coordinates
+  The \a setUpDefault must be \e true if default texture coordinates
   should be generated.
 */
 SoTextureCoordinateBundle::
 SoTextureCoordinateBundle(SoAction * const action,
-                          const SbBool forRendering,
-                          const SbBool setUpDefault)
+                          const bool forRendering,
+                          const bool setUpDefault)
   : SoBundle(action)
 {
   this->flags = 0;
@@ -83,11 +83,11 @@ SoTextureCoordinateBundle(SoAction * const action,
   // return immediately if there is no texture
   //
   int lastenabled = -1;
-  const SbBool * multienabled = 
+  const bool * multienabled = 
     SoMultiTextureEnabledElement::getEnabledUnits(this->state, lastenabled);
-  SbBool needinit = lastenabled >= 0;
-  SbBool glrender = forRendering || action->isOfType(SoGLRenderAction::getClassTypeId());
-  SbBool bumpenabled = glrender && (SoBumpMapElement::get(this->state) != NULL);
+  bool needinit = lastenabled >= 0;
+  bool glrender = forRendering || action->isOfType(SoGLRenderAction::getClassTypeId());
+  bool bumpenabled = glrender && (SoBumpMapElement::get(this->state) != NULL);
 
   if (!needinit && !multienabled && !bumpenabled) return;
   
@@ -137,12 +137,12 @@ SoTextureCoordinateBundle(SoAction * const action,
   }
   this->glElt = NULL;
   if (glrender) {
-    SbBool needindices = FALSE;
+    bool needindices = false;
     if (!needindices && this->isFunction()) {
       // check if bump mapping needs texture coordinate indices
       if (bumpenabled &&
           (SoBumpMapCoordinateElement::getInstance(state)->getNum())) {
-        needindices = TRUE;
+        needindices = true;
       }
     }
     if (needindices && this->isFunction()) this->flags |= FLAG_NEEDINDICES;
@@ -164,18 +164,18 @@ SoTextureCoordinateBundle::~SoTextureCoordinateBundle()
 }
 
 /*!
-  Returns \e TRUE if texture coordinates is needed during rendering.
+  Returns \e true if texture coordinates is needed during rendering.
 */
-SbBool
+bool
 SoTextureCoordinateBundle::needCoordinates() const
 {
   return (this->flags & FLAG_NEEDCOORDS) != 0;
 }
 
 /*!
-  Returns \e TRUE if a texture coordinate function should be used.
+  Returns \e true if a texture coordinate function should be used.
 */
-SbBool
+bool
 SoTextureCoordinateBundle::isFunction() const
 {
   return (this->flags & FLAG_FUNCTION) != 0;
@@ -183,13 +183,13 @@ SoTextureCoordinateBundle::isFunction() const
 
 /*!
 
-  Returns \e TRUE if isFunction() is \e TRUE, but the texture
+  Returns \e true if isFunction() is \e true, but the texture
   coordinate indices are needed either by bump mapping or by one of
   the other texture units.
 
   \since Coin 2.2
 */
-SbBool
+bool
 SoTextureCoordinateBundle::needIndices(void) const
 {
   return (this->flags & FLAG_NEEDINDICES) != 0;
@@ -198,7 +198,7 @@ SoTextureCoordinateBundle::needIndices(void) const
 
 /*!
   Returns the texture coordinates based on \a point and \a normal.
-  Should only be used if SoTextureCoordinateBundle::isFunction() is \a TRUE.
+  Should only be used if SoTextureCoordinateBundle::isFunction() is \a true.
 */
 const SbVec4f &
 SoTextureCoordinateBundle::get(const SbVec3f &point, const SbVec3f &normal)
@@ -226,7 +226,7 @@ SoTextureCoordinateBundle::get(const SbVec3f &point, const SbVec3f &normal)
 
 /*!
   Returns the texture coordinates at index \a index.
-  Should only be used if SoTextureCoordinateBundle::isFunction() is \a FALSE.
+  Should only be used if SoTextureCoordinateBundle::isFunction() is \a false.
 */
 const SbVec4f &
 SoTextureCoordinateBundle::get(const int index)
@@ -239,7 +239,7 @@ SoTextureCoordinateBundle::get(const int index)
 /*!
   \fn void SoTextureCoordinateBundle::send(const int index) const
   Send texture coordinates to GL. Should only be used if
-  SoTextureCoordinateBundle::isFunction() is \a FALSE.
+  SoTextureCoordinateBundle::isFunction() is \a false.
 */
 
 /*!

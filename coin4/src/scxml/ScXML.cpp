@@ -283,7 +283,7 @@ ScXML::cleanClasses(void)
 
 // *************************************************************************
 
-SbBool
+bool
 ScXML::registerEvaluatorType(SbName profilename, SoType evaluatortype)
 {
   assert(!evaluatortype.isBad());
@@ -291,21 +291,21 @@ ScXML::registerEvaluatorType(SbName profilename, SoType evaluatortype)
   if (!evaluatortype.isDerivedFrom(ScXMLEvaluator::getClassTypeId())) {
     SoDebugError::post("ScXMLStateMachine::registerEvaluator",
                        "Evaluator type must be derived from ScXMLEvaluator");
-    return FALSE;
+    return false;
   }
   ScXMLP::TypeDict::iterator it = ScXMLP::profileevaluators->find(profilename.getString());
   if (it != ScXMLP::profileevaluators->end()) {
     SoDebugError::post("ScXML::registerEvaluatorType",
                        "Evaluator for profile '%s' already registered.\n",
                        profilename.getString());
-    return FALSE;
+    return false;
   }
   ScXMLP::TypeEntry entry(profilename.getString(), evaluatortype);
   ScXMLP::profileevaluators->insert(entry);
-  return TRUE;
+  return true;
 }
 
-SbBool
+bool
 ScXML::unregisterEvaluatorType(SbName profilename, SoType evaluatortype)
 {
   assert(!evaluatortype.isBad());
@@ -316,16 +316,16 @@ ScXML::unregisterEvaluatorType(SbName profilename, SoType evaluatortype)
     SoDebugError::post("ScXML::unregisterEvaluatorType",
                        "No evaluator type is registered for profile '%s'.\n",
                        profilename.getString());
-    return FALSE;
+    return false;
   }
   if (it->second != evaluatortype) {
     SoDebugError::post("ScXML::unregisterEvaluatorType",
                        "Different evaluator type registered for profile '%s'.\n",
                        profilename.getString());
-    return FALSE;
+    return false;
   }
   ScXMLP::profileevaluators->erase(it);
-  return TRUE;
+  return true;
 }
 
 SoType

@@ -70,47 +70,47 @@ public:
 // sbname
 // arrays...
 
-  inline SbBool readChar(char &value)  { return readUInt8(*reinterpret_cast<uint8_t*>(&value)); }
-  inline SbBool writeChar(const char value)  { return writeUInt8(value); }
-  inline SbBool readSChar(signed char &value)  { return readInt8(*reinterpret_cast<int8_t*>(&value)); }
-  inline SbBool writeSChar(const signed char value)  { return writeInt8(value); }
-  inline SbBool readUChar(unsigned char &value)  { return readUInt8(*reinterpret_cast<uint8_t*>(&value)); }
-  inline SbBool writeUChar(const unsigned char value)  { return writeUInt8(value); }
+  inline bool readChar(char &value)  { return readUInt8(*reinterpret_cast<uint8_t*>(&value)); }
+  inline bool writeChar(const char value)  { return writeUInt8(value); }
+  inline bool readSChar(signed char &value)  { return readInt8(*reinterpret_cast<int8_t*>(&value)); }
+  inline bool writeSChar(const signed char value)  { return writeInt8(value); }
+  inline bool readUChar(unsigned char &value)  { return readUInt8(*reinterpret_cast<uint8_t*>(&value)); }
+  inline bool writeUChar(const unsigned char value)  { return writeUInt8(value); }
 
-  virtual SbBool readInt8(int8_t &value);
-  virtual SbBool writeInt8(const int8_t value);
-  virtual SbBool readUInt8(uint8_t &value);
-  virtual SbBool writeUInt8(const uint8_t value);
+  virtual bool readInt8(int8_t &value);
+  virtual bool writeInt8(const int8_t value);
+  virtual bool readUInt8(uint8_t &value);
+  virtual bool writeUInt8(const uint8_t value);
 
-  virtual SbBool readInt16(int16_t &value);
-  virtual SbBool writeInt16(const int16_t value);
-  virtual SbBool readUInt16(uint16_t &value);
-  virtual SbBool writeUInt16(const uint16_t value);
+  virtual bool readInt16(int16_t &value);
+  virtual bool writeInt16(const int16_t value);
+  virtual bool readUInt16(uint16_t &value);
+  virtual bool writeUInt16(const uint16_t value);
 
-  virtual SbBool readInt32(int32_t &value);
-  virtual SbBool writeInt32(const int32_t value);
-  virtual SbBool readUInt32(uint32_t &value);
-  virtual SbBool writeUInt32(const uint32_t value);
+  virtual bool readInt32(int32_t &value);
+  virtual bool writeInt32(const int32_t value);
+  virtual bool readUInt32(uint32_t &value);
+  virtual bool writeUInt32(const uint32_t value);
 
-  virtual SbBool readFloat(float &value);
-  virtual SbBool writeFloat(const float value);
+  virtual bool readFloat(float &value);
+  virtual bool writeFloat(const float value);
 
-  virtual SbBool readDouble(double &value);
-  virtual SbBool writeDouble(const double value);
+  virtual bool readDouble(double &value);
+  virtual bool writeDouble(const double value);
 
-  virtual SbBool readZString(char *buf, int bufSize);
-  virtual SbBool writeZString(const char *const buf);
+  virtual bool readZString(char *buf, int bufSize);
+  virtual bool writeZString(const char *const buf);
 
   virtual size_t readBuffer(void *buf, size_t bufSize);
   virtual size_t writeBuffer(void *buf, size_t bufSize);
 
-  virtual SbBool readFromStream(SoStream &stream);
-  virtual SbBool writeToStream(SoStream &stream);
+  virtual bool readFromStream(SoStream &stream);
+  virtual bool writeToStream(SoStream &stream);
   virtual size_t readFromStream(SoStream &stream, size_t bytes);
   virtual size_t writeToStream(SoStream &stream, size_t bytes);
 
-  virtual SbBool readStream(SoStream &stream);
-  virtual SbBool writeStream(const SoStream &stream);
+  virtual bool readStream(SoStream &stream);
+  virtual bool writeStream(const SoStream &stream);
 
 
   virtual void setPos(size_t pos);
@@ -133,11 +133,11 @@ public:
 
   virtual void setFilePointer(FILE *newFP);
   virtual FILE* getFilePointer() const;
-  virtual SbBool openFile(const char *const fileName);
+  virtual bool openFile(const char *const fileName);
   virtual void closeFile();
 
   virtual void setBuffer(void *buf, size_t size);
-  virtual SbBool getBuffer(void *&buf, size_t &size) const;
+  virtual bool getBuffer(void *&buf, size_t &size) const;
   virtual size_t getBufferSize() const;
   virtual void resetBuffer();
   virtual void emptyBuffer(size_t streamSize = 0);
@@ -147,34 +147,34 @@ public:
   virtual void storeBufferToFile(FILE *fp);
   virtual void storeBufferToFile(const char *const fileName);
 
-  virtual void setBinary(const SbBool flag);
-  virtual SbBool isBinary() const;
-  virtual void setAccessRights(SbBool readEnabled, SbBool writeEnabled);
-  virtual SbBool isReadable() const;
-  virtual SbBool isWriteable() const;
+  virtual void setBinary(const bool flag);
+  virtual bool isBinary() const;
+  virtual void setAccessRights(bool readEnabled, bool writeEnabled);
+  virtual bool isReadable() const;
+  virtual bool isWriteable() const;
   virtual void setEndianOrdering(const StreamEndianOrdering value);
   virtual StreamEndianOrdering getEndianOrdering() const;
   static StreamEndianOrdering getHostEndianOrdering();
 
   virtual void setBadBit();
   virtual void clearBadBit();
-  virtual SbBool isBad() const;
+  virtual bool isBad() const;
 
 protected:
   virtual size_t readBinaryArray(void *buf, size_t bufSize);
   virtual size_t writeBinaryArray(void *buf, size_t bufSize);
-  virtual SbBool getChar(char &c);
+  virtual bool getChar(char &c);
   virtual void ungetChar(const char c);
   virtual void putChar(const char c);
 
-  virtual SbBool reallocBuffer(size_t newSize);
+  virtual bool reallocBuffer(size_t newSize);
 
-  SbBool readDigInt(char *s, const char *e);
-  SbBool readHexInt(char *s, const char *e);
+  bool readDigInt(char *s, const char *e);
+  bool readHexInt(char *s, const char *e);
 private:
   StreamType streamType;
-  SbBool binaryStream;
-  SbBool badBit;
+  bool binaryStream;
+  bool badBit;
   union {
     FILE *filep;
     char *buffer;
@@ -183,9 +183,9 @@ private:
   size_t bufferSize;
   size_t bufferAllocSize;
   size_t bufPos;
-  SbBool readable, writeable;
+  bool readable, writeable;
   StreamEndianOrdering endianOrdering;
-  SbBool needEndianConversion;
+  bool needEndianConversion;
   SoStreamReallocCB *reallocCallback;
 
   void commonInit();

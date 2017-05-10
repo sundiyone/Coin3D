@@ -82,16 +82,16 @@
   \sa schedule(), isScheduled()
  */
 /*!
-  \fn virtual SbBool SoSensor::isScheduled(void) const
+  \fn virtual bool SoSensor::isScheduled(void) const
 
   Check if this sensor is scheduled for triggering.
 
   \sa schedule(), unschedule()
  */
 /*!
-  \fn virtual SbBool SoSensor::isBefore(const SoSensor * s) const
+  \fn virtual bool SoSensor::isBefore(const SoSensor * s) const
 
-  Returns \c TRUE if this sensor should precede sensor \a s in its
+  Returns \c true if this sensor should precede sensor \a s in its
   sensor queue.
  */
 

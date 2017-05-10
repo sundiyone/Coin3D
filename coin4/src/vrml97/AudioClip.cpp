@@ -43,7 +43,7 @@
   \verbatim
   AudioClip {
     exposedField   SFString description      ""
-    exposedField   SFBool   loop             FALSE
+    exposedField   SFBool   loop             false
     exposedField   SFFloat  pitch            1.0        # (0, inf)
     exposedField   SFTime   startTime        0          # (-inf, inf)
     exposedField   SFTime   stopTime         0          # (-inf, inf)
@@ -114,7 +114,7 @@
 
 /*!
   \var SoSFBool SoVRMLAudioClip::loop
-  Specifies whether sound should be looped. Is FALSE by default.
+  Specifies whether sound should be looped. Is false by default.
 */
 
 /*!
@@ -237,7 +237,7 @@ public:
   void startPlaying();
   void stopPlaying();
 
-  static SbBool simageVersionOK(const char *functionName);
+  static bool simageVersionOK(const char *functionName);
 
   SoFieldSensor * urlsensor;
   SoFieldSensor * loopsensor;
@@ -252,14 +252,14 @@ public:
       this->introPause = 0.0;
       this->defaultTimerInterval = 0.1f;
       this->defaultSampleRate = 44100;
-      this->warnAboutMissingSimage = TRUE;
+      this->warnAboutMissingSimage = true;
     }
     SbStringList subdirectories;
     SbTime pauseBetweenTracks;
     SbTime introPause;
     int defaultSampleRate;
     SbTime defaultTimerInterval;
-    SbBool warnAboutMissingSimage;
+    bool warnAboutMissingSimage;
   };
 
   static StaticData * staticdata;
@@ -268,8 +268,8 @@ public:
 
   SbTime currentPause;
 
-  SbBool openFile(int playlistIndex);
-  SbBool openFile(const char *filename);
+  bool openFile(int playlistIndex);
+  bool openFile(const char *filename);
   void closeFile();
 
   s_stream * stream;
@@ -278,11 +278,11 @@ public:
   int bitspersample;
 
   SbList<SbString> playlist;
-  volatile SbBool playlistDirty;
+  volatile bool playlistDirty;
   volatile int currentPlaylistIndex;
 
-  SbBool loop;
-  volatile SbBool soundHasFinishedPlaying;
+  bool loop;
+  volatile bool soundHasFinishedPlaying;
 
 #ifdef HAVE_THREADS
   SbMutex syncmutex;
@@ -324,7 +324,7 @@ SoVRMLAudioClip::initClass(void) // static
 SoVRMLAudioClip::SoVRMLAudioClip(void)
 {
   // This is done to trigger the operation which sets up
-  // coin_sound_should_traverse() (which, when TRUE informs
+  // coin_sound_should_traverse() (which, when true informs
   // SoSceneManager that it should start applying an
   // SoAudioRenderAction on its scene graphs).
   //
@@ -337,7 +337,7 @@ SoVRMLAudioClip::SoVRMLAudioClip(void)
   SO_VRMLNODE_INTERNAL_CONSTRUCTOR(SoVRMLAudioClip);
 
   SO_VRMLNODE_ADD_EXPOSED_FIELD(description, (""));
-  SO_VRMLNODE_ADD_EXPOSED_FIELD(loop, (FALSE));
+  SO_VRMLNODE_ADD_EXPOSED_FIELD(loop, (false));
   SO_VRMLNODE_ADD_EXPOSED_FIELD(pitch, (1.0f));
   SO_VRMLNODE_ADD_EXPOSED_FIELD(startTime, (0.0f));
   SO_VRMLNODE_ADD_EXPOSED_FIELD(stopTime, (0.0f));
@@ -346,7 +346,7 @@ SoVRMLAudioClip::SoVRMLAudioClip(void)
   SO_VRMLNODE_ADD_EVENT_OUT(duration_changed);
   SO_VRMLNODE_ADD_EVENT_OUT(isActive);
 
-  this->isActive.setValue(FALSE);
+  this->isActive.setValue(false);
 
   PRIVATE(this) = new SoVRMLAudioClipP(this);
 
@@ -374,8 +374,8 @@ SoVRMLAudioClip::SoVRMLAudioClip(void)
   PRIVATE(this)->timerSensor->setInterval(SoVRMLAudioClipP::staticdata->defaultTimerInterval);
   PRIVATE(this)->timerSensor->schedule();
 
-  PRIVATE(this)->loop = FALSE;
-  PRIVATE(this)->soundHasFinishedPlaying = FALSE;
+  PRIVATE(this)->loop = false;
+  PRIVATE(this)->soundHasFinishedPlaying = false;
 
   PRIVATE(this)->stream = NULL;
 
@@ -383,7 +383,7 @@ SoVRMLAudioClip::SoVRMLAudioClip(void)
   PRIVATE(this)->bitspersample = 0;
 
   PRIVATE(this)->currentPlaylistIndex = 0;
-  PRIVATE(this)->playlistDirty = FALSE;
+  PRIVATE(this)->playlistDirty = false;
 
   PRIVATE(this)->sampleRate = SoVRMLAudioClipP::staticdata->defaultSampleRate;
 
@@ -564,7 +564,7 @@ SoVRMLAudioClip::close(void *datasource)
      When the caller receives a return value of 0, it will queue the
      returned buffer for playing. When this buffer is finished playing,
      the caller will call read() one final time, with \a buffer == NULL. 
-     The read() function can then set the isActive field to FALSE, 
+     The read() function can then set the isActive field to false, 
      free any resources allocated, etc.
 */
 
@@ -608,7 +608,7 @@ SoVRMLAudioClip::getSubdirectories()
   return SoVRMLAudioClipP::staticdata->subdirectories;
 }
 
-SbBool
+bool
 SoVRMLAudioClipP::simageVersionOK(const char *functionName)
 {
   if (simage_wrapper()->available &&
@@ -619,7 +619,7 @@ SoVRMLAudioClipP::simageVersionOK(const char *functionName)
       simage_wrapper()->s_params_get &&
       simage_wrapper()->s_stream_close &&
       simage_wrapper()->s_stream_destroy) {
-      return TRUE;
+      return true;
   } else {
     if (SoVRMLAudioClipP::staticdata->warnAboutMissingSimage) {
       SoDebugError::postWarning(functionName,
@@ -627,9 +627,9 @@ SoVRMLAudioClipP::simageVersionOK(const char *functionName)
                                 "the stream interface and parameter access to be able "
                                 "to read audio files. Please visit www.coin3d.org "
                                 "and download the latest version of simage.");
-      SoVRMLAudioClipP::staticdata->warnAboutMissingSimage = FALSE;
+      SoVRMLAudioClipP::staticdata->warnAboutMissingSimage = false;
     }
-    return FALSE;
+    return false;
   }
 }
 
@@ -644,13 +644,13 @@ SoVRMLAudioClipP::startPlaying()
 #endif
   this->currentPause = SoVRMLAudioClipP::staticdata->introPause;
   this->currentPlaylistIndex = 0;
-  this->soundHasFinishedPlaying = FALSE;
+  this->soundHasFinishedPlaying = false;
   this->actualStartTime = 0.0f; // will be set in read()
   this->totalNumberOfFramesToPlay = 0; // will be increased in read()
 #ifdef HAVE_THREADS
   this->syncmutex.unlock();
 #endif
-  PUBLIC(this)->isActive.setValue(TRUE);
+  PUBLIC(this)->isActive.setValue(true);
 }
 
 void
@@ -659,7 +659,7 @@ SoVRMLAudioClipP::stopPlaying()
 #if COIN_DEBUG && DEBUG_AUDIO
   SoDebugError::postInfo("SoVRMLAudioClipP::stopPlaying", "stop");
 #endif // debug
-  PUBLIC(this)->isActive.setValue(FALSE);
+  PUBLIC(this)->isActive.setValue(false);
 #ifdef HAVE_THREADS
   this->syncmutex.lock();
 #endif
@@ -667,11 +667,11 @@ SoVRMLAudioClipP::stopPlaying()
     FIXME: If the stream is closed here, and read() is called
     before the sound figures out it should also stop playing,
     read() might try to open the next file (or reopen the
-    existing file if loop==TRUE) and we might get an "echo-effect".
+    existing file if loop==true) and we might get an "echo-effect".
     We should perhaps keep an internal isActive that is "allways"
     equal to the external isActive, allthough this should
     be synchronized, so read() can check it safely, and
-    decide to not open a file if it is FALSE.
+    decide to not open a file if it is false.
     Investigate this further.
     2002-11-15 thammer.
    */
@@ -762,13 +762,13 @@ SoVRMLAudioClipP::internal_read(void * COIN_UNUSED_ARG(datasource), void *buffer
        played all buffers including the last one it received. This is
        a pretty good indicator that this SoVRMLAudioClip can stop
        playing. 2002-11-06 thammer.  */
-    this->soundHasFinishedPlaying = TRUE;
+    this->soundHasFinishedPlaying = true;
     return 0;
   }
 
   assert (!this->soundHasFinishedPlaying);
 
-  SbBool bufferFilled = FALSE;
+  bool bufferFilled = false;
   int framepos = 0;
   int channelsdelivered = 1;
   while (!bufferFilled) {
@@ -785,7 +785,7 @@ SoVRMLAudioClipP::internal_read(void * COIN_UNUSED_ARG(datasource), void *buffer
     }
 
     if (this->playlistDirty) {
-      this->playlistDirty = FALSE;
+      this->playlistDirty = false;
       this->closeFile();
       this->currentPlaylistIndex = 0;
     }
@@ -822,8 +822,8 @@ SoVRMLAudioClipP::internal_read(void * COIN_UNUSED_ARG(datasource), void *buffer
       }
 
       int startindex = this->currentPlaylistIndex;
-      SbBool success = FALSE;
-      SbBool allfailed = FALSE;
+      bool success = false;
+      bool allfailed = false;
       while ( ! ( success || allfailed ) ) {
         success = openFile(this->currentPlaylistIndex);
         if (!success) {
@@ -833,7 +833,7 @@ SoVRMLAudioClipP::internal_read(void * COIN_UNUSED_ARG(datasource), void *buffer
             this->currentPlaylistIndex = 0;
           if ( (this->currentPlaylistIndex == startindex) ||
                (this->currentPlaylistIndex >= this->playlist.getLength()) )
-            allfailed = TRUE;
+            allfailed = true;
         }
       }
 
@@ -880,7 +880,7 @@ SoVRMLAudioClipP::internal_read(void * COIN_UNUSED_ARG(datasource), void *buffer
       if (this->playlist.getLength() > 1)
         this->currentPause = SoVRMLAudioClipP::staticdata->pauseBetweenTracks;
     } else {
-      bufferFilled = TRUE;
+      bufferFilled = true;
     }
   }
   return numframes;
@@ -935,7 +935,7 @@ SoVRMLAudioClipP::loadUrl()
 void
 SoVRMLAudioClipP::unloadUrl()
 {
-  this->playlistDirty = TRUE;
+  this->playlistDirty = true;
   this->playlist.truncate(0);
   this->closeFile();
 }
@@ -1092,7 +1092,7 @@ SoVRMLAudioClipP::timerCB(SoSensor *)
   }
 }
 
-SbBool
+bool
 SoVRMLAudioClipP::openFile(int playlistIndex)
 {
   assert ( (playlistIndex<this->playlist.getLength()) && (playlistIndex>=0) );
@@ -1100,13 +1100,13 @@ SoVRMLAudioClipP::openFile(int playlistIndex)
   return this->openFile(this->playlist[playlistIndex].getString());
 }
 
-SbBool
+bool
 SoVRMLAudioClipP::openFile(const char *filename)
 {
   this->closeFile();
 
   if (!this->simageVersionOK("SoVRMLAudioClipP::openFile")) {
-    return FALSE;
+    return false;
   }
 
   // FIXME: only looks in current directory -- should use the full set
@@ -1133,7 +1133,7 @@ SoVRMLAudioClipP::openFile(const char *filename)
                               "Verify that you have the necessary access rights for reading the\n"
                               "audio file.\n\n"
                               , filename);
-    return FALSE;
+    return false;
   }
 
   s_params * params;
@@ -1154,7 +1154,7 @@ SoVRMLAudioClipP::openFile(const char *filename)
                          "Wave file '%s' opened successfully\n", filename);
 #endif // debug
 
-  return TRUE; // OK
+  return true; // OK
 }
 
 void

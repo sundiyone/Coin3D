@@ -231,13 +231,13 @@ SoScXMLZoomTarget::~SoScXMLZoomTarget(void)
 }
 
 
-SbBool
+bool
 SoScXMLZoomTarget::processOneEvent(const ScXMLEvent * event)
 {
   assert(event);
 
   const SbName sessionid = this->getSessionId(event);
-  if (sessionid == SbName::empty()) { return FALSE; }
+  if (sessionid == SbName::empty()) { return false; }
 
   const SbName & eventname = event->getEventName();
 
@@ -248,13 +248,13 @@ SoScXMLZoomTarget::processOneEvent(const ScXMLEvent * event)
     assert(data);
 
     SoScXMLStateMachine * statemachine = this->getSoStateMachine(event, sessionid);
-    if unlikely (!statemachine) { return FALSE; }
+    if unlikely (!statemachine) { return false; }
 
     if (!inherited::getEventSbVec2f(event, "mouseposition", data->lastposn)) {
-      return FALSE;
+      return false;
     }
 
-    return TRUE;
+    return true;
   }
 
   else if (eventname == UPDATE()) {
@@ -264,24 +264,24 @@ SoScXMLZoomTarget::processOneEvent(const ScXMLEvent * event)
     assert(data);
 
     SoCamera * camera = inherited::getActiveCamera(event, sessionid);
-    if (!camera) { return FALSE; }
+    if (!camera) { return false; }
 
     SbVec2f prevposn = data->lastposn;
     if (!inherited::getEventSbVec2f(event, "mouseposition", data->lastposn)) {
-      return FALSE;
+      return false;
     }
     SbVec2f thisposn = data->lastposn;
 
     // The value 20.0 is just a value found by trial. exp() brings this in the range of <0, ->>.
     SoScXMLZoomTarget::zoom(camera, float(exp((thisposn[1] - prevposn[1]) * 20.0f)));
 
-    return TRUE;
+    return true;
   }
 
   else if (eventname == END()) {
     // _sessionid
     this->freeSessionData(sessionid);
-    return TRUE;
+    return true;
   }
 
 
@@ -289,52 +289,52 @@ SoScXMLZoomTarget::processOneEvent(const ScXMLEvent * event)
     // _sessionid
     // factor
     SoCamera * camera = inherited::getActiveCamera(event, sessionid);
-    if unlikely (!camera) { return FALSE; }
+    if unlikely (!camera) { return false; }
 
     double factor = 1.0;
     if (!inherited::getEventDouble(event, "factor", factor)) {
-      return FALSE;
+      return false;
     }
 
     if (abs(factor) <= FLT_EPSILON) {
       SoDebugError::post("SoScXMLZoomTarget::processOneEvent",
                          "while processing %s: can't zoom with a 0 factor.",
                          eventname.getString());
-      return FALSE;
+      return false;
     }
     if (factor < 0.0) {
       SoDebugError::post("SoScXMLZoomTarget::processOneEvent",
                          "while processing %s: can't zoom with a negative factor.",
                          eventname.getString());
-      return FALSE;
+      return false;
     }
 
     SoScXMLZoomTarget::zoom(camera, static_cast<float>(factor));
-    return TRUE;
+    return true;
   }
 
   else if (eventname == ZOOM_IN() || eventname == ZOOM_OUT()) {
     SoCamera * camera = inherited::getActiveCamera(event, sessionid);
-    if unlikely (!camera) { return FALSE; }
+    if unlikely (!camera) { return false; }
 
     double factor = 1.2;
-    inherited::getEventDouble(event, "factor", factor, FALSE);
+    inherited::getEventDouble(event, "factor", factor, false);
 
     if (abs(factor) <= FLT_EPSILON) {
       SoDebugError::post("SoScXMLZoomTarget::processOneEvent",
                          "while processing %s: can't zoom with a 0 factor.",
                          eventname.getString());
-      return FALSE;
+      return false;
     }
     if (factor < 0.0) {
       SoDebugError::post("SoScXMLZoomTarget::processOneEvent",
                          "while processing %s: can't zoom with a negative factor.",
                          eventname.getString());
-      return FALSE;
+      return false;
     }
 
     double count = 1.0;
-    inherited::getEventDouble(event, "count", count, FALSE);
+    inherited::getEventDouble(event, "count", count, false);
     if (abs(count) <= FLT_EPSILON) {
       SoDebugError::post("SoScXMLZoomTarget::processOneEvent",
                          "while processing %s: can't zoom with a 0 zoom count.",
@@ -344,19 +344,19 @@ SoScXMLZoomTarget::processOneEvent(const ScXMLEvent * event)
       SoDebugError::post("SoScXMLZoomTarget::processOneEvent",
                          "while processing %s: can't zoom with a negative zoom count.",
                          eventname.getString());
-      return FALSE;
+      return false;
     }
 
     double compounded = (eventname == ZOOM_IN()) ?  pow(1.0/factor, count) : pow(factor, count);
 
     SoScXMLZoomTarget::zoom(camera, static_cast<float>(compounded));
-    return TRUE;
+    return true;
   }
 
 
   else if (eventname == RESET()) {
     SoCamera * camera = inherited::getActiveCamera(event, sessionid);
-    if unlikely (!camera) { return FALSE; }
+    if unlikely (!camera) { return false; }
 
     SoScXMLZoomTarget::reset(camera);
   }
@@ -366,10 +366,10 @@ SoScXMLZoomTarget::processOneEvent(const ScXMLEvent * event)
     SoDebugError::post("SoScXMLZoomTarget::processOneEvent",
                        "received unknown event '%s'",
                        eventname.getString());
-    return FALSE;
+    return false;
   }
 
-  return TRUE;
+  return true;
 }
 
 // *************************************************************************
@@ -406,13 +406,13 @@ SoScXMLZoomTarget::zoom(SoCamera * camera, float multiplicator)
   }
 
   else {
-    static SbBool first = TRUE;
+    static bool first = true;
     if (first) {
       SoDebugError::postWarning("SoScXMLZoomTarget::zoom",
                                 "Unknown camera type, "
                                 "will zoom by moving position, "
                                 "which is not correct.");
-      first = FALSE;
+      first = false;
     }
 
     const float oldfocaldist = camera->focalDistance.getValue();

@@ -58,13 +58,13 @@ SoMFBitMask::initClass(void)
 // parent classes.
 #ifndef DOXYGEN_SKIP_THIS
 
-SbBool
+bool
 SoMFBitMask::read1Value(SoInput * in, int idx)
 {
   assert(idx < this->maxNum);
   SoSFBitMask sfbitmask;
   sfbitmask.setEnums(this->numEnums, this->enumValues, this->enumNames);
-  SbBool result;
+  bool result;
   if ((result = sfbitmask.readValue(in))) {
     this->values[idx] = sfbitmask.getValue();
   }

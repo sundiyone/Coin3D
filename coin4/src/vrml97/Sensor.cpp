@@ -52,8 +52,8 @@ SoVRMLSensor::SoVRMLSensor(void)
 
   SO_VRMLNODE_ADD_EVENT_OUT(isActive);
   // DragSensor reads from this field. Initialize it.
-  this->isActive = FALSE;
-  SO_VRMLNODE_ADD_EXPOSED_FIELD(enabled, (TRUE));
+  this->isActive = false;
+  SO_VRMLNODE_ADD_EXPOSED_FIELD(enabled, (true));
 }
 
 SoVRMLSensor::~SoVRMLSensor()

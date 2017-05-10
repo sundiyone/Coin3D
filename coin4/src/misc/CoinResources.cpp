@@ -93,12 +93,12 @@ namespace CoinResources { namespace {
     class ResourceHandle {
     public:
       ResourceHandle(void)
-        : resloc(NULL), canbefile(FALSE), filenotfound(FALSE)
+        : resloc(NULL), canbefile(false), filenotfound(false)
       { }
 
       char * resloc;
-      SbBool canbefile;
-      SbBool filenotfound;
+      bool canbefile;
+      bool filenotfound;
 
       SbByteBuffer loadedbuf;
       SbByteBuffer internalbuf;
@@ -163,7 +163,7 @@ CoinResources::init(void)
   the resource will be loaded from file, but if the file can not be
   located or loaded, builtin versions will be returned instead.
 
-  \return TRUE on success, and FALSE if there is no such resource.
+  \return true on success, and false if there is no such resource.
 */
 SbByteBuffer
 CoinResources::get(const char * resloc)
@@ -190,7 +190,7 @@ CoinResources::get(const char * resloc)
       CFBundleRef coinbundle = CFBundleGetBundleWithIdentifier(identifier);
       CFRelease(identifier);
       if (!coinbundle) {
-        handle->filenotfound = TRUE;
+        handle->filenotfound = true;
         break;
       }
 
@@ -201,7 +201,7 @@ CoinResources::get(const char * resloc)
       UInt8 buf[MAXPATHLEN];
 
       if (!CFURLGetFileSystemRepresentation(url, true, buf, MAXPATHLEN-1)) {
-        handle->filenotfound = TRUE;
+        handle->filenotfound = true;
         CFRelease(url);
         break;
       }
@@ -210,7 +210,7 @@ CoinResources::get(const char * resloc)
 #else // !COIN_MACOSX_FRAMEWORK
       static const char * coindirenv = coin_getenv("COINDIR");
       if (coindirenv == NULL) {
-        handle->filenotfound = TRUE;
+        handle->filenotfound = true;
         break;
       }
       filename.sprintf("%s/share/Coin/%s", coindirenv, resloc + 5);
@@ -221,7 +221,7 @@ CoinResources::get(const char * resloc)
       }
       FILE * fp = fopen(filename.getString(), "rb");
       if (!fp) {
-        handle->filenotfound = TRUE;
+        handle->filenotfound = true;
         break;
       }
 
@@ -229,7 +229,7 @@ CoinResources::get(const char * resloc)
       long size = ftell(fp);
       if (size < 0) {
         fclose(fp);
-        handle->filenotfound = TRUE;
+        handle->filenotfound = true;
         break;
       }
 
@@ -253,10 +253,10 @@ CoinResources::get(const char * resloc)
                                  filename.getString());
         }
       } else {
-        handle->filenotfound = TRUE;
+        handle->filenotfound = true;
         break;
       }
-    } while ( FALSE );
+    } while ( false );
   }
 
   assert(handle);
@@ -278,30 +278,30 @@ CoinResources::get(const char * resloc)
   If you put COIN_RESOURCE_NOT_A_FILE in the \a flags argument, then the
   automatic file searching will not be performed.
 
-  \returns TRUE if the resource was set, and FALSE if something went wrong.
-  FALSE would most likely be returned because the resource already exists.
+  \returns true if the resource was set, and false if something went wrong.
+  false would most likely be returned because the resource already exists.
 */
-SbBool
+bool
 CoinResources::set(const char * resloc, const SbByteBuffer & buffer, ResourceFlags flags)
 {
   if (strncmp(resloc, PREFIX, sizeof(PREFIX)-1) != 0) {
-    return FALSE;
+    return false;
   }
 
   ResourceHandle * handle = CoinResources::getResourceHandle(resloc);
   if (handle) { // already set
     SoDebugError::post("CoinResources::set", "Resource already set.");
-    return FALSE;
+    return false;
   }
   handle = CoinResources::createResourceHandle(resloc);
   assert(handle);
   handle->internalbuf = buffer;
   if (flags & COIN_RESOURCE_NOT_A_FILE) {
-    handle->canbefile = FALSE;
+    handle->canbefile = false;
   } else {
-    handle->canbefile = TRUE;
+    handle->canbefile = true;
   }
-  return TRUE;
+  return true;
 }
 
 /*!

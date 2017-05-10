@@ -38,7 +38,7 @@ public:
     TEXTURE_OBJECT
   };
   SoGLDisplayList(SoState * state, Type type, int allocnum = 1,
-                  SbBool mipmaptexobj = FALSE);
+                  bool mipmaptexobj = false);
   void ref(void);
   void unref(SoState * state = NULL);
 
@@ -48,7 +48,7 @@ public:
   void call(SoState * state, int index = 0);
   void addDependency(SoState * state);
 
-  SbBool isMipMapTextureObject(void) const;
+  bool isMipMapTextureObject(void) const;
   Type getType(void) const;
   int getNumAllocated(void) const;
   // this returns GLuint in Inventor, but we try to avoid including

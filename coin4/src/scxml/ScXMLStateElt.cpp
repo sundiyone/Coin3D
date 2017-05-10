@@ -606,15 +606,15 @@ ScXMLStateElt::setInitialAttribute(const char * initialstr)
 */
 
 // Doc in parent
-SbBool
+bool
 ScXMLStateElt::handleXMLAttributes(void)
 {
-  if (!inherited::handleXMLAttributes()) return FALSE;
+  if (!inherited::handleXMLAttributes()) return false;
 
   this->setInitialAttribute(this->getXMLAttribute("initial"));
   this->setSrcAttribute(this->getXMLAttribute("src"));
 
-  return TRUE;
+  return true;
 }
 
 void
@@ -816,10 +816,10 @@ SCXML_SINGLE_OBJECT_API_IMPL(ScXMLStateElt, ScXMLDataModelElt,
 // SCXML_SINGLE_OBJECT_API_IMPL(ScXMLStateElt, ScXMLInvokeElt, PRIVATE(this)->invokeptr, Invoke);
 
 /*!
-  Returns TRUE if this is an "atomic state", which means that it has no
+  Returns true if this is an "atomic state", which means that it has no
   sub-states but contains executable content.
 */
-SbBool
+bool
 ScXMLStateElt::isAtomicState(void) const
 {
   return ((PRIVATE(this)->statelist.size() == 0) &&

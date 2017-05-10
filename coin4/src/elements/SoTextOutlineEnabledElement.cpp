@@ -62,7 +62,7 @@ SoTextOutlineEnabledElement::~SoTextOutlineEnabledElement(void)
 void
 SoTextOutlineEnabledElement::set(SoState * const state,
                                  SoNode * const node,
-                                 const SbBool enabled)
+                                 const bool enabled)
 {
   SoInt32Element::set(classStackIndex, state, node, enabled);
 }
@@ -72,7 +72,7 @@ SoTextOutlineEnabledElement::set(SoState * const state,
 */
 
 void
-SoTextOutlineEnabledElement::set(SoState * const state, const SbBool enabled)
+SoTextOutlineEnabledElement::set(SoState * const state, const bool enabled)
 {
   set(state, NULL, enabled);
 }
@@ -81,20 +81,20 @@ SoTextOutlineEnabledElement::set(SoState * const state, const SbBool enabled)
   FIXME: write doc.
 */
 
-SbBool
+bool
 SoTextOutlineEnabledElement::get(SoState * const state)
 {
-  return static_cast<SbBool>(SoInt32Element::get(classStackIndex, state));
+  return static_cast<bool>(SoInt32Element::get(classStackIndex, state));
 }
 
 /*!
   FIXME: write doc.
 */
 
-SbBool
+bool
 SoTextOutlineEnabledElement::getDefault(void)
 {
-  return FALSE;
+  return false;
 }
 
 //! FIXME: write doc.

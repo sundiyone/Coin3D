@@ -28,8 +28,6 @@
 #error this is a private header file
 #endif
 
-#include <Inventor/SbBasic.h> // SbBool
-
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
@@ -38,13 +36,13 @@ extern "C" {
 void * aglglue_getprocaddress(const char * fname);
 void * aglglue_context_create_offscreen(unsigned int width,
                                         unsigned int height);
-SbBool aglglue_context_make_current(void * ctx);
+bool aglglue_context_make_current(void * ctx);
 void aglglue_context_reinstate_previous(void * ctx);
 void aglglue_context_destruct(void * ctx);
 void aglglue_context_bind_pbuffer(void * ctx);
 void aglglue_context_release_pbuffer(void * ctx);
-SbBool aglglue_context_pbuffer_is_bound(void * ctx);
-SbBool aglglue_context_can_render_to_texture(void * ctx);
+bool aglglue_context_pbuffer_is_bound(void * ctx);
+bool aglglue_context_can_render_to_texture(void * ctx);
 void aglglue_cleanup(void);
 #ifdef __cplusplus
 }

@@ -120,7 +120,7 @@ SoTrackballManip::SoTrackballManip(void)
   SoTrackballDragger *dragger = new SoTrackballDragger;
   this->setDragger(dragger);
 
-  SoSurroundScale *ss = (SoSurroundScale*) dragger->getPart("surroundScale", TRUE);
+  SoSurroundScale *ss = (SoSurroundScale*) dragger->getPart("surroundScale", true);
   ss->numNodesUpToContainer = 4;
   ss->numNodesUpToReset = 3;
 }

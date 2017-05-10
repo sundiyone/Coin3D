@@ -61,13 +61,13 @@ public:
   SbColor4f &operator+=(const SbColor4f &c);
   SbColor4f &operator-=(const SbColor4f &c);
 
-  friend COIN_DLL_API SbColor4f operator *(const SbColor4f &c, const float d);
-  friend COIN_DLL_API SbColor4f operator *(const float d, const SbColor4f &c);
-  friend COIN_DLL_API SbColor4f operator /(const SbColor4f &c, const float d);
-  friend COIN_DLL_API SbColor4f operator +(const SbColor4f &v1, const SbColor4f &v2);
-  friend COIN_DLL_API SbColor4f operator -(const SbColor4f &v1, const SbColor4f &v2);
-  friend COIN_DLL_API int operator ==(const SbColor4f &v1, const SbColor4f &v2);
-  friend COIN_DLL_API int operator !=(const SbColor4f &v1, const SbColor4f &v2);
+  friend COIN_DLL_API SbColor4f operator*(const SbColor4f &c, const float d);
+  friend COIN_DLL_API SbColor4f operator*(const float d, const SbColor4f &c);
+  friend COIN_DLL_API SbColor4f operator/(const SbColor4f &c, const float d);
+  friend COIN_DLL_API SbColor4f operator+(const SbColor4f &v1, const SbColor4f &v2);
+  friend COIN_DLL_API SbColor4f operator-(const SbColor4f &v1, const SbColor4f &v2);
+  friend COIN_DLL_API bool operator==(const SbColor4f &v1, const SbColor4f &v2);
+  friend COIN_DLL_API bool operator!=(const SbColor4f &v1, const SbColor4f &v2);
 
 private:
   float red() const { return this->vec[0]; }
@@ -76,13 +76,13 @@ private:
   float alpha() const { return this->vec[3]; }
 };
 
-COIN_DLL_API SbColor4f operator *(const SbColor4f &c, const float d);
-COIN_DLL_API SbColor4f operator *(const float d, const SbColor4f &c);
-COIN_DLL_API SbColor4f operator /(const SbColor4f &c, const float d);
-COIN_DLL_API SbColor4f operator +(const SbColor4f &v1, const SbColor4f &v2);
-COIN_DLL_API SbColor4f operator -(const SbColor4f &v1, const SbColor4f &v2);
-COIN_DLL_API int operator ==(const SbColor4f &v1, const SbColor4f &v2);
-COIN_DLL_API int operator !=(const SbColor4f &v1, const SbColor4f &v2);
+COIN_DLL_API SbColor4f operator*(const SbColor4f &c, const float d);
+COIN_DLL_API SbColor4f operator*(const float d, const SbColor4f &c);
+COIN_DLL_API SbColor4f operator/(const SbColor4f &c, const float d);
+COIN_DLL_API SbColor4f operator+(const SbColor4f &v1, const SbColor4f &v2);
+COIN_DLL_API SbColor4f operator-(const SbColor4f &v1, const SbColor4f &v2);
+COIN_DLL_API bool operator==(const SbColor4f &v1, const SbColor4f &v2);
+COIN_DLL_API bool operator!=(const SbColor4f &v1, const SbColor4f &v2);
 
 typedef class SbColor4f SbColorRGBA; // TGS compatibility
 

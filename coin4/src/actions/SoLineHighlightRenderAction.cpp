@@ -157,7 +157,7 @@ SoLineHighlightRenderAction::SoLineHighlightRenderAction(void)
   PRIVATE(this)->owner = this;
   // need to set hlVisible here, and not in the pimpl constructor, since
   // "owner" is not initialized when the pimpl constructor is called
-  this->hlVisible = TRUE;
+  this->hlVisible = true;
 
   SO_ACTION_CONSTRUCTOR(SoLineHighlightRenderAction);
 }
@@ -171,7 +171,7 @@ SoLineHighlightRenderAction::SoLineHighlightRenderAction(const SbViewportRegion 
   PRIVATE(this)->owner = this;
   // need to set hlVisible here, and not in the pimpl constructor, since
   // "owner" is not initialized when the pimpl constructor is called
-  this->hlVisible = TRUE;
+  this->hlVisible = true;
   SO_ACTION_CONSTRUCTOR(SoLineHighlightRenderAction);
 }
 
@@ -196,7 +196,7 @@ SoLineHighlightRenderAction::apply(SoNode * node)
     // Coin, and SGI Inventor, only supports one Selection node in a
     // graph, so just search for the first one to avoid that the whole
     // scene graph is searched
-    const SbBool searchall = FALSE;
+    const bool searchall = false;
     PRIVATE(this)->searchaction->setType(SoSelection::getClassTypeId());
     PRIVATE(this)->searchaction->setInterest(searchall ? SoSearchAction::ALL : SoSearchAction::FIRST);
     PRIVATE(this)->searchaction->apply(node);
@@ -249,17 +249,17 @@ SoLineHighlightRenderAction::apply(SoPath * path)
 // overridden.
 void
 SoLineHighlightRenderAction::apply(const SoPathList & pathlist,
-                                   SbBool obeysrules)
+                                   bool obeysrules)
 {
   SoGLRenderAction::apply(pathlist, obeysrules);
 }
 
 /*!
   Sets if highlight wireframes should be \a visible when
-  rendering. Defaults to \c TRUE.
+  rendering. Defaults to \c true.
 */
 void
-SoLineHighlightRenderAction::setVisible(const SbBool visible)
+SoLineHighlightRenderAction::setVisible(const bool visible)
 {
   this->hlVisible = visible;
 }
@@ -267,7 +267,7 @@ SoLineHighlightRenderAction::setVisible(const SbBool visible)
 /*!
   Return if selection wireframes should be visible.
 */
-SbBool
+bool
 SoLineHighlightRenderAction::isVisible(void) const
 {
   return this->hlVisible;
@@ -361,19 +361,19 @@ SoLineHighlightRenderActionP::drawBoxes(SoPath * pathtothis,
   SoLinePatternElement::set(state, this->linepattern);
   SoTextureQualityElement::set(state, 0.0f);
   SoDrawStyleElement::set(state, SoDrawStyleElement::LINES);
-  SoPolygonOffsetElement::set(state, NULL, -1.0f, -1.0f, SoPolygonOffsetElement::LINES, TRUE);
+  SoPolygonOffsetElement::set(state, NULL, -1.0f, -1.0f, SoPolygonOffsetElement::LINES, true);
   SoMaterialBindingElement::set(state, NULL, SoMaterialBindingElement::OVERALL); 
-  SoNormalElement::set(state, NULL, 0, NULL, FALSE);
+  SoNormalElement::set(state, NULL, 0, NULL, false);
  
-  SoOverrideElement::setNormalVectorOverride(state, NULL, TRUE);
-  SoOverrideElement::setMaterialBindingOverride(state, NULL, TRUE);
-  SoOverrideElement::setLightModelOverride(state, NULL, TRUE);
-  SoOverrideElement::setDiffuseColorOverride(state, NULL, TRUE);
-  SoOverrideElement::setLineWidthOverride(state, NULL, TRUE);
-  SoOverrideElement::setLinePatternOverride(state, NULL, TRUE);
-  SoOverrideElement::setDrawStyleOverride(state, NULL, TRUE);
-  SoOverrideElement::setPolygonOffsetOverride(state, NULL, TRUE);
-  SoTextureOverrideElement::setQualityOverride(state, TRUE);
+  SoOverrideElement::setNormalVectorOverride(state, NULL, true);
+  SoOverrideElement::setMaterialBindingOverride(state, NULL, true);
+  SoOverrideElement::setLightModelOverride(state, NULL, true);
+  SoOverrideElement::setDiffuseColorOverride(state, NULL, true);
+  SoOverrideElement::setLineWidthOverride(state, NULL, true);
+  SoOverrideElement::setLinePatternOverride(state, NULL, true);
+  SoOverrideElement::setDrawStyleOverride(state, NULL, true);
+  SoOverrideElement::setPolygonOffsetOverride(state, NULL, true);
+  SoTextureOverrideElement::setQualityOverride(state, true);
 
   for (i = 0; i < pathlist->getLength(); i++) {
     SoFullPath * path = reclassify_cast<SoFullPath *>((*pathlist)[i]);

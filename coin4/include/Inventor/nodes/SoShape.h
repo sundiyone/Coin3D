@@ -54,7 +54,7 @@ public:
     QUADS, QUAD_STRIP, POINTS, LINES, LINE_STRIP
   };
 
-  virtual SbBool affectsState(void) const;
+  virtual bool affectsState(void) const;
   virtual void notify(SoNotList * nl);
 
   virtual void getBoundingBox(SoGetBoundingBoxAction * action);
@@ -76,13 +76,13 @@ protected:
 
   float getComplexityValue(SoAction * action);
   virtual void generatePrimitives(SoAction * action) =  0;
-  virtual SbBool shouldGLRender(SoGLRenderAction * action);
+  virtual bool shouldGLRender(SoGLRenderAction * action);
   void beginSolidShape(SoGLRenderAction * action);
   void endSolidShape(SoGLRenderAction * action);
   void GLRenderBoundingBox(SoGLRenderAction * action);
-  SbBool shouldPrimitiveCount(SoGetPrimitiveCountAction * action);
+  bool shouldPrimitiveCount(SoGetPrimitiveCountAction * action);
 
-  SbBool shouldRayPick(SoRayPickAction * const action);
+  bool shouldRayPick(SoRayPickAction * const action);
   void computeObjectSpaceRay(SoRayPickAction * const action);
   void computeObjectSpaceRay(SoRayPickAction * const action,
                              const SbMatrix & matrix);
@@ -115,31 +115,31 @@ protected:
 
   void generateVertex(SoPrimitiveVertex * const pv,
                       const SbVec3f & point,
-                      const SbBool useTexFunc,
+                      const bool useTexFunc,
                       const SoMultiTextureCoordinateElement * const tce,
                       const float s,
                       const float t,
                       const SbVec3f & normal);
   void generateVertex(SoPrimitiveVertex * const pv,
                       const SbVec3f & point,
-                      const SbBool useTexFunc,
+                      const bool useTexFunc,
                       const SoMultiTextureCoordinateElement * const tce,
                       const float s,
                       const float t,
                       const float r,
                       const SbVec3f & normal);
 
-  SbBool startVertexArray(SoGLRenderAction * action,
+  bool startVertexArray(SoGLRenderAction * action,
                           const SoCoordinateElement * coords,
                           const SbVec3f * pervertexnormals,
-                          const SbBool texpervertex,
-                          const SbBool colorpervertex);
+                          const bool texpervertex,
+                          const bool colorpervertex);
   
   void finishVertexArray(SoGLRenderAction * action,
-                         const SbBool vbo,
-                         const SbBool normpervertex,
-                         const SbBool texpervertex,
-                         const SbBool colorpervertex);
+                         const bool vbo,
+                         const bool normpervertex,
+                         const bool texpervertex,
+                         const bool colorpervertex);
 private:
   class SoShapeP * pimpl;
   void validatePVCache(SoGLRenderAction * action);

@@ -49,7 +49,7 @@ public:
 
 protected:
   
-  virtual SbBool dragStart(void) = 0;
+  virtual bool dragStart(void) = 0;
   virtual void drag(void) = 0;
   virtual void dragFinish(void) = 0;
 

@@ -63,8 +63,8 @@ SbStringConvert::typeOf(const SbString & str)
     if (str[0] == '-' && str[1] >= '0' && str[1] <= '9') {
       return NUMERIC;
     }
-    if (strcmp(str.getString(), "TRUE") == 0 ||
-        strcmp(str.getString(), "FALSE") == 0) {
+    if (strcmp(str.getString(), "true") == 0 ||
+        strcmp(str.getString(), "false") == 0) {
       return BOOLEAN;
     }
   }
@@ -102,9 +102,9 @@ BOOST_AUTO_TEST_CASE(SbVec3sfromSbVec3f) {
   ToTest foo;
   SbString test = "SbVec3f(1,-2,3)";
   ToTest trueVal(1,-2,3);
-  SbBool conversionOk = TRUE;
+  bool conversionOk = true;
   foo = SbStringConvert::fromString<ToTest>(test, &conversionOk);
-  BOOST_CHECK_MESSAGE(conversionOk == FALSE,
+  BOOST_CHECK_MESSAGE(conversionOk == false,
                       std::string("Able to create SbVec3s from ") +  test.getString());
 }
 
@@ -133,7 +133,7 @@ BOOST_AUTO_TEST_CASE(SbVec3fFromIntString) {
   ToTest foo;
   SbString test = "SbVec3f(1,-2,3)";
   ToTest trueVal(1,-2,3);
-  SbBool conversionOk = TRUE;
+  bool conversionOk = true;
   foo = SbStringConvert::fromString<ToTest>(test, &conversionOk);
   BOOST_CHECK_MESSAGE(conversionOk && trueVal == foo,
                       std::string("Mismatch between ") +  foo.toString().getString() + " and control " + trueVal.toString().getString());
@@ -144,7 +144,7 @@ BOOST_AUTO_TEST_CASE(SbVec3fFromFloatString) {
   ToTest foo;
   SbString test = "SbVec3f( 1.3  , -2.0  ,   3.3  )";
   ToTest trueVal(1.3,-2.0,3.3);
-  SbBool conversionOk = TRUE;
+  bool conversionOk = true;
   foo = SbStringConvert::fromString<ToTest>(test, &conversionOk);
   BOOST_CHECK_MESSAGE(conversionOk && trueVal == foo,
                       std::string("Mismatch between ") +  foo.toString().getString() + " and control " + trueVal.toString().getString());
@@ -155,7 +155,7 @@ BOOST_AUTO_TEST_CASE(SbRotationFromString) {
   ToTest foo;
   SbString test = "SbRotation(0.5,0.5 , 0.5, 0.5 )";
   ToTest trueVal(0.5,0.5,0.5,0.5);
-  SbBool conversionOk = FALSE;
+  bool conversionOk = false;
   foo = SbStringConvert::fromString<ToTest>(test, &conversionOk);
   BOOST_CHECK_MESSAGE(conversionOk && trueVal == foo,
                       std::string("Mismatch between ") +  foo.toString().getString() + " and control " + trueVal.toString().getString());

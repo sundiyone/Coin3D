@@ -86,8 +86,8 @@ SoScXMLMotionTarget::~SoScXMLMotionTarget(void)
 {
 }
 
-SbBool
+bool
 SoScXMLMotionTarget::processOneEvent(const ScXMLEvent * COIN_UNUSED_ARG(event))
 {
-  return FALSE;
+  return false;
 }

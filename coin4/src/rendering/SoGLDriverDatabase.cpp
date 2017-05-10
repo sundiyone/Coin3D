@@ -85,7 +85,7 @@ class SoGLDriverDatabaseP {
       bitmask ^= contextid;
       return bitmask;
     }
-    int operator==(const FeatureID & v) {
+    bool operator==(const FeatureID & v) {
       return (this->contextid == v.contextid) && (this->feature == v.feature);
     }
   };
@@ -95,24 +95,24 @@ public:
   ~SoGLDriverDatabaseP();
 
   void initFunctions();
-  static SbBool multidraw_elements_wrapper(const cc_glglue * glue);
-  static SbBool glsl_clip_vertex_hw_wrapper(const cc_glglue * glue);
+  static bool multidraw_elements_wrapper(const cc_glglue * glue);
+  static bool glsl_clip_vertex_hw_wrapper(const cc_glglue * glue);
 
-  SbBool isSupported(const cc_glglue * context, const SbName & feature);
-  SbBool isBroken(const cc_glglue * context, const SbName & feature);
-  SbBool isDisabled(const cc_glglue * context, const SbName & feature);
-  SbBool isSlow(const cc_glglue * context, const SbName & feature);
-  SbBool isFast(const cc_glglue * context, const SbName & feature);
+  bool isSupported(const cc_glglue * context, const SbName & feature);
+  bool isBroken(const cc_glglue * context, const SbName & feature);
+  bool isDisabled(const cc_glglue * context, const SbName & feature);
+  bool isSlow(const cc_glglue * context, const SbName & feature);
+  bool isFast(const cc_glglue * context, const SbName & feature);
 
   SbName getComment(const cc_glglue * context, const SbName & feature);
 
-  SbBool addBuffer(const char * buffer);
-  SbBool addFile(const SbName & filename);
-  SbBool addFeature(const SbName & feature, const SbName & comment);
+  bool addBuffer(const char * buffer);
+  bool addFile(const SbName & filename);
+  bool addFeature(const SbName & feature, const SbName & comment);
 
-  SbBool loadDefaultDatabase();
-  SbBool loadFromFile(const SbName & filename);
-  SbBool loadFromBuffer(const char * buffer);
+  bool loadDefaultDatabase();
+  bool loadFromFile(const SbName & filename);
+  bool loadFromBuffer(const char * buffer);
 
   static const int databaseloaderversion;
 private:
@@ -123,27 +123,27 @@ private:
   cc_xml_element * findDriver(const cc_xml_elt * vendor, const cc_glglue * context);
   SoGLDriver * findGLDriver(const cc_glglue * context);
 
-  SbBool checkDocumentVersion(cc_xml_doc * document);
-  SbBool addDocument(const cc_xml_doc * document);
+  bool checkDocumentVersion(cc_xml_doc * document);
+  bool addDocument(const cc_xml_doc * document);
 
-  SbBool mergeFeatures(cc_xml_elt * destination, const cc_xml_elt * source);
-  SbBool mergeFeature(cc_xml_elt * destination, const cc_xml_elt * feature);
-  SbBool mergeDriver(cc_xml_elt * vendor, const cc_xml_elt * driver);
-  SbBool mergeVendor(cc_xml_elt * platform, const cc_xml_elt * vendor);
-  SbBool mergePlatform(const cc_xml_elt * platform);
-  SbBool mergeRoot(const cc_xml_elt * root);
+  bool mergeFeatures(cc_xml_elt * destination, const cc_xml_elt * source);
+  bool mergeFeature(cc_xml_elt * destination, const cc_xml_elt * feature);
+  bool mergeDriver(cc_xml_elt * vendor, const cc_xml_elt * driver);
+  bool mergeVendor(cc_xml_elt * platform, const cc_xml_elt * vendor);
+  bool mergePlatform(const cc_xml_elt * platform);
+  bool mergeRoot(const cc_xml_elt * root);
 
   cc_xml_elt * getDatabaseRoot();
 
   cc_xml_doc * database;
 
   SbList <SoGLDriver*> driverlist;
-  SbHash<FeatureID, SbBool> brokencache;
-  SbHash<FeatureID, SbBool> slowcache;
-  SbHash<FeatureID, SbBool> fastcache;
-  SbHash<FeatureID, SbBool> disabledcache;
+  SbHash<FeatureID, bool> brokencache;
+  SbHash<FeatureID, bool> slowcache;
+  SbHash<FeatureID, bool> fastcache;
+  SbHash<FeatureID, bool> disabledcache;
 
-  typedef SbBool glglue_feature_test_f(const cc_glglue * glue);
+  typedef bool glglue_feature_test_f(const cc_glglue * glue);
   SbHash<const char *, glglue_feature_test_f *> featuremap;
 };
 
@@ -171,26 +171,26 @@ SoGLDriverDatabaseP::~SoGLDriverDatabaseP()
   }
 }
 
-SbBool
+bool
 SoGLDriverDatabaseP::multidraw_elements_wrapper(const cc_glglue * glue)
 {
   // FIXME: I'm not able to make glMultiDrawElement work under OS
   // X. It just crashes inside GL when I try to use it. Investigate
   // why this happens. For now we just avoid using
   // glMultiDrawElements() under OS X.  pederb, 2005-02-14
-  SbBool ismac = (coin_runtime_os() == COIN_OS_X);
+  bool ismac = (coin_runtime_os() == COIN_OS_X);
   if (!ismac) return cc_glglue_has_multidraw_vertex_arrays(glue);
-  return FALSE;
+  return false;
 }
 
-SbBool
+bool
 SoGLDriverDatabaseP::glsl_clip_vertex_hw_wrapper(const cc_glglue * glue)
 {
   // ATi doesn't support gl_ClipVertex in hardware, according to their own own paper
   // "ATI OpenGL Programming and Optimization Guide", which can be found at
   // http://developer.amd.com/media/gpu_assets/ATI_OpenGL_Programming_and_Optimization_Guide.pdf
-  if (glue->vendor_is_ati) return FALSE;
-  return TRUE;
+  if (glue->vendor_is_ati) return false;
+  return true;
 }
 
 /*
@@ -260,19 +260,19 @@ SoGLDriverDatabaseP::initFunctions(void)
                        (glglue_feature_test_f *) &glsl_clip_vertex_hw_wrapper;
 }
 
-SbBool
+bool
 SoGLDriverDatabaseP::isSupported(const cc_glglue * context, const SbName & feature)
 {
   // check if we're asking about an actual GL extension
   const char * str = feature.getString();
   if ((feature.getLength() > 3) && (str[0] == 'G') && (str[1] == 'L') && (str[2] == '_')) {
-    if (!cc_glglue_glext_supported(context, feature)) return FALSE;
+    if (!cc_glglue_glext_supported(context, feature)) return false;
   }
   else { // check our lookup table
     SbHash<const char*, glglue_feature_test_f *>::const_iterator iter = this->featuremap.find(feature.getString());
     if (iter!=this->featuremap.const_end()) {
       glglue_feature_test_f * testfunc = iter->obj;
-      if (!testfunc(context)) return FALSE;
+      if (!testfunc(context)) return false;
     }
     else {
       SoDebugError::post("SoGLDriverDatabase::isSupported",
@@ -282,92 +282,92 @@ SoGLDriverDatabaseP::isSupported(const cc_glglue * context, const SbName & featu
   return !(this->isBroken(context, feature) || this->isDisabled(context, feature));
 }
 
-SbBool
+bool
 SoGLDriverDatabaseP::isBroken(const cc_glglue * context, const SbName & feature)
 {
   FeatureID f;
   f.contextid = context->contextid;
   f.feature = feature;
 
-  SbBool broken = FALSE;
-  SbHash<SoGLDriverDatabaseP::FeatureID, int>::const_iterator iter = 
+  bool broken = false;
+  SbHash<SoGLDriverDatabaseP::FeatureID, bool>::const_iterator iter = 
     this->brokencache.find(f);
   if (iter!=this->brokencache.const_end()) {
     broken = iter->obj;
     SoGLDriver * driver = this->findGLDriver(context);
     if (driver) {
-      if (driver->broken.find(feature) != -1) broken = TRUE;
+      if (driver->broken.find(feature) != -1) broken = true;
     }
     this->brokencache[f] = broken;
   }
   return broken;
 }
 
-SbBool
+bool
 SoGLDriverDatabaseP::isDisabled(const cc_glglue * context, const SbName & feature)
 {
   FeatureID f;
   f.contextid = context->contextid;
   f.feature = feature;
 
-  SbBool disabled = FALSE;
-  SbHash<SoGLDriverDatabaseP::FeatureID, int>::const_iterator iter =
+  bool disabled = false;
+  SbHash<SoGLDriverDatabaseP::FeatureID, bool>::const_iterator iter =
     this->disabledcache.find(f);
   if (iter!=this->disabledcache.const_end()) {
     disabled = iter->obj;
     SoGLDriver * driver = this->findGLDriver(context);
 
     if (driver) {
-      if (driver->disabled.find(feature) != -1) disabled = TRUE;
+      if (driver->disabled.find(feature) != -1) disabled = true;
     }
     this->disabledcache[f] = disabled;
   }
   return disabled;
 }
 
-SbBool
+bool
 SoGLDriverDatabaseP::isSlow(const cc_glglue * context, const SbName & feature)
 {
   if (!this->isSupported(context, feature)) {
     SoDebugError::post("SoGLDriverDatabase::isSlow",
                        "Feature '%s' is not supported for the specified context.",
                        feature.getString());
-    return TRUE;
+    return true;
   }
   FeatureID f;
   f.contextid = context->contextid;
   f.feature = feature;
 
-  SbBool slow = FALSE;
+  bool slow = false;
   if (!this->slowcache.get(f, slow)) {
     SoGLDriver * driver = this->findGLDriver(context);
     if (driver) {
-      if (driver->slow.find(feature) != -1) slow = TRUE;
+      if (driver->slow.find(feature) != -1) slow = true;
     }
     this->slowcache[f] = slow;
   }
   return slow;
 }
 
-SbBool
+bool
 SoGLDriverDatabaseP::isFast(const cc_glglue * context, const SbName & feature)
 {
   if (!this->isSupported(context, feature)) {
     SoDebugError::post("SoGLDriverDatabase::isFast",
                        "Feature '%s' is not supported for the specified context.",
                        feature.getString());
-    return FALSE;
+    return false;
   }
 
   FeatureID f;
   f.contextid = context->contextid;
   f.feature = feature;
 
-  SbBool fast = FALSE;
+  bool fast = false;
   if (!this->fastcache.get(f, fast)) {
     SoGLDriver * driver = this->findGLDriver(context);
     if (driver) {
-      if (driver->fast.find(feature) != -1) fast = TRUE;
+      if (driver->fast.find(feature) != -1) fast = true;
     }
     this->fastcache[f] = fast;
   }
@@ -623,7 +623,7 @@ SoGLDriverDatabaseP::findGLDriver(const cc_glglue * context)
 /*
   Load the database from the XML file specified in \a filename
 */
-SbBool
+bool
 SoGLDriverDatabaseP::loadFromFile(const SbName & filename)
 {
   if (this->database != NULL)
@@ -631,7 +631,7 @@ SoGLDriverDatabaseP::loadFromFile(const SbName & filename)
 
   this->database = cc_xml_doc_new();
 
-  SbBool result = cc_xml_doc_read_file_x(this->database, filename);
+  bool result = cc_xml_doc_read_file_x(this->database, filename);
 
   if (!result || !checkDocumentVersion(this->database)) {
     cc_xml_doc_delete_x(this->database);
@@ -643,7 +643,7 @@ SoGLDriverDatabaseP::loadFromFile(const SbName & filename)
 /*
   Load the database from the buffer specified in \a buffer
 */
-SbBool
+bool
 SoGLDriverDatabaseP::loadFromBuffer(const char * buffer)
 {
   if (this->database != NULL)
@@ -651,7 +651,7 @@ SoGLDriverDatabaseP::loadFromBuffer(const char * buffer)
 
   this->database = cc_xml_doc_new();
 
-  SbBool result = cc_xml_doc_read_buffer_x(this->database, buffer, strlen(buffer));
+  bool result = cc_xml_doc_read_buffer_x(this->database, buffer, strlen(buffer));
 
   if (!result || !checkDocumentVersion(this->database)) {
     cc_xml_doc_delete_x(this->database);
@@ -663,17 +663,17 @@ SoGLDriverDatabaseP::loadFromBuffer(const char * buffer)
 /*
   Merge the feature elements from \a source into \a destination
 */
-SbBool
+bool
 SoGLDriverDatabaseP::mergeFeatures(cc_xml_elt * destination, const cc_xml_elt * source)
 {
-  SbBool result = TRUE;
+  bool result = true;
   unsigned int numfeatures = cc_xml_elt_get_num_children_of_type(source, "feature");
 
   for(unsigned int i = 0; i < numfeatures; i++) {
     cc_xml_element * feature = cc_xml_elt_get_child_of_type(source, "feature", i);
 
     if (!mergeFeature(destination, feature))
-      result = FALSE;
+      result = false;
   }
   return result;
 }
@@ -681,7 +681,7 @@ SoGLDriverDatabaseP::mergeFeatures(cc_xml_elt * destination, const cc_xml_elt * 
 /*
   Merge the feature element \a feature into \a destination
 */
-SbBool
+bool
 SoGLDriverDatabaseP::mergeFeature(cc_xml_elt * destination, const cc_xml_elt * feature)
 {
   cc_xml_element * name = cc_xml_elt_get_child_of_type(feature, "name", 0);
@@ -710,26 +710,26 @@ SoGLDriverDatabaseP::mergeFeature(cc_xml_elt * destination, const cc_xml_elt * f
 
       cc_xml_elt_set_cdata_x(existingcomment, commentstr);
 
-      return TRUE;
+      return true;
     }
   }
   cc_xml_elt_add_child_x(destination, cc_xml_elt_clone(feature));
-  return TRUE;
+  return true;
 }
 
 /*
   Merge the driver element \a driver into the vendor element \a vendor
 */
-SbBool
+bool
 SoGLDriverDatabaseP::mergeDriver(cc_xml_elt * COIN_UNUSED_ARG(vendor), const cc_xml_elt * COIN_UNUSED_ARG(driver))
 {
-  return TRUE;
+  return true;
 }
 
-SbBool
+bool
 SoGLDriverDatabaseP::mergeVendor(cc_xml_elt * platform, const cc_xml_elt * vendor)
 {
-  SbBool result = TRUE;
+  bool result = true;
   cc_xml_element * name = cc_xml_elt_get_child_of_type(vendor, "name", 0);
   SbName namestr = cc_xml_elt_get_cdata(name);
 
@@ -750,11 +750,11 @@ SoGLDriverDatabaseP::mergeVendor(cc_xml_elt * platform, const cc_xml_elt * vendo
 
   if (existingvendor == NULL) {
     cc_xml_elt_add_child_x(platform, cc_xml_elt_clone(vendor));
-    result = TRUE;
+    result = true;
   }
   else {
     if (!mergeFeatures(existingvendor, vendor))
-      result = FALSE;
+      result = false;
 
     unsigned int numdrivers = cc_xml_elt_get_num_children_of_type(vendor, "driver");
 
@@ -762,7 +762,7 @@ SoGLDriverDatabaseP::mergeVendor(cc_xml_elt * platform, const cc_xml_elt * vendo
       cc_xml_element * driver = cc_xml_elt_get_child_of_type(vendor, "driver", i);
 
       if (!mergeDriver(existingvendor, driver))
-        result = FALSE;
+        result = false;
     }
   }
   return result;
@@ -771,10 +771,10 @@ SoGLDriverDatabaseP::mergeVendor(cc_xml_elt * platform, const cc_xml_elt * vendo
 /*
   Merge the platform element \a platform into the database
 */
-SbBool
+bool
 SoGLDriverDatabaseP::mergePlatform(const cc_xml_elt * platform)
 {
-  SbBool result = TRUE;
+  bool result = true;
   cc_xml_element * name = cc_xml_elt_get_child_of_type(platform, "name", 0);
   SbName namestr = cc_xml_elt_get_cdata(name);
 
@@ -797,11 +797,11 @@ SoGLDriverDatabaseP::mergePlatform(const cc_xml_elt * platform)
 
   if (existingplatform == NULL) {
     cc_xml_elt_add_child_x(root, cc_xml_elt_clone(platform));
-    result = TRUE;
+    result = true;
   }
   else {
     if (!mergeFeatures(existingplatform, platform))
-      result = FALSE;
+      result = false;
 
     unsigned int numvendors = cc_xml_elt_get_num_children_of_type(platform, "vendor");
 
@@ -809,7 +809,7 @@ SoGLDriverDatabaseP::mergePlatform(const cc_xml_elt * platform)
       cc_xml_element * vendor = cc_xml_elt_get_child_of_type(platform, "vendor", i);
 
       if (!mergeVendor(existingplatform, vendor))
-        result = FALSE;
+        result = false;
     }
   }
   return result;
@@ -818,13 +818,13 @@ SoGLDriverDatabaseP::mergePlatform(const cc_xml_elt * platform)
 /*
   Merge the database in \a root into the current database
 */
-SbBool
+bool
 SoGLDriverDatabaseP::mergeRoot(const cc_xml_elt * root)
 {
-  SbBool result = TRUE;
+  bool result = true;
 
   if (!mergeFeatures(getDatabaseRoot(), root))
-    result = FALSE;
+    result = false;
 
   unsigned int numplatforms = cc_xml_elt_get_num_children_of_type(root, "platform");
 
@@ -832,7 +832,7 @@ SoGLDriverDatabaseP::mergeRoot(const cc_xml_elt * root)
     cc_xml_elt * platform = cc_xml_elt_get_child_of_type(root, "platform", i);
 
     if (!mergePlatform(platform))
-      result = FALSE;
+      result = false;
   }
   return result;
 }
@@ -858,19 +858,19 @@ SoGLDriverDatabaseP::getDatabaseRoot()
 }
 
 /*
-  Check if the version of the XML document is current. This returns TRUE
-  if the database is assumed safe for loading, FALSE if not.
+  Check if the version of the XML document is current. This returns true
+  if the database is assumed safe for loading, false if not.
 */
-SbBool
+bool
 SoGLDriverDatabaseP::checkDocumentVersion(cc_xml_doc * document)
 {
   if (!document)
-    return FALSE;
+    return false;
 
   cc_xml_element * root = cc_xml_doc_get_root(document);
 
   if (!root)
-    return FALSE;
+    return false;
 
   cc_xml_element * version = cc_xml_elt_get_child_of_type(root, "version", 0);
 
@@ -880,7 +880,7 @@ SoGLDriverDatabaseP::checkDocumentVersion(cc_xml_doc * document)
     // "Version element not found, this might indicate old or corrupted data "
     // "which could lead to errors!");
     // 20080325, oyshole
-    return TRUE;
+    return true;
   }
 
   const char * versionstring = cc_xml_elt_get_cdata(version);
@@ -896,22 +896,22 @@ SoGLDriverDatabaseP::checkDocumentVersion(cc_xml_doc * document)
     // "to the current loader version. This could lead to errors!");
     // 20080325, oyshole
   }
-  return TRUE;
+  return true;
 }
 
 /*
   Add a XML document \a document to the current database.
 */
-SbBool
+bool
 SoGLDriverDatabaseP::addDocument(const cc_xml_doc * document)
 {
   cc_xml_element * root = cc_xml_doc_get_root(document);
 
   if (!root) {
-    return FALSE;
+    return false;
   }
 
-  SbBool result = TRUE;
+  bool result = true;
   SbName roottype = cc_xml_elt_get_type(root);
 
   if (roottype == "featuredatabase") {
@@ -929,7 +929,7 @@ SoGLDriverDatabaseP::addDocument(const cc_xml_doc * document)
   }
   else {
     // No insertable element found
-    result = FALSE;
+    result = false;
   }
   return result;
 }
@@ -937,15 +937,15 @@ SoGLDriverDatabaseP::addDocument(const cc_xml_doc * document)
 /*
   Add XML data from \a buffer to the database.
 */
-SbBool
+bool
 SoGLDriverDatabaseP::addBuffer(const char * buffer)
 {
   cc_xml_doc * doc = cc_xml_doc_new();
-  SbBool result = cc_xml_doc_read_buffer_x(doc, buffer, strlen(buffer));
+  bool result = cc_xml_doc_read_buffer_x(doc, buffer, strlen(buffer));
 
   if (!result || !checkDocumentVersion(doc)) {
     cc_xml_doc_delete_x(doc);
-    return FALSE;
+    return false;
   }
 
   result = addDocument(doc);
@@ -956,15 +956,15 @@ SoGLDriverDatabaseP::addBuffer(const char * buffer)
 /*
   Add XML data from the file specified in \a filename to the database.
 */
-SbBool
+bool
 SoGLDriverDatabaseP::addFile(const SbName & filename)
 {
   cc_xml_doc * doc = cc_xml_doc_new();
-  SbBool result = cc_xml_doc_read_file_x(doc, filename);
+  bool result = cc_xml_doc_read_file_x(doc, filename);
 
   if (!result || !checkDocumentVersion(doc)) {
     cc_xml_doc_delete_x(doc);
-    return FALSE;
+    return false;
   }
 
   result = addDocument(doc);
@@ -975,7 +975,7 @@ SoGLDriverDatabaseP::addFile(const SbName & filename)
 /*
   Add a feature to the database.
 */
-SbBool
+bool
 SoGLDriverDatabaseP::addFeature(const SbName & feature, const SbName & comment)
 {
   cc_xml_elt * root = getDatabaseRoot();
@@ -996,14 +996,14 @@ SoGLDriverDatabaseP::addFeature(const SbName & feature, const SbName & comment)
 /*
   Loads default database.
 */
-SbBool
+bool
 SoGLDriverDatabaseP::loadDefaultDatabase()
 {
   // FIXME: Implement default loading of database. This could be from
   // a header file preprocessed and included with Coin, or from a
   // directory (possibly defined with an env. variable).
   // 20080325, oyshole
-  return TRUE;
+  return true;
 }
 
 /*
@@ -1070,7 +1070,7 @@ SoGLDriverDatabaseP::addFeatures(const cc_glglue * COIN_UNUSED_ARG(context), con
   \a context.
 
  */
-SbBool
+bool
 SoGLDriverDatabase::isSupported(const cc_glglue * context, const SbName & feature)
 {
   return pimpl()->isSupported(context, feature);
@@ -1079,7 +1079,7 @@ SoGLDriverDatabase::isSupported(const cc_glglue * context, const SbName & featur
 /*!
   Checks the driver database to see if \a feature is tagged as broken.
 */
-SbBool
+bool
 SoGLDriverDatabase::isBroken(const cc_glglue * context, const SbName & feature)
 {
   return pimpl()->isBroken(context, feature);
@@ -1088,7 +1088,7 @@ SoGLDriverDatabase::isBroken(const cc_glglue * context, const SbName & feature)
 /*!
   Checks the driver database to see if \a feature is tagged as being slow.
 */
-SbBool
+bool
 SoGLDriverDatabase::isSlow(const cc_glglue * context, const SbName & feature)
 {
   return pimpl()->isSlow(context, feature);
@@ -1097,7 +1097,7 @@ SoGLDriverDatabase::isSlow(const cc_glglue * context, const SbName & feature)
 /*!
   Checks the driver database to see if \a feature is tagged as fast.
 */
-SbBool
+bool
 SoGLDriverDatabase::isFast(const cc_glglue * context, const SbName & feature)
 {
   return pimpl()->isFast(context, feature);

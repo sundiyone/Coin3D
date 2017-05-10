@@ -41,16 +41,16 @@ public:
   static uint32_t getDefaultPriority(void);
   virtual void schedule(void);
   virtual void unschedule(void);
-  virtual SbBool isScheduled(void) const;
+  virtual bool isScheduled(void) const;
 
-  virtual SbBool isIdleOnly(void) const;
+  virtual bool isIdleOnly(void) const;
   virtual void trigger(void);
 
 protected:
-  SbBool scheduled;
+  bool scheduled;
 
 private:
-  virtual SbBool isBefore(const SoSensor * s) const;
+  virtual bool isBefore(const SoSensor * s) const;
   uint32_t priority;
 };
 

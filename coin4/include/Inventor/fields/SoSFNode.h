@@ -43,8 +43,8 @@ class COIN_DLL_API SoSFNode : public SoSField {
 public:
   static void initClass(void);
 
-  virtual void fixCopy(SbBool copyconnections);
-  virtual SbBool referencesCopy(void) const;
+  virtual void fixCopy(bool copyconnections);
+  virtual bool referencesCopy(void) const;
 
 private:
   virtual void countWriteRefs(SoOutput * out) const;

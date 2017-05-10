@@ -100,8 +100,8 @@
                               keypresscbfunc, viewer);
     root->insertChild(eventcb, 0);
 
-    viewer->setViewing(FALSE);
-    viewer->setDecoration(FALSE);
+    viewer->setViewing(false);
+    viewer->setDecoration(false);
     viewer->setSceneGraph(root);
     viewer->show();
     SoQt::show(window);
@@ -554,7 +554,7 @@ SbViewportRegion::getPixelsPerPoint(void) const
   \relates SbViewportRegion
   Compares two SbViewportRegion instances for equality.
 */
-int
+bool
 operator==(const SbViewportRegion & reg1, const SbViewportRegion & reg2)
 {
   return
@@ -570,7 +570,7 @@ operator==(const SbViewportRegion & reg1, const SbViewportRegion & reg2)
 
   \since Coin 2.4
 */
-int
+bool
 operator!=(const SbViewportRegion & reg1, const SbViewportRegion & reg2)
 {
   return !(reg1 == reg2);

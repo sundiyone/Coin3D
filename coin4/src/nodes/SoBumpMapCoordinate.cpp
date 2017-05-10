@@ -83,7 +83,7 @@ SoBumpMapCoordinate::SoBumpMapCoordinate(void)
 
   SO_NODE_ADD_FIELD(point, (0.0f, 0.0f));
   this->point.setNum(0);
-  this->point.setDefault(TRUE);
+  this->point.setDefault(true);
 }
 
 /*!

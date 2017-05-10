@@ -44,15 +44,15 @@
     exposedField  SFNode  coord             NULL
     exposedField  SFNode  normal            NULL
     exposedField  SFNode  texCoord          NULL
-    field         SFBool  ccw               TRUE
+    field         SFBool  ccw               true
     field         MFInt32 colorIndex        []        # [-1,)
-    field         SFBool  colorPerVertex    TRUE
-    field         SFBool  convex            TRUE
+    field         SFBool  colorPerVertex    true
+    field         SFBool  convex            true
     field         MFInt32 coordIndex        []        # [-1,)
     field         SFFloat creaseAngle       0         # [0,)
     field         MFInt32 normalIndex       []        # [-1,)
-    field         SFBool  normalPerVertex   TRUE
-    field         SFBool  solid             TRUE
+    field         SFBool  normalPerVertex   true
+    field         SFBool  solid             true
     field         MFInt32 texCoordIndex     []        # [-1,)
   }
   \endverbatim
@@ -90,7 +90,7 @@
   colours are applied to the vertices or faces of the IndexedFaceSet
   as follows:
 
-  - If colorPerVertex is FALSE, colours are applied to each face, as
+  - If colorPerVertex is false, colours are applied to each face, as
     follows:
 
     - If the colorIndex field is not empty, then one colour is used
@@ -104,7 +104,7 @@
       node are applied to each face of the IndexedFaceSet in order. There shall
       be at least as many colours in the Color node as there are faces.
 
-  - If colorPerVertex is TRUE, colours are applied to each vertex,
+  - If colorPerVertex is true, colours are applied to each vertex,
     as follows:
 
     - If the colorIndex field is not empty, then colours are applied
@@ -187,17 +187,17 @@
 
 /*!
   \var SoSFBool SoVRMLIndexedFaceSet::ccw
-  Specifies if vertex ordering is counterclockwise. Default value is TRUE.
+  Specifies if vertex ordering is counterclockwise. Default value is true.
 */
 
 /*!
   \var SoSFBool SoVRMLIndexedFaceSet::solid
-  Can be used to enable backface culling. Default value is TRUE.
+  Can be used to enable backface culling. Default value is true.
 */
 
 /*!
   \var SoSFBool SoVRMLIndexedFaceSet::convex
-  Specifies if all polygons are convex. Default value is TRUE.
+  Specifies if all polygons are convex. Default value is true.
 */
 
 /*!
@@ -305,9 +305,9 @@ SoVRMLIndexedFaceSet::SoVRMLIndexedFaceSet(void)
 
   SO_VRMLNODE_INTERNAL_CONSTRUCTOR(SoVRMLIndexedFaceSet);
 
-  SO_VRMLNODE_ADD_FIELD(ccw, (TRUE));
-  SO_VRMLNODE_ADD_FIELD(solid, (TRUE));
-  SO_VRMLNODE_ADD_FIELD(convex, (TRUE));
+  SO_VRMLNODE_ADD_FIELD(ccw, (true));
+  SO_VRMLNODE_ADD_FIELD(solid, (true));
+  SO_VRMLNODE_ADD_FIELD(convex, (true));
   SO_VRMLNODE_ADD_FIELD(creaseAngle, (0.0f));
 
 }
@@ -454,13 +454,13 @@ SoVRMLIndexedFaceSet::GLRender(SoGLRenderAction * action)
   const int32_t * nindices;
   const int32_t * tindices;
   const int32_t * mindices;
-  SbBool doTextures;
-  SbBool normalCacheUsed;
+  bool doTextures;
+  bool normalCacheUsed;
   SoMaterialBundle mb(action);
-  SoTextureCoordinateBundle tb(action, TRUE, FALSE);
+  SoTextureCoordinateBundle tb(action, true, false);
   doTextures = tb.needCoordinates();
 
-  SbBool sendNormals = !mb.isColorOnly() || tb.isFunction();
+  bool sendNormals = !mb.isColorOnly() || tb.isFunction();
 
   this->getVertexData(state, coords, normals, cindices,
                       nindices, tindices, mindices, numindices,
@@ -502,7 +502,7 @@ SoVRMLIndexedFaceSet::GLRender(SoGLRenderAction * action)
       if (tindices == NULL) tindices = cindices;
     }
   }
-  SbBool convexcacheused = FALSE;
+  bool convexcacheused = false;
 
   if (this->useConvexCache(action, normals, nindices, normalCacheUsed)) {
     cindices = PRIVATE(this)->convexCache->getCoordIndices();
@@ -517,7 +517,7 @@ SoVRMLIndexedFaceSet::GLRender(SoGLRenderAction * action)
     else if (nbind == PER_FACE) nbind = PER_FACE_INDEXED;
 
     if (tbind != NONE) tbind = PER_VERTEX_INDEXED;
-    convexcacheused = TRUE;
+    convexcacheused = true;
   }
 
   mb.sendFirst(); // make sure we have the correct material
@@ -525,7 +525,7 @@ SoVRMLIndexedFaceSet::GLRender(SoGLRenderAction * action)
   SoGLLazyElement * lelem = NULL;
   const uint32_t contextid = action->getCacheContext();
 
-  SbBool dova = 
+  bool dova = 
     SoVBO::shouldRenderAsVertexArrays(state, contextid, numindices) &&
     !convexcacheused && !normalCacheUsed &&
     ((nbind == OVERALL) || ((nbind == PER_VERTEX_INDEXED) && ((nindices == cindices) || (nindices == NULL)))) &&
@@ -538,23 +538,23 @@ SoVRMLIndexedFaceSet::GLRender(SoGLRenderAction * action)
   SoVBO * colorvbo = NULL;
 
   if (dova && (mbind != OVERALL)) {
-    dova = FALSE;
+    dova = false;
     if ((mbind == PER_VERTEX_INDEXED) && ((mindices == cindices) || (mindices == NULL))) {
       lelem = (SoGLLazyElement*) SoLazyElement::getInstance(state);
       colorvbo = vboelem->getColorVBO();
-      if (colorvbo) dova = TRUE;
+      if (colorvbo) dova = true;
       else {
         // we might be able to do VA-rendering, but need to check the
         // diffuse color type first.
         if (!lelem->isPacked() && lelem->getNumTransparencies() <= 1) {
-          dova = TRUE;
+          dova = true;
         }
       }
     }
   }
-  SbBool didrenderasvbo = FALSE;
+  bool didrenderasvbo = false;
   if (dova) {
-    SbBool dovbo = this->startVertexArray(action,
+    bool dovbo = this->startVertexArray(action,
                                           coords,
                                           (nbind != OVERALL) ? normals : NULL,
                                           doTextures,
@@ -609,8 +609,8 @@ SoVRMLIndexedFaceSet::GLRender(SoGLRenderAction * action)
                             mbind != OVERALL);
   }
   else {
-    SoVertexAttributeBundle vab(action, TRUE);
-    SbBool doattribs = vab.doAttributes();
+    SoVertexAttributeBundle vab(action, true);
+    bool doattribs = vab.doAttributes();
 
     SoVertexAttributeBindingElement::Binding attribbind = 
       SoVertexAttributeBindingElement::get(state);
@@ -683,11 +683,11 @@ SoVRMLIndexedFaceSet::getPrimitiveCount(SoGetPrimitiveCountAction * action)
 }
 
 // Doc in parent
-SbBool
+bool
 SoVRMLIndexedFaceSet::generateDefaultNormals(SoState * COIN_UNUSED_ARG(s),
                                              SoNormalBundle * COIN_UNUSED_ARG(nb))
 {
-  return FALSE;
+  return false;
 }
 
   // this macro actually makes the code below more readable  :-)
@@ -743,11 +743,11 @@ SoVRMLIndexedFaceSet::generatePrimitives(SoAction * action)
   const int32_t * nindices;
   const int32_t * tindices;
   const int32_t * mindices;
-  SbBool doTextures;
-  SbBool sendNormals;
-  SbBool normalCacheUsed;
+  bool doTextures;
+  bool sendNormals;
+  bool normalCacheUsed;
 
-  sendNormals = TRUE; // always generate normals
+  sendNormals = true; // always generate normals
 
   this->getVertexData(state, coords, normals, cindices,
                       nindices, tindices, mindices, numindices,
@@ -774,7 +774,7 @@ SoVRMLIndexedFaceSet::generatePrimitives(SoAction * action)
     nindices = cindices;
   }
 
-  SoTextureCoordinateBundle tb(action, FALSE, FALSE);
+  SoTextureCoordinateBundle tb(action, false, false);
   doTextures = tb.needCoordinates();
 
   Binding tbind = NONE;
@@ -789,7 +789,7 @@ SoVRMLIndexedFaceSet::generatePrimitives(SoAction * action)
     }
   }
   
-  SbBool convexcacheused = FALSE;
+  bool convexcacheused = false;
   if (this->useConvexCache(action, normals, nindices, normalCacheUsed)) {
     cindices = PRIVATE(this)->convexCache->getCoordIndices();
     numindices = PRIVATE(this)->convexCache->getNumCoordIndices();
@@ -803,7 +803,7 @@ SoVRMLIndexedFaceSet::generatePrimitives(SoAction * action)
     else if (nbind == PER_FACE) nbind = PER_FACE_INDEXED;
 
     if (tbind != NONE) tbind = PER_VERTEX_INDEXED;
-    convexcacheused = TRUE;
+    convexcacheused = true;
   }
 
   int texidx = 0;
@@ -916,12 +916,12 @@ SoVRMLIndexedFaceSet::generatePrimitives(SoAction * action)
 #undef DO_VERTEX
 
 // Doc in parent
-SbBool
+bool
 SoVRMLIndexedFaceSet::generateDefaultNormals(SoState * state,
                                              SoNormalCache * nc)
 {
   SoVRMLCoordinate * node = (SoVRMLCoordinate*) this->coord.getValue();
-  if (node == NULL) return TRUE; // ok, empty ifs
+  if (node == NULL) return true; // ok, empty ifs
 
   const SbVec3f * coords = node->point.getValues(0);
 
@@ -950,7 +950,7 @@ SoVRMLIndexedFaceSet::generateDefaultNormals(SoState * state,
   default:
     break;
   }
-  return TRUE;
+  return true;
 }
 
 // Doc in parent
@@ -973,18 +973,18 @@ SoVRMLIndexedFaceSet::notify(SoNotList * list)
 
 //
 // internal method which checks if convex cache needs to be
-// used or (re)created. Returns TRUE if convex cache must be
+// used or (re)created. Returns true if convex cache must be
 // used. PRIVATE(this)->convexCache is then guaranteed to be != NULL.
 //
-SbBool
+bool
 SoVRMLIndexedFaceSet::useConvexCache(SoAction * action, 
                                      const SbVec3f * normals, 
                                      const int32_t * nindices,
-                                     const SbBool normalsfromcache)
+                                     const bool normalsfromcache)
 {
   SoState * state = action->getState();
   if (this->convex.getValue())
-    return FALSE;
+    return false;
 
   if (PRIVATE(this)->concavestatus == STATUS_UNKNOWN) {
     const int32_t * ptr = this->coordIndex.getValues(0);
@@ -999,7 +999,7 @@ SoVRMLIndexedFaceSet::useConvexCache(SoAction * action,
       }
     }
   }
-  if (PRIVATE(this)->concavestatus == STATUS_CONVEX) return FALSE;
+  if (PRIVATE(this)->concavestatus == STATUS_CONVEX) return false;
 
   PRIVATE(this)->readLockConvexCache();
 
@@ -1007,7 +1007,7 @@ SoVRMLIndexedFaceSet::useConvexCache(SoAction * action,
     // check if convex cache has normal indices. The convex cache
     // might be generated without normals.
     if (normals == NULL || PRIVATE(this)->convexCache->getNormalIndices()) {
-      return TRUE;
+      return true;
     }
   }
 
@@ -1015,7 +1015,7 @@ SoVRMLIndexedFaceSet::useConvexCache(SoAction * action,
   PRIVATE(this)->writeLockConvexCache();
 
   if (PRIVATE(this)->convexCache) PRIVATE(this)->convexCache->unref();
-  SbBool storedinvalid = SoCacheElement::setInvalid(FALSE);
+  bool storedinvalid = SoCacheElement::setInvalid(false);
 
   // need to send matrix if we have some weird transformation
   SbMatrix modelmatrix = SoModelMatrixElement::get(state);
@@ -1039,11 +1039,11 @@ SoVRMLIndexedFaceSet::useConvexCache(SoAction * action,
   const int32_t * dummynindices;
   const int32_t * tindices;
   const int32_t * mindices;
-  SbBool dummy;
+  bool dummy;
 
   this->getVertexData(state, coords, dummynormals, cindices,
                       dummynindices, tindices, mindices, numindices,
-                      FALSE, dummy);
+                      false, dummy);
 
   Binding mbind = this->findMaterialBinding(state);
   Binding nbind = normals ? this->findNormalBinding(state) : OVERALL;
@@ -1084,7 +1084,7 @@ SoVRMLIndexedFaceSet::useConvexCache(SoAction * action,
 
   PRIVATE(this)->readLockConvexCache();
 
-  return TRUE;
+  return true;
 }
 
 #undef PRIVATE

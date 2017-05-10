@@ -36,7 +36,7 @@
 
   \verbatim
   TouchSensor {
-    exposedField SFBool  enabled TRUE
+    exposedField SFBool  enabled true
     eventOut     SFVec3f hitNormal_changed
     eventOut     SFVec3f hitPoint_changed
     eventOut     SFVec2f hitTexCoord_changed
@@ -49,8 +49,8 @@
   A TouchSensor node tracks the location and state of the pointing
   device and detects when the user points at geometry contained by the
   TouchSensor node's parent group. A TouchSensor node can be enabled
-  or disabled by sending it an enabled event with a value of TRUE or
-  FALSE. If the TouchSensor node is disabled, it does not track user
+  or disabled by sending it an enabled event with a value of true or
+  false. If the TouchSensor node is disabled, it does not track user
   input or send events.
 
   The TouchSensor generates events when the pointing device points toward
@@ -64,11 +64,11 @@
   geometry or not. When the pointing device changes state from a
   position such that its bearing does not intersect any of the
   TouchSensor node's geometry to one in which it does intersect
-  geometry, an isOver TRUE event is generated. When the pointing
+  geometry, an isOver true event is generated. When the pointing
   device moves from a position such that its bearing intersects
   geometry to one in which it no longer intersects the geometry, or
   some other geometry is obstructing the TouchSensor node's geometry,
-  an isOver FALSE event is generated. These events are generated only
+  an isOver false event is generated. These events are generated only
   when the pointing device has moved and changed `over' state. Events
   are not generated if the geometry itself is animating and moving
   underneath the pointing device.
@@ -76,7 +76,7 @@
   As the user moves the bearing over the TouchSensor node's geometry,
   the point of intersection (if any) between the bearing and the
   geometry is determined.  Each movement of the pointing device, while
-  isOver is TRUE, generates hitPoint_changed, hitNormal_changed and
+  isOver is true, generates hitPoint_changed, hitNormal_changed and
   hitTexCoord_changed events. hitPoint_changed events contain the 3D
   point on the surface of the underlying geometry, given in the
   TouchSensor node's coordinate system.  hitNormal_changed events
@@ -86,17 +86,17 @@
   and hitNormal_changed events are computed as appropriate for the
   associated shape.
 
-  If isOver is TRUE, the user may activate the pointing device to
+  If isOver is true, the user may activate the pointing device to
   cause the TouchSensor node to generate isActive events (e.g., by
   pressing the primary mouse button). When the TouchSensor node
-  generates an isActive TRUE event, it grabs all further motion events
+  generates an isActive true event, it grabs all further motion events
   from the pointing device until it is released and generates an
-  isActive FALSE event (other pointing-device sensors will not
+  isActive false event (other pointing-device sensors will not
   generate events during this time). Motion of the pointing device
-  while isActive is TRUE is termed a "drag." If a 2D pointing device
+  while isActive is true is termed a "drag." If a 2D pointing device
   is in use, isActive events reflect the state of the primary button
-  associated with the device (i.e., isActive is TRUE when the primary
-  button is pressed and FALSE when it is released).  If a 3D pointing
+  associated with the device (i.e., isActive is true when the primary
+  button is pressed and false when it is released).  If a 3D pointing
   device is in use, isActive events will typically reflect whether the
   pointing device is within (or in contact with) the TouchSensor
   node's geometry.
@@ -105,11 +105,11 @@
   following conditions are true:
 
   - The pointing device was pointing towards the geometry when it
-    was initially activated (isActive is TRUE).
+    was initially activated (isActive is true).
  
-  - The pointing device is currently pointing towards the geometry (isOver is TRUE).
+  - The pointing device is currently pointing towards the geometry (isOver is true).
  
-  - The pointing device is deactivated (isActive FALSE event
+  - The pointing device is deactivated (isActive false event
     is also generated).
 
   More information about this behaviour is described in 4.6.7.3,
@@ -135,7 +135,7 @@
            children [
               DEF light PointLight {
                  intensity 1
-                 on FALSE
+                 on false
               }
   
               Transform {
@@ -164,7 +164,7 @@
 
 /*!
   \var SoSFBool SoVRMLTouchSensor::enabled
-  TRUE is enabled. Default value is TRUE.
+  true is enabled. Default value is true.
 */
 
 /*!
@@ -260,7 +260,7 @@ SoVRMLTouchSensor::SoVRMLTouchSensor(void)
 {
   SO_VRMLNODE_INTERNAL_CONSTRUCTOR(SoVRMLTouchSensor);
 
-  SO_VRMLNODE_ADD_EXPOSED_FIELD(enabled, (TRUE));
+  SO_VRMLNODE_ADD_EXPOSED_FIELD(enabled, (true));
 
   SO_VRMLNODE_ADD_EVENT_OUT(hitNormal_changed);
   SO_VRMLNODE_ADD_EVENT_OUT(hitPoint_changed);
@@ -269,7 +269,7 @@ SoVRMLTouchSensor::SoVRMLTouchSensor(void)
   SO_VRMLNODE_ADD_EVENT_OUT(isOver);
   SO_VRMLNODE_ADD_EVENT_OUT(touchTime);
 
-  this->isactive = FALSE;
+  this->isactive = false;
 }
 
 /*!
@@ -280,10 +280,10 @@ SoVRMLTouchSensor::~SoVRMLTouchSensor()
 }
 
 // Doc in parent
-SbBool
+bool
 SoVRMLTouchSensor::affectsState(void) const // virtual
 {
-  return TRUE;
+  return true;
 }
 
 // Doc in parent
@@ -292,14 +292,14 @@ SoVRMLTouchSensor::handleEvent(SoHandleEventAction * action)
 {
   const SoEvent * event = action->getEvent();
 
-  SbBool buttondown = SO_MOUSE_PRESS_EVENT(event, BUTTON1);
-  SbBool buttonup = SO_MOUSE_RELEASE_EVENT(event, BUTTON1);
-  SbBool mousemove = event->isOfType(SoLocation2Event::getClassTypeId());
+  bool buttondown = SO_MOUSE_PRESS_EVENT(event, BUTTON1);
+  bool buttonup = SO_MOUSE_RELEASE_EVENT(event, BUTTON1);
+  bool mousemove = event->isOfType(SoLocation2Event::getClassTypeId());
 
-  SbBool wasover = this->isOver.getValue();
+  bool wasover = this->isOver.getValue();
 
   if (mousemove || buttondown || buttonup) {
-    SbBool isover = FALSE;
+    bool isover = false;
     const SoPickedPoint * pp = action->getPickedPoint();
     SoNode * parentnode = NULL;
     if (pp) {
@@ -310,15 +310,15 @@ SoVRMLTouchSensor::handleEvent(SoHandleEventAction * action)
       isover = pp->getPath()->containsPath(parentpath);
       parentpath->unref();
     }
-    SbBool active = this->isactive;
+    bool active = this->isactive;
     if (active && buttonup) {
-      this->isActive.setValue(FALSE);
-      this->isactive = FALSE;
+      this->isActive.setValue(false);
+      this->isactive = false;
     }
     if (!active && buttondown && isover) {
-      this->isActive.setValue(TRUE);
-      this->isactive = TRUE;
-      active = TRUE;
+      this->isActive.setValue(true);
+      this->isactive = true;
+      active = true;
     }
     if (wasover != isover) {
       this->isOver.setValue(isover);

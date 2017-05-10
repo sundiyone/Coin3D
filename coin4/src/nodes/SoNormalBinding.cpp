@@ -132,7 +132,7 @@ SoNormalBinding::doAction(SoAction * action)
                                 (SoNormalBindingElement::Binding)
                                 this->value.getValue());
     if (this->isOverride()) {
-      SoOverrideElement::setNormalBindingOverride(state, this, TRUE);
+      SoOverrideElement::setNormalBindingOverride(state, this, true);
     }
   }
 }
@@ -158,10 +158,10 @@ SoNormalBinding::getPrimitiveCount(SoGetPrimitiveCountAction * action)
   SoNormalBinding::doAction(action);
 }
 
-SbBool
+bool
 SoNormalBinding::readInstance(SoInput * in, unsigned short flags)
 {
-  SbBool ret = inherited::readInstance(in, flags);
+  bool ret = inherited::readInstance(in, flags);
 
   if (this->value.getValue() < 2) {
     // old OIV files might use obsolete bindings.  Change to

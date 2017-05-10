@@ -68,13 +68,13 @@ SoSFTime::initClass(void)
 // parent classes.
 #ifndef DOXYGEN_SKIP_THIS
 
-SbBool
+bool
 SoSFTime::readValue(SoInput * in)
 {
   SbTime t;
-  if (!sosftime_read_value(in, t)) return FALSE;
+  if (!sosftime_read_value(in, t)) return false;
   this->value = t;
-  return TRUE;
+  return true;
 }
 
 void

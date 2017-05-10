@@ -55,10 +55,10 @@ public:
 
 protected:
   virtual ~SoRotateCylindricalDragger(void);
-  virtual SbBool setUpConnections(SbBool onoff, SbBool doitalways = FALSE);
+  virtual bool setUpConnections(bool onoff, bool doitalways = false);
 
   virtual void copyContents(const SoFieldContainer * fromfc,
-                            SbBool copyconnections);
+                            bool copyconnections);
 
   static void startCB(void * f, SoDragger * d);
   static void motionCB(void * f, SoDragger * d);
@@ -72,7 +72,7 @@ protected:
 
   SoFieldSensor * fieldSensor;
   SbCylinderProjector * cylinderProj;
-  SbBool userProj;
+  bool userProj;
 
 private:
   SbLazyPimplPtr<SoRotateCylindricalDraggerP> pimpl;

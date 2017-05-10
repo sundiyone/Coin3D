@@ -107,13 +107,13 @@
 /*!
   \var SoSFBool SoDepthBuffer::test
 
-  Enable depth buffer testing. Defaults to TRUE.
+  Enable depth buffer testing. Defaults to true.
 */
 
 /*!
   \var SoSFBool SoDepthBuffer::write
 
-  Enable depth buffer writing. Defaults to TRUE.
+  Enable depth buffer writing. Defaults to true.
 */
 
 /*!
@@ -140,8 +140,8 @@ SoDepthBuffer::SoDepthBuffer(void)
 {
   SO_NODE_INTERNAL_CONSTRUCTOR(SoDepthBuffer);
 
-  SO_NODE_ADD_FIELD(test, (TRUE));
-  SO_NODE_ADD_FIELD(write, (TRUE));
+  SO_NODE_ADD_FIELD(test, (true));
+  SO_NODE_ADD_FIELD(write, (true));
   SO_NODE_ADD_FIELD(function, (SoDepthBuffer::LESS));
   SO_NODE_ADD_FIELD(range, (SbVec2f(0.0f, 1.0f)));
 
@@ -168,8 +168,8 @@ void
 SoDepthBuffer::GLRender(SoGLRenderAction * action)
 {
   SoState * state = action->getState();
-  SbBool testenable = this->test.getValue();
-  SbBool writeenable = this->write.getValue();
+  bool testenable = this->test.getValue();
+  bool writeenable = this->write.getValue();
   SoDepthBufferElement::DepthWriteFunction function =
     static_cast<SoDepthBufferElement::DepthWriteFunction>(this->function.getValue());
   SbVec2f depthrange = this->range.getValue();

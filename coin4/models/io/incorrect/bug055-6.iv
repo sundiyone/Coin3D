@@ -3,7 +3,7 @@
 #
 # A NULL field connection is not allowed.
 # Should correctly abort read in 
-# SbBool SoField::readConnection(SoInput * in)
+# bool SoField::readConnection(SoInput * in)
 #
 
 Separator {

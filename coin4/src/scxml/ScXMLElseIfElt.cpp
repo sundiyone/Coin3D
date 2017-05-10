@@ -136,16 +136,16 @@ ScXMLElseIfElt::setCondAttribute(const char * condstr)
 
 // const char * ScXMLElseIfElt::getCondAttribute(void) const
 
-SbBool
+bool
 ScXMLElseIfElt::handleXMLAttributes(void)
 {
   if (!inherited::handleXMLAttributes()) {
-    return FALSE;
+    return false;
   }
 
   this->setCondAttribute(this->getXMLAttribute("cond"));
 
-  return TRUE;
+  return true;
 }
 
 void

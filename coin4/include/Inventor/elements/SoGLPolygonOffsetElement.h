@@ -41,7 +41,7 @@ public:
   virtual void pop(SoState * state, const SoElement * prevTopElement);
 
 protected:
-  virtual void setElt(float factor, float units, Style styles, SbBool on);
+  virtual void setElt(float factor, float units, Style styles, bool on);
 
 private:
 

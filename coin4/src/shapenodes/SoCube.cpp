@@ -131,26 +131,26 @@ SoCube::GLRender(SoGLRenderAction * action)
   SoMaterialBindingElement::Binding binding =
     SoMaterialBindingElement::get(state);
 
-  SbBool materialPerPart =
+  bool materialPerPart =
     (binding == SoMaterialBindingElement::PER_PART ||
      binding == SoMaterialBindingElement::PER_PART_INDEXED ||
      binding == SoMaterialBindingElement::PER_FACE ||
      binding == SoMaterialBindingElement::PER_FACE_INDEXED);
 
-  SbBool doTextures = FALSE;
-  SbBool do3DTextures = FALSE;
+  bool doTextures = false;
+  bool do3DTextures = false;
   if (SoGLMultiTextureEnabledElement::get(state, 0)) {
-    doTextures = TRUE;
+    doTextures = true;
     if (SoGLMultiTextureEnabledElement::getMode(state,0) ==
         SoMultiTextureEnabledElement::TEXTURE3D) {
-      do3DTextures = TRUE;
+      do3DTextures = true;
     }
   }
 
   SoMaterialBundle mb(action);
   mb.sendFirst();
 
-  SbBool sendNormals = !mb.isColorOnly() ||
+  bool sendNormals = !mb.isColorOnly() ||
     (SoMultiTextureCoordinateElement::getType(state) == SoMultiTextureCoordinateElement::FUNCTION);
 
   unsigned int flags = 0;
@@ -182,7 +182,7 @@ SoCube::generatePrimitives(SoAction * action)
   SoMaterialBindingElement::Binding binding =
     SoMaterialBindingElement::get(action->getState());
 
-  SbBool materialPerPart =
+  bool materialPerPart =
     (binding == SoMaterialBindingElement::PER_PART ||
      binding == SoMaterialBindingElement::PER_PART_INDEXED ||
      binding == SoMaterialBindingElement::PER_FACE ||
@@ -223,7 +223,7 @@ SoCube::rayPick(SoRayPickAction * action)
   SoMaterialBindingElement::Binding binding =
     SoMaterialBindingElement::get(action->getState());
 
-  SbBool materialPerPart =
+  bool materialPerPart =
     (binding == SoMaterialBindingElement::PER_PART ||
      binding == SoMaterialBindingElement::PER_PART_INDEXED);
 

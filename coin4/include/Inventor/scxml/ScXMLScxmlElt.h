@@ -46,8 +46,8 @@ public:
   ScXMLScxmlElt(void);
   virtual ~ScXMLScxmlElt(void);
 
-  void setIsReferenced(SbBool referenced);
-  SbBool isReferenced(void) const;
+  void setIsReferenced(bool referenced);
+  bool isReferenced(void) const;
 
   // Specified XML attributes
   virtual void setInitialAttribute(const char * initial);
@@ -68,7 +68,7 @@ public:
   virtual void setExModeAttribute(const char * exmode);
   const char * getExModeAttribute(void) const { return this->exmode; }
 
-  virtual SbBool handleXMLAttributes(void);
+  virtual bool handleXMLAttributes(void);
 
   virtual void copyContents(const ScXMLElt * rhs);
 
@@ -113,7 +113,7 @@ public:
   virtual void execute(ScXMLStateMachine * statemachine) const;
 
 protected:
-  SbBool referenced;
+  bool referenced;
 
   char * initial;
   char * name;

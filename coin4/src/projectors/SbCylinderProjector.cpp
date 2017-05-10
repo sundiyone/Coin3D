@@ -54,7 +54,7 @@
 /*!
   \var SbCylinderProjector::needSetup
 
-  Set to \c TRUE whenever the projection surface needs to be
+  Set to \c true whenever the projection surface needs to be
   recalculated according to the setting of the
   SbCylinderProjector::orientToEye flag.
 */
@@ -76,11 +76,11 @@
   Default constructor sets up a cylinder along the Y axis with height
   1.
 */
-SbCylinderProjector::SbCylinderProjector(const SbBool orienttoeye)
-  : intersectFront(TRUE),
+SbCylinderProjector::SbCylinderProjector(const bool orienttoeye)
+  : intersectFront(true),
     cylinder(SbLine(SbVec3f(0.0f, 0.0f, 0.0f), SbVec3f(0.0f, 1.0f, 0.0f)), 1.0f),
     orientToEye(orienttoeye),
-    needSetup(TRUE)
+    needSetup(true)
 {
 }
 
@@ -88,11 +88,11 @@ SbCylinderProjector::SbCylinderProjector(const SbBool orienttoeye)
   Constructor taking an explicit \a cylinder projection definition.
 */
 SbCylinderProjector::SbCylinderProjector(const SbCylinder & cylinder,
-                                         const SbBool orienttoeye)
-  : intersectFront(TRUE),
+                                         const bool orienttoeye)
+  : intersectFront(true),
     cylinder(cylinder),
     orientToEye(orienttoeye),
-    needSetup(TRUE)
+    needSetup(true)
 {
 }
 
@@ -120,7 +120,7 @@ void
 SbCylinderProjector::setCylinder(const SbCylinder & cylinderref)
 {
   this->cylinder = cylinderref;
-  this->needSetup = TRUE;
+  this->needSetup = true;
 }
 
 /*!
@@ -137,18 +137,18 @@ SbCylinderProjector::getCylinder(void) const
   towards the eye of the viewer.
 */
 void
-SbCylinderProjector::setOrientToEye(const SbBool orienttoeye)
+SbCylinderProjector::setOrientToEye(const bool orienttoeye)
 {
   if (this->orientToEye != orienttoeye) {
     this->orientToEye = orienttoeye;
-    this->needSetup = TRUE;
+    this->needSetup = true;
   }
 }
 
 /*!
   Returns the state of the cylinder orientation flag.
 */
-SbBool
+bool
 SbCylinderProjector::isOrientToEye(void) const
 {
   return this->orientToEye;
@@ -156,14 +156,14 @@ SbCylinderProjector::isOrientToEye(void) const
 
 /*!
   Set whether to intersect with the outside of the cylinder (\a
-  isfront equal to \c TRUE), or the inside.
+  isfront equal to \c true), or the inside.
 */
 void
-SbCylinderProjector::setFront(const SbBool infront)
+SbCylinderProjector::setFront(const bool infront)
 {
   if (this->intersectFront != infront) {
     this->intersectFront = infront;
-    this->needSetup = TRUE;
+    this->needSetup = true;
   }
 }
 
@@ -171,7 +171,7 @@ SbCylinderProjector::setFront(const SbBool infront)
   Returns value of the flag which decides whether to intersect with
   the outside or inside of the cylinder.
 */
-SbBool
+bool
 SbCylinderProjector::isFront(void) const
 {
   return this->intersectFront;
@@ -181,7 +181,7 @@ SbCylinderProjector::isFront(void) const
   Check if \a point is on the frontside or the backside of the
   cylinder.
 */
-SbBool
+bool
 SbCylinderProjector::isPointInFront(const SbVec3f & point) const
 {
   const SbViewVolume & vv = this->getViewVolume();
@@ -203,15 +203,15 @@ SbCylinderProjector::isPointInFront(const SbVec3f & point) const
   the intersection point (if any) in \a result. Considers setFront()
   settings.
 
-  Returns \c TRUE if \a line actually hits the cylinder, \c FALSE if
+  Returns \c true if \a line actually hits the cylinder, \c false if
   it doesn't intersect with it.
 */
-SbBool
+bool
 SbCylinderProjector::intersectCylinderFront(const SbLine & line,
                                             SbVec3f & result)
 {
   SbVec3f i0, i1;
-  SbBool isect = this->cylinder.intersect(line, i0, i1);
+  bool isect = this->cylinder.intersect(line, i0, i1);
   if (isect) {
     if (this->isFront()) result = i0;
     else result = i1;
@@ -223,6 +223,6 @@ SbCylinderProjector::intersectCylinderFront(const SbLine & line,
 void
 SbCylinderProjector::setWorkingSpace(const SbMatrix & space)
 {
-  this->needSetup = TRUE;
+  this->needSetup = true;
   inherited::setWorkingSpace(space);
 }

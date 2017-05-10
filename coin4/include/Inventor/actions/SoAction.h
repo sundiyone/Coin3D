@@ -77,11 +77,11 @@ public:
 
   static SoType getClassTypeId(void);
   virtual SoType getTypeId(void) const = 0;
-  virtual SbBool isOfType(SoType type) const;
+  virtual bool isOfType(SoType type) const;
 
   virtual void apply(SoNode * root);
   virtual void apply(SoPath * path);
-  virtual void apply(const SoPathList & pathlist, SbBool obeysrules = FALSE);
+  virtual void apply(const SoPathList & pathlist, bool obeysrules = false);
   void apply(SoAction * beingApplied);
   virtual void invalidateState(void);
 
@@ -93,12 +93,12 @@ public:
   const SoPathList * getPathListAppliedTo(void) const;
   const SoPathList * getOriginalPathListAppliedTo(void) const;
 
-  SbBool isLastPathListAppliedTo(void) const;
+  bool isLastPathListAppliedTo(void) const;
 
   PathCode getPathCode(int & numindices, const int * & indices);
 
   void traverse(SoNode * const node);
-  SbBool hasTerminated(void) const;
+  bool hasTerminated(void) const;
 
   const SoPath * getCurPath(void);
   SoState * getState(void) const;
@@ -123,10 +123,10 @@ protected:
 
   virtual void beginTraversal(SoNode * node);
   virtual void endTraversal(SoNode * node);
-  void setTerminated(const SbBool flag);
+  void setTerminated(const bool flag);
 
   virtual const SoEnabledElementsList & getEnabledElements(void) const;
-  virtual SbBool shouldCompactPathList(void) const;
+  virtual bool shouldCompactPathList(void) const;
 
   SoState * state;
   SoActionMethodList * traversalMethods;

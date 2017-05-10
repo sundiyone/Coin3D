@@ -128,7 +128,7 @@ ScXMLCoinEvaluator::evaluate(const char * expression) const
   return scxml_coin_parse(expression);
 }
 
-SbBool
+bool
 ScXMLCoinEvaluator::setAtLocation(const char * location, ScXMLDataObj * obj)
 {
   ScXMLStateMachine * sm = this->getStateMachine();
@@ -151,18 +151,18 @@ ScXMLCoinEvaluator::setAtLocation(const char * location, ScXMLDataObj * obj)
     } else {
       if (!obj->getTypeId().isDerivedFrom(ScXMLExprDataObj::getClassTypeId())) {
         // illegal obj
-        return FALSE;
+        return false;
       }
       ScXMLExprDataObj * expr = static_cast<ScXMLExprDataObj *>(obj);
       ScXMLDataObj * res = expr->evaluate(sm);
       if (!res) {
         // unable to evaluate
-        return FALSE;
+        return false;
       }
       assert(res);
       if (!res->getTypeId().isDerivedFrom(ScXMLConstantDataObj::getClassTypeId())) {
         // did not evaluate
-        return FALSE;
+        return false;
       }
       cobj = static_cast<ScXMLConstantDataObj *>(res);
     }
@@ -171,7 +171,7 @@ ScXMLCoinEvaluator::setAtLocation(const char * location, ScXMLDataObj * obj)
     assert(cobj);
     entry.second = cobj->clone();
     PRIVATE(this)->temporaries.insert(entry);
-    return TRUE;
+    return true;
   }
 
   // 2) CHECK 2 - location is datamodel?
@@ -181,7 +181,7 @@ ScXMLCoinEvaluator::setAtLocation(const char * location, ScXMLDataObj * obj)
     ScXMLDataElt * dataelt = doc->getDataById(varname);
     if (!dataelt) {
       // no such datamodel variable
-      return FALSE;
+      return false;
     }
     ScXMLConstantDataObj * cobj = NULL;
     if (obj->getTypeId().isDerivedFrom(ScXMLConstantDataObj::getClassTypeId())) {
@@ -189,18 +189,18 @@ ScXMLCoinEvaluator::setAtLocation(const char * location, ScXMLDataObj * obj)
     } else {
       if (!obj->getTypeId().isDerivedFrom(ScXMLExprDataObj::getClassTypeId())) {
         // illegal obj
-        return FALSE;
+        return false;
       }
       ScXMLExprDataObj * expr = static_cast<ScXMLExprDataObj *>(obj);
       ScXMLDataObj * res = expr->evaluate(sm);
       if (!res) {
         // unable to evaluate
-        return FALSE;
+        return false;
       }
       assert(res);
       if (!res->getTypeId().isDerivedFrom(ScXMLConstantDataObj::getClassTypeId())) {
         // did not evaluate
-        return FALSE;
+        return false;
       }
       cobj = static_cast<ScXMLConstantDataObj *>(res);
     }
@@ -208,12 +208,12 @@ ScXMLCoinEvaluator::setAtLocation(const char * location, ScXMLDataObj * obj)
     SbString strval;
     cobj->convertToString(strval);
     dataelt->setExprAttribute(strval.getString());
-    return TRUE;
+    return true;
   }
 
   if (strncmp(location, "_event.", 7) == 0) {
     // illegal assignment target
-    return FALSE;
+    return false;
   }
 
   // fieldcontainers
@@ -227,7 +227,7 @@ ScXMLCoinEvaluator::setAtLocation(const char * location, ScXMLDataObj * obj)
   if (strncmp(location, "coin:camera.", 12) == 0) {
     if (!sm->isOfType(SoScXMLStateMachine::getClassTypeId())) {
       // can't get camera from statemachine
-      return FALSE;
+      return false;
     }
     SoScXMLStateMachine * statemachine = static_cast<SoScXMLStateMachine *>(sm);
     fieldcontainer = statemachine->getActiveCamera();
@@ -237,7 +237,7 @@ ScXMLCoinEvaluator::setAtLocation(const char * location, ScXMLDataObj * obj)
   else if (strncmp(location, "coin:scene.", 11) == 0) {
     if (!sm->isOfType(SoScXMLStateMachine::getClassTypeId())) {
       // can't get scene from statemachine
-      return FALSE;
+      return false;
     }
     SoScXMLStateMachine * statemachine = static_cast<SoScXMLStateMachine *>(sm);
     fieldcontainer = statemachine->getSceneGraphRoot();
@@ -249,7 +249,7 @@ ScXMLCoinEvaluator::setAtLocation(const char * location, ScXMLDataObj * obj)
     SoField * field = SoDB::getGlobalField(fieldname);
     if (!field) {
       // no such global field
-      return FALSE;
+      return false;
     }
 
     fieldcontainer = field->getContainer();
@@ -263,7 +263,7 @@ ScXMLCoinEvaluator::setAtLocation(const char * location, ScXMLDataObj * obj)
     fieldcontainer->unrefNoDelete();
   }
 
-  return FALSE;
+  return false;
 }
 
 ScXMLDataObj *
@@ -433,7 +433,7 @@ ScXMLCoinEqualsOpExprDataObj::cleanClass(void)
   ScXMLCoinEqualsOpExprDataObj::classTypeId = SoType::badType();
 }
 
-SbBool
+bool
 ScXMLCoinEqualsOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj * & pointer) const
 {
   return inherited::evaluateNow(sm, pointer);
@@ -455,7 +455,7 @@ ScXMLCoinAddOpExprDataObj::cleanClass(void)
   ScXMLCoinAddOpExprDataObj::classTypeId = SoType::badType();
 }
 
-SbBool
+bool
 ScXMLCoinAddOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj * & pointer) const
 {
   return inherited::evaluateNow(sm, pointer);
@@ -508,7 +508,7 @@ ScXMLCoinSubtractOpExprDataObj::createFor(ScXMLDataObj * lhs, ScXMLDataObj * rhs
   return ScXMLSubtractOpExprDataObj::createFor(lhs, rhs);
 }
 
-SbBool
+bool
 ScXMLCoinSubtractOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj * & pointer) const
 {
   return inherited::evaluateNow(sm, pointer);
@@ -530,7 +530,7 @@ ScXMLCoinMultiplyOpExprDataObj::cleanClass(void)
   ScXMLCoinMultiplyOpExprDataObj::classTypeId = SoType::badType();
 }
 
-SbBool
+bool
 ScXMLCoinMultiplyOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj * & pointer) const
 {
   return inherited::evaluateNow(sm, pointer);
@@ -552,7 +552,7 @@ ScXMLCoinDivideOpExprDataObj::cleanClass(void)
   ScXMLCoinDivideOpExprDataObj::classTypeId = SoType::badType();
 }
 
-SbBool
+bool
 ScXMLCoinDivideOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj * & pointer) const
 {
   return inherited::evaluateNow(sm, pointer);
@@ -638,7 +638,7 @@ ScXMLCoinLengthFuncExprDataObj::setExpr(ScXMLDataObj * obj)
   this->expr = obj;
 }
 
-SbBool
+bool
 ScXMLCoinLengthFuncExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj * & pointer) const
 {
   assert(this->expr);
@@ -647,10 +647,10 @@ ScXMLCoinLengthFuncExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj
     ScXMLExprDataObj * rhsexpr = static_cast<ScXMLExprDataObj *>(this->expr);
     ScXMLDataObj * rhsevaled = rhsexpr->evaluate(sm);
     if (!rhsevaled) {
-      return FALSE;
+      return false;
     }
     if (!rhsevaled->isOfType(ScXMLSbDataObj::getClassTypeId())) {
-      return FALSE;
+      return false;
     }
     evaled = static_cast<ScXMLSbDataObj *>(rhsevaled);
   }
@@ -659,11 +659,11 @@ ScXMLCoinLengthFuncExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj
   }
   else {
     sm->queueInternalEvent("error.eval.Length.INVALID_EXPR");
-    return FALSE;
+    return false;
   }
 
   if (!evaled->isOfType(ScXMLSbDataObj::getClassTypeId())) {
-    return FALSE;
+    return false;
   }
 
   ScXMLSbDataObj * sbobj = static_cast<ScXMLSbDataObj *>(evaled);
@@ -673,21 +673,21 @@ ScXMLCoinLengthFuncExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj
     {
       SbVec2f vec = FromString<SbVec2f>(str);
       pointer = new ScXMLRealDataObj(vec.length());
-      return TRUE;
+      return true;
     }
     break;
   case SbStringConvert::SBVEC3F:
     {
       SbVec3f vec = FromString<SbVec3f>(str);
       pointer = new ScXMLRealDataObj(vec.length());
-      return TRUE;
+      return true;
     }
     break;
   default:
     break;
   }
 
-  return FALSE;
+  return false;
 }
 
 #ifdef COIN_TEST_SUITE
@@ -763,12 +763,12 @@ BOOST_AUTO_TEST_CASE(BasicExpressions)
   TestReturnValue<ScXMLRealDataObj>("5 / 4",1.25,evaluator);
   TestReturnValue<ScXMLRealDataObj>("-5",-5.0,evaluator);
 
-  TestReturnValue<ScXMLBoolDataObj>("True",TRUE,evaluator);
-  TestReturnValue<ScXMLBoolDataObj>("false",FALSE,evaluator);
-  TestReturnValue<ScXMLBoolDataObj>("!false",TRUE,evaluator);
-  TestReturnValue<ScXMLBoolDataObj>("M_PI != M_LN2",TRUE,evaluator);
-  TestReturnValue<ScXMLBoolDataObj>("M_PI == M_LN2",FALSE,evaluator);
-  TestReturnValue<ScXMLBoolDataObj>("false && !false",FALSE,evaluator);
+  TestReturnValue<ScXMLBoolDataObj>("True",true,evaluator);
+  TestReturnValue<ScXMLBoolDataObj>("false",false,evaluator);
+  TestReturnValue<ScXMLBoolDataObj>("!false",true,evaluator);
+  TestReturnValue<ScXMLBoolDataObj>("M_PI != M_LN2",true,evaluator);
+  TestReturnValue<ScXMLBoolDataObj>("M_PI == M_LN2",false,evaluator);
+  TestReturnValue<ScXMLBoolDataObj>("false && !false",false,evaluator);
 }
 
 #endif // !COIN_TEST_SUITE

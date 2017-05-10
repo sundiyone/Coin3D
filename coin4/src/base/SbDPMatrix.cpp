@@ -105,7 +105,7 @@ static const SbDPMat IDENTITYMATRIX = {
 };
 
 static inline
-SbBool SbDPMatrix_isIdentity(const double fm[][4])
+bool SbDPMatrix_isIdentity(const double fm[][4])
 {
 #if 0 // I would assume that the memcmp() version is faster..? Should run some profile checks.
   return ((fm[0][0] == 1.0) && (fm[0][1] == 0.0) && (fm[0][2] == 0.0) && (fm[0][3] == 0.0) &&
@@ -555,7 +555,7 @@ SbDPMatrix::inverse(void) const
   value. The tolerance value is applied in the comparison on a component by
   component basis.
  */
-SbBool
+bool
 SbDPMatrix::equals(const SbDPMatrix & m, double tolerance) const
 {
 #if COIN_DEBUG
@@ -566,11 +566,11 @@ SbDPMatrix::equals(const SbDPMatrix & m, double tolerance) const
 
   for (int i=0; i < 4; i++) {
     for (int j=0;  j< 4; j++) {
-      if (fabs(this->matrix[i][j] - m.matrix[i][j]) > tolerance) return FALSE;
+      if (fabs(this->matrix[i][j] - m.matrix[i][j]) > tolerance) return false;
     }
   }
 
-  return TRUE;
+  return true;
 }
 
 
@@ -598,7 +598,7 @@ SbDPMatrix::operator SbDPMat&(void)
   \sa getValue(), setValue().
  */
 double *
-SbDPMatrix::operator [](int i)
+SbDPMatrix::operator[](int i)
 {
 #if COIN_EXTRA_DEBUG
   if (i<0 || i>3) {
@@ -616,7 +616,7 @@ SbDPMatrix::operator [](int i)
   \sa getValue(), setValue().
  */
 const double *
-SbDPMatrix::operator [](int i) const
+SbDPMatrix::operator[](int i) const
 {
 #if COIN_EXTRA_DEBUG
   if (i<0 || i>3) {
@@ -633,7 +633,7 @@ SbDPMatrix::operator [](int i) const
   \sa setRotate().
 */
 SbDPMatrix&
-SbDPMatrix::operator =(const SbDPRotation & q)
+SbDPMatrix::operator=(const SbDPRotation & q)
 {
   this->setRotate(q);
   return *this;
@@ -645,7 +645,7 @@ SbDPMatrix::operator =(const SbDPRotation & q)
   \sa multRight().
  */
 SbDPMatrix&
-SbDPMatrix::operator *=(const SbDPMatrix & m)
+SbDPMatrix::operator*=(const SbDPMatrix & m)
 {
   return this->multRight(m);
 }
@@ -657,7 +657,7 @@ SbDPMatrix::operator *=(const SbDPMatrix & m)
   matrix.
 */
 SbDPMatrix
-operator *(const SbDPMatrix & m1, const SbDPMatrix & m2)
+operator*(const SbDPMatrix & m1, const SbDPMatrix & m2)
 {
   SbDPMatrix result = m1;
   result *= m2;
@@ -672,16 +672,16 @@ operator *(const SbDPMatrix & m1, const SbDPMatrix & m2)
 
   \sa equals().
 */
-int
-operator ==(const SbDPMatrix & m1, const SbDPMatrix & m2)
+bool
+operator==(const SbDPMatrix & m1, const SbDPMatrix & m2)
 {
   for (int i=0; i < 4; i++) {
     for (int j=0; j < 4; j++) {
-      if (m1.matrix[i][j] != m2.matrix[i][j]) return FALSE;
+      if (m1.matrix[i][j] != m2.matrix[i][j]) return false;
     }
   }
 
-  return TRUE;
+  return true;
 }
 
 /*!
@@ -692,8 +692,8 @@ operator ==(const SbDPMatrix & m1, const SbDPMatrix & m2)
 
   \sa equals().
 */
-int
-operator !=(const SbDPMatrix & m1, const SbDPMatrix & m2)
+bool
+operator!=(const SbDPMatrix & m1, const SbDPMatrix & m2)
 {
   return !(m1 == m2);
 }
@@ -956,20 +956,20 @@ SbDPMatrix::getTransform(SbVec3d & translation,
 
   \sa getTransform()
  */
-SbBool
+bool
 SbDPMatrix::factor(SbDPMatrix & COIN_UNUSED_ARG(r), SbVec3d & COIN_UNUSED_ARG(s), SbDPMatrix & COIN_UNUSED_ARG(u), SbVec3d & COIN_UNUSED_ARG(t),
                  SbDPMatrix & COIN_UNUSED_ARG(proj))
 {
   // FIXME: not implemented, not documented. 1998MMDD mortene.
   COIN_STUB();
-  return FALSE;
+  return false;
 }
 
 /*!
   This function produces a permuted LU decomposition of the matrix.  It
   uses the common single-row-pivoting strategy.
 
-  \a FALSE is returned if the matrix is singular, which it never is, because
+  \a false is returned if the matrix is singular, which it never is, because
   of small adjustment values inserted if a singularity is found (as Open
   Inventor does too).
 
@@ -989,7 +989,7 @@ SbDPMatrix::factor(SbDPMatrix & COIN_UNUSED_ARG(r), SbVec3d & COIN_UNUSED_ARG(s)
 */
 
 
-SbBool
+bool
 SbDPMatrix::LUDecomposition(int index[4], double & d)
 {
     int i;
@@ -1019,8 +1019,8 @@ SbDPMatrix::LUDecomposition(int index[4], double & d)
 
         double pivot = matrix[row][row];
         if (matrix[row][row] == 0.0) {
-//            return FALSE;
-            // instead of returning FALSE on singulars...
+//            return false;
+            // instead of returning false on singulars...
             matrix[row][row] = pivot = MINIMUM_PIVOT;
         }
 
@@ -1031,7 +1031,7 @@ SbDPMatrix::LUDecomposition(int index[4], double & d)
                 matrix[i][j] -= factor * matrix[row][j];
         }
     }
-    return TRUE;
+    return true;
 }
 
 /*!
@@ -1596,7 +1596,7 @@ spect_decomp(HMatrix S, HMatrix U)
 
 /* Helper function for the snuggle() function below. */
 static inline void
-cycle(double * a, SbBool flip)
+cycle(double * a, bool flip)
 {
   if (flip) {
     a[3]=a[0]; a[0]=a[1]; a[1]=a[2]; a[2]=a[3];
@@ -1655,8 +1655,8 @@ snuggle(SbDPRotation q, SbVec4d & k)
     else {if (mag[1]>mag[2]) win = 1; else win = 2;}
     switch (win) {
     case 0: if (neg[0]) p = q1000; else p = q0001; break;
-    case 1: if (neg[1]) p = qppmm; else p = qpppp; cycle(ka, FALSE); break;
-    case 2: if (neg[2]) p = qmpmm; else p = qpppm; cycle(ka, TRUE); break;
+    case 1: if (neg[1]) p = qppmm; else p = qpppp; cycle(ka, false); break;
+    case 2: if (neg[2]) p = qmpmm; else p = qpppm; cycle(ka, true); break;
     }
     qp = p * q;
     t = sqrt(mag[win]+0.5);

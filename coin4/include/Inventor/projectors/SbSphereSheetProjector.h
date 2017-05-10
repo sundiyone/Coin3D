@@ -31,8 +31,8 @@ class COIN_DLL_API SbSphereSheetProjector : public SbSphereProjector {
   typedef SbSphereProjector inherited;
 
 public:
-  SbSphereSheetProjector(const SbBool orienttoeye = TRUE);
-  SbSphereSheetProjector(const SbSphere & sph, const SbBool orienttoeye = TRUE);
+  SbSphereSheetProjector(const bool orienttoeye = true);
+  SbSphereSheetProjector(const SbSphere & sph, const bool orienttoeye = true);
 
   virtual SbProjector * copy(void) const;
   virtual SbVec3f project(const SbVec2f & point);

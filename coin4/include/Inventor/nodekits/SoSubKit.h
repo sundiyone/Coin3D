@@ -139,7 +139,7 @@ PRIVATE_KIT_SOURCE(_class_)
                            _isdefnull_, \
                            SO__QUOTE(_parent_), \
                            SO__QUOTE(_sibling_), \
-                           FALSE, \
+                           false, \
                            SoType::badType(), \
                            SoType::badType(), \
                            _ispublic_); \
@@ -156,7 +156,7 @@ PRIVATE_KIT_SOURCE(_class_)
                            _isdefnull_, \
                            SO__QUOTE(_parent_), \
                            SO__QUOTE(_sibling_), \
-                           TRUE, \
+                           true, \
                            _containertype_::getClassTypeId(), \
                            _itemtype_::getClassTypeId(), \
                            _ispublic_); \
@@ -173,7 +173,7 @@ PRIVATE_KIT_SOURCE(_class_)
                            _isdefnull_, \
                            SO__QUOTE(_parent_), \
                            SO__QUOTE(_sibling_), \
-                           FALSE, \
+                           false, \
                            SoType::badType(), \
                            SoType::badType(), \
                            _ispublic_); \

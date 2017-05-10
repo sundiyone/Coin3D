@@ -18,9 +18,9 @@
 
 #include <Inventor/system/inttypes.h>
 
-#ifndef FALSE
-#define FALSE (0)
-#define TRUE (!FALSE)
+#ifndef false
+#define false (0)
+#define true (!false)
 #endif
 
 int
@@ -34,7 +34,7 @@ main(int argc, char ** argv)
   for ( c = 0; c < 256; c++ ) { charset[c] = c; }
 
   int options = 0;
-  int output_c = TRUE;
+  int output_c = true;
   unsigned char * output = charset;
   int outputlen = 256;
 
@@ -44,7 +44,7 @@ main(int argc, char ** argv)
       options++;
       output = (unsigned char *) argv[1+options];
       outputlen = strlen((const char *) output);
-      output_c = FALSE;
+      output_c = false;
     }
     options++;
   }
@@ -130,7 +130,7 @@ main(int argc, char ** argv)
           ypos = height - (ypos + 1);
           
           int offset = ((ypos * width) + xpos) * components;
-          int hit = FALSE;
+          int hit = false;
           int i;
           if ( xpos < 0 || xpos >= width || ypos < 0 || ypos >= height ) {
           } else {
@@ -138,7 +138,7 @@ main(int argc, char ** argv)
               if ( (components == 2 && i == 1) || (components == 4 && i == 3) ) {
               } else if ( data[offset+i] > TRESHOLD ) {
                 // dark/light scan, assuming no alpha
-                hit = TRUE;
+                hit = true;
               }
             }
           }
@@ -166,7 +166,7 @@ main(int argc, char ** argv)
           ypos = height - (ypos + 1);
 
           int offset = ((ypos * width) + xpos) * components;
-          int hit = FALSE;
+          int hit = false;
           int i;
           if ( xpos < 0 || xpos >= width || ypos < 0 || ypos >= height ) {
           } else {
@@ -174,7 +174,7 @@ main(int argc, char ** argv)
               if ( (components == 2 && i == 1) || (components == 4 && i == 3) ) {
               } else if ( data[offset+i] > TRESHOLD ) {
                 // dark/light scan, assuming no alpha
-                hit = TRUE;
+                hit = true;
               }
             }
           }

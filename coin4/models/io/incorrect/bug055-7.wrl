@@ -3,7 +3,7 @@
 #
 # NULL is not allowed in MFNode.
 # Should correctly abort read in
-# SbBool SoMFNode::read1Value(SoInput * in, int index)
+# bool SoMFNode::read1Value(SoInput * in, int index)
 #
 
 Group {

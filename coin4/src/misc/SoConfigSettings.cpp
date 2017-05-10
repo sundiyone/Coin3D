@@ -20,7 +20,7 @@ namespace {
   }
   const char COIN [] = "COIN";
 
-  SbBool isValidOption(const SbString & option)
+  bool isValidOption(const SbString & option)
   {
     size_t i;
     for (i = 0; i<options_size() && option != VALID_OPTIONS[i]; ++i) {}

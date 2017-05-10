@@ -46,7 +46,7 @@ public:
   void setState(State state);
   State getState(void) const;
 
-  static SbBool enumToString(State enumval, SbString & stringrep);
+  static bool enumToString(State enumval, SbString & stringrep);
 
 private:
   State buttonstate;

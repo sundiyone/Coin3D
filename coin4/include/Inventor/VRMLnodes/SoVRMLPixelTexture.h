@@ -49,7 +49,7 @@ public:
 protected:
   virtual ~SoVRMLPixelTexture();
 
-  virtual SbBool readInstance( SoInput * in, unsigned short flags );
+  virtual bool readInstance( SoInput * in, unsigned short flags );
   virtual void notify(SoNotList * list);
 
 

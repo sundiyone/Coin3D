@@ -45,7 +45,7 @@ public:
   virtual void push(SoState * state);
   virtual void pop(SoState * state, const SoElement * prevTopElement);
 
-  virtual SbBool matches(const SoElement * element) const = 0;
+  virtual bool matches(const SoElement * element) const = 0;
   virtual SoElement * copyMatchInfo(void) const = 0;
 
   static void initElements(void); // only for base class (SoElement)

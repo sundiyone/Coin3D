@@ -42,7 +42,7 @@ SoGLSLShaderObject::SoGLSLShaderObject(const uint32_t cachecontext)
 {
   this->programHandle = 0;
   this->shaderHandle = 0;
-  this->isattached = FALSE;
+  this->isattached = false;
   this->programid = 0;
 }
 
@@ -51,7 +51,7 @@ SoGLSLShaderObject::~SoGLSLShaderObject()
   // make sure we don't detach, since the program might have been
   // destructed already. FIXME: investigate if not calling detach will
   // lead to memory leaks. pederb, 2006-10-17
-  this->isattached = FALSE;
+  this->isattached = false;
   this->unload();
 }
 
@@ -63,7 +63,7 @@ SoGLSLShaderObject::shaderType(void) const
   return SoShader::GLSL_SHADER;
 }
 
-SbBool
+bool
 SoGLSLShaderObject::isLoaded(void) const
 {
   return (this->shaderHandle != 0);
@@ -73,7 +73,7 @@ void
 SoGLSLShaderObject::load(const char* srcStr)
 {
   this->unload();
-  this->setParametersDirty(TRUE);
+  this->setParametersDirty(true);
 
   GLint flag;
   GLenum sType;
@@ -143,7 +143,7 @@ SoGLSLShaderObject::attach(COIN_GLhandle programHandle)
   if (this->shaderHandle) {
     this->programHandle = programHandle;
     this->glctx->glAttachObjectARB(this->programHandle, this->shaderHandle);
-    this->isattached = TRUE;
+    this->isattached = true;
   }
 }
 
@@ -152,12 +152,12 @@ SoGLSLShaderObject::detach(void)
 {
   if (this->isattached && this->programHandle && this->shaderHandle) {
     this->glctx->glDetachObjectARB(this->programHandle, this->shaderHandle);
-    this->isattached = FALSE;
+    this->isattached = false;
     this->programHandle = 0;
   }
 }
 
-SbBool
+bool
 SoGLSLShaderObject::isAttached(void) const
 {
   return this->isattached;
@@ -188,11 +188,11 @@ SoGLSLShaderObject::printInfoLog(const cc_glglue * g, COIN_GLhandle handle, int 
   }
 }
 
-SbBool
+bool
 SoGLSLShaderObject::didOpenGLErrorOccur(const SbString & source)
 {
-  SbBool retCode = FALSE;
-  SbBool glerror_debug = sogl_glerror_debugging();
+  bool retCode = false;
+  bool glerror_debug = sogl_glerror_debugging();
 
   // only do a glFlush if COIN_GLERROR_DEBUGGING is set since it can
   // degrade performance a lot. If glFlush is not executed here, gl
@@ -210,7 +210,7 @@ SoGLSLShaderObject::didOpenGLErrorOccur(const SbString & source)
                        "(set envvar COIN_GLERROR_DEBUGGING=1 "
                        "and re-run to get more information)");
 
-    retCode = TRUE;
+    retCode = true;
     glErr = glGetError();
   }
   return retCode;

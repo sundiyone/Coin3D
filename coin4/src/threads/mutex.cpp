@@ -162,7 +162,7 @@ void
 cc_mutex_lock(cc_mutex * mutex)
 {
   int ok;
-  SbBool timeit;
+  bool timeit;
   cc_time start = 0.0;
 
   assert(mutex != NULL);
@@ -343,7 +343,7 @@ cc_mutex_global_unlock(void)
 */
 
 /*!
-  \fn SbBool SbMutex::tryLock(void)
+  \fn bool SbMutex::tryLock(void)
 
   This method tries to lock the mutex, and returns whether it was
   locked or not.  This is a non-blocking operation.
@@ -391,7 +391,7 @@ cc_mutex_global_unlock(void)
 */
 
 /*!
-  \fn SbBool SbThreadMutex::tryLock(void)
+  \fn bool SbThreadMutex::tryLock(void)
 
   This method tries to lock the mutex, and returns whether it was
   locked by another thread or not. This is a non-blocking operation.

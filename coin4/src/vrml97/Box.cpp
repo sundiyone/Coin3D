@@ -126,12 +126,12 @@ SoVRMLBox::GLRender(SoGLRenderAction * action)
  if (!this->shouldGLRender(action)) return;
   SoState * state = action->getState();
 
-  SbBool doTextures = SoGLMultiTextureEnabledElement::get(state);
+  bool doTextures = SoGLMultiTextureEnabledElement::get(state);
 
   SoMaterialBundle mb(action);
   mb.sendFirst();
 
-  SbBool sendNormals = !mb.isColorOnly() ||
+  bool sendNormals = !mb.isColorOnly() ||
     (SoMultiTextureCoordinateElement::getType(state) == SoMultiTextureCoordinateElement::FUNCTION);
 
   unsigned int flags = 0;

@@ -72,7 +72,7 @@ SoViewportRegionElement::init(SoState * state)
 
 //! FIXME: write doc.
 
-SbBool
+bool
 SoViewportRegionElement::matches(const SoElement * element) const
 {
   return this->viewportRegion ==

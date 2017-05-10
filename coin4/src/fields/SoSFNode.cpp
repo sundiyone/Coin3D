@@ -96,7 +96,7 @@ SoSFNode::SoSFNode(void)
 /* Destructor, dereferences the current node pointer if necessary. */
 SoSFNode::~SoSFNode(void)
 {
-  this->enableNotify(FALSE);
+  this->enableNotify(false);
   this->setValue(NULL);
 }
 
@@ -150,23 +150,23 @@ SoSFNode::setValue(SoNode * newval)
 }
 
 // Compares to see if the \a field points to the same node as this
-// field does, and returns \c TRUE if this is the case.
+// field does, and returns \c true if this is the case.
 //
 // Be aware that this method does \e not check for node/subgraph
-// equality if the pointers are not the same, so \c FALSE is returned
+// equality if the pointers are not the same, so \c false is returned
 // even though the contents of the node/subgraph are equal.
-SbBool
+bool
 SoSFNode::operator==(const SoSFNode & field) const
 {
   return (this->getValue() == field.getValue());
 }
 
 // Import node.
-SbBool
+bool
 SoSFNode::readValue(SoInput * in)
 {
   SoBase * baseptr;
-  SbBool isVRMLspecialCase = FALSE;
+  bool isVRMLspecialCase = false;
 
   // Note: do *not* simply check for baseptr==NULL here, as that is a
   // valid condition for VRML97 files, where nodes can indeed be
@@ -174,10 +174,10 @@ SoSFNode::readValue(SoInput * in)
   // case near the end of this file for a valid case that would fail.
   if(in->isFileVRML1() || in->isFileVRML2()) {
     SbName name;
-    in->read(name, TRUE);
+    in->read(name, true);
     if (name == "NULL") {
       baseptr = NULL;
-      isVRMLspecialCase = TRUE;
+      isVRMLspecialCase = true;
     }
     else {
       in->putBack(name.getString());
@@ -185,22 +185,22 @@ SoSFNode::readValue(SoInput * in)
   }
 
   if (!isVRMLspecialCase) {
-    if (!SoBase::read(in, baseptr, SoNode::getClassTypeId())) return FALSE;
+    if (!SoBase::read(in, baseptr, SoNode::getClassTypeId())) return false;
     if (baseptr == NULL) {
       SoReadError::post(in, "Invalid node specification");
-      return FALSE;
+      return false;
     }
   }
 
   if (in->eof()) {
     SoReadError::post(in, "Premature end of file");
-    return FALSE;
+    return false;
   }
 
   if (baseptr != NULL) {
     this->setValue(coin_safe_cast<SoNode *>(baseptr));
   }
-  return TRUE;
+  return true;
 }
 
 // Export node.
@@ -277,7 +277,7 @@ SoSFNode::countWriteRefs(SoOutput * out) const
 //
 // <mortene@sim.no>
 void
-SoSFNode::fixCopy(SbBool copyconnections)
+SoSFNode::fixCopy(bool copyconnections)
 {
   SoNode * n = this->getValue();
   if (!n) return;
@@ -304,28 +304,28 @@ SoSFNode::fixCopy(SbBool copyconnections)
 }
 
 // Override from SoField to check node pointer.
-SbBool
+bool
 SoSFNode::referencesCopy(void) const
 {
-  if (inherited::referencesCopy()) return TRUE;
+  if (inherited::referencesCopy()) return true;
 
   SoBase * n = this->getValue();
-  if (!n) return FALSE;
+  if (!n) return false;
 
   if (n->isOfType(SoNode::getClassTypeId()) ||
       n->isOfType(SoEngine::getClassTypeId())) {
-    if (SoFieldContainer::checkCopy(coin_assert_cast<SoFieldContainer *>(n))) return TRUE;
+    if (SoFieldContainer::checkCopy(coin_assert_cast<SoFieldContainer *>(n))) return true;
   }
   else if (n->isOfType(SoPath::getClassTypeId())) {
     SoPath * p = coin_assert_cast<SoPath *>(n);
-    if (p->getHead() == NULL) return FALSE;
-    if (SoFieldContainer::checkCopy(p->getHead())) return TRUE;
+    if (p->getHead() == NULL) return false;
+    if (SoFieldContainer::checkCopy(p->getHead())) return true;
   }
   else {
     assert(0 && "strange internal error");
   }
 
-  return FALSE;
+  return false;
 }
 
 // Kill the type-specific define.
@@ -355,7 +355,7 @@ BOOST_AUTO_TEST_CASE(vrml97nullchild)
   SoInput * in = new SoInput;
   in->setBuffer(reinterpret_cast<const void*>(scene), strlen(scene));
   SoNode * g = NULL;
-  const SbBool readok = SoDB::read(in, g);
+  const bool readok = SoDB::read(in, g);
   delete in;
 
   BOOST_CHECK_MESSAGE(readok,

@@ -41,7 +41,7 @@
     exposedField  SFNode  color             NULL
     exposedField  SFNode  coord             NULL
     field         MFInt32 colorIndex        []     # [-1, inf)
-    field         SFBool  colorPerVertex    TRUE
+    field         SFBool  colorPerVertex    true
     field         MFInt32 coordIndex        []     # [-1, inf)
   }
   \endverbatim
@@ -64,7 +64,7 @@
   contain a Color node.  The colours are applied to the line(s) as
   follows: 
   
-  - If colorPerVertex is FALSE:
+  - If colorPerVertex is false:
 
     - If the colorIndex field is not empty, one colour is used for
       each polyline of the IndexedLineSet. There shall be at least as
@@ -78,7 +78,7 @@
       order. There shall be at least as many colours in the Color node
       as there are polylines.  
 
-  - If colorPerVertex is TRUE:
+  - If colorPerVertex is true:
 
     - If the colorIndex field is not empty, colours are applied to
       each vertex of the IndexedLineSet in exactly the same manner that
@@ -280,7 +280,7 @@ SoVRMLIndexedLineSet::GLRender(SoGLRenderAction * action)
     mindices = cindices;
   }
 
-  SbBool drawPoints =
+  bool drawPoints =
     SoDrawStyleElement::get(state) == SoDrawStyleElement::POINTS;
 
   // place it here so that it will stay in stack scope
@@ -312,7 +312,7 @@ SoVRMLIndexedLineSet::GLRender(SoGLRenderAction * action)
   SoGLLazyElement * lelem = NULL;
   const uint32_t contextid = action->getCacheContext();
 
-  SbBool dova = 
+  bool dova = 
     !drawPoints &&
     SoVBO::shouldRenderAsVertexArrays(state, contextid, numindices) &&
     SoGLDriverDatabase::isSupported(sogl_glue_instance(state), SO_GL_VERTEX_ARRAY);
@@ -321,27 +321,27 @@ SoVRMLIndexedLineSet::GLRender(SoGLRenderAction * action)
   SoVBO * colorvbo = NULL;
   
   if (dova && (mbind != SoVRMLIndexedLineSetP::OVERALL)) {
-    dova = FALSE;
+    dova = false;
     if ((mbind == SoVRMLIndexedLineSetP::PER_VERTEX_INDEXED) && 
         ((mindices == cindices) || (mindices == NULL))) {
       lelem = (SoGLLazyElement*) SoLazyElement::getInstance(state);
       colorvbo = vboelem->getColorVBO();
-      if (colorvbo) dova = TRUE;
+      if (colorvbo) dova = true;
       else {
         // we might be able to do VA-rendering, but need to check the
         // diffuse color type first.
         if (!lelem->isPacked() && lelem->getNumTransparencies() <= 1) {
-          dova = TRUE;
+          dova = true;
         }
       }
     }
   }
-  SbBool didrenderasvbo = FALSE;
+  bool didrenderasvbo = false;
   if (dova) {
-    SbBool dovbo = this->startVertexArray(action,
+    bool dovbo = this->startVertexArray(action,
                                           coords,
-                                          FALSE,
-                                          FALSE,
+                                          nullptr,
+                                          false,
                                           mbind != SoVRMLIndexedLineSetP::OVERALL);
     didrenderasvbo = dovbo;
     LOCK_VAINDEXER(this);
@@ -379,8 +379,8 @@ SoVRMLIndexedLineSet::GLRender(SoGLRenderAction * action)
 
     this->finishVertexArray(action,
                             dovbo,
-                            FALSE,
-                            FALSE,
+                            false,
+                            false,
                             mbind != SoVRMLIndexedLineSetP::OVERALL);
   }
   else {

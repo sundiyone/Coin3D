@@ -57,7 +57,7 @@ public:
 protected:
   virtual ~SoTextureCoordinateBinding();
 
-  virtual SbBool readInstance(SoInput * in, unsigned short flags);
+  virtual bool readInstance(SoInput * in, unsigned short flags);
 };
 
 #endif // !COIN_SOTEXTURECOORDINATEBINDING_H

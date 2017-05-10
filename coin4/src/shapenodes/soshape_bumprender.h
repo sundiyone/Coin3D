@@ -88,7 +88,7 @@ private:
   SbList <SbVec3f> tangentlist;
 
   SbVec3f lightvec;
-  SbBool ispointlight;
+  bool ispointlight;
 
   typedef SbHash<int, struct diffuse_programidx *> ContextId2DiffuseStruct;
   ContextId2DiffuseStruct diffuseprogramdict;
@@ -99,11 +99,11 @@ private:
   GLuint fragmentprogramid;
   GLuint dirlightvertexprogramid;
   GLuint pointlightvertexprogramid;
-  SbBool programsinitialized;
+  bool programsinitialized;
 
   GLuint normalrenderingvertexprogramid;
   GLuint diffusebumpdirlightvertexprogramid;
-  SbBool diffuseprogramsinitialized;
+  bool diffuseprogramsinitialized;
 };
 
 #endif // COIN_SOSHAPE_BUMPRENDER

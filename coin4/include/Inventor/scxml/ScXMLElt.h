@@ -46,7 +46,7 @@ public:
   void setXMLAttribute(const char * attribute, const char * value);
   const char * getXMLAttribute(const char * attribute) const;
 
-  virtual SbBool handleXMLAttributes(void);
+  virtual bool handleXMLAttributes(void);
 
   virtual const ScXMLElt * search(const char * attrname, const char * attrvalue) const;
 
@@ -56,7 +56,7 @@ public:
   virtual void setContainer(ScXMLElt * container);
   ScXMLElt * getContainer(void) const { return this->containerptr; }
 
-  SbBool isContainedIn(const ScXMLElt * object) const;
+  bool isContainedIn(const ScXMLElt * object) const;
 
 protected:
   static void registerClassType(const char * xmlns,

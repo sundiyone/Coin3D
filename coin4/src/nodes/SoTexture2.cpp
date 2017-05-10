@@ -67,7 +67,7 @@
     SoSearchAction sa;
     sa.setType(SoTexture2::getClassTypeId());
     sa.setInterest(SoSearchAction::ALL);
-    sa.setSearchingAll(TRUE);
+    sa.setSearchingAll(true);
     sa.apply(root);
     SoPathList & pl = sa.getPaths();
     SbDict namedict;
@@ -137,7 +137,7 @@
 
     SoSearchAction searchaction;
     searchaction.setType(SoTexture2::getClassTypeId());
-    searchaction.setSearchingAll(TRUE);
+    searchaction.setSearchingAll(true);
     searchaction.setInterest(SoSearchAction::ALL);
 
     searchaction.apply(root);
@@ -175,7 +175,7 @@
         wrapT REPEAT
         model MODULATE
         blendColor 0 0 0
-        enableCompressedTexture FALSE
+        enableCompressedTexture false
     }
   \endcode
 */
@@ -368,7 +368,7 @@ class SoTexture2P {
 public:
   int readstatus;
   SoGLImage * glimage;
-  SbBool glimagevalid;
+  bool glimagevalid;
   SoFieldSensor * filenamesensor;
 
   static SbMutex * mutex;
@@ -412,7 +412,7 @@ SoTexture2::SoTexture2(void)
   SO_NODE_ADD_FIELD(wrapT, (REPEAT));
   SO_NODE_ADD_FIELD(model, (MODULATE));
   SO_NODE_ADD_FIELD(blendColor, (0.0f, 0.0f, 0.0f));
-  SO_NODE_ADD_FIELD(enableCompressedTexture, (FALSE));
+  SO_NODE_ADD_FIELD(enableCompressedTexture, (false));
 
   SO_NODE_DEFINE_ENUM_VALUE(Wrap, REPEAT);
   SO_NODE_DEFINE_ENUM_VALUE(Wrap, CLAMP);
@@ -427,7 +427,7 @@ SoTexture2::SoTexture2(void)
   SO_NODE_SET_SF_ENUM_TYPE(model, Model);
 
   PRIVATE(this)->glimage = NULL;
-  PRIVATE(this)->glimagevalid = FALSE;
+  PRIVATE(this)->glimagevalid = false;
   PRIVATE(this)->readstatus = 1;
 
   // use field sensor for filename since we will load an image if
@@ -474,17 +474,17 @@ SoTexture2::initClass(void)
 
 // Documented in superclass. Overridden to check if texture file (if
 // any) can be found and loaded.
-SbBool
+bool
 SoTexture2::readInstance(SoInput * in, unsigned short flags)
 {
   PRIVATE(this)->filenamesensor->detach();
-  SbBool readOK = inherited::readInstance(in, flags);
+  bool readOK = inherited::readInstance(in, flags);
   this->setReadStatus((int) readOK);
   if (readOK && !filename.isDefault() && filename.getValue() != "") {
     if (!this->loadFilename()) {
       SoReadError::post(in, "Could not read texture file '%s'",
                         filename.getValue().getString());
-      this->setReadStatus(FALSE);
+      this->setReadStatus(false);
     }
   }
   PRIVATE(this)->filenamesensor->attach(&this->filename);
@@ -513,7 +513,7 @@ SoTexture2::GLRender(SoGLRenderAction * action)
   const cc_glglue * glue = cc_glglue_instance(SoGLCacheContextElement::get(state));
   SoTextureScalePolicyElement::Policy scalepolicy =
     SoTextureScalePolicyElement::get(state);
-  SbBool needbig = (scalepolicy == SoTextureScalePolicyElement::FRACTURE);
+  bool needbig = (scalepolicy == SoTextureScalePolicyElement::FRACTURE);
   SoType glimagetype = PRIVATE(this)->glimage ? PRIVATE(this)->glimage->getTypeId() : SoType::badType();
     
   LOCK_GLIMAGE(this);
@@ -551,9 +551,9 @@ SoTexture2::GLRender(SoGLRenderAction * action)
                              translateWrap((Wrap)this->wrapS.getValue()),
                              translateWrap((Wrap)this->wrapT.getValue()),
                              quality);
-      PRIVATE(this)->glimagevalid = TRUE;
+      PRIVATE(this)->glimagevalid = true;
       // don't cache while creating a texture object
-      SoCacheElement::setInvalid(TRUE);
+      SoCacheElement::setInvalid(true);
       if (state->isCacheOpen()) {
         SoCacheElement::invalidate(state);
       }
@@ -635,11 +635,11 @@ SoTexture2::doAction(SoAction * action)
                                     (SoMultiTextureImageElement::Wrap)this->wrapS.getValue(),
                                     (SoMultiTextureImageElement::Model) model.getValue(),
                                     this->blendColor.getValue());
-    SoMultiTextureEnabledElement::set(state, this, unit, TRUE); 
+    SoMultiTextureEnabledElement::set(state, this, unit, true); 
   }
   else {
     SoMultiTextureImageElement::setDefault(state, this, unit);
-    SoMultiTextureEnabledElement::set(state, this, unit, FALSE);
+    SoMultiTextureEnabledElement::set(state, this, unit, false);
   }
 }
 
@@ -662,12 +662,12 @@ SoTexture2::rayPick(SoRayPickAction * action)
   original SGI Open Inventor API.  We'll consider to implement it if
   requested.
 */
-SbBool
+bool
 SoTexture2::readImage(const SbString & COIN_UNUSED_ARG(fname), int & COIN_UNUSED_ARG(w), int & COIN_UNUSED_ARG(h), int & COIN_UNUSED_ARG(nc),
                       unsigned char *& COIN_UNUSED_ARG(bytes))
 {
   COIN_OBSOLETED();
-  return FALSE;
+  return false;
 }
 
 /*!
@@ -695,14 +695,14 @@ SoTexture2::notify(SoNotList * l)
 {
   SoField * f = l->getLastField();
   if (f == &this->image) {
-    PRIVATE(this)->glimagevalid = FALSE;
+    PRIVATE(this)->glimagevalid = false;
 
     // write image, not filename
-    this->filename.setDefault(TRUE);
-    this->image.setDefault(FALSE);
+    this->filename.setDefault(true);
+    this->image.setDefault(false);
   }
   else if (f == &this->wrapS || f == &this->wrapT) {
-    PRIVATE(this)->glimagevalid = FALSE;
+    PRIVATE(this)->glimagevalid = false;
   }
   inherited::notify(l);
 }
@@ -711,10 +711,10 @@ SoTexture2::notify(SoNotList * l)
 // Called from readInstance() or when user changes the
 // filename field.
 //
-SbBool
+bool
 SoTexture2::loadFilename(void)
 {
-  SbBool retval = FALSE;
+  bool retval = false;
   if (this->filename.getValue().getLength()) {
     SbImage tmpimage;
     const SbStringList & sl = SoInput::getDirectories();
@@ -724,15 +724,15 @@ SoTexture2::loadFilename(void)
       SbVec2s size;
       unsigned char * bytes = tmpimage.getValue(size, nc);
       // disable notification on image while setting data from filename
-      // as a notify will cause a filename.setDefault(TRUE).
-      SbBool oldnotify = this->image.enableNotify(FALSE);
+      // as a notify will cause a filename.setDefault(true).
+      bool oldnotify = this->image.enableNotify(false);
       this->image.setValue(size, nc, bytes);
       this->image.enableNotify(oldnotify);
-      PRIVATE(this)->glimagevalid = FALSE; // recreate GL image in next GLRender()
-      retval = TRUE;
+      PRIVATE(this)->glimagevalid = false; // recreate GL image in next GLRender()
+      retval = true;
     }
   }
-  this->image.setDefault(TRUE); // write filename, not image
+  this->image.setDefault(true); // write filename, not image
   return retval;
 }
 
@@ -756,8 +756,8 @@ SoTexture2::filenameSensorCB(void * data, SoSensor *)
     // setting filename to "" should reset the node to its initial state
     thisp->setReadStatus(0);
     thisp->image.setValue(SbVec2s(0,0), 0, NULL);
-    thisp->image.setDefault(TRUE);
-    thisp->filename.setDefault(TRUE);
+    thisp->image.setDefault(true);
+    thisp->filename.setDefault(true);
   }
 }
 

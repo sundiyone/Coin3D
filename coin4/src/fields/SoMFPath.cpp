@@ -120,7 +120,7 @@ SoMFPath::setValuesPtr(void * ptr)
 }
 
 int
-SoMFPath::find(SoPath * value, SbBool addifnotfound)
+SoMFPath::find(SoPath * value, bool addifnotfound)
 {
   for (int i=0; i < this->num; i++) if ((*this)[i] == value) return i;
 
@@ -133,7 +133,7 @@ SoMFPath::setValues(const int start, const int numarg, const SoPath ** newvals)
 {
   // Disable temporarily, so we under any circumstances will not send
   // more than one notification about the changes.
-  SbBool notificstate = this->enableNotify(FALSE);
+  bool notificstate = this->enableNotify(false);
   // Important note: the notification state is reset at the end, so
   // this function should *not* have multiple return-points.
 
@@ -160,7 +160,7 @@ SoMFPath::set1Value(const int idx, SoPath * newval)
 {
   // Disable temporarily, so we under no circumstances will send more
   // than one notification about the change.
-  SbBool notificstate = this->enableNotify(FALSE);
+  bool notificstate = this->enableNotify(false);
   // Important note: the notification state is reset at the end, so
   // this function should *not* have multiple return-points.
 
@@ -226,16 +226,16 @@ SoMFPath::setValue(SoPath * value)
   this->set1Value(0, value);
 }
 
-SbBool
+bool
 SoMFPath::operator==(const SoMFPath & field) const
 {
-  if (this == &field) return TRUE;
-  if (this->getNum() != field.getNum()) return FALSE;
+  if (this == &field) return true;
+  if (this->getNum() != field.getNum()) return false;
 
   const SoPath ** const lhs = this->getValues(0);
   const SoPath ** const rhs = field.getValues(0);
-  for (int i = 0; i < this->num; i++) if (lhs[i] != rhs[i]) return FALSE;
-  return TRUE;
+  for (int i = 0; i < this->num; i++) if (lhs[i] != rhs[i]) return false;
+  return true;
 }
 
 /*!
@@ -284,7 +284,7 @@ SoMFPath::insertSpace(int start, int numarg)
 {
   // Disable temporarily so we don't send notification prematurely
   // from inherited::insertSpace().
-  SbBool notificstate = this->enableNotify(FALSE);
+  bool notificstate = this->enableNotify(false);
   // Important note: the notification state is reset at the end, so
   // this function should *not* have multiple return-points.
 
@@ -314,11 +314,11 @@ SoMFPath::copyValue(int to, int from)
 
 
 // Import a single path.
-SbBool
+bool
 SoMFPath::read1Value(SoInput * in, int index)
 {
   SoSFPath sfpath;
-  SbBool result = sfpath.readValue(in);
+  bool result = sfpath.readValue(in);
   if (result) this->set1Value(index, sfpath.getValue());
   return result;
 }
@@ -396,11 +396,11 @@ SoMFPath::countWriteRefs(SoOutput * out) const
 //
 // <mortene@sim.no>
 void
-SoMFPath::fixCopy(SbBool COIN_UNUSED_ARG(copyconnections))
+SoMFPath::fixCopy(bool COIN_UNUSED_ARG(copyconnections))
 {
   // Disable temporarily, so we under no circumstances will send more
   // than one notification about the changes.
-  SbBool notificstate = this->enableNotify(FALSE);
+  bool notificstate = this->enableNotify(false);
   // Important note: the notification state is reset at the end, so
   // this function should *not* have multiple return-points.
 
@@ -434,24 +434,24 @@ SoMFPath::fixCopy(SbBool COIN_UNUSED_ARG(copyconnections))
 }
 
 // Override from SoField to check path pointer.
-SbBool
+bool
 SoMFPath::referencesCopy(void) const
 {
-  if (inherited::referencesCopy()) return TRUE;
+  if (inherited::referencesCopy()) return true;
 
   for (int i=0; i < this->getNum(); i++) {
     SoPath * item = (*this)[i];
     if (item) {
 #if defined(COIN_INTERNAL_SOMFNODE) || defined(COIN_INTERNAL_SOMFENGINE)
-      if (SoFieldContainer::checkCopy((SoFieldContainer *)item)) return TRUE;
+      if (SoFieldContainer::checkCopy((SoFieldContainer *)item)) return true;
 #endif // COIN_INTERNAL_SOMFNODE || COIN_INTERNAL_SOMFENGINE
 #ifdef COIN_INTERNAL_SOMFPATH
-      if (item->getHead() && SoFieldContainer::checkCopy(item->getHead())) return TRUE;
+      if (item->getHead() && SoFieldContainer::checkCopy(item->getHead())) return true;
 #endif // COIN_INTERNAL_SOMFPATH
     }
   }
 
-  return FALSE;
+  return false;
 }
 
 // Kill the type-specific define.

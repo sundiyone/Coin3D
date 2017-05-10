@@ -65,7 +65,7 @@ SoSFColor::initClass(void)
 // parent classes.
 #ifndef DOXYGEN_SKIP_THIS
 
-SbBool
+bool
 SoSFColor::readValue(SoInput * in)
 {
   return

@@ -166,10 +166,10 @@ ScXMLHistoryElt::setTypeAttribute(const char * typestr)
   SCXML__SET_ATTRIBUTE_VALUE(this->type, "type", typestr);
 }
 
-SbBool
+bool
 ScXMLHistoryElt::handleXMLAttributes(void)
 {
-  if (!inherited::handleXMLAttributes()) return FALSE;
+  if (!inherited::handleXMLAttributes()) return false;
 
   this->setIdAttribute(this->getXMLAttribute("id"));
   this->setTypeAttribute(this->getXMLAttribute("type"));
@@ -177,7 +177,7 @@ ScXMLHistoryElt::handleXMLAttributes(void)
   if (!this->id) {
     SoDebugError::post("ScXMLHistoryElt::handleXMLAttributes",
                        "no 'id' attribute");
-    return FALSE;
+    return false;
   }
 
   if (this->type) {
@@ -185,11 +185,11 @@ ScXMLHistoryElt::handleXMLAttributes(void)
         (strcmp(this->type, "shallow") != 0)) {
       SoDebugError::post("ScXMLHistoryElt::handleXMLAttributes",
                          "'type' attribute must be 'deep' or 'shalow'");
-      return FALSE;
+      return false;
     }
   }
 
-  return TRUE;
+  return true;
 }
 
 void

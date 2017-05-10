@@ -73,11 +73,11 @@ public:
   int findFork(const SoPath * const path) const;
   int findNode(const SoNode * const node) const;
 
-  SbBool containsNode(const SoNode * const node) const;
-  SbBool containsPath(const SoPath * const path) const;
+  bool containsNode(const SoNode * const node) const;
+  bool containsPath(const SoPath * const path) const;
   SoPath * copy(const int startfromnodeindex = 0, int numnodes = 0) const;
-  friend COIN_DLL_API SbBool operator==(const SoPath & lhs, const SoPath & rhs);
-  friend COIN_DLL_API SbBool operator!=(const SoPath & lhs, const SoPath & rhs);
+  friend COIN_DLL_API bool operator==(const SoPath & lhs, const SoPath & rhs);
+  friend COIN_DLL_API bool operator!=(const SoPath & lhs, const SoPath & rhs);
 
   static SoPath * getByName(const SbName name);
   static int getByName(const SbName name, SoPathList & l);
@@ -86,28 +86,28 @@ public:
   void removeIndex(SoNode * const parent, const int oldindex);
   void replaceIndex(SoNode * const parent, const int index,
                     SoNode * const newchild);
-  SbBool isRelevantNotification(SoNotList * const l) const;
+  bool isRelevantNotification(SoNotList * const l) const;
 
   virtual void write(SoWriteAction * action);
 
 protected:
   virtual ~SoPath();
-  void auditPath(const SbBool flag);
+  void auditPath(const bool flag);
 
 private:
   static void cleanupClass(void);
   static void * createInstance(void);
   void append(SoNode * const node, const int index);
   int getFullLength(void) const;
-  void truncate(const int length, const SbBool donotify);
-  virtual SbBool readInstance(SoInput * in, unsigned short flags);
+  void truncate(const int length, const bool donotify);
+  virtual bool readInstance(SoInput * in, unsigned short flags);
   void setFirstHidden(void);
 
   SoNodeList nodes;
   SbList<int> indices;
-  SbBool isauditing;
+  bool isauditing;
   int firsthidden;
-  SbBool firsthiddendirty;
+  bool firsthiddendirty;
   static SoType classTypeId;
 
   friend class SoFullPath;

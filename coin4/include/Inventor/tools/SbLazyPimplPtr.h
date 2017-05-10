@@ -54,13 +54,13 @@ public:
   void set(T * value);
   T & get(void) const;
 
-  SbLazyPimplPtr<T> & operator = (const SbLazyPimplPtr<T> & copy);
+  SbLazyPimplPtr<T> & operator=(const SbLazyPimplPtr<T> & copy);
 
-  SbBool operator == (const SbLazyPimplPtr<T> & rhs) const;
-  SbBool operator != (const SbLazyPimplPtr<T> & rhs) const;
+  bool operator==(const SbLazyPimplPtr<T> & rhs) const;
+  bool operator!=(const SbLazyPimplPtr<T> & rhs) const;
 
-  const T * operator -> (void) const;
-  T * operator -> (void);
+  const T * operator->(void) const;
+  T * operator->(void);
 
 protected:
   T * getNew(void) const;

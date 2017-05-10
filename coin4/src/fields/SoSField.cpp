@@ -35,15 +35,15 @@
 
   \code
     SoSpotLight * lightnode = new SoSpotLight;
-    lightnode->on.setValue(TRUE); // The "on" field of SoSpotLight is
+    lightnode->on.setValue(true); // The "on" field of SoSpotLight is
                                   // a single value field of type SoSFBool.
     ...
     ...
     // Change lightswitch.
-    if (lightnode->on.getValue() == FALSE)
-      lightnode->on = TRUE; // We can use operator = instead of setValue().
+    if (lightnode->on.getValue() == false)
+      lightnode->on = true; // We can use operator = instead of setValue().
     else
-      lightnode->on = FALSE;
+      lightnode->on = false;
     ...
   \endcode
 
@@ -64,7 +64,7 @@
 
   \code
     SpotLight {
-      on FALSE
+      on false
     }
   \endcode
 

@@ -171,11 +171,11 @@ SoGLVBOElement::pop(SoState * COIN_UNUSED_ARG(state), const SoElement * COIN_UNU
 }
 
 // doc in parent
-SbBool
+bool
 SoGLVBOElement::matches(const SoElement * COIN_UNUSED_ARG(elt)) const
 {
   assert(0 && "should never get here");
-  return TRUE;
+  return true;
 }
 
 // doc in parent
@@ -238,11 +238,11 @@ SoGLVBOElement::getTexCoordVBO(const int idx) const
 }
 
 /*!
-  Returns \a TRUE if VBO is supported for the current context,
+  Returns \a true if VBO is supported for the current context,
   and if numdata is between the limits set for VBO rendering.
 
 */
-SbBool
+bool
 SoGLVBOElement::shouldCreateVBO(SoState * state, const int numdata)
 {
   const cc_glglue * glue = sogl_glue_instance(state);

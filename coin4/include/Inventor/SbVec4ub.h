@@ -52,64 +52,64 @@ public:
   const uint8_t * getValue(void) const { return vec; }
   void getValue(uint8_t & x, uint8_t & y, uint8_t & z, uint8_t & w) const { x = vec[0]; y = vec[1]; z = vec[2]; w = vec[3]; }
 
-  uint8_t & operator [] (int i) { return vec[i]; }
-  const uint8_t & operator [] (int i) const { return vec[i]; }
+  uint8_t & operator[](int i) { return vec[i]; }
+  const uint8_t & operator[](int i) const { return vec[i]; }
 
   int32_t dot(SbVec4ub v) const { return vec[0] * v[0] + vec[1] * v[1] + vec[2] * v[2] + vec[3] * v[3]; }
   void negate(void);
 
-  SbVec4ub & operator *= (int d) { vec[0] *= d; vec[1] *= d; vec[2] *= d; vec[3] *= d; return *this; }
-  SbVec4ub & operator *= (double d);
-  SbVec4ub & operator /= (int d) { SbDividerChk("SbVec4ub::operator/=(int)", d); vec[0] /= d; vec[1] /= d; vec[2] /= d; vec[3] /= d; return *this; }
-  SbVec4ub & operator /= (double d) { SbDividerChk("SbVec4ub::operator/=(double)", d); return operator *= (1.0 / d); }
-  SbVec4ub & operator += (SbVec4ub v) { vec[0] += v[0]; vec[1] += v[1]; vec[2] += v[2]; vec[3] += v[3]; return *this; }
-  SbVec4ub & operator -= (SbVec4ub v) { vec[0] -= v[0]; vec[1] -= v[1]; vec[2] -= v[2]; vec[3] -= v[3]; return *this; }
-  SbVec4ub operator - (void) const { SbVec4ub v(*this); v.negate(); return v; }
+  SbVec4ub & operator*=(int d) { vec[0] *= d; vec[1] *= d; vec[2] *= d; vec[3] *= d; return *this; }
+  SbVec4ub & operator*=(double d);
+  SbVec4ub & operator/=(int d) { SbDividerChk("SbVec4ub::operator/=(int)", d); vec[0] /= d; vec[1] /= d; vec[2] /= d; vec[3] /= d; return *this; }
+  SbVec4ub & operator/=(double d) { SbDividerChk("SbVec4ub::operator/=(double)", d); return operator*=(1.0 / d); }
+  SbVec4ub & operator+=(SbVec4ub v) { vec[0] += v[0]; vec[1] += v[1]; vec[2] += v[2]; vec[3] += v[3]; return *this; }
+  SbVec4ub & operator-=(SbVec4ub v) { vec[0] -= v[0]; vec[1] -= v[1]; vec[2] -= v[2]; vec[3] -= v[3]; return *this; }
+  SbVec4ub operator-(void) const { SbVec4ub v(*this); v.negate(); return v; }
 
 protected:
   uint8_t vec[4];
 
 }; // SbVec4ub
 
-COIN_DLL_API inline SbVec4ub operator * (SbVec4ub v, int d) {
+COIN_DLL_API inline SbVec4ub operator*(SbVec4ub v, int d) {
   SbVec4ub val(v); val *= d; return val;
 }
 
-COIN_DLL_API inline SbVec4ub operator * (SbVec4ub v, double d) {
+COIN_DLL_API inline SbVec4ub operator*(SbVec4ub v, double d) {
   SbVec4ub val(v); val *= d; return val;
 }
 
-COIN_DLL_API inline SbVec4ub operator * (int d, SbVec4ub v) {
+COIN_DLL_API inline SbVec4ub operator*(int d, SbVec4ub v) {
   SbVec4ub val(v); val *= d; return val;
 }
 
-COIN_DLL_API inline SbVec4ub operator * (double d, SbVec4ub v) {
+COIN_DLL_API inline SbVec4ub operator*(double d, SbVec4ub v) {
   SbVec4ub val(v); val *= d; return val;
 }
 
-COIN_DLL_API inline SbVec4ub operator / (SbVec4ub v, int d) {
+COIN_DLL_API inline SbVec4ub operator/(SbVec4ub v, int d) {
   SbDividerChk("operator/(SbVec4ub,int)", d);
   SbVec4ub val(v); val /= d; return val;
 }
 
-COIN_DLL_API inline SbVec4ub operator / (SbVec4ub v, double d) {
+COIN_DLL_API inline SbVec4ub operator/(SbVec4ub v, double d) {
   SbDividerChk("operator/(SbVec4ub,double)", d);
   SbVec4ub val(v); val /= d; return val;
 }
 
-COIN_DLL_API inline SbVec4ub operator + (SbVec4ub v1, SbVec4ub v2) {
+COIN_DLL_API inline SbVec4ub operator+(SbVec4ub v1, SbVec4ub v2) {
   SbVec4ub v(v1); v += v2; return v;
 }
 
-COIN_DLL_API inline SbVec4ub operator - (SbVec4ub v1, SbVec4ub v2) {
+COIN_DLL_API inline SbVec4ub operator-(SbVec4ub v1, SbVec4ub v2) {
   SbVec4ub v(v1); v -= v2; return v;
 }
 
-COIN_DLL_API inline int operator == (SbVec4ub v1, SbVec4ub v2) {
+COIN_DLL_API inline bool operator==(SbVec4ub v1, SbVec4ub v2) {
   return ((v1[0] == v2[0]) && (v1[1] == v2[1]) && (v1[2] == v2[2]) && (v1[3] == v2[3]));
 }
 
-COIN_DLL_API inline int operator != (SbVec4ub v1, SbVec4ub v2) {
+COIN_DLL_API inline bool operator!=(SbVec4ub v1, SbVec4ub v2) {
   return !(v1 == v2);
 }
 

@@ -48,25 +48,25 @@ public:
 
   void print(FILE * const file = stdout) const;
 
-  SbBool isElementEnabled(const int stackindex) const;
+  bool isElementEnabled(const int stackindex) const;
 
   int getDepth(void) const;
 
-  void setCacheOpen(const SbBool flag);
-  SbBool isCacheOpen(void) const;
+  void setCacheOpen(const bool flag);
+  bool isCacheOpen(void) const;
 
   SoElement * getElementNoPush(const int stackindex) const;
 
 private:
   SoElement ** stack;
   int numstacks;
-  SbBool cacheopen;
+  bool cacheopen;
   class SoStateP * pimpl;  
 };
 
 // these methods are used very often, and is therefore inlined
 
-inline SbBool
+inline bool
 SoState::isElementEnabled(const int stackindex) const
 {
   return (stackindex < this->numstacks) && (this->stack[stackindex] != NULL);
@@ -79,7 +79,7 @@ SoState::getConstElement(const int stackindex) const
   return this->stack[stackindex];
 }
 
-inline SbBool 
+inline bool 
 SoState::isCacheOpen(void) const
 {
   return this->cacheopen;

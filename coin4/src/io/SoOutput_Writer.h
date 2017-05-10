@@ -60,10 +60,10 @@ public:
 
   // must be overloaded to write numbytes bytes to buf. Should
   // return the number of bytes actually written.
-  virtual size_t write(const char * buf, size_t numbytes, const SbBool binary) = 0;
+  virtual size_t write(const char * buf, size_t numbytes, const bool binary) = 0;
 
   static SoOutput_Writer * createWriter(FILE * fp,
-                                        const SbBool shouldclose,
+                                        const bool shouldclose,
                                         const SbName & compmethod,
                                         const float level);
 
@@ -72,17 +72,17 @@ public:
 // class for stdio writing
 class SoOutput_FileWriter : public SoOutput_Writer {
 public:
-  SoOutput_FileWriter(FILE * fp, const SbBool shouldclose);
+  SoOutput_FileWriter(FILE * fp, const bool shouldclose);
   virtual ~SoOutput_FileWriter();
 
   virtual size_t bytesInBuf(void);
   virtual WriterType getType(void) const;
-  virtual size_t write(const char * buf, size_t numbytes, const SbBool binary);
+  virtual size_t write(const char * buf, size_t numbytes, const bool binary);
   virtual FILE * getFilePointer(void);
 
 public:
   FILE * fp;
-  SbBool shouldclose;
+  bool shouldclose;
 };
 
 // class for membuffer writing
@@ -96,11 +96,11 @@ public:
 
   virtual size_t bytesInBuf(void);
   virtual WriterType getType(void) const;
-  virtual size_t write(const char * buf, size_t numbytes, const SbBool binary);
+  virtual size_t write(const char * buf, size_t numbytes, const bool binary);
 
 public:
 
-  SbBool makeRoomInBuf(size_t bytes);
+  bool makeRoomInBuf(size_t bytes);
 
   char * buf;
   size_t bufsize;
@@ -112,12 +112,12 @@ public:
 // class for zlib writing
 class SoOutput_GZFileWriter : public SoOutput_Writer {
 public:
-  SoOutput_GZFileWriter(FILE * fp, const SbBool shouldclose, const float level);
+  SoOutput_GZFileWriter(FILE * fp, const bool shouldclose, const float level);
   virtual ~SoOutput_GZFileWriter();
 
   virtual size_t bytesInBuf(void);
   virtual WriterType getType(void) const;
-  virtual size_t write(const char * buf, size_t numbytes, const SbBool binary);
+  virtual size_t write(const char * buf, size_t numbytes, const bool binary);
 
 public:
   void * gzfp;
@@ -125,12 +125,12 @@ public:
 
 class SoOutput_BZ2FileWriter : public SoOutput_Writer {
 public:
-  SoOutput_BZ2FileWriter(FILE * fp, const SbBool shouldclose, const float level);
+  SoOutput_BZ2FileWriter(FILE * fp, const bool shouldclose, const float level);
   virtual ~SoOutput_BZ2FileWriter();
 
   virtual size_t bytesInBuf(void);
   virtual WriterType getType(void) const;
-  virtual size_t write(const char * buf, size_t numbytes, const SbBool binary);
+  virtual size_t write(const char * buf, size_t numbytes, const bool binary);
 
 public:
   void * bzfp;

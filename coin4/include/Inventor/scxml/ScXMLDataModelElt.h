@@ -44,7 +44,7 @@ public:
   virtual void setSchemaAttribute(const char * schema);
   virtual const char * getSchemaAttribute(void) const { return this->schema; }
 
-  virtual SbBool handleXMLAttributes(void);
+  virtual bool handleXMLAttributes(void);
 
   virtual void copyContents(const ScXMLElt * rhs);
 

@@ -69,11 +69,11 @@ SoPickRayElement::init(SoState * state)
 
 //! FIXME: write doc.
 
-SbBool
+bool
 SoPickRayElement::matches(const SoElement * /* element */) const
 {
   // should always return false; not part of cache consideration
-  return FALSE;
+  return false;
 }
 
 //! FIXME: write doc.

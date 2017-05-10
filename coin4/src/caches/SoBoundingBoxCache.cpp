@@ -91,7 +91,7 @@ SoBoundingBoxCache::~SoBoundingBoxCache()
 */
 void
 SoBoundingBoxCache::set(const SbXfBox3f & boundingbox,
-                        SbBool centerset,
+                        bool centerset,
                         const SbVec3f & centerpoint)
 {
   PRIVATE(this)->bbox = boundingbox;
@@ -124,7 +124,7 @@ SoBoundingBoxCache::getProjectedBox(void) const
 
   \sa SoBoundingBoxCache::getCenter()
 */
-SbBool
+bool
 SoBoundingBoxCache::isCenterSet(void) const
 {
   return PRIVATE(this)->centerset == 1;
@@ -132,7 +132,7 @@ SoBoundingBoxCache::isCenterSet(void) const
 
 /*!
   Returns the center of the bounding box. Should only be used if
-  SoBoundingBoxCache::isCenterSet() returns \c TRUE.
+  SoBoundingBoxCache::isCenterSet() returns \c true.
 */
 const SbVec3f &
 SoBoundingBoxCache::getCenter(void) const
@@ -142,7 +142,7 @@ SoBoundingBoxCache::getCenter(void) const
 
 /*!
   Sets the flag returned from SoBoundingBoxCache::hasLinesOrPoints()
-  to \c TRUE for all open bounding box caches.
+  to \c true for all open bounding box caches.
 
   The reason bounding box caches keep a lines-or-points flag is to
   make it known to client code if the shape(s) they contain have any
@@ -170,17 +170,17 @@ SoBoundingBoxCache::setHasLinesOrPoints(SoState * state)
 
   while (elem) {
     SoBoundingBoxCache * cache = static_cast<SoBoundingBoxCache *>(elem->getCache());
-    if (cache) { PRIVATE(cache)->linesorpoints = TRUE; }
+    if (cache) { PRIVATE(cache)->linesorpoints = true; }
     elem = elem->getNextCacheElement();
   }
 }
 
 /*!
-  Return \c TRUE if the hasLinesOrPoints flag has been set.
+  Return \c true if the hasLinesOrPoints flag has been set.
 
   \sa setHasLinesOrPoints()
 */
-SbBool
+bool
 SoBoundingBoxCache::hasLinesOrPoints(void) const
 {
   return PRIVATE(this)->linesorpoints == 1;

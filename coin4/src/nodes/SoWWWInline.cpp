@@ -149,7 +149,7 @@ void * SoWWWInline::fetchurlcbdata = NULL;
 SbColor * SoWWWInline::bboxcolor = NULL;
 static SbStorage * wwwinline_colorpacker_storage = NULL;
 SoWWWInline::BboxVisibility SoWWWInline::bboxvisibility = SoWWWInline::UNTIL_LOADED;
-SbBool SoWWWInline::readassofile = FALSE;
+bool SoWWWInline::readassofile = false;
 
 static void alloc_colorpacker(void * ptr)
 {
@@ -174,7 +174,7 @@ SoWWWInline::cleanup(void)
   SoWWWInline::fetchurlcb = NULL;
   SoWWWInline::fetchurlcbdata = NULL;
   SoWWWInline::bboxvisibility = SoWWWInline::UNTIL_LOADED;
-  SoWWWInline::readassofile = FALSE;
+  SoWWWInline::readassofile = false;
 }
 
 // *************************************************************************
@@ -186,10 +186,10 @@ class SoWWWInlineP {
   }
   SoWWWInline * owner;
   SoChildList * children;
-  SbBool readNamedFile();
-  SbBool readChildren();
+  bool readNamedFile();
+  bool readChildren();
   SbString fullname;
-  SbBool didrequest;
+  bool didrequest;
 
   static const char UNDEFINED_FILE[];
 };
@@ -213,7 +213,7 @@ SoWWWInline::SoWWWInline()
 
   PRIVATE(this) = new SoWWWInlineP(this);
   PRIVATE(this)->children = new SoChildList(this);
-  PRIVATE(this)->didrequest = FALSE;
+  PRIVATE(this)->didrequest = false;
 
   SO_NODE_ADD_FIELD(name, (SoWWWInlineP::UNDEFINED_FILE));
   SO_NODE_ADD_FIELD(bboxCenter, (0.0f, 0.0f, 0.0f));
@@ -289,32 +289,32 @@ void
 SoWWWInline::requestURLData(void)
 {
   if (!PRIVATE(this)->didrequest) {
-    PRIVATE(this)->didrequest = TRUE;
+    PRIVATE(this)->didrequest = true;
     (void) PRIVATE(this)->readChildren();
   }
 }
 
 /*!
-  Returns \c TRUE if SoWWWInline::requestURLData() has been called
+  Returns \c true if SoWWWInline::requestURLData() has been called
   without being canceled by SoWWWInline::cancelURLData().
 */
-SbBool
+bool
 SoWWWInline::isURLDataRequested(void) const
 {
   return PRIVATE(this)->didrequest;
 }
 
 /*!
-  Return \c TRUE if the current child data has been read from file/URL
+  Return \c true if the current child data has been read from file/URL
   and set using setChildData().
 */
-SbBool
+bool
 SoWWWInline::isURLDataHere(void) const
 {
   SoChildList * children = this->getChildren();
   if (children->getLength() == 0 ||
-      (*children)[0] == this->alternateRep.getValue()) return FALSE;
-  return FALSE;
+      (*children)[0] == this->alternateRep.getValue()) return false;
+  return false;
 }
 
 /*!
@@ -325,7 +325,7 @@ SoWWWInline::isURLDataHere(void) const
 void
 SoWWWInline::cancelURLDataRequest(void)
 {
-  PRIVATE(this)->didrequest = FALSE;
+  PRIVATE(this)->didrequest = false;
 }
 
 /*!
@@ -407,12 +407,12 @@ SoWWWInline::getBoundingBoxColor(void)
   Sets whether children should be read from a local file, in the same
   manner as SoFile children are read.
 
-  If this is set to \c TRUE, the URL must point to a file on the local
+  If this is set to \c true, the URL must point to a file on the local
   file system, as can be accessed by the standard C library fopen()
   call.
 */
 void
-SoWWWInline::setReadAsSoFile(SbBool onoff)
+SoWWWInline::setReadAsSoFile(bool onoff)
 {
   SoWWWInline::readassofile = onoff;
 }
@@ -422,7 +422,7 @@ SoWWWInline::setReadAsSoFile(SbBool onoff)
 
   \sa setReadAsSoFile()
 */
-SbBool
+bool
 SoWWWInline::getReadAsSoFile(void)
 {
   return SoWWWInline::readassofile;
@@ -527,7 +527,7 @@ SoWWWInline::getBoundingBox(SoGetBoundingBoxAction * action)
       }
     }
     if (numcenters != 0)
-      action->setCenter(acccenter / float(numcenters), FALSE);
+      action->setCenter(acccenter / float(numcenters), false);
   }
   else {
     SbVec3f halfsize = bboxSize.getValue()/2.0f;
@@ -541,7 +541,7 @@ SoWWWInline::getBoundingBox(SoGetBoundingBoxAction * action)
                              halfsize[2] + center[2]));
     
     assert(! action->isCenterSet());
-    action->setCenter(center, TRUE);
+    action->setCenter(center, true);
   }
 }
 
@@ -655,10 +655,10 @@ SoWWWInline::addBoundingBoxChild(SbVec3f center, SbVec3f size)
 }
 
 // Documented in superclass. Overridden to fetch/read child data.
-SbBool
+bool
 SoWWWInline::readInstance(SoInput * in, unsigned short flags)
 {
-  SbBool ret = inherited::readInstance(in, flags);
+  bool ret = inherited::readInstance(in, flags);
   if (ret) {
     ret = PRIVATE(this)->readChildren();
   }
@@ -668,7 +668,7 @@ SoWWWInline::readInstance(SoInput * in, unsigned short flags)
 // Documented in superclass. Overridden to copy children.
 void
 SoWWWInline::copyContents(const SoFieldContainer * fromfc,
-                          SbBool copyconnections)
+                          bool copyconnections)
 {
   this->getChildren()->truncate(0);
   inherited::copyContents(fromfc, copyconnections);
@@ -689,7 +689,7 @@ SoWWWInline::copyContents(const SoFieldContainer * fromfc,
 // *************************************************************************
 
 // Read the file named in the name field.
-SbBool
+bool
 SoWWWInlineP::readNamedFile()
 {
   // If we can't find file, ignore it. Note that this does not match
@@ -698,7 +698,7 @@ SoWWWInlineP::readNamedFile()
   SoInput in;
 
   SbString name = this->owner->getFullURLName();
-  if (!in.openFile(name.getString())) return TRUE;
+  if (!in.openFile(name.getString())) return true;
 
   SoSeparator * node = SoDB::readAll(&in);
 
@@ -716,7 +716,7 @@ SoWWWInlineP::readNamedFile()
                       name.getString());
   }
 
-  return TRUE;
+  return true;
 }
 
 /*!
@@ -726,11 +726,11 @@ SoWWWInlineP::readNamedFile()
        fetchURLCB is NULL:   Use alternaterep. NB! Always uses alternate rep 
                              in this case.
   else name not set:         Do nothing
-  else readassofile is TRUE: Assume name points to a local file and load
+  else readassofile is true: Assume name points to a local file and load
                              automatically without using fetchURLCB.
 
 */
-SbBool
+bool
 SoWWWInlineP::readChildren()
 {
   if (!SoWWWInline::fetchurlcb) {
@@ -748,5 +748,5 @@ SoWWWInlineP::readChildren()
                               this->owner);
     }
   }
-  return TRUE;
+  return true;
 }

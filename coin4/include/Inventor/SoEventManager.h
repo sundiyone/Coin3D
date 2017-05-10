@@ -52,7 +52,7 @@ public:
   virtual void setCamera(SoCamera * camera);
   virtual SoCamera * getCamera(void) const;
 
-  virtual SbBool processEvent(const SoEvent * const event);
+  virtual bool processEvent(const SoEvent * const event);
 
   virtual void setNavigationState(NavigationState state);
   virtual NavigationState getNavigationState(void) const;
@@ -71,7 +71,7 @@ public:
   virtual SoHandleEventAction * getHandleEventAction(void) const;
 
 protected:
-  virtual SbBool actuallyProcessEvent(const SoEvent * const event);
+  virtual bool actuallyProcessEvent(const SoEvent * const event);
 
 private:
   class PImpl;

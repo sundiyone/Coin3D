@@ -102,7 +102,7 @@ SoPolygonOffsetElement::init(SoState * state)
 
 void
 SoPolygonOffsetElement::set(SoState * state, SoNode * node,
-                            float factor, float units, Style styles, SbBool on)
+                            float factor, float units, Style styles, bool on)
 {
   SoPolygonOffsetElement * elem = coin_safe_cast<SoPolygonOffsetElement *>
     (
@@ -117,7 +117,7 @@ SoPolygonOffsetElement::set(SoState * state, SoNode * node,
 
 void
 SoPolygonOffsetElement::get(SoState * state, float & factor, float & units,
-                            Style & styles, SbBool & on)
+                            Style & styles, bool & on)
 {
   const SoPolygonOffsetElement * elem =
     coin_assert_cast<const SoPolygonOffsetElement *>
@@ -135,7 +135,7 @@ SoPolygonOffsetElement::get(SoState * state, float & factor, float & units,
 
 void
 SoPolygonOffsetElement::setElt(float factor, float units,
-                               Style styles, SbBool on)
+                               Style styles, bool on)
 {
   this->offsetfactor = factor;
   this->offsetunits = units;
@@ -147,10 +147,10 @@ SoPolygonOffsetElement::setElt(float factor, float units,
 
 void
 SoPolygonOffsetElement::getDefault(float & factor, float & units,
-                                   Style & styles, SbBool & on)
+                                   Style & styles, bool & on)
 {
   factor = 0.0f;
   units = 0.0f;
   styles = SoPolygonOffsetElement::FILLED;
-  on = FALSE;
+  on = false;
 }

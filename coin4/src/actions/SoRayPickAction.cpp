@@ -164,12 +164,12 @@ public:
 
   // Hidden private methods.
 
-  SbBool isBetweenPlanesWS(const SbVec3d & intersection,
+  bool isBetweenPlanesWS(const SbVec3d & intersection,
                            const SoClipPlaneElement * planes) const;
   void cleanupPickedPoints(void);
   void setFlag(const unsigned int flag);
   void clearFlag(const unsigned int flag);
-  SbBool isFlagSet(const unsigned int flag) const;
+  bool isFlagSet(const unsigned int flag) const;
   void calcObjectSpaceData(SoState * ownerstate);
   void calcMatrices(SoState * ownerstate);
   void setPickStyleFlags(SoState * ownerstate);
@@ -202,7 +202,7 @@ public:
   SbList <double> ppdistance;
 
   unsigned int flags;
-  SbBool objectspacevalid; // FIXME: why not a flag?
+  bool objectspacevalid; // FIXME: why not a flag?
 
   enum {
     WS_RAY_SET =         0x0001, // ray set by setRay()
@@ -255,7 +255,7 @@ SoRayPickAction::SoRayPickAction(const SbViewportRegion & viewportregion)
   PRIVATE(this)->owner = this;
   PRIVATE(this)->radiusinpixels = 5.0f;
   PRIVATE(this)->flags = 0;
-  PRIVATE(this)->objectspacevalid = TRUE;
+  PRIVATE(this)->objectspacevalid = true;
 
   SO_ACTION_CONSTRUCTOR(SoRayPickAction);
 }
@@ -385,10 +385,10 @@ SoRayPickAction::setRay(const SbVec3f & start, const SbVec3f & direction,
   with should be picked. If not, only the intersection point of the
   object closest to the camera will be picked.
 
-  Default value of the "pick all" flag is \c FALSE.
+  Default value of the "pick all" flag is \c false.
 */
 void
-SoRayPickAction::setPickAll(const SbBool flag)
+SoRayPickAction::setPickAll(const bool flag)
 {
   if (flag) PRIVATE(this)->setFlag(SoRayPickActionP::PICK_ALL);
   else PRIVATE(this)->clearFlag(SoRayPickActionP::PICK_ALL);
@@ -400,7 +400,7 @@ SoRayPickAction::setPickAll(const SbBool flag)
 
   \sa setPickAll()
 */
-SbBool
+bool
 SoRayPickAction::isPickAll(void) const
 {
   return PRIVATE(this)->isFlagSet(SoRayPickActionP::PICK_ALL);
@@ -546,7 +546,7 @@ SoRayPickAction::computeWorldSpaceRay(void)
 /*!
   \COININTERNAL
  */
-SbBool
+bool
 SoRayPickAction::hasWorldSpaceRay(void) const
 {
   return PRIVATE(this)->isFlagSet(SoRayPickActionP::WS_RAY_SET|SoRayPickActionP::WS_RAY_COMPUTED);
@@ -578,18 +578,18 @@ SoRayPickAction::setObjectSpace(const SbMatrix & matrix)
 /*!
   \COININTERNAL
  */
-SbBool
+bool
 SoRayPickAction::intersect(const SbVec3f & v0_in,
                            const SbVec3f & v1_in,
                            const SbVec3f & v2_in,
                            SbVec3f & intersection, SbVec3f & barycentric,
-                           SbBool & front) const
+                           bool & front) const
 {
   // Calculating intersections when we have a degenerate transform
   // makes no sense. We could do the intersection calculations in
   // world space, but it is impossible to calculate the object space
-  // intersection point, so we just return FALSE.
-  if (!PRIVATE(this)->objectspacevalid) return FALSE;
+  // intersection point, so we just return false.
+  if (!PRIVATE(this)->objectspacevalid) return false;
 
   SbVec3d v0,v1,v2;
   v0.setValue(v0_in);
@@ -606,11 +606,11 @@ SoRayPickAction::intersect(const SbVec3f & v0_in,
 
   // if determinant is near zero, ray lies in plane of triangle
   double det = edge1.dot(pvec);
-  if (fabs(det) < DBL_EPSILON) return FALSE;
+  if (fabs(det) < DBL_EPSILON) return false;
 
   // does ray hit front or back of triangle
-  if (det > 0.0) front = TRUE;
-  else front = FALSE;
+  if (det > 0.0) front = true;
+  else front = false;
 
   // create some more intuitive barycentric coordinate names
   double u, v, w;
@@ -622,7 +622,7 @@ SoRayPickAction::intersect(const SbVec3f & v0_in,
   // calculate U parameter and test bounds
   u = tvec.dot(pvec) * inv_det;
   if (u < 0.0 || u > 1.0)
-    return FALSE;
+    return false;
 
   // prepare to test V parameter
   SbVec3d qvec = tvec.cross(edge1);
@@ -630,7 +630,7 @@ SoRayPickAction::intersect(const SbVec3f & v0_in,
   // calculate V parameter and test bounds
   v = dir.dot(qvec) * inv_det;
   if (v < 0.0 || u + v > 1.0)
-    return FALSE;
+    return false;
 
   // third barycentric coordinate
   w = 1.0 - u - v;
@@ -646,21 +646,21 @@ SoRayPickAction::intersect(const SbVec3f & v0_in,
   barycentric[1] = static_cast<float>(u);
   barycentric[2] = static_cast<float>(v);
 
-  return TRUE;
+  return true;
 }
 
 /*!
   \COININTERNAL
  */
-SbBool
+bool
 SoRayPickAction::intersect(const SbVec3f & v0_in, const SbVec3f & v1_in,
                            SbVec3f & intersection) const
 {
   // Calculating intersections when we have a degenerate transform
   // makes no sense. We could do the intersection calculations in
   // world space, but it is impossible to calculate the object space
-  // intersection point, so we just return FALSE.
-  if (!PRIVATE(this)->objectspacevalid) return FALSE;
+  // intersection point, so we just return false.
+  if (!PRIVATE(this)->objectspacevalid) return false;
 
   SbVec3d v0, v1;
   v0.setValue(v0_in);
@@ -670,7 +670,7 @@ SoRayPickAction::intersect(const SbVec3f & v0_in, const SbVec3f & v1_in,
   // if we don't
   if (v0 == v1) {
     intersection = v0_in;
-    // this might return TRUE or FALSE. We already set the
+    // this might return true or false. We already set the
     // intersection point.
     return this->intersect(v0_in);
   }
@@ -679,7 +679,7 @@ SoRayPickAction::intersect(const SbVec3f & v0_in, const SbVec3f & v1_in,
   SbVec3d op0, op1; // object space
   SbVec3d p0, p1; // world space
 
-  if (!PRIVATE(this)->osline.getClosestPoints(line, op0, op1)) return FALSE;
+  if (!PRIVATE(this)->osline.getClosestPoints(line, op0, op1)) return false;
 
   // clamp op1 between v0 and v1
   if ((op1-v0).dot(line.getDirection()) < 0.0) op1 = v0;
@@ -698,22 +698,22 @@ SoRayPickAction::intersect(const SbVec3f & v0_in, const SbVec3f & v1_in,
 
   if (radius >= distance) {
     intersection.setValue(op1);
-    return TRUE;
+    return true;
   }
-  return FALSE;
+  return false;
 }
 
 /*!
   \COININTERNAL
  */
-SbBool
+bool
 SoRayPickAction::intersect(const SbVec3f & point_in) const
 {
   // Calculating intersections when we have a degenerate transform
   // makes no sense. We could do the intersection calculations in
   // world space, but it is impossible to calculate the object space
-  // intersection point, so we just return FALSE.
-  if (!PRIVATE(this)->objectspacevalid) return FALSE;
+  // intersection point, so we just return false.
+  if (!PRIVATE(this)->objectspacevalid) return false;
 
   SbVec3d point;
   point.setValue(point_in);
@@ -798,15 +798,15 @@ dist_to_quad(const double xmin, const double ymin,
 /*!
   \COININTERNAL
 */
-SbBool
+bool
 SoRayPickAction::intersect(const SbBox3f & box, SbVec3f & intersection,
-                           const SbBool usefullviewvolume)
+                           const bool usefullviewvolume)
 {
   // Calculating intersections when we have a degenerate transform
   // makes no sense. We could do the intersection calculations in
   // world space, but it is impossible to calculate the object space
-  // intersection point, so we just return FALSE.
-  if (!PRIVATE(this)->objectspacevalid) return FALSE;
+  // intersection point, so we just return false.
+  if (!PRIVATE(this)->objectspacevalid) return false;
 
   const SbDPLine & line = PRIVATE(this)->osline;
   SbVec3d bounds[2];
@@ -816,7 +816,7 @@ SoRayPickAction::intersect(const SbBox3f & box, SbVec3f & intersection,
   SbVec3d ptonray, ptonbox;
   double sqrmindist = DBL_MAX;
 
-  SbBool conepick = usefullviewvolume && !PRIVATE(this)->isFlagSet(SoRayPickActionP::WS_RAY_SET);
+  bool conepick = usefullviewvolume && !PRIVATE(this)->isFlagSet(SoRayPickActionP::WS_RAY_SET);
 
   int i;
 
@@ -840,7 +840,7 @@ SoRayPickAction::intersect(const SbBox3f & box, SbVec3f & intersection,
       }
       if ((numnear < i) && (numfar < i)) break;
     }
-    if (numnear == 8 || numfar == 8) return FALSE;
+    if (numnear == 8 || numfar == 8) return false;
   }
 
   for (int j = 0; j < 2; j++) {
@@ -862,7 +862,7 @@ SoRayPickAction::intersect(const SbBox3f & box, SbVec3f & intersection,
         if (d <= 0.0f) {
           // center of ray hit box directly
           intersection.setValue(isect);
-          return TRUE;
+          return true;
         }
         else if (d < sqrmindist) {
           sqrmindist = d;
@@ -889,18 +889,18 @@ SoRayPickAction::intersect(const SbBox3f & box, SbVec3f & intersection,
     // test for cone intersection
     if (radius >= distance) {
       intersection.setValue(ptonbox); // set intersection to the point on box closest to ray
-      return TRUE;
+      return true;
     }
   }
-  return FALSE;
+  return false;
 }
 
 
 /*!
   \COININTERNAL
  */
-SbBool
-SoRayPickAction::intersect(const SbBox3f & box, const SbBool usefullviewvolume)
+bool
+SoRayPickAction::intersect(const SbBox3f & box, const bool usefullviewvolume)
 {
   SbVec3f dummy;
   return this->intersect(box, dummy, usefullviewvolume);
@@ -971,7 +971,7 @@ SoRayPickAction::getLine(void)
 /*!
   \COININTERNAL
  */
-SbBool
+bool
 SoRayPickAction::isBetweenPlanes(const SbVec3f & intersection_in) const
 {
   SbVec3d intersection;
@@ -986,7 +986,7 @@ SoRayPickAction::isBetweenPlanes(const SbVec3f & intersection_in) const
   \COININTERNAL
 */
 SoPickedPoint *
-SoRayPickAction::addIntersection(const SbVec3f & objectspacepoint_in, SbBool frontpick)
+SoRayPickAction::addIntersection(const SbVec3f & objectspacepoint_in, bool frontpick)
 {
   if (PRIVATE(this)->isFlagSet(SoRayPickActionP::CULL_BACKFACES) && !frontpick)
     return NULL;
@@ -1045,7 +1045,7 @@ SoRayPickAction::beginTraversal(SoNode * node)
 //////// Hidden private methods for //////////////////////////////////////
 //////// SoRayPickActionP (pimpl) ////////////////////////////////////////
 
-SbBool
+bool
 SoRayPickActionP::isBetweenPlanesWS(const SbVec3d & intersection,
                                     const SoClipPlaneElement * planes) const
 {
@@ -1053,16 +1053,16 @@ SoRayPickActionP::isBetweenPlanesWS(const SbVec3d & intersection,
   isect_f.setValue(intersection);
   double dist = this->nearplane.getDistance(intersection);
   if (this->isFlagSet(CLIP_NEAR)) {
-    if (dist < 0) return FALSE;
+    if (dist < 0) return false;
   }
   if (this->isFlagSet(CLIP_FAR)) {
-    if (dist > (this->rayfar - this->raynear)) return FALSE;
+    if (dist > (this->rayfar - this->raynear)) return false;
   }
   int n =  planes->getNum();
   for (int i = 0; i < n; i++) {
-    if (!planes->get(i).isInHalfSpace(isect_f)) return FALSE;
+    if (!planes->get(i).isInHalfSpace(isect_f)) return false;
   }
-  return TRUE;
+  return true;
 }
 
 void
@@ -1085,7 +1085,7 @@ SoRayPickActionP::clearFlag(const unsigned int flag)
   this->flags &= ~flag;
 }
 
-SbBool
+bool
 SoRayPickActionP::isFlagSet(const unsigned int flag) const
 {
   return (this->flags & flag) != 0;
@@ -1125,7 +1125,7 @@ SoRayPickActionP::calcMatrices(SoState * state)
   }
   this->world2obj = this->obj2world.inverse();
   // FIXME: find a safe way to test if we were able to properly calculate the inverse matrix
-  this->objectspacevalid = TRUE;
+  this->objectspacevalid = true;
 }
 
 void

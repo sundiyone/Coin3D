@@ -72,16 +72,16 @@ public:
 protected:
   virtual ~SoTexture3();
 
-  virtual SbBool readInstance(SoInput *in, unsigned short flags);
+  virtual bool readInstance(SoInput *in, unsigned short flags);
   virtual void notify(SoNotList *list);
   int getReadStatus(void);
   void setReadStatus(int s);
 
 private:
-  SbBool loadFilenames(SoInput * in = NULL);
+  bool loadFilenames(SoInput * in = NULL);
   int readstatus;
   class SoGLImage *glimage;
-  SbBool glimagevalid;
+  bool glimagevalid;
 
   class SoFieldSensor *filenamesensor;
   static void filenameSensorCB(void *, SoSensor *);

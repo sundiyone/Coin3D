@@ -70,11 +70,11 @@ public:
   SbList <SoGLRenderCache *> itemlist;
   int numcaches;
   SoGLRenderCache * opencache;
-  SbBool savedinvalid;
+  bool savedinvalid;
   int autocachebits;
   int numused;
   int numdiscarded;
-  SbBool needclose;
+  bool needclose;
   SoElement * invalidelement;
   int numframesok;
   int numshapes;
@@ -113,7 +113,7 @@ SoGLCacheList::SoGLCacheList(int numcaches)
   PRIVATE(this)->autocachebits = 0;
   PRIVATE(this)->numused = 0;
   PRIVATE(this)->numdiscarded = 0;
-  PRIVATE(this)->needclose = FALSE;
+  PRIVATE(this)->needclose = false;
   PRIVATE(this)->invalidelement = NULL;
   PRIVATE(this)->numframesok = 0;
   PRIVATE(this)->numshapes = 0;
@@ -161,16 +161,16 @@ SoGLCacheList::~SoGLCacheList()
 }
 
 /*!
-  Test for valid cache and execute. Returns TRUE if a valid cache
-  could be found, FALSE otherwise. Note that when a valid cache is
+  Test for valid cache and execute. Returns true if a valid cache
+  could be found, false otherwise. Note that when a valid cache is
   found, it is executed before returning from this method.
 */
-SbBool
+bool
 SoGLCacheList::call(SoGLRenderAction * action)
 {
   // do a quick return if there are no caches in the list
   int n = PRIVATE(this)->itemlist.getLength();
-  if (n == 0) return FALSE;
+  if (n == 0) return false;
 
   int i;
   SoState * state = action->getState();
@@ -211,7 +211,7 @@ SoGLCacheList::call(SoGLRenderAction * action)
         // check if the GL error is still present even when not using
         // GL displaylists.
 
-        static SbBool chkglerr = sogl_glerror_debugging();
+        static bool chkglerr = sogl_glerror_debugging();
         if (chkglerr) {
           GLenum err = glGetError();
           if (err != GL_NO_ERROR) {
@@ -411,7 +411,7 @@ SoGLCacheList::call(SoGLRenderAction * action)
 
 #endif // COIN_DEBUG
 
-        return TRUE;
+        return true;
       }
     }
   }
@@ -424,7 +424,7 @@ SoGLCacheList::call(SoGLRenderAction * action)
       SoGLRenderCache * cache = PRIVATE(this)->itemlist[i];
       if (cache->getCacheContext() == context) {
         SoDebugError::postInfo("SoGLCacheList::call",
-                               "cache %d isValid()? %s", i, cache->isValid(state) ? "TRUE" : "FALSE");
+                               "cache %d isValid()? %s", i, cache->isValid(state) ? "true" : "false");
         if (!cache->isValid(state)) {
           const SoElement * elem = cache->getInvalidElement(state);
           if (elem) {
@@ -437,7 +437,7 @@ SoGLCacheList::call(SoGLRenderAction * action)
     }
   }
 #endif // debug
-  return FALSE;
+  return false;
 }
 
 /*!
@@ -447,27 +447,27 @@ SoGLCacheList::call(SoGLRenderAction * action)
   \sa close()
 */
 void
-SoGLCacheList::open(SoGLRenderAction * action, SbBool autocache)
+SoGLCacheList::open(SoGLRenderAction * action, bool autocache)
 {
   // needclose is used to quickly return in close()
   if (PRIVATE(this)->numcaches == 0 || (autocache && COIN_AUTO_CACHING == 0)) {
-    PRIVATE(this)->needclose = FALSE;
+    PRIVATE(this)->needclose = false;
     return;
   }
 
-  PRIVATE(this)->needclose = TRUE;
+  PRIVATE(this)->needclose = true;
 
   assert(PRIVATE(this)->opencache == NULL);
   SoState * state = action->getState();
 
   // will be restored in close()
-  PRIVATE(this)->savedinvalid = SoCacheElement::setInvalid(FALSE);
+  PRIVATE(this)->savedinvalid = SoCacheElement::setInvalid(false);
 
   if (SoCacheElement::anyOpen(state)) return;
 
-  SbBool shouldcreate = FALSE;
+  bool shouldcreate = false;
   if (!autocache) {
-    if (PRIVATE(this)->numframesok >= 1) shouldcreate = TRUE;
+    if (PRIVATE(this)->numframesok >= 1) shouldcreate = true;
   }
   else {
     if (PRIVATE(this)->numframesok >= 2 &&
@@ -475,26 +475,26 @@ SoGLCacheList::open(SoGLRenderAction * action, SbBool autocache)
 
       if (COIN_SMART_CACHING) {
         if (PRIVATE(this)->numshapes < 2) {
-          if (PRIVATE(this)->numframesok >= 5) shouldcreate = TRUE;
+          if (PRIVATE(this)->numframesok >= 5) shouldcreate = true;
         }
         else if (PRIVATE(this)->numshapes < 5) {
-          if (PRIVATE(this)->numframesok >= 4) shouldcreate = TRUE;
+          if (PRIVATE(this)->numframesok >= 4) shouldcreate = true;
         }
         else if (PRIVATE(this)->numshapes < 10) {
-          if (PRIVATE(this)->numframesok >= 3) shouldcreate = TRUE;
+          if (PRIVATE(this)->numframesok >= 3) shouldcreate = true;
         }
         else if (PRIVATE(this)->numshapes > 1000) {
-          if (PRIVATE(this)->numframesok >= 4) shouldcreate = TRUE;
+          if (PRIVATE(this)->numframesok >= 4) shouldcreate = true;
         }
         else if (PRIVATE(this)->numshapes > 100) {
-          if (PRIVATE(this)->numframesok >= 3) shouldcreate = TRUE;
+          if (PRIVATE(this)->numframesok >= 3) shouldcreate = true;
         }
         else {
-          shouldcreate = TRUE;
+          shouldcreate = true;
         }
       }
       else {
-        shouldcreate = TRUE;
+        shouldcreate = true;
       }
 #if COIN_DEBUG
       if (coin_debug_caching_level() > 0 && PRIVATE(this)->numframesok >= 2) {
@@ -516,7 +516,7 @@ SoGLCacheList::open(SoGLRenderAction * action, SbBool autocache)
     // we used to be more conservative here, and use dontcreate^4 to avoid
     // recreating caches too often. However, display lists are much faster with
     // current drivers than they used to be so we're a bit more aggressive now.
-    if (dontcreate >= docreate) shouldcreate = FALSE;
+    if (dontcreate >= docreate) shouldcreate = false;
   }
 
   if (shouldcreate) {
@@ -569,7 +569,7 @@ SoGLCacheList::close(SoGLRenderAction * action)
   }
   if (SoCacheElement::setInvalid(PRIVATE(this)->savedinvalid)) {
     // notify parent caches
-    SoCacheElement::setInvalid(TRUE);
+    SoCacheElement::setInvalid(true);
     PRIVATE(this)->numframesok = 0;
     // just throw away the open cache, it's invalid
     if (PRIVATE(this)->opencache) {

@@ -54,17 +54,17 @@
 
 void * coin_wgl_getprocaddress(const cc_glglue * COIN_UNUSED_ARG(glue), const char * COIN_UNUSED_ARG(fname)) { return NULL; }
 
-void * wglglue_context_create_offscreen(unsigned int COIN_UNUSED_ARG(width), unsigned int COIN_UNUSED_ARG(height)) { assert(FALSE); return NULL; }
-SbBool wglglue_context_make_current(void * COIN_UNUSED_ARG(ctx)) { assert(FALSE); return FALSE; }
-void wglglue_context_reinstate_previous(void * COIN_UNUSED_ARG(ctx)) { assert(FALSE); }
-void wglglue_context_destruct(void * COIN_UNUSED_ARG(ctx)) { assert(FALSE); }
+void * wglglue_context_create_offscreen(unsigned int COIN_UNUSED_ARG(width), unsigned int COIN_UNUSED_ARG(height)) { assert(false); return NULL; }
+bool wglglue_context_make_current(void * COIN_UNUSED_ARG(ctx)) { assert(false); return false; }
+void wglglue_context_reinstate_previous(void * COIN_UNUSED_ARG(ctx)) { assert(false); }
+void wglglue_context_destruct(void * COIN_UNUSED_ARG(ctx)) { assert(false); }
 
-void wglglue_context_bind_pbuffer(void * COIN_UNUSED_ARG(ctx)) { assert(FALSE); }
-void wglglue_context_release_pbuffer(void * COIN_UNUSED_ARG(ctx)) { assert(FALSE); }
-SbBool wglglue_context_pbuffer_is_bound(void * COIN_UNUSED_ARG(ctx)) { assert(FALSE); return FALSE; }
-SbBool wglglue_context_can_render_to_texture(void * COIN_UNUSED_ARG(ctx)) { assert(FALSE); return FALSE; }
+void wglglue_context_bind_pbuffer(void * COIN_UNUSED_ARG(ctx)) { assert(false); }
+void wglglue_context_release_pbuffer(void * COIN_UNUSED_ARG(ctx)) { assert(false); }
+bool wglglue_context_pbuffer_is_bound(void * COIN_UNUSED_ARG(ctx)) { assert(false); return false; }
+bool wglglue_context_can_render_to_texture(void * COIN_UNUSED_ARG(ctx)) { assert(false); return false; }
 
-SbBool wglglue_context_pbuffer_max(void * COIN_UNUSED_ARG(ctx), unsigned int * COIN_UNUSED_ARG(lims)) { assert(FALSE); return FALSE; }
+bool wglglue_context_pbuffer_max(void * COIN_UNUSED_ARG(ctx), unsigned int * COIN_UNUSED_ARG(lims)) { assert(false); return false; }
 
 /* ********************************************************************** */
 
@@ -85,7 +85,7 @@ Type cstyle_cast(PROC procaddr)
 } }
 
 struct wglglue_contextdata;
-static SbBool (* wglglue_context_create)(struct wglglue_contextdata * context, SbBool warnonerrors) = NULL;
+static bool (* wglglue_context_create)(struct wglglue_contextdata * context, bool warnonerrors) = NULL;
 
 /* ********************************************************************** */
 
@@ -186,7 +186,7 @@ static COIN_PFNWGLGETEXTENSIONSSTRING wglglue_wglGetExtensionsString = NULL;
 
 /* ********************************************************************** */
 
-static SbBool attemptedextresolved = FALSE;
+static bool attemptedextresolved = false;
 
 /* ********************************************************************** */
 
@@ -228,8 +228,8 @@ struct wglglue_contextdata {
 
   HDC memorydc;
   HWND pbufferwnd;
-  SbBool didcreatememorydc;
-  SbBool shouldreleasememorydc;
+  bool didcreatememorydc;
+  bool shouldreleasememorydc;
   HBITMAP bitmap, oldbitmap;
   HGLRC wglcontext;
 
@@ -237,11 +237,11 @@ struct wglglue_contextdata {
   HDC storeddc;
 
   WGLGLUE_HPBUFFER hpbuffer;
-  SbBool noappglcontextavail;
+  bool noappglcontextavail;
 
-  SbBool supports_render_to_texture;
-  SbBool wanted_render_to_texture;
-  SbBool pbufferisbound;
+  bool supports_render_to_texture;
+  bool wanted_render_to_texture;
+  bool pbufferisbound;
   void *pvBits;
   int pixelformat;
 };
@@ -264,7 +264,7 @@ wglglue_copy_to_bitmap_win32_HDC(void * ctx)
   wglglue_context_reinstate_previous(context);
 }
 
-static SbBool
+static bool
 wglglue_pbuffer_symbols_resolved(void)
 {
   return (wglglue_wglCreatePbuffer && wglglue_wglGetPbufferDC &&
@@ -272,7 +272,7 @@ wglglue_pbuffer_symbols_resolved(void)
           wglglue_wglQueryPbuffer);
 }
 
-static SbBool
+static bool
 wglglue_ext_supported(struct wglglue_contextdata * context, const cc_glglue * glue, const char * reqext)
 {
   /*
@@ -285,7 +285,7 @@ wglglue_ext_supported(struct wglglue_contextdata * context, const cc_glglue * gl
    * use that aswell.
    */
   if (!attemptedextresolved) {
-    attemptedextresolved = TRUE;
+    attemptedextresolved = true;
 #ifdef WGL_ARB_extensions_string
     wglglue_wglGetExtensionsString = (COIN_PFNWGLGETEXTENSIONSSTRING)PROC(glue, wglGetExtensionsStringARB);
 #endif /* WGL_ARB_extensions_string */
@@ -298,22 +298,22 @@ wglglue_ext_supported(struct wglglue_contextdata * context, const cc_glglue * gl
 
   if (wglglue_wglGetExtensionsString) {
     const char * wglext = wglglue_wglGetExtensionsString(context->memorydc);
-    if (coin_glglue_extension_available(wglext, reqext)) { return TRUE; }
+    if (coin_glglue_extension_available(wglext, reqext)) { return true; }
   }
 
-  if (coin_glglue_extension_available((const char *) glGetString(GL_EXTENSIONS), reqext)) { return TRUE; }
+  if (coin_glglue_extension_available((const char *) glGetString(GL_EXTENSIONS), reqext)) { return true; }
 
-  return FALSE;
+  return false;
 }
 
-static SbBool
+static bool
 wglglue_resolve_symbols(struct wglglue_contextdata * context)
 {
   /* Short circuit out if symbols have already been resolved. */
-  if (wglglue_pbuffer_symbols_resolved()) { return TRUE; }
+  if (wglglue_pbuffer_symbols_resolved()) { return true; }
 
   /* We need a(ny) current context to resolve symbols. */
-  if (!wglglue_context_make_current(context)) { return FALSE; }
+  if (!wglglue_context_make_current(context)) { return false; }
 
   // just create a cc_glglue instance to use for looking up symbols
   const cc_glglue * glue = cc_glglue_instance(SoGLCacheContextElement::getUniqueCacheContext());
@@ -388,18 +388,18 @@ wglglue_contextdata_init(unsigned int width, unsigned int height)
   context->height = height;
   context->memorydc = NULL;
   context->pbufferwnd = NULL;
-  context->didcreatememorydc = FALSE;
-  context->shouldreleasememorydc = FALSE;
+  context->didcreatememorydc = false;
+  context->shouldreleasememorydc = false;
   context->bitmap = NULL;
   context->hpbuffer = NULL;
   context->oldbitmap = NULL;
   context->wglcontext = NULL;
   context->storedcontext = NULL;
   context->storeddc = NULL;
-  context->noappglcontextavail = FALSE;
-  context->supports_render_to_texture = FALSE;
-  context->wanted_render_to_texture = TRUE;
-  context->pbufferisbound = FALSE;
+  context->noappglcontextavail = false;
+  context->supports_render_to_texture = false;
+  context->wanted_render_to_texture = true;
+  context->pbufferisbound = false;
   context->pixelformat = 0;
 
   return context;
@@ -478,7 +478,7 @@ wglglue_contextdata_cleanup(struct wglglue_contextdata * ctx)
   free(ctx);
 }
 
-static SbBool
+static bool
 wglglue_context_create_context(struct wglglue_contextdata * ctx, DWORD bitWin)
 {
   struct wglglue_contextdata * context = (struct wglglue_contextdata *)ctx;
@@ -554,7 +554,7 @@ wglglue_context_create_context(struct wglglue_contextdata * ctx, DWORD bitWin)
     cc_debugerror_postwarning("wglglue_context_create_context",
                               "ChoosePixelFormat() failed with "
                               "error code %d.", dwError);
-    return FALSE;
+    return false;
   }
 
   /* make that the pixel format of the device context: */
@@ -595,7 +595,7 @@ wglglue_context_create_context(struct wglglue_contextdata * ctx, DWORD bitWin)
                        "Try changing display settings (to e.g. 16-bit, "
                        "24-bit or 32-bit truecolor display) and re-run.");
 
-    return FALSE;
+    return false;
   }
 
   context->pixelformat = pixelformat;
@@ -605,14 +605,14 @@ wglglue_context_create_context(struct wglglue_contextdata * ctx, DWORD bitWin)
     DWORD dwError = GetLastError();
     cc_win32_print_error("wglglue_context_create_context",
                          "wglCreateContext()", dwError);
-    return FALSE;
+    return false;
   }
 
-  return TRUE;
+  return true;
 }
 
-static SbBool
-wglglue_context_create_software(struct wglglue_contextdata * ctx, SbBool warnonerrors)
+static bool
+wglglue_context_create_software(struct wglglue_contextdata * ctx, bool warnonerrors)
 {
   struct wglglue_contextdata * context = (struct wglglue_contextdata *)ctx;
 
@@ -622,8 +622,8 @@ wglglue_context_create_software(struct wglglue_contextdata * ctx, SbBool warnone
   }
 
   context->memorydc = CreateCompatibleDC(NULL);
-  context->didcreatememorydc = TRUE;
-  context->shouldreleasememorydc = FALSE;
+  context->didcreatememorydc = true;
+  context->shouldreleasememorydc = false;
   if (context->memorydc == NULL) {
     if (warnonerrors || coin_glglue_debug()) {
       DWORD dwError = GetLastError();
@@ -631,7 +631,7 @@ wglglue_context_create_software(struct wglglue_contextdata * ctx, SbBool warnone
                                 "CreateCompatibleDC(NULL) failed with "
                                 "error code %d.", dwError);
     }
-    return FALSE;
+    return false;
   }
 
   /* make a bitmap to draw to */
@@ -663,7 +663,7 @@ wglglue_context_create_software(struct wglglue_contextdata * ctx, SbBool warnone
                                   "CreateDIBSection() failed with error "
                                   "code %d.", dwError);
       }
-      return FALSE;
+      return false;
     }
   }
 
@@ -676,11 +676,11 @@ wglglue_context_create_software(struct wglglue_contextdata * ctx, SbBool warnone
                                 "SelectObject() failed with error code %d.",
                                 dwError);
     }
-    return FALSE;
+    return false;
   }
 
   if (!(wglglue_context_create_context(context, PFD_DRAW_TO_BITMAP))) {
-    return FALSE;
+    return false;
   }
 
   if (coin_glglue_debug()) {
@@ -689,11 +689,11 @@ wglglue_context_create_software(struct wglglue_contextdata * ctx, SbBool warnone
                            context->wglcontext);
   }
 
-  return TRUE;
+  return true;
 }
 
-static SbBool
-wglglue_context_create_pbuffer(struct wglglue_contextdata * ctx, SbBool warnonerrors)
+static bool
+wglglue_context_create_pbuffer(struct wglglue_contextdata * ctx, bool warnonerrors)
 {
   struct wglglue_contextdata * context = (struct wglglue_contextdata *)ctx;
 
@@ -702,11 +702,11 @@ wglglue_context_create_pbuffer(struct wglglue_contextdata * ctx, SbBool warnoner
   }
 
   if ((context->memorydc = wglGetCurrentDC())) {
-    context->shouldreleasememorydc = FALSE;
-    context->didcreatememorydc = FALSE;
+    context->shouldreleasememorydc = false;
+    context->didcreatememorydc = false;
     context->wglcontext = wglGetCurrentContext();
   }
-  else { context->noappglcontextavail = TRUE; }
+  else { context->noappglcontextavail = true; }
 
   if (context->noappglcontextavail) {
     /* FIXME: This should be reset in wglglue_cleanup() once we
@@ -732,7 +732,7 @@ wglglue_context_create_pbuffer(struct wglglue_contextdata * ctx, SbBool warnoner
         cc_debugerror_postwarning("wglglue_context_create_pbuffer",
                                   "RegisterClass(&wc) failed with "
                                   "error code %d.", dwError);
-        return FALSE;
+        return false;
       }
       /* FIXME: unregister at app exit? pederb, 2003-12-15 */
     }
@@ -757,29 +757,29 @@ wglglue_context_create_pbuffer(struct wglglue_contextdata * ctx, SbBool warnoner
         cc_debugerror_postwarning("wglglue_context_create_pbuffer",
                                   "CreateWindow(...) failed with "
                                   "error code %d.", dwError);
-        return FALSE;
+        return false;
       }
 
       context->pbufferwnd = hWnd;
       context->memorydc = GetDC(hWnd);
-      context->shouldreleasememorydc = TRUE;
-      context->didcreatememorydc = FALSE;
+      context->shouldreleasememorydc = true;
+      context->didcreatememorydc = false;
       if (context->memorydc == NULL) {
         DWORD dwError = GetLastError();
         cc_debugerror_postwarning("wglglue_context_create_pbuffer",
                                   "GetDC(hWnd) failed with "
                                   "error code %d.", dwError);
-        return FALSE;
+        return false;
       }
     }
 
     if (!(wglglue_context_create_context(context, PFD_DRAW_TO_WINDOW))) {
-      return FALSE;
+      return false;
     }
   }
 
   {
-    const SbBool pbuffer = wglglue_resolve_symbols(context);
+    const bool pbuffer = wglglue_resolve_symbols(context);
 
     if (coin_glglue_debug()) {
       cc_debugerror_postinfo("wglglue_context_create_pbuffer",
@@ -788,7 +788,7 @@ wglglue_context_create_pbuffer(struct wglglue_contextdata * ctx, SbBool warnoner
     }
 
     if (!pbuffer) {
-      return FALSE;
+      return false;
     }
   }
 
@@ -802,7 +802,7 @@ wglglue_context_create_pbuffer(struct wglglue_contextdata * ctx, SbBool warnoner
                                   want to modify it later, and need to
                                   know where it is. This is a
                                   wart. 20060307 mortene. */
-      WGL_DRAW_TO_PBUFFER_ARB, TRUE,
+      WGL_DRAW_TO_PBUFFER_ARB, true,
       WGL_COLOR_BITS_ARB, 32,
       WGL_ALPHA_BITS_ARB, 8,
       WGL_DEPTH_BITS_ARB, 24,
@@ -813,8 +813,8 @@ wglglue_context_create_pbuffer(struct wglglue_contextdata * ctx, SbBool warnoner
                                   want to modify it later, and need to
                                   know where it is. This is a
                                   wart. 20060307 mortene. */
-      WGL_DRAW_TO_PBUFFER_ARB, TRUE,
-      WGL_BIND_TO_TEXTURE_RGBA_ARB, TRUE,
+      WGL_DRAW_TO_PBUFFER_ARB, true,
+      WGL_BIND_TO_TEXTURE_RGBA_ARB, true,
       WGL_COLOR_BITS_ARB, 32,
       WGL_ALPHA_BITS_ARB, 8,
       WGL_DEPTH_BITS_ARB, 24,
@@ -901,7 +901,7 @@ wglglue_context_create_pbuffer(struct wglglue_contextdata * ctx, SbBool warnoner
     }
 
     /* if no way to construct a pbuffer was found: */
-    if (!context->hpbuffer) { return FALSE; }
+    if (!context->hpbuffer) { return false; }
 
     context->pixelformat = pixformat;
 
@@ -957,14 +957,14 @@ wglglue_context_create_pbuffer(struct wglglue_contextdata * ctx, SbBool warnoner
                                       &(context->pvBits), NULL, 0);
 	SelectObject(context->memorydc, context->bitmap);
 
-    context->didcreatememorydc = TRUE;
-    context->shouldreleasememorydc = FALSE;
+    context->didcreatememorydc = true;
+    context->shouldreleasememorydc = false;
     if (!context->memorydc) {
       if (warnonerrors || coin_glglue_debug()) {
         cc_debugerror_postwarning("wglglue_context_create_pbuffer",
                                   "Couldn't create pbuffer's device context.");
       }
-      return FALSE;
+      return false;
     }
 
     /* delete wgl context in case we created it ourselves */
@@ -983,7 +983,7 @@ wglglue_context_create_pbuffer(struct wglglue_contextdata * ctx, SbBool warnoner
         cc_debugerror_postwarning("wglglue_context_create_pbuffer",
                                   "Couldn't create rendering context for the pbuffer.");
       }
-      return FALSE;
+      return false;
     }
 
     /* set and output the actual pBuffer dimensions */
@@ -994,7 +994,7 @@ wglglue_context_create_pbuffer(struct wglglue_contextdata * ctx, SbBool warnoner
         cc_debugerror_postwarning("wglglue_context_create_pbuffer",
                                   "Couldn't query the pbuffer width.");
       }
-      return FALSE;
+      return false;
     }
 
     if (!wglglue_wglQueryPbuffer(context->hpbuffer,
@@ -1004,7 +1004,7 @@ wglglue_context_create_pbuffer(struct wglglue_contextdata * ctx, SbBool warnoner
         cc_debugerror_postwarning("wglglue_context_create_pbuffer",
                                   "Couldn't query the pbuffer height.");
       }
-      return FALSE;
+      return false;
     }
   }
 
@@ -1014,7 +1014,7 @@ wglglue_context_create_pbuffer(struct wglglue_contextdata * ctx, SbBool warnoner
                            context->wglcontext);
   }
 
-  return TRUE;
+  return true;
 }
 
 /* ********************************************************************** */
@@ -1031,10 +1031,10 @@ wglglue_context_create_pbuffer(struct wglglue_contextdata * ctx, SbBool warnoner
      http://www.oss.sgi.com/projects/ogl-sample/registry/EXT/wgl_pbuffer.txt
 */
 void *
-wglglue_context_create_offscreen(unsigned int width, unsigned int height, SbBool texture)
+wglglue_context_create_offscreen(unsigned int width, unsigned int height, bool texture)
 {
   struct wglglue_contextdata * swctx, * pbctx;
-  SbBool ispbuffer;
+  bool ispbuffer;
 
   if (coin_glglue_debug()) {
     cc_debugerror_postinfo("wglglue_context_create_offscreen",
@@ -1062,7 +1062,7 @@ wglglue_context_create_offscreen(unsigned int width, unsigned int height, SbBool
       }
       swctx = wglglue_contextdata_init(width, height);
       assert(swctx);
-      if (wglglue_context_create_software(swctx, TRUE)) { return swctx; }
+      if (wglglue_context_create_software(swctx, true)) { return swctx; }
       wglglue_contextdata_cleanup(swctx);
     }
     return NULL;
@@ -1072,7 +1072,7 @@ wglglue_context_create_offscreen(unsigned int width, unsigned int height, SbBool
      we have to first make a context and set it current to be able
      to query pbuffer extension availability. */
 
-  if (!wglglue_context_create_software(swctx, TRUE)) {
+  if (!wglglue_context_create_software(swctx, true)) {
     wglglue_contextdata_cleanup(swctx);
     return NULL;
   }
@@ -1095,7 +1095,7 @@ wglglue_context_create_offscreen(unsigned int width, unsigned int height, SbBool
   pbctx->wanted_render_to_texture = texture;
 
   /* attempt to create a pbuffer */
-  if (!wglglue_context_create_pbuffer(pbctx, FALSE)) {
+  if (!wglglue_context_create_pbuffer(pbctx, false)) {
     wglglue_contextdata_cleanup(pbctx);
     return swctx;
   }
@@ -1109,7 +1109,7 @@ wglglue_context_create_offscreen(unsigned int width, unsigned int height, SbBool
   return pbctx;
 }
 
-SbBool
+bool
 wglglue_context_make_current(void * ctx)
 {
   struct wglglue_contextdata * context = (struct wglglue_contextdata *)ctx;
@@ -1121,7 +1121,7 @@ wglglue_context_make_current(void * ctx)
 	  hdc = wglglue_wglGetPbufferDC(context->hpbuffer);
   else
 	  hdc = context->memorydc;
-  return wglMakeCurrent(hdc, context->wglcontext) ? TRUE : FALSE;
+  return wglMakeCurrent(hdc, context->wglcontext) ? true : false;
 }
 
 void
@@ -1170,7 +1170,7 @@ wglglue_context_bind_pbuffer(void * ctx)
 
   ok = wglglue_wglBindTexImageARB(context->hpbuffer, WGL_FRONT_LEFT_ARB);
   assert(ok);
-  context->pbufferisbound = TRUE;
+  context->pbufferisbound = true;
 }
 
 void
@@ -1183,17 +1183,17 @@ wglglue_context_release_pbuffer(void * ctx)
 
   ok = wglglue_wglReleaseTexImageARB(context->hpbuffer, WGL_FRONT_LEFT_ARB);
   assert(ok);
-  context->pbufferisbound = FALSE;
+  context->pbufferisbound = false;
 }
 
-SbBool
+bool
 wglglue_context_pbuffer_is_bound(void * ctx)
 {
   struct wglglue_contextdata * context = (struct wglglue_contextdata *)ctx;
   return context->pbufferisbound;
 }
 
-SbBool
+bool
 wglglue_context_can_render_to_texture(void * ctx)
 {
   struct wglglue_contextdata * context = (struct wglglue_contextdata *)ctx;
@@ -1203,11 +1203,11 @@ wglglue_context_can_render_to_texture(void * ctx)
 /* ********************************************************************** */
 
 /* If ctx does not point at a pbuffer context, but rather a "normal"
-   offscreen context, it will return FALSE.
+   offscreen context, it will return false.
 
-   Upon other error conditions, FALSE will also be returned.
+   Upon other error conditions, false will also be returned.
 */
-SbBool
+bool
 wglglue_context_pbuffer_max(void * c, unsigned int * lims)
 {
   BOOL ok;
@@ -1218,8 +1218,8 @@ wglglue_context_pbuffer_max(void * c, unsigned int * lims)
   };
   struct wglglue_contextdata * ctx = (struct wglglue_contextdata *)c;
 
-  if (!ctx->hpbuffer) { return FALSE; }
-  if (!wglglue_wglGetPixelFormatAttribiv) { return FALSE; }
+  if (!ctx->hpbuffer) { return false; }
+  if (!wglglue_wglGetPixelFormatAttribiv) { return false; }
  
   ok = wglglue_wglGetPixelFormatAttribiv(ctx->memorydc, ctx->pixelformat,
                                          0, /* main plane */
@@ -1231,14 +1231,14 @@ wglglue_context_pbuffer_max(void * c, unsigned int * lims)
                                 "wglGetPixelFormatAttribiv() failed with "
                                 "error code %d.", dwError);
     }
-    return FALSE;
+    return false;
   }
 
   for (i = 0; i < 3; i++) {
     assert(attribvals[i] >= 0);
     lims[i] = (unsigned int)attribvals[i];
   }
-  return TRUE;
+  return true;
 }
 
 /* ********************************************************************** */
@@ -1260,7 +1260,7 @@ void wglglue_cleanup(void)
 
   wglglue_wglGetExtensionsString = NULL;
 
-  attemptedextresolved = FALSE;
+  attemptedextresolved = false;
 
   /* FIXME: We should probably do an UnregisterClass() here (see
      wglglue_context_create_pbuffer()) -- but since I don't know the

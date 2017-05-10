@@ -57,7 +57,7 @@
   <dd> If the part's type is an abstract superclass, this value will hold
   the default subclass used by this part.
   <dt> Created by Default?
-  <dd> Holds \c TRUE if the part should be instantiated when the node kit
+  <dd> Holds \c true if the part should be instantiated when the node kit
   is instantiated, otherwise the part is kept empty until it is set by some
   of the means applicable.
   <dt> Parent Name
@@ -66,7 +66,7 @@
   <dd> The name of the part that is the part immediately to the right of
   this part in the node kit scenegraph.
   <dt> Is it a List?
-  <dd> Holds \c TRUE if the part is a list, otherwise it is \c FALSE. See
+  <dd> Holds \c true if the part is a list, otherwise it is \c false. See
   SoNodeKitListPart for more info on node kit lists.
   <dt> List Cointainer Type
   <dd> The type of group node used to hold the items if the part is a list.
@@ -74,13 +74,13 @@
   <dd> The types of nodes that is allowed to be held by this part if the part
   is a list.
   <dt> Is It Public?
-  <dd> Holds \c TRUE if the part should be publically available, otherwise
-  it holds \c FALSE.
+  <dd> Holds \c true if the part should be publically available, otherwise
+  it holds \c false.
   </dl>
 
   Node kits use lazy instantiation when it creates it's parts. This means
   that the nodes making up the parts of the nodekit only are created when
-  they are needed. If the "Created by Default?" holds TRUE, then the part
+  they are needed. If the "Created by Default?" holds true, then the part
   is created when the node kit itself is instantiated. If not, parts are
   created when they are requested through SoBaseKit::getPart() or the
   SO_GET_PART() macro, or created with SoBaseKit::set(). Also, if a part is
@@ -265,7 +265,7 @@
 
 
   //  SoSFFloat ShapeScale::active
-  //  Turns the scaling on/off. Default value is TRUE.
+  //  Turns the scaling on/off. Default value is true.
 
 
   //  SoSFFloat ShapeScale::projectedSize
@@ -290,12 +290,12 @@
   {
     SO_KIT_CONSTRUCTOR(ShapeScale);
 
-    SO_KIT_ADD_FIELD(active, (TRUE));
+    SO_KIT_ADD_FIELD(active, (true));
     SO_KIT_ADD_FIELD(projectedSize, (5.0f));
 
-    SO_KIT_ADD_CATALOG_ENTRY(topSeparator, SoSeparator, FALSE, this, \x0, FALSE);
-    SO_KIT_ADD_CATALOG_ABSTRACT_ENTRY(shape, SoNode, SoCube, TRUE, topSeparator, \x0, TRUE);
-    SO_KIT_ADD_CATALOG_ENTRY(scale, SoScale, FALSE, topSeparator, shape, FALSE);
+    SO_KIT_ADD_CATALOG_ENTRY(topSeparator, SoSeparator, false, this, \x0, false);
+    SO_KIT_ADD_CATALOG_ABSTRACT_ENTRY(shape, SoNode, SoCube, true, topSeparator, \x0, true);
+    SO_KIT_ADD_CATALOG_ENTRY(scale, SoScale, false, topSeparator, shape, false);
 
     SO_KIT_INIT_INSTANCE();
   }
@@ -329,7 +329,7 @@
   {
     SoState * state = action->getState();
 
-    SoScale * scale = (SoScale*) this->getAnyPart(SbName("scale"), TRUE);
+    SoScale * scale = (SoScale*) this->getAnyPart(SbName("scale"), true);
     if (!this->active.getValue()) {
       update_scale(scale, SbVec3f(1.0f, 1.0f, 1.0f));
     }
@@ -387,7 +387,7 @@
     markerroot->addChild(t);
 
     ShapeScale * kit = new ShapeScale;
-    kit->active = TRUE;
+    kit->active = true;
     kit->projectedSize = 5.0f;
 
     // create the marker
@@ -470,7 +470,7 @@
     SoQtExaminerViewer * ex1 = new SoQtExaminerViewer(window);
 
     SoInput input;
-    SbBool ok = input.openFile(argv[1]);
+    bool ok = input.openFile(argv[1]);
     if (!ok) {
       (void) fprintf(stderr, "Unable to open file: %s\n", argv[1]);
       return -1;
@@ -500,7 +500,7 @@
 
     ex1->setSceneGraph(newroot);
     ex1->setTransparencyType(SoGLRenderAction::SORTED_OBJECT_BLEND);
-    ex1->setViewing(FALSE);
+    ex1->setViewing(false);
 
     ex1->show();
     SoQt::show(window);
@@ -552,7 +552,7 @@ public:
 
   SoBaseKit * kit;
   SoFieldData * writedata;
-  SbBool didcount;
+  bool didcount;
 
   // This array is a 1-1 mapping of the fields corresponding to the
   // catalog parts. Catalog indices will therefore also be used as
@@ -564,17 +564,17 @@ public:
   void testParentWrite(void);
 
   void copyParts(const SoBaseKit * srckit, SbList <SoNode*> & partlist,
-                 const SbBool copyconnections);
+                 const bool copyconnections);
 
-  void setParts(SbList <SoNode*> partlist, const SbBool leafparts);
+  void setParts(SbList <SoNode*> partlist, const bool leafparts);
 
-  SbBool readUnknownFields(SoInput *in, SoFieldData *&unknownFieldData );
+  bool readUnknownFields(SoInput *in, SoFieldData *&unknownFieldData );
 };
 
 #define PRIVATE(p) ((p)->pimpl)
 #define PUBLIC(p) ((p)->kit)
 
-SbBool SoBaseKit::searchchildren = FALSE;
+bool SoBaseKit::searchchildren = false;
 
 SO_KIT_SOURCE(SoBaseKit);
 
@@ -602,7 +602,7 @@ SO_KIT_SOURCE(SoBaseKit);
   \COININTERNAL
 */
 /*!
-  \var SbBool SoBaseKit::connectionsSetUp
+  \var bool SoBaseKit::connectionsSetUp
   \COININTERNAL
 */
 
@@ -646,26 +646,26 @@ SoBaseKit::SoBaseKit(void)
   // as we don't want to call SO_NODE_ADD_FIELD(). This is how the
   // invocation would have looked if we could use the macro:
   //
-  // SO_KIT_ADD_CATALOG_ENTRY(this, SoBaseKit, TRUE, "", "", FALSE);
+  // SO_KIT_ADD_CATALOG_ENTRY(this, SoBaseKit, true, "", "", false);
 
   SoBaseKit::classcatalog->addEntry("this",
                                     SoBaseKit::getClassTypeId(),
                                     SoBaseKit::getClassTypeId(),
-                                    TRUE,
+                                    true,
                                     "",
                                     "",
-                                    FALSE,
+                                    false,
                                     SoType::badType(),
                                     SoType::badType(),
-                                    FALSE);
+                                    false);
 
-  SO_KIT_ADD_CATALOG_LIST_ENTRY(callbackList, SoSeparator, TRUE, this, "", SoCallback, TRUE);
+  SO_KIT_ADD_CATALOG_LIST_ENTRY(callbackList, SoSeparator, true, this, "", SoCallback, true);
   SO_KIT_ADD_LIST_ITEM_TYPE(callbackList, SoEventCallback);
 
   // this could be created on demand, but will make it more complicated
   this->children = new SoChildList(this);
 
-  this->connectionsSetUp = FALSE;
+  this->connectionsSetUp = false;
   SO_KIT_INIT_INSTANCE();
 }
 
@@ -688,23 +688,23 @@ SoBaseKit::initClass(void)
   SoRayPickAction::addMethod(type, SoNode::rayPickS);
   SoAudioRenderAction::addMethod(type,
                                  SoAudioRenderAction::callDoAction);
-  SoBaseKit::searchchildren = FALSE;
+  SoBaseKit::searchchildren = false;
 }
 
 /*!
   Returns a pointer to the node part with \a partname.
 
   This method calls SoBaseKit::getAnyPart() with \a leafcheck and \a
-  publiccheck both set to \c TRUE.
+  publiccheck both set to \c true.
 
   See the documentation of SoBaseKit::getAnyPart() for information on
   how to use \a partname and \a makeifneeded, and what you can expect
   to get returned from this method.
 */
 SoNode *
-SoBaseKit::getPart(const SbName & partname, SbBool makeifneeded)
+SoBaseKit::getPart(const SbName & partname, bool makeifneeded)
 {
-  return this->getAnyPart(partname, makeifneeded, TRUE, TRUE);
+  return this->getAnyPart(partname, makeifneeded, true, true);
 }
 
 /*!
@@ -780,25 +780,25 @@ SoBaseKit::getPartString(const SoBase * part)
 }
 
 /*!
-  Calls SoBaseKit::createPathToAnyPart() with \a leafcheck \c TRUE,
-  and \a publiccheck \c TRUE (and other arguments as given to this
+  Calls SoBaseKit::createPathToAnyPart() with \a leafcheck \c true,
+  and \a publiccheck \c true (and other arguments as given to this
   function).
 
   See SoBaseKit::createPathToAnyPart() for documentation.
 */
 SoNodeKitPath *
-SoBaseKit::createPathToPart(const SbName & partname, SbBool makeifneeded, const SoPath * pathtoextend)
+SoBaseKit::createPathToPart(const SbName & partname, bool makeifneeded, const SoPath * pathtoextend)
 {
-  return this->createPathToAnyPart(partname, makeifneeded, TRUE, TRUE, pathtoextend);
+  return this->createPathToAnyPart(partname, makeifneeded, true, true, pathtoextend);
 }
 
 /*!
   Sets the catalog part given by \a partname to the \a from node pointer.
 */
-SbBool
+bool
 SoBaseKit::setPart(const SbName & partname, SoNode * from)
 {
-  return this->setAnyPart(partname, from, FALSE);
+  return this->setAnyPart(partname, from, false);
 }
 
 static const char *
@@ -853,7 +853,7 @@ find_partname_length(const char * ptr)
   kit->set("camera { heightAngle 0.3927  nearDistance 1.1  farDistance 999.9 }");
   \endcode
 */
-SbBool
+bool
 SoBaseKit::set(const char * namevaluepairliststring)
 {
   const size_t stringlen = strlen(namevaluepairliststring); // cache this value
@@ -869,25 +869,25 @@ SoBaseKit::set(const char * namevaluepairliststring)
                                 "parse error at byte %d in input string",
                                 start-namevaluepairliststring);
 #endif // COIN_DEBUG
-      return FALSE;
+      return false;
     }
     start++; // skip {
     SbString partname(currptr, 0, partnamelen-1);
     SoBaseKit * kit = this;
     int partNum;
-    SbBool isList;
+    bool isList;
     int listIdx;
-    if (!SoBaseKit::findPart(partname, kit, partNum, isList, listIdx, TRUE, NULL, TRUE)) {
+    if (!SoBaseKit::findPart(partname, kit, partNum, isList, listIdx, true, NULL, true)) {
 #if COIN_DEBUG
       SoDebugError::postWarning("SoBaseKit::set",
                                 "part ``%s'' not found",
                                 partname.getString());
 #endif // COIN_DEBUG
-      return FALSE;
+      return false;
     }
 
     SoNode * node = PRIVATE(kit)->instancelist[partNum]->getValue();
-    PRIVATE(kit)->instancelist[partNum]->setDefault(FALSE);
+    PRIVATE(kit)->instancelist[partNum]->setDefault(false);
 
     if (isList) {
       SoNodeKitListPart * list = (SoNodeKitListPart *)node;
@@ -897,7 +897,7 @@ SoBaseKit::set(const char * namevaluepairliststring)
                                   "index %d out of bounds for part ``%s''",
                                   listIdx, partname.getString());
 #endif // COIN_DEBUG
-        return FALSE;
+        return false;
       }
       else if (listIdx == list->getNumChildren()) {
         if (!list->canCreateDefaultChild()) {
@@ -906,7 +906,7 @@ SoBaseKit::set(const char * namevaluepairliststring)
                                     "Unable to create default child for list-part ``%s''",
                                     partname.getString());
 #endif // COIN_DEBUG
-          return FALSE;
+          return false;
         }
         node = list->createAndAddDefaultChild();
       }
@@ -915,21 +915,21 @@ SoBaseKit::set(const char * namevaluepairliststring)
       }
     }
     memInput.setBuffer((void *)start, stringlen - (start-namevaluepairliststring));
-    SbBool dummy;
-    if (!node->getFieldData()->read(&memInput, node, TRUE, dummy)) {
+    bool dummy;
+    if (!node->getFieldData()->read(&memInput, node, true, dummy)) {
 #if COIN_DEBUG
       SoDebugError::postWarning("SoBaseKit::set",
                                 "error while parsing data for part ``%s''",
                                 partname.getString());
 #endif // COIN_DEBUG
-      return FALSE;
+      return false;
     }
     currptr = start + (int) memInput.getNumBytesRead();
     if (*currptr == '}') currptr++;
     assert(currptr <= namevaluepairliststring + stringlen);
     currptr = skip_spaces(currptr);
   }
-  return TRUE;
+  return true;
 }
 
 /*!
@@ -938,18 +938,18 @@ SoBaseKit::set(const char * namevaluepairliststring)
   name of the part and the name of the field (i.e. parameter)
   settings.
 */
-SbBool
+bool
 SoBaseKit::set(const char * partnamestring, const char * parameterstring)
 {
   SbString partname(partnamestring);
   int partNum;
-  SbBool isList;
+  bool isList;
   int listIdx;
   SoBaseKit * kit = this;
-  if (SoBaseKit::findPart(partname, kit, partNum, isList, listIdx, TRUE, NULL, TRUE)) {
+  if (SoBaseKit::findPart(partname, kit, partNum, isList, listIdx, true, NULL, true)) {
     SoNode * node = PRIVATE(kit)->instancelist[partNum]->getValue();
-    PRIVATE(kit)->instancelist[partNum]->setDefault(FALSE);
-    assert(node != NULL); // makeifneeded was TRUE in findPart call
+    PRIVATE(kit)->instancelist[partNum]->setDefault(false);
+    assert(node != NULL); // makeifneeded was true in findPart call
     if (isList) {
       assert(node->isOfType(SoNodeKitListPart::getClassTypeId()));
       SoNodeKitListPart * list = (SoNodeKitListPart *) node;
@@ -959,7 +959,7 @@ SoBaseKit::set(const char * partnamestring, const char * parameterstring)
                                   "index %d out of bounds for part ``%s''",
                                   listIdx, partnamestring);
 #endif // COIN_DEBUG
-        return FALSE;
+        return false;
       }
       else if (listIdx == list->getNumChildren()) {
         if (!list->canCreateDefaultChild()) {
@@ -968,7 +968,7 @@ SoBaseKit::set(const char * partnamestring, const char * parameterstring)
                                     "Unable to create default child for list-part ``%s''",
                                     partname.getString());
 #endif // COIN_DEBUG
-          return FALSE;
+          return false;
         }
         node = list->createAndAddDefaultChild();
       }
@@ -978,13 +978,13 @@ SoBaseKit::set(const char * partnamestring, const char * parameterstring)
     }
     if (node) {
       SoInput memInput;
-      SbBool dummy;
+      bool dummy;
       memInput.setBuffer((void *)parameterstring, strlen(parameterstring));
       const SoFieldData * fielddata = node->getFieldData();
-      return fielddata->read(&memInput, node, TRUE, dummy);
+      return fielddata->read(&memInput, node, true, dummy);
     }
   }
-  return FALSE;
+  return false;
 }
 
 // Doc in superclass.
@@ -1035,7 +1035,7 @@ SoBaseKit::getBoundingBox(SoGetBoundingBoxAction * action)
       action->resetCenter();
     }
   }
-  if (numacc) action->setCenter(acccenter / float(numacc), FALSE);
+  if (numacc) action->setCenter(acccenter / float(numacc), false);
 }
 
 // Doc in superclass.
@@ -1095,7 +1095,7 @@ SoBaseKit::search(SoSearchAction * action)
 
 // Test if node has all fields set to default and if the fields
 // contains the default values. If so, we don't need to write it.
-static SbBool
+static bool
 is_default_node(SoNode * node)
 {
   SoNode * definstance = NULL;
@@ -1147,10 +1147,10 @@ SoBaseKit::write(SoWriteAction * action)
 
   SoOutput * out = action->getOutput();
   if (out->getStage() == SoOutput::COUNT_REFS) {
-    this->addWriteReference(out, FALSE);
+    this->addWriteReference(out, false);
   }
   else if (out->getStage() == SoOutput::WRITE) {
-    if (this->writeHeader(out, FALSE, FALSE)) return; // no more to write
+    if (this->writeHeader(out, false, false)) return; // no more to write
     // FIXME: shouldn't this if() rather be an assert? 20030523 mortene.
     if (PRIVATE(this)->writedata) {
       PRIVATE(this)->writedata->write(out, this);
@@ -1165,7 +1165,7 @@ SoBaseKit::write(SoWriteAction * action)
 
 // documented in superclass
 void
-SoBaseKit::addWriteReference(SoOutput * out, SbBool isfromfield)
+SoBaseKit::addWriteReference(SoOutput * out, bool isfromfield)
 {
   // don't call inherited::addWriteReference(), as we will handle
   // the fields ourselves, using a new fielddata. This is needed to
@@ -1189,7 +1189,7 @@ SoBaseKit::countMyFields(SoOutput * out)
 
   // already created?
   //
-  // FIXME: could this ever be TRUE without that being an error
+  // FIXME: could this ever be true without that being an error
   // situation? I have a feeling this should rather be an
   // assert(). Investigate. 20030523 mortene.
   if (PRIVATE(this)->writedata) return;
@@ -1233,10 +1233,10 @@ SoBaseKit::countMyFields(SoOutput * out)
             SoBaseKit * kit = (SoBaseKit*) node;
             kit->countMyFields(out);
             if (kit->forceChildDrivenWriteRefs(out)) {
-              field->setDefault(FALSE);
+              field->setDefault(false);
               // add a write reference on the kit node only. We supply
-              // isfromfield TRUE to achieve this
-              kit->addWriteReference(out, TRUE);
+              // isfromfield true to achieve this
+              kit->addWriteReference(out, true);
             }
           }
         }
@@ -1256,7 +1256,7 @@ SoBaseKit::countMyFields(SoOutput * out)
   documentation.)
 
   This is a virtual method, and the code in it should call
-  SoField::setDefault() with argument \c TRUE on part fields that
+  SoField::setDefault() with argument \c true on part fields that
   should not be written upon scenegraph export operations.
 
   This is typically done when:
@@ -1292,11 +1292,11 @@ SoBaseKit::setDefaultOnNonWritingFields(void)
 
     if (node == NULL) {
       // first test listed in API doc above
-      if (catalog->isNullByDefault(i)) { field->setDefault(TRUE); }
+      if (catalog->isNullByDefault(i)) { field->setDefault(true); }
       continue;
     }
 
-    const SbBool leaf = catalog->isLeaf(i);
+    const bool leaf = catalog->isLeaf(i);
     const SoType type = node->getTypeId();
 
     if (leaf) {
@@ -1304,7 +1304,7 @@ SoBaseKit::setDefaultOnNonWritingFields(void)
       if ((type == SoGroup::getClassTypeId() ||
            type == SoSeparator::getClassTypeId()) &&
           ((SoGroup*)node)->getNumChildren() == 0) {
-        field->setDefault(TRUE);
+        field->setDefault(true);
       }
       // third test
       else if (type == SoNodeKitListPart::getClassTypeId()) {
@@ -1313,32 +1313,32 @@ SoBaseKit::setDefaultOnNonWritingFields(void)
         if (list->getNumChildren() == 0 && container &&
             (container->getTypeId() == SoSeparator::getClassTypeId() ||
              container->getTypeId() == SoGroup::getClassTypeId())) {
-          field->setDefault(TRUE);
+          field->setDefault(true);
         }
       }
     }
     else { // not leaf
       // fourth test
       if (node->isOfType(SoGroup::getClassTypeId()) && is_default_node(node)) {
-        field->setDefault(TRUE);
+        field->setDefault(true);
       }
     }
   }
 }
 
 /*!
-  Returns \c TRUE if kit should write. This happens if shouldWrite()
-  returns \c TRUE, or if any of the children (recursively) should
+  Returns \c true if kit should write. This happens if shouldWrite()
+  returns \c true, or if any of the children (recursively) should
   write.
 */
-SbBool
+bool
 SoBaseKit::forceChildDrivenWriteRefs(SoOutput * out)
 {
-  if (SoWriterefCounter::instance(out)->shouldWrite(this)) return TRUE;
+  if (SoWriterefCounter::instance(out)->shouldWrite(this)) return true;
 
   // if NULL we already did this test, found that we shouldn't write,
   // deleted writedata and set writedata to NULL.
-  if (!PRIVATE(this)->writedata) return FALSE;
+  if (!PRIVATE(this)->writedata) return false;
 
   const SoNodekitCatalog * catalog = this->getNodekitCatalog();
   int i, n = PRIVATE(this)->writedata->getNumFields();
@@ -1366,12 +1366,12 @@ SoBaseKit::forceChildDrivenWriteRefs(SoOutput * out)
 
   if (i < n) { // did we find a reason to write?
     SoBase::addWriteReference(out);
-    return TRUE;
+    return true;
   }
   else {
     delete PRIVATE(this)->writedata;
     PRIVATE(this)->writedata = NULL;
-    return FALSE;
+    return false;
   }
 }
 
@@ -1529,7 +1529,7 @@ SoBaseKit::printTable(void)
 
   \sa SoBaseKit::setSearchingChildren()
 */
-SbBool
+bool
 SoBaseKit::isSearchingChildren(void)
 {
   return SoBaseKit::searchchildren;
@@ -1537,10 +1537,10 @@ SoBaseKit::isSearchingChildren(void)
 
 /*!
   Set whether or not the kit parts should be searched during
-  SoSearchAction traversal. The default value is \c FALSE.
+  SoSearchAction traversal. The default value is \c false.
 */
 void
-SoBaseKit::setSearchingChildren(const SbBool newval)
+SoBaseKit::setSearchingChildren(const bool newval)
 {
   SoBaseKit::searchchildren = newval;
 }
@@ -1570,12 +1570,12 @@ SoBaseKit::addToCopyDict(void) const
 // (Doc in superclass.) Overridden to copy parts correctly.
 void
 SoBaseKit::copyContents(const SoFieldContainer * fromfc,
-                        SbBool copyconnections)
+                        bool copyconnections)
 {
   int i;
 
   // disable connections while copying
-  SbBool oldsetup = this->setUpConnections(FALSE);
+  bool oldsetup = this->setUpConnections(false);
 
   // do normal node copy
   inherited::copyContents(fromfc, copyconnections);
@@ -1590,11 +1590,11 @@ SoBaseKit::copyContents(const SoFieldContainer * fromfc,
   // use temporary lists to store part node pointers and field
   // default flag, as we will modify the originals.
   SbList <SoNode *> partlist;
-  SbList <SbBool> flaglist;
+  SbList <bool> flaglist;
 
   // part 0 is this
   partlist.append(NULL);
-  flaglist.append(FALSE);
+  flaglist.append(false);
 
   // initialize temporary lists
   for (i = 1; i < n; i++) {
@@ -1611,14 +1611,14 @@ SoBaseKit::copyContents(const SoFieldContainer * fromfc,
   // reset part fields
   for (i = 1; i < n; i++) {
     PRIVATE(this)->instancelist[i]->setValue(NULL);
-    PRIVATE(this)->instancelist[i]->setDefault(TRUE);
+    PRIVATE(this)->instancelist[i]->setDefault(true);
   }
 
   // set non-leaf nodes first
-  PRIVATE(this)->setParts(partlist, FALSE);
+  PRIVATE(this)->setParts(partlist, false);
 
   // then leaf nodes
-  PRIVATE(this)->setParts(partlist, TRUE);
+  PRIVATE(this)->setParts(partlist, true);
 
   // do final pass
   for (i = 1; i < n; i++) {
@@ -1631,7 +1631,7 @@ SoBaseKit::copyContents(const SoFieldContainer * fromfc,
   }
 
   // enable connections
-  if (oldsetup) this->setUpConnections(TRUE);
+  if (oldsetup) this->setUpConnections(true);
 }
 
 /*!
@@ -1639,18 +1639,18 @@ SoBaseKit::copyContents(const SoFieldContainer * fromfc,
   the catalog given by \a listname.
 
   If the list part (and its container) was not yet constructed, they
-  will be so if \a makeifneeded is \c TRUE (otherwise, \c NULL will be
+  will be so if \a makeifneeded is \c true (otherwise, \c NULL will be
   returned).
 */
 SoGroup *
-SoBaseKit::getContainerNode(const SbName & listname, SbBool makeifneeded)
+SoBaseKit::getContainerNode(const SbName & listname, bool makeifneeded)
 {
   SoBaseKit * kit = this;
   int partNum;
-  SbBool isList;
+  bool isList;
   int listIdx;
   if (SoBaseKit::findPart(SbString(listname.getString()), kit, partNum,
-                          isList, listIdx, makeifneeded, NULL, TRUE)) {
+                          isList, listIdx, makeifneeded, NULL, true)) {
     SoNode * node = PRIVATE(kit)->instancelist[partNum]->getValue();
     if (node == NULL) return NULL;
     assert(node->isOfType(SoNodeKitListPart::getClassTypeId()));
@@ -1668,13 +1668,13 @@ SoBaseKit::getContainerNode(const SbName & listname, SbBool makeifneeded)
 
   If the part is specified in the catalog, but has not yet been made,
   the function will either construct the part (if \a makeifneeded is
-  \c TRUE) or just return \c NULL (if \a makeifneeded is \c FALSE).
+  \c true) or just return \c NULL (if \a makeifneeded is \c false).
 
-  If \a leafcheck is \c TRUE, a pointer to the part will only be
+  If \a leafcheck is \c true, a pointer to the part will only be
   returned if it's a leaf in the catalog (otherwise \c NULL is
   returned).
 
-  If \a publiccheck is \c TRUE, a pointer to the part will only be
+  If \a publiccheck is \c true, a pointer to the part will only be
   returned if it's a public catalog part (otherwise \c NULL is
   returned).
 
@@ -1698,19 +1698,19 @@ SoBaseKit::getContainerNode(const SbName & listname, SbBool makeifneeded)
   \endverbatim
 */
 SoNode *
-SoBaseKit::getAnyPart(const SbName & partname, SbBool makeifneeded,
-                      SbBool leafcheck, SbBool publiccheck)
+SoBaseKit::getAnyPart(const SbName & partname, bool makeifneeded,
+                      bool leafcheck, bool publiccheck)
 {
 
   SoBaseKit * kit = this;
   int partNum;
-  SbBool isList;
+  bool isList;
   int listIdx;
 
   SbString partstring(partname.getString());
 
   if (SoBaseKit::findPart(partstring, kit, partNum, isList, listIdx,
-                          makeifneeded, NULL, TRUE)) {
+                          makeifneeded, NULL, true)) {
 
     if (publiccheck && !kit->getNodekitCatalog()->isPublic(partNum)) {
       SoDebugError::postWarning("SoBaseKit::getAnyPart",
@@ -1773,11 +1773,11 @@ SoBaseKit::getAnyPart(const SbName & partname, SbBool makeifneeded,
   hierarchy given by \a partname.
 
   If the trailing part has not been made and \a makeifneeded is \c
-  TRUE, make an instance of the part type and insert into the catalog,
+  true, make an instance of the part type and insert into the catalog,
   as done in setAnyPart().
 
-  If \a leafcheck is \c TRUE, ignore non-leaf catalog node entries. If
-  \a publiccheck is \c TRUE, ignore private catalog entries.
+  If \a leafcheck is \c true, ignore non-leaf catalog node entries. If
+  \a publiccheck is \c true, ignore private catalog entries.
 
   \a pathtoextend is a path through the nodekit instance catalog
   hierarchy, where we should pick up and continue to create the path
@@ -1790,8 +1790,8 @@ SoBaseKit::getAnyPart(const SbName & partname, SbBool makeifneeded,
   entries).
 */
 SoNodeKitPath *
-SoBaseKit::createPathToAnyPart(const SbName & partname, SbBool makeifneeded,
-                               SbBool leafcheck, SbBool publiccheck,
+SoBaseKit::createPathToAnyPart(const SbName & partname, bool makeifneeded,
+                               bool leafcheck, bool publiccheck,
                                const SoPath * pathtoextend)
 {
   SoFullPath * path;
@@ -1818,7 +1818,7 @@ SoBaseKit::createPathToAnyPart(const SbName & partname, SbBool makeifneeded,
 
   SoBaseKit * kit = this;
   int partNum;
-  SbBool isList;
+  bool isList;
   int listIdx;
 
   if (SoBaseKit::findPart(SbString(partname.getString()), kit, partNum,
@@ -1876,21 +1876,21 @@ SoBaseKit::createPathToAnyPart(const SbName & partname, SbBool makeifneeded,
 /*!
   \COININTERNAL
 */
-SbBool
-SoBaseKit::setAnyPart(const SbName & partname, SoNode * from, SbBool anypart)
+bool
+SoBaseKit::setAnyPart(const SbName & partname, SoNode * from, bool anypart)
 {
   SoBaseKit * kit = this;
   int partNum;
-  SbBool isList;
+  bool isList;
   int listIdx;
 
   SbString partstring(partname.getString());
 
   // FIXME: findPart() really needs another parameter, since we need
   // to create intermediate parts, but not the leaf part. For now we
-  // just supply makeifneeded = TRUE, and then immediately overwrite
+  // just supply makeifneeded = true, and then immediately overwrite
   // the part here. pederb, 2004-06-07
-  if (SoBaseKit::findPart(partstring, kit, partNum, isList, listIdx, TRUE, NULL, TRUE)) {
+  if (SoBaseKit::findPart(partstring, kit, partNum, isList, listIdx, true, NULL, true)) {
     if (anypart || kit->getNodekitCatalog()->isPublic(partNum)) {
       if (isList) {
         SoNode * partnode = PRIVATE(kit)->instancelist[partNum]->getValue();
@@ -1902,7 +1902,7 @@ SoBaseKit::setAnyPart(const SbName & partname, SoNode * from, SbBool anypart)
               list->addChild(from);
             else
               list->replaceChild(listIdx, from);
-            return TRUE;
+            return true;
           }
           else {
 #if COIN_DEBUG
@@ -1937,7 +1937,7 @@ SoBaseKit::setAnyPart(const SbName & partname, SoNode * from, SbBool anypart)
   // FIXME:
   // run cleanup, in case some node has been temporarily created while
   // searching for the part?? pederb, 2000-01-05
-  return FALSE;
+  return false;
 }
 
 /*!
@@ -1999,7 +1999,7 @@ SoBaseKit::createDefaultParts(void)
         SoNode * old = PRIVATE(this)->instancelist[i]->getValue();
         if ((old == NULL || ! old->isOfType(catalog->getDefaultType(i)) )) {
           this->makePart(i);
-          PRIVATE(this)->instancelist[i]->setDefault(TRUE);
+          PRIVATE(this)->instancelist[i]->setDefault(true);
         }
       }
     }
@@ -2049,31 +2049,31 @@ SoBaseKit::catalogError(void)
   nodekits or dragger classes.  If so, see the SoBaseKit class
   documentation.)
 */
-SbBool
-SoBaseKit::setUpConnections(SbBool COIN_UNUSED_ARG(onoff), SbBool COIN_UNUSED_ARG(doitalways))
+bool
+SoBaseKit::setUpConnections(bool COIN_UNUSED_ARG(onoff), bool COIN_UNUSED_ARG(doitalways))
 {
   return this->connectionsSetUp;
 }
 
 // doc in super
-SbBool
+bool
 SoBaseKit::readInstance(SoInput * in, unsigned short COIN_UNUSED_ARG(flags))
 {
   int i;
 
-  SbBool oldnotify = this->enableNotify(FALSE);
-  SbBool oldsetup = this->setUpConnections(FALSE);
+  bool oldnotify = this->enableNotify(false);
+  bool oldsetup = this->setUpConnections(false);
 
   // store old part values to find which parts are read
   SoNodeList nodelist;
-  SbList <SbBool> defaultlist;
+  SbList <bool> defaultlist;
 
   const SoNodekitCatalog * cat = this->getNodekitCatalog();
 
   // Dummy first element to get indices to match instancelist (where
   // the dummy "this" catalog entry is first).
   nodelist.append(NULL);
-  defaultlist.append(FALSE);
+  defaultlist.append(false);
 
   // copy all parts into nodelist, and then set all parts to NULL
   // and default before reading
@@ -2081,7 +2081,7 @@ SoBaseKit::readInstance(SoInput * in, unsigned short COIN_UNUSED_ARG(flags))
     nodelist.append(PRIVATE(this)->instancelist[i]->getValue());
     defaultlist.append(PRIVATE(this)->instancelist[i]->isDefault());
     PRIVATE(this)->instancelist[i]->setValue(NULL);
-    PRIVATE(this)->instancelist[i]->setDefault(TRUE);
+    PRIVATE(this)->instancelist[i]->setDefault(true);
   }
 
   // reset the node kit by removing all children. We will restore it
@@ -2090,21 +2090,21 @@ SoBaseKit::readInstance(SoInput * in, unsigned short COIN_UNUSED_ARG(flags))
 
   // actually read the nodekit.
   // Use readUnknownFields instead to read fields not part of catalog
-  // SbBool ret = inherited::readInstance(in, flags);
+  // bool ret = inherited::readInstance(in, flags);
 
   // Fields that's not part of catalog is read as a SoSFNode, and stored
   // in unknownfielddata. Later they'll be put in nodekit using setAnyPart.
-  SbBool ret = TRUE;
+  bool ret = true;
   SoFieldData * unknownfielddata = new SoFieldData;
   if (!PRIVATE(this)->readUnknownFields(in, unknownfielddata))
-    ret = FALSE;
+    ret = false;
 
   if (ret) {
     // loop through fields and copy the read parts into nodelist
     for (i = 1; i < PRIVATE(this)->instancelist.getLength(); i++) {
       if (!PRIVATE(this)->instancelist[i]->isDefault()) { // we've read a part
         nodelist.set(i, PRIVATE(this)->instancelist[i]->getValue());
-        defaultlist[i] = FALSE;
+        defaultlist[i] = false;
         // set to NULL again so that setPart() will not get confused
         PRIVATE(this)->instancelist[i]->setValue(NULL);
       }
@@ -2157,10 +2157,10 @@ SoBaseKit::readInstance(SoInput * in, unsigned short COIN_UNUSED_ARG(flags))
 // The actual part is not added to the path. The head of the path should
 // be set to the kit-node performing the search.
 //
-SbBool
+bool
 SoBaseKit::findPart(const SbString & partname, SoBaseKit *& kit, int & partnum,
-                    SbBool & islist, int & listidx, const SbBool makeifneeded,
-                    SoPath * path, const SbBool recsearch)
+                    bool & islist, int & listidx, const bool makeifneeded,
+                    SoPath * path, const bool recsearch)
 {
   // BNF:
   //
@@ -2174,9 +2174,9 @@ SoBaseKit::findPart(const SbString & partname, SoBaseKit *& kit, int & partnum,
   // idx is an integer value
 
   if (partname == "this") {
-    islist = FALSE;
+    islist = false;
     partnum = 0;
-    return TRUE;
+    return true;
   }
 
   const char * stringptr = partname.getString();
@@ -2186,7 +2186,7 @@ SoBaseKit::findPart(const SbString & partname, SoBaseKit *& kit, int & partnum,
   if (periodptr && (startbracket > periodptr))
     startbracket = NULL; // will handle later
 
-  islist = FALSE; // set to FALSE first
+  islist = false; // set to false first
   SbString firstpartname;
   if (startbracket) { // get index
     long int listindex = strtol(startbracket+1, NULL, 10);
@@ -2195,12 +2195,12 @@ SoBaseKit::findPart(const SbString & partname, SoBaseKit *& kit, int & partnum,
       SoDebugError::postWarning("SoBaseKit::findPart",
                                 "list index not properly specified");
 #endif // COIN_DEBUG
-      return FALSE;
+      return false;
     }
     const ptrdiff_t endidx = startbracket - stringptr - 1;
     firstpartname = partname.getSubString(0, (int)endidx);
     listidx = (int) listindex;
-    islist = TRUE;
+    islist = true;
   }
   else if (periodptr) {
     const ptrdiff_t endidx = periodptr - stringptr - 1;
@@ -2218,14 +2218,14 @@ SoBaseKit::findPart(const SbString & partname, SoBaseKit *& kit, int & partnum,
         if (catalog->isLeaf(i) &&
             catalog->getType(i).isDerivedFrom(SoBaseKit::getClassTypeId())) {
           kit = (SoBaseKit *)PRIVATE(orgkit)->instancelist[i]->getValue();
-          SbBool didexist = kit != NULL;
+          bool didexist = kit != NULL;
           if (!didexist) {
             orgkit->makePart(i);
             kit = (SoBaseKit *)PRIVATE(orgkit)->instancelist[i]->getValue();
           }
           if (SoBaseKit::findPart(partname, kit, partnum, islist, listidx,
                                   makeifneeded, path, recsearch)) {
-            return TRUE;
+            return true;
           }
           else if (!didexist) {
             // we created this part, remove it
@@ -2236,7 +2236,7 @@ SoBaseKit::findPart(const SbString & partname, SoBaseKit *& kit, int & partnum,
       kit = orgkit; // return with an error in this kit
     }
     // nope, not found
-    return FALSE;
+    return false;
   }
 
   assert(partnum < PRIVATE(kit)->instancelist.getLength());
@@ -2254,7 +2254,7 @@ SoBaseKit::findPart(const SbString & partname, SoBaseKit *& kit, int & partnum,
     while (parent > 0) {
       SoNode * node = PRIVATE(kit)->instancelist[parent]->getValue();
       if (node == NULL) {
-        assert(makeifneeded == FALSE);
+        assert(makeifneeded == false);
         break;
       }
       nodestopart.push(node);
@@ -2269,11 +2269,11 @@ SoBaseKit::findPart(const SbString & partname, SoBaseKit *& kit, int & partnum,
 
   if (periodptr == NULL) {
     // singlename or singlelistname found, do not recurse any more
-    return TRUE; // all info has been found, just return TRUE
+    return true; // all info has been found, just return true
   }
   else { // recurse
     SoNode * node = nodefield->getValue();
-    if (node == NULL) return FALSE;
+    if (node == NULL) return false;
     const ptrdiff_t startidx = periodptr - stringptr + 1;
     SbString newpartname = partname.getSubString((int)startidx);
     if (islist) {
@@ -2286,7 +2286,7 @@ SoBaseKit::findPart(const SbString & partname, SoBaseKit *& kit, int & partnum,
                                   listidx,
                                   firstpartname.getString());
 #endif // COIN_DEBUG
-        return FALSE;
+        return false;
       }
       else if (listidx == numlistchildren) {
         (void) list->createAndAddDefaultChild();
@@ -2313,7 +2313,7 @@ SoBaseKit::findPart(const SbString & partname, SoBaseKit *& kit, int & partnum,
 //
 // makes part, makes sure node is connected in the scene
 //
-SbBool
+bool
 SoBaseKit::makePart(const int partnum)
 {
   assert(partnum > 0 && partnum < PRIVATE(this)->instancelist.getLength());
@@ -2343,7 +2343,7 @@ SoBaseKit::makePart(const int partnum)
   This method is not part of the original SGI Open Inventor API, but
   is an extension specific to Coin.
 */
-SbBool
+bool
 SoBaseKit::setPart(const int partnum, SoNode * node)
 {
   assert(partnum > 0 && partnum < PRIVATE(this)->instancelist.getLength());
@@ -2359,7 +2359,7 @@ SoBaseKit::setPart(const int partnum, SoNode * node)
                               catalog->getType(partnum).getName().getString(),
                               node->getTypeId().getName().getString());
 #endif // COIN_DEBUG
-    return FALSE;
+    return false;
   }
   int parentIdx = catalog->getParentPartNumber(partnum);
   assert(parentIdx >= 0 && parentIdx < PRIVATE(this)->instancelist.getLength());
@@ -2384,7 +2384,7 @@ SoBaseKit::setPart(const int partnum, SoNode * node)
   }
 
   SoNode * oldnode = PRIVATE(this)->instancelist[partnum]->getValue();
-  if (oldnode == node) return TRUE; // part is already inserted
+  if (oldnode == node) return true; // part is already inserted
 
   if (childlist->find(node) >= 0) {
     // FIXME: should really allow this, but since it's a bit complex
@@ -2398,7 +2398,7 @@ SoBaseKit::setPart(const int partnum, SoNode * node)
                               node->getName().getString(),
                               node->getTypeId().getName().getString(),
                               catalog->getName(parentIdx).getString());
-    return FALSE;
+    return false;
   }
 
   if (oldnode != NULL) { // part exists, replace
@@ -2438,7 +2438,7 @@ SoBaseKit::setPart(const int partnum, SoNode * node)
 
   // set part field value
   PRIVATE(this)->instancelist[partnum]->setValue(node);
-  return TRUE;
+  return true;
 }
 
 //
@@ -2535,7 +2535,7 @@ SoBaseKitP::testParentWrite(void)
           // we must write if parent is going to write
           if (parentnode &&
               !this->instancelist[parent]->isDefault()) {
-            field->setDefault(FALSE);
+            field->setDefault(false);
           }
         }
       }
@@ -2549,7 +2549,7 @@ SoBaseKitP::testParentWrite(void)
 // that child node pointer, not the copied part.
 void
 SoBaseKitP::copyParts(const SoBaseKit * srckit, SbList <SoNode*> & partlist,
-                      const SbBool COIN_UNUSED_ARG(copyconnections))
+                      const bool COIN_UNUSED_ARG(copyconnections))
 {
   int i;
   const int n = this->instancelist.getLength();
@@ -2604,7 +2604,7 @@ SoBaseKitP::copyParts(const SoBaseKit * srckit, SbList <SoNode*> & partlist,
 }
 
 void
-SoBaseKitP::setParts(SbList <SoNode*> partlist, const SbBool leafparts)
+SoBaseKitP::setParts(SbList <SoNode*> partlist, const bool leafparts)
 {
   const int n = this->instancelist.getLength();
   const SoNodekitCatalog * catalog = this->kit->getNodekitCatalog();
@@ -2612,7 +2612,7 @@ SoBaseKitP::setParts(SbList <SoNode*> partlist, const SbBool leafparts)
   for (int i = 1; i < n; i++) {
     SoNode * node = partlist[i];
     if (node) {
-      SbBool leaftst = catalog->isLeaf(i);
+      bool leaftst = catalog->isLeaf(i);
       if (leaftst == leafparts) { // correct pass ?
         if (!leaftst) {
           // if it's not a leaf, remove children as the correct children
@@ -2669,56 +2669,56 @@ SoBaseKitP::addKitDetail(SoFullPath * path, SoPickedPoint * pp)
 //  that are specified by the Inventor Mentor. The Mentor specifies that
 //  within nested nodekits intermediary kits can be left out and will be
 //  created automatically. Reported by Gerhard Reitmayr.
-SbBool 
+bool 
 SoBaseKitP::readUnknownFields(SoInput *in, SoFieldData *&unknownfielddata)
 {
   const SoFieldData * fd = PUBLIC(this)->getFieldData();
 
   // Binary format
   if (in->isBinary()) {
-    SbBool notbuiltin;
-    return fd->read(in, PUBLIC(this), TRUE, notbuiltin);
+    bool notbuiltin;
+    return fd->read(in, PUBLIC(this), true, notbuiltin);
   }
 
-  SbBool firstfield = TRUE;
+  bool firstfield = true;
   SbName fielddescriptionsmarker("fields");
 
   // ASCII format
   // keep reading fields until we hit close bracket
-  while (TRUE) {
+  while (true) {
     // read first character - if none, EOF
     char c;
     if (!in->read(c))
-      return FALSE;
+      return false;
     in->putBack(c);
 
     if (c == '}')
-      return TRUE;
+      return true;
 
     // read fieldname with no identifier, to be able to read names like
     // appearance.material
     SbName fieldname;
-    if (!in->read(fieldname, FALSE))
-      return TRUE;
+    if (!in->read(fieldname, false))
+      return true;
     
     // if this is the first field we try to read, it might be the
     // field descriptions for extension node kits. Detect and read.
     if (firstfield) {
-      firstfield = FALSE;
+      firstfield = false;
       if (fieldname == fielddescriptionsmarker) {
-        if (!fd->readFieldDescriptions(in, PUBLIC(this), 0, FALSE)) {
-          return FALSE;
+        if (!fd->readFieldDescriptions(in, PUBLIC(this), 0, false)) {
+          return false;
         }
         continue; // read next field
       }
     }
 
     // try to read data into one of the fields in this nodekit first.
-    // SoFieldData::read() will return TRUE and set foundname to FALSE
+    // SoFieldData::read() will return true and set foundname to false
     // if the field isn't part of the node(kit)
-    SbBool foundname;
+    bool foundname;
     if (!fd->read(in, PUBLIC(this), fieldname, foundname))
-      return FALSE;
+      return false;
     
     if (!foundname) {
       // add a node pointer field with this name to the unknownFieldData,
@@ -2726,13 +2726,13 @@ SoBaseKitP::readUnknownFields(SoInput *in, SoFieldData *&unknownfielddata)
       unknownfielddata->addField(PUBLIC(this), fieldname.getString(),
                                  new SoSFNode);
       if (!unknownfielddata->read(in, PUBLIC(this), fieldname, foundname))
-        return FALSE;
+        return false;
     }
   }
   // Will never be reached, but functions with a return value other than 
   // void must return *something* by default. At least gcc-4.0.0
   // (Apple snapshot 20041026, default in Mac OS 10.4) will warn.
-  return TRUE;
+  return true;
 }
 
 #undef PRIVATE

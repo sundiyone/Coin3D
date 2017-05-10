@@ -171,7 +171,7 @@ SbBox2d::makeEmpty(void)
 }
 
 /*!
-  \fn SbBool SbBox2d::isEmpty(void) const
+  \fn bool SbBox2d::isEmpty(void) const
 
   Check if this has been marked as an empty box.
 
@@ -179,7 +179,7 @@ SbBox2d::makeEmpty(void)
 */
 
 /*!
-  \fn SbBool SbBox2d::hasArea(void) const
+  \fn bool SbBox2d::hasArea(void) const
 
   Check if the box has "positive" area, i.e. the lower left corner is
   actually lower and more to the left than the other corner point.
@@ -255,26 +255,26 @@ SbBox2d::extendBy(const SbBox2d & box)
 /*!
   Check if \a point lies within the boundaries of this box.
 */
-SbBool
+bool
 SbBox2d::intersect(const SbVec2d & point) const
 {
   if ((point[0] >= this->minpt[0]) && (point[0] <= this->maxpt[0]) &&
-      (point[1] >= this->minpt[1]) && (point[1] <= this->maxpt[1])) return TRUE;
-  return FALSE;
+      (point[1] >= this->minpt[1]) && (point[1] <= this->maxpt[1])) return true;
+  return false;
 }
 
 /*!
   Check if \a box lies wholly or partly within the boundaries
   of this box.
 */
-SbBool
+bool
 SbBox2d::intersect(const SbBox2d & box) const
 {
   if ((box.getMax()[0] < this->getMin()[0]) ||
       (box.getMax()[1] < this->getMin()[1]) ||
       (box.getMin()[0] > this->getMax()[0]) ||
-      (box.getMin()[1] > this->getMax()[1])) return FALSE;
-  return TRUE;
+      (box.getMin()[1] > this->getMax()[1])) return false;
+  return true;
 }
 
 /*!
@@ -283,7 +283,7 @@ SbBox2d::intersect(const SbBox2d & box) const
 
   This function is a Coin extension.
 */
-SbBool
+bool
 SbBox2d::findIntersection(const SbVec2d & a, const SbVec2d & b, SbVec2d & ia, SbVec2d & ib) const
 {
   // FIXME: this function should be tested thoroughly...
@@ -314,12 +314,12 @@ SbBox2d::findIntersection(const SbVec2d & a, const SbVec2d & b, SbVec2d & ia, Sb
   int enterwalls = candidates[blocka];
   int leavewalls = candidates[blockb];
   // both a and b can be outside box in the same way
-  if ( (enterwalls & leavewalls) != 0 ) return FALSE;
+  if ( (enterwalls & leavewalls) != 0 ) return false;
 
-  SbBool foundia = FALSE;
+  bool foundia = false;
   if ( blocka == 4 ) {
     ia = a;
-    foundia = TRUE;
+    foundia = true;
   }
   if ( !foundia && (enterwalls & 1) ) {
     do {
@@ -329,8 +329,8 @@ SbBox2d::findIntersection(const SbVec2d & a, const SbVec2d & b, SbVec2d & ia, Sb
       if ( t < 0.0 || t > 1.0 ) break;
       ia = a + vec * t;
       if ( ia[0] < this->minpt[0] || ia[0] > this->maxpt[0] ) break;
-      foundia = TRUE;
-    } while ( FALSE );
+      foundia = true;
+    } while ( false );
   }
   if ( !foundia && (enterwalls & 2) ) {
     do {
@@ -340,8 +340,8 @@ SbBox2d::findIntersection(const SbVec2d & a, const SbVec2d & b, SbVec2d & ia, Sb
       if ( t < 0.0 || t > 1.0 ) break;
       ia = a + vec * t;
       if ( ia[1] < this->minpt[1] || ia[1] > this->maxpt[1] ) break;
-      foundia = TRUE;
-    } while ( FALSE );
+      foundia = true;
+    } while ( false );
   }
   if ( !foundia && (enterwalls & 4) ) {
     do {
@@ -351,8 +351,8 @@ SbBox2d::findIntersection(const SbVec2d & a, const SbVec2d & b, SbVec2d & ia, Sb
       if ( t < 0.0 || t > 1.0 ) break;
       ia = a + vec * t;
       if ( ia[1] < this->minpt[1] || ia[1] > this->maxpt[1] ) break;
-      foundia = TRUE;
-    } while ( FALSE );
+      foundia = true;
+    } while ( false );
   }
   if ( !foundia && (enterwalls & 8) ) {
     do {
@@ -362,15 +362,15 @@ SbBox2d::findIntersection(const SbVec2d & a, const SbVec2d & b, SbVec2d & ia, Sb
       if ( t < 0.0 || t > 1.0 ) break;
       ia = a + vec * t;
       if ( ia[0] < this->minpt[0] || ia[0] > this->maxpt[0] ) break;
-      foundia = TRUE;
-    } while ( FALSE );
+      foundia = true;
+    } while ( false );
   }
-  if ( !foundia ) return FALSE;
+  if ( !foundia ) return false;
 
-  SbBool foundib = FALSE;
+  bool foundib = false;
   if ( blockb == 4 ) {
     ib = b;
-    foundib = TRUE;
+    foundib = true;
   }
   if ( !foundib && (leavewalls & 1) ) {
     do {
@@ -380,8 +380,8 @@ SbBox2d::findIntersection(const SbVec2d & a, const SbVec2d & b, SbVec2d & ia, Sb
       if ( t < 0.0 || t > 1.0 ) break;
       ib = b + vec * t;
       if ( ib[0] < this->minpt[0] || ib[0] > this->maxpt[0] ) break;
-      foundib = TRUE;
-    } while ( FALSE );
+      foundib = true;
+    } while ( false );
   }
   if ( !foundib && (leavewalls & 2) ) {
     do {
@@ -391,8 +391,8 @@ SbBox2d::findIntersection(const SbVec2d & a, const SbVec2d & b, SbVec2d & ia, Sb
       if ( t < 0.0 || t > 1.0 ) break;
       ib = b + vec * t;
       if ( ib[1] < this->minpt[1] || ib[1] > this->maxpt[1] ) break;
-      foundib = TRUE;
-    } while ( FALSE );
+      foundib = true;
+    } while ( false );
   }
   if ( !foundib && (leavewalls & 4) ) {
     do {
@@ -402,8 +402,8 @@ SbBox2d::findIntersection(const SbVec2d & a, const SbVec2d & b, SbVec2d & ia, Sb
       if ( t < 0.0 || t > 1.0 ) break;
       ib = b + vec * t;
       if ( ib[1] < this->minpt[1] || ib[1] > this->maxpt[1] ) break;
-      foundib = TRUE;
-    } while ( FALSE );
+      foundib = true;
+    } while ( false );
   }
   if ( !foundib && (leavewalls & 8) ) {
     do {
@@ -413,12 +413,12 @@ SbBox2d::findIntersection(const SbVec2d & a, const SbVec2d & b, SbVec2d & ia, Sb
       if ( t < 0.0 || t > 1.0 ) break;
       ib = b + vec * t;
       if ( ib[0] < this->minpt[0] || ib[0] > this->maxpt[0] ) break;
-      foundib = TRUE;
-    } while ( FALSE );
+      foundib = true;
+    } while ( false );
   }
-  if ( !foundib ) return FALSE;
+  if ( !foundib ) return false;
 
-  return TRUE;
+  return true;
 } // findIntersection()
 
 /*!

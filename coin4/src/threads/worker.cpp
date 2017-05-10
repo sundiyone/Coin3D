@@ -117,7 +117,7 @@ worker_stop_thread(cc_worker * worker)
     cc_mutex_lock(worker->mutex);
     worker->threadisrunning = 0;
     
-    worker->shutdown = TRUE;  /* signal thread to exit loop */
+    worker->shutdown = true;  /* signal thread to exit loop */
     /* in case thread is waiting for cond... */
     cc_condvar_wake_one(worker->cond);
     cc_mutex_unlock(worker->mutex);
@@ -125,7 +125,7 @@ worker_stop_thread(cc_worker * worker)
     cc_thread_join(worker->thread, NULL);
     cc_thread_destruct(worker->thread);
     worker->thread = NULL;
-    worker->shutdown = FALSE; /* reset signal */
+    worker->shutdown = false; /* reset signal */
   }
 }
   
@@ -141,8 +141,8 @@ cc_worker_construct(void)
   worker->begincond = cc_condvar_construct();
   worker->beginmutex = cc_mutex_construct();
   worker->thread = NULL; /* delay creating thread */
-  worker->threadisrunning = FALSE;
-  worker->shutdown = FALSE;
+  worker->threadisrunning = false;
+  worker->shutdown = false;
   worker->workfunc = NULL;
   worker->workclosure = NULL;
   worker->idlecb = NULL;
@@ -171,7 +171,7 @@ cc_worker_destruct(cc_worker * worker)
   Start the worker by either waking is from a condvar_wait() or
   creating a new thread if the thread is not running.
 */
-SbBool 
+bool 
 cc_worker_start(cc_worker * worker, cc_worker_f * workfunc, void * closure)
 {
   assert(workfunc);
@@ -187,16 +187,16 @@ cc_worker_start(cc_worker * worker, cc_worker_f * workfunc, void * closure)
   /* We now know that thread is waiting for a signal */
   cc_condvar_wake_one(worker->cond);
   cc_mutex_unlock(worker->mutex);
-  return TRUE;
+  return true;
 }
 
-SbBool 
+bool 
 cc_worker_is_busy(cc_worker * worker)
 {
-  SbBool busy = TRUE;
+  bool busy = true;
   
   if (cc_mutex_try_lock(worker->mutex)) {
-    busy = FALSE;
+    busy = false;
     cc_mutex_unlock(worker->mutex);
   }
   return busy;

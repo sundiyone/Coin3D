@@ -66,7 +66,7 @@ SoMFName::initClass(void)
 // This is implemented in the SoSFName class.
 extern void sosfname_write_value(SoOutput * out, const SbName & val);
 
-SbBool
+bool
 SoMFName::read1Value(SoInput * in, int idx)
 {
   assert(idx < this->maxNum);
@@ -76,10 +76,10 @@ SoMFName::read1Value(SoInput * in, int idx)
   // node or field names, and doesn't e.g. handle quotes as expected
   // for a "free-form" string.
   SbString s;
-  SbBool ok = in->read(s);
-  if (!ok) return FALSE;
+  bool ok = in->read(s);
+  if (!ok) return false;
   this->values[idx] = s;
-  return TRUE;
+  return true;
 }
 
 void

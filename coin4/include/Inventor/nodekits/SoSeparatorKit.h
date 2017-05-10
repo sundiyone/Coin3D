@@ -60,7 +60,7 @@ public:
 protected:
   virtual ~SoSeparatorKit();
   virtual void setDefaultOnNonWritingFields(void);
-  virtual SbBool setUpConnections(SbBool onoff, SbBool doitalways = FALSE);
+  virtual bool setUpConnections(bool onoff, bool doitalways = false);
 
 private:
   class SoSeparatorKitP * pimpl;

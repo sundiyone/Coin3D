@@ -55,13 +55,13 @@ public:
 
   static void dolly(SoCamera * camera, float diff);
   static void jump(SoCamera * camera, float focaldistance);
-  static void step(SoCamera * camera, SbBool exponential, float diff, float min = 0.0f, float max = 0.0f);
+  static void step(SoCamera * camera, bool exponential, float diff, float min = 0.0f, float max = 0.0f);
 
 protected:
   SoScXMLDollyTarget(void);
   virtual ~SoScXMLDollyTarget(void);
 
-  virtual SbBool processOneEvent(const ScXMLEvent * event);
+  virtual bool processOneEvent(const ScXMLEvent * event);
 
 private:
   class PImpl;

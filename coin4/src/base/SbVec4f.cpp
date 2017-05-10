@@ -107,7 +107,7 @@
 */
 
 /*!
-  Compares the vector with \a v and returns \c TRUE if the distance
+  Compares the vector with \a v and returns \c true if the distance
   between the vectors is smaller or equal to the square root of
   \a tolerance.
 
@@ -115,7 +115,7 @@
   vector is \e not used to make x, y and z into Cartesian coordinates
   first.
 */
-SbBool
+bool
 SbVec4f::equals(const SbVec4f& v, float tolerance) const
 {
 #if COIN_DEBUG
@@ -129,8 +129,8 @@ SbVec4f::equals(const SbVec4f& v, float tolerance) const
   float wdist = this->vec[3] - v[3];
 
   if((xdist*xdist + ydist*ydist + zdist*zdist + wdist*wdist) <= tolerance)
-    return TRUE;
-  return FALSE;
+    return true;
+  return false;
 }
 
 /*!

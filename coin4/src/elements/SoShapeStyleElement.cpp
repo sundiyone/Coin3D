@@ -101,7 +101,7 @@ SoShapeStyleElement::pop(SoState * state, const SoElement * prevTopElement)
 
 //! FIXME: write doc.
 
-SbBool
+bool
 SoShapeStyleElement::matches(const SoElement * element) const
 {
   const SoShapeStyleElement * elem =
@@ -186,7 +186,7 @@ SoShapeStyleElement::setTransparencyType(SoState * const state,
 
 void
 SoShapeStyleElement::setTextureEnabled(SoState * const state,
-                                       const SbBool value)
+                                       const bool value)
 {
   SoShapeStyleElement * elem = getElement(state);
   if (value) {
@@ -206,7 +206,7 @@ SoShapeStyleElement::setTextureEnabled(SoState * const state,
 */
 void
 SoShapeStyleElement::setTexture3Enabled(SoState * const state,
-                                       const SbBool value)
+                                       const bool value)
 {
   SoShapeStyleElement * elem = getElement(state);
   if (value) {
@@ -221,7 +221,7 @@ SoShapeStyleElement::setTexture3Enabled(SoState * const state,
 
 void
 SoShapeStyleElement::setTextureFunction(SoState * const state,
-                                        const SbBool value)
+                                        const bool value)
 {
   SoShapeStyleElement * elem = getElement(state);
   if (value) {
@@ -251,7 +251,7 @@ SoShapeStyleElement::setLightModel(SoState * const state,
 
 void
 SoShapeStyleElement::setOverrides(SoState * const state,
-                                  const SbBool value)
+                                  const bool value)
 {
   SoShapeStyleElement * elem = getElement(state);
   if (value) {
@@ -264,7 +264,7 @@ SoShapeStyleElement::setOverrides(SoState * const state,
 
 //! FIXME: write doc.
 
-SbBool
+bool
 SoShapeStyleElement::isScreenDoor(SoState * const state)
 {
   const SoShapeStyleElement * elem = getConstElement(state);
@@ -289,18 +289,18 @@ SoShapeStyleElement::getTransparencyType(SoState * const state)
   FIXME: write doc.
 */
 
-SbBool
+bool
 SoShapeStyleElement::mightNotRender() const
 {
-  if ((this->flags & DELAYRENDER_MASK) != 0) return TRUE;
-  return FALSE;
+  if ((this->flags & DELAYRENDER_MASK) != 0) return true;
+  return false;
 }
 
 /*!
   FIXME: write doc.
 */
 
-SbBool
+bool
 SoShapeStyleElement::needNormals() const
 {
   return (this->flags & LIGHTING) != 0;
@@ -310,7 +310,7 @@ SoShapeStyleElement::needNormals() const
   FIXME: write doc.
 */
 
-SbBool
+bool
 SoShapeStyleElement::needTexCoords(void) const
 {
   return (this->flags&(TEXENABLED|TEX3ENABLED)) != 0;
@@ -329,7 +329,7 @@ SoShapeStyleElement::getRenderCaseMask(void) const
 /*!
   Returns if texture function is currently enabled.
 */
-SbBool
+bool
 SoShapeStyleElement::isTextureFunction(void) const
 {
   return (this->flags&TEXFUNC) != 0;
@@ -364,7 +364,7 @@ SoShapeStyleElement::getConstElement(SoState * const state)
   \since Coin 2.4
 */
 void
-SoShapeStyleElement::setBumpmapEnabled(SoState * state, const SbBool value)
+SoShapeStyleElement::setBumpmapEnabled(SoState * state, const bool value)
 {
   SoShapeStyleElement * elem = getElement(state);
   if (value) {
@@ -381,7 +381,7 @@ SoShapeStyleElement::setBumpmapEnabled(SoState * state, const SbBool value)
   \since Coin 2.4
 */
 void
-SoShapeStyleElement::setBigImageEnabled(SoState * state, const SbBool value)
+SoShapeStyleElement::setBigImageEnabled(SoState * state, const bool value)
 {
   SoShapeStyleElement * elem = getElement(state);
   if (value) {
@@ -398,7 +398,7 @@ SoShapeStyleElement::setBigImageEnabled(SoState * state, const SbBool value)
   \since Coin 2.4
 */
 void
-SoShapeStyleElement::setVertexArrayRendering(SoState * state, const SbBool value)
+SoShapeStyleElement::setVertexArrayRendering(SoState * state, const bool value)
 {
   SoShapeStyleElement * elem = getElement(state);
   if (value) {
@@ -415,7 +415,7 @@ SoShapeStyleElement::setVertexArrayRendering(SoState * state, const SbBool value
   \since Coin 2.4
 */
 void
-SoShapeStyleElement::setTransparentMaterial(SoState * state, const SbBool value)
+SoShapeStyleElement::setTransparentMaterial(SoState * state, const bool value)
 {
   SoShapeStyleElement * elem = getElement(state);
   if (value) {
@@ -432,7 +432,7 @@ SoShapeStyleElement::setTransparentMaterial(SoState * state, const SbBool value)
   \since Coin 2.4
 */
 void
-SoShapeStyleElement::setTransparentTexture(SoState * state, const SbBool value)
+SoShapeStyleElement::setTransparentTexture(SoState * state, const bool value)
 {
   SoShapeStyleElement * elem = getElement(state);
   if (value) {
@@ -449,7 +449,7 @@ SoShapeStyleElement::setTransparentTexture(SoState * state, const SbBool value)
   \since Coin 2.5
 */
 void
-SoShapeStyleElement::setShadowMapRendering(SoState * state, const SbBool value)
+SoShapeStyleElement::setShadowMapRendering(SoState * state, const bool value)
 {
   SoShapeStyleElement * elem = getElement(state);
   if (value) {
@@ -466,7 +466,7 @@ SoShapeStyleElement::setShadowMapRendering(SoState * state, const SbBool value)
   \since Coin 2.5
 */
 void
-SoShapeStyleElement::setShadowsRendering(SoState * state, const SbBool value)
+SoShapeStyleElement::setShadowsRendering(SoState * state, const bool value)
 {
   SoShapeStyleElement * elem = getElement(state);
   if (value) {

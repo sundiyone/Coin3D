@@ -172,12 +172,12 @@ SoGLPointSizeElement::updategl(void)
     // by SoDrawStyle::pointSize, so ignore that case.)
     if ((useval != this->data) && (this->data != 0.0f)) {
       // Only warn once for each case.
-      static SbBool warn_below = TRUE;
-      static SbBool warn_above = TRUE;
+      static bool warn_below = true;
+      static bool warn_above = true;
       if ((warn_below && (useval > this->data)) ||
           (warn_above && (useval < this->data))) {
-        if (useval > this->data) { warn_below = FALSE; }
-        if (useval < this->data) { warn_above = FALSE; }
+        if (useval > this->data) { warn_below = false; }
+        if (useval < this->data) { warn_above = false; }
         SoDebugError::postWarning("SoGLPointSizeElement::updategl",
                                   "%f is outside the legal range of [%f, %f] "
                                   "for this OpenGL implementation's "

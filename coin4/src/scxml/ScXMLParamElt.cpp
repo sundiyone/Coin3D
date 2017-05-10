@@ -140,17 +140,17 @@ ScXMLParamElt::setExprAttribute(const char * exprstr)
 
 // const char * ScXMLParamElt::getExprAttribute(void) const { return this->expr; }
 
-SbBool
+bool
 ScXMLParamElt::handleXMLAttributes(void)
 {
   if (!inherited::handleXMLAttributes()) {
-    return FALSE;
+    return false;
   }
 
   this->setNameAttribute(this->getXMLAttribute("name"));
   this->setExprAttribute(this->getXMLAttribute("expr"));
 
-  return TRUE;
+  return true;
 }
 
 void

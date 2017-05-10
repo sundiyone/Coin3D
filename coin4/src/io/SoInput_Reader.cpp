@@ -90,7 +90,7 @@ SoInput_Reader *
 SoInput_Reader::createReader(FILE * fp, const SbString & fullname)
 {
   SoInput_Reader * reader = NULL;
-  SbBool trycompression = FALSE;
+  bool trycompression = false;
 
 #ifdef HAVE_FSTAT
   // need to make sure stream is seekable to enable compression
@@ -99,7 +99,7 @@ SoInput_Reader::createReader(FILE * fp, const SbString & fullname)
   struct stat sb;
   if ( fstat(fn, &sb) == 0 ) {
     if ( sb.st_mode & S_IFREG ) { // regular file
-      trycompression = TRUE;
+      trycompression = true;
     }
   }
 #endif // HAVE_FSTAT
@@ -108,9 +108,9 @@ SoInput_Reader::createReader(FILE * fp, const SbString & fullname)
     static const size_t HEADER_SIZE = 4;
     unsigned char header[HEADER_SIZE];
     long offset = ftell(fp);
-    SbBool valid_header = TRUE;
+    bool valid_header = true;
     if (fread(header, 1, HEADER_SIZE, fp)<HEADER_SIZE) {
-      valid_header = FALSE;
+      valid_header = false;
     }
     (void) fseek(fp, offset, SEEK_SET);
     fflush(fp); // needed since we fetch the file descriptor later

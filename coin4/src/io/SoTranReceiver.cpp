@@ -37,9 +37,9 @@ SoTranReceiver::~SoTranReceiver()
   COIN_STUB();
 }
 
-SbBool
+bool
 SoTranReceiver::interpret(SoInput * COIN_UNUSED_ARG(in))
 {
   COIN_STUB();
-  return FALSE;
+  return false;
 }

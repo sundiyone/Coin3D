@@ -33,8 +33,8 @@
 #include <Inventor/actions/SoSearchAction.h>
 #include <Inventor/actions/SoGLRenderAction.h>
 
-SbBool SoRenderManagerP::touchtimer = TRUE;
-SbBool SoRenderManagerP::cleanupfunctionset = FALSE;
+bool SoRenderManagerP::touchtimer = true;
+bool SoRenderManagerP::cleanupfunctionset = false;
 int SoRenderManagerRootSensor::debugrootnotifications = -1;
 
 #define PRIVATE(p) (p->pimpl)
@@ -79,8 +79,8 @@ SoRenderManagerP::redrawshotTriggeredCB(void * data, SoSensor * /* sensor */)
 void
 SoRenderManagerP::cleanup(void)
 {
-  SoRenderManagerP::touchtimer = TRUE;
-  SoRenderManagerP::cleanupfunctionset = FALSE;
+  SoRenderManagerP::touchtimer = true;
+  SoRenderManagerP::cleanupfunctionset = false;
 }
 
 void
@@ -184,7 +184,7 @@ SoRenderManagerP::getCameraCoordinateSystem(SbMatrix & matrix,
   }
 
   this->searchaction->reset();
-  this->searchaction->setSearchingAll(TRUE);
+  this->searchaction->setSearchingAll(true);
   this->searchaction->setInterest(SoSearchAction::FIRST);
   this->searchaction->setNode(camera);
   this->searchaction->apply(scene);
@@ -210,7 +210,7 @@ SoRenderManagerP::getCameraCoordinateSystem(SbMatrix & matrix,
 class SuperimpositionP {
 public:
   SoNode * scene;
-  SbBool enabled;
+  bool enabled;
   SoRenderManager * manager;
   SoNodeSensor * sensor;
   uint32_t stateflags;
@@ -218,7 +218,7 @@ public:
 };
 
 SoRenderManager::Superimposition::Superimposition(SoNode * scene,
-                                                  SbBool enabled,
+                                                  bool enabled,
                                                   SoRenderManager * manager,
                                                   uint32_t flags)
 {
@@ -252,7 +252,7 @@ SoRenderManager::Superimposition::getStateFlags(void) const
 }
 
 void
-SoRenderManager::Superimposition::render(SoGLRenderAction * action, SbBool clearcolorbuffer)
+SoRenderManager::Superimposition::render(SoGLRenderAction * action, bool clearcolorbuffer)
 {
   if (!PRIVATE(this)->enabled) return;
 
@@ -260,7 +260,7 @@ SoRenderManager::Superimposition::render(SoGLRenderAction * action, SbBool clear
   if (PRIVATE(this)->transparencytype != INHERIT_TRANSPARENCY_TYPE) {
     action->setTransparencyType((SoGLRenderAction::TransparencyType) PRIVATE(this)->transparencytype);
   }
-  SbBool zbufferwason = glIsEnabled(GL_DEPTH_TEST) ? TRUE : FALSE;
+  bool zbufferwason = glIsEnabled(GL_DEPTH_TEST) ? true : false;
 
   PRIVATE(this)->stateflags & Superimposition::ZBUFFERON ?
     glEnable(GL_DEPTH_TEST):
@@ -283,7 +283,7 @@ SoRenderManager::Superimposition::render(SoGLRenderAction * action, SbBool clear
 }
 
 void
-SoRenderManager::Superimposition::setEnabled(SbBool yes)
+SoRenderManager::Superimposition::setEnabled(bool yes)
 {
   PRIVATE(this)->enabled = yes;
 }
@@ -339,12 +339,12 @@ SoRenderManagerRootSensor::notify(SoNotList * l)
   inherited::notify(l);
 }
 
-SbBool
+bool
 SoRenderManagerRootSensor::debug(void)
 {
   if (SoRenderManagerRootSensor::debugrootnotifications == -1) {
     const char * env = coin_getenv("COIN_DEBUG_ROOT_NOTIFICATIONS");
     SoRenderManagerRootSensor::debugrootnotifications = env && (atoi(env) > 0);
   }
-  return SoRenderManagerRootSensor::debugrootnotifications ? TRUE : FALSE;
+  return SoRenderManagerRootSensor::debugrootnotifications ? true : false;
 }

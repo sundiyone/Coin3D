@@ -76,7 +76,7 @@
 /*!
   \var SoSFBool SoOneShot::disable
 
-  Set to \c TRUE to disable the engine completely.
+  Set to \c true to disable the engine completely.
 */
 /*!
   \var SoEngineOutput SoOneShot::timeOut
@@ -90,7 +90,7 @@
 */
 /*!
   \var SoEngineOutput SoOneShot::isActive
-  (SoSFBool) \c TRUE while the engine is running, \c FALSE otherwise.
+  (SoSFBool) \c true while the engine is running, \c false otherwise.
 */
 
 
@@ -114,7 +114,7 @@ SoOneShot::SoOneShot(void)
   SO_ENGINE_ADD_INPUT(duration, (SbTime(1.0)));
   SO_ENGINE_ADD_INPUT(trigger, ());
   SO_ENGINE_ADD_INPUT(flags, (0));
-  SO_ENGINE_ADD_INPUT(disable, (FALSE));
+  SO_ENGINE_ADD_INPUT(disable, (false));
 
   SO_ENGINE_ADD_OUTPUT(timeOut, SoSFTime);
   SO_ENGINE_ADD_OUTPUT(isActive, SoSFBool);
@@ -128,7 +128,7 @@ SoOneShot::SoOneShot(void)
   SoField * realtime = SoDB::getGlobalField("realTime");
   this->timeIn.connectFrom(realtime);
 
-  this->running = FALSE;
+  this->running = false;
   this->starttime = SbTime::zero();
   this->holdramp = 0.0f;
   this->holdduration = SbTime::zero();
@@ -157,7 +157,7 @@ SoOneShot::evaluate(void)
       rampval = float(elapsed.getValue()) / float(durationval.getValue());
     }
     else {
-      this->running = FALSE;
+      this->running = false;
 
       if (this->flags.getValue() & SoOneShot::HOLD_FINAL) {
         this->holdduration = durationval;
@@ -184,9 +184,9 @@ SoOneShot::evaluate(void)
   //
   // enable-settings will be restored again on the next
   // inputChanged().
-  this->timeOut.enable(TRUE);
-  this->ramp.enable(TRUE);
-  this->isActive.enable(TRUE);
+  this->timeOut.enable(true);
+  this->ramp.enable(true);
+  this->isActive.enable(true);
 
   SO_ENGINE_OUTPUT(isActive, SoSFBool, setValue(this->running));
   SO_ENGINE_OUTPUT(timeOut, SoSFTime, setValue(timeoutval));
@@ -197,14 +197,14 @@ SoOneShot::evaluate(void)
 void
 SoOneShot::inputChanged(SoField * which)
 {
-  SbBool do_evaluate = FALSE;
+  bool do_evaluate = false;
 
   if (which == &this->trigger) {
     if ((!this->running ||
          this->flags.getValue() & SoOneShot::RETRIGGERABLE) &&
         !this->disable.getValue()) {
       this->starttime = this->timeIn.getValue();
-      this->running = TRUE;
+      this->running = true;
     }
   }
   else if (which == &this->disable) {
@@ -212,9 +212,9 @@ SoOneShot::inputChanged(SoField * which)
       this->holdduration = this->timeIn.getValue() - this->starttime;
       this->holdramp = static_cast<float>
         (this->holdduration.getValue() / this->duration.getValue().getValue());
-      this->running = FALSE;
+      this->running = false;
       // We need one more evaluation to send correct outputs.
-      do_evaluate = TRUE;
+      do_evaluate = true;
     }
   }
 
@@ -236,13 +236,13 @@ SoOneShot::writeInstance(SoOutput * out)
 
   // Disconnect from realTime field.
   SoField * connectfield = NULL;
-  SbBool connectfromrealTime =
+  bool connectfromrealTime =
     this->timeIn.getConnectedField(connectfield) &&
     connectfield == SoDB::getGlobalField("realTime");
-  SbBool defaultflag = this->timeIn.isDefault();
+  bool defaultflag = this->timeIn.isDefault();
   if (connectfromrealTime) {
     this->timeIn.disconnect();
-    this->timeIn.setDefault(TRUE);
+    this->timeIn.setDefault(true);
   }
 
   inherited::writeInstance(out);
@@ -251,7 +251,7 @@ SoOneShot::writeInstance(SoOutput * out)
   if (connectfromrealTime) {
     // Don't send notification when reconnecting to preserve the state
     // of the scenegraph between write passes.
-    this->timeIn.connectFrom(connectfield, TRUE);
+    this->timeIn.connectFrom(connectfield, true);
     this->timeIn.setDefault(defaultflag);
   }
 }

@@ -41,7 +41,7 @@
     exposedField SFColor color             1 1 1   # [0,1]
     exposedField SFFloat intensity         1       # [0,1]
     exposedField SFVec3f location          0 0 0   # (-inf, inf)
-    exposedField SFBool  on                TRUE
+    exposedField SFBool  on                true
     exposedField SFFloat radius            100     # [0, inf)
   }
   \endverbatim

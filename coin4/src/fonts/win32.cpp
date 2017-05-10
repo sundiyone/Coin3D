@@ -58,21 +58,21 @@
 /* Dummy versions of all functions. Only cc_flww32_initialize() will be
    used from generic wrapper. */
 
-SbBool cc_flww32_initialize(void) { return FALSE; }
+bool cc_flww32_initialize(void) { return false; }
 void cc_flww32_exit(void) { }
 
-void * cc_flww32_get_font(const char * COIN_UNUSED_ARG(fontname), int COIN_UNUSED_ARG(sizey), float COIN_UNUSED_ARG(angle), float COIN_UNUSED_ARG(complexity)) { assert(FALSE); return NULL; }
-void cc_flww32_get_font_name(void * COIN_UNUSED_ARG(font), cc_string * COIN_UNUSED_ARG(str)) { assert(FALSE); }
-void cc_flww32_done_font(void * COIN_UNUSED_ARG(font)) { assert(FALSE); }
+void * cc_flww32_get_font(const char * COIN_UNUSED_ARG(fontname), int COIN_UNUSED_ARG(sizey), float COIN_UNUSED_ARG(angle), float COIN_UNUSED_ARG(complexity)) { assert(false); return NULL; }
+void cc_flww32_get_font_name(void * COIN_UNUSED_ARG(font), cc_string * COIN_UNUSED_ARG(str)) { assert(false); }
+void cc_flww32_done_font(void * COIN_UNUSED_ARG(font)) { assert(false); }
 
-int cc_flww32_get_glyph(void * COIN_UNUSED_ARG(font), unsigned int COIN_UNUSED_ARG(charidx)) { assert(FALSE); return 0; }
-void cc_flww32_get_vector_advance(void * COIN_UNUSED_ARG(font), int COIN_UNUSED_ARG(glyph), float * COIN_UNUSED_ARG(x), float * COIN_UNUSED_ARG(y)) { assert(FALSE); }
-void cc_flww32_get_bitmap_kerning(void * COIN_UNUSED_ARG(font), int COIN_UNUSED_ARG(glyph1), int COIN_UNUSED_ARG(glyph2), int * COIN_UNUSED_ARG(x), int * COIN_UNUSED_ARG(y)) { assert(FALSE); }
-void cc_flww32_get_vector_kerning(void * COIN_UNUSED_ARG(font), int COIN_UNUSED_ARG(glyph1), int COIN_UNUSED_ARG(glyph2), float * COIN_UNUSED_ARG(x), float * COIN_UNUSED_ARG(y)) { assert(FALSE); }
-void cc_flww32_done_glyph(void * COIN_UNUSED_ARG(font), int COIN_UNUSED_ARG(glyph)) { assert(FALSE); }
+int cc_flww32_get_glyph(void * COIN_UNUSED_ARG(font), unsigned int COIN_UNUSED_ARG(charidx)) { assert(false); return 0; }
+void cc_flww32_get_vector_advance(void * COIN_UNUSED_ARG(font), int COIN_UNUSED_ARG(glyph), float * COIN_UNUSED_ARG(x), float * COIN_UNUSED_ARG(y)) { assert(false); }
+void cc_flww32_get_bitmap_kerning(void * COIN_UNUSED_ARG(font), int COIN_UNUSED_ARG(glyph1), int COIN_UNUSED_ARG(glyph2), int * COIN_UNUSED_ARG(x), int * COIN_UNUSED_ARG(y)) { assert(false); }
+void cc_flww32_get_vector_kerning(void * COIN_UNUSED_ARG(font), int COIN_UNUSED_ARG(glyph1), int COIN_UNUSED_ARG(glyph2), float * COIN_UNUSED_ARG(x), float * COIN_UNUSED_ARG(y)) { assert(false); }
+void cc_flww32_done_glyph(void * COIN_UNUSED_ARG(font), int COIN_UNUSED_ARG(glyph)) { assert(false); }
 
-struct cc_font_bitmap * cc_flww32_get_bitmap(void * COIN_UNUSED_ARG(font), int COIN_UNUSED_ARG(glyph)) { assert(FALSE); return NULL; }
-struct cc_font_vector_glyph * cc_flww32_get_vector_glyph(void * COIN_UNUSED_ARG(font), unsigned int COIN_UNUSED_ARG(glyph), float COIN_UNUSED_ARG(complexity)){ assert(FALSE); return NULL; }
+struct cc_font_bitmap * cc_flww32_get_bitmap(void * COIN_UNUSED_ARG(font), int COIN_UNUSED_ARG(glyph)) { assert(false); return NULL; }
+struct cc_font_vector_glyph * cc_flww32_get_vector_glyph(void * COIN_UNUSED_ARG(font), unsigned int COIN_UNUSED_ARG(glyph), float COIN_UNUSED_ARG(complexity)){ assert(false); return NULL; }
 
 
 #else /* HAVE_WIN32_API */
@@ -118,13 +118,13 @@ static int flww32_calcfontsize(float complexity);
 
 typedef struct flww32_tessellator_t {
   coin_GLUtessellator * tessellator_object;
-  SbBool contour_open;
+  bool contour_open;
 
   GLenum triangle_mode;
   int triangle_fan_root_index;
   int triangle_indices[3];
   int triangle_index_counter;
-  SbBool triangle_strip_flipflop;
+  bool triangle_strip_flipflop;
 
   int vertex_counter;
   float vertex_scale;
@@ -140,7 +140,7 @@ static flww32_tessellator_t flww32_tessellator;
 /* A static flag indicating whether we are running an old version of
    windows or not. This is important when tessellating the glyphs due
    to different behaviour between 95/98/Me and newer versions. */
-static SbBool flww32_win9598Me = FALSE;
+static bool flww32_win9598Me = false;
 
 struct cc_flww32_globals_s {
   /* Offscreen device context for connecting to fonts. */
@@ -198,7 +198,7 @@ font_enum_proc(ENUMLOGFONTEX * logicalfont, NEWTEXTMETRICEX * physicalfont,
 
 /* ************************************************************************* */
 
-SbBool
+bool
 cc_flww32_initialize(void)
 {
   OSVERSIONINFO osvi;
@@ -207,7 +207,7 @@ cc_flww32_initialize(void)
   cc_flww32_globals.devctx = CreateDC("DISPLAY", NULL, NULL, NULL);
   if (cc_flww32_globals.devctx == NULL) {
     cc_win32_print_error("cc_flww32_initialize", "CreateDC()", GetLastError());
-    return FALSE;
+    return false;
   }
 
   if (cc_font_debug()) { /* list all fonts on system */
@@ -247,9 +247,9 @@ cc_flww32_initialize(void)
   cc_win32()->GetVersionEx(&osvi);
 
   if (osvi.dwPlatformId == VER_PLATFORM_WIN32_WINDOWS)
-    flww32_win9598Me = TRUE;
+    flww32_win9598Me = true;
 
-  return TRUE;
+  return true;
 }
 
 void
@@ -385,7 +385,7 @@ static HFONT cc_flww32_create_font(const char* fontname, int sizey,
 		      (int) (10 * (angle * 180) / M_PI) , /* escapement */
 		      (int) (10 * (angle * 180) / M_PI) , /* orientation */
 		      bold ? FW_BOLD : FW_DONTCARE, /* weight */
-		      italic, FALSE, FALSE, /* italic, underline, strikeout */
+		      italic, false, false, /* italic, underline, strikeout */
 		      /* FIXME: using DEFAULT_CHARSET is probably not
 			 what we should do, AFAICT from a quick
 			 read-over of the CreateFont() API
@@ -414,7 +414,7 @@ static HFONT cc_flww32_create_font(const char* fontname, int sizey,
 		       (int) (10 * (angle * 180) / M_PI) , /* escapement */
 		       (int) (10 * (angle * 180) / M_PI) , /* orientation */
 		       bold ? FW_BOLD : FW_DONTCARE, /* weight */
-		       italic, FALSE, FALSE, /* italic, underline, strikeout */
+		       italic, false, false, /* italic, underline, strikeout */
 		       /* FIXME: using DEFAULT_CHARSET is probably not
 			  what we should do, AFAICT from a quick
 			  read-over of the CreateFontW() API
@@ -478,7 +478,7 @@ cc_flww32_get_font(const char * fontname, int sizey, float angle, float complexi
     sizey = flww32_calcfontsize(complexity);
   }
 
-  wfont = cc_flww32_create_font(fontname, sizey, angle, FALSE, FALSE);
+  wfont = cc_flww32_create_font(fontname, sizey, angle, false, false);
   if (!wfont) {
     return NULL;
   }
@@ -538,7 +538,7 @@ cc_flww32_get_font(const char * fontname, int sizey, float angle, float complexi
 
       /* try constructing the font again: */
       wfont2 = cc_flww32_create_font(cc_string_get_text(basename), sizey, angle,
-                                     bold ? TRUE : FALSE, italic ? TRUE : FALSE);
+                                     bold ? true : false, italic ? true : false);
       if (wfont2) {
         cc_flww32_get_font_name(wfont2, realname);
         if (((int) cc_string_length(realname) == baselen) &&
@@ -663,7 +663,7 @@ void
 cc_flww32_done_font(void * font)
 {
   BOOL ok;
-  SbBool found;
+  bool found;
   cc_dict * khash;
 
   found = cc_dict_remove(cc_flww32_globals.fontsizehash, (uintptr_t)font);
@@ -1031,7 +1031,7 @@ flww32_getVerticesFromPath(HDC hdc)
 
         GLUWrapper()->gluTessBeginContour(flww32_tessellator.tessellator_object);
         flww32_tessellator.edge_start_vertex = flww32_tessellator.vertex_counter;
-        flww32_tessellator.contour_open = TRUE;
+        flww32_tessellator.contour_open = true;
         continue;
       }
 
@@ -1042,7 +1042,7 @@ flww32_getVerticesFromPath(HDC hdc)
             must be added before closing the figure-path. If the OS is
             a newer version (ie. XP/2000/NT), adding the last vertex
             will lead to a 'gap' which looks quite ugly when
-            extruded. The 'flww32_win9598Me' is a static SbBool
+            extruded. The 'flww32_win9598Me' is a static bool
             initialized once in 'flww32_initialize()'. */
           flww32_addTessVertex(p_points[i].x, p_points[i].y);
         }
@@ -1189,11 +1189,11 @@ cc_flww32_get_vector_glyph(void * font, unsigned int glyph, float complexity)
     flww32_tessellator.malloclist = cc_list_construct();
 
   flww32_tessellator.tessellator_object = GLUWrapper()->gluNewTess();
-  flww32_tessellator.contour_open = FALSE;
+  flww32_tessellator.contour_open = false;
   flww32_tessellator.vertex_scale = 1.0f;
   flww32_tessellator.triangle_mode = 0;
   flww32_tessellator.triangle_index_counter = 0;
-  flww32_tessellator.triangle_strip_flipflop = FALSE;
+  flww32_tessellator.triangle_strip_flipflop = false;
   flww32_tessellator.vertex_counter = 0;
 
 
@@ -1355,7 +1355,7 @@ flww32_beginCallback(GLenum which)
   else
     flww32_tessellator.triangle_fan_root_index = 0;
   flww32_tessellator.triangle_index_counter = 0;
-  flww32_tessellator.triangle_strip_flipflop = FALSE;
+  flww32_tessellator.triangle_strip_flipflop = false;
 
 }
 

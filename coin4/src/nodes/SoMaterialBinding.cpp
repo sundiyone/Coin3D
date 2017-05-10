@@ -274,7 +274,7 @@ SoMaterialBinding::doAction(SoAction * action)
                                   (SoMaterialBindingElement::Binding)
                                   this->value.getValue());
     if (this->isOverride()) {
-      SoOverrideElement::setMaterialBindingOverride(action->getState(), this, TRUE);
+      SoOverrideElement::setMaterialBindingOverride(action->getState(), this, true);
     }
   }
 }

@@ -39,7 +39,7 @@
   Constructor.
 */
 SoShaderGenerator::SoShaderGenerator(void)
-  : dirty(FALSE)
+  : dirty(false)
 {
 }
 
@@ -51,7 +51,7 @@ SoShaderGenerator::~SoShaderGenerator()
 }
 
 void 
-SoShaderGenerator::reset(const SbBool freeoldstrings)
+SoShaderGenerator::reset(const bool freeoldstrings)
 {
   this->version.makeEmpty(freeoldstrings);
   this->defines.makeEmpty(freeoldstrings);
@@ -59,7 +59,7 @@ SoShaderGenerator::reset(const SbBool freeoldstrings)
   this->functions.makeEmpty(freeoldstrings);
   this->main.makeEmpty(freeoldstrings);
   this->combined.makeEmpty(freeoldstrings);
-  this->dirty = FALSE;
+  this->dirty = false;
 }
 
 
@@ -74,10 +74,10 @@ SoShaderGenerator::setVersion(const SbString & str)
   Adds a define to the shader program.
 */
 void 
-SoShaderGenerator::addDefine(const SbString & str, const SbBool checkexists)
+SoShaderGenerator::addDefine(const SbString & str, const bool checkexists)
 {
   if (!checkexists || (this->defines.find(str) < 0)) {
-    this->dirty = TRUE;
+    this->dirty = true;
     this->defines += str;
     this->defines += "\n";
   }
@@ -87,10 +87,10 @@ SoShaderGenerator::addDefine(const SbString & str, const SbBool checkexists)
   Adds a declaration (varying or uniform) to the script.
 */
 void 
-SoShaderGenerator::addDeclaration(const SbString & str, const SbBool checkexists)
+SoShaderGenerator::addDeclaration(const SbString & str, const bool checkexists)
 {
   if (!checkexists || (this->declarations.find(str) < 0)) {
-    this->dirty = TRUE;
+    this->dirty = true;
     this->declarations += str;
     this->declarations += "\n";
   }
@@ -100,10 +100,10 @@ SoShaderGenerator::addDeclaration(const SbString & str, const SbBool checkexists
   Adds a function to the script.
 */
 void 
-SoShaderGenerator::addFunction(const SbString & str, const SbBool checkexists)
+SoShaderGenerator::addFunction(const SbString & str, const bool checkexists)
 {
   if (!checkexists || (this->functions.find(str) < 0)) {
-    this->dirty = TRUE;
+    this->dirty = true;
     this->functions += str;
     this->functions += "\n";
   }
@@ -113,7 +113,7 @@ SoShaderGenerator::addFunction(const SbString & str, const SbBool checkexists)
   Adds a named function to the script.
 */
 void 
-SoShaderGenerator::addNamedFunction(const SbName & name, const SbBool checkexists)
+SoShaderGenerator::addNamedFunction(const SbName & name, const bool checkexists)
 {
   const char * func = SoShader::getNamedScript(name, SoShader::GLSL_SHADER);
   
@@ -133,7 +133,7 @@ SoShaderGenerator::addNamedFunction(const SbName & name, const SbBool checkexist
 void 
 SoShaderGenerator::addMainStatement(const SbString & str)
 {
-  this->dirty = TRUE;
+  this->dirty = true;
   this->main += str;
   this->main += "\n";
 }
@@ -145,7 +145,7 @@ const SbString &
 SoShaderGenerator::getShaderProgram(void)
 {
   if (this->dirty) {
-    this->combined.makeEmpty(FALSE);
+    this->combined.makeEmpty(false);
     this->combined += this->version;
     this->combined += this->defines;
   

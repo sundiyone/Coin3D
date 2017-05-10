@@ -222,7 +222,7 @@ SoBoxHighlightRenderAction::init(void)
   // Initialize local variables
   PRIVATE(this)->initBoxGraph();
 
-  this->hlVisible = TRUE;
+  this->hlVisible = true;
 
   PRIVATE(this)->basecolor->rgb.setValue(1.0f, 0.0f, 0.0f);
   PRIVATE(this)->drawstyle->linePattern = 0xffff;
@@ -260,7 +260,7 @@ SoBoxHighlightRenderAction::apply(SoNode * node)
     if (PRIVATE(this)->searchaction == NULL) {
       PRIVATE(this)->searchaction = new SoSearchAction;
     }
-    const SbBool searchall = FALSE;
+    const bool searchall = false;
     PRIVATE(this)->searchaction->setType(SoSelection::getClassTypeId());
     PRIVATE(this)->searchaction->setInterest(searchall ? SoSearchAction::ALL : SoSearchAction::FIRST);
     PRIVATE(this)->searchaction->apply(node);
@@ -312,17 +312,17 @@ SoBoxHighlightRenderAction::apply(SoPath * path)
 // overridden.
 void
 SoBoxHighlightRenderAction::apply(const SoPathList & pathlist,
-                                  SbBool obeysrules)
+                                  bool obeysrules)
 {
   SoGLRenderAction::apply(pathlist, obeysrules);
 }
 
 /*!
   Sets if highlighted boxes should be \a visible when
-  rendering. Defaults to \c TRUE.
+  rendering. Defaults to \c true.
 */
 void
-SoBoxHighlightRenderAction::setVisible(const SbBool visible)
+SoBoxHighlightRenderAction::setVisible(const bool visible)
 {
   this->hlVisible = visible;
 }
@@ -330,7 +330,7 @@ SoBoxHighlightRenderAction::setVisible(const SbBool visible)
 /*!
   Return if highlighted boxes are to be visible.
 */
-SbBool
+bool
 SoBoxHighlightRenderAction::isVisible(void) const
 {
   return this->hlVisible;

@@ -98,14 +98,14 @@ SoLocalBBoxMatrixElement::push(SoState * state)
 
 //! FIXME: write doc.
 
-SbBool
+bool
 SoLocalBBoxMatrixElement::matches(const SoElement * /* element */) const
 {
 #if COIN_DEBUG
   SoDebugError::postInfo("SoLocalBBoxMatrixElement::matches",
                          "This method should never be called for this element.");
 #endif // COIN_DEBUG
-  return TRUE;
+  return true;
 }
 
 //! FIXME: write doc.

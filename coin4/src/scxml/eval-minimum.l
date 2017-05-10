@@ -57,8 +57,8 @@ LINE                [^\n]*
 
 ID                  {LETTER}[{LETTERSET}{DIGITSET}_]+
 
-TRUE                ("TRUE"|"True"|"true")
-FALSE               ("FALSE"|"False"|"false")
+true                ("true"|"True"|"true")
+false               ("false"|"False"|"false")
 
 %%
 

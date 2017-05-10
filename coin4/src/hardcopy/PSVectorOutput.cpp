@@ -35,7 +35,7 @@
 
 class SoPSVectorOutputP {
 public:
-  SbBool colored;
+  bool colored;
 };
 
 #define PRIVATE(p) (p->pimpl)
@@ -46,7 +46,7 @@ public:
 SoPSVectorOutput::SoPSVectorOutput()
 {
   PRIVATE(this) = new SoPSVectorOutputP;
-  PRIVATE(this)->colored = TRUE;
+  PRIVATE(this)->colored = true;
 }
 
 /*!
@@ -61,7 +61,7 @@ SoPSVectorOutput::~SoPSVectorOutput()
   Sets whether the geometry should be colored.
 */
 void
-SoPSVectorOutput::setColored(SbBool flag)
+SoPSVectorOutput::setColored(bool flag)
 {
   PRIVATE(this)->colored = flag;
 }
@@ -69,7 +69,7 @@ SoPSVectorOutput::setColored(SbBool flag)
 /*!
   Returns whether geometry is colored.
 */
-SbBool
+bool
 SoPSVectorOutput::getColored(void) const
 {
   return PRIVATE(this)->colored;

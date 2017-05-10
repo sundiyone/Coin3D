@@ -71,7 +71,7 @@ SoMFVec2f::initClass(void)
 // parent classes.
 #ifndef DOXYGEN_SKIP_THIS
 
-SbBool
+bool
 SoMFVec2f::read1Value(SoInput * in, int idx)
 {
   assert(idx < this->maxNum);

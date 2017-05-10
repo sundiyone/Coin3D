@@ -41,11 +41,11 @@ class SoWriterefCounterBaseData {
 public:
   SoWriterefCounterBaseData() {
     writeref = 0;
-    ingraph = FALSE;
+    ingraph = false;
   }
 
   int32_t writeref;
-  SbBool ingraph;
+  bool ingraph;
 };
 
 // *************************************************************************
@@ -204,7 +204,7 @@ SoWriterefCounter::create(SoOutput * out, SoOutput * copyfrom)
 {
   SoWriterefCounter * inst = new SoWriterefCounter(out, copyfrom);
   CC_MUTEX_LOCK(SoWriterefCounterP::mutex);
-  SbBool ret = SoWriterefCounterP::outputdict->put(out, inst);
+  bool ret = SoWriterefCounterP::outputdict->put(out, inst);
   assert(ret && "writeref instance already exists!");
   CC_MUTEX_UNLOCK(SoWriterefCounterP::mutex);
 }
@@ -255,7 +255,7 @@ SoWriterefCounter::instance(SoOutput * out)
 
   SoWriterefCounter * inst = NULL;
 
-  const SbBool ok = SoWriterefCounterP::outputdict->get(out, inst);
+  const bool ok = SoWriterefCounterP::outputdict->get(out, inst);
   assert(ok && "no instance");
 
   SoWriterefCounterP::current = inst;
@@ -263,24 +263,24 @@ SoWriterefCounter::instance(SoOutput * out)
   return inst;
 }
 
-SbBool
+bool
 SoWriterefCounter::shouldWrite(const SoBase * base) const
 {
   SoWriterefCounterBaseData * data;
   if (PRIVATE(this)->outputdata->writerefdict.get(base, data)) {
     return data->ingraph;
   }
-  return FALSE;
+  return false;
 }
 
-SbBool
+bool
 SoWriterefCounter::hasMultipleWriteRefs(const SoBase * base) const
 {
   SoWriterefCounterBaseData * data;
   if (PRIVATE(this)->outputdata->writerefdict.get(base, data)) {
     return data->writeref > 1;
   }
-  return FALSE;
+  return false;
 }
 
 int
@@ -343,18 +343,18 @@ SoWriterefCounter::decrementWriteref(const SoBase * base)
 }
 
 
-SbBool
+bool
 SoWriterefCounter::isInGraph(const SoBase * base) const
 {
   SoWriterefCounterBaseData * data;
   if (PRIVATE(this)->outputdata->writerefdict.get(base, data)) {
     return data->ingraph;
   }
-  return FALSE;
+  return false;
 }
 
 void
-SoWriterefCounter::setInGraph(const SoBase * base, const SbBool ingraph)
+SoWriterefCounter::setInGraph(const SoBase * base, const bool ingraph)
 {
   SoWriterefCounterBaseData * data;
   if (PRIVATE(this)->outputdata->writerefdict.get(base, data)) {
@@ -385,7 +385,7 @@ SoWriterefCounter::removeWriteref(const SoBase * base)
 // the original node names as far as possible instead of appending
 // a "+<refid>" suffix.
 //
-static SbBool
+static bool
 dont_mangle_output_names(const SoBase *base)
 {
   static int COIN_DONT_MANGLE_OUTPUT_NAMES = -1;
@@ -393,14 +393,14 @@ dont_mangle_output_names(const SoBase *base)
   // Always unmangle node names in VRML1 and VRML2
   if (base->isOfType(SoNode::getClassTypeId()) &&
       (((SoNode *)base)->getNodeType()==SoNode::VRML1 ||
-       ((SoNode *)base)->getNodeType()==SoNode::VRML2)) return TRUE;
+       ((SoNode *)base)->getNodeType()==SoNode::VRML2)) return true;
 
   if (COIN_DONT_MANGLE_OUTPUT_NAMES < 0) {
     COIN_DONT_MANGLE_OUTPUT_NAMES = 0;
     const char * env = coin_getenv("COIN_DONT_MANGLE_OUTPUT_NAMES");
     if (env) COIN_DONT_MANGLE_OUTPUT_NAMES = atoi(env);
   }
-  return COIN_DONT_MANGLE_OUTPUT_NAMES ? TRUE : FALSE;
+  return COIN_DONT_MANGLE_OUTPUT_NAMES ? true : false;
 }
 
 SbName
@@ -409,8 +409,8 @@ SoWriterefCounter::getWriteName(const SoBase * base) const
   SoOutput * out = PRIVATE(this)->out;
   SbName name = base->getName();
   int refid = out->findReference(base);
-  SbBool firstwrite = (refid == (int) FIRSTWRITE);
-  SbBool multiref = this->hasMultipleWriteRefs(base);
+  bool firstwrite = (refid == (int) FIRSTWRITE);
+  bool multiref = this->hasMultipleWriteRefs(base);
 
   // Find what node name to write
   SbString writename;
@@ -437,7 +437,7 @@ SoWriterefCounter::getWriteName(const SoBase * base) const
       if (!multiref && dont_mangle_output_names(base)) out->removeDEFNode(SbName(writename));
     }
     else {
-      SbBool found = out->lookupDEFNode(name);
+      bool found = out->lookupDEFNode(name);
       writename = name.getString();
       if (!found && (!multiref || name.getLength() > 0)) {
         // We can use the node without a suffix
@@ -473,7 +473,7 @@ int
 SoWriterefCounter::findReference(const SoBase * base) const
 {
   int id;
-  const SbBool ok =
+  const bool ok =
     PRIVATE(this)->sobase2id &&
     PRIVATE(this)->sobase2id->get(base, id);
   return ok ? id : -1;
@@ -496,10 +496,10 @@ SoWriterefCounter::removeSoBase2IdRef(const SoBase * base)
 }
 
 /*!
-  Returns TRUE if the user wants extra debugging information regarding
+  Returns true if the user wants extra debugging information regarding
   writerefs (COIN_DEBUG_WRITEREFS=1)
 */
-SbBool
+bool
 SoWriterefCounter::debugWriterefs(void)
 {
   static int dbg = -1;

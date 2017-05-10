@@ -165,7 +165,7 @@ soinput_destruct_tls_data(void * closure)
 
 // *************************************************************************
 
-SbBool
+bool
 SoInputP::debug(void)
 {
   static int dbg = -1;
@@ -176,7 +176,7 @@ SoInputP::debug(void)
   return dbg;
 }
 
-SbBool
+bool
 SoInputP::debugBinary(void)
 {
   static int debug = -1;
@@ -184,7 +184,7 @@ SoInputP::debugBinary(void)
     const char * env = coin_getenv("COIN_DEBUG_BINARY_INPUT");
     debug = (env && (atoi(env) > 0)) ? 1 : 0;
   }
-  return debug ? TRUE : FALSE;
+  return debug ? true : false;
 }
 
 // *************************************************************************
@@ -279,20 +279,20 @@ SoInputP::getTopOfStackPopOnEOF(void)
 //  0x0-0x20, 0x22, 0x23, 0x27, 0x2c, 0x2e, 0x5b, 0x5c, 0x5d,
 //  0x7b, 0x7d, 0x7f ;
 
-SbBool
-SoInputP::isNameStartChar(unsigned char c, SbBool validIdent)
+bool
+SoInputP::isNameStartChar(unsigned char c, bool validIdent)
 {
   if (validIdent) return SbName::isIdentStartChar(c);
   return (c > 0x20); // Not control characters
 }
 
-SbBool
-SoInputP::isNameStartCharVRML1(unsigned char c, SbBool validIdent)
+bool
+SoInputP::isNameStartCharVRML1(unsigned char c, bool validIdent)
 {
   static unsigned char invalid_vrml1_table[256];
   static unsigned char valid_ident_invalid_vrml1_table[256];
 
-  static int isNameStartCharVRML1Initialized = FALSE;
+  static int isNameStartCharVRML1Initialized = false;
   if (!isNameStartCharVRML1Initialized) {
     const unsigned char invalid_vrml1[] = {
       0x22, 0x23, 0x27, 0x2b, 0x2c, 0x2e, 0x5c, 0x7b, 0x7d, 0x00 }; // 0x7d = 125
@@ -313,23 +313,23 @@ SoInputP::isNameStartCharVRML1(unsigned char c, SbBool validIdent)
     ptr = valid_ident_invalid_vrml1;
     while (*ptr) { valid_ident_invalid_vrml1_table[*ptr] = 1; ++ptr; }
 
-    isNameStartCharVRML1Initialized = TRUE;
+    isNameStartCharVRML1Initialized = true;
   }
 
-  if (c <= 0x20) return FALSE; // Control characters
-  if (c >= 0x30 && c <= 0x39) return FALSE; // Digits
+  if (c <= 0x20) return false; // Control characters
+  if (c >= 0x30 && c <= 0x39) return false; // Digits
 
   if (validIdent) return (valid_ident_invalid_vrml1_table[c] == 0);
   return (invalid_vrml1_table[c] == 0);
 }
 
-SbBool
-SoInputP::isNameStartCharVRML2(unsigned char c, SbBool validIdent)
+bool
+SoInputP::isNameStartCharVRML2(unsigned char c, bool validIdent)
 {
   static unsigned char invalid_vrml2_table[256];
   static unsigned char valid_ident_invalid_vrml2_table[256];
 
-  static int isNameStartCharVRML2Initialized = FALSE;
+  static int isNameStartCharVRML2Initialized = false;
   if (!isNameStartCharVRML2Initialized) {
     const unsigned char invalid_vrml2[] = {
       0x22, 0x23, 0x27, 0x2b, 0x2c, 0x2d, 0x2e, 0x5b, 0x5c, 0x5d, 0x7b, 0x7d, 0x7f, 0x00 }; // 0x7f = 127
@@ -347,11 +347,11 @@ SoInputP::isNameStartCharVRML2(unsigned char c, SbBool validIdent)
     ptr = valid_ident_invalid_vrml2;
     while (*ptr) { valid_ident_invalid_vrml2_table[*ptr] = 1; ++ptr; }
 
-    isNameStartCharVRML2Initialized = TRUE;
+    isNameStartCharVRML2Initialized = true;
   }
 
-  if (c <= 0x20) return FALSE; // Control characters
-  if (c >= 0x30 && c <= 0x39) return FALSE; // Digits
+  if (c <= 0x20) return false; // Control characters
+  if (c >= 0x30 && c <= 0x39) return false; // Digits
 
   if (validIdent) return (valid_ident_invalid_vrml2_table[c] == 0);
 
@@ -365,7 +365,7 @@ SoInputP::isNameStartCharVRML2(unsigned char c, SbBool validIdent)
   }
 
   if (c == '+' && non_strict) // '+' is considered valid
-    return TRUE;
+    return true;
 
   return (invalid_vrml2_table[c] == 0);
 }
@@ -374,20 +374,20 @@ SoInputP::isNameStartCharVRML2(unsigned char c, SbBool validIdent)
 // and VRML 2.0).
 //
 // See SoInputP::isIdentStartChar for more information
-SbBool
-SoInputP::isNameChar(unsigned char c, SbBool validIdent)
+bool
+SoInputP::isNameChar(unsigned char c, bool validIdent)
 {
   if (validIdent) return SbName::isIdentChar(c);
   return (c > 0x20); // Not control characters
 }
 
-SbBool
-SoInputP::isNameCharVRML1(unsigned char c, SbBool validIdent)
+bool
+SoInputP::isNameCharVRML1(unsigned char c, bool validIdent)
 {
   static unsigned char invalid_vrml1_table[256];
   static unsigned char valid_ident_invalid_vrml1_table[256];
 
-  static int isNameCharVRML1Initialized = FALSE;
+  static int isNameCharVRML1Initialized = false;
   if (!isNameCharVRML1Initialized) {
     const unsigned char invalid_vrml1[] = {
       0x22, 0x23, 0x27, 0x2b, 0x2c, 0x2e, 0x5c, 0x7b, 0x7d, 0x00 }; // 0x7d = 125
@@ -408,22 +408,22 @@ SoInputP::isNameCharVRML1(unsigned char c, SbBool validIdent)
     ptr = valid_ident_invalid_vrml1;
     while (*ptr) { valid_ident_invalid_vrml1_table[*ptr] = 1; ++ptr; }
 
-    isNameCharVRML1Initialized = TRUE;
+    isNameCharVRML1Initialized = true;
   }
 
-  if (c <= 0x20) return FALSE; // Control characters
+  if (c <= 0x20) return false; // Control characters
 
   if (validIdent) return (valid_ident_invalid_vrml1_table[c] == 0);
   return (invalid_vrml1_table[c] == 0);
 }
 
-SbBool
-SoInputP::isNameCharVRML2(unsigned char c, SbBool validIdent)
+bool
+SoInputP::isNameCharVRML2(unsigned char c, bool validIdent)
 {
   static unsigned char invalid_vrml2_table[256];
   static unsigned char valid_ident_invalid_vrml2_table[256];
 
-  static int isNameCharVRML2Initialized = FALSE;
+  static int isNameCharVRML2Initialized = false;
   if (!isNameCharVRML2Initialized) {
     // Compared to isIdentStartChar, '+' and '-' have now become valid characters.
     const unsigned char invalid_vrml2[] = {
@@ -442,10 +442,10 @@ SoInputP::isNameCharVRML2(unsigned char c, SbBool validIdent)
     ptr = valid_ident_invalid_vrml2;
     while (*ptr) { valid_ident_invalid_vrml2_table[*ptr] = 1; ++ptr; }
 
-    isNameCharVRML2Initialized = TRUE;
+    isNameCharVRML2Initialized = true;
   }
 
-  if (c <= 0x20) return FALSE; // Control characters
+  if (c <= 0x20) return false; // Control characters
 
   if (validIdent) return (valid_ident_invalid_vrml2_table[c] == 0);
   return (invalid_vrml2_table[c] == 0);
@@ -651,21 +651,21 @@ SoInput::getCurrentProto(void) const
 }
 
 /*!
-  Checks if the next bytes in \a in is the IS keyword. Returns \c TRUE
-  if the IS keyword was found, \a readok will be set to \c FALSE if
+  Checks if the next bytes in \a in is the IS keyword. Returns \c true
+  if the IS keyword was found, \a readok will be set to \c false if
   some error occured while searching for the IS keyword.
 
   \COIN_FUNCTION_EXTENSION
 
   \since Coin 2.0
 */
-SbBool
+bool
 SoInput::checkISReference(SoFieldContainer * container,
-                          const SbName & fieldname, SbBool & readok)
+                          const SbName & fieldname, bool & readok)
 {
-  readok = TRUE;
+  readok = true;
   SoProto * proto = this->getCurrentProto();
-  SbBool foundis = FALSE;
+  bool foundis = false;
   if (proto) {
     // The reason for this specific parsing code is that we need
     // to put back whitespace when the IS keyword isn't found.
@@ -680,7 +680,7 @@ SoInput::checkISReference(SoFieldContainer * container,
     int state = STATE_WAIT_I;
     do {
       char c;
-      readok = this->read(c, FALSE);
+      readok = this->read(c, false);
       putback += c;
       if (readok) {
         switch (state) {
@@ -704,9 +704,9 @@ SoInput::checkISReference(SoFieldContainer * container,
     } while (readok && state != STATE_FOUND && state != STATE_NOTFOUND);
 
     if (state == STATE_FOUND) {
-      foundis = TRUE;
+      foundis = true;
       SbName iname;
-      readok = this->read(iname, TRUE);
+      readok = this->read(iname, true);
       if (readok) {
         assert(container->isOfType(SoNode::getClassTypeId()));
         proto->addISReference((SoNode*) container, fieldname, iname);
@@ -715,7 +715,7 @@ SoInput::checkISReference(SoFieldContainer * container,
     else {
       assert(state == STATE_NOTFOUND);
       this->putBack(putback.getString());
-      foundis = FALSE;
+      foundis = false;
     }
   }
   return foundis;
@@ -757,10 +757,10 @@ SoInput::setFilePointer(FILE * newFP)
 
 /*!
   Open the given file, and make it the only one in the file stack. If
-  \a okIfNotFound is \c FALSE, show a warning message if the file could
+  \a okIfNotFound is \c false, show a warning message if the file could
   not be opened.
 
-  Returns \c TRUE if file could be opened for reading, \c FALSE
+  Returns \c true if file could be opened for reading, \c false
   otherwise.
 
   Note: even if your attempt at opening a file is unsuccessful,
@@ -769,8 +769,8 @@ SoInput::setFilePointer(FILE * newFP)
 
   \sa setFilePointer(), pushFile(), closeFile()
 */
-SbBool
-SoInput::openFile(const char * fileName, SbBool okIfNotFound)
+bool
+SoInput::openFile(const char * fileName, bool okIfNotFound)
 {
   this->closeFile();
 
@@ -784,12 +784,12 @@ SoInput::openFile(const char * fileName, SbBool okIfNotFound)
     this->filestack.insert(newfile, 0);
 
     SoInput::addDirectoryFirst(SoInput::getPathname(fullname).getString());
-    return TRUE;
+    return true;
   }
 
   if (!okIfNotFound) { SoReadError::post(this, fullname.getString()); }
 
-  return FALSE;
+  return false;
 }
 
 /*!
@@ -798,12 +798,12 @@ SoInput::openFile(const char * fileName, SbBool okIfNotFound)
   file will be popped of the stack and we'll continue with the next file
   in the stack.
 
-  Returns \c TRUE if the file could be opened for reading, \c FALSE
+  Returns \c true if the file could be opened for reading, \c false
   otherwise.
 
   \sa openFile()
 */
-SbBool
+bool
 SoInput::pushFile(const char * filename)
 {
   // Get rid of default stdin filepointer if it has not yet been read
@@ -834,12 +834,12 @@ SoInput::pushFile(const char * filename)
     this->filestack.insert(newfile, 0);
 
     SoInput::addDirectoryFirst(SoInput::getPathname(fullname).getString());
-    return TRUE;
+    return true;
   }
 
   SoReadError::post(this, fullname.getString());
 
-  return FALSE;
+  return false;
 }
 
 /*!
@@ -876,40 +876,40 @@ SoInput::closeFile(void)
   automatically checked for you, so application code should usually
   not need to use this method.
 */
-SbBool
+bool
 SoInput::isValidFile(void)
 {
-  if (this->getTopOfStack() == NULL) return FALSE;
+  if (this->getTopOfStack() == NULL) return false;
 
   // Abstract away the stupidity of providing both isValidFile() and
   // isValidBuffer().
   if (this->getTopOfStack()->isMemBuffer()) return this->isValidBuffer();
 
   float ver = this->getIVVersion();
-  if (ver != 0.0f) return TRUE;
-  return FALSE;
+  if (ver != 0.0f) return true;
+  return false;
 }
 
 /*!
-  Returns \c TRUE if the current text buffer represents a valid
+  Returns \c true if the current text buffer represents a valid
   iv-file which can be read by the Coin library.
 
   When reading files through e.g. SoDB::readAll(), this is
   automatically checked for you, so application code should usually
   not need to use this method.
 */
-SbBool
+bool
 SoInput::isValidBuffer(void)
 {
-  if (this->getTopOfStack() == NULL) return FALSE;
+  if (this->getTopOfStack() == NULL) return false;
 
   // Abstract away the stupidity of providing both isValidFile() and
   // isValidBuffer().
   if (!this->getTopOfStack()->isMemBuffer()) return this->isValidFile();
 
-  // Set "validate header" argument to FALSE, as memory buffers should
+  // Set "validate header" argument to false, as memory buffers should
   // be possible to read even with no header.
-  return this->checkHeader(FALSE);
+  return this->checkHeader(false);
 }
 
 /*!
@@ -1074,9 +1074,9 @@ SoInput::getIVVersion(void)
 }
 
 /*!
-  Returns \c TRUE if the current file is in binary format.
+  Returns \c true if the current file is in binary format.
 */
-SbBool
+bool
 SoInput::isBinary(void)
 {
   (void) this->checkHeader(); // Make sure the file header has been
@@ -1089,11 +1089,11 @@ SoInput::isBinary(void)
 }
 
 /*!
-  Get next character in current stream. Returns \c FALSE on end of file.
+  Get next character in current stream. Returns \c false on end of file.
 
   \sa read()
 */
-SbBool
+bool
 SoInput::get(char & c)
 {
   // It is essential that this method pops on EOF, because this
@@ -1108,7 +1108,7 @@ SoInput::get(char & c)
   is supposed to \e hide whether or not you are reading from file or memory.
   It is only included for compatibility reasons.
 */
-SbBool
+bool
 SoInput::getASCIIBuffer(char & c)
 {
   return this->get(c);
@@ -1119,7 +1119,7 @@ SoInput::getASCIIBuffer(char & c)
   is supposed to \e hide whether or not you are reading from file or memory.
   It is only included for compatibility reasons.
 */
-SbBool
+bool
 SoInput::getASCIIFile(char & c)
 {
   return this->get(c);
@@ -1132,9 +1132,9 @@ SoInput::getASCIIFile(char & c)
 
   A number in hexadecimal format must have the "0x" prefix.
 
-  Returns \c FALSE if end of file is encountered.
+  Returns \c false if end of file is encountered.
 */
-SbBool
+bool
 SoInput::readHex(uint32_t & l)
 {
   assert(!this->isBinary());
@@ -1153,36 +1153,36 @@ SoInput::readHex(uint32_t & l)
 
   *bufptr = '\0';
   sscanf(buffer, "%x", &l);
-  return TRUE;
+  return true;
 }
 
 /*!
   Skips whitespace and reads next character in input stream.
-  Returns \c FALSE if encountering end of file.
+  Returns \c false if encountering end of file.
 */
-SbBool
+bool
 SoInput::read(char & c)
 {
   SoInput_FileInfo * fi = PRIVATE(this)->getTopOfStackPopOnEOF();
 
-  if (!this->checkHeader()) return FALSE;
+  if (!this->checkHeader()) return false;
 
   return (fi->skipWhiteSpace() && fi->get(c));
 }
 
 /*!
-  Reads next character in input stream, returns \c FALSE if encountering
-  end of file. If \a skip is \c TRUE, skips whitespace before reading a
+  Reads next character in input stream, returns \c false if encountering
+  end of file. If \a skip is \c true, skips whitespace before reading a
   character.
 */
-SbBool
-SoInput::read(char & c, SbBool skip)
+bool
+SoInput::read(char & c, bool skip)
 {
   SoInput_FileInfo * fi = PRIVATE(this)->getTopOfStackPopOnEOF();
 
-  if (!this->checkHeader()) return FALSE;
+  if (!this->checkHeader()) return false;
 
-  SbBool ok = TRUE;
+  bool ok = true;
   if (skip) ok = fi->skipWhiteSpace();
   return (ok && fi->get(c));
 }
@@ -1198,24 +1198,24 @@ SoInput::read(char & c, SbBool skip)
   A string not contained in quotes is terminated by the first following
   whitespace character.
 
-  Returns \c FALSE upon encountering end of file (EOF) before the
+  Returns \c false upon encountering end of file (EOF) before the
   string is fully parsed, or any other error. Note: This function does
-  not return \c FALSE when encountering all EOFs. When multiple files
+  not return \c false when encountering all EOFs. When multiple files
   are on the stack and a string is being parsed (the parser has found
   one or more valid characters) and EOF is encountered, the parsing
-  stops and the read string along with \c TRUE is returned. The next
+  stops and the read string along with \c true is returned. The next
   time the read method is called, the stack is popped and a read
   string from the next file is returned - not always returning \c
-  FALSE between the files (though it might on certain
+  false between the files (though it might on certain
   circumstances). The solution to this is to test for end of file
   after each successive read operation.
 */
-SbBool
+bool
 SoInput::read(SbString & s)
 {
   SoInput_FileInfo * fi = PRIVATE(this)->getTopOfStackPopOnEOF();
 
-  if (!this->checkHeader()) return FALSE;
+  if (!this->checkHeader()) return false;
 
   ////////////////////
   // Binary read
@@ -1228,15 +1228,15 @@ SoInput::read(SbString & s)
     const unsigned int MAXSTRLEN = 10 * 1024;
 
     unsigned int slen;
-    if (!this->read(slen)) { return FALSE; }
-    if (slen == 0) { s = ""; return TRUE; }
+    if (!this->read(slen)) { return false; }
+    if (slen == 0) { s = ""; return true; }
 
     // Inventor V1.0 binary files seems to have 0xffffffff as some
     // sort of end-of-file tag, so handle that case.
     if (slen == 0xffffffff) {
       char c;
       (void)fi->get(c); // sets the EOF flag as a side-effect
-      if (fi->isEndOfFile()) { return FALSE; }
+      if (fi->isEndOfFile()) { return false; }
       fi->putBack(c);
     }
 
@@ -1244,14 +1244,14 @@ SoInput::read(SbString & s)
     if (slen > MAXSTRLEN) {
       SoReadError::post(this, "String too long (%u characters) -- "
                         "file probably corrupt.", slen);
-      return FALSE;
+      return false;
     }
 
     char buffer[MAXSTRLEN+4+1];
-    if (!fi->getChunkOfBytes((unsigned char *)buffer, ((slen+3)/4)*4)) { return FALSE; }
+    if (!fi->getChunkOfBytes((unsigned char *)buffer, ((slen+3)/4)*4)) { return false; }
     buffer[slen] = '\0';
     s = buffer;
-    return TRUE;
+    return true;
   }
 
 
@@ -1259,14 +1259,14 @@ SoInput::read(SbString & s)
   // ASCII read
   ////////////////////
 
-  if (!fi->skipWhiteSpace()) return FALSE;
+  if (!fi->skipWhiteSpace()) return false;
 
   s.makeEmpty();
 
   char c;
-  if (!fi->get(c)) return FALSE;
+  if (!fi->get(c)) return false;
 
-  SbBool quoted = (c == '\"');
+  bool quoted = (c == '\"');
   if (!quoted) fi->putBack(c);
 
   // FIXME: the following code could have been much cleaner if we'd
@@ -1290,13 +1290,13 @@ SoInput::read(SbString & s)
           if (quoted) {
             SoReadError::post(this, "Missing terminating quote-character (\")");
           }
-          return FALSE;
+          return false;
         }
-        // This method does not return FALSE on all EOFs. When having
+        // This method does not return false on all EOFs. When having
         // started reading the last String, and encountering EOF at
         // the end of this, it simply stops reading and returns
-        // TRUE. The next time, it just pops the stack and starts
-        // reading on the next file. Not returning FALSE.
+        // true. The next time, it just pops the stack and starts
+        // reading on the next file. Not returning false.
         break;
       }
 
@@ -1304,7 +1304,7 @@ SoInput::read(SbString & s)
         if (*buf == '\"') break;
 
         if (*buf == '\\') {
-          if (!fi->get(c)) return FALSE;
+          if (!fi->get(c)) return false;
           if (c == '\"') {
             // VRML 2.0 allows for strings to contain literal
             // newlines, Inventor/VRML V1.0 doesn't.  This also checks
@@ -1343,7 +1343,7 @@ SoInput::read(SbString & s)
 
   } while (bytesLeft == 0);
 
-  return TRUE;
+  return true;
 }
 
 /*!
@@ -1358,21 +1358,21 @@ SoInput::read(SbString & s)
   quoted, then you should most likely use SoInput::read(SbString &)
   instead.
 
-  If \a validIdent is \c TRUE the name needs to be a valid identifier
-  (no reserved characters etc), while \a validIdent equal to \c FALSE
+  If \a validIdent is \c true the name needs to be a valid identifier
+  (no reserved characters etc), while \a validIdent equal to \c false
   means we'll just read characters for the next word until we hit
   whitespace or one of the "{"/"}" delimiters.
 
-  Returns \c FALSE on encountering end of file before a full name has
-  been read -- if \a validIdent is also \c FALSE. If \a validIdent is
-  passed as \c TRUE, the return value will be \c FALSE if no valid name
+  Returns \c false on encountering end of file before a full name has
+  been read -- if \a validIdent is also \c false. If \a validIdent is
+  passed as \c true, the return value will be \c false if no valid name
   was found, but \e not necessarily on end of file.
 */
-SbBool
-SoInput::read(SbName & n, SbBool validIdent)
+bool
+SoInput::read(SbName & n, bool validIdent)
 {
   SoInput_FileInfo * fi = PRIVATE(this)->getTopOfStackPopOnEOF();
-  if (!this->checkHeader()) return FALSE;
+  if (!this->checkHeader()) return false;
 
   const enum CodePath { INVENTOR, VRML1, VRML2 } codepath =
     fi->isFileVRML2() ? VRML2 : (fi->isFileVRML1() ? VRML1 : INVENTOR);
@@ -1380,7 +1380,7 @@ SoInput::read(SbName & n, SbBool validIdent)
   // Binary format.
   if (fi->isBinary()) { // Checkheader has already been called
     SbString s;
-    if (!this->read(s)) return FALSE;
+    if (!this->read(s)) return false;
 
     n = s;
     const int strlength = s.getLength();
@@ -1388,39 +1388,39 @@ SoInput::read(SbName & n, SbBool validIdent)
     switch (codepath) {
     case INVENTOR:
       if (validIdent && strlength > 0) {
-        if (!SoInputP::isNameStartChar(s[0], validIdent)) return FALSE;
+        if (!SoInputP::isNameStartChar(s[0], validIdent)) return false;
         for (int i = 1; i < strlength; i++)
-          if (!SoInputP::isNameChar(s[i], validIdent)) return FALSE;
+          if (!SoInputP::isNameChar(s[i], validIdent)) return false;
       }
       break;
     case VRML1:
       if (validIdent && strlength > 0) {
-        if (!SoInputP::isNameStartCharVRML1(s[0], validIdent)) return FALSE;
+        if (!SoInputP::isNameStartCharVRML1(s[0], validIdent)) return false;
         for (int i = 1; i < strlength; i++)
-          if (!SoInputP::isNameCharVRML1(s[i], validIdent)) return FALSE;
+          if (!SoInputP::isNameCharVRML1(s[i], validIdent)) return false;
       }
     case VRML2:
       if (validIdent && strlength > 0) {
-        if (!SoInputP::isNameStartCharVRML2(s[0], validIdent)) return FALSE;
+        if (!SoInputP::isNameStartCharVRML2(s[0], validIdent)) return false;
         for (int i = 1; i < strlength; i++)
-          if (!SoInputP::isNameCharVRML2(s[i], validIdent)) return FALSE;
+          if (!SoInputP::isNameCharVRML2(s[i], validIdent)) return false;
       }
     default:
       assert(!"invalid code path");
       break;
     }
 
-    return TRUE;
+    return true;
   }
   // ASCII format.
   else {
-    if (!fi->skipWhiteSpace()) return FALSE;
+    if (!fi->skipWhiteSpace()) return false;
 
     SbString s;
     char buf[256];
     char * b = buf;
     char c;
-    SbBool gotchar = FALSE;
+    bool gotchar = false;
 
     switch (codepath) {
     case INVENTOR:
@@ -1467,7 +1467,7 @@ SoInput::read(SbName & n, SbBool validIdent)
       break;
     }
     // This behavior is pretty silly, but this is how it is supposed
-    // to work, apparently -- _not_ returning FALSE upon end-of-file.
+    // to work, apparently -- _not_ returning false upon end-of-file.
     if (gotchar) fi->putBack(c);
 
     *b = '\0';
@@ -1479,10 +1479,10 @@ SoInput::read(SbName & n, SbBool validIdent)
                            "string read: ``%s''", s.getString());
 #endif // debug
 
-    if (s.getLength() == 0) return FALSE;
+    if (s.getLength() == 0) return false;
   }
 
-  return TRUE;
+  return true;
 }
 
 // FIXME: should we maybe do bounds-testing on the read-in data
@@ -1492,9 +1492,9 @@ SoInput::read(SbName & n, SbBool validIdent)
 #define READ_NUM(reader, readType, num, type) \
   SoInput_FileInfo * fi = this->getTopOfStack(); \
   assert(fi); \
-  if (!fi->skipWhiteSpace()) return FALSE; \
+  if (!fi->skipWhiteSpace()) return false; \
   readType _tmp; \
-  if (!fi->reader(_tmp)) return FALSE; \
+  if (!fi->reader(_tmp)) return false; \
   num = (type) _tmp;
 
 #define READ_INTEGER(num, type) \
@@ -1508,9 +1508,9 @@ READ_NUM(readReal, double, num, type)
 
 /*!
   Read integer from current file or buffer position and place it in \a i.
-  Returns \c FALSE if we hit end of file prematurely.
+  Returns \c false if we hit end of file prematurely.
  */
-SbBool
+bool
 SoInput::read(int & i)
 {
   SoInput_FileInfo * fi = this->getTopOfStack();
@@ -1518,21 +1518,21 @@ SoInput::read(int & i)
 
   if (fi->isBinary()) { // Assume checkheader has been called
     int32_t tmp;
-    if (!this->readBinaryArray(&tmp, 1)) return FALSE;
+    if (!this->readBinaryArray(&tmp, 1)) return false;
     i = tmp;
-    return TRUE;
+    return true;
   }
   else {
     READ_INTEGER(i, int);
   }
-  return TRUE;
+  return true;
 }
 
 /*!
   Read unsigned integer from current file or buffer position and place
-  it in \a i. Returns \c FALSE if we hit end of file prematurely.
+  it in \a i. Returns \c false if we hit end of file prematurely.
  */
-SbBool
+bool
 SoInput::read(unsigned int & i)
 {
   SoInput_FileInfo * fi = this->getTopOfStack();
@@ -1540,21 +1540,21 @@ SoInput::read(unsigned int & i)
 
   if (fi->isBinary()) { // Assume checkheader has been called
     int32_t tmp;
-    if (!this->readBinaryArray(&tmp, 1)) return FALSE;
+    if (!this->readBinaryArray(&tmp, 1)) return false;
     i = tmp;
-    return TRUE;
+    return true;
   }
   else {
     READ_UNSIGNED_INTEGER(i, unsigned int);
   }
-  return TRUE;
+  return true;
 }
 
 /*!
   Read short integer from current file or buffer position and place
-  it in \a s. Returns \c FALSE if we hit end of file prematurely.
+  it in \a s. Returns \c false if we hit end of file prematurely.
  */
-SbBool
+bool
 SoInput::read(short & s)
 {
   SoInput_FileInfo * fi = this->getTopOfStack();
@@ -1562,21 +1562,21 @@ SoInput::read(short & s)
 
   if (fi->isBinary()) { // Assume checkheader has been called
     int32_t tmp;
-    if (!this->readBinaryArray(&tmp, 1)) return FALSE;
+    if (!this->readBinaryArray(&tmp, 1)) return false;
     s = (short) tmp;
-    return TRUE;
+    return true;
   }
   else {
     READ_INTEGER(s, short);
   }
-  return TRUE;
+  return true;
 }
 
 /*!
   Read unsigned short integer from current file or buffer position and place
-  it in \a s. Returns \c FALSE if we hit end of file prematurely.
+  it in \a s. Returns \c false if we hit end of file prematurely.
  */
-SbBool
+bool
 SoInput::read(unsigned short & s)
 {
   SoInput_FileInfo * fi = this->getTopOfStack();
@@ -1584,21 +1584,21 @@ SoInput::read(unsigned short & s)
 
   if (fi->isBinary()) { // Assume checkheader has been called
     int32_t tmp;
-    if (!this->readBinaryArray(&tmp, 1)) return FALSE;
+    if (!this->readBinaryArray(&tmp, 1)) return false;
     s = (unsigned short) tmp;
-    return TRUE;
+    return true;
   }
   else {
     READ_UNSIGNED_INTEGER(s, unsigned short);
   }
-  return TRUE;
+  return true;
 }
 
 /*!
   Read signed byte integer from current file or buffer position and place
-  it in \a b. Returns \c FALSE if we hit end of file prematurely.
+  it in \a b. Returns \c false if we hit end of file prematurely.
  */
-SbBool
+bool
 SoInput::readByte(int8_t & b)
 {
   SoInput_FileInfo * fi = this->getTopOfStack();
@@ -1606,21 +1606,21 @@ SoInput::readByte(int8_t & b)
 
   if (fi->isBinary()) { // Assume checkheader has been called
     int32_t tmp;
-    if (!this->readBinaryArray(&tmp, 1)) return FALSE;
+    if (!this->readBinaryArray(&tmp, 1)) return false;
     b = (int8_t) tmp;
-    return TRUE;
+    return true;
   }
   else {
     READ_INTEGER(b, int8_t);
   }
-  return TRUE;
+  return true;
 }
 
 /*!
   Read unsigned byte integer from current file or buffer position and place
-  it in \a b. Returns \c FALSE if we hit end of file prematurely.
+  it in \a b. Returns \c false if we hit end of file prematurely.
  */
-SbBool
+bool
 SoInput::readByte(uint8_t & b)
 {
   SoInput_FileInfo * fi = this->getTopOfStack();
@@ -1628,28 +1628,28 @@ SoInput::readByte(uint8_t & b)
 
   if (fi->isBinary()) { // Assume checkheader has been called
     int32_t tmp;
-    if (!this->readBinaryArray(&tmp, 1)) return FALSE;
+    if (!this->readBinaryArray(&tmp, 1)) return false;
     b = (uint8_t) tmp;
-    return TRUE;
+    return true;
   }
   else {
     READ_UNSIGNED_INTEGER(b, uint8_t);
   }
-  return TRUE;
+  return true;
 }
 
 /*!
   Read float value from current file or buffer position and place
-  it in \a f. Returns \c FALSE if we hit end of file prematurely.
+  it in \a f. Returns \c false if we hit end of file prematurely.
  */
-SbBool
+bool
 SoInput::read(float & f)
 {
   SoInput_FileInfo * fi = this->getTopOfStack();
   assert(fi);
 
   if (fi->isBinary()) { // Assume checkheader has been called
-    if (!this->readBinaryArray(&f, 1)) { return FALSE; }
+    if (!this->readBinaryArray(&f, 1)) { return false; }
   }
   else {
     READ_REAL(f, float);
@@ -1659,24 +1659,24 @@ SoInput::read(float & f)
                       "Detected non-valid floating point number, replacing "
                       "with 0.0f");
     f = 0.0f;
-    // We don't return FALSE, thereby allowing the read process to
+    // We don't return false, thereby allowing the read process to
     // continue, as a convenience for the application programmer.
   }
-  return TRUE;
+  return true;
 }
 
 /*!
   Read double value from current file or buffer position and place
-  it in \a d. Returns \c FALSE if we hit end of file prematurely.
+  it in \a d. Returns \c false if we hit end of file prematurely.
  */
-SbBool
+bool
 SoInput::read(double & d)
 {
   SoInput_FileInfo * fi = this->getTopOfStack();
   assert(fi);
 
   if (fi->isBinary()) { // Assume checkheader has been called
-    if (!this->readBinaryArray(&d, 1)) { return FALSE; }
+    if (!this->readBinaryArray(&d, 1)) { return false; }
   }
   else {
     READ_REAL(d, double);
@@ -1686,23 +1686,23 @@ SoInput::read(double & d)
                       "Detected non-valid floating point number, replacing "
                       "with 0.0");
     d = 0.0;
-    // We don't return FALSE, thereby allowing the read process to
+    // We don't return false, thereby allowing the read process to
     // continue, as a convenience for the application programmer.
   }
-  return TRUE;
+  return true;
 }
 
 #ifdef __CYGWIN__
 #include <boost/static_assert.hpp>
 
-SbBool
+bool
 SoInput::read(long int & i)
 {
   BOOST_STATIC_ASSERT(sizeof(long int) == sizeof(int));
   return read(reinterpret_cast<int &>(i));
 }
 
-SbBool
+bool
 SoInput::read(unsigned long int & i)
 {
   BOOST_STATIC_ASSERT(sizeof(unsigned long int) == sizeof(unsigned int));
@@ -1712,10 +1712,10 @@ SoInput::read(unsigned long int & i)
 
 /*!
   Reads \a length characters from the current stream into \a c. Returns
-  \c FALSE if end of file is encountered before the given number of bytes
+  \c false if end of file is encountered before the given number of bytes
   could be read.
  */
-SbBool
+bool
 SoInput::readBinaryArray(unsigned char * c, int length)
 {
   return (this->checkHeader() &&
@@ -1724,68 +1724,68 @@ SoInput::readBinaryArray(unsigned char * c, int length)
 
 /*!
   Reads \a length 32-bit integers from the current stream into \a l. Returns
-  \c FALSE if end of file is encountered before the given number of integers
+  \c false if end of file is encountered before the given number of integers
   could be read.
  */
-SbBool
+bool
 SoInput::readBinaryArray(int32_t * l, int length)
 {
   assert(length > 0);
   if (!this->checkHeader() ||
       !this->getTopOfStack()->getChunkOfBytes((unsigned char *)l,
                                               length * sizeof(int32_t)))
-    return FALSE;
+    return false;
 
   this->convertInt32Array((char *)l, l, length);
-  return TRUE;
+  return true;
 }
 
 /*!
   Reads \a length floats from the current stream into \a f. Returns
-  \c FALSE if end of file is encountered before the given number of
+  \c false if end of file is encountered before the given number of
   binary float values could be read.
  */
-SbBool
+bool
 SoInput::readBinaryArray(float * f, int length)
 {
   assert(length > 0);
   if (!this->checkHeader() ||
       !this->getTopOfStack()->getChunkOfBytes((unsigned char *)f,
                                               length * sizeof(float)))
-    return FALSE;
+    return false;
 
   this->convertFloatArray((char *)f, f, length);
 
-  return TRUE;
+  return true;
 }
 
 /*!
   Reads \a length double floats from the current stream into \a d.
-  Returns \c FALSE if end of file is encountered before the given number of
+  Returns \c false if end of file is encountered before the given number of
   binary double float values could be read.
  */
-SbBool
+bool
 SoInput::readBinaryArray(double * d, int length)
 {
   assert(length > 0);
   if (!this->checkHeader() ||
       !this->getTopOfStack()->getChunkOfBytes((unsigned char *)d,
                                               length * sizeof(double)))
-    return FALSE;
+    return false;
 
   this->convertDoubleArray((char *)d, d, length);
-  return TRUE;
+  return true;
 }
 
 /*!
-  Returns \c TRUE if we are at the end of the current stream, otherwise
-  \c FALSE.
+  Returns \c true if we are at the end of the current stream, otherwise
+  \c false.
  */
-SbBool
+bool
 SoInput::eof(void) const
 {
   SoInput_FileInfo * fi = this->getTopOfStack();
-  if (!fi) return TRUE;
+  if (!fi) return true;
   return fi->isEndOfFile();
 }
 
@@ -1845,7 +1845,7 @@ SoInput::putBack(const char * str)
  */
 void
 SoInput::addReference(const SbName & name, SoBase * base,
-                      SbBool addToGlobalDict)
+                      bool addToGlobalDict)
 {
   SoProto * proto = this->getCurrentProto();
   if (proto) {
@@ -2245,7 +2245,7 @@ SoInput::getBasename(const SbString & s)
 }
 
 // internal method used for testing if a file exists
-static SbBool
+static bool
 test_filename(const SbString & filename)
 {
   FILE * fp = fopen(filename.getString(), "rb");
@@ -2256,9 +2256,9 @@ test_filename(const SbString & filename)
 
   if (fp != NULL) {
     fclose(fp);
-    return TRUE;
+    return true;
   }
-  return FALSE;
+  return false;
 }
 
 /*!
@@ -2286,13 +2286,13 @@ SoInput::searchForFile(const SbString & basename,
 
   SbString fullname = basename;
 
-  SbBool trypath = TRUE;
+  bool trypath = true;
   const char * strptr = basename.getString();
   const char * lastunixdelim = strrchr(strptr, '/');
   const char * lastdosdelim = strrchr(strptr, '\\');
   if (!lastdosdelim) {
     lastdosdelim = strrchr(strptr, ':');
-    if (lastdosdelim) trypath = FALSE;
+    if (lastdosdelim) trypath = false;
   }
   const char * lastdelim = SbMax(lastunixdelim, lastdosdelim);
 
@@ -2363,27 +2363,27 @@ SoInput::setIVVersion(float version)
 void
 SoInput::initFile(FILE * /* newFP */, const char * /* fileName */,
                   SbString * /* fullName */,
-                  SbBool /* openedHere */, SbDict * /* refDict */)
+                  bool /* openedHere */, SbDict * /* refDict */)
 {
   COIN_OBSOLETED();
 }
 
 /*!
-  Returns \c TRUE if the current stream has had it's header parsed.
+  Returns \c true if the current stream has had it's header parsed.
   If it hasn't, this method will attempt to read the header and returns
-  \c TRUE if it could be done.
+  \c true if it could be done.
 
-  If \a bValidateBufferHeader is \c TRUE, the returned flag will also
-  be \c FALSE if the file stream header was not of a supported file
+  If \a bValidateBufferHeader is \c true, the returned flag will also
+  be \c false if the file stream header was not of a supported file
   format type.
 */
-SbBool
-SoInput::checkHeader(SbBool bValidateBufferHeader)
+bool
+SoInput::checkHeader(bool bValidateBufferHeader)
 {
   SoInput_FileInfo * fi = this->getTopOfStack();
   if (!fi) {
     SoDebugError::post("SoInput::checkHeader", "no files on the stack");
-    return FALSE;
+    return false;
   }
 
   // Make a note if reading is attempted on <stdin>. By marking if
@@ -2394,29 +2394,29 @@ SoInput::checkHeader(SbBool bValidateBufferHeader)
       fi->ivFilePointer() == coin_get_stdin() &&
       !PRIVATE(this)->usingstdin) {
 
-    PRIVATE(this)->usingstdin = TRUE;
+    PRIVATE(this)->usingstdin = true;
   }
 
   return fi->readHeader(this) && (!bValidateBufferHeader || fi->ivVersion() != 0.0f);
 }
 
 /*!
-  Returns \c TRUE if the current input stream is fetching data from a
-  memory buffer, or \c FALSE if the input is from a file.
+  Returns \c true if the current input stream is fetching data from a
+  memory buffer, or \c false if the input is from a file.
 */
-SbBool
+bool
 SoInput::fromBuffer(void) const
 {
   SoInput_FileInfo * fi = this->getTopOfStack();
   assert(fi);
-  return fi->isMemBuffer() ? TRUE : FALSE;
+  return fi->isMemBuffer() ? true : false;
 }
 
 /*!
   Move file pointer past whitespace in the current file or buffer.
-  Returns \c FALSE if end of file is encountered.
+  Returns \c false if end of file is encountered.
  */
-SbBool
+bool
 SoInput::skipWhiteSpace(void)
 {
   // FIXME: pop file on EOF? don't think so, but please let me
@@ -2425,16 +2425,16 @@ SoInput::skipWhiteSpace(void)
 }
 
 /*!
-  Pop the topmost file off the stack. Returns \c FALSE if there was no
+  Pop the topmost file off the stack. Returns \c false if there was no
   files on the stack to pop. A file is only popped when there is more
   than one file on the stack.
 
   \sa pushFile(), openFile(), closeFile()
  */
-SbBool
+bool
 SoInput::popFile(void)
 {
-  if (this->filestack.getLength() == 0) return FALSE;
+  if (this->filestack.getLength() == 0) return false;
 
   SoInput_FileInfo * topofstack = this->getTopOfStack();
 
@@ -2447,7 +2447,7 @@ SoInput::popFile(void)
   // apply post callback, even if we're not going to pop
   topofstack->applyPostCallback(this);
   // If only one file is on the stack, don't pop it
-  if (this->filestack.getLength() == 1) return FALSE;
+  if (this->filestack.getLength() == 1) return false;
 
   if (topofstack->ivFilePointer()) {
     const char * filename = topofstack->ivFilename().getString();
@@ -2456,7 +2456,7 @@ SoInput::popFile(void)
   }
   delete topofstack;
   this->filestack.remove(0);
-  return TRUE;
+  return true;
 }
 
 /*!
@@ -2471,38 +2471,38 @@ SoInput::freeBytesInBuf(void) const
 
 /*!
   Reads 32-bit signed integer value from the current stream. Returns
-  \c FALSE if we hit end of file prematurely.
+  \c false if we hit end of file prematurely.
  */
-SbBool
+bool
 SoInput::readInteger(int32_t & l)
 {
   SoInput_FileInfo * fi = PRIVATE(this)->getTopOfStackPopOnEOF();
-  if (!fi) return FALSE;
+  if (!fi) return false;
   return fi->readInteger(l);
 }
 
 /*!
   Reads 32-bit unsigned integer value from the current stream. Returns
-  \c FALSE if we hit end of file prematurely.
+  \c false if we hit end of file prematurely.
  */
-SbBool
+bool
 SoInput::readUnsignedInteger(uint32_t & l)
 {
   SoInput_FileInfo * fi = PRIVATE(this)->getTopOfStackPopOnEOF();
-  if (!fi) return FALSE;
+  if (!fi) return false;
   return fi->readUnsignedInteger(l);
 }
 
 /*!
   Reads a double-precision floating point value from the current stream.
-  Returns \c FALSE if we hit end of file prematurely or if no valid string
+  Returns \c false if we hit end of file prematurely or if no valid string
   representing a value could be read.
  */
-SbBool
+bool
 SoInput::readReal(double & d)
 {
   SoInput_FileInfo * fi = PRIVATE(this)->getTopOfStackPopOnEOF();
-  if (!fi) return FALSE;
+  if (!fi) return false;
   return fi->readReal(d);
 }
 
@@ -2510,14 +2510,14 @@ SoInput::readReal(double & d)
   Reads a set of bytes from the stream making up an unsigned integer and
   puts them at \a str.
 
-  Returns \c FALSE if no string representing an unsigned integer could be
+  Returns \c false if no string representing an unsigned integer could be
   read.
  */
-SbBool
+bool
 SoInput::readUnsignedIntegerString(char * str)
 {
   SoInput_FileInfo * fi = PRIVATE(this)->getTopOfStackPopOnEOF();
-  if (!fi) return FALSE;
+  if (!fi) return false;
   return fi->readUnsignedIntegerString(str);
 }
 
@@ -2529,7 +2529,7 @@ int
 SoInput::readDigits(char * str)
 {
   SoInput_FileInfo * fi = PRIVATE(this)->getTopOfStackPopOnEOF();
-  if (!fi) return FALSE;
+  if (!fi) return false;
   return fi->readDigits(str);
 }
 
@@ -2541,7 +2541,7 @@ int
 SoInput::readHexDigits(char * str)
 {
   SoInput_FileInfo * fi = PRIVATE(this)->getTopOfStackPopOnEOF();
-  if (!fi) return FALSE;
+  if (!fi) return false;
   return fi->readHexDigits(str);
 }
 
@@ -2555,18 +2555,18 @@ int
 SoInput::readChar(char * s, char charToRead)
 {
   SoInput_FileInfo * fi = PRIVATE(this)->getTopOfStackPopOnEOF();
-  if (!fi) return FALSE;
+  if (!fi) return false;
   return fi->readChar(s, charToRead);
 }
 
 /*!
   This function has been obsoleted in Coin.
  */
-SbBool
+bool
 SoInput::makeRoomInBuf(size_t /* nBytes */)
 {
   COIN_OBSOLETED();
-  return FALSE;
+  return false;
 }
 
 /*!
@@ -2676,31 +2676,31 @@ SoInput::convertDoubleArray(char * from, double * to, int len)
 }
 
 /*!
-  Returns \c TRUE if current file is a VRML V1.0 file.
+  Returns \c true if current file is a VRML V1.0 file.
 
   \COIN_FUNCTION_EXTENSION
 */
-SbBool
+bool
 SoInput::isFileVRML1(void)
 {
   (void) this->checkHeader();
   SoInput_FileInfo * fi = this->getTopOfStack();
   if (fi) return fi->isFileVRML1();
-  return FALSE;
+  return false;
 }
 
 /*!
-  Returns \c TRUE if current file is a VRML 2 / VRML97 file.
+  Returns \c true if current file is a VRML 2 / VRML97 file.
 
   \COIN_FUNCTION_EXTENSION
 */
-SbBool
+bool
 SoInput::isFileVRML2(void)
 {
   (void) this->checkHeader();
   SoInput_FileInfo * fi = this->getTopOfStack();
   if (fi) return fi->isFileVRML2();
-  return FALSE;
+  return false;
 }
 
 /*!
@@ -2716,11 +2716,11 @@ SoInput::resetFilePointer(FILE * /* fptr */)
   This function is part of the TGS Inventor API, but is not
   implemented in Coin.
 */
-SbBool
+bool
 SoInput::isFileURL(const char * /* url */)
 {
   COIN_STUB();
-  return FALSE;
+  return false;
 }
 
 /*!
@@ -2738,11 +2738,11 @@ SoInput::URLToFile(char * /* out_buf */, const char * /* in_buf */)
   This function is part of the TGS Inventor API, but is not
   implemented in Coin.
 */
-SbBool
+bool
 SoInput::IsURL(const char * /* c_strng */)
 {
   COIN_STUB();
-  return FALSE;
+  return false;
 }
 
 /*!
@@ -2808,11 +2808,11 @@ SoInput::findFile(const char * basename, SbString & fullname)
   }
 
   const char * env = coin_getenv("COIN_DEBUG_SOINPUT_FINDFILE");
-  const SbBool DEBUG_FILE_SEARCHING = env && (atoi(env) > 0);
+  const bool DEBUG_FILE_SEARCHING = env && (atoi(env) > 0);
   if (DEBUG_FILE_SEARCHING) {
     cc_string str;
     cc_string_construct(&str);
-    SbBool ok = coin_getcwd(&str);
+    bool ok = coin_getcwd(&str);
     if (!ok) {
       SoDebugError::post("SoInput::findFile",
                          "Couldn't get current working directory: %s",
@@ -2853,7 +2853,7 @@ SoInput::findFile(const char * basename, SbString & fullname)
         return fp;
       }
       else {
-        const SbBool same = strcmp(basename, n.getString()) == 0;
+        const bool same = strcmp(basename, n.getString()) == 0;
         SbString s;
         if (!same) { s.sprintf(" as '%s'", n.getString()); }
 
@@ -2865,11 +2865,11 @@ SoInput::findFile(const char * basename, SbString & fullname)
 
   // If file was not found, list all directories where we looked for
   // it.
-  SbBool foundbutcouldntopen = fullname.getLength() > 0;
+  bool foundbutcouldntopen = fullname.getLength() > 0;
   if (!foundbutcouldntopen) {
     cc_string str;
     cc_string_construct(&str);
-    SbBool ok = coin_getcwd(&str);
+    bool ok = coin_getcwd(&str);
     fullname.sprintf("Could not find '%s' in any of the "
                      "following directories (from cwd '%s'):",
                      basename, ok ? cc_string_get_text(&str) : "<unknown>");

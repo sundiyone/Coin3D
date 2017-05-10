@@ -53,7 +53,7 @@ SoVertexArrayIndexer::SoVertexArrayIndexer(void)
   : target(0),
     next(NULL),
     vbo(NULL),
-    use_shorts(TRUE)
+    use_shorts(true)
 {
 }
 
@@ -69,7 +69,7 @@ SoVertexArrayIndexer::~SoVertexArrayIndexer()
 inline void 
 SoVertexArrayIndexer::addIndex(int32_t i) 
 {
-  if (i >= 65536) this->use_shorts = FALSE;
+  if (i >= 65536) this->use_shorts = false;
   this->indexarray.append(static_cast<GLint> (i));
 }
 
@@ -235,7 +235,7 @@ SoVertexArrayIndexer::close(void)
   Render all added targets/indices.
 */
 void
-SoVertexArrayIndexer::render(const cc_glglue * glue, const SbBool renderasvbo, const uint32_t contextid)
+SoVertexArrayIndexer::render(const cc_glglue * glue, const bool renderasvbo, const uint32_t contextid)
 {
   switch (this->target) {
   case GL_TRIANGLES:

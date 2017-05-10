@@ -94,7 +94,7 @@ SoNonIndexedShape::computeCoordBBox(SoAction * action, int numVertices,
   SoVertexProperty *vp = 
     (vpnode && vpnode->isOfType(SoVertexProperty::getClassTypeId())) ?
     (SoVertexProperty *)vpnode : NULL;
-  SbBool vpvtx = vp && (vp->vertex.getNum() > 0);
+  bool vpvtx = vp && (vp->vertex.getNum() > 0);
 
   const int numCoords = vpvtx ?
     vp->vertex.getNum() :
@@ -159,7 +159,7 @@ SoNonIndexedShape::fixNumVerticesPointers(SoState *state, const int32_t *&start,
     const SoCoordinateElement *coordelem =
       SoCoordinateElement::getInstance(state);
     SoVertexProperty * vp = (SoVertexProperty *) this->vertexProperty.getValue();
-    SbBool vpvtx = vp && (vp->vertex.getNum() > 0);
+    bool vpvtx = vp && (vp->vertex.getNum() > 0);
 
     const int numCoords = vpvtx ?
       vp->vertex.getNum() :

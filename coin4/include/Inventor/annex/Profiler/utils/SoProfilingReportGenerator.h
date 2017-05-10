@@ -97,7 +97,7 @@ public:
                        SbProfilingReportSortCriteria * sort,
                        SbProfilingReportPrintCriteria * print,
                        int count,
-                       SbBool addheader,
+                       bool addheader,
                        ReportCB * reportcallback,
                        void * userdata);
 

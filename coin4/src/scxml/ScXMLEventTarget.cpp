@@ -347,7 +347,7 @@ ScXMLEventTarget::ScXMLEventTarget(void)
 : targetname(NULL),
   targettype(NULL),
   currentevent(NULL),
-  isprocessingqueue(FALSE)
+  isprocessingqueue(false)
 {
 }
 
@@ -480,24 +480,24 @@ ScXMLEventTarget::queueInternalEvent(const ScXMLEvent * event)
 
 /*!
 */
-SbBool
+bool
 ScXMLEventTarget::processEventQueue(void)
 {
   if (this->isprocessingqueue) {
     // to avoid recursive event-processing - everything must go through the event
     // queues in a strict serialized fashion...
-    return FALSE;
+    return false;
   }
 
-  this->isprocessingqueue = TRUE;
+  this->isprocessingqueue = true;
 
-  SbBool eventsuccess = FALSE;
-  SbBool communicating = TRUE;
+  bool eventsuccess = false;
+  bool communicating = true;
   while (communicating) {
     const ScXMLEvent * event = NULL;
     while ((event = this->getNextEvent())) {
       if (this->processOneEvent(event)) {
-        eventsuccess = TRUE;
+        eventsuccess = true;
       }
       delete event;
     }
@@ -505,7 +505,7 @@ ScXMLEventTarget::processEventQueue(void)
     // have we communicated with other event targets, and need to roll
     // their event queue as well?
     if (PRIVATE(this)->targetqueue.empty()) {
-      communicating = FALSE;
+      communicating = false;
     } else {
       while (!PRIVATE(this)->targetqueue.empty()) {
         // FIXME: process external event targets we've communicated with,
@@ -518,7 +518,7 @@ ScXMLEventTarget::processEventQueue(void)
     }
   }
 
-  this->isprocessingqueue = FALSE;
+  this->isprocessingqueue = false;
   return eventsuccess;
 }
 
@@ -569,10 +569,10 @@ ScXMLEventTarget::getNextExternalEvent(void)
 /*!
   This function processes one event.  The base class implementation does nothing.
 */
-SbBool
+bool
 ScXMLEventTarget::processOneEvent(const ScXMLEvent * COIN_UNUSED_ARG(event))
 {
-  return FALSE;
+  return false;
 }
 
 /*!
@@ -599,7 +599,7 @@ ScXMLEventTarget::setCurrentEvent(const ScXMLEvent * event)
 // inter-system communication
 /*!
 */
-SbBool
+bool
 ScXMLEventTarget::sendExternalEvent(const ScXMLSendElt * sendelt)
 {
   // SCXML errors produced:
@@ -623,7 +623,7 @@ ScXMLEventTarget::sendExternalEvent(const ScXMLSendElt * sendelt)
 
   if (!sendtargettypeattr) {
     this->queueInternalEvent(SbName("error.send.TargetTypeInvalid"));
-    return FALSE;
+    return false;
   }
 
   if (strcmp(sendtargettypeattr, "scxml") == 0) {
@@ -635,7 +635,7 @@ ScXMLEventTarget::sendExternalEvent(const ScXMLSendElt * sendelt)
     // FIXME: is this something we know? should we perhaps unwind the map to see that
     // no such target type is registered at all first before instead flagging
     // targetunavailable?
-    return FALSE;
+    return false;
   }
 
   float delay = 0.0f;
@@ -647,7 +647,7 @@ ScXMLEventTarget::sendExternalEvent(const ScXMLSendElt * sendelt)
       if (delaystr[len-1] != 's') {
         SoDebugError::post("ScXMLEventTarget::sendExternalEvent",
                            "delay attribute format error (was: %s)", delaystr);
-        return FALSE;
+        return false;
       }
       if (delaystr[len-2] == 'm') {
         delay = float(atof(delaystr)) / 1000.0f;
@@ -657,7 +657,7 @@ ScXMLEventTarget::sendExternalEvent(const ScXMLSendElt * sendelt)
     } else {
       SoDebugError::post("ScXMLEventTarget::sendExternalEvent",
                          "delay attribute format error (was: %s)", delaystr);
-      return FALSE;
+      return false;
     }
   }
 
@@ -665,12 +665,12 @@ ScXMLEventTarget::sendExternalEvent(const ScXMLSendElt * sendelt)
     ScXMLEventTarget::getEventTarget(sendtargettypeattr, sendtargetattr);
   if (unlikely(!target)) {
     this->queueInternalEvent(SbName("error.send.TargetUnavailable"));
-    return FALSE;
+    return false;
   }
 
   const ScXMLEvent * event = sendelt->createEvent(this);
   if (!event) {
-    return FALSE;
+    return false;
   }
 
   if (delay > 0.0f) {
@@ -698,19 +698,19 @@ ScXMLEventTarget::sendExternalEvent(const ScXMLSendElt * sendelt)
     }
   }
 
-  return TRUE;
+  return true;
 }
 
 /*!
 */
-SbBool
+bool
 ScXMLEventTarget::sendInternalEvent(const ScXMLEventElt * eventelt)
 {
   assert(eventelt);
   ScXMLEvent * event = eventelt->createEvent(this);
   this->queueInternalEvent(event);
   delete event;
-  return TRUE;
+  return true;
 }
 
 #undef PRIVATE

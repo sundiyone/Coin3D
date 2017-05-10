@@ -368,17 +368,17 @@ ScXMLBoolDataObj::cleanClass(void)
 }
 
 ScXMLDataObj *
-ScXMLBoolDataObj::createFor(SbBool boolval)
+ScXMLBoolDataObj::createFor(bool boolval)
 {
   return new ScXMLBoolDataObj(boolval);
 }
 
 ScXMLBoolDataObj::ScXMLBoolDataObj(void)
-: value(FALSE)
+: value(false)
 {
 }
 
-ScXMLBoolDataObj::ScXMLBoolDataObj(SbBool boolval)
+ScXMLBoolDataObj::ScXMLBoolDataObj(bool boolval)
 : value(boolval)
 {
 }
@@ -388,7 +388,7 @@ ScXMLBoolDataObj::~ScXMLBoolDataObj(void)
 }
 
 void
-ScXMLBoolDataObj::setBool(SbBool val)
+ScXMLBoolDataObj::setBool(bool val)
 {
   this->value = val;
 }
@@ -405,10 +405,10 @@ void
 ScXMLBoolDataObj::convertToString(SbString & str) const
 {
   if (this->value) {
-    str = "TRUE";
+    str = "true";
   }
   else {
-    str = "FALSE";
+    str = "false";
   }
 }
 
@@ -549,7 +549,7 @@ ScXMLExprDataObj::evaluate(ScXMLStateMachine * sm)
     delete this->result;
     this->result = NULL;
   }
-  SbBool ok = this->evaluateNow(sm, this->result);
+  bool ok = this->evaluateNow(sm, this->result);
   if (!ok) return NULL;
   return this->result;
 }
@@ -611,7 +611,7 @@ ScXMLReferenceDataObj::setReference(const char * referencestr)
   }
 }
 
-SbBool
+bool
 ScXMLReferenceDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& pointer) const
 {
   assert(this->reference);
@@ -621,7 +621,7 @@ ScXMLReferenceDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& point
 
   ScXMLDataObj * obj = evaluator->locate(this->reference);
   if (!obj) {
-    return FALSE;
+    return false;
   }
 
   ScXMLConstantDataObj * valueobj = NULL;
@@ -629,21 +629,21 @@ ScXMLReferenceDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& point
     ScXMLExprDataObj * exprobj = static_cast<ScXMLExprDataObj *>(obj);
     ScXMLDataObj * dataobj = exprobj->evaluate(sm);
     if (!dataobj) {
-      return FALSE;
+      return false;
     }
     if (!dataobj->isOfType(ScXMLConstantDataObj::getClassTypeId())) {
-      return FALSE;
+      return false;
     }
     valueobj = static_cast<ScXMLConstantDataObj *>(dataobj);
   } else {
     // assuming const-obj
     if (!obj->isOfType(ScXMLConstantDataObj::getClassTypeId())) {
-      return FALSE;
+      return false;
     }
     valueobj = static_cast<ScXMLConstantDataObj *>(obj);
   }
   pointer = valueobj->clone();
-  return TRUE;
+  return true;
 }
 
 // *************************************************************************
@@ -730,7 +730,7 @@ ScXMLAndOpExprDataObj::setRHS(ScXMLDataObj * rhsptr)
   this->rhs = rhsptr;
 }
 
-SbBool
+bool
 ScXMLAndOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& pointer) const
 {
   assert(this->lhs && this->rhs);
@@ -740,11 +740,11 @@ ScXMLAndOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& point
     ScXMLExprDataObj * lhsexpr = static_cast<ScXMLExprDataObj *>(this->lhs);
     ScXMLDataObj * evaled = lhsexpr->evaluate(sm);
     if (!evaled) {
-      return FALSE;
+      return false;
     }
     if (!evaled->isOfType(ScXMLBoolDataObj::getClassTypeId())) {
       sm->queueInternalEvent("error.eval.minimum.AndOperator.INVALID_LHS");
-      return FALSE;
+      return false;
     }
     lhsbool = static_cast<ScXMLBoolDataObj *>(evaled);
   }
@@ -753,24 +753,24 @@ ScXMLAndOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& point
   }
   else {
     sm->queueInternalEvent("error.eval.minimum.AndOperator.INVALID_LHS");
-    return FALSE;
+    return false;
   }
 
   if (!lhsbool->getBool()) {
     // lhs is false, rhs is irrelevant, result is false
-    pointer = new ScXMLBoolDataObj(FALSE);
-    return TRUE;
+    pointer = new ScXMLBoolDataObj(false);
+    return true;
   }
 
   if (this->rhs->isOfType(ScXMLExprDataObj::getClassTypeId())) {
     ScXMLExprDataObj * rhsexpr = static_cast<ScXMLExprDataObj *>(this->rhs);
     ScXMLDataObj * evaled = rhsexpr->evaluate(sm);
     if (!evaled) {
-      return FALSE;
+      return false;
     }
     if (!evaled->isOfType(ScXMLBoolDataObj::getClassTypeId())) {
       sm->queueInternalEvent("error.eval.minimum.AndOperator.INVALID_RHS");
-      return FALSE;
+      return false;
     }
     rhsbool = static_cast<ScXMLBoolDataObj *>(evaled);
   }
@@ -779,17 +779,17 @@ ScXMLAndOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& point
   }
   else {
     sm->queueInternalEvent("error.eval.minimum.AndOperator.INVALID_RHS");
-    return FALSE;
+    return false;
   }
 
   if (!rhsbool->getBool()) {
     // rhs is false, result is false
-    pointer = new ScXMLBoolDataObj(FALSE);
-    return TRUE;
+    pointer = new ScXMLBoolDataObj(false);
+    return true;
   }
 
-  pointer = new ScXMLBoolDataObj(TRUE);
-  return TRUE;
+  pointer = new ScXMLBoolDataObj(true);
+  return true;
 }
 
 // *************************************************************************
@@ -869,7 +869,7 @@ ScXMLOrOpExprDataObj::setRHS(ScXMLDataObj * rhsptr)
   this->rhs = rhsptr;
 }
 
-SbBool
+bool
 ScXMLOrOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& pointer) const
 {
   assert(this->lhs && this->rhs);
@@ -879,11 +879,11 @@ ScXMLOrOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& pointe
     ScXMLExprDataObj * lhsexpr = static_cast<ScXMLExprDataObj *>(lhs);
     ScXMLDataObj * evaled = lhsexpr->evaluate(sm);
     if (!evaled) {
-      return FALSE;
+      return false;
     }
     if (!evaled->isOfType(ScXMLBoolDataObj::getClassTypeId())) {
       sm->queueInternalEvent("error.eval.minimum.OrOperator.INVALID_LHS");
-      return FALSE;
+      return false;
     }
     lhsbool = static_cast<ScXMLBoolDataObj *>(evaled);
   }
@@ -892,24 +892,24 @@ ScXMLOrOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& pointe
   }
   else {
     sm->queueInternalEvent("error.eval.minimum.OrOperator.INVALID_LHS");
-    return FALSE;
+    return false;
   }
 
   if (lhsbool->getBool()) {
     // lhs is true, rhs is irrelevant, result is true
-    pointer = new ScXMLBoolDataObj(TRUE);
-    return TRUE;
+    pointer = new ScXMLBoolDataObj(true);
+    return true;
   }
 
   if (this->rhs->isOfType(ScXMLExprDataObj::getClassTypeId())) {
     ScXMLExprDataObj * rhsexpr = static_cast<ScXMLExprDataObj *>(rhs);
     ScXMLDataObj * evaled = rhsexpr->evaluate(sm);
     if (!evaled) {
-      return FALSE;
+      return false;
     }
     if (!evaled->isOfType(ScXMLBoolDataObj::getClassTypeId())) {
       sm->queueInternalEvent("error.eval.minimum.OrOperator.INVALID_RHS");
-      return FALSE;
+      return false;
     }
     rhsbool = static_cast<ScXMLBoolDataObj *>(evaled);
   }
@@ -918,18 +918,18 @@ ScXMLOrOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& pointe
   }
   else {
     sm->queueInternalEvent("error.eval.minimum.OrOperator.INVALID_RHS");
-    return FALSE;
+    return false;
   }
 
   if (rhsbool->getBool()) {
     // rhs is true, result is true
-    pointer = new ScXMLBoolDataObj(TRUE);
-    return TRUE;
+    pointer = new ScXMLBoolDataObj(true);
+    return true;
   }
 
   // neither lhs or rhs were true
-  pointer = new ScXMLBoolDataObj(FALSE);
-  return TRUE;
+  pointer = new ScXMLBoolDataObj(false);
+  return true;
 }
 
 // *************************************************************************
@@ -953,7 +953,7 @@ ScXMLNotOpExprDataObj::createFor(ScXMLDataObj * rhs)
 {
   if (rhs->getTypeId() == ScXMLBoolDataObj::getClassTypeId()) {
     ScXMLBoolDataObj * boolrhs = static_cast<ScXMLBoolDataObj *>(rhs);
-    boolrhs->setBool(boolrhs->getBool() ? FALSE : TRUE);
+    boolrhs->setBool(boolrhs->getBool() ? false : true);
     return boolrhs;
   }
   return new ScXMLNotOpExprDataObj(rhs);
@@ -983,7 +983,7 @@ ScXMLNotOpExprDataObj::setRHS(ScXMLDataObj * rhsptr)
   this->rhs = rhsptr;
 }
 
-SbBool
+bool
 ScXMLNotOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& pointer) const
 {
   assert(this->rhs);
@@ -992,11 +992,11 @@ ScXMLNotOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& point
     ScXMLExprDataObj * rhsexpr = static_cast<ScXMLExprDataObj *>(rhs);
     ScXMLDataObj * evaled = rhsexpr->evaluate(sm);
     if (!evaled) {
-      return FALSE;
+      return false;
     }
     if (!evaled->isOfType(ScXMLBoolDataObj::getClassTypeId())) {
       sm->queueInternalEvent("error.eval.minimum.NotOperator.INVALID_RHS");
-      return FALSE;
+      return false;
     }
     rhsbool = static_cast<ScXMLBoolDataObj *>(evaled);
   }
@@ -1005,11 +1005,11 @@ ScXMLNotOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& point
   }
   else {
     sm->queueInternalEvent("error.eval.minimum.NotOperator.INVALID_RHS");
-    return FALSE;
+    return false;
   }
 
-  pointer = new ScXMLBoolDataObj(rhsbool->getBool() ? FALSE : TRUE);
-  return TRUE;
+  pointer = new ScXMLBoolDataObj(rhsbool->getBool() ? false : true);
+  return true;
 }
 
 // *************************************************************************
@@ -1036,7 +1036,7 @@ ScXMLEqualsOpExprDataObj::createFor(ScXMLDataObj * lhs, ScXMLDataObj * rhs)
     ScXMLRealDataObj * reallhs = static_cast<ScXMLRealDataObj *>(lhs);
     ScXMLRealDataObj * realrhs = static_cast<ScXMLRealDataObj *>(rhs);
     ScXMLBoolDataObj * folded =
-      new ScXMLBoolDataObj(reallhs->getReal() == realrhs->getReal() ? TRUE : FALSE);
+      new ScXMLBoolDataObj(reallhs->getReal() == realrhs->getReal() ? true : false);
     delete lhs;
     delete rhs;
     return folded;
@@ -1046,7 +1046,7 @@ ScXMLEqualsOpExprDataObj::createFor(ScXMLDataObj * lhs, ScXMLDataObj * rhs)
     ScXMLBoolDataObj * boollhs = static_cast<ScXMLBoolDataObj *>(lhs);
     ScXMLBoolDataObj * boolrhs = static_cast<ScXMLBoolDataObj *>(rhs);
     ScXMLBoolDataObj * folded =
-      new ScXMLBoolDataObj(boollhs->getBool() == boolrhs->getBool() ? TRUE : FALSE);
+      new ScXMLBoolDataObj(boollhs->getBool() == boolrhs->getBool() ? true : false);
     delete lhs;
     delete rhs;
     return folded;
@@ -1056,7 +1056,7 @@ ScXMLEqualsOpExprDataObj::createFor(ScXMLDataObj * lhs, ScXMLDataObj * rhs)
     ScXMLStringDataObj * stringlhs = static_cast<ScXMLStringDataObj *>(lhs);
     ScXMLStringDataObj * stringrhs = static_cast<ScXMLStringDataObj *>(rhs);
     ScXMLBoolDataObj * folded =
-      new ScXMLBoolDataObj(strcmp(stringlhs->getString(), stringrhs->getString()) == 0 ? TRUE : FALSE);
+      new ScXMLBoolDataObj(strcmp(stringlhs->getString(), stringrhs->getString()) == 0 ? true : false);
     delete lhs;
     delete rhs;
     return folded;
@@ -1098,7 +1098,7 @@ ScXMLEqualsOpExprDataObj::setRHS(ScXMLDataObj * rhsptr)
   this->rhs = rhsptr;
 }
 
-SbBool
+bool
 ScXMLEqualsOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& pointer) const
 {
   assert(this->lhs && this->rhs);
@@ -1108,7 +1108,7 @@ ScXMLEqualsOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& po
     ScXMLExprDataObj * lhsexpr = static_cast<ScXMLExprDataObj *>(this->lhs);
     ScXMLDataObj * evaled = lhsexpr->evaluate(sm);
     if (!evaled) {
-      return FALSE;
+      return false;
     }
     lhsevaled = evaled;
   }
@@ -1119,7 +1119,7 @@ ScXMLEqualsOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& po
   if (this->rhs->isOfType(ScXMLExprDataObj::getClassTypeId())) {
     ScXMLExprDataObj * rhsexpr = static_cast<ScXMLExprDataObj *>(this->rhs);
     ScXMLDataObj * evaled = rhsexpr->evaluate(sm);
-    if (!evaled) { return FALSE; }
+    if (!evaled) { return false; }
     rhsevaled = evaled;
   }
   else {
@@ -1131,8 +1131,8 @@ ScXMLEqualsOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& po
       ScXMLBoolDataObj * boollhs = static_cast<ScXMLBoolDataObj *>(lhsevaled);
       ScXMLBoolDataObj * boolrhs = static_cast<ScXMLBoolDataObj *>(rhsevaled);
       if (boollhs->getBool() == boolrhs->getBool()) {
-        pointer = new ScXMLBoolDataObj(TRUE);
-        return TRUE;
+        pointer = new ScXMLBoolDataObj(true);
+        return true;
       }
     }
     else if (lhsevaled->getTypeId() == ScXMLRealDataObj::getClassTypeId()) {
@@ -1140,22 +1140,22 @@ ScXMLEqualsOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& po
       ScXMLRealDataObj * realrhs = static_cast<ScXMLRealDataObj *>(rhsevaled);
       // FIXME: use epsilon comparison?
       if (reallhs->getReal() == realrhs->getReal()) {
-        pointer = new ScXMLBoolDataObj(TRUE);
-        return TRUE;
+        pointer = new ScXMLBoolDataObj(true);
+        return true;
       }
     }
     else if (lhsevaled->getTypeId() == ScXMLStringDataObj::getClassTypeId()) {
       ScXMLStringDataObj * stringlhs = static_cast<ScXMLStringDataObj *>(lhsevaled);
       ScXMLStringDataObj * stringrhs = static_cast<ScXMLStringDataObj *>(rhsevaled);
       if (strcmp(stringlhs->getString(), stringrhs->getString()) == 0) {
-        pointer = new ScXMLBoolDataObj(TRUE);
-        return TRUE;
+        pointer = new ScXMLBoolDataObj(true);
+        return true;
       }
     }
   }
 
-  pointer = new ScXMLBoolDataObj(FALSE);
-  return TRUE;
+  pointer = new ScXMLBoolDataObj(false);
+  return true;
 }
 
 // *************************************************************************
@@ -1224,7 +1224,7 @@ ScXMLAddOpExprDataObj::setRHS(ScXMLDataObj * rhsptr)
   this->rhs = rhsptr;
 }
 
-SbBool
+bool
 ScXMLAddOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& pointer) const
 {
   assert(this->lhs && this->rhs);
@@ -1233,7 +1233,7 @@ ScXMLAddOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& point
   if (this->lhs->isOfType(ScXMLExprDataObj::getClassTypeId())) {
     ScXMLExprDataObj * lhsexpr = static_cast<ScXMLExprDataObj *>(this->lhs);
     ScXMLDataObj * evaled = lhsexpr->evaluate(sm);
-    if (!evaled) { return FALSE; }
+    if (!evaled) { return false; }
     assert(evaled->isOfType(ScXMLRealDataObj::getClassTypeId()));
     lhsreal = static_cast<ScXMLRealDataObj *>(evaled);
   }
@@ -1242,14 +1242,14 @@ ScXMLAddOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& point
   }
   else {
     sm->queueInternalEvent("error.eval.minimum.AddOperator.INVALID_LHS");
-    return FALSE;
+    return false;
   }
 
   if (this->rhs->isOfType(ScXMLExprDataObj::getClassTypeId())) {
     ScXMLExprDataObj * rhsexpr = static_cast<ScXMLExprDataObj *>(this->rhs);
     ScXMLDataObj * evaled = rhsexpr->evaluate(sm);
     if (!evaled) {
-      return FALSE;
+      return false;
     }
     assert(evaled->isOfType(ScXMLRealDataObj::getClassTypeId()));
     rhsreal = static_cast<ScXMLRealDataObj *>(evaled);
@@ -1259,11 +1259,11 @@ ScXMLAddOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& point
   }
   else {
     sm->queueInternalEvent("error.eval.minimum.AddOperator.INVALID_RHS");
-    return FALSE;
+    return false;
   }
 
   pointer = new ScXMLRealDataObj(lhsreal->getReal() + rhsreal->getReal());
-  return TRUE;
+  return true;
 }
 
 // *************************************************************************
@@ -1331,7 +1331,7 @@ ScXMLSubtractOpExprDataObj::setRHS(ScXMLDataObj * rhsptr)
   this->rhs = rhsptr;
 }
 
-SbBool
+bool
 ScXMLSubtractOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& pointer) const
 {
   assert(this->lhs && this->rhs);
@@ -1341,7 +1341,7 @@ ScXMLSubtractOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& 
     ScXMLExprDataObj * lhsexpr = static_cast<ScXMLExprDataObj *>(this->lhs);
     ScXMLDataObj * evaled = lhsexpr->evaluate(sm);
     if (!evaled) {
-      return FALSE;
+      return false;
     }
     assert(evaled->isOfType(ScXMLRealDataObj::getClassTypeId()));
     lhsreal = static_cast<ScXMLRealDataObj *>(evaled);
@@ -1351,14 +1351,14 @@ ScXMLSubtractOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& 
   }
   else {
     sm->queueInternalEvent("error.eval.minimum.SubtractOperator.INVALID_LHS");
-    return FALSE;
+    return false;
   }
 
   if (this->rhs->isOfType(ScXMLExprDataObj::getClassTypeId())) {
     ScXMLExprDataObj * rhsexpr = static_cast<ScXMLExprDataObj *>(this->rhs);
     ScXMLDataObj * evaled = rhsexpr->evaluate(sm);
     if (!evaled) {
-      return FALSE;
+      return false;
     }
     assert(evaled->isOfType(ScXMLRealDataObj::getClassTypeId()));
     rhsreal = static_cast<ScXMLRealDataObj *>(evaled);
@@ -1368,11 +1368,11 @@ ScXMLSubtractOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& 
   }
   else {
     sm->queueInternalEvent("error.eval.minimum.SubtractOperator.INVALID_RHS");
-    return FALSE;
+    return false;
   }
 
   pointer = new ScXMLRealDataObj(lhsreal->getReal() - rhsreal->getReal());
-  return TRUE;
+  return true;
 }
 
 // *************************************************************************
@@ -1440,7 +1440,7 @@ ScXMLMultiplyOpExprDataObj::setRHS(ScXMLDataObj * rhsptr)
   this->rhs = rhsptr;
 }
 
-SbBool
+bool
 ScXMLMultiplyOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& pointer) const
 {
   assert(this->lhs && this->rhs);
@@ -1450,7 +1450,7 @@ ScXMLMultiplyOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& 
     ScXMLExprDataObj * lhsexpr = static_cast<ScXMLExprDataObj *>(this->lhs);
     ScXMLDataObj * evaled = lhsexpr->evaluate(sm);
     if (!evaled) {
-      return FALSE;
+      return false;
     }
     assert(evaled->isOfType(ScXMLRealDataObj::getClassTypeId()));
     lhsreal = static_cast<ScXMLRealDataObj *>(evaled);
@@ -1460,14 +1460,14 @@ ScXMLMultiplyOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& 
   }
   else {
     sm->queueInternalEvent("error.eval.minimum.MultiplyOperator.INVALID_LHS");
-    return FALSE;
+    return false;
   }
 
   if (this->rhs->isOfType(ScXMLExprDataObj::getClassTypeId())) {
     ScXMLExprDataObj * rhsexpr = static_cast<ScXMLExprDataObj *>(this->rhs);
     ScXMLDataObj * evaled = rhsexpr->evaluate(sm);
     if (!evaled) {
-      return FALSE;
+      return false;
     }
     assert(evaled->isOfType(ScXMLRealDataObj::getClassTypeId()));
     rhsreal = static_cast<ScXMLRealDataObj *>(evaled);
@@ -1477,11 +1477,11 @@ ScXMLMultiplyOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& 
   }
   else {
     sm->queueInternalEvent("error.eval.minimum.MultiplyOperator.INVALID_RHS");
-    return FALSE;
+    return false;
   }
 
   pointer = new ScXMLRealDataObj(lhsreal->getReal() * rhsreal->getReal());
-  return TRUE;
+  return true;
 }
 
 // *************************************************************************
@@ -1549,7 +1549,7 @@ ScXMLDivideOpExprDataObj::setRHS(ScXMLDataObj * rhsptr)
   this->rhs = rhsptr;
 }
 
-SbBool
+bool
 ScXMLDivideOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& pointer) const
 {
   assert(this->lhs && this->rhs);
@@ -1559,7 +1559,7 @@ ScXMLDivideOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& po
     ScXMLExprDataObj * lhsexpr = static_cast<ScXMLExprDataObj *>(this->lhs);
     ScXMLDataObj * evaled = lhsexpr->evaluate(sm);
     if (!evaled) {
-      return FALSE;
+      return false;
     }
     assert(evaled->isOfType(ScXMLRealDataObj::getClassTypeId()));
     lhsreal = static_cast<ScXMLRealDataObj *>(evaled);
@@ -1569,14 +1569,14 @@ ScXMLDivideOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& po
   }
   else {
     sm->queueInternalEvent("error.eval.minimum.DivideOperator.INVALID_LHS");
-    return FALSE;
+    return false;
   }
 
   if (this->rhs->isOfType(ScXMLExprDataObj::getClassTypeId())) {
     ScXMLExprDataObj * rhsexpr = static_cast<ScXMLExprDataObj *>(this->rhs);
     ScXMLDataObj * evaled = rhsexpr->evaluate(sm);
     if (!evaled) {
-      return FALSE;
+      return false;
     }
     assert(evaled->isOfType(ScXMLRealDataObj::getClassTypeId()));
     rhsreal = static_cast<ScXMLRealDataObj *>(evaled);
@@ -1586,17 +1586,17 @@ ScXMLDivideOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& po
   }
   else {
     sm->queueInternalEvent("error.eval.minimum.DivideOperator.INVALID_RHS");
-    return FALSE;
+    return false;
   }
 
   if (rhsreal->getReal() == 0.0) {
     sm->queueInternalEvent("error.eval.minimum.DivideOperator.DIVIDE_BY_ZERO");
     pointer = new ScXMLRealDataObj(0.0f);
-    return TRUE;
+    return true;
   }
 
   pointer = new ScXMLRealDataObj(lhsreal->getReal() / rhsreal->getReal());
-  return TRUE;
+  return true;
 }
 
 // *************************************************************************
@@ -1650,7 +1650,7 @@ ScXMLNegateOpExprDataObj::setRHS(ScXMLDataObj * rhsptr)
   this->rhs = rhsptr;
 }
 
-SbBool
+bool
 ScXMLNegateOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& pointer) const
 {
   assert(this->rhs);
@@ -1659,7 +1659,7 @@ ScXMLNegateOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& po
     ScXMLExprDataObj * rhsexpr = static_cast<ScXMLExprDataObj *>(this->rhs);
     ScXMLDataObj * evaled = rhsexpr->evaluate(sm);
     if (!evaled) {
-      return FALSE;
+      return false;
     }
     rhsevaled = static_cast<ScXMLRealDataObj *>(evaled);
   }
@@ -1668,9 +1668,9 @@ ScXMLNegateOpExprDataObj::evaluateNow(ScXMLStateMachine * sm, ScXMLDataObj *& po
   }
   else {
     sm->queueInternalEvent("error.eval.minimum.Negate.INVALID_RHS");
-    return FALSE;
+    return false;
   }
 
   pointer = new ScXMLRealDataObj(-(rhsevaled->getReal()));
-  return TRUE;
+  return true;
 }

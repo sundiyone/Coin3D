@@ -40,7 +40,7 @@ typedef SoProto * SoFetchExternProtoCB(SoInput * in,
 // into the scene graph.
 class COIN_DLL_API SoProto : public SoNode {
 public:
-  SoProto(const SbBool externproto = FALSE);
+  SoProto(const bool externproto = false);
 
   static void setFetchExternProtoCallback(SoFetchExternProtoCB * cb,
                                           void * closure);
@@ -67,7 +67,7 @@ public:
 
   SbName getProtoName(void) const;
 
-  virtual SbBool readInstance(SoInput * input, unsigned short flags);
+  virtual bool readInstance(SoInput * input, unsigned short flags);
   virtual void write(SoWriteAction * action);
 
 protected:
@@ -76,17 +76,17 @@ protected:
   virtual void destroy(void);
 
 private:
-  SbBool writeInterface(SoOutput * out);
-  SbBool writeDefinition(SoWriteAction * action);
+  bool writeInterface(SoOutput * out);
+  bool writeDefinition(SoWriteAction * action);
 
-  SbBool readInterface(SoInput * in);
-  SbBool readDefinition(SoInput * in);
+  bool readInterface(SoInput * in);
+  bool readDefinition(SoInput * in);
 
-  SbBool writeURLs(SoOutput * out);
+  bool writeURLs(SoOutput * out);
   SoProtoP * pimpl;
   friend class SoProtoP;
 
-  SbBool setupExtern(SoInput * in, SoProto * externproto);
+  bool setupExtern(SoInput * in, SoProto * externproto);
 
   SoNode * createInstanceRoot(SoProtoInstance * inst) const;
   void connectISRefs(SoProtoInstance * inst, SoNode * src, SoNode * dst) const;

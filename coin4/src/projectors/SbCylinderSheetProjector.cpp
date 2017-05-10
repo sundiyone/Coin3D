@@ -58,7 +58,7 @@
   \a orienttoeye decides whether or not the cylinder and sheet should
   always be oriented towards the viewer.
 */
-SbCylinderSheetProjector::SbCylinderSheetProjector(const SbBool orienttoeye)
+SbCylinderSheetProjector::SbCylinderSheetProjector(const bool orienttoeye)
   : inherited(orienttoeye)
 {
 }
@@ -67,7 +67,7 @@ SbCylinderSheetProjector::SbCylinderSheetProjector(const SbBool orienttoeye)
   Constructor with explicit definition of projection cylinder.
 */
 SbCylinderSheetProjector::SbCylinderSheetProjector(const SbCylinder & cyl,
-                                                   const SbBool orienttoeye)
+                                                   const bool orienttoeye)
   : inherited(cyl, orienttoeye)
 {
 }
@@ -141,7 +141,7 @@ SbCylinderSheetProjector::project(const SbVec2f & point)
   // }
   // -----8<--- [snip] -----8<--- [snip] -----8<--- [snip] ---
 
-  SbBool tst = this->intersectCylinderFront(projline, projpt);
+  bool tst = this->intersectCylinderFront(projline, projpt);
   if (!tst) {
     if (!this->tolPlane.intersect(projline, projpt)) {
 #if COIN_DEBUG
@@ -212,5 +212,5 @@ SbCylinderSheetProjector::setupPlane(void)
   if (!this->intersectFront) this->planeDir = -this->planeDir;
 
   this->tolPlane = SbPlane(this->planeDir, axis.getPosition());
-  this->needSetup = FALSE;
+  this->needSetup = false;
 }

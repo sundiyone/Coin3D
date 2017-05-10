@@ -63,7 +63,7 @@ SoSFBox2f::initClass(void)
 #ifndef DOXYGEN_SKIP_THIS
 
 
-SbBool
+bool
 SoSFBox2f::readValue(SoInput * in)
 {
   float min[2];
@@ -73,10 +73,10 @@ SoSFBox2f::readValue(SoInput * in)
       !in->read(max[0]) ||
       !in->read(max[1])) {
     SoReadError::post(in, "Couldn't read SoSFBox2f");
-    return FALSE;
+    return false;
   }
   this->setValue(min[0], min[1], max[0], max[1]);
-  return TRUE;
+  return true;
 }
 
 void

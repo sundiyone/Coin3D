@@ -46,11 +46,11 @@ public:
   void setContainerType(SoType newContainerType);
   const SoTypeList & getChildTypes(void) const;
   void addChildType(SoType typeToAdd);
-  SbBool isTypePermitted(SoType typeToCheck) const;
-  SbBool isChildPermitted(const SoNode * child) const;
+  bool isTypePermitted(SoType typeToCheck) const;
+  bool isChildPermitted(const SoNode * child) const;
   void containerSet(const char * fieldDataString);
   void lockTypes(void);
-  SbBool isTypeLocked(void) const;
+  bool isTypeLocked(void) const;
   void addChild(SoNode * child);
   void insertChild(SoNode * child, int childIndex);
   SoNode * getChild(int index) const;
@@ -60,7 +60,7 @@ public:
   void removeChild(SoNode * child);
   void replaceChild(int index, SoNode * newChild);
   void replaceChild(SoNode * oldChild, SoNode * newChild);
-  virtual SbBool affectsState(void) const;
+  virtual bool affectsState(void) const;
   virtual void doAction(SoAction * action);
   virtual void callback(SoCallbackAction * action);
   virtual void GLRender(SoGLRenderAction * action);
@@ -76,9 +76,9 @@ protected:
   virtual ~SoNodeKitListPart();
 
   SoGroup * getContainerNode(void);
-  virtual SbBool readInstance(SoInput * in, unsigned short flags);
+  virtual bool readInstance(SoInput * in, unsigned short flags);
   virtual void copyContents(const SoFieldContainer * fromFC,
-                            SbBool copyConnections);
+                            bool copyConnections);
   SoChildList * children;
 
 private:
@@ -88,10 +88,10 @@ private:
   SoSFName containerTypeName;
   SoMFName childTypeNames;
 
-  SbBool typelistlocked;
+  bool typelistlocked;
   SoTypeList allowedtypes;
 
-  SbBool canCreateDefaultChild(void) const;
+  bool canCreateDefaultChild(void) const;
   SoNode * createAndAddDefaultChild(void);
   SoType getDefaultChildType(void) const;
 

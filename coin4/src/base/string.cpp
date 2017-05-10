@@ -525,7 +525,7 @@ void
 cc_string_vsprintf(cc_string * me, const char * formatstr, va_list args)
 {
   int length;
-  SbBool expand;
+  bool expand;
 
   do {
     length = coin_vsnprintf(me->pointer, me->bufsize, formatstr, args);

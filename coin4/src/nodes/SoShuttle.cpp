@@ -39,7 +39,7 @@
         translation0 0 0 0
         translation1 0 0 0
         speed 1
-        on TRUE
+        on true
     }
   \endcode
 */
@@ -75,7 +75,7 @@
 */
 /*!
   \var SoSFBool SoShuttle::on
-  Toggles animation on or off. Defauls to \c TRUE.
+  Toggles animation on or off. Defauls to \c true.
 */
 
 // *************************************************************************
@@ -94,7 +94,7 @@ SoShuttle::SoShuttle(void)
   SO_NODE_ADD_FIELD(translation0, (SbVec3f(0.0f, 0.0f, 0.0f)));
   SO_NODE_ADD_FIELD(translation1, (SbVec3f(0.0f, 0.0f, 0.0f)));
   SO_NODE_ADD_FIELD(speed, (1.0f));
-  SO_NODE_ADD_FIELD(on, (TRUE));
+  SO_NODE_ADD_FIELD(on, (true));
 
   this->interpolator = new SoInterpolateVec3f;
   this->interpolator->ref();
@@ -111,7 +111,7 @@ SoShuttle::SoShuttle(void)
   this->interpolator->input1.connectFrom(&this->translation1);
   this->interpolator->alpha.connectFrom(&this->calculator->oa);
 
-  this->translation.connectFrom(&this->interpolator->output, TRUE);
+  this->translation.connectFrom(&this->interpolator->output, true);
 }
 
 /*!
@@ -158,7 +158,7 @@ SoShuttle::write(SoWriteAction * action)
 
 // Overridden to decouple and reconnect engine around copy operation.
 SoNode *
-SoShuttle::copy(SbBool copyconnections) const
+SoShuttle::copy(bool copyconnections) const
 {
   // Decouple connections to/from internal engines to avoid them being
   // copied.
@@ -181,7 +181,7 @@ SoShuttle::deconnectInternalEngines(void)
   this->translation.disconnect(&this->interpolator->output);
 
   this->timer->on.disconnect(&this->on);
-  this->timer->on = FALSE;
+  this->timer->on = false;
   this->calculator->b.disconnect(&this->speed);
   this->interpolator->input0.disconnect(&this->translation0);
   this->interpolator->input1.disconnect(&this->translation1);
@@ -197,5 +197,5 @@ SoShuttle::reconnectInternalEngines(void)
   this->interpolator->input0.connectFrom(&this->translation0);
   this->interpolator->input1.connectFrom(&this->translation1);
 
-  this->translation.connectFrom(&this->interpolator->output, TRUE);
+  this->translation.connectFrom(&this->interpolator->output, true);
 }

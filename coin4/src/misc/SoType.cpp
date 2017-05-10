@@ -153,7 +153,7 @@ using std::toupper;
 struct SoTypeData {
   SoTypeData(const SbName theName,
              const SoType type = SoType::badType(),
-             const SbBool ispublic = FALSE,
+             const bool ispublic = false,
              const uint16_t theData = 0,
              const SoType theParent = SoType::badType(),
              const SoType::instantiationMethod createMethod = NULL)
@@ -162,7 +162,7 @@ struct SoTypeData {
 
   SbName name;
   SoType type;
-  SbBool isPublic;
+  bool isPublic;
   uint16_t data;
   SoType parent;
   SoType::instantiationMethod method;
@@ -289,7 +289,7 @@ SoType::createType(const SoType parent, const SbName name,
 
   SoType newType;
   newType.index = SoType::typedatalist->getLength();
-  SoTypeData * typeData = new SoTypeData(name, newType, TRUE, data, parent, method);
+  SoTypeData * typeData = new SoTypeData(name, newType, true, data, parent, method);
   SoType::typedatalist->append(typeData);
 
   // add to dictionary for fast lookup
@@ -300,11 +300,11 @@ SoType::createType(const SoType parent, const SbName name,
 
 /*!
   This method removes class type from the class system.
-  Returns FALSE if a type with the given name doesn't exist.
+  Returns false if a type with the given name doesn't exist.
 
   \since Coin 3.0
 */
-SbBool
+bool
 SoType::removeType(const SbName & name)
 {
   int16_t index = 0;
@@ -312,7 +312,7 @@ SoType::removeType(const SbName & name)
     SoDebugError::post("SoType::removeType",
                        "type with name ``%s'' not found",
                        name.getString());
-    return FALSE;
+    return false;
   }
 
   type_dict->erase(name.getString());
@@ -324,7 +324,7 @@ SoType::removeType(const SbName & name)
   SoDebugError::postInfo("SoType::removeType", "%s", name.getString());
 #endif // debug
 
-  return TRUE;
+  return true;
 }
 
 /*!
@@ -361,7 +361,7 @@ SoType::removeType(const SbName & name)
 
   protected:
     virtual ~MyWWWInline();
-    virtual SbBool readInstance(SoInput * in, unsigned short flags);
+    virtual bool readInstance(SoInput * in, unsigned short flags);
     virtual const char * getFileFormatName(void) const;
   };
 
@@ -376,7 +376,7 @@ SoType::removeType(const SbName & name)
     // of as en extension class. There are slight differences, which you
     // want to avoid when overriding a class like we do with MyWWWInline
     // vs SoWWWInline here.
-    this->isBuiltIn = TRUE;
+    this->isBuiltIn = true;
   }
 
   MyWWWInline::~MyWWWInline()
@@ -402,7 +402,7 @@ SoType::removeType(const SbName & name)
     return "WWWInline";
   }
 
-  SbBool
+  bool
   MyWWWInline::readInstance(SoInput * in, unsigned short flags)
   {
     SoDebugError::postInfo("MyWWWInline::readInstance", "hepp");
@@ -502,9 +502,9 @@ SoType::fromName(const SbName name)
 {
   static int enable_dynload = -1;
   if (enable_dynload == -1) {
-    enable_dynload = TRUE; // the default setting
+    enable_dynload = true; // the default setting
     const char * env = coin_getenv("COIN_NO_SOTYPE_DYNLOAD");
-    if (env && atoi(env) > 0) enable_dynload = FALSE;
+    if (env && atoi(env) > 0) enable_dynload = false;
   }
 
   assert((type_dict != NULL) && "SoType static class data not yet initialized");
@@ -698,7 +698,7 @@ SoType::getParent(void) const
 /*!
   This method returns an illegal type, useful for returning errors.
 
-  \sa SbBool SoType::isBad() const
+  \sa bool SoType::isBad() const
 */
 
 SoType
@@ -713,18 +713,18 @@ SoType::badType(void)
 }
 
 /*!
-  \fn SbBool SoType::isBad(void) const
+  \fn bool SoType::isBad(void) const
 
-  This method returns TRUE if the SoType object represents an illegal class
+  This method returns true if the SoType object represents an illegal class
   type.
 */
 
 /*!
-  This method returns \c TRUE if the given type is derived from (or \e
-  is) the \a parent type, and \c FALSE otherwise.
+  This method returns \c true if the given type is derived from (or \e
+  is) the \a parent type, and \c false otherwise.
 */
 
-SbBool
+bool
 SoType::isDerivedFrom(const SoType parent) const
 {
   assert(!this->isBad());
@@ -735,7 +735,7 @@ SoType::isDerivedFrom(const SoType parent) const
                               "can't compare type '%s' against an invalid type",
                               this->getName().getString());
 #endif // COIN_DEBUG
-    return FALSE;
+    return false;
   }
 
   SoType type = *this;
@@ -746,11 +746,11 @@ SoType::isDerivedFrom(const SoType parent) const
                            type.getName().getString(),
                            parent.getName().getString());
 #endif // debug
-    if (type == parent) return TRUE;
+    if (type == parent) return true;
     type = (*SoType::typedatalist)[(int)type.getKey()]->parent;
   } while (!type.isBad());
 
-  return FALSE;
+  return false;
 }
 
 /*!
@@ -821,11 +821,11 @@ SoType::getAllDerivedFrom(const SoType type, SoTypeList & list)
 }
 
 /*!
-  This method returns \c FALSE for abstract base classes, and \c TRUE
+  This method returns \c false for abstract base classes, and \c true
   for class types that can be instantiated.
 */
 
-SbBool
+bool
 SoType::canCreateInstance(void) const
 {
   return ((*SoType::typedatalist)[(int)this->getKey()]->method != NULL);
@@ -901,54 +901,54 @@ SoType::getInstantiationMethod(void) const
 void
 SoType::makeInternal(void)
 {
-  (*SoType::typedatalist)[(int)this->getKey()]->isPublic = FALSE;
+  (*SoType::typedatalist)[(int)this->getKey()]->isPublic = false;
 }
 
 /*!
-  This function returns TRUE if the type is an internal type.
+  This function returns true if the type is an internal type.
 */
 
-SbBool
+bool
 SoType::isInternal(void) const
 {
-  return (*SoType::typedatalist)[(int)this->getKey()]->isPublic == FALSE;
+  return (*SoType::typedatalist)[(int)this->getKey()]->isPublic == false;
 }
 
 /*!
-  \fn SbBool SoType::operator != (const SoType type) const
+  \fn bool SoType::operator != (const SoType type) const
 
   Check type inequality.
 */
 
 /*!
-  \fn SbBool SoType::operator == (const SoType type) const
+  \fn bool SoType::operator == (const SoType type) const
 
   Check type equality.
 */
 
 /*!
-  \fn SbBool SoType::operator <  (const SoType type) const
+  \fn bool SoType::operator <  (const SoType type) const
 
   Comparison operator for sorting type data according to some internal
   criterion.
 */
 
 /*!
-  \fn SbBool SoType::operator <= (const SoType type) const
+  \fn bool SoType::operator <= (const SoType type) const
 
   Comparison operator for sorting type data according to some internal
   criterion.
 */
 
 /*!
-  \fn SbBool SoType::operator >= (const SoType type) const
+  \fn bool SoType::operator >= (const SoType type) const
 
   Comparison operator for sorting type data according to some internal
   criterion.
 */
 
 /*!
-  \fn SbBool SoType::operator >  (const SoType type) const
+  \fn bool SoType::operator >  (const SoType type) const
 
   Comparison operator for sorting type data according to some internal
   criterion.

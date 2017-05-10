@@ -25,7 +25,7 @@
 (define root (new-soseparator))
 
 (define text-a (new-sotext3))
-(-> (-> text-a 'string) 'setValue "FALSE")
+(-> (-> text-a 'string) 'setValue "false")
 (-> root 'addchild text-a)
 
 (append-translation root
@@ -33,7 +33,7 @@
                             0.0 0.0))
 
 (define text-b (new-sotext3))
-(-> (-> text-b 'string) 'setValue "FALSE")
+(-> (-> text-b 'string) 'setValue "false")
 (-> root 'addchild text-b)
 
 (append-translation root
@@ -48,14 +48,14 @@
                             0.0 0.0))
 
 (define text-result (new-sotext3))
-(-> (-> text-result 'string) 'setValue "FALSE")
+(-> (-> text-result 'string) 'setValue "false")
 (-> root 'addchild text-result)
 (append-translation root
                     (vector (* 1.5 (vector-ref (subgraph-size text-result) 0))
                             0.0 0.0))
 
 (define text-inverse (new-sotext3))
-(-> (-> text-inverse 'string) 'setValue "FALSE")
+(-> (-> text-inverse 'string) 'setValue "false")
 (-> root 'addchild text-inverse)
 
 (define booloperation (new-sobooloperation))
@@ -123,7 +123,7 @@
 (-> writeaction 'apply (-> viewer 'getscenegraph))
 
 ;; Read scenegraph with engine in it.
-(let ((buffer "#Inventor V2.1 ascii\n\n Text3 { string \"X\" = BoolOperation { a TRUE  b FALSE  operation NOT_A_OR_B } . output }")
+(let ((buffer "#Inventor V2.1 ascii\n\n Text3 { string \"X\" = BoolOperation { a true  b false  operation NOT_A_OR_B } . output }")
       (input (new-soinput)))
   (-> input 'setbuffer (void-cast buffer) (string-length buffer))
   (let ((sceneroot (sodb::readall input)))

@@ -164,11 +164,11 @@ SoDirectionalLightDragger::SoDirectionalLightDragger(void)
 {
   SO_KIT_INTERNAL_CONSTRUCTOR(SoDirectionalLightDragger);
 
-  SO_KIT_ADD_CATALOG_ENTRY(material, SoMaterial, TRUE, topSeparator, translatorSep, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(rotator, SoRotateSphericalDragger, TRUE, topSeparator, geomSeparator, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(translator, SoDragPointDragger, TRUE, translatorSep, "", TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(translatorRotInv, SoRotation, TRUE, translatorSep, translator, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(translatorSep, SoSeparator, TRUE, topSeparator, rotator, FALSE);
+  SO_KIT_ADD_CATALOG_ENTRY(material, SoMaterial, true, topSeparator, translatorSep, true);
+  SO_KIT_ADD_CATALOG_ENTRY(rotator, SoRotateSphericalDragger, true, topSeparator, geomSeparator, true);
+  SO_KIT_ADD_CATALOG_ENTRY(translator, SoDragPointDragger, true, translatorSep, "", true);
+  SO_KIT_ADD_CATALOG_ENTRY(translatorRotInv, SoRotation, true, translatorSep, translator, true);
+  SO_KIT_ADD_CATALOG_ENTRY(translatorSep, SoSeparator, true, topSeparator, rotator, false);
 
   if (SO_KIT_IS_FIRST_INSTANCE()) {
     SoInteractionKit::readDefaultParts("directionalLightDragger.iv",
@@ -194,12 +194,12 @@ SoDirectionalLightDragger::SoDirectionalLightDragger(void)
   this->translFieldSensor = new SoFieldSensor(SoDirectionalLightDragger::fieldSensorCB, this);
   this->translFieldSensor->setPriority(0);
 
-  this->setUpConnections(TRUE, TRUE);
+  this->setUpConnections(true, true);
 
   // create this part to avoid changes in the scene graph while traversing it
   (void) SO_GET_ANY_PART(this, "translatorRotInv", SoRotation);
 
-  this->translatorSep.setDefault(TRUE);
+  this->translatorSep.setDefault(true);
 }
 
 /*!
@@ -216,14 +216,14 @@ SoDirectionalLightDragger::~SoDirectionalLightDragger()
 }
 
 // doc in superclass
-SbBool
-SoDirectionalLightDragger::setUpConnections(SbBool onoff, SbBool doitalways)
+bool
+SoDirectionalLightDragger::setUpConnections(bool onoff, bool doitalways)
 {
   if (!doitalways && this->connectionsSetUp == onoff) return onoff;
 
   if (onoff) {
     inherited::setUpConnections(onoff, doitalways);
-    SoDragger * therotator = coin_assert_cast<SoDragger *>(this->getAnyPart("rotator", FALSE));
+    SoDragger * therotator = coin_assert_cast<SoDragger *>(this->getAnyPart("rotator", false));
     therotator->setPartAsDefault("rotator", "directionalLightRotatorRotator");
     therotator->setPartAsDefault("rotatorActive",
                               "directionalLightRotatorRotatorActive");
@@ -232,7 +232,7 @@ SoDirectionalLightDragger::setUpConnections(SbBool onoff, SbBool doitalways)
     therotator->setPartAsDefault("feedbackActive",
                               "directionalLightRotatorFeedbackActive");
 
-    SoDragger *thetranslator = coin_assert_cast<SoDragger *>(this->getAnyPart("translator", FALSE));
+    SoDragger *thetranslator = coin_assert_cast<SoDragger *>(this->getAnyPart("translator", false));
     thetranslator->setPartAsDefault("yzTranslator.translator",
                                  "directionalLightTranslatorPlaneTranslator");
     thetranslator->setPartAsDefault("xzTranslator.translator",
@@ -267,9 +267,9 @@ SoDirectionalLightDragger::setUpConnections(SbBool onoff, SbBool doitalways)
       this->rotFieldSensor->attach(&this->rotation);
   }
   else {
-    SoDragger * thetranslator = coin_assert_cast<SoDragger *>(this->getAnyPart("translator", FALSE));
+    SoDragger * thetranslator = coin_assert_cast<SoDragger *>(this->getAnyPart("translator", false));
     this->unregisterChildDragger(thetranslator);
-    SoDragger * therotator = coin_assert_cast<SoDragger *>(this->getAnyPart("rotator", FALSE));
+    SoDragger * therotator = coin_assert_cast<SoDragger *>(this->getAnyPart("rotator", false));
     this->unregisterChildDragger(therotator);
 
     if (this->rotFieldSensor->getAttachedField() != NULL)
@@ -286,9 +286,9 @@ SoDirectionalLightDragger::setUpConnections(SbBool onoff, SbBool doitalways)
 void
 SoDirectionalLightDragger::setDefaultOnNonWritingFields(void)
 {
-  this->translator.setDefault(TRUE);
-  this->rotator.setDefault(TRUE);
-  this->translatorRotInv.setDefault(TRUE);
+  this->translator.setDefault(true);
+  this->rotator.setDefault(true);
+  this->translatorRotInv.setDefault(true);
 
   inherited::setDefaultOnNonWritingFields();
 }

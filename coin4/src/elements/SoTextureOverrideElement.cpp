@@ -58,7 +58,7 @@ SoTextureOverrideElement::~SoTextureOverrideElement(void)
 
 //!
 
-SbBool
+bool
 SoTextureOverrideElement::matches(const SoElement *element) const
 {
   return coin_assert_cast<const SoTextureOverrideElement *>(element)->flags == this->flags;
@@ -99,7 +99,7 @@ SoTextureOverrideElement::push(SoState *state)
 
 //!
 
-SbBool
+bool
 SoTextureOverrideElement::getQualityOverride(SoState *state)
 {
   const SoTextureOverrideElement * const element =
@@ -112,7 +112,7 @@ SoTextureOverrideElement::getQualityOverride(SoState *state)
 
 //!
 
-SbBool
+bool
 SoTextureOverrideElement::getImageOverride(SoState *state)
 {
   const SoTextureOverrideElement * const element =
@@ -123,7 +123,7 @@ SoTextureOverrideElement::getImageOverride(SoState *state)
   return (element->flags & TEXTURE_IMAGE) != 0;
 }
 
-SbBool
+bool
 SoTextureOverrideElement::getBumpMapOverride(SoState *state)
 {
   const SoTextureOverrideElement * const element =
@@ -137,7 +137,7 @@ SoTextureOverrideElement::getBumpMapOverride(SoState *state)
 //!
 
 void
-SoTextureOverrideElement::setQualityOverride(SoState *state, const SbBool value)
+SoTextureOverrideElement::setQualityOverride(SoState *state, const bool value)
 {
   SoTextureOverrideElement * const element =
     coin_safe_cast<SoTextureOverrideElement *>
@@ -155,7 +155,7 @@ SoTextureOverrideElement::setQualityOverride(SoState *state, const SbBool value)
 //!
 
 void
-SoTextureOverrideElement::setImageOverride(SoState *state, const SbBool value)
+SoTextureOverrideElement::setImageOverride(SoState *state, const bool value)
 {
   SoTextureOverrideElement * const element =
     coin_safe_cast<SoTextureOverrideElement *>(getElement(state, classStackIndex));
@@ -170,7 +170,7 @@ SoTextureOverrideElement::setImageOverride(SoState *state, const SbBool value)
 //!
 
 void
-SoTextureOverrideElement::setBumpMapOverride(SoState *state, const SbBool value)
+SoTextureOverrideElement::setBumpMapOverride(SoState *state, const bool value)
 {
   SoTextureOverrideElement * const element =
     coin_safe_cast<SoTextureOverrideElement *>(getElement(state, classStackIndex));

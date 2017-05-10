@@ -49,16 +49,16 @@ public:
   virtual SoShader::Type shaderType(void) const;
   virtual SoGLShaderParameter* getNewParameter(void) const;
 
-  virtual SbBool isLoaded(void) const;
+  virtual bool isLoaded(void) const;
   virtual void load(const char * sourceString);
   virtual void unload(void);
 
   void attach(COIN_GLhandle programHandle);
   void detach(void);
-  SbBool isAttached(void) const;
+  bool isAttached(void) const;
 
   // source should be the name of the calling function
-  static SbBool didOpenGLErrorOccur(const SbString & source);
+  static bool didOpenGLErrorOccur(const SbString & source);
   static void printInfoLog(const cc_glglue * g, COIN_GLhandle handle, int objType);
 
   virtual void updateCoinParameter(SoState * state, const SbName & name, SoShaderParameter * param, const int value);
@@ -66,7 +66,7 @@ public:
 private:
   COIN_GLhandle programHandle;
   COIN_GLhandle shaderHandle;
-  SbBool isattached;
+  bool isattached;
   int32_t programid;
 };
 

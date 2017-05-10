@@ -103,7 +103,7 @@ SoCompactPathList::getChildren(int & numindices, const int *& indices)
 /*!
   Push \a childindex to the current path.
  */
-SbBool
+bool
 SoCompactPathList::push(int childindex)
 {
   assert(this->lookupidx >= 0); // this function should be used only for IN_PATH traversal

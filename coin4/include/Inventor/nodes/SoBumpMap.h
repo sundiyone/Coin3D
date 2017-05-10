@@ -61,11 +61,11 @@ public:
 protected:
   virtual ~SoBumpMap();
 
-  virtual SbBool readInstance(SoInput * in, unsigned short flags);
+  virtual bool readInstance(SoInput * in, unsigned short flags);
   virtual void notify(SoNotList * list);
 
 private:
-  SbBool loadFilename(void);
+  bool loadFilename(void);
   static void filenameSensorCB(void *, SoSensor *);
 
   SoBumpMapP * pimpl;

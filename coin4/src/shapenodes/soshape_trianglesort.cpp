@@ -113,7 +113,7 @@ soshape_trianglesort::endShape(SoState * state, SoMaterialBundle & mb)
   SoShapeHintsElement::FaceType ft;
   SoShapeHintsElement::get(state, vo, st, ft);
 
-  SbBool bfcull =
+  bool bfcull =
     (vo != SoShapeHintsElement::UNKNOWN_ORDERING) &&
     (st == SoShapeHintsElement::SOLID);
 
@@ -185,19 +185,19 @@ soshape_trianglesort::endShape(SoState * state, SoMaterialBundle & mb)
     v = varray + idx;
     glTexCoord4fv(v->getTextureCoords().getValue());
     glNormal3fv(v->getNormal().getValue());
-    mb.send(v->getMaterialIndex(), TRUE);
+    mb.send(v->getMaterialIndex(), true);
     glVertex3fv(v->getPoint().getValue());
 
     v = varray + idx+1;
     glTexCoord4fv(v->getTextureCoords().getValue());
     glNormal3fv(v->getNormal().getValue());
-    mb.send(v->getMaterialIndex(), TRUE);
+    mb.send(v->getMaterialIndex(), true);
     glVertex3fv(v->getPoint().getValue());
 
     v = varray + idx+2;
     glTexCoord4fv(v->getTextureCoords().getValue());
     glNormal3fv(v->getNormal().getValue());
-    mb.send(v->getMaterialIndex(), TRUE);
+    mb.send(v->getMaterialIndex(), true);
     glVertex3fv(v->getPoint().getValue());
   }
   glEnd();

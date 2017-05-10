@@ -40,7 +40,7 @@ public:
 protected:
   virtual ~SoGLDepthBufferElement();
 
-  virtual void setElt(SbBool test, SbBool write,
+  virtual void setElt(bool test, bool write,
                       DepthWriteFunction function, SbVec2f range);
 
 private:

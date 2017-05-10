@@ -44,7 +44,7 @@
     exposedField SFVec3f direction         0 0 -1    # (-inf, inf)
     exposedField SFFloat intensity         1         # [0,1]
     exposedField SFVec3f location          0 0 0     # (-inf, inf)
-    exposedField SFBool  on                TRUE
+    exposedField SFBool  on                true
     exposedField SFFloat radius            100       # [0, inf)
   }
   \endverbatim
@@ -74,9 +74,9 @@
   in the local coordinate system.
 
   The \e on field specifies whether the
-  light source emits light. If on is TRUE, the light source is
+  light source emits light. If on is true, the light source is
   emitting light and may illuminate geometry in the scene. If on is
-  FALSE, the light source does not emit light and does not illuminate
+  false, the light source does not emit light and does not illuminate
   any geometry.
 
   The \e radius field specifies the radial extent of the

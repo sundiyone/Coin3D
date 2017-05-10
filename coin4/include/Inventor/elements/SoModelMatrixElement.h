@@ -40,7 +40,7 @@ protected:
 public:
   virtual void init(SoState * state);
   virtual void push(SoState * state);
-  virtual SbBool matches(const SoElement * element) const;
+  virtual bool matches(const SoElement * element) const;
   static void makeIdentity(SoState * const state, SoNode * const node);
   static void set(SoState * const state, SoNode * const node,
                   const SbMatrix & matrix);
@@ -60,7 +60,7 @@ public:
 
   static const SbMatrix & getCombinedCullMatrix(SoState * const state);
   static const SbMatrix & get(SoState * const state);
-  static const SbMatrix & get(SoState * const state, SbBool & isIdentity);
+  static const SbMatrix & get(SoState * const state, bool & isIdentity);
 
   const SbMatrix & getModelMatrix(void) const;
 

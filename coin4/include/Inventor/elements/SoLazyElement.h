@@ -103,7 +103,7 @@ public:
 
   virtual void init(SoState *state);
   virtual void push(SoState *state);
-  virtual SbBool matches(const SoElement *) const;
+  virtual bool matches(const SoElement *) const;
   virtual SoElement *copyMatchInfo(void) const;
 
   static void setToDefault(SoState * state);
@@ -113,14 +113,14 @@ public:
                               const float * transparency, SoColorPacker * packer);
   static void setPacked(SoState * state, SoNode * node,
                         int32_t numcolors, const uint32_t * colors,
-                        const SbBool packedtransparency = FALSE);
+                        const bool packedtransparency = false);
   static void setColorIndices(SoState *state, SoNode *node,
                               int32_t numindices, const int32_t *indices);
   static void setAmbient(SoState *state, const SbColor * color);
   static void setEmissive(SoState *state, const SbColor * color);
   static void setSpecular(SoState *state, const SbColor * color);
   static void setShininess(SoState *state, float value);
-  static void setColorMaterial(SoState *state, SbBool value);
+  static void setColorMaterial(SoState *state, bool value);
   static void enableBlending(SoState *state,  
                              int sfactor, 
                              int dfactor);
@@ -133,9 +133,9 @@ public:
   static void disableBlending(SoState * state);
   static void setLightModel(SoState *state, const int32_t model);
   static void setVertexOrdering(SoState * state, VertexOrdering ordering);
-  static void setBackfaceCulling(SoState * state, SbBool onoff);
-  static void setTwosideLighting(SoState * state, SbBool onoff);
-  static void setShadeModel(SoState * state, SbBool flatshading);
+  static void setBackfaceCulling(SoState * state, bool onoff);
+  static void setTwosideLighting(SoState * state, bool onoff);
+  static void setShadeModel(SoState * state, bool flatshading);
   static void setAlphaTest(SoState * state, int func, float value);
 
   static const SbColor & getDiffuse(SoState* state, int index);
@@ -147,21 +147,21 @@ public:
   static const SbColor & getEmissive(SoState *);
   static const SbColor & getSpecular(SoState *);
   static float getShininess(SoState*);
-  static SbBool getColorMaterial(SoState*);
-  static SbBool getBlending(SoState *, 
+  static bool getColorMaterial(SoState*);
+  static bool getBlending(SoState *, 
                             int & sfactor, int & dfactor);
-  static SbBool getAlphaBlending(SoState *, 
+  static bool getAlphaBlending(SoState *, 
                                  int & sfactor, int & dfactor);
   
   static int32_t getLightModel(SoState*);
   static int getAlphaTest(SoState * state, float & value);
-  static SbBool getTwoSidedLighting(SoState * state);
+  static bool getTwoSidedLighting(SoState * state);
 
   int32_t getNumDiffuse(void) const;
   int32_t getNumTransparencies(void) const;
   int32_t getNumColorIndices(void) const;
-  SbBool isPacked(void) const;
-  SbBool isTransparent(void) const;
+  bool isPacked(void) const;
+  bool isTransparent(void) const;
   static SoLazyElement * getInstance(SoState *state);
   static float getDefaultAmbientIntensity(void);
 
@@ -185,7 +185,7 @@ public:
                            const SbColor & emissive,
                            const SbColor & specular,
                            const float shininess,
-                           const SbBool istransparent);
+                           const bool istransparent);
 
   static SoLazyElement * getWInstance(SoState *state);
 
@@ -203,13 +203,13 @@ protected:
     SbColor specular;
     SbColor emissive;
     float shininess;
-    SbBool blending;
+    bool blending;
     int blend_sfactor;
     int blend_dfactor;
     int alpha_blend_sfactor;
     int alpha_blend_dfactor;
     int32_t lightmodel;
-    SbBool packeddiffuse;
+    bool packeddiffuse;
     int32_t numdiffuse;
     int32_t numtransp;
     const SbColor * diffusearray;
@@ -217,14 +217,14 @@ protected:
     const float * transparray;
     const int32_t * colorindexarray;
     int32_t transptype;
-    SbBool istransparent;
+    bool istransparent;
     uint32_t diffusenodeid;
     uint32_t transpnodeid;
     int32_t stipplenum;
     VertexOrdering vertexordering;
-    SbBool twoside;
-    SbBool culling;
-    SbBool flatshading;
+    bool twoside;
+    bool culling;
+    bool flatshading;
     int alphatestfunc;
     float alphatestvalue;
   } coinstate;
@@ -236,7 +236,7 @@ protected:
   virtual void setDiffuseElt(SoNode*,  int32_t numcolors,
                              const SbColor * colors, SoColorPacker * packer);
   virtual void setPackedElt(SoNode * node, int32_t numcolors,
-                            const uint32_t * colors, const SbBool packedtransparency);
+                            const uint32_t * colors, const bool packedtransparency);
   virtual void setColorIndexElt(SoNode * node, int32_t numindices,
                                 const int32_t * indices);
   virtual void setTranspElt(SoNode * node, int32_t numtransp,
@@ -247,7 +247,7 @@ protected:
   virtual void setEmissiveElt(const SbColor* color);
   virtual void setSpecularElt(const SbColor* color);
   virtual void setShininessElt(float value);
-  virtual void setColorMaterialElt(SbBool value);
+  virtual void setColorMaterialElt(bool value);
   virtual void enableBlendingElt(int sfactor, int dfactor, int alpha_sfactor, int alpha_dfactor);
   virtual void disableBlendingElt(void);
   virtual void setLightModelElt(SoState *state, int32_t model);
@@ -259,11 +259,11 @@ protected:
                               const SbColor & emissive,
                               const SbColor & specular,
                               const float shininess,
-                              const SbBool istransparent);
+                              const bool istransparent);
   virtual void setVertexOrderingElt(VertexOrdering ordering);
-  virtual void setBackfaceCullingElt(SbBool onoff);
-  virtual void setTwosideLightingElt(SbBool onoff);
-  virtual void setShadeModelElt(SbBool flatshading);
+  virtual void setBackfaceCullingElt(bool onoff);
+  virtual void setTwosideLightingElt(bool onoff);
+  virtual void setShadeModelElt(bool flatshading);
   virtual void setAlphaTestElt(int func, float value);
 
 private:
@@ -279,10 +279,10 @@ public:
   uint32_t * getPackedColors(void) const {
     return this->array;
   }
-  SbBool diffuseMatch(const uint32_t nodeid) const {
+  bool diffuseMatch(const uint32_t nodeid) const {
     return nodeid == this->diffuseid;
   }
-  SbBool transpMatch(const uint32_t nodeid) const {
+  bool transpMatch(const uint32_t nodeid) const {
     return nodeid == this->transpid;
   }
   void setNodeIds(const uint32_t diffuse, const uint32_t transp) {

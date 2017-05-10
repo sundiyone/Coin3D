@@ -231,12 +231,12 @@ namespace { namespace SoGL { namespace LineSet {
                        int32_t idx,
                        const int32_t *ptr,
                        const int32_t *end,
-                       SbBool needNormals,
-                       SbBool drawPoints)
+                       bool needNormals,
+                       bool drawPoints)
   {
     const SbVec3f * coords3d = NULL;
     const SbVec4f * coords4d = NULL;
-    const SbBool is3d = coords->is3D();
+    const bool is3d = coords->is3D();
     if (is3d) {
       coords3d = coords->getArrayPtr3();
     }
@@ -275,20 +275,20 @@ namespace { namespace SoGL { namespace LineSet {
         }
         if ((AttributeBinding)MaterialBinding == PER_LINE ||
             (AttributeBinding)MaterialBinding == PER_VERTEX) {
-          mb->send(matnr++, TRUE);
+          mb->send(matnr++, true);
         }
         if ((AttributeBinding)NormalBinding == PER_LINE ||
             (AttributeBinding)NormalBinding == PER_VERTEX) {
           currnormal = normals++;
           glNormal3fv((const GLfloat*)currnormal);
         }
-        if (TexturingEnabled == TRUE) {
+        if (TexturingEnabled == true) {
           tb->send(texnr++, coords->get3(idx), *currnormal);
         }
 
         while (--n) {
           if ((AttributeBinding)MaterialBinding == PER_SEGMENT) {
-            mb->send(matnr++, TRUE);
+            mb->send(matnr++, true);
           }
           if ((AttributeBinding)NormalBinding == PER_SEGMENT) {
             currnormal = normals++;
@@ -302,9 +302,9 @@ namespace { namespace SoGL { namespace LineSet {
             glNormal3fv((const GLfloat *)currnormal);
           }
           if ((AttributeBinding)MaterialBinding == PER_VERTEX) {
-            mb->send(matnr++, TRUE);
+            mb->send(matnr++, true);
           }
-          if (TexturingEnabled == TRUE) {
+          if (TexturingEnabled == true) {
             tb->send(texnr++, coords->get3(idx), *currnormal);
           }
           SEND_VERTEX(idx);
@@ -330,9 +330,9 @@ namespace { namespace SoGL { namespace LineSet {
           glNormal3fv((const GLfloat *)currnormal);
         }
         if ((AttributeBinding)MaterialBinding != OVERALL) {
-          mb->send(matnr++, TRUE);
+          mb->send(matnr++, true);
         }
-        if (TexturingEnabled == TRUE) {
+        if (TexturingEnabled == true) {
           tb->send(texnr++, coords->get3(idx), *currnormal);
         }
         SEND_VERTEX(idx);
@@ -343,9 +343,9 @@ namespace { namespace SoGL { namespace LineSet {
             glNormal3fv((const GLfloat *)currnormal);
           }
           if ((AttributeBinding)MaterialBinding == PER_VERTEX) {
-            mb->send(matnr++, TRUE);
+            mb->send(matnr++, true);
           }
-          if (TexturingEnabled == TRUE) {
+          if (TexturingEnabled == true) {
             tb->send(texnr++, coords->get3(idx), *currnormal);
           }
           SEND_VERTEX(idx);
@@ -372,9 +372,9 @@ SoLineSet::initClass(void)
 
 #define SOGL_LINESET_GLRENDER_RESOLVE_ARG3(normalbinding, materialbinding, texturing, args) \
   if (texturing) {                                                      \
-    SOGL_LINESET_GLRENDER_CALL_FUNC(normalbinding, materialbinding, TRUE, args); \
+    SOGL_LINESET_GLRENDER_CALL_FUNC(normalbinding, materialbinding, true, args); \
   } else {                                                              \
-    SOGL_LINESET_GLRENDER_CALL_FUNC(normalbinding, materialbinding, FALSE, args); \
+    SOGL_LINESET_GLRENDER_CALL_FUNC(normalbinding, materialbinding, false, args); \
   }
 
 #define SOGL_LINESET_GLRENDER_RESOLVE_ARG2(normalbinding, materialbinding, texturing, args) \
@@ -423,11 +423,11 @@ void
 SoLineSet::GLRender(SoGLRenderAction * action)
 {
   SoState * state = action->getState();
-  SbBool didpush = FALSE;
+  bool didpush = false;
 
   if (this->vertexProperty.getValue()) {
     state->push();
-    didpush = TRUE;
+    didpush = true;
     this->vertexProperty.getValue()->GLRender(action);
   }
 
@@ -450,21 +450,21 @@ SoLineSet::GLRender(SoGLRenderAction * action)
 
 
   SoMaterialBundle mb(action);
-  SoTextureCoordinateBundle tb(action, TRUE, FALSE);
-  SbBool doTextures = tb.needCoordinates();
+  SoTextureCoordinateBundle tb(action, true, false);
+  bool doTextures = tb.needCoordinates();
 
   const SoCoordinateElement * tmp;
   const SbVec3f * normals;
 
-  SbBool needNormals = !mb.isColorOnly() || tb.isFunction();
+  bool needNormals = !mb.isColorOnly() || tb.isFunction();
 
   SoVertexShape::getVertexData(state, tmp, normals,
                                needNormals);
   if (normals == NULL && needNormals) {
-    needNormals = FALSE;
+    needNormals = false;
     if (!didpush) {
       state->push();
-      didpush = TRUE;
+      didpush = true;
     }
     SoLazyElement::setLightModel(state, SoLazyElement::BASE_COLOR);
   }
@@ -480,7 +480,7 @@ SoLineSet::GLRender(SoGLRenderAction * action)
 
   mb.sendFirst(); // make sure we have the correct material
 
-  SbBool drawPoints =
+  bool drawPoints =
     SoDrawStyleElement::get(state) == SoDrawStyleElement::POINTS;
 
   SOGL_LINESET_GLRENDER(nbind, mbind, doTextures, (coords,
@@ -499,7 +499,7 @@ SoLineSet::GLRender(SoGLRenderAction * action)
   int numv = this->numVertices.getNum();
   // send approx number of lines for autocache handling
   sogl_autocache_update(state, numv ?
-                        (this->numVertices[0]-1)*numv : 0, FALSE);
+                        (this->numVertices[0]-1)*numv : 0, false);
 }
 
 #undef SOGL_LINESET_GLRENDER_CALL_FUNC
@@ -509,19 +509,19 @@ SoLineSet::GLRender(SoGLRenderAction * action)
 #undef SOGL_LINESET_GLRENDER
 
 // Documented in superclass.
-SbBool
+bool
 SoLineSet::generateDefaultNormals(SoState * , SoNormalCache * nc)
 {
   // not possible to generate normals for LineSet
   nc->set(0, NULL);
-  return TRUE;
+  return true;
 }
 
 // Documented in superclass.
-SbBool
+bool
 SoLineSet::generateDefaultNormals(SoState *, SoNormalBundle *)
 {
-  return FALSE;
+  return false;
 }
 
 // doc from parent
@@ -573,15 +573,15 @@ SoLineSet::generatePrimitives(SoAction *action)
 
   const SoCoordinateElement *coords;
   const SbVec3f * normals;
-  SbBool doTextures;
-  SbBool needNormals = TRUE;
+  bool doTextures;
+  bool needNormals = true;
 
   SoVertexShape::getVertexData(action->getState(), coords, normals,
                                needNormals);
 
-  if (normals == NULL) needNormals = FALSE;
+  if (normals == NULL) needNormals = false;
 
-  SoTextureCoordinateBundle tb(action, FALSE, FALSE);
+  SoTextureCoordinateBundle tb(action, false, false);
   doTextures = tb.needCoordinates();
 
   Binding mbind = findMaterialBinding(action->getState());

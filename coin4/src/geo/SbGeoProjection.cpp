@@ -35,8 +35,8 @@ SbGeoProjection::~SbGeoProjection()
 {
 }
 
-SbBool
+bool
 SbGeoProjection::isUTMProjection(void) const
 {
-  return FALSE;
+  return false;
 }

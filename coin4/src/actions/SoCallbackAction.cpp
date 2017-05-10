@@ -319,7 +319,7 @@ SoCallbackData::doPointCallbacks(SoCallbackAction * action,
 // class to hold private, hidden data
 class SoCallbackActionP {
 public:
-  SbBool viewportset;
+  bool viewportset;
   SbViewportRegion viewport;
   SoCallbackAction::Response response;
   SoNode * currentnode;
@@ -334,7 +334,7 @@ public:
   SbList <SoCallbackData *> linecallback;
   SbList <SoCallbackData *> pointcallback;
 
-  SbBool callbackall;
+  bool callbackall;
 };
 
 #endif // !DOXYGEN_SKIP_THIS
@@ -419,7 +419,7 @@ SoCallbackAction::SoCallbackAction(const SbViewportRegion & vp)
 {
   this->commonConstructor();
   PRIVATE(this)->viewport = vp;
-  PRIVATE(this)->viewportset = TRUE;
+  PRIVATE(this)->viewportset = true;
 }
 
 void
@@ -429,8 +429,8 @@ SoCallbackAction::commonConstructor(void)
 
   PRIVATE(this)->pretailcallback = NULL;
   PRIVATE(this)->posttailcallback = NULL;
-  PRIVATE(this)->viewportset = FALSE;
-  PRIVATE(this)->callbackall = FALSE;
+  PRIVATE(this)->viewportset = false;
+  PRIVATE(this)->callbackall = false;
 }
 
 /*!
@@ -444,7 +444,7 @@ void
 SoCallbackAction::setViewportRegion(const SbViewportRegion & vp)
 {
   PRIVATE(this)->viewport = vp;
-  PRIVATE(this)->viewportset = TRUE;
+  PRIVATE(this)->viewportset = true;
 }
 
 static void
@@ -1124,7 +1124,7 @@ SoCallbackAction::invokePreCallbacks(const SoNode * const node)
   if (idx < PRIVATE(this)->precallback.getLength() && PRIVATE(this)->precallback[idx] != NULL) {
     PRIVATE(this)->response = PRIVATE(this)->precallback[idx]->doNodeCallbacks(this, node);
     if (PRIVATE(this)->response == SoCallbackAction::ABORT) {
-      this->setTerminated(TRUE);
+      this->setTerminated(true);
       return;
     }
   }
@@ -1133,7 +1133,7 @@ SoCallbackAction::invokePreCallbacks(const SoNode * const node)
       this->getPathAppliedTo()->getTail() == node && PRIVATE(this)->pretailcallback != NULL) {
     PRIVATE(this)->response = PRIVATE(this)->pretailcallback->doNodeCallbacks(this, node);
     if (PRIVATE(this)->response == SoCallbackAction::ABORT) {
-      this->setTerminated(TRUE);
+      this->setTerminated(true);
       return;
     }
   }
@@ -1156,7 +1156,7 @@ SoCallbackAction::invokePostCallbacks(const SoNode * const node)
   if (idx < PRIVATE(this)->postcallback.getLength() && PRIVATE(this)->postcallback[idx] != NULL) {
     PRIVATE(this)->response = static_cast<Response>(PRIVATE(this)->postcallback[idx]->doNodeCallbacks(this, node));
     if (PRIVATE(this)->response == SoCallbackAction::ABORT) {
-      this->setTerminated(TRUE);
+      this->setTerminated(true);
       return;
     }
   }
@@ -1165,7 +1165,7 @@ SoCallbackAction::invokePostCallbacks(const SoNode * const node)
       this->getPathAppliedTo()->getTail() == node && PRIVATE(this)->posttailcallback) {
     PRIVATE(this)->response = PRIVATE(this)->posttailcallback->doNodeCallbacks(this, node);
     if (PRIVATE(this)->response == SoCallbackAction::ABORT) {
-      this->setTerminated(TRUE);
+      this->setTerminated(true);
       return;
     }
   }
@@ -1225,17 +1225,17 @@ SoCallbackAction::invokePointCallbacks(const SoShape * const shape,
   from the complex shapes. If there are no callbacks attached to the
   node types, making the primitives would only be a waste of CPU.
  */
-SbBool
+bool
 SoCallbackAction::shouldGeneratePrimitives(const SoShape * shape) const
 {
   int idx = static_cast<int>(shape->getTypeId().getData());
   if (idx < PRIVATE(this)->trianglecallback.getLength() && PRIVATE(this)->trianglecallback[idx])
-    return TRUE;
+    return true;
   if (idx < PRIVATE(this)->linecallback.getLength() && PRIVATE(this)->linecallback[idx])
-    return TRUE;
+    return true;
   if (idx < PRIVATE(this)->pointcallback.getLength() && PRIVATE(this)->pointcallback[idx])
-    return TRUE;
-  return FALSE;
+    return true;
+  return false;
 }
 
 /*!
@@ -1274,12 +1274,12 @@ SoCallbackAction::beginTraversal(SoNode * node)
   this->traverse(node);
 }
 
-void SoCallbackAction::setCallbackAll(SbBool callbackall)
+void SoCallbackAction::setCallbackAll(bool callbackall)
 {
   PRIVATE(this)->callbackall = callbackall;
 }
 
-SbBool SoCallbackAction::isCallbackAll(void) const
+bool SoCallbackAction::isCallbackAll(void) const
 {
   return PRIVATE(this)->callbackall;
 }

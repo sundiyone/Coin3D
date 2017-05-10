@@ -92,7 +92,7 @@ SoCreaseAngleElement::get(SoState * const state)
 }
 
 /*!
-  Returns the element value. \a isvrml1 should be TRUE if the node
+  Returns the element value. \a isvrml1 should be true if the node
   requesting the value is a VRML1 node.
 
   This method is an extension versus the Open Inventor API.
@@ -100,7 +100,7 @@ SoCreaseAngleElement::get(SoState * const state)
   \sa SoNode::getNodeType()
 */
 float
-SoCreaseAngleElement::get(SoState * const state, const SbBool isvrml1)
+SoCreaseAngleElement::get(SoState * const state, const bool isvrml1)
 {
   float val = SoFloatElement::get(classStackIndex, state);
   return val < 0.0f ? SoCreaseAngleElement::getDefault(isvrml1) : val;
@@ -117,14 +117,14 @@ SoCreaseAngleElement::getDefault(void)
 
 /*!
   Returns the default value for this element. \a isvrml1 should
-  be TRUE if the node requesting the value is a VRML1 node.
+  be true if the node requesting the value is a VRML1 node.
 
   This method is an extension versus the Open Inventor API.
 
   \sa SoNode::getNodeType()
 */
 float
-SoCreaseAngleElement::getDefault(const SbBool isvrml1)
+SoCreaseAngleElement::getDefault(const bool isvrml1)
 {
   return isvrml1 ? 0.5f : 0.0f;
 }

@@ -78,7 +78,7 @@ public:
 
 protected:
   virtual ~SoTransformBoxDragger(void);
-  virtual SbBool setUpConnections(SbBool onoff, SbBool doitalways = FALSE);
+  virtual bool setUpConnections(bool onoff, bool doitalways = false);
   virtual void setDefaultOnNonWritingFields(void);
 
   static void invalidateSurroundScaleCB(void * f, SoDragger * d);

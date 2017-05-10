@@ -91,9 +91,9 @@ class SoSceneTextureCubeMapP {
 
   SoGLRenderAction * glaction;
   SoGLCubeMapImage * glimage;
-  SbBool pbuffervalid;
-  SbBool glimagevalid;
-  SbBool glrectangle;
+  bool pbuffervalid;
+  bool glimagevalid;
+  bool glrectangle;
 
   SoNode   * cachedScene;  // scene with guaranteed camera
   SoCamera * cachedCamera; // reference to the camera
@@ -110,11 +110,11 @@ class SoSceneTextureCubeMapP {
   SbMutex mutex;
 #endif // COIN_THREADSAFE
 
-  SbBool canrendertotexture;
+  bool canrendertotexture;
   unsigned char * offscreenbuffer;
   int offscreenbuffersize;
-  SbBool hadSceneCamera;
-  SbBool hasSceneChanged;
+  bool hadSceneCamera;
+  bool hasSceneChanged;
 
   // FIXME: this will not work on all platforms/compilers
   static SbRotation ROT_NEG_X;
@@ -247,7 +247,7 @@ SoSceneTextureCubeMap::GLRender(SoGLRenderAction * action)
     PRIVATE(this)->updatePBuffer(state, quality);
     
     // don't cache when we change the glimage
-    SoCacheElement::setInvalid(TRUE);
+    SoCacheElement::setInvalid(true);
     if (state->isCacheOpen()) {
       SoCacheElement::invalidate(state);
     }
@@ -318,16 +318,16 @@ SoSceneTextureCubeMap::notify(SoNotList * list)
 {
   SoField * f = list->getLastField();
   if (f == &this->scene) {
-    PRIVATE(this)->hasSceneChanged = TRUE; // refetch camera and scene
-    PRIVATE(this)->pbuffervalid = FALSE; // rerender scene
+    PRIVATE(this)->hasSceneChanged = true; // refetch camera and scene
+    PRIVATE(this)->pbuffervalid = false; // rerender scene
   }
   else if (f == &this->size) {
-    PRIVATE(this)->pbuffervalid = FALSE; // rerender scene
+    PRIVATE(this)->pbuffervalid = false; // rerender scene
   }
   else if (f == &this->wrapS || f == &this->wrapT || f == &this->wrapR ||
            f == &this->model || f == &this->transparencyFunction) {
     // no need to render scene again, but update the texture object
-    PRIVATE(this)->glimagevalid = FALSE;
+    PRIVATE(this)->glimagevalid = false;
   }
   inherited::notify(list);
 }
@@ -342,20 +342,20 @@ SoSceneTextureCubeMapP::SoSceneTextureCubeMapP(SoSceneTextureCubeMap * apiptr)
 {
   this->api = apiptr;
   this->glimage = NULL;
-  this->glimagevalid = FALSE;
+  this->glimagevalid = false;
   this->glcontext = NULL;
-  this->pbuffervalid = FALSE;
+  this->pbuffervalid = false;
   this->glaction = NULL;
   this->glcontextsize.setValue(-1,-1);
-  this->glrectangle = FALSE;
+  this->glrectangle = false;
   this->offscreenbuffer = NULL;
   this->offscreenbuffersize = 0;
-  this->canrendertotexture = FALSE;
+  this->canrendertotexture = false;
   this->contextid = -1;
   this->cachedScene = NULL;
   this->cachedCamera = NULL;
-  this->hadSceneCamera = FALSE;
-  this->hasSceneChanged = TRUE;
+  this->hadSceneCamera = false;
+  this->hasSceneChanged = true;
 }
 
 SoSceneTextureCubeMapP::~SoSceneTextureCubeMapP()
@@ -391,7 +391,7 @@ SoSceneTextureCubeMapP::updatePBuffer(SoState * state, const float quality)
       delete this->glaction; 
       this->glaction = NULL;
     }
-    this->glimagevalid = FALSE;
+    this->glimagevalid = false;
   }
   if (size == SbVec2s(0,0)) return;
 
@@ -421,12 +421,12 @@ SoSceneTextureCubeMapP::updatePBuffer(SoState * state, const float quality)
       }
     }
     
-    this->glrectangle = FALSE;
+    this->glrectangle = false;
     if (!coin_is_power_of_two(this->glcontextsize[0]) ||
         !coin_is_power_of_two(this->glcontextsize[1])) {
       // we only get here if the OpenGL driver can handle non power of
       // two textures/pbuffers.
-      this->glrectangle = TRUE;
+      this->glrectangle = true;
     }
 
     // FIXME: make it possible to specify what kind of context you want
@@ -451,7 +451,7 @@ SoSceneTextureCubeMapP::updatePBuffer(SoState * state, const float quality)
         setViewportRegion(SbViewportRegion(this->glcontextsize));
     }
     this->glaction->setCacheContext(this->contextid);    
-    this->glimagevalid = FALSE;
+    this->glimagevalid = false;
   }
 
   if (!this->pbuffervalid) {
@@ -543,8 +543,8 @@ SoSceneTextureCubeMapP::updatePBuffer(SoState * state, const float quality)
       cubeSidePtr += cubeSideSize;
     }
   }
-  this->glimagevalid = TRUE;
-  this->pbuffervalid = TRUE;
+  this->glimagevalid = true;
+  this->pbuffervalid = true;
 }
 
 void
@@ -581,11 +581,11 @@ SoSceneTextureCubeMapP::findCamera(void)
 SoCamera * 
 SoSceneTextureCubeMapP::ensureCamera(void)
 {
-  if (this->hasSceneChanged == FALSE) return this->cachedCamera;
+  if (this->hasSceneChanged == false) return this->cachedCamera;
 
-  this->hasSceneChanged = FALSE;
+  this->hasSceneChanged = false;
   SoCamera * camera    = this->findCamera();
-  SbBool     hasCamera = (camera != NULL); // does the scene provide a camera?
+  bool     hasCamera = (camera != NULL); // does the scene provide a camera?
 
   if (hasCamera) {
     if (this->cachedCamera != camera) {

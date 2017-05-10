@@ -39,16 +39,16 @@ protected:
 public:
   virtual void init(SoState * state);
   static void set(SoState * const state, SoNode * const node,
-                  const SbVec3f & position, SbBool setbylistener);
+                  const SbVec3f & position, bool setbylistener);
 
   static const SbVec3f & get(SoState * const state);
-  static SbBool isSetByListener(SoState * const state);
+  static bool isSetByListener(SoState * const state);
 
   virtual void print(FILE * file) const;
 
 protected:
   SbVec3f position;
-  SbBool setbylistener;
+  bool setbylistener;
 };
 
 #endif // !COIN_SOLISTENERPOSITIONELEMENT_H

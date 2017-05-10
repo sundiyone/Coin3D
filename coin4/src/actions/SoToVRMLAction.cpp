@@ -114,18 +114,18 @@ public:
   SoToVRMLActionP(void)
     : master(NULL)
   {
-    this->expandsofile = FALSE;
+    this->expandsofile = false;
     this->urlname = "";
-    this->writetexcoords = FALSE;
-    this->expandtexture2node = FALSE;
+    this->writetexcoords = false;
+    this->expandtexture2node = false;
     // FIXME: don't know if this is correct default value. 20020705 mortene.
-    this->keepunknownnodes = TRUE;
-    this->convertinlinenodes = TRUE;
-    this->conditionalconversion = FALSE;
+    this->keepunknownnodes = true;
+    this->convertinlinenodes = true;
+    this->conditionalconversion = false;
     // FIXME: don't know if this is correct default value. 20020705 mortene.
-    this->isverbose = FALSE;
+    this->isverbose = false;
 
-    this->nodefuse = FALSE; // for optimizing bad scene graphs
+    this->nodefuse = false; // for optimizing bad scene graphs
 
     this->bsptree = NULL;
     this->bsptreetex = NULL;
@@ -154,15 +154,15 @@ public:
   }
 
   SoToVRMLAction * master;
-  SbBool expandsofile;
+  bool expandsofile;
   SbString urlname;
-  SbBool writetexcoords;
-  SbBool expandtexture2node;
-  SbBool keepunknownnodes;
-  SbBool convertinlinenodes;
-  SbBool conditionalconversion;
-  SbBool isverbose;
-  SbBool nodefuse;
+  bool writetexcoords;
+  bool expandtexture2node;
+  bool keepunknownnodes;
+  bool convertinlinenodes;
+  bool conditionalconversion;
+  bool isverbose;
+  bool nodefuse;
   SoCallbackAction cbaction;
   SoSearchAction searchaction;
   SoFullPath * vrmlpath;
@@ -188,7 +188,7 @@ public:
   SoNode * search_for_node(SoNode * root, const SbName & name, const SoType & type);
   SoGroup * get_current_tail(void);
   SoMaterial * find_or_create_material(void);
-  void init_gen(const SbBool color);
+  void init_gen(const bool color);
 
 #ifdef HAVE_VRML97
   static SoCallbackAction::Response vrmlshape_cb(void *, SoCallbackAction *, const SoNode *);
@@ -348,7 +348,7 @@ SoToVRMLAction::apply(SoPath * path)
 
 // Documented in superclass.
 void
-SoToVRMLAction::apply(const SoPathList & pathlist, SbBool obeysrules)
+SoToVRMLAction::apply(const SoPathList & pathlist, bool obeysrules)
 {
   PRIVATE(this)->init();
   PRIVATE(this)->cbaction.apply(pathlist, obeysrules);
@@ -368,12 +368,12 @@ SoToVRMLAction::getVRMLSceneGraph(void) const
 }
 
 void
-SoToVRMLAction::expandSoFile(SbBool flag)
+SoToVRMLAction::expandSoFile(bool flag)
 {
   PRIVATE(this)->expandsofile = flag;
 }
 
-SbBool
+bool
 SoToVRMLAction::areSoFileExpanded(void) const
 {
   return PRIVATE(this)->expandsofile;
@@ -392,72 +392,72 @@ SoToVRMLAction::getUrlName(void) const
 }
 
 void
-SoToVRMLAction::writeTexCoords(SbBool flag)
+SoToVRMLAction::writeTexCoords(bool flag)
 {
   PRIVATE(this)->writetexcoords = flag;
 }
 
-SbBool
+bool
 SoToVRMLAction::areTexCoordWritten(void) const
 {
   return PRIVATE(this)->writetexcoords;
 }
 
 void
-SoToVRMLAction::expandTexture2Node(SbBool flag)
+SoToVRMLAction::expandTexture2Node(bool flag)
 {
   PRIVATE(this)->expandtexture2node = flag;
 }
 
-SbBool
+bool
 SoToVRMLAction::areTexture2NodeExpanded(void) const
 {
   return PRIVATE(this)->expandtexture2node;
 }
 
 void
-SoToVRMLAction::keepUnknownNodes(SbBool flag)
+SoToVRMLAction::keepUnknownNodes(bool flag)
 {
   PRIVATE(this)->keepunknownnodes = flag;
 }
 
-SbBool
+bool
 SoToVRMLAction::areUnknownNodeKept(void) const
 {
   return PRIVATE(this)->keepunknownnodes;
 }
 
 void
-SoToVRMLAction::convertInlineNodes(SbBool flag)
+SoToVRMLAction::convertInlineNodes(bool flag)
 {
   PRIVATE(this)->convertinlinenodes = flag;
 }
 
-SbBool
+bool
 SoToVRMLAction::doConvertInlineNodes(void) const
 {
   return PRIVATE(this)->convertinlinenodes;
 }
 
 void
-SoToVRMLAction::conditionalConversion(SbBool flag)
+SoToVRMLAction::conditionalConversion(bool flag)
 {
   PRIVATE(this)->conditionalconversion = flag;
 }
 
-SbBool
+bool
 SoToVRMLAction::doConditionalConversion(void) const
 {
   return PRIVATE(this)->conditionalconversion;
 }
 
 void
-SoToVRMLAction::setVerbosity(SbBool flag)
+SoToVRMLAction::setVerbosity(bool flag)
 {
   PRIVATE(this)->isverbose = flag;
 }
 
-SbBool
+bool
 SoToVRMLAction::isVerbose(void) const
 {
   return PRIVATE(this)->isverbose;
@@ -485,15 +485,15 @@ SoToVRMLActionP::search_for_node(SoNode * root, const SbName & name, const SoTyp
   if (retnode && cnt == 1) return retnode;
   if (!retnode) return NULL;
 
-  this->searchaction.setSearchingAll(TRUE);
+  this->searchaction.setSearchingAll(true);
   this->searchaction.setName(name);
   this->searchaction.setType(type);
   this->searchaction.setInterest(SoSearchAction::LAST);
   this->searchaction.setFind(SoSearchAction::TYPE|SoSearchAction::NAME);
 
 #ifdef HAVE_NODEKITS
-  SbBool old = SoBaseKit::isSearchingChildren();
-  SoBaseKit::setSearchingChildren(TRUE);
+  bool old = SoBaseKit::isSearchingChildren();
+  SoBaseKit::setSearchingChildren(true);
 #endif // HAVE_NODEKITS
 
   this->searchaction.apply(root);
@@ -569,14 +569,14 @@ SoToVRMLActionP::unsupported_cb(void * closure, SoCallbackAction * COIN_UNUSED_A
 }
 
 void
-SoToVRMLActionP::init_gen(const SbBool color)
+SoToVRMLActionP::init_gen(const bool color)
 {
-  SbBool dotex = FALSE;
+  bool dotex = false;
   SoGroup * tail = this->get_current_tail();
   const int n = tail->getNumChildren();
   for (int i = 0; i < n; i++) {
     if (tail->getChild(i)->isOfType(SoTexture2::getClassTypeId())) {
-      dotex = TRUE;
+      dotex = true;
       break;
     }
   }
@@ -891,7 +891,7 @@ SoToVRMLActionP::vrmlifs_cb(void * closure, SoCallbackAction * COIN_UNUSED_ARG(a
   }
 
   if (normal) {
-    if (oldifs->normalPerVertex.getValue() != TRUE) {
+    if (oldifs->normalPerVertex.getValue() != true) {
       SoNormalBinding * bind = new SoNormalBinding;
       if (oldifs->normalIndex.getNum()) {
         bind->value = SoMaterialBinding::PER_FACE_INDEXED;
@@ -1154,7 +1154,7 @@ SoToVRMLActionP::vrmlextrusion_cb(void * closure, SoCallbackAction * COIN_UNUSED
     SoShapeHints::CONVEX : SoShapeHints::UNKNOWN_FACE_TYPE;
   tail->addChild(sh);
 
-  thisp->init_gen(FALSE);
+  thisp->init_gen(false);
   return SoCallbackAction::CONTINUE;
 }
 

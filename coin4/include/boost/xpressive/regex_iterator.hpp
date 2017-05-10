@@ -151,13 +151,13 @@ struct regex_iterator
     {
     }
 
-    regex_iterator<BidiIter> &operator =(regex_iterator<BidiIter> const &that)
+    regex_iterator<BidiIter> &operator=(regex_iterator<BidiIter> const &that)
     {
         this->impl_ = that.impl_; // COW
         return *this;
     }
 
-    friend bool operator ==(regex_iterator<BidiIter> const &left, regex_iterator<BidiIter> const &right)
+    friend bool operator==(regex_iterator<BidiIter> const &left, regex_iterator<BidiIter> const &right)
     {
         if(!left.impl_ || !right.impl_)
         {
@@ -167,17 +167,17 @@ struct regex_iterator
         return left.impl_->equal_to(*right.impl_);
     }
 
-    friend bool operator !=(regex_iterator<BidiIter> const &left, regex_iterator<BidiIter> const &right)
+    friend bool operator!=(regex_iterator<BidiIter> const &left, regex_iterator<BidiIter> const &right)
     {
         return !(left == right);
     }
 
-    value_type const &operator *() const
+    value_type const&operator*() const
     {
         return this->impl_->what_;
     }
 
-    value_type const *operator ->() const
+    value_type const*operator->() const
     {
         return &this->impl_->what_;
     }
@@ -204,14 +204,14 @@ struct regex_iterator
     /// \post (**this)[n].second == For all integers n \< (*this)-\>size(), the end of the sequence that matched sub-expression n. Alternatively, if sub-expression n did not participate in the match, then end.
     /// \post (**this)[n].matched == For all integers n \< (*this)-\>size(), true if sub-expression n participated in the match, false otherwise.
     /// \post (*this)-\>position() == The distance from the start of the original sequence being iterated, to the start of this match.
-    regex_iterator<BidiIter> &operator ++()
+    regex_iterator<BidiIter> &operator++()
     {
         this->fork_(); // un-share the implementation
         this->next_();
         return *this;
     }
 
-    regex_iterator<BidiIter> operator ++(int)
+    regex_iterator<BidiIter> operator++(int)
     {
         regex_iterator<BidiIter> tmp(*this);
         ++*this;

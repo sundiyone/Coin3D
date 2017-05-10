@@ -60,7 +60,7 @@ public:
   double det3(void) const;
   double det4(void) const;
 
-  SbBool equals(const SbDPMatrix & m, double tolerance) const;
+  bool equals(const SbDPMatrix & m, double tolerance) const;
 
 
   void getValue(SbDPMat & m) const;
@@ -79,9 +79,9 @@ public:
   void getTransform(SbVec3d & translation, SbDPRotation & rotation,
                     SbVec3d & scaleFactor, SbDPRotation & scaleOrientation,
                     const SbVec3d & center) const;
-  SbBool factor(SbDPMatrix & r, SbVec3d & s, SbDPMatrix & u, SbVec3d & t,
+  bool factor(SbDPMatrix & r, SbVec3d & s, SbDPMatrix & u, SbVec3d & t,
                 SbDPMatrix & proj);
-  SbBool LUDecomposition(int index[4], double & d);
+  bool LUDecomposition(int index[4], double & d);
   void LUBackSubstitution(int index[4], double b[4]) const;
   SbDPMatrix transpose(void) const;
   SbDPMatrix & multRight(const SbDPMatrix & m);
@@ -99,25 +99,25 @@ public:
   double * operator [](int i);
   const double * operator [](int i) const;
 
-  SbDPMatrix & operator =(const SbDPMat & m);
-  SbDPMatrix & operator =(const SbDPMatrix & m);
-  SbDPMatrix & operator =(const SbDPRotation & q);
-  SbDPMatrix & operator *=(const SbDPMatrix & m);
+  SbDPMatrix & operator=(const SbDPMat & m);
+  SbDPMatrix & operator=(const SbDPMatrix & m);
+  SbDPMatrix & operator=(const SbDPRotation & q);
+  SbDPMatrix & operator*=(const SbDPMatrix & m);
 
-  friend COIN_DLL_API SbDPMatrix operator *(const SbDPMatrix & m1, const SbDPMatrix & m2);
-  friend COIN_DLL_API int operator ==(const SbDPMatrix & m1, const SbDPMatrix & m2);
-  friend COIN_DLL_API int operator !=(const SbDPMatrix & m1, const SbDPMatrix & m2);
+  friend COIN_DLL_API SbDPMatrix operator*(const SbDPMatrix & m1, const SbDPMatrix & m2);
+  friend COIN_DLL_API bool operator==(const SbDPMatrix & m1, const SbDPMatrix & m2);
+  friend COIN_DLL_API bool operator!=(const SbDPMatrix & m1, const SbDPMatrix & m2);
 private:
   double matrix[4][4];
 
-  void operator /=(const double v);
-  void operator *=(const double v);
+  void operator/=(const double v);
+  void operator*=(const double v);
 };
 
 typedef SbDPMatrix SbMatrixd;
 
-COIN_DLL_API SbDPMatrix operator *(const SbDPMatrix & m1, const SbDPMatrix & m2);
-COIN_DLL_API int operator ==(const SbDPMatrix & m1, const SbDPMatrix & m2);
-COIN_DLL_API int operator !=(const SbDPMatrix & m1, const SbDPMatrix & m2);
+COIN_DLL_API SbDPMatrix operator*(const SbDPMatrix & m1, const SbDPMatrix & m2);
+COIN_DLL_API bool operator==(const SbDPMatrix & m1, const SbDPMatrix & m2);
+COIN_DLL_API bool operator!=(const SbDPMatrix & m1, const SbDPMatrix & m2);
 
 #endif // !COIN_SBDPMATRIX_H

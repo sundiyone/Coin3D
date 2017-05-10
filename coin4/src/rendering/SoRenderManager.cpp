@@ -237,15 +237,15 @@ SoRenderManager::SoRenderManager(void)
   PRIVATE(this)->stereostencilmask = NULL;
   PRIVATE(this)->superimpositions = NULL;
 
-  PRIVATE(this)->doublebuffer = TRUE;
-  PRIVATE(this)->deleteaudiorenderaction = TRUE;
-  PRIVATE(this)->deleteglaction = TRUE;
-  PRIVATE(this)->isactive = TRUE;
-  PRIVATE(this)->texturesenabled = TRUE;
+  PRIVATE(this)->doublebuffer = true;
+  PRIVATE(this)->deleteaudiorenderaction = true;
+  PRIVATE(this)->deleteglaction = true;
+  PRIVATE(this)->isactive = true;
+  PRIVATE(this)->texturesenabled = true;
 
   PRIVATE(this)->nearplanevalue = 0.6f;
   PRIVATE(this)->stereooffset = 1.0f;
-  PRIVATE(this)->isrgbmode = TRUE;
+  PRIVATE(this)->isrgbmode = true;
   PRIVATE(this)->backgroundcolor.setValue(0.0f, 0.0f, 0.0f, 0.0f);
   PRIVATE(this)->backgroundindex = 0;
   PRIVATE(this)->overlaycolor = SbColor(1.0f, 0.0f, 0.0f).getPackedValue();
@@ -448,11 +448,11 @@ SoRenderManager::detachClipSensor(void)
 /*!
   Clears buffers with the backgroundcolor set correctly
   
-  \param[in] color Set to \c TRUE if color buffer should be cleared
-  \param[in] depth Set to \c TRUE if depth buffer should be cleared
+  \param[in] color Set to \c true if color buffer should be cleared
+  \param[in] depth Set to \c true if depth buffer should be cleared
 */
 void
-SoRenderManager::clearBuffers(SbBool color, SbBool depth)
+SoRenderManager::clearBuffers(bool color, bool depth)
 {
   GLbitfield mask = 0;
   if (color) mask |= GL_COLOR_BUFFER_BIT;
@@ -516,7 +516,7 @@ SoRenderManager::addSuperimposition(SoNode * scene,
   if (!PRIVATE(this)->superimpositions) {
     PRIVATE(this)->superimpositions = new SbPList;
   }
-  Superimposition * s = new Superimposition(scene, TRUE, this, flags);
+  Superimposition * s = new Superimposition(scene, true, this, flags);
   PRIVATE(this)->superimpositions->append(s);
   return s;
 }
@@ -549,19 +549,19 @@ SoRenderManager::removeSuperimposition(Superimposition * s)
 /*!
   Render the scene graph.
 
-  All SbBool arguments should normally be \c TRUE, but they can be set
-  to \c FALSE to optimize for special cases (e.g. when doing wireframe
+  All bool arguments should normally be \c true, but they can be set
+  to \c false to optimize for special cases (e.g. when doing wireframe
   rendering one doesn't need a depth buffer).
 
-  \param[in] clearwindow If set to \c TRUE, clear the rendering buffer
+  \param[in] clearwindow If set to \c true, clear the rendering buffer
   before drawing.
 
-  \param[in] clearzbuffer If set to \c TRUE, clear the depth buffer
+  \param[in] clearzbuffer If set to \c true, clear the depth buffer
   values before rendering.
 
 */
 void
-SoRenderManager::render(const SbBool clearwindow, const SbBool clearzbuffer)
+SoRenderManager::render(const bool clearwindow, const bool clearzbuffer)
 {
   // FIXME: according to a user, TGS Inventor seems to disable the
   // redraw SoOneShotSensor while the scene graph is being rendered,
@@ -608,7 +608,7 @@ SoRenderManager::render(const SbBool clearwindow, const SbBool clearzbuffer)
 
     // render the first pass normally
     action->setCurPass(0, numpasses);
-    this->render(action, TRUE, clearwindow, clearzbuffer);
+    this->render(action, true, clearwindow, clearzbuffer);
 
     // check if we have an accumulation buffer, and render additional passes
     GLint accumbits;
@@ -619,7 +619,7 @@ SoRenderManager::render(const SbBool clearwindow, const SbBool clearzbuffer)
 
       for (int i = 1; (i < numpasses) && !action->hasTerminated(); i++) {
         action->setCurPass(i, numpasses);
-        this->render(action, TRUE, TRUE, TRUE);
+        this->render(action, true, true, true);
         glAccum(GL_ACCUM, fraction);
       }
       glAccum(GL_RETURN, 1.0f);
@@ -629,12 +629,12 @@ SoRenderManager::render(const SbBool clearwindow, const SbBool clearzbuffer)
   }
   else {
     // let SoGLRenderAction handle the accumulation buffer
-    this->render(PRIVATE(this)->glaction, TRUE, clearwindow, clearzbuffer);
+    this->render(PRIVATE(this)->glaction, true, clearwindow, clearzbuffer);
   }
 }
 
 /*!
-  \copydetails SoRenderManager::render(const SbBool clearwindow, const SbBool clearzbuffer)
+  \copydetails SoRenderManager::render(const bool clearwindow, const bool clearzbuffer)
 
   \param[in] initmatrices if true, the projection and modelview
   matrices are reset to identity
@@ -642,11 +642,11 @@ SoRenderManager::render(const SbBool clearwindow, const SbBool clearzbuffer)
 */
 void
 SoRenderManager::render(SoGLRenderAction * action,
-                        const SbBool initmatrices,
-                        const SbBool clearwindow,
-                        const SbBool clearzbuffer)
+                        const bool initmatrices,
+                        const bool clearwindow,
+                        const bool clearzbuffer)
 {
-  SbBool clearwindow_tmp = clearwindow; // make sure we only clear the color buffer once
+  bool clearwindow_tmp = clearwindow; // make sure we only clear the color buffer once
   PRIVATE(this)->invokePreRenderCallbacks();
 
   if (PRIVATE(this)->superimpositions) {
@@ -654,7 +654,7 @@ SoRenderManager::render(SoGLRenderAction * action,
       Superimposition * s = (Superimposition *) (*PRIVATE(this)->superimpositions)[i];
       if (s->getStateFlags() & Superimposition::BACKGROUND) {
         s->render(action, clearwindow_tmp);
-        clearwindow_tmp = FALSE;
+        clearwindow_tmp = false;
       }
     }
   }
@@ -683,17 +683,17 @@ SoRenderManager::render(SoGLRenderAction * action,
   \param[in] initmatrices if true, the projection and modelview
   matrices are reset to identity
 
-  \param[in] clearwindow If set to \c TRUE, clear the rendering buffer
+  \param[in] clearwindow If set to \c true, clear the rendering buffer
   before drawing.
 
-  \param[in] clearzbuffer If set to \c TRUE, clear the depth buffer
+  \param[in] clearzbuffer If set to \c true, clear the depth buffer
   values before rendering.
 */
 void
 SoRenderManager::actuallyRender(SoGLRenderAction * action,
-                                const SbBool initmatrices,
-                                const SbBool clearwindow,
-                                const SbBool clearzbuffer)
+                                const bool initmatrices,
+                                const bool clearwindow,
+                                const bool clearzbuffer)
 {
   GLbitfield mask = 0;
   if (clearwindow) mask |= GL_COLOR_BUFFER_BIT;
@@ -737,7 +737,7 @@ SoRenderManager::actuallyRender(SoGLRenderAction * action,
     if (realtime && (realtime->getTypeId() == SoSFTime::getClassTypeId())) {
       // Note that this should not get in the way of a
       // app-programmer controlled realTime field, as
-      // enableRealTimeUpdate(FALSE) should then have been called.
+      // enableRealTimeUpdate(false) should then have been called.
       ((SoSFTime *)realtime)->setValue(SbTime::getTimeOfDay());
     }
   }
@@ -781,9 +781,9 @@ SoRenderManager::renderScene( SoGLRenderAction * action,
 */
 void
 SoRenderManager::renderSingle(SoGLRenderAction * action,
-                              SbBool initmatrices,
-                              SbBool clearwindow,
-                              SbBool clearzbuffer)
+                              bool initmatrices,
+                              bool clearwindow,
+                              bool clearzbuffer)
 {
   SoState * state = action->getState();
   state->push();
@@ -792,7 +792,7 @@ SoRenderManager::renderSingle(SoGLRenderAction * action,
 
   if (!this->isTexturesEnabled()) {
     SoTextureQualityElement::set(state, node, 0.0f);
-    SoTextureOverrideElement::setQualityOverride(state, TRUE);
+    SoTextureOverrideElement::setQualityOverride(state, true);
   }
   switch (this->getRenderMode()) {
   case SoRenderManager::AS_IS:
@@ -801,69 +801,69 @@ SoRenderManager::renderSingle(SoGLRenderAction * action,
   case SoRenderManager::WIREFRAME:
     SoDrawStyleElement::set(state, node, SoDrawStyleElement::LINES);
     SoLightModelElement::set(state, node, SoLightModelElement::BASE_COLOR);
-    SoOverrideElement::setDrawStyleOverride(state, node, TRUE);
-    SoOverrideElement::setLightModelOverride(state, node, TRUE);
+    SoOverrideElement::setDrawStyleOverride(state, node, true);
+    SoOverrideElement::setLightModelOverride(state, node, true);
     this->actuallyRender(action, initmatrices, clearwindow, clearzbuffer);
     break;
   case SoRenderManager::POINTS:
     SoDrawStyleElement::set(state, node, SoDrawStyleElement::POINTS);
     SoLightModelElement::set(state, node, SoLightModelElement::BASE_COLOR);
-    SoOverrideElement::setDrawStyleOverride(state, node, TRUE);
-    SoOverrideElement::setLightModelOverride(state, node, TRUE);
+    SoOverrideElement::setDrawStyleOverride(state, node, true);
+    SoOverrideElement::setLightModelOverride(state, node, true);
     this->actuallyRender(action, initmatrices, clearwindow, clearzbuffer);
     break;
   case SoRenderManager::HIDDEN_LINE:
     {
       // must clear before setting draw mask
-      this->clearBuffers(TRUE, TRUE);
+      this->clearBuffers(true, true);
 
       // only draw into depth buffer
       glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
       SoMaterialBindingElement::set(state, node, SoMaterialBindingElement::OVERALL);
       SoLightModelElement::set(state, node, SoLightModelElement::BASE_COLOR);
       SoPolygonOffsetElement::set(state, node, 1.0f, 1.0f,
-                                  SoPolygonOffsetElement::FILLED, TRUE);
-      SoOverrideElement::setPolygonOffsetOverride(state, node, TRUE);
-      SoOverrideElement::setLightModelOverride(state, node, TRUE);
-      SoOverrideElement::setMaterialBindingOverride(state, node, TRUE);
-      this->actuallyRender(action, initmatrices, FALSE, FALSE);
+                                  SoPolygonOffsetElement::FILLED, true);
+      SoOverrideElement::setPolygonOffsetOverride(state, node, true);
+      SoOverrideElement::setLightModelOverride(state, node, true);
+      SoOverrideElement::setMaterialBindingOverride(state, node, true);
+      this->actuallyRender(action, initmatrices, false, false);
 
       // reenable draw masks
       glColorMask(GL_TRUE,GL_TRUE,GL_TRUE,GL_TRUE);
       SoPolygonOffsetElement::set(state, node, 0.0f, 0.0f,
-                                  SoPolygonOffsetElement::FILLED, FALSE);
+                                  SoPolygonOffsetElement::FILLED, false);
       SoDrawStyleElement::set(state, node, SoDrawStyleElement::LINES);
-      SoOverrideElement::setDrawStyleOverride(state, node, TRUE);
-      SoOverrideElement::setMaterialBindingOverride(state, node, FALSE);
-      this->actuallyRender(action, initmatrices, FALSE, FALSE);
+      SoOverrideElement::setDrawStyleOverride(state, node, true);
+      SoOverrideElement::setMaterialBindingOverride(state, node, false);
+      this->actuallyRender(action, initmatrices, false, false);
     }
     break;
   case SoRenderManager::WIREFRAME_OVERLAY:
       SoPolygonOffsetElement::set(state, node, 1.0f, 1.0f,
-                                  SoPolygonOffsetElement::FILLED, TRUE);
-      SoOverrideElement::setPolygonOffsetOverride(state, node, TRUE);
+                                  SoPolygonOffsetElement::FILLED, true);
+      SoOverrideElement::setPolygonOffsetOverride(state, node, true);
       this->actuallyRender(action, initmatrices, clearwindow, clearzbuffer);
       SoPolygonOffsetElement::set(state, node, 0.0f, 0.0f,
-                                  SoPolygonOffsetElement::FILLED, FALSE);
+                                  SoPolygonOffsetElement::FILLED, false);
 
-      SoLazyElement::setPacked(state, node, 1, &PRIVATE(this)->overlaycolor, TRUE);
+      SoLazyElement::setPacked(state, node, 1, &PRIVATE(this)->overlaycolor, true);
       SoLightModelElement::set(state, node, SoLightModelElement::BASE_COLOR);
       SoMaterialBindingElement::set(state, node, SoMaterialBindingElement::OVERALL);
       SoDrawStyleElement::set(state, node, SoDrawStyleElement::LINES);
-      SoOverrideElement::setLightModelOverride(state, node, TRUE);
-      SoOverrideElement::setDiffuseColorOverride(state, node, TRUE);
-      SoOverrideElement::setMaterialBindingOverride(state, node, TRUE);
-      SoOverrideElement::setDrawStyleOverride(state, node, TRUE);
-      this->actuallyRender(action, initmatrices, FALSE, FALSE);
+      SoOverrideElement::setLightModelOverride(state, node, true);
+      SoOverrideElement::setDiffuseColorOverride(state, node, true);
+      SoOverrideElement::setMaterialBindingOverride(state, node, true);
+      SoOverrideElement::setDrawStyleOverride(state, node, true);
+      this->actuallyRender(action, initmatrices, false, false);
     break;
 
   case SoRenderManager::BOUNDING_BOX:
     SoDrawStyleElement::set(state, node, SoDrawStyleElement::LINES);
     SoLightModelElement::set(state, node, SoLightModelElement::BASE_COLOR);
     SoComplexityTypeElement::set(state, node, SoComplexityTypeElement::BOUNDING_BOX);
-    SoOverrideElement::setDrawStyleOverride(state, node, TRUE);
-    SoOverrideElement::setLightModelOverride(state, node, TRUE);
-    SoOverrideElement::setComplexityTypeOverride(state, node, TRUE);
+    SoOverrideElement::setDrawStyleOverride(state, node, true);
+    SoOverrideElement::setLightModelOverride(state, node, true);
+    SoOverrideElement::setComplexityTypeOverride(state, node, true);
     this->actuallyRender(action, initmatrices, clearwindow, clearzbuffer);
     break;
   default:
@@ -880,16 +880,16 @@ SoRenderManager::renderSingle(SoGLRenderAction * action,
 */
 void
 SoRenderManager::renderStereo(SoGLRenderAction * action,
-                              SbBool initmatrices,
-                              SbBool clearwindow,
-                              SbBool clearzbuffer)
+                              bool initmatrices,
+                              bool clearwindow,
+                              bool clearzbuffer)
 {
   if (!PRIVATE(this)->camera) return;
 
-  this->clearBuffers(TRUE, TRUE);
+  this->clearBuffers(true, true);
   PRIVATE(this)->camera->setStereoAdjustment(PRIVATE(this)->stereooffset);
 
-  SbBool stenciltestenabled = glIsEnabled(GL_STENCIL_TEST);
+  bool stenciltestenabled = glIsEnabled(GL_STENCIL_TEST);
 
   // left eye
   PRIVATE(this)->camera->setStereoMode(SoCamera::LEFT_VIEW);
@@ -897,7 +897,7 @@ SoRenderManager::renderStereo(SoGLRenderAction * action,
   switch (PRIVATE(this)->stereomode) {
   case SoRenderManager::ANAGLYPH:
     glColorMask(GL_TRUE, GL_FALSE, GL_FALSE, GL_TRUE);
-    this->renderSingle(action, initmatrices, FALSE, FALSE);
+    this->renderSingle(action, initmatrices, false, false);
     break;
   case SoRenderManager::QUAD_BUFFER:
     glDrawBuffer(PRIVATE(this)->doublebuffer ? GL_BACK_LEFT : GL_FRONT_LEFT);
@@ -923,7 +923,7 @@ SoRenderManager::renderStereo(SoGLRenderAction * action,
   case SoRenderManager::ANAGLYPH:
     glClear(GL_DEPTH_BUFFER_BIT);
     glColorMask(GL_FALSE, GL_TRUE, GL_TRUE, GL_TRUE);
-    this->renderSingle(action, initmatrices, FALSE, TRUE);
+    this->renderSingle(action, initmatrices, false, true);
     break;
   case SoRenderManager::QUAD_BUFFER:
     glDrawBuffer(PRIVATE(this)->doublebuffer ? GL_BACK_RIGHT : GL_FRONT_RIGHT);
@@ -932,7 +932,7 @@ SoRenderManager::renderStereo(SoGLRenderAction * action,
   case SoRenderManager::INTERLEAVED_ROWS:
   case SoRenderManager::INTERLEAVED_COLUMNS:
     glStencilFunc(GL_NOTEQUAL, 0x1, 0x1);
-    this->renderSingle(action, initmatrices, FALSE, FALSE);
+    this->renderSingle(action, initmatrices, false, false);
     break;
   default:
     assert(0 && "unknown stereo mode");
@@ -1001,7 +1001,7 @@ SoRenderManager::initStencilBufferForInterleavedStereo(void)
          (s == SoRenderManager::INTERLEAVED_COLUMNS));
 
   // Find out whether or not we need to regenerate the mask data.
-  SbBool allocnewmask = (PRIVATE(this)->stereostencilmask == NULL);
+  bool allocnewmask = (PRIVATE(this)->stereostencilmask == NULL);
 
   const SbVec2s neworigin = currentvp.getViewportOriginPixels();
   const SbVec2s newsize = currentvp.getViewportSizePixels();
@@ -1012,10 +1012,10 @@ SoRenderManager::initStencilBufferForInterleavedStereo(void)
   allocnewmask = allocnewmask ||
     ((oldsize[0] + 7) / 8 * oldsize[1]) < ((newsize[0] + 7) / 8 * newsize[1]);
 
-  const SbBool fillmask = allocnewmask || (PRIVATE(this)->stereostenciltype != s) ||
+  const bool fillmask = allocnewmask || (PRIVATE(this)->stereostenciltype != s) ||
     ((s == SoRenderManager::INTERLEAVED_ROWS) && (oldsize[0] != newsize[0]));
 
-  const SbBool layoutchange = !(PRIVATE(this)->stereostencilmaskvp == currentvp);
+  const bool layoutchange = !(PRIVATE(this)->stereostencilmaskvp == currentvp);
 
   const short bytewidth = (newsize[0] + 7) / 8;
 
@@ -1301,7 +1301,7 @@ SoRenderManager::getBackgroundIndex(void) const
   colorindex mode will be used instead.
 */
 void
-SoRenderManager::setRGBMode(const SbBool yes)
+SoRenderManager::setRGBMode(const bool yes)
 {
   PRIVATE(this)->isrgbmode = yes;
 }
@@ -1309,7 +1309,7 @@ SoRenderManager::setRGBMode(const SbBool yes)
 /*!
   Returns the "truecolor or colorindex" mode flag.
  */
-SbBool
+bool
 SoRenderManager::isRGBMode(void) const
 {
   return PRIVATE(this)->isrgbmode;
@@ -1319,7 +1319,7 @@ SoRenderManager::isRGBMode(void) const
   Tell the scenemanager that double buffering is used
  */
 void
-SoRenderManager::setDoubleBuffer(const SbBool enable)
+SoRenderManager::setDoubleBuffer(const bool enable)
 {
   PRIVATE(this)->doublebuffer = enable;
 }
@@ -1327,7 +1327,7 @@ SoRenderManager::setDoubleBuffer(const SbBool enable)
 /*!
   returns if the scenemanager is double buffered
  */
-SbBool
+bool
 SoRenderManager::isDoubleBuffer(void) const
 {
   return PRIVATE(this)->doublebuffer;
@@ -1352,7 +1352,7 @@ SoRenderManager::setRenderCallback(SoRenderManagerRenderCB * f,
 void
 SoRenderManager::activate(void)
 {
-  PRIVATE(this)->isactive = TRUE;
+  PRIVATE(this)->isactive = true;
 }
 
 /*!
@@ -1361,7 +1361,7 @@ SoRenderManager::activate(void)
 void
 SoRenderManager::deactivate(void)
 {
-  PRIVATE(this)->isactive = FALSE;
+  PRIVATE(this)->isactive = false;
 }
 
 /*!
@@ -1385,13 +1385,13 @@ SoRenderManager::redraw(void)
 }
 
 /*!
-  Returns \c TRUE if the SoRenderManager automatically redraws the
+  Returns \c true if the SoRenderManager automatically redraws the
   scene upon detecting changes in the scene graph.
 
   The automatic redraw is turned on and off by setting either a valid
   callback function with setRenderCallback(), or by passing \c NULL.
  */
-SbBool
+bool
 SoRenderManager::isAutoRedraw(void) const
 {
   return PRIVATE(this)->rendercb != NULL;
@@ -1465,7 +1465,7 @@ SoRenderManager::getStereoOffset(void) const
   SoGLRenderAction::setNumPasses().
  */
 void
-SoRenderManager::setAntialiasing(const SbBool smoothing, const int numpasses)
+SoRenderManager::setAntialiasing(const bool smoothing, const int numpasses)
 {
   PRIVATE(this)->glaction->setSmoothing(smoothing);
   PRIVATE(this)->glaction->setNumPasses(numpasses);
@@ -1478,7 +1478,7 @@ SoRenderManager::setAntialiasing(const SbBool smoothing, const int numpasses)
   \sa setAntialiasing()
  */
 void
-SoRenderManager::getAntialiasing(SbBool & smoothing, int & numpasses) const
+SoRenderManager::getAntialiasing(bool & smoothing, int & numpasses) const
 {
   smoothing = PRIVATE(this)->glaction->isSmoothing();
   numpasses = PRIVATE(this)->glaction->getNumPasses();
@@ -1491,11 +1491,11 @@ SoRenderManager::getAntialiasing(SbBool & smoothing, int & numpasses) const
 void
 SoRenderManager::setGLRenderAction(SoGLRenderAction * const action)
 {
-  SbBool haveregion = FALSE;
+  bool haveregion = false;
   SbViewportRegion region;
   if (PRIVATE(this)->glaction) { // remember existing viewport region
     region = PRIVATE(this)->glaction->getViewportRegion();
-    haveregion = TRUE;
+    haveregion = true;
   }
   if (PRIVATE(this)->deleteglaction) {
     delete PRIVATE(this)->glaction;
@@ -1509,7 +1509,7 @@ SoRenderManager::setGLRenderAction(SoGLRenderAction * const action)
   // this -- which smells of a bug.
   if (action && action != PRIVATE(this)->glaction) action->invalidateState();
   PRIVATE(this)->glaction = action;
-  PRIVATE(this)->deleteglaction = FALSE;
+  PRIVATE(this)->deleteglaction = false;
   if (PRIVATE(this)->glaction && haveregion)
     PRIVATE(this)->glaction->setViewportRegion(region);
 }
@@ -1565,13 +1565,13 @@ SoRenderManager::getNearPlaneValue(void) const
 
 /*!
   Enable/disable textures when rendering.
-  Defaults to TRUE.
+  Defaults to true.
 
   \sa isTexturesEnabled
 */
 
 void
-SoRenderManager::setTexturesEnabled(const SbBool onoff)
+SoRenderManager::setTexturesEnabled(const bool onoff)
 {
   PRIVATE(this)->texturesenabled = onoff;
 }
@@ -1582,7 +1582,7 @@ SoRenderManager::setTexturesEnabled(const SbBool onoff)
   \sa setTexturesEnabled
 */
 
-SbBool
+bool
 SoRenderManager::isTexturesEnabled(void) const
 {
   return PRIVATE(this)->texturesenabled;
@@ -1630,7 +1630,7 @@ SoRenderManager::setAudioRenderAction(SoAudioRenderAction * const action)
   //
   if (action && action != PRIVATE(this)->audiorenderaction) action->invalidateState();
   PRIVATE(this)->audiorenderaction = action;
-  PRIVATE(this)->deleteaudiorenderaction = FALSE;
+  PRIVATE(this)->deleteaudiorenderaction = false;
 }
 
 /*!
@@ -1662,12 +1662,12 @@ SoRenderManager::getDefaultRedrawPriority(void)
   \sa SoDB::setRealTimeInterval()
  */
 void
-SoRenderManager::enableRealTimeUpdate(const SbBool flag)
+SoRenderManager::enableRealTimeUpdate(const bool flag)
 {
   SoRenderManagerP::touchtimer = flag;
   if (!SoRenderManagerP::cleanupfunctionset) {
     coin_atexit((coin_atexit_f*) SoRenderManagerP::cleanup, CC_ATEXIT_NORMAL);
-    SoRenderManagerP::cleanupfunctionset = TRUE;
+    SoRenderManagerP::cleanupfunctionset = true;
   }
 }
 
@@ -1675,7 +1675,7 @@ SoRenderManager::enableRealTimeUpdate(const SbBool flag)
   Returns whether or not we automatically notifies everything
   connected to the \c realTime field after a redraw.
  */
-SbBool
+bool
 SoRenderManager::isRealTimeUpdateEnabled(void)
 {
   return SoRenderManagerP::touchtimer;

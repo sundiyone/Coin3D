@@ -155,28 +155,28 @@ SoLazyElement::init(SoState * COIN_UNUSED_ARG(state))
   this->coinstate.specular = this->getDefaultSpecular();
   this->coinstate.emissive = this->getDefaultEmissive();
   this->coinstate.shininess = this->getDefaultShininess();
-  this->coinstate.blending = FALSE;
+  this->coinstate.blending = false;
   this->coinstate.blend_sfactor = 0;
   this->coinstate.blend_dfactor = 0;
   this->coinstate.alpha_blend_sfactor = 0;
   this->coinstate.alpha_blend_dfactor = 0;
   this->coinstate.lightmodel = PHONG;
-  this->coinstate.packeddiffuse = FALSE;
+  this->coinstate.packeddiffuse = false;
   this->coinstate.numdiffuse = 1;
   this->coinstate.numtransp = 1;
   this->coinstate.diffusearray = lazy_defaultdiffuse;
   this->coinstate.packedarray = lazy_defaultpacked;
   this->coinstate.transparray = lazy_defaulttransp;
   this->coinstate.colorindexarray = lazy_defaultindex;
-  this->coinstate.istransparent = FALSE;
+  this->coinstate.istransparent = false;
   this->coinstate.transptype = static_cast<int32_t>(SoGLRenderAction::BLEND);
   this->coinstate.diffusenodeid = 0;
   this->coinstate.transpnodeid = 0;
   this->coinstate.stipplenum = 0;
   this->coinstate.vertexordering = CCW;
-  this->coinstate.twoside = FALSE;
-  this->coinstate.culling = FALSE;
-  this->coinstate.flatshading = FALSE;
+  this->coinstate.twoside = false;
+  this->coinstate.culling = false;
+  this->coinstate.flatshading = false;
   this->coinstate.alphatestfunc = 0;
   this->coinstate.alphatestvalue = 0.5f;
 }
@@ -193,13 +193,13 @@ SoLazyElement::push(SoState *state)
 
 
 /*!
-  Will always return TRUE in Coin.
+  Will always return true in Coin.
 */
-SbBool
+bool
 SoLazyElement::matches(const SoElement * COIN_UNUSED_ARG(element)) const
 {
   assert(0 && "should never happen");
-  return TRUE;
+  return true;
 }
 
 /*!
@@ -271,7 +271,7 @@ SoLazyElement::setTransparency(SoState *state, SoNode *node, int32_t numvalues,
 void
 SoLazyElement::setPacked(SoState * state, SoNode * node,
                          int32_t numcolors, const uint32_t * colors,
-                         const SbBool packedtransparency)
+                         const bool packedtransparency)
 {
   if (state->isElementEnabled(SoGLVBOElement::getClassStackIndex())) {
     SoGLVBOElement::setColorVBO(state, NULL);
@@ -372,7 +372,7 @@ SoLazyElement::setShininess(SoState *state, float value)
 // ! FIXME: write doc
 
 void
-SoLazyElement::setColorMaterial(SoState * COIN_UNUSED_ARG(state), SbBool COIN_UNUSED_ARG(value))
+SoLazyElement::setColorMaterial(SoState * COIN_UNUSED_ARG(state), bool COIN_UNUSED_ARG(value))
 {
 }
 
@@ -532,15 +532,15 @@ SoLazyElement::getShininess(SoState * state)
 
 // ! FIXME: write doc
 
-SbBool
+bool
 SoLazyElement::getColorMaterial(SoState * COIN_UNUSED_ARG(state))
 {
-  return TRUE;
+  return true;
 }
 
 // ! FIXME: write doc
 
-SbBool
+bool
 SoLazyElement::getBlending(SoState * state, int & sfactor, int & dfactor)
 {
   SoLazyElement * elem = getInstance(state);
@@ -549,7 +549,7 @@ SoLazyElement::getBlending(SoState * state, int & sfactor, int & dfactor)
   return elem->coinstate.blending;
 }
 
-SbBool
+bool
 SoLazyElement::getAlphaBlending(SoState * state, int & sfactor, int & dfactor)
 {
   SoLazyElement * elem = getInstance(state);
@@ -568,7 +568,7 @@ SoLazyElement::getLightModel(SoState * state)
   return elem->coinstate.lightmodel;
 }
 
-SbBool 
+bool 
 SoLazyElement::getTwoSidedLighting(SoState * state)
 {
   SoLazyElement * elem = getInstance(state);
@@ -613,7 +613,7 @@ SoLazyElement::getNumColorIndices(void) const
 
 // ! FIXME: write doc
 
-SbBool
+bool
 SoLazyElement::isPacked(void) const
 {
   return this->coinstate.packeddiffuse;
@@ -621,7 +621,7 @@ SoLazyElement::isPacked(void) const
 
 // ! FIXME: write doc
 
-SbBool
+bool
 SoLazyElement::isTransparent(void) const
 {
   return this->coinstate.istransparent;
@@ -732,7 +732,7 @@ SoLazyElement::setMaterials(SoState * state, SoNode *node, uint32_t bitmask,
                             const SbColor & emissive,
                             const SbColor & specular,
                             const float shininess,
-                            const SbBool istransparent)
+                            const bool istransparent)
 {
   if (state->isElementEnabled(SoGLVBOElement::getClassStackIndex())) {
     SoGLVBOElement::setColorVBO(state, NULL);
@@ -807,7 +807,7 @@ SoLazyElement::setVertexOrdering(SoState * state, VertexOrdering ordering)
 }
 
 void
-SoLazyElement::setBackfaceCulling(SoState * state, SbBool onoff)
+SoLazyElement::setBackfaceCulling(SoState * state, bool onoff)
 {
   SoLazyElement * elem = SoLazyElement::getInstance(state);
   if (elem->coinstate.culling != onoff) {
@@ -821,7 +821,7 @@ SoLazyElement::setBackfaceCulling(SoState * state, SbBool onoff)
 }
 
 void
-SoLazyElement::setTwosideLighting(SoState * state, SbBool onoff)
+SoLazyElement::setTwosideLighting(SoState * state, bool onoff)
 {
   SoLazyElement * elem = SoLazyElement::getInstance(state);
   if (elem->coinstate.twoside != onoff) {
@@ -835,7 +835,7 @@ SoLazyElement::setTwosideLighting(SoState * state, SbBool onoff)
 }
 
 void
-SoLazyElement::setShadeModel(SoState * state, SbBool flatshading)
+SoLazyElement::setShadeModel(SoState * state, bool flatshading)
 {
   SoLazyElement * elem = SoLazyElement::getInstance(state);
 
@@ -931,18 +931,18 @@ SoLazyElement::setDiffuseElt(SoNode * node,  int32_t numcolors,
   this->coinstate.diffusenodeid = get_diffuse_node_id(node, numcolors, colors);
   this->coinstate.diffusearray = colors;
   this->coinstate.numdiffuse = numcolors;
-  this->coinstate.packeddiffuse = FALSE;
+  this->coinstate.packeddiffuse = false;
 }
 
 void
 SoLazyElement::setPackedElt(SoNode * node, int32_t numcolors,
-                            const uint32_t * colors, const SbBool packedtransparency)
+                            const uint32_t * colors, const bool packedtransparency)
 {
   this->coinstate.diffusenodeid = node->getNodeId();
   this->coinstate.transpnodeid = node->getNodeId();
   this->coinstate.numdiffuse = numcolors;
   this->coinstate.packedarray = colors;
-  this->coinstate.packeddiffuse = TRUE;
+  this->coinstate.packeddiffuse = true;
   this->coinstate.istransparent = packedtransparency;
 
   int alpha = colors[0] & 0xff;
@@ -956,7 +956,7 @@ SoLazyElement::setColorIndexElt(SoNode * COIN_UNUSED_ARG(node), int32_t numindic
 {
   this->coinstate.colorindexarray = indices;
   this->coinstate.numdiffuse = numindices;
-  this->coinstate.packeddiffuse = FALSE;
+  this->coinstate.packeddiffuse = false;
 }
 
 void
@@ -968,10 +968,10 @@ SoLazyElement::setTranspElt(SoNode * node, int32_t numtransp,
   this->coinstate.numtransp = numtransp;
   this->coinstate.stipplenum = SbClamp(static_cast<int>(transp[0] * 64.0f), 0, 64);
 
-  this->coinstate.istransparent = FALSE;
+  this->coinstate.istransparent = false;
   for (int i = 0; i < numtransp; i++) {
     if (transp[i] > 0.0f) {
-      this->coinstate.istransparent = TRUE;
+      this->coinstate.istransparent = true;
       break;
     }
   }
@@ -1009,14 +1009,14 @@ SoLazyElement::setShininessElt(float value)
 }
 
 void
-SoLazyElement::setColorMaterialElt(SbBool COIN_UNUSED_ARG(value))
+SoLazyElement::setColorMaterialElt(bool COIN_UNUSED_ARG(value))
 {
 }
 
 void
 SoLazyElement::enableBlendingElt(int sfactor, int dfactor, int alpha_sfactor, int alpha_dfactor)
 {
-  this->coinstate.blending = TRUE;
+  this->coinstate.blending = true;
   this->coinstate.blend_sfactor = sfactor;
   this->coinstate.blend_dfactor = dfactor;
   this->coinstate.alpha_blend_sfactor = alpha_sfactor;
@@ -1026,7 +1026,7 @@ SoLazyElement::enableBlendingElt(int sfactor, int dfactor, int alpha_sfactor, in
 void
 SoLazyElement::disableBlendingElt(void)
 {
-  this->coinstate.blending = FALSE;
+  this->coinstate.blending = false;
 }
 
 void
@@ -1045,13 +1045,13 @@ SoLazyElement::setMaterialElt(SoNode * node, uint32_t bitmask,
                               const SbColor & emissive,
                               const SbColor & specular,
                               const float shininess,
-                              const SbBool istransparent)
+                              const bool istransparent)
 {
   if (bitmask & DIFFUSE_MASK) {
     this->coinstate.diffusenodeid = get_diffuse_node_id(node, numdiffuse, diffuse);
     this->coinstate.diffusearray = diffuse;
     this->coinstate.numdiffuse = numdiffuse;
-    this->coinstate.packeddiffuse = FALSE;
+    this->coinstate.packeddiffuse = false;
   }
   if (bitmask & TRANSPARENCY_MASK) {
     this->coinstate.transpnodeid = get_transp_node_id(node, numtransp, transp);
@@ -1061,7 +1061,7 @@ SoLazyElement::setMaterialElt(SoNode * node, uint32_t bitmask,
     // check for common case
     if (numtransp == 1 && transp[0] == 0.0f) {
       this->coinstate.transpnodeid = 0;
-      this->coinstate.istransparent = FALSE;
+      this->coinstate.istransparent = false;
     }
     else {
       this->coinstate.istransparent = istransparent;
@@ -1088,19 +1088,19 @@ SoLazyElement::setVertexOrderingElt(VertexOrdering ordering)
 }
 
 void
-SoLazyElement::setBackfaceCullingElt(SbBool onoff)
+SoLazyElement::setBackfaceCullingElt(bool onoff)
 {
   this->coinstate.culling = onoff;
 }
 
 void
-SoLazyElement::setTwosideLightingElt(SbBool onoff)
+SoLazyElement::setTwosideLightingElt(bool onoff)
 {
   this->coinstate.twoside = onoff;
 }
 
 void
-SoLazyElement::setShadeModelElt(SbBool flatshading)
+SoLazyElement::setShadeModelElt(bool flatshading)
 {
   this->coinstate.flatshading = flatshading;
 }

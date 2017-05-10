@@ -187,19 +187,19 @@ SoCone::GLRender(SoGLRenderAction * action)
 
   SoState * state = action->getState();
 
-  SbBool doTextures = FALSE;
-  SbBool do3DTextures = FALSE;
+  bool doTextures = false;
+  bool do3DTextures = false;
   if (SoGLMultiTextureEnabledElement::get(state, 0)) {
-    doTextures = TRUE;
+    doTextures = true;
     if (SoGLMultiTextureEnabledElement::getMode(state,0) ==
         SoMultiTextureEnabledElement::TEXTURE3D) {
-      do3DTextures = TRUE;
+      do3DTextures = true;
     }
   }
   SoCone::Part p = (SoCone::Part) this->parts.getValue();
 
   SoMaterialBundle mb(action);
-  SbBool sendNormals = !mb.isColorOnly() || 
+  bool sendNormals = !mb.isColorOnly() || 
     (SoMultiTextureCoordinateElement::getType(state, 0) == SoMultiTextureCoordinateElement::FUNCTION);
 
   unsigned int flags = 0;
@@ -267,15 +267,15 @@ SoCone::removePart(SoCone::Part part)
 }
 
 /*!
-  Returns \c TRUE if rendering of the given \a part is currently
+  Returns \c true if rendering of the given \a part is currently
   turned on.
 
   \sa addPart(), removePart()
 */
-SbBool
+bool
 SoCone::hasPart(SoCone::Part part) const
 {
-  return (this->parts.getValue() & part) ? TRUE : FALSE;
+  return (this->parts.getValue() & part) ? true : false;
 }
 
 // Doc from parent.

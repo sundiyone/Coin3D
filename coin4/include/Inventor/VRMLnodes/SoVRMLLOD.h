@@ -46,7 +46,7 @@ public:
   SoSFVec3f center;
   SoMFNode level;
 
-  virtual SbBool affectsState(void) const;
+  virtual bool affectsState(void) const;
 
   void addLevel(SoNode * level);
   void insertLevel(SoNode * level, int idx);
@@ -89,8 +89,8 @@ protected:
   virtual ~SoVRMLLOD();
 
   virtual void notify(SoNotList * list);
-  virtual SbBool readInstance(SoInput * in, unsigned short flags);
-  virtual void copyContents(const SoFieldContainer * from, SbBool copyConn);
+  virtual bool readInstance(SoInput * in, unsigned short flags);
+  virtual void copyContents(const SoFieldContainer * from, bool copyConn);
 
   virtual int whichToTraverse(SoAction * action);
 

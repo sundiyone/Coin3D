@@ -32,10 +32,10 @@ class COIN_DLL_API SbSphereSectionProjector : public SbSphereProjector {
 
 public:
   SbSphereSectionProjector(const float edgetol = 0.9f,
-                           const SbBool orienttoeye = TRUE);
+                           const bool orienttoeye = true);
   SbSphereSectionProjector(const SbSphere & sph,
                            const float edgetol = 0.9f,
-                           const SbBool orienttoeye = TRUE);
+                           const bool orienttoeye = true);
 
   virtual SbProjector * copy(void) const;
   virtual SbVec3f project(const SbVec2f & point);
@@ -45,7 +45,7 @@ public:
   float getTolerance(void) const;
   void setRadialFactor(const float rad = 0.0f);
   float getRadialFactor(void) const;
-  SbBool isWithinTolerance(const SbVec3f & point);
+  bool isWithinTolerance(const SbVec3f & point);
 
 protected:
   virtual void setupTolerance(void);

@@ -54,7 +54,7 @@ public:
   virtual void setSrcAttribute(const char * src);
   const char * getSrcAttribute(void) const { return this->src; }
 
-  virtual SbBool handleXMLAttributes(void);
+  virtual bool handleXMLAttributes(void);
 
   virtual void copyContents(const ScXMLElt * rhs);
 
@@ -109,7 +109,7 @@ public:
   virtual void setDataModel(ScXMLDataModelElt * datamodel);
   virtual ScXMLDataModelElt * getDataModel(void) const;
 
-  SbBool isAtomicState(void) const;
+  bool isAtomicState(void) const;
 
 protected:
   char * src;

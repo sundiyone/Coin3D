@@ -113,7 +113,7 @@ SoVectorizeActionP::SoVectorizeActionP(SoVectorizeAction * p)
   this->orientation = SoVectorizeAction::PORTRAIT;
 
   this->background.color = SbColor(1.0f, 1.0f, 1.0f);
-  this->background.on = FALSE;
+  this->background.on = false;
 
   this->nominalwidth = 0.35f;
   this->pixelimagesize = 0.35f;
@@ -161,7 +161,7 @@ SoVectorizeActionP::reset(void)
 void 
 SoVectorizeActionP::add_point(vertexdata * vd, SoState * state)
 {
-  SbBool dophong = this->phong;
+  bool dophong = this->phong;
   // if there are no normals on the state we fall back to BASE_COLOR
   // lighting model
   if (dophong) dophong = SoNormalElement::getInstance(state)->getNum() > 0;
@@ -214,7 +214,7 @@ SoVectorizeActionP::add_line(vertexdata * vd0, vertexdata * vd1, SoState * state
   vd[1] = vd1;
   SbVec3f v[2];
 
-  SbBool dophong = this->phong;
+  bool dophong = this->phong;
   // if there are no normals on the state we fall back to BASE_COLOR
   // lighting model
   if (dophong) dophong = SoNormalElement::getInstance(state)->getNum() > 0;
@@ -654,17 +654,17 @@ SoVectorizeActionP::pre_shape_cb(void * userdata,
 
   SoShapeHintsElement::get(state, vo, st, ft);
 
-  thisp->ccw = TRUE;
-  thisp->docull = FALSE;
-  thisp->twoside = FALSE;
+  thisp->ccw = true;
+  thisp->docull = false;
+  thisp->twoside = false;
 
-  if (vo == SoShapeHintsElement::CLOCKWISE) thisp->ccw = FALSE;
-
-  if (vo != SoShapeHintsElement::UNKNOWN_ORDERING &&
-      st == SoShapeHintsElement::SOLID) thisp->docull = TRUE;
+  if (vo == SoShapeHintsElement::CLOCKWISE) thisp->ccw = false;
 
   if (vo != SoShapeHintsElement::UNKNOWN_ORDERING &&
-      st != SoShapeHintsElement::SOLID) thisp->twoside = TRUE;
+      st == SoShapeHintsElement::SOLID) thisp->docull = true;
+
+  if (vo != SoShapeHintsElement::UNKNOWN_ORDERING &&
+      st != SoShapeHintsElement::SOLID) thisp->twoside = true;
 
   thisp->phong = SoLightModelElement::get(state) == SoLightModelElement::PHONG;
 
@@ -679,7 +679,7 @@ SoVectorizeActionP::pre_shape_cb(void * userdata,
     SbVec3f center;
     shape->computeBBox(action, bbox, center);
   }
-  if (SoCullElement::cullBox(state, bbox, TRUE)) {
+  if (SoCullElement::cullBox(state, bbox, true)) {
     return SoCallbackAction::PRUNE;
   }
   thisp->completelyinside = SoCullElement::completelyInside(state);
@@ -698,7 +698,7 @@ SoVectorizeActionP::pre_shape_cb(void * userdata,
     SbMatrix toobj = SoModelMatrixElement::get(state).inverse();
   
     for (int i = 0; i < celem->getNum(); i++) {
-      SbPlane plane = celem->get(i, TRUE);
+      SbPlane plane = celem->get(i, true);
       plane.transform(toobj);
       thisp->clipplanes.append(plane);
     }
@@ -816,7 +816,7 @@ SoVectorizeActionP::shade_vertex(SoState * state,
   float dist, tmp, att, dot, dot_spot, dot_spec;
   float lR, lB, lG;
 
-  SbBool dotwoside = this->twoside;
+  bool dotwoside = this->twoside;
 
   if (vnormal == SbVec3f(0.0f, 0.0f, 0.0f)) return vcolor;
   this->shapetovrc.multDirMatrix(vnormal, n);
@@ -838,7 +838,7 @@ SoVectorizeActionP::shade_vertex(SoState * state,
   // calculate contribution from all lights
   for (int i = 0; i < lights.getLength(); i++) {
     SoLight * l = (SoLight*) lights[i];
-    if (l->on.getValue() == FALSE) continue;
+    if (l->on.getValue() == false) continue;
 
     const SbMatrix & lighttoworld = SoLightElement::getMatrix(state, i);
 
@@ -1126,19 +1126,19 @@ SoVectorizeActionP::create_vertexdata(const SoPointDetail * pd, SoState * state)
 }
 
 //
-// Clip a line. Might modify v0 or v1. Returns TRUE if inside plane.
+// Clip a line. Might modify v0 or v1. Returns true if inside plane.
 //
-SbBool 
+bool 
 SoVectorizeActionP::clip_line(vertexdata * v0, vertexdata * v1, const SbPlane & plane)
 {
   float d0 = plane.getDistance(v0->point);
   float d1 = plane.getDistance(v1->point);
   
   if (d0 < 0.0f && d1 <= 0.0f) {
-    return FALSE; // outside plane
+    return false; // outside plane
   }
   if (d0 >= 0.0f && d1 >= 0.0f) {
-    return TRUE; // both inside
+    return true; // both inside
   }
   const SbVec3f & planeN = plane.getNormal();
   SbVec3f dir = v1->point - v0->point;
@@ -1154,7 +1154,7 @@ SoVectorizeActionP::clip_line(vertexdata * v0, vertexdata * v1, const SbPlane & 
   else { // d1 < 0.0f
     calc_new_vertexdata(v1, newvertex, v0, v1);
   }
-  return TRUE;
+  return true;
 }
 
 #undef PUBLIC

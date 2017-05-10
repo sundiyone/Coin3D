@@ -40,7 +40,7 @@ SoGLARBShaderObject::~SoGLARBShaderObject()
 {
 }
 
-SbBool
+bool
 SoGLARBShaderObject::isLoaded(void) const
 {
   return cc_glglue_glIsProgram(this->glctx, this->arbProgramID);

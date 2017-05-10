@@ -36,8 +36,8 @@
 
   \verbatim
   SphereSensor {
-    exposedField SFBool     autoOffset        TRUE
-    exposedField SFBool     enabled           TRUE
+    exposedField SFBool     autoOffset        true
+    exposedField SFBool     enabled           true
     exposedField SFRotation offset            0 1 0 0  # [-1,1],(-,)
     eventOut     SFBool     isActive
     eventOut     SFRotation rotation_changed
@@ -51,11 +51,11 @@
   to generate events.
 
   The \e enabled exposed field enables and disables the SphereSensor
-  node. If \e enabled is TRUE, the sensor reacts appropriately to user
-  events. If \e enabled is FALSE, the sensor does not track user input
-  or send events. If \e enabled receives a FALSE event and \e isActive
-  is TRUE, the sensor becomes disabled and deactivated, and outputs an \e isActive
-  FALSE event. If \e enabled receives a TRUE event the sensor is enabled
+  node. If \e enabled is true, the sensor reacts appropriately to user
+  events. If \e enabled is false, the sensor does not track user input
+  or send events. If \e enabled receives a false event and \e isActive
+  is true, the sensor becomes disabled and deactivated, and outputs an \e isActive
+  false event. If \e enabled receives a true event the sensor is enabled
   and ready for user activation.
   
   The SphereSensor node generates events when the pointing device is activated
@@ -65,7 +65,7 @@
   for details on using the pointing device to activate the SphereSensor.
 
   Upon activation of the pointing device (e.g., mouse button down)
-  over the sensor's geometry, an \e isActive TRUE event is sent. The
+  over the sensor's geometry, an \e isActive true event is sent. The
   vector defined by the initial point of intersection on the
   SphereSensor's geometry and the local origin determines the radius
   of the sphere that is used to map subsequent pointing device motion
@@ -79,20 +79,20 @@
   original intersection point plus the offset
   value. trackPoint_changed events reflect the unclamped drag position
   on the surface of this sphere.  When the pointing device is
-  deactivated and autoOffset is TRUE, offset is set to the last
+  deactivated and autoOffset is true, offset is set to the last
   rotation_changed value and an offset_changed event is generated. See
   4.6.7.4, Drag sensors
   (<http://www.web3d.org/x3d/specifications/vrml/ISO-IEC-14772-VRML97/part1/concepts.html#4.6.7.4>),
   for more details.
 
-  When the sensor generates an \e isActive TRUE event, it grabs all
+  When the sensor generates an \e isActive true event, it grabs all
   further motion events from the pointing device until it is released
-  and generates an isActive FALSE event (other pointing-device sensors
+  and generates an isActive false event (other pointing-device sensors
   shall not generate events during this time). Motion of the pointing
-  device while isActive is TRUE is termed a "drag". If a 2D pointing
+  device while isActive is true is termed a "drag". If a 2D pointing
   device is in use, isActive events will typically reflect the state
   of the primary button associated with the device (i.e., isActive is
-  TRUE when the primary button is pressed and FALSE when it is
+  true when the primary button is pressed and false when it is
   released).  If a 3D pointing device (e.g., wand) is in use, isActive
   events will typically reflect whether the pointer is within (or in
   contact with) the sensor's geometry.
@@ -105,7 +105,7 @@
   (e.g., clamp all values to the sphere or continue to rotate as the
   point is dragged away from the sphere).
 
-  Each movement of the pointing device while \e isActive is TRUE
+  Each movement of the pointing device while \e isActive is true
   generates \e trackPoint_changed and \e rotation_changed events.  Further
   information about this behaviour can be found in 4.6.7.3
   (<http://www.web3d.org/x3d/specifications/vrml/ISO-IEC-14772-VRML97/part1/concepts.html#4.6.7.3>),
@@ -167,12 +167,12 @@ SoVRMLSphereSensor::~SoVRMLSphereSensor()
 }
 
 // Doc in parent
-SbBool
+bool
 SoVRMLSphereSensor::dragStart(void)
 {
   SbVec3f thehitpt = this->getLocalStartingPoint();
   float radius = thehitpt.length();
-  if (radius == 0.0f) return FALSE;
+  if (radius == 0.0f) return false;
 
   this->sphereproj->setSphere(SbSphere(SbVec3f(0.0f, 0.0f, 0.0f), radius));
   this->sphereproj->setViewVolume(this->getViewVolume());
@@ -181,7 +181,7 @@ SoVRMLSphereSensor::dragStart(void)
   this->prevrotation = SbRotation::identity();
   this->rotation_changed = this->offset.getValue();
 
-  return TRUE;
+  return true;
 }
 
 // Doc in parent

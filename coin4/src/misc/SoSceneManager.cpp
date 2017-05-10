@@ -122,15 +122,15 @@ SoSceneManager::~SoSceneManager()
 /*!
   Render the scene graph.
 
-  If \a clearwindow is \c TRUE, clear the rendering buffer before
-  drawing. If \a clearzbuffer is \c TRUE, clear the depth buffer
+  If \a clearwindow is \c true, clear the rendering buffer before
+  drawing. If \a clearzbuffer is \c true, clear the depth buffer
   values before rendering. Both of these arguments should normally be
-  \c TRUE, but they can be set to \c FALSE to optimize for special
+  \c true, but they can be set to \c false to optimize for special
   cases (e.g. when doing wireframe rendering one doesn't need a depth
   buffer).
  */
 void
-SoSceneManager::render(const SbBool clearwindow, const SbBool clearzbuffer)
+SoSceneManager::render(const bool clearwindow, const bool clearzbuffer)
 {
   PRIVATE(this)->rendermanager->render(clearwindow, clearzbuffer);
 }
@@ -142,12 +142,12 @@ SoSceneManager::render(const SbBool clearwindow, const SbBool clearzbuffer)
   enables you to supply your own thread-specific SoGLRenderAction to
   be used for rendering the scene.
 
-  If \a initmatrices is \c TRUE, the OpenGL model and projection
+  If \a initmatrices is \c true, the OpenGL model and projection
   matrices will be initialized to identity matrices before applying
   the action.
 
-  If \a clearwindow is \c TRUE, clear the rendering buffer before
-  drawing. If \a clearzbuffer is \c TRUE, clear the depth buffer
+  If \a clearwindow is \c true, clear the rendering buffer before
+  drawing. If \a clearzbuffer is \c true, clear the depth buffer
   values before rendering.
 
   \COIN_FUNCTION_EXTENSION
@@ -156,9 +156,9 @@ SoSceneManager::render(const SbBool clearwindow, const SbBool clearzbuffer)
  */
 void
 SoSceneManager::render(SoGLRenderAction * action,
-                       const SbBool initmatrices,
-                       const SbBool clearwindow,
-                       const SbBool clearzbuffer)
+                       const bool initmatrices,
+                       const bool clearwindow,
+                       const bool clearzbuffer)
 {
   PRIVATE(this)->rendermanager->render(action, initmatrices, clearwindow, clearzbuffer);
 }
@@ -167,7 +167,7 @@ SoSceneManager::render(SoGLRenderAction * action,
   Process the given event by applying an SoHandleEventAction on the
   scene graph.
  */
-SbBool
+bool
 SoSceneManager::processEvent(const SoEvent * const event)
 {
   return PRIVATE(this)->eventmanager->processEvent(event);
@@ -444,7 +444,7 @@ SoSceneManager::getBackgroundIndex(void) const
   colorindex mode will be used instead.
 */
 void
-SoSceneManager::setRGBMode(const SbBool yes)
+SoSceneManager::setRGBMode(const bool yes)
 {
   PRIVATE(this)->rendermanager->setRGBMode(yes);
 }
@@ -452,7 +452,7 @@ SoSceneManager::setRGBMode(const SbBool yes)
 /*!
   Returns the "truecolor or colorindex" mode flag.
  */
-SbBool
+bool
 SoSceneManager::isRGBMode(void) const
 {
   return PRIVATE(this)->rendermanager->isRGBMode();
@@ -491,13 +491,13 @@ SoSceneManager::setRenderCallback(SoSceneManagerRenderCB * f,
 }
 
 /*!
-  Returns \c TRUE if the SoSceneManager automatically redraws the
+  Returns \c true if the SoSceneManager automatically redraws the
   scene upon detecting changes in the scene graph.
 
   The automatic redraw is turned on and off by setting either a valid
   callback function with setRenderCallback(), or by passing \c NULL.
  */
-SbBool
+bool
 SoSceneManager::isAutoRedraw(void) const
 {
   return PRIVATE(this)->rendermanager->isAutoRedraw();
@@ -532,7 +532,7 @@ SoSceneManager::getRedrawPriority(void) const
   SoGLRenderAction::setNumPasses().
  */
 void
-SoSceneManager::setAntialiasing(const SbBool smoothing, const int numpasses)
+SoSceneManager::setAntialiasing(const bool smoothing, const int numpasses)
 {
   PRIVATE(this)->rendermanager->setAntialiasing(smoothing, numpasses);
 }
@@ -543,7 +543,7 @@ SoSceneManager::setAntialiasing(const SbBool smoothing, const int numpasses)
   \sa setAntialiasing()
  */
 void
-SoSceneManager::getAntialiasing(SbBool & smoothing, int & numpasses) const
+SoSceneManager::getAntialiasing(bool & smoothing, int & numpasses) const
 {
   PRIVATE(this)->rendermanager->getAntialiasing(smoothing, numpasses);
 }
@@ -626,7 +626,7 @@ SoSceneManager::getDefaultRedrawPriority(void)
   \sa SoDB::setRealTimeInterval()
  */
 void
-SoSceneManager::enableRealTimeUpdate(const SbBool flag)
+SoSceneManager::enableRealTimeUpdate(const bool flag)
 {
   SoRenderManager::enableRealTimeUpdate(flag);
 }
@@ -635,7 +635,7 @@ SoSceneManager::enableRealTimeUpdate(const SbBool flag)
   Returns whether or not we automatically notifies everything
   connected to the \c realTime field after a redraw.
  */
-SbBool
+bool
 SoSceneManager::isRealTimeUpdateEnabled(void)
 {
   return SoRenderManager::isRealTimeUpdateEnabled();

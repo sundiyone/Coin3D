@@ -216,7 +216,7 @@ SoCylinder::GLRender(SoGLRenderAction * action)
   SoMaterialBundle mb(action);
   mb.sendFirst();
 
-  SbBool sendNormals = !mb.isColorOnly() ||
+  bool sendNormals = !mb.isColorOnly() ||
     (SoMultiTextureCoordinateElement::getType(state) == SoMultiTextureCoordinateElement::FUNCTION);
 
   unsigned int flags = 0;
@@ -287,15 +287,15 @@ SoCylinder::removePart(SoCylinder::Part part)
 }
 
 /*!
-  Returns \c TRUE if rendering of the given \a part is currently
+  Returns \c true if rendering of the given \a part is currently
   turned on.
 
   \sa addPart(), removePart()
 */
-SbBool
+bool
 SoCylinder::hasPart(SoCylinder::Part part) const
 {
-  return (this->parts.getValue() & part) ? TRUE : FALSE;
+  return (this->parts.getValue() & part) ? true : false;
 }
 
 // Doc in parent.

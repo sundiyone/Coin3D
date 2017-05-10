@@ -42,7 +42,7 @@ public:
 
   virtual void apply(SoNode * root);
   virtual void apply(SoPath * path);
-  virtual void apply(const SoPathList & pathlist, SbBool obeysrules = FALSE);
+  virtual void apply(const SoPathList & pathlist, bool obeysrules = false);
 
 protected:
   virtual void beginTraversal(SoNode * node);

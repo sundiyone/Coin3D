@@ -162,7 +162,7 @@ SbTri3f::operator = (const SbTri3f & t)
 
 // *************************************************************************
 
-SbBool
+bool
 SbTri3f::intersect(const SbTri3f & t) const
 {
   // FIXME: remove all "programming logic" error messages and asserts from
@@ -187,7 +187,7 @@ SbTri3f::intersect(const SbTri3f & t) const
   if (plane1.getNormal() == plane2.getNormal()) {
     // fprintf(stderr, "normals are equal\n");
     if (plane1.getDistanceFromOrigin() != plane2.getDistanceFromOrigin())
-      return FALSE; // parallel planes
+      return false; // parallel planes
     // we work around coplanar intersection testing by making it a case of
     // biplanar intersection testing.
 
@@ -214,25 +214,25 @@ SbTri3f::intersect(const SbTri3f & t) const
     case 1:
       break;
     case 2:
-      do { SbVec3f temp(a1); a1 = b1; b1 = c1; c1 = temp; } while (FALSE);
+      do { SbVec3f temp(a1); a1 = b1; b1 = c1; c1 = temp; } while (false);
       break;
     case 3:
-      do { SbVec3f temp(a1); a1 = c1; c1 = b1; b1 = temp; } while (FALSE);
+      do { SbVec3f temp(a1); a1 = c1; c1 = b1; b1 = temp; } while (false);
       break;
     case 4:
-      do { SbVec3f temp(a1); a1 = a2; a2 = temp; } while (FALSE);
-      do { SbVec3f temp(b1); b1 = b2; b2 = temp; } while (FALSE);
-      do { SbVec3f temp(c1); c1 = c2; c2 = temp; } while (FALSE);
+      do { SbVec3f temp(a1); a1 = a2; a2 = temp; } while (false);
+      do { SbVec3f temp(b1); b1 = b2; b2 = temp; } while (false);
+      do { SbVec3f temp(c1); c1 = c2; c2 = temp; } while (false);
       break;
     case 5:
-      do { SbVec3f temp(a1); a1 = b2; b2 = temp; } while (FALSE);
-      do { SbVec3f temp(b1); b1 = c2; c2 = temp; } while (FALSE);
-      do { SbVec3f temp(c1); c1 = a2; a2 = temp; } while (FALSE);
+      do { SbVec3f temp(a1); a1 = b2; b2 = temp; } while (false);
+      do { SbVec3f temp(b1); b1 = c2; c2 = temp; } while (false);
+      do { SbVec3f temp(c1); c1 = a2; a2 = temp; } while (false);
       break;
     case 6:
-      do { SbVec3f temp(a1); a1 = c2; c2 = temp; } while (FALSE);
-      do { SbVec3f temp(b1); b1 = a2; a2 = temp; } while (FALSE);
-      do { SbVec3f temp(c1); c1 = b2; b2 = temp; } while (FALSE);
+      do { SbVec3f temp(a1); a1 = c2; c2 = temp; } while (false);
+      do { SbVec3f temp(b1); b1 = a2; a2 = temp; } while (false);
+      do { SbVec3f temp(c1); c1 = b2; b2 = temp; } while (false);
       break;
     }
     vertex = 1;
@@ -248,10 +248,10 @@ SbTri3f::intersect(const SbTri3f & t) const
     case 1:
       break;
     case 2:
-      do { SbVec3f temp(a2); a2 = b2; b2 = b2; c2 = temp; } while (FALSE);
+      do { SbVec3f temp(a2); a2 = b2; b2 = b2; c2 = temp; } while (false);
       break;
     case 3:
-      do { SbVec3f temp(a2); a2 = c2; c2 = b2; b2 = temp; } while (FALSE);
+      do { SbVec3f temp(a2); a2 = c2; c2 = b2; b2 = temp; } while (false);
       break;
     }
 
@@ -269,24 +269,24 @@ SbTri3f::intersect(const SbTri3f & t) const
 
   // set up point a on one side, and b and c on the other
 
-  const SbBool a1hs = plane2.isInHalfSpace(a1);
-  const SbBool b1hs = plane2.isInHalfSpace(b1);
-  const SbBool c1hs = plane2.isInHalfSpace(c1);
+  const bool a1hs = plane2.isInHalfSpace(a1);
+  const bool b1hs = plane2.isInHalfSpace(b1);
+  const bool c1hs = plane2.isInHalfSpace(c1);
   if ((a1hs == b1hs) && (a1hs == c1hs)) {
     // no intersection
-    return FALSE;
+    return false;
   } else if (a1hs == c1hs) { // b is in other halfspace
     SbVec3f temp(a1); a1 = b1; b1 = c1; c1 = temp;
   } else if (a1hs == b1hs) { // c is in other halfspace
     SbVec3f temp(a1); a1 = c1; c1 = b1; b1 = temp;
   }
 
-  const SbBool a2hs = plane1.isInHalfSpace(a2);
-  const SbBool b2hs = plane1.isInHalfSpace(b2);
-  const SbBool c2hs = plane1.isInHalfSpace(c2);
+  const bool a2hs = plane1.isInHalfSpace(a2);
+  const bool b2hs = plane1.isInHalfSpace(b2);
+  const bool c2hs = plane1.isInHalfSpace(c2);
   if ((a2hs == b2hs) && (a2hs == c2hs)) {
     // no intersection
-    return FALSE;
+    return false;
   } else if (a2hs == c2hs) { // b is in other halfspace
     SbVec3f temp(a2); a2 = b2; b2 = c2; c2 = temp;
   } else if (a2hs == b2hs) { // c is in other halfspace
@@ -307,7 +307,7 @@ SbTri3f::intersect(const SbTri3f & t) const
       SoDebugError::post("-", "SbVec3f c2(%g, %g, %g);", c2[0], c2[1], c2[2]);
       assert(0);
     }
-    return FALSE;
+    return false;
   }
   if (!plane2.intersect(SbLine(a1, c1), p12)) {
     // should never happen
@@ -321,7 +321,7 @@ SbTri3f::intersect(const SbTri3f & t) const
       SoDebugError::post("-", "SbVec3f c2(%g, %g, %g);", c2[0], c2[1], c2[2]);
       assert(0);
     }
-    return FALSE;
+    return false;
   }
 
   SbVec3f p21, p22;
@@ -329,7 +329,7 @@ SbTri3f::intersect(const SbTri3f & t) const
     // should never happen
     // but since it does, it means something
     // possibly that a2 and b2 are in plane1, and halfspace values were wrong in
-    // some way.  we should either return FALSE or set p21 to something
+    // some way.  we should either return false or set p21 to something
     if (SBTRI_DEBUG) {
       SoDebugError::post("SbTri3f::intersect", "programming logic error 3");
       SoDebugError::post("-", "SbVec3f a1(%g, %g, %g);", a1[0], a1[1], a1[2]);
@@ -340,7 +340,7 @@ SbTri3f::intersect(const SbTri3f & t) const
       SoDebugError::post("-", "SbVec3f c2(%g, %g, %g);", c2[0], c2[1], c2[2]);
       assert(0);
     }
-    return FALSE;
+    return false;
   }
   if (!plane1.intersect(SbLine(a2, c2), p22)) {
     // should never happen
@@ -354,7 +354,7 @@ SbTri3f::intersect(const SbTri3f & t) const
       SoDebugError::post("-", "SbVec3f c2(%g, %g, %g);", c2[0], c2[1], c2[2]);
       assert(0);
     }
-    return FALSE;
+    return false;
   }
 
   // find end point of the four (the one furtest from origo would be an end point)
@@ -399,17 +399,17 @@ SbTri3f::intersect(const SbTri3f & t) const
     assert(0);
   }
   float pedistance = (e - p).sqrLength();
-  if (pedistance > (p1-p).sqrLength()) return TRUE;
-  if (pedistance > (p2-p).sqrLength()) return TRUE;
-  return FALSE;
+  if (pedistance > (p1-p).sqrLength()) return true;
+  if (pedistance > (p2-p).sqrLength()) return true;
+  return false;
 }
 
-SbBool
+bool
 SbTri3f::intersect(const SbTri3f & t, float e) const
 {
   if (e == 0.0f) return this->intersect(t);
-  if (this->getDistance(t) <= e) return TRUE;
-  return FALSE;
+  if (this->getDistance(t) <= e) return true;
+  return false;
 }
 
 SbVec3f
@@ -450,7 +450,7 @@ SbTri3f::getDistance(const SbVec3f & p) const
     }
   }
   else {
-    assert(FALSE);
+    assert(false);
   }
   return dist;
 }
@@ -505,7 +505,7 @@ SbTri3f::getDistance(const SbVec3f & p1, const SbVec3f & p2) const
   SbVec3f kN = edge0.cross(edge1);
   float fNSqrLen = kN.sqrLength();
   float fDot = (p2-p1).dot(kN);
-  SbBool bNotParallel = (fDot*fDot >= gs_fTolerance*fA00*fNSqrLen);
+  bool bNotParallel = (fDot*fDot >= gs_fTolerance*fA00*fNSqrLen);
 
   if (bNotParallel) {
     float fCof00 = fA11*fA22-fA12*fA12;

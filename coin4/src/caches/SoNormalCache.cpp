@@ -121,8 +121,8 @@ SoNormalCache::set(const int num, const SbVec3f * const normals)
   this->clearGenerator();
   PRIVATE(this)->numNormals = num;
   PRIVATE(this)->normalData.normals = normals;
-  PRIVATE(this)->indices.truncate(0, TRUE);
-  PRIVATE(this)->normalArray.truncate(0, TRUE);
+  PRIVATE(this)->indices.truncate(0, true);
+  PRIVATE(this)->normalArray.truncate(0, true);
 }
 
 /*!
@@ -133,8 +133,8 @@ void
 SoNormalCache::set(SoNormalGenerator * generator)
 {
   this->clearGenerator();
-  PRIVATE(this)->indices.truncate(0, TRUE);
-  PRIVATE(this)->normalArray.truncate(0, TRUE);
+  PRIVATE(this)->indices.truncate(0, true);
+  PRIVATE(this)->normalArray.truncate(0, true);
   PRIVATE(this)->numNormals = 0;
   PRIVATE(this)->normalData.generator = generator;
 }
@@ -228,7 +228,7 @@ calc_normal_vec(const SbVec3f * facenormals, const int facenum,
   Generates normals for each vertex for each face. It is possible to
   specify face normals if these have been calculated somewhere else,
   otherwise the face normals will be calculated before the vertex
-  normals are calculated. \a tristrip should be \c TRUE if the
+  normals are calculated. \a tristrip should be \c true if the
   geometry consists of triangle strips.
 */
 void
@@ -239,8 +239,8 @@ SoNormalCache::generatePerVertex(const SbVec3f * const coords,
                                  const float crease_angle,
                                  const SbVec3f * facenormals,
                                  const int numfacenormals,
-                                 const SbBool ccw,
-                                 const SbBool tristrip)
+                                 const bool ccw,
+                                 const bool tristrip)
 {
 #if NORMALCACHE_DEBUG && COIN_DEBUG
   SoDebugError::postInfo("SoNormalCache::generatePerVertex", "generating normals");
@@ -352,7 +352,7 @@ SoNormalCache::generatePerVertex(const SbVec3f * const coords,
   }
 
   float threshold = static_cast<float>(cos(SbClamp(crease_angle, 0.0f, static_cast<float>(M_PI))));
-  SbBool found;
+  bool found;
   int currindex = 0; // current normal index
   int nindex = 0;
   int j, n ;
@@ -394,7 +394,7 @@ SoNormalCache::generatePerVertex(const SbVec3f * const coords,
 
       // try to find equal normal (total smoothing)
       SbList <int32_t> & array = vertexNormalArray[currindex];
-      found = FALSE;
+      found = false;
       n = array.getLength();
       int same_normal = -1;
       for (j = 0; j < n && !found; j++) {
@@ -444,7 +444,7 @@ SoNormalCache::generatePerFace(const SbVec3f * const coords,
                                const unsigned int numcoords,
                                const int32_t * cind,
                                const int nv,
-                               const SbBool ccw)
+                               const bool ccw)
 {
 #if NORMALCACHE_DEBUG && COIN_DEBUG
     SoDebugError::postInfo("SoNormalCache::generatePerFace", "generating normals");
@@ -452,7 +452,7 @@ SoNormalCache::generatePerFace(const SbVec3f * const coords,
 
   this->clearGenerator();
   PRIVATE(this)->indices.truncate(0);
-  PRIVATE(this)->normalArray.truncate(0, TRUE);
+  PRIVATE(this)->normalArray.truncate(0, true);
 
   const int32_t * cstart = cind;
   const int32_t * endptr = cind + nv;
@@ -599,7 +599,7 @@ SoNormalCache::generatePerFaceStrip(const SbVec3f * const coords,
                                     const unsigned int numcoords,
                                     const int32_t * cind,
                                     const int nv,
-                                    const SbBool ccw)
+                                    const bool ccw)
 {
 #if NORMALCACHE_DEBUG && COIN_DEBUG
   SoDebugError::postInfo("SoNormalCache::generatePerFaceStrip", "generating normals");
@@ -607,7 +607,7 @@ SoNormalCache::generatePerFaceStrip(const SbVec3f * const coords,
 
   this->clearGenerator();
   PRIVATE(this)->indices.truncate(0);
-  PRIVATE(this)->normalArray.truncate(0, TRUE);
+  PRIVATE(this)->normalArray.truncate(0, true);
 
   const int32_t * cstart = cind;
   const int32_t * endptr = cind + nv;
@@ -615,7 +615,7 @@ SoNormalCache::generatePerFaceStrip(const SbVec3f * const coords,
   const SbVec3f * c0, * c1, * c2;
   SbVec3f n;
 
-  SbBool flip = ccw;
+  bool flip = ccw;
 
   const int maxcoordidx = numcoords - 1;
 
@@ -758,7 +758,7 @@ SoNormalCache::generatePerStrip(const SbVec3f * const coords,
                                 const unsigned int numcoords,
                                 const int32_t * cind,
                                 const int nv,
-                                const SbBool ccw)
+                                const bool ccw)
 {
 #if NORMALCACHE_DEBUG && COIN_DEBUG
   SoDebugError::postInfo("SoNormalCache::generatePerStrip", "generating normals");
@@ -766,7 +766,7 @@ SoNormalCache::generatePerStrip(const SbVec3f * const coords,
 
   this->clearGenerator();
   PRIVATE(this)->indices.truncate(0);
-  PRIVATE(this)->normalArray.truncate(0, TRUE);
+  PRIVATE(this)->normalArray.truncate(0, true);
 
   const int32_t * cstart = cind;
   const int32_t * endptr = cind + nv;
@@ -774,7 +774,7 @@ SoNormalCache::generatePerStrip(const SbVec3f * const coords,
   const SbVec3f * c0, * c1, * c2;
   SbVec3f n;
 
-  SbBool flip = ccw;
+  bool flip = ccw;
 
   const int maxcoordidx = numcoords - 1;
 
@@ -895,14 +895,14 @@ SoNormalCache::generatePerVertexQuad(const SbVec3f * const coords,
                                      const unsigned int numcoords,
                                      const int vPerRow,
                                      const int vPerColumn,
-                                     const SbBool ccw)
+                                     const bool ccw)
 {
 #if NORMALCACHE_DEBUG && COIN_DEBUG
   SoDebugError::postInfo("SoNormalCache::generatePerVertexQuad", "generating normals");
 #endif
 
   this->clearGenerator();
-  PRIVATE(this)->normalArray.truncate(0, TRUE);
+  PRIVATE(this)->normalArray.truncate(0, true);
   // avoid reallocations in growable array by setting the buffer size first
   PRIVATE(this)->normalArray.ensureCapacity(vPerRow * vPerColumn);
 
@@ -962,14 +962,14 @@ SoNormalCache::generatePerFaceQuad(const SbVec3f * const coords,
                                    const unsigned int numcoords,
                                    const int vPerRow,
                                    const int vPerColumn,
-                                   const SbBool ccw)
+                                   const bool ccw)
 {
 #if NORMALCACHE_DEBUG && COIN_DEBUG
   SoDebugError::postInfo("SoNormalCache::generatePerFaceQuad", "generating normals");
 #endif
 
   this->clearGenerator();
-  PRIVATE(this)->normalArray.truncate(0, TRUE);
+  PRIVATE(this)->normalArray.truncate(0, true);
   // avoid reallocations in growable array by setting the buffer size first
   PRIVATE(this)->normalArray.ensureCapacity((vPerRow-1)*(vPerColumn-1));
   
@@ -1048,14 +1048,14 @@ SoNormalCache::generatePerRowQuad(const SbVec3f * const coords,
                                   const unsigned int numcoords,
                                   const int vPerRow,
                                   const int vPerColumn,
-                                  const SbBool ccw)
+                                  const bool ccw)
 {
 #if NORMALCACHE_DEBUG && COIN_DEBUG
   SoDebugError::postInfo("SoNormalCache::generatePerRowQuad", "generating normals");
 #endif
 
   this->clearGenerator();
-  PRIVATE(this)->normalArray.truncate(0, TRUE);
+  PRIVATE(this)->normalArray.truncate(0, true);
   SbVec3f n;
 
 #if COIN_DEBUG

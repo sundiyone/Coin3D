@@ -92,8 +92,8 @@ public:
   SoFieldSensor * fieldsensor;
   SoSeparator * connectedseparator;
 
-  void connectFields(const SbBool onoff);
-  void attachSensor(const SbBool onoff);
+  void connectFields(const bool onoff);
+  void attachSensor(const bool onoff);
 
   static void sensorCB(void *, SoSensor *);
 
@@ -159,13 +159,13 @@ SoSeparatorKit::SoSeparatorKit(void)
 
   // Note: we must use "" instead of , , to humour MS VisualC++ 6.
 
-  SO_KIT_ADD_CATALOG_ENTRY(topSeparator, SoSeparator, TRUE, this, "", FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(pickStyle, SoPickStyle, TRUE, topSeparator, appearance, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(appearance, SoAppearanceKit, TRUE, topSeparator, units, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(units, SoUnits, TRUE, topSeparator, transform, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(transform, SoTransform, TRUE, topSeparator, texture2Transform, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(texture2Transform, SoTexture2Transform, TRUE, topSeparator, childList, TRUE);
-  SO_KIT_ADD_CATALOG_LIST_ENTRY(childList, SoSeparator, TRUE, topSeparator, "", SoShapeKit, TRUE);
+  SO_KIT_ADD_CATALOG_ENTRY(topSeparator, SoSeparator, true, this, "", false);
+  SO_KIT_ADD_CATALOG_ENTRY(pickStyle, SoPickStyle, true, topSeparator, appearance, true);
+  SO_KIT_ADD_CATALOG_ENTRY(appearance, SoAppearanceKit, true, topSeparator, units, true);
+  SO_KIT_ADD_CATALOG_ENTRY(units, SoUnits, true, topSeparator, transform, true);
+  SO_KIT_ADD_CATALOG_ENTRY(transform, SoTransform, true, topSeparator, texture2Transform, true);
+  SO_KIT_ADD_CATALOG_ENTRY(texture2Transform, SoTexture2Transform, true, topSeparator, childList, true);
+  SO_KIT_ADD_CATALOG_LIST_ENTRY(childList, SoSeparator, true, topSeparator, "", SoShapeKit, true);
   SO_KIT_ADD_LIST_ITEM_TYPE(childList, SoSeparatorKit);
 
   PRIVATE(this)->connectedseparator = NULL;
@@ -174,7 +174,7 @@ SoSeparatorKit::SoSeparatorKit(void)
 
   SO_KIT_INIT_INSTANCE();
 
-  this->setUpConnections(TRUE, TRUE);
+  this->setUpConnections(true, true);
 }
 
 /*!
@@ -182,7 +182,7 @@ SoSeparatorKit::SoSeparatorKit(void)
 */
 SoSeparatorKit::~SoSeparatorKit()
 {
-  PRIVATE(this)->connectFields(FALSE);
+  PRIVATE(this)->connectFields(false);
   delete PRIVATE(this)->fieldsensor;
   delete PRIVATE(this);
 }
@@ -201,25 +201,25 @@ SoSeparatorKit::initClass(void)
 void
 SoSeparatorKit::setDefaultOnNonWritingFields(void)
 {
-  this->topSeparator.setDefault(TRUE);
+  this->topSeparator.setDefault(true);
   inherited::setDefaultOnNonWritingFields();
 }
 
-SbBool
-SoSeparatorKit::setUpConnections(SbBool onoff, SbBool doitalways)
+bool
+SoSeparatorKit::setUpConnections(bool onoff, bool doitalways)
 {
   if (onoff == this->connectionsSetUp && !doitalways)
     return onoff;
 
   if (onoff) {
-    inherited::setUpConnections(onoff, FALSE);
-    PRIVATE(this)->connectFields(TRUE);
-    PRIVATE(this)->attachSensor(TRUE);
+    inherited::setUpConnections(onoff, false);
+    PRIVATE(this)->connectFields(true);
+    PRIVATE(this)->attachSensor(true);
   }
   else {
-    PRIVATE(this)->attachSensor(FALSE);
-    PRIVATE(this)->connectFields(FALSE);
-    inherited::setUpConnections(onoff, FALSE);
+    PRIVATE(this)->attachSensor(false);
+    PRIVATE(this)->connectFields(false);
+    inherited::setUpConnections(onoff, false);
   }
   return !(this->connectionsSetUp = onoff);
 }
@@ -234,7 +234,7 @@ SoSeparatorKit::setUpConnections(SbBool onoff, SbBool doitalways)
 // connect fields in topSeparator to the fields in this node.
 //
 void
-SoSeparatorKitP::connectFields(const SbBool onoff)
+SoSeparatorKitP::connectFields(const bool onoff)
 {
   if (this->connectedseparator) { // always disconnect
     this->connectedseparator->renderCaching.disconnect();
@@ -261,7 +261,7 @@ SoSeparatorKitP::connectFields(const SbBool onoff)
 // attach sensor to topSeparator if onoff, detach otherwise
 //
 void
-SoSeparatorKitP::attachSensor(const SbBool onoff)
+SoSeparatorKitP::attachSensor(const bool onoff)
 {
   if (onoff) {
     if (this->fieldsensor->getAttachedField() != &this->kit->topSeparator) {
@@ -281,7 +281,7 @@ SoSeparatorKitP::sensorCB(void * data, SoSensor *)
 {
   SoSeparatorKitP * thisp = (SoSeparatorKitP*) data;
   if (thisp->connectedseparator != thisp->kit->topSeparator.getValue()) {
-    thisp->connectFields(TRUE);
+    thisp->connectFields(true);
   }
 }
 

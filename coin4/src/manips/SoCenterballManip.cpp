@@ -79,7 +79,7 @@ SoCenterballManip::SoCenterballManip(void)
   SoCenterballDragger * dragger = new SoCenterballDragger;
   this->setDragger(dragger);
 
-  SoSurroundScale * ss = (SoSurroundScale*) dragger->getPart("surroundScale", TRUE);
+  SoSurroundScale * ss = (SoSurroundScale*) dragger->getPart("surroundScale", true);
   ss->numNodesUpToContainer = 4;
   ss->numNodesUpToReset = 3;
 

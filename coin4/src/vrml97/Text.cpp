@@ -69,8 +69,8 @@
   as measured in the local coordinate system. If the text string with
   the maximum length is shorter than the maxExtent, then there is no
   compressing. The maximum extent is measured horizontally for
-  horizontal text (FontStyle node: horizontal=TRUE) and vertically for
-  vertical text (FontStyle node: horizontal=FALSE). The maxExtent
+  horizontal text (FontStyle node: horizontal=true) and vertically for
+  vertical text (FontStyle node: horizontal=false). The maxExtent
   field shall be greater than or equal to zero.
 
   The length field contains an MFFloat value that specifies the length
@@ -161,9 +161,9 @@ public:
 
   int justificationmajor;
   int justificationminor;
-  SbBool lefttorighttext;
-  SbBool toptobottomtext;
-  SbBool horizontaltext;
+  bool lefttorighttext;
+  bool toptobottomtext;
+  bool horizontaltext;
   float textspacing;
   float textsize;
   float maxglyphheight;
@@ -228,9 +228,9 @@ SoVRMLText::SoVRMLText(void)
   PRIVATE(this)->textspacing = 1.0f;
   PRIVATE(this)->maxglyphheight = 1.0f;
   PRIVATE(this)->maxglyphwidth = 1.0f;
-  PRIVATE(this)->lefttorighttext = TRUE;
-  PRIVATE(this)->toptobottomtext = TRUE;
-  PRIVATE(this)->horizontaltext = TRUE;
+  PRIVATE(this)->lefttorighttext = true;
+  PRIVATE(this)->toptobottomtext = true;
+  PRIVATE(this)->horizontaltext = true;
   PRIVATE(this)->justificationmajor = SoAsciiText::LEFT;
   PRIVATE(this)->justificationminor = SoAsciiText::LEFT;
   
@@ -278,21 +278,21 @@ SoVRMLText::GLRender(SoGLRenderAction * action)
   SoMaterialBundle mb(action);
   mb.sendFirst();
 
-  SbBool do2Dtextures = FALSE;
-  SbBool do3Dtextures = FALSE;
+  bool do2Dtextures = false;
+  bool do3Dtextures = false;
   if (SoGLMultiTextureEnabledElement::get(state)) {
-    do2Dtextures = TRUE;
+    do2Dtextures = true;
     if (SoGLMultiTextureEnabledElement::getMode(state) ==
         SoGLMultiTextureEnabledElement::TEXTURE3D) {
-      do3Dtextures = TRUE;
+      do3Dtextures = true;
     }
   }
   // FIXME: implement proper support for 3D-texturing, and get rid of
   // this. 20020120 mortene.
   if (do3Dtextures) {
-    static SbBool first = TRUE;
+    static bool first = true;
     if (first) {
-      first = FALSE;
+      first = false;
       SoDebugError::postWarning("SoVRMLText::GLRender",
                                 "3D-textures not properly supported for this node type yet.");
     }
@@ -754,16 +754,16 @@ SoVRMLText::generatePrimitives(SoAction * action)
   int i, n = this->string.getNum();
   const float spacing = PRIVATE(this)->textspacing * PRIVATE(this)->textsize;
 
-  SbBool do2Dtextures = FALSE;
-  SbBool do3Dtextures = FALSE;
-  if (SoMultiTextureEnabledElement::get(action->getState())) do2Dtextures = TRUE;
+  bool do2Dtextures = false;
+  bool do3Dtextures = false;
+  if (SoMultiTextureEnabledElement::get(action->getState())) do2Dtextures = true;
   
   // FIXME: implement proper support for 3D-texturing, and get rid of
   // this. 20020120 mortene.
   if (do3Dtextures) {
-    static SbBool first = TRUE;
+    static bool first = true;
     if (first) {
-      first = FALSE;
+      first = false;
       SoDebugError::postWarning("SoVRMLText::generatePrimitives",
                                 "3D-textures not properly supported for this node type yet.");
     }
@@ -977,9 +977,9 @@ SoVRMLTextP::updateFontStyle(void)
   // the defaults
   this->textsize = 1.0f;
   this->textspacing = 1.0f;
-  this->lefttorighttext = TRUE;
-  this->toptobottomtext = TRUE;
-  this->horizontaltext = TRUE;
+  this->lefttorighttext = true;
+  this->toptobottomtext = true;
+  this->horizontaltext = true;
   this->justificationmajor = SoAsciiText::LEFT;
   this->justificationminor = SoAsciiText::LEFT;
   this->fontfamily = SoVRMLFontStyle::SERIF;
@@ -1058,7 +1058,7 @@ SoVRMLTextP::setUpGlyphs(SoState * state, SoVRMLText * textnode)
   SoGlyphCache * oldcache = this->cache;
 
   state->push();
-  SbBool storedinvalid = SoCacheElement::setInvalid(FALSE);
+  bool storedinvalid = SoCacheElement::setInvalid(false);
   this->cache = new SoGlyphCache(state); 
   this->cache->ref();
   SoCacheElement::set(state, this->cache);

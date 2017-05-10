@@ -42,7 +42,7 @@ public:
   SoMFInt32 numVertices;
 
   virtual void GLRender(SoGLRenderAction * action);
-  virtual SbBool generateDefaultNormals(SoState * state, SoNormalBundle * nb);
+  virtual bool generateDefaultNormals(SoState * state, SoNormalBundle * nb);
   virtual void getPrimitiveCount(SoGetPrimitiveCountAction * action);
 
 protected:
@@ -50,7 +50,7 @@ protected:
 
   virtual void generatePrimitives(SoAction * action);
   virtual void computeBBox(SoAction * action, SbBox3f & box, SbVec3f & center);
-  virtual SbBool generateDefaultNormals(SoState *, SoNormalCache *);
+  virtual bool generateDefaultNormals(SoState *, SoNormalCache *);
 
 private:
   enum Binding {
@@ -61,7 +61,7 @@ private:
 
   Binding findMaterialBinding(SoState * const state) const;
   Binding findNormalBinding(SoState * const state) const;
-  SbBool useConvexCache(SoAction * action);
+  bool useConvexCache(SoAction * action);
   virtual void notify(SoNotList * list);
 
   SoFaceSetP * pimpl;

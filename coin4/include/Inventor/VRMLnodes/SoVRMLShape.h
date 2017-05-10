@@ -53,7 +53,7 @@ public:
   static void setNumRenderCaches(int num);
   static int getNumRenderCaches(void);
 
-  virtual SbBool affectsState(void) const;
+  virtual bool affectsState(void) const;
 
   virtual void doAction(SoAction * action);
   virtual void callback(SoCallbackAction * action);
@@ -67,7 +67,7 @@ public:
   virtual SoChildList * getChildren(void) const;
 
   virtual void notify(SoNotList * list);
-  virtual void copyContents(const SoFieldContainer * from, SbBool copyConn);
+  virtual void copyContents(const SoFieldContainer * from, bool copyConn);
 
 protected:
   virtual ~SoVRMLShape();

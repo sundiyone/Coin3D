@@ -273,7 +273,7 @@ SoWWWAnchor::setHighlightURLCallBack(SoWWWAnchorCB * f, void * userData)
   SoWWWAnchor::setHighlightURLCallBack().
 */
 void
-SoWWWAnchor::redrawHighlighted(SoAction * act, SbBool isNowHighlighting)
+SoWWWAnchor::redrawHighlighted(SoAction * act, bool isNowHighlighting)
 {
   inherited::redrawHighlighted(act, isNowHighlighting);
 

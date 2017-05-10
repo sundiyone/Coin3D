@@ -80,9 +80,9 @@ SoCameraKit::SoCameraKit(void)
 
   // Note: we must use "" instead of , , to humour MS VisualC++ 6.
 
-  SO_KIT_ADD_CATALOG_ENTRY(transformGroup, SoTransformSeparator, TRUE, this, "", FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(transform, SoTransform, TRUE, transformGroup, camera, TRUE);
-  SO_KIT_ADD_CATALOG_ABSTRACT_ENTRY(camera, SoCamera, SoPerspectiveCamera, FALSE, transformGroup, "", TRUE);
+  SO_KIT_ADD_CATALOG_ENTRY(transformGroup, SoTransformSeparator, true, this, "", false);
+  SO_KIT_ADD_CATALOG_ENTRY(transform, SoTransform, true, transformGroup, camera, true);
+  SO_KIT_ADD_CATALOG_ABSTRACT_ENTRY(camera, SoCamera, SoPerspectiveCamera, false, transformGroup, "", true);
 
   SO_KIT_INIT_INSTANCE();
 }

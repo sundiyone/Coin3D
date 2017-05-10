@@ -40,7 +40,7 @@
 using std::malloc;
 #endif // !COIN_WORKAROUND_NO_USING_STD_FUNCS
 
-static SbBool glyph2d_specmatch(const cc_font_specification * spec1, const cc_font_specification * spec2);
+static bool glyph2d_specmatch(const cc_font_specification * spec1, const cc_font_specification * spec2);
 
 struct cc_glyph2d {
   struct cc_glyph c; /* "c" for "common" glyph data (2d & 3d). */
@@ -54,11 +54,11 @@ struct cc_glyph2d {
   short bitmapoffsetx;
   short bitmapoffsety;
   unsigned char * bitmap;
-  SbBool mono;
+  bool mono;
 };
 
 static cc_dict * glyph2d_fonthash = NULL;
-static SbBool glyph2d_initialized = FALSE;
+static bool glyph2d_initialized = false;
 
 /*
   Mutex lock for the static ang global font hash
@@ -88,7 +88,7 @@ cc_glyph2d_cleanup(void)
   CC_MUTEX_DESTRUCT(glyph2d_fonthash_lock);
   cc_dict_destruct(glyph2d_fonthash);
   glyph2d_fonthash = NULL;
-  glyph2d_initialized = FALSE;
+  glyph2d_initialized = false;
 }
 
 static void
@@ -101,7 +101,7 @@ cc_glyph2d_initialize()
     GLYPH2D_MUTEX_UNLOCK(glyph2d_fonthash_lock);
     return;
   }
-  glyph2d_initialized = TRUE;
+  glyph2d_initialized = true;
   
   glyph2d_fonthash = cc_dict_construct(15, 0.75);
 
@@ -234,7 +234,7 @@ cc_glyph2d_unref(cc_glyph2d * glyph)
   cc_glyph_unref(glyph2d_fonthash, &(glyph->c), NULL);
 }
 
-static SbBool 
+static bool 
 glyph2d_specmatch(const cc_font_specification * spec1, 
                   const cc_font_specification * spec2)
 {
@@ -245,9 +245,9 @@ glyph2d_specmatch(const cc_font_specification * spec1,
       (!cc_string_compare(&spec1->style, &spec2->style)) &&
       (spec1->size == spec2->size)) {
     /* No need to compare complexity for 2D fonts */
-    return TRUE;
+    return true;
   }
-  else return FALSE;
+  else return false;
   
 }
 
@@ -280,7 +280,7 @@ cc_glyph2d_getbitmap(const cc_glyph2d * g, int * size, int * offset)
   return g->bitmap;
 }
 
-SbBool 
+bool 
 cc_glyph2d_getmono(const cc_glyph2d * g)
 {
   return g->mono;

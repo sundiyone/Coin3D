@@ -108,7 +108,7 @@ SoGLPolygonOffsetElement::pop(SoState * COIN_UNUSED_ARG(stateptr), const SoEleme
 
 void
 SoGLPolygonOffsetElement::setElt(float factor, float units,
-                                 Style styles, SbBool on)
+                                 Style styles, bool on)
 {
   if (on != this->active ||
       styles != this->style ||
@@ -130,12 +130,12 @@ SoGLPolygonOffsetElement::updategl(void)
 {
   const cc_glglue * w = sogl_glue_instance(this->state);
   if (!SoGLDriverDatabase::isSupported(w, SO_GL_POLYGON_OFFSET)) {
-    static SbBool first = TRUE;
+    static bool first = true;
     if (first) {
       SoDebugError::postWarning("SoGLPolygonOffsetElement::updategl",
                                 "OpenGL driver doesn't support z-buffer "
                                 "offsetting");
-      first = FALSE;
+      first = false;
     }
     return;
   }
@@ -146,12 +146,12 @@ SoGLPolygonOffsetElement::updategl(void)
     styles |= (this->style & FILLED) ? cc_glglue_FILLED : 0;
     styles |= (this->style & LINES) ? cc_glglue_LINES : 0;
     styles |= (this->style & POINTS) ? cc_glglue_POINTS : 0;
-    cc_glglue_glPolygonOffsetEnable(w, TRUE, styles);
+    cc_glglue_glPolygonOffsetEnable(w, true, styles);
 
     cc_glglue_glPolygonOffset(w, this->offsetfactor, this->offsetunits);
   }
   else { // ! active
     int all = cc_glglue_FILLED | cc_glglue_LINES | cc_glglue_POINTS;
-    cc_glglue_glPolygonOffsetEnable(w, FALSE, all);
+    cc_glglue_glPolygonOffsetEnable(w, false, all);
   }
 }

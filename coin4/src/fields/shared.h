@@ -55,8 +55,8 @@ class SoOutput;
 
 // *************************************************************************
 
-SbBool sosfbool_read_value(SoInput * in, SbBool & val);
-void sosfbool_write_value(SoOutput * out, SbBool val);
+bool sosfbool_read_value(SoInput * in, bool & val);
+void sosfbool_write_value(SoOutput * out, bool val);
 
 void sosffloat_write_value(SoOutput * out, float val);
 void sosfdouble_write_value(SoOutput * out, double val);
@@ -66,15 +66,15 @@ void sosfstring_write_value(const SoField * f, SoOutput * out,
 
 void sosfmatrix_write_value(SoOutput * out, const SbMatrix & m);
 
-SbBool sosfplane_read_value(SoInput * in, SbPlane & p);
+bool sosfplane_read_value(SoInput * in, SbPlane & p);
 void sosfplane_write_value(SoOutput * out, const SbPlane & p);
 
-SbBool sosfrotation_read_value(SoInput * in, SbRotation & r);
+bool sosfrotation_read_value(SoInput * in, SbRotation & r);
 void sosfrotation_write_value(SoOutput * out, const SbRotation & r);
 
 void sosfshort_write_value(SoOutput * out, short val);
 
-SbBool sosftime_read_value(SoInput * in, SbTime & t);
+bool sosftime_read_value(SoInput * in, SbTime & t);
 void sosftime_write_value(SoOutput * out, const SbTime & p);
 
 void sosfuint32_write_value(SoOutput * out, uint32_t val);
@@ -86,7 +86,7 @@ void sosfvec2i32_write_value(SoOutput * out, const SbVec2i32 & v);
 void sosfvec2f_write_value(SoOutput * out, const SbVec2f & v);
 void sosfvec2d_write_value(SoOutput * out, const SbVec2d & v);
 
-SbBool sosfvec3d_read_value(SoInput * in, SbVec3d & v);
+bool sosfvec3d_read_value(SoInput * in, SbVec3d & v);
 void sosfvec3b_write_value(SoOutput * out, SbVec3b v);
 void sosfvec3s_write_value(SoOutput * out, const SbVec3s & v);
 void sosfvec3i32_write_value(SoOutput * out, const SbVec3i32 & v);

@@ -128,12 +128,12 @@ SoShadowCulling::GLRender(SoGLRenderAction * action)
                                SoShapeHintsElement::UNKNOWN_ORDERING,
                                SoShapeHintsElement::UNKNOWN_SHAPE_TYPE,
                                SoShapeHintsElement::UNKNOWN_FACE_TYPE);
-      SoOverrideElement::setShapeHintsOverride(state, NULL, TRUE);
+      SoOverrideElement::setShapeHintsOverride(state, NULL, true);
     }
     else {
       // FIXME: need to restore the previous ShapeHints settings in some way,
       // or require that this node is used only inside a separator
-      SoOverrideElement::setShapeHintsOverride(state, NULL, FALSE);
+      SoOverrideElement::setShapeHintsOverride(state, NULL, false);
     }
   }
 }

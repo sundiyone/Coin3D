@@ -106,7 +106,7 @@
   VRMLViewpoint).  If the url field is specified in the form
   "#ViewpointName" (i.e. no file name), the Viewpoint node with the
   given name ("ViewpointName") in the Anchor's run-time name scope(s)
-  shall be bound (set_bind TRUE).  The results are undefined if there
+  shall be bound (set_bind true).  The results are undefined if there
   are multiple Viewpoints with the same name in the Anchor's run-time
   name scope(s). The results are undefined if the Anchor node is not
   part of any run-time name scope or is part of more than one run-time

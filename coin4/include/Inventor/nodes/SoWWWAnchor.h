@@ -64,7 +64,7 @@ public:
 
 protected:
   virtual ~SoWWWAnchor();
-  virtual void redrawHighlighted(SoAction * act, SbBool isNowHighlighting);
+  virtual void redrawHighlighted(SoAction * act, bool isNowHighlighting);
 
 private:
   SoWWWAnchorP * pimpl;

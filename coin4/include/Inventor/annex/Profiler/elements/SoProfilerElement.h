@@ -40,7 +40,7 @@ public:
 
   static SoProfilerElement * get(SoState * state);
 
-  virtual SbBool matches(const SoElement * element) const;
+  virtual bool matches(const SoElement * element) const;
   virtual SoElement * copyMatchInfo(void) const;
 
   SbProfilingData & getProfilingData(void);

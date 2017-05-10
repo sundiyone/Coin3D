@@ -76,9 +76,9 @@
   yourself hard to find bugs:
 
   \code
-  SbList<SbBool> flags(2); // Assume we need only 2 elements. Note
+  SbList<bool> flags(2); // Assume we need only 2 elements. Note
                            // that the list is still 0 elements long.
-  flags[0] = TRUE;         // Ouch. List is still 0 elements long.
+  flags[0] = true;         // Ouch. List is still 0 elements long.
   \endcode
 
   Since this conceptual misunderstanding is so easy to make, you're
@@ -225,16 +225,16 @@
 */
 
 /*!
-  \fn SbBool SbList<Type>::operator==(const SbList<Type> & l) const
+  \fn bool SbList<Type>::operator==(const SbList<Type> & l) const
 
-  Equality operator. Returns \c TRUE if this list and \a l are
+  Equality operator. Returns \c true if this list and \a l are
   identical, containing the exact same set of elements.
 */
 
 /*!
-  \fn SbBool SbList<Type>::operator!=(const SbList<Type> & l) const
+  \fn bool SbList<Type>::operator!=(const SbList<Type> & l) const
 
-  Inequality operator. Returns \c TRUE if this list and \a l are not
+  Inequality operator. Returns \c true if this list and \a l are not
   equal.
 */
 

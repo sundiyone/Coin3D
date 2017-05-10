@@ -2064,9 +2064,9 @@ void stl_yyfree (void * ptr )
 
 
 
-#ifndef FALSE
-#define FALSE 0
-#define TRUE (!FALSE)
+#ifndef false
+#define false 0
+#define true (!false)
 #endif
 
 /* ********************************************************************** */
@@ -2074,39 +2074,39 @@ void stl_yyfree (void * ptr )
 
 #define STL_SCAN_TO_REAL(strptr) \
   do { \
-    int roll = TRUE; \
+    int roll = true; \
     while ( roll ) { \
       switch ( *strptr ) { \
       case '\0': \
-        return FALSE; \
+        return false; \
       case '0': case '1': case '2': case '3': case '4': \
       case '5': case '6': case '7': case '8': case '9': \
       case '-': case '+': case '.': \
-        roll = FALSE; \
+        roll = false; \
         break; \
       default: \
         strptr++; \
         break; \
       } \
     } \
-  } while ( FALSE )
+  } while ( false )
 
 #define STL_SCAN_TO_WHITESPACE(strptr) \
   do { \
-    int roll = TRUE; \
+    int roll = true; \
     while ( roll ) { \
       switch ( *strptr ) { \
       case '\0': \
-        return FALSE; \
+        return false; \
       case ' ': case '\t': \
-        roll = FALSE; \
+        roll = false; \
         break; \
       default: \
         strptr++; \
         break; \
       } \
     } \
-  } while ( FALSE )
+  } while ( false )
 
 int
 stl_parse_real_triple(char * text, stl_real * a, stl_real * b, stl_real * c)
@@ -2123,7 +2123,7 @@ stl_parse_real_triple(char * text, stl_real * a, stl_real * b, stl_real * c)
   if ( a ) *a = (stl_real) strtod(real1, NULL);
   if ( b ) *b = (stl_real) strtod(real2, NULL);
   if ( c ) *c = (stl_real) strtod(real3, NULL);
-  return TRUE;
+  return true;
 }
 
 static
@@ -2138,9 +2138,9 @@ stl_host_is_bigendian(void)
     } data;
     data.word = 0x01;
     if ( data.bytes[3] == 0x01 )
-      retval = TRUE;
+      retval = true;
     else
-      retval = FALSE;
+      retval = false;
   }
   return retval;
 }
@@ -2273,7 +2273,7 @@ stl_writer_put_binary_facet(stl_writer * writer, stl_facet * COIN_UNUSED_ARG(fac
   writeok &= fwrite(&data.bytes, 2, 1, writer->file);
   /* fprintf(stderr, "  color : 0x%04x\n", reader->facet->color); */
 
-  return TRUE;
+  return true;
 }
 
 /* ********************************************************************** */
@@ -2383,8 +2383,8 @@ stl_steel_abi_age(void)
 }
 
 /* @stl_steel_abi_supported@
-This function returns TRUE if the requested ABI version is supported and
-FALSE otherwise.
+This function returns true if the requested ABI version is supported and
+false otherwise.
  */
 
 int
@@ -2392,11 +2392,11 @@ stl_steel_abi_supported(int version, int revision)
 {
   if ( (version < STL_STEEL_ABI_VERSION) &&
        (version >= (STL_STEEL_ABI_VERSION - STL_STEEL_ABI_AGE)) )
-    return TRUE;
+    return true;
   if ( (version == STL_STEEL_ABI_VERSION) &&
        (revision <= STL_STEEL_ABI_REVISION) )
-    return TRUE;
-  return FALSE;
+    return true;
+  return false;
 }
 
 /* ********************************************************************** */
@@ -2670,7 +2670,7 @@ stl_reader_create(const char * filename)
     readok &= !fseek(reader->file, 84, SEEK_SET); /* position of first facet */
     reader->pending = STL_INIT_INFO;
     return reader;
-  } while ( FALSE );
+  } while ( false );
 
   /* now try ascii stl */
   do {
@@ -2686,7 +2686,7 @@ stl_reader_create(const char * filename)
     stl_yyrestart(reader->file);
     reader->pending = STL_NO_PENDING;
     return reader;
-  } while ( FALSE );
+  } while ( false );
 
   /* the file is not an stl file */
   (void)fclose(reader->file);

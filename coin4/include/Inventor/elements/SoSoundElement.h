@@ -38,21 +38,21 @@ protected:
 public:
   virtual void init(SoState * state);
   static void set(SoState * const state, SoNode * const node,
-                  SbBool scenegraphhassoundnode, 
-                  SbBool soundnodeisplaying,
-                  SbBool ispartofactivescenegraph);
+                  bool scenegraphhassoundnode, 
+                  bool soundnodeisplaying,
+                  bool ispartofactivescenegraph);
 
-  static SbBool setSceneGraphHasSoundNode(SoState * const state, SoNode * const node,
-                                          SbBool flag);
-  static SbBool sceneGraphHasSoundNode(SoState * const state);
+  static bool setSceneGraphHasSoundNode(SoState * const state, SoNode * const node,
+                                          bool flag);
+  static bool sceneGraphHasSoundNode(SoState * const state);
 
-  static SbBool setSoundNodeIsPlaying(SoState * const state, SoNode * const node,
-                                    SbBool flag);
-  static SbBool soundNodeIsPlaying(SoState * const state);
+  static bool setSoundNodeIsPlaying(SoState * const state, SoNode * const node,
+                                    bool flag);
+  static bool soundNodeIsPlaying(SoState * const state);
 
-  static SbBool setIsPartOfActiveSceneGraph(SoState * const state, SoNode * const node,
-                                            SbBool flag);
-  static SbBool isPartOfActiveSceneGraph(SoState * const state);
+  static bool setIsPartOfActiveSceneGraph(SoState * const state, SoNode * const node,
+                                            bool flag);
+  static bool isPartOfActiveSceneGraph(SoState * const state);
 
   virtual void push(SoState * state);
   virtual void pop(SoState * state, const SoElement * prevTopElement);
@@ -62,9 +62,9 @@ public:
 protected:
   void setDefaultValues();
 
-  SbBool scenegraphhassoundnode;
-  SbBool soundnodeisplaying;
-  SbBool ispartofactivescenegraph;
+  bool scenegraphhassoundnode;
+  bool soundnodeisplaying;
+  bool ispartofactivescenegraph;
 };
 
 #endif // !COIN_SOSOUNDELEMENT_H

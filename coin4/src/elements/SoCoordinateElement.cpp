@@ -110,7 +110,7 @@ SoCoordinateElement::init(SoState * state)
   this->numCoords = 1;
   this->coords3D = SoCoordinateElement::initialdefaultcoords;
   this->coords4D = NULL;
-  this->areCoords3D = TRUE;
+  this->areCoords3D = true;
 }
 
 //! FIXME: write doc.
@@ -131,7 +131,7 @@ SoCoordinateElement::set3(SoState * const state,
      );
 
   if (elem) {
-    elem->areCoords3D = TRUE;
+    elem->areCoords3D = true;
     elem->coords3D = coords;
     elem->numCoords = numCoords;
     elem->nodeId = node->getNodeId();
@@ -154,7 +154,7 @@ SoCoordinateElement::set4(SoState * const state,
      SoElement::getElement(state, classStackIndex)
      );
   if (elem) {
-    elem->areCoords3D = FALSE;
+    elem->areCoords3D = false;
     elem->coords4D = coords;
     elem->numCoords = numCoords;
     elem->nodeId = node->getNodeId();
@@ -220,7 +220,7 @@ SoCoordinateElement::getNum(void) const
 //! FIXME: write doc.
 
 //$ EXPORT INLINE
-SbBool
+bool
 SoCoordinateElement::is3D() const
 {
   return this->areCoords3D;
@@ -228,7 +228,7 @@ SoCoordinateElement::is3D() const
 
 /*!
   Returns a pointer to the 3D coordinate array. Don't use this method
-  unless SoCoordinateElement::is3D() returns \c TRUE.
+  unless SoCoordinateElement::is3D() returns \c true.
 
   This method is not part of the original SGI Open Inventor v2.1 API.
 
@@ -250,7 +250,7 @@ SoCoordinateElement::getArrayPtr3() const
 
 /*!
   Returns a pointer to the 4D coordinate array. Don't use this method
-  unless SoCoordinateElement::is3D() returns \c FALSE.
+  unless SoCoordinateElement::is3D() returns \c false.
 
   This method is not part of the original SGI Open Inventor v2.1 API.
 

@@ -134,17 +134,17 @@ SoSphere::GLRender(SoGLRenderAction * action)
   SoMaterialBundle mb(action);
   mb.sendFirst();
 
-  SbBool doTextures = FALSE;
-  SbBool do3DTextures = FALSE;
+  bool doTextures = false;
+  bool do3DTextures = false;
   if (SoGLMultiTextureEnabledElement::get(state, 0)) {
-    doTextures = TRUE;
+    doTextures = true;
     if (SoGLMultiTextureEnabledElement::getMode(state,0) ==
         SoMultiTextureEnabledElement::TEXTURE3D) {
-      do3DTextures = TRUE;
+      do3DTextures = true;
     }
   }
 
-  SbBool sendNormals = !mb.isColorOnly() || 
+  bool sendNormals = !mb.isColorOnly() || 
     (SoMultiTextureCoordinateElement::getType(state) == SoMultiTextureCoordinateElement::FUNCTION);
   
   float complexity = SbClamp(this->getComplexityValue(action), 0.0f, 1.0f);

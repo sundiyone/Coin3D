@@ -193,12 +193,12 @@ public:
     this->bbox.makeEmpty();
   }
 
-  SbBool getQuad(SoState * state, SbVec3f & v0, SbVec3f & v1,
+  bool getQuad(SoState * state, SbVec3f & v0, SbVec3f & v1,
                  SbVec3f & v2, SbVec3f & v3);
   void flushGlyphCache();
   void buildGlyphCache(SoState * state);
-  SbBool shouldBuildGlyphCache(SoState * state);
-  void dumpBuffer(unsigned char * buffer, SbVec2s size, SbVec2s pos, SbBool mono);
+  bool shouldBuildGlyphCache(SoState * state);
+  void dumpBuffer(unsigned char * buffer, SbVec2s size, SbVec2s pos, bool mono);
   void computeBBox(SoAction * action, SbBox3f & box, SbVec3f & center);
 
 
@@ -320,7 +320,7 @@ SoText2::GLRender(SoGLRenderAction * action)
   SbBox3f box;
   SbVec3f center;
   PRIVATE(this)->computeBBox(action, box, center);
-  if (!SoCullElement::cullTest(state, box, TRUE)) {
+  if (!SoCullElement::cullTest(state, box, true)) {
     SoMaterialBundle mb(action);
     mb.sendFirst();
     SbVec3f nilpoint(0.0f, 0.0f, 0.0f);
@@ -372,7 +372,7 @@ SoText2::GLRender(SoGLRenderAction * action)
     glPushAttrib(GL_ENABLE_BIT | GL_PIXEL_MODE_BIT | GL_COLOR_BUFFER_BIT);
     glPushClientAttrib(GL_CLIENT_PIXEL_STORE_BIT);
     
-    SbBool didenableblend = FALSE;
+    bool didenableblend = false;
 
     for (int i = 0; i < nrlines; i++) {
       SbString str = this->string[i];
@@ -435,7 +435,7 @@ SoText2::GLRender(SoGLRenderAction * action)
             if (didenableblend) {
               glDisable(GL_BLEND);
               glDisable(GL_ALPHA_TEST);
-              didenableblend = FALSE;
+              didenableblend = false;
             }
             glBitmap(ix,iy,0,0,0,0,(const GLubyte *)buffer);
           } 
@@ -446,7 +446,7 @@ SoText2::GLRender(SoGLRenderAction * action)
           
               glEnable(GL_BLEND);
               glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-              didenableblend = TRUE;
+              didenableblend = true;
             }
             glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
         
@@ -551,8 +551,8 @@ SoText2::rayPick(SoRayPickAction * action)
 
   SbVec3f isect;
   SbVec3f bary;
-  SbBool front;
-  SbBool hit = action->intersect(v0, v1, v2, isect, bary, front);
+  bool front;
+  bool hit = action->intersect(v0, v1, v2, isect, bary, front);
   if (!hit) hit = action->intersect(v0, v2, v3, isect, bary, front);
 
   if (hit && action->isBetweenPlanes(isect)) {
@@ -660,8 +660,8 @@ SoText2P::flushGlyphCache()
 
 
 // Calculates a quad around the text in 3D.
-//  Return FALSE if the quad is empty.
-SbBool
+//  Return false if the quad is empty.
+bool
 SoText2P::getQuad(SoState * state, SbVec3f & v0, SbVec3f & v1,
                   SbVec3f & v2, SbVec3f & v3)
 {
@@ -672,7 +672,7 @@ SoText2P::getQuad(SoState * state, SbVec3f & v0, SbVec3f & v1,
   
   // FIXME: Why doesn't the SbBox2s have an 'isEmpty()' method as well?
   // (20040308 handegar)
-  if (xmax < xmin) return FALSE;
+  if (xmax < xmin) return false;
   
   SbVec3f nilpoint(0.0f, 0.0f, 0.0f);
   const SbMatrix & mat = SoModelMatrixElement::get(state);
@@ -735,7 +735,7 @@ SoText2P::getQuad(SoState * state, SbVec3f & v0, SbVec3f & v1,
   testbox.extendBy(v1);
   testbox.extendBy(v2);
   testbox.extendBy(v3);
-  if (!vv.intersect(testbox)) return FALSE;
+  if (!vv.intersect(testbox)) return false;
 
   // transform back to object space
   SbMatrix inv = mat.inverse();
@@ -744,12 +744,12 @@ SoText2P::getQuad(SoState * state, SbVec3f & v0, SbVec3f & v1,
   inv.multVecMatrix(v2, v2);
   inv.multVecMatrix(v3, v3);
 
-  return TRUE;
+  return true;
 }
 
 // Debug convenience method.
 void
-SoText2P::dumpBuffer(unsigned char * buffer, SbVec2s size, SbVec2s pos, SbBool mono)
+SoText2P::dumpBuffer(unsigned char * buffer, SbVec2s size, SbVec2s pos, bool mono)
 {
   // FIXME: pure debug method, remove. preng 2003-03-18.
   if (!buffer) {
@@ -782,10 +782,10 @@ SoText2P::dumpBuffer(unsigned char * buffer, SbVec2s size, SbVec2s pos, SbBool m
 // SoFontStyle elements and be marked as invalid when they change
 // (that's what caches are for). pederb, 2003-04-08
 
-SbBool
+bool
 SoText2P::shouldBuildGlyphCache(SoState * state)
 {
-  if (this->cache == NULL) return TRUE;
+  if (this->cache == NULL) return true;
   return !this->cache->isValid(state);
 }
 
@@ -803,7 +803,7 @@ SoText2P::buildGlyphCache(SoState * state)
   SoGlyphCache * oldcache = this->cache;
 
   state->push();
-  SbBool storedinvalid = SoCacheElement::setInvalid(FALSE);
+  bool storedinvalid = SoCacheElement::setInvalid(false);
   this->cache = new SoGlyphCache(state); 
   this->cache->ref();
   SoCacheElement::set(state, this->cache);

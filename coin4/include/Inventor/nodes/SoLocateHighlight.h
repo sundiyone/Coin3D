@@ -60,7 +60,7 @@ public:
 
 protected:
   virtual ~SoLocateHighlight();
-  virtual void redrawHighlighted(SoAction * act, SbBool  flag);
+  virtual void redrawHighlighted(SoAction * act, bool  flag);
 
 private:
 

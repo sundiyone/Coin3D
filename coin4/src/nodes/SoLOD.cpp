@@ -177,7 +177,7 @@ SoLOD::commonConstructor(void)
   this->range.setNum(0);
   // So it's not written in its default state on SoWriteAction
   // traversal.
-  this->range.setDefault(TRUE);
+  this->range.setDefault(true);
 }
 
 /*!

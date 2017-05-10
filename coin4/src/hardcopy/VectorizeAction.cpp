@@ -241,7 +241,7 @@ SoVectorizeAction::apply(SoPath * path)
 
 // doc in parent
 void
-SoVectorizeAction::apply(const SoPathList & pathlist, SbBool obeysrules)
+SoVectorizeAction::apply(const SoPathList & pathlist, bool obeysrules)
 {
   inherited::apply(pathlist, obeysrules);
 }
@@ -376,12 +376,12 @@ SoVectorizeAction::getOrientation(void) const
 }
 
 /*!
-  Sets the background color. If \a bg is \e FALSE, the background will
-  not be cleared before rendering. If \a bg is \e TRUE, the background
+  Sets the background color. If \a bg is \e false, the background will
+  not be cleared before rendering. If \a bg is \e true, the background
   will be cleared to \a col before in beginPage().
 */
 void
-SoVectorizeAction::setBackgroundColor(SbBool bg, const SbColor & col)
+SoVectorizeAction::setBackgroundColor(bool bg, const SbColor & col)
 {
   PRIVATE(this)->background.on = bg;
   PRIVATE(this)->background.color = col;
@@ -389,9 +389,9 @@ SoVectorizeAction::setBackgroundColor(SbBool bg, const SbColor & col)
 
 /*!
   Returns if the background will be cleared or not. When this function
-  returns \e TRUE, \a col will be set to the background color.
+  returns \e true, \a col will be set to the background color.
 */
-SbBool
+bool
 SoVectorizeAction::getBackgroundColor(SbColor & col) const
 {
   col = PRIVATE(this)->background.color;
@@ -779,33 +779,33 @@ SoVectorizeAction::getPenNum(void) const
   Not implemented yet. Provided for TGS OIV compatibility.
 */
 void
-SoVectorizeAction::setColorPriority(SbBool COIN_UNUSED_ARG(priority))
+SoVectorizeAction::setColorPriority(bool COIN_UNUSED_ARG(priority))
 {
 }
 
 /*!
   Not implemented yet. Provided for TGS OIV compatibility.
 */
-SbBool
+bool
 SoVectorizeAction::getColorPriority(void) const
 {
-  return FALSE;
+  return false;
 }
 
 /*!
   Not implemented yet. Provided for TGS OIV compatibility.
 */
 void
-SoVectorizeAction::enableLighting(SbBool COIN_UNUSED_ARG(flag))
+SoVectorizeAction::enableLighting(bool COIN_UNUSED_ARG(flag))
 {
 }
 /*!
   Not implemented yet. Provided for TGS OIV compatibility.
 */
-SbBool
+bool
 SoVectorizeAction::isLightingEnabled(void) const
 {
-  return TRUE;
+  return true;
 }
 
 

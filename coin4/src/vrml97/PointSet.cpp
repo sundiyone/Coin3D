@@ -102,13 +102,13 @@
 #include "rendering/SoGL.h"
 #include "rendering/SoVBO.h"
 
-static SbBool
+static bool
 is_material_per_vertex(SoVRMLPointSet * ps, SoState * state)
 {
   if (SoOverrideElement::getMaterialBindingOverride(state)) {
     if (SoMaterialBindingElement::get(state) !=
-        SoMaterialBindingElement::OVERALL) return TRUE;
-    return FALSE;
+        SoMaterialBindingElement::OVERALL) return true;
+    return false;
   }
   return ps->color.getValue() != NULL;
 }
@@ -155,7 +155,7 @@ SoVRMLPointSet::GLRender(SoGLRenderAction * action)
 
   SoMaterialBundle mb(action);
 
-  SbBool matpervertex = is_material_per_vertex(this, state);
+  bool matpervertex = is_material_per_vertex(this, state);
   if (!matpervertex) {
     const SbColor & col = SoLazyElement::getEmissive(state);
     SbColor4f c(col[0], col[1], col[2], 1.0f);
@@ -171,34 +171,34 @@ SoVRMLPointSet::GLRender(SoGLRenderAction * action)
   const uint32_t contextid = action->getCacheContext();
 
   // no point setting up OpenGL for vertex arrays for fewer than 20 points
-  SbBool dova = 
+  bool dova = 
     SoVBO::shouldRenderAsVertexArrays(state, contextid, numpts) && 
     SoGLDriverDatabase::isSupported(glue, SO_GL_VERTEX_ARRAY);
   
   if (dova && matpervertex) {
     const SoGLVBOElement * vboelem = SoGLVBOElement::getInstance(state);
     if (vboelem->getColorVBO() == NULL) {
-      dova = FALSE;
+      dova = false;
       // we might be able to do VA-rendering, but need to check the
       // diffuse color type first.
       SoGLLazyElement * lelem = (SoGLLazyElement*) SoLazyElement::getInstance(state);
       if (!lelem->isPacked() && lelem->getNumTransparencies() <= 1) {
-        dova = TRUE;
+        dova = true;
       }
     }
   }
-  SbBool didrenderasvbo = FALSE;
+  bool didrenderasvbo = false;
   if (dova) {
-    SbBool vbo = this->startVertexArray(action,
+    bool vbo = this->startVertexArray(action,
                                         coords,
                                         NULL,
-                                        FALSE,
+                                        false,
                                         matpervertex);
     didrenderasvbo = vbo;
     cc_glglue_glDrawArrays(glue, GL_POINTS, 0, numpts);
     this->finishVertexArray(action, vbo,
-                            FALSE,
-                            FALSE,
+                            false,
+                            false,
                             matpervertex);
   }
   else {
@@ -239,7 +239,7 @@ SoVRMLPointSet::generatePrimitives(SoAction * action)
   int matnr = 0;
   int idx = 0;
 
-  SbBool matpervertex = is_material_per_vertex(this, action->getState());
+  bool matpervertex = is_material_per_vertex(this, action->getState());
 
   this->beginShape(action, SoShape::POINTS);
   for (int i = 0; i < numpts; i++) {

@@ -130,10 +130,10 @@ SbCylinder::getRadius(void) const
   Finds the intersection point of the ray \a l on the cylinder where
   the ray enters, and return this point in \a intersection.
 
-  If the ray does not intersect the cylinder, \a FALSE is returned,
-  otherwise we will return \a TRUE.
+  If the ray does not intersect the cylinder, \a false is returned,
+  otherwise we will return \a true.
  */
-SbBool
+bool
 SbCylinder::intersect(const SbLine& l, SbVec3f& intersection) const
 {
   SbVec3f dummy;
@@ -145,10 +145,10 @@ SbCylinder::intersect(const SbLine& l, SbVec3f& intersection) const
   and return these in \a enter and \a exit. If the ray just "grazes"
   the cylinder, the \a enter and \a exit points have equal values.
 
-  If the ray does not intersect the cylinder, \a FALSE is returned,
-  otherwise we will return \a TRUE.
+  If the ray does not intersect the cylinder, \a false is returned,
+  otherwise we will return \a true.
  */
-SbBool
+bool
 SbCylinder::intersect(const SbLine& l, SbVec3f& enter, SbVec3f& exit) const
 {
 #if COIN_DEBUG
@@ -214,17 +214,17 @@ SbCylinder::intersect(const SbLine& l, SbVec3f& enter, SbVec3f& exit) const
       float offset = 14530000; // TODO: find out what define OI uses
       enter = l.getPosition() + -offset*l.getDirection();
       exit = l.getPosition() + offset*l.getDirection();
-      return TRUE;
+      return true;
     }
 
-    return FALSE;
+    return false;
   }
 
   // Check the closest distance from the ray to the cylinder axis. If
   // this distance is larger than the radius of the cylinder, there's
   // of course no intersection.
   float d = static_cast<float>(fabs(cv.dot(n)));
-  if (d > this->radius) return FALSE;
+  if (d > this->radius) return false;
 
   // There's an intersection, now find the parameter for the plane
   // equation.
@@ -244,7 +244,7 @@ SbCylinder::intersect(const SbLine& l, SbVec3f& enter, SbVec3f& exit) const
   enter = l.getPosition() + enterparam * l.getDirection();
   exit = l.getPosition() + exitparam * l.getDirection();
 
-  return TRUE;
+  return true;
 }
 
 /*!

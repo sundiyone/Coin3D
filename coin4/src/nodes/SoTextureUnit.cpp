@@ -147,7 +147,7 @@ SoTextureUnit::GLRender(SoGLRenderAction * action)
   int maxunits = cc_glglue_max_texture_units(glue);
 
   if (this->unit.getValue() >= maxunits) {
-    static SbBool first = TRUE;
+    static bool first = true;
     if (first) {
       SoDebugError::postWarning("SoTextureUnit::GLRender",
                                 "Texture unit %d (counting from 0) requested. "
@@ -157,7 +157,7 @@ SoTextureUnit::GLRender(SoGLRenderAction * action)
                                 "scene graph.)",
                                 this->unit.getValue(), maxunits,
                                 maxunits == 1 ? "" : "s");
-      first = FALSE;
+      first = false;
     }
   }
 }

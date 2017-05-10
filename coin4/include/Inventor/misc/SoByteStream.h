@@ -38,9 +38,9 @@ public:
   SoByteStream(void);
   ~SoByteStream();
 
-  void convert(SoNode * node, SbBool binary = TRUE);
-  void convert(SoPath * path, SbBool binary = TRUE);
-  void convert(SoPathList * pl, SbBool binary = TRUE);
+  void convert(SoNode * node, bool binary = true);
+  void convert(SoPath * path, bool binary = true);
+  void convert(SoPathList * pl, bool binary = true);
 
   void * getData(void);
   uint32_t getNumBytes(void);
@@ -49,7 +49,7 @@ public:
   static SoPathList * unconvert(void * data, uint32_t bytesinstream);
 
   void copy(void * d, size_t len);
-  SbBool isRawData(void) const;
+  bool isRawData(void) const;
 
 private:
   // Placeholder for any data for the instance. Just added for the

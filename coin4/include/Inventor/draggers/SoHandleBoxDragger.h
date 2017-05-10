@@ -123,7 +123,7 @@ public:
 
 protected:
   virtual ~SoHandleBoxDragger(void);
-  virtual SbBool setUpConnections(SbBool onoff, SbBool doitalways = FALSE);
+  virtual bool setUpConnections(bool onoff, bool doitalways = false);
   virtual void setDefaultOnNonWritingFields(void);
 
   static void startCB(void * f, SoDragger * d);
@@ -136,7 +136,7 @@ protected:
   void dragStart(void);
   void drag(void);
   void dragFinish(void);
-  void setAllPartsActive(SbBool onoroff);
+  void setAllPartsActive(bool onoroff);
 
   SoFieldSensor * translFieldSensor;
   SoFieldSensor * scaleFieldSensor;
@@ -150,7 +150,7 @@ private:
   int whatkind;
   int whatnum;
   int constraintState;
-  SbBool ctrlDown;
+  bool ctrlDown;
   SbVec3f worldRestartPt;
   SbVec3f ctrlOffset;
 

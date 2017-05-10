@@ -36,7 +36,7 @@
 /*!
   Constructor.
 */
-SoVertexAttributeBundle::SoVertexAttributeBundle(SoAction * action, SbBool forrendering)
+SoVertexAttributeBundle::SoVertexAttributeBundle(SoAction * action, bool forrendering)
   : SoBundle(action)
 {
   this->elem = SoVertexAttributeElement::getInstance(this->state);
@@ -53,7 +53,7 @@ SoVertexAttributeBundle::~SoVertexAttributeBundle()
 {
 }
 
-SbBool 
+bool 
 SoVertexAttributeBundle::doAttributes(void) const
 {
   return (this->elem->getNumAttributes() > 0);

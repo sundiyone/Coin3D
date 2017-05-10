@@ -241,11 +241,11 @@ ScXMLInvokeElt::setSrcExprAttribute(const char * srcexprstr)
 
 // const char * ScXMLInvokeElt::getSrcExprAttribute(void) const
 
-SbBool
+bool
 ScXMLInvokeElt::handleXMLAttributes(void)
 {
   if (!inherited::handleXMLAttributes()) {
-    return FALSE;
+    return false;
   }
 
   this->setTargetTypeAttribute(this->getXMLAttribute("targettype"));
@@ -253,10 +253,10 @@ ScXMLInvokeElt::handleXMLAttributes(void)
   this->setSrcExprAttribute(this->getXMLAttribute("srcexpr"));
 
   if (!this->targettype) {
-    return FALSE;
+    return false;
   }
 
-  return TRUE;
+  return true;
 }
 
 void

@@ -139,7 +139,7 @@ class SoVRMLShapeP {
 public:
   SoGLCacheList * cachelist;
   SoChildList * childlist;
-  SbBool childlistvalid;
+  bool childlistvalid;
 
 #ifdef COIN_THREADSAFE
   SbMutex childlistmutex;
@@ -199,7 +199,7 @@ SoVRMLShape::SoVRMLShape(void)
   // supply a NULL-pointer as parent, since notifications will be 
   // handled by the fields that actually contain the node(s)
   PRIVATE(this)->childlist = new SoChildList(NULL);
-  PRIVATE(this)->childlistvalid = FALSE;
+  PRIVATE(this)->childlistvalid = false;
   PRIVATE(this)->cachelist = NULL;
 }
 
@@ -222,10 +222,10 @@ SoVRMLShape::getNumRenderCaches(void)
   return sovrmlshape_numrendercaches;
 }
 
-SbBool
+bool
 SoVRMLShape::affectsState(void) const
 {
-  return FALSE;
+  return false;
 }
 
 void
@@ -342,8 +342,8 @@ void
 SoVRMLShape::write(SoWriteAction * action)
 {
   // do not call inherited::write() or SoGroup::write()
-  this->boundingBoxCaching.setDefault(TRUE);
-  this->renderCaching.setDefault(TRUE);
+  this->boundingBoxCaching.setDefault(true);
+  this->renderCaching.setDefault(true);
   inherited::write(action);
 }
 
@@ -375,7 +375,7 @@ SoVRMLShape::getChildren(void) const
     if (!PRIVATE(this)->childlistvalid) {
       SoVRMLShape * thisp = (SoVRMLShape*) this;
       SoVRMLParent::updateChildList(thisp, *(PRIVATE(thisp)->childlist));
-      PRIVATE(thisp)->childlistvalid = TRUE;
+      PRIVATE(thisp)->childlistvalid = true;
     }
     PRIVATE(this)->unlockChildList();
   }
@@ -387,17 +387,17 @@ SoVRMLShape::notify(SoNotList * list)
 {
   SoField * f = list->getLastField();
   if (f && f->getTypeId() == SoSFNode::getClassTypeId()) {
-    PRIVATE(this)->childlistvalid = FALSE;
+    PRIVATE(this)->childlistvalid = false;
   }
   inherited::notify(list);
 }
 
 void
 SoVRMLShape::copyContents(const SoFieldContainer * from,
-                          SbBool copyConn)
+                          bool copyConn)
 {
   inherited::copyContents(from, copyConn);
-  PRIVATE(this)->childlistvalid = FALSE;
+  PRIVATE(this)->childlistvalid = false;
   PRIVATE(this)->childlist->truncate(0);
 }
 

@@ -74,12 +74,12 @@ void glxglue_init(cc_glglue * w)
 void * glxglue_getprocaddress(const cc_glglue * glue, const char * fname) { return NULL; }
 int glxglue_ext_supported(const cc_glglue * w, const char * extension) { return 0; }
 
-void * glxglue_context_create_offscreen(unsigned int width, unsigned int height) { assert(FALSE); return NULL; }
-SbBool glxglue_context_make_current(void * ctx) { assert(FALSE); return FALSE; }
-void glxglue_context_reinstate_previous(void * ctx) { assert(FALSE); }
-void glxglue_context_destruct(void * ctx) { assert(FALSE); }
+void * glxglue_context_create_offscreen(unsigned int width, unsigned int height) { assert(false); return NULL; }
+bool glxglue_context_make_current(void * ctx) { assert(false); return false; }
+void glxglue_context_reinstate_previous(void * ctx) { assert(false); }
+void glxglue_context_destruct(void * ctx) { assert(false); }
 
-SbBool glxglue_context_pbuffer_max(void * ctx, unsigned int * lims) { assert(FALSE); return FALSE; }
+bool glxglue_context_pbuffer_max(void * ctx, unsigned int * lims) { assert(false); return false; }
 
 #else /* HAVE_GLX */
 
@@ -121,12 +121,12 @@ SbBool glxglue_context_pbuffer_max(void * ctx, unsigned int * lims) { assert(FAL
 /* ********************************************************************** */
 
 static Display * glxglue_display = NULL;
-static SbBool glxglue_opendisplay_failed = FALSE;
+static bool glxglue_opendisplay_failed = false;
 
 static int glxglue_screen = -1;
 
 struct glxglue_contextdata;
-static SbBool (* glxglue_context_create)(struct glxglue_contextdata * context) = NULL;
+static bool (* glxglue_context_create)(struct glxglue_contextdata * context) = NULL;
 
 typedef void * COIN_GLXFBConfig;
 typedef COIN_GLXFBConfig * (APIENTRY * COIN_PFNGLXCHOOSEFBCONFIG)(Display * dpy, int screen, const int * attrib_list, int * nelements);
@@ -207,7 +207,7 @@ struct glxglue_contextdata {
   GLXDrawable storeddrawable;
   GLXContext storedcontext;
 
-  SbBool pbuffer;
+  bool pbuffer;
   /* the next two are only valid if the offscreen context is a
      pbuffer: */
   Display * display;
@@ -254,7 +254,7 @@ glxglue_get_display(const cc_glglue * currentcontext = NULL)
     if (!(glxglue_display = XOpenDisplay(NULL))) {
       cc_debugerror_post("glxglue_init",
                          "Couldn't open NULL display.");
-      glxglue_opendisplay_failed = TRUE;
+      glxglue_opendisplay_failed = true;
     }
     
     glxglue_screen = XScreenNumberOfScreen(
@@ -325,7 +325,7 @@ glxglue_getprocaddress(const cc_glglue * glue_in, const char * fname)
       }
     }
 
-    glue->glx.tried_bind_glXGetProcAddress = TRUE;
+    glue->glx.tried_bind_glXGetProcAddress = true;
   }
 
   if (glue_in->glx.glXGetProcAddress) {
@@ -335,7 +335,7 @@ glxglue_getprocaddress(const cc_glglue * glue_in, const char * fname)
   return ptr;
 }
 
-static SbBool
+static bool
 glxglue_isdirect(cc_glglue * w)
 {
   GLXContext ctx = glXGetCurrentContext();
@@ -343,11 +343,11 @@ glxglue_isdirect(cc_glglue * w)
   if (!ctx) {
     cc_debugerror_postwarning("glxglue_isdirect",
                               "Couldn't get current GLX context.");
-    return TRUE;
+    return true;
   }
 
-  if (!glxglue_get_display(w)) return TRUE;
-  return glXIsDirect(glxglue_get_display(w), ctx) ? TRUE : FALSE;
+  if (!glxglue_get_display(w)) return true;
+  return glXIsDirect(glxglue_get_display(w), ctx) ? true : false;
 }
 
 int
@@ -386,7 +386,7 @@ glxglue_ext_supported(const cc_glglue * w, const char * extension)
 static void
 glxglue_resolve_symbols(cc_glglue * w)
 {
-  SbBool glx13pbuffer;
+  bool glx13pbuffer;
   const char * env;
   struct cc_glxglue * g = &(w->glx);
 
@@ -437,14 +437,14 @@ glxglue_resolve_symbols(cc_glglue * w)
 #endif /* GLX_SGIX_pbuffer */
 }
 
-static SbBool
+static bool
 glxglue_has_pbuffer_support(void)
 {
   /* Make it possible to turn off pbuffers support completely. Mostly
      relevant for debugging purposes. */
   const char * env = coin_getenv("COIN_GLXGLUE_NO_PBUFFERS");
   void *uniquememptr;
-  if (env && atoi(env) > 0) { return FALSE; }
+  if (env && atoi(env) > 0) { return false; }
 
   /* Dummy invocation of the glxglue_init() function, which is
      necessary to bind the below functions related to pbuffer
@@ -665,7 +665,7 @@ glxglue_contextdata_init(unsigned int width, unsigned int height)
   ctx->storeddisplay = NULL;
   ctx->storeddrawable = 0;
   ctx->storedcontext = NULL;
-  ctx->pbuffer = FALSE;
+  ctx->pbuffer = false;
 
   return ctx;
 }
@@ -687,7 +687,7 @@ glxglue_contextdata_cleanup(struct glxglue_contextdata * ctx)
   free(ctx);
 }
 
-static SbBool
+static bool
 glxglue_context_create_software(struct glxglue_contextdata * context)
 {
   /* Note that the value of the last argument (which indicates whether
@@ -707,7 +707,7 @@ glxglue_context_create_software(struct glxglue_contextdata * context)
   if (context->glxcontext == NULL) {
     cc_debugerror_postwarning("glxglue_context_create_software",
                               "Couldn't create GLX context.");
-    return FALSE;
+    return false;
   }
 
   if (coin_glglue_debug()) {
@@ -723,7 +723,7 @@ glxglue_context_create_software(struct glxglue_contextdata * context)
     cc_debugerror_postwarning("glxglue_context_create_software",
                               "Couldn't create %dx%dx%d X11 Pixmap.",
                               context->width, context->height, context->visinfo->depth);
-    return FALSE;
+    return false;
   }
 
   context->glxpixmap = glXCreateGLXPixmap(display,
@@ -731,10 +731,10 @@ glxglue_context_create_software(struct glxglue_contextdata * context)
   if (context->glxpixmap == 0) {
     cc_debugerror_postwarning("glxglue_context_create_software",
                               "Couldn't create GLX Pixmap.");
-    return FALSE;
+    return false;
   }
 
-  return TRUE;
+  return true;
 }
 
 static COIN_GLXPbuffer
@@ -771,7 +771,7 @@ glxglue_glXCreatePbuffer(Display * dpy, COIN_GLXFBConfig config, int width, int 
   return glxglue_glXCreateGLXPbufferSGIX(dpy, config, width, height, sgix_attrs);
 }
 
-static SbBool
+static bool
 glxglue_context_create_pbuffer(struct glxglue_contextdata * context)
 {
   /* FIXME: before we get here, we should have checked the requested
@@ -811,7 +811,7 @@ glxglue_context_create_pbuffer(struct glxglue_contextdata * context)
   if (v != -1) { attrs[1] = v; };
 
   dpy = glxglue_get_display(NULL);
-  if (!dpy) { return FALSE; }
+  if (!dpy) { return false; }
 
   /* get a list of matching GLX frame buffer configurations. the list is
      sorted according to precedence rules where the first entry should be
@@ -826,7 +826,7 @@ glxglue_context_create_pbuffer(struct glxglue_contextdata * context)
        available ones? 20040706 mortene. */
     cc_debugerror_postwarning("glxglue_context_create_pbuffer",
                               "glXChooseFBConfig() gave no valid configs");
-    return FALSE;
+    return false;
   }
 
   pb = glxglue_glXCreatePbuffer(dpy, fbc[0], context->width, context->height);
@@ -835,13 +835,13 @@ glxglue_context_create_pbuffer(struct glxglue_contextdata * context)
     cc_debugerror_postwarning("glxglue_context_create_pbuffer",
                               "glXCreatePbuffer(..., ..., %d, %d) failed",
                               context->width, context->height);
-    return FALSE;
+    return false;
   }
 
   /* direct rendering graphic context creation == Hardware use */
 
   context->glxcontext = glxglue_glXCreateNewContext(dpy, fbc[0],
-                                                    GLX_RGBA_TYPE, NULL, TRUE);
+                                                    GLX_RGBA_TYPE, NULL, true);
 
   /* must store this before freeing the array */
   context->fbconfig = fbc[0];
@@ -852,7 +852,7 @@ glxglue_context_create_pbuffer(struct glxglue_contextdata * context)
   if (context->glxcontext == NULL) {
     cc_debugerror_postwarning("glxglue_context_create_pbuffer",
                               "Couldn't create GLX context.");
-    return FALSE;
+    return false;
   }
 
   if (coin_glglue_debug()) {
@@ -863,10 +863,10 @@ glxglue_context_create_pbuffer(struct glxglue_contextdata * context)
 
   /* assign our pbuffer to glxpixmap */
   context->glxpixmap = pb;
-  context->pbuffer = TRUE;
+  context->pbuffer = true;
   context->display = dpy;
 
-  return TRUE;
+  return true;
 }
 
 /* ********************************************************************** */
@@ -885,7 +885,7 @@ glxglue_context_create_pbuffer(struct glxglue_contextdata * context)
 void *
 glxglue_context_create_offscreen(unsigned int width, unsigned int height)
 {
-  SbBool ok, pbuffer;
+  bool ok, pbuffer;
   struct glxglue_contextdata * swctx, * pbctx;
 
   swctx = glxglue_contextdata_init(width, height);
@@ -951,7 +951,7 @@ glxglue_context_create_offscreen(unsigned int width, unsigned int height)
   return pbctx;
 }
 
-SbBool
+bool
 glxglue_context_make_current(void * ctx)
 {
   struct glxglue_contextdata * context = (struct glxglue_contextdata *)ctx;
@@ -986,7 +986,7 @@ glxglue_context_make_current(void * ctx)
                            context->glxcontext);
   }
 
-  return (r == True) ? TRUE : FALSE;
+  return (r == True) ? true : false;
 }
 
 void
@@ -1051,11 +1051,11 @@ glxglue_context_destruct(void * ctx)
 /* ********************************************************************** */
 
 /* If ctx does not point at a pbuffer context, but rather a "normal"
-   offscreen context, it will return FALSE.
+   offscreen context, it will return false.
 
-   Upon other error conditions, FALSE will also be returned.
+   Upon other error conditions, false will also be returned.
 */
-SbBool
+bool
 glxglue_context_pbuffer_max(void * ctx, unsigned int * lims)
 {
   int returnval, attribval, i;
@@ -1064,8 +1064,8 @@ glxglue_context_pbuffer_max(void * ctx, unsigned int * lims)
   };
   struct glxglue_contextdata * context = (struct glxglue_contextdata *)ctx;
 
-  if (!context->pbuffer) { return FALSE; }
-  if (!glxglue_glXGetFBConfigAttrib) { return FALSE; }
+  if (!context->pbuffer) { return false; }
+  if (!glxglue_glXGetFBConfigAttrib) { return false; }
 
   for (i = 0; i < 3; i++) {
     returnval = glxglue_glXGetFBConfigAttrib(context->display,
@@ -1076,13 +1076,13 @@ glxglue_context_pbuffer_max(void * ctx, unsigned int * lims)
       cc_debugerror_post("glxglue_context_pbuffer_max",
                          "glXGetFBConfigAttrib() failed, "
                          "returned error code %d", returnval);
-      return FALSE;
+      return false;
     }
     assert(attribval >= 0);
     lims[i] = (unsigned int)attribval;
   }
 
-  return TRUE;
+  return true;
 }
 
 /* ********************************************************************** */
@@ -1116,7 +1116,7 @@ void glxglue_cleanup(void)
    */
   if (glxglue_display) XCloseDisplay(glxglue_display);
   glxglue_display = NULL;
-  glxglue_opendisplay_failed = FALSE;
+  glxglue_opendisplay_failed = false;
 }
 
 #endif /* HAVE_GLX */

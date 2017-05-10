@@ -70,7 +70,7 @@ void
 SoGLViewportRegionElement::init(SoState * state)
 {
   inherited::init(state);
-  this->initialized = FALSE;
+  this->initialized = false;
 }
 
 //! FIXME: write doc.
@@ -82,7 +82,7 @@ SoGLViewportRegionElement::push(SoState * state)
   SoGLViewportRegionElement * prev = (SoGLViewportRegionElement*)
     this->getNextInStack();
   this->viewportRegion = prev->viewportRegion;
-  this->initialized = TRUE;
+  this->initialized = true;
 }
 
 //! FIXME: write doc.
@@ -104,7 +104,7 @@ void
 SoGLViewportRegionElement::setElt(const SbViewportRegion & viewportRegionarg)
 {
   this->viewportRegion = viewportRegionarg;
-  this->initialized = TRUE;
+  this->initialized = true;
   this->updategl();
 }
 

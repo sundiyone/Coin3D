@@ -208,8 +208,8 @@ public:
   void setupShapeHints(SoShape * shape, SoState * state) {
 #ifdef HAVE_VRML97
     if (this->flags & SoShapeP::NEED_SETUP_SHAPE_HINTS) {
-      SbBool ccw = ((SoSFBool*)(shape->getField("ccw")))->getValue();
-      SbBool solid = ((SoSFBool*)(shape->getField("solid")))->getValue();
+      bool ccw = ((SoSFBool*)(shape->getField("ccw")))->getValue();
+      bool solid = ((SoSFBool*)(shape->getField("solid")))->getValue();
       SoGLShapeHintsElement::forceSend(state, ccw, solid, !solid);
     }
 #endif // HAVE_VRML97
@@ -379,7 +379,7 @@ SoShape::getBoundingBox(SoGetBoundingBoxAction * action)
   this->getBBox(action, box, center);
   if (!box.isEmpty()) {
     action->extendBy(box);
-    action->setCenter(center, TRUE);
+    action->setCenter(center, true);
   }
 }
 
@@ -426,11 +426,11 @@ SoShape::callback(SoCallbackAction * action)
 }
 
 // test bbox intersection
-static SbBool
+static bool
 soshape_ray_intersect(SoRayPickAction * action, const SbBox3f & box)
 {
-  if (box.isEmpty()) return FALSE;
-  return action->intersect(box, TRUE);
+  if (box.isEmpty()) return false;
+  return action->intersect(box, true);
 }
 
 
@@ -539,7 +539,7 @@ SoShape::getComplexityValue(SoAction * action)
 /*!
   \COININTERNAL
 */
-SbBool
+bool
 SoShape::shouldGLRender(SoGLRenderAction * action)
 {
   SoState * state = action->getState();
@@ -548,32 +548,32 @@ SoShape::shouldGLRender(SoGLRenderAction * action)
   unsigned int shapestyleflags = shapestyle->getFlags();
 
   if (shapestyleflags & SoShapeStyleElement::INVISIBLE)
-    return FALSE;
+    return false;
 
   if (PRIVATE(this)->bboxcache && !state->isCacheOpen() && !SoCullElement::completelyInside(state)) {
     if (PRIVATE(this)->bboxcache->isValid(state)) {
       if (SoCullElement::cullTest(state, PRIVATE(this)->bboxcache->getProjectedBox())) {
-        return FALSE;
+        return false;
       }
     }
   }
 
-  SbBool transparent = (shapestyleflags & (SoShapeStyleElement::TRANSP_TEXTURE|
+  bool transparent = (shapestyleflags & (SoShapeStyleElement::TRANSP_TEXTURE|
                                            SoShapeStyleElement::TRANSP_MATERIAL)) != 0;
 
   if (shapestyleflags & SoShapeStyleElement::SHADOWMAP) {
-    if (transparent) return FALSE;
+    if (transparent) return false;
     int style = SoShadowStyleElement::get(state);
-    if (style & SoShadowStyleElement::CASTS_SHADOW) return TRUE;
-    return FALSE;
+    if (style & SoShadowStyleElement::CASTS_SHADOW) return true;
+    return false;
   }
 
   if (action->handleTransparency(transparent))
-    return FALSE;
+    return false;
 
   if (shapestyleflags & SoShapeStyleElement::BBOXCMPLX) {
     this->GLRenderBoundingBox(action);
-    return FALSE;
+    return false;
   }
 
   // test if we should sort triangles before rendering
@@ -609,7 +609,7 @@ SoShape::shouldGLRender(SoGLRenderAction * action)
       }
     }
     PRIVATE(this)->unlock();
-    return FALSE; // tell shape _not_ to render
+    return false; // tell shape _not_ to render
   }
 
   if (shapestyleflags & SoShapeStyleElement::BIGIMAGE) {
@@ -645,12 +645,12 @@ SoShape::shouldGLRender(SoGLRenderAction * action)
       this->generatePrimitives(action);
       // endShape() returns whether more/less detailed textures need to be
       // fetched. We force a redraw if this is needed.
-      if (bigtex->endShape(state, this, mb) == FALSE) {
+      if (bigtex->endShape(state, this, mb) == false) {
         action->getCurPath()->getHead()->touch();
       }
       shapedata->rendermode = NORMAL;
 
-      return FALSE;
+      return false;
     }
   }
 
@@ -667,7 +667,7 @@ SoShape::shouldGLRender(SoGLRenderAction * action)
       this->validatePVCache(action);
       if (PRIVATE(this)->pvcache->getNumTriangleIndices() == 0) {
         PRIVATE(this)->unlock();
-        return TRUE;
+        return true;
       }
       SoGLLazyElement::getInstance(state)->send(state, SoLazyElement::ALL_MASK);
 
@@ -752,7 +752,7 @@ SoShape::shouldGLRender(SoGLRenderAction * action)
                                                  SoLazyElement::LIGHT_MODEL_MASK|
                                                  SoLazyElement::BLENDING_MASK);
 
-      return FALSE;
+      return false;
     }
   }
 
@@ -789,8 +789,8 @@ SoShape::shouldGLRender(SoGLRenderAction * action)
         glPopAttrib();
       }
     }
-    // we have rendered, return FALSE
-    return FALSE;
+    // we have rendered, return false
+    return false;
   }
 
 #if COIN_DEBUG && 0 // enable this to test generatePrimitives() rendering
@@ -798,35 +798,35 @@ SoShape::shouldGLRender(SoGLRenderAction * action)
   mb.sendFirst();
   soshape_get_staticdata()->currentbundle = &mb;  // needed in the primitive callbacks
   this->generatePrimitives(action);
-  return FALSE;
+  return false;
 #else // generatePrimitives() rendering
   if (PRIVATE(this)->rendercnt < ((1<<SoShapeP::RENDERCNT_BITS)-1)) {
     PRIVATE(this)->rendercnt++;
   }
-  return TRUE; // let the shape node render the geometry using OpenGL
+  return true; // let the shape node render the geometry using OpenGL
 #endif // ! generatePrimitives() rendering
 }
 
 /*!
   \COININTERNAL
 */
-SbBool
+bool
 SoShape::shouldRayPick(SoRayPickAction * const action)
 {
   switch (SoPickStyleElement::get(action->getState())) {
   case SoPickStyleElement::SHAPE:
   case SoPickStyleElement::SHAPE_ON_TOP:
   case SoPickStyleElement::SHAPE_FRONTFACES:
-    return TRUE;
+    return true;
   case SoPickStyleElement::BOUNDING_BOX:
   case SoPickStyleElement::BOUNDING_BOX_ON_TOP:
     this->rayPickBoundingBox(action);
-    return FALSE;
+    return false;
   case SoPickStyleElement::UNPICKABLE:
-    return FALSE;
+    return false;
   default:
     assert(0 && "unknown pick style");
-    return TRUE;
+    return true;
   }
 }
 
@@ -979,7 +979,7 @@ SoShape::invokeTriangleCallbacks(SoAction * const action,
 
     SbVec3f intersection;
     SbVec3f barycentric;
-    SbBool front;
+    bool front;
 
     if (ra->intersect(v1->getPoint(), v2->getPoint(), v3->getPoint(),
                       intersection, barycentric, front)) {
@@ -1059,17 +1059,17 @@ SoShape::invokeTriangleCallbacks(SoAction * const action,
       glBegin(GL_TRIANGLES);
       glTexCoord4fv(v1->getTextureCoords().getValue());
       glNormal3fv(v1->getNormal().getValue());
-      shapedata->currentbundle->send(v1->getMaterialIndex(), TRUE);
+      shapedata->currentbundle->send(v1->getMaterialIndex(), true);
       glVertex3fv(v1->getPoint().getValue());
 
       glTexCoord4fv(v2->getTextureCoords().getValue());
       glNormal3fv(v2->getNormal().getValue());
-      shapedata->currentbundle->send(v2->getMaterialIndex(), TRUE);
+      shapedata->currentbundle->send(v2->getMaterialIndex(), true);
       glVertex3fv(v2->getPoint().getValue());
 
       glTexCoord4fv(v3->getTextureCoords().getValue());
       glNormal3fv(v3->getNormal().getValue());
-      shapedata->currentbundle->send(v3->getMaterialIndex(), TRUE);
+      shapedata->currentbundle->send(v3->getMaterialIndex(), true);
       glVertex3fv(v3->getPoint().getValue());
       glEnd();
       break;
@@ -1139,12 +1139,12 @@ SoShape::invokeLineSegmentCallbacks(SoAction * const action,
       glBegin(GL_LINES);
       glTexCoord4fv(v1->getTextureCoords().getValue());
       glNormal3fv(v1->getNormal().getValue());
-      shapedata->currentbundle->send(v1->getMaterialIndex(), TRUE);
+      shapedata->currentbundle->send(v1->getMaterialIndex(), true);
       glVertex3fv(v1->getPoint().getValue());
 
       glTexCoord4fv(v2->getTextureCoords().getValue());
       glNormal3fv(v2->getNormal().getValue());
-      shapedata->currentbundle->send(v2->getMaterialIndex(), TRUE);
+      shapedata->currentbundle->send(v2->getMaterialIndex(), true);
       glVertex3fv(v2->getPoint().getValue());
       glEnd();
       break;
@@ -1194,7 +1194,7 @@ SoShape::invokePointCallbacks(SoAction * const action,
       glBegin(GL_POINTS);
       glTexCoord4fv(v->getTextureCoords().getValue());
       glNormal3fv(v->getNormal().getValue());
-      shapedata->currentbundle->send(v->getMaterialIndex(), TRUE);
+      shapedata->currentbundle->send(v->getMaterialIndex(), true);
       glVertex3fv(v->getPoint().getValue());
       glEnd();
       break;
@@ -1284,7 +1284,7 @@ SoShape::endShape(void)
 void
 SoShape::generateVertex(SoPrimitiveVertex * const pv,
                         const SbVec3f & point,
-                        const SbBool usetexfunc,
+                        const bool usetexfunc,
                         const SoMultiTextureCoordinateElement * const tce,
                         const float s,
                         const float t,
@@ -1304,7 +1304,7 @@ SoShape::generateVertex(SoPrimitiveVertex * const pv,
 void
 SoShape::generateVertex(SoPrimitiveVertex * const pv,
                         const SbVec3f & point,
-                        const SbBool usetexfunc,
+                        const bool usetexfunc,
                         const SoMultiTextureCoordinateElement * const tce,
                         const float s,
                         const float t,
@@ -1323,13 +1323,13 @@ SoShape::generateVertex(SoPrimitiveVertex * const pv,
 }
 
 // Doc in superclass.
-SbBool
+bool
 SoShape::affectsState(void) const
 {
-  // Overridden from default setting in SoNode to return FALSE instead
-  // of TRUE, as we know for certain that no node classes derived from
+  // Overridden from default setting in SoNode to return false instead
+  // of true, as we know for certain that no node classes derived from
   // SoShape will affect the rendering state.
-  return FALSE;
+  return false;
 }
 
 // Doc in superclass.
@@ -1366,7 +1366,7 @@ SoShape::GLRenderBoundingBox(SoGLRenderAction * action)
   mb.sendFirst();
 
   {
-    SoGLShapeHintsElement::forceSend(action->getState(), TRUE, FALSE, FALSE);
+    SoGLShapeHintsElement::forceSend(action->getState(), true, false, false);
   }
 
   glPushMatrix();
@@ -1379,10 +1379,10 @@ SoShape::GLRenderBoundingBox(SoGLRenderAction * action)
 /*!
   \COININTERNAL
  */
-SbBool
+bool
 SoShape::shouldPrimitiveCount(SoGetPrimitiveCountAction * COIN_UNUSED_ARG(action))
 {
-  return TRUE; // FIXME: what to do here? pederb 1999-11-25
+  return true; // FIXME: what to do here? pederb 1999-11-25
 }
 
 //
@@ -1397,7 +1397,7 @@ SoShape::rayPickBoundingBox(SoRayPickAction * action)
   if (box.isEmpty()) return;
   this->computeObjectSpaceRay(action);
   SbVec3f isect;
-  if (action->intersect(box, isect, FALSE)) {
+  if (action->intersect(box, isect, false)) {
     if (action->isBetweenPlanes(isect)) {
       action->addIntersection(isect);
     }
@@ -1443,7 +1443,7 @@ void
 SoShape::getBBox(SoAction * action, SbBox3f & box, SbVec3f & center)
 {
   SoState * state = action->getState();
-  SbBool isvalid = PRIVATE(this)->bboxcache && PRIVATE(this)->bboxcache->isValid(state);
+  bool isvalid = PRIVATE(this)->bboxcache && PRIVATE(this)->bboxcache->isValid(state);
   if (isvalid) {
     box = PRIVATE(this)->bboxcache->getProjectedBox();
     // we know center will be set, so just fetch it from the cache
@@ -1463,12 +1463,12 @@ SoShape::getBBox(SoAction * action, SbBox3f & box, SbVec3f & center)
     PRIVATE(this)->flags &= ~SoShapeP::SHOULD_BBOX_CACHE;
   }
 
-  SbBool shouldcache = (PRIVATE(this)->flags & SoShapeP::SHOULD_BBOX_CACHE) != 0;
-  SbBool storedinvalid = FALSE;
+  bool shouldcache = (PRIVATE(this)->flags & SoShapeP::SHOULD_BBOX_CACHE) != 0;
+  bool storedinvalid = false;
   if (shouldcache) {
     // must push state to make cache dependencies work
     state->push();
-    storedinvalid = SoCacheElement::setInvalid(FALSE);
+    storedinvalid = SoCacheElement::setInvalid(false);
     assert(PRIVATE(this)->bboxcache == NULL);
     PRIVATE(this)->lock();
     PRIVATE(this)->bboxcache = new SoBoundingBoxCache(state);
@@ -1480,7 +1480,7 @@ SoShape::getBBox(SoAction * action, SbBox3f & box, SbVec3f & center)
   this->computeBBox(action, box, center);
   SbTime end = SbTime::getTimeOfDay();
   if (shouldcache) {
-    PRIVATE(this)->bboxcache->set(box, TRUE, center);
+    PRIVATE(this)->bboxcache->set(box, true, center);
     // pop state since we pushed it
     state->pop();
     SoCacheElement::setInvalid(storedinvalid);
@@ -1492,7 +1492,7 @@ SoShape::getBBox(SoAction * action, SbBox3f & box, SbVec3f & center)
       // just recalculate the bbox so that the cache is created at
       // once. SoGLRenderAction and SoRayPickAction might need it.
       state->push();
-      storedinvalid = SoCacheElement::setInvalid(FALSE);
+      storedinvalid = SoCacheElement::setInvalid(false);
       assert(PRIVATE(this)->bboxcache == NULL);
       PRIVATE(this)->lock();
       PRIVATE(this)->bboxcache = new SoBoundingBoxCache(state);
@@ -1501,7 +1501,7 @@ SoShape::getBBox(SoAction * action, SbBox3f & box, SbVec3f & center)
       SoCacheElement::set(state, PRIVATE(this)->bboxcache);
       box.makeEmpty();
       this->computeBBox(action, box, center);
-      PRIVATE(this)->bboxcache->set(box, TRUE, center);
+      PRIVATE(this)->bboxcache->set(box, true, center);
       // pop state since we pushed it
       state->pop();
       SoCacheElement::setInvalid(storedinvalid);
@@ -1538,32 +1538,32 @@ SoShapeP::calibrateBBoxCache(void)
 
 /*!
   Convenience method that enables vertex arrays and/or VBOs
-  Returns \e TRUE if VBO is used.
+  Returns \e true if VBO is used.
 
   \sa finishVertexArray()
   \since Coin 3.0
 */
-SbBool
+bool
 SoShape::startVertexArray(SoGLRenderAction * action,
                           const SoCoordinateElement * coords,
                           const SbVec3f * pervertexnormals,
-                          const SbBool texpervertex,
-                          const SbBool colorpervertex)
+                          const bool texpervertex,
+                          const bool colorpervertex)
 {
   SoState * state = action->getState();
   const cc_glglue * glue = sogl_glue_instance(state);
   const SoGLVBOElement * vboelem = SoGLVBOElement::getInstance(state);
   const uint32_t contextid = action->getCacheContext();
 
-  SbBool dovbo = TRUE;
+  bool dovbo = true;
   if (!SoGLDriverDatabase::isSupported(glue, SO_GL_VBO_IN_DISPLAYLIST)) {
     if (SoCacheElement::anyOpen(state)) {
-      dovbo = FALSE;
+      dovbo = false;
     }
   }
   SoVBO * vertexvbo = dovbo ? vboelem->getVertexVBO() : NULL;
-  if (!vertexvbo) dovbo = FALSE;
-  SbBool didbind = FALSE;
+  if (!vertexvbo) dovbo = false;
+  bool didbind = false;
 
   if (colorpervertex) {
     const GLvoid * dataptr = NULL;
@@ -1572,12 +1572,12 @@ SoShape::startVertexArray(SoGLRenderAction * action,
     if (colorvbo) {
       lelem->updateColorVBO(colorvbo);
       colorvbo->bindBuffer(contextid);
-      didbind = TRUE;
+      didbind = true;
     }
     else {
       if (didbind) {
         cc_glglue_glBindBuffer(glue, GL_ARRAY_BUFFER, 0);
-        didbind = FALSE;
+        didbind = false;
       }
       dataptr = (const GLvoid*) lelem->getDiffusePointer();
     }
@@ -1591,7 +1591,7 @@ SoShape::startVertexArray(SoGLRenderAction * action,
   }
   if (texpervertex) {
     const SoMultiTextureCoordinateElement * mtelem = NULL;
-    const SbBool * enabledunits = NULL;
+    const bool * enabledunits = NULL;
     int lastenabled;
     
     enabledunits = SoMultiTextureEnabledElement::getEnabledUnits(state, lastenabled);
@@ -1628,13 +1628,13 @@ SoShape::startVertexArray(SoGLRenderAction * action,
         vbo = dovbo ? vboelem->getTexCoordVBO(i) : NULL;
         if (vbo) {
           vbo->bindBuffer(contextid);
-          didbind = TRUE;
+          didbind = true;
           tptr = NULL;
         }
         else {
           if (didbind) {
             cc_glglue_glBindBuffer(glue, GL_ARRAY_BUFFER, 0);
-            didbind = FALSE;
+            didbind = false;
           }
         }
         cc_glglue_glTexCoordPointer(glue, dim, GL_FLOAT, 0, tptr);
@@ -1647,13 +1647,13 @@ SoShape::startVertexArray(SoGLRenderAction * action,
     const GLvoid * dataptr = NULL;
     if (vbo) {
       vbo->bindBuffer(contextid);
-      didbind = TRUE;
+      didbind = true;
     }
     else {
       dataptr = (const GLvoid*) pervertexnormals;
       if (didbind) {
         cc_glglue_glBindBuffer(glue, GL_ARRAY_BUFFER, 0);
-        didbind = FALSE;
+        didbind = false;
       }
     }
     cc_glglue_glNormalPointer(glue, GL_FLOAT, 0, dataptr);
@@ -1687,10 +1687,10 @@ SoShape::startVertexArray(SoGLRenderAction * action,
 */
 void
 SoShape::finishVertexArray(SoGLRenderAction * action,
-                           const SbBool vbo,
-                           const SbBool normpervertex,
-                           const SbBool texpervertex,
-                           const SbBool colorpervertex)
+                           const bool vbo,
+                           const bool normpervertex,
+                           const bool texpervertex,
+                           const bool colorpervertex)
 {
   SoState * state = action->getState();
   const cc_glglue * glue = sogl_glue_instance(state);
@@ -1710,7 +1710,7 @@ SoShape::finishVertexArray(SoGLRenderAction * action,
   }
   if (texpervertex) {
     int lastenabled;
-    const SbBool * enabledunits =
+    const bool * enabledunits =
       SoMultiTextureEnabledElement::getEnabledUnits(state, lastenabled);
     if (!SoGLDriverDatabase::isSupported(glue, SO_GL_MULTITEXTURE)) {
       //Should already have warned in StartVertexArray
@@ -1753,7 +1753,7 @@ SoShape::validatePVCache(SoGLRenderAction * action)
     SoCacheElement::invalidate(state);
 
     soshape_staticdata * shapedata = soshape_get_staticdata();
-    SbBool storedinvalid = SoCacheElement::setInvalid(FALSE);
+    bool storedinvalid = SoCacheElement::setInvalid(false);
     // must push state to make cache dependencies work
     state->push();
     PRIVATE(this)->pvcache = new SoPrimitiveVertexCache(state);

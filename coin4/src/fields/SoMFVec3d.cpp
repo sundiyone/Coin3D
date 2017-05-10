@@ -64,13 +64,13 @@ SoMFVec3d::initClass(void)
 // parent classes.
 #ifndef DOXYGEN_SKIP_THIS
 
-SbBool
+bool
 SoMFVec3d::read1Value(SoInput * in, int idx)
 {
   SbVec3d v;
-  if (!sosfvec3d_read_value(in, v)) return FALSE;
+  if (!sosfvec3d_read_value(in, v)) return false;
   this->set1Value(idx, v);
-  return TRUE;
+  return true;
 }
 
 void

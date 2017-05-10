@@ -185,7 +185,7 @@ SoSFImage::initClass(void)
   SO_SFIELD_INTERNAL_INIT_CLASS(SoSFImage);
 }
 
-SbBool
+bool
 SoSFImage::readValue(SoInput * in)
 {
   SbVec2s size;
@@ -193,7 +193,7 @@ SoSFImage::readValue(SoInput * in)
   if (!in->read(size[0]) || !in->read(size[1]) ||
       !in->read(nc)) {
     SoReadError::post(in, "Premature end of file");
-    return FALSE;
+    return false;
   }
 
   // Note: empty images (dimensions 0x0x0) are allowed.
@@ -201,7 +201,7 @@ SoSFImage::readValue(SoInput * in)
   if (size[0] < 0 || size[1] < 0 || nc < 0 || nc > 4) {
     SoReadError::post(in, "Invalid image specification %dx%dx%d",
                       size[0], size[1], nc);
-    return FALSE;
+    return false;
   }
 
   int buffersize = int(size[0]) * int(size[1]) * nc;
@@ -210,7 +210,7 @@ SoSFImage::readValue(SoInput * in)
       (size[0] != 0 || size[1] != 0 || nc != 0)) {
     SoReadError::post(in, "Invalid image specification %dx%dx%d",
                       size[0], size[1], nc);
-    return FALSE;
+    return false;
   }
 
 #if COIN_DEBUG && 0 // debug
@@ -220,7 +220,7 @@ SoSFImage::readValue(SoInput * in)
 
   if (!buffersize) {
     PRIVATE(this)->image->setValue(SbVec2s(0,0), 0, NULL);
-    return TRUE;
+    return true;
   }
 
   // allocate image data and get new pointer back
@@ -232,7 +232,7 @@ SoSFImage::readValue(SoInput * in)
   if (in->isBinary() && in->getIVVersion() >= 2.1f) {
     if (!in->readBinaryArray(pixblock, buffersize)) {
       SoReadError::post(in, "Premature end of file");
-      return FALSE;
+      return false;
     }
     // images are padded to a 4-byte alignment
     int padsize = ((buffersize + 3) / 4) * 4 - buffersize;
@@ -240,7 +240,7 @@ SoSFImage::readValue(SoInput * in)
       unsigned char pads[3]; // pad is at most 3 bytes
       if (!in->readBinaryArray(pads, padsize)) {
         SoReadError::post(in, "Premature end of file");
-        return FALSE;
+        return false;
       }
     }
   }
@@ -251,7 +251,7 @@ SoSFImage::readValue(SoInput * in)
       unsigned int l;
       if (!in->read(l)) {
         SoReadError::post(in, "Premature end of file");
-        return FALSE;
+        return false;
       }
       for (int j = 0; j < nc; j++) {
         pixblock[byte++] =
@@ -259,7 +259,7 @@ SoSFImage::readValue(SoInput * in)
       }
     }
   }
-  return TRUE;
+  return true;
 }
 
 void
@@ -311,16 +311,16 @@ SoSFImage::writeValue(SoOutput * out) const
 
 
 /*!
-  \fn int SoSFImage::operator!=(const SoSFImage & field) const
+  \fn bool SoSFImage::operator!=(const SoSFImage & field) const
   Compare image of \a field with the image in this field and
-  return \c FALSE if they are equal.
+  return \c false if they are equal.
 */
 
 /*!
   Compare image of \a field with the image in this field and
-  return \c TRUE if they are equal.
+  return \c true if they are equal.
 */
-int
+bool
 SoSFImage::operator==(const SoSFImage & field) const
 {
   return (*PRIVATE(this)->image) == (*(PRIVATE(&field)->image));
@@ -517,7 +517,7 @@ SoSFImage::getSubTexture(
 /*!
   Returns whether or not sub textures was set up for this field.
 
-  If \c TRUE is returned, the \a numsubtextures argument will be set
+  If \c true is returned, the \a numsubtextures argument will be set
   to the number of sub textures in this image. This number can be used
   for iterating over all textures with the SoSFImage::getSubTextures()
   method.
@@ -525,19 +525,19 @@ SoSFImage::getSubTexture(
   \since Coin 2.0
   \since TGS Inventor 3.0
  */
-SbBool
+bool
 SoSFImage::hasSubTextures(int & numsubtextures)
 {
   // FIXME: unimplemented yet. 20030226 mortene.
   numsubtextures = 0;
-  return FALSE;
+  return false;
 }
 
 /*!
   Set this flag to true to avoid writing out the texture to file. This
   can save a lot on file size.
 
-  Default value is \c FALSE (i.e. write texture data to file.)
+  Default value is \c false (i.e. write texture data to file.)
 
   (Note: yet unimplemented for Coin.)
 
@@ -545,7 +545,7 @@ SoSFImage::hasSubTextures(int & numsubtextures)
   \since TGS Inventor ?.?
  */
 void
-SoSFImage::setNeverWrite(SbBool COIN_UNUSED_ARG(flag))
+SoSFImage::setNeverWrite(bool COIN_UNUSED_ARG(flag))
 {
   // FIXME: unimplemented yet. 20030226 mortene.
   SoDebugError::postWarning("SoSFImage::setNeverWrite",
@@ -561,28 +561,28 @@ SoSFImage::setNeverWrite(SbBool COIN_UNUSED_ARG(flag))
   \since Coin 2.0
   \since TGS Inventor ?.?
  */
-SbBool
+bool
 SoSFImage::isNeverWrite(void) const
 {
   // FIXME: unimplemented yet. 20030226 mortene.
-  return FALSE;
+  return false;
 }
 
 /*!
-  Returns \c TRUE if at least one pixel of the image in this field is
-  not completely opaque, otherwise \c FALSE.
+  Returns \c true if at least one pixel of the image in this field is
+  not completely opaque, otherwise \c false.
 
   \since Coin 2.0
   \since TGS Inventor ?.?
  */
-SbBool
+bool
 SoSFImage::hasTransparency(void) const
 {
   // FIXME: unimplemented yet. 20030226 mortene.
   SoDebugError::postWarning("SoSFImage::hasTransparency",
                             "Not yet implemented for Coin. "
                             "Get in touch if you need this functionality.");
-  return TRUE;
+  return true;
 }
 
 #undef PRIVATE

@@ -210,24 +210,24 @@ SoTabPlaneDragger::SoTabPlaneDragger(void)
 {
   SO_KIT_INTERNAL_CONSTRUCTOR(SoTabPlaneDragger);
 
-  SO_KIT_ADD_CATALOG_ENTRY(planeSwitch, SoSwitch, TRUE, geomSeparator, "", FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(translator, SoSeparator, TRUE, planeSwitch, scaleTabs, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(scaleTabs, SoSeparator, TRUE, planeSwitch, "", FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(scaleTabMaterial, SoMaterial, TRUE, scaleTabs, scaleTabHints, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(scaleTabHints, SoShapeHints, TRUE, scaleTabs, scaleTabMaterialBinding, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(scaleTabMaterialBinding, SoMaterialBinding, TRUE, scaleTabs, scaleTabNormalBinding, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(scaleTabNormalBinding, SoNormalBinding, TRUE, scaleTabs, scaleTabNormal, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(scaleTabNormal, SoNormal, TRUE, scaleTabs, edgeScaleCoords, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(edgeScaleCoords, SoCoordinate3, TRUE, scaleTabs, edgeScaleTab0, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(edgeScaleTab0, SoIndexedFaceSet, TRUE, scaleTabs, edgeScaleTab1, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(edgeScaleTab1, SoIndexedFaceSet, TRUE, scaleTabs, edgeScaleTab2, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(edgeScaleTab2, SoIndexedFaceSet, TRUE, scaleTabs, edgeScaleTab3, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(edgeScaleTab3, SoIndexedFaceSet, TRUE, scaleTabs, cornerScaleCoords, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(cornerScaleCoords, SoCoordinate3, TRUE, scaleTabs, cornerScaleTab0, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(cornerScaleTab0, SoIndexedFaceSet, TRUE, scaleTabs, cornerScaleTab1, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(cornerScaleTab1, SoIndexedFaceSet, TRUE, scaleTabs, cornerScaleTab2, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(cornerScaleTab2, SoIndexedFaceSet, TRUE, scaleTabs, cornerScaleTab3, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(cornerScaleTab3, SoIndexedFaceSet, TRUE, scaleTabs, "", FALSE);
+  SO_KIT_ADD_CATALOG_ENTRY(planeSwitch, SoSwitch, true, geomSeparator, "", false);
+  SO_KIT_ADD_CATALOG_ENTRY(translator, SoSeparator, true, planeSwitch, scaleTabs, true);
+  SO_KIT_ADD_CATALOG_ENTRY(scaleTabs, SoSeparator, true, planeSwitch, "", false);
+  SO_KIT_ADD_CATALOG_ENTRY(scaleTabMaterial, SoMaterial, true, scaleTabs, scaleTabHints, true);
+  SO_KIT_ADD_CATALOG_ENTRY(scaleTabHints, SoShapeHints, true, scaleTabs, scaleTabMaterialBinding, true);
+  SO_KIT_ADD_CATALOG_ENTRY(scaleTabMaterialBinding, SoMaterialBinding, true, scaleTabs, scaleTabNormalBinding, false);
+  SO_KIT_ADD_CATALOG_ENTRY(scaleTabNormalBinding, SoNormalBinding, true, scaleTabs, scaleTabNormal, false);
+  SO_KIT_ADD_CATALOG_ENTRY(scaleTabNormal, SoNormal, true, scaleTabs, edgeScaleCoords, false);
+  SO_KIT_ADD_CATALOG_ENTRY(edgeScaleCoords, SoCoordinate3, true, scaleTabs, edgeScaleTab0, false);
+  SO_KIT_ADD_CATALOG_ENTRY(edgeScaleTab0, SoIndexedFaceSet, true, scaleTabs, edgeScaleTab1, false);
+  SO_KIT_ADD_CATALOG_ENTRY(edgeScaleTab1, SoIndexedFaceSet, true, scaleTabs, edgeScaleTab2, false);
+  SO_KIT_ADD_CATALOG_ENTRY(edgeScaleTab2, SoIndexedFaceSet, true, scaleTabs, edgeScaleTab3, false);
+  SO_KIT_ADD_CATALOG_ENTRY(edgeScaleTab3, SoIndexedFaceSet, true, scaleTabs, cornerScaleCoords, false);
+  SO_KIT_ADD_CATALOG_ENTRY(cornerScaleCoords, SoCoordinate3, true, scaleTabs, cornerScaleTab0, false);
+  SO_KIT_ADD_CATALOG_ENTRY(cornerScaleTab0, SoIndexedFaceSet, true, scaleTabs, cornerScaleTab1, false);
+  SO_KIT_ADD_CATALOG_ENTRY(cornerScaleTab1, SoIndexedFaceSet, true, scaleTabs, cornerScaleTab2, false);
+  SO_KIT_ADD_CATALOG_ENTRY(cornerScaleTab2, SoIndexedFaceSet, true, scaleTabs, cornerScaleTab3, false);
+  SO_KIT_ADD_CATALOG_ENTRY(cornerScaleTab3, SoIndexedFaceSet, true, scaleTabs, "", false);
 
   if (SO_KIT_IS_FIRST_INSTANCE()) {
     SoInteractionKit::readDefaultParts("tabPlaneDragger.iv",
@@ -252,7 +252,7 @@ SoTabPlaneDragger::SoTabPlaneDragger(void)
   this->reallyAdjustScaleTabSize(NULL);
   this->constraintState = CONSTRAINT_OFF;
   this->whatkind = WHATKIND_NONE;
-  this->adjustTabs = TRUE;
+  this->adjustTabs = true;
 
   this->addStartCallback(SoTabPlaneDragger::startCB);
   this->addMotionCallback(SoTabPlaneDragger::motionCB);
@@ -268,7 +268,7 @@ SoTabPlaneDragger::SoTabPlaneDragger(void)
   this->scaleFieldSensor = new SoFieldSensor(SoTabPlaneDragger::fieldSensorCB, this);
   this->scaleFieldSensor->setPriority(0);
 
-  this->setUpConnections(TRUE, TRUE);
+  this->setUpConnections(true, true);
 }
 
 /*!
@@ -287,8 +287,8 @@ SoTabPlaneDragger::~SoTabPlaneDragger()
 }
 
 // Doc in superclass.
-SbBool
-SoTabPlaneDragger::setUpConnections(SbBool onoff, SbBool doitalways)
+bool
+SoTabPlaneDragger::setUpConnections(bool onoff, bool doitalways)
 {
   if (!doitalways && this->connectionsSetUp == onoff) return onoff;
 
@@ -320,8 +320,8 @@ SoTabPlaneDragger::setUpConnections(SbBool onoff, SbBool doitalways)
 void
 SoTabPlaneDragger::setDefaultOnNonWritingFields(void)
 {
-  this->edgeScaleCoords.setDefault(TRUE);
-  this->cornerScaleCoords.setDefault(TRUE);
+  this->edgeScaleCoords.setDefault(true);
+  this->cornerScaleCoords.setDefault(true);
 
   inherited::setDefaultOnNonWritingFields();
 }
@@ -368,11 +368,11 @@ SoTabPlaneDragger::GLRender(SoGLRenderAction * action)
   if (this->whatkind != WHATKIND_SCALE) {
     // disable notification do avoid multiple redraws, but
     // remember to invalidate open caches.
-    SbBool oldnotify = this->enableNotify(FALSE);
+    bool oldnotify = this->enableNotify(false);
     SoCacheElement::invalidate(action->getState());
 
     this->reallyAdjustScaleTabSize(action);
-    this->adjustTabs = FALSE;
+    this->adjustTabs = false;
 
     (void) this->enableNotify(oldnotify);
   }
@@ -388,7 +388,7 @@ SoTabPlaneDragger::GLRender(SoGLRenderAction * action)
 void
 SoTabPlaneDragger::adjustScaleTabSize(void)
 {
-  this->adjustTabs = TRUE;
+  this->adjustTabs = true;
 }
 
 /*!
@@ -513,7 +513,7 @@ SoTabPlaneDragger::dragStart(void)
   const SoPath *pickpath = this->getPickPath();
   const SoEvent *event = this->getEvent();
 
-  SbBool found = FALSE;
+  bool found = false;
   SbVec3f startpt = this->getLocalStartingPoint();
 
   this->constraintState = CONSTRAINT_OFF;
@@ -526,7 +526,7 @@ SoTabPlaneDragger::dragStart(void)
           this->getSurrogatePartPickedName() == str.getString()) break;
     }
     if (i < 4) {
-      found = TRUE;
+      found = true;
       this->constraintState = i & 1 ? CONSTRAINT_X : CONSTRAINT_Y;
       this->whatkind = WHATKIND_SCALE;
       this->scaleCenter.setValue(-edgetab_lookup[i*2], -edgetab_lookup[i*2+1], 0.0f);
@@ -539,7 +539,7 @@ SoTabPlaneDragger::dragStart(void)
           this->getSurrogatePartPickedName() == str.getString()) break;
     }
     if (i < 4) {
-      found = TRUE;
+      found = true;
       this->whatkind = WHATKIND_SCALE;
       this->scaleCenter.setValue(-cornertab_lookup[i*2], -cornertab_lookup[i*2+1], 0.0f);
     }
@@ -547,7 +547,7 @@ SoTabPlaneDragger::dragStart(void)
   if (!found) {
     assert(pickpath->findNode(this->getNodeFieldNode("translator")) >= 0 ||
            this->getSurrogatePartPickedName() == "translator");
-    found = TRUE;
+    found = true;
     this->whatkind = WHATKIND_TRANSLATE;
   }
 
@@ -615,16 +615,16 @@ SoTabPlaneDragger::drag(void)
     SbVec3f projpt = this->planeProj->project(this->getNormalizedLocaterPosition());
 
     const SoEvent *event = this->getEvent();
-    SbBool reset = FALSE;
+    bool reset = false;
     if (event->wasShiftDown() && this->constraintState == CONSTRAINT_OFF) {
       this->constraintState = CONSTRAINT_WAIT;
       this->setStartLocaterPosition(event->getPosition());
       this->getLocalToWorldMatrix().multVecMatrix(projpt, this->worldRestartPt);
-      reset = TRUE;
+      reset = true;
     }
     else if (!event->wasShiftDown() && this->constraintState != CONSTRAINT_OFF) {
       this->constraintState = CONSTRAINT_OFF;
-      reset = TRUE;
+      reset = true;
     }
     if (reset) {
       this->saveStartParameters();
@@ -733,15 +733,15 @@ SoTabPlaneDragger::createPrivateParts(void)
 {
   SoMaterialBinding *mb = SO_GET_ANY_PART(this, "scaleTabMaterialBinding", SoMaterialBinding);
   mb->value = SoMaterialBinding::OVERALL;
-  this->scaleTabMaterialBinding.setDefault(TRUE);
+  this->scaleTabMaterialBinding.setDefault(true);
 
   SoNormalBinding *nb = SO_GET_ANY_PART(this, "scaleTabNormalBinding", SoNormalBinding);
   nb->value = SoNormalBinding::OVERALL;
-  this->scaleTabNormalBinding.setDefault(TRUE);
+  this->scaleTabNormalBinding.setDefault(true);
 
   SoNormal *normal = SO_GET_ANY_PART(this, "scaleTabNormal", SoNormal);
   normal->vector.setValue(SbVec3f(0.0f, 0.0f, 1.0f));
-  this->scaleTabNormal.setDefault(TRUE);
+  this->scaleTabNormal.setDefault(true);
 
   SoIndexedFaceSet *fs;
   SbString str;
@@ -755,7 +755,7 @@ SoTabPlaneDragger::createPrivateParts(void)
       str.sprintf("edgeScaleTab%d", i);
     else
       str.sprintf("cornerScaleTab%d", i-4);
-    fs = coin_assert_cast<SoIndexedFaceSet *>(this->getAnyPart(SbName(str.getString()), TRUE));
+    fs = coin_assert_cast<SoIndexedFaceSet *>(this->getAnyPart(SbName(str.getString()), true));
     fs->coordIndex.setNum(5);
 
     ptr = fs->coordIndex.startEditing();
@@ -769,16 +769,16 @@ SoTabPlaneDragger::createPrivateParts(void)
 
     SoField * f = this->getField(SbName(str.getString()));
     assert(f);
-    f->setDefault(TRUE);
+    f->setDefault(true);
   }
 
   // turn off render caching since the geometry below this node might
   // change very often.
   SoSeparator *sep = SO_GET_ANY_PART(this, "scaleTabs", SoSeparator);
   sep->renderCaching = SoSeparator::OFF;
-  sep->renderCaching.setDefault(TRUE);
+  sep->renderCaching.setDefault(true);
   // this is the default, so don't write it
-  this->scaleTabs.setDefault(TRUE);
+  this->scaleTabs.setDefault(true);
 }
 
 //

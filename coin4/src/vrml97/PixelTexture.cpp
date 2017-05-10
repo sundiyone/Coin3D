@@ -37,8 +37,8 @@
   \verbatim
   PixelTexture {
     exposedField SFImage  image      0 0 0    # see SoSFImage
-    field        SFBool   repeatS    TRUE
-    field        SFBool   repeatT    TRUE
+    field        SFBool   repeatS    true
+    field        SFBool   repeatT    true
   }
   \endverbatim
 
@@ -66,10 +66,10 @@
   for a description of how the texture values interact with the
   appearance of the geometry.  SoSFImage, describes the
   specification of an image.  The repeatS and repeatT fields specify
-  how the texture wraps in the S and T directions. If repeatS is TRUE
+  how the texture wraps in the S and T directions. If repeatS is true
   (the default), the texture map is repeated outside the 0-to-1
   texture coordinate range in the S direction so that it fills the
-  shape. If repeatS is FALSE, the texture coordinates are clamped in
+  shape. If repeatS is false, the texture coordinates are clamped in
   the S direction to lie within the 0.0 to 1.0 range. The repeatT
   field is analogous to the repeatS field.
 
@@ -113,7 +113,7 @@
 class SoVRMLPixelTextureP {
 public:
   SoGLImage * glimage;
-  SbBool glimagevalid;
+  bool glimagevalid;
   int readstatus;
 
 #ifdef COIN_THREADSAFE
@@ -156,7 +156,7 @@ SoVRMLPixelTexture::SoVRMLPixelTexture(void)
   SO_VRMLNODE_ADD_EXPOSED_FIELD(image, (SbVec2s(0,0), 0, NULL));
 
   PRIVATE(this)->glimage = NULL;
-  PRIVATE(this)->glimagevalid = FALSE;
+  PRIVATE(this)->glimagevalid = false;
   PRIVATE(this)->readstatus = 1;
 }
 
@@ -170,7 +170,7 @@ SoVRMLPixelTexture::~SoVRMLPixelTexture()
 }
 
 static SoGLImage::Wrap
-pixeltexture_translate_wrap(const SbBool repeat)
+pixeltexture_translate_wrap(const bool repeat)
 {
   if (repeat) return SoGLImage::REPEAT;
   return SoGLImage::CLAMP_TO_EDGE;
@@ -191,7 +191,7 @@ SoVRMLPixelTexture::doAction(SoAction * action)
   const unsigned char * bytes = this->image.getValue(size, nc);
 
   if (size == SbVec2s(0, 0)) {
-    SoMultiTextureEnabledElement::set(state, this, unit, FALSE);
+    SoMultiTextureEnabledElement::set(state, this, unit, false);
   }
   else {
     SoMultiTextureImageElement::set(state, this, unit,
@@ -204,10 +204,10 @@ SoVRMLPixelTexture::doAction(SoAction * action)
                                      SoMultiTextureImageElement::CLAMP_TO_BORDER),
                                     SoMultiTextureImageElement::MODULATE,
                                     SbColor(1.0f, 1.0f, 1.0f));
-    SoMultiTextureEnabledElement::set(state, this, unit, TRUE);
+    SoMultiTextureEnabledElement::set(state, this, unit, true);
   }
   if (this->isOverride() && (unit == 0)) {
-    SoTextureOverrideElement::setImageOverride(state, TRUE);
+    SoTextureOverrideElement::setImageOverride(state, true);
   }
 }
 
@@ -238,7 +238,7 @@ SoVRMLPixelTexture::GLRender(SoGLRenderAction * action)
       this->image.getValue(size, nc);
     SoTextureScalePolicyElement::Policy scalepolicy =
       SoTextureScalePolicyElement::get(state);
-    SbBool needbig = (scalepolicy == SoTextureScalePolicyElement::FRACTURE);
+    bool needbig = (scalepolicy == SoTextureScalePolicyElement::FRACTURE);
 
     if (needbig &&
         (PRIVATE(this)->glimage == NULL ||
@@ -262,9 +262,9 @@ SoVRMLPixelTexture::GLRender(SoGLRenderAction * action)
                                       pixeltexture_translate_wrap(this->repeatS.getValue()),
                                       pixeltexture_translate_wrap(this->repeatT.getValue()),
                                       quality);
-      PRIVATE(this)->glimagevalid = TRUE;
+      PRIVATE(this)->glimagevalid = true;
       // don't cache while creating a texture object
-      SoCacheElement::setInvalid(TRUE);
+      SoCacheElement::setInvalid(true);
       if (state->isCacheOpen()) {
         SoCacheElement::invalidate(state);
       }
@@ -283,7 +283,7 @@ SoVRMLPixelTexture::GLRender(SoGLRenderAction * action)
                                       quality > 0.0f);
   
   if (this->isOverride() && (unit == 0)) {
-    SoTextureOverrideElement::setImageOverride(state, TRUE);
+    SoTextureOverrideElement::setImageOverride(state, true);
   }
 }
 
@@ -295,11 +295,11 @@ SoVRMLPixelTexture::callback(SoCallbackAction * action)
 }
 
 // doc in parent
-SbBool
+bool
 SoVRMLPixelTexture::readInstance(SoInput * in,
                                  unsigned short flags)
 {
-  PRIVATE(this)->glimagevalid = FALSE;
+  PRIVATE(this)->glimagevalid = false;
   return inherited::readInstance(in, flags);
 }
 
@@ -309,7 +309,7 @@ SoVRMLPixelTexture::readInstance(SoInput * in,
 void
 SoVRMLPixelTexture::notify(SoNotList * list)
 {
-  PRIVATE(this)->glimagevalid = FALSE;
+  PRIVATE(this)->glimagevalid = false;
   SoNode::notify(list);
 }
 

@@ -56,18 +56,18 @@ public:
   SoGroup * copyChildren(void) const;
   virtual SoChildList * getChildren(void) const;
   virtual void copyContents(const SoFieldContainer * from,
-                            SbBool copyconnections);
+                            bool copyconnections);
 
   const SbString & getFullName(void) const;
 
-  static void setSearchOK(SbBool dosearch);
-  static SbBool getSearchOK();
+  static void setSearchOK(bool dosearch);
+  static bool getSearchOK();
 
 protected:
   virtual ~SoFile();
 
-  virtual SbBool readInstance(SoInput * in, unsigned short flags);
-  virtual SbBool readNamedFile(SoInput * in);
+  virtual bool readInstance(SoInput * in, unsigned short flags);
+  virtual bool readNamedFile(SoInput * in);
 
 private:
   static void nameFieldModified(void * userdata, SoSensor * sensor);

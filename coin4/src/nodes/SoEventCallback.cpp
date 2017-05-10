@@ -267,14 +267,14 @@ SoEventCallback::setHandled(void)
   Check whether or not the event from the SoHandleEventAction has been
   handled.
 */
-SbBool
+bool
 SoEventCallback::isHandled(void) const
 {
 #if COIN_DEBUG
   if (!this->heaction) {
     SoDebugError::postWarning("SoEventCallback::isHandled",
                               "should only be called from event callbacks");
-    return TRUE;
+    return true;
   }
 #endif // COIN_DEBUG
 

@@ -41,8 +41,8 @@ public:
   void setValue(const SbVec3s &size, const int nc,
                 const unsigned char *bytes);
 
-  int operator==(const SoSFImage3 & field) const;
-  int operator!=(const SoSFImage3 & field) const { 
+  bool operator==(const SoSFImage3 & field) const;
+  bool operator!=(const SoSFImage3 & field) const { 
     return ! operator == (field); 
   }
 
@@ -50,7 +50,7 @@ public:
   void finishEditing(void);
 
 private:
-  virtual SbBool readValue(SoInput *in);
+  virtual bool readValue(SoInput *in);
   virtual void writeValue(SoOutput *out) const;
 
   class SbImage *image;

@@ -59,64 +59,64 @@ public:
   const short * getValue(void) const { return vec; }
   void getValue(short & x, short & y, short & z, short & w) const { x = vec[0]; y = vec[1]; z = vec[2]; w = vec[3]; }
 
-  short & operator [] (int i) { return vec[i]; }
-  const short & operator [] (int i) const { return vec[i]; }
+  short & operator[](int i) { return vec[i]; }
+  const short & operator[](int i) const { return vec[i]; }
 
   int32_t dot(const SbVec4s & v) const { return vec[0] * v[0] + vec[1] * v[1] + vec[2] * v[2] + vec[3] * v[3]; }
   void negate(void) { vec[0] = -vec[0]; vec[1] = -vec[1]; vec[2] = -vec[2]; vec[3] = -vec[3]; }
 
-  SbVec4s & operator *= (int d) { vec[0] *= d; vec[1] *= d; vec[2] *= d; vec[3] *= d; return *this; }
-  SbVec4s & operator *= (double d);
-  SbVec4s & operator /= (int d) { SbDividerChk("SbVec4s::operator/=(int)", d); vec[0] /= d; vec[1] /= d; vec[2] /= d; vec[3] /= d; return *this; }
-  SbVec4s & operator /= (double d) { SbDividerChk("SbVec4s::operator/=(double)", d); return operator *= (1.0 / d); }
-  SbVec4s & operator += (const SbVec4s & v) { vec[0] += v[0]; vec[1] += v[1]; vec[2] += v[2]; vec[3] += v[3]; return *this; }
-  SbVec4s & operator -= (const SbVec4s & v) { vec[0] -= v[0]; vec[1] -= v[1]; vec[2] -= v[2]; vec[3] -= v[3]; return *this; }
-  SbVec4s operator - (void) const { return SbVec4s(-vec[0], -vec[1], -vec[2], -vec[3]); }
+  SbVec4s & operator*=(int d) { vec[0] *= d; vec[1] *= d; vec[2] *= d; vec[3] *= d; return *this; }
+  SbVec4s & operator*=(double d);
+  SbVec4s & operator/=(int d) { SbDividerChk("SbVec4s::operator/=(int)", d); vec[0] /= d; vec[1] /= d; vec[2] /= d; vec[3] /= d; return *this; }
+  SbVec4s & operator/=(double d) { SbDividerChk("SbVec4s::operator/=(double)", d); return operator*=(1.0 / d); }
+  SbVec4s & operator+=(const SbVec4s & v) { vec[0] += v[0]; vec[1] += v[1]; vec[2] += v[2]; vec[3] += v[3]; return *this; }
+  SbVec4s & operator-=(const SbVec4s & v) { vec[0] -= v[0]; vec[1] -= v[1]; vec[2] -= v[2]; vec[3] -= v[3]; return *this; }
+  SbVec4s operator-(void) const { return SbVec4s(-vec[0], -vec[1], -vec[2], -vec[3]); }
 
 protected:
   short vec[4];
 
 }; // SbVec4s
 
-COIN_DLL_API inline SbVec4s operator * (const SbVec4s & v, int d) {
+COIN_DLL_API inline SbVec4s operator*(const SbVec4s & v, int d) {
   SbVec4s val(v); val *= d; return val;
 }
 
-COIN_DLL_API inline SbVec4s operator * (const SbVec4s & v, double d) {
+COIN_DLL_API inline SbVec4s operator*(const SbVec4s & v, double d) {
   SbVec4s val(v); val *= d; return val;
 }
 
-COIN_DLL_API inline SbVec4s operator * (int d, const SbVec4s & v) {
+COIN_DLL_API inline SbVec4s operator*(int d, const SbVec4s & v) {
   SbVec4s val(v); val *= d; return val;
 }
 
-COIN_DLL_API inline SbVec4s operator * (double d, const SbVec4s & v) {
+COIN_DLL_API inline SbVec4s operator*(double d, const SbVec4s & v) {
   SbVec4s val(v); val *= d; return val;
 }
 
-COIN_DLL_API inline SbVec4s operator / (const SbVec4s & v, int d) {
+COIN_DLL_API inline SbVec4s operator/(const SbVec4s & v, int d) {
   SbDividerChk("operator/(SbVec4s,int)", d);
   SbVec4s val(v); val /= d; return val;
 }
 
-COIN_DLL_API inline SbVec4s operator / (const SbVec4s & v, double d) {
+COIN_DLL_API inline SbVec4s operator/(const SbVec4s & v, double d) {
   SbDividerChk("operator/(SbVec4s,double)", d);
   SbVec4s val(v); val /= d; return val;
 }
 
-COIN_DLL_API inline SbVec4s operator + (const SbVec4s & v1, const SbVec4s & v2) {
+COIN_DLL_API inline SbVec4s operator+(const SbVec4s & v1, const SbVec4s & v2) {
   SbVec4s v(v1); v += v2; return v;
 }
 
-COIN_DLL_API inline SbVec4s operator - (const SbVec4s & v1, const SbVec4s & v2) {
+COIN_DLL_API inline SbVec4s operator-(const SbVec4s & v1, const SbVec4s & v2) {
   SbVec4s v(v1); v -= v2; return v;
 }
 
-COIN_DLL_API inline int operator == (const SbVec4s & v1, const SbVec4s & v2) {
+COIN_DLL_API inline bool operator==(const SbVec4s & v1, const SbVec4s & v2) {
   return ((v1[0] == v2[0]) && (v1[1] == v2[1]) && (v1[2] == v2[2]) && (v1[3] == v2[3]));
 }
 
-COIN_DLL_API inline int operator != (const SbVec4s & v1, const SbVec4s & v2) {
+COIN_DLL_API inline bool operator!=(const SbVec4s & v1, const SbVec4s & v2) {
   return !(v1 == v2);
 }
 

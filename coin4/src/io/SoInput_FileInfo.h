@@ -69,31 +69,31 @@ public:
   void doBufferRead(void);
   size_t getNumBytesParsedSoFar(void) const;
 
-  SbBool getChunkOfBytes(unsigned char * ptr, size_t length);
-  SbBool get(char & c);
+  bool getChunkOfBytes(unsigned char * ptr, size_t length);
+  bool get(char & c);
 
   void putBack(const char c);
   void putBack(const char * const str);
 
   void addReference(const SbName & name, SoBase * base,
-                    SbBool addToGlobalDict = TRUE);
+                    bool addToGlobalDict = true);
   void removeReference(const SbName & name);
   SoBase * findReference(const SbName & name) const;
   
-  SbBool skipWhiteSpace(void);
+  bool skipWhiteSpace(void);
 
-  // Returns TRUE if an attempt at reading the file header went
+  // Returns true if an attempt at reading the file header went
   // without hitting EOF. Check this->ivversion != 0.0f to see if the
   // header parse actually succeeded.
-  SbBool readHeader(SoInput * input) {
-    if (this->headerisread) return TRUE;
-    if (this->eof) return FALSE;
+  bool readHeader(SoInput * input) {
+    if (this->headerisread) return true;
+    if (this->eof) return false;
     return this->readHeaderInternal(input);
   }
 
-  SbBool isMemBuffer(void) {
+  bool isMemBuffer(void) {
     // if reader == NULL, it means that we're reading from stdin
-    if (this->reader == NULL) return FALSE;
+    if (this->reader == NULL) return false;
     return
       (this->getReader()->getType() == SoInput_Reader::MEMBUFFER) ||
       (this->getReader()->getType() == SoInput_Reader::GZMEMBUFFER);
@@ -102,16 +102,16 @@ public:
   void setDeleteBuffer(char * buffer) {
     this->deletebuffer = buffer;
   }
-  SbBool isBinary(void) {
+  bool isBinary(void) {
     return this->isbinary;
   }
   float ivVersion(void) {
     return this->ivversion;
   }
-  SbBool isFileVRML1(void) {
+  bool isFileVRML1(void) {
     return this->vrml1file;
   }
-  SbBool isFileVRML2(void) {
+  bool isFileVRML2(void) {
     return this->vrml2file;
   }
   void setIvVersion(const float v) {
@@ -133,7 +133,7 @@ public:
     if (this->reader == NULL) return this->stdinname;
     return this->getReader()->getFilename();
   }
-  SbBool isEndOfFile(void) const {
+  bool isEndOfFile(void) const {
     return this->eof;
   }
   void applyPostCallback(SoInput * soinput) {
@@ -166,7 +166,7 @@ public:
     return NULL;
   }
 
-  SbBool isSpace(const char c) {
+  bool isSpace(const char c) {
     // For vrml97, comma is treated as whitespace. Added this function
     // and converted isspace() calls to calls to this function.
     // 2001-10-24, pederb.
@@ -196,10 +196,10 @@ public:
   int readDigits(char * str);
   int readHexDigits(char * str);
 
-  SbBool readUnsignedIntegerString(char * str);
-  SbBool readUnsignedInteger(uint32_t & l);
-  SbBool readInteger(int32_t & l);
-  SbBool readReal(double & d);
+  bool readUnsignedIntegerString(char * str);
+  bool readUnsignedInteger(uint32_t & l);
+  bool readInteger(int32_t & l);
+  bool readReal(double & d);
 
   const SbHash<const char *, SoBase *> & getReferences() const {
     return this->references;
@@ -208,7 +208,7 @@ private:
 
   SoInput_Reader * getReader(void);
   SoInput_Reader * reader;
-  SbBool readHeaderInternal(SoInput * input);
+  bool readHeaderInternal(SoInput * input);
 
   unsigned int linenr;
 
@@ -217,7 +217,7 @@ private:
   float ivversion;
   SoDBHeaderCB * prefunc, * postfunc;
   void * userdata;
-  SbBool isbinary;
+  bool isbinary;
 
   char * readbuf;
   size_t readbufidx;
@@ -226,9 +226,9 @@ private:
   SbList<char> backbuffer; // Used as a stack (SbList provides push() and pop()).
   int lastputback; // The last character put back into the stream.
   int lastchar; // Last read character.
-  SbBool headerisread, eof;
-  SbBool vrml1file;
-  SbBool vrml2file;
+  bool headerisread, eof;
+  bool vrml1file;
+  bool vrml2file;
 
   SbList <SbName> routelist;
   SbList <SoProto*> protolist;
@@ -247,7 +247,7 @@ private:
   int threadbuflen[2];
   int threadreadidx;
   int threadbufidx;
-  SbBool threadeof;
+  bool threadeof;
 #endif // HAVE_THREADS && SOINPUT_ASYNC_IO
 };
 

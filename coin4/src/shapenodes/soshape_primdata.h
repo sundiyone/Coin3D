@@ -82,8 +82,8 @@ private:
   class SbGLUTessellator * glutess;
   int faceCounter;
 
-  SbBool matPerFace;
-  SbBool normPerFace;
+  bool matPerFace;
+  bool normPerFace;
 };
 
 

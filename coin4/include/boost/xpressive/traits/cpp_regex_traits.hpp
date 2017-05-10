@@ -323,7 +323,7 @@ struct cpp_regex_traits
     /// Checks two cpp_regex_traits objects for equality
     ///
     /// \return this->getloc() == that.getloc().
-    bool operator ==(cpp_regex_traits<char_type> const &that) const
+    bool operator==(cpp_regex_traits<char_type> const &that) const
     {
         return this->loc_ == that.loc_;
     }
@@ -331,7 +331,7 @@ struct cpp_regex_traits
     /// Checks two cpp_regex_traits objects for inequality
     ///
     /// \return this->getloc() != that.getloc().
-    bool operator !=(cpp_regex_traits<char_type> const &that) const
+    bool operator!=(cpp_regex_traits<char_type> const &that) const
     {
         return this->loc_ != that.loc_;
     }

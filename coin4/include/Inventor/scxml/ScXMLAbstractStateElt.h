@@ -43,7 +43,7 @@ public:
   virtual void setIdAttribute(const char * id);
   const char * getIdAttribute(void) const { return this->id; }
 
-  virtual SbBool handleXMLAttributes(void);
+  virtual bool handleXMLAttributes(void);
 
   virtual void copyContents(const ScXMLElt * rhs);
 

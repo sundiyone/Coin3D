@@ -328,7 +328,7 @@ SoVRMLBillboard::GLRenderBelowPath(SoGLRenderAction * action)
     // Separator node, enable this code by setting the environment
     // variable COIN_GLERROR_DEBUGGING to "1" to see exactly which
     // node caused the error.
-    static SbBool chkglerr = sogl_glerror_debugging();
+    static bool chkglerr = sogl_glerror_debugging();
     if (chkglerr) {
       cc_string str;
       cc_string_construct(&str);

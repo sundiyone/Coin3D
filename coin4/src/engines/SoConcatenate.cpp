@@ -102,7 +102,7 @@ SoConcatenate::SoConcatenate(void)
   this->output = NULL;
 }
 
-static SbBool
+static bool
 SoConcatenate_valid_type(SoType t)
 {
   return (t.isDerivedFrom(SoMField::getClassTypeId()) &&
@@ -184,7 +184,7 @@ SoConcatenate::~SoConcatenate()
 
 // Documented in superclass. Overridden to initialize type of input
 // before reading.
-SbBool
+bool
 SoConcatenate::readInstance(SoInput * in, unsigned short flagsarg)
 {
   // This code is identical to readInstance() of SoSelectOne and
@@ -196,21 +196,21 @@ SoConcatenate::readInstance(SoInput * in, unsigned short flagsarg)
                       "\"type\" keyword is missing, erroneous format for "
                       "engine class '%s'.",
                       this->getTypeId().getName().getString());
-    return FALSE;
+    return false;
   }
   // need to use an SbString here, because SoInput::read( SbName & )
   // reads in '"MyName"' as is instead of as 'MyName'.
   SbString fieldname;
   if (!in->read(fieldname)) {
     SoReadError::post(in, "Couldn't read input type for engine.");
-    return FALSE;
+    return false;
   }
   SoType inputtype = SoType::fromName(fieldname);
   if (!SoConcatenate_valid_type(inputtype)) {
     SoReadError::post(in, "Type \"%s\" for input field is not valid "
                       "(field must be non-abstract and a multi-value type).",
                       fieldname.getString());
-    return FALSE;
+    return false;
   }
 
   this->initialize(inputtype);
@@ -224,9 +224,9 @@ SoConcatenate::writeInstance(SoOutput * out)
   // This code is identical to writeInstance() of SoSelectOne and
   // SoGate, so migrate changes.
 
-  if (this->writeHeader(out, FALSE, TRUE)) return;
+  if (this->writeHeader(out, false, true)) return;
 
-  SbBool binarywrite = out->isBinary();
+  bool binarywrite = out->isBinary();
 
   if (!binarywrite) out->indent();
   out->write("type");
@@ -242,7 +242,7 @@ SoConcatenate::writeInstance(SoOutput * out)
 // Documented in superclass.
 void
 SoConcatenate::copyContents(const SoFieldContainer * from,
-                            SbBool copyconnections)
+                            bool copyconnections)
 {
   const SoConcatenate * concatenatesrc =
     coin_assert_cast<const SoConcatenate *>(from);

@@ -40,7 +40,7 @@ public:
   SoEvent(void);
   virtual ~SoEvent();
 
-  SbBool isOfType(SoType type) const;
+  bool isOfType(SoType type) const;
 
   void setTime(const SbTime t);
   SbTime getTime(void) const;
@@ -50,12 +50,12 @@ public:
   const SbVec2s getPosition(const SbViewportRegion & vpRgn) const;
   const SbVec2f getNormalizedPosition(const SbViewportRegion & vpRgn) const;
 
-  void setShiftDown(SbBool isDown);
-  SbBool wasShiftDown(void) const;
-  void setCtrlDown(SbBool isDown);
-  SbBool wasCtrlDown(void) const;
-  void setAltDown(SbBool isDown);
-  SbBool wasAltDown(void) const;
+  void setShiftDown(bool isDown);
+  bool wasShiftDown(void) const;
+  void setCtrlDown(bool isDown);
+  bool wasCtrlDown(void) const;
+  void setAltDown(bool isDown);
+  bool wasAltDown(void) const;
 
 private:
   SbTime timeofevent;

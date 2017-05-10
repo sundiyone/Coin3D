@@ -42,19 +42,19 @@ public:
 
   static void set(SoState * const state, SoNode * const node,
                   const int32_t numNormals, const SbVec3f * const normals,
-                  const SbBool normalsAreUnitLength = FALSE);
+                  const bool normalsAreUnitLength = false);
 
   static const SoNormalElement * getInstance(SoState * const state);
   int32_t getNum(void) const;
   const SbVec3f & get(const int index) const;
   const SbVec3f *getArrayPtr(void) const;
 
-  SbBool areNormalsUnitLength(void) const;
+  bool areNormalsUnitLength(void) const;
 
 protected:
   int32_t numNormals;
   const SbVec3f * normals;
-  SbBool unitLength;
+  bool unitLength;
 };
 
 #endif // !COIN_SONORMALELEMENT_H

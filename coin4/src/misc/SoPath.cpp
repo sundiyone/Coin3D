@@ -107,7 +107,7 @@ SoType SoPath::classTypeId STATIC_SOTYPE_INIT;
 */
 SoPath::SoPath(const int approxlength)
   : nodes(approxlength), indices(approxlength),
-    isauditing(TRUE), firsthidden(-1), firsthiddendirty(FALSE)
+    isauditing(true), firsthidden(-1), firsthiddendirty(false)
 {
 }
 
@@ -116,7 +116,7 @@ SoPath::SoPath(const int approxlength)
   the path.
 */
 SoPath::SoPath(SoNode * const head)
-  : isauditing(TRUE), firsthidden(-1), firsthiddendirty(FALSE)
+  : isauditing(true), firsthidden(-1), firsthiddendirty(false)
 {
   this->setHead(head);
 }
@@ -178,7 +178,7 @@ SoPath::setHead(SoNode * const node)
 {
   this->truncate(0);
   this->firsthidden = -1;
-  this->firsthiddendirty = FALSE;
+  this->firsthiddendirty = false;
   this->append(node, 0);
 }
 
@@ -296,7 +296,7 @@ SoPath::append(const SoPath * const frompath)
 
     if (!this->firsthiddendirty && this->firsthidden == -1 &&
         (frompath->firsthiddendirty || frompath->firsthidden >= 0)) {
-      this->firsthiddendirty = TRUE;
+      this->firsthiddendirty = true;
     }
     return;
   }
@@ -324,7 +324,7 @@ SoPath::append(const SoPath * const frompath)
       }
       if (!this->firsthiddendirty && this->firsthidden == -1 &&
           (frompath->firsthiddendirty || frompath->firsthidden >= 0)) {
-        this->firsthiddendirty = TRUE;
+        this->firsthiddendirty = true;
       }
       return;
     }
@@ -342,7 +342,7 @@ SoPath::append(const SoPath * const frompath)
 // children.  It would probably be a good idea to move this method to
 // SoNode.
 //
-static inline SbBool
+static inline bool
 has_hidden_children(const SoNode * node)
 {
   assert(node);
@@ -361,7 +361,7 @@ SoPath::append(SoNode * const node, const int index)
   if (node && !this->firsthiddendirty && this->firsthidden < 0) {
     if (has_hidden_children(node)) {
       this->firsthidden = this->getFullLength();
-      this->firsthiddendirty = FALSE;
+      this->firsthiddendirty = false;
     }
   }
   this->nodes.append(node);
@@ -517,12 +517,12 @@ SoPath::getLength(void) const
 void
 SoPath::truncate(const int length)
 {
-  this->truncate(length, TRUE);
+  this->truncate(length, true);
 }
 
 // This method truncates the path to the given length.
 void
-SoPath::truncate(const int length, const SbBool donotify)
+SoPath::truncate(const int length, const bool donotify)
 {
   assert((length >= 0) && (length <= this->getFullLength()) &&
          "invalid truncation length");
@@ -575,7 +575,7 @@ SoPath::truncate(const int length, const SbBool donotify)
   this->indices.truncate(length);
 
   if (!this->firsthiddendirty && length <= this->firsthidden)
-    this->firsthiddendirty = TRUE;
+    this->firsthiddendirty = true;
 
   if (donotify && this->isauditing) this->startNotify();
 }
@@ -618,66 +618,66 @@ SoPath::findNode(const SoNode * const node) const
 }
 
 /*!
-  This method returns \c TRUE is \a node is contained somewhere in the
+  This method returns \c true is \a node is contained somewhere in the
   \e full path (possibly also in the normally hidden parts), and \c
-  FALSE otherwise.
+  false otherwise.
 */
-SbBool
+bool
 SoPath::containsNode(const SoNode * const node) const
 {
-  return (this->findNode(node) == -1) ? FALSE : TRUE;
+  return (this->findNode(node) == -1) ? false : true;
 }
 
 /*!
-  This method returns \c TRUE if path is contained in the path, and \c
-  FALSE otherwise.
+  This method returns \c true if path is contained in the path, and \c
+  false otherwise.
 */
-SbBool
+bool
 SoPath::containsPath(const SoPath * const path) const
 {
   int thislen = this->getFullLength();
   int thatlen = path->getFullLength();
-  if (thatlen == 0 || thatlen > thislen) return FALSE;
+  if (thatlen == 0 || thatlen > thislen) return false;
 
   int offset = this->findNode(path->nodes[0]); // find head in this path
-  if ((offset < 0) || (offset + thatlen > thislen)) return FALSE;
+  if ((offset < 0) || (offset + thatlen > thislen)) return false;
 
   const int * thisidxptr = this->indices.getArrayPtr();
   const int * pathidxptr = path->indices.getArrayPtr();
 
   for (int i = 1; i < thatlen; i++) {
-    if (thisidxptr[offset+i] != pathidxptr[i]) return FALSE;
+    if (thisidxptr[offset+i] != pathidxptr[i]) return false;
   }
-  return TRUE;
+  return true;
 }
 
 /*!
   Compares contents of path \a lhs and path \a rhs, and returns \c
-  TRUE if they are equal.
+  true if they are equal.
 */
-SbBool
+bool
 operator==(const SoPath & lhs, const SoPath & rhs)
 {
-  if (&lhs == &rhs) return TRUE;
+  if (&lhs == &rhs) return true;
   const int len = lhs.getFullLength();
-  if (len != rhs.getFullLength()) return FALSE;
-  if (len == 0) return TRUE;
-  if (lhs.nodes[0] != rhs.nodes[0]) return FALSE;
+  if (len != rhs.getFullLength()) return false;
+  if (len == 0) return true;
+  if (lhs.nodes[0] != rhs.nodes[0]) return false;
 
   const int * lhsptr = lhs.indices.getArrayPtr();
   const int * rhsptr = rhs.indices.getArrayPtr();
 
   for (int i = 1; i < len; i++) {
-    if (lhsptr[i] != rhsptr[i]) return FALSE;
+    if (lhsptr[i] != rhsptr[i]) return false;
   }
-  return TRUE;
+  return true;
 }
 
 /*!
-  Returns \c TRUE if paths \a lhs and \a rhs does not contain the same
+  Returns \c true if paths \a lhs and \a rhs does not contain the same
   nodes in the same order.
 */
-SbBool
+bool
 operator!=(const SoPath & lhs, const SoPath & rhs)
 {
   return !(lhs == rhs);
@@ -728,7 +728,7 @@ SoPath::copy(const int startfromnodeindex, int numnodes) const
   for (int i = startfromnodeindex; i < max; i++) {
     newpath->append(this->nodes[i], this->indices[i]);
   }
-  newpath->firsthiddendirty = TRUE;
+  newpath->firsthiddendirty = true;
   return newpath;
 }
 
@@ -866,7 +866,7 @@ SoPath::replaceIndex(SoNode * const parent, const int index,
     // notify when truncating as the append call will take care of
     // that (we don't want to notify before the path is correct
     // anyway).
-    this->truncate(pos, FALSE); // FALSE = don't notify
+    this->truncate(pos, false); // false = don't notify
     // append replacement node
     this->append(newchild, index);
   }
@@ -960,14 +960,14 @@ SoPath::write(SoWriteAction * action)
   SoOutput * out = action->getOutput();
 
   if (out->getStage() == SoOutput::COUNT_REFS) {
-    inherited::addWriteReference(out, FALSE);
+    inherited::addWriteReference(out, false);
     if (!SoWriterefCounter::instance(out)->hasMultipleWriteRefs(this)) {
       SoWriteAction wa(out);
       wa.continueToApply(this->getHead());
     }
   }
   else if (out->getStage() == SoOutput::WRITE) {
-    if (this->writeHeader(out, FALSE, FALSE)) return;
+    if (this->writeHeader(out, false, false)) return;
 
     SoWriteAction wa(out);
     wa.continueToApply(this->getHead());
@@ -991,17 +991,17 @@ SoPath::write(SoWriteAction * action)
 // *************************************************************************
 
 /*!
-  Return TRUE if the notification chain \a l will affect the path. \a
+  Return true if the notification chain \a l will affect the path. \a
   l will affect the path either if the notification is in the path
   (the notification started on a field in a node in the path), or off
   the path (the notification started in a non-separator node that is
   left of the path's node).
 */
-SbBool
+bool
 SoPath::isRelevantNotification(SoNotList * const l) const
 {
   int len = this->getFullLength();
-  if (len == 0) return FALSE;
+  if (len == 0) return false;
 
   const SoNotRec * rec = l->getLastRec();
   if (len == 1) return rec->getBase() == (SoBase*) this->getHead();
@@ -1031,24 +1031,24 @@ SoPath::isRelevantNotification(SoNotList * const l) const
     assert(childidx >= 0);
 
     // check if node is to the right of the path
-    if (childidx > this->getIndex(pathidx)) return FALSE;
+    if (childidx > this->getIndex(pathidx)) return false;
 
     // check if the notification is from inside a separator node,
     // then it will not affect the path
     do {
       assert(rec->getBase()->isOfType(SoNode::getClassTypeId()));
-      if (!((SoNode*)rec->getBase())->affectsState()) return FALSE;
+      if (!((SoNode*)rec->getBase())->affectsState()) return false;
       rec = rec->getPrevious();
     } while(rec && rec->getType() == SoNotRec::PARENT);
   }
-  return TRUE;
+  return true;
 }
 
 /*!
   Set whether or not to audit the nodes in the path to detect changes.
 */
 void
-SoPath::auditPath(const SbBool flag)
+SoPath::auditPath(const bool flag)
 {
   // Don't change value in a "running" SoPath.
   assert(this->getFullLength() == 0);
@@ -1104,36 +1104,36 @@ SoPath::cleanupClass(void)
 // This virtual method is used to read an SoPath from the input
 // stream. See the documentation on write() for an explanation of the
 // file format.
-SbBool
+bool
 SoPath::readInstance(SoInput * in, unsigned short COIN_UNUSED_ARG(flags))
 {
   SoBase * baseptr;
-  if (!SoBase::read(in, baseptr, SoNode::getClassTypeId())) return FALSE;
+  if (!SoBase::read(in, baseptr, SoNode::getClassTypeId())) return false;
   this->setHead((SoNode *)baseptr);
 
   int nrindices;
   if (!in->read(nrindices)) {
     SoReadError::post(in, "Couldn't read number of indices");
-    return FALSE;
+    return false;
   }
 
   for (int i=0; i < nrindices; i++) {
     int index;
     if (!in->read(index)) {
       SoReadError::post(in, "Couldn't read index value");
-      return FALSE;
+      return false;
     }
 
     SoChildList * tailchildren = this->getTail()->getChildren();
     if (!tailchildren || index < 0 || index >= tailchildren->getLength()) {
       SoReadError::post(in, "Invalid index value %d", index);
-      return FALSE;
+      return false;
     }
 
     this->append(index);
   }
 
-  return TRUE;
+  return true;
 }
 
 //
@@ -1161,5 +1161,5 @@ SoPath::setFirstHidden(void)
     }
   }
 
-  this->firsthiddendirty = FALSE;
+  this->firsthiddendirty = false;
 }

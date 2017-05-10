@@ -37,7 +37,7 @@ public:
   SoVectorOutput(void);
   virtual ~SoVectorOutput();
 
-  virtual SbBool openFile(const char * filename);
+  virtual bool openFile(const char * filename);
   virtual void closeFile(void);
 
   FILE * getFilePointer(void);

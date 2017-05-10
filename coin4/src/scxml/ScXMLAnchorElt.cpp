@@ -139,19 +139,19 @@ ScXMLAnchorElt::setSnapshotAttribute(const char * snapshotstr)
   SCXML__SET_ATTRIBUTE_VALUE(this->snapshot, "snapshot", snapshotstr);
 }
 
-SbBool
+bool
 ScXMLAnchorElt::handleXMLAttributes(void)
 {
-  if (!inherited::handleXMLAttributes()) return FALSE;
+  if (!inherited::handleXMLAttributes()) return false;
 
   this->setTypeAttribute(this->getXMLAttribute("type"));
   this->setSnapshotAttribute(this->getXMLAttribute("snapshot"));
 
   if (this->type == NULL) {
-    return FALSE;
+    return false;
   }
 
-  return TRUE;
+  return true;
 }
 
 void

@@ -65,7 +65,7 @@ class SoGLDisplayListP {
   int context;
   int refcount;
   int openindex;
-  SbBool mipmap;
+  bool mipmap;
   GLenum texturetarget;
 };
 
@@ -77,7 +77,7 @@ class SoGLDisplayListP {
   Constructor.
 */
 SoGLDisplayList::SoGLDisplayList(SoState * state, Type type, int allocnum,
-                                 SbBool mipmaptexobj)
+                                 bool mipmaptexobj)
 {
   PRIVATE(this) = new SoGLDisplayListP;
   PRIVATE(this)->type = type;
@@ -131,7 +131,7 @@ SoGLDisplayList::SoGLDisplayList(SoState * state, Type type, int allocnum,
     // are not able to allocate displaylist indices is taken care
     // of. 20020911 mortene.
 
-    static SbBool first = TRUE;
+    static bool first = true;
     if (first) {
       SoDebugError::post("SoGLDisplayList::SoGLDisplayList",
                          "This OpenGL driver ('%s') is known to contain serious "
@@ -140,7 +140,7 @@ SoGLDisplayList::SoGLDisplayList(SoState * state, Type type, int allocnum,
                          "GL rendering is likely to cause all sorts of nasty "
                          "problems.",
                          versionstr);
-      first = FALSE;
+      first = false;
     }
   }
 
@@ -312,7 +312,7 @@ SoGLDisplayList::addDependency(SoState * state)
   was created with mipmap data. This method is an extension
   versus the Open Inventor API.
 */
-SbBool
+bool
 SoGLDisplayList::isMipMapTextureObject(void) const
 {
   return PRIVATE(this)->mipmap;

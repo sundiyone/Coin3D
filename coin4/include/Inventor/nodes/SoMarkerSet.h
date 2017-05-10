@@ -84,12 +84,12 @@ public:
 
   static int getNumDefinedMarkers(void);
   static void addMarker(int idx, const SbVec2s & size,
-                        const unsigned char * bytes, SbBool isLSBFirst = TRUE,
-                        SbBool isUpToDown = TRUE);
-  static SbBool getMarker(int idx, SbVec2s & size,
-                          const unsigned char *& bytes, SbBool & isLSBFirst);
-  static SbBool removeMarker(int idx);
-  static SbBool isMarkerBitSet(int idx, int bitNumber);
+                        const unsigned char * bytes, bool isLSBFirst = true,
+                        bool isUpToDown = true);
+  static bool getMarker(int idx, SbVec2s & size,
+                          const unsigned char *& bytes, bool & isLSBFirst);
+  static bool removeMarker(int idx);
+  static bool isMarkerBitSet(int idx, int bitNumber);
 
 protected:
   virtual ~SoMarkerSet();

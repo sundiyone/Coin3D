@@ -564,7 +564,7 @@ struct cc_glxglue {
     int major, minor;
   } version;
 
-  SbBool isdirect;
+  bool isdirect;
 
   const char * serverversion;
   const char * servervendor;
@@ -578,7 +578,7 @@ struct cc_glxglue {
 
   COIN_PFNGLXGETCURRENTDISPLAYPROC glXGetCurrentDisplay;
   COIN_PFNGLXGETPROCADDRESSPROC glXGetProcAddress;
-  SbBool tried_bind_glXGetProcAddress;
+  bool tried_bind_glXGetProcAddress;
 };
 
 /* ********************************************************************** */
@@ -619,7 +619,7 @@ struct cc_glglue {
   COIN_PFNGLGETCOLORTABLEPARAMETERIVPROC glGetColorTableParameteriv;
   COIN_PFNGLGETCOLORTABLEPARAMETERFVPROC glGetColorTableParameterfv;
 
-  SbBool supportsPalettedTextures;
+  bool supportsPalettedTextures;
 
   COIN_PFNGLCOMPRESSEDTEXIMAGE3DPROC glCompressedTexImage3D;
   COIN_PFNGLCOMPRESSEDTEXIMAGE2DPROC glCompressedTexImage2D;
@@ -821,12 +821,12 @@ struct cc_glglue {
 
   const char * versionstr;
   const char * vendorstr;
-  SbBool vendor_is_SGI;
-  SbBool vendor_is_nvidia;
-  SbBool vendor_is_intel;
-  SbBool vendor_is_ati;
-  SbBool vendor_is_3dlabs;
-  SbBool nvidia_color_per_face_bug;
+  bool vendor_is_SGI;
+  bool vendor_is_nvidia;
+  bool vendor_is_intel;
+  bool vendor_is_ati;
+  bool vendor_is_3dlabs;
+  bool nvidia_color_per_face_bug;
   const char * rendererstr;
   const char * extensionsstr;
   int maxtextureunits;
@@ -837,24 +837,24 @@ struct cc_glglue {
   GLuint normalizationcubemap;
   GLuint specularlookup;
 
-  SbBool can_do_bumpmapping;
-  SbBool can_do_sortedlayersblend;
-  SbBool can_do_anisotropic_filtering;
+  bool can_do_bumpmapping;
+  bool can_do_sortedlayersblend;
+  bool can_do_anisotropic_filtering;
 
-  SbBool has_nv_register_combiners;
-  SbBool has_ext_texture_rectangle;
-  SbBool has_nv_texture_shader;
-  SbBool has_depth_texture;
-  SbBool has_shadow;
-  SbBool has_arb_fragment_program;
-  SbBool has_arb_vertex_program;
-  SbBool has_arb_shader_objects;
-  SbBool has_arb_vertex_shader;
-  SbBool has_texture_env_combine;
-  SbBool has_fbo;
+  bool has_nv_register_combiners;
+  bool has_ext_texture_rectangle;
+  bool has_nv_texture_shader;
+  bool has_depth_texture;
+  bool has_shadow;
+  bool has_arb_fragment_program;
+  bool has_arb_vertex_program;
+  bool has_arb_shader_objects;
+  bool has_arb_vertex_shader;
+  bool has_texture_env_combine;
+  bool has_fbo;
 
-  SbBool vbo_in_displaylist_ok;
-  SbBool non_power_of_two_textures;
+  bool vbo_in_displaylist_ok;
+  bool non_power_of_two_textures;
   int max_lights;
   float line_width_range[2];
   float point_size_range[2];
@@ -911,26 +911,26 @@ void coin_apply_normalization_cube_map(const cc_glglue * glue);
 /* ********************************************************************** */
 
 /* ARB_shader_objects */
-SbBool cc_glglue_has_arb_shader_objects(const cc_glglue * glue);
+bool cc_glglue_has_arb_shader_objects(const cc_glglue * glue);
 
 /* Moved from gl.h and added compressed parameter.
    Original function is deprecated for internal use.
 */
-SbBool coin_glglue_is_texture_size_legal(const cc_glglue * glw,
+bool coin_glglue_is_texture_size_legal(const cc_glglue * glw,
                                          int xsize, int ysize, int zsize,
                                          GLenum internalformat,
                                          GLenum format,
                                          GLenum type,
-                                         SbBool mipmap);
+                                         bool mipmap);
 
 GLint coin_glglue_get_internal_texture_format(const cc_glglue * glw,
                                               int numcomponents,
-                                              SbBool compress);
+                                              bool compress);
 
 GLenum coin_glglue_get_texture_format(const cc_glglue * glw, int numcomponents);
-SbBool coin_glglue_vbo_in_displaylist_supported(const cc_glglue * glw);
-SbBool coin_glglue_non_power_of_two_textures(const cc_glglue * glue);
-SbBool coin_glglue_has_generate_mipmap(const cc_glglue * glue);
+bool coin_glglue_vbo_in_displaylist_supported(const cc_glglue * glw);
+bool coin_glglue_non_power_of_two_textures(const cc_glglue * glue);
+bool coin_glglue_has_generate_mipmap(const cc_glglue * glue);
 
 /* context creation callback */
 typedef void coin_glglue_instance_created_cb(const uint32_t contextid, void * closure);

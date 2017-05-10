@@ -329,12 +329,12 @@ SbViewVolume::getPlanePoint(const float distFromEye,
   Returns a rotation that aligns an object so that its positive x-axis
   is to the right and its positive y-axis is up in the view volume.
   
-  If rightangleonly is TRUE, it will create a rotation that aligns the
+  If rightangleonly is true, it will create a rotation that aligns the
   x and y-axis with the closest orthogonal axes to right and up.
 */
 
 SbRotation
-SbViewVolume::getAlignRotation(SbBool rightangleonly) const
+SbViewVolume::getAlignRotation(bool rightangleonly) const
 {
   SbDPRotation rot = this->dpvv.getAlignRotation(rightangleonly);
 
@@ -730,32 +730,32 @@ SbViewVolume::getViewUp(void) const
 
 
 /*!
-  Returns TRUE if \a p is inside the view volume.
+  Returns true if \a p is inside the view volume.
 
   \since Coin 2.3
 */
-SbBool 
+bool 
 SbViewVolume::intersect(const SbVec3f & p) const
 {
   SbPlane planes[6];
   this->getViewVolumePlanes(planes);
   for (int i = 0; i < 6; i++) {
-    if (!planes[i].isInHalfSpace(p)) return FALSE;
+    if (!planes[i].isInHalfSpace(p)) return false;
   }
-  return TRUE;
+  return true;
 }
 
 /*!  
-  Returns TRUE if the line segment \a p0, \a p1 may intersect
+  Returns true if the line segment \a p0, \a p1 may intersect
   volume. Be aware that it's not 100% certain that the line segment
-  intersects the volume even if this function returns TRUE.
+  intersects the volume even if this function returns true.
   
   \a closestpoint is set to the closest point on the line
   to the center ray of the view volume.
   
   \since Coin 2.3
 */
-SbBool 
+bool 
 SbViewVolume::intersect(const SbVec3f & p0, const SbVec3f & p1,
                         SbVec3f & closestpoint) const
 {
@@ -774,11 +774,11 @@ SbViewVolume::intersect(const SbVec3f & p0, const SbVec3f & p1,
 }
 
 /*!
-  Returns TRUE if \a box may be inside the view volume.
+  Returns true if \a box may be inside the view volume.
 
   \since Coin 2.3
  */
-SbBool 
+bool 
 SbViewVolume::intersect(const SbBox3f & box) const
 {
   int i, j;
@@ -801,9 +801,9 @@ SbViewVolume::intersect(const SbBox3f & box) const
     for (j = 0; j < 8; j++) {
       if (planes[i].isInHalfSpace(pts[j])) break;
     }
-    if (j == 8) return FALSE;
+    if (j == 8) return false;
   }
-  return TRUE;
+  return true;
 }
 
 namespace {
@@ -910,10 +910,10 @@ const SbDPViewVolume &
 
 
 /*!
-  Returns TRUE if all eight corner points in \a bmin, \a bmax is
+  Returns true if all eight corner points in \a bmin, \a bmax is
   outside \a p.
 */
-SbBool 
+bool 
 SbViewVolume::outsideTest(const SbPlane & p,
                           const SbVec3f & bmin, 
                           const SbVec3f & bmax) const
@@ -925,9 +925,9 @@ SbViewVolume::outsideTest(const SbPlane & p,
     pt[1] = i & 2 ? bmin[1] : bmax[1];
     pt[2] = i & 4 ? bmin[2] : bmax[2];
     
-    if (p.isInHalfSpace(pt)) return FALSE;
+    if (p.isInHalfSpace(pt)) return false;
   }
-  return TRUE;
+  return true;
 }
 
 //

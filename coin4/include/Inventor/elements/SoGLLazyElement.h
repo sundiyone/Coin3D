@@ -51,13 +51,13 @@ public:
   static void sendOnlyDiffuseColor(SoState * state);
   static void sendLightModel(SoState * state, const int32_t model);
   static void sendPackedDiffuse(SoState * state, const uint32_t diffuse);
-  static void sendFlatshading(SoState * state, const SbBool onoff);
+  static void sendFlatshading(SoState * state, const bool onoff);
   static void sendVertexOrdering(SoState * state, const VertexOrdering ordering);
-  static void sendTwosideLighting(SoState * state, const SbBool onoff);
-  static void sendBackfaceCulling(SoState * state, const SbBool onoff);
+  static void sendTwosideLighting(SoState * state, const bool onoff);
+  static void sendBackfaceCulling(SoState * state, const bool onoff);
 
   void sendDiffuseByIndex(const int index) const;
-  static SbBool isColorIndex(SoState *state);
+  static bool isColorIndex(SoState *state);
   static SoGLLazyElement * getInstance(const SoState *state);
   void send(const SoState *state, uint32_t mask) const;
 
@@ -93,7 +93,7 @@ public:
   virtual void setDiffuseElt(SoNode*,  int32_t numcolors,
                              const SbColor * colors, SoColorPacker * packer);
   virtual void setPackedElt(SoNode * node, int32_t numcolors,
-                            const uint32_t * colors, const SbBool packedtransparency);
+                            const uint32_t * colors, const bool packedtransparency);
   virtual void setColorIndexElt(SoNode * node, int32_t numindices,
                                 const int32_t * indices);
   virtual void setTranspElt(SoNode * node, int32_t numtransp,
@@ -104,7 +104,7 @@ public:
   virtual void setEmissiveElt(const SbColor* color);
   virtual void setSpecularElt(const SbColor* color);
   virtual void setShininessElt(float value);
-  virtual void setColorMaterialElt(SbBool value);
+  virtual void setColorMaterialElt(bool value);
   virtual void enableBlendingElt(int sfactor, int dfactor, int alpha_sfactor, int alpha_dfactor);
   virtual void disableBlendingElt(void);
   virtual void setLightModelElt(SoState *state, int32_t model);
@@ -116,11 +116,11 @@ public:
                               const SbColor & emissive,
                               const SbColor & specular,
                               const float shininess,
-                              const SbBool istransparent);
+                              const bool istransparent);
   virtual void setVertexOrderingElt(VertexOrdering ordering);
-  virtual void setBackfaceCullingElt(SbBool onoff);
-  virtual void setTwosideLightingElt(SbBool onoff);
-  virtual void setShadeModelElt(SbBool flatshading);
+  virtual void setBackfaceCullingElt(bool onoff);
+  virtual void setTwosideLightingElt(bool onoff);
+  virtual void setShadeModelElt(bool flatshading);
   virtual void setAlphaTestElt(int func, float value);
 
   static void beginCaching(SoState * state,
@@ -128,7 +128,7 @@ public:
                            SoGLLazyElement::GLState * poststate);
   static void endCaching(SoState * state);
 
-  static SbBool preCacheCall(const SoState * state, const SoGLLazyElement::GLState * prestate);
+  static bool preCacheCall(const SoState * state, const SoGLLazyElement::GLState * prestate);
   static void postCacheCall(const SoState * state, const SoGLLazyElement::GLState * poststate);
 
   static void mergeCacheInfo(SoState * state,
@@ -155,10 +155,10 @@ private:
   void disableBlending(void) const;
 
   void sendLightModel(const int32_t model) const;
-  void sendFlatshading(const SbBool onoff) const;
+  void sendFlatshading(const bool onoff) const;
   void sendVertexOrdering(const VertexOrdering ordering) const;
-  void sendTwosideLighting(const SbBool onoff) const;
-  void sendBackfaceCulling(const SbBool onoff) const;
+  void sendTwosideLighting(const bool onoff) const;
+  void sendBackfaceCulling(const bool onoff) const;
   void sendAlphaTest(int func, float value) const;
   void initGL(void);
   void packColors(SoColorPacker * packer) const;
@@ -171,7 +171,7 @@ private:
   mutable GLState glstate;
   GLState * postcachestate;
   GLState * precachestate;
-  SbBool colorindex;
+  bool colorindex;
   mutable SoColorPacker * colorpacker;
   mutable const uint32_t * packedpointer;
   uint32_t transpmask;

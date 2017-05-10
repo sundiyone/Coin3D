@@ -132,7 +132,7 @@ soshape_bigtexture::beginShape(SoGLBigImage * imageptr,
   }
 }
 
-SbBool
+bool
 soshape_bigtexture::endShape(SoState * state,
                              SoShape * shape,
                              SoMaterialBundle & mb)
@@ -182,7 +182,7 @@ soshape_bigtexture::endShape(SoState * state,
         tc[1] /= (reg.end[1]-reg.start[1]);
         glTexCoord4fv(tc.getValue());
         glNormal3fv(v->getNormal().getValue());
-        mb.send(v->getMaterialIndex(), TRUE);
+        mb.send(v->getMaterialIndex(), true);
         glVertex3fv(v->getPoint().getValue());
       }
       glEnd();
@@ -197,7 +197,7 @@ soshape_bigtexture::endShape(SoState * state,
   glPopMatrix();
   glMatrixMode(GL_MODELVIEW);
 
-  // return TRUE if all textures were created in the correct resolution
+  // return true if all textures were created in the correct resolution
   return ! this->image->exceededChangeLimit();
 }
 

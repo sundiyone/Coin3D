@@ -54,21 +54,21 @@ public:
   virtual void setAnchorAttribute(const char * anchor);
   const char * getAnchorAttribute(void) const { return this->anchor; }
 
-  virtual SbBool handleXMLAttributes(void);
+  virtual bool handleXMLAttributes(void);
 
   virtual void copyContents(const ScXMLElt * rhs);
 
   virtual const ScXMLElt * search(const char * attrname, const char * attrvalue) const;
 
   // predicates
-  SbBool isConditionLess(void) const;
-  SbBool isTargetLess(void) const;
-  SbBool isSelfReferencing(void) const;
+  bool isConditionLess(void) const;
+  bool isTargetLess(void) const;
+  bool isSelfReferencing(void) const;
 
   // check
-  virtual SbBool isEventMatch(const ScXMLEvent * event) const;
+  virtual bool isEventMatch(const ScXMLEvent * event) const;
   // isConditionMatch() ?
-  virtual SbBool evaluateCondition(ScXMLStateMachine * statemachine);
+  virtual bool evaluateCondition(ScXMLStateMachine * statemachine);
 
   // executable content
   virtual int getNumExecutables(void) const;
@@ -85,7 +85,7 @@ protected:
   char * target;
   char * anchor;
 
-  SbBool needprefixmatching;
+  bool needprefixmatching;
   SbName eventkey;
   SbName targetkey;
 

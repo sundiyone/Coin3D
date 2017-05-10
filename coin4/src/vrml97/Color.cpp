@@ -165,10 +165,10 @@ SoVRMLColor::doAction(SoAction * action)
                               PRIVATE(this)->getColorPacker());
 
     if (state->isElementEnabled(SoGLVBOElement::getClassStackIndex())) {
-      SbBool setvbo = FALSE;
+      bool setvbo = false;
       SoBase::staticDataLock();
       if (SoGLVBOElement::shouldCreateVBO(state, num)) {
-        setvbo = TRUE;
+        setvbo = true;
         if (PRIVATE(this)->vbo == NULL) {
           PRIVATE(this)->vbo = new SoVBO(GL_ARRAY_BUFFER, GL_STATIC_DRAW);
         }
@@ -184,7 +184,7 @@ SoVRMLColor::doAction(SoAction * action)
       }
     }
     if (this->isOverride()) {
-      SoOverrideElement::setDiffuseColorOverride(state, this, TRUE);
+      SoOverrideElement::setDiffuseColorOverride(state, this, true);
     }
   }
 }

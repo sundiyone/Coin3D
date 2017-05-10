@@ -56,8 +56,8 @@ struct SbNodeProfilingData {
   } flags;
 
   inline SbNodeProfilingData(void);
-  inline int operator == (const SbNodeProfilingData & rhs) const;
-  inline int operator != (const SbNodeProfilingData & rhs) const;
+  inline bool operator == (const SbNodeProfilingData & rhs) const;
+  inline bool operator != (const SbNodeProfilingData & rhs) const;
 
 }; // SbNodeProfilingData
 
@@ -90,13 +90,13 @@ SbNodeProfilingData::SbNodeProfilingData(void)
   this->flags.culled = 0;
 }
 
-int
-SbNodeProfilingData::operator == (const SbNodeProfilingData & rhs) const {
+bool
+SbNodeProfilingData::operator==(const SbNodeProfilingData & rhs) const {
   return (memcmp(this, &rhs, sizeof(SbNodeProfilingData)) == 0);
 }
 
-int
-SbNodeProfilingData::operator != (const SbNodeProfilingData & rhs) const {
+bool
+SbNodeProfilingData::operator!=(const SbNodeProfilingData & rhs) const {
   return (memcmp(this, &rhs, sizeof(SbNodeProfilingData)) != 0);
 }
 
@@ -456,7 +456,7 @@ SbProfilingData::getActionDuration(void) const
  * Check if the path matches the given index in the nodedata vector.
  */
 
-SbBool
+bool
 SbProfilingData::isPathMatch(const SoFullPath * fullpath, int pathlen, int idx)
 {
   assert(pathlen > 0 && pathlen <= fullpath->getLength());
@@ -464,13 +464,13 @@ SbProfilingData::isPathMatch(const SoFullPath * fullpath, int pathlen, int idx)
     SbProfilingNodeKey node =
       static_cast<SbProfilingNodeKey>(fullpath->getNode(pathlen-1));
     int childidx = fullpath->getIndex(pathlen-1);
-    if (PRIVATE(this)->nodeData[idx].node != node) return FALSE;
-    if (PRIVATE(this)->nodeData[idx].childidx != childidx) return FALSE;
+    if (PRIVATE(this)->nodeData[idx].node != node) return false;
+    if (PRIVATE(this)->nodeData[idx].childidx != childidx) return false;
     idx = PRIVATE(this)->nodeData[idx].parentidx;
     --pathlen;
   }
-  if (pathlen == 0 && idx == -1) return TRUE;
-  return FALSE;
+  if (pathlen == 0 && idx == -1) return true;
+  return false;
 }
 
 // *************************************************************************
@@ -481,7 +481,7 @@ SbProfilingData::isPathMatch(const SoFullPath * fullpath, int pathlen, int idx)
 */
 
 int
-SbProfilingData::getIndex(const SoPath * path, SbBool create)
+SbProfilingData::getIndex(const SoPath * path, bool create)
 {
   const SoFullPath * fullpath = static_cast<const SoFullPath *>(path);
   if ((PRIVATE(this)->lastPathIndex != -1) &&
@@ -958,7 +958,7 @@ SbProfilingData::getNodeFootprint(int idx, FootprintType footprinttype, unsigned
 */
 
 void
-SbProfilingData::setNodeFlag(const SoPath * path, NodeFlag flag, SbBool on)
+SbProfilingData::setNodeFlag(const SoPath * path, NodeFlag flag, bool on)
 {
   assert(path);
   assert(static_cast<const SoFullPath *>(path)->getLength() > 0);
@@ -973,7 +973,7 @@ SbProfilingData::setNodeFlag(const SoPath * path, NodeFlag flag, SbBool on)
 */
 
 void
-SbProfilingData::setNodeFlag(int idx, NodeFlag flag, SbBool on)
+SbProfilingData::setNodeFlag(int idx, NodeFlag flag, bool on)
 {
   assert(idx >= 0 && idx < static_cast<int>(PRIVATE(this)->nodeData.size()));
 
@@ -992,7 +992,7 @@ SbProfilingData::setNodeFlag(int idx, NodeFlag flag, SbBool on)
 /*!
 */
 
-SbBool
+bool
 SbProfilingData::getNodeFlag(const SoPath * path, NodeFlag flag) const
 {
   const SoFullPath * fullpath = static_cast<const SoFullPath *>(path);
@@ -1004,22 +1004,22 @@ SbProfilingData::getNodeFlag(const SoPath * path, NodeFlag flag) const
 /*!
 */
 
-SbBool
+bool
 SbProfilingData::getNodeFlag(int idx, NodeFlag flag) const
 {
   assert(idx >= 0 && idx < static_cast<int>(PRIVATE(this)->nodeData.size()));
 
   switch (flag) {
   case GL_CACHED_FLAG:
-    return PRIVATE(this)->nodeData[idx].flags.glcached ? TRUE : FALSE;
+    return PRIVATE(this)->nodeData[idx].flags.glcached ? true : false;
     break;
   case CULLED_FLAG:
-    return PRIVATE(this)->nodeData[idx].flags.culled ? TRUE : FALSE;
+    return PRIVATE(this)->nodeData[idx].flags.culled ? true : false;
     break;
   default:
     break;
   }
-  return FALSE;
+  return false;
 }
 
 /*!
@@ -1200,28 +1200,28 @@ SbProfilingData::getStatsForName(SbProfilingNodeNameKey name,
 
 // *************************************************************************
 
-int
+bool
 SbProfilingData::operator == (const SbProfilingData & rhs) const
 {
-  if (this->actionType != rhs.actionType) return FALSE;
-  if (this->actionStartTime != rhs.actionStopTime) return FALSE;
-  if (this->actionStartTime != rhs.actionStopTime) return FALSE;
+  if (this->actionType != rhs.actionType) return false;
+  if (this->actionStartTime != rhs.actionStopTime) return false;
+  if (this->actionStartTime != rhs.actionStopTime) return false;
   if (PRIVATE(this)->nodeData.size() != PRIVATE(&rhs)->nodeData.size())
-    return FALSE;
+    return false;
 
   for (int c = PRIVATE(this)->nodeData.size() - 1; c >= 0; --c) {
     if (PRIVATE(this)->nodeData[c] != PRIVATE(&rhs)->nodeData[c])
-      return FALSE;
+      return false;
   }
 
   // NOTE: the type and name info maps are not checked, because they
   // are just aggregates of the nodedata records and would be equal if
   // the node data is.
 
-  return TRUE;
+  return true;
 }
 
-int
+bool
 SbProfilingData::operator != (const SbProfilingData & rhs) const
 {
   return !((*this) == rhs);

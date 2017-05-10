@@ -51,8 +51,8 @@ protected:
   virtual void computeBBox(SoAction * action, SbBox3f & box, SbVec3f & center);
 
 private:
-  virtual SbBool generateDefaultNormals(SoState *, SoNormalCache * nc);
-  virtual SbBool generateDefaultNormals(SoState * state,
+  virtual bool generateDefaultNormals(SoState *, SoNormalCache * nc);
+  virtual bool generateDefaultNormals(SoState * state,
                                         SoNormalBundle * bundle);
 
   enum Binding {

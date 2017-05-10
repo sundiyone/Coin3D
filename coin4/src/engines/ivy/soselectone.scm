@@ -39,7 +39,7 @@
 (-> writeaction 'apply (-> viewer 'getscenegraph))
 
 ;; Read scenegraph with engine in it.
-(let ((buffer "#Inventor V2.1 ascii\n\n Text3 { string \"X\" = SelectOne { type \"MFBool\"  index 1  input [ FALSE, TRUE, FALSE ] } . output }")
+(let ((buffer "#Inventor V2.1 ascii\n\n Text3 { string \"X\" = SelectOne { type \"MFBool\"  index 1  input [ false, true, false ] } . output }")
       (input (new-soinput)))
   (-> input 'setbuffer (void-cast buffer) (string-length buffer))
   (let ((sceneroot (sodb::readall input)))

@@ -218,26 +218,26 @@ SbBox2i32::extendBy(const SbBox2i32 & box)
 /*!
   Check if the given point lies within the boundaries of this box.
 */
-SbBool
+bool
 SbBox2i32::intersect(const SbVec2i32 & point) const
 {
   if((point[0] >= this->minpt[0]) && (point[0] <= this->maxpt[0]) &&
-     (point[1] >= this->minpt[1]) && (point[1] <= this->maxpt[1])) return TRUE;
-  return FALSE;
+     (point[1] >= this->minpt[1]) && (point[1] <= this->maxpt[1])) return true;
+  return false;
 }
 
 /*!
   Check if \a box lies wholly or partly within the boundaries
   of this box.
 */
-SbBool
+bool
 SbBox2i32::intersect(const SbBox2i32 & box) const
 {
   if((box.getMax()[0] < this->getMin()[0]) ||
      (box.getMax()[1] < this->getMin()[1]) ||
      (box.getMin()[0] > this->getMax()[0]) ||
-     (box.getMin()[1] > this->getMax()[1])) return FALSE;
-  return TRUE;
+     (box.getMin()[1] > this->getMax()[1])) return false;
+  return true;
 }
 
 /*!
@@ -278,7 +278,7 @@ SbBox2i32::intersect(const SbBox2i32 & box) const
 */
 
 /*!
-  \fn SbBool SbBox2i32::hasArea(void) const
+  \fn bool SbBox2i32::hasArea(void) const
 */
 
 /*!

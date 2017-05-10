@@ -34,12 +34,12 @@
 
 /*!
   \var SoSFBool SoVRMLTexture::repeatS
-  TRUE if texure should be repeated in the S direction. Default is TRUE.
+  true if texure should be repeated in the S direction. Default is true.
 */
 
 /*!
   \var SoSFBool SoVRMLTexture::repeatT
-  TRUE if texure should be repeated in the T direction. Default is TRUE.
+  true if texure should be repeated in the T direction. Default is true.
 */
 
 #include <Inventor/VRMLnodes/SoVRMLTexture.h>
@@ -65,8 +65,8 @@ SoVRMLTexture::SoVRMLTexture(void)
 {
   SO_VRMLNODE_INTERNAL_CONSTRUCTOR(SoVRMLTexture);
 
-  SO_VRMLNODE_ADD_FIELD(repeatS, (TRUE));
-  SO_VRMLNODE_ADD_FIELD(repeatT, (TRUE));
+  SO_VRMLNODE_ADD_FIELD(repeatS, (true));
+  SO_VRMLNODE_ADD_FIELD(repeatT, (true));
 }
 
 /*!

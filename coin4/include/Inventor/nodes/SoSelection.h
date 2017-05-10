@@ -62,8 +62,8 @@ public:
   void deselect(SoNode * node);
   void toggle(const SoPath * path);
   void toggle(SoNode * node);
-  SbBool isSelected(const SoPath * path) const;
-  SbBool isSelected(SoNode * node) const;
+  bool isSelected(const SoPath * path) const;
+  bool isSelected(SoNode * node) const;
   void deselectAll(void);
   int getNumSelected(void) const;
   const SoPathList * getList(void) const;
@@ -79,17 +79,17 @@ public:
   void addFinishCallback(SoSelectionClassCB * f, void * userData = NULL);
   void removeFinishCallback(SoSelectionClassCB * f, void * userData = NULL);
   void setPickFilterCallback(SoSelectionPickCB * f, void * userData = NULL,
-                             const SbBool callOnlyIfSelectable = TRUE);
-  void setPickMatching(const SbBool pickMatching);
-  SbBool isPickMatching(void) const;
-  SbBool getPickMatching(void) const;
+                             const bool callOnlyIfSelectable = true);
+  void setPickMatching(const bool pickMatching);
+  bool isPickMatching(void) const;
+  bool getPickMatching(void) const;
   void addChangeCallback(SoSelectionClassCB * f, void * userData = NULL);
   void removeChangeCallback(SoSelectionClassCB * f, void * userData = NULL);
 
 protected:
   virtual ~SoSelection();
 
-  void invokeSelectionPolicy(SoPath *path, SbBool shiftDown);
+  void invokeSelectionPolicy(SoPath *path, bool shiftDown);
   void performSingleSelection(SoPath *path);
   void performToggleSelection(SoPath *path);
   SoPath * copyFromThis(const SoPath * path) const;
@@ -110,18 +110,18 @@ protected: // unfortunately only protected in OIV
 
   SoSelectionPickCB *pickCBFunc;
   void *pickCBData;
-  SbBool callPickCBOnlyIfSelectable;
+  bool callPickCBOnlyIfSelectable;
 
   SoCallbackList *changeCBList;
 
   SoPath *mouseDownPickPath;
-  SbBool pickMatching;
+  bool pickMatching;
 
 private:
   void init();
   SoPath *searchNode(SoNode * node) const;
   SoPath *getSelectionPath(SoHandleEventAction *action,
-                           SbBool &ignorepick, SbBool &haltaction);
+                           bool &ignorepick, bool &haltaction);
 };
 
 #endif // !COIN_SOSELECTION_H

@@ -39,7 +39,7 @@
     eventIn      MFNode   addChildren
     eventIn      MFNode   removeChildren
     exposedField MFNode   children        []
-    exposedField SFBool   collide         TRUE
+    exposedField SFBool   collide         true
     field        SFVec3f  bboxCenter      0 0 0      # (-,)
     field        SFVec3f  bboxSize        -1 -1 -1   # (0,) or -1,-1,-1
     field        SFNode   proxy           NULL
@@ -71,13 +71,13 @@
   removeChildren fields and eventIns.
 
   The Collision node's collide field enables and disables collision
-  detection. If collide is set to FALSE, the children and all
+  detection. If collide is set to false, the children and all
   descendants of the Collision node shall not be checked for
   collision, even though they are drawn. This includes any descendent
-  Collision nodes that have collide set to TRUE (i.e., setting collide
-  to FALSE turns collision off for every node below it).
+  Collision nodes that have collide set to true (i.e., setting collide
+  to false turns collision off for every node below it).
 
-  Collision nodes with the collide field set to TRUE detect the
+  Collision nodes with the collide field set to true detect the
   nearest collision with their descendent geometry (or proxies). When
   the nearest collision is detected, the collided Collision node sends
   the time of the collision through its collideTime eventOut. If a
@@ -104,12 +104,12 @@
   that is used as a substitute for the Collision node's children
   during collision detection. The proxy is used strictly for collision
   detection; it is not drawn.  If the value of the collide field is
-  TRUE and the proxy field is non-NULL, the proxy field defines the
+  true and the proxy field is non-NULL, the proxy field defines the
   scene on which collision detection is performed. If the proxy value
   is NULL, collision detection is performed against the children of
   the Collision node.  If proxy is specified, any descendent children
   of the Collision node are ignored during collision detection. If
-  children is empty, collide is TRUE, and proxy is specified,
+  children is empty, collide is true, and proxy is specified,
   collision detection is performed against the proxy but nothing is
   displayed. In this manner, invisible collision objects may be
   supported.
@@ -181,7 +181,7 @@ SoVRMLCollision::commonConstructor(void)
 {
   SO_VRMLNODE_INTERNAL_CONSTRUCTOR(SoVRMLCollision);
 
-  SO_VRMLNODE_ADD_EXPOSED_FIELD(collide, (TRUE));
+  SO_VRMLNODE_ADD_EXPOSED_FIELD(collide, (true));
   SO_VRMLNODE_ADD_FIELD(proxy, (NULL));
 
   SO_VRMLNODE_ADD_EVENT_OUT(collideTime);

@@ -107,9 +107,9 @@
 */
 
 /*!
-  \fn SbBool SbPList::operator!=(const SbPList & l) const
+  \fn bool SbPList::operator!=(const SbPList & l) const
 
-  Inequality operator. Returns \c TRUE if this list and \a l are not
+  Inequality operator. Returns \c true if this list and \a l are not
   equal.
 */
 
@@ -267,17 +267,17 @@ SbPList::remove(const int index)
 }
 
 /*!
-  Equality operator. Returns \c TRUE if this list and \a l are
+  Equality operator. Returns \c true if this list and \a l are
   identical, containing the exact same ordered set of elements.
 */
-int
+bool
 SbPList::operator==(const SbPList & l) const
 {
-  if (this == &l) return TRUE;
-  if (this->numitems != l.numitems) return FALSE;
+  if (this == &l) return true;
+  if (this->numitems != l.numitems) return false;
   for (int i = 0; i < this->numitems; i++)
-    if (this->itembuffer[i] != l.itembuffer[i]) return FALSE;
-  return TRUE;
+    if (this->itembuffer[i] != l.itembuffer[i]) return false;
+  return true;
 }
 
 // Expand list to the given size, filling in with NULL pointers.

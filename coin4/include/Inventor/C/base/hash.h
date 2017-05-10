@@ -47,9 +47,9 @@ extern "C" {
   COIN_DLL_API void cc_hash_destruct(cc_hash * ht);
   COIN_DLL_API void cc_hash_clear(cc_hash * ht);
 
-  COIN_DLL_API SbBool cc_hash_put(cc_hash * ht, cc_hash_key key, void * val);
-  COIN_DLL_API SbBool cc_hash_get(cc_hash * ht, cc_hash_key key, void ** val);
-  COIN_DLL_API SbBool cc_hash_remove(cc_hash * ht, cc_hash_key key);
+  COIN_DLL_API bool cc_hash_put(cc_hash * ht, cc_hash_key key, void * val);
+  COIN_DLL_API bool cc_hash_get(cc_hash * ht, cc_hash_key key, void ** val);
+  COIN_DLL_API bool cc_hash_remove(cc_hash * ht, cc_hash_key key);
   COIN_DLL_API void cc_hash_apply(cc_hash * ht, cc_hash_apply_func * func, void * closure);
 
   COIN_DLL_API unsigned int cc_hash_get_num_elements(cc_hash * ht);

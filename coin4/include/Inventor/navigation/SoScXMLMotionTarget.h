@@ -42,7 +42,7 @@ protected:
   SoScXMLMotionTarget(void);
   virtual ~SoScXMLMotionTarget(void);
 
-  virtual SbBool processOneEvent(const ScXMLEvent * event);
+  virtual bool processOneEvent(const ScXMLEvent * event);
 
 private:
   class PImpl;

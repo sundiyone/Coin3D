@@ -81,58 +81,58 @@
 
 // *************************************************************************
 
-// Read boolean value from input stream, return TRUE if
+// Read boolean value from input stream, return true if
 // successful. Used from SoSFBool and SoMFBool.
-SbBool
-sosfbool_read_value(SoInput * in, SbBool & val)
+bool
+sosfbool_read_value(SoInput * in, bool & val)
 {
   // accept 0 or 1
   if (in->read(val)) {
     if (val != 0 && val != 1) {
       SoReadError::post(in, "Illegal value for field: %d (must be 0 or 1)",
                         val);
-      return FALSE;
+      return false;
     }
-    return TRUE;
+    return true;
   }
 
   if (in->isBinary()) {
     SoReadError::post(in, "Premature end of file");
-    return FALSE;
+    return false;
   }
 
-  // read TRUE/FALSE keyword
+  // read true/false keyword
 
   SbName n;
-  if (!in->read(n, TRUE)) {
+  if (!in->read(n, true)) {
     SoReadError::post(in, "Couldn't read field value");
-    return FALSE;
+    return false;
   }
 
-  if (n == "TRUE") {
-    val = TRUE;
-    return TRUE;
+  if (n == "true") {
+    val = true;
+    return true;
   }
 
-  if (n == "FALSE") {
-    val = FALSE;
-    return TRUE;
+  if (n == "false") {
+    val = false;
+    return true;
   }
 
   SoReadError::post(in,
-                    "Invalid value \"%s\" for field (must be TRUE or FALSE)",
+                    "Invalid value \"%s\" for field (must be true or false)",
                     n.getString());
-  return FALSE;
+  return false;
 }
 
 
 // Write boolean value to output stream. Used from SoSFBool and
 // SoMFBool.
 void
-sosfbool_write_value(SoOutput * out, SbBool val)
+sosfbool_write_value(SoOutput * out, bool val)
 {
   if (out->isBinary()) out->write(static_cast<unsigned int>(val ? 1 : 0));
-  else out->write(val ? "TRUE" : "FALSE");
+  else out->write(val ? "true" : "false");
 }
 
 // *************************************************************************
@@ -220,17 +220,17 @@ sosfmatrix_write_value(SoOutput * out, const SbMatrix & m)
 
 // *************************************************************************
 
-// Read SbPlane from input stream, return TRUE if successful.  Used
+// Read SbPlane from input stream, return true if successful.  Used
 // from SoSFPlane and SoMFPlane.
-SbBool
+bool
 sosfplane_read_value(SoInput * in, SbPlane & p)
 {
   float f[4];
   for (int i = 0; i < 4; i++) {
-    if (!in->read(f[i])) return FALSE;
+    if (!in->read(f[i])) return false;
   }
   p = SbPlane(SbVec3f(f[0], f[1], f[2]), f[3]);
-  return TRUE;
+  return true;
 }
 
 // Write SbPlane value to output stream. Used from SoSFPlane and
@@ -249,14 +249,14 @@ sosfplane_write_value(SoOutput * out, const SbPlane & p)
 
 // *************************************************************************
 
-// Read rotation value from input stream, return TRUE if
+// Read rotation value from input stream, return true if
 // successful. Used from SoSFRotation and SoMFRotation.
-SbBool
+bool
 sosfrotation_read_value(SoInput * in, SbRotation & r)
 {
   float f[4];
   for (int i = 0; i < 4; i++) {
-    if (!in->read(f[i])) return FALSE;
+    if (!in->read(f[i])) return false;
   }
   SbVec3f axis(f[0], f[1], f[2]);
   const float angle = f[3];
@@ -267,7 +267,7 @@ sosfrotation_read_value(SoInput * in, SbRotation & r)
     axis = SbVec3f(0.0f, 0.0f, 1.0f);
   }
   r.setValue(axis, angle);
-  return TRUE;
+  return true;
 }
 
 // Write SbRotation to output stream. Used from SoSFRotation and
@@ -306,15 +306,15 @@ sosfshort_write_value(SoOutput * out, short val)
 
 // *************************************************************************
 
-// Read SbTime from input stream, return TRUE if successful. Used from
+// Read SbTime from input stream, return true if successful. Used from
 // SoSFTime and SoMFTime.
-SbBool
+bool
 sosftime_read_value(SoInput * in, SbTime & t)
 {
   double val;
   if (!in->read(val)) {
     SoReadError::post(in, "unable to read floating point value");
-    return FALSE;
+    return false;
   }
 
   if (!coin_finite(val)) {
@@ -322,12 +322,12 @@ sosftime_read_value(SoInput * in, SbTime & t)
                       "Detected non-valid floating point number, replacing "
                       "with 0.0f");
     val = 0.0;
-    // We don't return FALSE, thereby allowing the read process to
+    // We don't return false, thereby allowing the read process to
     // continue, as a convenience for the application programmer.
   }
 
   t.setValue(val);
-  return TRUE;
+  return true;
 }
 
 // Write SbTime value to output stream. Used from SoSFTime and
@@ -410,16 +410,16 @@ sosfvec2d_write_value(SoOutput * out, const SbVec2d & v)
 
 // *************************************************************************
 
-// Read from input stream, return TRUE if successful. Used from
+// Read from input stream, return true if successful. Used from
 // SoSFVec3d and SoMFVec3f.
-SbBool
+bool
 sosfvec3d_read_value(SoInput * in, SbVec3d & v)
 {
   if (!in->read(v[0]) || !in->read(v[1]) || !in->read(v[2])) {
     SoReadError::post(in, "Couldn't read vector");
-    return FALSE;
+    return false;
   }
-  return TRUE;
+  return true;
 }
 
 // Write to output stream. Used from SoSFVec3b and SoMFVec3b.

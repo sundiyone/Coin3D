@@ -165,10 +165,10 @@ static
 mangleFunc *
 getManglingFunction(void)
 {
-  static SbBool initialized = FALSE;
+  static bool initialized = false;
   static mangleFunc * manglefunc = NULL;
   if (!initialized) {
-    initialized = TRUE;
+    initialized = true;
     int i;
     cc_libhandle handle = cc_dl_open(NULL);
     if (handle == NULL) goto failure;

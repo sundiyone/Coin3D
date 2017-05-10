@@ -59,9 +59,9 @@ namespace {
 
 class SpinData : public SoScXMLNavigationTarget::Data {
 public:
-  SpinData(void) : spinning(FALSE) { }
+  SpinData(void) : spinning(false) { }
 
-  SbBool spinning;
+  bool spinning;
 
   boost::intrusive_ptr<SoCamera> camera;
   SbTime updatetime;
@@ -161,14 +161,14 @@ SoScXMLSpinTarget::~SoScXMLSpinTarget(void)
 {
 }
 
-SbBool
+bool
 SoScXMLSpinTarget::processOneEvent(const ScXMLEvent * event)
 {
   assert(event);
 
 
   SbName sessionid = this->getSessionId(event);
-  if (sessionid == SbName::empty()) { return FALSE; }
+  if (sessionid == SbName::empty()) { return false; }
 
   const SbName & eventname = event->getEventName();
 
@@ -179,9 +179,9 @@ SoScXMLSpinTarget::processOneEvent(const ScXMLEvent * event)
     assert(!data->spinning);
 
     SoCamera * camera = inherited::getActiveCamera(event, sessionid);
-    if unlikely (!camera) { return FALSE; }
+    if unlikely (!camera) { return false; }
 
-    data->spinning = TRUE;
+    data->spinning = true;
 
     data->camera = static_cast<SoCamera *>(camera->copy());
 
@@ -189,13 +189,13 @@ SoScXMLSpinTarget::processOneEvent(const ScXMLEvent * event)
     SbRotation spinrot;
     if (!inherited::getEventDouble(event, "from", dtime) ||
         !inherited::getEventSbRotation(event, "rotation", spinrot)) {
-      return FALSE;
+      return false;
     }
 
     data->updatetime = SbTime(dtime);
     data->spinrotation = spinrot;
 
-    return TRUE;
+    return true;
   }
 
   else if (eventname == UPDATE()) {
@@ -203,14 +203,14 @@ SoScXMLSpinTarget::processOneEvent(const ScXMLEvent * event)
     assert(data);
 
     SoCamera * camera = inherited::getActiveCamera(event, sessionid);
-    if unlikely (!camera) { return FALSE; }
+    if unlikely (!camera) { return false; }
 
     assert(data->camera.get());
     if unlikely (camera->getTypeId() != data->camera->getTypeId()) {
       SoDebugError::post("SoScXMLSpinTarget::processOneEvent",
                          "while processing %s: camera type was changed",
                          eventname.getString());
-      return FALSE;
+      return false;
     }
 
     assert(data->spinning);
@@ -223,21 +223,21 @@ SoScXMLSpinTarget::processOneEvent(const ScXMLEvent * event)
     deltarot.scaleAngle(float(secs * 5.0));
     SoScXMLSpinTarget::reorientCamera(camera, deltarot);
 
-    return TRUE;
+    return true;
   }
 
   else if (eventname == END()) {
     this->freeSessionData(sessionid);
-    return TRUE;
+    return true;
   }
 
   else {
     SoDebugError::post("SoScXMLSpinUtils::processOneEvent",
                        "while processing %s: unknown event",
                        eventname.getString());
-    return FALSE;
+    return false;
   }
-  return TRUE;
+  return true;
 }
 
 // Rotate camera around its focal point.

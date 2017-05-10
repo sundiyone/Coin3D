@@ -146,14 +146,14 @@ SoFontStyle::getFontName(void) const
   SbString fontname(this->name.getValue().getString());
 
 #if COIN_DEBUG
-  static SbBool messageflag = TRUE;
+  static bool messageflag = true;
   if (messageflag && (fontname != "defaultFont")) {
     SoDebugError::postWarning("SoFontStyle::getFontName",
                               "Font name ('%s') is ignored when using "
                               "FontStyle nodes. Use the 'family' and "
                               "'style' fields instead.", 
                               fontname.getString());    
-    messageflag = FALSE; // Only display this message once.
+    messageflag = false; // Only display this message once.
   }
 #endif
 
@@ -217,13 +217,13 @@ SoFontStyle::doAction(SoAction * action)
   if (!name.isIgnored() && !TEST_OVERRIDE(FONT_NAME)) {
     SoFontNameElement::set(action->getState(), this, this->getFontName());
     if (this->isOverride()) {
-      SoOverrideElement::setFontNameOverride(state, this, TRUE);
+      SoOverrideElement::setFontNameOverride(state, this, true);
     }
   }
   if (!size.isIgnored() && !TEST_OVERRIDE(FONT_SIZE)) {
     SoFontSizeElement::set(action->getState(), this, this->size.getValue());
     if (this->isOverride()) {
-      SoOverrideElement::setFontSizeOverride(state, this, TRUE);
+      SoOverrideElement::setFontSizeOverride(state, this, true);
     }
   }
 

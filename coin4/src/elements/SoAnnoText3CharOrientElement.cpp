@@ -68,7 +68,7 @@ SoAnnoText3CharOrientElement::init(SoState * state)
 
 //$ EXPORT INLINE
 void
-SoAnnoText3CharOrientElement::set(SoState * const state, SbBool isOriented)
+SoAnnoText3CharOrientElement::set(SoState * const state, bool isOriented)
 {
   inherited::set(classStackIndex, state, isOriented);
 }
@@ -76,17 +76,17 @@ SoAnnoText3CharOrientElement::set(SoState * const state, SbBool isOriented)
 //! FIXME: write doc.
 
 //$ EXPORT INLINE
-SbBool
+bool
 SoAnnoText3CharOrientElement::get(SoState * state)
 {
-  return static_cast<SbBool>(SoInt32Element::get(classStackIndex, state));
+  return static_cast<bool>(SoInt32Element::get(classStackIndex, state));
 }
 
 //! FIXME: write doc.
 
 //$ EXPORT INLINE
-SbBool
+bool
 SoAnnoText3CharOrientElement::getDefault(void)
 {
-  return TRUE;
+  return true;
 }

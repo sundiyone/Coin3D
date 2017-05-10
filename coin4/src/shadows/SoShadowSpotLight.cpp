@@ -70,7 +70,7 @@
       DEF sphere Separator {
           Complexity { value 1.0 }
           Material { diffuseColor 1 1 0 specularColor 1 1 1 shininess 0.9 }
-          Shuttle { translation0 -3 1 0 translation1 3 -5 0 speed 0.25 on TRUE }
+          Shuttle { translation0 -3 1 0 translation1 3 -5 0 speed 0.25 on true }
           Translation { translation -5 0 2 }
           Sphere { radius 2.0 }
         }
@@ -80,13 +80,13 @@
 
     Separator {
       Material { diffuseColor 1 0 0 specularColor 1 1 1 shininess 0.9 }
-      Shuttle { translation0 0 -5 0 translation1 0 5 0 speed 0.15 on TRUE }
+      Shuttle { translation0 0 -5 0 translation1 0 5 0 speed 0.15 on true }
       Translation { translation 0 0 -3 }
       Cube { depth 1.8 }
     }
     Separator {
       Material { diffuseColor 0 1 0 specularColor 1 1 1 shininess 0.9 }
-      Shuttle { translation0 -5 0 0 translation1 5 0 0 speed 0.3 on TRUE }
+      Shuttle { translation0 -5 0 0 translation1 5 0 0 speed 0.3 on true }
       Translation { translation 0 0 -3 }
       Cube { }
     }

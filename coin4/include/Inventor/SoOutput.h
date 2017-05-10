@@ -51,20 +51,20 @@ public:
 
   virtual void setFilePointer(FILE * newFP);
   virtual FILE * getFilePointer(void) const;
-  virtual SbBool openFile(const char * const fileName);
+  virtual bool openFile(const char * const fileName);
   virtual void closeFile(void);
 
-  SbBool setCompression(const SbName & compmethod,
+  bool setCompression(const SbName & compmethod,
                         const float level = 0.5f);
   static const SbName * getAvailableCompressionMethods(unsigned int & num);
 
   virtual void setBuffer(void * bufPointer, size_t initSize,
                          SoOutputReallocCB * reallocFunc, int32_t offset = 0);
-  virtual SbBool getBuffer(void * & bufPointer, size_t & nBytes) const;
+  virtual bool getBuffer(void * & bufPointer, size_t & nBytes) const;
   virtual size_t getBufferSize(void) const;
   virtual void resetBuffer(void);
-  virtual void setBinary(const SbBool flag);
-  virtual SbBool isBinary(void) const;
+  virtual void setBinary(const bool flag);
+  virtual bool isBinary(void) const;
   virtual void setHeaderString(const SbString & str);
   virtual void resetHeaderString(void);
   virtual void setFloatPrecision(const int precision);
@@ -97,8 +97,8 @@ public:
 
   virtual void indent(void);
   virtual void reset(void);
-  void setCompact(SbBool flag);
-  SbBool isCompact(void) const;
+  void setCompact(bool flag);
+  bool isCompact(void) const;
   void setAnnotation(uint32_t bits);
   uint32_t getAnnotation(void);
 
@@ -110,7 +110,7 @@ public:
   void setReference(const SoBase * base, int refid);
 
   void addDEFNode(SbName name);
-  SbBool lookupDEFNode(SbName name);
+  bool lookupDEFNode(SbName name);
   void removeDEFNode(SbName name);
 
   void pushProto(SoProto * proto);
@@ -122,9 +122,9 @@ public:
   void resolveRoutes(void);
   
 protected:
-  SbBool isToBuffer(void) const;
+  bool isToBuffer(void) const;
   size_t bytesInBuf(void) const;
-  SbBool makeRoomInBuf(size_t nBytes);
+  bool makeRoomInBuf(size_t nBytes);
   void convertShort(short s, char * to);
   void convertInt32(int32_t l, char * to);
   void convertFloat(float f, char * to);
@@ -136,7 +136,7 @@ protected:
 
   static SbString padHeader(const SbString & inString);
 
-  SbBool wroteHeader;
+  bool wroteHeader;
 
 private:
   SoOutputP * pimpl;

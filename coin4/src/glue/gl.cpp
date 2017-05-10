@@ -387,11 +387,11 @@ glglue_resolve_envvar(const char * txt)
    out and warn if we detect NVidia GLX, and in addition to provide an
    environment variable that disables it.)
 */
-static SbBool
+static bool
 glglue_allow_newer_opengl(const cc_glglue * w)
 {
-  static SbBool fullindirect = -1;
-  static SbBool force1_0 = -1;
+  static int fullindirect = -1;
+  static int force1_0 = -1;
   static const char * COIN_FULL_INDIRECT_RENDERING = "COIN_FULL_INDIRECT_RENDERING";
   static const char * COIN_DONT_INFORM_INDIRECT_RENDERING = "COIN_DONT_INFORM_INDIRECT_RENDERING";
 
@@ -403,7 +403,7 @@ glglue_allow_newer_opengl(const cc_glglue * w)
     force1_0 = (glglue_resolve_envvar("COIN_FORCE_GL1_0_ONLY") > 0);
   }
 
-  if (force1_0) return FALSE;
+  if (force1_0) return false;
 
   if (!w->glx.isdirect && !fullindirect) {
     /* We give out a warning, once, when the full OpenGL feature set is not
@@ -425,10 +425,10 @@ glglue_allow_newer_opengl(const cc_glglue * w)
                              COIN_DONT_INFORM_INDIRECT_RENDERING);
       inform = 1;
     }
-    return FALSE;
+    return false;
   }
 
-  return TRUE;
+  return true;
 }
 
 
@@ -627,7 +627,7 @@ glglue_cleanup(void)
 #endif
 }
 
-static SbBool
+static bool
 glglue_has_nvidia_framebuffer_object_bug(int major, int minor, int release)
 {
   return (major == 2) && (minor == 0) && (release == 0);
@@ -716,7 +716,7 @@ cc_glglue_glversion(const cc_glglue * w,
 }
 
 
-SbBool
+bool
 cc_glglue_glversion_matches_at_least(const cc_glglue * w,
                                      unsigned int major,
                                      unsigned int minor,
@@ -725,23 +725,23 @@ cc_glglue_glversion_matches_at_least(const cc_glglue * w,
   unsigned int glmajor, glminor, glrev;
   cc_glglue_glversion(w, &glmajor, &glminor, &glrev);
 
-  if (glmajor < major) return FALSE;
-  else if (glmajor > major) return TRUE;
-  if (glminor < minor) return FALSE;
-  else if (glminor > minor) return TRUE;
-  if (glminor < revision) return FALSE;
-  return TRUE;
+  if (glmajor < major) return false;
+  else if (glmajor > major) return true;
+  if (glminor < minor) return false;
+  else if (glminor > minor) return true;
+  if (glminor < revision) return false;
+  return true;
 }
 
-SbBool
+bool
 cc_glglue_glxversion_matches_at_least(const cc_glglue * w,
                                       int major,
                                       int minor)
 {
-  if (w->glx.version.major < major) return FALSE;
-  else if (w->glx.version.major > major) return TRUE;
-  if (w->glx.version.minor < minor) return FALSE;
-  return TRUE;
+  if (w->glx.version.major < major) return false;
+  else if (w->glx.version.major > major) return true;
+  if (w->glx.version.minor < minor) return false;
+  return true;
 }
 
 int
@@ -749,7 +749,7 @@ coin_glglue_extension_available(const char * extensions, const char * ext)
 {
   const char * start;
   size_t extlen;
-  SbBool found = FALSE;
+  bool found = false;
 
   assert(ext && "NULL string");
   assert((ext[0] != '\0') && "empty string");
@@ -765,7 +765,7 @@ coin_glglue_extension_available(const char * extensions, const char * ext)
     if (where == start || *(where - 1) == ' ') {
       const char * terminator = where + extlen;
       if (*terminator == ' ' || *terminator == '\0') {
-        found = TRUE;
+        found = true;
         goto done;
       }
     }
@@ -783,7 +783,7 @@ done:
   return found ? 1 : 0;
 }
 
-int
+bool
 cc_glglue_glext_supported(const cc_glglue * wrapper, const char * extension)
 {
   const uintptr_t key = (uintptr_t)cc_namemap_get_address(extension);
@@ -1000,7 +1000,7 @@ glglue_resolve_symbols(cc_glglue * w)
         !w->glMultiTexCoord2fv ||
         !w->glMultiTexCoord3fv ||
         !w->glMultiTexCoord4fv) {
-      w->glActiveTexture = NULL; /* cc_glglue_has_multitexture() will return FALSE */
+      w->glActiveTexture = NULL; /* cc_glglue_has_multitexture() will return false */
       if (COIN_DEBUG || coin_glglue_debug()) {
         cc_debugerror_postwarning("glglue_init",
                                   "glActiveTexture found, but one or more of the other "
@@ -1221,7 +1221,7 @@ glglue_resolve_symbols(cc_glglue * w)
         !w->glDrawArrays ||
         !w->glDrawElements ||
         !w->glArrayElement) {
-      w->glVertexPointer = NULL; /* cc_glglue_has_vertex_array() will return FALSE */
+      w->glVertexPointer = NULL; /* cc_glglue_has_vertex_array() will return false */
       if (COIN_DEBUG || coin_glglue_debug()) {
         cc_debugerror_postwarning("glglue_init",
                                   "glVertexPointer found, but one or more of the other "
@@ -1369,7 +1369,7 @@ glglue_resolve_symbols(cc_glglue * w)
         !w->glUnmapBuffer ||
         !w->glGetBufferParameteriv ||
         !w->glGetBufferPointerv) {
-      w->glBindBuffer = NULL; /* so that cc_glglue_has_vertex_buffer_object() will return FALSE */
+      w->glBindBuffer = NULL; /* so that cc_glglue_has_vertex_buffer_object() will return false */
       if (COIN_DEBUG || coin_glglue_debug()) {
         cc_debugerror_postwarning("glglue_init",
                                   "glBindBuffer found, but one or more of the other "
@@ -1392,7 +1392,7 @@ glglue_resolve_symbols(cc_glglue * w)
   w->glGetCombinerOutputParameterivNV = NULL;
   w->glGetFinalCombinerInputParameterfvNV = NULL;
   w->glGetFinalCombinerInputParameterivNV = NULL;
-  w->has_nv_register_combiners = FALSE;
+  w->has_nv_register_combiners = false;
 
 #ifdef GL_NV_register_combiners
 
@@ -1402,20 +1402,20 @@ glglue_resolve_symbols(cc_glglue * w)
    w->_func_ = (_type_)PROC(w, _func_); \
    do { \
      if (!w->_func_) { \
-       w->has_nv_register_combiners = FALSE; \
+       w->has_nv_register_combiners = false; \
        if (COIN_DEBUG || coin_glglue_debug()) { \
-         static SbBool error_reported = FALSE; \
+         static bool error_reported = false; \
          if (!error_reported) { \
            cc_debugerror_postwarning("glglue_init", \
                                      "GL_NV_register_combiners found, but %s " \
                                      "function missing.", SO__QUOTE(_func_)); \
-           error_reported = TRUE; \
+           error_reported = true; \
          } \
        } \
      } \
    } while (0)
 
-    w->has_nv_register_combiners = TRUE;
+    w->has_nv_register_combiners = true;
     BIND_FUNCTION_WITH_WARN(glCombinerParameterfvNV, COIN_PFNGLCOMBINERPARAMETERFVNVPROC);
     BIND_FUNCTION_WITH_WARN(glCombinerParameterivNV, COIN_PFNGLCOMBINERPARAMETERIVNVPROC);
     BIND_FUNCTION_WITH_WARN(glCombinerParameterfNV, COIN_PFNGLCOMBINERPARAMETERFNVPROC);
@@ -1475,7 +1475,7 @@ glglue_resolve_symbols(cc_glglue * w)
   w->glGetProgramivARB = NULL;
   w->glGetProgramStringARB = NULL;
   w->glIsProgramARB = NULL;
-  w->has_arb_fragment_program = FALSE;
+  w->has_arb_fragment_program = false;
 
 #ifdef GL_ARB_fragment_program
   if (cc_glglue_glext_supported(w, "GL_ARB_fragment_program")) {
@@ -1484,20 +1484,20 @@ glglue_resolve_symbols(cc_glglue * w)
    w->_func_ = (_type_)PROC(w, _func_); \
    do { \
      if (!w->_func_) { \
-       w->has_arb_fragment_program = FALSE; \
+       w->has_arb_fragment_program = false; \
        if (COIN_DEBUG || coin_glglue_debug()) { \
-         static SbBool error_reported = FALSE; \
+         static bool error_reported = false; \
          if (!error_reported) { \
            cc_debugerror_postwarning("glglue_init", \
                                      "GL_ARB_fragment_program found, but %s " \
                                      "function missing.", SO__QUOTE(_func_)); \
-           error_reported = TRUE; \
+           error_reported = true; \
          } \
        } \
      } \
    } while (0)
 
-    w->has_arb_fragment_program = TRUE;
+    w->has_arb_fragment_program = true;
     BIND_FUNCTION_WITH_WARN(glProgramStringARB, COIN_PFNGLPROGRAMSTRINGARBPROC);
     BIND_FUNCTION_WITH_WARN(glBindProgramARB, COIN_PFNGLBINDPROGRAMARBPROC);
     BIND_FUNCTION_WITH_WARN(glDeleteProgramsARB, COIN_PFNGLDELETEPROGRAMSARBPROC);
@@ -1522,7 +1522,7 @@ glglue_resolve_symbols(cc_glglue * w)
  }
 #endif /* GL_ARB_fragment_program */
 
-  w->has_arb_vertex_program = FALSE;
+  w->has_arb_vertex_program = false;
   w->glVertexAttrib1sARB = NULL;
   w->glVertexAttrib1fARB = NULL;
   w->glVertexAttrib1dARB = NULL;
@@ -1595,20 +1595,20 @@ glglue_resolve_symbols(cc_glglue * w)
    w->_func_ = (_type_)PROC(w, _func_); \
    do { \
      if (!w->_func_) { \
-       w->has_arb_vertex_program = FALSE; \
+       w->has_arb_vertex_program = false; \
        if (COIN_DEBUG || coin_glglue_debug()) { \
-         static SbBool error_reported = FALSE; \
+         static bool error_reported = false; \
          if (!error_reported) { \
            cc_debugerror_postwarning("glglue_init", \
                                      "GL_ARB_vertex_program found, but %s " \
                                      "function missing.", SO__QUOTE(_func_)); \
-           error_reported = TRUE; \
+           error_reported = true; \
          } \
        } \
      } \
    } while (0)
 
-    w->has_arb_vertex_program = TRUE;
+    w->has_arb_vertex_program = true;
     BIND_FUNCTION_WITH_WARN(glVertexAttrib1sARB, COIN_PFNGLVERTEXATTRIB1SARBPROC);
     BIND_FUNCTION_WITH_WARN(glVertexAttrib1fARB, COIN_PFNGLVERTEXATTRIB1FARBPROC);
     BIND_FUNCTION_WITH_WARN(glVertexAttrib1dARB, COIN_PFNGLVERTEXATTRIB1DARBPROC);
@@ -1689,20 +1689,20 @@ glglue_resolve_symbols(cc_glglue * w)
    w->_func_ = (_type_)PROC(w, _func_); \
    do { \
      if (!w->_func_) { \
-       w->has_arb_vertex_shader = FALSE; \
+       w->has_arb_vertex_shader = false; \
        if (COIN_DEBUG || coin_glglue_debug()) { \
-         static SbBool error_reported = FALSE; \
+         static bool error_reported = false; \
          if (!error_reported) { \
            cc_debugerror_postwarning("glglue_init", \
                                      "GL_ARB_vertex_shader found, but %s " \
                                      "function missing.", SO__QUOTE(_func_)); \
-           error_reported = TRUE; \
+           error_reported = true; \
          } \
        } \
      } \
    } while (0)
 
-    w->has_arb_vertex_shader = TRUE;
+    w->has_arb_vertex_shader = true;
     BIND_FUNCTION_WITH_WARN(glBindAttribLocationARB, COIN_PFNGLBINDATTRIBLOCATIONARBPROC);
     BIND_FUNCTION_WITH_WARN(glGetActiveAttribARB, COIN_PFNGLGETACTIVEATTRIBARBPROC);
     BIND_FUNCTION_WITH_WARN(glGetAttribLocationARB, COIN_PFNGLGETATTRIBLOCATIONARBPROC);
@@ -1729,7 +1729,7 @@ glglue_resolve_symbols(cc_glglue * w)
   w->glLinkProgramARB = NULL;
   w->glUseProgramObjectARB = NULL;
   w->glCreateProgramObjectARB = NULL;
-  w->has_arb_shader_objects = FALSE;
+  w->has_arb_shader_objects = false;
   w->glUniform1fvARB = NULL;
   w->glUniform2fvARB = NULL;
   w->glUniform3fvARB = NULL;
@@ -1755,20 +1755,20 @@ glglue_resolve_symbols(cc_glglue * w)
    w->_func_ = (_type_)PROC(w, _func_); \
    do { \
      if (!w->_func_) { \
-       w->has_arb_shader_objects = FALSE; \
+       w->has_arb_shader_objects = false; \
        if (COIN_DEBUG || coin_glglue_debug()) { \
-         static SbBool error_reported = FALSE; \
+         static bool error_reported = false; \
          if (!error_reported) { \
            cc_debugerror_postwarning("glglue_init", \
                                      "GL_ARB_shader_objects found, but %s " \
                                      "function missing.", SO__QUOTE(_func_)); \
-           error_reported = TRUE; \
+           error_reported = true; \
          } \
        } \
      } \
    } while (0)
 
-    w->has_arb_shader_objects = TRUE;
+    w->has_arb_shader_objects = true;
     BIND_FUNCTION_WITH_WARN(glGetUniformLocationARB, COIN_PFNGLGETUNIFORMLOCATIONARBPROC);
     BIND_FUNCTION_WITH_WARN(glGetActiveUniformARB, COIN_PFNGLGETACTIVEUNIFORMARBPROC);
     BIND_FUNCTION_WITH_WARN(glUniform1fARB, COIN_PFNGLUNIFORM1FARBPROC);
@@ -1846,7 +1846,7 @@ glglue_resolve_symbols(cc_glglue * w)
         !w->glGetQueryiv ||
         !w->glGetQueryObjectiv ||
         !w->glGetQueryObjectuiv) {
-      w->glGenQueries = NULL; /* so that cc_glglue_has_occlusion_query() will return FALSE */
+      w->glGenQueries = NULL; /* so that cc_glglue_has_occlusion_query() will return false */
       if (COIN_DEBUG || coin_glglue_debug()) {
         cc_debugerror_postwarning("glglue_init",
                                   "glGenQueries found, but one or more of the other "
@@ -1883,13 +1883,13 @@ glglue_resolve_symbols(cc_glglue * w)
   }
 #endif /* HAVE_GLX || HAVE_WGL */
 
-  w->can_do_bumpmapping = FALSE;
+  w->can_do_bumpmapping = false;
   if (w->glActiveTexture &&
       (cc_glglue_glversion_matches_at_least(w, 1, 3, 0) ||
        (cc_glglue_glext_supported(w, "GL_ARB_texture_cube_map") &&
         w->has_texture_env_combine &&
         cc_glglue_glext_supported(w, "GL_ARB_texture_env_dot3")))) {
-    w->can_do_bumpmapping = TRUE;
+    w->can_do_bumpmapping = true;
   }
 
   /* FIXME: We should be able to support more than one way to do order
@@ -1946,10 +1946,10 @@ glglue_resolve_symbols(cc_glglue * w)
         !w->glGenFramebuffers || !w->glCheckFramebufferStatus || !w->glFramebufferTexture1D ||
         !w->glFramebufferTexture2D || !w->glFramebufferTexture3D || !w->glFramebufferRenderbuffer ||
         !w->glGetFramebufferAttachmentParameteriv || !w->glGenerateMipmap) {
-      w->has_fbo = FALSE;
+      w->has_fbo = false;
     }
     else {
-      w->has_fbo = TRUE;
+      w->has_fbo = true;
     }
   }
 
@@ -1970,14 +1970,14 @@ glglue_resolve_symbols(cc_glglue * w)
      we need to reproduce this bug in a minimal testcase. jkg, 2007-09-28
   */
   if ((glglue_resolve_envvar("COIN_DONT_USE_FBO") == 1) && w->has_fbo) {
-    w->has_fbo = FALSE;
+    w->has_fbo = false;
   }
 
 }
 
 #undef PROC
 
-static SbBool
+static bool
 glglue_check_trident_clampedge_bug(const char * vendor,
                                    const char * renderer,
                                    const char * version)
@@ -1988,7 +1988,7 @@ glglue_check_trident_clampedge_bug(const char * vendor,
     (strcmp(version, "1.2.1") == 0);
 }
 
-static SbBool
+static bool
 glglue_check_ati_vbo_in_displaylist_bug(const char * vendor,
                                         const char * COIN_UNUSED_ARG(renderer),
                                         const char * COIN_UNUSED_ARG(version))
@@ -2085,7 +2085,7 @@ glglue_check_ati_vbo_in_displaylist_bug(const char * vendor,
   return
     (strcmp(vendor, "ATI Technologies Inc.") == 0);
 #else /* ATI driver bug */
-  return FALSE;
+  return false;
 #endif /* Mac OS X drivers are ok */
 }
 
@@ -2295,7 +2295,7 @@ static void check_force_agl()
 const cc_glglue *
 cc_glglue_instance(int contextid)
 {
-  SbBool found;
+  bool found;
   void * ptr;
   GLint gltmp;
 
@@ -2509,7 +2509,7 @@ cc_glglue_instance(int contextid)
       cc_debugerror_postinfo("cc_glglue_instance",
                              "glGetString(GL_VENDOR)=='%s' (=> vendor_is_SGI==%s)",
                              gi->vendorstr,
-                             gi->vendor_is_SGI ? "TRUE" : "FALSE");
+                             gi->vendor_is_SGI ? "true" : "false");
       cc_debugerror_postinfo("cc_glglue_instance",
                              "glGetString(GL_RENDERER)=='%s'",
                              gi->rendererstr);
@@ -2523,15 +2523,15 @@ cc_glglue_instance(int contextid)
     }
 
     /* anisotropic test */
-    gi->can_do_anisotropic_filtering = FALSE;
+    gi->can_do_anisotropic_filtering = false;
     gi->max_anisotropy = 0.0f;
     if (cc_glglue_glext_supported(gi, "GL_EXT_texture_filter_anisotropic")) {
-      gi->can_do_anisotropic_filtering = TRUE;
+      gi->can_do_anisotropic_filtering = true;
       glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &gi->max_anisotropy);
       if (coin_glglue_debug()) {
         cc_debugerror_postinfo("cc_glglue_instance",
                                "Anisotropic filtering: %s (%g)",
-                               gi->can_do_anisotropic_filtering ? "TRUE" : "FALSE",
+                               gi->can_do_anisotropic_filtering ? "true" : "false",
                                gi->max_anisotropy);
       }
     }
@@ -2587,7 +2587,7 @@ cc_glglue_instance_from_context_ptr(void * ctx)
 void
 coin_glglue_destruct(uint32_t contextid)
 {
-  SbBool found;
+  bool found;
   void * ptr;
   CC_SYNC_BEGIN(cc_glglue_instance);
   if (gldict) { // might happen if a context is destructed without using the cc_glglue interface
@@ -2607,7 +2607,7 @@ coin_glglue_destruct(uint32_t contextid)
   CC_SYNC_END(cc_glglue_instance);
 }
 
-SbBool
+bool
 cc_glglue_isdirect(const cc_glglue * w)
 {
   return w->glx.isdirect;
@@ -2621,12 +2621,12 @@ cc_glglue_isdirect(const cc_glglue * w)
   Method then available for use:
   \li cc_glglue_glPolygonOffset
 */
-SbBool
+bool
 cc_glglue_has_polygon_offset(const cc_glglue * w)
 {
-  if (!glglue_allow_newer_opengl(w)) return FALSE;
+  if (!glglue_allow_newer_opengl(w)) return false;
 
-  return (w->glPolygonOffset || w->glPolygonOffsetEXT) ? TRUE : FALSE;
+  return (w->glPolygonOffset || w->glPolygonOffsetEXT) ? true : false;
 }
 
 /* Returns the glPolygonOffset() we're actually going to use. */
@@ -2671,7 +2671,7 @@ glglue_glPolygonOffset(const cc_glglue * w)
 */
 void
 cc_glglue_glPolygonOffsetEnable(const cc_glglue * w,
-                                SbBool enable, int m)
+                                bool enable, int m)
 {
   COIN_PFNGLPOLYGONOFFSETPROC poff = glglue_glPolygonOffset(w);
 
@@ -2691,12 +2691,12 @@ cc_glglue_glPolygonOffsetEnable(const cc_glglue * w,
       else glDisable(GL_POLYGON_OFFSET_EXT);
 
       if (coin_glglue_debug() && (m != cc_glglue_FILLED)) {
-        static SbBool first = TRUE;
+        static bool first = true;
         if (first) {
           cc_debugerror_postwarning("cc_glglue_glPolygonOffsetEnable",
                                     "using EXT_polygon_offset, which only "
                                     "supports filled-polygon offsetting");
-          first = FALSE;
+          first = false;
         }
       }
     }
@@ -2727,7 +2727,7 @@ cc_glglue_glPolygonOffset(const cc_glglue * w,
        needs. If not, assume that the "units" argument was set up for
        the "real" glPolygonOffset() function, and use a default value
        that should work fairly ok under most circumstances. */
-    SbBool isbias = (units > 0.0f) && (units < 0.01f);
+    bool isbias = (units > 0.0f) && (units < 0.01f);
     if (!isbias) units = 0.000001f;
 
     /* FIXME: shouldn't there be an attempt to convert the other way
@@ -2749,10 +2749,10 @@ cc_glglue_glPolygonOffset(const cc_glglue * w,
   \li cc_glglue_glBindTexture
   \li cc_glglue_glDeleteTextures
 */
-SbBool
+bool
 cc_glglue_has_texture_objects(const cc_glglue * w)
 {
-  if (!glglue_allow_newer_opengl(w)) return FALSE;
+  if (!glglue_allow_newer_opengl(w)) return false;
 
   return w->glGenTextures && w->glBindTexture && w->glDeleteTextures;
 }
@@ -2800,12 +2800,12 @@ cc_glglue_glDeleteTextures(const cc_glglue * w, GLsizei n, const GLuint * textur
   \li cc_glglue_glTexSubImage3D
   \li cc_glglue_glCopyTexSubImage3D
 */
-SbBool
+bool
 cc_glglue_has_texsubimage(const cc_glglue * w)
 {
-  if (!glglue_allow_newer_opengl(w)) return FALSE;
+  if (!glglue_allow_newer_opengl(w)) return false;
 
-  return w->glTexSubImage2D ? TRUE : FALSE;
+  return w->glTexSubImage2D ? true : false;
 }
 
 void
@@ -2835,10 +2835,10 @@ cc_glglue_glTexSubImage2D(const cc_glglue * w,
   \li cc_glglue_glTexSubImage3D
   \li cc_glglue_glCopyTexSubImage3D
 */
-SbBool
+bool
 cc_glglue_has_3d_textures(const cc_glglue * w)
 {
-  if (!glglue_allow_newer_opengl(w)) return FALSE;
+  if (!glglue_allow_newer_opengl(w)) return false;
 
   return
     w->glTexImage3D &&
@@ -2846,14 +2846,14 @@ cc_glglue_has_3d_textures(const cc_glglue * w)
     w->glTexSubImage3D;
 }
 
-SbBool
+bool
 cc_glglue_has_2d_proxy_textures(const cc_glglue * w)
 {
-  if (!glglue_allow_newer_opengl(w)) return FALSE;
+  if (!glglue_allow_newer_opengl(w)) return false;
 
   // Our Proxy code seems to not be compatible with Intel drivers
   // FIXME: should be handled by SoGLDriverDatabase
-  if (w->vendor_is_intel) return FALSE;
+  if (w->vendor_is_intel) return false;
 
   /* FIXME: there are differences between the 1.1 proxy mechanisms and
      the GL_EXT_texture proxy extension; the 1.1 support considers
@@ -2865,19 +2865,19 @@ cc_glglue_has_2d_proxy_textures(const cc_glglue * w)
     cc_glglue_glext_supported(w, "GL_EXT_texture");
 }
 
-SbBool
+bool
 cc_glglue_has_texture_edge_clamp(const cc_glglue * w)
 {
   static int buggytrident = -1;
 
-  if (!glglue_allow_newer_opengl(w)) return FALSE;
+  if (!glglue_allow_newer_opengl(w)) return false;
 
   if (buggytrident == -1) {
     buggytrident = glglue_check_trident_clampedge_bug(w->vendorstr,
                                                       w->rendererstr,
                                                       w->versionstr);
   }
-  if (buggytrident) { return FALSE; }
+  if (buggytrident) { return false; }
 
   return
     cc_glglue_glversion_matches_at_least(w, 1, 2, 0) ||
@@ -2902,10 +2902,10 @@ cc_glglue_glPopClientAttrib(const cc_glglue * w)
 }
 
 
-SbBool
+bool
 cc_glglue_has_multitexture(const cc_glglue * w)
 {
-  if (!glglue_allow_newer_opengl(w)) return FALSE;
+  if (!glglue_allow_newer_opengl(w)) return false;
   return w->glActiveTexture != NULL;
 }
 
@@ -3034,10 +3034,10 @@ cc_glglue_glMultiTexCoord4fv(const cc_glglue * w,
   w->glMultiTexCoord4fv(target, v);
 }
 
-SbBool
+bool
 cc_glue_has_texture_compression(const cc_glglue * glue)
 {
-  if (!glglue_allow_newer_opengl(glue)) return FALSE;
+  if (!glglue_allow_newer_opengl(glue)) return false;
 
   return
     glue->glCompressedTexImage1D &&
@@ -3046,17 +3046,17 @@ cc_glue_has_texture_compression(const cc_glglue * glue)
     glue->glGetCompressedTexImage;
 }
 
-SbBool
+bool
 cc_glue_has_texture_compression_2d(const cc_glglue * glue)
 {
-  if (!glglue_allow_newer_opengl(glue)) return FALSE;
+  if (!glglue_allow_newer_opengl(glue)) return false;
   return glue->glCompressedTexImage2D && glue->glGetCompressedTexImage;
 }
 
-SbBool
+bool
 cc_glue_has_texture_compression_3d(const cc_glglue * glue)
 {
-  if (!glglue_allow_newer_opengl(glue)) return FALSE;
+  if (!glglue_allow_newer_opengl(glue)) return false;
   return glue->glCompressedTexImage3D && glue->glGetCompressedTexImage;
 }
 
@@ -3210,30 +3210,30 @@ cc_glglue_glGetCompressedTexImage(const cc_glglue * glue,
                                 img);
 }
 
-SbBool
+bool
 cc_glglue_has_paletted_textures(const cc_glglue * glue)
 {
   static int disable = -1;
   if (disable == -1) {
     disable = glglue_resolve_envvar("COIN_GLGLUE_DISABLE_PALETTED_TEXTURE");
   }
-  if (disable) { return FALSE; }
+  if (disable) { return false; }
 
-  if (!glglue_allow_newer_opengl(glue)) { return FALSE; }
+  if (!glglue_allow_newer_opengl(glue)) { return false; }
   return glue->supportsPalettedTextures;
 }
 
-SbBool
+bool
 cc_glglue_has_color_tables(const cc_glglue * glue)
 {
-  if (!glglue_allow_newer_opengl(glue)) return FALSE;
+  if (!glglue_allow_newer_opengl(glue)) return false;
   return glue->glColorTable != NULL;
 }
 
-SbBool
+bool
 cc_glglue_has_color_subtables(const cc_glglue * glue)
 {
-  if (!glglue_allow_newer_opengl(glue)) return FALSE;
+  if (!glglue_allow_newer_opengl(glue)) return false;
   return glue->glColorSubTable != NULL;
 }
 
@@ -3311,10 +3311,10 @@ cc_glglue_glGetColorTableParameterfv(const cc_glglue * glue,
                                    params);
 }
 
-SbBool
+bool
 cc_glglue_has_blendequation(const cc_glglue * glue)
 {
-  if (!glglue_allow_newer_opengl(glue)) return FALSE;
+  if (!glglue_allow_newer_opengl(glue)) return false;
 
   return glue->glBlendEquation || glue->glBlendEquationEXT;
 }
@@ -3328,10 +3328,10 @@ cc_glglue_glBlendEquation(const cc_glglue * glue, GLenum mode)
   else glue->glBlendEquationEXT(mode);
 }
 
-SbBool
+bool
 cc_glglue_has_blendfuncseparate(const cc_glglue * glue)
 {
-  if (!glglue_allow_newer_opengl(glue)) return FALSE;
+  if (!glglue_allow_newer_opengl(glue)) return false;
 
   return glue->glBlendFuncSeparate != NULL;
 }
@@ -3345,10 +3345,10 @@ cc_glglue_glBlendFuncSeparate(const cc_glglue * glue,
   glue->glBlendFuncSeparate(rgbsrc, rgbdst, alphasrc, alphadst);
 }
 
-SbBool
+bool
 cc_glglue_has_vertex_array(const cc_glglue * glue)
 {
-  if (!glglue_allow_newer_opengl(glue)) return FALSE;
+  if (!glglue_allow_newer_opengl(glue)) return false;
   return glue->glVertexPointer != NULL;
 }
 
@@ -3449,10 +3449,10 @@ cc_glglue_glArrayElement(const cc_glglue * glue, GLint i)
   glue->glArrayElement(i);
 }
 
-SbBool
+bool
 cc_glglue_has_multidraw_vertex_arrays(const cc_glglue * glue)
 {
-  if (!glglue_allow_newer_opengl(glue)) return FALSE;
+  if (!glglue_allow_newer_opengl(glue)) return false;
   return glue->glMultiDrawArrays && glue->glMultiDrawElements;
 }
 
@@ -3472,10 +3472,10 @@ cc_glglue_glMultiDrawElements(const cc_glglue * glue, GLenum mode, const GLsizei
   glue->glMultiDrawElements(mode, count, type, indices, primcount);
 }
 
-SbBool
+bool
 cc_glglue_has_nv_vertex_array_range(const cc_glglue * glue)
 {
-  if (!glglue_allow_newer_opengl(glue)) return FALSE;
+  if (!glglue_allow_newer_opengl(glue)) return false;
   return glue->glVertexArrayRangeNV != NULL;
 }
 
@@ -3509,10 +3509,10 @@ cc_glglue_glFreeMemoryNV(const cc_glglue * glue, GLvoid * buffer)
   glue->glFreeMemoryNV(buffer);
 }
 
-SbBool
+bool
 cc_glglue_has_vertex_buffer_object(const cc_glglue * glue)
 {
-  if (!glglue_allow_newer_opengl(glue)) return FALSE;
+  if (!glglue_allow_newer_opengl(glue)) return false;
 
   /* check only one function for speed. It's set to NULL when
      initializing if one of the other functions wasn't found */
@@ -3617,17 +3617,17 @@ cc_glglue_glGetBufferPointerv(const cc_glglue * glue,
 }
 
 
-SbBool
+bool
 cc_glglue_can_do_bumpmapping(const cc_glglue * glue)
 {
-  if (!glglue_allow_newer_opengl(glue)) return FALSE;
+  if (!glglue_allow_newer_opengl(glue)) return false;
   return glue->can_do_bumpmapping;
 }
 
-SbBool
+bool
 cc_glglue_can_do_sortedlayersblend(const cc_glglue * glue)
 {
-  if (!glglue_allow_newer_opengl(glue)) return FALSE;
+  if (!glglue_allow_newer_opengl(glue)) return false;
   return glue->can_do_sortedlayersblend;
 }
 
@@ -3650,10 +3650,10 @@ cc_glglue_get_point_size_range(const cc_glglue * glue)
 }
 
 /* GL_NV_register_combiners functions */
-SbBool
+bool
 cc_glglue_has_nv_register_combiners(const cc_glglue * glue)
 {
-  if (!glglue_allow_newer_opengl(glue)) return FALSE;
+  if (!glglue_allow_newer_opengl(glue)) return false;
   return glue->has_nv_register_combiners;
 }
 
@@ -3789,19 +3789,19 @@ cc_glglue_glGetFinalCombinerInputParameterivNV(const cc_glglue * glue,
 }
 
 /* ARB_shader_objects */
-SbBool
+bool
 cc_glglue_has_arb_shader_objects(const cc_glglue * glue)
 {
-  if (!glglue_allow_newer_opengl(glue)) return FALSE;
+  if (!glglue_allow_newer_opengl(glue)) return false;
   return glue->has_arb_shader_objects;
 }
 
 
 /* ARB_fragment_program functions */
-SbBool
+bool
 cc_glglue_has_arb_fragment_program(const cc_glglue * glue)
 {
-  if (!glglue_allow_newer_opengl(glue)) return FALSE;
+  if (!glglue_allow_newer_opengl(glue)) return false;
   return glue->has_arb_fragment_program;
 }
 
@@ -3977,7 +3977,7 @@ cc_glglue_glGetProgramString(const cc_glglue * glue,
   glue->glGetProgramStringARB(target, pname, string);
 }
 
-SbBool
+bool
 cc_glglue_glIsProgram(const cc_glglue * glue,
                       GLuint program)
 {
@@ -3986,18 +3986,18 @@ cc_glglue_glIsProgram(const cc_glglue * glue,
 
 
 /* ARB_vertex_program functions */
-SbBool
+bool
 cc_glglue_has_arb_vertex_program(const cc_glglue * glue)
 {
-  if (!glglue_allow_newer_opengl(glue)) return FALSE;
+  if (!glglue_allow_newer_opengl(glue)) return false;
   return glue->has_arb_vertex_program;
 }
 
 /* ARB_vertex_shaders functions */
-SbBool
+bool
 cc_glglue_has_arb_vertex_shader(const cc_glglue * glue)
 {
-  if (!glglue_allow_newer_opengl(glue)) return FALSE;
+  if (!glglue_allow_newer_opengl(glue)) return false;
   return glue->has_arb_vertex_shader;
 }
 
@@ -4318,10 +4318,10 @@ cc_glglue_glGetVertexAttribPointerv(const cc_glglue * glue,
 
 /* GL_ARB_occlusion_query */
 
-SbBool
+bool
 cc_glglue_has_occlusion_query(const cc_glglue * glue)
 {
-  if (!glglue_allow_newer_opengl(glue)) return FALSE;
+  if (!glglue_allow_newer_opengl(glue)) return false;
 
   /* check only one function for speed. It's set to NULL when
      initializing if one of the other functions wasn't found */
@@ -4388,50 +4388,50 @@ cc_glglue_glGetQueryObjectuiv(const cc_glglue * glue,
 }
 
 /* GL_NV_texture_rectangle (identical to GL_EXT_texture_rectangle) */
-SbBool
+bool
 cc_glglue_has_nv_texture_rectangle(const cc_glglue * glue)
 {
-  if (!glglue_allow_newer_opengl(glue)) return FALSE;
+  if (!glglue_allow_newer_opengl(glue)) return false;
   return glue->has_ext_texture_rectangle;
 }
 
 /* GL_EXT_texture_rectangle */
-SbBool
+bool
 cc_glglue_has_ext_texture_rectangle(const cc_glglue * glue)
 {
-  if (!glglue_allow_newer_opengl(glue)) return FALSE;
+  if (!glglue_allow_newer_opengl(glue)) return false;
   return glue->has_ext_texture_rectangle;
 }
 
 /* GL_NV_texture_shader */
-SbBool
+bool
 cc_glglue_has_nv_texture_shader(const cc_glglue * glue)
 {
-  if (!glglue_allow_newer_opengl(glue)) return FALSE;
+  if (!glglue_allow_newer_opengl(glue)) return false;
   return glue->has_nv_texture_shader;
 }
 
 /* GL_ARB_shadow */
-SbBool
+bool
 cc_glglue_has_arb_shadow(const cc_glglue * glue)
 {
-  if (!glglue_allow_newer_opengl(glue)) return FALSE;
+  if (!glglue_allow_newer_opengl(glue)) return false;
   return glue->has_shadow;
 }
 
 /* GL_ARB_depth_texture */
-SbBool
+bool
 cc_glglue_has_arb_depth_texture(const cc_glglue * glue)
 {
-  if (!glglue_allow_newer_opengl(glue)) return FALSE;
+  if (!glglue_allow_newer_opengl(glue)) return false;
   return glue->has_depth_texture;
 }
 
 /* GL_EXT_texture_env_combine || GL_ARB_texture_env_combine || OGL 1.4 */
-SbBool
+bool
 cc_glglue_has_texture_env_combine(const cc_glglue * glue)
 {
-  if (!glglue_allow_newer_opengl(glue)) return FALSE;
+  if (!glglue_allow_newer_opengl(glue)) return false;
   return glue->has_texture_env_combine;
 }
 
@@ -4466,7 +4466,7 @@ cc_glglue_glXGetCurrentDisplay(const cc_glglue * w)
     SoDB::init();
     void * ctx = cc_glglue_context_create_offscreen(128, 128);
     assert(ctx);
-    SbBool ok = cc_glglue_context_make_current(ctx);
+    bool ok = cc_glglue_context_make_current(ctx);
     assert(ok);
 
     const GLubyte * str = glGetString(GL_VERSION);
@@ -4506,7 +4506,7 @@ cc_glglue_context_create_offscreen(unsigned int width, unsigned int height)
     return (*offscreen_cb->create_offscreen)(width, height);
   } else {
 #ifdef HAVE_NOGL
-  assert(FALSE && "unimplemented");
+  assert(false && "unimplemented");
   return NULL;
 #elif defined(HAVE_GLX)
   return glxglue_context_create_offscreen(width, height);
@@ -4523,19 +4523,19 @@ cc_glglue_context_create_offscreen(unsigned int width, unsigned int height)
 #endif
 #endif
   }
-  assert(FALSE && "unimplemented");
+  assert(false && "unimplemented");
   return NULL;
 }
 
-SbBool
+bool
 cc_glglue_context_make_current(void * ctx)
 {
   if (offscreen_cb && offscreen_cb->make_current) {
     return (*offscreen_cb->make_current)(ctx);
   } else {
 #ifdef HAVE_NOGL
-  assert(FALSE && "unimplemented");
-  return FALSE;
+  assert(false && "unimplemented");
+  return false;
 #elif defined(HAVE_GLX)
   return glxglue_context_make_current(ctx);
 #elif defined(HAVE_WGL)
@@ -4551,8 +4551,8 @@ cc_glglue_context_make_current(void * ctx)
 #endif
 #endif
   }
-  assert(FALSE && "unimplemented");
-  return FALSE;
+  assert(false && "unimplemented");
+  return false;
 }
 
 void
@@ -4573,7 +4573,7 @@ cc_glglue_context_reinstate_previous(void * ctx)
     (*offscreen_cb->reinstate_previous)(ctx);
   } else {
 #ifdef HAVE_NOGL
-  assert(FALSE && "unimplemented");
+  assert(false && "unimplemented");
 #elif defined(HAVE_GLX)
   glxglue_context_reinstate_previous(ctx);
 #elif defined(HAVE_WGL)
@@ -4598,7 +4598,7 @@ cc_glglue_context_destruct(void * ctx)
     (*offscreen_cb->destruct)(ctx);
   } else {
 #ifdef HAVE_NOGL
-  assert(FALSE && "unimplemented");
+  assert(false && "unimplemented");
 #elif defined(HAVE_GLX)
   glxglue_context_destruct(ctx);
 #elif defined(HAVE_WGL)
@@ -4634,10 +4634,10 @@ void
 cc_glglue_context_max_dimensions(unsigned int * width, unsigned int * height)
 {
   void * ctx;
-  SbBool ok;
+  bool ok;
   const char * vendor;
   GLint size[2];
-  static SbBool cached = FALSE;
+  static bool cached = false;
   static unsigned int dim[2] = { 0, 0 };
 
     *width = dim[0];
@@ -4650,7 +4650,7 @@ cc_glglue_context_max_dimensions(unsigned int * width, unsigned int * height)
                            "query by making a dummy offscreen context");
   }
 
-  cached = TRUE; /* Flip flag on first run. Note: it doesn't matter
+  cached = true; /* Flip flag on first run. Note: it doesn't matter
                     that the detection below might fail -- as we
                     should report <0,0> on consecutive runs. */
 
@@ -4717,9 +4717,9 @@ cc_glglue_context_max_dimensions(unsigned int * width, unsigned int * height)
   {
     /* will be filled with max-width, max-height and max-pixels: */
     unsigned int pbufmax[3];
-    /* query functions below should return TRUE if implemented, and
+    /* query functions below should return true if implemented, and
        the current offscreen buffer is a pbuffer: */
-    SbBool ok = FALSE;
+    bool ok = false;
 #if defined(HAVE_WGL)
     ok = wglglue_context_pbuffer_max(ctx, pbufmax);
 #elif defined(HAVE_GLX)
@@ -4795,14 +4795,14 @@ cc_glglue_context_max_dimensions(unsigned int * width, unsigned int * height)
   dim[1] = *height;
 }
 
-SbBool
+bool
 cc_glglue_context_can_render_to_texture(void * COIN_UNUSED_ARG(ctx))
 {
   /* No render-to-texture support in external offscreen rendering. */
-  if (offscreen_cb) return FALSE;
+  if (offscreen_cb) return false;
 
 #if defined(HAVE_GLX) || defined(HAVE_NOGL)
-  return FALSE;
+  return false;
 #elif defined(HAVE_WGL)
   return wglglue_context_can_render_to_texture(ctx);
 #else
@@ -4829,7 +4829,7 @@ cc_glglue_context_bind_pbuffer(void * COIN_UNUSED_ARG(ctx))
      no way to bind a PBuffer as a texture (i.e. there is no
      equivalent to the aglTexImagePBuffer() and wglBindTexImageARB()
      calls).  kyrah 20031123. */
-  assert(FALSE && "unimplemented");
+  assert(false && "unimplemented");
 #elif defined(HAVE_WGL)
   wglglue_context_bind_pbuffer(ctx);
 #else
@@ -4852,7 +4852,7 @@ cc_glglue_context_release_pbuffer(void * COIN_UNUSED_ARG(ctx))
 
 #if defined(HAVE_GLX) || defined(HAVE_NOGL)
   /* FIXME: Implement for GLX. kyrah 20031123. */
-  assert(FALSE && "unimplemented");
+  assert(false && "unimplemented");
 #elif defined(HAVE_WGL)
   wglglue_context_release_pbuffer(ctx);
 #else
@@ -4867,16 +4867,16 @@ cc_glglue_context_release_pbuffer(void * COIN_UNUSED_ARG(ctx))
 #endif
 }
 
-SbBool
+bool
 cc_glglue_context_pbuffer_is_bound(void * COIN_UNUSED_ARG(ctx))
 {
   /* No render-to-texture support in external offscreen rendering. */
-  if (offscreen_cb) return FALSE;
+  if (offscreen_cb) return false;
 
 #if defined(HAVE_GLX) || defined(HAVE_NOGL)
   /* FIXME: Implement for GLX. kyrah 20031123. */
-  assert(FALSE && "unimplemented");
-  return FALSE;
+  assert(false && "unimplemented");
+  return false;
 #elif defined(HAVE_WGL)
   return wglglue_context_pbuffer_is_bound(ctx);
 #else
@@ -4921,12 +4921,12 @@ compute_log(int value)
 }
 
 /*  proxy mipmap creation */
-static SbBool
+static bool
 proxy_mipmap_2d(int width, int height,
                 GLenum internalFormat,
                 GLenum format,
                 GLenum type,
-                SbBool mipmap)
+                bool mipmap)
 {
   GLint w;
   int level;
@@ -4937,8 +4937,8 @@ proxy_mipmap_2d(int width, int height,
   glGetTexLevelParameteriv(GL_PROXY_TEXTURE_2D, 0,
                            GL_TEXTURE_WIDTH, &w);
 
-  if (w == 0) return FALSE;
-  if (!mipmap) return TRUE;
+  if (w == 0) return false;
+  if (!mipmap) return true;
 
   for (level = 1; level <= levels; level++) {
     if (width > 1) width >>= 1;
@@ -4948,18 +4948,18 @@ proxy_mipmap_2d(int width, int height,
                  NULL);
     glGetTexLevelParameteriv(GL_PROXY_TEXTURE_2D, 0,
                              GL_TEXTURE_WIDTH, &w);
-    if (w == 0) return FALSE;
+    if (w == 0) return false;
   }
-  return TRUE;
+  return true;
 }
 
 /* proxy mipmap creation. 3D version. */
-static SbBool
+static bool
 proxy_mipmap_3d(const cc_glglue * glw, int width, int height, int depth,
                 GLenum internalFormat,
                 GLenum format,
                 GLenum type,
-                SbBool mipmap)
+                bool mipmap)
 {
   GLint w;
   int level;
@@ -4970,8 +4970,8 @@ proxy_mipmap_3d(const cc_glglue * glw, int width, int height, int depth,
                          NULL);
   glGetTexLevelParameteriv(GL_PROXY_TEXTURE_3D, 0,
                            GL_TEXTURE_WIDTH, &w);
-  if (w == 0) return FALSE;
-  if (!mipmap) return TRUE;
+  if (w == 0) return false;
+  if (!mipmap) return true;
 
   for (level = 1; level <= levels; level++) {
     if (width > 1) width >>= 1;
@@ -4982,15 +4982,15 @@ proxy_mipmap_3d(const cc_glglue * glw, int width, int height, int depth,
                            NULL);
     glGetTexLevelParameteriv(GL_PROXY_TEXTURE_3D, 0,
                              GL_TEXTURE_WIDTH, &w);
-    if (w == 0) return FALSE;
+    if (w == 0) return false;
   }
-  return TRUE;
+  return true;
 }
 
-SbBool
+bool
 cc_glglue_is_texture_size_legal(const cc_glglue * glw,
                                 int xsize, int ysize, int zsize,
-                                int bytespertexel, SbBool mipmap)
+                                int bytespertexel, bool mipmap)
 {
   GLenum internalformat;
   GLenum format;
@@ -5021,49 +5021,49 @@ cc_glglue_is_texture_size_legal(const cc_glglue * glw,
   internalFormat parameter to glTexImage2D; either the number of
   components per texel or a constant specifying the internal texture format.
  */
-SbBool
+bool
 coin_glglue_is_texture_size_legal(const cc_glglue * glw,
                                   int xsize, int ysize, int zsize,
                                   GLenum internalformat,
                                   GLenum format,
                                   GLenum type,
-                                  SbBool mipmap)
+                                  bool mipmap)
  {
   if (zsize == 0) { /* 2D textures */
     if (COIN_MAXIMUM_TEXTURE2_SIZE > 0) {
-      if (xsize > COIN_MAXIMUM_TEXTURE2_SIZE) return FALSE;
-      if (ysize > COIN_MAXIMUM_TEXTURE2_SIZE) return FALSE;
-      return TRUE;
+      if (xsize > COIN_MAXIMUM_TEXTURE2_SIZE) return false;
+      if (ysize > COIN_MAXIMUM_TEXTURE2_SIZE) return false;
+      return true;
     }
     if (cc_glglue_has_2d_proxy_textures(glw)) {
       return proxy_mipmap_2d(xsize, ysize, internalformat, format, type, mipmap);
     }
     else {
-      if (xsize > glw->max_texture_size) return FALSE;
-      if (ysize > glw->max_texture_size) return FALSE;
-      return TRUE;
+      if (xsize > glw->max_texture_size) return false;
+      if (ysize > glw->max_texture_size) return false;
+      return true;
     }
   }
   else { /*  3D textures */
     if (cc_glglue_has_3d_textures(glw)) {
       if (COIN_MAXIMUM_TEXTURE3_SIZE > 0) {
-        if (xsize > COIN_MAXIMUM_TEXTURE3_SIZE) return FALSE;
-        if (ysize > COIN_MAXIMUM_TEXTURE3_SIZE) return FALSE;
-        if (zsize > COIN_MAXIMUM_TEXTURE3_SIZE) return FALSE;
-        return TRUE;
+        if (xsize > COIN_MAXIMUM_TEXTURE3_SIZE) return false;
+        if (ysize > COIN_MAXIMUM_TEXTURE3_SIZE) return false;
+        if (zsize > COIN_MAXIMUM_TEXTURE3_SIZE) return false;
+        return true;
       }
       return proxy_mipmap_3d(glw, xsize, ysize, zsize, internalformat, format, type, mipmap);
     }
     else {
 #if COIN_DEBUG
-      static SbBool first = TRUE;
+      static bool first = true;
       if (first) {
         cc_debugerror_post("glglue_is_texture_size_legal",
                            "3D not supported with this OpenGL driver");
-        first = FALSE;
+        first = false;
       }
 #endif /*  COIN_DEBUG */
-      return FALSE;
+      return false;
     }
   }
 }
@@ -5074,7 +5074,7 @@ coin_glglue_is_texture_size_legal(const cc_glglue * glw,
 */
 GLint coin_glglue_get_internal_texture_format(const cc_glglue * glw,
                                               int numcomponents,
-                                              SbBool compress)
+                                              bool compress)
 {
   GLenum format;
   if (compress) {
@@ -5095,7 +5095,7 @@ GLint coin_glglue_get_internal_texture_format(const cc_glglue * glw,
     }
   }
   else {
-    SbBool usenewenums = glglue_allow_newer_opengl(glw) && cc_glglue_glversion_matches_at_least(glw,1,1,0);
+    bool usenewenums = glglue_allow_newer_opengl(glw) && cc_glglue_glversion_matches_at_least(glw,1,1,0);
     switch (numcomponents) {
     case 1:
       format = usenewenums ? GL_LUMINANCE8 : GL_LUMINANCE;
@@ -5149,10 +5149,10 @@ float cc_glglue_get_max_anisotropy(const cc_glglue * glue)
   return glue->max_anisotropy;
 }
 
-SbBool
+bool
 cc_glglue_can_do_anisotropic_filtering(const cc_glglue * glue)
 {
-  if (!glglue_allow_newer_opengl(glue)) return FALSE;
+  if (!glglue_allow_newer_opengl(glue)) return false;
   return glue->can_do_anisotropic_filtering;
 }
 
@@ -5244,7 +5244,7 @@ coin_gl_current_context(void)
 
 /* ********************************************************************** */
 
-SbBool
+bool
 coin_glglue_vbo_in_displaylist_supported(const cc_glglue * glw)
 {
   return glw->vbo_in_displaylist_ok;
@@ -5252,15 +5252,15 @@ coin_glglue_vbo_in_displaylist_supported(const cc_glglue * glw)
 
 /* ********************************************************************** */
 
-SbBool
+bool
 coin_glglue_non_power_of_two_textures(const cc_glglue * glue)
 {
-  if (!glglue_allow_newer_opengl(glue)) return FALSE;
+  if (!glglue_allow_newer_opengl(glue)) return false;
   
   // ATi and Intel both seem to have problems with this feature,
   // especially on old drivers. Disable for everything except nVidia
   // until we can build a better driver database
-  if (!glue->vendor_is_nvidia) return FALSE;
+  if (!glue->vendor_is_nvidia) return false;
   return glue->non_power_of_two_textures;
 }
 
@@ -5406,16 +5406,16 @@ cc_glglue_glGetFramebufferAttachmentParameteriv(const cc_glglue * glue, GLenum t
   glue->glGetFramebufferAttachmentParameteriv(target, attachment, pname, params);
 }
 
-SbBool
+bool
 coin_glglue_has_generate_mipmap(const cc_glglue * glue)
 {
-  if (!glglue_allow_newer_opengl(glue)) return FALSE; 
+  if (!glglue_allow_newer_opengl(glue)) return false; 
   // ATi's handling of this function is very buggy. It's possible to
   // work around these quirks, but we just disable it for now since we
   // have other ways to generate mipmaps. Only disable on Windows. The
   // OS X and Linux drivers are probably ok.
   if ((coin_runtime_os() == COIN_MSWINDOWS) && glue->vendor_is_ati) {
-    return FALSE;
+    return false;
   }
   return (glue->glGenerateMipmap != NULL);
 }
@@ -5426,10 +5426,10 @@ cc_glglue_glGenerateMipmap(const cc_glglue * glue, GLenum target)
   glue->glGenerateMipmap(target);
 }
 
-SbBool
+bool
 cc_glglue_has_framebuffer_objects(const cc_glglue * glue)
 {
-  if (!glglue_allow_newer_opengl(glue)) return FALSE;
+  if (!glglue_allow_newer_opengl(glue)) return false;
   return glue->has_fbo;
 }
 

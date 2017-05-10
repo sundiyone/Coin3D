@@ -39,19 +39,19 @@ SoByteStream::~SoByteStream()
 }
 
 void
-SoByteStream::convert(SoNode * COIN_UNUSED_ARG(node), SbBool COIN_UNUSED_ARG(binary))
+SoByteStream::convert(SoNode * COIN_UNUSED_ARG(node), bool COIN_UNUSED_ARG(binary))
 {
   COIN_STUB();
 }
 
 void
-SoByteStream::convert(SoPath * COIN_UNUSED_ARG(path), SbBool COIN_UNUSED_ARG(binary))
+SoByteStream::convert(SoPath * COIN_UNUSED_ARG(path), bool COIN_UNUSED_ARG(binary))
 {
   COIN_STUB();
 }
 
 void
-SoByteStream::convert(SoPathList * COIN_UNUSED_ARG(pl), SbBool COIN_UNUSED_ARG(binary))
+SoByteStream::convert(SoPathList * COIN_UNUSED_ARG(pl), bool COIN_UNUSED_ARG(binary))
 {
   COIN_STUB();
 }
@@ -90,9 +90,9 @@ SoByteStream::copy(void * COIN_UNUSED_ARG(d), size_t COIN_UNUSED_ARG(len))
   COIN_STUB();
 }
 
-SbBool
+bool
 SoByteStream::isRawData(void) const
 {
   COIN_STUB();
-  return FALSE;
+  return false;
 }

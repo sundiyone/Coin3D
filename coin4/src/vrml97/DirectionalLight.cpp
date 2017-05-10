@@ -40,7 +40,7 @@
     exposedField SFColor color             1 1 1    # [0,1]
     exposedField SFVec3f direction         0 0 -1   # (-inf,inf)
     exposedField SFFloat intensity         1        # [0,1]
-    exposedField SFBool  on                TRUE
+    exposedField SFBool  on                true
   }
   \endverbatim
 

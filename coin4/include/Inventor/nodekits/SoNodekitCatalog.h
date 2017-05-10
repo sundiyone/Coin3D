@@ -48,11 +48,11 @@ public:
   SoType getType(const SbName & name) const;
   SoType getDefaultType(int part) const;
   SoType getDefaultType(const SbName & name) const;
-  SbBool isNullByDefault(int part) const;
-  SbBool isNullByDefault(const SbName & name) const;
+  bool isNullByDefault(int part) const;
+  bool isNullByDefault(const SbName & name) const;
 
-  SbBool isLeaf(int part) const;
-  SbBool isLeaf(const SbName & name) const;
+  bool isLeaf(int part) const;
+  bool isLeaf(const SbName & name) const;
   const SbName & getParentName(int part) const;
   const SbName & getParentName(const SbName & name) const;
   int getParentPartNumber(int part) const;
@@ -62,44 +62,44 @@ public:
   int getRightSiblingPartNumber(int part) const;
   int getRightSiblingPartNumber(const SbName & name) const;
 
-  SbBool isList(int part) const;
-  SbBool isList(const SbName & name) const;
+  bool isList(int part) const;
+  bool isList(const SbName & name) const;
   SoType getListContainerType(int part) const;
   SoType getListContainerType(const SbName & name) const;
   const SoTypeList & getListItemTypes(int part) const;
   const SoTypeList & getListItemTypes(const SbName & name) const;
 
-  SbBool isPublic(int part) const;
-  SbBool isPublic(const SbName & name) const;
+  bool isPublic(int part) const;
+  bool isPublic(const SbName & name) const;
 
   SoNodekitCatalog * clone(SoType type) const;
 
-  SbBool addEntry(const SbName & name, SoType type, SoType defaulttype,
-                  SbBool isdefaultnull, const SbName & parent,
-                  const SbName & rightsibling, SbBool islist,
+  bool addEntry(const SbName & name, SoType type, SoType defaulttype,
+                  bool isdefaultnull, const SbName & parent,
+                  const SbName & rightsibling, bool islist,
                   SoType listcontainertype, SoType listitemtype,
-                  SbBool ispublic);
+                  bool ispublic);
   void addListItemType(int part, SoType type);
   void addListItemType(const SbName & name, SoType type);
 
   void narrowTypes(const SbName & name, SoType newtype, SoType newdefaulttype);
-  void setNullByDefault(const SbName & name, SbBool nullbydefault);
+  void setNullByDefault(const SbName & name, bool nullbydefault);
 
-  SbBool recursiveSearch(int part, const SbName & name,
+  bool recursiveSearch(int part, const SbName & name,
                          SoTypeList * checked) const;
 
   void printCheck(void) const;
 
 private:
-  SbBool hasEntry(const SbName & name) const;
-  SbBool hasListItemType(const SbName & name, SoType type) const;
-  SbBool reallyAddEntry(class CatalogItem * newitem);
+  bool hasEntry(const SbName & name) const;
+  bool hasListItemType(const SbName & name, SoType type) const;
+  bool reallyAddEntry(class CatalogItem * newitem);
 
   int getPartNumber(const SbList<class CatalogItem *> & l,
                     const SbName & name) const;
   void addListItemType(const SbList<class CatalogItem *> & l,
                        int part, SoType type);
-  SbBool addListItemType(const SbList<class CatalogItem *> & l,
+  bool addListItemType(const SbList<class CatalogItem *> & l,
                          const SbName & name, SoType type);
 
   SbList<class CatalogItem *> items;

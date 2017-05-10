@@ -88,10 +88,10 @@ SoSceneKit::SoSceneKit(void)
 
   // Note: we must use "" instead of , , to humour MS VisualC++ 6.
 
-  SO_KIT_ADD_CATALOG_ENTRY(topSeparator, SoSeparator, TRUE, this, "", FALSE);
-  SO_KIT_ADD_CATALOG_LIST_ENTRY(cameraList, SoSwitch, TRUE, topSeparator, lightList, SoCameraKit, TRUE);
-  SO_KIT_ADD_CATALOG_LIST_ENTRY(lightList, SoGroup, TRUE, topSeparator, childList, SoLightKit, TRUE);
-  SO_KIT_ADD_CATALOG_LIST_ENTRY(childList, SoGroup, TRUE, topSeparator, "", SoShapeKit, TRUE);
+  SO_KIT_ADD_CATALOG_ENTRY(topSeparator, SoSeparator, true, this, "", false);
+  SO_KIT_ADD_CATALOG_LIST_ENTRY(cameraList, SoSwitch, true, topSeparator, lightList, SoCameraKit, true);
+  SO_KIT_ADD_CATALOG_LIST_ENTRY(lightList, SoGroup, true, topSeparator, childList, SoLightKit, true);
+  SO_KIT_ADD_CATALOG_LIST_ENTRY(childList, SoGroup, true, topSeparator, "", SoShapeKit, true);
   SO_KIT_ADD_LIST_ITEM_TYPE(childList, SoSeparatorKit);
 
   SO_KIT_INIT_INSTANCE();
@@ -139,10 +139,10 @@ SoSceneKit::setCameraNumber(int camnum)
 }
 
 // Documented in superclass.
-SbBool
+bool
 SoSceneKit::affectsState(void) const
 {
-  return TRUE;
+  return true;
 }
 
 #endif // HAVE_NODEKITS

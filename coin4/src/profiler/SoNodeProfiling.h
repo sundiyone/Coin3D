@@ -66,7 +66,7 @@ public:
     SbProfilingData & data = profilerelt->getProfilingData();
     const SoFullPath * fullpath =
       static_cast<const SoFullPath *>(action->getCurPath());
-    this->entryindex = data.getIndex(fullpath, TRUE);
+    this->entryindex = data.getIndex(fullpath, true);
     assert(this->entryindex != -1);
     size_t managedmem = 0, unmanagedmem = 0;
     fullpath->getTail()->getFieldsMemorySize(managedmem, unmanagedmem);

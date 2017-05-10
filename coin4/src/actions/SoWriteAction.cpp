@@ -129,7 +129,7 @@ SoWriteAction::initClass(void)
 SoWriteAction::SoWriteAction(void)
 {
   this->commonConstructor(new SoOutput);
-  this->localoutputalloc = TRUE;
+  this->localoutputalloc = true;
 }
 
 /*!
@@ -138,7 +138,7 @@ SoWriteAction::SoWriteAction(void)
 SoWriteAction::SoWriteAction(SoOutput * out)
 {
   this->commonConstructor(out);
-  this->localoutputalloc = FALSE;
+  this->localoutputalloc = false;
 }
 
 void
@@ -147,7 +147,7 @@ SoWriteAction::commonConstructor(SoOutput * out)
   SO_ACTION_CONSTRUCTOR(SoWriteAction);
 
   this->outobj = out;
-  this->continuing = FALSE;
+  this->continuing = false;
 }
 
 /*!
@@ -178,8 +178,8 @@ SoWriteAction::getOutput(void) const
 void
 SoWriteAction::continueToApply(SoNode * node)
 {
-  SbBool wascontinuing = this->continuing;
-  this->continuing = TRUE;
+  bool wascontinuing = this->continuing;
+  this->continuing = true;
   this->apply(node);
   this->continuing = wascontinuing;
 }
@@ -194,8 +194,8 @@ SoWriteAction::continueToApply(SoNode * node)
 void
 SoWriteAction::continueToApply(SoPath * path)
 {
-  SbBool wascontinuing = this->continuing;
-  this->continuing = TRUE;
+  bool wascontinuing = this->continuing;
+  this->continuing = true;
   this->apply(path);
   this->continuing = wascontinuing;
 }
@@ -222,7 +222,7 @@ SoWriteAction::beginTraversal(SoNode * node)
 #if COIN_DEBUG
   SoNodeSensor *sensor = NULL;
 #endif
-  if (this->continuing == FALSE) { // Run through both stages.
+  if (this->continuing == false) { // Run through both stages.
     // call SoWriterefCounter::instance() before traversing to set the
     // "current" pointer in SoWriterefCounter. This is needed to be
     // backwards compatible with old code that uses the writeref
@@ -258,16 +258,16 @@ SoWriteAction::beginTraversal(SoNode * node)
   \COININTERNAL
 
   Compact path lists are not implemented in Coin (yet), but if they
-  are, SoWriteAction should return \c FALSE here -- it would only be
+  are, SoWriteAction should return \c false here -- it would only be
   extra overhead for the SoWriteAction to have pathlists compacted
   before traversal.
 
   Seems like a silly optimization to me, though.. :^/  20000306 mortene.
 */
-SbBool
+bool
 SoWriteAction::shouldCompactPathLists(void) const
 {
-  return FALSE;
+  return false;
 }
 
 #ifdef COIN_TEST_SUITE

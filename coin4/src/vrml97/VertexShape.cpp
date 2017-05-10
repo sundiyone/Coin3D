@@ -54,12 +54,12 @@
 
 /*!
   \var SoSFBool SoVRMLVertexShape::colorPerVertex
-  When TRUE, colors are applied per vertex. Default value is TRUE.
+  When true, colors are applied per vertex. Default value is true.
 */
 
 /*!
   \var SoSFBool SoVRMLVertexShape::normalPerVertex
-  When TRUE, normals are applied per vertex. Default value is TRUE.
+  When true, normals are applied per vertex. Default value is true.
 */
 
 #include <Inventor/VRMLnodes/SoVRMLVertexShape.h>
@@ -126,8 +126,8 @@ SoVRMLVertexShape::SoVRMLVertexShape(void)
   SO_VRMLNODE_ADD_EXPOSED_FIELD(texCoord, (NULL));
   SO_VRMLNODE_ADD_EXPOSED_FIELD(normal, (NULL));
   SO_VRMLNODE_ADD_FIELD(color, (NULL));
-  SO_VRMLNODE_ADD_FIELD(colorPerVertex, (TRUE));
-  SO_VRMLNODE_ADD_FIELD(normalPerVertex, (TRUE));
+  SO_VRMLNODE_ADD_FIELD(colorPerVertex, (true));
+  SO_VRMLNODE_ADD_FIELD(normalPerVertex, (true));
 }
 
 /*!
@@ -144,18 +144,18 @@ SoVRMLVertexShape::~SoVRMLVertexShape()
   \COININTERNAL
 
   Subclasses should override this method to generate default normals
-  using the SoNormalBundle class. \c TRUE should be returned if
-  normals were generated, \c FALSE otherwise.
+  using the SoNormalBundle class. \c true should be returned if
+  normals were generated, \c false otherwise.
 
-  Default method returns \c FALSE.
+  Default method returns \c false.
 
   \COIN_FUNCTION_EXTENSION
 */
-SbBool
+bool
 SoVRMLVertexShape::generateDefaultNormals(SoState * ,
                                           SoNormalBundle *)
 {
-  return FALSE;
+  return false;
 }
 
 
@@ -165,18 +165,18 @@ SoVRMLVertexShape::generateDefaultNormals(SoState * ,
 
   Subclasses should override this method to generate default normals
   using the SoNormalCache class. This is more effective than using
-  SoNormalGenerator. Return \c TRUE if normals were generated, \c
-  FALSE otherwise.
+  SoNormalGenerator. Return \c true if normals were generated, \c
+  false otherwise.
 
-  Default method just returns \c FALSE.
+  Default method just returns \c false.
 
   \COIN_FUNCTION_EXTENSION
 */
-SbBool
+bool
 SoVRMLVertexShape::generateDefaultNormals(SoState * /* state */,
                                           SoNormalCache * /* nc */)
 {
-  return FALSE;
+  return false;
 }
 
 void
@@ -248,7 +248,7 @@ SoVRMLVertexShape::notify(SoNotList * list)
   inherited::notify(list);
 }
 
-SbBool
+bool
 SoVRMLVertexShape::shouldGLRender(SoGLRenderAction * action)
 {
   return SoShape::shouldGLRender(action);
@@ -297,7 +297,7 @@ SoVRMLVertexShape::generateAndReadLockNormalCache(SoState * const state)
   this->readUnlockNormalCache();
   this->writeLockNormalCache();
   
-  SbBool storeinvalid = SoCacheElement::setInvalid(FALSE);
+  bool storeinvalid = SoCacheElement::setInvalid(false);
   
   if (PRIVATE(this)->normalcache) PRIVATE(this)->normalcache->unref();
   state->push(); // need to push for cache dependencies
@@ -335,7 +335,7 @@ void
 SoVRMLVertexShape::getVertexData(SoState * state,
                                  const SoCoordinateElement *& coords,
                                  const SbVec3f *& normals,
-                                 const SbBool neednormals)
+                                 const bool neednormals)
 {
   coords = SoCoordinateElement::getInstance(state);
   assert(coords);

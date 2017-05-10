@@ -32,9 +32,6 @@
 
 /* *********************************************************************** */
 
-/* Documented for Doxygen in SoDB.cpp. */
-typedef int SbBool;
-
 #ifdef DOXYGEN_SKIP_THIS
 #ifndef USE_STATIC_CONSTS
 //POTENTIAL_ROTTING_DOCUMENTATION
@@ -46,22 +43,6 @@ typedef int SbBool;
 #define USE_STATIC_CONSTS
 #endif //USE_STATIC_CONSTS
 #endif //DOXYGEN_SKIP_THIS
-
-#ifndef FALSE
-#ifdef USE_STATIC_CONSTS
-static const SbBool FALSE = 0;
-#else
-#define FALSE 0
-#endif //USE_STATIC_CONSTS
-#endif /* !FALSE */
-
-#ifndef TRUE
-#ifdef USE_STATIC_CONSTS
-static const SbBool TRUE = 1;
-#else
-#define TRUE 1
-#endif //USE_STATIC_CONSTS
-#endif /* !TRUE */
 
 /* *********************************************************************** */
 

@@ -210,7 +210,7 @@ SoComplexity::GLRender(SoGLRenderAction * action)
     SoTextureQualityElement::set(state, this,
                                  this->textureQuality.getValue());
     if (this->isOverride()) {
-      SoTextureOverrideElement::setQualityOverride(state, TRUE);
+      SoTextureOverrideElement::setQualityOverride(state, true);
     }
   }
 }
@@ -223,14 +223,14 @@ SoComplexity::doAction(SoAction * action)
   if (!value.isIgnored() && !SoOverrideElement::getComplexityOverride(state)) {
     SoComplexityElement::set(state, value.getValue());
     if (this->isOverride()) {
-      SoOverrideElement::setComplexityOverride(state, this, TRUE);
+      SoOverrideElement::setComplexityOverride(state, this, true);
     }
   }
   if (!type.isIgnored() && !SoOverrideElement::getComplexityTypeOverride(state)) {
     SoComplexityTypeElement::set(state, (SoComplexityTypeElement::Type)
                                  type.getValue());
     if (this->isOverride()) {
-      SoOverrideElement::setComplexityTypeOverride(state, this, TRUE);
+      SoOverrideElement::setComplexityTypeOverride(state, this, true);
     }
   }
 }

@@ -54,11 +54,11 @@ public:
   void setPixelsPerInch(float ppi);
   float getPixelsPerInch(void) const;
   float getPixelsPerPoint(void) const;
-  friend COIN_DLL_API int operator ==(const SbViewportRegion & reg1,
-                                      const SbViewportRegion & reg2);
+  friend COIN_DLL_API bool operator==(const SbViewportRegion & reg1,
+                                     const SbViewportRegion & reg2);
 
-  friend COIN_DLL_API int operator !=(const SbViewportRegion & reg1,
-                                      const SbViewportRegion & reg2);
+  friend COIN_DLL_API bool operator!=(const SbViewportRegion & reg1,
+                                     const SbViewportRegion & reg2);
 
   void print(FILE * file) const;
 
@@ -71,7 +71,7 @@ private:
   float pixperinch;
 };
 
-COIN_DLL_API int operator ==(const SbViewportRegion & reg1, const SbViewportRegion & reg2);
-COIN_DLL_API int operator !=(const SbViewportRegion & reg1, const SbViewportRegion & reg2);
+COIN_DLL_API bool operator==(const SbViewportRegion & reg1, const SbViewportRegion & reg2);
+COIN_DLL_API bool operator!=(const SbViewportRegion & reg1, const SbViewportRegion & reg2);
 
 #endif // !COIN_SBVIEWPORTREGION_H

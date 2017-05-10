@@ -54,13 +54,13 @@ public:
     };
 
     Superimposition(SoNode * scene,
-                    SbBool enabled,
+                    bool enabled,
                     SoRenderManager * manager,
                     uint32_t flags);
     ~Superimposition();
 
-    void render(SoGLRenderAction * action, SbBool clearcolorbuffer = FALSE);
-    void setEnabled(SbBool yes);
+    void render(SoGLRenderAction * action, bool clearcolorbuffer = false);
+    void setEnabled(bool yes);
     int getStateFlags(void) const;
     void setTransparencyType(SoGLRenderAction::TransparencyType transparencytype);
 
@@ -101,13 +101,13 @@ public:
   SoRenderManager(void);
   virtual ~SoRenderManager();
 
-  virtual void render(const SbBool clearwindow = TRUE,
-                      const SbBool clearzbuffer = TRUE);
+  virtual void render(const bool clearwindow = true,
+                      const bool clearzbuffer = true);
 
   virtual void render(SoGLRenderAction * action,
-                      const SbBool initmatrices = TRUE,
-                      const SbBool clearwindow = TRUE,
-                      const SbBool clearzbuffer = TRUE);
+                      const bool initmatrices = true,
+                      const bool clearwindow = true,
+                      const bool clearzbuffer = true);
 
   Superimposition * addSuperimposition(SoNode * scene,
                                        uint32_t flags =
@@ -126,10 +126,10 @@ public:
   AutoClippingStrategy getAutoClipping(void) const;
   void setNearPlaneValue(float value);
   float getNearPlaneValue(void) const;
-  void setTexturesEnabled(const SbBool onoff);
-  SbBool isTexturesEnabled(void) const;
-  void setDoubleBuffer(const SbBool enable);
-  SbBool isDoubleBuffer(void) const;
+  void setTexturesEnabled(const bool onoff);
+  bool isTexturesEnabled(void) const;
+  void setDoubleBuffer(const bool enable);
+  bool isDoubleBuffer(void) const;
   void setRenderMode(const RenderMode mode);
   RenderMode getRenderMode(void) const;
   void setStereoMode(const StereoMode mode);
@@ -140,7 +140,7 @@ public:
   void setRenderCallback(SoRenderManagerRenderCB * f,
                          void * const userData = NULL);
 
-  SbBool isAutoRedraw(void) const;
+  bool isAutoRedraw(void) const;
   void setRedrawPriority(const uint32_t priority);
   uint32_t getRedrawPriority(void) const;
 
@@ -159,20 +159,20 @@ public:
   SbColor4f getOverlayColor(void) const;
   void setBackgroundIndex(const int index);
   int getBackgroundIndex(void) const;
-  void setRGBMode(const SbBool onOrOff);
-  SbBool isRGBMode(void) const;
+  void setRGBMode(const bool onOrOff);
+  bool isRGBMode(void) const;
   virtual void activate(void);
   virtual void deactivate(void);
 
-  void setAntialiasing(const SbBool smoothing, const int numPasses);
-  void getAntialiasing(SbBool & smoothing, int & numPasses) const;
+  void setAntialiasing(const bool smoothing, const int numPasses);
+  void getAntialiasing(bool & smoothing, int & numPasses) const;
   void setGLRenderAction(SoGLRenderAction * const action);
   SoGLRenderAction * getGLRenderAction(void) const;
   void setAudioRenderAction(SoAudioRenderAction * const action);
   SoAudioRenderAction * getAudioRenderAction(void) const;
 
-  static void enableRealTimeUpdate(const SbBool flag);
-  static SbBool isRealTimeUpdateEnabled(void);
+  static void enableRealTimeUpdate(const bool flag);
+  static bool isRealTimeUpdateEnabled(void);
   static uint32_t getDefaultRedrawPriority(void);
 
   void addPreRenderCallback(SoRenderManagerRenderCB * cb, void * data);
@@ -192,22 +192,22 @@ protected:
                    uint32_t clearmask);
 
   void actuallyRender(SoGLRenderAction * action,
-                      const SbBool initmatrices = TRUE,
-                      const SbBool clearwindow = TRUE,
-                      const SbBool clearzbuffer = TRUE);
+                      const bool initmatrices = true,
+                      const bool clearwindow = true,
+                      const bool clearzbuffer = true);
 
   void renderSingle(SoGLRenderAction * action,
-                    SbBool initmatrices,
-                    SbBool clearwindow,
-                    SbBool clearzbuffer);
+                    bool initmatrices,
+                    bool clearwindow,
+                    bool clearzbuffer);
 
   void renderStereo(SoGLRenderAction * action,
-                    SbBool initmatrices,
-                    SbBool clearwindow,
-                    SbBool clearzbuffer);
+                    bool initmatrices,
+                    bool clearwindow,
+                    bool clearzbuffer);
 
   void initStencilBufferForInterleavedStereo(void);
-  void clearBuffers(SbBool color, SbBool depth);
+  void clearBuffers(bool color, bool depth);
 
 private:
   void attachRootSensor(SoNode * const sceneroot);

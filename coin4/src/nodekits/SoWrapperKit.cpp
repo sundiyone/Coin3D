@@ -92,8 +92,8 @@ SoWrapperKit::SoWrapperKit(void)
 
   // Note: we must use "" instead of , , to humour MS VisualC++ 6.
 
-  SO_KIT_ADD_CATALOG_ENTRY(localTransform, SoTransform, TRUE, topSeparator, contents, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(contents, SoSeparator, TRUE, topSeparator, "", TRUE);
+  SO_KIT_ADD_CATALOG_ENTRY(localTransform, SoTransform, true, topSeparator, contents, true);
+  SO_KIT_ADD_CATALOG_ENTRY(contents, SoSeparator, true, topSeparator, "", true);
 
   SO_KIT_INIT_INSTANCE();
 }

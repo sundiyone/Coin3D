@@ -69,11 +69,11 @@
   front half is used.
 */
 SbCylinderSectionProjector::SbCylinderSectionProjector(const float edgetol,
-                                                       const SbBool orienttoeye)
+                                                       const bool orienttoeye)
   : SbCylinderProjector(orienttoeye),
     tolerance(edgetol)
 {
-  this->needSetup = TRUE;
+  this->needSetup = true;
 }
 
 /*!
@@ -81,11 +81,11 @@ SbCylinderSectionProjector::SbCylinderSectionProjector(const float edgetol,
 */
 SbCylinderSectionProjector::SbCylinderSectionProjector(const SbCylinder & cyl,
                                                        const float edgetol,
-                                                       const SbBool orienttoeye)
+                                                       const bool orienttoeye)
   : inherited(cyl, orienttoeye),
     tolerance(edgetol)
 {
-  this->needSetup = TRUE;
+  this->needSetup = true;
 }
 
 // Documented in superclass.
@@ -104,7 +104,7 @@ SbCylinderSectionProjector::project(const SbVec2f & point)
   SbLine projline = this->getWorkingLine(point);
   SbVec3f projpt;
 
-  SbBool tst = this->intersectCylinderFront(projline, projpt);
+  bool tst = this->intersectCylinderFront(projline, projpt);
   if (!tst || !this->isWithinTolerance(projpt)) {
     if (!this->tolPlane.intersect(projline, projpt)) {
 #if COIN_DEBUG
@@ -165,7 +165,7 @@ SbCylinderSectionProjector::setTolerance(const float edgetol)
   }
 #endif // COIN_DEBUG
   this->tolerance = edgetol;
-  this->needSetup = TRUE;
+  this->needSetup = true;
 }
 
 /*!
@@ -181,17 +181,17 @@ SbCylinderSectionProjector::getTolerance(void) const
   Check if \a point is within the part of the cylinder used for
   projections.
 */
-SbBool
+bool
 SbCylinderSectionProjector::isWithinTolerance(const SbVec3f & point)
 {
   if (this->needSetup) this->setupTolerance();
 
   // check if behind tolerance plane
-  if (!this->tolPlane.isInHalfSpace(point)) return FALSE;
+  if (!this->tolPlane.isInHalfSpace(point)) return false;
 
   SbVec3f ptonline = this->planeLine.getClosestPoint(point);
-  if ((ptonline-point).sqrLength() > this->sqrtoldist) return FALSE;
-  return TRUE;
+  if ((ptonline-point).sqrLength() > this->sqrtoldist) return false;
+  return true;
 }
 
 /*!
@@ -241,5 +241,5 @@ SbCylinderSectionProjector::setupTolerance(void)
   this->planeLine = SbLine(linept, linept + axis.getDirection());
   this->tolPlane = SbPlane(this->planeDir, linept);
 
-  this->needSetup = FALSE;
+  this->needSetup = false;
 }

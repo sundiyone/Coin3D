@@ -36,13 +36,13 @@
 
   \verbatim
   MovieTexture {
-    exposedField SFBool   loop             FALSE
+    exposedField SFBool   loop             false
     exposedField SFFloat  speed            1.0      # (-inf, inf)
     exposedField SFTime   startTime        0        # (-inf, inf)
     exposedField SFTime   stopTime         0        # (-inf, inf)
     exposedField MFString url              []
-    field        SFBool   repeatS          TRUE
-    field        SFBool   repeatT          TRUE
+    field        SFBool   repeatS          true
+    field        SFBool   repeatT          true
     eventOut     SFTime   duration_changed
     eventOut     SFBool   isActive
   }
@@ -128,7 +128,7 @@
 
 /*!
   \var SoSFBool SoVRMLMovieTexture::loop
-  Specifies whether movie should be looped or not. Default value is FALSE.
+  Specifies whether movie should be looped or not. Default value is false.
 */
 
 /*!
@@ -184,7 +184,7 @@ SoVRMLMovieTexture::SoVRMLMovieTexture(void)
 {
   SO_VRMLNODE_INTERNAL_CONSTRUCTOR(SoVRMLMovieTexture);
 
-  SO_VRMLNODE_ADD_EXPOSED_FIELD(loop, (FALSE));
+  SO_VRMLNODE_ADD_EXPOSED_FIELD(loop, (false));
   SO_VRMLNODE_ADD_EXPOSED_FIELD(speed, (1.0f));
   SO_VRMLNODE_ADD_EXPOSED_FIELD(startTime, (SbTime::zero()));
   SO_VRMLNODE_ADD_EXPOSED_FIELD(stopTime, (SbTime::zero()));

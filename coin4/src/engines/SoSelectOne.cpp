@@ -100,7 +100,7 @@ using std::strstr;
 // dynamically allocated.
 SO_INTERNAL_ENGINE_SOURCE_DYNAMIC_IO(SoSelectOne);
 
-static SbBool
+static bool
 SoSelectOne_valid_type(SoType t)
 {
   return (t.isDerivedFrom(SoMField::getClassTypeId()) &&
@@ -206,7 +206,7 @@ SoSelectOne::evaluate(void)
 
   if (idx == 0 && this->input->getNum() == 0) {
     // Nil is the no-op value (also the default initial value).
-    SO_ENGINE_OUTPUT((*output), SoSField, setDirty(FALSE));
+    SO_ENGINE_OUTPUT((*output), SoSField, setDirty(false));
   }
   else if (idx >= 0 && idx < this->input->getNum()) {
 
@@ -257,7 +257,7 @@ SoSelectOne::evaluate(void)
 }
 
 // Documented in superclass.
-SbBool
+bool
 SoSelectOne::readInstance(SoInput * in, unsigned short flagsarg)
 {
   // This code is identical to readInstance() of SoGate and
@@ -269,21 +269,21 @@ SoSelectOne::readInstance(SoInput * in, unsigned short flagsarg)
                       "\"type\" keyword is missing, erroneous format for "
                       "engine class '%s'.",
                       this->getTypeId().getName().getString());
-    return FALSE;
+    return false;
   }
   // need to use an SbString here, because SoInput::read( SbName & )
   // reads in '"MyName"' as is instead of as 'MyName'.
   SbString fieldname;
   if (!in->read(fieldname)) {
     SoReadError::post(in, "Couldn't read input type for engine.");
-    return FALSE;
+    return false;
   }
   SoType inputtype = SoType::fromName(fieldname);
   if (!SoSelectOne_valid_type(inputtype)) {
     SoReadError::post(in, "Type \"%s\" for input field is not valid "
                       "(field must be non-abstract and a multi-value type).",
                       fieldname.getString());
-    return FALSE;
+    return false;
   }
 
   this->initialize(inputtype);
@@ -297,9 +297,9 @@ SoSelectOne::writeInstance(SoOutput * out)
   // This code is identical to writeInstance() of SoGate and
   // SoConcatenate, so migrate changes.
 
-  if (this->writeHeader(out, FALSE, TRUE)) return;
+  if (this->writeHeader(out, false, true)) return;
 
-  SbBool binarywrite = out->isBinary();
+  bool binarywrite = out->isBinary();
 
   if (!binarywrite) out->indent();
   out->write("type");
@@ -315,7 +315,7 @@ SoSelectOne::writeInstance(SoOutput * out)
 // Documented in superclass.
 void
 SoSelectOne::copyContents(const SoFieldContainer * from,
-                          SbBool copyconnections)
+                          bool copyconnections)
 {
   const SoSelectOne * selectonesrc = coin_assert_cast<const SoSelectOne *>(from);
   if (selectonesrc->input) { this->initialize(selectonesrc->input->getTypeId()); }

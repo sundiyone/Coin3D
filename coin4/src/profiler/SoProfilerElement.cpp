@@ -94,14 +94,14 @@ SoProfilerElement::pop(SoState *, const SoElement *)
 
 // *************************************************************************
 
-SbBool
+bool
 SoProfilerElement::matches(const SoElement * element) const
 {
-  if (element == this) return TRUE;
+  if (element == this) return true;
   const SoProfilerElement * pelement =
     static_cast<const SoProfilerElement *>(element);
-  if (pelement->getProfilingData() == this->getProfilingData()) return TRUE;
-  return FALSE;
+  if (pelement->getProfilingData() == this->getProfilingData()) return true;
+  return false;
 }
 
 SoElement *
@@ -132,7 +132,7 @@ SoProfilerElement::setTimingProfile(SoNode * node, SbTime t, SoNode * parent)
 
 /*
 void
-SoProfilerElement::setHasGLCache(SoNode * node, SbBool hascache)
+SoProfilerElement::setHasGLCache(SoNode * node, bool hascache)
 {
   this->data.setHasGLCache(node, hascache);
 }

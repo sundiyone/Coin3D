@@ -140,17 +140,17 @@ ScXMLValidateElt::setSchemaAttribute(const char * schemastr)
 
 // const char * getSchemaAttribute(void) const { return this->schema; }
 
-SbBool
+bool
 ScXMLValidateElt::handleXMLAttributes(void)
 {
   if (!inherited::handleXMLAttributes()) {
-    return FALSE;
+    return false;
   }
 
   this->setLocationAttribute(this->getXMLAttribute("location"));
   this->setSchemaAttribute(this->getXMLAttribute("schema"));
 
-  return TRUE;
+  return true;
 }
 
 void

@@ -223,7 +223,7 @@ SoDebugError::callbackForwarder(const struct cc_debugerror * error,
     wrappederr.severity = SoDebugError::INFO;
     break;
   default:
-    assert(FALSE);
+    assert(false);
     break;
   }
 

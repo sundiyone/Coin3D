@@ -37,10 +37,10 @@ class SbPlane;
 
 typedef struct
 {
-  SbBool (*ptinsidefunc)(void * const item, const SbVec3f & pt);
-  SbBool (*insideboxfunc)(void * const item, const SbBox3f & box);
-  SbBool (*insidespherefunc)(void * const item, const SbSphere & sphere);
-  SbBool (*insideplanesfunc)(void * const item,
+  bool (*ptinsidefunc)(void * const item, const SbVec3f & pt);
+  bool (*insideboxfunc)(void * const item, const SbBox3f & box);
+  bool (*insidespherefunc)(void * const item, const SbSphere & sphere);
+  bool (*insideplanesfunc)(void * const item,
                              const SbPlane * const planes,
                              const int numplanes);
 } SbOctTreeFuncs;
@@ -58,17 +58,17 @@ public:
   void removeItem(void * const item);
   void findItems(const SbVec3f & pos,
                  SbList <void*> & destarray,
-                 const SbBool removeduplicates = TRUE) const;
+                 const bool removeduplicates = true) const;
   void findItems(const SbBox3f & box,
                  SbList <void*> & destarray,
-                 const SbBool removeduplicates = TRUE) const;
+                 const bool removeduplicates = true) const;
   void findItems(const SbSphere & sphere,
                  SbList <void*> & destarray,
-                 const SbBool removeduplicates = TRUE) const;
+                 const bool removeduplicates = true) const;
   void findItems(const SbPlane * const planes,
                  const int numplanes,
                  SbList <void*> & destarray,
-                 const SbBool removeduplicates= TRUE) const;
+                 const bool removeduplicates= true) const;
 
   const SbBox3f & getBoundingBox(void) const;
   void clear(void);

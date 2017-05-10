@@ -393,17 +393,17 @@ SoVectorizePSAction::printItem(const SoVectorizeItem * item) const
   }
 }
 
-static int count_bits(uint16_t mask, int & pos, SbBool onoff)
+static int count_bits(uint16_t mask, int & pos, bool onoff)
 {
   int cnt = -1;
   pos++;
-  SbBool res;
+  bool res;
   do {
     cnt++;
     pos--;
     if (pos < 0) break;
     uint16_t bit = 1 << pos;
-    res = (bit & mask) ? TRUE : FALSE;
+    res = (bit & mask) ? true : false;
   } while (res == onoff);
   return cnt;
 }
@@ -418,7 +418,7 @@ SoVectorizePSActionP::printSetdash(uint16_t pattern) const
   fputs("[", file);
 
   int pos = 15;
-  SbBool onoff = TRUE;
+  bool onoff = true;
   int dashcnt = 0;
 
   while (pos >= 0 && dashcnt < DASH_LIMIT) {
@@ -598,7 +598,7 @@ SoVectorizePSActionP::printTriangle(const SbVec3f * v, const SbColor * c)
 
   FILE * file = PUBLIC(this)->getOutput()->getFilePointer();
 
-  SbBool flatshade =
+  bool flatshade =
     (this->gouraudeps == 0.0f) ||
     ((c[0] == c[1]) && (c[1] == c[2]));
 
@@ -710,20 +710,20 @@ SoVectorizePSActionP::printImage(const SoVectorizeImage * item) const
     switch (nc) {
     default: // avoid warning
     case 1:
-      coin_output_ascii85(fp, src[cnt], tuple, linebuf, &tuplecnt, &linecnt, rowlen, FALSE);
+      coin_output_ascii85(fp, src[cnt], tuple, linebuf, &tuplecnt, &linecnt, rowlen, false);
       break;
     case 2:
-      coin_output_ascii85(fp, src[cnt*2], tuple, linebuf, &tuplecnt, &linecnt, rowlen, FALSE);
+      coin_output_ascii85(fp, src[cnt*2], tuple, linebuf, &tuplecnt, &linecnt, rowlen, false);
       break;
     case 3:
-      coin_output_ascii85(fp, src[cnt*3], tuple, linebuf, &tuplecnt, &linecnt, rowlen, FALSE);
-      coin_output_ascii85(fp, src[cnt*3+1], tuple, linebuf, &tuplecnt, &linecnt, rowlen, FALSE);
-      coin_output_ascii85(fp, src[cnt*3+2], tuple, linebuf, &tuplecnt, &linecnt, rowlen, FALSE);
+      coin_output_ascii85(fp, src[cnt*3], tuple, linebuf, &tuplecnt, &linecnt, rowlen, false);
+      coin_output_ascii85(fp, src[cnt*3+1], tuple, linebuf, &tuplecnt, &linecnt, rowlen, false);
+      coin_output_ascii85(fp, src[cnt*3+2], tuple, linebuf, &tuplecnt, &linecnt, rowlen, false);
       break;
     case 4:
-      coin_output_ascii85(fp, src[cnt*4], tuple, linebuf, &tuplecnt, &linecnt, rowlen, FALSE);
-      coin_output_ascii85(fp, src[cnt*4+1], tuple, linebuf, &tuplecnt, &linecnt,rowlen, FALSE);
-      coin_output_ascii85(fp, src[cnt*4+2], tuple, linebuf, &tuplecnt, &linecnt, rowlen, FALSE);
+      coin_output_ascii85(fp, src[cnt*4], tuple, linebuf, &tuplecnt, &linecnt, rowlen, false);
+      coin_output_ascii85(fp, src[cnt*4+1], tuple, linebuf, &tuplecnt, &linecnt,rowlen, false);
+      coin_output_ascii85(fp, src[cnt*4+2], tuple, linebuf, &tuplecnt, &linecnt, rowlen, false);
       break;
     }
     cnt++;

@@ -54,7 +54,7 @@ public:
   virtual void preGLRender(void);
   virtual void postGLRender(void);
 
-  virtual SbBool processSoEvent(const SoEvent * event);
+  virtual bool processSoEvent(const SoEvent * event);
 
   virtual const char * getVariable(const char * key) const;
 

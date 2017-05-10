@@ -154,7 +154,7 @@
   {
     SoSearchAction sa;
     sa.setType(type);
-    sa.setSearchingAll(TRUE);
+    sa.setSearchingAll(true);
     sa.setInterest(SoSearchAction::ALL);
     sa.apply(root);
 
@@ -177,9 +177,9 @@
       return -1;
     }
 
-    SbBool strip = TRUE;
+    bool strip = true;
     if (argc > 3) {
-      if (strcmp(argv[3], "nostrip") == 0) strip = FALSE;
+      if (strcmp(argv[3], "nostrip") == 0) strip = false;
       else {
         fprintf(stderr,"Usage: reorganize <infile> <outfile> [nostrip]\n");
         return -1;
@@ -190,15 +190,15 @@
     SoInteraction::init();
 
     SoInput input;
-    SbBool ok = input.openFile(argv[1]);
+    bool ok = input.openFile(argv[1]);
     if (!ok) {
       fprintf(stderr,"Unable to open file.\n");
       return -1;
     }
     SoSeparator * root = SoDB::readAll(&input);
 
-    SbBool vrml1 = input.isFileVRML1();
-    SbBool vrml2 = input.isFileVRML2();
+    bool vrml1 = input.isFileVRML1();
+    bool vrml2 = input.isFileVRML2();
 
     if (vrml2) {
       fprintf(stderr,"VRML2 not supported yet\n");
@@ -290,11 +290,11 @@ class SoReorganizeActionP {
  public:
   SoReorganizeActionP(void)
     : master(NULL),
-      gennormals(TRUE),
-      gentexcoords(TRUE),
-      gentristrips(FALSE),
-      genvp(FALSE),
-      matchidx(TRUE),
+      gennormals(true),
+      gentexcoords(true),
+      gentristrips(false),
+      genvp(false),
+      matchidx(true),
       cbaction(SbViewportRegion(640, 480)),
       pvcache(NULL)
   {
@@ -326,23 +326,23 @@ class SoReorganizeActionP {
 
   }
   SoReorganizeAction * master;
-  SbBool gennormals;
-  SbBool gentexcoords;
-  SbBool gentristrips;
-  SbBool genvp;
-  SbBool matchidx;
-  SbList <SbBool> needtexcoords;
+  bool gennormals;
+  bool gentexcoords;
+  bool gentristrips;
+  bool genvp;
+  bool matchidx;
+  SbList <bool> needtexcoords;
   int lastneeded;
   int numtriangles;
   int numlines;
   int numpoints;
-  SbBool isvrml;
+  bool isvrml;
 
-  SbBool didinit;
-  SbBool hastexture;
+  bool didinit;
+  bool hastexture;
   SbColor4f diffusecolor;
-  SbBool lighting;
-  SbBool normalsonstate;
+  bool lighting;
+  bool normalsonstate;
 
   SoCallbackAction cbaction;
   SoSearchAction sa;
@@ -359,14 +359,14 @@ class SoReorganizeActionP {
                               const SoPrimitiveVertex * v1,
                               const SoPrimitiveVertex * v2);
 
-  SbBool initShape(SoCallbackAction * action);
+  bool initShape(SoCallbackAction * action);
   void replaceNode(SoFullPath * path);
   void replaceIfs(SoFullPath * path);
   void replaceVrmlIfs(SoFullPath * path);
   void replaceIls(SoFullPath * path);
   void replaceVrmlIls(SoFullPath * path);
 
-  SoVertexProperty * createVertexProperty(const SbBool forlines);
+  SoVertexProperty * createVertexProperty(const bool forlines);
 };
 
 
@@ -407,60 +407,60 @@ SoReorganizeAction::getSimplifiedSceneGraph(void) const
 }
 
 void
-SoReorganizeAction::generateNormals(SbBool onoff)
+SoReorganizeAction::generateNormals(bool onoff)
 {
   PRIVATE(this)->gennormals = onoff;
 }
 
-SbBool
+bool
 SoReorganizeAction::areNormalGenerated(void) const
 {
   return PRIVATE(this)->gennormals;
 }
 
 void
-SoReorganizeAction::generateTriangleStrips(SbBool onoff)
+SoReorganizeAction::generateTriangleStrips(bool onoff)
 {
   PRIVATE(this)->gentristrips = onoff;
 }
 
-SbBool
+bool
 SoReorganizeAction::areTriangleStripGenerated(void) const
 {
   return PRIVATE(this)->gentristrips;
 }
 
 void
-SoReorganizeAction::generateTexCoords(SbBool onoff)
+SoReorganizeAction::generateTexCoords(bool onoff)
 {
   PRIVATE(this)->gentexcoords = onoff;
 }
 
-SbBool
+bool
 SoReorganizeAction::areTexCoordsGenerated(void) const
 {
   return PRIVATE(this)->gentexcoords;
 }
 
 void
-SoReorganizeAction::generateVPNodes(SbBool onoff)
+SoReorganizeAction::generateVPNodes(bool onoff)
 {
   PRIVATE(this)->genvp = onoff;
 }
 
-SbBool
+bool
 SoReorganizeAction::areVPNodesGenerated(void)
 {
   return PRIVATE(this)->genvp;
 }
 
 void
-SoReorganizeAction::matchIndexArrays(SbBool onoff)
+SoReorganizeAction::matchIndexArrays(bool onoff)
 {
   PRIVATE(this)->matchidx = onoff;
 }
 
-SbBool
+bool
 SoReorganizeAction::areIndexArraysMatched(void) const
 {
   return PRIVATE(this)->matchidx;
@@ -477,7 +477,7 @@ SoReorganizeAction::apply(SoNode * root)
 {
   int i;
   PRIVATE(this)->sa.setType(SoVertexShape::getClassTypeId());
-  PRIVATE(this)->sa.setSearchingAll(TRUE);
+  PRIVATE(this)->sa.setSearchingAll(true);
   PRIVATE(this)->sa.setInterest(SoSearchAction::ALL);
   PRIVATE(this)->sa.apply(root);
   SoPathList & pl = PRIVATE(this)->sa.getPaths();
@@ -488,7 +488,7 @@ SoReorganizeAction::apply(SoNode * root)
 
 #ifdef HAVE_VRML97
   PRIVATE(this)->sa.setType(SoVRMLIndexedFaceSet::getClassTypeId());
-  PRIVATE(this)->sa.setSearchingAll(TRUE);
+  PRIVATE(this)->sa.setSearchingAll(true);
   PRIVATE(this)->sa.setInterest(SoSearchAction::ALL);
   PRIVATE(this)->sa.apply(root);
   SoPathList & pl2 = PRIVATE(this)->sa.getPaths();
@@ -499,7 +499,7 @@ SoReorganizeAction::apply(SoNode * root)
   PRIVATE(this)->sa.reset();
 
   PRIVATE(this)->sa.setType(SoVRMLIndexedLineSet::getClassTypeId());
-  PRIVATE(this)->sa.setSearchingAll(TRUE);
+  PRIVATE(this)->sa.setSearchingAll(true);
   PRIVATE(this)->sa.setInterest(SoSearchAction::ALL);
   PRIVATE(this)->sa.apply(root);
   SoPathList & pl3 = PRIVATE(this)->sa.getPaths();
@@ -518,7 +518,7 @@ SoReorganizeAction::apply(SoPath * path)
 }
 
 void
-SoReorganizeAction::apply(const SoPathList & pathlist, SbBool COIN_UNUSED_ARG(obeysrules))
+SoReorganizeAction::apply(const SoPathList & pathlist, bool COIN_UNUSED_ARG(obeysrules))
 {
   for (int i = 0; i < pathlist.getLength(); i++) {
     this->apply(pathlist[i]);
@@ -549,8 +549,8 @@ SoCallbackAction::Response
 SoReorganizeActionP::pre_shape_cb(void * userdata, SoCallbackAction * COIN_UNUSED_ARG(action), const SoNode * node)
 {
   SoReorganizeActionP * thisp = static_cast<SoReorganizeActionP *>(userdata);
-  thisp->didinit = FALSE;
-  thisp->isvrml = FALSE;
+  thisp->didinit = false;
+  thisp->isvrml = false;
 #ifdef HAVE_VRML97
   thisp->isvrml = node->isOfType(SoVRMLGeometry::getClassTypeId());
 #endif // HAVE_VRML97
@@ -616,36 +616,36 @@ SoReorganizeActionP::line_segment_cb(void * userdata, SoCallbackAction * action,
   }
 }
 
-SbBool
+bool
 SoReorganizeActionP::initShape(SoCallbackAction * action)
 {
-  this->didinit = TRUE;
+  this->didinit = true;
   SoState * state = action->getState();
-  SbBool canrenderasvertexarray = TRUE;
+  bool canrenderasvertexarray = true;
 
   unsigned int shapeflags = SoShapeStyleElement::get(state)->getFlags();
 
   this->lighting = SoLightModelElement::get(state) != SoLightModelElement::BASE_COLOR;
   this->normalsonstate = SoNormalElement::getInstance(state)->getNum() > 0;
 
-  SbBool texture0enabled =
-    SoMultiTextureEnabledElement::get(state,0) != FALSE;
+  bool texture0enabled =
+    SoMultiTextureEnabledElement::get(state,0) != false;
 
   this->hastexture = texture0enabled;
 
   int lastenabled;
-  const SbBool * enabledunits =
+  const bool * enabledunits =
     SoMultiTextureEnabledElement::getEnabledUnits(state, lastenabled);
 
   this->needtexcoords.truncate(0);
-  this->needtexcoords.append(FALSE);
+  this->needtexcoords.append(false);
 
   if (shapeflags &
       (SoShapeStyleElement::BUMPMAP|
        SoShapeStyleElement::BBOXCMPLX|
        SoShapeStyleElement::INVISIBLE|
        SoShapeStyleElement::BIGIMAGE)) {
-    canrenderasvertexarray = FALSE;
+    canrenderasvertexarray = false;
   }
 
   if (canrenderasvertexarray && texture0enabled) {
@@ -654,16 +654,16 @@ SoReorganizeActionP::initShape(SoCallbackAction * action)
     switch (celem->getType()) {
     case SoMultiTextureCoordinateElement::DEFAULT:
     case SoMultiTextureCoordinateElement::EXPLICIT:
-      this->needtexcoords[0] = TRUE;
+      this->needtexcoords[0] = true;
       break;
     case SoMultiTextureCoordinateElement::TEXGEN:
       // don't need texcoords for unit0
       break;
     case SoMultiTextureCoordinateElement::FUNCTION:
-      this->needtexcoords[0] = TRUE;
+      this->needtexcoords[0] = true;
       break;
     default:
-      canrenderasvertexarray = FALSE;
+      canrenderasvertexarray = false;
       break;
     }
   }
@@ -672,27 +672,27 @@ SoReorganizeActionP::initShape(SoCallbackAction * action)
     const SoMultiTextureCoordinateElement * melem =
       SoMultiTextureCoordinateElement::getInstance(state);
     for (int i = 1; i <= lastenabled; i++) {
-      this->needtexcoords.append(FALSE);
+      this->needtexcoords.append(false);
       if (enabledunits[i]) {
         // FIXME: multitexturing is not supported yet, since it's not
         // supported by SoVertexProperty. We might fix this later by
         // inserting new nodes though. pederb, 2005-04-28
-        canrenderasvertexarray = FALSE;
+        canrenderasvertexarray = false;
 
-        this->hastexture = TRUE;
+        this->hastexture = true;
         switch (melem->getType(i)) {
         case SoMultiTextureCoordinateElement::DEFAULT:
         case SoMultiTextureCoordinateElement::EXPLICIT:
-          this->needtexcoords[i] = TRUE;
+          this->needtexcoords[i] = true;
           break;
         case SoMultiTextureCoordinateElement::TEXGEN:
           // don't need texcoords for unit i
           break;
         case SoMultiTextureCoordinateElement::FUNCTION:
-          this->needtexcoords[i] = TRUE;
+          this->needtexcoords[i] = true;
           break;
         default:
-          canrenderasvertexarray = FALSE;
+          canrenderasvertexarray = false;
           break;
         }
       }
@@ -734,7 +734,7 @@ SoReorganizeActionP::replaceNode(SoFullPath * path)
 }
 
 SoVertexProperty *
-SoReorganizeActionP::createVertexProperty(const SbBool forlines)
+SoReorganizeActionP::createVertexProperty(const bool forlines)
 {
   SoVertexProperty * vp = new SoVertexProperty;
   vp->ref();
@@ -798,7 +798,7 @@ SoReorganizeActionP::replaceIfs(SoFullPath * path)
     return;
   }
 
-  SoVertexProperty * vp = this->createVertexProperty(FALSE);
+  SoVertexProperty * vp = this->createVertexProperty(false);
   SoIndexedFaceSet * ifs = new SoIndexedFaceSet;
   ifs->ref();
   ifs->vertexProperty = vp;
@@ -935,7 +935,7 @@ SoReorganizeActionP::replaceIls(SoFullPath * path)
     return;
   }
 
-  SoVertexProperty * vp = this->createVertexProperty(TRUE);
+  SoVertexProperty * vp = this->createVertexProperty(true);
   SoIndexedLineSet * ils = new SoIndexedLineSet;
   ils->ref();
   ils->vertexProperty = vp;
@@ -995,7 +995,7 @@ SoReorganizeActionP::replaceVrmlIls(SoFullPath * path)
   ils->coord = c;
 
   if (this->pvcache->colorPerVertex()) {
-    ils->colorPerVertex = TRUE;
+    ils->colorPerVertex = true;
     SoVRMLColor * col = new SoVRMLColor;
     col->color.setNum(numv);
     uint8_t * src = const_cast<uint8_t *>(this->pvcache->getColorArray());

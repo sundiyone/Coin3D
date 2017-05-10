@@ -45,7 +45,7 @@ public:
   void touch(void);
 
   virtual SoType getTypeId(void) const = 0;
-  SbBool isOfType(SoType type) const;
+  bool isOfType(SoType type) const;
   static SoType getClassTypeId(void);
 
   virtual SbName getName(void) const;
@@ -61,8 +61,8 @@ public:
   void removeAuditor(void * const auditor, const SoNotRec::Type type);
   const SoAuditorList & getAuditors(void) const;
 
-  virtual void addWriteReference(SoOutput * out, SbBool isfromfield = FALSE);
-  SbBool shouldWrite(void);
+  virtual void addWriteReference(SoOutput * out, bool isfromfield = false);
+  bool shouldWrite(void);
 
   static void incrementCurrentWriteCounter(void);
   static void decrementCurrentWriteCounter(void);
@@ -71,18 +71,18 @@ public:
   static int getNamedBases(const SbName & name, SoBaseList & baselist,
                            SoType type);
 
-  static SbBool read(SoInput * input, SoBase *& base, SoType expectedtype);
+  static bool read(SoInput * input, SoBase *& base, SoType expectedtype);
   static void setInstancePrefix(const SbString & c);
 
-  static void setTraceRefs(SbBool trace);
-  static SbBool getTraceRefs(void);
+  static void setTraceRefs(bool trace);
+  static bool getTraceRefs(void);
 
-  static SbBool connectRoute(SoInput * input,
+  static bool connectRoute(SoInput * input,
                              const SbName & fromnodename, const SbName & fromfieldname,
                              const SbName & tonodename, const SbName & tofieldname);
 
   void assertAlive(void) const;
-  static SbBool readRoute(SoInput * input);
+  static bool readRoute(SoInput * input);
 
 protected:
   // Note: these are bitflags.
@@ -93,12 +93,12 @@ protected:
 
   virtual void destroy(void);
 
-  SbBool hasMultipleWriteRefs(void) const;
-  SbBool writeHeader(SoOutput * out, SbBool isgroup, SbBool isengine) const;
+  bool hasMultipleWriteRefs(void) const;
+  bool writeHeader(SoOutput * out, bool isgroup, bool isengine) const;
   void writeFooter(SoOutput * out) const;
   virtual const char * getFileFormatName(void) const;
 
-  virtual SbBool readInstance(SoInput * input, unsigned short flags) = 0;
+  virtual bool readInstance(SoInput * input, unsigned short flags) = 0;
 
   static uint32_t getCurrentWriteCounter(void);
   static void staticDataLock(void);

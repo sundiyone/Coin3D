@@ -85,7 +85,7 @@ SoGLUpdateAreaElement::init(SoState * state)
 
   // scissorstate is used to keep track of current scissor
   // test state.
-  this->scissorstate = FALSE;
+  this->scissorstate = false;
 
   // disabled by default
   glDisable(GL_SCISSOR_TEST);
@@ -112,7 +112,7 @@ SoGLUpdateAreaElement::pop(SoState * state,
 }
 
 // doc from parent
-SbBool
+bool
 SoGLUpdateAreaElement::matches(const SoElement * element) const
 {
   const SoGLUpdateAreaElement * elem = (SoGLUpdateAreaElement*) element;
@@ -164,7 +164,7 @@ SoGLUpdateAreaElement::set(SoState * const state,
 
   \sa set()
 */
-SbBool
+bool
 SoGLUpdateAreaElement::get(SoState * const state,
                            SbVec2f & origin,
                            SbVec2f & size)
@@ -195,8 +195,8 @@ SoGLUpdateAreaElement::getDefaultSize(void)
   return SbVec2f(1.0f, 1.0f);
 }
 
-// return TRUE if element contains the default values
-SbBool
+// return true if element contains the default values
+bool
 SoGLUpdateAreaElement::isDefault(void) const
 {
   return
@@ -213,13 +213,13 @@ SoGLUpdateAreaElement::updategl(void)
   if (this->isDefault()) {
     if (this->scissorstate) {
       glDisable(GL_SCISSOR_TEST);
-      this->scissorstate = FALSE;
+      this->scissorstate = false;
     }
   }
   else {
     if (!this->scissorstate) {
       glEnable(GL_SCISSOR_TEST);
-      this->scissorstate = TRUE;
+      this->scissorstate = true;
     }
     glScissor((GLint) this->screenorigin[0],
               (GLint) this->screenorigin[1],

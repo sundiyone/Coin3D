@@ -338,7 +338,7 @@ SoAction::SoAction(void)
 {
   PRIVATE(this)->appliedcode = NODE;
   PRIVATE(this)->applieddata.node = NULL;
-  PRIVATE(this)->terminated = FALSE;
+  PRIVATE(this)->terminated = false;
   PRIVATE(this)->prevenabledelementscounter = 0;
 
   this->currentpath.ref(); // to avoid having a zero refcount instance
@@ -438,10 +438,10 @@ SoAction::getClassTypeId(void)
 }
 
 /*!
-  Returns \c TRUE if the type of this object is either of the same
+  Returns \c true if the type of this object is either of the same
   type or a subclass of \a type.
 */
-SbBool
+bool
 SoAction::isOfType(SoType type) const
 {
   return this->getTypeId().isDerivedFrom(type);
@@ -470,7 +470,7 @@ SoAction::apply(SoNode * root)
   assert(this->traversalMethods);
   this->traversalMethods->setUp();
 
-  PRIVATE(this)->terminated = FALSE;
+  PRIVATE(this)->terminated = false;
 
   this->currentpathcode = SoAction::NO_PATH;
   PRIVATE(this)->applieddata.node = root;
@@ -478,7 +478,7 @@ SoAction::apply(SoNode * root)
 
   if (root) {
 #if COIN_DEBUG
-    static SbBool first = TRUE;
+    static bool first = true;
     if ((root->getRefCount() == 0) && first) {
 
       // This problem has turned out to be a FAQ, the reason probably
@@ -510,7 +510,7 @@ SoAction::apply(SoNode * root)
                                 "fix the bug in your application code.",
 
                                 this->getTypeId().getName().getString());
-      first = FALSE;
+      first = false;
     }
 #endif // COIN_DEBUG
     // So the graph is not deallocated during traversal.
@@ -531,10 +531,10 @@ SoAction::apply(SoNode * root)
 
       SoNode * profileroverlay = SoActionP::getProfilerOverlay();
       if (profileroverlay) {
-        SoProfiler::enable(FALSE);
+        SoProfiler::enable(false);
         this->beginTraversal(profileroverlay);
         this->endTraversal(profileroverlay);
-        SoProfiler::enable(TRUE);
+        SoProfiler::enable(true);
       }
 
       // FIXME: if there was a hit on the overlay scene graph view and
@@ -573,9 +573,9 @@ SoAction::apply(SoNode * root)
         !this->isOfType(SoGLRenderAction::getClassTypeId())) {
       // update profiler stats node with the profiling data from the traversal
       SoNode * profilerstats = SoActionP::getProfilerStatsNode();
-      SoProfiler::enable(FALSE);
+      SoProfiler::enable(false);
       this->traverse(profilerstats);
-      SoProfiler::enable(TRUE);
+      SoProfiler::enable(true);
     }
 
     if (SoProfiler::isConsoleActive()) {
@@ -625,7 +625,7 @@ SoAction::apply(SoPath * path)
   assert(this->traversalMethods);
   this->traversalMethods->setUp();
 
-  PRIVATE(this)->terminated = FALSE;
+  PRIVATE(this)->terminated = false;
 
 #if COIN_DEBUG
   if (path->getRefCount() == 0) {
@@ -661,7 +661,7 @@ SoAction::apply(SoPath * path)
 
 /*!
   Applies action to the graphs defined by \a pathlist.  If \a
-  obeysrules is set to \c TRUE, \a pathlist must obey the following
+  obeysrules is set to \c true, \a pathlist must obey the following
   four conditions (which is the case for path lists returned from
   search actions for non-group nodes and path lists returned from
   picking actions):
@@ -673,7 +673,7 @@ SoAction::apply(SoPath * path)
   \sa SoAction::apply(SoPath * path)
 */
 void
-SoAction::apply(const SoPathList & pathlist, SbBool obeysrules)
+SoAction::apply(const SoPathList & pathlist, bool obeysrules)
 {
   SoDB::readlock();
   // This is a pretty good indicator on whether or not we remembered
@@ -691,7 +691,7 @@ SoAction::apply(const SoPathList & pathlist, SbBool obeysrules)
   SoActionP::AppliedData storeddata = PRIVATE(this)->applieddata;
   PathCode storedcurr = this->currentpathcode;
 
-  PRIVATE(this)->terminated = FALSE;
+  PRIVATE(this)->terminated = false;
 
   // make sure state is created before traversing
   (void) this->getState();
@@ -799,9 +799,9 @@ SoAction::apply(SoAction * beingApplied)
   case PATH_LIST:
     do {
       const SoPathList * pathlist = beingApplied->getOriginalPathListAppliedTo();
-      this->apply(*pathlist, FALSE);
-      // FIXME: any way to detect if arg should be TRUE? 2002-02-10 larsa
-    } while ( FALSE );
+      this->apply(*pathlist, false);
+      // FIXME: any way to detect if arg should be true? 2002-02-10 larsa
+    } while ( false );
     break;
   default:
     assert(0 && "unhandled appliedcode in beingApplied action");
@@ -880,7 +880,7 @@ SoAction::getPathAppliedTo(void) const
   was called with, as the action may have reorganized the path list
   for efficiency reasons.
 
-  \sa void SoAction::apply(const SoPathList &, SbBool)
+  \sa void SoAction::apply(const SoPathList &, bool)
 */
 const SoPathList *
 SoAction::getPathListAppliedTo(void) const
@@ -908,11 +908,11 @@ SoAction::getOriginalPathListAppliedTo(void) const
   This method is not supported in Coin. It should probably
   have been private in OIV.
 */
-SbBool
+bool
 SoAction::isLastPathListAppliedTo(void) const
 {
   COIN_OBSOLETED();
-  return TRUE;
+  return true;
 }
 
 /*!
@@ -984,7 +984,7 @@ SoAction::pushCurPath(const int childindex, SoNode * node)
     }
     else {
       if (PRIVATE(this)->applieddata.pathlistdata.compactlist) {
-        SbBool inpath = PRIVATE(this)->applieddata.pathlistdata.compactlist->push(childindex);
+        bool inpath = PRIVATE(this)->applieddata.pathlistdata.compactlist->push(childindex);
         assert(PRIVATE(this)->applieddata.pathlistdata.compactlist->getDepth() == this->currentpath.getLength());
 
         if (!inpath) {
@@ -1059,15 +1059,15 @@ SoAction::popCurPath(const PathCode prevpathcode)
 }
 
 /*!
-  Returns \c TRUE if the action was prematurely terminated.
+  Returns \c true if the action was prematurely terminated.
 
-  Note that the termination flag will be \c FALSE if the action simply
+  Note that the termination flag will be \c false if the action simply
   completed its run over the scene graph in the "ordinary" fashion,
   i.e. was not explicitly aborted from any of the nodes in the graph.
 
   \sa setTerminated()
 */
-SbBool
+bool
 SoAction::hasTerminated(void) const
 {
   return PRIVATE(this)->terminated;
@@ -1280,7 +1280,7 @@ SoAction::endTraversal(SoNode * COIN_UNUSED_ARG(node))
 /*!
   Set the termination flag.
 
-  Typically set to TRUE from nodes upon special
+  Typically set to true from nodes upon special
   conditions being met during scene graph traversal -- like the
   correct node being found when doing SoSearchAction traversal or
   when grabbing the event from an SoHandleEventAction.
@@ -1288,7 +1288,7 @@ SoAction::endTraversal(SoNode * COIN_UNUSED_ARG(node))
   \sa hasTerminated()
 */
 void
-SoAction::setTerminated(const SbBool flag)
+SoAction::setTerminated(const bool flag)
 {
   PRIVATE(this)->terminated = flag;
 }
@@ -1296,10 +1296,10 @@ SoAction::setTerminated(const SbBool flag)
 /*!
   \COININTERNAL
 */
-SbBool
+bool
 SoAction::shouldCompactPathList(void) const
 {
-  return TRUE;
+  return true;
 }
 
 /*!

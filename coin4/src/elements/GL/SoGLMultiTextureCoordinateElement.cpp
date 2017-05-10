@@ -155,13 +155,13 @@ SoGLMultiTextureCoordinateElement::pop(SoState * state,
       i < PRIVATE(prev)->unitdata.getLength() ?
       PRIVATE(prev)->unitdata[i] : PRIVATE(prev)->defaultdata;
     
-    SbBool enablegen = FALSE;
-    SbBool disablegen = FALSE;
-    SbBool docallback = FALSE;
+    bool enablegen = false;
+    bool disablegen = false;
+    bool docallback = false;
 
-    if (thisud.texgenCB && !prevud.texgenCB) {enablegen = TRUE; docallback = TRUE;}
-    else if (!thisud.texgenCB && prevud.texgenCB) disablegen = TRUE;
-    else if (thisud.texgenCB != prevud.texgenCB) docallback = TRUE;
+    if (thisud.texgenCB && !prevud.texgenCB) {enablegen = true; docallback = true;}
+    else if (!thisud.texgenCB && prevud.texgenCB) disablegen = true;
+    else if (thisud.texgenCB != prevud.texgenCB) docallback = true;
 
     if (enablegen || disablegen || docallback) {
       // must change texture unit while updating OpenGL
@@ -311,13 +311,13 @@ SoGLMultiTextureCoordinateElement::setElt(const int unit,
   PRIVATE(this)->ensureCapacity(unit);
   GLUnitData & ud = PRIVATE(this)->unitdata[unit];
   
-  SbBool enablegen = FALSE;
-  SbBool disablegen = FALSE;
-  SbBool docallback = FALSE;
+  bool enablegen = false;
+  bool disablegen = false;
+  bool docallback = false;
 
-  if (func && !ud.texgenCB) {enablegen = TRUE; docallback = TRUE;}
-  else if (!func && ud.texgenCB) disablegen = TRUE;
-  else if (func && func != ud.texgenCB) docallback = TRUE;
+  if (func && !ud.texgenCB) {enablegen = true; docallback = true;}
+  else if (!func && ud.texgenCB) disablegen = true;
+  else if (func && func != ud.texgenCB) docallback = true;
 
   if (func) {
     // update SoMultiTextureCoordinateElement type
@@ -364,7 +364,7 @@ SoGLMultiTextureCoordinateElement::doCallback(const int unit) const
   set up optimized rendering.
 */
 void
-SoGLMultiTextureCoordinateElement::initRender(const SbBool * enabled, const int maxenabled) const
+SoGLMultiTextureCoordinateElement::initRender(const bool * enabled, const int maxenabled) const
 {
   PRIVATE(this)->glue = cc_glglue_instance(PRIVATE(this)->contextid);
   PRIVATE(this)->sendlookup.truncate(0);

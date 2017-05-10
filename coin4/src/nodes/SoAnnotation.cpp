@@ -107,7 +107,7 @@ void
 SoAnnotation::GLRenderBelowPath(SoGLRenderAction * action)
 {
   if (action->isRenderingDelayedPaths()) {
-    SbBool zbenabled = glIsEnabled(GL_DEPTH_TEST);
+    bool zbenabled = glIsEnabled(GL_DEPTH_TEST);
     if (zbenabled) glDisable(GL_DEPTH_TEST);
     inherited::GLRenderBelowPath(action);
     if (zbenabled) glEnable(GL_DEPTH_TEST);
@@ -123,7 +123,7 @@ void
 SoAnnotation::GLRenderInPath(SoGLRenderAction * action)
 {
   if (action->isRenderingDelayedPaths()) {
-    SbBool zbenabled = glIsEnabled(GL_DEPTH_TEST);
+    bool zbenabled = glIsEnabled(GL_DEPTH_TEST);
     if (zbenabled) glDisable(GL_DEPTH_TEST);
     inherited::GLRenderInPath(action);
     if (zbenabled) glEnable(GL_DEPTH_TEST);

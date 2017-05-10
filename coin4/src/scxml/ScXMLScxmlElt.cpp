@@ -274,7 +274,7 @@ ScXMLScxmlElt::cleanClass(void)
 }
 
 ScXMLScxmlElt::ScXMLScxmlElt(void)
-: referenced(FALSE),
+: referenced(false),
   initial(NULL),
   name(NULL),
   xmlns(NULL),
@@ -295,12 +295,12 @@ ScXMLScxmlElt::~ScXMLScxmlElt(void)
 }
 
 void
-ScXMLScxmlElt::setIsReferenced(SbBool isreferenced)
+ScXMLScxmlElt::setIsReferenced(bool isreferenced)
 {
   this->referenced = isreferenced;
 }
 
-SbBool
+bool
 ScXMLScxmlElt::isReferenced(void) const
 {
   return this->referenced;
@@ -373,10 +373,10 @@ ScXMLScxmlElt::setExModeAttribute(const char * exmodestr)
 
 // const char * ScXMLScxmlElt::getExModeAttribute(void) const
 
-SbBool
+bool
 ScXMLScxmlElt::handleXMLAttributes(void)
 {
-  if (!inherited::handleXMLAttributes()) return FALSE;
+  if (!inherited::handleXMLAttributes()) return false;
 
   this->setInitialAttribute(this->getXMLAttribute("initial"));
   if (!this->initial) {
@@ -446,11 +446,11 @@ ScXMLScxmlElt::handleXMLAttributes(void)
 #if 0
   if (!this->referenced && this->initial == NULL) {
     // requirement for root document, but not for referenced documents
-    return FALSE;
+    return false;
   }
 #endif
 
-  return TRUE;
+  return true;
 }
 
 void

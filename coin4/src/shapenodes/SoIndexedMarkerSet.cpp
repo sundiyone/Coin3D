@@ -173,7 +173,7 @@ SoIndexedMarkerSet::GLRender(SoGLRenderAction * action)
   const SoCoordinateElement * coords;
   Binding mbind;
 
-  SbBool normalCacheUsed;
+  bool normalCacheUsed;
 
   this->getVertexData(state, coords, normals, cindices,
                       nindices, tindices, mindices, numindices,
@@ -214,12 +214,12 @@ SoIndexedMarkerSet::GLRender(SoGLRenderAction * action)
     int midx = i;
 #if COIN_DEBUG
       if (midx < 0 || midx > this->markerIndex.getNum() - 1) {
-        static SbBool firsterror = TRUE;
+        static bool firsterror = true;
         if (firsterror) {
           SoDebugError::postWarning("SoMarkerSet::GLRender",
                                     "no markerIndex for coordinate %d",
                                     i);
-          firsterror = FALSE;
+          firsterror = false;
         }
         // Don't render, jump back to top of for-loop and continue with
         // next index.
@@ -232,15 +232,15 @@ SoIndexedMarkerSet::GLRender(SoGLRenderAction * action)
 
     SbVec2s size;
     const unsigned char * bytes;
-    SbBool isLSBFirst;
+    bool isLSBFirst;
 
     if (marker >= SoMarkerSet::getNumDefinedMarkers()) continue;
 
-    SbBool validMarker = SoMarkerSet::getMarker(marker, size, bytes, isLSBFirst);
+    bool validMarker = SoMarkerSet::getMarker(marker, size, bytes, isLSBFirst);
     if (!validMarker) continue;
 
-    if (mbind == PER_VERTEX_INDEXED) mb.send(mindices[i], TRUE);
-    else if (mbind == PER_VERTEX) mb.send(i, TRUE);
+    if (mbind == PER_VERTEX_INDEXED) mb.send(mindices[i], true);
+    else if (mbind == PER_VERTEX) mb.send(i, true);
 
     SbVec3f point = glcoords->get3(idx);
 
@@ -253,7 +253,7 @@ SoIndexedMarkerSet::GLRender(SoGLRenderAction * action)
     // probably become a bottleneck. Should really partition marker
     // positions in a oct-tree data structure and cull several at
     // the same time.  20031219 mortene.
-    if (SoCullElement::cullTest(state, bbox, TRUE)) { continue; }
+    if (SoCullElement::cullTest(state, bbox, true)) { continue; }
 
     projmatrix.multVecMatrix(point, point);
     point[0] = (point[0] + 1.0f) * 0.5f * vpsize[0];
@@ -288,5 +288,5 @@ SoIndexedMarkerSet::GLRender(SoGLRenderAction * action)
 
   // send approx number of points for autocache handling. Divide
   // by three so that three points is the same as one triangle.
-  sogl_autocache_update(state, numindices/3, FALSE);
+  sogl_autocache_update(state, numindices/3, false);
 }

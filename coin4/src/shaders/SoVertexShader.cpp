@@ -32,7 +32,7 @@
   <b>FILE FORMAT/DEFAULTS:</b>
   \code
     VertexShader {
-      isActive TRUE
+      isActive true
       sourceType FILENAME
       sourceProgram ""
       parameter []
@@ -86,7 +86,7 @@ SoVertexShader::~SoVertexShader()
   <i>Beware:</i> To get a correct answer, a valid OpenGL context must
   be available.
 */
-SbBool
+bool
 SoVertexShader::isSupported(SourceType sourceType)
 {
   // The function signature is not very well designed, as we really
@@ -95,7 +95,7 @@ SoVertexShader::isSupported(SourceType sourceType)
 
   void * ptr = coin_gl_current_context();
   assert(ptr && "No active OpenGL context found!");
-  if (!ptr) return FALSE; // Always bail out. Even when compiled in 'release' mode.
+  if (!ptr) return false; // Always bail out. Even when compiled in 'release' mode.
 
   const cc_glglue * glue = cc_glglue_instance_from_context_ptr(ptr);
 
@@ -107,9 +107,9 @@ SoVertexShader::isSupported(SourceType sourceType)
   }
   // FIXME: Add support for detecting missing Cg support
   // (20050427 handegar)
-  else if (sourceType == CG_PROGRAM) return TRUE;
+  else if (sourceType == CG_PROGRAM) return true;
 
-  return FALSE;
+  return false;
 }
 
 #ifdef COIN_TEST_SUITE

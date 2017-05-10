@@ -62,8 +62,8 @@ SoSceneManagerP::searchForCamera(SoNode * root,
   this->searchaction->setType(SoCamera::getClassTypeId());
   this->searchaction->setInterest(SoSearchAction::FIRST);
 #ifdef HAVE_NODEKITS
-  SbBool old = SoBaseKit::isSearchingChildren();
-  SoBaseKit::setSearchingChildren(TRUE);
+  bool old = SoBaseKit::isSearchingChildren();
+  SoBaseKit::setSearchingChildren(true);
 #endif // HAVE_NODEKITS
   this->searchaction->apply(root);
 #ifdef HAVE_NODEKITS

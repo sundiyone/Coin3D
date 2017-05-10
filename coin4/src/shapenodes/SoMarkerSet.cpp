@@ -132,7 +132,7 @@ typedef struct {
   int height;
   int align;
   unsigned char *data;
-  SbBool deletedata;
+  bool deletedata;
 } so_marker;
 
 static SbList <so_marker> * markerlist;
@@ -168,7 +168,7 @@ SoMarkerSet::initClass(void)
     temp.height = 9;
     temp.align  = 4;
     temp.data   = markerimages + (i * 36);
-    temp.deletedata = FALSE;
+    temp.deletedata = false;
     markerlist->append(temp);
   }
 }
@@ -1145,7 +1145,7 @@ SoMarkerSet::GLRender(SoGLRenderAction * action)
 
   const SoCoordinateElement * tmpcoord;
   const SbVec3f * dummy;
-  SbBool needNormals = FALSE;
+  bool needNormals = false;
 
   SoVertexShape::getVertexData(state, tmpcoord, dummy, needNormals);
 
@@ -1188,12 +1188,12 @@ SoMarkerSet::GLRender(SoGLRenderAction * action)
     int midx = SbMin(i, this->markerIndex.getNum() - 1);
 #if COIN_DEBUG
       if (midx < 0 || (this->markerIndex[midx] >= markerlist->getLength())) {
-        static SbBool firsterror = TRUE;
+        static bool firsterror = true;
         if (firsterror) {
           SoDebugError::postWarning("SoMarkerSet::GLRender",
                                     "markerIndex %d out of bound",
                                     markerIndex[i]);
-          firsterror = FALSE;
+          firsterror = false;
         }
         // Don't render, jump back to top of for-loop and continue with
         // next index.
@@ -1201,7 +1201,7 @@ SoMarkerSet::GLRender(SoGLRenderAction * action)
       }
 #endif // COIN_DEBUG
 
-    if (mbind == PER_VERTEX) mb.send(matnr++, TRUE);
+    if (mbind == PER_VERTEX) mb.send(matnr++, true);
 
     SbVec3f point = coords->get3(idx);
     idx++;
@@ -1217,7 +1217,7 @@ SoMarkerSet::GLRender(SoGLRenderAction * action)
     // probably become a bottleneck. Should really partition marker
     // positions in a oct-tree data structure and cull several at
     // the same time.  20031219 mortene.
-    if (SoCullElement::cullTest(state, bbox, TRUE)) { continue; }
+    if (SoCullElement::cullTest(state, bbox, true)) { continue; }
 
     projmatrix.multVecMatrix(point, point);
     point[0] = (point[0] + 1.0f) * 0.5f * vpsize[0];
@@ -1268,7 +1268,7 @@ SoMarkerSet::getPrimitiveCount(SoGetPrimitiveCountAction * action)
 
   const SoCoordinateElement * coord;
   const SbVec3f * dummy;
-  SbBool needNormals = FALSE;
+  bool needNormals = false;
 
   SoVertexShape::getVertexData(state, coord, dummy,
                                needNormals);
@@ -1387,7 +1387,7 @@ swap_updown(unsigned char *data, int width, int height)
 
   int MYAPP_ARROW_IDX = SoMarkerSet::getNumDefinedMarkers(); // add at end
   SoMarkerSet::addMarker(MYAPP_ARROW_IDX, SbVec2s(WIDTH, HEIGHT),
-                         bitmapbytes, FALSE, TRUE);
+                         bitmapbytes, false, true);
   \endcode
 
   This will provide you with an index given by MYAPP_ARROW_IDX which
@@ -1395,12 +1395,12 @@ swap_updown(unsigned char *data, int width, int height)
 */
 void
 SoMarkerSet::addMarker(int idx, const SbVec2s & size,
-                       const unsigned char * bytes, SbBool isLSBFirst,
-                       SbBool isUpToDown)
+                       const unsigned char * bytes, bool isLSBFirst,
+                       bool isUpToDown)
 {
   if (idx == NONE) return;
 
-  SbBool appendnew = idx >= markerlist->getLength() ? TRUE : FALSE;
+  bool appendnew = idx >= markerlist->getLength() ? true : false;
   so_marker tempmarker;
   so_marker * temp = &tempmarker;
   if (appendnew) {
@@ -1408,7 +1408,7 @@ SoMarkerSet::addMarker(int idx, const SbVec2s & size,
     tempmarker.height = 0;
     tempmarker.align  = 0;
     tempmarker.data   = 0;
-    tempmarker.deletedata = FALSE;
+    tempmarker.deletedata = false;
     while (idx > markerlist->getLength()) markerlist->append(tempmarker);
   }
   else temp = &(*markerlist)[idx];
@@ -1418,7 +1418,7 @@ SoMarkerSet::addMarker(int idx, const SbVec2s & size,
 
   int datasize = ((size[0] + 7) / 8) * size[1];
   if (temp->deletedata) delete temp->data;
-  temp->deletedata = TRUE;
+  temp->deletedata = true;
   temp->data = new unsigned char[ datasize ];
   memcpy(temp->data,bytes,datasize);
   // FIXME: the swap_leftright() function seems
@@ -1433,50 +1433,50 @@ SoMarkerSet::addMarker(int idx, const SbVec2s & size,
   \a isLSBFirst parameters.
 
   If no marker is defined for given \a idx, or SoMarkerSet::markerIndex
-  is NONE (not removable), \c FALSE is returned. If everything is OK,
-  \c TRUE is returned.
+  is NONE (not removable), \c false is returned. If everything is OK,
+  \c true is returned.
 */
-SbBool
+bool
 SoMarkerSet::getMarker(int idx, SbVec2s & size,
-                       const unsigned char *& bytes, SbBool & isLSBFirst)
+                       const unsigned char *& bytes, bool & isLSBFirst)
 {
   // FIXME: handle isLSBFirst. skei 20000905
   if (idx == NONE ||
-      idx >= markerlist->getLength()) return FALSE;
+      idx >= markerlist->getLength()) return false;
   so_marker * temp = &(*markerlist)[idx];
   size[0] = temp->width;
   size[1] = temp->height;
   bytes = temp->data;
-  isLSBFirst = FALSE;
-  return TRUE;
+  isLSBFirst = false;
+  return true;
 }
 
 /*!
   Removes marker at \a idx.
 
   If no marker is defined for given \a idx, or SoMarkerSet::markerIndex
-  is NONE (not removable), \c FALSE is returned. If everything is OK,
-  \c TRUE is returned.
+  is NONE (not removable), \c false is returned. If everything is OK,
+  \c true is returned.
 */
-SbBool
+bool
 SoMarkerSet::removeMarker(int idx)
 {
   if (idx == NONE ||
-      idx >= markerlist->getLength()) return FALSE;
+      idx >= markerlist->getLength()) return false;
   so_marker * tmp = &(*markerlist)[idx];
   if (tmp->deletedata) delete tmp->data;
   markerlist->remove(idx);
-  return TRUE;
+  return true;
 }
 
 /*!
   Not supported in Coin. Should probably not have been part of the
   public Open Inventor API.
 */
-SbBool
+bool
 SoMarkerSet::isMarkerBitSet(int COIN_UNUSED_ARG(idx), int COIN_UNUSED_ARG(bitNumber))
 {
   // FIXME: seems simple enough to support.. 20010815 mortene.
   COIN_OBSOLETED();
-  return FALSE;
+  return false;
 }

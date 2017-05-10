@@ -36,7 +36,7 @@ public:
     return cc_recmutex_lock(this->mutex);
   }
 
-  SbBool tryLock(void) {
+  bool tryLock(void) {
     return cc_recmutex_try_lock(this->mutex) == CC_OK;
   }
   

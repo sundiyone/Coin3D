@@ -187,36 +187,36 @@ SoNodeVisualize::SoNodeVisualize(void)
 {
   SO_KIT_CONSTRUCTOR(SoNodeVisualize);
 
-  SO_KIT_ADD_CATALOG_ENTRY(topSeparator, SoSeparator, FALSE, this, "", FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(childrenVisible, SoSwitch, FALSE, topSeparator, shape, FALSE);
+  SO_KIT_ADD_CATALOG_ENTRY(topSeparator, SoSeparator, false, this, "", false);
+  SO_KIT_ADD_CATALOG_ENTRY(childrenVisible, SoSwitch, false, topSeparator, shape, false);
 
   //NOTE: This setup also rotates our own geometry, which wasn't by
   //design, but I'm not totally unhappy with the behaviour.
-  SO_KIT_ADD_CATALOG_ENTRY(rotSwitch, SoSwitch, FALSE, childrenVisible, lineSep, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(rotation, SoRotation, FALSE, rotSwitch, "", FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(lineSep, SoSeparator, FALSE, childrenVisible, childGeometry, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(lines, SoIndexedLineSet, FALSE, lineSep, "", FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(childGeometry, SoSeparator, FALSE, childrenVisible, color, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(color, SoMaterial, FALSE, childrenVisible, "", FALSE);
+  SO_KIT_ADD_CATALOG_ENTRY(rotSwitch, SoSwitch, false, childrenVisible, lineSep, false);
+  SO_KIT_ADD_CATALOG_ENTRY(rotation, SoRotation, false, rotSwitch, "", false);
+  SO_KIT_ADD_CATALOG_ENTRY(lineSep, SoSeparator, false, childrenVisible, childGeometry, false);
+  SO_KIT_ADD_CATALOG_ENTRY(lines, SoIndexedLineSet, false, lineSep, "", false);
+  SO_KIT_ADD_CATALOG_ENTRY(childGeometry, SoSeparator, false, childrenVisible, color, false);
+  SO_KIT_ADD_CATALOG_ENTRY(color, SoMaterial, false, childrenVisible, "", false);
 
-  SO_KIT_ADD_CATALOG_ENTRY(texture, SoTexture2, TRUE, topSeparator, shape, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(textureTransform, SoTexture2Transform, FALSE, topSeparator, shape, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(shape, SoSphere, FALSE, topSeparator, "", FALSE);
+  SO_KIT_ADD_CATALOG_ENTRY(texture, SoTexture2, true, topSeparator, shape, false);
+  SO_KIT_ADD_CATALOG_ENTRY(textureTransform, SoTexture2Transform, false, topSeparator, shape, false);
+  SO_KIT_ADD_CATALOG_ENTRY(shape, SoSphere, false, topSeparator, "", false);
 
   SO_KIT_INIT_INSTANCE();
 
   //Setup some default stuff
-  SoTexture2Transform *tt=static_cast<SoTexture2Transform*>(this->getAnyPart("textureTransform",FALSE));
+  SoTexture2Transform *tt=static_cast<SoTexture2Transform*>(this->getAnyPart("textureTransform",false));
   tt->scaleFactor.setValue(2, 1);
   tt->center.setValue(.5,0);
 
-  SoSwitch* sw=static_cast<SoSwitch*>(this->getAnyPart("childrenVisible",TRUE));
+  SoSwitch* sw=static_cast<SoSwitch*>(this->getAnyPart("childrenVisible",true));
   sw->whichChild=SO_SWITCH_ALL;
 
-  SoMaterial *color=static_cast<SoMaterial*>(this->getAnyPart("color",TRUE));
+  SoMaterial *color=static_cast<SoMaterial*>(this->getAnyPart("color",true));
   color->diffuseColor=SbVec3f(1,1,0);
 
-  sw=static_cast<SoSwitch*>(this->getAnyPart("rotSwitch",TRUE));
+  sw=static_cast<SoSwitch*>(this->getAnyPart("rotSwitch",true));
   sw->whichChild=SO_SWITCH_NONE;
 
   /*
@@ -225,7 +225,7 @@ SoNodeVisualize::SoNodeVisualize(void)
     degrees if we descend two levels with alternate on.
    */
   //FIXME: We should reuse this node, instead of creating it for every single node.
-  SoRotation *rot=static_cast<SoRotation*>(this->getAnyPart("rotation",TRUE));
+  SoRotation *rot=static_cast<SoRotation*>(this->getAnyPart("rotation",true));
   rot->rotation.setValue(SbVec3f(0, 1, 0), 1.5707963f);
 
   this->parent=NULL;
@@ -246,7 +246,7 @@ SoNodeVisualize::visualize(SoNode * node) {
     if(type.isDerivedFrom(SoMaterial::getClassTypeId())) {
       this->setAnyPart("texture", SoNodeVisualizeP::textures[material_1]);
       SoTexture2Transform * tt =
-       static_cast<SoTexture2Transform*>(this->getAnyPart("textureTransform",FALSE));
+       static_cast<SoTexture2Transform*>(this->getAnyPart("textureTransform",false));
       tt->scaleFactor.setValue(1,5);
 
     } else if (type.isDerivedFrom(SoShape::getClassTypeId())) {
@@ -277,7 +277,7 @@ SoNodeVisualize::visualize(SoNode * node) {
 
 void
 SoNodeVisualize::setupChildCatalog(SoNode * node,int depth) {
-  SoSeparator * sep=static_cast<SoSeparator*>(this->getAnyPart("childGeometry",TRUE));
+  SoSeparator * sep=static_cast<SoSeparator*>(this->getAnyPart("childGeometry",true));
   SoNodeList * children=node->getChildren();
   unsigned int numNodeChildren=this->nodeNumChildren();
 
@@ -292,7 +292,7 @@ SoNodeVisualize::setupChildCatalog(SoNode * node,int depth) {
   }
 
   //Construct the indexes of the lineset
-  SoIndexedLineSet * lineS=static_cast<SoIndexedLineSet*>(this->getAnyPart("lines",TRUE));
+  SoIndexedLineSet * lineS=static_cast<SoIndexedLineSet*>(this->getAnyPart("lines",true));
   lineS->coordIndex.setNum((numNodeChildren+1)*3);
 
   int32_t * ind = lineS->coordIndex.startEditing();
@@ -368,7 +368,7 @@ SoNodeVisualize::recalculate() {
     }
 
     SoIndexedLineSet * lineS =
-      static_cast<SoIndexedLineSet*>(this->getAnyPart("lines",FALSE));
+      static_cast<SoIndexedLineSet*>(this->getAnyPart("lines",false));
 
     assert(lineS->vertexProperty.getValue()!=NULL &&
            "No vertexProperty available from setupChildCatalog");
@@ -405,7 +405,7 @@ SoNodeVisualize::visualizeSubTree(SoNode * node,int depth) {
   if (depth == 1) {
     //Always display a node without children as expanded
     if (this->nodeNumChildren())
-      static_cast<SoSwitch*>(this->getAnyPart("childrenVisible",TRUE))->whichChild =
+      static_cast<SoSwitch*>(this->getAnyPart("childrenVisible",true))->whichChild =
         SO_SWITCH_NONE;
     return;
   }
@@ -486,7 +486,7 @@ SoNodeVisualize::traverse(SoProfilerStats * stats)
   SoNodeList * geometryChildren = this->getChildGeometry();
   int numGeometryChildren = geometryChildren->getLength();
   if( numGeometryChildren == 0 ||
-    static_cast<SoSwitch*>(this->getAnyPart("childrenVisible",FALSE))->whichChild.getValue() == SO_SWITCH_NONE)
+    static_cast<SoSwitch*>(this->getAnyPart("childrenVisible",false))->whichChild.getValue() == SO_SWITCH_NONE)
     return;
 
   for (int i = 1; i < numGeometryChildren; i += 2) {
@@ -593,7 +593,7 @@ SoNodeVisualize::cleanClass(void)
 bool
 SoNodeVisualize::clicked() {
   PRINT_FUNCTION();
-  SoSwitch* sw=static_cast<SoSwitch*>(this->getAnyPart("childrenVisible",TRUE));
+  SoSwitch* sw=static_cast<SoSwitch*>(this->getAnyPart("childrenVisible",true));
   assert(sw->whichChild.getValue()==SO_SWITCH_NONE||sw->whichChild.getValue()==SO_SWITCH_ALL);
 
   //If we have no children, we always want the open state
@@ -639,7 +639,7 @@ SoNodeVisualize::handleEvent(SoHandleEventAction * action)
   if (!pp) { return; }
 
   SoFullPath * path = static_cast<SoFullPath*>(pp->getPath());
-  SoShape* shape = static_cast<SoShape*>(this->getAnyPart("shape",TRUE));
+  SoShape* shape = static_cast<SoShape*>(this->getAnyPart("shape",true));
 
   //REVIEW: BFG - Not sure what I'm doing here, the getDetail is
   //from an example source
@@ -678,14 +678,14 @@ void
 SoNodeVisualize::internalAlternating(bool alternate,int direction) {
   PRINT_FUNCTION();
 
-  static_cast<SoSwitch*>(this->getAnyPart("rotSwitch",TRUE))
+  static_cast<SoSwitch*>(this->getAnyPart("rotSwitch",true))
     ->whichChild=(alternate)?SO_SWITCH_ALL:SO_SWITCH_NONE;
 
   SoNodeList * children=this->getChildGeometry();
   int l;
   if (!children ||
       (l=children->getLength())==0 ||
-      static_cast<SoSwitch*>(this->getAnyPart("childrenVisible",FALSE))->whichChild.getValue()==SO_SWITCH_NONE)
+      static_cast<SoSwitch*>(this->getAnyPart("childrenVisible",false))->whichChild.getValue()==SO_SWITCH_NONE)
     return;
 
   ++direction;
@@ -720,7 +720,7 @@ SoNodeVisualize::nodeNumChildren() {
 void
 SoNodeVisualize::reset() {
   this->node=NULL;
-  SoSeparator * sep=static_cast<SoSeparator*>(this->getAnyPart("childGeometry",TRUE));
+  SoSeparator * sep=static_cast<SoSeparator*>(this->getAnyPart("childGeometry",true));
   sep->removeAllChildren();
 }
 
@@ -728,14 +728,14 @@ bool
 SoNodeVisualize::isAlternating() const {
   return static_cast<SoSwitch*>(
            const_cast<SoNodeVisualize*>(this)
-           ->getAnyPart("rotSwitch",FALSE)
+           ->getAnyPart("rotSwitch",false)
            )->whichChild.getValue()==SO_SWITCH_ALL;
 }
 
 SoNodeList *
 SoNodeVisualize::getChildGeometry() {
   SoNodeList * childgeometry=
-    static_cast<SoSeparator*>(this->getAnyPart("childGeometry",FALSE))
+    static_cast<SoSeparator*>(this->getAnyPart("childGeometry",false))
     ->getChildren();
   assert(childgeometry);
   return childgeometry;

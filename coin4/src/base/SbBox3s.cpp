@@ -225,20 +225,20 @@ SbBox3s::extendBy(const SbBox3s & box)
 /*!
   Check if the given point lies within the boundaries of this box.
  */
-SbBool
+bool
 SbBox3s::intersect(const SbVec3s & point) const
 {
   if((point[0] >= this->minpt[0]) && (point[0] <= this->maxpt[0]) &&
      (point[1] >= this->minpt[1]) && (point[1] <= this->maxpt[1]) &&
-     (point[2] >= this->minpt[2]) && (point[2] <= this->maxpt[2])) return TRUE;
-  return FALSE;
+     (point[2] >= this->minpt[2]) && (point[2] <= this->maxpt[2])) return true;
+  return false;
 }
 
 /*!
   Check if \a box lies wholly or partly within the boundaries
   of this box.
  */
-SbBool
+bool
 SbBox3s::intersect(const SbBox3s & box) const
 {
   if((box.getMax()[0] < this->getMin()[0]) ||
@@ -246,8 +246,8 @@ SbBox3s::intersect(const SbBox3s & box) const
      (box.getMax()[2] < this->getMin()[2]) ||
      (box.getMin()[0] > this->getMax()[0]) ||
      (box.getMin()[1] > this->getMax()[1]) ||
-     (box.getMin()[2] > this->getMax()[2])) return FALSE;
-  return TRUE;
+     (box.getMin()[2] > this->getMax()[2])) return false;
+  return true;
 }
 
 /*!
@@ -327,7 +327,7 @@ SbBox3s::getClosestPoint(const SbVec3f & pt) const
 */
 
 /*!
-  \fn SbBool SbBox3s::hasVolume(void) const
+  \fn bool SbBox3s::hasVolume(void) const
 */
 
 #ifdef COIN_TEST_SUITE

@@ -54,23 +54,23 @@ public:
   static SoType fromName(const SbName name);
   SbName getName(void) const;
   const SoType getParent(void) const;
-  SbBool isDerivedFrom(const SoType type) const;
+  bool isDerivedFrom(const SoType type) const;
 
   static int getAllDerivedFrom(const SoType type, SoTypeList & list);
 
-  SbBool canCreateInstance(void) const;
+  bool canCreateInstance(void) const;
   void * createInstance(void) const;
 
   uint16_t getData(void) const;
   int16_t getKey(void) const;
 
-  SbBool operator == (const SoType type) const;
-  SbBool operator != (const SoType type) const;
+  bool operator==(const SoType type) const;
+  bool operator!=(const SoType type) const;
 
-  SbBool operator <  (const SoType type) const;
-  SbBool operator <= (const SoType type) const;
-  SbBool operator >= (const SoType type) const;
-  SbBool operator >  (const SoType type) const;
+  bool operator<(const SoType type) const;
+  bool operator<=(const SoType type) const;
+  bool operator>=(const SoType type) const;
+  bool operator>(const SoType type) const;
 
   static const SoType createType(const SoType parent, const SbName name,
                                  const instantiationMethod method = NULL,
@@ -79,16 +79,16 @@ public:
   static const SoType overrideType(const SoType originalType,
                                    const instantiationMethod method = NULL);
 
-  static SbBool removeType(const SbName & name);
+  static bool removeType(const SbName & name);
 
   static void init(void);
 
   static SoType fromKey(uint16_t key);
   static SoType badType(void);
-  SbBool isBad(void) const;
+  bool isBad(void) const;
 
   void makeInternal(void);
-  SbBool isInternal(void) const;
+  bool isInternal(void) const;
 
   static int getNumTypes(void);
 
@@ -110,43 +110,43 @@ SoType::getKey(void) const
   return this->index;
 }
 
-inline SbBool
-SoType::operator != (const SoType type) const
+inline bool
+SoType::operator!=(const SoType type) const
 {
   return (this->getKey() != type.getKey());
 }
 
-inline SbBool
-SoType::operator == (const SoType type) const
+inline bool
+SoType::operator==(const SoType type) const
 {
   return (this->getKey() == type.getKey());
 }
 
-inline SbBool
-SoType::operator <  (const SoType type) const
+inline bool
+SoType::operator<(const SoType type) const
 {
   return (this->getKey() < type.getKey());
 }
 
-inline SbBool
-SoType::operator <= (const SoType type) const
+inline bool
+SoType::operator<=(const SoType type) const
 {
   return (this->getKey() <= type.getKey());
 }
 
-inline SbBool
-SoType::operator >= (const SoType type) const
+inline bool
+SoType::operator>=(const SoType type) const
 {
   return (this->getKey() >= type.getKey());
 }
 
-inline SbBool
-SoType::operator >  (const SoType type) const
+inline bool
+SoType::operator>(const SoType type) const
 {
   return (this->getKey() > type.getKey());
 }
 
-inline SbBool
+inline bool
 SoType::isBad(void) const
 {
   return (this->index == 0);

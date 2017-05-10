@@ -48,7 +48,7 @@ public:
                WFlags f = 0);
   virtual ~CoinQtWidget(void);
 
-  virtual SbBool setSceneGraph(SoNode * root, SbBool managed = FALSE);
+  virtual bool setSceneGraph(SoNode * root, bool managed = FALSE);
   virtual SoNode * getSceneGraph(void) const;
 
 public slots:

@@ -89,7 +89,7 @@ SO_KIT_SOURCE(SoRotateCylindricalDragger);
   \COININTERNAL
 */
 /*!
-  \var SbBool SoRotateCylindricalDragger::userProj
+  \var bool SoRotateCylindricalDragger::userProj
   \COININTERNAL
 */
 
@@ -149,12 +149,12 @@ SoRotateCylindricalDragger::SoRotateCylindricalDragger(void)
 {
   SO_KIT_INTERNAL_CONSTRUCTOR(SoRotateCylindricalDragger);
 
-  SO_KIT_ADD_CATALOG_ENTRY(rotatorSwitch, SoSwitch, TRUE, geomSeparator, feedbackSwitch, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(rotator, SoSeparator, TRUE, rotatorSwitch, rotatorActive, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(rotatorActive, SoSeparator, TRUE, rotatorSwitch, "", TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(feedbackSwitch, SoSwitch, TRUE, geomSeparator, "", FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(feedback, SoSeparator, TRUE, feedbackSwitch, feedbackActive, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(feedbackActive, SoSeparator, TRUE, feedbackSwitch, "", TRUE);
+  SO_KIT_ADD_CATALOG_ENTRY(rotatorSwitch, SoSwitch, true, geomSeparator, feedbackSwitch, false);
+  SO_KIT_ADD_CATALOG_ENTRY(rotator, SoSeparator, true, rotatorSwitch, rotatorActive, true);
+  SO_KIT_ADD_CATALOG_ENTRY(rotatorActive, SoSeparator, true, rotatorSwitch, "", true);
+  SO_KIT_ADD_CATALOG_ENTRY(feedbackSwitch, SoSwitch, true, geomSeparator, "", false);
+  SO_KIT_ADD_CATALOG_ENTRY(feedback, SoSeparator, true, feedbackSwitch, feedbackActive, true);
+  SO_KIT_ADD_CATALOG_ENTRY(feedbackActive, SoSeparator, true, feedbackSwitch, "", true);
 
   if (SO_KIT_IS_FIRST_INSTANCE()) {
     SoInteractionKit::readDefaultParts("rotateCylindricalDragger.iv",
@@ -180,7 +180,7 @@ SoRotateCylindricalDragger::SoRotateCylindricalDragger(void)
 
   // setup projector
   this->cylinderProj = new SbCylinderPlaneProjector();
-  this->userProj = FALSE;
+  this->userProj = false;
   this->addStartCallback(SoRotateCylindricalDragger::startCB);
   this->addMotionCallback(SoRotateCylindricalDragger::motionCB);
   this->addFinishCallback(SoRotateCylindricalDragger::doneCB);
@@ -190,7 +190,7 @@ SoRotateCylindricalDragger::SoRotateCylindricalDragger(void)
   this->fieldSensor = new SoFieldSensor(SoRotateCylindricalDragger::fieldSensorCB, this);
   this->fieldSensor->setPriority(0);
 
-  this->setUpConnections(TRUE, TRUE);
+  this->setUpConnections(true, true);
 }
 
 /*!
@@ -207,12 +207,12 @@ SoRotateCylindricalDragger::~SoRotateCylindricalDragger()
 }
 
 // Doc in superclass.
-SbBool
-SoRotateCylindricalDragger::setUpConnections(SbBool onoff, SbBool doitalways)
+bool
+SoRotateCylindricalDragger::setUpConnections(bool onoff, bool doitalways)
 {
   if (!doitalways && this->connectionsSetUp == onoff) return onoff;
 
-  SbBool oldval = this->connectionsSetUp;
+  bool oldval = this->connectionsSetUp;
 
   if (onoff) {
     inherited::setUpConnections(onoff, doitalways);
@@ -296,7 +296,7 @@ SoRotateCylindricalDragger::getProjector(void) const
 // Doc in superclass.
 void
 SoRotateCylindricalDragger::copyContents(const SoFieldContainer * fromfc,
-                                         SbBool copyconnections)
+                                         bool copyconnections)
 {
   inherited::copyContents(fromfc, copyconnections);
 
@@ -317,7 +317,7 @@ SoRotateCylindricalDragger::copyContents(const SoFieldContainer * fromfc,
     this->cylinderProj = new SbCylinderPlaneProjector();
   }
   // we copied or created a new one, and need to delete it.
-  this->userProj = FALSE;
+  this->userProj = false;
 }
 
 /*! \COININTERNAL */
@@ -366,10 +366,10 @@ SoRotateCylindricalDragger::dragStart(void)
 
   switch (this->getFrontOnProjector()) {
   case FRONT:
-    this->cylinderProj->setFront(TRUE);
+    this->cylinderProj->setFront(true);
     break;
   case BACK:
-    this->cylinderProj->setFront(TRUE);
+    this->cylinderProj->setFront(true);
     break;
   default: // avoid warnings
   case USE_PICK:

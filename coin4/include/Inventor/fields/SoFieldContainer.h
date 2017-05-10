@@ -40,13 +40,13 @@ public:
   static void cleanupClass(void);
 
   void setToDefaults(void);
-  SbBool hasDefaultValues(void) const;
+  bool hasDefaultValues(void) const;
 
-  SbBool fieldsAreEqual(const SoFieldContainer * container) const;
+  bool fieldsAreEqual(const SoFieldContainer * container) const;
   void copyFieldValues(const SoFieldContainer * container,
-                       SbBool copyconnections = FALSE);
+                       bool copyconnections = false);
 
-  SbBool set(const char * const fielddata);
+  bool set(const char * const fielddata);
   void get(SbString & fielddata);
 
   virtual int getFields(SoFieldList & l) const;
@@ -54,26 +54,26 @@ public:
   virtual SoField * getField(const SbName & name) const;
   virtual SoField * getEventIn(const SbName & name) const;
   virtual SoField * getEventOut(const SbName & name) const;
-  SbBool getFieldName(const SoField * const field, SbName & name) const;
+  bool getFieldName(const SoField * const field, SbName & name) const;
 
-  SbBool enableNotify(const SbBool flag);
-  SbBool isNotifyEnabled(void) const;
+  bool enableNotify(const bool flag);
+  bool isNotifyEnabled(void) const;
 
-  SbBool set(const char * fielddata, SoInput * input);
+  bool set(const char * fielddata, SoInput * input);
   void get(SbString & fielddata, SoOutput * out);
 
   virtual void notify(SoNotList * l);
 
-  virtual SbBool validateNewFieldValue(SoField * field, void * newval);
+  virtual bool validateNewFieldValue(SoField * field, void * newval);
 
-  virtual void addWriteReference(SoOutput * out, SbBool isfromfield = FALSE);
+  virtual void addWriteReference(SoOutput * out, bool isfromfield = false);
   virtual void writeInstance(SoOutput * out);
 
-  SbBool getIsBuiltIn(void) const;
+  bool getIsBuiltIn(void) const;
   virtual const SoFieldData * getFieldData(void) const;
 
   virtual void copyContents(const SoFieldContainer * from,
-                            SbBool copyconnections);
+                            bool copyconnections);
   virtual SoFieldContainer * copyThroughConnection(void) const;
 
   static void initCopyDict(void);
@@ -81,7 +81,7 @@ public:
                       const SoFieldContainer * copy);
   static SoFieldContainer * checkCopy(const SoFieldContainer * orig);
   static SoFieldContainer * findCopy(const SoFieldContainer * orig,
-                                     const SbBool copyconnections);
+                                     const bool copyconnections);
   static void copyDone(void);
 
   virtual void getFieldsMemorySize(size_t & managed, size_t & unmanaged) const;
@@ -93,12 +93,12 @@ protected:
   SoFieldContainer(void);
   virtual ~SoFieldContainer();
 
-  virtual SbBool readInstance(SoInput * in, unsigned short flags);
-  SbBool isBuiltIn;
+  virtual bool readInstance(SoInput * in, unsigned short flags);
+  bool isBuiltIn;
 
 private:
   static SoType classTypeId;
-  SbBool donotify;
+  bool donotify;
 
 }; // SoFieldContainer
 

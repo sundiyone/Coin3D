@@ -118,9 +118,9 @@
   Annotate output with reference counts of the objects written.
 */
 
-/*! \var SbBool SoOutput::wroteHeader
+/*! \var bool SoOutput::wroteHeader
   Indicates whether or not the file format header has been written out.
-  As long as this is \a FALSE, the header will be written once upon the
+  As long as this is \a false, the header will be written once upon the
   first invocation of any write method in the class.
 */
 
@@ -171,13 +171,13 @@ public:
     delete this->writer;
   }
 
-  SbBool binarystream;
-  SbBool usercalledopenfile;
+  bool binarystream;
+  bool usercalledopenfile;
   SbString fltprecision;
   SbString dblprecision;
   int indentlevel;
-  SbBool writecompact;
-  SbBool disabledwriting;
+  bool writecompact;
+  bool disabledwriting;
   SbString * headerstring;
   SoOutput::Stage stage;
   uint32_t annotationbits;
@@ -189,7 +189,7 @@ public:
   SbName compmethod;
   float complevel;
 
-  void pushRoutes(const SbBool copyprev) {
+  void pushRoutes(const bool copyprev) {
     const int oldidx = this->routestack.getLength() - 1;
     assert(oldidx >= 0);
     SoOutputROUTEList * newlist;
@@ -200,7 +200,7 @@ public:
     else newlist = new SoOutputROUTEList;
     this->routestack.push(newlist);
   }
-  SoOutputROUTEList * getCurrentRoutes(const SbBool createifnull) {
+  SoOutputROUTEList * getCurrentRoutes(const bool createifnull) {
     const int n = this->routestack.getLength();
     assert(n);
     SoOutputROUTEList * list = this->routestack[n-1];
@@ -218,7 +218,7 @@ public:
     this->routestack.remove(idx);
   }
 
-  void pushDefNames(const SbBool copyprev) {
+  void pushDefNames(const bool copyprev) {
     const int n = this->defstack.getLength();
     assert(n);
     BogusSet * prev = this->defstack[n-1];
@@ -232,7 +232,7 @@ public:
     delete this->defstack[this->defstack.getLength()-1];
     this->defstack.pop();
   }
-  BogusSet * getCurrentDefNames(const SbBool createifnull) {
+  BogusSet * getCurrentDefNames(const bool createifnull) {
     const int idx = this->defstack.getLength() - 1;
     assert(idx >= 0);
     BogusSet * dict = this->defstack[idx];
@@ -245,7 +245,7 @@ public:
 
   SoOutput_Writer * getWriter(void) {
     if (this->writer == NULL) {
-      this->writer = SoOutput_Writer::createWriter(coin_get_stdout(), FALSE,
+      this->writer = SoOutput_Writer::createWriter(coin_get_stdout(), false,
                                                    this->compmethod, this->complevel);
     }
     return this->writer;
@@ -311,7 +311,7 @@ SoOutput::SoOutput(SoOutput * dictOut)
   assert(dictOut != NULL);
   this->constructorCommon();
 
-  BogusSet * olddef = PRIVATE(dictOut)->getCurrentDefNames(FALSE);
+  BogusSet * olddef = PRIVATE(dictOut)->getCurrentDefNames(false);
   PRIVATE(this)->defstack.append(olddef ? new BogusSet(*olddef) : NULL);
 
   SoWriterefCounter::create(this, dictOut);
@@ -327,13 +327,13 @@ SoOutput::constructorCommon(void)
 {
   PRIVATE(this) = new SoOutputP;
 
-  PRIVATE(this)->usercalledopenfile = FALSE;
-  PRIVATE(this)->binarystream = FALSE;
+  PRIVATE(this)->usercalledopenfile = false;
+  PRIVATE(this)->binarystream = false;
   PRIVATE(this)->fltprecision = "%.8g";
   PRIVATE(this)->dblprecision = "%.16lg";
-  PRIVATE(this)->disabledwriting = FALSE;
-  this->wroteHeader = FALSE;
-  PRIVATE(this)->writecompact = FALSE;
+  PRIVATE(this)->disabledwriting = false;
+  this->wroteHeader = false;
+  PRIVATE(this)->writecompact = false;
   PRIVATE(this)->headerstring = NULL;
   PRIVATE(this)->indentlevel = 0;
   PRIVATE(this)->annotationbits = 0x00;
@@ -368,7 +368,7 @@ void
 SoOutput::setFilePointer(FILE * newFP)
 {
   this->reset();
-  PRIVATE(this)->setWriter(SoOutput_Writer::createWriter(newFP, FALSE,
+  PRIVATE(this)->setWriter(SoOutput_Writer::createWriter(newFP, false,
                                                          PRIVATE(this)->compmethod,
                                                          PRIVATE(this)->complevel));
 }
@@ -392,7 +392,7 @@ SoOutput::getFilePointer(void) const
 
 /*!
   Opens a file for writing. If the file can not be opened or is not
-  writeable, \a FALSE will be returned.
+  writeable, \a false will be returned.
 
   Files opened by this method will automatically be closed if the
   user supplies another filepointer, another filename for writing,
@@ -400,17 +400,17 @@ SoOutput::getFilePointer(void) const
 
   \sa setFilePointer(), setBuffer(), closeFile()
  */
-SbBool
+bool
 SoOutput::openFile(const char * const fileName)
 {
   this->reset();
 
   FILE * newfile = fopen(fileName, "wb");
   if (newfile) {
-    PRIVATE(this)->setWriter(SoOutput_Writer::createWriter(newfile, TRUE,
+    PRIVATE(this)->setWriter(SoOutput_Writer::createWriter(newfile, true,
                                                            PRIVATE(this)->compmethod,
                                                            PRIVATE(this)->complevel));
-    PRIVATE(this)->usercalledopenfile = TRUE;
+    PRIVATE(this)->usercalledopenfile = true;
   }
   else {
     SoDebugError::postWarning("SoOutput::openFile",
@@ -431,7 +431,7 @@ SoOutput::closeFile(void)
 {
   if (PRIVATE(this)->usercalledopenfile) {
     PRIVATE(this)->setWriter(NULL);
-    PRIVATE(this)->usercalledopenfile = FALSE;
+    PRIVATE(this)->usercalledopenfile = false;
   }
 }
 
@@ -452,27 +452,27 @@ SoOutput::closeFile(void)
   Please note that it's not possible to compress when writing to a
   memory buffer.
 
-  This method will return \e TRUE if the compression method selected
-  is available. If it's not available, \e FALSE will be returned and
+  This method will return \e true if the compression method selected
+  is available. If it's not available, \e false will be returned and
   compression is disabled.
 
   \sa getAvailableCompressionMethods()
   \since Coin 2.1
  */
-SbBool
+bool
 SoOutput::setCompression(const SbName & compmethod, const float level)
 {
   PRIVATE(this)->complevel = level;
   PRIVATE(this)->compmethod = compmethod;
 
   if (compmethod == "GZIP") {
-    if (cc_zlibglue_available()) return TRUE;
+    if (cc_zlibglue_available()) return true;
     SoDebugError::postWarning("SoOutput::setCompression",
                               "Requested GZIP compression, but zlib is not available.");
 
   }
   if (compmethod == "BZIP2") {
-    if (cc_bzglue_available()) return TRUE;
+    if (cc_bzglue_available()) return true;
     SoDebugError::postWarning("SoOutput::setCompression",
                               "Requested BZIP2 compression, but libbz2 is not available.");
   }
@@ -480,11 +480,11 @@ SoOutput::setCompression(const SbName & compmethod, const float level)
   PRIVATE(this)->compmethod = SbName("NONE");
   PRIVATE(this)->complevel = 0.0f;
 
-  if (compmethod == "NONE" || level == 0.0f) return TRUE;
+  if (compmethod == "NONE" || level == 0.0f) return true;
   SoDebugError::postWarning("SoOutput::setCompression",
                             "Unsupported compression method: %s",
                             compmethod.getString());
-  return FALSE;
+  return false;
 }
 
 /*!
@@ -585,21 +585,21 @@ SoOutput::setBuffer(void * bufPointer, size_t initSize,
 /*!
   Returns the current buffer in \a bufPointer and the current
   write position of the buffer in \a nBytes. If we're writing into a
-  file and not a memory buffer, \a FALSE is returned and the other return
+  file and not a memory buffer, \a false is returned and the other return
   values will be undefined.
 
   \sa getBufferSize()
  */
-SbBool
+bool
 SoOutput::getBuffer(void *& bufPointer, size_t & nBytes) const
 {
   if (PRIVATE(this)->getWriter()->getType() == SoOutput_Writer::MEMBUFFER) {
     SoOutput_MemBufferWriter * w = (SoOutput_MemBufferWriter*) PRIVATE(this)->getWriter();
     bufPointer = w->buf;
     nBytes = (size_t) w->offset;
-    return TRUE;
+    return true;
   }
-  return FALSE;
+  return false;
 }
 
 /*!
@@ -639,7 +639,7 @@ SoOutput::resetBuffer(void)
 // FIXME: write doc on endianness, netformat etc -- best thing would
 // be to document the format completely in BNF. 19990627 mortene.
 void
-SoOutput::setBinary(const SbBool flag)
+SoOutput::setBinary(const bool flag)
 {
   PRIVATE(this)->binarystream = flag;
 }
@@ -650,7 +650,7 @@ SoOutput::setBinary(const SbBool flag)
 
   \sa setBinary()
  */
-SbBool
+bool
 SoOutput::isBinary(void) const
 {
   return PRIVATE(this)->binarystream;
@@ -840,7 +840,7 @@ SoOutput::write(const int i)
     // Use portable locale, to make sure we don't write thousands
     // separators for integers.
     cc_string storedlocale;
-    SbBool changed = coin_locale_set_portable(&storedlocale);
+    bool changed = coin_locale_set_portable(&storedlocale);
 
     SbString s;
     s.sprintf("%d", i);
@@ -888,7 +888,7 @@ SoOutput::write(const short s)
     // Use portable locale, to make sure we don't write thousands
     // separators for integers.
     cc_string storedlocale;
-    SbBool changed = coin_locale_set_portable(&storedlocale);
+    bool changed = coin_locale_set_portable(&storedlocale);
 
     SbString str;
     str.sprintf("%hd", s);
@@ -929,7 +929,7 @@ SoOutput::write(const float f)
     // Use portable locale, to make sure we don't write thousands
     // separators for integers.
     cc_string storedlocale;
-    SbBool changed = coin_locale_set_portable(&storedlocale);
+    bool changed = coin_locale_set_portable(&storedlocale);
 
     SbString s;
     s.sprintf(PRIVATE(this)->fltprecision.getString(), f);
@@ -966,7 +966,7 @@ SoOutput::write(const double d)
     // Use portable locale, to make sure we don't write thousands
     // separators for integers.
     cc_string storedlocale;
-    SbBool changed = coin_locale_set_portable(&storedlocale);
+    bool changed = coin_locale_set_portable(&storedlocale);
 
     SbString s;
     s.sprintf(PRIVATE(this)->dblprecision.getString(), d);
@@ -1032,7 +1032,7 @@ SoOutput::writeBinaryArray(const unsigned char * constc, const int length)
   if (wrote != (size_t)length) {
     SoDebugError::postWarning("SoOutput::writeBinaryArray",
                               "Couldn't write to file/memory buffer");
-    PRIVATE(this)->disabledwriting = TRUE;
+    PRIVATE(this)->disabledwriting = true;
   }
 }
 
@@ -1173,8 +1173,8 @@ SoOutput::reset(void)
   }
   PRIVATE(this)->defstack.append(NULL);
 
-  PRIVATE(this)->disabledwriting = FALSE;
-  this->wroteHeader = FALSE;
+  PRIVATE(this)->disabledwriting = false;
+  this->wroteHeader = false;
   PRIVATE(this)->indentlevel = 0;
 }
 
@@ -1182,7 +1182,7 @@ SoOutput::reset(void)
   Set up the output to be more compact than with the default write routines.
 */
 void
-SoOutput::setCompact(SbBool flag)
+SoOutput::setCompact(bool flag)
 {
   // FIXME: go through output code and make the output more
   // compact. 19990623 morten.
@@ -1203,7 +1203,7 @@ SoOutput::setCompact(SbBool flag)
   Note that "compact" in this sense does \e not mean "bitwise compression",
   as it could easily be mistaken for.
 */
-SbBool
+bool
 SoOutput::isCompact(void) const
 {
   return PRIVATE(this)->writecompact;
@@ -1242,13 +1242,13 @@ SoOutput::getAnnotation(void)
   Check that the current memory buffer has enough space to contain the
   given number of bytes needed for the next write operation.
 
-  Returns \a FALSE if there's not enough space left, otherwise \a TRUE.
+  Returns \a false if there's not enough space left, otherwise \a true.
 
   Note that there will automatically be made an attempt at allocating
   more memory if the realloction callback function argument of
   setBuffer() was not \a NULL.
 */
-SbBool
+bool
 SoOutput::makeRoomInBuf(size_t bytes)
 {
   assert(PRIVATE(this)->getWriter()->getType() == SoOutput_Writer::MEMBUFFER);
@@ -1298,7 +1298,7 @@ SoOutput::checkHeader(void)
   if (!this->wroteHeader) {
     // NB: this flag _must_ be set before we do any writing, or we'll
     // end up in an eternal double-recursive loop.
-    this->wroteHeader = TRUE;
+    this->wroteHeader = true;
 
     SbString h;
     if (PRIVATE(this)->headerstring) h = *(PRIVATE(this)->headerstring);
@@ -1319,9 +1319,9 @@ SoOutput::checkHeader(void)
 }
 
 /*!
-  Returns \a TRUE of we're set up to write to a memory buffer.
+  Returns \a true of we're set up to write to a memory buffer.
 */
-SbBool
+bool
 SoOutput::isToBuffer(void) const
 {
   return PRIVATE(this)->getWriter()->getType() == SoOutput_Writer::MEMBUFFER;
@@ -1377,19 +1377,19 @@ void
 SoOutput::addDEFNode(SbName name)
 {
   void * value = NULL;
-  BogusSet * defnames = PRIVATE(this)->getCurrentDefNames(TRUE);
+  BogusSet * defnames = PRIVATE(this)->getCurrentDefNames(true);
   defnames->put(name.getString(), value);
 }
 
 /*!
   Checks whether \a name is already DEF'ed at this point in the output process.
-  Returns TRUE if \a name is DEF'ed.
+  Returns true if \a name is DEF'ed.
 */
-SbBool
+bool
 SoOutput::lookupDEFNode(SbName name)
 {
   void * value;
-  BogusSet * defnames = PRIVATE(this)->getCurrentDefNames(TRUE);
+  BogusSet * defnames = PRIVATE(this)->getCurrentDefNames(true);
   return defnames->get(name.getString(), value);
 }
 
@@ -1401,10 +1401,10 @@ SoOutput::lookupDEFNode(SbName name)
 void
 SoOutput::removeDEFNode(SbName name)
 {
-  BogusSet * defnames = PRIVATE(this)->getCurrentDefNames(FALSE);
+  BogusSet * defnames = PRIVATE(this)->getCurrentDefNames(false);
   assert(defnames);
 #if COIN_DEBUG
-  SbBool ret = defnames->erase(name.getString());
+  bool ret = defnames->erase(name.getString());
   assert(ret && "Tried to remove nonexisting DEFnode");
 #else
   (void)defnames->erase(name.getString());
@@ -1425,9 +1425,9 @@ SoOutput::pushProto(SoProto * proto)
   // adding new methods in SoOutput. For instance, is it possible to
   // add elements in the SoWriteAction state stack? pederb, 2002-06-12
 
-  PRIVATE(this)->pushRoutes(FALSE);
+  PRIVATE(this)->pushRoutes(false);
   PRIVATE(this)->protostack.push(proto);
-  PRIVATE(this)->pushDefNames(FALSE);
+  PRIVATE(this)->pushDefNames(false);
 }
 
 /*!
@@ -1482,7 +1482,7 @@ void
 SoOutput::addRoute(SoFieldContainer * from, const SbName & fromfield,
                    SoFieldContainer * to, const SbName & tofield)
 {
-  SoOutputROUTEList * list = PRIVATE(this)->getCurrentRoutes(TRUE);
+  SoOutputROUTEList * list = PRIVATE(this)->getCurrentRoutes(true);
   assert(list);
   SoOutputROUTE r;
   r.from = from;
@@ -1506,7 +1506,7 @@ SoOutput::resolveRoutes(void)
   // adding new methods in SoOutput. For instance, is it possible to
   // add elements in the SoWriteAction state stack? pederb, 2002-06-12
 
-  SoOutputROUTEList * list = PRIVATE(this)->getCurrentRoutes(FALSE);
+  SoOutputROUTEList * list = PRIVATE(this)->getCurrentRoutes(false);
   if (list && list->getLength()) {
     const int n = list->getLength();
     for (int i = 0; i < n; i++) {

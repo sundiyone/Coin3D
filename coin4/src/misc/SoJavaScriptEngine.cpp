@@ -45,7 +45,7 @@
 class SoJavaScriptEngineP {
 public:
   SoJavaScriptEngineP(SoJavaScriptEngine * node) : master(node) {};
-  SbBool executeJSScript(JSScript * script) const;
+  bool executeJSScript(JSScript * script) const;
 
   static size_t CONTEXT_STACK_CHUNK_SIZE; /* stack chunk size */
   static JSRuntime * runtime;
@@ -62,7 +62,7 @@ public:
 
   SbList<JavascriptHandler> handlerList;
   SoJavaScriptEngine * master;
-  SbBool autonodeunref;
+  bool autonodeunref;
 };
 
 JSRuntime * SoJavaScriptEngineP::runtime = NULL;
@@ -74,7 +74,7 @@ JSClass SoJavaScriptEngineP::globalclass;
 /*!
   Execute a compiled script.
  */
-SbBool
+bool
 SoJavaScriptEngineP::executeJSScript(JSScript * script) const
 {
   jsval rval;
@@ -86,14 +86,14 @@ SoJavaScriptEngineP::executeJSScript(JSScript * script) const
                              "script result: '%s'",
                              spidermonkey()->JS_GetStringBytes(str));
     }
-    return TRUE;
+    return true;
   }
   else {
     // FIXME: improve on this. 20050526 mortene.
     SoDebugError::postWarning("SoJavaScriptEngine::executeJSScript",
                               "Script evaluation failed!");
   }
-  return FALSE;
+  return false;
 }
 
 // FIXME: imported from SquirrelMonkey/src/jsutils.cpp
@@ -126,7 +126,7 @@ static void printJSException(JSContext *cx)
     return;
   }
 
-  SbBool ok;
+  bool ok;
   /* Todo: we loose unicode information here */
   cstr = spidermonkey()->JS_GetStringBytes(s);
   if (!cstr) {
@@ -194,7 +194,7 @@ static JSBool JavascriptPrint(JSContext * cx, JSObject * COIN_UNUSED_ARG(obj),
 SoJavaScriptEngine::SoJavaScriptEngine()
 {
   PRIVATE(this) = new SoJavaScriptEngineP(this); 
-  PRIVATE(this)->autonodeunref = TRUE;
+  PRIVATE(this)->autonodeunref = true;
 
   JSContext * cx = PRIVATE(this)->context = 
     spidermonkey()->JS_NewContext(SoJavaScriptEngine::getRuntime(), 
@@ -318,7 +318,7 @@ SoJavaScriptEngine::setGlobal(JSObject * global)
 /*!
  Init the spidermonkey runtime.
  */
-SbBool
+bool
 SoJavaScriptEngine::init(uint32_t maxBytes)
 {
   assert(SoJavaScriptEngine::getRuntime() == NULL);
@@ -329,7 +329,7 @@ SoJavaScriptEngine::init(uint32_t maxBytes)
                               "VRML Script nodes, but SpiderMonkey Javascript "
                               "engine not available. Javascript scripts will "
                               "be ignored.");
-    return FALSE;
+    return false;
   }
 
   JSRuntime * rt = spidermonkey()->JS_NewRuntime(maxBytes);
@@ -338,7 +338,7 @@ SoJavaScriptEngine::init(uint32_t maxBytes)
     SoDebugError::post("SoJavaScriptEngine::init",
                        "SpiderMonkey Javascript engine available, "
                        "but failed to instantiate a JSRuntime!");
-    return FALSE;
+    return false;
   }
 
   SoJavaScriptEngine::setRuntime(rt);
@@ -354,7 +354,7 @@ SoJavaScriptEngine::init(uint32_t maxBytes)
   SoJavaScriptEngineP::globalclass.convert = spidermonkey()->JS_ConvertStub;
   SoJavaScriptEngineP::globalclass.finalize = spidermonkey()->JS_FinalizeStub;
   
-  return TRUE;
+  return true;
 }
 
 /*!
@@ -372,7 +372,7 @@ SoJavaScriptEngine::shutdown(void)
   SoJavaScriptEngine::setRuntime(NULL);
 }
 
-SbBool
+bool
 SoJavaScriptEngine::debug(void)
 {
   static int d = -1;
@@ -381,7 +381,7 @@ SoJavaScriptEngine::debug(void)
     d = (env && (atoi(env) > 0)) ? 1 : 0;
 
   }
-  return d ? TRUE : FALSE;
+  return d ? true : false;
 }
 
 /*!
@@ -389,10 +389,10 @@ SoJavaScriptEngine::debug(void)
   created in JavaScript. When switched off, the programmer must
   explicitly call ref()/unref() for the Coin nodes JavaScript.
   
-  Default state is TRUE.
+  Default state is true.
 */
 void
-SoJavaScriptEngine::enableAutoNodeUnref(SbBool onoff)
+SoJavaScriptEngine::enableAutoNodeUnref(bool onoff)
 {
   PRIVATE(this)->autonodeunref = onoff;
 }
@@ -401,7 +401,7 @@ SoJavaScriptEngine::enableAutoNodeUnref(SbBool onoff)
   Returns the current state (on/off) of the automatic ref/unref
   mechanism for Coin nodes created by JavaScript.
 */
-SbBool
+bool
 SoJavaScriptEngine::getAutoNodeUnrefState() const
 {
   return PRIVATE(this)->autonodeunref;
@@ -411,7 +411,7 @@ SoJavaScriptEngine::getAutoNodeUnrefState() const
 /*!
   Compile and execute a string containing a script.
  */
-SbBool
+bool
 SoJavaScriptEngine::executeScript(const SbName & name, const SbString & script) const
 {
   if (SoJavaScriptEngine::debug()) {
@@ -433,7 +433,7 @@ SoJavaScriptEngine::executeScript(const SbName & name, const SbString & script) 
 /*!
   Compile and execute a file.
  */
-SbBool
+bool
 SoJavaScriptEngine::executeFile(const SbName & filename) const
 {
   if (SoJavaScriptEngine::debug()) {
@@ -448,7 +448,7 @@ SoJavaScriptEngine::executeFile(const SbName & filename) const
 /*!
   Execute a function in the global spidermonkey object.
  */
-SbBool
+bool
 SoJavaScriptEngine::executeFunction(const SbName & name, 
                                     int argc, const SoField * argv, 
                                     SoField * rval) const
@@ -474,7 +474,7 @@ SoJavaScriptEngine::executeFunction(const SbName & name,
                              name.getString(), spidermonkey()->JS_GetStringBytes(str));
     }
 
-    SbBool ok2 = TRUE;
+    bool ok2 = true;
     if (rval != NULL) {
       ok2 = jsval2field(rjsval, rval);
     }
@@ -484,14 +484,14 @@ SoJavaScriptEngine::executeFunction(const SbName & name,
     SoDebugError::postWarning("SoJavaScriptEngine::executeFunctions",
                               "JS_CallFunctionName(..., \"%s\", ...) "
                               "failed!", name.getString());
-    return FALSE;
+    return false;
   }
 }
 
 /*!
   Convert a SoField object to a native spidermonkey value.
  */
-SbBool
+bool
 SoJavaScriptEngine::field2jsval(const SoField * f, jsval * v) const
 {
   int n = PRIVATE(this)->handlerList.getLength();
@@ -502,12 +502,12 @@ SoJavaScriptEngine::field2jsval(const SoField * f, jsval * v) const
 
     if (handler.field2jsval != NULL && f->isOfType(handler.type)) {
       handler.field2jsval(PRIVATE(this)->context, f, v);
-      return TRUE;
+      return true;
     }
   }
   SoDebugError::postInfo("SoJavaScriptEngine::field2jsval", "no handler found for %s", f->getTypeId().getName().getString());
   *v = JSVAL_VOID;
-  return FALSE;
+  return false;
 }
 
 /*!
@@ -532,7 +532,7 @@ SoJavaScriptEngine::getEngine(JSContext * cx)
 /*!
   Convert a native spidermonkey value to a SoField object.
  */
-SbBool 
+bool 
 SoJavaScriptEngine::jsval2field(const jsval v, SoField * f) const
 {
   int n = PRIVATE(this)->handlerList.getLength();
@@ -543,7 +543,7 @@ SoJavaScriptEngine::jsval2field(const jsval v, SoField * f) const
 
     if (handler.jsval2field != NULL && f->isOfType(handler.type)) {
       if (handler.jsval2field(PRIVATE(this)->context, v, f)) {
-        return TRUE;
+        return true;
       }
       else {
         JSString * jsstr = spidermonkey()->JS_ValueToString(PRIVATE(this)->context, v); 
@@ -551,12 +551,12 @@ SoJavaScriptEngine::jsval2field(const jsval v, SoField * f) const
         SoDebugError::postWarning("SoJavaScriptEngine::jsval2field",
                                   "convertion of '%s' to SoField type '%s' failed",
                                   str, handler.type.getName().getString());
-        return FALSE;
+        return false;
       }
     }
   }
   SoDebugError::postInfo("SoJavaScriptEngine::jsval2field", "no handler found for %s", f->getTypeId().getName().getString());
-  return FALSE;
+  return false;
 }
 
 /*!
@@ -592,7 +592,7 @@ SoJavaScriptEngine::addHandler(const SoType & type,
 /*!
   Set a script field.
  */
-SbBool
+bool
 SoJavaScriptEngine::setScriptField(const SbName & name, const SoField * f) const
 {
   jsval initval;
@@ -612,7 +612,7 @@ SoJavaScriptEngine::setScriptField(const SbName & name, const SoField * f) const
 /*!
   Unset a script field.
  */
-SbBool
+bool
 SoJavaScriptEngine::unsetScriptField(const SbName & name) const
 {
   const JSBool ok =
@@ -630,7 +630,7 @@ SoJavaScriptEngine::unsetScriptField(const SbName & name) const
 /*!
   Get a script field.
  */
-SbBool
+bool
 SoJavaScriptEngine::getScriptField(const SbName & name, SoField * f) const
 {
     jsval val;
@@ -640,7 +640,7 @@ SoJavaScriptEngine::getScriptField(const SbName & name, SoField * f) const
       SoDebugError::post("SoJavaScriptEngine::getScriptField",
                          "Could not find field '%s' as SpiderMonkey "
                          "object property!", name.getString());
-      return FALSE;
+      return false;
     }
     if (SoJavaScriptEngine::debug()) {
       JSString * str = spidermonkey()->JS_ValueToString(PRIVATE(this)->context, val);
@@ -653,14 +653,14 @@ SoJavaScriptEngine::getScriptField(const SbName & name, SoField * f) const
     return jsval2field(val, f);
 }
 
-SbBool
+bool
 SoJavaScriptEngine::hasScriptField(const SbName & name) const
 {
   jsval val;
   spidermonkey()->JS_GetProperty(PRIVATE(this)->context, PRIVATE(this)->global,
                                         name.getString(), &val);
 
-  return JSVAL_IS_VOID(val) ? FALSE : TRUE;
+  return JSVAL_IS_VOID(val) ? false : true;
 }
 
 #undef PRIVATE

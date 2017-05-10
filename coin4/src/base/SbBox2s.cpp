@@ -221,26 +221,26 @@ SbBox2s::extendBy(const SbBox2s & box)
 /*!
   Check if the given point lies within the boundaries of this box.
 */
-SbBool
+bool
 SbBox2s::intersect(const SbVec2s & point) const
 {
   if((point[0] >= this->minpt[0]) && (point[0] <= this->maxpt[0]) &&
-     (point[1] >= this->minpt[1]) && (point[1] <= this->maxpt[1])) return TRUE;
-  return FALSE;
+     (point[1] >= this->minpt[1]) && (point[1] <= this->maxpt[1])) return true;
+  return false;
 }
 
 /*!
   Check if \a box lies wholly or partly within the boundaries
   of this box.
 */
-SbBool
+bool
 SbBox2s::intersect(const SbBox2s & box) const
 {
   if((box.getMax()[0] < this->getMin()[0]) ||
      (box.getMax()[1] < this->getMin()[1]) ||
      (box.getMin()[0] > this->getMax()[0]) ||
-     (box.getMin()[1] > this->getMax()[1])) return FALSE;
-  return TRUE;
+     (box.getMin()[1] > this->getMax()[1])) return false;
+  return true;
 }
 
 /*!
@@ -295,7 +295,7 @@ SbBox2s::intersect(const SbBox2s & box) const
 */
 
 /*!
-  \fn SbBool SbBox2s::hasArea(void) const
+  \fn bool SbBox2s::hasArea(void) const
 */
 
 #ifdef COIN_TEST_SUITE

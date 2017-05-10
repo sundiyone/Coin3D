@@ -79,8 +79,8 @@ public:
   SoNode * scene;
   SoCamera * camera;
   float nearplanevalue;
-  SbBool doublebuffer;
-  SbBool isactive;
+  bool doublebuffer;
+  bool isactive;
   float stereooffset;
   SoInfo * dummynode;
   uint32_t overlaycolor;
@@ -89,8 +89,8 @@ public:
   GLubyte * stereostencilmask;
   SbColor4f backgroundcolor;
   int backgroundindex;
-  SbBool texturesenabled;
-  SbBool isrgbmode;
+  bool texturesenabled;
+  bool isrgbmode;
   uint32_t redrawpri;
   SoNodeSensor * clipsensor;
 
@@ -99,8 +99,8 @@ public:
   SoGetMatrixAction * getmatrixaction;
   SoGLRenderAction * glaction;
   SoSearchAction * searchaction;
-  SbBool deleteaudiorenderaction;
-  SbBool deleteglaction;
+  bool deleteaudiorenderaction;
+  bool deleteglaction;
 
   SoRenderManager::StereoMode stereostenciltype;
   SoRenderManager::RenderMode rendermode;
@@ -120,8 +120,8 @@ public:
   std::vector<RenderCBTouple> postRenderCallbacks;
 
   // "private" data
-  static SbBool touchtimer;
-  static SbBool cleanupfunctionset;
+  static bool touchtimer;
+  static bool cleanupfunctionset;
 
 #ifdef COIN_THREADSAFE
   SbMutex mutex;
@@ -147,7 +147,7 @@ public:
   virtual ~SoRenderManagerRootSensor() { }
 
   virtual void notify(SoNotList * l);
-  static SbBool debug(void);
+  static bool debug(void);
 
 private:
   static int debugrootnotifications;

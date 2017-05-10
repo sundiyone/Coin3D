@@ -157,7 +157,7 @@ soproto_fetchextern_default_cb(SoInput * in,
       // Make sure the stack is really popped on EOF. Popping happens
       // when attempting to read when the current file in the stack is
       // at EOF.
-      SbBool gotchar = in->get(dummy);
+      bool gotchar = in->get(dummy);
       if (gotchar) in->putBack(dummy);
     }
 
@@ -171,7 +171,7 @@ soproto_fetchextern_default_cb(SoInput * in,
 
     SoSearchAction sa;
     sa.setType(SoProto::getClassTypeId());
-    sa.setSearchingAll(TRUE);
+    sa.setSearchingAll(true);
     sa.setInterest(SoSearchAction::ALL);
     sa.apply(root);
 
@@ -260,7 +260,7 @@ SoProto::initClass(void)
 /*!
   Constructor.
 */
-SoProto::SoProto(const SbBool externproto)
+SoProto::SoProto(const bool externproto)
 {
   PRIVATE(this) = new SoProtoP;
   PRIVATE(this)->externurl = NULL;
@@ -354,13 +354,13 @@ SoProto::getProtoName(void) const
 }
 
 // Documented in superclass. Overridden to read Proto definition.
-SbBool
+bool
 SoProto::readInstance(SoInput * in, unsigned short COIN_UNUSED_ARG(flags))
 {
   SbName protoname;
 
   char c;
-  SbBool ok = in->read(protoname, TRUE);
+  bool ok = in->read(protoname, true);
   if (ok) {
     PRIVATE(this)->name = protoname;
     ok = this->readInterface(in);
@@ -381,7 +381,7 @@ SoProto::readInstance(SoInput * in, unsigned short COIN_UNUSED_ARG(flags))
                                                soproto_fetchextern_closure);
       if (proto == NULL) {
         SoReadError::post(in, "Error reading EXTERNPROTO definition.");
-        ok = FALSE;
+        ok = false;
       }
       else {
         ok = this->setupExtern(in, proto);
@@ -411,7 +411,7 @@ SoProto::write(SoWriteAction * action)
   out->pushProto(this);
 
   if (out->getStage() == SoOutput::COUNT_REFS) {
-    this->addWriteReference(out, FALSE);
+    this->addWriteReference(out, false);
     if (PRIVATE(this)->defroot && !PRIVATE(this)->externurl) {
       this->writeDefinition(action);
     }
@@ -478,7 +478,7 @@ SoProto::write(SoWriteAction * action)
 //
 // Writes the PROTO interface
 //
-SbBool
+bool
 SoProto::writeInterface(SoOutput * out)
 {
   const SoFieldData * fd = PRIVATE(this)->fielddata;
@@ -490,10 +490,10 @@ SoProto::writeInterface(SoOutput * out)
       case SoField::NORMAL_FIELD:
       case SoField::EXPOSED_FIELD:
         if (!PRIVATE(this)->externurl) {
-          SbBool fieldwasdefault = f->isDefault();
-          if (fieldwasdefault) f->setDefault(FALSE);
+          bool fieldwasdefault = f->isDefault();
+          if (fieldwasdefault) f->setDefault(false);
           f->write(out, fd->getFieldName(i));
-          if (fieldwasdefault) f->setDefault(TRUE);
+          if (fieldwasdefault) f->setDefault(true);
         }
         break;
       }
@@ -516,10 +516,10 @@ SoProto::writeInterface(SoOutput * out)
         else {
           // field values are tagged as default for proto interface instances,
           // but needs to be written to file anyway -- 20040115 larsa
-          SbBool fieldwasdefault = f->isDefault();
-          if ( fieldwasdefault ) f->setDefault(FALSE);
+          bool fieldwasdefault = f->isDefault();
+          if ( fieldwasdefault ) f->setDefault(false);
           f->write(out, fd->getFieldName(i));
-          if ( fieldwasdefault ) f->setDefault(TRUE);
+          if ( fieldwasdefault ) f->setDefault(true);
         }
         break;
       case SoField::EXPOSED_FIELD:
@@ -531,10 +531,10 @@ SoProto::writeInterface(SoOutput * out)
           out->write("\n");
         }
         else {
-          SbBool fieldwasdefault = f->isDefault();
-          if ( fieldwasdefault ) f->setDefault(FALSE);
+          bool fieldwasdefault = f->isDefault();
+          if ( fieldwasdefault ) f->setDefault(false);
           f->write(out, fd->getFieldName(i));
-          if ( fieldwasdefault ) f->setDefault(TRUE);
+          if ( fieldwasdefault ) f->setDefault(true);
         }
         break;
       case SoField::EVENTIN_FIELD:
@@ -555,13 +555,13 @@ SoProto::writeInterface(SoOutput * out)
       }
     }
   }
-  return TRUE;
+  return true;
 }
 
 //
 // Writes the PROTO definition
 //
-SbBool
+bool
 SoProto::writeDefinition(SoWriteAction * action)
 {
   SoOutput * out = action->getOutput();
@@ -578,10 +578,10 @@ SoProto::writeDefinition(SoWriteAction * action)
     }
   }
   else assert(0 && "unknown stage");
-  return TRUE;
+  return true;
 }
 
-SbBool
+bool
 SoProto::writeURLs(SoOutput * out)
 {
   // We use this code to write the URLs to get nicer indentation. Just
@@ -609,7 +609,7 @@ SoProto::writeURLs(SoOutput * out)
     out->indent();
     out->write("]\n");
   }
-  return TRUE;
+  return true;
 }
 
 /*!
@@ -690,10 +690,10 @@ SoProto::addRoute(const SbName & fromnode, const SbName & fromfield,
 //
 // Reads the interface
 //
-SbBool
+bool
 SoProto::readInterface(SoInput * in)
 {
-  SbBool ok = PRIVATE(this)->fielddata->readFieldDescriptions(in, this, 4, PRIVATE(this)->externurl == NULL);
+  bool ok = PRIVATE(this)->fielddata->readFieldDescriptions(in, this, 4, PRIVATE(this)->externurl == NULL);
   if ( ok ) {
     const int numfields = PRIVATE(this)->fielddata->getNumFields();
     for (int i = 0; i < numfields; i++) {
@@ -701,7 +701,7 @@ SoProto::readInterface(SoInput * in)
       switch ( f->getFieldType() ) {
       case SoField::NORMAL_FIELD:
       case SoField::EXPOSED_FIELD:
-        f->setDefault(TRUE);
+        f->setDefault(true);
       }
     }
   }
@@ -711,10 +711,10 @@ SoProto::readInterface(SoInput * in)
 //
 // Reads the definition
 //
-SbBool
+bool
 SoProto::readDefinition(SoInput * in)
 {
-  SbBool ok = TRUE;
+  bool ok = true;
   SoBase * child;
   in->pushProto(this);
 
@@ -723,7 +723,7 @@ SoProto::readDefinition(SoInput * in)
     if (ok) {
       if (child == NULL) {
         if (in->eof()) {
-          ok = FALSE;
+          ok = false;
           SoReadError::post(in, "Premature end of file");
         }
         break; // finished reading, break out
@@ -743,7 +743,7 @@ soproto_find_node(SoNode * root, SbName name, SoSearchAction & sa)
 {
   sa.setName(name);
   sa.setInterest(SoSearchAction::FIRST);
-  sa.setSearchingAll(TRUE);
+  sa.setSearchingAll(true);
 
   sa.apply(root);
 
@@ -848,7 +848,7 @@ SoProto::createInstanceRoot(SoProtoInstance * inst) const
   else root = PRIVATE(this)->defroot;
 
   SoNode * cpy;
-  cpy = root->copy(FALSE);
+  cpy = root->copy(false);
   cpy->ref();
   this->connectISRefs(inst, root, cpy);
 
@@ -873,12 +873,12 @@ SoProto::createInstanceRoot(SoProtoInstance * inst) const
       }
 
       if (to && (from || output)) {
-        SbBool notnotify = FALSE;
-        SbBool append = FALSE;
+        bool notnotify = false;
+        bool append = false;
         if (output || from->getFieldType() == SoField::EVENTOUT_FIELD) {
-          notnotify = TRUE;
+          notnotify = true;
         }
-        if (to->getFieldType() == SoField::EVENTIN_FIELD) append = TRUE;
+        if (to->getFieldType() == SoField::EVENTIN_FIELD) append = true;
 
         // Check that there exists a field converter, if one is needed.
         SoType totype = to->getTypeId();
@@ -890,7 +890,7 @@ SoProto::createInstanceRoot(SoProtoInstance * inst) const
           }
         }
 
-        SbBool ok;
+        bool ok;
         if (from) ok = to->connectFrom(from, notnotify, append);
         else ok = to->connectFrom(output, notnotify, append);
         // Both known possible failure points are caught above.
@@ -999,10 +999,10 @@ SoProto::connectISRefs(SoProtoInstance * inst, SoNode * src, SoNode * dst) const
       }
     }
 
-    SbBool isprotoinstance = FALSE;
+    bool isprotoinstance = false;
     if (node->isOfType(SoProtoInstance::getClassTypeId())) {
       node = ((SoProtoInstance*) node)->getRootNode();
-      isprotoinstance = TRUE;
+      isprotoinstance = true;
     }
     SbName iname = PRIVATE(this)->isnamelist[i];
 
@@ -1044,7 +1044,7 @@ SoProto::connectISRefs(SoProtoInstance * inst, SoNode * src, SoNode * dst) const
         // instances written to file with the updated values.  The alternative
         // is to have to locate the PROTO instance object yourself, and
         // modify the fields on it directly - 20040115 larsa
-        srcfield->setDefault(FALSE);
+        srcfield->setDefault(false);
         dstfield->connectFrom(srcfield);
 #if 0 // start of problematic code
         // this piece of code causes problems when writing PROTO
@@ -1062,10 +1062,10 @@ SoProto::connectISRefs(SoProtoInstance * inst, SoNode * src, SoNode * dst) const
 
         // propagate value immediately, before setting up reverse connection
         dstfield->evaluate();
-        srcfield->connectFrom(dstfield, FALSE, TRUE);
+        srcfield->connectFrom(dstfield, false, true);
         // propagate value immediately, so we can tag field as default
         srcfield->evaluate();
-        if ( srcisdefault ) srcfield->setDefault(TRUE);
+        if ( srcisdefault ) srcfield->setDefault(true);
 #endif // end of problemetic code
       }
     }
@@ -1090,13 +1090,13 @@ SoProto::connectISRefs(SoProtoInstance * inst, SoNode * src, SoNode * dst) const
   }
 }
 
-SbBool
+bool
 SoProto::setupExtern(SoInput * COIN_UNUSED_ARG(in), SoProto * externproto)
 {
   assert(externproto);
   PRIVATE(this)->extprotonode = externproto;
   PRIVATE(this)->extprotonode->ref();
-  return TRUE;
+  return true;
 }
 
 #undef PRIVATE

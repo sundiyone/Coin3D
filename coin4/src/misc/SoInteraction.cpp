@@ -73,11 +73,11 @@
 
 #include "tidbitsp.h"
 
-static SbBool interaction_isinitialized = FALSE;
+static bool interaction_isinitialized = false;
 
 static void interaction_cleanup(void)
 {
-  interaction_isinitialized = FALSE;
+  interaction_isinitialized = false;
 }
 
 /*!
@@ -149,6 +149,6 @@ SoInteraction::init(void)
   SoTransformerManip::initClass();
 #endif // HAVE_MANIPULATORS
 
-  interaction_isinitialized = TRUE;
+  interaction_isinitialized = true;
   coin_atexit((coin_atexit_f*)interaction_cleanup, CC_ATEXIT_NORMAL);
 }

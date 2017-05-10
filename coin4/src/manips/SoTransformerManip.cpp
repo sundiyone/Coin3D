@@ -81,7 +81,7 @@ SoTransformerManip::SoTransformerManip(void)
   SoTransformerDragger *dragger = new SoTransformerDragger;
   this->setDragger(dragger);
 
-  SoSurroundScale *ss = (SoSurroundScale*) dragger->getPart("surroundScale", TRUE);
+  SoSurroundScale *ss = (SoSurroundScale*) dragger->getPart("surroundScale", true);
   ss->numNodesUpToContainer = 4;
   ss->numNodesUpToReset = 3;
 }
@@ -98,7 +98,7 @@ SoTransformerManip::~SoTransformerManip()
   SoTransformerDragger::isLocateHighlighting() method of the embedded
   dragger. See documentation of that method.
 */
-SbBool
+bool
 SoTransformerManip::isLocateHighlighting(void)
 {
   SoDragger *dragger = this->getDragger();
@@ -109,7 +109,7 @@ SoTransformerManip::isLocateHighlighting(void)
   SoDebugError::postWarning("SoTransformerManip::isLocateHighlighting",
                             "Not a valid dragger in manipulator");
 #endif // debug
-  return FALSE;
+  return false;
 }
 
 /*!
@@ -118,7 +118,7 @@ SoTransformerManip::isLocateHighlighting(void)
   dragger. See documentation of that method.
 */
 void
-SoTransformerManip::setLocateHighlighting(SbBool onoff)
+SoTransformerManip::setLocateHighlighting(bool onoff)
 {
   SoDragger *dragger = this->getDragger();
   if (dragger && dragger->isOfType(SoTransformerDragger::getClassTypeId())) {

@@ -112,13 +112,13 @@ SoLightAttenuationElement::get(SoState * const state)
 
 //! FIXME: write doc.
 
-SbBool
+bool
 SoLightAttenuationElement::matches(const SoElement * element) const
 {
   if (this->lightAttenuation !=
       coin_assert_cast<const SoLightAttenuationElement *>(element)->lightAttenuation)
-    return FALSE;
-  return TRUE;
+    return false;
+  return true;
 }
 
 //! FIXME: write doc.

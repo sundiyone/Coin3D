@@ -52,7 +52,7 @@ public:
 
 protected:
   virtual ~SoScale1Dragger(void);
-  virtual SbBool setUpConnections(SbBool onoff, SbBool doitalways = FALSE);
+  virtual bool setUpConnections(bool onoff, bool doitalways = false);
 
   static void startCB(void * f, SoDragger * d);
   static void motionCB(void * f, SoDragger * d);

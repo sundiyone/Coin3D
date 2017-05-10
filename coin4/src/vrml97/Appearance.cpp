@@ -105,7 +105,7 @@
 class SoVRMLAppearanceP {
 public:
   SoChildList * childlist;
-  SbBool childlistvalid;
+  bool childlistvalid;
 
 #ifdef COIN_THREADSAFE
   SbMutex mutex;
@@ -142,7 +142,7 @@ SoVRMLAppearance::SoVRMLAppearance(void)
   // supply a NULL-pointer as parent, since notifications will be
   // handled by the fields that actually contain the node(s)
   PRIVATE(this)->childlist = new SoChildList(NULL);
-  PRIVATE(this)->childlistvalid = FALSE;
+  PRIVATE(this)->childlistvalid = false;
 
   SO_VRMLNODE_INTERNAL_CONSTRUCTOR(SoVRMLAppearance);
 
@@ -274,7 +274,7 @@ SoVRMLAppearance::getChildren(void) const
     if (!PRIVATE(this)->childlistvalid) {
       SoVRMLAppearance * thisp = (SoVRMLAppearance*) this;
       SoVRMLParent::updateChildList(thisp, *(PRIVATE(thisp)->childlist));
-      PRIVATE(thisp)->childlistvalid = TRUE;
+      PRIVATE(thisp)->childlistvalid = true;
     }
     PRIVATE(this)->unlock();
   }
@@ -287,7 +287,7 @@ SoVRMLAppearance::notify(SoNotList * list)
 {
   SoField * f = list->getLastField();
   if (f && f->getTypeId() == SoSFNode::getClassTypeId()) {
-    PRIVATE(this)->childlistvalid = FALSE;
+    PRIVATE(this)->childlistvalid = false;
   }
   inherited::notify(list);
 }
@@ -295,10 +295,10 @@ SoVRMLAppearance::notify(SoNotList * list)
 // doc in parent
 void
 SoVRMLAppearance::copyContents(const SoFieldContainer * from,
-                               SbBool copyConn)
+                               bool copyConn)
 {
   inherited::copyContents(from, copyConn);
-  PRIVATE(this)->childlistvalid = FALSE;
+  PRIVATE(this)->childlistvalid = false;
   PRIVATE(this)->childlist->truncate(0);
 }
 

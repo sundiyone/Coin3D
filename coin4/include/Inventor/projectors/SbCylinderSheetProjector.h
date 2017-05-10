@@ -32,9 +32,9 @@ class COIN_DLL_API SbCylinderSheetProjector : public SbCylinderProjector {
   typedef SbCylinderProjector inherited;
 
 public:
-  SbCylinderSheetProjector(const SbBool orienttoeye = TRUE);
+  SbCylinderSheetProjector(const bool orienttoeye = true);
   SbCylinderSheetProjector(const SbCylinder & cyl,
-                           const SbBool orienttoeye = TRUE);
+                           const bool orienttoeye = true);
 
   virtual SbProjector * copy(void) const;
   virtual SbVec3f project(const SbVec2f & point);

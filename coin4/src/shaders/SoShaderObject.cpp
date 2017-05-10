@@ -37,7 +37,7 @@
 /*!
   \var SoSFBool SoShaderObject::isActive
 
-  Enabled/disables the shader. Default value is TRUE.
+  Enabled/disables the shader. Default value is true.
 */
 
 /*!
@@ -183,22 +183,22 @@ public:
     for (int i = 0; i < keylist.getLength(); i++) {
       SoGLShaderObject * glshader = NULL;
       (void) this->glshaderobjects.get(keylist[i], glshader);
-      glshader->setParametersDirty(TRUE);
+      glshader->setParametersDirty(true);
     }
   }
 
   SoShaderObject * owner;
   SoShaderObject::SourceType cachedSourceType;
   SbString cachedSourceProgram;
-  SbBool didSetSearchDirectories;
-  SbBool shouldload;
+  bool didSetSearchDirectories;
+  bool shouldload;
   SoNodeSensor *sensor;
 
   void updateParameters(const uint32_t cachecontext, int start, int num);
   void updateAllParameters(const uint32_t cachecontext);
   void updateCoinParameters(const uint32_t cachecontext, SoState * state);
   void updateStateMatrixParameters(const uint32_t cachecontext);
-  SbBool containStateMatrixParameters(void) const;
+  bool containStateMatrixParameters(void) const;
   void setSearchDirectories(const SbStringList & list);
 
 private:
@@ -210,7 +210,7 @@ private:
   void checkType(void); // sets cachedSourceType
   void readSource(void); // sets cachedSourceProgram depending on sourceType
 
-  SbBool isSupported(SoShaderObject::SourceType sourceType, const cc_glglue * glue);
+  bool isSupported(SoShaderObject::SourceType sourceType, const cc_glglue * glue);
 
 #if defined(SOURCE_HINT)
   SbString getSourceHint(void) const;
@@ -239,7 +239,7 @@ SoShaderObject::SoShaderObject(void)
 {
   SO_NODE_INTERNAL_CONSTRUCTOR(SoShaderObject);
 
-  SO_NODE_ADD_FIELD(isActive, (TRUE));
+  SO_NODE_ADD_FIELD(isActive, (true));
 
   SO_NODE_DEFINE_ENUM_VALUE(SourceType, ARB_PROGRAM);
   SO_NODE_DEFINE_ENUM_VALUE(SourceType, CG_PROGRAM);
@@ -252,7 +252,7 @@ SoShaderObject::SoShaderObject(void)
   SO_NODE_ADD_FIELD(sourceProgram, (""));
   SO_NODE_ADD_FIELD(parameter, (NULL));
   this->parameter.setNum(0);
-  this->parameter.setDefault(TRUE);
+  this->parameter.setDefault(true);
 
   PRIVATE(this) = new SoShaderObjectP(this);
 }
@@ -305,13 +305,13 @@ SoShaderObject::search(SoSearchAction * action)
 }
 
 // doc from parent
-SbBool
+bool
 SoShaderObject::readInstance(SoInput * in, unsigned short flags)
 {
   PRIVATE(this)->sensor->detach();
   PRIVATE(this)->deleteGLShaderObjects();
 
-  SbBool ret = inherited::readInstance(in, flags);
+  bool ret = inherited::readInstance(in, flags);
   if (ret) {
     PRIVATE(this)->setSearchDirectories(SoInput::getDirectories());
   }
@@ -361,8 +361,8 @@ SoShaderObjectP::SoShaderObjectP(SoShaderObject * ownerptr)
   this->sensor->attach(ownerptr);
 
   this->cachedSourceType = SoShaderObject::FILENAME;
-  this->didSetSearchDirectories = FALSE;
-  this->shouldload = TRUE;
+  this->didSetSearchDirectories = false;
+  this->shouldload = true;
 
   SoContextHandler::addContextDestructionCallback(context_destruction_cb, this);
 }
@@ -381,7 +381,7 @@ SoShaderObjectP::~SoShaderObjectP()
 void
 SoShaderObjectP::GLRender(SoGLRenderAction * action)
 {
-  SbBool isactive = this->owner->isActive.getValue();
+  bool isactive = this->owner->isActive.getValue();
   if (!isactive) return;
 
   SoState * state = action->getState();
@@ -405,7 +405,7 @@ SoShaderObjectP::GLRender(SoGLRenderAction * action)
     if (this->shouldload) {
       this->checkType(); // set this->cachedSourceType
       this->readSource(); // set this->cachedSourceProgram
-      this->shouldload = FALSE;
+      this->shouldload = false;
     }
     // if file could not be read
     if (this->cachedSourceType == SoShaderObject::FILENAME) return;
@@ -416,7 +416,7 @@ SoShaderObjectP::GLRender(SoGLRenderAction * action)
       case SoShaderObject::ARB_PROGRAM: s = "ARB_PROGRAM"; break;
       case SoShaderObject::CG_PROGRAM: s = "CG_PROGRAM"; break;
       case SoShaderObject::GLSL_PROGRAM: s = "GLSL_PROGRAM"; break;
-      default: assert(FALSE && "unknown shader");
+      default: assert(false && "unknown shader");
       }
       SoDebugError::postWarning("SoShaderObjectP::GLRender",
                                 "%s is not supported", s.getString());
@@ -434,7 +434,7 @@ SoShaderObjectP::GLRender(SoGLRenderAction * action)
       shaderobject = (SoGLShaderObject*) new SoGLSLShaderObject(cachecontext);
       break;
     default:
-      assert(FALSE && "This shouldn't happen!");
+      assert(false && "This shouldn't happen!");
     }
 
     if (this->owner->isOfType(SoVertexShader::getClassTypeId())) {
@@ -547,7 +547,7 @@ SoShaderObjectP::readSource(void)
       }
 
       FILE * f = fopen(fileName.getString(), "rb");
-      SbBool readok = FALSE;
+      bool readok = false;
       if (f) {
         if (fseek(f, 0L, SEEK_END) == 0) {
           const long length = ftell(f);
@@ -557,7 +557,7 @@ SoShaderObjectP::readSource(void)
             if (readlen == (size_t) length) {
               srcstr[length] = '\0';
               this->cachedSourceProgram = srcstr;
-              readok = TRUE;
+              readok = true;
             }
             delete[] srcstr;
           }
@@ -574,7 +574,7 @@ SoShaderObjectP::readSource(void)
   }
 }
 
-SbBool
+bool
 SoShaderObjectP::isSupported(SoShaderObject::SourceType sourceType, const cc_glglue * glue)
 {
   if (this->owner->isOfType(SoVertexShader::getClassTypeId())) {
@@ -589,8 +589,8 @@ SoShaderObjectP::isSupported(SoShaderObject::SourceType sourceType, const cc_glg
     }
     // FIXME: Add support for detecting missing Cg support
     // (20050427 handegar)
-    else if (sourceType == SoShaderObject::CG_PROGRAM) return TRUE;
-    return FALSE;
+    else if (sourceType == SoShaderObject::CG_PROGRAM) return true;
+    return false;
   }
   else if (this->owner->isOfType(SoFragmentShader::getClassTypeId())) {
     // don't call this function. It's not context safe. pederb, 20051103
@@ -604,8 +604,8 @@ SoShaderObjectP::isSupported(SoShaderObject::SourceType sourceType, const cc_glg
     }
     // FIXME: Add support for detecting missing Cg support (20050427
     // handegar)
-    else if (sourceType == SoShaderObject::CG_PROGRAM) return TRUE;
-    return FALSE;
+    else if (sourceType == SoShaderObject::CG_PROGRAM) return true;
+    return false;
   }
   else {
     assert(this->owner->isOfType(SoGeometryShader::getClassTypeId()));
@@ -614,7 +614,7 @@ SoShaderObjectP::isSupported(SoShaderObject::SourceType sourceType, const cc_glg
         SoGLDriverDatabase::isSupported(glue, "GL_EXT_geometry_shader4") &&
         SoGLDriverDatabase::isSupported(glue, SO_GL_ARB_SHADER_OBJECT);
     }
-    return FALSE;
+    return false;
   }
 }
 
@@ -655,25 +655,25 @@ SoShaderObjectP::updateCoinParameters(const uint32_t cachecontext, SoState * sta
       if (name == "coin_texunit0_model") {
         SoMultiTextureImageElement::Model model;
         SbColor dummy;
-        SbBool tex = SoGLMultiTextureImageElement::get(state, model, dummy) != NULL;
+        bool tex = SoGLMultiTextureImageElement::get(state, model, dummy) != NULL;
         shaderobject->updateCoinParameter(state, name, NULL, tex ? model : 0);
       }
       else if (name == "coin_texunit1_model") {
         SoMultiTextureImageElement::Model model;
         SbColor dummy;
-        SbBool tex = SoGLMultiTextureImageElement::get(state, 1, model, dummy) != NULL;
+        bool tex = SoGLMultiTextureImageElement::get(state, 1, model, dummy) != NULL;
         shaderobject->updateCoinParameter(state, name, NULL, tex ? model : 0);
       }
       else if (name == "coin_texunit2_model") {
         SoMultiTextureImageElement::Model model;
         SbColor dummy;
-        SbBool tex = SoGLMultiTextureImageElement::get(state, 2, model, dummy) != NULL;
+        bool tex = SoGLMultiTextureImageElement::get(state, 2, model, dummy) != NULL;
         shaderobject->updateCoinParameter(state, name, NULL, tex ? model : 0);
       }
       else if (name == "coin_texunit3_model") {
         SoMultiTextureImageElement::Model model;
         SbColor dummy;
-        SbBool tex = SoGLMultiTextureImageElement::get(state, 3, model, dummy) != NULL;
+        bool tex = SoGLMultiTextureImageElement::get(state, 3, model, dummy) != NULL;
         shaderobject->updateCoinParameter(state, name, NULL, tex ? model : 0);
       }
       else if (name == "coin_light_model") {
@@ -702,7 +702,7 @@ SoShaderObjectP::updateAllParameters(const uint32_t cachecontext)
       (SoUniformShaderParameter*)this->owner->parameter[i];
     param->updateParameter(shaderobject);
   }
-  shaderobject->setParametersDirty(FALSE);
+  shaderobject->setParametersDirty(false);
 }
 
 // Update state matrix paramaters
@@ -724,17 +724,17 @@ SoShaderObjectP::updateStateMatrixParameters(const uint32_t cachecontext)
 #undef STATE_PARAM
 }
 
-SbBool
+bool
 SoShaderObjectP::containStateMatrixParameters(void) const
 {
 #define STATE_PARAM SoShaderStateMatrixParameter
   int i, cnt = this->owner->parameter.getNum();
   for (i = 0; i < cnt; i++) {
     if (this->owner->parameter[i]->isOfType(STATE_PARAM::getClassTypeId()))
-      return TRUE;
+      return true;
   }
 #undef STATE_PARAM
-  return FALSE;
+  return false;
 }
 
 #if defined(SOURCE_HINT)
@@ -760,7 +760,7 @@ SoShaderObjectP::sensorCB(void *data, SoSensor *sensor)
   if (field == &thisp->owner->sourceProgram ||
       field == &thisp->owner->sourceType) {
     thisp->deleteGLShaderObjects();
-    thisp->shouldload = TRUE;
+    thisp->shouldload = true;
   }
   else if (field == &thisp->owner->parameter) {
     thisp->invalidateParameters();
@@ -781,7 +781,7 @@ SoShaderObjectP::setSearchDirectories(const SbStringList & list)
   for (i = 0; i < list.getLength(); i++) {
     this->searchdirectories.append(new SbString(*(list[i])));
   }
-  this->didSetSearchDirectories = TRUE;
+  this->didSetSearchDirectories = true;
 }
 
 #undef PRIVATE

@@ -54,7 +54,7 @@ protected:
   virtual ~SoShuttle();
 
 private:
-  virtual SoNode * copy(SbBool copyconnections = FALSE) const;
+  virtual SoNode * copy(bool copyconnections = false) const;
   void deconnectInternalEngines(void);
   void reconnectInternalEngines(void);
 

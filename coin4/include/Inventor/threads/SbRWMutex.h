@@ -42,7 +42,7 @@ public:
   int writeLock(void) { 
     return cc_rwmutex_write_lock(this->rwmutex) == CC_OK ? 0 : 1; 
   }
-  SbBool tryWriteLock(void) { 
+  bool tryWriteLock(void) { 
     return cc_rwmutex_write_try_lock(this->rwmutex) == CC_OK; 
   }
   int writeUnlock(void) { 

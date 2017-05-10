@@ -66,15 +66,15 @@ SoInt32Element::~SoInt32Element(void)
 }
 
 // documented in superclass
-SbBool
+bool
 SoInt32Element::matches(const SoElement * element) const
 {
     assert(element);
     if (getTypeId() != element->getTypeId())
-        return FALSE;
+        return false;
     if (coin_assert_cast<const SoInt32Element *>(element)->data != this->data)
-        return FALSE;
-    return TRUE;
+        return false;
+    return true;
 }
 
 // documented in superclass

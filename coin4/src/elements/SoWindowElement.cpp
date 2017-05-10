@@ -106,11 +106,11 @@ SoWindowElement::pop(SoState * state,
 }
 
 // doc in parent
-SbBool
+bool
 SoWindowElement::matches(const SoElement * /* element */) const
 {
   assert(0 && "should never be called.");
-  return TRUE;
+  return true;
 }
 
 // doc in parent

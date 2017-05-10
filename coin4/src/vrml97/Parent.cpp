@@ -70,7 +70,7 @@
 
 class SoVRMLParentP {
 public:
-  SbBool childlistvalid;
+  bool childlistvalid;
   SoFieldSensor * addsensor;
   SoFieldSensor * removesensor;
 
@@ -148,7 +148,7 @@ void
 SoVRMLParent::commonConstructor(void)
 {
   PRIVATE(this) = new SoVRMLParentP;
-  PRIVATE(this)->childlistvalid = FALSE;
+  PRIVATE(this)->childlistvalid = false;
 
   SO_VRMLNODE_INTERNAL_CONSTRUCTOR(SoVRMLParent);
 
@@ -183,10 +183,10 @@ SoVRMLParent::~SoVRMLParent()
 }
 
 // Doc in parent
-SbBool
+bool
 SoVRMLParent::affectsState(void) const
 {
-  return FALSE;
+  return false;
 }
 
 // Doc in parent
@@ -194,7 +194,7 @@ void
 SoVRMLParent::addChild(SoNode * child)
 {
   this->children.addNode(child);
-  PRIVATE(this)->childlistvalid = FALSE;
+  PRIVATE(this)->childlistvalid = false;
 }
 
 // Doc in parent
@@ -202,7 +202,7 @@ void
 SoVRMLParent::insertChild(SoNode * child, int idx)
 {
   this->children.insertNode(child, idx);
-  PRIVATE(this)->childlistvalid = FALSE;
+  PRIVATE(this)->childlistvalid = false;
 }
 
 // Doc in parent
@@ -232,11 +232,11 @@ SoVRMLParent::removeChild(int idx)
 {
   this->children.removeNode(idx);
   if (this->children.getNum() > 0) {
-    PRIVATE(this)->childlistvalid = FALSE;
+    PRIVATE(this)->childlistvalid = false;
   }
   else {
     SoGroup::children->truncate(0);
-    PRIVATE(this)->childlistvalid = TRUE;
+    PRIVATE(this)->childlistvalid = true;
   }
 }
 
@@ -247,11 +247,11 @@ SoVRMLParent::removeChild(SoNode * child)
 {
   this->children.removeNode(child);
   if (this->children.getNum() > 0) {
-    PRIVATE(this)->childlistvalid = FALSE;
+    PRIVATE(this)->childlistvalid = false;
   }
   else {
     SoGroup::children->truncate(0);
-    PRIVATE(this)->childlistvalid = TRUE;
+    PRIVATE(this)->childlistvalid = true;
   }
 }
 
@@ -261,7 +261,7 @@ SoVRMLParent::removeAllChildren(void)
 {
   this->children.removeAllNodes();
   SoGroup::children->truncate(0);
-  PRIVATE(this)->childlistvalid = TRUE;
+  PRIVATE(this)->childlistvalid = true;
 }
 
 // Doc in parent
@@ -269,7 +269,7 @@ void
 SoVRMLParent::replaceChild(int idx, SoNode * child)
 {
   this->children.replaceNode(idx, child);
-  PRIVATE(this)->childlistvalid = FALSE;
+  PRIVATE(this)->childlistvalid = false;
 }
 
 // Doc in parent
@@ -278,7 +278,7 @@ SoVRMLParent::replaceChild(SoNode * old,
                            SoNode * child)
 {
   this->children.replaceNode(old, child);
-  PRIVATE(this)->childlistvalid = FALSE;
+  PRIVATE(this)->childlistvalid = false;
 }
 
 // Doc in parent
@@ -296,7 +296,7 @@ SoVRMLParent::getChildren(void) const
       SoVRMLParent::updateChildList(this->children.getValues(0),
                                     this->children.getNum(),
                                     *SoGroup::children);
-      PRIVATE((SoVRMLParent*)this)->childlistvalid = TRUE;
+      PRIVATE((SoVRMLParent*)this)->childlistvalid = true;
     }
     PRIVATE(this)->unlockChildList();
   }
@@ -323,10 +323,10 @@ SoVRMLParent::write(SoWriteAction * action)
   SoOutput * out = action->getOutput();
 
   if (out->getStage() == SoOutput::COUNT_REFS) {
-    this->addWriteReference(out, FALSE);
+    this->addWriteReference(out, false);
   }
   else if (out->getStage() == SoOutput::WRITE) {
-    if (this->writeHeader(out, FALSE, FALSE)) return;
+    if (this->writeHeader(out, false, false)) return;
     // don't use the standard SoFieldData, since we want the children
     // field to be written last.
     SoFieldData * fd = this->makeWriteData();
@@ -351,29 +351,29 @@ SoVRMLParent::notify(SoNotList * list)
 {
   SoField * f = list->getLastField();
   if (f == &this->children) {
-    PRIVATE(this)->childlistvalid = FALSE;
+    PRIVATE(this)->childlistvalid = false;
   }
   inherited::notify(list);
 }
 
 // Doc in parent
-SbBool
+bool
 SoVRMLParent::readInstance(SoInput * in,
                            unsigned short flags)
 {
-  SbBool oldnot = this->children.enableNotify(FALSE);
+  bool oldnot = this->children.enableNotify(false);
   // call SoNode::readInstance(), not SoGroup::readInstance() since
   // this node stores all children in the children field.
-  SbBool ret = SoNode::readInstance(in, flags);
-  if (oldnot) this->children.enableNotify(TRUE);
-  PRIVATE(this)->childlistvalid = FALSE;
+  bool ret = SoNode::readInstance(in, flags);
+  if (oldnot) this->children.enableNotify(true);
+  PRIVATE(this)->childlistvalid = false;
   return ret;
 }
 
 // Doc in parent
 void
 SoVRMLParent::copyContents(const SoFieldContainer * from,
-                           SbBool copyConn)
+                           bool copyConn)
 {
   SoGroup::children->truncate(0);
   PRIVATE(this)->addsensor->detach();
@@ -381,7 +381,7 @@ SoVRMLParent::copyContents(const SoFieldContainer * from,
   SoNode::copyContents(from, copyConn);
   PRIVATE(this)->addsensor->attach(&this->addChildren);
   PRIVATE(this)->removesensor->attach(&this->removeChildren);
-  PRIVATE(this)->childlistvalid = FALSE;
+  PRIVATE(this)->childlistvalid = false;
 }
 
 /*!
@@ -396,7 +396,7 @@ SoVRMLParent::updateChildList(const SoNode * const * nodes,
                               SoChildList & cl)
 {
   int i;
-  SbBool needcopy = TRUE;
+  bool needcopy = true;
   unsigned int numChildren = cl.getLength();
   if (numChildren && (numnodes == numChildren)) {
     const SoNode ** clarr = (const SoNode**) cl.getArrayPtr();
@@ -411,7 +411,7 @@ SoVRMLParent::updateChildList(const SoNode * const * nodes,
         if (clarr[i] != nodes[i]) break;
       }
     }
-    if (i == numnodes) needcopy = FALSE;
+    if (i == numnodes) needcopy = false;
   }
   if (needcopy) {
     cl.truncate(0);

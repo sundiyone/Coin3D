@@ -144,12 +144,12 @@ SbPlane::offset(const float d)
 /*!
   Find the point on given line \a l intersecting the plane and return
   it in \a intersection. If the line is parallel to the plane,
-  we return \c FALSE, otherwise \c TRUE.
+  we return \c false, otherwise \c true.
 
   Do not pass an invalid line for the \a l parameter (i.e. with a
   null direction vector).
 */
-SbBool
+bool
 SbPlane::intersect(const SbLine& l, SbVec3f& intersection) const
 {
 #if COIN_DEBUG
@@ -165,7 +165,7 @@ SbPlane::intersect(const SbLine& l, SbVec3f& intersection) const
 #endif // COIN_DEBUG
 
   // Check if the line is parallel to the plane.
-  if((l.getDirection()).dot(this->normal) == 0.0f) return FALSE;
+  if((l.getDirection()).dot(this->normal) == 0.0f) return false;
 
   // From the discussion on SbLine::getClosestPoint() we know that
   // any point on the line can be expressed as:
@@ -192,7 +192,7 @@ SbPlane::intersect(const SbLine& l, SbVec3f& intersection) const
 
   intersection = l.getPosition() + t * l.getDirection();
 
-  return TRUE;
+  return true;
 }
 
 /*!
@@ -226,7 +226,7 @@ SbPlane::transform(const SbMatrix& matrix)
   Check if the given point lies in the halfspace of the plane which the
   plane normal vector is pointing.
 */
-SbBool
+bool
 SbPlane::isInHalfSpace(const SbVec3f& point) const
 {
   return this->getDistance(point) >= 0.0f;
@@ -274,8 +274,8 @@ SbPlane::getDistanceFromOrigin(void) const
 
 /*!
   Intersect this plane with \a pl, and return the resulting line in \a
-  line. Returns \c TRUE if an intersection line can be found, and \c
-  FALSE if the planes are parallel.
+  line. Returns \c true if an intersection line can be found, and \c
+  false if the planes are parallel.
 
   Please note that the resulting SbLine must be considered as a
   \e line intersecting the SbLine's origin, extending infinitely in both
@@ -285,7 +285,7 @@ SbPlane::getDistanceFromOrigin(void) const
 
   \since Coin 2.0
 */
-SbBool
+bool
 SbPlane::intersect(const SbPlane & pl, SbLine & line) const
 {
   // Based on code from Graphics Gems III, Plane-to-Plane Intersection
@@ -326,14 +326,14 @@ SbPlane::intersect(const SbPlane & pl, SbLine & line) const
                   pl2n[1] * pl1w - pl1n[1] * pl2w);
   }
   else // xdir is zero, then no point of intersection exists
-    return FALSE;
+    return false;
 
   xpt *= invdet;
   invdet = 1.0f / static_cast<float>(sqrt(dir2[0] + dir2[1] + dir2[2]));
 
   xdir *= invdet;
   line.setPosDir(xpt, xdir);
-  return TRUE;
+  return true;
 }
 
 /*!
@@ -341,12 +341,12 @@ SbPlane::intersect(const SbPlane & pl, SbLine & line) const
 
   Check the two given planes for equality.
 */
-int
-operator ==(const SbPlane& p1, const SbPlane& p2)
+bool
+operator==(const SbPlane& p1, const SbPlane& p2)
 {
   if(p1.getDistanceFromOrigin() == p2.getDistanceFromOrigin() &&
-     p1.getNormal() == p2.getNormal()) return TRUE;
-  return FALSE;
+     p1.getNormal() == p2.getNormal()) return true;
+  return false;
 }
 
 /*!
@@ -354,8 +354,8 @@ operator ==(const SbPlane& p1, const SbPlane& p2)
 
   Check the two given planes for unequality.
 */
-int
-operator !=(const SbPlane& p1, const SbPlane& p2)
+bool
+operator!=(const SbPlane& p1, const SbPlane& p2)
 {
   return !(p1 == p2);
 }

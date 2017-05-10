@@ -46,7 +46,7 @@
 extern "C" {
 #endif
 
-  SbBool cc_flwft_initialize(void);
+  bool cc_flwft_initialize(void);
   void cc_flwft_exit(void);
 
   void * cc_flwft_get_font(const char * fontname, unsigned int pixelsize);

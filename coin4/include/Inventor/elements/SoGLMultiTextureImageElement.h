@@ -65,10 +65,10 @@ public:
     SoGLImage * glimage;
   };
   
-  static SbBool hasTransparency(SoState * state);
+  static bool hasTransparency(SoState * state);
   
  protected:
-  virtual SbBool hasTransparency(const int unit = 0) const;
+  virtual bool hasTransparency(const int unit = 0) const;
   
 private:
   void updateGL(const int unit);

@@ -55,7 +55,7 @@
 */
 SoEngineOutput::SoEngineOutput(void)
 {
-  this->enabled = TRUE;
+  this->enabled = true;
   this->container = NULL;
 }
 
@@ -72,7 +72,7 @@ SoEngineOutput::~SoEngineOutput()
   // would again lead to problems with the pure virtual
   // SoEngine::evaluate() function during destruction of our
   // container).
-  this->enabled = FALSE;
+  this->enabled = false;
 
   // Disconnect all fields.
   SoFieldList fl;
@@ -136,10 +136,10 @@ SoEngineOutput::getForwardConnections(SoFieldList & fl) const
   \sa isEnabled().
 */
 void
-SoEngineOutput::enable(const SbBool flag)
+SoEngineOutput::enable(const bool flag)
 {
   this->enabled = flag;
-  if (flag) this->touchSlaves(NULL, FALSE);
+  if (flag) this->touchSlaves(NULL, false);
 }
 
 /*!
@@ -147,7 +147,7 @@ SoEngineOutput::enable(const SbBool flag)
 
   \sa enable().
 */
-SbBool
+bool
 SoEngineOutput::isEnabled(void) const
 {
   return this->enabled;
@@ -197,14 +197,14 @@ SoEngineOutput::getNodeContainer(void) const
 }
 
 /*!
-  Returns \e TRUE if the container is a NodeEngine.
+  Returns \e true if the container is a NodeEngine.
 
   \COIN_FUNCTION_EXTENSION
 
   \sa getNodeContainer(), getContainer()
   \since Coin 2.0
 */
-SbBool
+bool
 SoEngineOutput::isNodeEngineOutput(void) const
 {
   assert(this->container);
@@ -352,7 +352,7 @@ SoEngineOutput::prepareToWrite(void) const
   for (int i = 0; i < n; i++) {
     SoField * f = this->slaves[i];
     that->fieldnotiflist.append(f->isNotifyEnabled());
-    f->enableNotify(FALSE);
+    f->enableNotify(false);
   }
 }
 
@@ -374,7 +374,7 @@ SoEngineOutput::doneWriting(void) const
   int n = this->slaves.getLength();
   assert(n == this->fieldnotiflist.getLength());
 
-  const SbBool * notifs = this->fieldnotiflist.getArrayPtr();
+  const bool * notifs = this->fieldnotiflist.getArrayPtr();
 
   for (int i = 0; i < n; i++) {
     this->slaves[i]->enableNotify(notifs[i]);
@@ -385,13 +385,13 @@ SoEngineOutput::doneWriting(void) const
   Notify the fields attached to this engine output that the output
   value has changed.
 
-  If \a donotify is \c TRUE, propagate the notification to the
+  If \a donotify is \c true, propagate the notification to the
   fields. Otherwise just mark the fields "dirty" for re-evalution.
 
   Note that this method is not part of the original Open Inventor API.
  */
 void
-SoEngineOutput::touchSlaves(SoNotList * nl, SbBool donotify)
+SoEngineOutput::touchSlaves(SoNotList * nl, bool donotify)
 {
   if (this->isEnabled()) {
     // use a copy of the notification list so that the connections are
@@ -407,7 +407,7 @@ SoEngineOutput::touchSlaves(SoNotList * nl, SbBool donotify)
           listcopy = *nl;
         }
       }
-      else field->setDirty(TRUE);
+      else field->setDirty(true);
     }
   }
 }

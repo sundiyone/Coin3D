@@ -129,7 +129,7 @@
 // Note: the following documentation for readInstance() will also be
 // visible for subclasses, so keep it general.
 /*!
-  \fn SbBool SoBase::readInstance(SoInput * in, unsigned short flags)
+  \fn bool SoBase::readInstance(SoInput * in, unsigned short flags)
 
   This method is mainly intended for internal use during file import
   operations.
@@ -138,10 +138,10 @@
   The input stream state points to the start of a serialized /
   persistant representation of an instance of this class type.
 
-  \c TRUE or \c FALSE is returned, depending on if the instantiation
+  \c true or \c false is returned, depending on if the instantiation
   and configuration of the new object of this class type went ok or
   not.  The import process should be robust and handle corrupted input
-  streams by returning \c FALSE.
+  streams by returning \c false.
 
   \a flags is used internally during binary import when reading user
   extension nodes, group nodes or engines.
@@ -239,7 +239,7 @@ SoBase::~SoBase()
 #if COIN_DEBUG
   if (SoBase::PImpl::trackbaseobjects) {
     CC_MUTEX_LOCK(SoBase::PImpl::allbaseobj_mutex);
-    const SbBool ok = SoBase::PImpl::allbaseobj->erase(this);
+    const bool ok = SoBase::PImpl::allbaseobj->erase(this);
     assert(ok && "something fishy going on in debug object tracking");
     CC_MUTEX_UNLOCK(SoBase::PImpl::allbaseobj_mutex);
   }
@@ -408,7 +408,7 @@ SoBase::cleanClass(void)
   CC_MUTEX_DESTRUCT(SoBase::PImpl::auditor_mutex);
   CC_MUTEX_DESTRUCT(SoBase::PImpl::global_mutex);
 
-  SoBase::PImpl::tracerefs = FALSE;
+  SoBase::PImpl::tracerefs = false;
   SoBase::PImpl::writecounter = 0;
 }
 
@@ -446,7 +446,7 @@ SoBase::assertAlive(void) const
                        "causing premature destruction of a reference "
                        "counted object instance. This check was called "
                        "from a dangling reference to it.", this);
-    assert(FALSE && "SoBase-object no longer alive!");
+    assert(false && "SoBase-object no longer alive!");
   }
 }
 
@@ -488,7 +488,7 @@ SoBase::ref(void) const
     //
     // If we should ever revert this decision, look in Coin-1 for how
     // to handle overflows graciously.
-    assert(FALSE && "reference count overflow");
+    assert(false && "reference count overflow");
   }
 #endif // COIN_DEBUG
 
@@ -590,7 +590,7 @@ SoBase::touch(void)
 }
 
 /*!
-  \brief Returns \c TRUE if the type of this object is either of the
+  \brief Returns \c true if the type of this object is either of the
   same type or inherited from \a type.
 
   This is used for run-time type checking and "downward" casting.
@@ -608,7 +608,7 @@ SoBase::touch(void)
   \endcode
 
  */
-SbBool
+bool
 SoBase::isOfType(SoType type) const
 {
   return this->getTypeId().isDerivedFrom(type);
@@ -639,7 +639,7 @@ SoBase::getName(void) const
   //const char * value = NULL;
   CC_MUTEX_LOCK(SoBase::PImpl::obj2name_mutex);
   SbHash<const SoBase *, const char *>::const_iterator tmp = SoBase::PImpl::obj2name->find(this);
-  SbBool found = (tmp != SoBase::PImpl::obj2name->const_end());
+  bool found = (tmp != SoBase::PImpl::obj2name->const_end());
   CC_MUTEX_UNLOCK(SoBase::PImpl::obj2name_mutex);
   return SbName(found ? tmp->obj : "");
 }
@@ -671,11 +671,11 @@ SoBase::setName(const SbName & newname)
   // un-deallocated SoBase-instances were allocated from. (Ie run it
   // in a debugger and check the backtrace.)  -mortene.
 #if 0 // debug
-  static SbBool checked = FALSE;
+  static bool checked = false;
   static const char * tracename = NULL;
   if (!checked) {
     tracename = coin_getenv("COIN_DEBUG_ASSERT_SOBASE_SETNAME");
-    checked = TRUE;
+    checked = true;
   }
   if (tracename) { assert(newname != tracename); }
 #endif // debug
@@ -691,7 +691,7 @@ SoBase::setName(const SbName & newname)
 
   // check for bad characters
   const char * str = newname.getString();
-  SbBool isbad = !SbName::isBaseNameStartChar(str[0]);
+  bool isbad = !SbName::isBaseNameStartChar(str[0]);
 
   int i;
   const int newnamelen = newname.getLength();
@@ -882,7 +882,7 @@ SoBase::getAuditors(void) const
   count the number of references to this object in the scene graph.
 */
 void
-SoBase::addWriteReference(SoOutput * out, SbBool isfromfield)
+SoBase::addWriteReference(SoOutput * out, bool isfromfield)
 {
   assert(out->getStage() == SoOutput::COUNT_REFS);
 
@@ -901,14 +901,14 @@ SoBase::addWriteReference(SoOutput * out, SbBool isfromfield)
   refcount++;
 
   if (!isfromfield) {
-    SoWriterefCounter::instance(out)->setInGraph(this, TRUE);
+    SoWriterefCounter::instance(out)->setInGraph(this, true);
   }
   SoWriterefCounter::instance(out)->setWriteref(this, refcount);
 }
 
 /*!
-  Returns \c TRUE if this object should be written out during a write action.
-  Will return \c FALSE if no references to this object has been made in the
+  Returns \c true if this object should be written out during a write action.
+  Will return \c false if no references to this object has been made in the
   scene graph.
 
   Note that connections from the fields of fieldcontainer objects is not
@@ -919,7 +919,7 @@ SoBase::addWriteReference(SoOutput * out, SbBool isfromfield)
   This method will return a valid result only during the second pass of
   write actions.
 */
-SbBool
+bool
 SoBase::shouldWrite(void)
 {
   return SoWriterefCounter::instance(NULL)->shouldWrite(this);
@@ -1007,11 +1007,11 @@ SoBase::getNamedBases(const SbName & name, SoBaseList & baselist, SoType type)
   it is derived from \a expectedtype and place a pointer to the newly
   allocated instance in \a base.
 
-  \c FALSE is returned on read errors, mismatch with the \a
+  \c false is returned on read errors, mismatch with the \a
   expectedtype, or if there are attempts at referencing (through the
   \c USE keyword) unknown instances.
 
-  If we return \c TRUE with \a base equal to \c NULL, three things
+  If we return \c true with \a base equal to \c NULL, three things
   might have happened:
 
   1. End-of-file. Use SoInput::eof() after calling this method to
@@ -1026,11 +1026,11 @@ SoBase::getNamedBases(const SbName & name, SoBaseList & baselist, SoType type)
   reading the contents of SoSFNode fields (note that NULL is not
   allowed for SoMFNode)
 
-  If \c TRUE is returned and \a base is not \c NULL upon return, the
+  If \c true is returned and \a base is not \c NULL upon return, the
   instance was allocated and initialized according to what was read
   from the \a in stream.
 */
-SbBool
+bool
 SoBase::read(SoInput * in, SoBase *& base, SoType expectedtype)
 {
   // FIXME: the interface design for this function is goddamn _awful_!
@@ -1059,14 +1059,14 @@ SoBase::read(SoInput * in, SoBase *& base, SoType expectedtype)
   base = NULL;
 
   SbName name;
-  SbBool result = in->read(name, TRUE);
+  bool result = in->read(name, true);
 
 #if COIN_DEBUG
   if (SoInputP::debug()) {
     // This output is extremely useful when debugging the import code.
     SoDebugError::postInfo("SoBase::read",
-                           "SoInput::read(&name, TRUE) => returns %s, name=='%s'",
-                           result ? "TRUE" : "FALSE", name.getString());
+                           "SoInput::read(&name, true) => returns %s, name=='%s'",
+                           result ? "true" : "false", name.getString());
   }
 #endif // COIN_DEBUG
 
@@ -1076,20 +1076,20 @@ SoBase::read(SoInput * in, SoBase *& base, SoType expectedtype)
   while (result && name == PImpl::ROUTE_KEYWORD) {
     result = SoBase::readRoute(in);
     // read next ROUTE keyword
-    if (result) result = in->read(name, TRUE);
-    else return FALSE; // error while reading ROUTE
+    if (result) result = in->read(name, true);
+    else return false; // error while reading ROUTE
   }
 
   // The SoInput stream does not start with a valid base name. Return
-  // TRUE with base==NULL.
-  if (!result) return TRUE;
+  // true with base==NULL.
+  if (!result) return true;
 
   // If no valid name / identifier string is found, the return value
-  // from SbInput::read(SbName&,TRUE) _should_ also be FALSE.
+  // from SbInput::read(SbName&,true) _should_ also be false.
   assert(name != "");
 
   if (name == PImpl::USE_KEYWORD) result = SoBase::PImpl::readReference(in, base);
-  else if (name == PImpl::NULL_KEYWORD) return TRUE;
+  else if (name == PImpl::NULL_KEYWORD) return true;
   else result = SoBase::PImpl::readBase(in, name, base);
 
   // Check type correctness.
@@ -1103,7 +1103,7 @@ SoBase::read(SoInput * in, SoBase *& base, SoType expectedtype)
       SoReadError::post(in, "Type '%s' is not derived from '%s'",
                         type.getName().getString(),
                         expectedtype.getName().getString());
-      result = FALSE;
+      result = false;
     }
   }
 
@@ -1116,7 +1116,7 @@ SoBase::read(SoInput * in, SoBase *& base, SoType expectedtype)
 #if COIN_DEBUG
   if (SoInputP::debug()) {
     SoDebugError::postInfo("SoBase::read", "done, name=='%s' baseptr==%p, result==%s",
-                           name.getString(), base, result ? "TRUE" : "FALSE");
+                           name.getString(), base, result ? "true" : "false");
   }
 #endif // COIN_DEBUG
 
@@ -1140,7 +1140,7 @@ SoBase::setInstancePrefix(const SbString & c)
 }
 
 /*!
-  Set to \c TRUE to activate debugging of reference counting, which
+  Set to \c true to activate debugging of reference counting, which
   could aid in finding hard to track down problems with accesses to
   freed memory or memory leaks. Note: this will produce lots of
   debug information in any "normal" running system, so use sensibly.
@@ -1149,7 +1149,7 @@ SoBase::setInstancePrefix(const SbString & c)
   versions" of the Coin library.
  */
 void
-SoBase::setTraceRefs(SbBool trace)
+SoBase::setTraceRefs(bool trace)
 {
   SoBase::PImpl::tracerefs = trace;
 }
@@ -1159,18 +1159,18 @@ SoBase::setTraceRefs(SbBool trace)
 
   \sa setTraceRefs()
  */
-SbBool
+bool
 SoBase::getTraceRefs(void)
 {
   return SoBase::PImpl::tracerefs;
 }
 
 /*!
-  Returns \c TRUE if this object will be written more than once upon
+  Returns \c true if this object will be written more than once upon
   export. Note that the result from this method is only valid during the
   second pass of a write action (and partly during the COUNT_REFS pass).
  */
-SbBool
+bool
 SoBase::hasMultipleWriteRefs(void) const
 {
   return SoWriterefCounter::instance(NULL)->getWriteref(this) > 1;
@@ -1192,15 +1192,15 @@ extern SbString SoOutput_getHeaderString(const SoOutputP * out);
 
   If the object has been completed just by writing the header (which will
   be the case if we're writing multiple references of an object),
-  we return \c TRUE, otherwise \c FALSE.
+  we return \c true, otherwise \c false.
 
-  If we return \c FALSE (i.e. there's more to write), we will
+  If we return \c false (i.e. there's more to write), we will
   increment the indentation level.
 
   \sa writeFooter(), SoOutput::indent()
  */
-SbBool
-SoBase::writeHeader(SoOutput * out, SbBool isgroup, SbBool isengine) const
+bool
+SoBase::writeHeader(SoOutput * out, bool isgroup, bool isengine) const
 {
   if (!out->isBinary()) {
     out->write(PImpl::END_OF_LINE);
@@ -1209,8 +1209,8 @@ SoBase::writeHeader(SoOutput * out, SbBool isgroup, SbBool isengine) const
 
   SbName name = this->getName();
   int refid = out->findReference(this);
-  SbBool firstwrite = (refid == SoWriterefCounter::FIRSTWRITE);
-  SbBool multiref = SoWriterefCounter::instance(out)->hasMultipleWriteRefs(this);
+  bool firstwrite = (refid == SoWriterefCounter::FIRSTWRITE);
+  bool multiref = SoWriterefCounter::instance(out)->hasMultipleWriteRefs(this);
   SbName writename = SoWriterefCounter::instance(out)->getWriteName(this);
 
   // Write the node
@@ -1304,7 +1304,7 @@ SoBase::writeHeader(SoOutput * out, SbBool isgroup, SbBool isengine) const
 
   // Don't need to write out the rest if we are writing anything but
   // the first instance.
-  return (firstwrite == FALSE);
+  return (firstwrite == false);
 }
 
 /*!
@@ -1366,7 +1366,7 @@ SoBase::getCurrentWriteCounter(void)
 
   \since Coin 2.0
 */
-SbBool
+bool
 SoBase::connectRoute(SoInput * COIN_UNUSED_ARG(in),
                      const SbName & fromnodename, const SbName & fromfieldname,
                      const SbName & tonodename, const SbName & tofieldname)
@@ -1376,9 +1376,9 @@ SoBase::connectRoute(SoInput * COIN_UNUSED_ARG(in),
   if (fromnode && tonode) {
     SoDB::createRoute(fromnode, fromfieldname.getString(),
                       tonode, tofieldname.getString());
-    return TRUE;
+    return true;
   }
-  return FALSE;
+  return false;
 }
 
 /*!
@@ -1389,7 +1389,7 @@ SoBase::connectRoute(SoInput * COIN_UNUSED_ARG(in),
   up field connections inside the nodes.
 
 */
-SbBool
+bool
 SoBase::readRoute(SoInput * in)
 {
   SbString fromstring, tostring;
@@ -1399,7 +1399,7 @@ SoBase::readRoute(SoInput * in)
   SbName toname;
   SbName tonodename;
   SbName tofieldname;
-  SbBool ok;
+  bool ok;
 
   ok =
     in->read(fromstring) &&
@@ -1409,7 +1409,7 @@ SoBase::readRoute(SoInput * in)
   if (ok) ok = (toname == SbName("TO"));
 
   if (ok) {
-    ok = FALSE;
+    ok = false;
 
     // parse from-string
     char * str1 = (char*) fromstring.getString();
@@ -1427,7 +1427,7 @@ SoBase::readRoute(SoInput * in)
         tonodename = str1;
         tofieldname = str2;
 
-        ok = TRUE;
+        ok = true;
       }
     }
   }
@@ -1570,7 +1570,7 @@ SoBase::createNotRec(void)
 //
 // If function is copied from SoWriterefCounter.cpp as pricate classes cannot be called from the test suite
 //
-  static SbBool
+  static bool
 dont_mangle_output_names(const SoBase *base)
 {
   static int COIN_DONT_MANGLE_OUTPUT_NAMES = -1;
@@ -1578,14 +1578,14 @@ dont_mangle_output_names(const SoBase *base)
   // Always unmangle node names in VRML1 and VRML2
   if (base->isOfType(SoNode::getClassTypeId()) &&
       (((SoNode *)base)->getNodeType()==SoNode::VRML1 ||
-     ((SoNode *)base)->getNodeType()==SoNode::VRML2)) return TRUE;
+     ((SoNode *)base)->getNodeType()==SoNode::VRML2)) return true;
 
   if (COIN_DONT_MANGLE_OUTPUT_NAMES < 0) {
     COIN_DONT_MANGLE_OUTPUT_NAMES = 0;
     const char * env = coin_getenv("COIN_DONT_MANGLE_OUTPUT_NAMES");
     if (env) COIN_DONT_MANGLE_OUTPUT_NAMES = atoi(env);
   }
-  return COIN_DONT_MANGLE_OUTPUT_NAMES ? TRUE : FALSE;
+  return COIN_DONT_MANGLE_OUTPUT_NAMES ? true : false;
 }
 
   static void *
@@ -1757,9 +1757,9 @@ DEF root Separator {
 
 	   SbList<SbString> node_names(15);
 	   if(j==1)
-		BOOST_CHECK_MESSAGE(dont_mangle_output_names(scenegraph)==TRUE,"don't mangel should be TRUE");
+		BOOST_CHECK_MESSAGE(dont_mangle_output_names(scenegraph)==true,"don't mangel should be true");
 	   else
-		BOOST_CHECK_MESSAGE(dont_mangle_output_names(scenegraph)==FALSE,"don't mangle should be FALSE");
+		BOOST_CHECK_MESSAGE(dont_mangle_output_names(scenegraph)==false,"don't mangle should be false");
 
 	   if(dont_mangle_output_names(scenegraph)) {
 		   node_names.append("_+0");
@@ -1795,7 +1795,7 @@ DEF root Separator {
 	   }
    
 	   int list_index = 0;
-	   SbBool fail = false;
+	   bool fail = false;
 	   ss = s;
 	   for(int i=0;i<node_names.getLength();i++) {
 		   pos = ss.find(node_names[i]);

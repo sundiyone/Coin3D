@@ -138,13 +138,13 @@ public:
   SbLineProjector * lineProj;
 
   int whatkind;
-  SbBool animationEnabled;
+  bool animationEnabled;
   SbVec2f prevMousePos;
   SbTime prevTime;
   SbTime animTime;
   SbVec3f animAxis;
   float animAngle;
-  SbBool hasDragged;
+  bool hasDragged;
   SbMatrix prevMotionMatrix;
   SbVec3f prevWorldHitPt;
   SoTimerSensor * timerSensor;
@@ -262,27 +262,27 @@ SoTrackballDragger::SoTrackballDragger(void)
 
   SO_KIT_INTERNAL_CONSTRUCTOR(SoTrackballDragger);
 
-  SO_KIT_ADD_CATALOG_ENTRY(surroundScale, SoSurroundScale, TRUE, topSeparator, antiSquish, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(antiSquish, SoAntiSquish, FALSE, topSeparator, geomSeparator, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(rotatorSwitch, SoSwitch, TRUE, geomSeparator, XRotatorSwitch, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(rotator, SoSeparator, TRUE, rotatorSwitch, rotatorActive, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(rotatorActive, SoSeparator, TRUE, rotatorSwitch, "", TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(XRotatorSwitch, SoSwitch, TRUE, geomSeparator, YRotatorSwitch, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(XRotator, SoSeparator, TRUE, XRotatorSwitch, XRotatorActive, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(XRotatorActive, SoSeparator, TRUE, XRotatorSwitch, "", TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(YRotatorSwitch, SoSwitch, TRUE, geomSeparator, ZRotatorSwitch, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(YRotator, SoSeparator, TRUE, YRotatorSwitch, YRotatorActive, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(YRotatorActive, SoSeparator, TRUE, YRotatorSwitch, "", TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(ZRotatorSwitch, SoSwitch, TRUE, geomSeparator, userAxisRotation, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(ZRotator, SoSeparator, TRUE, ZRotatorSwitch, ZRotatorActive, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(ZRotatorActive, SoSeparator, TRUE, ZRotatorSwitch, "", TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(userAxisRotation, SoRotation, TRUE, geomSeparator, userAxisSwitch, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(userAxisSwitch, SoSwitch, TRUE, geomSeparator, userRotatorSwitch, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(userAxis, SoSeparator, TRUE, userAxisSwitch, userAxisActive, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(userAxisActive, SoSeparator, TRUE, userAxisSwitch, "", TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(userRotatorSwitch, SoSwitch, TRUE, geomSeparator, "", FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(userRotator, SoSeparator, TRUE, userRotatorSwitch, userRotatorActive, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(userRotatorActive, SoSeparator, TRUE, userRotatorSwitch, "", TRUE);
+  SO_KIT_ADD_CATALOG_ENTRY(surroundScale, SoSurroundScale, true, topSeparator, antiSquish, true);
+  SO_KIT_ADD_CATALOG_ENTRY(antiSquish, SoAntiSquish, false, topSeparator, geomSeparator, true);
+  SO_KIT_ADD_CATALOG_ENTRY(rotatorSwitch, SoSwitch, true, geomSeparator, XRotatorSwitch, false);
+  SO_KIT_ADD_CATALOG_ENTRY(rotator, SoSeparator, true, rotatorSwitch, rotatorActive, true);
+  SO_KIT_ADD_CATALOG_ENTRY(rotatorActive, SoSeparator, true, rotatorSwitch, "", true);
+  SO_KIT_ADD_CATALOG_ENTRY(XRotatorSwitch, SoSwitch, true, geomSeparator, YRotatorSwitch, false);
+  SO_KIT_ADD_CATALOG_ENTRY(XRotator, SoSeparator, true, XRotatorSwitch, XRotatorActive, true);
+  SO_KIT_ADD_CATALOG_ENTRY(XRotatorActive, SoSeparator, true, XRotatorSwitch, "", true);
+  SO_KIT_ADD_CATALOG_ENTRY(YRotatorSwitch, SoSwitch, true, geomSeparator, ZRotatorSwitch, false);
+  SO_KIT_ADD_CATALOG_ENTRY(YRotator, SoSeparator, true, YRotatorSwitch, YRotatorActive, true);
+  SO_KIT_ADD_CATALOG_ENTRY(YRotatorActive, SoSeparator, true, YRotatorSwitch, "", true);
+  SO_KIT_ADD_CATALOG_ENTRY(ZRotatorSwitch, SoSwitch, true, geomSeparator, userAxisRotation, false);
+  SO_KIT_ADD_CATALOG_ENTRY(ZRotator, SoSeparator, true, ZRotatorSwitch, ZRotatorActive, true);
+  SO_KIT_ADD_CATALOG_ENTRY(ZRotatorActive, SoSeparator, true, ZRotatorSwitch, "", true);
+  SO_KIT_ADD_CATALOG_ENTRY(userAxisRotation, SoRotation, true, geomSeparator, userAxisSwitch, false);
+  SO_KIT_ADD_CATALOG_ENTRY(userAxisSwitch, SoSwitch, true, geomSeparator, userRotatorSwitch, false);
+  SO_KIT_ADD_CATALOG_ENTRY(userAxis, SoSeparator, true, userAxisSwitch, userAxisActive, true);
+  SO_KIT_ADD_CATALOG_ENTRY(userAxisActive, SoSeparator, true, userAxisSwitch, "", true);
+  SO_KIT_ADD_CATALOG_ENTRY(userRotatorSwitch, SoSwitch, true, geomSeparator, "", false);
+  SO_KIT_ADD_CATALOG_ENTRY(userRotator, SoSeparator, true, userRotatorSwitch, userRotatorActive, true);
+  SO_KIT_ADD_CATALOG_ENTRY(userRotatorActive, SoSeparator, true, userRotatorSwitch, "", true);
 
   if (SO_KIT_IS_FIRST_INSTANCE()) {
     SoInteractionKit::readDefaultParts("trackballDragger.iv",
@@ -311,13 +311,13 @@ SoTrackballDragger::SoTrackballDragger(void)
   SoAntiSquish *squish = SO_GET_ANY_PART(this, "antiSquish", SoAntiSquish);
   squish->sizing = SoAntiSquish::LONGEST_DIAGONAL;
 
-  PRIVATE(this)->animationEnabled = TRUE;
+  PRIVATE(this)->animationEnabled = true;
   PRIVATE(this)->whatkind = WHATKIND_NONE;
   PRIVATE(this)->sphereProj = new SbSpherePlaneProjector;
   PRIVATE(this)->cylProj = new SbCylinderPlaneProjector;
   PRIVATE(this)->lineProj = new SbLineProjector();
 
-  this->setAllPartsActive(FALSE);
+  this->setAllPartsActive(false);
   this->updateUserAxisSwitches();
 
 
@@ -334,7 +334,7 @@ SoTrackballDragger::SoTrackballDragger(void)
 
   PRIVATE(this)->timerSensor = new SoTimerSensor(SoTrackballDragger::timerSensorCB, this);
 
-  this->setUpConnections(TRUE, TRUE);
+  this->setUpConnections(true, true);
 }
 
 /*!
@@ -355,8 +355,8 @@ SoTrackballDragger::~SoTrackballDragger()
 }
 
 // Doc in superclass.
-SbBool
-SoTrackballDragger::setUpConnections(SbBool onoff, SbBool doitalways)
+bool
+SoTrackballDragger::setUpConnections(bool onoff, bool doitalways)
 {
   if (!doitalways && this->connectionsSetUp == onoff) return onoff;
 
@@ -388,17 +388,17 @@ SoTrackballDragger::setUpConnections(SbBool onoff, SbBool doitalways)
 void
 SoTrackballDragger::setDefaultOnNonWritingFields(void)
 {
-  this->antiSquish.setDefault(TRUE);
-  this->surroundScale.setDefault(TRUE);
+  this->antiSquish.setDefault(true);
+  this->surroundScale.setDefault(true);
 
-  SoRotation * rot = coin_safe_cast<SoRotation *>(this->getAnyPart("userAxisRotation", FALSE));
+  SoRotation * rot = coin_safe_cast<SoRotation *>(this->getAnyPart("userAxisRotation", false));
   if (rot && rot->rotation.getValue() == SbRotation::identity()) {
-    this->userAxisRotation.setDefault(TRUE);
+    this->userAxisRotation.setDefault(true);
   }
 
   SoSwitch * sw = coin_safe_cast<SoSwitch *>(this->userAxisSwitch.getValue());
   if (sw && sw->whichChild.getValue() == SO_SWITCH_NONE)
-    this->userAxisSwitch.setDefault(TRUE);
+    this->userAxisSwitch.setDefault(true);
 
   inherited::setDefaultOnNonWritingFields();
 }
@@ -439,10 +439,10 @@ SoTrackballDragger::valueChangedCB(void *, SoDragger * d)
   quick drag-and-release.
 
   Note: this feature is not supported yet in the Coin library, so even
-  though if \c TRUE is returned, spin animations will not be possible
+  though if \c true is returned, spin animations will not be possible
   to trigger.
 */
-SbBool
+bool
 SoTrackballDragger::isAnimationEnabled(void)
 {
   return PRIVATE(this)->animationEnabled;
@@ -455,7 +455,7 @@ SoTrackballDragger::isAnimationEnabled(void)
   Note: this feature is not supported yet in the Coin library.
 */
 void
-SoTrackballDragger::setAnimationEnabled(SbBool newval)
+SoTrackballDragger::setAnimationEnabled(bool newval)
 {
   PRIVATE(this)->animationEnabled = newval;
 }
@@ -471,7 +471,7 @@ static void
 SoTrackballDragger_invalidate_surroundscale(SoBaseKit * kit)
 {
   SoSurroundScale * ss = coin_safe_cast<SoSurroundScale *>(
-    kit->getPart("surroundScale", FALSE)
+    kit->getPart("surroundScale", false)
     );
   if (ss) ss->invalidate();
 }
@@ -494,18 +494,18 @@ SoTrackballDragger::dragStart(void)
 
   if (event->wasCtrlDown()) {
     PRIVATE(this)->whatkind = WHATKIND_SCALE;
-    this->setAllPartsActive(TRUE);
+    this->setAllPartsActive(true);
   }
   else if (event->wasShiftDown()) {
     PRIVATE(this)->whatkind = WHATKIND_USERAXIS;
-    this->updateUserAxisSwitches(TRUE);
+    this->updateUserAxisSwitches(true);
   }
 
   SbVec3f axis(0.0f, 1.0f, 0.0f);
   if (!PRIVATE(this)->whatkind && (pickpath->findNode(this->getNodeFieldNode("rotator")) >= 0 ||
                           this->getSurrogatePartPickedName() == "rotator")) {
     PRIVATE(this)->whatkind = WHATKIND_ROTATOR;
-    this->setAllPartsActive(TRUE);
+    this->setAllPartsActive(true);
   }
   if (!PRIVATE(this)->whatkind && (pickpath->findNode(this->getNodeFieldNode("XRotator")) >= 0 ||
                           this->getSurrogatePartPickedName() == "XRotator")) {
@@ -568,10 +568,10 @@ SoTrackballDragger::dragStart(void)
       PRIVATE(this)->sphereProj->setWorkingSpace(wk2ws);
       switch (this->getFrontOnProjector()) {
       case FRONT:
-        PRIVATE(this)->sphereProj->setFront(TRUE);
+        PRIVATE(this)->sphereProj->setFront(true);
         break;
       case BACK:
-        PRIVATE(this)->sphereProj->setFront(TRUE);
+        PRIVATE(this)->sphereProj->setFront(true);
         break;
       default: // avoid warnings
       case USE_PICK:
@@ -602,7 +602,7 @@ SoTrackballDragger::dragStart(void)
   }
   PRIVATE(this)->prevTime = get_current_time();
   PRIVATE(this)->prevMousePos = this->getNormalizedLocaterPosition();
-  PRIVATE(this)->hasDragged = FALSE;
+  PRIVATE(this)->hasDragged = false;
 }
 
 /*! \COININTERNAL
@@ -611,7 +611,7 @@ SoTrackballDragger::dragStart(void)
 void
 SoTrackballDragger::drag(void)
 {
-  PRIVATE(this)->hasDragged = TRUE;
+  PRIVATE(this)->hasDragged = true;
 
   SbMatrix wk2ws, ws2wk, loc2wk, wk2loc;
   PRIVATE(this)->getSpaceMatrices(ws2wk, wk2ws, loc2wk, wk2loc);
@@ -691,7 +691,7 @@ void
 SoTrackballDragger::dragFinish(void)
 {
   PRIVATE(this)->whatkind = WHATKIND_NONE;
-  this->setAllPartsActive(FALSE);
+  this->setAllPartsActive(false);
   this->updateUserAxisSwitches();
 
   if (PRIVATE(this)->hasDragged &&
@@ -752,13 +752,13 @@ SoTrackballDragger::timerSensorCB(void *d, SoSensor *)
 }
 
 /*!
-  If the input argument is \c TRUE, all the geometry parts of the
+  If the input argument is \c true, all the geometry parts of the
   dragger will become highligthed, as when active.
 
   Used internally during scaling operations and free-form rotations.
 */
 void
-SoTrackballDragger::setAllPartsActive(SbBool onoroff)
+SoTrackballDragger::setAllPartsActive(bool onoroff)
 {
   SoSwitch *sw;
   int val = onoroff ? 1 : 0;
@@ -817,7 +817,7 @@ SoTrackballDragger::getNodeFieldNode(const char *fieldname)
 
 // private
 void
-SoTrackballDragger::updateUserAxisSwitches(const SbBool setactive)
+SoTrackballDragger::updateUserAxisSwitches(const bool setactive)
 {
   SoSwitch *sw;
   int val = setactive ? 1 : 0;

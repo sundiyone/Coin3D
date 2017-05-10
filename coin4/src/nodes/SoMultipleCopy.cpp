@@ -148,7 +148,7 @@ SoMultipleCopy::getBoundingBox(SoGetBoundingBoxAction * action)
 
   if (numCenters != 0) {
     action->resetCenter();
-    action->setCenter(acccenter / float(numCenters), TRUE);
+    action->setCenter(acccenter / float(numCenters), true);
   }
 }
 
@@ -167,11 +167,11 @@ SoMultipleCopy::audioRender(SoAudioRenderAction * action)
 }
 
 // Doc in superclass.
-SbBool
+bool
 SoMultipleCopy::affectsState(void) const
 {
   // state is pushed/popped for each traversal
-  return FALSE;
+  return false;
 }
 
 // Doc in superclass.

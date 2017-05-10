@@ -62,7 +62,7 @@ protected:
   virtual ~SoRotationXYZ();
 
 private:
-  SbBool getVector(SbVec3f & rotvec) const;
+  bool getVector(SbVec3f & rotvec) const;
 };
 
 #endif // !COIN_SOROTATIONXYZ_H

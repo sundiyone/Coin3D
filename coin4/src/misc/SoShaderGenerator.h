@@ -38,13 +38,13 @@ public:
   SoShaderGenerator(void);
   ~SoShaderGenerator();
 
-  void reset(const SbBool freeoldstrings);
+  void reset(const bool freeoldstrings);
 
   void setVersion(const SbString & str);
-  void addDefine(const SbString & str, const SbBool checkexists);
-  void addDeclaration(const SbString & str, const SbBool checkexists);
-  void addFunction(const SbString & str, const SbBool checkexists);
-  void addNamedFunction(const SbName & name, const SbBool checkexists);
+  void addDefine(const SbString & str, const bool checkexists);
+  void addDeclaration(const SbString & str, const bool checkexists);
+  void addFunction(const SbString & str, const bool checkexists);
+  void addNamedFunction(const SbName & name, const bool checkexists);
   
   void addMainStatement(const SbString & str);
 
@@ -57,7 +57,7 @@ private:
   SbString functions;
   SbString main;
   
-  SbBool dirty;
+  bool dirty;
   SbString combined;
 };
 

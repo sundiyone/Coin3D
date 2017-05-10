@@ -51,8 +51,8 @@
 SoTimerSensor::SoTimerSensor(void)
 {
   this->interval.setValue(1.0f/30.0f);
-  this->setbasetime = FALSE;
-  this->istriggering = FALSE;
+  this->setbasetime = false;
+  this->istriggering = false;
 }
 
 /*!
@@ -65,8 +65,8 @@ SoTimerSensor::SoTimerSensor(SoSensorCB * func, void * data)
   : inherited(func, data)
 {
   this->interval.setValue(1.0f/30.0f);
-  this->setbasetime = FALSE;
-  this->istriggering = FALSE;
+  this->setbasetime = false;
+  this->istriggering = false;
 }
 
 /*!
@@ -96,7 +96,7 @@ SoTimerSensor::setBaseTime(const SbTime & baseref)
   //FIXME: There is some humbug when setting baseTime to 0. Probably a
   //floating point precision thing. Investigate. wiesener 20100810
   this->base = baseref;
-  this->setbasetime = TRUE;
+  this->setbasetime = true;
 }
 
 /*!
@@ -139,8 +139,8 @@ SoTimerSensor::getInterval(void) const
 void
 SoTimerSensor::reschedule(const SbTime & schedtime)
 {
-  this->scheduled = FALSE;
-  this->istriggering = FALSE;
+  this->scheduled = false;
+  this->istriggering = false;
 
   if (!this->setbasetime) {
     this->base = schedtime;
@@ -223,15 +223,15 @@ SoTimerSensor::unschedule(void)
   if (!this->isScheduled()) {
     SoDebugError::postWarning("SoTimerSensor::unschedule",
                               "%p not scheduled (istriggering=%s)",
-                              this, this->istriggering ? "TRUE" : "FALSE");
+                              this, this->istriggering ? "true" : "false");
     return;
   }
 #endif // COIN_DEBUG
 
   if (this->istriggering) {
     SoDB::getSensorManager()->removeRescheduledTimer(this);
-    this->scheduled = FALSE;
-    this->istriggering = FALSE;
+    this->scheduled = false;
+    this->istriggering = false;
   }
   else inherited::unschedule();
 
@@ -251,7 +251,7 @@ SoTimerSensor::trigger(void)
   SoDebugError::postInfo("SoTimerSensor::trigger", "%p start", this);
 #endif // debug
 
-  this->istriggering = TRUE;
+  this->istriggering = true;
   // This will cause SoSceneManager to reschedule this timer after
   // the current queue has been processed.
   SoDB::getSensorManager()->rescheduleTimer(this);

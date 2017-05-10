@@ -39,7 +39,7 @@ public:
   void setStateId(const char * stateid);
   const char * getStateId(void) const { return this->stateid; }
 
-  SbBool evaluate(ScXMLStateMachine * statemachine) const;
+  bool evaluate(ScXMLStateMachine * statemachine) const;
 
 protected:
   char * stateid;

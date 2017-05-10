@@ -130,7 +130,7 @@ coin_GetVersionEx(LPOSVERSIONINFO osvi)
   r = GetVersionEx(osvi);
   if (!r) {
     cc_win32_print_error("coin_GetVersionEx", "GetVersionEx()", GetLastError());
-    assert(FALSE && "unexpected GetVersionEx() failure");
+    assert(false && "unexpected GetVersionEx() failure");
   }
 }
 
@@ -184,7 +184,7 @@ coin_GetTextFace(HDC hdc, /* handle to device context */
                       "GetTextFace(hdc==%p, nCount==%d, lpFaceName==%p)",
                       hdc, nCount, lpFaceName);
     cc_win32_print_error("coin_GetTextFace", cc_string_get_text(&apicall), err);
-    assert(FALSE && "unexpected error");
+    assert(false && "unexpected error");
     cc_string_clean(&apicall);
   }
 
@@ -199,7 +199,7 @@ coin_LocalFree(HLOCAL hMem) /* handle to local memory object */
   const HLOCAL ptr = LocalFree(hMem);
   if (ptr != NULL) {
     cc_win32_print_error("coin_LocalFree", "LocalFree()", GetLastError());
-    assert(FALSE && "unexpected error");
+    assert(false && "unexpected error");
   }
 }
 
@@ -212,7 +212,7 @@ coin_SelectObject(HDC hdc, HGDIOBJ hgdiobj)
   DWORD d = GetObjectType(hgdiobj);
   if (d == 0) {
     cc_win32_print_error("coin_SelectObject", "GetObjectType()", GetLastError());
-    assert(FALSE && "unhandled error");
+    assert(false && "unhandled error");
   }
 
   previous = SelectObject(hdc, hgdiobj);
@@ -223,7 +223,7 @@ coin_SelectObject(HDC hdc, HGDIOBJ hgdiobj)
     /* not sure about this one, suddenly start assert'ing on
        SelectObject() failures may be too much of a shock for
        exisiting code... but eventually, it should go in:     (mortene) */
-    /* assert(FALSE && "unhandled error"); */
+    /* assert(false && "unhandled error"); */
   }
   return previous;
 }
@@ -236,7 +236,7 @@ coin_GetObject(HGDIOBJ hgdiobj, int cbBuffer, LPVOID lpvObject)
   int ret = GetObject(hgdiobj, cbBuffer, lpvObject);
   if (ret == 0) {
     cc_win32_print_error("coin_GetObject", "GetObject()", GetLastError());
-    assert(FALSE && "unhandled error");
+    assert(false && "unhandled error");
   }
   return ret;
 }
@@ -248,11 +248,11 @@ coin_GetObject(HGDIOBJ hgdiobj, int cbBuffer, LPVOID lpvObject)
 const struct cc_win32_api *
 cc_win32(void)
 {
-  static BOOL init = FALSE;
+  static BOOL init = false;
   static struct cc_win32_api instance;
 
   if (!init) {
-    init = TRUE;
+    init = true;
 
     /* set up all function pointers */
     instance.GetTextFace = coin_GetTextFace;

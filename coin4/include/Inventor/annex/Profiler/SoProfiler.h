@@ -30,11 +30,11 @@ class COIN_DLL_API SoProfiler {
 public:
   static void init(void);
 
-  static void enable(SbBool enable = TRUE);
-  static SbBool isEnabled(void);
+  static void enable(bool enable = true);
+  static bool isEnabled(void);
 
-  static SbBool isOverlayActive(void);
-  static SbBool isConsoleActive(void);
+  static bool isOverlayActive(void);
+  static bool isConsoleActive(void);
 
 }; // SoProfiler
 

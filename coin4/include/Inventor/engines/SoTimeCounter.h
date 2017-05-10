@@ -64,9 +64,9 @@ private:
   virtual void evaluate(void);
   void calcStarttime(short value);
 
-  SbBool ispaused;
+  bool ispaused;
   double pausetimeincycle;
-  SbBool firstoutputenable;
+  bool firstoutputenable;
   short outputvalue;
   int numsteps;
   int stepnum;

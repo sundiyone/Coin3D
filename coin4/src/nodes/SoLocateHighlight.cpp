@@ -142,7 +142,7 @@ public:
     return &this->single_colorpacker;
 #endif // COIN_THREADSAFE
   }
-  SbBool highlighted;
+  bool highlighted;
   static SoFullPath * currenthighlight;
 
   static void atexit_cleanup(void) {
@@ -198,7 +198,7 @@ SoLocateHighlight::SoLocateHighlight()
   SO_NODE_DEFINE_ENUM_VALUE(Modes, OFF);
   SO_NODE_SET_SF_ENUM_TYPE(mode, Modes);
 
-  PRIVATE(this)->highlighted = FALSE;
+  PRIVATE(this)->highlighted = false;
 }
 
 /*!
@@ -241,9 +241,9 @@ SoLocateHighlight::handleEvent(SoHandleEventAction * action)
           SoLocateHighlightP::currenthighlight = (SoFullPath*)
             action->getCurPath()->copy();
           SoLocateHighlightP::currenthighlight->ref();
-          PRIVATE(this)->highlighted = TRUE;
+          PRIVATE(this)->highlighted = true;
           this->touch(); // force scene redraw
-          this->redrawHighlighted(action, TRUE);
+          this->redrawHighlighted(action, true);
         }
       }
       else {
@@ -287,7 +287,7 @@ SoLocateHighlight::GLRenderInPath(SoGLRenderAction * action)
   when status change.
 */
 void
-SoLocateHighlight::redrawHighlighted(SoAction * /* act */, SbBool /* flag */)
+SoLocateHighlight::redrawHighlighted(SoAction * /* act */, bool /* flag */)
 {
 }
 
@@ -299,14 +299,14 @@ SoLocateHighlight::setOverride(SoGLRenderAction * action)
 {
   SoState * state = action->getState();
   SoLazyElement::setEmissive(state, &this->color.getValue());
-  SoOverrideElement::setEmissiveColorOverride(state, this, TRUE);
+  SoOverrideElement::setEmissiveColorOverride(state, this, true);
 
   Styles mystyle = (Styles) this->style.getValue();
   if (mystyle == SoLocateHighlight::EMISSIVE_DIFFUSE) {
     SoLazyElement::setDiffuse(state, this,
                                1, &this->color.getValue(),
                               PRIVATE(this)->getColorPacker());
-    SoOverrideElement::setDiffuseColorOverride(state, this, TRUE);
+    SoOverrideElement::setDiffuseColorOverride(state, this, true);
   }
 }
 
@@ -318,9 +318,9 @@ SoLocateHighlight::turnoffcurrent(SoAction * action)
       SoLocateHighlightP::currenthighlight->getLength()) {
     SoNode * tail = SoLocateHighlightP::currenthighlight->getTail();
     if (tail->isOfType(SoLocateHighlight::getClassTypeId())) {
-      ((SoLocateHighlight*)tail)->pimpl->highlighted = FALSE;
+      ((SoLocateHighlight*)tail)->pimpl->highlighted = false;
       ((SoLocateHighlight*)tail)->touch(); // force scene redraw
-      if (action) ((SoLocateHighlight*)tail)->redrawHighlighted(action, FALSE);
+      if (action) ((SoLocateHighlight*)tail)->redrawHighlighted(action, false);
     }
   }
   if (SoLocateHighlightP::currenthighlight) {

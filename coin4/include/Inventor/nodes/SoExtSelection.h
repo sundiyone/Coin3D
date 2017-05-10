@@ -46,18 +46,18 @@ class SoPrimitiveVertex;
 class SoExtSelectionP;
 
 
-typedef SbBool SoExtSelectionTriangleCB(void * userdata,
+typedef bool SoExtSelectionTriangleCB(void * userdata,
                                         SoCallbackAction * action,
                                         const SoPrimitiveVertex * v1,
                                         const SoPrimitiveVertex * v2,
                                         const SoPrimitiveVertex * v3);
 
-typedef SbBool SoExtSelectionLineSegmentCB(void * userdata,
+typedef bool SoExtSelectionLineSegmentCB(void * userdata,
                                            SoCallbackAction * action,
                                            const SoPrimitiveVertex * v1,
                                            const SoPrimitiveVertex * v2);
 
-typedef SbBool SoExtSelectionPointCB(void * userdata,
+typedef bool SoExtSelectionPointCB(void * userdata,
                                      SoCallbackAction * action,
                                      const SoPrimitiveVertex * v1);
 
@@ -90,8 +90,8 @@ public:
   SoSFEnum lassoPolicy;
   SoSFEnum lassoMode;
 
-  void useOverlay(SbBool overlay = TRUE);
-  SbBool isUsingOverlay(void);
+  void useOverlay(bool overlay = true);
+  bool isUsingOverlay(void);
   SoSeparator * getOverlaySceneGraph(void);
   void setOverlayLassoColorIndex(const int index);
   int getOverlayLassoColorIndex(void);
@@ -101,22 +101,22 @@ public:
   float getLassoWidth(void);
   void setOverlayLassoPattern(const unsigned short pattern);
   unsigned short getOverlayLassoPattern(void);
-  void animateOverlayLasso(const SbBool animate = TRUE);
-  SbBool isOverlayLassoAnimated(void);
+  void animateOverlayLasso(const bool animate = true);
+  bool isOverlayLassoAnimated(void);
 
   virtual void handleEvent(SoHandleEventAction * action);
   virtual void GLRenderBelowPath(SoGLRenderAction * action);
 
   void select(SoNode * root, int numcoords, SbVec2f * lasso, 
-              const SbViewportRegion & vp, SbBool shiftpolicy);
+              const SbViewportRegion & vp, bool shiftpolicy);
   void select(SoNode * root, int numcoords, SbVec3f * lasso,
-              const SbViewportRegion & vp, SbBool shiftkeypolicy);
+              const SbViewportRegion & vp, bool shiftkeypolicy);
   const SbVec2s * getLassoCoordsDC(int & numCoords);
   const SbVec3f * getLassoCoordsWC(int & numCoords);
   const SoPathList & getSelectionPathList() const;
 
   void setLassoFilterCallback(SoLassoSelectionFilterCB * f, void * userdata = NULL,
-                              const SbBool callonlyifselectable = TRUE);
+                              const bool callonlyifselectable = true);
 
   void setTriangleFilterCallback(SoExtSelectionTriangleCB * func,
                                  void * userdata = NULL);
@@ -124,7 +124,7 @@ public:
                                     void * userdata = NULL);
   void setPointFilterCallback(SoExtSelectionPointCB * func,
                               void * userdata = NULL);
-  SbBool wasShiftDown(void) const;
+  bool wasShiftDown(void) const;
 
 protected:
   virtual ~SoExtSelection();

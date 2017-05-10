@@ -64,7 +64,7 @@ SoSF_Typename_::SoSF_Typename_(void)
 /* Destructor, dereferences the current _typename_ pointer if necessary. */
 SoSF_Typename_::~SoSF_Typename_(void)
 {
-  this->enableNotify(FALSE);
+  this->enableNotify(false);
   this->setValue(NULL);
 }
 
@@ -118,31 +118,31 @@ SoSF_Typename_::setValue(So_Typename_ * newval)
 }
 
 // Compares to see if the \a field points to the same _typename_ as this
-// field does, and returns \c TRUE if this is the case.
+// field does, and returns \c true if this is the case.
 //
 // Be aware that this method does \e not check for _typename_/subgraph
-// equality if the pointers are not the same, so \c FALSE is returned
+// equality if the pointers are not the same, so \c false is returned
 // even though the contents of the _typename_/subgraph are equal.
-SbBool
+bool
 SoSF_Typename_::operator==(const SoSF_Typename_ & field) const
 {
   return (this->getValue() == field.getValue());
 }
 
 // Import _typename_.
-SbBool
+bool
 SoSF_Typename_::readValue(SoInput * in)
 {
   SoBase * baseptr;
-  if (!SoBase::read(in, baseptr, So_Typename_::getClassTypeId())) return FALSE;
+  if (!SoBase::read(in, baseptr, So_Typename_::getClassTypeId())) return false;
 
   if (in->eof()) {
     SoReadError::post(in, "Premature end of file");
-    return FALSE;
+    return false;
   }
 
   this->setValue((So_Typename_ *)baseptr);
-  return TRUE;
+  return true;
 }
 
 // Export _typename_.
@@ -219,7 +219,7 @@ SoSF_Typename_::countWriteRefs(SoOutput * out) const
 //
 // <mortene@sim.no>
 void
-SoSF_Typename_::fixCopy(SbBool copyconnections)
+SoSF_Typename_::fixCopy(bool copyconnections)
 {
   So_Typename_ * n = this->getValue();
   if (!n) return;
@@ -246,28 +246,28 @@ SoSF_Typename_::fixCopy(SbBool copyconnections)
 }
 
 // Override from SoField to check _typename_ pointer.
-SbBool
+bool
 SoSF_Typename_::referencesCopy(void) const
 {
-  if (inherited::referencesCopy()) return TRUE;
+  if (inherited::referencesCopy()) return true;
 
   SoBase * n = this->getValue();
-  if (!n) return FALSE;
+  if (!n) return false;
 
   if (n->isOfType(SoNode::getClassTypeId()) ||
       n->isOfType(SoEngine::getClassTypeId())) {
-    if (SoFieldContainer::checkCopy((SoFieldContainer *)n)) return TRUE;
+    if (SoFieldContainer::checkCopy((SoFieldContainer *)n)) return true;
   }
   else if (n->isOfType(SoPath::getClassTypeId())) {
     SoPath * p = (SoPath *)n;
-    if (p->getHead() == NULL) return FALSE;
-    if (SoFieldContainer::checkCopy(p->getHead())) return TRUE;
+    if (p->getHead() == NULL) return false;
+    if (SoFieldContainer::checkCopy(p->getHead())) return true;
   }
   else {
     assert(0 && "strange internal error");
   }
 
-  return FALSE;
+  return false;
 }
 
 // Kill the type-specific define.

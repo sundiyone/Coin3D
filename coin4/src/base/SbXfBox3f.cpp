@@ -255,7 +255,7 @@ SbXfBox3f::extendBy(const SbBox3f & bb)
 
   // Choose result from one of the two techniques based on the volume
   // of the resultant bbox.
-  SbBool firstsmaller;
+  bool firstsmaller;
   float vol1 = xfbox.getVolume(), vol2 = box2.getVolume();
   if ((vol1 != 0.0f) || (vol2 != 0.0f)) {
     firstsmaller = (vol1 < vol2);
@@ -403,7 +403,7 @@ SbXfBox3f::extendBy(const SbXfBox3f & bb)
 #endif // debug
 
   // Compare volumes and pick the smallest bounding box.
-  SbBool firstsmaller;
+  bool firstsmaller;
   float vol1 = box1.getVolume(), vol2 = box2.getVolume();
   if ((vol1 != 0.0f) || (vol2 != 0.0f)) {
     firstsmaller = (vol1 < vol2);
@@ -431,7 +431,7 @@ SbXfBox3f::extendBy(const SbXfBox3f & bb)
 
   The point is assumed to be in transformed space.
 */
-SbBool
+bool
 SbXfBox3f::intersect(const SbVec3f & pt) const
 {
   this->calcInverse();
@@ -445,7 +445,7 @@ SbXfBox3f::intersect(const SbVec3f & pt) const
 // 12 edges defined by the 8 points in the 'points' array.
 //
 static
-SbBool intersect_box_edges(const SbVec3f & min,
+bool intersect_box_edges(const SbVec3f & min,
                            const SbVec3f & max,
                            const SbVec3f * const points)
 {
@@ -509,13 +509,13 @@ SbBool intersect_box_edges(const SbVec3f & min,
           float v2 = l1[t2] + delta*dir[t2];
           if (v1 > boxpts[0][t1] && v1 < boxpts[1][t1] &&
               v2 > boxpts[0][t2] && v2 < boxpts[1][t2]) {
-            return TRUE;
+            return true;
           }
         }
       }
     }
   }
-  return FALSE;
+  return false;
 }
 
 //
@@ -528,13 +528,13 @@ SbBool intersect_box_edges(const SbVec3f & min,
 //
 // Use this function twice to cover all intersection cases.
 //
-static SbBool
+static bool
 intersect_box_box(const SbVec3f & min,
                   const SbVec3f & max,
                   const SbVec3f & boxmin,
                   const SbVec3f & boxmax,
                   const SbMatrix & matrix,
-                  SbBool & alignedIntersect)
+                  bool & alignedIntersect)
 {
   SbVec3f transpoints[8];
   SbBox3f alignedBox;
@@ -551,7 +551,7 @@ intersect_box_box(const SbVec3f & min,
         tmp2[1] <= max[1] &&
         tmp2[2] >= min[2] &&
         tmp2[2] <= max[2]) {
-      return TRUE;
+      return true;
     }
     alignedBox.extendBy(tmp2);
     transpoints[i] = tmp2;
@@ -565,7 +565,7 @@ intersect_box_box(const SbVec3f & min,
   // only test edge intersection if aligned boxes intersect
   if (alignedIntersect)
     return intersect_box_edges(min, max, transpoints);
-  return FALSE;
+  return false;
 }
 
 /*!
@@ -574,7 +574,7 @@ intersect_box_box(const SbVec3f & min,
 
   The given box is assumed to be in transformed space.
 */
-SbBool
+bool
 SbXfBox3f::intersect(const SbBox3f & bb) const
 {
   if (this->isEmpty() || bb.isEmpty()) {
@@ -583,7 +583,7 @@ SbXfBox3f::intersect(const SbBox3f & bb) const
                               "%s is an empty / uninitialized box",
                               this->isEmpty() ? "this" : "input argument");
 #endif // COIN_DEBUG
-    return FALSE;
+    return false;
   }
 
   if (this->matrix == SbMatrix::identity()) return SbBox3f::intersect(bb);
@@ -591,13 +591,13 @@ SbXfBox3f::intersect(const SbBox3f & bb) const
   //
   // do double-test to get all intersection cases
   //
-  SbBool alignedIntersect;
+  bool alignedIntersect;
 
   if (intersect_box_box(bb.getMin(), bb.getMax(),
                         this->getMin(), this->getMax(),
-                        this->matrix, alignedIntersect)) return TRUE;
+                        this->matrix, alignedIntersect)) return true;
 
-  if (!alignedIntersect) return FALSE;
+  if (!alignedIntersect) return false;
 
   // will need the inverse matrix here
   this->calcInverse();
@@ -615,7 +615,7 @@ SbXfBox3f::intersect(const SbBox3f & bb) const
   \since Coin 2.0
 */
 
-SbBool
+bool
 SbXfBox3f::intersect(const SbXfBox3f & xfbb) const
 {
   const SbBox3f & bbr = xfbb;
@@ -658,8 +658,8 @@ SbXfBox3f::project(void) const
   or 0 if they are unequal. Note that the method will do a dumb
   component by component comparison.
 */
-int
-operator ==(const SbXfBox3f & b1, const SbXfBox3f & b2)
+bool
+operator==(const SbXfBox3f & b1, const SbXfBox3f & b2)
 {
   return
     (b1.getMin() == b2.getMin()) &&
@@ -671,8 +671,8 @@ operator ==(const SbXfBox3f & b1, const SbXfBox3f & b2)
   Check if \a b1 and \a b2 are unequal. Return 0 if they are equal,
   or 1 if they are unequal. See the note on operator==().
  */
-int
-operator !=(const SbXfBox3f & b1, const SbXfBox3f & b2)
+bool
+operator!=(const SbXfBox3f & b1, const SbXfBox3f & b2)
 {
   return !(b1 == b2);
 }

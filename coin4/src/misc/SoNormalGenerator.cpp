@@ -43,7 +43,7 @@
   in counter clockwise order. The \a approxVertices can be used
   to optimize normal generation.
 */
-SoNormalGenerator::SoNormalGenerator(const SbBool isccw,
+SoNormalGenerator::SoNormalGenerator(const bool isccw,
                                      const int approxVertices)
   : bsp(128, approxVertices),
     vertexList(approxVertices),
@@ -51,7 +51,7 @@ SoNormalGenerator::SoNormalGenerator(const SbBool isccw,
     faceNormals(approxVertices / 4),
     vertexNormals(approxVertices),
     ccw(isccw),
-    perVertex(TRUE)
+    perVertex(true)
 {
 }
 
@@ -71,7 +71,7 @@ SoNormalGenerator::~SoNormalGenerator()
   \since Coin 2.0
 */
 void
-SoNormalGenerator::reset(const SbBool ccwarg)
+SoNormalGenerator::reset(const bool ccwarg)
 {
   this->ccw = ccwarg;
   this->bsp.clear();
@@ -259,14 +259,14 @@ SoNormalGenerator::generate(const float creaseAngle,
     }
   }
   delete [] vertexFaceArray;
-  this->vertexFace.truncate(0, TRUE);
-  this->vertexList.truncate(0, TRUE);
-  this->faceNormals.truncate(0, TRUE);
+  this->vertexFace.truncate(0, true);
+  this->vertexList.truncate(0, true);
+  this->faceNormals.truncate(0, true);
   this->bsp.clear();
   this->vertexNormals.fit();
 
   // return vertex normals
-  this->perVertex = TRUE;
+  this->perVertex = true;
 }
 
 /*!
@@ -289,8 +289,8 @@ SoNormalGenerator::generatePerStrip(const int32_t * striplens,
     this->faceNormals[i] = acc;
   }
   // strip normals can now be found in faceNormals array
-  this->faceNormals.truncate(numstrips, TRUE);
-  this->perVertex = FALSE;
+  this->faceNormals.truncate(numstrips, true);
+  this->perVertex = false;
 }
 
 /*!
@@ -301,7 +301,7 @@ void
 SoNormalGenerator::generatePerFace(void)
 {
   // face normals have already been generated. Just set flag.
-  this->perVertex = FALSE;
+  this->perVertex = false;
   this->faceNormals.fit();
 }
 
@@ -318,11 +318,11 @@ SoNormalGenerator::generateOverall(void)
   SbVec3f acc(0.0f, 0.0f, 0.0f);
   for (int i = 0; i < n; i++) acc += normals[i];
   (void) acc.normalize();
-  this->faceNormals.truncate(0, TRUE);
+  this->faceNormals.truncate(0, true);
   this->faceNormals.append(acc);
 
   // normals are not per vertex
-  this->perVertex = FALSE;
+  this->perVertex = false;
 }
 
 /*!

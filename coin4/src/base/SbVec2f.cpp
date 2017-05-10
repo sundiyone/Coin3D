@@ -114,12 +114,12 @@
 */
 
 /*!
-  Compares the vector with \a v and returns \c TRUE if the distance
+  Compares the vector with \a v and returns \c true if the distance
   between the vectors is smaller or equal to the square root of
   \a tolerance.
 */
 
-SbBool
+bool
 SbVec2f::equals(const SbVec2f& v, float tolerance) const
 {
 #if COIN_DEBUG
@@ -131,8 +131,8 @@ SbVec2f::equals(const SbVec2f& v, float tolerance) const
   float xdist = this->vec[0] - v[0];
   float ydist = this->vec[1] - v[1];
 
-  if((xdist*xdist + ydist*ydist) <= tolerance) return TRUE;
-  return FALSE;
+  if((xdist*xdist + ydist*ydist) <= tolerance) return true;
+  return false;
 }
 
 /*!
@@ -392,10 +392,10 @@ SbVec2f::toString() const
 /*!
   Convert from a string representation, return wether this is a valid conversion
 */
-SbBool
+bool
 SbVec2f::fromString(const SbString & str)
 {
-  SbBool conversionOk;
+  bool conversionOk;
   *this = CoinInternal::FromString<SbVec2f>(str,&conversionOk);
   return conversionOk;
 }

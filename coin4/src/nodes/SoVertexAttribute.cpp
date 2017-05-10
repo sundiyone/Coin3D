@@ -107,7 +107,7 @@ public:
 
   int size;
   GLenum gltype;
-  SbBool isreading;
+  bool isreading;
   SoMFFloat dummyfield;
   boost::scoped_ptr<SoMField> valuesfield;
   boost::scoped_ptr<SoFieldData> fielddata;
@@ -162,7 +162,7 @@ SoVertexAttribute::SoVertexAttribute(void)
   // the fieldData setup has to be overriden in custom ways for this node...
 
   this->setNodeType(SoNode::COIN_3_0);
-  this->isBuiltIn = TRUE;
+  this->isBuiltIn = true;
   assert(SoVertexAttribute::classTypeId != SoType::badType());
 
   this->name.setContainer(this);
@@ -172,7 +172,7 @@ SoVertexAttribute::SoVertexAttribute(void)
 
   // initialize attribute data
   PRIVATE(this)->publ = this;
-  PRIVATE(this)->isreading = FALSE;
+  PRIVATE(this)->isreading = false;
   PRIVATE(this)->attributedata = new SoVertexAttributeData;
   PRIVATE(this)->attributedata->name = SbName::empty();
   PRIVATE(this)->attributedata->index = -1;
@@ -229,13 +229,13 @@ SoVertexAttribute::GLRender(SoGLRenderAction * action)
   const cc_glglue * glue = cc_glglue_instance(SoGLCacheContextElement::get(state));
 
   // check for gl vertex attribute support
-  SbBool vertex_shader_supported = SoGLDriverDatabase::isSupported(glue, SO_GL_ARB_VERTEX_SHADER);
-  SbBool opengl_version_match = cc_glglue_glversion_matches_at_least(glue, 2, 0, 0);
+  bool vertex_shader_supported = SoGLDriverDatabase::isSupported(glue, SO_GL_ARB_VERTEX_SHADER);
+  bool opengl_version_match = cc_glglue_glversion_matches_at_least(glue, 2, 0, 0);
 
   if (!vertex_shader_supported || !opengl_version_match) {
-    static SbBool first = TRUE;
+    static bool first = true;
     if (first) {
-      first = FALSE;
+      first = false;
       SbString msg("\nUnable to use Vertex Attributes:\n");
       if (!opengl_version_match) msg += "OpenGL version < 2.0\n";
       if (!vertex_shader_supported) msg += "GL_ARB_vertex_shader extension not supported\n";
@@ -260,19 +260,19 @@ SoVertexAttribute::GLRender(SoGLRenderAction * action)
   SoVertexAttribute::doAction((SoAction *) action);
 
   // check if vbo rendering should be used and create vbo if yes
-  SbBool setvbo = FALSE;
+  bool setvbo = false;
   int num = PRIVATE(this)->attributedata->data->getNum();
   SoBase::staticDataLock();
   if (SoGLVBOElement::shouldCreateVBO(state, num)) {
-    SbBool dirty = FALSE;
-    setvbo = TRUE;
+    bool dirty = false;
+    setvbo = true;
     if (PRIVATE(this)->attributedata->vbo == NULL) {
       PRIVATE(this)->attributedata->vbo = new SoVBO;
-      dirty = TRUE;
+      dirty = true;
     }
     else if (PRIVATE(this)->attributedata->vbo->getBufferDataId()
              != this->getNodeId()) {
-      dirty = TRUE;
+      dirty = true;
     }
     if (dirty) {
       PRIVATE(this)->attributedata->vbo->setBufferData(PRIVATE(this)->attributedata->dataptr,
@@ -300,10 +300,10 @@ SoVertexAttribute::write(SoWriteAction * action)
   SoOutput * out = action->getOutput();
 
   if (out->getStage() == SoOutput::COUNT_REFS) {
-    this->addWriteReference(out, FALSE);
+    this->addWriteReference(out, false);
   }
   else if (out->getStage() == SoOutput::WRITE) {
-    if (this->writeHeader(out, FALSE, FALSE)) return;
+    if (this->writeHeader(out, false, false)) return;
 
      this->typeName.write(out, "typeName");
      this->name.write(out, "name");
@@ -315,10 +315,10 @@ SoVertexAttribute::write(SoWriteAction * action)
   }
 }
 
-SbBool
+bool
 SoVertexAttribute::readInstance(SoInput * in, unsigned short COIN_UNUSED_ARG(flags))
 {
-  PRIVATE(this)->isreading = TRUE;
+  PRIVATE(this)->isreading = true;
   // avoid triggering in the notify()-function while reading the file.
 
   static const SbName typenamekey("typeName");
@@ -326,8 +326,8 @@ SoVertexAttribute::readInstance(SoInput * in, unsigned short COIN_UNUSED_ARG(fla
   static const SbName valueskey("values");
 
   SbName fieldname(SbName::empty());
-  SbBool ok = in->read(fieldname, TRUE);
-  SbBool err = FALSE;
+  bool ok = in->read(fieldname, true);
+  bool err = false;
 
   while (ok && !err) {
     DMSG("SoVertexAttribute::readInstance", "found fieldname '%s'",
@@ -369,11 +369,11 @@ SoVertexAttribute::readInstance(SoInput * in, unsigned short COIN_UNUSED_ARG(fla
            "error reading field contents for field %s", fieldname.getString());
     }
     else {
-      ok = in->read(fieldname, TRUE);
+      ok = in->read(fieldname, true);
     }
   }
 
-  PRIVATE(this)->isreading = FALSE;
+  PRIVATE(this)->isreading = false;
 
   if (!err) {
     if (fieldname != "") in->putBack(fieldname.getString());
@@ -404,7 +404,7 @@ SoVertexAttribute::notify(SoNotList * list)
 // Doc in superclass
 void
 SoVertexAttribute::copyContents(const SoFieldContainer * from,
-                                SbBool copyConn)
+                                bool copyConn)
 {
   assert(from->isOfType(SoVertexAttribute::getClassTypeId()));
 

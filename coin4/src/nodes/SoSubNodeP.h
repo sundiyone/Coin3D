@@ -61,9 +61,9 @@
   do { \
     SoBase::staticDataLock(); \
     SO_NODE_CONSTRUCTOR_NOLOCK(_class_); \
-    /* Restore value of isBuiltIn flag (which is set to FALSE */ \
+    /* Restore value of isBuiltIn flag (which is set to false */ \
     /* in the SO_NODE_CONSTRUCTOR() macro. */ \
-    this->isBuiltIn = TRUE; \
+    this->isBuiltIn = true; \
     SoBase::staticDataUnlock(); \
   } while (0)
 

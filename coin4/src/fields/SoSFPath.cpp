@@ -98,7 +98,7 @@ SoSFPath::SoSFPath(void)
 /* Destructor, dereferences the current path pointer if necessary. */
 SoSFPath::~SoSFPath(void)
 {
-  this->enableNotify(FALSE);
+  this->enableNotify(false);
   this->setValue(NULL);
 }
 
@@ -152,19 +152,19 @@ SoSFPath::setValue(SoPath * newval)
 }
 
 // Compares to see if the \a field points to the same path as this
-// field does, and returns \c TRUE if this is the case.
+// field does, and returns \c true if this is the case.
 //
 // Be aware that this method does \e not check for path/subgraph
-// equality if the pointers are not the same, so \c FALSE is returned
+// equality if the pointers are not the same, so \c false is returned
 // even though the contents of the path/subgraph are equal.
-SbBool
+bool
 SoSFPath::operator==(const SoSFPath & field) const
 {
   return (this->getValue() == field.getValue());
 }
 
 // Import path.
-SbBool
+bool
 SoSFPath::readValue(SoInput * in)
 {
   SoBase * baseptr;
@@ -172,28 +172,28 @@ SoSFPath::readValue(SoInput * in)
   //Handle when the path is set to NULL
   SbName keyword;
   if (in)
-    if (!in->read(keyword)) return FALSE;
+    if (!in->read(keyword)) return false;
   
   if(keyword=="NULL") {
     this->setValue(NULL);
-    return TRUE;
+    return true;
   }
   else
   in->putBack(keyword.getString());
 
-  if (!SoBase::read(in, baseptr, SoPath::getClassTypeId())) return FALSE;
+  if (!SoBase::read(in, baseptr, SoPath::getClassTypeId())) return false;
 
   if (in->eof()) {
     SoReadError::post(in, "Premature end of file");
-    return FALSE;
+    return false;
   }
   if (!baseptr) {
     SoReadError::post(in, "Unable to read value for SoSFPath");
-    return FALSE;
+    return false;
   }
 
   this->setValue(coin_assert_cast<SoPath *>(baseptr));
-  return TRUE;
+  return true;
 }
 
 // Export path.
@@ -270,7 +270,7 @@ SoSFPath::countWriteRefs(SoOutput * out) const
 //
 // <mortene@sim.no>
 void
-SoSFPath::fixCopy(SbBool COIN_UNUSED_ARG(copyconnections))
+SoSFPath::fixCopy(bool COIN_UNUSED_ARG(copyconnections))
 {
   SoPath * n = this->getValue();
   if (!n) return;
@@ -297,28 +297,28 @@ SoSFPath::fixCopy(SbBool COIN_UNUSED_ARG(copyconnections))
 }
 
 // Override from SoField to check path pointer.
-SbBool
+bool
 SoSFPath::referencesCopy(void) const
 {
-  if (inherited::referencesCopy()) return TRUE;
+  if (inherited::referencesCopy()) return true;
 
   SoBase * n = this->getValue();
-  if (!n) return FALSE;
+  if (!n) return false;
 
   if (n->isOfType(SoNode::getClassTypeId()) ||
       n->isOfType(SoEngine::getClassTypeId())) {
-    if (SoFieldContainer::checkCopy(coin_assert_cast<SoFieldContainer *>(n))) return TRUE;
+    if (SoFieldContainer::checkCopy(coin_assert_cast<SoFieldContainer *>(n))) return true;
   }
   else if (n->isOfType(SoPath::getClassTypeId())) {
     SoPath * p = coin_assert_cast<SoPath *>(n);
-    if (p->getHead() == NULL) return FALSE;
-    if (SoFieldContainer::checkCopy(p->getHead())) return TRUE;
+    if (p->getHead() == NULL) return false;
+    if (SoFieldContainer::checkCopy(p->getHead())) return true;
   }
   else {
     assert(0 && "strange internal error");
   }
 
-  return FALSE;
+  return false;
 }
 
 // Kill the type-specific define.

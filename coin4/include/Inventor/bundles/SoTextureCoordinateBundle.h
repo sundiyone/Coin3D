@@ -39,12 +39,12 @@ class COIN_DLL_API SoTextureCoordinateBundle : public SoBundle {
   typedef SoBundle inherited;
 public:
   SoTextureCoordinateBundle(SoAction * const action,
-                            const SbBool forRendering,
-                            const SbBool setUpDefault = TRUE);
+                            const bool forRendering,
+                            const bool setUpDefault = true);
   ~SoTextureCoordinateBundle();
 
-  SbBool needCoordinates(void) const;
-  SbBool isFunction(void) const;
+  bool needCoordinates(void) const;
+  bool isFunction(void) const;
 
   const SbVec4f &get(const int index);
   const SbVec4f &get(const SbVec3f &point, const SbVec3f &normal);
@@ -57,7 +57,7 @@ public:
     glElt->send(index, point, normal);
   }
 
-  SbBool needIndices(void) const;
+  bool needIndices(void) const;
 
 private:
   const SoMultiTextureCoordinateElement *coordElt;

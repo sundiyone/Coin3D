@@ -42,11 +42,11 @@ public:
   virtual void pop(SoState * state,
                    const SoElement * prevTopElement);
 
-  static void forceSend(SoState * const state, const SbBool twoside);
+  static void forceSend(SoState * const state, const bool twoside);
   static void forceSend(SoState * const state,
-                        const SbBool ccw, const SbBool cull);
-  static void forceSend(SoState * const state, const SbBool ccw,
-                        const SbBool cull, const SbBool twoside);
+                        const bool ccw, const bool cull);
+  static void forceSend(SoState * const state, const bool ccw,
+                        const bool cull, const bool twoside);
 
 protected:
   virtual void setElt(VertexOrdering vertexOrdering,

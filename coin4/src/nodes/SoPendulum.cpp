@@ -38,7 +38,7 @@
         rotation0 0 0 1  0
         rotation1 0 0 1  0
         speed 1
-        on TRUE
+        on true
     }
   \endcode
 */
@@ -89,7 +89,7 @@ SoPendulum::SoPendulum(void)
   SO_NODE_ADD_FIELD(rotation0, (SbRotation(SbVec3f(0.0f, 0.0f, 1.0f), 0.0f)));
   SO_NODE_ADD_FIELD(rotation1, (SbRotation(SbVec3f(0.0f, 0.0f, 1.0f), 0.0f)));
   SO_NODE_ADD_FIELD(speed, (1.0f));
-  SO_NODE_ADD_FIELD(on, (TRUE));
+  SO_NODE_ADD_FIELD(on, (true));
 
   this->interpolator = new SoInterpolateRotation;
   this->interpolator->ref();
@@ -105,7 +105,7 @@ SoPendulum::SoPendulum(void)
   this->interpolator->input0.connectFrom(&this->rotation0);
   this->interpolator->input1.connectFrom(&this->rotation1);
   this->interpolator->alpha.connectFrom(&this->calculator->oa);
-  this->rotation.connectFrom(&this->interpolator->output, TRUE);
+  this->rotation.connectFrom(&this->interpolator->output, true);
 }
 
 /*!
@@ -152,7 +152,7 @@ SoPendulum::write(SoWriteAction * action)
 
 // Overridden to decouple and reconnect engine around copy operation.
 SoNode *
-SoPendulum::copy(SbBool copyconnections) const
+SoPendulum::copy(bool copyconnections) const
 {
   // Decouple connections to/from internal engines to avoid them being
   // copied.
@@ -175,7 +175,7 @@ SoPendulum::deconnectInternalEngine(void)
   this->rotation.disconnect(&this->interpolator->output);
 
   this->timer->on.disconnect(&this->on);
-  this->timer->on = FALSE;
+  this->timer->on = false;
   this->calculator->b.disconnect(&this->speed);
   this->interpolator->input0.disconnect(&this->rotation0);
   this->interpolator->input1.disconnect(&this->rotation1);
@@ -192,5 +192,5 @@ SoPendulum::reconnectInternalEngine(void)
   this->interpolator->input1.connectFrom(&this->rotation1);
   this->interpolator->alpha.connectFrom(&this->calculator->oa);
 
-  this->rotation.connectFrom(&this->interpolator->output, TRUE);
+  this->rotation.connectFrom(&this->interpolator->output, true);
 }

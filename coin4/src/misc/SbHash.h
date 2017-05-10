@@ -342,7 +342,7 @@ class SbHash {
     Type * obj;
     if (!getP(key,obj)) {
       Type dummy;
-      SbBool ok;
+      bool ok;
       ok = put(key,dummy);
       assert(ok);
       ok = getP(key,obj);
@@ -440,7 +440,7 @@ protected:
 
   //FIXME: Make this private when SbHash goes public: BFG 20090430
 public:
-  SbBool put(const Key & key, const Type & obj)
+  bool put(const Key & key, const Type & obj)
   {
     unsigned int i = this->getIndex(key);
     SbHashEntry * entry = this->buckets[i];
@@ -448,7 +448,7 @@ public:
       if (entry->key == key) {
         /* Replace the old value */
         entry->obj = obj;
-        return FALSE;
+        return false;
       }
       entry = entry->next;
     }
@@ -463,10 +463,10 @@ public:
     if (this->elements++ >= this->threshold) {
       this->resize(static_cast<unsigned int>( coin_geq_prime_number(this->size + 1)));
     }
-    return TRUE;
+    return true;
   }
 
-  SbBool get(const Key & key, Type & obj) const
+  bool get(const Key & key, Type & obj) const
   {
     SbHashEntry * entry;
     unsigned int i = this->getIndex(key);
@@ -474,15 +474,15 @@ public:
     while (entry) {
       if (entry->key == key) {
         obj = entry->obj;
-        return TRUE;
+        return true;
       }
       entry = entry->next;
     }
-    return FALSE;
+    return false;
   }
 
  private:
-  SbBool getP(const Key & key, Type *& obj) const
+  bool getP(const Key & key, Type *& obj) const
   {
     SbHashEntry * entry;
     unsigned int i = this->getIndex(key);
@@ -490,11 +490,11 @@ public:
     while (entry) {
       if (entry->key == key) {
         obj = &entry->obj;
-        return TRUE;
+        return true;
       }
       entry = entry->next;
     }
-    return FALSE;
+    return false;
   }
 
 

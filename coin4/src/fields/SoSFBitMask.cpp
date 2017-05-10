@@ -73,7 +73,7 @@ SoSFBitMask::initClass(void)
 // parent classes.
 #ifndef DOXYGEN_SKIP_THIS
 
-SbBool
+bool
 SoSFBitMask::readValue(SoInput * in)
 {
   // FIXME: in this case, perhaps we should rather accept numeric
@@ -81,20 +81,20 @@ SoSFBitMask::readValue(SoInput * in)
   if (!this->legalValuesSet) {
     SbName name;
     SoFieldContainer * thecontainer = this->getContainer();
-    SbBool fname = thecontainer && thecontainer->getFieldName(this, name);
+    bool fname = thecontainer && thecontainer->getFieldName(this, name);
     SoReadError::post(in,
                       "no mappings available for SoSFBitMask field %s",
                       fname ? name.getString() : "");
-    return FALSE;
+    return false;
   }
 
   if (in->isBinary()) {
     int bitmask = 0;
-    while (TRUE) {
+    while (true) {
       SbName n;
-      if (!in->read(n, TRUE)) {
+      if (!in->read(n, true)) {
         SoReadError::post(in, "Couldn't read SoSFBitMask bitmask value");
-        return FALSE;
+        return false;
       }
       if (n.getLength() == 0) break;
 
@@ -102,14 +102,14 @@ SoSFBitMask::readValue(SoInput * in)
       if (!this->findEnumValue(n, v)) {
         SoReadError::post(in, "Unknown SoSFBitMask bit "
                           "mask value \"%s\"", n.getString());
-        return FALSE;
+        return false;
       }
 
       bitmask |= v;
     }
 
     this->value = bitmask;
-    return TRUE;
+    return true;
   }
 
 
@@ -117,7 +117,7 @@ SoSFBitMask::readValue(SoInput * in)
   char c;
   if (!in->read(c)) {
     SoReadError::post(in, "Premature end of file");
-    return FALSE;
+    return false;
   }
 
   // Check for parenthesized list of bitwise-or'ed flags
@@ -125,14 +125,14 @@ SoSFBitMask::readValue(SoInput * in)
     int bitmask = 0;
 
     // Read names separated by '|'
-    while (TRUE) {
+    while (true) {
       SbName n;
-      if (in->read(n, TRUE) && !(!n)) {
+      if (in->read(n, true) && !(!n)) {
         int v;
         if (!this->findEnumValue(n, v)) {
           SoReadError::post(in, "Unknown SoSFBitMask bit "
                             "mask value \"%s\"", n.getString());
-          return FALSE;
+          return false;
         }
 
         bitmask |= v;
@@ -140,7 +140,7 @@ SoSFBitMask::readValue(SoInput * in)
 
       if (!in->read(c)) {
         SoReadError::post(in, "EOF reached before ')' in SoSFBitMask value");
-        return FALSE;
+        return false;
       }
 
       if (c == ')') break;
@@ -148,7 +148,7 @@ SoSFBitMask::readValue(SoInput * in)
         SoReadError::post(in,
                           "Expected '|' or ')', got '%c' in SoSFBitMask value",
                           c);
-        return FALSE;
+        return false;
       }
     }
     this->value = bitmask;
@@ -158,28 +158,28 @@ SoSFBitMask::readValue(SoInput * in)
 
     // Read mnemonic value as a character string identifier
     SbName n;
-    if (!in->read(n, TRUE)) {
+    if (!in->read(n, true)) {
       SoReadError::post(in, "Couldn't read SoSFBitMask bit name");
-      return FALSE;
+      return false;
     }
 
     int v;
     if (!this->findEnumValue(n, v)) {
       SoReadError::post(in, "Unknown SoSFBitMask bit mask value \"%s\"",
                         n.getString());
-      return FALSE;
+      return false;
     }
 
     this->value = v;
   }
 
-  return TRUE;
+  return true;
 }
 
 void
 SoSFBitMask::writeValue(SoOutput * out) const
 {
-  SbBool paran = FALSE;
+  bool paran = false;
   int out_vals_written = 0;
 
   // FIXME: as enumValues for SoSFBitMasks can be OR'ed combinations
@@ -195,7 +195,7 @@ SoSFBitMask::writeValue(SoOutput * out) const
       restval &= ~this->enumValues[i];
       if (!out_vals_written && restval) {
         if (!out->isBinary()) out->write('(');
-        paran = TRUE;
+        paran = true;
       }
       if (out_vals_written++ && !out->isBinary()) out->write(" | ");
       out->write(static_cast<const char *>(this->enumNames[i].getString()));
@@ -240,7 +240,7 @@ BOOST_AUTO_TEST_CASE(textinput)
   enum Values { VALUE1 = 0x01, VALUE2 = 0x02, VALUE3 = 0x04 };
   enum Other { OTHER1 = 0x01, OTHER2 = 0x02, OTHER3 = 0x04 };
 
-  SbBool ok;
+  bool ok;
 
   SbName names1[3] = { SbName("VALUE1"), SbName("VALUE2"), SbName("VALUE3") };
   int values1[3] = { 0x01, 0x02, 0x04 };
@@ -258,46 +258,46 @@ BOOST_AUTO_TEST_CASE(textinput)
   static const char * filters[] = { "Unknown SoSFBitMask bit mask value", NULL };
   TestSuite::PushMessageSuppressFilters(filters);
   ok = field1.set("OTHER1"); // should output error
-  BOOST_CHECK_MESSAGE(ok == FALSE, "accepted 'OTHER1' erroneously");
+  BOOST_CHECK_MESSAGE(ok == false, "accepted 'OTHER1' erroneously");
   TestSuite::PopMessageSuppressFilters();
   BOOST_CHECK_EQUAL(TestSuite::GetReadErrorCount(), 1);
   TestSuite::ResetReadErrorCount();
 
   ok = field1.set("VALUE2");
-  BOOST_CHECK_MESSAGE(ok == TRUE, "did not accept 'VALUE2'");
+  BOOST_CHECK_MESSAGE(ok == true, "did not accept 'VALUE2'");
   ok = field2.set("VALUE2");
-  BOOST_CHECK_MESSAGE(ok == TRUE, "did not accept 'VALUE2'");
+  BOOST_CHECK_MESSAGE(ok == true, "did not accept 'VALUE2'");
   BOOST_CHECK_EQUAL(field1.getValue(), field2.getValue());
   BOOST_CHECK_MESSAGE(field1.isSame(field2), "SoSFBitmask.isSame() problem");
 
   ok = field1.set("VALUE2");
-  BOOST_CHECK_MESSAGE(ok == TRUE, "did not accept 'VALUE2'");
+  BOOST_CHECK_MESSAGE(ok == true, "did not accept 'VALUE2'");
   ok = field2.set("(VALUE1|VALUE3)");
-  BOOST_CHECK_MESSAGE(ok == TRUE, "did not accept '(VALUE1|VALUE3)'");
+  BOOST_CHECK_MESSAGE(ok == true, "did not accept '(VALUE1|VALUE3)'");
   BOOST_CHECK_EQUAL(field2.getValue(), VALUE1|VALUE3);
   BOOST_CHECK_MESSAGE(!field2.isSame(field1), "SoSFBitmask.isSame() problem");
 
   // failing test, but unclear if it is required to work
   ok = field2.set("VALUE1|VALUE3"); // this ought to work too, right?
-  BOOST_CHECK_MESSAGE(ok == TRUE, "did not accept 'VALUE1|VALUE2'");
+  BOOST_CHECK_MESSAGE(ok == true, "did not accept 'VALUE1|VALUE2'");
   //BOOST_CHECK_EQUAL(field2.getValue(), VALUE1|VALUE3);
 
   // FIXME: try to read the same from a file?
   // Solving this would go into the math-parsing problem?
 
   ok = field1.set("VALUE2");
-  BOOST_CHECK_MESSAGE(ok == TRUE, "did not accept 'VALUE2'");
+  BOOST_CHECK_MESSAGE(ok == true, "did not accept 'VALUE2'");
   ok = field3.set("OTHER2");
-  BOOST_CHECK_MESSAGE(ok == TRUE, "did not accept 'OTHER2'");
+  BOOST_CHECK_MESSAGE(ok == true, "did not accept 'OTHER2'");
   BOOST_CHECK_EQUAL(field1.getValue(), field3.getValue());
   BOOST_CHECK_MESSAGE(!field1.isSame(field3), "SoSFBitmask.isSame() false positive");
 
   // Numeric values don't work.
   //ok = field1.set("0");
-  //BOOST_CHECK_MESSAGE(ok == TRUE, "did not accept '0'");
+  //BOOST_CHECK_MESSAGE(ok == true, "did not accept '0'");
   //BOOST_CHECK_MESSAGE(field1.getValue() == 0, "did not set value to 0");
   //ok = field1.set("1");
-  //BOOST_CHECK_MESSAGE(ok == TRUE, "did not accept '1'");
+  //BOOST_CHECK_MESSAGE(ok == true, "did not accept '1'");
   //BOOST_CHECK_MESSAGE(field1.getValue() == 1, "did not set value to 1");
 }
 

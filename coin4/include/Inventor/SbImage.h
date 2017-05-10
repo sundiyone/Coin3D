@@ -31,8 +31,8 @@
 
 class SbImage;
 
-typedef SbBool SbImageScheduleReadCB(const SbString &, SbImage *, void *);
-typedef SbBool SbImageReadImageCB(const SbString &, SbImage *, void *);
+typedef bool SbImageScheduleReadCB(const SbString &, SbImage *, void *);
+typedef bool SbImageReadImageCB(const SbString &, SbImage *, void *);
 
 class COIN_DLL_API SbImage {
 public:
@@ -56,12 +56,12 @@ public:
   unsigned char * getValue(SbVec3s & size, int & bytesperpixel) const;
   SbVec3s getSize(void) const;
 
-  SbBool readFile(const SbString & filename,
+  bool readFile(const SbString & filename,
                   const SbString * const * searchdirectories = NULL,
                   const int numdirectories = 0);
 
-  int operator==(const SbImage & image) const;
-  int operator!=(const SbImage & image) const {
+  bool operator==(const SbImage & image) const;
+  bool operator!=(const SbImage & image) const {
     return ! operator == (image);
   }
   SbImage & operator=(const SbImage & image);
@@ -73,7 +73,7 @@ public:
                                 const SbString * const * dirlist,
                                 const int numdirs);
 
-  SbBool hasData(void) const;
+  bool hasData(void) const;
 
 private:
 
@@ -85,7 +85,7 @@ public:
   void readLock(void) const;
   void readUnlock(void) const;
 
-  SbBool scheduleReadFile(SbImageScheduleReadCB * cb,
+  bool scheduleReadFile(SbImageScheduleReadCB * cb,
                           void * closure,
                           const SbString & filename,
                           const SbString * const * searchdirectories = NULL,

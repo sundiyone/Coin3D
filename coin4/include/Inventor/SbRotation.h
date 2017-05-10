@@ -54,11 +54,11 @@ public:
   SbRotation & setValue(const SbVec3f & rotateFrom, const SbVec3f & rotateTo);
   SbRotation & operator*=(const SbRotation & q);
   SbRotation & operator*=(const float s);
-  friend COIN_DLL_API int operator==(const SbRotation & q1, const SbRotation & q2);
-  friend COIN_DLL_API int operator!=(const SbRotation & q1, const SbRotation & q2);
+  friend COIN_DLL_API bool operator==(const SbRotation & q1, const SbRotation & q2);
+  friend COIN_DLL_API bool operator!=(const SbRotation & q1, const SbRotation & q2);
   float operator[] (size_t n) const;
 
-  SbBool equals(const SbRotation & r, float tolerance) const;
+  bool equals(const SbRotation & r, float tolerance) const;
   friend COIN_DLL_API SbRotation operator *(const SbRotation & q1, const SbRotation & q2);
   void multVec(const SbVec3f & src, SbVec3f & dst) const;
 
@@ -68,7 +68,7 @@ public:
   static SbRotation identity(void);
 
   SbString toString() const;
-  SbBool fromString(const SbString & str);
+  bool fromString(const SbString & str);
 
   void print(FILE * fp) const;
 
@@ -76,9 +76,9 @@ private:
   SbVec4f quat;
 };
 
-COIN_DLL_API int operator ==(const SbRotation & q1, const SbRotation & q2);
-COIN_DLL_API int operator !=(const SbRotation & q1, const SbRotation & q2);
-COIN_DLL_API SbRotation operator *(const SbRotation & q1, const SbRotation & q2);
+COIN_DLL_API bool operator==(const SbRotation & q1, const SbRotation & q2);
+COIN_DLL_API bool operator!=(const SbRotation & q1, const SbRotation & q2);
+COIN_DLL_API SbRotation operator*(const SbRotation & q1, const SbRotation & q2);
 
 inline float SbRotation::operator[](size_t n) const
 {

@@ -52,7 +52,7 @@ struct cc_sched {
   uint32_t schedid_counter;      /*! schedid generator */
   int numallowed;                /*! Max # of scheduled jobs per batch,
                                    -1 for unlimited */
-  SbBool iswaitingall;
+  bool iswaitingall;
 };
 
 /* ********************************************************************** */

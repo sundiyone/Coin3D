@@ -93,7 +93,7 @@
   \code
     ClipPlane {
         plane 1 0 0  0
-        on TRUE
+        on true
     }
   \endcode
 */
@@ -125,7 +125,7 @@
 */
 /*!
   \var SoSFBool SoClipPlane::on
-  Whether clipping plane should be on or off. Defaults to \c TRUE.
+  Whether clipping plane should be on or off. Defaults to \c true.
 */
 
 
@@ -141,7 +141,7 @@ SoClipPlane::SoClipPlane(void)
   SO_NODE_INTERNAL_CONSTRUCTOR(SoClipPlane);
 
   SO_NODE_ADD_FIELD(plane, (SbPlane(SbVec3f(1.0f, 0.0f, 0.0f), 0.0f)));
-  SO_NODE_ADD_FIELD(on, (TRUE));
+  SO_NODE_ADD_FIELD(on, (true));
 }
 
 /*!

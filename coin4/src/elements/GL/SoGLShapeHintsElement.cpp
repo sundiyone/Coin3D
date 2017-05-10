@@ -134,7 +134,7 @@ SoGLShapeHintsElement::setElt(VertexOrdering vertexOrderingarg,
 
 void
 SoGLShapeHintsElement::forceSend(SoState * const state,
-                                 const SbBool twoside)
+                                 const bool twoside)
 {
   SoGLLazyElement::sendTwosideLighting(state, twoside);
 }
@@ -146,7 +146,7 @@ SoGLShapeHintsElement::forceSend(SoState * const state,
 
 void
 SoGLShapeHintsElement::forceSend(SoState * const state,
-                                 const SbBool ccw, const SbBool cull)
+                                 const bool ccw, const bool cull)
 {
   SoGLLazyElement::sendVertexOrdering(state, ccw ? SoLazyElement::CCW : SoLazyElement::CW);
   SoGLLazyElement::sendBackfaceCulling(state, cull);
@@ -156,8 +156,8 @@ SoGLShapeHintsElement::forceSend(SoState * const state,
 
 void
 SoGLShapeHintsElement::forceSend(SoState * const state,
-                                 const SbBool ccw, const SbBool cull,
-                                 const SbBool twoside)
+                                 const bool ccw, const bool cull,
+                                 const bool twoside)
 {
   SoGLLazyElement::sendVertexOrdering(state, ccw ? SoLazyElement::CCW : SoLazyElement::CW);
   SoGLLazyElement::sendBackfaceCulling(state, cull);

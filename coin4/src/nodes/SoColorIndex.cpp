@@ -107,7 +107,7 @@ SoColorIndex::GLRender(SoGLRenderAction * action)
   if (!this->index.isIgnored() &&
       !SoOverrideElement::getColorIndexOverride(state)) {
     if (this->isOverride()) {
-      SoOverrideElement::setColorIndexOverride(state, this, TRUE);
+      SoOverrideElement::setColorIndexOverride(state, this, true);
     }
     SoGLColorIndexElement::set(state, this,
                                this->index.getNum(),

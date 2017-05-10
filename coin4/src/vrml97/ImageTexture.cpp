@@ -37,8 +37,8 @@
   \verbatim
   ImageTexture {
     exposedField MFString url     []
-    field        SFBool   repeatS TRUE
-    field        SFBool   repeatT TRUE
+    field        SFBool   repeatS true
+    field        SFBool   repeatT true
   }
   \endverbatim
 
@@ -77,9 +77,9 @@
   textures, materials, and geometry appearance.
 
   The repeatS and repeatT fields specify how the texture wraps in the
-  S and T directions. If repeatS is TRUE (the default), the texture
+  S and T directions. If repeatS is true (the default), the texture
   map is repeated outside the [0.0, 1.0] texture coordinate range in
-  the S direction so that it fills the shape. If repeatS is FALSE, the
+  the S direction so that it fills the shape. If repeatS is false, the
   texture coordinates are clamped in the S direction to lie within the
   [0.0, 1.0] range. The repeatT field is analogous to the repeatS
   field.
@@ -124,7 +124,7 @@
     SoSearchAction sa;
     sa.setType(SoVRMLImageTexture::getClassTypeId());
     sa.setInterest(SoSearchAction::ALL);
-    sa.setSearchingAll(TRUE);
+    sa.setSearchingAll(true);
     sa.apply(root);
     SoPathList & pl = sa.getPaths();
     SbDict namedict;
@@ -214,7 +214,7 @@
 static int imagedata_maxage = 0;
 static VRMLPrequalifyFileCallback * imagetexture_prequalify_cb = NULL;
 static void * imagetexture_prequalify_closure = NULL;
-static SbBool imagetexture_delay_fetch = TRUE;
+static bool imagetexture_delay_fetch = true;
 
 // *************************************************************************
 
@@ -230,14 +230,14 @@ public:
   bool glimagevalid; 
   SbImage image;
   SoFieldSensor * urlsensor;
-  SbBool allowprequalifycb;
+  bool allowprequalifycb;
 
   SoTimerSensor * timersensor;
-  SbBool finishedloading;
+  bool finishedloading;
   static void timersensor_cb(void * data, SoSensor * sensor);
 
   void readimage_cleanup(void);
-  SbBool isdestructing;
+  bool isdestructing;
 
   SbStringList searchdirs;
 
@@ -256,7 +256,7 @@ public:
     }
   }
 
-  static SbBool is_exiting;
+  static bool is_exiting;
   static cc_sched * scheduler;
 
 #ifdef COIN_THREADSAFE
@@ -270,7 +270,7 @@ public:
 
   static void cleanup(void)
   {
-    is_exiting = TRUE;
+    is_exiting = true;
 
 #ifdef COIN_THREADSAFE
     delete glimagemutex;
@@ -282,7 +282,7 @@ public:
       scheduler = NULL;
     }
 
-    imagetexture_delay_fetch = TRUE;
+    imagetexture_delay_fetch = true;
     imagetexture_prequalify_cb = NULL;
     imagetexture_prequalify_closure = NULL;
   }
@@ -293,7 +293,7 @@ SbMutex * SoVRMLImageTextureP::glimagemutex = NULL;
 #endif // COIN_THREADSAFE
 
 cc_sched * SoVRMLImageTextureP::scheduler = NULL;
-SbBool SoVRMLImageTextureP::is_exiting = FALSE;
+bool SoVRMLImageTextureP::is_exiting = false;
 
 // *************************************************************************
 
@@ -305,7 +305,7 @@ SO_NODE_SOURCE(SoVRMLImageTexture);
 void
 SoVRMLImageTexture::initClass(void) // static
 {
-  SoVRMLImageTextureP::is_exiting = FALSE;
+  SoVRMLImageTextureP::is_exiting = false;
   SO_NODE_INTERNAL_INIT_CLASS(SoVRMLImageTexture, SO_VRML97_NODE_TYPE);
   imagedata_maxage = 500;
   
@@ -346,7 +346,7 @@ SoVRMLImageTexture::SoVRMLImageTexture(void)
   PRIVATE(this)->glimage = NULL;
   PRIVATE(this)->glimagevalid = false;
   PRIVATE(this)->readstatus = 1;
-  PRIVATE(this)->allowprequalifycb = TRUE;
+  PRIVATE(this)->allowprequalifycb = true;
   PRIVATE(this)->timersensor = 
     new SoTimerSensor(SoVRMLImageTextureP::timersensor_cb, PRIVATE(this));
   PRIVATE(this)->timersensor->setInterval(SbTime(0.5));
@@ -357,7 +357,7 @@ SoVRMLImageTexture::SoVRMLImageTexture(void)
   PRIVATE(this)->urlsensor = new SoFieldSensor(urlSensorCB, this);
   PRIVATE(this)->urlsensor->setPriority(0);
   PRIVATE(this)->urlsensor->attach(&this->url);
-  PRIVATE(this)->isdestructing = FALSE;
+  PRIVATE(this)->isdestructing = false;
 }
 
 /*!
@@ -369,7 +369,7 @@ SoVRMLImageTexture::~SoVRMLImageTexture()
 
   // just wait for all threads to finish reading
   if (SoVRMLImageTextureP::scheduler) {
-    PRIVATE(this)->isdestructing = TRUE; // signal thread that we are destructing
+    PRIVATE(this)->isdestructing = true; // signal thread that we are destructing
     cc_sched_wait_all(SoVRMLImageTextureP::scheduler);
   }
 
@@ -396,10 +396,10 @@ SoVRMLImageTexture::setPrequalifyFileCallBack(VRMLPrequalifyFileCallback * cb,
 /*!
   Sets whether the image loading is delayed until the first time the
   image is needed, or if the image is loaded immediately when the
-  url field is changed/set. Default value is \e TRUE.
+  url field is changed/set. Default value is \e true.
 */
 void 
-SoVRMLImageTexture::setDelayFetchURL(const SbBool onoff)
+SoVRMLImageTexture::setDelayFetchURL(const bool onoff)
 {
   imagetexture_delay_fetch = onoff;
 }
@@ -408,13 +408,13 @@ SoVRMLImageTexture::setDelayFetchURL(const SbBool onoff)
   Enable prequalify file loading.
 */
 void
-SoVRMLImageTexture::allowPrequalifyFile(SbBool enable)
+SoVRMLImageTexture::allowPrequalifyFile(bool enable)
 {
   PRIVATE(this)->allowprequalifycb = enable;
 }
 
 static SoGLImage::Wrap
-imagetexture_translate_wrap(const SbBool repeat)
+imagetexture_translate_wrap(const bool repeat)
 {
   if (repeat) return SoGLImage::REPEAT;
   return SoGLImage::CLAMP_TO_EDGE;
@@ -447,10 +447,10 @@ SoVRMLImageTexture::doAction(SoAction * action)
   }
 
   if (size == SbVec2s(0,0)) {
-    SoMultiTextureEnabledElement::set(state, this, unit, FALSE);    
+    SoMultiTextureEnabledElement::set(state, this, unit, false);    
   }
   else {
-    SoMultiTextureEnabledElement::set(state, this, unit, TRUE);    
+    SoMultiTextureEnabledElement::set(state, this, unit, true);    
     SoMultiTextureImageElement::set(state, this, unit,
                                     size, nc, bytes,
                                     (this->repeatS.getValue() ? 
@@ -486,8 +486,8 @@ SoVRMLImageTexture::GLRender(SoGLRenderAction * action)
 
   SoTextureScalePolicyElement::Policy scalepolicy =
     SoTextureScalePolicyElement::get(state);      
-  SbBool needbig = (scalepolicy == SoTextureScalePolicyElement::FRACTURE);
-  SbBool isbig = 
+  bool needbig = (scalepolicy == SoTextureScalePolicyElement::FRACTURE);
+  bool isbig = 
     PRIVATE(this)->glimage && 
     PRIVATE(this)->glimage->getTypeId() == SoGLBigImage::getClassTypeId();
   
@@ -514,7 +514,7 @@ SoVRMLImageTexture::GLRender(SoGLRenderAction * action)
     PRIVATE(this)->glimage->setEndFrameCallback(glimage_callback, this);
 
     // don't cache while creating a texture object
-    SoCacheElement::setInvalid(TRUE);
+    SoCacheElement::setInvalid(true);
     if (state->isCacheOpen()) {
       SoCacheElement::invalidate(state);
     }
@@ -531,7 +531,7 @@ SoVRMLImageTexture::GLRender(SoGLRenderAction * action)
                                     SoMultiTextureImageElement::MODULATE,
                                     SbColor(1.0f, 1.0f, 1.0f));
   
-  SbBool enable = PRIVATE(this)->glimage &&
+  bool enable = PRIVATE(this)->glimage &&
     quality > 0.0f &&
     PRIVATE(this)->glimage->getImage() &&
     PRIVATE(this)->glimage->getImage()->hasData();
@@ -542,7 +542,7 @@ SoVRMLImageTexture::GLRender(SoGLRenderAction * action)
                                     enable);
   
   if (this->isOverride() && (unit == 0)) {
-    SoTextureOverrideElement::setImageOverride(state, TRUE);
+    SoTextureOverrideElement::setImageOverride(state, true);
   }
 }
 
@@ -554,12 +554,12 @@ SoVRMLImageTexture::callback(SoCallbackAction * action)
 }
 
 // Doc in parent
-SbBool
+bool
 SoVRMLImageTexture::readInstance(SoInput * in,
                                  unsigned short flags)
 {
   PRIVATE(this)->urlsensor->detach();
-  SbBool ret = inherited::readInstance(in, flags);
+  bool ret = inherited::readInstance(in, flags);
   this->setReadStatus((int) ret);
   if (ret) {
     // need to copy the SoInput directories, so that the texture is
@@ -569,7 +569,7 @@ SoVRMLImageTexture::readInstance(SoInput * in,
     if (!this->loadUrl()) {
       SoReadError::post(in, "Could not read texture file: %s",
                         url[0].getString());
-      this->setReadStatus(FALSE);
+      this->setReadStatus(false);
     }
   }
   PRIVATE(this)->urlsensor->attach(&this->url);
@@ -598,14 +598,14 @@ SoVRMLImageTexture::setReadStatus(int status)
 // Called from readInstance() or when user changes the
 // filename field.
 //
-SbBool
+bool
 SoVRMLImageTexture::loadUrl(void)
 {
   PRIVATE(this)->lock_glimage();
   PRIVATE(this)->glimagevalid = false;
   PRIVATE(this)->unlock_glimage();
 
-  SbBool retval = TRUE;
+  bool retval = true;
   if (this->url.getNum() && this->url[0].getLength()) {
     const SbStringList & sl = PRIVATE(this)->searchdirs;
     if (sl.getLength() == 0) { // will be empty if the node isn't read but created in C++
@@ -625,7 +625,7 @@ SoVRMLImageTexture::loadUrl(void)
     }
   }
   else {
-    retval = TRUE;
+    retval = true;
   }
   return retval;
 }
@@ -674,11 +674,11 @@ SoVRMLImageTexture::glimage_callback(void * closure)
   PRIVATE(thisp)->unlock_glimage();
 }
 
-SbBool
+bool
 SoVRMLImageTexture::default_prequalify_cb(const SbString & url,  void * COIN_UNUSED_ARG(closure), 
                                           SoVRMLImageTexture * thisp)
 {
-  SbBool ret = TRUE;
+  bool ret = true;
   if (!SoVRMLImageTextureP::is_exiting && !PRIVATE(thisp)->isdestructing) {
     const SbStringList & sl = SoInput::getDirectories();
     ret = PRIVATE(thisp)->image.readFile(url, sl.getArrayPtr(), sl.getLength());
@@ -720,7 +720,7 @@ SoVRMLImageTexture::oneshot_readimage_cb(void * closure, SoSensor * sensor)
 //
 // called (from SbImage) when image data is needed.
 //
-SbBool
+bool
 SoVRMLImageTexture::image_read_cb(const SbString & filename, SbImage * image, void * closure)
 {
   SoVRMLImageTexture * thisp = (SoVRMLImageTexture*) closure;
@@ -728,7 +728,7 @@ SoVRMLImageTexture::image_read_cb(const SbString & filename, SbImage * image, vo
   
   // start a timer sensor which polls the thread that loads images, to
   // detect when it's done:
-  PRIVATE(thisp)->finishedloading = FALSE; // this will be TRUE when finished
+  PRIVATE(thisp)->finishedloading = false; // this will be true when finished
   PRIVATE(thisp)->timersensor->schedule();
 
   imagetexture_thread_data * data = new imagetexture_thread_data;
@@ -747,7 +747,7 @@ SoVRMLImageTexture::image_read_cb(const SbString & filename, SbImage * image, vo
     sensor->schedule();
   }
 
-  return TRUE;
+  return true;
 }
 
 //
@@ -785,10 +785,10 @@ SoVRMLImageTexture::urlSensorCB(void * data, SoSensor *)
 
 // helper function that either loads the image using the default
 // loader, or calls the prequalify callback
-SbBool 
+bool 
 SoVRMLImageTexture::readImage(const SbString & filename)
 {
-  SbBool retval = TRUE;
+  bool retval = true;
   if (PRIVATE(this)->allowprequalifycb && imagetexture_prequalify_cb) {
     retval = imagetexture_prequalify_cb(filename, imagetexture_prequalify_closure,
                                         this);
@@ -801,7 +801,7 @@ SoVRMLImageTexture::readImage(const SbString & filename)
   PRIVATE(this)->unlock_glimage();
 
   // set flag that timer sensor will test. 
-  PRIVATE(this)->finishedloading = TRUE;
+  PRIVATE(this)->finishedloading = true;
   return retval;
 }
 

@@ -42,21 +42,21 @@ public:
   virtual ~SoReorganizeAction(void);
 
   SoSeparator * getSimplifiedSceneGraph(void) const;
-  void generateNormals(SbBool onoff);
-  SbBool areNormalGenerated(void) const;
-  void generateTriangleStrips(SbBool onoff);
-  SbBool areTriangleStripGenerated(void) const;
-  void generateTexCoords(SbBool onoff);
-  SbBool areTexCoordsGenerated(void) const;
-  void generateVPNodes(SbBool onoff); 
-  SbBool areVPNodesGenerated(void); 
-  void matchIndexArrays(SbBool onoff);
-  SbBool areIndexArraysMatched(void) const;
+  void generateNormals(bool onoff);
+  bool areNormalGenerated(void) const;
+  void generateTriangleStrips(bool onoff);
+  bool areTriangleStripGenerated(void) const;
+  void generateTexCoords(bool onoff);
+  bool areTexCoordsGenerated(void) const;
+  void generateVPNodes(bool onoff); 
+  bool areVPNodesGenerated(void); 
+  void matchIndexArrays(bool onoff);
+  bool areIndexArraysMatched(void) const;
   SoSimplifier * getSimplifier(void) const;
 
   virtual void apply(SoNode * root);
   virtual void apply(SoPath * path);
-  virtual void apply(const SoPathList & pathlist, SbBool obeysrules = FALSE);
+  virtual void apply(const SoPathList & pathlist, bool obeysrules = false);
 
   static void startReport(const char * msg);
   static void finishReport(void);

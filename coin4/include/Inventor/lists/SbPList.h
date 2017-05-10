@@ -52,8 +52,8 @@ public:
   void ** getArrayPtr(const int start = 0) const;
   void *& operator[](const int index) const;
 
-  int operator==(const SbPList & l) const;
-  int operator!=(const SbPList & l) const;  
+  bool operator==(const SbPList & l) const;
+  bool operator!=(const SbPList & l) const;  
   void * get(const int index) const;
   void set(const int index, void * item);
   
@@ -125,7 +125,7 @@ SbPList::operator[](const int index) const
   return this->itembuffer[index];
 }
 
-inline int 
+inline bool 
 SbPList::operator!=(const SbPList & l) const 
 {
   return !(*this == l);

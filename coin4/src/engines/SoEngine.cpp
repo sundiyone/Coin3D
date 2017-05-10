@@ -122,7 +122,7 @@ SoEngine::destroy(void)
   // The explicit call here is done so attached fields will get the
   // chance to update before we die. SoField::disconnect() will
   // normally call SoEngine::evaluate(), but we disable that feature
-  // by setting SoEngineOutput::isEnabled() to FALSE before
+  // by setting SoEngineOutput::isEnabled() to false before
   // decoupling.
 
   // need to lock to avoid that evaluateWrapper() is called
@@ -240,24 +240,24 @@ SoEngine::getOutput(const SbName & outputname) const
 }
 
 /*!
-  Sets \outputname to the name of \a output. Returns \c FALSE if no
+  Sets \outputname to the name of \a output. Returns \c false if no
   such output is contained within the engine instance.
 */
-SbBool
+bool
 SoEngine::getOutputName(const SoEngineOutput * output,
                         SbName & outputname) const
 {
   const SoEngineOutputData * outputs = this->getOutputData();
-  if (outputs == NULL) return FALSE;
+  if (outputs == NULL) return false;
 
   int n = outputs->getNumOutputs();
   for (int i = 0; i < n; i++) {
     if (outputs->getOutput(this, i) == output) {
       outputname = outputs->getOutputName(i);
-      return TRUE;
+      return true;
     }
   }
-  return FALSE;
+  return false;
 }
 
 /*!
@@ -390,7 +390,7 @@ SoEngine::getOutputDataPtr(void)
 }
 
 // Documented in superclass.
-SbBool
+bool
 SoEngine::readInstance(SoInput * in, unsigned short flagsarg)
 {
   // FIXME: I believe there's code missing here for reading
@@ -404,7 +404,7 @@ SoEngine::readInstance(SoInput * in, unsigned short flagsarg)
 void
 SoEngine::writeInstance(SoOutput * out)
 {
-  if (this->writeHeader(out, FALSE, TRUE)) return;
+  if (this->writeHeader(out, false, true)) return;
   inherited::writeInstance(out);
   this->writeFooter(out);
 }
@@ -455,7 +455,7 @@ SoEngine::copy(void) const
   cp->ref();
 
   // Call findCopy() to have copyContents() run once.
-  SoEngine * dummy = coin_assert_cast<SoEngine *>(SoFieldContainer::findCopy(this, TRUE));
+  SoEngine * dummy = coin_assert_cast<SoEngine *>(SoFieldContainer::findCopy(this, true));
   assert(dummy == cp);
 
   SoFieldContainer::copyDone();
@@ -476,10 +476,10 @@ SoEngine::copyThroughConnection(void) const
   // if a copy has been made, return the findCopy instance (findCopy
   // will run copyContents() the first time it's called on an
   // instance).
-  if (connfc) return SoFieldContainer::findCopy(this, TRUE);
+  if (connfc) return SoFieldContainer::findCopy(this, true);
 
   // If we're outside the scenegraph.
-  if (this->shouldCopy() == FALSE)
+  if (this->shouldCopy() == false)
     return
       const_cast<SoFieldContainer *>
       (
@@ -487,7 +487,7 @@ SoEngine::copyThroughConnection(void) const
        );
 
   // Ok, make the first copy and return its pointer.
-  SoEngine * cp = coin_assert_cast<SoEngine *>(SoFieldContainer::findCopy(this, TRUE));
+  SoEngine * cp = coin_assert_cast<SoEngine *>(SoFieldContainer::findCopy(this, true));
   assert(cp);
   return cp;
 }
@@ -499,16 +499,16 @@ SoEngine::copyThroughConnection(void) const
   Engines which are not really part of the scenegraph should not be
   copied.
 */
-SbBool
+bool
 SoEngine::shouldCopy(void) const
 {
-  SbBool result = FALSE;
+  bool result = false;
 
   SoFieldList fl;
   int nr = this->getFields(fl);
   for (int i=0; i < nr; i++) {
     if (fl[i]->referencesCopy()) {
-      result = TRUE;
+      result = true;
       break;
     }
   }
@@ -516,7 +516,7 @@ SoEngine::shouldCopy(void) const
 #if COIN_DEBUG && 0 // debug
   SoDebugError::postInfo("SoEngine::shouldCopy", "%p - %s, result==%s",
                          this, this->getTypeId().getName().getString(),
-                         result ? "TRUE" : "FALSE");
+                         result ? "true" : "false");
 #endif // debug
 
   return result;
@@ -527,7 +527,7 @@ SoEngine::shouldCopy(void) const
   avoid double notification when an engine enables outputs during
   inputChanged().
 */
-SbBool
+bool
 SoEngine::isNotifying(void) const
 {
   return (this->flags & FLAG_ISNOTIFYING) != 0;

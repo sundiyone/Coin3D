@@ -45,9 +45,9 @@ public:
   virtual void GLRender(SoGLRenderAction * action);
   virtual void getPrimitiveCount(SoGetPrimitiveCountAction * action);
 
-  virtual SbBool generateDefaultNormals(SoState * state,
+  virtual bool generateDefaultNormals(SoState * state,
                                         SoNormalBundle * bundle);
-  virtual SbBool generateDefaultNormals(SoState * state,
+  virtual bool generateDefaultNormals(SoState * state,
                                         SoNormalCache * cache);
 
 protected:
@@ -65,10 +65,10 @@ private:
     NONE = OVERALL
   };
 
-  SbBool useConvexCache(SoAction * action,
+  bool useConvexCache(SoAction * action,
                         const SbVec3f * normals,
                         const int32_t * nindices,
-                        const SbBool normalsfromcache);
+                        const bool normalsfromcache);
   Binding findMaterialBinding(SoState * const state) const;
   Binding findNormalBinding(SoState * const state) const;
   virtual void notify(SoNotList * list);

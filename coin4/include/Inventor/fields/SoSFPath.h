@@ -40,8 +40,8 @@ public:
   static void initClass(void);
 
   virtual void notify(SoNotList * l);
-  virtual void fixCopy(SbBool copyconnections);
-  virtual SbBool referencesCopy(void) const;
+  virtual void fixCopy(bool copyconnections);
+  virtual bool referencesCopy(void) const;
 
 private:
   virtual void countWriteRefs(SoOutput * out) const;

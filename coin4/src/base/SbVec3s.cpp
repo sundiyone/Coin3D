@@ -401,10 +401,10 @@ SbVec3s::toString() const
 /*!
   Convert from a string representation, return wether this is a valid conversion
 */
-SbBool
+bool
 SbVec3s::fromString(const SbString & str)
 {
-  SbBool conversionOk;
+  bool conversionOk;
   *this = CoinInternal::FromString<SbVec3s>(str,&conversionOk);
   return conversionOk;
 }
@@ -449,8 +449,8 @@ BOOST_AUTO_TEST_CASE(fromString) {
 BOOST_AUTO_TEST_CASE(fromInvalidString) {
   ToTest foo;
   SbString test = "a,2,3";
-  SbBool conversionOk = foo.fromString(test);
-  BOOST_CHECK_MESSAGE(conversionOk == FALSE,
+  bool conversionOk = foo.fromString(test);
+  BOOST_CHECK_MESSAGE(conversionOk == false,
                       std::string("Able to convert from ") + test.getString() + " which is not a valid " + SbTypeInfo<ToTest>::getTypeName() + " representation");
 }
 

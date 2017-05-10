@@ -124,17 +124,17 @@ SoCoordinate3::GLRender(SoGLRenderAction * action)
   SoCoordinate3::doAction(action);
   SoState * state = action->getState();
   const int num = this->point.getNum();
-  SbBool setvbo = FALSE;
+  bool setvbo = false;
   SoBase::staticDataLock();
   if (SoGLVBOElement::shouldCreateVBO(state, num)) {
-    SbBool dirty = FALSE;
-    setvbo = TRUE;
+    bool dirty = false;
+    setvbo = true;
     if (PRIVATE(this)->vbo == NULL) {
       PRIVATE(this)->vbo = new SoVBO(GL_ARRAY_BUFFER, GL_STATIC_DRAW); 
-      dirty =  TRUE;
+      dirty =  true;
     }
     else if (PRIVATE(this)->vbo->getBufferDataId() != this->getNodeId()) {
-      dirty = TRUE;
+      dirty = true;
     }
     if (dirty) {
       PRIVATE(this)->vbo->setBufferData(this->point.getValues(0),

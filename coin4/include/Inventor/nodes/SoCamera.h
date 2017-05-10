@@ -125,7 +125,7 @@ protected:
 private:
   void getView(SoAction * action, SbViewVolume & resultvv,
                SbViewportRegion & resultvp,
-               const SbBool considermodelmatrix = TRUE);
+               const bool considermodelmatrix = true);
 
   void drawCroppedFrame(SoGLRenderAction * action,
                         const int viewportmapping,

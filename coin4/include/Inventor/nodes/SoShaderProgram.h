@@ -34,7 +34,7 @@ class SoGLRenderAction;
 
 typedef void SoShaderProgramEnableCB(void * closure, 
                                      SoState * state,
-                                     const SbBool enable);
+                                     const bool enable);
 
 // *************************************************************************
 

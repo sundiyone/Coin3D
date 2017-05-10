@@ -126,10 +126,10 @@ SoComputeBoundingBox::evaluate(void)
     // Nothing to see, move along.. (we "un-dirty" the fields to avoid
     // them being re-evaluated again and again while the engine inputs
     // are NULL).
-    SO_ENGINE_OUTPUT(min, SoSFVec3f, setDirty(FALSE));
-    SO_ENGINE_OUTPUT(max, SoSFVec3f, setDirty(FALSE));
-    SO_ENGINE_OUTPUT(boxCenter, SoSFVec3f, setDirty(FALSE));
-    SO_ENGINE_OUTPUT(objectCenter, SoSFVec3f, setDirty(FALSE));
+    SO_ENGINE_OUTPUT(min, SoSFVec3f, setDirty(false));
+    SO_ENGINE_OUTPUT(max, SoSFVec3f, setDirty(false));
+    SO_ENGINE_OUTPUT(boxCenter, SoSFVec3f, setDirty(false));
+    SO_ENGINE_OUTPUT(objectCenter, SoSFVec3f, setDirty(false));
     return;
   }
 

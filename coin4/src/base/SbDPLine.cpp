@@ -108,13 +108,13 @@ SbDPLine::setPosDir(const SbVec3d & position, const SbVec3d & direction)
 
 /*!
   Returns the two closest points on the lines. If the lines are
-  parallel, all points are equally close and we return \c FALSE. If
+  parallel, all points are equally close and we return \c false. If
   the lines are not parallel, the point positions will be stored in \a
-  ptOnThis and \a ptOnLine2, and we'll return \c TRUE.
+  ptOnThis and \a ptOnLine2, and we'll return \c true.
 
   \sa getClosestPoint().
 */
-SbBool
+bool
 SbDPLine::getClosestPoints(const SbDPLine& line2,
                          SbVec3d& ptOnThis, SbVec3d& ptOnLine2) const
 {
@@ -167,12 +167,12 @@ SbDPLine::getClosestPoints(const SbDPLine& line2,
   const double eps = 1.0e-08;
   if (t < -1.0f + eps || t > 1.0f-eps) {
     // lines are parallel
-    return FALSE;
+    return false;
   }
   t = (u.dot(d1) - t * u.dot(d2)) / (1-t*t);
   ptOnThis = p1 + t * d1;
   ptOnLine2 = line2.getClosestPoint(ptOnThis);
-  return TRUE;
+  return true;
 
 #else // end of new, optimized version
 
@@ -187,8 +187,8 @@ SbDPLine::getClosestPoints(const SbDPLine& line2,
 
   // Check if the lines are parallel.
   // FIXME: should probably use equals() here.
-  if(line2.dir == this->dir) return FALSE;
-  else if(line2.dir == -this->dir) return FALSE;
+  if(line2.dir == this->dir) return false;
+  else if(line2.dir == -this->dir) return false;
 
 
   // From the discussion on getClosestPoint(), we know that the point
@@ -281,7 +281,7 @@ SbDPLine::getClosestPoints(const SbDPLine& line2,
   ptOnLine2 = line2.pos + line2.dir * t;
   ptOnThis = this->getClosestPoint(ptOnLine2);
 
-  return TRUE;
+  return true;
 #endif // old version
 }
 

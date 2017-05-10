@@ -152,12 +152,12 @@ SoRotateDiscDragger::SoRotateDiscDragger(void)
 {
   SO_KIT_INTERNAL_CONSTRUCTOR(SoRotateDiscDragger);
 
-  SO_KIT_ADD_CATALOG_ENTRY(rotatorSwitch, SoSwitch, TRUE, geomSeparator, feedbackSwitch, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(rotator, SoSeparator, TRUE, rotatorSwitch, rotatorActive, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(rotatorActive, SoSeparator, TRUE, rotatorSwitch, "", TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(feedbackSwitch, SoSwitch, TRUE, geomSeparator, "", FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(feedback, SoSeparator, TRUE, feedbackSwitch, feedbackActive, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(feedbackActive, SoSeparator, TRUE, feedbackSwitch, "", TRUE);
+  SO_KIT_ADD_CATALOG_ENTRY(rotatorSwitch, SoSwitch, true, geomSeparator, feedbackSwitch, false);
+  SO_KIT_ADD_CATALOG_ENTRY(rotator, SoSeparator, true, rotatorSwitch, rotatorActive, true);
+  SO_KIT_ADD_CATALOG_ENTRY(rotatorActive, SoSeparator, true, rotatorSwitch, "", true);
+  SO_KIT_ADD_CATALOG_ENTRY(feedbackSwitch, SoSwitch, true, geomSeparator, "", false);
+  SO_KIT_ADD_CATALOG_ENTRY(feedback, SoSeparator, true, feedbackSwitch, feedbackActive, true);
+  SO_KIT_ADD_CATALOG_ENTRY(feedbackActive, SoSeparator, true, feedbackSwitch, "", true);
 
   if (SO_KIT_IS_FIRST_INSTANCE()) {
     SoInteractionKit::readDefaultParts("rotateDiscDragger.iv",
@@ -192,7 +192,7 @@ SoRotateDiscDragger::SoRotateDiscDragger(void)
   this->fieldSensor = new SoFieldSensor(SoRotateDiscDragger::fieldSensorCB, this);
   this->fieldSensor->setPriority(0);
 
-  this->setUpConnections(TRUE, TRUE);
+  this->setUpConnections(true, true);
 }
 
 /*!
@@ -209,12 +209,12 @@ SoRotateDiscDragger::~SoRotateDiscDragger()
 }
 
 // Doc in superclass.
-SbBool
-SoRotateDiscDragger::setUpConnections(SbBool onoff, SbBool doitalways)
+bool
+SoRotateDiscDragger::setUpConnections(bool onoff, bool doitalways)
 {
   if (!doitalways && this->connectionsSetUp == onoff) return onoff;
 
-  SbBool oldval = this->connectionsSetUp;
+  bool oldval = this->connectionsSetUp;
 
   if (onoff) {
     inherited::setUpConnections(onoff, doitalways);

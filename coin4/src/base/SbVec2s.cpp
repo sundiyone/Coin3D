@@ -393,10 +393,10 @@ SbVec2s::toString() const
 /*!
   Convert from a string representation, return wether this is a valid conversion
 */
-SbBool
+bool
 SbVec2s::fromString(const SbString & str)
 {
-  SbBool conversionOk;
+  bool conversionOk;
   *this = CoinInternal::FromString<SbVec2s>(str,&conversionOk);
   return conversionOk;
 }

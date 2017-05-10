@@ -56,7 +56,7 @@ public:
                 const SoPrimitiveVertex * v1,
                 const SoPrimitiveVertex * v2,
                 const SoPrimitiveVertex * v3);
-  SbBool endShape(SoState * state, SoShape * shape,
+  bool endShape(SoState * state, SoShape * shape,
                   SoMaterialBundle & mb);
 
 

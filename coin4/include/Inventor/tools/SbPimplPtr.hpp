@@ -81,36 +81,36 @@ SbPimplPtr<T>::getNew(void) const
 
 template <typename T>
 SbPimplPtr<T> &
-SbPimplPtr<T>::operator = (const SbPimplPtr<T> & copy)
+SbPimplPtr<T>::operator=(const SbPimplPtr<T> & copy)
 {
   this->get() = copy.get();
   return *this;
 }
 
 template <typename T>
-SbBool
-SbPimplPtr<T>::operator == (const SbPimplPtr<T> & rhs) const
+bool
+SbPimplPtr<T>::operator==(const SbPimplPtr<T> & rhs) const
 {
   return this->get() == rhs.get();
 }
 
 template <typename T>
-SbBool
-SbPimplPtr<T>::operator != (const SbPimplPtr<T> & rhs) const
+bool
+SbPimplPtr<T>::operator!=(const SbPimplPtr<T> & rhs) const
 {
   return !(*this == rhs);
 }
 
 template <typename T>
 const T *
-SbPimplPtr<T>::operator -> (void) const
+SbPimplPtr<T>::operator->(void) const
 {
   return &(this->get());
 }
 
 template <typename T>
 T *
-SbPimplPtr<T>::operator -> (void)
+SbPimplPtr<T>::operator->(void)
 {
   return &(this->get());
 }

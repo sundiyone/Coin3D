@@ -42,7 +42,7 @@ public:
 
   virtual void addCacheDependency(const SoState * state,
                                   SoCache * cache);
-  virtual SbBool isValid(const SoState * state) const;
+  virtual bool isValid(const SoState * state) const;
   const SoElement * getInvalidElement(const SoState * const state) const;
   void invalidate(void);
 

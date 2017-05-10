@@ -39,7 +39,7 @@ public:
     return 0;
   }
 
-  SbBool tryLock(void) {
+  bool tryLock(void) {
     return cc_mutex_try_lock(this->mutex) == CC_OK;
   }
 

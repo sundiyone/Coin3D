@@ -216,8 +216,8 @@ public:
 
   void unsquishKnobs(void);
 
-  SbBool isLocateHighlighting(void);
-  void setLocateHighlighting(SbBool onoff);
+  bool isLocateHighlighting(void);
+  void setLocateHighlighting(bool onoff);
 
   static void setColinearThreshold(int newval);
   static int getColinearThreshold(void);
@@ -231,7 +231,7 @@ public:
 
 protected:
   virtual ~SoTransformerDragger(void);
-  virtual SbBool setUpConnections(SbBool onoff, SbBool doitalways = FALSE);
+  virtual bool setUpConnections(bool onoff, bool doitalways = false);
   virtual void setDefaultOnNonWritingFields(void);
 
   static void startCB(void * f, SoDragger * d);
@@ -247,11 +247,11 @@ protected:
 
   void updateAntiSquishList(void);
   void setAllPartSwitches(int scalewhich, int rotatewhich, int translatewhich);
-  int getMouseGestureDirection(SbBool x_ok, SbBool y_ok, SbBool z_ok);
+  int getMouseGestureDirection(bool x_ok, bool y_ok, bool z_ok);
   static int getIgnoreAxis(SbVec2f axis[3][2],
-                           SbBool x_ok, SbBool y_ok, SbBool z_ok);
+                           bool x_ok, bool y_ok, bool z_ok);
   static void makeMinorAxisPerpendicularIfColinear(SbVec2f origin, SbVec2f axisends[3][2], int index_a, int index_b);
-  static SbBool isColinear(SbVec2f a1[2], SbVec2f a2[2], int pixels);
+  static bool isColinear(SbVec2f a1[2], SbVec2f a2[2], int pixels);
 
   SoFieldSensor * translFieldSensor;
   SoFieldSensor * scaleFieldSensor;
@@ -276,9 +276,9 @@ private:
   SbVec3f calcCtrlOffset(const SbVec3f &startpt);
   void setSwitchValue(const char *str, const int which);
 
-  SbBool setDynamicTranslatorSwitches(const SoEvent *event);
-  SbBool setDynamicRotatorSwitches(const SoEvent *event);
-  SbBool setDynamicScaleSwitches(const SoEvent *event);
+  bool setDynamicTranslatorSwitches(const SoEvent *event);
+  bool setDynamicRotatorSwitches(const SoEvent *event);
+  bool setDynamicScaleSwitches(const SoEvent *event);
 
   void dragTranslate();
   void dragScale();

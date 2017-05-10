@@ -71,8 +71,8 @@ public:
   const SoEvent * event;
   SoNode * grabber;
   SoNode * pickroot;
-  SbBool pickvalid;
-  SbBool didpickall;
+  bool pickvalid;
+  bool didpickall;
   SoRayPickAction * pickaction;
 
   SoHandleEventAction * owner;
@@ -111,8 +111,8 @@ SoHandleEventAction::SoHandleEventAction(const SbViewportRegion & viewportregion
   PRIVATE(this)->event = NULL;
   PRIVATE(this)->grabber = NULL;
   PRIVATE(this)->pickroot = NULL;
-  PRIVATE(this)->pickvalid = FALSE;
-  PRIVATE(this)->didpickall = FALSE;
+  PRIVATE(this)->pickvalid = false;
+  PRIVATE(this)->didpickall = false;
   PRIVATE(this)->pickaction = NULL;
 
   SO_ACTION_CONSTRUCTOR(SoHandleEventAction);
@@ -201,14 +201,14 @@ SoHandleEventAction::getEvent(void) const
 
   The action is only marked as handled when a node in the graph
   "grabs" the event this action is carrying, so the handled flag will
-  be \c FALSE after traversal if no nodes wanted the event.
+  be \c false after traversal if no nodes wanted the event.
 
   \sa isHandled()
 */
 void
 SoHandleEventAction::setHandled(void)
 {
-  this->setTerminated(TRUE);
+  this->setTerminated(true);
 }
 
 /*!
@@ -217,7 +217,7 @@ SoHandleEventAction::setHandled(void)
 
   \sa setHandled()
 */
-SbBool
+bool
 SoHandleEventAction::isHandled(void) const
 {
   return this->hasTerminated();
@@ -284,7 +284,7 @@ SoHandleEventAction::setPickRoot(SoNode * node)
   PRIVATE(this)->pickroot = node;
   if (PRIVATE(this)->pickroot) PRIVATE(this)->pickroot->ref();
   if (oldroot) oldroot->unref();
-  PRIVATE(this)->pickvalid = FALSE;
+  PRIVATE(this)->pickvalid = false;
 }
 
 /*!
@@ -315,7 +315,7 @@ SoHandleEventAction::getPickedPoint(void)
 {
   SoRayPickAction * ra = PRIVATE(this)->getPickAction();
   if (!PRIVATE(this)->pickvalid || PRIVATE(this)->didpickall) {
-    ra->setPickAll(FALSE);
+    ra->setPickAll(false);
     PRIVATE(this)->doPick(ra);
   }
   return ra->getPickedPoint();
@@ -329,7 +329,7 @@ SoHandleEventAction::getPickedPointList(void)
 {
   SoRayPickAction * ra = PRIVATE(this)->getPickAction();
   if (!PRIVATE(this)->pickvalid || !PRIVATE(this)->didpickall) {
-    ra->setPickAll(TRUE);
+    ra->setPickAll(true);
     PRIVATE(this)->doPick(ra);
   }
   return ra->getPickedPointList();
@@ -355,7 +355,7 @@ SoHandleEventAction::beginTraversal(SoNode * node)
 
   // clear the picked point list
   PRIVATE(this)->getPickAction()->reset();
-  PRIVATE(this)->pickvalid = FALSE;
+  PRIVATE(this)->pickvalid = false;
 }
 
 //////// Hidden private methods for //////////////////////////////////////
@@ -376,13 +376,13 @@ SoHandleEventActionP::doPick(SoRayPickAction * ra)
 {
   if (!this->event || !this->pickroot) return;
 
-  SbBool didapply = FALSE;
+  bool didapply = false;
   ra->setPoint(this->event->getPosition());
   if (this->owner->getWhatAppliedTo() == SoAction::PATH) {
     const SoPath * path = this->owner->getPathAppliedTo();
     if (path->getHead() == this->pickroot) {
       ra->apply(const_cast<SoPath *>(path));
-      didapply = TRUE;
+      didapply = true;
     }
     else { // make subpath if pickroot can be found in path
       int i, n = path->getLength();
@@ -394,13 +394,13 @@ SoHandleEventActionP::doPick(SoRayPickAction * ra)
         tmppath->ref();
         ra->apply(tmppath);
         tmppath->unref();
-        didapply = TRUE;
+        didapply = true;
       }
     }
   }
   if (!didapply) ra->apply(this->pickroot);
   this->didpickall = ra->isPickAll();
-  this->pickvalid = TRUE;
+  this->pickvalid = true;
 }
 
 #undef PRIVATE

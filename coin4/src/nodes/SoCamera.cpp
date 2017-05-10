@@ -420,7 +420,7 @@ SoCamera::getViewVolume(const SbViewportRegion & vp,
 {
   float aspectratio = resultvp.getViewportAspectRatio();
   int vpm = this->viewportMapping.getValue();  
-  SbBool adjustvp = FALSE;
+  bool adjustvp = false;
   resultvp = vp;
   SbViewVolume resultvv;
 
@@ -429,7 +429,7 @@ SoCamera::getViewVolume(const SbViewportRegion & vp,
   case CROP_VIEWPORT_LINE_FRAME:
   case CROP_VIEWPORT_NO_FRAME:
     resultvv = this->getViewVolume(0.0f);
-    adjustvp = TRUE;
+    adjustvp = true;
     break;
   case ADJUST_CAMERA:
     resultvv = this->getViewVolume(aspectratio);
@@ -642,7 +642,7 @@ SoCamera::GLRender(SoGLRenderAction * action)
 
   SbViewportRegion vp;
   SbViewVolume vv;
-  this->getView(action, vv, vp, FALSE);
+  this->getView(action, vv, vp, false);
 
   SbMatrix affine, proj;
   if (vv.getDepth() == 0.0f || vv.getWidth() == 0.0f || vv.getHeight() == 0.0f) {
@@ -687,7 +687,7 @@ SoCamera::GLRender(SoGLRenderAction * action)
     else {
       vv.getMatrices(affine, proj);
     }
-    SbBool identity;
+    bool identity;
     const SbMatrix & mm = SoModelMatrixElement::get(state, identity);
     if (!identity) {
       affine.multRight(mm.inverse());
@@ -716,13 +716,13 @@ SoCamera::audioRender(SoAudioRenderAction *action)
 {
   SoState * state = action->getState();
 
-  SbBool setbylistener;
+  bool setbylistener;
   setbylistener = SoListenerPositionElement::isSetByListener(state);
   if ((! setbylistener) &&  (! this->position.isIgnored())) {
     SbVec3f pos, worldpos;
     pos = this->position.getValue();
     SoModelMatrixElement::get(action->getState()).multVecMatrix(pos, worldpos);
-    SoListenerPositionElement::set(state, this, worldpos, FALSE);
+    SoListenerPositionElement::set(state, this, worldpos, false);
 #if COIN_DEBUG && 0
   float x, y, z;
   worldpos.getValue(x, y, z);
@@ -735,7 +735,7 @@ SoCamera::audioRender(SoAudioRenderAction *action)
   }
   setbylistener = SoListenerOrientationElement::isSetByListener(state);
   if ((! setbylistener) && (! this->orientation.isIgnored())) {
-    SbBool mmidentity;
+    bool mmidentity;
     SbRotation r;
     SbMatrix m = SoModelMatrixElement::get(state, mmidentity);
     if (!mmidentity) {
@@ -748,16 +748,16 @@ SoCamera::audioRender(SoAudioRenderAction *action)
     else {
       r = this->orientation.getValue();
     }
-    SoListenerOrientationElement::set(state, this, r, FALSE);
+    SoListenerOrientationElement::set(state, this, r, false);
   }
 
   // Set view volume. This is needed for LOD nodes to work properly.
   SbViewportRegion vp;
   SbViewVolume vv;
-  this->getView(action, vv, vp, FALSE);
+  this->getView(action, vv, vp, false);
 
   if (! (vv.getDepth() == 0.0f || vv.getWidth() == 0.0f || vv.getHeight() == 0.0f) ) {
-    SbBool identity;
+    bool identity;
     const SbMatrix & mm = SoModelMatrixElement::get(state, identity);
     if (!identity)
       vv.transform(mm);
@@ -784,7 +784,7 @@ SoCamera::handleEvent(SoHandleEventAction * action)
 {
   SbViewportRegion vp;
   SbViewVolume vv;
-  this->getView(action, vv, vp, FALSE);
+  this->getView(action, vv, vp, false);
   SoViewVolumeElement::set(action->getState(), this, vv);
 }
 
@@ -812,7 +812,7 @@ SoCamera::doAction(SoAction * action)
 
   SbViewportRegion vp;
   SbViewVolume vv;
-  this->getView(action, vv, vp, FALSE);
+  this->getView(action, vv, vp, false);
 
   SbMatrix affine, proj;
   if (vv.getDepth() == 0.0f || vv.getWidth() == 0.0f || vv.getHeight() == 0.0f) {
@@ -822,7 +822,7 @@ SoCamera::doAction(SoAction * action)
   else {
     vv.getMatrices(affine, proj);
 
-    SbBool identity;
+    bool identity;
     const SbMatrix & mm = SoModelMatrixElement::get(state, identity);
     if (!identity) {
       vv.transform(mm);
@@ -881,13 +881,13 @@ SoCamera::getPrimitiveCount(SoGetPrimitiveCountAction * action)
 //
 void
 SoCamera::getView(SoAction * action, SbViewVolume & resultvv, SbViewportRegion & resultvp,
-                  const SbBool considermodelmatrix)
+                  const bool considermodelmatrix)
 {
   SoState * state = action->getState();
   // need to test if vp element is enabled. SoGetPrimitiveCountAction
   // does not enable this element, although I think it should (to get
   // correct SCREEN_SPACE complexity handling).  pederb, 2001-10-31
-  SbBool usevpelement =
+  bool usevpelement =
     state->isElementEnabled(SoViewportRegionElement::getClassStackIndex());
   
   if (usevpelement) {
@@ -924,7 +924,7 @@ SoCamera::drawCroppedFrame(SoGLRenderAction *action,
 {
   if (viewportmapping == SoCamera::CROP_VIEWPORT_NO_FRAME) return;
 
-  if (action->handleTransparency(FALSE))
+  if (action->handleTransparency(false))
     return;
 
   SoState *state = action->getState();
@@ -936,7 +936,7 @@ SoCamera::drawCroppedFrame(SoGLRenderAction *action,
   else { // FILL
     SoDrawStyleElement::set(state, this, SoDrawStyleElement::FILLED);
     // turn off backface culling
-    SoGLShapeHintsElement::forceSend(state, TRUE, FALSE);
+    SoGLShapeHintsElement::forceSend(state, true, false);
   }
 
   SbVec2s oldorigin = oldvp.getViewportOriginPixels();

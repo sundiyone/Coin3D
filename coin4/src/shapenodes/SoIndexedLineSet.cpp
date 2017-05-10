@@ -229,17 +229,17 @@ SoIndexedLineSet::GLRender(SoGLRenderAction * action)
 
   if (!this->shouldGLRender(action)) return;
 
-  SbBool didpush = FALSE;
+  bool didpush = false;
 
   if (this->vertexProperty.getValue()) {
     state->push();
-    didpush = TRUE;
+    didpush = true;
     this->vertexProperty.getValue()->GLRender(action);
   }
 
   SoMaterialBundle mb(action);
-  SoTextureCoordinateBundle tb(action, TRUE, FALSE);
-  SbBool doTextures = tb.needCoordinates();
+  SoTextureCoordinateBundle tb(action, true, false);
+  bool doTextures = tb.needCoordinates();
 
   const SoCoordinateElement * coords;
   const SbVec3f * normals;
@@ -248,9 +248,9 @@ SoIndexedLineSet::GLRender(SoGLRenderAction * action)
   const int32_t * nindices;
   const int32_t * tindices;
   const int32_t * mindices;
-  SbBool normalCacheUsed;
+  bool normalCacheUsed;
 
-  SbBool sendNormals = !mb.isColorOnly() || tb.isFunction();
+  bool sendNormals = !mb.isColorOnly() || tb.isFunction();
 
   getVertexData(state, coords, normals, cindices,
                 nindices, tindices, mindices, numindices,
@@ -259,9 +259,9 @@ SoIndexedLineSet::GLRender(SoGLRenderAction * action)
   if (sendNormals && normals == NULL) {
     if (!didpush) {
       state->push();
-      didpush = TRUE;
+      didpush = true;
     }
-    sendNormals = FALSE;
+    sendNormals = false;
     SoLazyElement::setLightModel(state, SoLazyElement::BASE_COLOR);
   }
 
@@ -298,13 +298,13 @@ SoIndexedLineSet::GLRender(SoGLRenderAction * action)
     glNormal3fv((const GLfloat *)normals);
   }
 
-  SbBool drawPoints =
+  bool drawPoints =
     SoDrawStyleElement::get(state) == SoDrawStyleElement::POINTS;
 
   const uint32_t contextid = action->getCacheContext();
   SoGLLazyElement * lelem = NULL;
 
-  SbBool dova =
+  bool dova =
     !drawPoints &&
     SoVBO::shouldRenderAsVertexArrays(state, contextid, numindices) &&
     ((nbind == OVERALL) || ((nbind == PER_VERTEX_INDEXED) && ((nindices == cindices) || (nindices == NULL)))) &&
@@ -316,23 +316,23 @@ SoIndexedLineSet::GLRender(SoGLRenderAction * action)
   SoVBO * colorvbo = NULL;
 
   if (dova && (mbind != OVERALL)) {
-    dova = FALSE;
+    dova = false;
     if ((mbind == PER_VERTEX_INDEXED) && ((mindices == cindices) || (mindices == NULL))) {
       lelem = (SoGLLazyElement*) SoLazyElement::getInstance(state);
       colorvbo = vboelem->getColorVBO();
-      if (colorvbo) dova = TRUE;
+      if (colorvbo) dova = true;
       else {
         // we might be able to do VA-rendering, but need to check the
         // diffuse color type first.
         if (!lelem->isPacked() && lelem->getNumTransparencies() <= 1) {
-          dova = TRUE;
+          dova = true;
         }
       }
     }
   }
-  SbBool didrenderasvbo = FALSE;
+  bool didrenderasvbo = false;
   if (dova) {
-    SbBool dovbo = this->startVertexArray(action,
+    bool dovbo = this->startVertexArray(action,
                                           coords,
                                           nbind != OVERALL ? normals : NULL,
                                           doTextures,
@@ -401,19 +401,19 @@ SoIndexedLineSet::GLRender(SoGLRenderAction * action)
 }
 
 // Documented in superclass.
-SbBool
+bool
 SoIndexedLineSet::generateDefaultNormals(SoState *, SoNormalBundle *)
 {
-  return FALSE;
+  return false;
 }
 
 // Documented in superclass.
-SbBool
+bool
 SoIndexedLineSet::generateDefaultNormals(SoState * COIN_UNUSED_ARG(state), SoNormalCache * nc)
 {
   // not possible to generate normals for IndexedLineSet
   nc->set(0, NULL);
-  return TRUE;
+  return true;
 }
 
 // doc from parent
@@ -478,16 +478,16 @@ SoIndexedLineSet::generatePrimitives(SoAction *action)
   const int32_t * normindices;
   const int32_t * texindices;
   const int32_t * matindices;
-  SbBool doTextures;
-  SbBool sendNormals = TRUE;
-  SbBool normalCacheUsed;
+  bool doTextures;
+  bool sendNormals = true;
+  bool normalCacheUsed;
 
   getVertexData(state, coords, normals, cindices,
                 normindices, texindices, matindices, numindices,
                 sendNormals, normalCacheUsed);
 
   if (normals == NULL) {
-    sendNormals = FALSE;
+    sendNormals = false;
     nbind = OVERALL;
   }
 
@@ -504,7 +504,7 @@ SoIndexedLineSet::generatePrimitives(SoAction *action)
     }
   }
 
-  SoTextureCoordinateBundle tb(action, FALSE, FALSE);
+  SoTextureCoordinateBundle tb(action, false, false);
   doTextures = tb.needCoordinates();
 
   if (doTextures) {
@@ -556,8 +556,8 @@ SoIndexedLineSet::generatePrimitives(SoAction *action)
   if (mbind == PER_SEGMENT || mbind == PER_SEGMENT_INDEXED ||
       nbind == PER_SEGMENT || nbind == PER_SEGMENT_INDEXED) {
     int previ;
-    SbBool matPerPolyline = mbind == PER_LINE || mbind == PER_LINE_INDEXED;
-    SbBool normPerPolyline = nbind == PER_LINE || nbind == PER_LINE_INDEXED;
+    bool matPerPolyline = mbind == PER_LINE || mbind == PER_LINE_INDEXED;
+    bool normPerPolyline = nbind == PER_LINE || nbind == PER_LINE_INDEXED;
 
     this->beginShape(action, SoShape::LINES, &lineDetail);
 

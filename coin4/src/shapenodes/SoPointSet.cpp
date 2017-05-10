@@ -193,30 +193,30 @@ SoPointSet::GLRender(SoGLRenderAction * action)
 
   SoState * state = action->getState();
 
-  SbBool didpush = FALSE;
+  bool didpush = false;
   if (this->vertexProperty.getValue()) {
     state->push();
-    didpush = TRUE;
+    didpush = true;
     this->vertexProperty.getValue()->GLRender(action);
   }
 
   const SoCoordinateElement * tmp;
   const SbVec3f * normals;
 
-  SoTextureCoordinateBundle tb(action, TRUE, FALSE);
-  SbBool doTextures = tb.needCoordinates();
+  SoTextureCoordinateBundle tb(action, true, false);
+  bool doTextures = tb.needCoordinates();
   SoMaterialBundle mb(action);
   
-  SbBool needNormals = !mb.isColorOnly() || tb.isFunction();
+  bool needNormals = !mb.isColorOnly() || tb.isFunction();
 
   SoVertexShape::getVertexData(state, tmp, normals,
                                needNormals);
 
   if (normals == NULL && needNormals) {
-    needNormals = FALSE;
+    needNormals = false;
     if (!didpush) {
       state->push();
-      didpush = TRUE;
+      didpush = true;
     }
     SoLazyElement::setLightModel(state, SoLazyElement::BASE_COLOR);
   }
@@ -241,25 +241,25 @@ SoPointSet::GLRender(SoGLRenderAction * action)
   const cc_glglue * glue = sogl_glue_instance(state);
   const uint32_t contextid = action->getCacheContext();
 
-  SbBool dova = 
+  bool dova = 
     SoVBO::shouldRenderAsVertexArrays(state, contextid, numpts) && 
     SoGLDriverDatabase::isSupported(glue, SO_GL_VERTEX_ARRAY);
   
   if (dova && (mbind == PER_VERTEX)) {
     const SoGLVBOElement * vboelem = SoGLVBOElement::getInstance(state);
     if (vboelem->getColorVBO() == NULL) {
-      dova = FALSE;
+      dova = false;
       // we might be able to do VA-rendering, but need to check the
       // diffuse color type first.
       SoGLLazyElement * lelem = (SoGLLazyElement*) SoLazyElement::getInstance(state);
       if (!lelem->isPacked() && lelem->getNumTransparencies() <= 1) {
-        dova = TRUE;
+        dova = true;
       }
     }
   }
-  SbBool didrenderasvbo = FALSE;
+  bool didrenderasvbo = false;
   if (dova) {
-    SbBool vbo = this->startVertexArray(action,
+    bool vbo = this->startVertexArray(action,
                                         coords,
                                         (needNormals && (nbind != OVERALL)) ? normals : NULL,
                                         doTextures,
@@ -288,22 +288,22 @@ SoPointSet::GLRender(SoGLRenderAction * action)
 }
 
 // Documented in superclass.
-SbBool
+bool
 SoPointSet::generateDefaultNormals(SoState *, SoNormalCache * nc)
 {
   // Overridden to clear normal cache, as it's not possible to
   // generate a normal for a point.
   nc->set(0, NULL);
-  return TRUE;
+  return true;
 }
 
 // Documented in superclass.
-SbBool
+bool
 SoPointSet::generateDefaultNormals(SoState * COIN_UNUSED_ARG(state), SoNormalBundle * COIN_UNUSED_ARG(bundle))
 {
   // Overridden to avoid (faulty) compiler warnings with some version
   // of g++.
-  return FALSE;
+  return false;
 }
 
 // doc from parent
@@ -352,15 +352,15 @@ SoPointSet::generatePrimitives(SoAction *action)
 
   const SoCoordinateElement *coords;
   const SbVec3f * normals;
-  SbBool doTextures;
-  SbBool needNormals = TRUE;
+  bool doTextures;
+  bool needNormals = true;
 
   SoVertexShape::getVertexData(action->getState(), coords, normals,
                                needNormals);
 
-  if (normals == NULL) needNormals = FALSE;
+  if (normals == NULL) needNormals = false;
 
-  SoTextureCoordinateBundle tb(action, FALSE, FALSE);
+  SoTextureCoordinateBundle tb(action, false, false);
   doTextures = tb.needCoordinates();
 
   Binding mbind = this->findMaterialBinding(action->getState());

@@ -60,7 +60,7 @@ SoGLCgShaderObject::getNewParameter(void) const
   return new SoGLCgShaderParameter();
 }
 
-SbBool
+bool
 SoGLCgShaderObject::isLoaded(void) const
 {
   return glue_cgIsProgram(this->cgProgram);
@@ -181,7 +181,7 @@ SoGLCgShaderObject::ensureCgContext(void)
 {
   if (!glue_cgIsContext(SoGLCgShaderObject::cgContext)) {
     SoGLCgShaderObject::cgContext = glue_cgCreateContext();
-    glue_cgGLSetManageTextureParameters(cgContext, TRUE);
+    glue_cgGLSetManageTextureParameters(cgContext, true);
     glue_cgSetErrorCallback(SoGLCgShaderObject::cgErrorCallback);
   }
 }

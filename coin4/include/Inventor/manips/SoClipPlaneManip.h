@@ -49,8 +49,8 @@ public:
   SoDragger * getDragger(void);
   void setValue(const SbBox3f & box, const SbVec3f & planenormal,
                 float draggerscalefactor);
-  SbBool replaceNode(SoPath * p);
-  SbBool replaceManip(SoPath * p, SoClipPlane * newone) const;
+  bool replaceNode(SoPath * p);
+  bool replaceManip(SoPath * p, SoClipPlane * newone) const;
 
   virtual void doAction(SoAction * action);
   virtual void callback(SoCallbackAction * action);
@@ -70,7 +70,7 @@ protected:
 
   void setDragger(SoDragger * newdragger);
 
-  virtual void copyContents(const SoFieldContainer * fromfc, SbBool copyconnections);
+  virtual void copyContents(const SoFieldContainer * fromfc, bool copyconnections);
   static void valueChangedCB(void * f, SoDragger * d);
   static void fieldSensorCB(void * f, SoSensor * d);
   static void transferFieldValues(const SoClipPlane * from, SoClipPlane * to);
@@ -82,7 +82,7 @@ protected:
 
 private:
   int currAxis;
-  void attachSensors(const SbBool onoff);
+  void attachSensors(const bool onoff);
 
 private:
   SbLazyPimplPtr<SoClipPlaneManipP> pimpl;

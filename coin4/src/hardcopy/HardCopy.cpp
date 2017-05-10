@@ -64,7 +64,7 @@
 
   // clear to white background. Not really necessary if you
   // want a white background
-  ps->setBackgroundColor(TRUE, SbColor(1.0f, 1.0f, 1.0f));
+  ps->setBackgroundColor(true, SbColor(1.0f, 1.0f, 1.0f));
 
   // select LANDSCAPE or PORTRAIT orientation
   ps->setOrientation(SoVectorizeAction::LANDSCAPE);
@@ -122,11 +122,11 @@
 
 // *************************************************************************
 
-static SbBool hardcopy_isinitialized = FALSE;
+static bool hardcopy_isinitialized = false;
 
 static void hardcopy_cleanup(void)
 {
-  hardcopy_isinitialized = FALSE;
+  hardcopy_isinitialized = false;
 }
 
 /*!
@@ -142,7 +142,7 @@ SoHardCopy::init(void)
   SoVectorizeAction::initClass();
   SoVectorizePSAction::initClass();
 
-  hardcopy_isinitialized = TRUE;
+  hardcopy_isinitialized = true;
   coin_atexit((coin_atexit_f*)hardcopy_cleanup, CC_ATEXIT_NORMAL);
 }
 

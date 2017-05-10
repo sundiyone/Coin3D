@@ -42,7 +42,7 @@ public:
   virtual void setCondAttribute(const char * cond);
   virtual const char * getCondAttribute(void) const { return this->cond; }
 
-  virtual SbBool handleXMLAttributes(void);
+  virtual bool handleXMLAttributes(void);
 
   virtual void copyContents(const ScXMLElt * rhs);
 

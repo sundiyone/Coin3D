@@ -269,11 +269,11 @@ ScXMLSendElt::setHintsAttribute(const char * hintsstr)
 
 // const char * getHintsAttribute(void) const;
 
-SbBool
+bool
 ScXMLSendElt::handleXMLAttributes(void)
 {
   if (!inherited::handleXMLAttributes()) {
-    return FALSE;
+    return false;
   }
 
   this->setEventAttribute(this->getXMLAttribute("event"));
@@ -284,7 +284,7 @@ ScXMLSendElt::handleXMLAttributes(void)
   this->setNameListAttribute(this->getXMLAttribute("namelist"));
   this->setHintsAttribute(this->getXMLAttribute("hints"));
 
-  return TRUE;
+  return true;
 }
 
 void
@@ -351,7 +351,7 @@ namespace {
 void tokenize(const std::string & input, const std::string & delimiters, std::vector<std::string> & tokens, int count = -1)
 {
   std::string::size_type last_pos = 0, pos = 0;
-  while (TRUE) {
+  while (true) {
     --count;
     pos = input.find_first_of(delimiters, last_pos);
     if ((pos == std::string::npos) || (count == 0)) {

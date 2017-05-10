@@ -227,26 +227,26 @@ SoCenterballDragger::initClass(void)
 SoCenterballDragger::SoCenterballDragger(void)
 {
   SO_KIT_INTERNAL_CONSTRUCTOR(SoCenterballDragger);
-  SO_KIT_ADD_CATALOG_ENTRY(XAxis, SoSeparator, TRUE, XAxisSwitch, "", TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(XAxisSwitch, SoSwitch, TRUE, geomSeparator, YAxisSwitch, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(XCenterChanger, SoTranslate2Dragger, TRUE, topSeparator, rot2X90, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(XRotator, SoRotateCylindricalDragger, TRUE, topSeparator, "", TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(YAxis, SoSeparator, TRUE, YAxisSwitch, "", TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(YAxisSwitch, SoSwitch, TRUE, geomSeparator, ZAxisSwitch, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(YCenterChanger, SoTranslate2Dragger, TRUE, topSeparator, rotY90, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(YRotator, SoRotateCylindricalDragger, TRUE, topSeparator, ZCenterChanger, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(ZAxis, SoSeparator, TRUE, ZAxisSwitch, "", TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(ZAxisSwitch, SoSwitch, TRUE, geomSeparator, "", FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(ZCenterChanger, SoTranslate2Dragger, TRUE, topSeparator, rotX90, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(ZRotator, SoRotateCylindricalDragger, TRUE, topSeparator, YCenterChanger, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(antiSquish, SoAntiSquish, FALSE, topSeparator, lightModel, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(lightModel, SoLightModel, TRUE, topSeparator, geomSeparator, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(rot2X90, SoRotation, TRUE, topSeparator, XRotator, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(rotX90, SoRotation, TRUE, topSeparator, ZRotator, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(rotY90, SoRotation, TRUE, topSeparator, XCenterChanger, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(rotator, SoRotateSphericalDragger, TRUE, topSeparator, YRotator, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(surroundScale, SoSurroundScale, TRUE, topSeparator, antiSquish, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(translateToCenter, SoMatrixTransform, TRUE, topSeparator, surroundScale, TRUE);
+  SO_KIT_ADD_CATALOG_ENTRY(XAxis, SoSeparator, true, XAxisSwitch, "", true);
+  SO_KIT_ADD_CATALOG_ENTRY(XAxisSwitch, SoSwitch, true, geomSeparator, YAxisSwitch, false);
+  SO_KIT_ADD_CATALOG_ENTRY(XCenterChanger, SoTranslate2Dragger, true, topSeparator, rot2X90, true);
+  SO_KIT_ADD_CATALOG_ENTRY(XRotator, SoRotateCylindricalDragger, true, topSeparator, "", true);
+  SO_KIT_ADD_CATALOG_ENTRY(YAxis, SoSeparator, true, YAxisSwitch, "", true);
+  SO_KIT_ADD_CATALOG_ENTRY(YAxisSwitch, SoSwitch, true, geomSeparator, ZAxisSwitch, false);
+  SO_KIT_ADD_CATALOG_ENTRY(YCenterChanger, SoTranslate2Dragger, true, topSeparator, rotY90, true);
+  SO_KIT_ADD_CATALOG_ENTRY(YRotator, SoRotateCylindricalDragger, true, topSeparator, ZCenterChanger, true);
+  SO_KIT_ADD_CATALOG_ENTRY(ZAxis, SoSeparator, true, ZAxisSwitch, "", true);
+  SO_KIT_ADD_CATALOG_ENTRY(ZAxisSwitch, SoSwitch, true, geomSeparator, "", false);
+  SO_KIT_ADD_CATALOG_ENTRY(ZCenterChanger, SoTranslate2Dragger, true, topSeparator, rotX90, true);
+  SO_KIT_ADD_CATALOG_ENTRY(ZRotator, SoRotateCylindricalDragger, true, topSeparator, YCenterChanger, true);
+  SO_KIT_ADD_CATALOG_ENTRY(antiSquish, SoAntiSquish, false, topSeparator, lightModel, true);
+  SO_KIT_ADD_CATALOG_ENTRY(lightModel, SoLightModel, true, topSeparator, geomSeparator, true);
+  SO_KIT_ADD_CATALOG_ENTRY(rot2X90, SoRotation, true, topSeparator, XRotator, false);
+  SO_KIT_ADD_CATALOG_ENTRY(rotX90, SoRotation, true, topSeparator, ZRotator, false);
+  SO_KIT_ADD_CATALOG_ENTRY(rotY90, SoRotation, true, topSeparator, XCenterChanger, false);
+  SO_KIT_ADD_CATALOG_ENTRY(rotator, SoRotateSphericalDragger, true, topSeparator, YRotator, true);
+  SO_KIT_ADD_CATALOG_ENTRY(surroundScale, SoSurroundScale, true, topSeparator, antiSquish, true);
+  SO_KIT_ADD_CATALOG_ENTRY(translateToCenter, SoMatrixTransform, true, topSeparator, surroundScale, true);
 
   if (SO_KIT_IS_FIRST_INSTANCE()) {
     SoInteractionKit::readDefaultParts("centerballDragger.iv",
@@ -283,13 +283,13 @@ SoCenterballDragger::SoCenterballDragger(void)
   rot->rotation = SbRotation(SbVec3f(0.0f, 1.0f, 0.0f), (static_cast<float>(M_PI))*0.5f);
 
   // reset default flags for parts we set to a default value
-  this->rot2X90.setDefault(TRUE);
-  this->rotX90.setDefault(TRUE);
-  this->rotY90.setDefault(TRUE);
+  this->rot2X90.setDefault(true);
+  this->rotX90.setDefault(true);
+  this->rotY90.setDefault(true);
 
   SoAntiSquish *squish = SO_GET_ANY_PART(this, "antiSquish", SoAntiSquish);
   squish->sizing = SoAntiSquish::LONGEST_DIAGONAL;
-  squish->recalcAlways = FALSE;
+  squish->recalcAlways = false;
 
   SoMatrixTransform *mt = SO_GET_ANY_PART(this, "translateToCenter", SoMatrixTransform);
   mt->matrix = SbMatrix::identity();
@@ -298,7 +298,7 @@ SoCenterballDragger::SoCenterballDragger(void)
 
   this->rotFieldSensor = new SoFieldSensor(SoCenterballDragger::fieldSensorCB, this);
   this->centerFieldSensor = new SoFieldSensor(SoCenterballDragger::fieldSensorCB, this);
-  this->setUpConnections(TRUE, TRUE);
+  this->setUpConnections(true, true);
 }
 
 /*!
@@ -361,7 +361,7 @@ SoCenterballDragger::transferCenterDraggerMotion(SoDragger * childdragger)
     matrix[3][1] = this->savedtransl[1];
     matrix[3][2] = this->savedtransl[2];
 
-    SbBool oldval = this->enableValueChangedCallbacks(FALSE);
+    bool oldval = this->enableValueChangedCallbacks(false);
     this->setMotionMatrix(matrix);
     this->enableValueChangedCallbacks(oldval);
 
@@ -423,8 +423,8 @@ SoCenterballDragger::setSwitches(SoDragger * activechild)
 }
 
 // Doc in superclass.
-SbBool
-SoCenterballDragger::setUpConnections(SbBool onoff, SbBool doitalways)
+bool
+SoCenterballDragger::setUpConnections(bool onoff, bool doitalways)
 {
   if (!doitalways && this->connectionsSetUp == onoff) return onoff;
 
@@ -434,7 +434,7 @@ SoCenterballDragger::setUpConnections(SbBool onoff, SbBool doitalways)
   if (onoff) {
     inherited::setUpConnections(onoff, doitalways);
     SoDragger *child;
-    child = coin_assert_cast<SoDragger *>(this->getAnyPart("rotator", FALSE));
+    child = coin_assert_cast<SoDragger *>(this->getAnyPart("rotator", false));
     child->setPartAsDefault("rotator",
                             "centerballRotator");
     child->setPartAsDefault("rotatorActive",
@@ -445,7 +445,7 @@ SoCenterballDragger::setUpConnections(SbBool onoff, SbBool doitalways)
 
     for (i = 0; i < 3; i++) {
       str.sprintf("%cRotator", 'X' + i);
-      child = static_cast<SoDragger *>(this->getAnyPart(str.getString(), FALSE));
+      child = static_cast<SoDragger *>(this->getAnyPart(str.getString(), false));
       child->setPartAsDefault("rotator",
                               "centerballStripe");
       child->setPartAsDefault("rotatorActive",
@@ -457,7 +457,7 @@ SoCenterballDragger::setUpConnections(SbBool onoff, SbBool doitalways)
 
     for (i = 0; i < 3; i++) {
       str.sprintf("%cCenterChanger", 'X' + i);
-      child = coin_assert_cast<SoDragger *>(this->getAnyPart(str.getString(), FALSE));
+      child = coin_assert_cast<SoDragger *>(this->getAnyPart(str.getString(), false));
       child->setPartAsDefault("translator",
                               "centerballCenterChanger");
       child->setPartAsDefault("translatorActive",
@@ -503,17 +503,17 @@ SoCenterballDragger::setUpConnections(SbBool onoff, SbBool doitalways)
 void
 SoCenterballDragger::setDefaultOnNonWritingFields(void)
 {
-  this->rotator.setDefault(TRUE);
-  this->XCenterChanger.setDefault(TRUE);
-  this->YCenterChanger.setDefault(TRUE);
-  this->ZCenterChanger.setDefault(TRUE);
-  this->XRotator.setDefault(TRUE);
-  this->YRotator.setDefault(TRUE);
-  this->ZRotator.setDefault(TRUE);
+  this->rotator.setDefault(true);
+  this->XCenterChanger.setDefault(true);
+  this->YCenterChanger.setDefault(true);
+  this->ZCenterChanger.setDefault(true);
+  this->XRotator.setDefault(true);
+  this->YRotator.setDefault(true);
+  this->ZRotator.setDefault(true);
 
-  this->surroundScale.setDefault(TRUE);
-  this->antiSquish.setDefault(TRUE);
-  this->translateToCenter.setDefault(TRUE);
+  this->surroundScale.setDefault(true);
+  this->antiSquish.setDefault(true);
+  this->translateToCenter.setDefault(true);
 
   inherited::setDefaultOnNonWritingFields();
 }
@@ -589,7 +589,7 @@ SoCenterballDragger::kidStartCB(void * d , SoDragger * child)
   thisp->setSwitches(child);
 
   SoSurroundScale * scale = coin_safe_cast<SoSurroundScale *>(
-    thisp->getPart("surroundScale", FALSE)
+    thisp->getPart("surroundScale", false)
     );
   if (scale) scale->invalidate();
 }
@@ -605,7 +605,7 @@ SoCenterballDragger::kidFinishCB(void * d, SoDragger * COIN_UNUSED_ARG(child))
   thisp->setSwitches(NULL);
 
   SoSurroundScale * scale = coin_safe_cast<SoSurroundScale *>(
-    thisp->getPart("surroundScale", FALSE)
+    thisp->getPart("surroundScale", false)
     );
   if (scale) scale->invalidate();
 }
@@ -626,7 +626,7 @@ SoCenterballDragger::addChildDragger(SoDragger *child)
 void
 SoCenterballDragger::removeChildDragger(const char *childname)
 {
-  SoDragger * child = coin_assert_cast<SoDragger *>(this->getAnyPart(childname, FALSE));
+  SoDragger * child = coin_assert_cast<SoDragger *>(this->getAnyPart(childname, false));
   child->removeStartCallback(SoCenterballDragger::kidStartCB, this);
   child->removeFinishCallback(SoCenterballDragger::kidFinishCB, this);
   this->unregisterChildDragger(child);
@@ -637,11 +637,11 @@ void
 SoCenterballDragger::getBoundingBox(SoGetBoundingBoxAction * action)
 {
   SoSurroundScale * scale = coin_safe_cast<SoSurroundScale *>(
-    this->getPart("surroundScale", FALSE)
+    this->getPart("surroundScale", false)
     );
   if (scale) {
-    SbBool dotrans = scale->isDoingTranslations();
-    scale->setDoingTranslations(FALSE);
+    bool dotrans = scale->isDoingTranslations();
+    scale->setDoingTranslations(false);
     inherited::getBoundingBox(action);
     scale->setDoingTranslations(dotrans);
   }
@@ -653,11 +653,11 @@ void
 SoCenterballDragger::getMatrix(SoGetMatrixAction * action)
 {
   SoSurroundScale * scale = coin_safe_cast<SoSurroundScale *>(
-    this->getPart("surroundScale", FALSE)
+    this->getPart("surroundScale", false)
     );
   if (scale) {
-    SbBool dotrans = scale->isDoingTranslations();
-    scale->setDoingTranslations(FALSE);
+    bool dotrans = scale->isDoingTranslations();
+    scale->setDoingTranslations(false);
     inherited::getMatrix(action);
     scale->setDoingTranslations(dotrans);
   }

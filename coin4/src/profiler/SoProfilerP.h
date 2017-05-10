@@ -30,13 +30,13 @@ class SbProfilingData;
 
 class SoProfilerP {
 public:
-  static SbBool shouldContinuousRender(void);
+  static bool shouldContinuousRender(void);
   static float getContinuousRenderDelay(void);
 
-  static SbBool shouldSyncGL(void);
+  static bool shouldSyncGL(void);
 
-  static SbBool shouldClearConsole(void);
-  static SbBool shouldOutputHeaderOnConsole(void);
+  static bool shouldClearConsole(void);
+  static bool shouldOutputHeaderOnConsole(void);
 
   static void parseCoinProfilerVariable(void);
   static void parseCoinProfilerOverlayVariable(void);

@@ -79,11 +79,11 @@
 class SoFileP {
 public:
   static const char UNDEFINED_FILE[];
-  static SbBool searchok;
+  static bool searchok;
 };
 
 const char SoFileP::UNDEFINED_FILE[] = "<Undefined file>";
-SbBool SoFileP::searchok = FALSE;
+bool SoFileP::searchok = false;
 
 // *************************************************************************
 
@@ -169,7 +169,7 @@ SoFile::getBoundingBox(SoGetBoundingBoxAction * action)
   }
   
   if (numcenters != 0)
-    action->setCenter(acccenter / float(numcenters), FALSE);
+    action->setCenter(acccenter / float(numcenters), false);
 }
 
 // Doc from superclass.
@@ -180,7 +180,7 @@ SoFile::GLRender(SoGLRenderAction * action)
 }
 
 // Doc from superclass.
-SbBool
+bool
 SoFile::readInstance(SoInput * in, unsigned short flags)
 {
   // We detach the sensor and later call readNamedFile() explicitly
@@ -194,7 +194,7 @@ SoFile::readInstance(SoInput * in, unsigned short flags)
 
   this->fullname.makeEmpty();
   this->namesensor->detach();
-  SbBool result = inherited::readInstance(in, flags);
+  bool result = inherited::readInstance(in, flags);
   this->namesensor->attach(& this->name);
   return result && this->readNamedFile(in);
 }
@@ -207,7 +207,7 @@ SoFile::readInstance(SoInput * in, unsigned short flags)
 
   \since Coin 2.0
 */
-SbBool
+bool
 SoFile::readNamedFile(SoInput * in)
 {
   if (this->name.getValue().getLength() == 0 ||
@@ -216,13 +216,13 @@ SoFile::readNamedFile(SoInput * in)
     // process fails upon an unspecified filename.
     SoDebugError::postWarning("SoFile::readNamedFile", 
                               "Undefined filename in SoFile.");
-    return TRUE;
+    return true;
   }
 
   // If we can't find file, ignore it. Note that this does not match
   // the way Inventor works, which will make the whole read process
   // exit with a failure code.
-  if (!in->pushFile(this->name.getValue().getString())) return TRUE;
+  if (!in->pushFile(this->name.getValue().getString())) return true;
 
   this->fullname = in->getCurFileName();
 
@@ -239,7 +239,7 @@ SoFile::readNamedFile(SoInput * in)
 
 
   SoChildList cl(this);
-  SbBool readok = TRUE;
+  bool readok = true;
   do {
     SoNode * n;
     readok = SoDB::read(in, n); // Not using SoDB::readAll because it
@@ -307,10 +307,10 @@ SoFile::readNamedFile(SoInput * in)
   // hack'ish, but is done because of the protection of
   // SoInput::popFile
   char dummy;
-  SbBool gotchar = in->get(dummy);
+  bool gotchar = in->get(dummy);
   if (gotchar) in->putBack(dummy);
 
-  return TRUE;
+  return true;
 }
 
 // Callback for the field sensor.
@@ -343,7 +343,7 @@ SoFile::copyChildren(void) const
     tmproot->addChild(cl->operator[](i));
   }
 
-  SoNode * n = tmproot->copy(TRUE);
+  SoNode * n = tmproot->copy(true);
 
   tmproot->unref();
 
@@ -424,7 +424,7 @@ SoFile::search(SoSearchAction * action)
 
 // Doc from superclass.
 void
-SoFile::copyContents(const SoFieldContainer * from, SbBool copyconnections)
+SoFile::copyContents(const SoFieldContainer * from, bool copyconnections)
 {
   // so we don't reload when resetting the name field
   this->namesensor->detach();
@@ -445,7 +445,7 @@ SoFile::copyContents(const SoFieldContainer * from, SbBool copyconnections)
   Enables/disables searching children using SoSearchAction.
 */
 void
-SoFile::setSearchOK(SbBool dosearch)
+SoFile::setSearchOK(bool dosearch)
 {
   SoFileP::searchok = dosearch;
 }
@@ -453,7 +453,7 @@ SoFile::setSearchOK(SbBool dosearch)
 /*!
   Returns whether searching children using SoSearchAction is enabled.
 */
-SbBool
+bool
 SoFile::getSearchOK()
 {
   return SoFileP::searchok;

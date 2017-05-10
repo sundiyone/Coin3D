@@ -41,22 +41,22 @@ class SoInputP {
 public:
   SoInputP(SoInput * owner) {
     this->owner = owner;
-    this->usingstdin = FALSE;
+    this->usingstdin = false;
   }
 
-  static SbBool debug(void);
-  static SbBool debugBinary(void);
+  static bool debug(void);
+  static bool debugBinary(void);
 
   SoInput_FileInfo * getTopOfStackPopOnEOF(void);
 
-  static SbBool isNameStartChar(unsigned char c, SbBool validIdent);
-  static SbBool isNameChar(unsigned char c, SbBool validIdent);
-  static SbBool isNameStartCharVRML1(unsigned char c, SbBool validIdent);
-  static SbBool isNameCharVRML1(unsigned char c, SbBool validIdent);
-  static SbBool isNameStartCharVRML2(unsigned char c, SbBool validIdent);
-  static SbBool isNameCharVRML2(unsigned char c, SbBool validIdent);
+  static bool isNameStartChar(unsigned char c, bool validIdent);
+  static bool isNameChar(unsigned char c, bool validIdent);
+  static bool isNameStartCharVRML1(unsigned char c, bool validIdent);
+  static bool isNameCharVRML1(unsigned char c, bool validIdent);
+  static bool isNameStartCharVRML2(unsigned char c, bool validIdent);
+  static bool isNameCharVRML2(unsigned char c, bool validIdent);
 
-  SbBool usingstdin;
+  bool usingstdin;
 
   SbHash<const char *, SoBase *> copied_references;
 

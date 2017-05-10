@@ -318,7 +318,7 @@ typedef struct tagFace {
   uint16_t flags;
   tagFaceGroup *faceGroup;
   uint32_t e12,e23,e31;
-  SbBool isDegenerated;
+  bool isDegenerated;
 
   SbVec3f getNormal(tagContext *con) const;
   float getAngle(tagContext *con, uint16_t vertexIndex) const;
@@ -332,9 +332,9 @@ typedef struct tagFaceGroup {
   SbList<Face*> faceList;
   uint16_t numDegFaces;
 
-  SbBool hasTexture2(tagContext *con);
+  bool hasTexture2(tagContext *con);
   SoTexture2* getSoTexture2(tagContext *con);
-  SbBool hasTexture2Transform(tagContext *con);
+  bool hasTexture2Transform(tagContext *con);
   SoTexture2Transform* getSoTexture2Transform(tagContext *con);
   SoMaterial* getSoMaterial(tagContext *con);
   SoNormal* createSoNormal(tagContext *con);
@@ -349,7 +349,7 @@ typedef struct tagFaceGroup {
 // FIXME mortene: don't use "namespace"
 namespace DefaultFaceGroup {
   static tagMaterial* getMaterial(tagContext *con);
-  static SbBool isEmpty(tagContext *con);
+  static bool isEmpty(tagContext *con);
 
   static SoMaterial* getSoMaterial(tagContext *con);
   static SoNormal* createSoNormal(tagContext *con);
@@ -376,7 +376,7 @@ typedef struct tagMaterial {
   float vscale;
   float uoffset;
   float voffset;
-  SbBool twoSided;
+  bool twoSided;
 
   SoMaterial *matCache;
   SoTexture2 *texture2Cache;
@@ -384,9 +384,9 @@ typedef struct tagMaterial {
 
   void updateSoMaterial(int index, SoMaterial *m);
   SoMaterial* getSoMaterial(tagContext *con);
-  SbBool hasTexture2(tagContext *con);
+  bool hasTexture2(tagContext *con);
   SoTexture2* getSoTexture2(tagContext *con);
-  SbBool hasTexture2Transform(tagContext *con);
+  bool hasTexture2Transform(tagContext *con);
   SoTexture2Transform* getSoTexture2Transform(tagContext *con);
 
   tagMaterial() : matCache(NULL), texture2Cache(NULL),
@@ -403,18 +403,18 @@ typedef struct tagMaterial {
 typedef struct tagContext {
   // flags "What to load"
   int appendNormals;
-  SbBool loadMaterials;
-  SbBool loadTextures;
-  SbBool loadObjNames;
-  SbBool useIndexedTriSet;
-  SbBool centerModel;
+  bool loadMaterials;
+  bool loadTextures;
+  bool loadObjNames;
+  bool useIndexedTriSet;
+  bool centerModel;
 
   // basic loading stuff
   SoStream &s;
   size_t stopPos;
   SoSeparator *root;
   SoSeparator *cObj;
-  SbBool minMaxValid;
+  bool minMaxValid;
   float minX,maxX;
   float minY,maxY;
   float minZ,maxZ;
@@ -429,7 +429,7 @@ typedef struct tagContext {
   Material *cMat;
   SbColor cColor;
   float cColorFloat;
-  SbBool textureCoordsFound;
+  bool textureCoordsFound;
 
   // geometry stuff
   Vertex *vertexList;
@@ -514,12 +514,12 @@ CHUNK_DECL(LoadMapUOffset);
 CHUNK_DECL(LoadMapVOffset);
 static int coin_debug_3ds();
 
-static SbBool
+static bool
 read3dsFile(SoStream *in, SoSeparator *&root,
             int appendNormals, float COIN_UNUSED_ARG(creaseAngle),
-            SbBool loadMaterials, SbBool loadTextures,
-            SbBool loadObjNames, SbBool indexedTriSet,
-            SbBool centerModel, float modelSize)
+            bool loadMaterials, bool loadTextures,
+            bool loadObjNames, bool indexedTriSet,
+            bool centerModel, float modelSize)
 {
   // read the stream header
   uint16_t header;
@@ -527,7 +527,7 @@ read3dsFile(SoStream *in, SoSeparator *&root,
   if (header != M3DMAGIC) {
     SoDebugError::post("read3dsFile",
                        "Bad 3ds stream: invalid header.");
-    return FALSE;
+    return false;
   }
 
   // prepare Context structure
@@ -535,7 +535,7 @@ read3dsFile(SoStream *in, SoSeparator *&root,
   con.stopPos = 0;
   con.root = new SoSeparator;
   con.root->ref();
-  con.minMaxValid = FALSE;
+  con.minMaxValid = false;
 
   // customize loader
   if (appendNormals >= 2)  appendNormals = 1; // per-vertex normals are
@@ -555,7 +555,7 @@ read3dsFile(SoStream *in, SoSeparator *&root,
   con.defaultMat.specular = SbColor(0.f, 0.f, 0.f);
   con.defaultMat.shininess = 0.f;
   con.defaultMat.transparency = 0.f;
-  con.defaultMat.twoSided = TRUE;  // FIXME: is default material double sided?
+  con.defaultMat.twoSided = true;  // FIXME: is default material double sided?
   con.defaultMat.matCache = new SoMaterial;
   con.defaultMat.matCache->ref();
   con.defaultMat.updateSoMaterial(0, con.defaultMat.matCache);
@@ -615,7 +615,7 @@ read3dsFile(SoStream *in, SoSeparator *&root,
 
     SoDebugError::post("read3dsFile",
                        "3ds loading failed.");
-    return FALSE;
+    return false;
   }
 
   if (con.centerModel || modelSize != 0.f) {
@@ -650,7 +650,7 @@ read3dsFile(SoStream *in, SoSeparator *&root,
                            "File loading ok. Loaded %i vertices and %i faces.",
                            con.totalVertices, con.totalFaces);
 
-  return TRUE;
+  return true;
 }
 
 
@@ -800,7 +800,7 @@ CHUNK(LoadNTriObject)
   con->numVertices = 0;
   con->numFaces = 0;
   con->numDefaultDegFaces = 0;
-  con->textureCoordsFound = FALSE;
+  con->textureCoordsFound = false;
 
   if (coin_debug_3ds() >= 3)
     SoDebugError::postInfo("LoadNTriObject",
@@ -886,7 +886,7 @@ CHUNK(LoadNTriObject)
 
 #ifndef DISABLE_BACKFACE_CULLING
     // single x double faces
-    SbBool matTwoSided = DefaultFaceGroup::getMaterial(con)->twoSided;
+    bool matTwoSided = DefaultFaceGroup::getMaterial(con)->twoSided;
     if (con->genTwoSided == -1 || (matTwoSided && (con->genTwoSided == 0)) ||
        (!matTwoSided && (con->genTwoSided == 1))) {
       con->genTwoSided = (DefaultFaceGroup::getMaterial(con)->twoSided ? 1 : 0);
@@ -1054,7 +1054,7 @@ CHUNK(LoadFaceArray)
   // make sure vertices are present yet
   if (num > 0) {
     if (con->vertexList == NULL) {
-      assert(FALSE && "Vertex list not present.");
+      assert(false && "Vertex list not present.");
       con->s.setBadBit();
       return;
     }
@@ -1077,7 +1077,7 @@ CHUNK(LoadFaceArray)
                      // vertex ordering and we need it to be counter-clockwise.
 
     if (!con->minMaxValid) {
-      con->minMaxValid = TRUE;
+      con->minMaxValid = true;
       con->minX = con->maxX = con->vertexList[a].point[0];
       con->minY = con->maxY = con->vertexList[a].point[1];
       con->minZ = con->maxZ = con->vertexList[a].point[2];
@@ -1139,7 +1139,7 @@ CHUNK(LoadMshMatGroup)
       break;
   }
   if (matIndex == con->matList.getLength()) {
-    assert(FALSE && "Wrong material name in the file.");
+    assert(false && "Wrong material name in the file.");
     con->s.setBadBit();
     return;
   }
@@ -1157,7 +1157,7 @@ CHUNK(LoadMshMatGroup)
   // make sure faces are present yet
   if (num > 0) {
     if (con->faceList == NULL) {
-      assert(FALSE && "Face list not present.");
+      assert(false && "Face list not present.");
       con->s.setBadBit();
       return;
     }
@@ -1177,7 +1177,7 @@ CHUNK(LoadMshMatGroup)
         con->numDefaultDegFaces--;
       }
     } else {
-      assert(FALSE && "Wrong face material index.");
+      assert(false && "Wrong face material index.");
       con->s.setBadBit();
       return;
     }
@@ -1194,7 +1194,7 @@ CHUNK(LoadTexVerts)
     SoDebugError::postInfo("LoadTexVerts",
                            "Begin");
 
-  con->textureCoordsFound = TRUE;
+  con->textureCoordsFound = true;
 
   // number of faces
   uint16_t num;
@@ -1203,7 +1203,7 @@ CHUNK(LoadTexVerts)
   // make sure vertices are present yet
   if (num > 0) {
     if (con->vertexList == NULL) {
-      assert(FALSE && "Vertex list not present.");
+      assert(false && "Vertex list not present.");
       con->s.setBadBit();
       return;
     }
@@ -1246,7 +1246,7 @@ CHUNK(LoadMatEntry)
   con->cMat->specular = SbColor(0.f, 0.f, 0.f);
   con->cMat->shininess = 0.f;
   con->cMat->transparency = 0.f;
-  con->cMat->twoSided = FALSE;
+  con->cMat->twoSided = false;
 
   READ_SUBCHUNKS(
     case MAT_NAME:     LoadMatName(con); break;
@@ -1363,7 +1363,7 @@ CHUNK(LoadMatTwoSide)
     SoDebugError::postInfo("LoadMatTwoSide",
                            "Begin");
 
-  con->cMat->twoSided = TRUE;
+  con->cMat->twoSided = true;
 }
 
 
@@ -1677,13 +1677,13 @@ void Face::init(tagContext *con, uint16_t a, uint16_t b, uint16_t c, uint16_t f)
 
 
 
-SbBool FaceGroup::hasTexture2(tagContext *con)
+bool FaceGroup::hasTexture2(tagContext *con)
 { return mat->hasTexture2(con); }
 
 SoTexture2* FaceGroup::getSoTexture2(tagContext *con)
 { return mat->getSoTexture2(con); }
 
-SbBool FaceGroup::hasTexture2Transform(tagContext *con)
+bool FaceGroup::hasTexture2Transform(tagContext *con)
 { return mat->hasTexture2Transform(con); }
 
 SoTexture2Transform* FaceGroup::getSoTexture2Transform(tagContext *con)
@@ -1848,12 +1848,12 @@ Material* DefaultFaceGroup::getMaterial(tagContext *con)
 
 
 
-SbBool DefaultFaceGroup::isEmpty(Context *con)
+bool DefaultFaceGroup::isEmpty(Context *con)
 {
   int num = con->numFaces;
   for (int i=0; i<num; i++)
-    if (con->faceList[i].faceGroup == NULL) return FALSE;
-  return TRUE;
+    if (con->faceList[i].faceGroup == NULL) return false;
+  return true;
 }
 
 
@@ -1883,7 +1883,7 @@ SoNormal* DefaultFaceGroup::createSoNormal(tagContext *con)
     normals->vector.finishEditing();
     normals->vector.setNum(j);
   } else {
-    assert(FALSE);
+    assert(false);
   }
   return normals;
 }
@@ -1991,7 +1991,7 @@ SoMaterial* Material::getSoMaterial(Context COIN_UNUSED_ARG(*con))
 
 
 
-SbBool Material::hasTexture2(tagContext COIN_UNUSED_ARG(*con))
+bool Material::hasTexture2(tagContext COIN_UNUSED_ARG(*con))
 { return (texture2Cache != NULL); }
 
 
@@ -2001,7 +2001,7 @@ SoTexture2* Material::getSoTexture2(tagContext COIN_UNUSED_ARG(*con))
 
 
 
-SbBool Material::hasTexture2Transform(tagContext COIN_UNUSED_ARG(*con))
+bool Material::hasTexture2Transform(tagContext COIN_UNUSED_ARG(*con))
 { return (texture2TransformCache != NULL); }
 
 
@@ -2106,15 +2106,15 @@ static int coin_debug_3ds()
 
 // This is the only interface exposed to code outside this file.
 
-SbBool
+bool
 coin_3ds_read_file(SoInput *in, SoSeparator *&root,
                    int appendNormals, float creaseAngle,
-                   SbBool loadMaterials, SbBool loadTextures,
-                   SbBool loadObjNames, SbBool indexedTriSet,
-                   SbBool centerModel, float modelSize)
+                   bool loadMaterials, bool loadTextures,
+                   bool loadObjNames, bool indexedTriSet,
+                   bool centerModel, float modelSize)
 {
   SoStream s;
-  s.setBinary(TRUE);
+  s.setBinary(true);
   s.setEndianOrdering(SoStream::LITTLE_ENDIAN_STREAM);
   s.wrapSoInput(in);
 

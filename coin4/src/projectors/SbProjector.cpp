@@ -215,23 +215,23 @@ SbProjector::findVanishingDistance(void) const
   Verifies that \a projpt is a valid projection for the current view
   volume. For perspective view volumes, it does this by checking that
   the projection point is in front of the eye plane. For orthographic
-  projections, this method always returns \e TRUE.
+  projections, this method always returns \e true.
 
   This method was not part of the Inventor v2.1 API, and is an
   extension specific to Coin.
 
   \since Coin 1.1
 */
-SbBool
+bool
 SbProjector::verifyProjection(const SbVec3f & projpt) const
 {
   if (this->viewVol.getProjectionType() == SbViewVolume::PERSPECTIVE) {
     SbPlane eyeplane = this->viewVol.getPlane(0.0f);
     SbVec3f wrld;
     this->workingToWorld.multVecMatrix(projpt, wrld);
-    if (eyeplane.isInHalfSpace(wrld)) return FALSE;
+    if (eyeplane.isInHalfSpace(wrld)) return false;
   }
-  return TRUE;
+  return true;
 }
 
 /*!
@@ -241,17 +241,17 @@ SbProjector::verifyProjection(const SbVec3f & projpt) const
 
   If the projection can't be done safely (for instance when the
   projection plane or line is parallel to the view volume projection),
-  this function should return FALSE.
+  this function should return false.
   
-  Default implementation will call project() and always return TRUE,
+  Default implementation will call project() and always return true,
   but subclasses can override this behavior to support safe
   projections.
 
   \since Coin 3.0
 */
-SbBool 
+bool 
 SbProjector::tryProject(const SbVec2f & point, const float COIN_UNUSED_ARG(epsilon), SbVec3f & result)
 {
   result = this->project(point);
-  return TRUE;
+  return true;
 }

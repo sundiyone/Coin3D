@@ -138,7 +138,7 @@ public:
   void * offscreenctx;
   void * nurbsrenderer;
 
-  void doNurbs(SoAction * action, const SbBool glrender);
+  void doNurbs(SoAction * action, const bool glrender);
 
 private:
   SoIndexedNurbsSurface * owner;
@@ -237,12 +237,12 @@ SoIndexedNurbsSurface::GLRender(SoGLRenderAction * action)
   SoMaterialBundle mb(action);
   mb.sendFirst();
 
-  SbBool calcnormals = sogl_calculate_nurbs_normals();
+  bool calcnormals = sogl_calculate_nurbs_normals();
 
   if (!calcnormals) {
     glEnable(GL_AUTO_NORMAL);
   }
-  PRIVATE(this)->doNurbs(action, TRUE);
+  PRIVATE(this)->doNurbs(action, true);
   if (!calcnormals) {
     glDisable(GL_AUTO_NORMAL);
   }
@@ -264,9 +264,9 @@ SoIndexedNurbsSurface::rayPick(SoRayPickAction * action)
     SoShape::rayPick(action); // do normal generatePrimitives() pick
   }
   else {
-    static SbBool firstpick = TRUE;
+    static bool firstpick = true;
     if (firstpick) {
-      firstpick = FALSE;
+      firstpick = false;
       SoDebugError::postWarning("SoIndexedNurbsSurface::rayPick",
                                 "Proper NURBS picking requires\n"
                                 "GLU version 1.3. Picking is done on bounding box.");
@@ -315,7 +315,7 @@ SoIndexedNurbsSurface::generatePrimitives(SoAction * action)
 
     if (PRIVATE(this)->offscreenctx &&
         cc_glglue_context_make_current(PRIVATE(this)->offscreenctx)) {
-      PRIVATE(this)->doNurbs(action, FALSE);
+      PRIVATE(this)->doNurbs(action, false);
       cc_glglue_context_reinstate_previous(PRIVATE(this)->offscreenctx);
     }
   }
@@ -335,7 +335,7 @@ SoIndexedNurbsSurface::createTriangleDetail(SoRayPickAction * /* action */,
 typedef SoNurbsP<SoIndexedNurbsSurface>::coin_nurbs_cbdata coin_ins_cbdata;
 
 void
-SoIndexedNurbsSurfaceP::doNurbs(SoAction * action, const SbBool glrender)
+SoIndexedNurbsSurfaceP::doNurbs(SoAction * action, const bool glrender)
 {
   if (GLUWrapper()->available == 0 || !GLUWrapper()->gluNewNurbsRenderer) {
 #if COIN_DEBUG
@@ -381,7 +381,7 @@ SoIndexedNurbsSurfaceP::doNurbs(SoAction * action, const SbBool glrender)
     }
   }
 
-  SbBool texindex =
+  bool texindex =
     PUBLIC(this)->textureCoordIndex.getNum() &&
     PUBLIC(this)->textureCoordIndex[0] >= 0;
 

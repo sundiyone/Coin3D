@@ -606,7 +606,7 @@ coin_getenv(const char * envname)
 #endif /* !HAVE_GETENVIRONMENTVARIABLE */
 }
 
-SbBool
+bool
 coin_setenv(const char * name, const char * value, int overwrite)
 {
 #ifdef HAVE_GETENVIRONMENTVARIABLE
@@ -642,9 +642,9 @@ coin_setenv(const char * name, const char * value, int overwrite)
   */
 
   if (overwrite || (GetEnvironmentVariable(name, NULL, 0) == 0))
-    return SetEnvironmentVariable(name, value) ? TRUE : FALSE;
+    return SetEnvironmentVariable(name, value) ? true : false;
   else
-    return TRUE;
+    return true;
 #else /* !HAVE_GETENVIRONMENTVARIABLE */
   return (setenv(name,value,overwrite) == 0);
 #endif /* !HAVE_GETENVIRONMENTVARIABLE */
@@ -874,7 +874,7 @@ coin_ntoh_double_bytes(const char * value)
   isascii() is neither ANSI C nor POSIX, but a BSD extension and SVID
   extension.
  */
-SbBool
+bool
 coin_isascii(const int c)
 {
   return (c >= 0x00) && (c < 0x80);
@@ -884,7 +884,7 @@ coin_isascii(const int c)
    really want it to be locale-dependent (which is known to have
    caused trouble for us with some specific German characters under
    MSWindows, at least). */
-SbBool
+bool
 coin_isspace(const char c)
 {
   /* This is what isspace() does under the POSIX and C locales,
@@ -897,7 +897,7 @@ coin_isspace(const char c)
 
 /* Quick check to see if an integer value is equal to 2^n, for any
    n=[0, ...]. */
-SbBool
+bool
 coin_is_power_of_two(uint32_t x)
 {
   return (x != 0) && ((x & (x - 1)) == 0);
@@ -1077,7 +1077,7 @@ void free_std_fds(void);
 typedef void(*atexit_func_type)(void);
 
 static cc_list * atexit_list = NULL;
-static SbBool isexiting = FALSE;
+static bool isexiting = false;
 
 typedef struct {
   char * name;
@@ -1113,11 +1113,11 @@ coin_atexit_cleanup(void)
   int i, n;
   tb_atexit_data * data;
   const char * debugstr;
-  SbBool debug = FALSE;
+  bool debug = false;
 
   if (!atexit_list) return;
 
-  isexiting = TRUE;
+  isexiting = true;
 
   /* delete mutex here to make sure this is done before the threading subsystem is shut down */
 #ifdef COIN_THREADSAFE
@@ -1150,7 +1150,7 @@ coin_atexit_cleanup(void)
 
   cc_list_destruct(atexit_list);
   atexit_list = NULL;
-  isexiting = FALSE;
+  isexiting = false;
 
   if (debug) {
     fprintf(stdout, "coin_atexit_cleanup: fini\n");
@@ -1268,10 +1268,10 @@ cc_coin_atexit_static_internal(coin_atexit_f * fp)
 }
 
 /*
-  Returns \c TRUE if we are currently iterating over the functions
-  registered with coin_atexit(), otherwise \c FALSE.
+  Returns \c true if we are currently iterating over the functions
+  registered with coin_atexit(), otherwise \c false.
  */
-SbBool
+bool
 coin_is_exiting(void)
 {
   return isexiting;
@@ -1375,13 +1375,13 @@ coin_get_stderr(void)
 
 /**************************************************************************/
 
-SbBool
+bool
 coin_locale_set_portable(cc_string * storeold)
 {
   const char * loc;
 
   const char * deflocale = setlocale(LC_NUMERIC, NULL);
-  if (strcmp(deflocale, "C") == 0) { return FALSE; }
+  if (strcmp(deflocale, "C") == 0) { return false; }
 
   /* Must copy deflocale string, as it will be changed on the next
      invocation of setlocale(). */
@@ -1390,7 +1390,7 @@ coin_locale_set_portable(cc_string * storeold)
 
   loc = setlocale(LC_NUMERIC, "C");
   assert(loc != NULL && "could not set locale to supposed portable C locale");
-  return TRUE;
+  return true;
 }
 
 void
@@ -1410,7 +1410,7 @@ coin_atof(const char * ptr)
 
   double v;
   cc_string storedlocale;
-  SbBool changed = coin_locale_set_portable(&storedlocale);
+  bool changed = coin_locale_set_portable(&storedlocale);
   v = atof(ptr);
   if (changed) { coin_locale_reset(&storedlocale); }
   return v;
@@ -1451,7 +1451,7 @@ coin_output_ascii85(FILE * fp,
                     unsigned char * linebuf,
                     int * tuplecnt, int * linecnt,
                     const int rowlen,
-                    const SbBool flush)
+                    const bool flush)
 {
   int i;
   if (flush) {
@@ -1497,12 +1497,12 @@ coin_flush_ascii85(FILE * fp,
                    int * tuplecnt, int * linecnt,
                    const int rowlen)
 {
-  coin_output_ascii85(fp, 0, tuple, linebuf, tuplecnt, linecnt, rowlen, TRUE);
+  coin_output_ascii85(fp, 0, tuple, linebuf, tuplecnt, linecnt, rowlen, true);
 }
 
 /**************************************************************************/
 
-SbBool
+bool
 coin_parse_versionstring(const char * versionstr,
                          int * major,
                          int * minor,
@@ -1514,7 +1514,7 @@ coin_parse_versionstring(const char * versionstr,
   *major = 0;
   if (minor) *minor = 0;
   if (patch) *patch = 0;
-  if (versionstr == NULL) return FALSE;
+  if (versionstr == NULL) return false;
 
   (void)strncpy(buffer, versionstr, 255);
   buffer[255] = '\0'; /* strncpy() will not null-terminate if strlen > 255 */
@@ -1524,7 +1524,7 @@ coin_parse_versionstring(const char * versionstr,
     char * start = buffer;
     *dotptr = '\0';
     *major = atoi(start);
-    if (minor == NULL) return TRUE;
+    if (minor == NULL) return true;
     start = ++dotptr;
 
     dotptr = strchr(start, '.');
@@ -1535,7 +1535,7 @@ coin_parse_versionstring(const char * versionstr,
       int terminate = *dotptr == ' ';
       *dotptr = '\0';
       *minor = atoi(start);
-      if (patch == NULL) return TRUE;
+      if (patch == NULL) return true;
       if (!terminate) {
         start = ++dotptr;
         dotptr = strchr(start, ' ');
@@ -1550,9 +1550,9 @@ coin_parse_versionstring(const char * versionstr,
   else {
     cc_debugerror_post("coin_parse_versionstring",
                        "Invalid versionstring: \"%s\"\n", versionstr);
-    return FALSE;
+    return false;
   }
-  return TRUE;
+  return true;
 }
 
 /* Wrapper to use either _getcwd() (Win32) or getcwd() (POSIX.1) */
@@ -1574,8 +1574,8 @@ getcwd_wrapper(char * buf, size_t size)
 /* Stores the name of the current working directory in the \a str
    argument.
 
-   Returns TRUE if current working directory could be found, FALSE if
-   not. If FALSE is returned, an error message will be stored in \a
+   Returns true if current working directory could be found, false if
+   not. If false is returned, an error message will be stored in \a
    str.
 
    \a str must have been initialized before being passed to this
@@ -1585,7 +1585,7 @@ getcwd_wrapper(char * buf, size_t size)
    function is to abstract away the extra operations necessary to
    handle that the input buffer is guaranteed to be large enough.
 */
-SbBool
+bool
 coin_getcwd(cc_string * str)
 {
   char buf[256], * dynbuf = NULL;
@@ -1602,7 +1602,7 @@ coin_getcwd(cc_string * str)
   else { cc_string_set_text(str, cwd); }
 
   if (dynbuf != NULL) { free(dynbuf); }
-  return cwd ? TRUE : FALSE;
+  return cwd ? true : false;
 }
 
 /**************************************************************************/
@@ -1760,7 +1760,7 @@ coin_runtime_os(void)
 /**************************************************************************/
 
 /*
- * Will return TRUE if extra debugging information is enabled. These
+ * Will return true if extra debugging information is enabled. These
  * are typically debugging messages extra for Coin and not found in
  * SGI Inventor. Also, these debugging message will not necessarily
  * mean that anything is wrong, but they can be useful for debugging
@@ -1777,7 +1777,7 @@ coin_debug_extra(void)
 }
 
 /*
- * Will return TRUE if SbVec*::normalize() debugging is enabled.
+ * Will return true if SbVec*::normalize() debugging is enabled.
  * This can be enabled using the COIN_DEBUG_NORMALIZE environment
  * variable.
  */

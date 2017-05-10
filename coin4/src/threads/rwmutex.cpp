@@ -319,10 +319,10 @@ cc_rwmutex_read_unlock(cc_rwmutex * rwmutex)
 */
 
 /*!
-  \fn SbBool SbRWMutex::tryWriteLock(void)
+  \fn bool SbRWMutex::tryWriteLock(void)
 
-  This method tries to gain write lock status on the SbRWMutex.  TRUE is
-  returned if it was successful, FALSE otherwise.  This is a non-blocking
+  This method tries to gain write lock status on the SbRWMutex.  true is
+  returned if it was successful, false otherwise.  This is a non-blocking
   operation.
 */
 
@@ -340,10 +340,10 @@ cc_rwmutex_read_unlock(cc_rwmutex * rwmutex)
 */
 
 /*!
-  \fn SbBool SbRWMutex::tryReadLock(void)
+  \fn bool SbRWMutex::tryReadLock(void)
 
-  This method tries to gain read lock status on the SbRWMutex.  TRUE is
-  returned if it was successful, FALSE otherwise.  This is a non-blocking
+  This method tries to gain read lock status on the SbRWMutex.  true is
+  returned if it was successful, false otherwise.  This is a non-blocking
   operation.
 */
 

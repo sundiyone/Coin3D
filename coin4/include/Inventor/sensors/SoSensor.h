@@ -44,11 +44,11 @@ public:
 
   virtual void schedule(void) = 0;
   virtual void unschedule(void) = 0;
-  virtual SbBool isScheduled(void) const = 0;
+  virtual bool isScheduled(void) const = 0;
 
   virtual void trigger(void);
 
-  virtual SbBool isBefore(const SoSensor * s) const = 0;
+  virtual bool isBefore(const SoSensor * s) const = 0;
   void setNextInQueue(SoSensor * next);
   SoSensor * getNextInQueue(void) const;
 

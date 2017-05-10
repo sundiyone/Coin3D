@@ -220,36 +220,36 @@ SoTransformBoxDragger::SoTransformBoxDragger(void)
 {
   SO_KIT_INTERNAL_CONSTRUCTOR(SoTransformBoxDragger);
 
-  SO_KIT_ADD_CATALOG_ENTRY(surroundScale, SoSurroundScale, TRUE, topSeparator, antiSquish, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(antiSquish, SoAntiSquish, FALSE, topSeparator, scaler, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(scaler, SoScaleUniformDragger, TRUE, topSeparator, rotator1Sep, TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(rotator1Sep, SoSeparator, FALSE, topSeparator, rotator2Sep, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(rotator1Rot, SoRotation, TRUE, rotator1Sep, rotator1, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(rotator1, SoRotateCylindricalDragger, TRUE, rotator1Sep, "", TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(rotator2Sep, SoSeparator, FALSE, topSeparator, rotator3Sep, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(rotator2Rot, SoRotation, TRUE, rotator2Sep, rotator2, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(rotator2, SoRotateCylindricalDragger, TRUE, rotator2Sep, "", TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(rotator3Sep, SoSeparator, FALSE, topSeparator, translator1Sep, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(rotator3Rot, SoRotation, TRUE, rotator3Sep, rotator3, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(rotator3, SoRotateCylindricalDragger, TRUE, rotator3Sep, "", TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(translator1Sep, SoSeparator, FALSE, topSeparator, translator2Sep, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(translator1Rot, SoRotation, TRUE, translator1Sep, translator1, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(translator1, SoTranslate2Dragger, TRUE, translator1Sep, "", TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(translator2Sep, SoSeparator, FALSE, topSeparator, translator3Sep, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(translator2Rot, SoRotation, TRUE, translator2Sep, translator2, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(translator2, SoTranslate2Dragger, TRUE, translator2Sep, "", TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(translator3Sep, SoSeparator, FALSE, topSeparator, translator4Sep, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(translator3Rot, SoRotation, TRUE, translator3Sep, translator3, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(translator3, SoTranslate2Dragger, TRUE, translator3Sep, "", TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(translator4Sep, SoSeparator, FALSE, topSeparator, translator5Sep, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(translator4Rot, SoRotation, TRUE, translator4Sep, translator4, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(translator4, SoTranslate2Dragger, TRUE, translator4Sep, "", TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(translator5Sep, SoSeparator, FALSE, topSeparator, translator6Sep, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(translator5Rot, SoRotation, TRUE, translator5Sep, translator5, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(translator5, SoTranslate2Dragger, TRUE, translator5Sep, "", TRUE);
-  SO_KIT_ADD_CATALOG_ENTRY(translator6Sep, SoSeparator, FALSE, topSeparator, geomSeparator, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(translator6Rot, SoRotation, TRUE, translator6Sep, translator6, FALSE);
-  SO_KIT_ADD_CATALOG_ENTRY(translator6, SoTranslate2Dragger, TRUE, translator6Sep, "", TRUE);
+  SO_KIT_ADD_CATALOG_ENTRY(surroundScale, SoSurroundScale, true, topSeparator, antiSquish, true);
+  SO_KIT_ADD_CATALOG_ENTRY(antiSquish, SoAntiSquish, false, topSeparator, scaler, true);
+  SO_KIT_ADD_CATALOG_ENTRY(scaler, SoScaleUniformDragger, true, topSeparator, rotator1Sep, true);
+  SO_KIT_ADD_CATALOG_ENTRY(rotator1Sep, SoSeparator, false, topSeparator, rotator2Sep, false);
+  SO_KIT_ADD_CATALOG_ENTRY(rotator1Rot, SoRotation, true, rotator1Sep, rotator1, false);
+  SO_KIT_ADD_CATALOG_ENTRY(rotator1, SoRotateCylindricalDragger, true, rotator1Sep, "", true);
+  SO_KIT_ADD_CATALOG_ENTRY(rotator2Sep, SoSeparator, false, topSeparator, rotator3Sep, false);
+  SO_KIT_ADD_CATALOG_ENTRY(rotator2Rot, SoRotation, true, rotator2Sep, rotator2, false);
+  SO_KIT_ADD_CATALOG_ENTRY(rotator2, SoRotateCylindricalDragger, true, rotator2Sep, "", true);
+  SO_KIT_ADD_CATALOG_ENTRY(rotator3Sep, SoSeparator, false, topSeparator, translator1Sep, false);
+  SO_KIT_ADD_CATALOG_ENTRY(rotator3Rot, SoRotation, true, rotator3Sep, rotator3, false);
+  SO_KIT_ADD_CATALOG_ENTRY(rotator3, SoRotateCylindricalDragger, true, rotator3Sep, "", true);
+  SO_KIT_ADD_CATALOG_ENTRY(translator1Sep, SoSeparator, false, topSeparator, translator2Sep, false);
+  SO_KIT_ADD_CATALOG_ENTRY(translator1Rot, SoRotation, true, translator1Sep, translator1, false);
+  SO_KIT_ADD_CATALOG_ENTRY(translator1, SoTranslate2Dragger, true, translator1Sep, "", true);
+  SO_KIT_ADD_CATALOG_ENTRY(translator2Sep, SoSeparator, false, topSeparator, translator3Sep, false);
+  SO_KIT_ADD_CATALOG_ENTRY(translator2Rot, SoRotation, true, translator2Sep, translator2, false);
+  SO_KIT_ADD_CATALOG_ENTRY(translator2, SoTranslate2Dragger, true, translator2Sep, "", true);
+  SO_KIT_ADD_CATALOG_ENTRY(translator3Sep, SoSeparator, false, topSeparator, translator4Sep, false);
+  SO_KIT_ADD_CATALOG_ENTRY(translator3Rot, SoRotation, true, translator3Sep, translator3, false);
+  SO_KIT_ADD_CATALOG_ENTRY(translator3, SoTranslate2Dragger, true, translator3Sep, "", true);
+  SO_KIT_ADD_CATALOG_ENTRY(translator4Sep, SoSeparator, false, topSeparator, translator5Sep, false);
+  SO_KIT_ADD_CATALOG_ENTRY(translator4Rot, SoRotation, true, translator4Sep, translator4, false);
+  SO_KIT_ADD_CATALOG_ENTRY(translator4, SoTranslate2Dragger, true, translator4Sep, "", true);
+  SO_KIT_ADD_CATALOG_ENTRY(translator5Sep, SoSeparator, false, topSeparator, translator6Sep, false);
+  SO_KIT_ADD_CATALOG_ENTRY(translator5Rot, SoRotation, true, translator5Sep, translator5, false);
+  SO_KIT_ADD_CATALOG_ENTRY(translator5, SoTranslate2Dragger, true, translator5Sep, "", true);
+  SO_KIT_ADD_CATALOG_ENTRY(translator6Sep, SoSeparator, false, topSeparator, geomSeparator, false);
+  SO_KIT_ADD_CATALOG_ENTRY(translator6Rot, SoRotation, true, translator6Sep, translator6, false);
+  SO_KIT_ADD_CATALOG_ENTRY(translator6, SoTranslate2Dragger, true, translator6Sep, "", true);
 
   if (SO_KIT_IS_FIRST_INSTANCE()) {
     SoInteractionKit::readDefaultParts("transformBoxDragger.iv",
@@ -277,41 +277,41 @@ SoTransformBoxDragger::SoTransformBoxDragger(void)
   SoRotation *rot;
   rot = SO_GET_ANY_PART(this, "rotator1Rot", SoRotation);
   rot->rotation = SbRotation(SbVec3f(0.0f, 0.0f, 1.0f), static_cast<float>(M_PI)/2.0f);
-  this->rotator1Rot.setDefault(TRUE);
+  this->rotator1Rot.setDefault(true);
   rot = SO_GET_ANY_PART(this, "rotator2Rot", SoRotation);
   rot->rotation = SbRotation(SbVec3f(1.0f, 0.0f, 0.0f), static_cast<float>(M_PI)/2.0f);
-  this->rotator2Rot.setDefault(TRUE);
+  this->rotator2Rot.setDefault(true);
   rot = SO_GET_ANY_PART(this, "rotator3Rot", SoRotation);
   rot->rotation = SbRotation(SbVec3f(0.0f, 0.0f, 1.0f), 0.0f);
-  this->rotator3Rot.setDefault(TRUE);
+  this->rotator3Rot.setDefault(true);
 
   rot = SO_GET_ANY_PART(this, "translator1Rot", SoRotation);
   rot->rotation = SbRotation(SbVec3f(0.0f, 1.0f, 0.0f), static_cast<float>(M_PI)/2.0f);
-  this->translator1Rot.setDefault(TRUE);
+  this->translator1Rot.setDefault(true);
   rot = SO_GET_ANY_PART(this, "translator2Rot", SoRotation);
   rot->rotation = SbRotation(SbVec3f(0.0f, 1.0f, 0.0f), -static_cast<float>(M_PI)/2.0f);
-  this->translator2Rot.setDefault(TRUE);
+  this->translator2Rot.setDefault(true);
 
   rot = SO_GET_ANY_PART(this, "translator3Rot", SoRotation);
   rot->rotation = SbRotation(SbVec3f(1.0f, 0.0f, 0.0f), static_cast<float>(M_PI)/2.0f);
-  this->translator3Rot.setDefault(TRUE);
+  this->translator3Rot.setDefault(true);
   rot = SO_GET_ANY_PART(this, "translator4Rot", SoRotation);
   rot->rotation = SbRotation(SbVec3f(1.0f, 0.0f, 0.0f), -static_cast<float>(M_PI)/2.0f);
-  this->translator4Rot.setDefault(TRUE);
+  this->translator4Rot.setDefault(true);
 
   rot = SO_GET_ANY_PART(this, "translator5Rot", SoRotation);
   rot->rotation = SbRotation(SbVec3f(1.0f, 0.0f, 0.0f), static_cast<float>(M_PI));
-  this->translator5Rot.setDefault(TRUE);
+  this->translator5Rot.setDefault(true);
 
   rot = SO_GET_ANY_PART(this, "translator6Rot", SoRotation);
   rot->rotation = SbRotation(SbVec3f(1.0f, 0.0f, 0.0f), 0.0f);
-  this->translator6Rot.setDefault(TRUE);
+  this->translator6Rot.setDefault(true);
 
   SoAntiSquish *squish = SO_GET_ANY_PART(this, "antiSquish", SoAntiSquish);
   squish->sizing = SoAntiSquish::BIGGEST_DIMENSION;
-  squish->sizing.setDefault(TRUE);
-  squish->recalcAlways = FALSE;
-  squish->recalcAlways.setDefault(TRUE);
+  squish->sizing.setDefault(true);
+  squish->recalcAlways = false;
+  squish->recalcAlways.setDefault(true);
 
   this->addValueChangedCallback(SoTransformBoxDragger::valueChangedCB);
   this->rotFieldSensor = new SoFieldSensor(SoTransformBoxDragger::fieldSensorCB, this);
@@ -320,9 +320,9 @@ SoTransformBoxDragger::SoTransformBoxDragger(void)
   this->translFieldSensor->setPriority(0);
   this->scaleFieldSensor = new SoFieldSensor(SoTransformBoxDragger::fieldSensorCB, this);
   this->scaleFieldSensor->setPriority(0);
-  this->setUpConnections(TRUE, TRUE);
+  this->setUpConnections(true, true);
 
-  this->scaler.setDefault(TRUE);
+  this->scaler.setDefault(true);
 }
 
 /*!
@@ -340,8 +340,8 @@ SoTransformBoxDragger::~SoTransformBoxDragger()
 }
 
 // Doc in super.
-SbBool
-SoTransformBoxDragger::setUpConnections(SbBool onoff, SbBool doitalways)
+bool
+SoTransformBoxDragger::setUpConnections(bool onoff, bool doitalways)
 {
   if (!doitalways && this->connectionsSetUp == onoff) return onoff;
 
@@ -349,7 +349,7 @@ SoTransformBoxDragger::setUpConnections(SbBool onoff, SbBool doitalways)
     int i;
     SbString str;
     inherited::setUpConnections(onoff, doitalways);
-    SoDragger *child = coin_assert_cast<SoDragger *>(this->getAnyPart("scaler", FALSE));
+    SoDragger *child = coin_assert_cast<SoDragger *>(this->getAnyPart("scaler", false));
     child->setPartAsDefault("scaler", "transformBoxScalerScaler");
     child->setPartAsDefault("scalerActive", "transformBoxScalerScalerActive");
     child->setPartAsDefault("feedback", "transformBoxScalerFeedback");
@@ -358,7 +358,7 @@ SoTransformBoxDragger::setUpConnections(SbBool onoff, SbBool doitalways)
 
     for (i = 1; i <= 3; i++) {
       str.sprintf("rotator%d", i);
-      child = coin_assert_cast<SoDragger *>(this->getAnyPart(str.getString(), FALSE));
+      child = coin_assert_cast<SoDragger *>(this->getAnyPart(str.getString(), false));
       child->setPartAsDefault("rotator", "transformBoxRotatorRotator");
       child->setPartAsDefault("rotatorActive", "transformBoxRotatorRotatorActive");
       child->setPartAsDefault("feedback", "transformBoxRotatorFeedback");
@@ -368,7 +368,7 @@ SoTransformBoxDragger::setUpConnections(SbBool onoff, SbBool doitalways)
 
     for (i = 1; i <= 6; i++) {
       str.sprintf("translator%d", i);
-      child = coin_assert_cast<SoDragger *>(this->getAnyPart(str.getString(), FALSE));
+      child = coin_assert_cast<SoDragger *>(this->getAnyPart(str.getString(), false));
       child->setPartAsDefault("translator", "transformBoxTranslatorTranslator");
       child->setPartAsDefault("translatorActive", "transformBoxTranslatorTranslatorActive");
       child->setPartAsDefault("xAxisFeedback", "transformBoxTranslatorXAxisFeedback");
@@ -386,16 +386,16 @@ SoTransformBoxDragger::setUpConnections(SbBool onoff, SbBool doitalways)
     }
   }
   else {
-    this->removeChildDragger(coin_assert_cast<SoDragger *>(this->getAnyPart("scaler", FALSE)));
-    this->removeChildDragger(coin_assert_cast<SoDragger *>(this->getAnyPart("rotator1", FALSE)));
-    this->removeChildDragger(coin_assert_cast<SoDragger *>(this->getAnyPart("rotator2", FALSE)));
-    this->removeChildDragger(coin_assert_cast<SoDragger *>(this->getAnyPart("rotator3", FALSE)));
-    this->removeChildDragger(coin_assert_cast<SoDragger *>(this->getAnyPart("translator1", FALSE)));
-    this->removeChildDragger(coin_assert_cast<SoDragger *>(this->getAnyPart("translator2", FALSE)));
-    this->removeChildDragger(coin_assert_cast<SoDragger *>(this->getAnyPart("translator3", FALSE)));
-    this->removeChildDragger(coin_assert_cast<SoDragger *>(this->getAnyPart("translator4", FALSE)));
-    this->removeChildDragger(coin_assert_cast<SoDragger *>(this->getAnyPart("translator5", FALSE)));
-    this->removeChildDragger(coin_assert_cast<SoDragger *>(this->getAnyPart("translator6", FALSE)));
+    this->removeChildDragger(coin_assert_cast<SoDragger *>(this->getAnyPart("scaler", false)));
+    this->removeChildDragger(coin_assert_cast<SoDragger *>(this->getAnyPart("rotator1", false)));
+    this->removeChildDragger(coin_assert_cast<SoDragger *>(this->getAnyPart("rotator2", false)));
+    this->removeChildDragger(coin_assert_cast<SoDragger *>(this->getAnyPart("rotator3", false)));
+    this->removeChildDragger(coin_assert_cast<SoDragger *>(this->getAnyPart("translator1", false)));
+    this->removeChildDragger(coin_assert_cast<SoDragger *>(this->getAnyPart("translator2", false)));
+    this->removeChildDragger(coin_assert_cast<SoDragger *>(this->getAnyPart("translator3", false)));
+    this->removeChildDragger(coin_assert_cast<SoDragger *>(this->getAnyPart("translator4", false)));
+    this->removeChildDragger(coin_assert_cast<SoDragger *>(this->getAnyPart("translator5", false)));
+    this->removeChildDragger(coin_assert_cast<SoDragger *>(this->getAnyPart("translator6", false)));
 
     if (this->translFieldSensor->getAttachedField() != NULL) {
       this->translFieldSensor->detach();
@@ -427,7 +427,7 @@ SoTransformBoxDragger_set_default(SoDragger * dragger, const char * fmt,
     str.sprintf(fmt, i);
     SoField * f = dragger->getField(str.getString());
     assert(f);
-    f->setDefault(TRUE);
+    f->setDefault(true);
   }
 }
 
@@ -435,7 +435,7 @@ SoTransformBoxDragger_set_default(SoDragger * dragger, const char * fmt,
 void
 SoTransformBoxDragger::setDefaultOnNonWritingFields(void)
 {
-  this->surroundScale.setDefault(TRUE);
+  this->surroundScale.setDefault(true);
 
   SoTransformBoxDragger_set_default(this, "rotator%d", 1, 3);
   SoTransformBoxDragger_set_default(this, "translator%d", 1, 6);

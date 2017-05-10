@@ -167,8 +167,8 @@
   only IMAGE is supported.
   \e image is the original image.
 
-  Return value: TRUE if the resize ahs been resized, FALSE if not.
-  If FALSE is returned, Coin will resize the image instead.
+  Return value: true if the resize ahs been resized, false if not.
+  If false is returned, Coin will resize the image instead.
 */
 
 // *************************************************************************
@@ -271,7 +271,7 @@ glimage_buffer_destruct(void * buffer)
 
 
 static unsigned char *
-glimage_get_buffer(const int buffersize, const SbBool mipmap)
+glimage_get_buffer(const int buffersize, const bool mipmap)
 {
   soglimage_buffer * buf = NULL;
   assert(glimage_bufferstorage != NULL);
@@ -437,8 +437,8 @@ halve_image(const int width, const int height, const int depth, const int nc,
 // fast mipmap creation. no repeated memory allocations.
 static void
 fast_mipmap(SoState * state, int width, int height, int nc,
-            const unsigned char *data, const SbBool useglsubimage,
-            SbBool compress)
+            const unsigned char *data, const bool useglsubimage,
+            bool compress)
 {
   const cc_glglue * glw = sogl_glue_instance(state);
   GLint internalFormat = coin_glglue_get_internal_texture_format(glw, nc, compress);
@@ -448,7 +448,7 @@ fast_mipmap(SoState * state, int width, int height, int nc,
   if (level > levels) levels = level;
 
   int memreq = (SbMax(width>>1,1))*(SbMax(height>>1,1))*nc;
-  unsigned char * mipmap_buffer = glimage_get_buffer(memreq, TRUE);
+  unsigned char * mipmap_buffer = glimage_get_buffer(memreq, true);
 
   if (useglsubimage) {
     if (SoGLDriverDatabase::isSupported(glw, SO_GL_TEXSUBIMAGE)) {
@@ -485,8 +485,8 @@ fast_mipmap(SoState * state, int width, int height, int nc,
 // fast mipmap creation. no repeated memory allocations. 3D version.
 static void
 fast_mipmap(SoState * state, int width, int height, int depth,
-            int nc, const unsigned char *data, const SbBool useglsubimage,
-            SbBool compress)
+            int nc, const unsigned char *data, const bool useglsubimage,
+            bool compress)
 {
   const cc_glglue * glw = sogl_glue_instance(state);
   GLint internalFormat = coin_glglue_get_internal_texture_format(glw, nc, compress);
@@ -494,7 +494,7 @@ fast_mipmap(SoState * state, int width, int height, int depth,
   int levels = compute_log(SbMax(SbMax(width, height), depth));
 
   int memreq = (SbMax(width>>1,1))*(SbMax(height>>1,1))*(SbMax(depth>>1,1))*nc;
-  unsigned char * mipmap_buffer = glimage_get_buffer(memreq, TRUE);
+  unsigned char * mipmap_buffer = glimage_get_buffer(memreq, true);
 
   // Send level 0 (original image) to OpenGL
   if (useglsubimage) {
@@ -626,14 +626,14 @@ public:
                            const unsigned char *const texture,
                            const int numComponents,
                            const int w, const int h, const int d,
-                           const SbBool dlist,
-                           const SbBool mipmap,
+                           const bool dlist,
+                           const bool mipmap,
                            const int border);
   void reallyBindPBuffer(SoState *state);
   void resizeImage(SoState * state, unsigned char *&imageptr,
                    uint32_t &xsize, uint32_t &ysize, uint32_t &zsize);
-  SbBool shouldCreateMipmap(void);
-  void applyFilter(const SbBool ismipmap);
+  bool shouldCreateMipmap(void);
+  void applyFilter(const bool ismipmap);
 
   void * pbuffer;
   const SbImage *image;
@@ -641,9 +641,9 @@ public:
   SbVec3s glsize;
   int glcomp;
 
-  SbBool needtransparencytest;
-  SbBool hastransparency;
-  SbBool usealphatest;
+  bool needtransparencytest;
+  bool hastransparency;
+  bool usealphatest;
   uint32_t flags;
   float quality;
 
@@ -651,7 +651,7 @@ public:
   SoGLImage::Wrap wrapt;
   SoGLImage::Wrap wrapr;
   int border;
-  SbBool isregistered;
+  bool isregistered;
   uint32_t imageage;
   void (*endframecb)(void*);
   void *endframeclosure;
@@ -728,7 +728,7 @@ SoGLImage::SoGLImage(void)
 {
   PRIVATE(this) = new SoGLImageP;
   SoContextHandler::addContextDestructionCallback(SoGLImageP::contextCleanup, PRIVATE(this));
-  PRIVATE(this)->isregistered = FALSE;
+  PRIVATE(this)->isregistered = false;
   PRIVATE(this)->init(); // init members to default values
   PRIVATE(this)->owner = this;
 
@@ -859,7 +859,7 @@ SoGLImage::getTypeId(void) const
   Returns whether an SoGLImage instance inherits (or is of) type \a
   type.
 */
-SbBool
+bool
 SoGLImage::isOfType(SoType type) const
 {
   return this->getTypeId().isDerivedFrom(type);
@@ -909,9 +909,9 @@ SoGLImage::setGLDisplayList(SoGLDisplayList * dl,
   PRIVATE(this)->wraps = wraps;
   PRIVATE(this)->wrapt = wrapt;
   PRIVATE(this)->glimageid = SoGLImageP::getNextGLImageId(); // assign an unique id to this image
-  PRIVATE(this)->needtransparencytest = FALSE;
-  PRIVATE(this)->hastransparency = FALSE;
-  PRIVATE(this)->usealphatest = FALSE;
+  PRIVATE(this)->needtransparencytest = false;
+  PRIVATE(this)->hastransparency = false;
+  PRIVATE(this)->usealphatest = false;
   PRIVATE(this)->quality = quality;
 
   // don't register this image. There's no way we can reload it if we
@@ -945,9 +945,9 @@ SoGLImage::setPBuffer(SoState * state,
     PRIVATE(this)->wrapt = wrapt;
 
     PRIVATE(this)->glimageid = SoGLImageP::getNextGLImageId(); // assign an unique id to this image
-    PRIVATE(this)->needtransparencytest = TRUE;
-    PRIVATE(this)->hastransparency = FALSE;
-    PRIVATE(this)->usealphatest = FALSE;
+    PRIVATE(this)->needtransparencytest = true;
+    PRIVATE(this)->hastransparency = false;
+    PRIVATE(this)->usealphatest = false;
     PRIVATE(this)->quality = quality;
 
 
@@ -1032,9 +1032,9 @@ SoGLImage::setData(const SbImage *image,
   }
 
   PRIVATE(this)->glimageid = SoGLImageP::getNextGLImageId(); // assign an unique id to this image
-  PRIVATE(this)->needtransparencytest = TRUE;
-  PRIVATE(this)->hastransparency = FALSE;
-  PRIVATE(this)->usealphatest = FALSE;
+  PRIVATE(this)->needtransparencytest = true;
+  PRIVATE(this)->hastransparency = false;
+  PRIVATE(this)->usealphatest = false;
   PRIVATE(this)->quality = quality;
 
   // check for special case where glTexSubImage can be used.
@@ -1043,7 +1043,7 @@ SoGLImage::setData(const SbImage *image,
     const cc_glglue * glw = sogl_glue_instance(createinstate);
     SoGLDisplayList *dl = NULL;
 
-    SbBool copyok =
+    bool copyok =
       wraps == PRIVATE(this)->wraps &&
       wrapt == PRIVATE(this)->wrapt &&
       wrapr == PRIVATE(this)->wrapr &&
@@ -1056,13 +1056,13 @@ SoGLImage::setData(const SbImage *image,
     const unsigned char * bytes = image->getValue(size, nc);
     copyok = copyok && bytes && (size == PRIVATE(this)->glsize) && (nc == PRIVATE(this)->glcomp);
 
-    SbBool is3D = (size[2]==0)?FALSE:TRUE;
-    SbBool usesubimage = COIN_TEX2_USE_GLTEXSUBIMAGE &&
+    bool is3D = (size[2]==0)?false:true;
+    bool usesubimage = COIN_TEX2_USE_GLTEXSUBIMAGE &&
       ((is3D && SoGLDriverDatabase::isSupported(glw, SO_GL_3D_TEXTURES)) ||
        (!is3D && SoGLDriverDatabase::isSupported(glw, SO_GL_TEXSUBIMAGE)));
 
-    if (!usesubimage) copyok=FALSE;
-    if (PRIVATE(this)->flags & RECTANGLE) copyok = FALSE;
+    if (!usesubimage) copyok=false;
+    if (PRIVATE(this)->flags & RECTANGLE) copyok = false;
 
     if (copyok) {
       dl->ref();
@@ -1071,17 +1071,17 @@ SoGLImage::setData(const SbImage *image,
       PRIVATE(this)->image = NULL; // data is temporary, and only for current context
       dl->call(createinstate);
 
-      SbBool compress =
+      bool compress =
         (PRIVATE(this)->flags & COMPRESSED) &&
         SoGLDriverDatabase::isSupported(glw, SO_GL_TEXTURE_COMPRESSION);
 
       if (dl->isMipMapTextureObject()) {
         if (is3D)
           fast_mipmap(createinstate, size[0], size[1], size[2], nc, bytes,
-                      TRUE, compress);
+                      true, compress);
         else
           fast_mipmap(createinstate, size[0], size[1], nc, bytes,
-                      TRUE, compress);
+                      true, compress);
       }
       else {
         GLenum format = coin_glglue_get_texture_format(glw, nc);
@@ -1270,13 +1270,13 @@ SoGLImage::getGLDisplayList(SoState *state)
 
 
 /*!
-  Returns \e TRUE if this texture has some pixels with alpha != 255
+  Returns \e true if this texture has some pixels with alpha != 255
 */
-SbBool
+bool
 SoGLImage::hasTransparency(void) const
 {
-  if (PRIVATE(this)->flags & FORCE_TRANSPARENCY_TRUE) return TRUE;
-  if (PRIVATE(this)->flags & FORCE_TRANSPARENCY_FALSE) return FALSE;
+  if (PRIVATE(this)->flags & FORCE_TRANSPARENCY_TRUE) return true;
+  if (PRIVATE(this)->flags & FORCE_TRANSPARENCY_FALSE) return false;
 
   if (PRIVATE(this)->needtransparencytest) {
     ((SoGLImage*)this)->pimpl->checkTransparency();
@@ -1285,16 +1285,16 @@ SoGLImage::hasTransparency(void) const
 }
 
 /*!
-  Returns TRUE if this image has some alpha value != 255, and all
+  Returns true if this image has some alpha value != 255, and all
   these values are 0. If this is the case, alpha test can be used
   to render this texture instead of for instance blending, which
   is usually slower and might yield z-buffer artifacts.
 */
-SbBool
+bool
 SoGLImage::useAlphaTest(void) const
 {
-  if (PRIVATE(this)->flags & FORCE_ALPHA_TEST_TRUE) return TRUE;
-  if (PRIVATE(this)->flags & FORCE_ALPHA_TEST_FALSE) return FALSE;
+  if (PRIVATE(this)->flags & FORCE_ALPHA_TEST_TRUE) return true;
+  if (PRIVATE(this)->flags & FORCE_ALPHA_TEST_FALSE) return false;
 
   if (PRIVATE(this)->needtransparencytest) {
     ((SoGLImage*)this)->pimpl->checkTransparency();
@@ -1367,7 +1367,7 @@ SoGLImage::unrefOldDL(SoState *state, const uint32_t maxage)
 void
 SoGLImageP::init(void)
 {
-  assert(this->isregistered == FALSE);
+  assert(this->isregistered == false);
   this->image = NULL;
   this->pbuffer = NULL;
   this->glsize.setValue(0,0,0);
@@ -1377,9 +1377,9 @@ SoGLImageP::init(void)
   this->wrapr = SoGLImage::CLAMP;
   this->border = 0;
   this->flags = SoGLImage::USE_QUALITY_VALUE;
-  this->needtransparencytest = TRUE;
-  this->hastransparency = FALSE;
-  this->usealphatest = FALSE;
+  this->needtransparencytest = true;
+  this->hastransparency = false;
+  this->usealphatest = false;
   this->quality = 0.4f;
   this->imageage = 0;
   this->endframecb = NULL;
@@ -1438,13 +1438,13 @@ SoGLImageP::resizeImage(SoState * state, unsigned char *& imageptr,
 
   // downscale to legal GL size (implementation dependent)
   const cc_glglue * glw = sogl_glue_instance(state);
-  SbBool sizeok = FALSE;
+  bool sizeok = false;
 #if COIN_DEBUG
   uint32_t orgsize[3] = { newx, newy, newz };
 #endif // COIN_DEBUG
   while (!sizeok) {
-    SbBool compressed =
-      (this->flags & SoGLImage::COMPRESSED) ? TRUE : FALSE &&
+    bool compressed =
+      (this->flags & SoGLImage::COMPRESSED) ? true : false &&
       SoGLDriverDatabase::isSupported(glw, SO_GL_TEXTURE_COMPRESSION);
 
     if (this->flags & SoGLImage::RECTANGLE) {
@@ -1507,10 +1507,10 @@ SoGLImageP::resizeImage(SoState * state, unsigned char *& imageptr,
     // We need to resize.
 
     int numbytes = newx * newy * ((newz==0)?1:newz) * numcomponents;
-    unsigned char * glimage_tmpimagebuffer = glimage_get_buffer(numbytes, FALSE);
+    unsigned char * glimage_tmpimagebuffer = glimage_get_buffer(numbytes, false);
 
     // First check if there is a custom resize function registered
-    SbBool customresizedone = FALSE;
+    bool customresizedone = false;
     if (SoGLImageP::resizecb) {
       customresizedone = SoGLImageP::resizecb(state,
                                               SbVec3s(newx, newy, newz),
@@ -1613,13 +1613,13 @@ SoGLImageP::createGLDisplayList(SoState *state)
   uint32_t xsize = size[0];
   uint32_t ysize = size[1];
   uint32_t zsize = size[2];
-  SbBool is3D = (size[2]==0)?FALSE:TRUE;
+  bool is3D = (size[2]==0)?false:true;
 
   // these might change if image is resized
   unsigned char *imageptr = (unsigned char *) bytes;
 
   const cc_glglue * glw = sogl_glue_instance(state);
-  SbBool mipmap = this->shouldCreateMipmap();
+  bool mipmap = this->shouldCreateMipmap();
 
   if (imageptr) {
     if (is3D ||
@@ -1629,7 +1629,7 @@ SoGLImageP::createGLDisplayList(SoState *state)
       this->resizeImage(state, imageptr, xsize, ysize, zsize);
     }
   }
-  SoCacheElement::setInvalid(TRUE);
+  SoCacheElement::setInvalid(true);
   if (state->isCacheOpen()) {
     SoCacheElement::invalidate(state);
   }
@@ -1639,7 +1639,7 @@ SoGLImageP::createGLDisplayList(SoState *state)
   dl->ref();
 
   if (bytes) {
-    SbBool is3D = (size[2]==0)?FALSE:TRUE;
+    bool is3D = (size[2]==0)?false:true;
     if (is3D) {
       dl->setTextureTarget((int) GL_TEXTURE_3D);
     }
@@ -1671,9 +1671,9 @@ SoGLImageP::createGLDisplayList(SoState *state)
 void
 SoGLImageP::checkTransparency(void)
 {
-  this->needtransparencytest = FALSE;
-  this->usealphatest = FALSE;
-  this->hastransparency = FALSE;
+  this->needtransparencytest = false;
+  this->usealphatest = false;
+  this->hastransparency = false;
 
   SbVec3s size;
   int numcomponents;
@@ -1684,7 +1684,7 @@ SoGLImageP::checkTransparency(void)
     if (this->glcomp == 2 || this->glcomp == 4) {
       // we must assume it has transparency, and that we
       // can't use alpha testing
-      this->hastransparency = TRUE;
+      this->hastransparency = true;
     }
   }
   else {
@@ -1695,13 +1695,13 @@ SoGLImageP::checkTransparency(void)
 
       while (n) {
         if (*ptr != 255 && *ptr != 0) break;
-        if (*ptr == 0) this->usealphatest = TRUE;
+        if (*ptr == 0) this->usealphatest = true;
         ptr += nc;
         n--;
       }
       if (n > 0) {
-        this->hastransparency = TRUE;
-        this->usealphatest = FALSE;
+        this->hastransparency = true;
+        this->usealphatest = false;
       }
       else {
         this->hastransparency = this->usealphatest;
@@ -1738,7 +1738,7 @@ SoGLImageP::reallyBindPBuffer(SoState * state)
   glTexParameteri(target, GL_TEXTURE_WRAP_T,
                   translate_wrap(state, this->wrapt));
 
-  SbBool mipmap = FALSE;
+  bool mipmap = false;
 
 #if 0
   // disabled, we probably need to allocate space for the mipmaps in
@@ -1746,7 +1746,7 @@ SoGLImageP::reallyBindPBuffer(SoState * state)
   if (this->shouldCreateMipmap() && SoGLDriverDatabase::isSupported(glue, "GL_SGIS_generate_mipmap")) {
     glTexParameteri(target, GL_GENERATE_MIPMAP_SGIS, GL_TRUE);
     // glHint(GL_GENERATE_MIPMAP_HINT_SGIS, GL_NICEST);
-    mipmap = TRUE;
+    mipmap = true;
   }
 #endif // disabled
 
@@ -1759,15 +1759,15 @@ SoGLImageP::reallyCreateTexture(SoState *state,
                                 const unsigned char *const texture,
                                 const int numComponents,
                                 const int w, const int h, const int d,
-                                const SbBool COIN_UNUSED_ARG(dlist), //FIXME: Not in use (kintel 20011129)
-                                const SbBool mipmap,
+                                const bool COIN_UNUSED_ARG(dlist), //FIXME: Not in use (kintel 20011129)
+                                const bool mipmap,
                                 const int border)
 {
   const cc_glglue * glw = sogl_glue_instance(state);
   this->glsize = SbVec3s((short) w, (short) h, (short) d);
   this->glcomp = numComponents;
 
-  SbBool compress =
+  bool compress =
     (this->flags & SoGLImage::COMPRESSED) &&
     SoGLDriverDatabase::isSupported(glw, SO_GL_TEXTURE_COMPRESSION);
   GLint internalFormat =
@@ -1807,13 +1807,13 @@ SoGLImageP::reallyCreateTexture(SoState *state,
       //                                         w, h, d, dataFormat,
       //                                         GL_UNSIGNED_BYTE, texture);
 
-      fast_mipmap(state, w, h, d, numComponents, texture, FALSE, compress);
+      fast_mipmap(state, w, h, d, numComponents, texture, false, compress);
     }
   }
   else { // 2D textures
-    SbBool mipmapimage = mipmap;
-    SbBool mipmapfilter = mipmap;
-    SbBool generatemipmap = FALSE;
+    bool mipmapimage = mipmap;
+    bool mipmapfilter = mipmap;
+    bool generatemipmap = false;
 
     GLenum target = this->flags & SoGLImage::RECTANGLE ?
       GL_TEXTURE_RECTANGLE_EXT : GL_TEXTURE_2D;
@@ -1824,25 +1824,25 @@ SoGLImageP::reallyCreateTexture(SoState *state,
                     translate_wrap(state, this->wrapt));
 
     if (mipmap && (this->flags & SoGLImage::RECTANGLE)) {
-      mipmapimage = FALSE;
+      mipmapimage = false;
       if (SoGLDriverDatabase::isSupported(glw, "GL_SGIS_generate_mipmap")) {
         glTexParameteri(target, GL_GENERATE_MIPMAP_SGIS, GL_TRUE);
       }
-      else mipmapfilter = FALSE;
+      else mipmapfilter = false;
     }
     // prefer GL_SGIS_generate_mipmap to glGenerateMipmap. It seems to
     // be better supported in drivers.
     else if (mipmap && SoGLDriverDatabase::isSupported(glw, "GL_SGIS_generate_mipmap")) {
       glTexParameteri(target, GL_GENERATE_MIPMAP_SGIS, GL_TRUE);
-      mipmapimage = FALSE;
+      mipmapimage = false;
     }
     // using glGenerateMipmap() while creating a display list is not
     // supported (even if the display list is never used). This is
     // probably because the OpenGL driver creates each mipmap level by
     // rendering it using normal OpenGL calls.
     else if (mipmap && SoGLDriverDatabase::isSupported(glw, SO_GL_GENERATE_MIPMAP) && !state->isCacheOpen()) {
-      mipmapimage = FALSE;
-      generatemipmap = TRUE; // delay until after the texture image is set up
+      mipmapimage = false;
+      generatemipmap = true; // delay until after the texture image is set up
     }
     if ((this->quality > COIN_TEX2_ANISOTROPIC_LIMIT) &&
         SoGLDriverDatabase::isSupported(glw, SO_GL_ANISOTROPIC_FILTERING)) {
@@ -1855,13 +1855,13 @@ SoGLImageP::reallyCreateTexture(SoState *state,
                    border, dataFormat, GL_UNSIGNED_BYTE, texture);
 
       if (generatemipmap) {
-        SbBool wasenabled = TRUE;
+        bool wasenabled = true;
         // Woraround for ATi driver bug. GL_TEXTURE_2D needs to be
         // enabled when using glGenerateMipmap(), according to
         // dicussions on the opengl.org forums.
         if (glw->vendor_is_ati) {
           if (!glIsEnabled(GL_TEXTURE_2D)) {
-            wasenabled = FALSE;
+            wasenabled = false;
             glEnable(GL_TEXTURE_2D);
           }
         }
@@ -1877,7 +1877,7 @@ SoGLImageP::reallyCreateTexture(SoState *state,
       //   (void)GLUWrapper()->gluBuild2DMipmaps(GL_TEXTURE_2D, internalFormat,
       //                                         w, h, dataFormat,
       //                                         GL_UNSIGNED_BYTE, texture);
-      fast_mipmap(state, w, h, numComponents, texture, FALSE, compress);
+      fast_mipmap(state, w, h, numComponents, texture, false, compress);
     }
     // apply the texture filters
     this->applyFilter(mipmapfilter);
@@ -1965,7 +1965,7 @@ SoGLImageP::unrefOldDL(SoState *state, const uint32_t maxage)
   }
 }
 
-SbBool
+bool
 SoGLImageP::shouldCreateMipmap(void)
 {
   if (this->flags & SoGLImage::USE_QUALITY_VALUE) {
@@ -1980,7 +1980,7 @@ SoGLImageP::shouldCreateMipmap(void)
 // Actually apply the texture filters using OpenGL calls.
 //
 void
-SoGLImageP::applyFilter(const SbBool ismipmap)
+SoGLImageP::applyFilter(const bool ismipmap)
 {
   GLenum target;
 
@@ -2183,7 +2183,7 @@ SoGLImage::registerImage(SoGLImage *image)
   }
   assert(glimage_reglist->find(image) < 0);
   glimage_reglist->append(image);
-  PRIVATE(image)->isregistered = TRUE;
+  PRIVATE(image)->isregistered = true;
   UNLOCK_GLIMAGE;
 }
 
@@ -2199,7 +2199,7 @@ SoGLImage::unregisterImage(SoGLImage *image)
   if (idx >= 0) {
     glimage_reglist->removeFast(idx);
   }
-  PRIVATE(image)->isregistered = FALSE;
+  PRIVATE(image)->isregistered = false;
   UNLOCK_GLIMAGE;
 }
 

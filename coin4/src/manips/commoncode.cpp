@@ -50,7 +50,7 @@
 // see if Doxygen can handle it. 20000427 mortene.
 
 /*!
-  \fn SbBool SoTransformManip::replaceManip(SoPath * path, SoTransform * newone) const
+  \fn bool SoTransformManip::replaceManip(SoPath * path, SoTransform * newone) const
 
   Replaces this manipulator from the position specified by \a path
   with \a newnode. If \a newnode is \c NULL, an SoTransform will be
@@ -58,7 +58,7 @@
 */
 
 /*!
-  \fn SbBool SoDirectionalLightManip::replaceManip(SoPath * path, SoDirectionalLight * newone) const
+  \fn bool SoDirectionalLightManip::replaceManip(SoPath * path, SoDirectionalLight * newone) const
 
   Replaces this manipulator from the position specified by \a path
   with \a newnode. If \a newnode is \c NULL, an SoDirectionalLight
@@ -66,7 +66,7 @@
 */
 
 /*!
-  \fn SbBool SoSpotLightManip::replaceManip(SoPath * path, SoSpotLight * newone) const
+  \fn bool SoSpotLightManip::replaceManip(SoPath * path, SoSpotLight * newone) const
 
   Replaces this manipulator from the position specified by \a path
   with \a newnode. If \a newnode is \c NULL, an SoSpotLight
@@ -74,7 +74,7 @@
 */
 
 /*!
-  \fn SbBool SoPointLightManip::replaceManip(SoPath * path, SoPointLight * newone) const
+  \fn bool SoPointLightManip::replaceManip(SoPath * path, SoPointLight * newone) const
 
   Replaces this manipulator from the position specified by \a path
   with \a newnode. If \a newnode is \c NULL, an SoPointLight
@@ -82,7 +82,7 @@
 */
 
 /*!
-  \fn SbBool SoClipPlaneManip::replaceManip(SoPath * path, SoClipPlane * newone) const
+  \fn bool SoClipPlaneManip::replaceManip(SoPath * path, SoClipPlane * newone) const
 
   Replaces this manipulator from the position specified by \a path
   with \a newnode. If \a newnode is \c NULL, an SoClipPlane
@@ -95,7 +95,7 @@
 // single function without doing it as a macro. 20020805 mortene.
 
 #define SOMANIP_REPLACEMANIPBODY(_class_, _parentclass_) \
-SbBool \
+bool \
 _class_::replaceManip(SoPath * path, _parentclass_ * newone) const \
 { \
   SoFullPath * fullpath = (SoFullPath *) path; \
@@ -105,13 +105,13 @@ _class_::replaceManip(SoPath * path, _parentclass_ * newone) const \
     SoDebugError::post("_class_::replaceManip", \
                        "child to replace is not this manip (but %s at %p)", \
                        fulltail->getTypeId().getName().getString(), fulltail); \
-    return FALSE; \
+    return false; \
   } \
  \
-  SbBool constructed = FALSE; \
+  bool constructed = false; \
   if (newone == NULL) { \
     newone = new _parentclass_; \
-    constructed = TRUE; \
+    constructed = true; \
   } \
  \
   this->transferFieldValues(this, newone); \
@@ -128,7 +128,7 @@ _class_::replaceManip(SoPath * path, _parentclass_ * newone) const \
         newone->ref(); \
         newone->unref(); \
       } \
-      return FALSE; \
+      return false; \
     } \
   } \
   else { \
@@ -138,7 +138,7 @@ _class_::replaceManip(SoPath * path, _parentclass_ * newone) const \
         newone->ref(); \
         newone->unref(); \
       } \
-      return FALSE; \
+      return false; \
     } \
  \
     SoNode * parent = fullpath->getNodeFromTail(1); \
@@ -151,13 +151,13 @@ _class_::replaceManip(SoPath * path, _parentclass_ * newone) const \
         newone->ref(); \
         newone->unref(); \
       } \
-      return FALSE; \
+      return false; \
     } \
  \
     ((SoGroup*)parent)->replaceChild((SoNode*)this, newone); \
   } \
  \
-  return TRUE; \
+  return true; \
 }
 
 /***************************************************************************/

@@ -139,10 +139,10 @@
   to be on the safe side:
 
   \code
-  somefield.enableNotify(FALSE);
+  somefield.enableNotify(false);
   somefield.setValues(...);
   somefield.setNum(...);
-  somefield.enableNotify(TRUE);
+  somefield.enableNotify(true);
   somefield.touch();
   \endcode
 
@@ -270,9 +270,9 @@ using std::strlen;
   Number of array "slots" allocated for this field.
 */
 /*!
-  \var SbBool SoMField::userDataIsUsed
-  Is \c TRUE if data has been set through a setValuesPointer() call
-  and set to \c FALSE through a enableDeleteValues() call.
+  \var bool SoMField::userDataIsUsed
+  Is \c true if data has been set through a setValuesPointer() call
+  and set to \c false through a enableDeleteValues() call.
 */
 
 // *************************************************************************
@@ -320,7 +320,7 @@ SoMField::atexit_cleanup(void)
 SoMField::SoMField(void)
 {
   this->maxNum = this->num = 0;
-  this->userDataIsUsed = FALSE;
+  this->userDataIsUsed = false;
 }
 
 /*!
@@ -343,14 +343,14 @@ SoMField::makeRoom(int newnum)
 
 /*!
   Set the value at \a index to the value contained in \a valuestring.
-  Returns \c TRUE if a valid value for this field can be extracted
-  from \a valuestring, otherwise \c FALSE.
+  Returns \c true if a valid value for this field can be extracted
+  from \a valuestring, otherwise \c false.
 
   If \a index is larger than the current number of elements in the
   field, this method will automatically expand the field to accomodate
   the new value.
 */
-SbBool
+bool
 SoMField::set1(const int index, const char * const valuestring)
 {
   int oldnum = this->num;
@@ -362,12 +362,12 @@ SoMField::set1(const int index, const char * const valuestring)
   in.setBuffer(const_cast<char *>(valuestring), strlen(valuestring));
   if (!this->read1Value(&in, index)) {
     this->num = oldnum; // restore old number of items in field
-    return FALSE;
+    return false;
   }
   this->setChangedIndex(index);
   this->valueChanged();
   this->setChangedIndices();
-  return TRUE;
+  return true;
 }
 
 static void * mfield_buffer = NULL;
@@ -447,9 +447,9 @@ SoMField::get1(const int index, SbString & valuestring)
 
 /*!
   Read and set all values for this field from input stream \a in.
-  Returns \c TRUE if import went ok, otherwise \c FALSE.
+  Returns \c true if import went ok, otherwise \c false.
 */
-SbBool
+bool
 SoMField::readValue(SoInput * in)
 {
   // FIXME: temporary disable notification (if on) during reading the
@@ -459,7 +459,7 @@ SoMField::readValue(SoInput * in)
 #define READ_VAL(val) \
   if (!in->read(val)) { \
     SoReadError::post(in, "Premature end of file"); \
-    return FALSE; \
+    return false; \
   }
 
   // ** Binary format ******************************************************
@@ -472,7 +472,7 @@ SoMField::readValue(SoInput * in)
     if (numtoread < 0) {
       SoReadError::post(in, "invalid number of values in field: %d",
                         numtoread);
-      return FALSE;
+      return false;
     }
 #if 0 // tmp disabled until we come up with something better
     // FIXME: this limit is way too low. Not sure if a limit is a good
@@ -480,12 +480,12 @@ SoMField::readValue(SoInput * in)
     else if (numtoread > 32768) {
       SoReadError::post(in, "%d values in field, file probably corrupt",
                         numtoread);
-      return FALSE;
+      return false;
     }
 #endif // disabled
 
     this->makeRoom(numtoread);
-    if (!this->readBinaryValues(in, numtoread)) { return FALSE; }
+    if (!this->readBinaryValues(in, numtoread)) { return false; }
   }
 
   // ** ASCII format *******************************************************
@@ -503,11 +503,11 @@ SoMField::readValue(SoInput * in)
       else {
         in->putBack(c);
 
-        while (TRUE) {
+        while (true) {
           // makeRoom() makes sure the allocation strategy is decent.
           if (currentidx >= this->num) this->makeRoom(currentidx + 1);
 
-          if (!this->read1Value(in, currentidx++)) return FALSE;
+          if (!this->read1Value(in, currentidx++)) return false;
 
           READ_VAL(c);
           if (c == ',') { READ_VAL(c); } // Treat trailing comma as whitespace.
@@ -517,7 +517,7 @@ SoMField::readValue(SoInput * in)
 
           if (c == '}') {
             SoReadError::post(in, "Premature end of array, got '%c'", c);
-            return FALSE;
+            return false;
           }
 
           in->putBack(c);
@@ -530,7 +530,7 @@ SoMField::readValue(SoInput * in)
     else {
       in->putBack(c);
       this->makeRoom(1);
-      if (!this->read1Value(in, 0)) return FALSE;
+      if (!this->read1Value(in, 0)) return false;
     }
   }
 
@@ -547,7 +547,7 @@ SoMField::readValue(SoInput * in)
   // 20031203 mortene.
   this->valueChanged();
 
-  return TRUE;
+  return true;
 }
 
 /*!
@@ -589,14 +589,14 @@ SoMField::writeValue(SoOutput * out) const
 /*!
   Read \a num binary format values from \a in into this field.
 */
-SbBool
+bool
 SoMField::readBinaryValues(SoInput * in, int numarg)
 {
   assert(in->isBinary());
   assert(numarg >= 0);
 
-  for (int i=0; i < numarg; i++) if (!this->read1Value(in, i)) return FALSE;
-  return TRUE;
+  for (int i=0; i < numarg; i++) if (!this->read1Value(in, i)) return false;
+  return true;
 }
 
 /*!
@@ -712,7 +712,7 @@ SoMField::deleteValues(int start, int numarg)
 void
 SoMField::enableDeleteValues(void)
 {
-  this->userDataIsUsed = FALSE;
+  this->userDataIsUsed = false;
 }
 
 /*!
@@ -727,7 +727,7 @@ SoMField::enableDeleteValues(void)
   \since Coin 2.0
   \since TGS Inventor 3.0
 */
-SbBool
+bool
 SoMField::isDeleteValuesEnabled(void) const
 {
   return !this->userDataIsUsed;
@@ -785,7 +785,7 @@ SoMField::allocValues(int newnum)
       delete[] static_cast<unsigned char *>(this->valuesPtr());
     }
     this->setValuesPtr(NULL);
-    this->userDataIsUsed = FALSE;
+    this->userDataIsUsed = false;
     this->maxNum = 0;
   }
   else if (newnum > this->maxNum || newnum < this->num) {
@@ -828,7 +828,7 @@ SoMField::allocValues(int newnum)
           delete[] static_cast<unsigned char *>(this->valuesPtr());
         }
         this->setValuesPtr(newblock);
-        this->userDataIsUsed = FALSE;
+        this->userDataIsUsed = false;
       }
     }
     else {
@@ -837,7 +837,7 @@ SoMField::allocValues(int newnum)
       // SoMFEngine, so we just initialize the array to NULL.
       (void)memset(data, 0, newnum * fsize);
       this->setValuesPtr(data);
-      this->userDataIsUsed = FALSE;
+      this->userDataIsUsed = false;
       this->maxNum = newnum;
     }
   }

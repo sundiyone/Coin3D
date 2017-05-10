@@ -43,7 +43,7 @@
   Default constructor.
 */
 SoBaseList::SoBaseList(void)
-  : SbPList(), referencing(TRUE)
+  : SbPList(), referencing(true)
 {
 }
 
@@ -54,7 +54,7 @@ SoBaseList::SoBaseList(void)
   \sa SbPList::SbPList(const int)
 */
 SoBaseList::SoBaseList(const int size)
-  : SbPList(size), referencing(TRUE)
+  : SbPList(size), referencing(true)
 {
 }
 
@@ -62,7 +62,7 @@ SoBaseList::SoBaseList(const int size)
   Copy constructor.
 
   Shallow copy the items of \a l into this list, adding to the item
-  reference counts if the reference flag of \a l is \c TRUE.
+  reference counts if the reference flag of \a l is \c true.
 
   \sa SbPList::SbPList(const SbPList &)
 */
@@ -86,7 +86,7 @@ SoBaseList::~SoBaseList()
 
 /*!
   Append \a ptr to list, adding to the reference count of the object
-  (unless addReferences() has been set to \c FALSE).
+  (unless addReferences() has been set to \c false).
 
   \sa SbPList::append()
 */
@@ -100,7 +100,7 @@ SoBaseList::append(SoBase * ptr)
 /*!
   Insert \a ptr in the list at position \a addbefore, adding to the
   reference count of the object (unless addReferences() has been set
-  to \c FALSE).
+  to \c false).
 
   \sa SbPList::insert()
 */
@@ -113,7 +113,7 @@ SoBaseList::insert(SoBase * ptr, const int addbefore)
 
 /*!
   Removes item at \a index from the list, dereferencing the object
-  (unless addReferences() has been set to \c FALSE).
+  (unless addReferences() has been set to \c false).
 
   \sa SbPList::remove()
 */
@@ -128,7 +128,7 @@ SoBaseList::remove(const int index)
 
 /*!
   Removes \a item from the list, dereferencing the object (unless
-  addReferences() has been set to \c FALSE).
+  addReferences() has been set to \c false).
 
   \sa SbPList::removeItem()
 */
@@ -148,7 +148,7 @@ SoBaseList::removeItem(SoBase * item)
   Makes the list contain only the \a length first items, removing all
   items from index \a length and onwards to the end of the
   list. Dereferences the objects to be removed (unless addReferences()
-  has been set to \c FALSE).
+  has been set to \c false).
 
   \sa SbPList::truncate()
 */
@@ -216,7 +216,7 @@ SoBaseList::operator[](const int idx) const
   Default setting is to do referencing.
 */
 void
-SoBaseList::addReferences(const SbBool flag)
+SoBaseList::addReferences(const bool flag)
 {
 #if 0 // OBSOLETED: don't do this, it looks like it could give the
       // user some nasty surprises. 20000228 mortene.
@@ -256,7 +256,7 @@ SoBaseList::addReferences(const SbBool flag)
   \sa addReferences()
   \since Coin 2.0
 */
-SbBool 
+bool 
 SoBaseList::isReferencing(void) const
 {
   return this->referencing;

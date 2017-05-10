@@ -231,7 +231,7 @@ class SoTextureCubeMapP {
 public:
   int readstatus;
   SoGLCubeMapImage * glimage;
-  SbBool glimagevalid;
+  bool glimagevalid;
   SoFieldSensor * filenames_sensor;
 #ifdef COIN_THREADSAFE
   SbMutex mutex;
@@ -289,7 +289,7 @@ SoTextureCubeMap::SoTextureCubeMap(void)
   this->filenames.setDefault(0);
 
   PRIVATE(this)->glimage = NULL;
-  PRIVATE(this)->glimagevalid = FALSE;
+  PRIVATE(this)->glimagevalid = false;
   PRIVATE(this)->readstatus = 1;
 
   // use field sensor for filename since we will load an image if
@@ -331,12 +331,12 @@ SoTextureCubeMap::initClass(void)
 
 // Documented in superclass. Overridden to check if texture file (if
 // any) can be found and loaded.
-SbBool
+bool
 SoTextureCubeMap::readInstance(SoInput * in, unsigned short flags)
 {
   PRIVATE(this)->filenames_sensor->detach();
 
-  SbBool readOK = inherited::readInstance(in, flags);
+  bool readOK = inherited::readInstance(in, flags);
   this->setReadStatus((int) readOK);
   if (readOK) {
     for (int i = 0; i < this->filenames.getNum(); i++) {
@@ -357,7 +357,7 @@ SoTextureCubeMap::readInstance(SoInput * in, unsigned short flags)
         if (!this->loadFilename(fn, img)) {
           SoReadError::post(in, "Could not read texture file '%s'",
                             fn.getString());
-          this->setReadStatus(FALSE);
+          this->setReadStatus(false);
         }
       }
     }
@@ -396,7 +396,7 @@ SoTextureCubeMap::GLRender(SoGLRenderAction * action)
       if (bytes && size != SbVec2s(0,0)) {
         PRIVATE(this)->glimage->setCubeMapImage((SoGLCubeMapImage::Target)i, bytes, size, nc);
         // don't cache while creating a texture object
-        SoCacheElement::setInvalid(TRUE);
+        SoCacheElement::setInvalid(true);
         if (state->isCacheOpen()) {
           SoCacheElement::invalidate(state);
         }
@@ -405,7 +405,7 @@ SoTextureCubeMap::GLRender(SoGLRenderAction * action)
     if (state->isCacheOpen()) {
       SoCacheElement::invalidate(state);
     }
-    PRIVATE(this)->glimagevalid = TRUE;
+    PRIVATE(this)->glimagevalid = true;
   }
   
   UNLOCK_GLIMAGE(this);
@@ -469,7 +469,7 @@ SoTextureCubeMap::doAction(SoAction * COIN_UNUSED_ARG(action))
                                (int)this->wrapS.getValue(),
                                (SoTextureImageElement::Model) model.getValue(),
                                this->blendColor.getValue());
-    SoTextureEnabledElement::set(state, this, TRUE);
+    SoTextureEnabledElement::set(state, this, true);
   }
   // if a filename has been set, but the file has not been loaded, supply
   // a dummy texture image to make sure texture coordinates are generated.
@@ -481,14 +481,14 @@ SoTextureCubeMap::doAction(SoAction * COIN_UNUSED_ARG(action))
                                (int)this->wrapS.getValue(),
                                (SoTextureImageElement::Model) model.getValue(),
                                this->blendColor.getValue());
-    SoTextureEnabledElement::set(state, this, TRUE);
+    SoTextureEnabledElement::set(state, this, true);
   }
   else {
     SoTextureImageElement::setDefault(state, this);
-    SoTextureEnabledElement::set(state, this, FALSE);
+    SoTextureEnabledElement::set(state, this, false);
   }
   if (this->isOverride()) {
-    SoTextureOverrideElement::setImageOverride(state, TRUE);
+    SoTextureOverrideElement::setImageOverride(state, true);
   }
 #endif // not implemented
 }
@@ -512,12 +512,12 @@ SoTextureCubeMap::rayPick(SoRayPickAction * action)
   original SGI Open Inventor API.  We'll consider to implement it if
   requested.
 */
-SbBool
+bool
 SoTextureCubeMap::readImage(const SbString & COIN_UNUSED_ARG(fname), int & COIN_UNUSED_ARG(w), int & COIN_UNUSED_ARG(h), int & COIN_UNUSED_ARG(nc),
                       unsigned char *& COIN_UNUSED_ARG(bytes))
 {
   COIN_OBSOLETED();
-  return FALSE;
+  return false;
 }
 
 /*!
@@ -545,34 +545,34 @@ SoTextureCubeMap::notify(SoNotList * l)
 {
   SoField * f = l->getLastField();
   if (f == &this->imagePosX) {
-    PRIVATE(this)->glimagevalid = FALSE;    
-    this->imagePosX.setDefault(FALSE);
+    PRIVATE(this)->glimagevalid = false;    
+    this->imagePosX.setDefault(false);
   }
   else if (f == &this->imageNegX) {
-    PRIVATE(this)->glimagevalid = FALSE;
-    this->imageNegX.setDefault(FALSE);
+    PRIVATE(this)->glimagevalid = false;
+    this->imageNegX.setDefault(false);
   }
   
   else if (f == &this->imagePosY) {
-    PRIVATE(this)->glimagevalid = FALSE;
-    this->imagePosY.setDefault(FALSE);
+    PRIVATE(this)->glimagevalid = false;
+    this->imagePosY.setDefault(false);
   }
   else if (f == &this->imageNegY) {
-    PRIVATE(this)->glimagevalid = FALSE;    
-    this->imageNegY.setDefault(FALSE);
+    PRIVATE(this)->glimagevalid = false;    
+    this->imageNegY.setDefault(false);
   }
   
   else if (f == &this->imagePosZ) {
-    PRIVATE(this)->glimagevalid = FALSE;
-    this->imagePosZ.setDefault(FALSE);
+    PRIVATE(this)->glimagevalid = false;
+    this->imagePosZ.setDefault(false);
   }
   else if (f == &this->imageNegZ) {
-    PRIVATE(this)->glimagevalid = FALSE;
-    this->imageNegZ.setDefault(FALSE);
+    PRIVATE(this)->glimagevalid = false;
+    this->imageNegZ.setDefault(false);
   }
 
   else if (f == &this->wrapS || f == &this->wrapT) {
-    PRIVATE(this)->glimagevalid = FALSE;
+    PRIVATE(this)->glimagevalid = false;
   }
   inherited::notify(l);
 }
@@ -581,10 +581,10 @@ SoTextureCubeMap::notify(SoNotList * l)
 // Called from readInstance() or when user changes the
 // filename field.
 //
-SbBool 
+bool 
 SoTextureCubeMap::loadFilename(const SbString & filename, SoSFImage * image)
 {
-  SbBool retval = FALSE;
+  bool retval = false;
   if (filename.getLength()) {
     SbImage tmpimage;
     const SbStringList & sl = SoInput::getDirectories();
@@ -594,15 +594,15 @@ SoTextureCubeMap::loadFilename(const SbString & filename, SoSFImage * image)
       SbVec2s size;
       unsigned char * bytes = tmpimage.getValue(size, nc);
       // disable notification on image while setting data from filename
-      // as a notify will cause a filename.setDefault(TRUE).
-      SbBool oldnotify = image->enableNotify(FALSE);
+      // as a notify will cause a filename.setDefault(true).
+      bool oldnotify = image->enableNotify(false);
       image->setValue(size, nc, bytes);
       image->enableNotify(oldnotify);
-      PRIVATE(this)->glimagevalid = FALSE; // recreate GL image in next GLRender()
-      retval = TRUE;
+      PRIVATE(this)->glimagevalid = false; // recreate GL image in next GLRender()
+      retval = true;
     }
   }
-  image->setDefault(TRUE); // write filename, not image
+  image->setDefault(true); // write filename, not image
   return retval;
 }
 

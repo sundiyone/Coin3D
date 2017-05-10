@@ -55,7 +55,7 @@ public:
   virtual void setSrcExprAttribute(const char * id);
   const char * getSrcExprAttribute(void) const { return this->srcexpr; }
 
-  virtual SbBool handleXMLAttributes(void);
+  virtual bool handleXMLAttributes(void);
 
   virtual void copyContents(const ScXMLElt * rhs);
 

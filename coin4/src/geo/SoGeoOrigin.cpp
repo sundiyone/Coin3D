@@ -251,7 +251,7 @@ SoGeoOrigin::SoGeoOrigin(void)
   this->geoSystem.setNum(2);
   this->geoSystem.set1Value(0, "GD");
   this->geoSystem.set1Value(1, "WE");
-  this->geoSystem.setDefault(TRUE);
+  this->geoSystem.setDefault(true);
 }
 
 /*!

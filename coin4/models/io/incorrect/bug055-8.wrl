@@ -2,7 +2,7 @@
 
 #
 # A value must be given for the children field.
-# SbBool SoSFNode::readValue(SoInput * in) will complain.
+# bool SoSFNode::readValue(SoInput * in) will complain.
 #
 #
 

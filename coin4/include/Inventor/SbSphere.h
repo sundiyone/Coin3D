@@ -40,9 +40,9 @@ public:
   const SbVec3f &  getCenter(void) const;
   float getRadius(void) const;
   void circumscribe(const SbBox3f & box);
-  SbBool intersect(const SbLine & l, SbVec3f & intersection) const;
-  SbBool intersect(const SbLine & l, SbVec3f & enter, SbVec3f & exit) const;
-  SbBool pointInside(const SbVec3f & p) const;
+  bool intersect(const SbLine & l, SbVec3f & intersection) const;
+  bool intersect(const SbLine & l, SbVec3f & enter, SbVec3f & exit) const;
+  bool pointInside(const SbVec3f & p) const;
 
   void print(FILE * file) const;
 

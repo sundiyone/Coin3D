@@ -45,7 +45,7 @@
   SbCylinderSectionProjector::SbCylinderSectionProjector().
 */
 SbCylinderPlaneProjector::SbCylinderPlaneProjector(const float edgetol,
-                                                   const SbBool orienttoeye)
+                                                   const bool orienttoeye)
   : SbCylinderSectionProjector(edgetol, orienttoeye)
 {
 }
@@ -55,7 +55,7 @@ SbCylinderPlaneProjector::SbCylinderPlaneProjector(const float edgetol,
 */
 SbCylinderPlaneProjector::SbCylinderPlaneProjector(const SbCylinder & cyl,
                                                    const float edgetol,
-                                                   const SbBool orienttoeye)
+                                                   const bool orienttoeye)
   : SbCylinderSectionProjector(cyl, edgetol, orienttoeye)
 {
 }
@@ -76,7 +76,7 @@ SbCylinderPlaneProjector::project(const SbVec2f & point)
   SbLine projline = this->getWorkingLine(point);
   SbVec3f projpt;
 
-  SbBool tst = this->intersectCylinderFront(projline, projpt);
+  bool tst = this->intersectCylinderFront(projline, projpt);
   if (!tst || !this->isWithinTolerance(projpt)) {
     if (!this->tolPlane.intersect(projline, projpt)) {
 #if COIN_DEBUG
@@ -95,8 +95,8 @@ SbRotation
 SbCylinderPlaneProjector::getRotation(const SbVec3f & point1,
                                       const SbVec3f & point2)
 {
-  SbBool tol1 = this->isWithinTolerance(point1);
-  SbBool tol2 = this->isWithinTolerance(point2);
+  bool tol1 = this->isWithinTolerance(point1);
+  bool tol2 = this->isWithinTolerance(point2);
   return this->getRotation(point1, tol1, point2, tol2);
 }
 
@@ -105,8 +105,8 @@ SbCylinderPlaneProjector::getRotation(const SbVec3f & point1,
   tol2 deciding whether or not to use the tolerance setting.
 */
 SbRotation
-SbCylinderPlaneProjector::getRotation(const SbVec3f & point1, const SbBool tol1,
-                                      const SbVec3f & point2, const SbBool tol2)
+SbCylinderPlaneProjector::getRotation(const SbVec3f & point1, const bool tol1,
+                                      const SbVec3f & point2, const bool tol2)
 {
   if (tol1 && tol2) return inherited::getRotation(point1, point2);
   if (point1 == point2) {
@@ -122,7 +122,7 @@ SbCylinderPlaneProjector::getRotation(const SbVec3f & point1, const SbBool tol1,
                      this->planeLine.getPosition() + dir);
   //
   // pt1 is the point projected onto horizline. pt1_tol is different from
-  // pt1 if tol1==FALSE. pt1_tol will then be on the edge of the cylinder
+  // pt1 if tol1==false. pt1_tol will then be on the edge of the cylinder
   // section, where the cylinder section intersects the plane, but it will
   // also be on horizline.
   //

@@ -47,7 +47,7 @@ public:
   virtual void setTypeAttribute(const char * type);
   const char * getTypeAttribute(void) const { return this->type; }
 
-  virtual SbBool handleXMLAttributes(void);
+  virtual bool handleXMLAttributes(void);
 
   virtual void copyContents(const ScXMLElt * rhs);
 

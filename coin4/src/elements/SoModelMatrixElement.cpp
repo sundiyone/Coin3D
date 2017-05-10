@@ -97,7 +97,7 @@ SoModelMatrixElement::~SoModelMatrixElement(void)
 }
 
 // doc from parent
-SbBool
+bool
 SoModelMatrixElement::matches(const SoElement * element) const
 {
   return inherited::matches(element);
@@ -309,18 +309,18 @@ SoModelMatrixElement::get(SoState * const state)
 
 /*!
   Returns the current model matrix. Sets \a isIdentity to
-  TRUE if the model matrix is known to be an identity matrix.
+  true if the model matrix is known to be an identity matrix.
 */
 const SbMatrix &
 SoModelMatrixElement::get(SoState * const state,
-                          SbBool & isIdentity)
+                          bool & isIdentity)
 {
   const SoModelMatrixElement * elem = coin_assert_cast<const SoModelMatrixElement *>
     (
      SoElement::getConstElement(state, classStackIndex)
      );
-  if (elem->flags & FLG_IDENTITY) isIdentity = TRUE;
-  else isIdentity = FALSE;
+  if (elem->flags & FLG_IDENTITY) isIdentity = true;
+  else isIdentity = false;
   return elem->modelMatrix;
 }
 

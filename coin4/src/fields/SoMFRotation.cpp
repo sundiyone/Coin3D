@@ -61,13 +61,13 @@ SoMFRotation::initClass(void)
 // parent classes.
 #ifndef DOXYGEN_SKIP_THIS
 
-SbBool
+bool
 SoMFRotation::read1Value(SoInput * in, int idx)
 {
   SbRotation r;
-  if (!sosfrotation_read_value(in, r)) return FALSE;
+  if (!sosfrotation_read_value(in, r)) return false;
   this->set1Value(idx, r);
-  return TRUE;
+  return true;
 }
 
 void

@@ -238,7 +238,7 @@ SbBox3d::extendBy(const SbBox3d & box)
 /*!
   Check if the given point lies within the boundaries of this box.
  */
-SbBool
+bool
 SbBox3d::intersect(const SbVec3d & point) const
 {
   return !(point[0] < this->minpt[0] ||
@@ -253,7 +253,7 @@ SbBox3d::intersect(const SbVec3d & point) const
   Check if the given \a box lies wholly or partly within the boundaries
   of this box.
  */
-SbBool
+bool
 SbBox3d::intersect(const SbBox3d & box) const
 {
   if ((box.maxpt[0] < this->minpt[0]) ||
@@ -261,8 +261,8 @@ SbBox3d::intersect(const SbBox3d & box) const
      (box.maxpt[2] < this->minpt[2]) ||
      (box.minpt[0] > this->maxpt[0]) ||
      (box.minpt[1] > this->maxpt[1]) ||
-     (box.minpt[2] > this->maxpt[2])) return FALSE;
-  return TRUE;
+     (box.minpt[2] > this->maxpt[2])) return false;
+  return true;
 }
 
 /*!
@@ -316,14 +316,14 @@ SbBox3d::makeEmpty(void)
 }
 
 /*!
-  \fn SbBool SbBox3d::isEmpty(void) const
+  \fn bool SbBox3d::isEmpty(void) const
   Check if this has been marked as an empty box.
 
   \sa makeEmpty().
 */
 
 /*!
-  \fn SbBool SbBox3d::hasVolume(void) const
+  \fn bool SbBox3d::hasVolume(void) const
 
   Check if the box has been correctly specified and by that virtue
   has volume.
@@ -455,10 +455,10 @@ SbBox3d::print(FILE * fp) const
   top and bottom clipping planes. Bit 2 (0x4) is cleared when box is
   inside near and far clipping planes.
 
-  Returns \c TRUE if box is completely outside one of the clipping
-  planes. \c FALSE otherwise.
+  Returns \c true if box is completely outside one of the clipping
+  planes. \c false otherwise.
 */
-SbBool
+bool
 SbBox3d::outside(const SbDPMatrix & mvp, int & cullbits) const
 {
   // FIXME: this function is untested (code written by
@@ -484,12 +484,12 @@ SbBox3d::outside(const SbDPMatrix & mvp, int & cullbits) const
         else if (val > 1.0) outsidepos++;
         else inside++;
       }
-      if (outsidepos == 8) return TRUE;
-      if (outsideneg == 8) return TRUE;
+      if (outsidepos == 8) return true;
+      if (outsideneg == 8) return true;
       if (inside == 8) cullbits ^= (1<<j);
     }
   }
-  return FALSE;
+  return false;
 }
 
 /*!

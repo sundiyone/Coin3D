@@ -297,7 +297,7 @@ SoText3::SoText3(void)
   SO_NODE_SET_SF_ENUM_TYPE(parts, Part);
 
   PRIVATE(this) = new SoText3P(this);
-  PRIVATE(this)->normalgenerator = new SoNormalGenerator(FALSE, 0xff);
+  PRIVATE(this)->normalgenerator = new SoNormalGenerator(false, 0xff);
   PRIVATE(this)->cache = NULL;
 }
 
@@ -459,10 +459,10 @@ SoText3::GLRender(SoGLRenderAction * action)
   SoState * state = action->getState();
 
   // FIXME: implement this feature. 20040820 mortene.
-  static SbBool warned = FALSE;
+  static bool warned = false;
   if (!warned) {
     const int stackidx = SoTextOutlineEnabledElement::getClassStackIndex();
-    const SbBool outlinepresence = state->isElementEnabled(stackidx);
+    const bool outlinepresence = state->isElementEnabled(stackidx);
 
     if (outlinepresence && SoTextOutlineEnabledElement::get(state)) {
 #if COIN_DEBUG
@@ -471,7 +471,7 @@ SoText3::GLRender(SoGLRenderAction * action)
                                 "(i.e. heeding the SoTextOutlineEnabledElement) "
                                 "not yet implemented.");
 #endif // COIN_DEBUG
-      warned = TRUE;
+      warned = true;
     }
   }
 
@@ -489,19 +489,19 @@ SoText3::GLRender(SoGLRenderAction * action)
   SoLazyElement * lazyelement = SoLazyElement::getInstance(state);
   const int numdiffuse = lazyelement->getNumDiffuse();
 
-  SbBool matperpart = (binding != SoMaterialBindingElement::OVERALL);
+  bool matperpart = (binding != SoMaterialBindingElement::OVERALL);
 
   if (prts & SoText3::FRONT) {
     PRIVATE(this)->render(state, fontspec, SoText3::FRONT);
   }
   if (prts & SoText3::SIDES) {
     if (matperpart && (numdiffuse > 1))
-        mb.send(1, FALSE);
+        mb.send(1, false);
     PRIVATE(this)->render(state, fontspec, SoText3::SIDES);
   }
   if (prts & SoText3::BACK) {
     if (matperpart && (numdiffuse > 2))
-      mb.send(2, FALSE);
+      mb.send(2, false);
     PRIVATE(this)->render(state, fontspec, SoText3::BACK);
   }
 
@@ -579,21 +579,21 @@ SoText3P::render(SoState * state, const cc_font_specification * fontspec,
 
   float creaseangle = SoCreaseAngleElement::get(state);
 
-  SbBool do2Dtextures = FALSE;
-  SbBool do3Dtextures = FALSE;
+  bool do2Dtextures = false;
+  bool do3Dtextures = false;
   if (SoGLMultiTextureEnabledElement::get(state, 0)) {
-    do2Dtextures = TRUE;
+    do2Dtextures = true;
     if (SoGLMultiTextureEnabledElement::getMode(state, 0) ==
         SoMultiTextureEnabledElement::TEXTURE3D) {
-      do3Dtextures = TRUE;
+      do3Dtextures = true;
     }
   }
   // FIXME: implement proper support for 3D-texturing, and get rid of
   // this. (20031010 handegar)
   if (do3Dtextures) {
-    static SbBool first = TRUE;
+    static bool first = true;
     if (first) {
-      first = FALSE;
+      first = false;
 #if COIN_DEBUG
       SoDebugError::postWarning("SoText3::GLRender",
                                 "3D-textures not supported for this node type yet.");
@@ -606,7 +606,7 @@ SoText3P::render(SoState * state, const cc_font_specification * fontspec,
   int numprofiles = profilenodes.getLength();
   // Indicates if a valid profile has been specified. If it has not,
   // text will be rendered extruded.
-  SbBool validprofile = FALSE;
+  bool validprofile = false;
 
   if (numprofiles > 0) {
     assert(profilenodes[0]->getTypeId().isDerivedFrom(SoProfile::getClassTypeId()));
@@ -622,7 +622,7 @@ SoText3P::render(SoState * state, const cc_font_specification * fontspec,
         if (pn->linkage.getValue() == SoProfile::START_FIRST) {
           if (firstprofile == -1) {
             firstprofile = l;
-            validprofile = TRUE;
+            validprofile = true;
           }
           break;
         }
@@ -744,7 +744,7 @@ SoText3P::render(SoState * state, const cc_font_specification * fontspec,
             if (normalb.length() > 0)
               normalb.normalize();
 
-            SbBool flatshading = FALSE;
+            bool flatshading = false;
             float dot = normala.dot(normalb);
 
             if(acos(dot) > creaseangle) {
@@ -753,7 +753,7 @@ SoText3P::render(SoState * state, const cc_font_specification * fontspec,
               if (normala.length() > 0)
                 normala.normalize();
 
-              flatshading = TRUE;
+              flatshading = true;
             }
 
             if (!flatshading) {
@@ -816,7 +816,7 @@ SoText3P::render(SoState * state, const cc_font_specification * fontspec,
           SbVec3f normala, normalb;
 
           SbList <SbVec3f> vertexlist;
-          this->normalgenerator->reset(FALSE);
+          this->normalgenerator->reset(false);
 
           while (*indices >= 0) {
 
@@ -959,13 +959,13 @@ SoText3P::render(SoState * state, const cc_font_specification * fontspec,
 void
 SoText3::render(SoState * COIN_UNUSED_ARG(state), unsigned int COIN_UNUSED_ARG(part))
 {
-  assert(FALSE && "obsoleted");
+  assert(false && "obsoleted");
 }
 
 void
 SoText3::generate(SoAction * COIN_UNUSED_ARG(action), unsigned int COIN_UNUSED_ARG(part))
 {
-  assert(FALSE && "obsoleted");
+  assert(false && "obsoleted");
 }
 
 // generate text geometry
@@ -1000,20 +1000,20 @@ SoText3P::generate(SoAction * action, const cc_font_specification * fontspec,
       vertex.setMaterialIndex(2);
   }
 
-  SbBool do2Dtextures = FALSE;
-  SbBool do3Dtextures = FALSE;
+  bool do2Dtextures = false;
+  bool do3Dtextures = false;
 
   // not all actions have these elements enabled
   // (for instance SoGetPrimitiveCountAction)
   if (state->isElementEnabled(SoMultiTextureEnabledElement::getClassStackIndex())) {
-    if (SoMultiTextureEnabledElement::get(state)) do2Dtextures = TRUE;
+    if (SoMultiTextureEnabledElement::get(state)) do2Dtextures = true;
   }
   // FIXME: implement proper support for 3D-texturing, and get rid of
   // this. (20031010 handegar)
   if (do3Dtextures) {
-    static SbBool first = TRUE;
+    static bool first = true;
     if (first) {
-      first = FALSE;
+      first = false;
 #if COIN_DEBUG
       SoDebugError::postWarning("SoText3::GLRender",
                                 "3D-textures not supported for this node type yet.");
@@ -1181,14 +1181,14 @@ SoText3P::generate(SoAction * action, const cc_font_specification * fontspec,
             if (normalb.length() > 0)
               normalb.normalize();
 
-            SbBool flatshading = FALSE;
+            bool flatshading = false;
             float dot = normala.dot(normalb);
             if(acos(dot) > creaseangle) {
               normala = SbVec3f(v1[0] - v0[0], v1[1] - v0[1], 0.0f);
               normala = normala.cross(SbVec3f(0.0f, 0.0f,  1.0f));
               if (normala.length() > 0)
                 normala.normalize();
-              flatshading = TRUE;
+              flatshading = true;
             }
 
             if (!flatshading) {
@@ -1268,7 +1268,7 @@ SoText3P::generate(SoAction * action, const cc_font_specification * fontspec,
           SbVec3f normala, normalb;
 
           SbList <SbVec3f> vertexlist;
-          this->normalgenerator->reset(FALSE);
+          this->normalgenerator->reset(false);
 
           while (*indices >= 0) {
 
@@ -1421,7 +1421,7 @@ SoText3P::setUpGlyphs(SoState * state, SoText3 * textnode)
   SoGlyphCache * oldcache = this->cache;
 
   state->push();
-  SbBool storedinvalid = SoCacheElement::setInvalid(FALSE);
+  bool storedinvalid = SoCacheElement::setInvalid(false);
   this->cache = new SoGlyphCache(state);
   this->cache->ref();
   SoCacheElement::set(state, this->cache);

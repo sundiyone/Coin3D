@@ -40,7 +40,7 @@
 (-> writeaction 'apply (-> viewer 'getscenegraph))
 
 ;; Read scenegraph with engine in it.
-(let ((buffer "#Inventor V2.1 ascii\n\n Text3 { string \"\" = Concatenate { type \"MFBool\"  input0 [ FALSE, FALSE, FALSE ]  input1 [ TRUE, TRUE, TRUE ] } . output }")
+(let ((buffer "#Inventor V2.1 ascii\n\n Text3 { string \"\" = Concatenate { type \"MFBool\"  input0 [ false, false, false ]  input1 [ true, true, true ] } . output }")
       (input (new-soinput)))
   (-> input 'setbuffer (void-cast buffer) (string-length buffer))
   (let ((sceneroot (sodb::readall input)))

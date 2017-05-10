@@ -61,25 +61,25 @@ public:
   unsigned long getMsecValue(void) const;
   SbString format(const char * const fmt = "%S.%i") const;
   SbString formatDate(const char * const fmt = NULL) const;
-  SbBool parsedate(const char * const date);
-  friend COIN_DLL_API SbTime operator +(const SbTime & t0, const SbTime & t1);
-  friend COIN_DLL_API SbTime operator -(const SbTime & t0, const SbTime & t1);
-  SbTime & operator +=(const SbTime & tm);
-  SbTime & operator -=(const SbTime & tm);
+  bool parsedate(const char * const date);
+  friend COIN_DLL_API SbTime operator+(const SbTime & t0, const SbTime & t1);
+  friend COIN_DLL_API SbTime operator-(const SbTime & t0, const SbTime & t1);
+  SbTime & operator+=(const SbTime & tm);
+  SbTime & operator-=(const SbTime & tm);
   SbTime operator-(void) const;
-  friend COIN_DLL_API SbTime operator *(const double s, const SbTime & tm);
-  friend COIN_DLL_API SbTime operator *(const SbTime & tm, const double s);
-  friend COIN_DLL_API SbTime operator /(const SbTime & tm, const double s);
-  SbTime & operator *=(const double s);
-  SbTime & operator /=(const double s);
-  double operator /(const SbTime & tm) const;
-  SbTime operator %(const SbTime & tm) const;
-  int operator ==(const SbTime & tm) const;
-  int operator !=(const SbTime & tm) const;
-  SbBool operator <(const SbTime & tm) const;
-  SbBool operator >(const SbTime & tm) const;
-  SbBool operator <=(const SbTime & tm) const;
-  SbBool operator >=(const SbTime & tm) const;
+  friend COIN_DLL_API SbTime operator*(const double s, const SbTime & tm);
+  friend COIN_DLL_API SbTime operator*(const SbTime & tm, const double s);
+  friend COIN_DLL_API SbTime operator/(const SbTime & tm, const double s);
+  SbTime & operator*=(const double s);
+  SbTime & operator/=(const double s);
+  double operator/(const SbTime & tm) const;
+  SbTime operator%(const SbTime & tm) const;
+  bool operator==(const SbTime & tm) const;
+  bool operator!=(const SbTime & tm) const;
+  bool operator<(const SbTime & tm) const;
+  bool operator>(const SbTime & tm) const;
+  bool operator<=(const SbTime & tm) const;
+  bool operator>=(const SbTime & tm) const;
 
   void print(FILE * fp) const;
 
@@ -88,11 +88,11 @@ private:
   void addToString(SbString & str, const double val) const;
 };
 
-COIN_DLL_API SbTime operator +(const SbTime & t0, const SbTime & t1);
-COIN_DLL_API SbTime operator -(const SbTime & t0, const SbTime & t1);
-COIN_DLL_API SbTime operator *(const double s, const SbTime & tm);
-COIN_DLL_API SbTime operator *(const SbTime & tm, const double s);
-COIN_DLL_API SbTime operator /(const SbTime & tm, const double s);
+COIN_DLL_API SbTime operator+(const SbTime & t0, const SbTime & t1);
+COIN_DLL_API SbTime operator-(const SbTime & t0, const SbTime & t1);
+COIN_DLL_API SbTime operator*(const double s, const SbTime & tm);
+COIN_DLL_API SbTime operator*(const SbTime & tm, const double s);
+COIN_DLL_API SbTime operator/(const SbTime & tm, const double s);
 
 // Avoid problem with Microsoft Win32 API headers (see above).
 // Redefine macro max() back to a definition compatible with what it

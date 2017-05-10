@@ -75,13 +75,13 @@
 /*!
   \def SO_MOUSE_PRESS_EVENT(EVENT, BUTTON)
 
-  This macro evaluates to \c TRUE iff the \a EVENT represents a press
+  This macro evaluates to \c true iff the \a EVENT represents a press
   on the given \a BUTTON.
 */
 /*!
   \def SO_MOUSE_RELEASE_EVENT(EVENT, BUTTON)
 
-  This macro evaluates to \c TRUE iff the \a EVENT represents a
+  This macro evaluates to \c true iff the \a EVENT represents a
   release of the given \a BUTTON.
 */
 
@@ -145,7 +145,7 @@ SoMouseButtonEvent::getButton(void) const
 
   \sa isButtonReleaseEvent(), isOfType(), getButton(), getState()
  */
-SbBool
+bool
 SoMouseButtonEvent::isButtonPressEvent(const SoEvent * e,
                                        SoMouseButtonEvent::Button whichButton)
 {
@@ -153,9 +153,9 @@ SoMouseButtonEvent::isButtonPressEvent(const SoEvent * e,
     const SoMouseButtonEvent * me = coin_assert_cast<const SoMouseButtonEvent *>(e);
     if ((me->getState() == SoButtonEvent::DOWN) &&
         ((whichButton == SoMouseButtonEvent::ANY) ||
-         whichButton == me->getButton())) return TRUE;
+         whichButton == me->getButton())) return true;
   }
-  return FALSE;
+  return false;
 }
 
 /*!
@@ -164,7 +164,7 @@ SoMouseButtonEvent::isButtonPressEvent(const SoEvent * e,
 
   \sa isButtonPressEvent(), isOfType(), getButton(), getState()
  */
-SbBool
+bool
 SoMouseButtonEvent::isButtonReleaseEvent(const SoEvent * e,
                                          SoMouseButtonEvent::Button
                                          whichButton)
@@ -173,9 +173,9 @@ SoMouseButtonEvent::isButtonReleaseEvent(const SoEvent * e,
     const SoMouseButtonEvent * me = coin_assert_cast<const SoMouseButtonEvent *>(e);
     if ((me->getState() == SoButtonEvent::UP) &&
         ((whichButton == SoMouseButtonEvent::ANY) ||
-         whichButton == me->getButton())) return TRUE;
+         whichButton == me->getButton())) return true;
   }
-  return FALSE;
+  return false;
 }
 
 /*!
@@ -186,7 +186,7 @@ SoMouseButtonEvent::isButtonReleaseEvent(const SoEvent * e,
   \since Coin 3.0
 */
 // Should we add stringToEnum as well perhaps?
-SbBool
+bool
 SoMouseButtonEvent::enumToString(Button enumval, SbString & stringrep)
 {
   switch (enumval) {
@@ -209,7 +209,7 @@ SoMouseButtonEvent::enumToString(Button enumval, SbString & stringrep)
     stringrep = "BUTTON5";
     break;
   default:
-    return FALSE;
+    return false;
   }
-  return TRUE;
+  return true;
 }

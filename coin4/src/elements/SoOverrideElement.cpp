@@ -84,7 +84,7 @@
   {
     QWidget * window = SoQt::init(argv[0]);
 
-    (void)coin_setenv("COIN_SEPARATE_DIFFUSE_TRANSPARENCY_OVERRIDE", "1", TRUE);
+    (void)coin_setenv("COIN_SEPARATE_DIFFUSE_TRANSPARENCY_OVERRIDE", "1", true);
 
     SoInput * in = new SoInput;
     in->setBuffer((void *)scene, strlen(scene));
@@ -98,8 +98,8 @@
       SoBase::getNamedBase("OVERRIDEMATERIAL", SoMaterial::getClassTypeId());
     assert(overridemat);
 
-    overridemat->diffuseColor.setIgnored(TRUE);
-    overridemat->setOverride(TRUE);
+    overridemat->diffuseColor.setIgnored(true);
+    overridemat->setOverride(true);
 
     SoQtExaminerViewer * viewer = new SoQtExaminerViewer(window);
     viewer->setSceneGraph(root);
@@ -151,7 +151,7 @@ static int COIN_SEPARATE_DIFFUSE_TRANSPARENCY_OVERRIDE = -1;
 
 // *************************************************************************
 
-static SbBool
+static bool
 use_separate_transp_diffuse(void)
 {
   if (COIN_SEPARATE_DIFFUSE_TRANSPARENCY_OVERRIDE < 0) {
@@ -164,7 +164,7 @@ use_separate_transp_diffuse(void)
     }
   }
   return COIN_SEPARATE_DIFFUSE_TRANSPARENCY_OVERRIDE ?
-    TRUE : FALSE;
+    true : false;
 }
 
 // *************************************************************************
@@ -220,7 +220,7 @@ SoOverrideElement::push(SoState * state)
 
 //! FIXME: write doc.
 
-SbBool
+bool
 SoOverrideElement::matches(const SoElement *element) const
 {
   return (coin_assert_cast<const SoOverrideElement *>(element))->flags == this->flags;
@@ -250,7 +250,7 @@ SoOverrideElement::print(FILE * /* file */) const
   FIXME: write doc.
 */
 
-SbBool
+bool
 SoOverrideElement::getAmbientColorOverride(SoState * const state)
 {
   SO_GET_OVERRIDE(AMBIENT_COLOR);
@@ -260,7 +260,7 @@ SoOverrideElement::getAmbientColorOverride(SoState * const state)
   FIXME: write doc.
 */
 
-SbBool
+bool
 SoOverrideElement::getColorIndexOverride(SoState * const state)
 {
   SO_GET_OVERRIDE(COLOR_INDEX);
@@ -270,7 +270,7 @@ SoOverrideElement::getColorIndexOverride(SoState * const state)
   FIXME: write doc.
 */
 
-SbBool
+bool
 SoOverrideElement::getComplexityOverride(SoState * const state)
 {
   SO_GET_OVERRIDE(COMPLEXITY);
@@ -280,7 +280,7 @@ SoOverrideElement::getComplexityOverride(SoState * const state)
   FIXME: write doc.
 */
 
-SbBool
+bool
 SoOverrideElement::getComplexityTypeOverride(SoState * const state)
 {
   SO_GET_OVERRIDE(COMPLEXITY_TYPE);
@@ -290,7 +290,7 @@ SoOverrideElement::getComplexityTypeOverride(SoState * const state)
   FIXME: write doc.
 */
 
-SbBool
+bool
 SoOverrideElement::getCreaseAngleOverride(SoState * const state)
 {
   SO_GET_OVERRIDE(CREASE_ANGLE);
@@ -300,7 +300,7 @@ SoOverrideElement::getCreaseAngleOverride(SoState * const state)
   FIXME: write doc.
 */
 
-SbBool
+bool
 SoOverrideElement::getDiffuseColorOverride(SoState * const state)
 {
   SO_GET_OVERRIDE(DIFFUSE_COLOR);
@@ -310,7 +310,7 @@ SoOverrideElement::getDiffuseColorOverride(SoState * const state)
   FIXME: write doc.
 */
 
-SbBool
+bool
 SoOverrideElement::getDrawStyleOverride(SoState * const state)
 {
   SO_GET_OVERRIDE(DRAW_STYLE);
@@ -320,7 +320,7 @@ SoOverrideElement::getDrawStyleOverride(SoState * const state)
   FIXME: write doc.
 */
 
-SbBool
+bool
 SoOverrideElement::getEmissiveColorOverride(SoState * const state)
 {
   SO_GET_OVERRIDE(EMISSIVE_COLOR);
@@ -330,7 +330,7 @@ SoOverrideElement::getEmissiveColorOverride(SoState * const state)
   FIXME: write doc.
 */
 
-SbBool
+bool
 SoOverrideElement::getFontNameOverride(SoState * const state)
 {
   SO_GET_OVERRIDE(FONT_NAME);
@@ -340,7 +340,7 @@ SoOverrideElement::getFontNameOverride(SoState * const state)
   FIXME: write doc.
 */
 
-SbBool
+bool
 SoOverrideElement::getFontSizeOverride(SoState * const state)
 {
   SO_GET_OVERRIDE(FONT_SIZE);
@@ -350,7 +350,7 @@ SoOverrideElement::getFontSizeOverride(SoState * const state)
   FIXME: write doc.
 */
 
-SbBool
+bool
 SoOverrideElement::getLightModelOverride(SoState * const state)
 {
   SO_GET_OVERRIDE(LIGHT_MODEL);
@@ -360,7 +360,7 @@ SoOverrideElement::getLightModelOverride(SoState * const state)
   FIXME: write doc.
 */
 
-SbBool
+bool
 SoOverrideElement::getLinePatternOverride(SoState * const state)
 {
   SO_GET_OVERRIDE(LINE_PATTERN);
@@ -370,7 +370,7 @@ SoOverrideElement::getLinePatternOverride(SoState * const state)
   FIXME: write doc.
 */
 
-SbBool
+bool
 SoOverrideElement::getLineWidthOverride(SoState * const state)
 {
   SO_GET_OVERRIDE(LINE_WIDTH);
@@ -380,7 +380,7 @@ SoOverrideElement::getLineWidthOverride(SoState * const state)
   FIXME: write doc.
 */
 
-SbBool
+bool
 SoOverrideElement::getMaterialBindingOverride(SoState * const state)
 {
   SO_GET_OVERRIDE(MATERIAL_BINDING);
@@ -390,7 +390,7 @@ SoOverrideElement::getMaterialBindingOverride(SoState * const state)
   FIXME: write doc.
 */
 
-SbBool
+bool
 SoOverrideElement::getPointSizeOverride(SoState * const state)
 {
   SO_GET_OVERRIDE(POINT_SIZE);
@@ -400,7 +400,7 @@ SoOverrideElement::getPointSizeOverride(SoState * const state)
   FIXME: write doc.
 */
 
-SbBool
+bool
 SoOverrideElement::getPickStyleOverride(SoState * const state)
 {
   SO_GET_OVERRIDE(PICK_STYLE);
@@ -410,7 +410,7 @@ SoOverrideElement::getPickStyleOverride(SoState * const state)
   FIXME: write doc.
 */
 
-SbBool
+bool
 SoOverrideElement::getShapeHintsOverride(SoState * const state)
 {
   SO_GET_OVERRIDE(SHAPE_HINTS);
@@ -420,7 +420,7 @@ SoOverrideElement::getShapeHintsOverride(SoState * const state)
   FIXME: write doc.
 */
 
-SbBool
+bool
 SoOverrideElement::getShininessOverride(SoState * const state)
 {
   SO_GET_OVERRIDE(SHININESS);
@@ -430,7 +430,7 @@ SoOverrideElement::getShininessOverride(SoState * const state)
   FIXME: write doc.
 */
 
-SbBool
+bool
 SoOverrideElement::getSpecularColorOverride(SoState * const state)
 {
   SO_GET_OVERRIDE(SPECULAR_COLOR);
@@ -440,7 +440,7 @@ SoOverrideElement::getSpecularColorOverride(SoState * const state)
   FIXME: write doc.
 */
 
-SbBool
+bool
 SoOverrideElement::getTransparencyOverride(SoState * const state)
 {
   SO_GET_OVERRIDE(TRANSPARENCY);
@@ -450,7 +450,7 @@ SoOverrideElement::getTransparencyOverride(SoState * const state)
   FIXME: write doc.
 */
 
-SbBool
+bool
 SoOverrideElement::getTransparencyTypeOverride(SoState * const state)
 {
   SO_GET_OVERRIDE(TRANSPARENCY_TYPE);
@@ -460,7 +460,7 @@ SoOverrideElement::getTransparencyTypeOverride(SoState * const state)
   FIXME: write doc.
 */
 
-SbBool
+bool
 SoOverrideElement::getPolygonOffsetOverride(SoState * const state)
 {
   SO_GET_OVERRIDE(POLYGON_OFFSET);
@@ -473,7 +473,7 @@ SoOverrideElement::getPolygonOffsetOverride(SoState * const state)
 
   \since Coin 2.0
 */
-SbBool
+bool
 SoOverrideElement::getNormalVectorOverride(SoState * const state)
 {
   SO_GET_OVERRIDE(NORMAL_VECTOR);
@@ -486,7 +486,7 @@ SoOverrideElement::getNormalVectorOverride(SoState * const state)
 
   \since Coin 2.0
 */
-SbBool
+bool
 SoOverrideElement::getNormalBindingOverride(SoState * const state)
 {
   SO_GET_OVERRIDE(NORMAL_BINDING);
@@ -499,7 +499,7 @@ SoOverrideElement::getNormalBindingOverride(SoState * const state)
 void
 SoOverrideElement::setAmbientColorOverride(SoState * const state,
                                            SoNode * const /* node */,
-                                           const SbBool override)
+                                           const bool override)
 {
   SO_SET_OVERRIDE(AMBIENT_COLOR);
 }
@@ -511,7 +511,7 @@ SoOverrideElement::setAmbientColorOverride(SoState * const state,
 void
 SoOverrideElement::setColorIndexOverride(SoState * const state,
                                          SoNode * const /* node */,
-                                         const SbBool override)
+                                         const bool override)
 {
   SO_SET_OVERRIDE(COLOR_INDEX);
 }
@@ -523,7 +523,7 @@ SoOverrideElement::setColorIndexOverride(SoState * const state,
 void
 SoOverrideElement::setComplexityOverride(SoState * const state,
                                          SoNode * const /* node */,
-                                         const SbBool override)
+                                         const bool override)
 {
   SO_SET_OVERRIDE(COMPLEXITY);
 }
@@ -535,7 +535,7 @@ SoOverrideElement::setComplexityOverride(SoState * const state,
 void
 SoOverrideElement::setComplexityTypeOverride(SoState * const state,
                                              SoNode * const /* node */,
-                                             const SbBool override)
+                                             const bool override)
 {
   SO_SET_OVERRIDE(COMPLEXITY_TYPE);
 }
@@ -547,7 +547,7 @@ SoOverrideElement::setComplexityTypeOverride(SoState * const state,
 void
 SoOverrideElement::setCreaseAngleOverride(SoState * const state,
                                           SoNode * const /* node */,
-                                          const SbBool override)
+                                          const bool override)
 {
   SO_SET_OVERRIDE(CREASE_ANGLE);
 }
@@ -564,7 +564,7 @@ SoOverrideElement::setCreaseAngleOverride(SoState * const state,
 void
 SoOverrideElement::setDiffuseColorOverride(SoState * const state,
                                            SoNode * const /* node */,
-                                           const SbBool override)
+                                           const bool override)
 {
   SO_SET_OVERRIDE(DIFFUSE_COLOR);
   if (!use_separate_transp_diffuse()) {
@@ -579,7 +579,7 @@ SoOverrideElement::setDiffuseColorOverride(SoState * const state,
 void
 SoOverrideElement::setDrawStyleOverride(SoState * const state,
                                         SoNode * const /* node */,
-                                        const SbBool override)
+                                        const bool override)
 {
   SO_SET_OVERRIDE(DRAW_STYLE);
 }
@@ -591,7 +591,7 @@ SoOverrideElement::setDrawStyleOverride(SoState * const state,
 void
 SoOverrideElement::setEmissiveColorOverride(SoState * const state,
                                             SoNode * const /* node */,
-                                            const SbBool override)
+                                            const bool override)
 {
   SO_SET_OVERRIDE(EMISSIVE_COLOR);
 }
@@ -603,7 +603,7 @@ SoOverrideElement::setEmissiveColorOverride(SoState * const state,
 void
 SoOverrideElement::setFontNameOverride(SoState * const state,
                                        SoNode * const /* node */,
-                                       const SbBool override)
+                                       const bool override)
 {
   SO_SET_OVERRIDE(FONT_NAME);
 }
@@ -615,7 +615,7 @@ SoOverrideElement::setFontNameOverride(SoState * const state,
 void
 SoOverrideElement::setFontSizeOverride(SoState * const state,
                                        SoNode * const /* node */,
-                                       const SbBool override)
+                                       const bool override)
 {
   SO_SET_OVERRIDE(FONT_SIZE);
 }
@@ -627,7 +627,7 @@ SoOverrideElement::setFontSizeOverride(SoState * const state,
 void
 SoOverrideElement::setLightModelOverride(SoState * const state,
                                          SoNode * const /* node */,
-                                         const SbBool override)
+                                         const bool override)
 {
   SO_SET_OVERRIDE(LIGHT_MODEL);
 }
@@ -639,7 +639,7 @@ SoOverrideElement::setLightModelOverride(SoState * const state,
 void
 SoOverrideElement::setLinePatternOverride(SoState * const state,
                                           SoNode * const /* node */,
-                                          const SbBool override)
+                                          const bool override)
 {
   SO_SET_OVERRIDE(LINE_PATTERN);
 }
@@ -651,7 +651,7 @@ SoOverrideElement::setLinePatternOverride(SoState * const state,
 void
 SoOverrideElement::setLineWidthOverride(SoState * const state,
                                         SoNode * const /* node */,
-                                        const SbBool override)
+                                        const bool override)
 {
   SO_SET_OVERRIDE(LINE_WIDTH);
 }
@@ -661,7 +661,7 @@ SoOverrideElement::setLineWidthOverride(SoState * const state,
 void
 SoOverrideElement::setMaterialBindingOverride(SoState * const state,
                                               SoNode * const /* node */,
-                                              const SbBool override)
+                                              const bool override)
 {
   SO_SET_OVERRIDE(MATERIAL_BINDING);
 }
@@ -673,7 +673,7 @@ SoOverrideElement::setMaterialBindingOverride(SoState * const state,
 void
 SoOverrideElement::setPickStyleOverride(SoState * const state,
                                         SoNode * const /* node */,
-                                        const SbBool override)
+                                        const bool override)
 {
   SO_SET_OVERRIDE(PICK_STYLE);
 }
@@ -685,7 +685,7 @@ SoOverrideElement::setPickStyleOverride(SoState * const state,
 void
 SoOverrideElement::setPointSizeOverride(SoState * const state,
                                         SoNode * const /* node */,
-                                        const SbBool override)
+                                        const bool override)
 {
   SO_SET_OVERRIDE(POINT_SIZE);
 }
@@ -697,7 +697,7 @@ SoOverrideElement::setPointSizeOverride(SoState * const state,
 void
 SoOverrideElement::setPolygonOffsetOverride(SoState * const state,
                                             SoNode * const /* node */,
-                                            const SbBool override)
+                                            const bool override)
 {
   SO_SET_OVERRIDE(POLYGON_OFFSET);
 }
@@ -709,7 +709,7 @@ SoOverrideElement::setPolygonOffsetOverride(SoState * const state,
 void
 SoOverrideElement::setShapeHintsOverride(SoState * const state,
                                          SoNode * const /* node */,
-                                         const SbBool override)
+                                         const bool override)
 {
   SO_SET_OVERRIDE(SHAPE_HINTS);
 }
@@ -721,7 +721,7 @@ SoOverrideElement::setShapeHintsOverride(SoState * const state,
 void
 SoOverrideElement::setShininessOverride(SoState * const state,
                                         SoNode * const /* node */,
-                                        const SbBool override)
+                                        const bool override)
 {
   SO_SET_OVERRIDE(SHININESS);
 }
@@ -733,7 +733,7 @@ SoOverrideElement::setShininessOverride(SoState * const state,
 void
 SoOverrideElement::setSpecularColorOverride(SoState * const state,
                                             SoNode * const /* node */,
-                                            const SbBool override)
+                                            const bool override)
 {
   SO_SET_OVERRIDE(SPECULAR_COLOR);
 }
@@ -747,7 +747,7 @@ SoOverrideElement::setSpecularColorOverride(SoState * const state,
 void
 SoOverrideElement::setTransparencyOverride(SoState * const state,
                                            SoNode * const /* node */,
-                                           const SbBool override)
+                                           const bool override)
 {
   SO_SET_OVERRIDE(TRANSPARENCY);
   if (!use_separate_transp_diffuse()) {
@@ -763,7 +763,7 @@ SoOverrideElement::setTransparencyOverride(SoState * const state,
 void
 SoOverrideElement::setTransparencyTypeOverride(SoState * const state,
                                                SoNode * const /* node */,
-                                               const SbBool override)
+                                               const bool override)
 {
   SO_SET_OVERRIDE(TRANSPARENCY_TYPE);
 }
@@ -778,7 +778,7 @@ SoOverrideElement::setTransparencyTypeOverride(SoState * const state,
 void
 SoOverrideElement::setNormalVectorOverride(SoState * const state,
                                            SoNode * const /* node */,
-                                           const SbBool override)
+                                           const bool override)
 {
   SO_SET_OVERRIDE(NORMAL_VECTOR);
 }
@@ -793,7 +793,7 @@ SoOverrideElement::setNormalVectorOverride(SoState * const state,
 void
 SoOverrideElement::setNormalBindingOverride(SoState * const state,
                                             SoNode * const /* node */,
-                                            const SbBool override)
+                                            const bool override)
 {
   SO_SET_OVERRIDE(NORMAL_BINDING);
 }

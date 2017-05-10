@@ -34,7 +34,7 @@ SoGLSLShaderParameter::SoGLSLShaderParameter(void)
   this->cacheType = GL_FLOAT;
   this->cacheName = "";
   this->cacheSize =  0;
-  this->isActive = TRUE;
+  this->isActive = true;
   this->programid = 0;
 }
 
@@ -123,7 +123,7 @@ SoGLSLShaderParameter::setMatrix(const SoGLShaderObject *shader,
                                  const int)
 {
   if (this->isValid(shader, name, GL_FLOAT_MAT4_ARB))
-    shader->GLContext()->glUniformMatrix4fvARB(this->location,1,FALSE,value);
+    shader->GLContext()->glUniformMatrix4fvARB(this->location,1,false,value);
 }
 
   
@@ -134,7 +134,7 @@ SoGLSLShaderParameter::setMatrixArray(const SoGLShaderObject *shader,
 {
   int cnt = num;
   if (this->isValid(shader, name, GL_FLOAT_MAT4_ARB, &cnt))
-    shader->GLContext()->glUniformMatrix4fvARB(this->location,cnt,FALSE,value);
+    shader->GLContext()->glUniformMatrix4fvARB(this->location,cnt,false,value);
 }
 
 
@@ -214,7 +214,7 @@ SoGLSLShaderParameter::set4iv(const SoGLShaderObject * shader,
 }
 
 #include <stdio.h>
-SbBool
+bool
 SoGLSLShaderParameter::isValid(const SoGLShaderObject * shader,
                                const char * name, GLenum type,
                                int * num)
@@ -225,9 +225,9 @@ SoGLSLShaderParameter::isValid(const SoGLShaderObject * shader,
   COIN_GLhandle pHandle = ((SoGLSLShaderObject*)shader)->programHandle;
   int32_t pId = ((SoGLSLShaderObject*)shader)->programid;
   
-  // return TRUE if uniform isn't active. We warned the user about
+  // return true if uniform isn't active. We warned the user about
   // this when we found it to be inactive.
-  if ((pId == this->programid) && (this->location > -1) && !this->isActive) return TRUE;
+  if ((pId == this->programid) && (this->location > -1) && !this->isActive) return true;
   
   if ((pId == this->programid) && (this->location > -1) && 
       (this->cacheName == name) && (this->cacheType == type)) {
@@ -242,7 +242,7 @@ SoGLSLShaderParameter::isValid(const SoGLShaderObject * shader,
       }
       return (*num > 0);
     }
-    return TRUE;
+    return true;
   }
   
   const cc_glglue * g = shader->GLContext();
@@ -258,7 +258,7 @@ SoGLSLShaderParameter::isValid(const SoGLShaderObject * shader,
                               "parameter '%s' not found in program.",
                               name);
 #endif // COIN_DEBUG
-    return FALSE;
+    return false;
   }
   GLint activeUniforms = 0;
   g->glGetObjectParameterivARB(pHandle, GL_OBJECT_ACTIVE_UNIFORMS_ARB, &activeUniforms);
@@ -270,7 +270,7 @@ SoGLSLShaderParameter::isValid(const SoGLShaderObject * shader,
   COIN_GLchar myName[256];
   
   this->cacheName = name;
-  this->isActive = FALSE; // set uniform to inactive while searching
+  this->isActive = false; // set uniform to inactive while searching
   
   // this will only happen once after the variable has been added so
   // it's not a performance issue that we have to search for it here.
@@ -280,7 +280,7 @@ SoGLSLShaderParameter::isValid(const SoGLShaderObject * shader,
     if (this->cacheName == myName) {
       this->cacheSize = tmpSize;
       this->cacheType = tmpType;
-      this->isActive = TRUE;
+      this->isActive = true;
       break;
     }
   }
@@ -292,7 +292,7 @@ SoGLSLShaderParameter::isValid(const SoGLShaderObject * shader,
                               this->cacheName.getString());
 #endif // COIN_DEBUG
     // return here since cacheSize and cacheType will not be properly initialized
-    return TRUE;
+    return true;
   }
 
   if (type == GL_INT) {
@@ -308,11 +308,11 @@ SoGLSLShaderParameter::isValid(const SoGLShaderObject * shader,
     case GL_SAMPLER_2D_RECT_SHADOW_ARB: 
       break;
     default: 
-      return FALSE;
+      return false;
     }
   }
   else if (this->cacheType != type)
-    return FALSE;
+    return false;
 
   if (num) { // assume: ARRAY
     if (this->cacheSize < *num) {
@@ -325,5 +325,5 @@ SoGLSLShaderParameter::isValid(const SoGLShaderObject * shader,
     }
     return (*num > 0);
   }
-  return TRUE;
+  return true;
 }

@@ -93,7 +93,7 @@ SoCounter::SoCounter(void)
   SO_ENGINE_ADD_OUTPUT(output, SoSFShort);
   SO_ENGINE_ADD_OUTPUT(syncOut, SoSFTrigger);
 
-  this->syncOut.enable(FALSE);  // Disable notification
+  this->syncOut.enable(false);  // Disable notification
 
   this->value = 0;
   this->numsteps = 0;
@@ -129,7 +129,7 @@ void
 SoCounter::inputChanged(SoField *which)
 {
   // Default to not notifying fields connected to the syncOut output.
-  this->syncOut.enable(FALSE);
+  this->syncOut.enable(false);
 
   if (which == &this->trigger) {
     this->numsteps += 1;
@@ -137,12 +137,12 @@ SoCounter::inputChanged(SoField *which)
     if (this->value > this->max.getValue()) {
       this->value = this->min.getValue();
       this->numsteps = 0;
-      this->syncOut.enable(TRUE);
+      this->syncOut.enable(true);
     }
     else if (this->value < this->min.getValue()) {
       this->value = this->max.getValue();
       this->numsteps = 0;
-      this->syncOut.enable(TRUE);
+      this->syncOut.enable(true);
     }
   }
   else if (which == &this->reset) {

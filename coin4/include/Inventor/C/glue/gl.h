@@ -77,28 +77,28 @@ COIN_DLL_API void cc_glglue_glversion(const cc_glglue * glue,
                                       unsigned int * release);
 
 /*
-  Returns TRUE if the OpenGL implementation of the wrapper context is
+  Returns true if the OpenGL implementation of the wrapper context is
   at least as "late" as what is given with the input
-  arguments. Otherwise returns FALSE.
+  arguments. Otherwise returns false.
 */
-COIN_DLL_API SbBool cc_glglue_glversion_matches_at_least(const cc_glglue * glue,
+COIN_DLL_API bool cc_glglue_glversion_matches_at_least(const cc_glglue * glue,
                                                          unsigned int major,
                                                          unsigned int minor,
                                                          unsigned int release);
 
 /*
-  Returns TRUE if the GLX implementation of the wrapper context is at
+  Returns true if the GLX implementation of the wrapper context is at
   least as "late" as what is given with the input arguments. Otherwise
-  returns FALSE.
+  returns false.
 */
-COIN_DLL_API SbBool cc_glglue_glxversion_matches_at_least(const cc_glglue * glue,
+COIN_DLL_API bool cc_glglue_glxversion_matches_at_least(const cc_glglue * glue,
                                                           int major,
                                                           int minor);
 /*
-  Returns TRUE if the given extension is supported by this context,
-  FALSE if not.
+  Returns true if the given extension is supported by this context,
+  false if not.
 */
-COIN_DLL_API SbBool cc_glglue_glext_supported(const cc_glglue * glue, const char * extname);
+COIN_DLL_API bool cc_glglue_glext_supported(const cc_glglue * glue, const char * extname);
 
 /*
   Returns address of the symbol (usually a function) named by
@@ -113,29 +113,29 @@ COIN_DLL_API SbBool cc_glglue_glext_supported(const cc_glglue * glue, const char
  */
 COIN_DLL_API void * cc_glglue_getprocaddress(const cc_glglue * glue, const char * symname);
 
-/* Returns TRUE if rendering is done directly on the display (ie not
+/* Returns true if rendering is done directly on the display (ie not
    through any software indirection layer over GLX). */
-COIN_DLL_API SbBool cc_glglue_isdirect(const cc_glglue * w);
+COIN_DLL_API bool cc_glglue_isdirect(const cc_glglue * w);
 
 
 /*** Wrapped OpenGL 1.1+ features and extensions. *********************/
 
 /* Z-buffer offsetting ***/
 
-COIN_DLL_API SbBool cc_glglue_has_polygon_offset(const cc_glglue * glue);
+COIN_DLL_API bool cc_glglue_has_polygon_offset(const cc_glglue * glue);
 /* Bitflags for the last argument of cc_glglue_glPolygonOffsetEnable(). */
 enum cc_glglue_Primitives { cc_glglue_FILLED = 1 << 0,
                             cc_glglue_LINES  = 1 << 1,
                             cc_glglue_POINTS = 1 << 2 };
 COIN_DLL_API void cc_glglue_glPolygonOffsetEnable(const cc_glglue * glue,
-                                                  SbBool enable, int m);
+                                                  bool enable, int m);
 COIN_DLL_API void cc_glglue_glPolygonOffset(const cc_glglue * glue,
                                             GLfloat factor,
                                             GLfloat units);
 
 /* Texture objects ***/
 
-COIN_DLL_API SbBool cc_glglue_has_texture_objects(const cc_glglue * glue);
+COIN_DLL_API bool cc_glglue_has_texture_objects(const cc_glglue * glue);
 COIN_DLL_API void cc_glglue_glGenTextures(const cc_glglue * glue,
                                           GLsizei n,
                                           GLuint *textures);
@@ -148,7 +148,7 @@ COIN_DLL_API void cc_glglue_glDeleteTextures(const cc_glglue * glue,
 
 /* 3D textures ***/
 
-COIN_DLL_API SbBool cc_glglue_has_3d_textures(const cc_glglue * glue);
+COIN_DLL_API bool cc_glglue_has_3d_textures(const cc_glglue * glue);
 COIN_DLL_API void cc_glglue_glTexImage3D(const cc_glglue * glue,
                                          GLenum target,
                                          GLint level,
@@ -185,7 +185,7 @@ COIN_DLL_API void cc_glglue_glCopyTexSubImage3D(const cc_glglue * glue,
 
 /* Multi-texturing ***/
 
-COIN_DLL_API SbBool cc_glglue_has_multitexture(const cc_glglue * glue);
+COIN_DLL_API bool cc_glglue_has_multitexture(const cc_glglue * glue);
 COIN_DLL_API void cc_glglue_glMultiTexCoord2f(const cc_glglue * glue,
                                               GLenum target,
                                               GLfloat s,
@@ -207,7 +207,7 @@ COIN_DLL_API void cc_glglue_glClientActiveTexture(const cc_glglue * glue,
 
 /* Sub-texture operations ***/
 
-COIN_DLL_API SbBool cc_glglue_has_texsubimage(const cc_glglue * glue);
+COIN_DLL_API bool cc_glglue_has_texsubimage(const cc_glglue * glue);
 COIN_DLL_API void cc_glglue_glTexSubImage2D(const cc_glglue * glue,
                                             GLenum target,
                                             GLint level,
@@ -221,9 +221,9 @@ COIN_DLL_API void cc_glglue_glTexSubImage2D(const cc_glglue * glue,
 
 /* Misc texture operations ***/
 
-COIN_DLL_API SbBool cc_glglue_has_2d_proxy_textures(const cc_glglue * glue);
+COIN_DLL_API bool cc_glglue_has_2d_proxy_textures(const cc_glglue * glue);
 
-COIN_DLL_API SbBool cc_glglue_has_texture_edge_clamp(const cc_glglue * glue);
+COIN_DLL_API bool cc_glglue_has_texture_edge_clamp(const cc_glglue * glue);
 
 COIN_DLL_API void cc_glglue_glPushClientAttrib(const cc_glglue * glue, GLbitfield mask);
 COIN_DLL_API void cc_glglue_glPopClientAttrib(const cc_glglue * glue);
@@ -231,7 +231,7 @@ COIN_DLL_API void cc_glglue_glPopClientAttrib(const cc_glglue * glue);
 
 /* Texture compression ***/
 
-COIN_DLL_API SbBool cc_glue_has_texture_compression(const cc_glglue * glue);
+COIN_DLL_API bool cc_glue_has_texture_compression(const cc_glglue * glue);
 
 COIN_DLL_API void cc_glglue_glCompressedTexImage3D(const cc_glglue * glue,
                                                    GLenum target, 
@@ -298,11 +298,11 @@ COIN_DLL_API void cc_glglue_glGetCompressedTexImage(const cc_glglue * glue,
 
 /* Palette textures ***/
 
-COIN_DLL_API SbBool cc_glglue_has_color_tables(const cc_glglue * glue);
-COIN_DLL_API SbBool cc_glglue_has_color_subtables(const cc_glglue * glue);
-/* TRUE from the next check also guarantees that the two color table
-   checks above returns TRUE. */
-COIN_DLL_API SbBool cc_glglue_has_paletted_textures(const cc_glglue * glue);
+COIN_DLL_API bool cc_glglue_has_color_tables(const cc_glglue * glue);
+COIN_DLL_API bool cc_glglue_has_color_subtables(const cc_glglue * glue);
+/* true from the next check also guarantees that the two color table
+   checks above returns true. */
+COIN_DLL_API bool cc_glglue_has_paletted_textures(const cc_glglue * glue);
 
 COIN_DLL_API void cc_glglue_glColorTable(const cc_glglue * glue,
                                          GLenum target, 
@@ -335,18 +335,18 @@ COIN_DLL_API void cc_glglue_glGetColorTableParameterfv(const cc_glglue * glue,
 
 /* Texture blending settings ***/
 
-COIN_DLL_API SbBool cc_glglue_has_blendequation(const cc_glglue * glue);
+COIN_DLL_API bool cc_glglue_has_blendequation(const cc_glglue * glue);
 COIN_DLL_API void cc_glglue_glBlendEquation(const cc_glglue * glue, GLenum mode);
 
 /* Texture blend separate */
-COIN_DLL_API SbBool cc_glglue_has_blendfuncseparate(const cc_glglue * glue);
+COIN_DLL_API bool cc_glglue_has_blendfuncseparate(const cc_glglue * glue);
 COIN_DLL_API void cc_glglue_glBlendFuncSeparate(const cc_glglue * glue, 
                                                 GLenum srgb, GLenum drgb,
                                                 GLenum salpha, GLenum dalpha);
 
 /* OpenGL vertex array ***/
 
-COIN_DLL_API SbBool cc_glglue_has_vertex_array(const cc_glglue * glue);
+COIN_DLL_API bool cc_glglue_has_vertex_array(const cc_glglue * glue);
 COIN_DLL_API void cc_glglue_glVertexPointer(const cc_glglue * glue,
                                             GLint size, GLenum type, GLsizei stride, const GLvoid * pointer);
 COIN_DLL_API void cc_glglue_glTexCoordPointer(const cc_glglue * glue,
@@ -370,7 +370,7 @@ COIN_DLL_API void cc_glglue_glDrawRangeElements(const cc_glglue * glue,
 COIN_DLL_API void cc_glglue_glArrayElement(const cc_glglue * glue, GLint i);
 
 COIN_DLL_API int cc_glglue_max_texture_units(const cc_glglue * glue);
-COIN_DLL_API int cc_glglue_has_multidraw_vertex_arrays(const cc_glglue * glue);
+COIN_DLL_API bool cc_glglue_has_multidraw_vertex_arrays(const cc_glglue * glue);
 
 COIN_DLL_API void cc_glglue_glMultiDrawArrays(const cc_glglue * glue, GLenum mode, const GLint * first, 
                                               const GLsizei * count, GLsizei primcount);
@@ -378,7 +378,7 @@ COIN_DLL_API void cc_glglue_glMultiDrawElements(const cc_glglue * glue, GLenum m
                                                 GLenum type, const GLvoid ** indices, GLsizei primcount);
 
 /* NV_vertex_array_range */
-COIN_DLL_API SbBool cc_glglue_has_nv_vertex_array_range(const cc_glglue * glue);
+COIN_DLL_API bool cc_glglue_has_nv_vertex_array_range(const cc_glglue * glue);
 COIN_DLL_API void cc_glglue_glFlushVertexArrayRangeNV(const cc_glglue * glue);
 COIN_DLL_API void cc_glglue_glVertexArrayRangeNV(const cc_glglue * glue, GLsizei size, const GLvoid * pointer);
 COIN_DLL_API void * cc_glglue_glAllocateMemoryNV(const cc_glglue * glue,
@@ -387,7 +387,7 @@ COIN_DLL_API void * cc_glglue_glAllocateMemoryNV(const cc_glglue * glue,
 COIN_DLL_API void cc_glglue_glFreeMemoryNV(const cc_glglue * glue, GLvoid * buffer);
 
 /* ARB_vertex_buffer_object */
-COIN_DLL_API SbBool cc_glglue_has_vertex_buffer_object(const cc_glglue * glue);
+COIN_DLL_API bool cc_glglue_has_vertex_buffer_object(const cc_glglue * glue);
 COIN_DLL_API void cc_glglue_glBindBuffer(const cc_glglue * glue, GLenum target, GLuint buffer);
 COIN_DLL_API void cc_glglue_glDeleteBuffers(const cc_glglue * glue, GLsizei n, const GLuint *buffers);
 COIN_DLL_API void cc_glglue_glGenBuffers(const cc_glglue * glue, GLsizei n, GLuint *buffers);
@@ -421,7 +421,7 @@ COIN_DLL_API void cc_glglue_glGetBufferPointerv(const cc_glglue * glue,
                                                 GLvoid ** params);
 
 /* GL_ARB_fragment_program */
-COIN_DLL_API SbBool cc_glglue_has_arb_fragment_program(const cc_glglue * glue);
+COIN_DLL_API bool cc_glglue_has_arb_fragment_program(const cc_glglue * glue);
 COIN_DLL_API void cc_glglue_glProgramString(const cc_glglue * glue, GLenum target, GLenum format, 
                                             GLsizei len, const GLvoid *string);
 COIN_DLL_API void cc_glglue_glBindProgram(const cc_glglue * glue, GLenum target, 
@@ -463,10 +463,10 @@ COIN_DLL_API void cc_glglue_glGetProgramiv(const cc_glglue * glue, GLenum target
                                            GLenum pname, GLint *params);
 COIN_DLL_API void cc_glglue_glGetProgramString(const cc_glglue * glue, GLenum target, 
                                                GLenum pname, GLvoid *string);
-COIN_DLL_API SbBool cc_glglue_glIsProgram(const cc_glglue * glue, GLuint program);
+COIN_DLL_API bool cc_glglue_glIsProgram(const cc_glglue * glue, GLuint program);
 
 /* ARB_vertex_program */
-COIN_DLL_API SbBool cc_glglue_has_arb_vertex_program(const cc_glglue * glue);
+COIN_DLL_API bool cc_glglue_has_arb_vertex_program(const cc_glglue * glue);
 COIN_DLL_API void cc_glglue_glVertexAttrib1s(const cc_glglue * glue, GLuint index, GLshort x);
 COIN_DLL_API void cc_glglue_glVertexAttrib1f(const cc_glglue * glue, GLuint index, GLfloat x);
 COIN_DLL_API void cc_glglue_glVertexAttrib1d(const cc_glglue * glue, GLuint index, GLdouble x);
@@ -525,10 +525,10 @@ COIN_DLL_API void cc_glglue_glGetVertexAttribPointerv(const cc_glglue * glue, GL
                                                       GLvoid **pointer);
 
 /* ARB_vertex_shader */
-COIN_DLL_API SbBool cc_glglue_has_arb_vertex_shader(const cc_glglue * glue);
+COIN_DLL_API bool cc_glglue_has_arb_vertex_shader(const cc_glglue * glue);
 
 /* ARB_occlusion_query */
-COIN_DLL_API SbBool cc_glglue_has_occlusion_query(const cc_glglue * glue);
+COIN_DLL_API bool cc_glglue_has_occlusion_query(const cc_glglue * glue);
 COIN_DLL_API void cc_glglue_glGenQueries(const cc_glglue * glue, 
                                          GLsizei n, GLuint * ids);
 COIN_DLL_API void cc_glglue_glDeleteQueries(const cc_glglue * glue, 
@@ -567,14 +567,14 @@ COIN_DLL_API void cc_glglue_glFramebufferTexture3D(const cc_glglue * glue, GLenu
 COIN_DLL_API void cc_glglue_glFramebufferRenderbuffer(const cc_glglue * glue, GLenum target, GLenum attachment, GLenum renderbuffertarget, GLuint renderbuffer);
 COIN_DLL_API void cc_glglue_glGetFramebufferAttachmentParameteriv(const cc_glglue * glue, GLenum target, GLenum attachment, GLenum pname, GLint *params);
 COIN_DLL_API void cc_glglue_glGenerateMipmap(const cc_glglue * glue, GLenum target);
-COIN_DLL_API SbBool cc_glglue_has_framebuffer_objects(const cc_glglue * glue);
+COIN_DLL_API bool cc_glglue_has_framebuffer_objects(const cc_glglue * glue);
 
 
 /* GL feature queries */
-COIN_DLL_API SbBool cc_glglue_can_do_bumpmapping(const cc_glglue * glue);
-COIN_DLL_API SbBool cc_glglue_can_do_sortedlayersblend(const cc_glglue * glue);
-COIN_DLL_API SbBool cc_glglue_can_do_anisotropic_filtering(const cc_glglue * glue);
-COIN_DLL_API SbBool cc_glglue_has_framebuffer_objects(const cc_glglue * glue);
+COIN_DLL_API bool cc_glglue_can_do_bumpmapping(const cc_glglue * glue);
+COIN_DLL_API bool cc_glglue_can_do_sortedlayersblend(const cc_glglue * glue);
+COIN_DLL_API bool cc_glglue_can_do_anisotropic_filtering(const cc_glglue * glue);
+COIN_DLL_API bool cc_glglue_has_framebuffer_objects(const cc_glglue * glue);
 
 /* GL limits */
 COIN_DLL_API int cc_glglue_get_max_lights(const cc_glglue * glue);
@@ -608,14 +608,14 @@ COIN_DLL_API void * cc_glglue_glXGetCurrentDisplay(const cc_glglue * w);
 COIN_DLL_API void cc_glglue_context_max_dimensions(unsigned int * width, unsigned int * height);
 
 COIN_DLL_API void * cc_glglue_context_create_offscreen(unsigned int width, unsigned int height);
-COIN_DLL_API SbBool cc_glglue_context_make_current(void * ctx);
+COIN_DLL_API bool cc_glglue_context_make_current(void * ctx);
 COIN_DLL_API void cc_glglue_context_reinstate_previous(void * ctx);
 COIN_DLL_API void cc_glglue_context_destruct(void * ctx);
 
 COIN_DLL_API void cc_glglue_context_bind_pbuffer(void * ctx);
 COIN_DLL_API void cc_glglue_context_release_pbuffer(void * ctx);
-COIN_DLL_API SbBool cc_glglue_context_pbuffer_is_bound(void * ctx);
-COIN_DLL_API SbBool cc_glglue_context_can_render_to_texture(void * ctx);
+COIN_DLL_API bool cc_glglue_context_pbuffer_is_bound(void * ctx);
+COIN_DLL_API bool cc_glglue_context_can_render_to_texture(void * ctx);
 
 /* This abomination is needed to support SoOffscreenRenderer::getDC(). */
 COIN_DLL_API const void * cc_glglue_win32_HDC(void * ctx);
@@ -636,7 +636,7 @@ typedef void * cc_glglue_offscreen_data;
 
 typedef struct cc_glglue_offscreen_cb_functions {
     cc_glglue_offscreen_data (*create_offscreen)(unsigned int width, unsigned int height);
-    SbBool (*make_current)(cc_glglue_offscreen_data context);
+    bool (*make_current)(cc_glglue_offscreen_data context);
     void (*reinstate_previous)(cc_glglue_offscreen_data context);
     void (*destruct)(cc_glglue_offscreen_data context);
 } cc_glglue_offscreen_cb_functions; 

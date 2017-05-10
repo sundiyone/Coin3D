@@ -258,7 +258,7 @@ SoShaderProgram::SoShaderProgram(void)
 
   SO_NODE_ADD_FIELD(shaderObject, (NULL));
   this->shaderObject.setNum(0);
-  this->shaderObject.setDefault(TRUE);
+  this->shaderObject.setDefault(true);
 
 
   PRIVATE(this) = new SoShaderProgramP(this);
@@ -366,7 +366,7 @@ SoShaderProgramP::GLRender(SoGLRenderAction * action)
   }
 
   // enable shader after all shader objects have been loaded
-  SoGLShaderProgramElement::enable(state, TRUE);
+  SoGLShaderProgramElement::enable(state, true);
 
   // update parameters after all shader objects have been added and enabled
 

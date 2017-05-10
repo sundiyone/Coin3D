@@ -58,13 +58,13 @@ public:
 
   static void panSetFocalPoint(SoCamera * camera, const SbVec3f & worldspace);
 
-  static void translateCamera(SoCamera * camera, const SbVec3f & translation, SbBool cameraspace = FALSE);
+  static void translateCamera(SoCamera * camera, const SbVec3f & translation, bool cameraspace = false);
 
 protected:
   SoScXMLPanTarget(void);
   virtual ~SoScXMLPanTarget(void);
 
-  virtual SbBool processOneEvent(const ScXMLEvent * event);
+  virtual bool processOneEvent(const ScXMLEvent * event);
 
 private:
   class PImpl;

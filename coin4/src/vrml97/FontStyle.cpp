@@ -41,14 +41,14 @@
   \verbatim
   FontStyle { 
     field MFString family       "SERIF"
-    field SFBool   horizontal   TRUE
+    field SFBool   horizontal   true
     field MFString justify      "BEGIN"
     field SFString language     ""
-    field SFBool   leftToRight  TRUE
+    field SFBool   leftToRight  true
     field SFFloat  size         1.0          # (0,)
     field SFFloat  spacing      1.0          # [0,)
     field SFString style        "PLAIN"
-    field SFBool   topToBottom  TRUE
+    field SFBool   topToBottom  true
   }
   \endverbatim
 
@@ -107,27 +107,27 @@
   The horizontal, leftToRight, and topToBottom fields indicate the
   direction of the text. The horizontal field indicates whether the
   text advances horizontally in its major direction (horizontal =
-  TRUE, the default) or vertically in its major direction (horizontal
-  = FALSE). The leftToRight and topToBottom fields indicate direction
+  true, the default) or vertically in its major direction (horizontal
+  = false). The leftToRight and topToBottom fields indicate direction
   of text advance in the major (characters within a single string) and
   minor (successive strings) axes of layout. Which field is used for
   the major direction and which is used for the minor direction is
   determined by the horizontal field.
 
-  For horizontal text (horizontal = TRUE), characters on each line of
-  text advance in the positive X direction if leftToRight is TRUE or
-  in the negative X direction if leftToRight is FALSE. Characters are
+  For horizontal text (horizontal = true), characters on each line of
+  text advance in the positive X direction if leftToRight is true or
+  in the negative X direction if leftToRight is false. Characters are
   advanced according to their natural advance width. Each line of
   characters is advanced in the negative Y direction if topToBottom is
-  TRUE or in the positive Y direction if topToBottom is FALSE. Lines
+  true or in the positive Y direction if topToBottom is false. Lines
   are advanced by the amount of size ? spacing.
 
-  For vertical text (horizontal = FALSE), characters on each line of
-  text advance in the negative Y direction if topToBottom is TRUE or
-  in the positive Y direction if topToBottom is FALSE. Characters are
+  For vertical text (horizontal = false), characters on each line of
+  text advance in the negative Y direction if topToBottom is true or
+  in the positive Y direction if topToBottom is false. Characters are
   advanced according to their natural advance height. Each line of
   characters is advanced in the positive X direction if leftToRight is
-  TRUE or in the negative X direction if leftToRight is FALSE. Lines
+  true or in the negative X direction if leftToRight is false. Lines
   are advanced by the amount of size ? spacing.
 
   The justify field determines alignment of the above text layout
@@ -140,10 +140,10 @@
   specified, minor alignment defaults to the value "FIRST". Thus,
   justify values of "", "BEGIN", and ["BEGIN" "FIRST"] are equivalent.
 
-  The major alignment is along the X-axis when horizontal is TRUE and
-  along the Y-axis when horizontal is FALSE. The minor alignment is
-  along the Y-axis when horizontal is TRUE and along the X-axis when
-  horizontal is FALSE. The possible values for each enumerant of the
+  The major alignment is along the X-axis when horizontal is true and
+  along the Y-axis when horizontal is false. The minor alignment is
+  along the Y-axis when horizontal is true and along the X-axis when
+  horizontal is false. The possible values for each enumerant of the
   justify field are "FIRST", "BEGIN", "MIDDLE", and "END". For major
   alignment, each line of text is positioned individually according to
   the major alignment enumerant. For minor alignment, the block of
@@ -154,7 +154,7 @@
   the origin.
 
   The default minor alignment is "FIRST". This is a special case of
-  minor alignment when horizontal is TRUE. Text starts at the baseline
+  minor alignment when horizontal is true. Text starts at the baseline
   at the Y-axis. In all other cases, "FIRST" is identical to
   "BEGIN". In Tables 6.6 and 6.7, each colour-coded cross-hair
   indicates where the X-axis and Y-axis shall be in relation to the
@@ -169,12 +169,12 @@
 
   <center>
   <img src="http://www.web3d.org/x3d/specifications/vrml/ISO-IEC-14772-VRML97/Images/horizontal.gif">
-  Table 6.6 -- horizontal = TRUE
+  Table 6.6 -- horizontal = true
   </center>
 
   <center>
   <img src="http://www.web3d.org/x3d/specifications/vrml/ISO-IEC-14772-VRML97/Images/vertical.gif">
-  Table 6.7 -- horizontal = FALSE
+  Table 6.7 -- horizontal = false
   </center>
 
   <strong>Language</strong>
@@ -219,17 +219,17 @@
 
 /*!
   SoSFBool SoVRMLFontStyle::horizontal
-  TRUE if strings should be rendered horizontally. Default value is TRUE.
+  true if strings should be rendered horizontally. Default value is true.
 */
 
 /*!
   SoSFBool SoVRMLFontStyle::leftToRight
-  TRUE if strings should be rendered left to right. Default value is TRUE.
+  true if strings should be rendered left to right. Default value is true.
 */
 
 /*!
   SoSFBool SoVRMLFontStyle::topToBottom
-  True if strings should be rendered top to bottom. Default value is TRUE.
+  True if strings should be rendered top to bottom. Default value is true.
 */
 
 /*!
@@ -274,9 +274,9 @@ SoVRMLFontStyle::SoVRMLFontStyle(void)
   SO_VRMLNODE_ADD_FIELD(size, (1.0f));
   SO_VRMLNODE_ADD_FIELD(family, ("SERIF"));
   SO_VRMLNODE_ADD_FIELD(style, ("PLAIN"));
-  SO_VRMLNODE_ADD_FIELD(horizontal, (TRUE));
-  SO_VRMLNODE_ADD_FIELD(leftToRight, (TRUE));
-  SO_VRMLNODE_ADD_FIELD(topToBottom, (TRUE));
+  SO_VRMLNODE_ADD_FIELD(horizontal, (true));
+  SO_VRMLNODE_ADD_FIELD(leftToRight, (true));
+  SO_VRMLNODE_ADD_FIELD(topToBottom, (true));
   SO_VRMLNODE_ADD_FIELD(language, (""));
   SO_VRMLNODE_ADD_FIELD(justify, ("BEGIN"));
   SO_VRMLNODE_ADD_FIELD(spacing, (1.0f));

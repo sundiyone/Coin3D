@@ -48,7 +48,7 @@ public:
   const SbVec4f &getTextureCoords() const;
   int getMaterialIndex() const;
   SoPath *getPath() const;
-  SbBool isOnGeometry() const;
+  bool isOnGeometry() const;
   const SoDetail *getDetail(const SoNode * const node = NULL) const;
   const SbMatrix &getObjectToWorld(const SoNode * const node = NULL) const;
   const SbMatrix &getWorldToObject(const SoNode * const node = NULL) const;
@@ -70,7 +70,7 @@ private:
   SbVec4f texCoords, objTexCoords;
   int materialIndex;
   SoPath *path;
-  SbBool onGeometry;
+  bool onGeometry;
   SoDetailList detailList;
   SoState *state;
   SbViewportRegion viewport;

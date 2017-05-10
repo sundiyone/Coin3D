@@ -54,8 +54,8 @@ public:
 
   SbTri3f & operator = (const SbTri3f & t);
 
-  SbBool intersect(const SbTri3f & triangle) const;
-  SbBool intersect(const SbTri3f & triangle, float epsilon) const;
+  bool intersect(const SbTri3f & triangle) const;
+  bool intersect(const SbTri3f & triangle, float epsilon) const;
 
   const SbBox3f getBoundingBox(void) const;
 

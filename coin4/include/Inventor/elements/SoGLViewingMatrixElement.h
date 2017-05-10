@@ -51,7 +51,7 @@ protected:
 private:
   SoState * state;
   SbMatrix modelmatrix;
-  SbBool mmidentity;
+  bool mmidentity;
   void updategl(void);
 };
 

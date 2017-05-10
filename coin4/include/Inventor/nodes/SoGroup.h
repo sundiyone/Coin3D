@@ -66,11 +66,11 @@ public:
 protected:
   virtual ~SoGroup();
 
-  virtual SbBool readInstance(SoInput * in, unsigned short flags);
-  virtual SbBool readChildren(SoInput * in);
+  virtual bool readInstance(SoInput * in, unsigned short flags);
+  virtual bool readChildren(SoInput * in);
 
   virtual void copyContents(const SoFieldContainer * from,
-			    SbBool copyconnections);
+			    bool copyconnections);
 
   virtual SoNotRec createNotRec(void);
 

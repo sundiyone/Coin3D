@@ -68,7 +68,7 @@ public:
   SoVectorizeAction::Orientation orientation;
 
   struct Background {
-    SbBool on;
+    bool on;
     SbColor color;
   } background;
 
@@ -76,7 +76,7 @@ public:
   float pixelimagesize;
   SoVectorizeAction::PointStyle pointstyle;
 
-  SbBool testInside(SoState * state,
+  bool testInside(SoState * state,
                     const SbVec3f & p0, 
                     const SbVec3f & p1,
                     const SbVec3f & p2) const;
@@ -107,7 +107,7 @@ private:
   void add_line(vertexdata * vd0, vertexdata * vd1, SoState * state);
   void add_point(vertexdata * vd, SoState * state);
   
-  SbBool clip_line(vertexdata * v0, vertexdata * v1, const SbPlane & plane);
+  bool clip_line(vertexdata * v0, vertexdata * v1, const SbPlane & plane);
 
   struct ShapeMaterial {
     SbColor ambient_light_model;
@@ -137,15 +137,15 @@ private:
   SbMatrix shapetoworldmatrix;
   SbMatrix shapetovrc;
   SbPlane cameraplane;
-  SbBool docull;
-  SbBool twoside;
-  SbBool ccw;
-  SbBool phong;
+  bool docull;
+  bool twoside;
+  bool ccw;
+  bool phong;
   int faceidx;
   int lineidx;
   SoDrawStyleElement::Style drawstyle;
   SbClip * clipper;
-  SbBool completelyinside;
+  bool completelyinside;
   SbPlane vvplane[6];
   SbList <SbPlane> clipplanes;
   int prevfaceindex;

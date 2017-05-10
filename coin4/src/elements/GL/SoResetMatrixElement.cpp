@@ -69,7 +69,7 @@ SoResetMatrixElement::setElt(const SbMatrix & matrix_in)
   this->matrix = matrix_in;
 }
 
-SbBool
+bool
 SoResetMatrixElement::matches(const SoElement * element) const
 {
   const SoResetMatrixElement * other = (const SoResetMatrixElement*) element;

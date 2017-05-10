@@ -45,8 +45,8 @@
 /*!
   \var SoSFBool SoVRMLVertexLine::colorPerVertex
 
-  When TRUE, colors will be bound per vertex, otherwise per
-  line. Default value is TRUE.
+  When true, colors will be bound per vertex, otherwise per
+  line. Default value is true.
   
 */
 
@@ -77,7 +77,7 @@ SoVRMLVertexLine::SoVRMLVertexLine(void)
 
   SO_VRMLNODE_ADD_EXPOSED_FIELD(coord, (NULL));
   SO_VRMLNODE_ADD_EXPOSED_FIELD(color, (NULL));
-  SO_VRMLNODE_ADD_FIELD(colorPerVertex, (TRUE));
+  SO_VRMLNODE_ADD_FIELD(colorPerVertex, (true));
 }
 
 /*!
@@ -142,10 +142,10 @@ SoVRMLVertexLine::notify(SoNotList * list)
 }
 
 // Doc in parent
-SbBool
+bool
 SoVRMLVertexLine::shouldGLRender(SoGLRenderAction * action)
 {
-  if (this->coord.getValue() == NULL) return FALSE;
+  if (this->coord.getValue() == NULL) return false;
   return inherited::shouldGLRender(action);
 }
 

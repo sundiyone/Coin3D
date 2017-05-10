@@ -36,12 +36,12 @@
 // *************************************************************************
 
 Display * SoOffscreenGLXData::display = NULL;
-static SbBool display_initialized = FALSE;
+static bool display_initialized = false;
 
 void
 SoOffscreenGLXData::cleanup(void)
 {
-  display_initialized = FALSE;
+  display_initialized = false;
   // FIXME: Disabled since this might cause problems according to the
   // comment below (see getDisplay). Not sure if *not* closing the
   // display cannot also lead to problems though... 20060208 kyrah
@@ -55,7 +55,7 @@ Display *
 SoOffscreenGLXData::getDisplay(void)
 {
   if (!display_initialized) {
-    display_initialized = TRUE;
+    display_initialized = true;
     coin_atexit((coin_atexit_f*)SoOffscreenGLXData::cleanup, CC_ATEXIT_NORMAL);
 
     // Keep a single static display-ptr.

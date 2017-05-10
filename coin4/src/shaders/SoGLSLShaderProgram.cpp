@@ -40,8 +40,8 @@
 SoGLSLShaderProgram::SoGLSLShaderProgram(void)
   : programHandles(5)
 {
-  this->isExecutable = FALSE;
-  this->neededlinking = TRUE;
+  this->isExecutable = false;
+  this->neededlinking = true;
   SoContextHandler::addContextDestructionCallback(context_destruction_cb, this);
 }
 
@@ -99,11 +99,11 @@ SoGLSLShaderProgram::removeShaderObjects(void)
 void
 SoGLSLShaderProgram::enable(const cc_glglue * g)
 {
-  this->neededlinking = FALSE;
+  this->neededlinking = false;
   this->ensureLinking(g);
 
   if (this->isExecutable) {
-    COIN_GLhandle programhandle = this->getProgramHandle(g, TRUE);
+    COIN_GLhandle programhandle = this->getProgramHandle(g, true);
     g->glUseProgramObjectARB(programhandle);
 
     if (SoGLSLShaderObject::didOpenGLErrorOccur("SoGLSLShaderProgram::enable")) {
@@ -140,9 +140,9 @@ SoGLSLShaderProgram::getSourceHint(void) const
 void
 SoGLSLShaderProgram::ensureLinking(const cc_glglue * g)
 {
-  SbBool shouldlink = FALSE;
+  bool shouldlink = false;
   for (int i = 0; i < this->shaderObjects.getLength() && !shouldlink; i++) {
-    if (!this->shaderObjects[i]->isAttached()) shouldlink = TRUE;
+    if (!this->shaderObjects[i]->isAttached()) shouldlink = true;
   }
 
   if (!shouldlink) return;
@@ -150,9 +150,9 @@ SoGLSLShaderProgram::ensureLinking(const cc_glglue * g)
   // delete old programs
   this->deleteProgram(g);
 
-  this->isExecutable = FALSE;
+  this->isExecutable = false;
 
-  COIN_GLhandle programHandle = this->getProgramHandle(g, TRUE);
+  COIN_GLhandle programHandle = this->getProgramHandle(g, true);
 
   int cnt = this->shaderObjects.getLength();
 
@@ -180,7 +180,7 @@ SoGLSLShaderProgram::ensureLinking(const cc_glglue * g)
                                  GL_OBJECT_LINK_STATUS_ARB,&didLink);
 
     this->isExecutable = didLink;
-    this->neededlinking = TRUE;
+    this->neededlinking = true;
   }
 }
 
@@ -199,11 +199,11 @@ SoGLSLShaderProgram::indexOfShaderObject(SoGLSLShaderObject *shaderObject)
 void
 SoGLSLShaderProgram::ensureProgramHandle(const cc_glglue * g)
 {
-  (void) this->getProgramHandle(g, TRUE);
+  (void) this->getProgramHandle(g, true);
 }
 
 COIN_GLhandle
-SoGLSLShaderProgram::getProgramHandle(const cc_glglue * g, const SbBool create)
+SoGLSLShaderProgram::getProgramHandle(const cc_glglue * g, const bool create)
 {
   COIN_GLhandle handle = 0;
   if (!this->programHandles.get(g->contextid, handle) && create) {
@@ -213,7 +213,7 @@ SoGLSLShaderProgram::getProgramHandle(const cc_glglue * g, const SbBool create)
   return handle;
 }
 
-SbBool
+bool
 SoGLSLShaderProgram::neededLinking(void) const
 {
   return this->neededlinking;

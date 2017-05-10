@@ -44,9 +44,9 @@ public:
   void extendBy(const SbVec3d & pt);
   void extendBy(const SbBox3d & bb);
   void extendBy(const SbXfBox3d & bb);
-  SbBool intersect(const SbVec3d & pt) const;
-  SbBool intersect(const SbBox3d & bb) const;
-  SbBool intersect(const SbXfBox3d & bb) const;
+  bool intersect(const SbVec3d & pt) const;
+  bool intersect(const SbBox3d & bb) const;
+  bool intersect(const SbXfBox3d & bb) const;
   SbBox3d project(void) const;
   void getSpan(const SbVec3d & direction, double & dMin, double & dMax) const;
 
@@ -71,7 +71,7 @@ private:
 
 }; // SbXfBox3d
 
-COIN_DLL_API int operator == (const SbXfBox3d & b1, const SbXfBox3d & b2);
-COIN_DLL_API int operator != (const SbXfBox3d & b1, const SbXfBox3d & b2);
+COIN_DLL_API bool operator==(const SbXfBox3d & b1, const SbXfBox3d & b2);
+COIN_DLL_API bool operator!=(const SbXfBox3d & b1, const SbXfBox3d & b2);
 
 #endif // !COIN_SBXFBOX3D_H

@@ -79,7 +79,7 @@
 // *************************************************************************
 
 /*!
-  \var SbBool SoFieldContainer::isBuiltIn
+  \var bool SoFieldContainer::isBuiltIn
 
   Flag for storing whether or not this class instance is a built-in
   class or not. By knowing the difference between a class which is
@@ -121,7 +121,7 @@ sofieldcontainer_userdata_cleanup(void)
   Constructor.
 */
 SoFieldContainer::SoFieldContainer(void)
-  : isBuiltIn(TRUE), donotify(FLAG_DONOTIFY) // HACK warning: donotify is used as a bitmask
+  : isBuiltIn(true), donotify(FLAG_DONOTIFY) // HACK warning: donotify is used as a bitmask
 {
 }
 /*!
@@ -161,16 +161,16 @@ public:
 #endif // DEBUG
   }
 
-  SbBool put(const SoFieldContainer * orig, const SoFieldContainer * copy) {
+  bool put(const SoFieldContainer * orig, const SoFieldContainer * copy) {
 #if SOFIELDCONTAINER_COPYDICT_DEBUG
     SoDebugError::postInfo("SoFieldContainerCopyMap::put",
                            "%p === %p (setting)", orig, copy);
 #endif // DEBUG
     return inherited::put(orig, copy);
   }
-  SbBool get(const SoFieldContainer * orig, const SoFieldContainer * & copy)
+  bool get(const SoFieldContainer * orig, const SoFieldContainer * & copy)
   {
-    SbBool ok = inherited::get(orig, copy);
+    bool ok = inherited::get(orig, copy);
 #if SOFIELDCONTAINER_COPYDICT_DEBUG
     SoDebugError::postInfo("SoFieldContainerCopyMap::get",
                            "%p ::= %p%s", orig, copy,
@@ -181,7 +181,7 @@ public:
 };
 
 
-typedef SbHash<const SoFieldContainer *, SbBool> ContentsCopiedMap;
+typedef SbHash<const SoFieldContainer *, bool> ContentsCopiedMap;
 
 typedef struct {
   SbList<SoFieldContainerCopyMap *> * copiedinstancestack;
@@ -281,45 +281,45 @@ SoFieldContainer::setToDefaults(void)
   const SoFieldContainer * from =
     static_cast<const SoFieldContainer *>(this->getTypeId().createInstance());
   from->ref();
-  fd->overlay(this, from, FALSE);
+  fd->overlay(this, from, false);
   from->unref();
 
   SoFieldList l;
   int n = this->getFields(l);
-  for (int i=0; i < n; i++) l[i]->setDefault(TRUE);
+  for (int i=0; i < n; i++) l[i]->setDefault(true);
 }
 
 /*!
   This method checks to see if the fields of this container have their
-  default values, and returns \c TRUE if that is the case.
+  default values, and returns \c true if that is the case.
 */
-SbBool
+bool
 SoFieldContainer::hasDefaultValues(void) const
 {
   const SoFieldData * fd = this->getFieldData();
-  if (!fd) return TRUE;
+  if (!fd) return true;
 
   // Allocate a fresh template to compare with.
   const SoFieldContainer * fc =
     static_cast<const SoFieldContainer *>(this->getTypeId().createInstance());
   fc->ref();
-  SbBool hasdefaultvalues = fd->isSame(this, fc);
+  bool hasdefaultvalues = fd->isSame(this, fc);
   fc->unref();
   return hasdefaultvalues;
 }
 
 /*!
-  This method returns \c TRUE if the values of the fields of this and
+  This method returns \c true if the values of the fields of this and
   \a container are equal.
 */
-SbBool
+bool
 SoFieldContainer::fieldsAreEqual(const SoFieldContainer * container) const
 {
   const SoFieldData * fd0 = this->getFieldData();
 
   if (fd0 == NULL) {
-    if (container->getFieldData() == NULL) return TRUE;
-    return FALSE;
+    if (container->getFieldData() == NULL) return true;
+    return false;
   }
 
   return fd0->isSame(this, container);
@@ -335,7 +335,7 @@ SoFieldContainer::fieldsAreEqual(const SoFieldContainer * container) const
 */
 void
 SoFieldContainer::copyFieldValues(const SoFieldContainer * container,
-                                  SbBool copyconnections)
+                                  bool copyconnections)
 {
   const SoFieldData * fd0 = this->getFieldData();
 
@@ -357,11 +357,11 @@ SoFieldContainer::copyFieldValues(const SoFieldContainer * container,
   \a fielddata string.
 
   The fields must be in the same format as the Open Inventor file
-  format.  \c TRUE is returned upon success, and \c FALSE otherwise.
+  format.  \c true is returned upon success, and \c false otherwise.
 
   \sa get()
  */
-SbBool
+bool
 SoFieldContainer::set(const char * const fielddata)
 {
   return this->set(fielddata, NULL);
@@ -476,19 +476,19 @@ SoFieldContainer::getEventOut(const SbName & name) const
   Finds the name of the given \a field and returns the value in the
   \a name argument.
 
-  \c TRUE is returned if the field is contained within this instance,
-  and \c FALSE otherwise.
+  \c true is returned if the field is contained within this instance,
+  and \c false otherwise.
 */
-SbBool
+bool
 SoFieldContainer::getFieldName(const SoField * const field,
                                SbName & name) const
 {
   const SoFieldData * fields = this->getFieldData();
-  if (!fields) return FALSE;
+  if (!fields) return false;
   int idx = fields->getIndex(this, field);
-  if (idx == -1) return FALSE;
+  if (idx == -1) return false;
   name = fields->getFieldName(idx);
-  return TRUE;
+  return true;
 }
 
 
@@ -503,7 +503,7 @@ SoFieldContainer::getFieldName(const SoField * const field,
   handle those cases:
 
   \code
-  SbBool autonotify = node->enableNotify(FALSE);
+  bool autonotify = node->enableNotify(false);
   // ...
   // Make modifications to fields of "node" here.
   // ...
@@ -513,13 +513,17 @@ SoFieldContainer::getFieldName(const SoField * const field,
 
   \sa isNotifyEnabled()
  */
-SbBool
-SoFieldContainer::enableNotify(const SbBool enable)
+bool
+SoFieldContainer::enableNotify(const bool enable)
 {
-  int & flags = this->donotify;
-  const SbBool old = (flags & FLAG_DONOTIFY) != 0;
+  int flags = this->donotify;
+  const bool old = (flags & FLAG_DONOTIFY) != 0;
   flags &= ~FLAG_DONOTIFY;
-  if (enable) flags |= FLAG_DONOTIFY;
+  if (enable)
+    {
+      flags |= FLAG_DONOTIFY;
+      this->donotify = flags;
+    }
   return old;
 }
 
@@ -529,7 +533,7 @@ SoFieldContainer::enableNotify(const SbBool enable)
 
   \sa enableNotify()
 */
-SbBool
+bool
 SoFieldContainer::isNotifyEnabled(void) const
 {
   const int flags = this->donotify;
@@ -542,13 +546,13 @@ SoFieldContainer::isNotifyEnabled(void) const
   \a fielddata string.
 
   The fields must be in the same format as the Open Inventor file
-  format.  \c TRUE is returned upon success, and \c FALSE otherwise.
+  format.  \c true is returned upon success, and \c false otherwise.
 
   We use the reference dictionary provided by \a in.
 
   \sa get()
 */
-SbBool
+bool
 SoFieldContainer::set(const char * fielddata, SoInput * in)
 {
   const SoFieldData * fields = this->getFieldData();
@@ -557,17 +561,17 @@ SoFieldContainer::set(const char * fielddata, SoInput * in)
     SoDebugError::postInfo("SoFieldContainer::set",
                            "tried to set values of non-existant fields");
 #endif // COIN_DEBUG
-    // Return TRUE here might seem strange, but I think its correct to
+    // Return true here might seem strange, but I think its correct to
     // do it like this -- we're just supposed to read field values until
     // we can't do that anymore. mortene.
-    return TRUE;
+    return true;
   }
 
   SoInput * readbuf = in ? new SoInput(in) : new SoInput;
   readbuf->setBuffer(const_cast<char *>(fielddata), strlen(fielddata));
 
-  SbBool dummy;
-  SbBool ok = fields->read(readbuf, this, FALSE, dummy);
+  bool dummy;
+  bool ok = fields->read(readbuf, this, false, dummy);
   delete readbuf;
   return ok;
 }
@@ -663,25 +667,25 @@ SoFieldContainer::notify(SoNotList * l)
 
 /*!
   \COININTERNAL
-  I can't make head or tails of this method, it seems to return TRUE
+  I can't make head or tails of this method, it seems to return true
   no matter what the arguments are.
  */
-SbBool
+bool
 SoFieldContainer::validateNewFieldValue(SoField * COIN_UNUSED_ARG(field),
                                    void * COIN_UNUSED_ARG(newval))
 {
   COIN_STUB();
-  return TRUE;
+  return true;
 }
 
 // Documented in superclass. Overridden from SoBase to make sure field
 // connections into other field containers are also accounted for.
 void
-SoFieldContainer::addWriteReference(SoOutput * out, SbBool isfromfield)
+SoFieldContainer::addWriteReference(SoOutput * out, bool isfromfield)
 {
   // only count the fields if !isfromfield and this is the first time
-  // that this node is counted (shouldWrite() is FALSE).
-  SbBool countfields = !isfromfield && (SoWriterefCounter::instance(out)->shouldWrite(this) == FALSE);
+  // that this node is counted (shouldWrite() is false).
+  bool countfields = !isfromfield && (SoWriterefCounter::instance(out)->shouldWrite(this) == false);
   inherited::addWriteReference(out, isfromfield);
 
   // Avoid doing too many references to fields (and nodes, engines and
@@ -719,11 +723,11 @@ SoFieldContainer::writeInstance(SoOutput * out)
 }
 
 /*!
-  Returns \c TRUE if this object is instantiated from one of the native
-  Coin classes, \c FALSE if the object's class is outside the standard
+  Returns \c true if this object is instantiated from one of the native
+  Coin classes, \c false if the object's class is outside the standard
   Coin library.
  */
-SbBool
+bool
 SoFieldContainer::getIsBuiltIn(void) const
 {
   return this->isBuiltIn;
@@ -747,7 +751,7 @@ SoFieldContainer::getFieldData(void) const
 /*!
   Makes a deep copy of all data of \a from into this instance, \e
   except external scenegraph references if \a copyconnections is \c
-  FALSE.
+  false.
 
   This is the method that should be overridden by extension node /
   engine / dragger / whatever subclasses which needs to account for
@@ -772,7 +776,7 @@ SoFieldContainer::getFieldData(void) const
   \code
   void
   MyCoinExtensionNode::copyContents(const SoFieldContainer * from,
-                                    SbBool copyconnections)
+                                    bool copyconnections)
   {
     // let parent superclasses do their thing (copy fields, copy
     // instance name, etc etc)
@@ -784,7 +788,7 @@ SoFieldContainer::getFieldData(void) const
 */
 void
 SoFieldContainer::copyContents(const SoFieldContainer * from,
-                               SbBool copyconnections)
+                               bool copyconnections)
 {
   this->setName(from->getName());
   this->donotify = from->donotify;
@@ -858,9 +862,9 @@ SoFieldContainer::addCopy(const SoFieldContainer * orig,
   assert(copiedinstances);
   assert(contentscopied);
 
-  SbBool s = copiedinstances->put(orig, copy);
+  bool s = copiedinstances->put(orig, copy);
   assert(s);
-  s = contentscopied->put(orig, FALSE);
+  s = contentscopied->put(orig, false);
   assert(s);
 }
 
@@ -908,7 +912,7 @@ SoFieldContainer::checkCopy(const SoFieldContainer * orig)
 */
 SoFieldContainer *
 SoFieldContainer::findCopy(const SoFieldContainer * orig,
-                           const SbBool copyconnections)
+                           const bool copyconnections)
 {
   sofieldcontainer_copydict * copydict =
     sofieldcontainer_get_copydict();
@@ -944,7 +948,7 @@ SoFieldContainer::findCopy(const SoFieldContainer * orig,
       // We have to call addCopy() before calling copyContents() since
       // the proto instance might have a field that has a pointer to
       // the root node. pederb, 2002-09-04
-      newinst->copyContents(protoinst, FALSE);
+      newinst->copyContents(protoinst, false);
     }
     else {
       const SoFieldContainer * ccp = NULL;
@@ -966,8 +970,8 @@ SoFieldContainer::findCopy(const SoFieldContainer * orig,
   // Don't call copyContents for the proto instance root node, since
   // this is handled by the Proto node.
   if (!protoinst) {
-    SbBool copied = FALSE;
-    SbBool chk = contentscopied->get(orig, copied);
+    bool copied = false;
+    bool chk = contentscopied->get(orig, copied);
     assert(chk);
 
     if (!copied) {
@@ -980,7 +984,7 @@ SoFieldContainer::findCopy(const SoFieldContainer * orig,
       // }
       //
       // pederb, 2002-09-04
-      chk = contentscopied->put(orig, TRUE);
+      chk = contentscopied->put(orig, true);
       assert(!chk && "the key already exists");
       cp->copyContents(orig, copyconnections);
     }
@@ -1027,20 +1031,20 @@ SoFieldContainer::copyDone(void)
 }
 
 // Documented in superclass.
-SbBool
+bool
 SoFieldContainer::readInstance(SoInput * in, unsigned short flags)
 {
   const SoFieldData * fd = this->getFieldData();
   if (fd) {
-    SbBool notbuiltin;
+    bool notbuiltin;
     return fd->read(in, this,
-                    // The "error on unknown field" is FALSE when
+                    // The "error on unknown field" is false when
                     // we're a group node, since fields can be
                     // followed by children node specifications.
-                    (flags & SoBase::IS_GROUP) ? FALSE : TRUE,
+                    (flags & SoBase::IS_GROUP) ? false : true,
                     notbuiltin);
   }
-  return TRUE;
+  return true;
 }
 
 /*!

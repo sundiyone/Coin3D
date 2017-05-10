@@ -44,10 +44,10 @@ public:
   int getEnum(const int idx, SbName & name) const;
 
 protected:
-  virtual SbBool findEnumValue(const SbName & name, int & value);
-  virtual SbBool findEnumName(int value, const SbName * & name) const;
+  virtual bool findEnumValue(const SbName & name, int & value);
+  virtual bool findEnumName(int value, const SbName * & name) const;
 
-  SbBool legalValuesSet;
+  bool legalValuesSet;
   int numEnums;
   int * enumValues;
   SbName * enumNames;

@@ -47,7 +47,7 @@ using std::free;
 
 /* ********************************************************************** */
 
-static SbBool glyph3d_specmatch(const cc_font_specification * spec1, 
+static bool glyph3d_specmatch(const cc_font_specification * spec1, 
                                 const cc_font_specification * spec2);
 static void glyph3d_calcboundingbox(cc_glyph3d * g);
 
@@ -57,7 +57,7 @@ struct cc_glyph3d {
   float width; /* FIXME: is this one really in use? 20060109 mortene. */
   float bbox[4];
   struct cc_font_vector_glyph * vectorglyph;
-  SbBool didallocvectorglyph;
+  bool didallocvectorglyph;
 };
 
 /* ********************************************************************** */
@@ -65,7 +65,7 @@ struct cc_glyph3d {
 static cc_dict * glyph3d_fonthash = NULL;
 static int glyph3d_spaceglyphindices[] = { -1, -1 };
 static float glyph3d_spaceglyphvertices[] = { 0, 0 };
-static SbBool glyph3d_initialized = FALSE;
+static bool glyph3d_initialized = false;
 
 /* Mutex lock for the static ang global font hash */
 static void * glyph3d_fonthash_lock = NULL;
@@ -102,7 +102,7 @@ cc_glyph3d_cleanup(void)
   CC_MUTEX_DESTRUCT(glyph3d_fonthash_lock);
   cc_dict_destruct(glyph3d_fonthash);
   glyph3d_fonthash = NULL;
-  glyph3d_initialized = FALSE;
+  glyph3d_initialized = false;
 }
 
 static void
@@ -115,7 +115,7 @@ cc_glyph3d_initialize()
     GLYPH3D_MUTEX_UNLOCK(glyph3d_fonthash_lock);
     return;
   }
-  glyph3d_initialized = TRUE;
+  glyph3d_initialized = true;
   
   glyph3d_fonthash = cc_dict_construct(15, 0.75);
 
@@ -208,7 +208,7 @@ cc_glyph3d_ref(uint32_t character, const cc_font_specification * spec)
 
   glyph->c.glyphidx = glyphidx;
   glyph->c.fontidx = fontidx;
-  glyph->didallocvectorglyph = FALSE;
+  glyph->didallocvectorglyph = false;
 
   glyph->vectorglyph = cc_flw_get_vector_glyph(fontidx, glyphidx);
 
@@ -216,7 +216,7 @@ cc_glyph3d_ref(uint32_t character, const cc_font_specification * spec)
   /* FIXME: this should be moved to fontlib_wrapper.c. 20050623 mortene. */
   if (glyph->vectorglyph == NULL) {
     glyph->vectorglyph = (struct cc_font_vector_glyph *) malloc(sizeof(struct cc_font_vector_glyph));
-    glyph->didallocvectorglyph = TRUE;
+    glyph->didallocvectorglyph = true;
 
     if (character <= 32 || character >= 127) {
 
@@ -398,7 +398,7 @@ cc_glyph3d_getkerning(const cc_glyph3d * left, const cc_glyph3d * right,
   cc_flw_get_vector_kerning(right->c.fontidx, left->c.glyphidx, right->c.glyphidx, x, y);
 }
 
-static SbBool
+static bool
 glyph3d_specmatch(const cc_font_specification * spec1,
                   const cc_font_specification * spec2)
 {
@@ -427,10 +427,10 @@ glyph3d_specmatch(const cc_font_specification * spec1,
       (!cc_string_compare(&spec1->style, &spec2->style)) &&
       (temp1 == temp2)) {
     /* No need to compare size for 3D fonts */
-    return TRUE;
+    return true;
   }
 
-  return FALSE;
+  return false;
 }
 
 #undef GLYPH3D_MUTEX_LOCK

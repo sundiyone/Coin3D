@@ -98,7 +98,7 @@ SoProfileCoordinateElement::init(SoState * state)
   this->numCoords = 1;
   this->coords2 = SoProfileCoordinateElement::initdefaultcoords;
   this->coords3 = NULL;
-  this->coordsAre2D = TRUE;
+  this->coordsAre2D = true;
 }
 
 
@@ -119,7 +119,7 @@ SoProfileCoordinateElement::set2(SoState * const state,
     element->numCoords = numCoords;
     element->coords2 = coords;
     element->coords3 = NULL;
-    element->coordsAre2D = TRUE;
+    element->coordsAre2D = true;
     element->nodeId = node->getNodeId();
   }
 }
@@ -141,7 +141,7 @@ SoProfileCoordinateElement::set3(SoState * const state,
     element->numCoords = numCoords;
     element->coords2 = NULL;
     element->coords3 = coords;
-    element->coordsAre2D = FALSE;
+    element->coordsAre2D = false;
     element->nodeId = node->getNodeId();
   }
 }
@@ -192,7 +192,7 @@ SoProfileCoordinateElement::get3(const int index) const
 /*!
   Returns if this element contains 2D coordinates.
 */
-SbBool
+bool
 SoProfileCoordinateElement::is2D(void) const
 {
   return this->coordsAre2D;

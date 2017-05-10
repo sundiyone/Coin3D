@@ -417,7 +417,7 @@ operator /(const SbColor4f &c, const float d)
   first color (\c v1).
 */
 SbColor4f
-operator +(const SbColor4f &v1, const SbColor4f &v2)
+operator+(const SbColor4f &v1, const SbColor4f &v2)
 {
   return SbColor4f(v1.vec[0] + v2.vec[0],
                   v1.vec[1] + v2.vec[1],
@@ -430,7 +430,7 @@ operator +(const SbColor4f &v1, const SbColor4f &v2)
   first color (\c v1).
 */
 SbColor4f
-operator -(const SbColor4f &v1, const SbColor4f &v2)
+operator-(const SbColor4f &v1, const SbColor4f &v2)
 {
   return SbColor4f(v1.vec[0] - v2.vec[0],
                   v1.vec[1] - v2.vec[1],
@@ -441,8 +441,8 @@ operator -(const SbColor4f &v1, const SbColor4f &v2)
 /*!
   Check if two colors are equal. Returns 1 if equal, 0 if unequal.
  */
-int
-operator ==(const SbColor4f &v1, const SbColor4f &v2)
+bool
+operator==(const SbColor4f &v1, const SbColor4f &v2)
 {
   return (v1.vec[0] == v2.vec[0] &&
           v1.vec[1] == v2.vec[1] &&
@@ -454,8 +454,8 @@ operator ==(const SbColor4f &v1, const SbColor4f &v2)
   Check if two colors are unequal. Returns 0 if equal, 1 if unequal.
  */
 //$ EXPORT INLINE
-int
-operator !=(const SbColor4f &v1, const SbColor4f &v2)
+bool
+operator!=(const SbColor4f &v1, const SbColor4f &v2)
 {
   return !(v1 == v2);
 }

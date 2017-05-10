@@ -60,7 +60,7 @@ static int vbo_debug = -1;
 static const int DEFAULT_MAX_LIMIT = 100000000;
 static const int DEFAULT_MIN_LIMIT = 20;
 
-static SbHash<uint32_t, SbBool> * vbo_isfast_hash;
+static SbHash<uint32_t, bool> * vbo_isfast_hash;
 
 /*!
   Constructor
@@ -71,7 +71,7 @@ SoVBO::SoVBO(const GLenum target, const GLenum usage)
     data(NULL),
     datasize(0),
     dataid(0),
-    didalloc(FALSE),
+    didalloc(false),
     vbohash(5)
 {
   SoContextHandler::addContextDestructionCallback(context_destruction_cb, this);
@@ -129,7 +129,7 @@ SoVBO::init(void)
 {
   coin_glglue_add_instance_created_callback(context_created, NULL);
 
-  vbo_isfast_hash = new SbHash<uint32_t, SbBool> (3);
+  vbo_isfast_hash = new SbHash<uint32_t, bool> (3);
   coin_atexit(vbo_atexit_cleanup, CC_ATEXIT_NORMAL);
 
   // use COIN_VBO_MAX_LIMIT to set the largest VBO we create
@@ -218,7 +218,7 @@ SoVBO::allocBufferData(intptr_t size, uint32_t dataid)
   }
 
   char * ptr = new char[size];
-  this->didalloc = TRUE;
+  this->didalloc = true;
   this->data = (const GLvoid*) ptr;
   this->datasize = size;
   this->dataid = dataid;
@@ -257,7 +257,7 @@ SoVBO::setBufferData(const GLvoid * data, intptr_t size, uint32_t dataid)
   this->data = data;
   this->datasize = size;
   this->dataid = dataid;
-  this->didalloc = FALSE;
+  this->didalloc = false;
 }
 
 /*!
@@ -380,10 +380,10 @@ SoVBO::getVertexCountMaxLimit(void)
   return vbo_vertex_count_max_limit;
 }
 
-SbBool
+bool
 SoVBO::shouldCreateVBO(SoState * state, const uint32_t contextid, const int numdata)
 {
-  if (!vbo_enabled || !vbo_render_as_vertex_arrays) return FALSE;
+  if (!vbo_enabled || !vbo_render_as_vertex_arrays) return false;
   int minv = SoVBO::getVertexCountMinLimit();
   int maxv = SoVBO::getVertexCountMaxLimit();
   return
@@ -394,7 +394,7 @@ SoVBO::shouldCreateVBO(SoState * state, const uint32_t contextid, const int numd
 
 }
 
-SbBool
+bool
 SoVBO::shouldRenderAsVertexArrays(SoState * COIN_UNUSED_ARG(state),
                                   const uint32_t COIN_UNUSED_ARG(contextid),
                                   const int numdata)
@@ -407,10 +407,10 @@ SoVBO::shouldRenderAsVertexArrays(SoState * COIN_UNUSED_ARG(state),
   return (numdata >= vbo_vertex_count_min_limit) && vbo_render_as_vertex_arrays;
 }
 
-SbBool
+bool
 SoVBO::isVBOFast(const uint32_t contextid)
 {
-  SbBool result = TRUE;
+  bool result = true;
   assert(vbo_isfast_hash != NULL);
   (void) vbo_isfast_hash->get(contextid, result);
   return result;
@@ -431,7 +431,7 @@ SoVBO::context_created(const uint32_t contextid, void * COIN_UNUSED_ARG(closure)
 void
 SoVBO::testGLPerformance(const uint32_t contextid)
 {
-  SbBool isfast;
+  bool isfast;
   // did we alreay test this for this context?
   assert(vbo_isfast_hash != NULL);
   if (vbo_isfast_hash->get(contextid, isfast)) return;
@@ -442,9 +442,9 @@ SoVBO::testGLPerformance(const uint32_t contextid)
   // us. This should be handled in the driver database anyway
   const cc_glglue * glue = cc_glglue_instance(contextid);
   if (SoGLDriverDatabase::isSupported(glue, SO_GL_VERTEX_BUFFER_OBJECT)) {
-    vbo_isfast_hash->put(contextid, TRUE);
+    vbo_isfast_hash->put(contextid, true);
   }
   else {
-    vbo_isfast_hash->put(contextid, FALSE);
+    vbo_isfast_hash->put(contextid, false);
   }
 }

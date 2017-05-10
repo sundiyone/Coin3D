@@ -164,7 +164,7 @@ SoTextureCombineElement::get(SoState * const state,
 }
 
 
-SbBool
+bool
 SoTextureCombineElement::isDefault(SoState * const state,
                                    const int unit)
 {
@@ -175,7 +175,7 @@ SoTextureCombineElement::isDefault(SoState * const state,
   if (unit < PRIVATE(elem)->unitdata.getLength()) {
     return PRIVATE(elem)->unitdata[unit].nodeid == 0;
   }
-  return TRUE;
+  return true;
 }
 
 
@@ -194,20 +194,20 @@ SoTextureCombineElement::push(SoState * COIN_UNUSED_ARG(state))
   PRIVATE(this)->unitdata = PRIVATE(prev)->unitdata;
 }
 
-SbBool
+bool
 SoTextureCombineElement::matches(const SoElement * elem) const
 {
   const SoTextureCombineElement * e =
     coin_assert_cast<const SoTextureCombineElement *>(elem);
   const int n = PRIVATE(e)->unitdata.getLength();
-  if (n != PRIVATE(this)->unitdata.getLength()) return FALSE;
+  if (n != PRIVATE(this)->unitdata.getLength()) return false;
 
   for (int i = 0; i < n; i++) {
     if (PRIVATE(e)->unitdata[i].nodeid != PRIVATE(this)->unitdata[i].nodeid) {
-      return FALSE;
+      return false;
     }
   }
-  return TRUE;
+  return true;
 }
 
 SoElement *

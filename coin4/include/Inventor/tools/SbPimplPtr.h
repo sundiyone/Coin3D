@@ -53,13 +53,13 @@ public:
   void set(T * value);
   T & get(void) const;
 
-  SbPimplPtr<T> & operator = (const SbPimplPtr<T> & copy);
+  SbPimplPtr<T> & operator=(const SbPimplPtr<T> & copy);
 
-  SbBool operator == (const SbPimplPtr<T> & rhs) const;
-  SbBool operator != (const SbPimplPtr<T> & rhs) const;
+  bool operator==(const SbPimplPtr<T> & rhs) const;
+  bool operator!=(const SbPimplPtr<T> & rhs) const;
 
-  const T * operator -> (void) const;
-  T * operator -> (void);
+  const T * operator->(void) const;
+  T * operator->(void);
 
 protected:
   T * getNew(void) const;

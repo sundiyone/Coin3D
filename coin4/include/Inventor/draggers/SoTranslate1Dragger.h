@@ -55,7 +55,7 @@ static void initClass(void);
 
 protected:
   virtual ~SoTranslate1Dragger(void);
-  virtual SbBool setUpConnections(SbBool onoff, SbBool doitalways = FALSE);
+  virtual bool setUpConnections(bool onoff, bool doitalways = false);
 
   virtual void setMotionMatrix(const SbMatrix & matrix);
 

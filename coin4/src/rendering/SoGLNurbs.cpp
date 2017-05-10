@@ -50,7 +50,7 @@
 
 #include <cstdlib>
 
-SbBool
+bool
 sogl_calculate_nurbs_normals()
 {
   static int calculatenurbsnormals = -1;
@@ -58,7 +58,7 @@ sogl_calculate_nurbs_normals()
     const char * env = coin_getenv("COIN_CALCULATE_NURBS_NORMALS");
     calculatenurbsnormals = env ? atoi(env) : 1;
   }
-  return calculatenurbsnormals ? TRUE : FALSE;
+  return calculatenurbsnormals ? true : false;
 }
 
 namespace {
@@ -130,7 +130,7 @@ namespace {
   }
 
   // Toggle extra debugging output for nurbs complexity settings code.
-  SbBool
+  bool
   sogl_nurbs_debugging(void)
   {
     static int COIN_DEBUG_NURBS_COMPLEXITY = -1;
@@ -138,7 +138,7 @@ namespace {
       const char * str = coin_getenv("COIN_DEBUG_NURBS_COMPLEXITY");
       COIN_DEBUG_NURBS_COMPLEXITY = str ? atoi(str) : 0;
     }
-    return (COIN_DEBUG_NURBS_COMPLEXITY == 0) ? FALSE : TRUE;
+    return (COIN_DEBUG_NURBS_COMPLEXITY == 0) ? false : true;
   }
 
   void
@@ -167,9 +167,9 @@ namespace {
                                      (GLenum) GLU_PARAMETRIC_TOLERANCE,
                                      complexity);
 
-      static SbBool first = TRUE;
+      static bool first = true;
       if (sogl_nurbs_debugging() && first) {
-        first = FALSE;
+        first = false;
         SoDebugError::postInfo("sogl_set_nurbs_complexity",
                                "sampling method = GLU_PARAMETRIC_ERROR, "
                                "GLU_PARAMETRIC_TOLERANCE = %.4f",
@@ -216,9 +216,9 @@ namespace {
           complexity *= maxpix;
           complexity = diag * 0.5f / complexity;
 
-          static SbBool first = TRUE;
+          static bool first = true;
           if (sogl_nurbs_debugging() && first) {
-            first = FALSE;
+            first = false;
             SoDebugError::postInfo("sogl_set_nurbs_complexity",
                                    "sampling method = GLU_OBJECT_PARAMETRIC_ERROR,"
                                    " GLU_PARAMETRIC_TOLERANCE = %.4f",
@@ -249,9 +249,9 @@ namespace {
           if (complexity < 0.0001f) complexity = 0.0001f;
           complexity = diag * 0.01f / complexity;
 
-          static SbBool first = TRUE;
+          static bool first = true;
           if (sogl_nurbs_debugging() && first) {
-            first = FALSE;
+            first = false;
             SoDebugError::postInfo("sogl_set_nurbs_complexity",
                                    "sampling method = GLU_OBJECT PARAMETRIC_ERROR,"                                " GLU_PARAMETRIC_TOLERANCE = %.4f",
                                    complexity);
@@ -290,9 +290,9 @@ namespace {
           else if ( complexity < 0.90 ) tolerance = .25;
           else                          tolerance = .125;
 	
-          static SbBool first = TRUE;
+          static bool first = true;
           if (sogl_nurbs_debugging() && first) {
-            first = FALSE;
+            first = false;
             SoDebugError::postInfo("sogl_set_nurbs_complexity",
                                    "sampling method = GLU_PARAMETRIC_ERROR,"
                                    " GLU_PARAMETRIC_TOLERANCE = %.4f",
@@ -350,9 +350,9 @@ namespace {
 		  else
 		    nvsteps = nusteps;
 
-          static SbBool first = TRUE;
+          static bool first = true;
           if (sogl_nurbs_debugging() && first) {
-            first = FALSE;
+            first = false;
             SoDebugError::postInfo("sogl_set_nurbs_complexity",
                                    "sampling method = GLU_DOMAIN_DISTANCE,"
                                    " GLU_U_STEP = %d",
@@ -928,7 +928,7 @@ sogl_render_nurbs_surface(SoAction * action, SoShape * shape,
                           const int numsctrlpts, const int numtctrlpts,
                           const float * sknotvec, const float * tknotvec,
                           const int numsknot, const int numtknot,
-                          const SbBool glrender,
+                          const bool glrender,
                           const int numcoordindex, const int32_t * coordindex,
                           const int numtexcoordindex, const int32_t * texcoordindex)
 {
@@ -936,7 +936,7 @@ sogl_render_nurbs_surface(SoAction * action, SoShape * shape,
   assert(GLUWrapper()->available && "NURBS functionality is missing");
 
   // We use GLU_NURBS_TESSELLATOR further down in the function if
-  // glrender==FALSE (i.e. on callback actions were we want to get the
+  // glrender==false (i.e. on callback actions were we want to get the
   // polygons), and this is not supported before GLU v1.3.
   assert((glrender ||
           (!glrender && GLUWrapper()->versionMatchesAtLeast(1, 3, 0))) &&
@@ -968,7 +968,7 @@ sogl_render_nurbs_surface(SoAction * action, SoShape * shape,
     GLUWrapper()->gluNurbsProperty(nurbsrenderer, (GLenum) GLU_NURBS_MODE,
                                    (GLfloat) (glrender ? GLU_NURBS_RENDERER : GLU_NURBS_TESSELLATOR));
   }
-  // Need to load sampling matrices if glrender==FALSE.
+  // Need to load sampling matrices if glrender==false.
   GLUWrapper()->gluNurbsProperty(nurbsrenderer, (GLenum) GLU_AUTO_LOAD_MATRIX, (GLfloat) glrender);
 
   if (!glrender) { // supply the sampling matrices
@@ -1116,7 +1116,7 @@ sogl_render_nurbs_surface(SoAction * action, SoShape * shape,
                                   GL_MAP2_NORMAL);
   }
 
-  SbBool okcheckelem =
+  bool okcheckelem =
     state->isElementEnabled(SoMultiTextureEnabledElement::getClassStackIndex());
 
   if (!okcheckelem || (SoMultiTextureEnabledElement::get(state, 0))) {
@@ -1191,7 +1191,7 @@ sogl_render_nurbs_surface(SoAction * action, SoShape * shape,
   }
   const SoNodeList & profilelist = SoProfileElement::get(state);
   int i, n = profilelist.getLength();
-  SbBool istrimming = FALSE;
+  bool istrimming = false;
 
   if (n) {
     for (i = 0; i < n; i++) {
@@ -1204,12 +1204,12 @@ sogl_render_nurbs_surface(SoAction * action, SoShape * shape,
       SoProfile * profile = (SoProfile*) profilelist[i];
 
       if (istrimming && (profile->linkage.getValue() != SoProfileElement::ADD_TO_CURRENT)) {
-        istrimming = FALSE;
+        istrimming = false;
         GLUWrapper()->gluEndTrim(nurbsrenderer);
       }
       if (!istrimming) {
         GLUWrapper()->gluBeginTrim(nurbsrenderer);
-        istrimming = TRUE;
+        istrimming = true;
       }
       profile->getTrimCurve(state, numpoints,
                             points, floatspervec,
@@ -1258,15 +1258,15 @@ sogl_render_nurbs_curve(SoAction * action, SoShape * shape,
                         const int numctrlpts,
                         const float * knotvec,
                         const int numknots,
-                        const SbBool glrender,
-                        const SbBool drawaspoints,
+                        const bool glrender,
+                        const bool drawaspoints,
                         const int numcoordindex, const int32_t * coordindex)
 {
   // Should never get this far if the NURBS functionality is missing.
   assert(GLUWrapper()->available && "NURBS functionality is missing");
 
   // We use GLU_NURBS_TESSELLATOR further down in the function if
-  // glrender==FALSE (i.e. on callback actions were we want to get the
+  // glrender==false (i.e. on callback actions were we want to get the
   // polygons), and this is not supported before GLU v1.3.
   assert((glrender ||
           (!glrender && GLUWrapper()->versionMatchesAtLeast(1, 3, 0))) &&
@@ -1299,7 +1299,7 @@ sogl_render_nurbs_curve(SoAction * action, SoShape * shape,
     GLUWrapper()->gluNurbsProperty(nurbsrenderer, (GLenum) GLU_NURBS_MODE,
                                    (GLfloat) (glrender ? GLU_NURBS_RENDERER : GLU_NURBS_TESSELLATOR));
   }
-  // Need to load sampling matrices if glrender==FALSE.
+  // Need to load sampling matrices if glrender==false.
   GLUWrapper()->gluNurbsProperty(nurbsrenderer, (GLenum) GLU_AUTO_LOAD_MATRIX, (GLfloat) glrender);
 
   if (!glrender) { // supply the sampling matrices
