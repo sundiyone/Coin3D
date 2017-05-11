@@ -1,15 +1,15 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 3.6)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.2)
 
 PROJECT(Quarter LANGUAGES C CXX)
 SET(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/SIMCMakeMacros/")
 
-SET(CMAKE_C_COMPILER "/mingw64/bin/gcc")
-SET(CMAKE_CXX_COMPILER "/mingw64/bin/g++")
+#SET(CMAKE_C_COMPILER "/mingw64/bin/gcc")
+#SET(CMAKE_CXX_COMPILER "/mingw64/bin/g++")
 
 # Add an option to enable static builds
 OPTION(Quarter_BUILD_STATIC_LIBRARY "Build static library instead of shared library (DLL, so etc..)" OFF)
-OPTION(Quarter_BUILD_PLUGIN "Build Quarter plugin for QT Designer" ON)
-OPTION(Quarter_BUILD_EXAMPLES "Build Quarter example applications" ON)
+OPTION(Quarter_BUILD_PLUGIN "Build Quarter plugin for QT Designer" OFF)
+OPTION(Quarter_BUILD_EXAMPLES "Build Quarter example applications" OFF)
 
 FIND_PACKAGE(OpenGL REQUIRED)
 FIND_PACKAGE(Coin REQUIRED) # FIXME: The results of this macro is not cached.
@@ -40,7 +40,7 @@ INCLUDE_DIRECTORIES(${PROJECT_BINARY_DIR})
 # What to build
 ADD_SUBDIRECTORY(src)
 
-SET(CMAKE_INSTALL_PREFIX /mingw64)
+#SET(CMAKE_INSTALL_PREFIX /mingw64)
 
 #Install the public headers
 INSTALL(DIRECTORY include/Quarter/ DESTINATION include/Quarter
