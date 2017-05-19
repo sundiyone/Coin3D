@@ -251,7 +251,7 @@ SoSFNode::countWriteRefs(SoOutput * out) const
   inherited::countWriteRefs(out);
 
   SoBase * base = this->getValue();
-  if (base == NULL) return;
+  if (base == nullptr) return;
 
   // NB: This code is common for SoSFNode, SoSFPath and SoSFEngine.
   // That's why we check the base type before writing/counting
@@ -327,7 +327,7 @@ SoSFNode::referencesCopy(void) const
   }
   else if (n->isOfType(SoPath::getClassTypeId())) {
     SoPath * p = coin_assert_cast<SoPath *>(n);
-    if (p->getHead() == NULL) return false;
+    if (p->getHead() == nullptr) return false;
     if (SoFieldContainer::checkCopy(p->getHead())) return true;
   }
   else {
@@ -363,7 +363,7 @@ BOOST_AUTO_TEST_CASE(vrml97nullchild)
 
   SoInput * in = new SoInput;
   in->setBuffer(reinterpret_cast<const void*>(scene), strlen(scene));
-  SoNode * g = NULL;
+  SoNode * g = nullptr;
   const bool readok = SoDB::read(in, g);
   delete in;
 

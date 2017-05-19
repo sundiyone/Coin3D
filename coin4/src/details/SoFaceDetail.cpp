@@ -56,7 +56,7 @@ SO_DETAIL_SOURCE(SoFaceDetail);
   specification.
  */
 SoFaceDetail::SoFaceDetail(void)
-  : pointsarray(NULL),
+  : pointsarray(nullptr),
     numallocated(0),
     numpoints(0),
     faceindex(0),

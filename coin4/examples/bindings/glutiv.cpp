@@ -157,7 +157,7 @@ idle_cb(void)
 SoSeparator *
 commongraph(void)
 {
-  SoSeparator * root = NULL;
+  SoSeparator * root = nullptr;
 
   if (!root) {
     root = new SoSeparator;
@@ -229,7 +229,7 @@ main(int argc, char ** argv)
 
 #ifdef _WIN32
   int argc = 1;
-  char * argv[] = { "glutiv.exe", (char *) NULL };
+  char * argv[] = { "glutiv.exe", (char *) nullptr };
   glutInit(&argc, argv);
 #else
   glutInit(&argc, argv);

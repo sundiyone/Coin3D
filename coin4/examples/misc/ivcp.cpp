@@ -104,12 +104,12 @@ main(int argc, char ** argv)
 
   SoNode * firstChild = static_cast<SoSeparator*>(scene)->getNumChildren()?
     static_cast<SoSeparator*>(scene)->getChild(0)
-    :NULL;
+    :nullptr;
 
   if (firstChild && firstChild->isOfType(SoForeignFileKit::getClassTypeId())) {
     SoForeignFileKit * kit = (SoForeignFileKit *) firstChild;
     if (kit->canWriteScene() ) {
-      SoNode * subscene = NULL;
+      SoNode * subscene = nullptr;
       kit->writeScene(subscene);
       if (!subscene ) {
         return -1;

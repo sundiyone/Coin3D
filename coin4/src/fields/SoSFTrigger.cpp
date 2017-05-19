@@ -127,7 +127,7 @@ SoSFTrigger::startNotify(void)
 {
   // if notification starts here, we should not notify out container
   SoFieldContainer * oldcontainer = this->getContainer();
-  this->setContainer(NULL);
+  this->setContainer(nullptr);
   inherited::startNotify();
   this->setContainer(oldcontainer);
 }

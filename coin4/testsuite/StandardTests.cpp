@@ -16,20 +16,20 @@ using namespace SIM::Coin3D::Coin;
 
 static bool
 testCorrectFile(SoNode * root, std::string & filename) {
-  BOOST_CHECK_MESSAGE(root != NULL, (std::string("failed to read file ") + filename).c_str() );
-  return root!=NULL;
+  BOOST_CHECK_MESSAGE(root != nullptr, (std::string("failed to read file ") + filename).c_str() );
+  return root!=nullptr;
 }
 
 static bool
 testInCorrectFile(SoNode * root, std::string & filename) {
-  BOOST_CHECK_MESSAGE(root == NULL, (std::string("Managed to read an incorrect file ") + filename).c_str() );
-  return root!=NULL;
+  BOOST_CHECK_MESSAGE(root == nullptr, (std::string("Managed to read an incorrect file ") + filename).c_str() );
+  return root!=nullptr;
 }
 
 static bool
 testOutOfSpecFile(SoNode * root, std::string & filename) {
-  BOOST_CHECK_MESSAGE(root != NULL, (std::string("This out of spec file could be read in an earlier version ") + filename).c_str() );
-  return root!=NULL;
+  BOOST_CHECK_MESSAGE(root != nullptr, (std::string("This out of spec file could be read in an earlier version ") + filename).c_str() );
+  return root!=nullptr;
 }
 
 

@@ -132,8 +132,8 @@ SoInput_Reader::createReader(FILE * fp, const SbString & fullname)
       }
       else {
         int bzerror = BZ_OK;
-        void * bzfp = cc_bzglue_BZ2_bzReadOpen(&bzerror,  fp, 0, 0, NULL, 0);
-        if ((bzerror == BZ_OK) && (bzfp != NULL)) {
+        void * bzfp = cc_bzglue_BZ2_bzReadOpen(&bzerror,  fp, 0, 0, nullptr, 0);
+        if ((bzerror == BZ_OK) && (bzfp != nullptr)) {
           reader = new SoInput_BZ2FileReader(fullname.getString(), bzfp);
         }
         else {
@@ -142,7 +142,7 @@ SoInput_Reader::createReader(FILE * fp, const SbString & fullname)
         }
       }
     }
-    if ((reader == NULL) && valid_header &&
+    if ((reader == nullptr) && valid_header &&
         (header[0] == 0x1f) &&
         (header[1] == 0x8b)) {
       if (!cc_zlibglue_available()) {
@@ -181,7 +181,7 @@ SoInput_Reader::createReader(FILE * fp, const SbString & fullname)
     }
   }
 
-  if (reader == NULL) {
+  if (reader == nullptr) {
     reader = new SoInput_FileReader(fullname.getString(), fp);
   }
   return reader;
@@ -375,7 +375,7 @@ SoInput_BZ2FileReader::getType(void) const
 size_t
 SoInput_BZ2FileReader::readBuffer(char * buf, const size_t readlen)
 {
-  if (this->bzfp == NULL) { return 0; }
+  if (this->bzfp == nullptr) { return 0; }
 
   int bzerror = BZ_OK;
   // FIXME: about the cast; see note about the call to cc_gzm_open()
@@ -385,7 +385,7 @@ SoInput_BZ2FileReader::readBuffer(char * buf, const size_t readlen)
   if ((bzerror != BZ_OK) && (bzerror != BZ_STREAM_END)) {
     ret = 0;
     cc_bzglue_BZ2_bzReadClose(&bzerror, this->bzfp);
-    this->bzfp = NULL;
+    this->bzfp = nullptr;
   }
   // the signature of this this function was changed to return size_t
   // without checking that bzRead() actually returns a signed

@@ -44,7 +44,7 @@ char *
 cc_xml_load_file(const char * path)
 {
   FILE * fd = fopen(path, "rb");
-  if ( !fd ) return NULL;
+  if ( !fd ) return nullptr;
   fseek(fd, 0, SEEK_END);
   const long bufsize = ftell(fd);
   fseek(fd, 0, SEEK_SET);
@@ -69,7 +69,7 @@ char *
 cc_xml_strndup(const char * str, int len)
 {
   char * buf = new char [ len + 1 ];
-  assert(buf != NULL);
+  assert(buf != nullptr);
   memcpy(buf, str, len);
   buf[len] = '\0';
   return buf;
@@ -97,7 +97,7 @@ cc_xml_strieq(const char * s1, const char * s2)
 int
 sc_whitespace_p(const char * string)
 {
-  assert(string != NULL);
+  assert(string != nullptr);
   while ( *string ) {
     switch ( *string ) {
     case ' ':

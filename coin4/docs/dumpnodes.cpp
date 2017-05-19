@@ -40,9 +40,9 @@ main(void)
     (void)fprintf(stdout, "%s", tl[i].getName().getString());
 
     SoFieldContainer * fc = (SoFieldContainer *)
-      (tl[i].canCreateInstance() ? tl[i].createInstance() : NULL);
+      (tl[i].canCreateInstance() ? tl[i].createInstance() : nullptr);
 
-    if (fc == NULL) {
+    if (fc == nullptr) {
       (void)fprintf(stdout, "  (abstract)\n");
       continue;
     }

@@ -84,7 +84,7 @@ private:
 
 }; // CoinQtManager
 
-CoinQtManager * CoinQtManager::singleton = NULL;
+CoinQtManager * CoinQtManager::singleton = nullptr;
 
 CoinQtManager::CoinQtManager(void)
 {
@@ -166,7 +166,7 @@ CoinQtWidgetP::superscene[] = {
   "  DEF camera PerspectiveCamera {\n",
   "  }\n",
   "}\n",
-  NULL
+  nullptr
 };
 
 const char *
@@ -188,14 +188,14 @@ CoinQtWidgetP::aboutscene[] = {
   "  Cone {\n",
   "  }\n",
   "}\n",
-  NULL
+  nullptr
 };
 
 CoinQtWidgetP::CoinQtWidgetP(CoinQtWidget * master)
 {
   this->master = master;
-  this->root = NULL;
-  this->publicroot = NULL;
+  this->root = nullptr;
+  this->publicroot = nullptr;
   this->scenemanager = new SoSceneManager;
   this->scenemanager->setRenderCallback(CoinQtWidgetP::renderCB, this);
   this->scenemanager->activate();
@@ -208,10 +208,10 @@ CoinQtWidgetP::~CoinQtWidgetP(void)
 {
   if ( this->root ) {
     this->root->unref();
-    this->root = NULL;
+    this->root = nullptr;
   }
   delete this->scenemanager;
-  this->scenemanager = NULL;
+  this->scenemanager = nullptr;
   delete this->location2;
   delete this->keyboard;
   delete this->mousebutton;
@@ -243,7 +243,7 @@ CoinQtWidgetP::renderCB(void * closure, SoSceneManager * manager)
 CoinQtWidget::CoinQtWidget(QWidget * parent, const char * name,
                            const QGLWidget * shareWidget, WFlags f)
 : inherited(parent, name, shareWidget, f),
-  internals(NULL)
+  internals(nullptr)
 {
   PRIVATE(this) = new CoinQtWidgetP(this);
   CoinQtManager * manager = CoinQtManager::getManager();
@@ -255,7 +255,7 @@ CoinQtWidget::CoinQtWidget(QWidget * parent, const char * name,
 CoinQtWidget::CoinQtWidget(const QGLFormat & format, QWidget * parent,
                            const char * name,
                            const QGLWidget * shareWidget, WFlags f)
-: inherited(format, parent, name, shareWidget, f), internals(NULL)
+: inherited(format, parent, name, shareWidget, f), internals(nullptr)
 {
   PRIVATE(this) = new CoinQtWidgetP(this);
   CoinQtManager * manager = CoinQtManager::getManager();
@@ -269,23 +269,23 @@ CoinQtWidget::~CoinQtWidget(void)
   CoinQtManager * manager = CoinQtManager::getManager();
   manager->unregisterWidget(this);
   delete PRIVATE(this);
-  PRIVATE(this) = NULL;
+  PRIVATE(this) = nullptr;
 }
 
 bool
 CoinQtWidget::setSceneGraph(SoNode * node, bool managed)
 {
-  if ( node == NULL ) {
+  if ( node == nullptr ) {
     if ( PRIVATE(this)->publicroot ) {
       PRIVATE(this)->publicroot->unref();
-      PRIVATE(this)->publicroot = NULL;
+      PRIVATE(this)->publicroot = nullptr;
       PRIVATE(this)->root->unref();
-      PRIVATE(this)->root = NULL;
-      PRIVATE(this)->scenemanager->setSceneGraph(NULL);
+      PRIVATE(this)->root = nullptr;
+      PRIVATE(this)->scenemanager->setSceneGraph(nullptr);
     }
     return true;
   } else {
-    this->setSceneGraph(NULL);
+    this->setSceneGraph(nullptr);
   }
   if ( managed ) {
     printf("managed scene graph\n");
@@ -295,7 +295,7 @@ CoinQtWidget::setSceneGraph(SoNode * node, bool managed)
   } else {
     SoInput in;
     in.setStringArray(CoinQtWidgetP::superscene);
-    SoNode * scene = NULL;
+    SoNode * scene = nullptr;
     bool status = SoDB::read(&in, scene);
     if ( !status ) {
       assert(0);
@@ -321,10 +321,10 @@ CoinQtWidget::setSceneGraph(SoNode * node, bool managed)
     }
     PRIVATE(this)->root = (SoSeparator *) root;
     PRIVATE(this)->root->ref();
-    root = NULL;
+    root = nullptr;
 
     scene->unref();
-    scene = NULL;
+    scene = nullptr;
 
     sa.reset();
     sa.setInterest(SoSearchAction::FIRST);
@@ -582,7 +582,7 @@ CoinQtWidget::keyReleaseEvent(QKeyEvent * event)
 void
 CoinQtWidget::about(void)
 {
-  QDialog * dialog = new QDialog(NULL, "About");
+  QDialog * dialog = new QDialog(nullptr, "About");
   dialog->setFixedSize(420, 240);
 
   QPushButton * close = new QPushButton(dialog, "About::Close");
@@ -597,7 +597,7 @@ CoinQtWidget::about(void)
 
   SoInput in;
   in.setStringArray(CoinQtWidgetP::aboutscene);
-  SoNode * scene = NULL;
+  SoNode * scene = nullptr;
   bool status = SoDB::read(&in, scene);
   if ( !status ) {
     assert(0);

@@ -72,7 +72,7 @@ SO_DETAIL_SOURCE(SoNodeKitDetail);
   Constructor.
 */
 SoNodeKitDetail::SoNodeKitDetail(void)
-  : myNodeKit(NULL), myPart(NULL), myPartName("")
+  : myNodeKit(nullptr), myPart(nullptr), myPartName("")
 {
 }
 

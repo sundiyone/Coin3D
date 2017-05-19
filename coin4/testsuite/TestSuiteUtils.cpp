@@ -69,14 +69,14 @@ int memoryerrorcount = 0;
 struct filterset {
   char ** filters;
   filterset * next;
-} * messagefilters = NULL;
+} * messagefilters = nullptr;
 
 int
 should_filter(const SbString & msg)
 {
   filterset * filters = messagefilters;
-  while (filters != NULL) {
-    for (int i = 0; filters->filters[i] != NULL; ++i) {
+  while (filters != nullptr) {
+    for (int i = 0; filters->filters[i] != nullptr; ++i) {
       if (msg.find(filters->filters[i])) {
         return 1;
       }
@@ -129,9 +129,9 @@ memoryerrormsg_handler(const SoError * error, void * data)
 void
 TestSuite::Init(void)
 {
-  SoDebugError::setHandlerCallback(debugerrormsg_handler, NULL);
-  SoReadError::setHandlerCallback(readerrormsg_handler, NULL);
-  SoMemoryError::setHandlerCallback(memoryerrormsg_handler, NULL);
+  SoDebugError::setHandlerCallback(debugerrormsg_handler, nullptr);
+  SoReadError::setHandlerCallback(readerrormsg_handler, nullptr);
+  SoMemoryError::setHandlerCallback(memoryerrormsg_handler, nullptr);
 }
 
 void
@@ -142,13 +142,13 @@ TestSuite::PushMessageSuppressFilters(const char * patterns[])
   messagefilters = filters;
 
   int count = 0;
-  for (; patterns[count] != NULL; ++count) { }
+  for (; patterns[count] != nullptr; ++count) { }
   filters->filters = new char * [ count + 1 ];
   for (int i = 0; i < count; ++i ) {
     filters->filters[i] = new char [ strlen(patterns[i]) + 1 ];
     strcpy(filters->filters[i], patterns[i]);
   }
-  filters->filters[count] = NULL;
+  filters->filters[count] = nullptr;
 }
 
 void
@@ -158,7 +158,7 @@ TestSuite::PopMessageSuppressFilters(void)
   filterset * filters = messagefilters;
   messagefilters = filters->next;
 
-  for (int i = 0; filters->filters[i] != NULL; ++i) {
+  for (int i = 0; filters->filters[i] != nullptr; ++i) {
     delete [] filters->filters[i];
   }
   delete [] filters->filters;
@@ -229,11 +229,11 @@ SoNode *
 TestSuite::ReadInventorFile(const char * filename)
 {
   assert(filename);
-  SoNode * root = NULL;
+  SoNode * root = nullptr;
   {
     SoInput in;
     if (!in.openFile(filename)) {
-      return NULL;
+      return nullptr;
     }
     root = SoDB::readAll(&in);
   }
@@ -247,13 +247,13 @@ TestSuite::WriteInventorFile(const char * filename, SoNode * root)
   assert(root);
   SoOutput out;
   if (!out.openFile(filename)) {
-    return FALSE;
+    return false;
   }
   SoWriteAction wa(&out);
   root->ref();
   wa.apply(root);
   root->unrefNoDelete();
-  return TRUE;
+  return true;
 }
 
 /*
@@ -277,7 +277,7 @@ namespace {
     char buf[1024];
 #ifdef USE_POSIX
     if (!getcwd(buf,sizeof(buf)))
-      return NULL;
+      return nullptr;
 #endif //USE_POSIX
 #ifdef USE_WIN32
     GetCurrentDirectory(sizeof(buf),buf);
@@ -413,7 +413,7 @@ TestSuite::test_all_files(const std::string & search_directory,
       coin_chdir(dir);
       SoNode * fileroot = TestSuite::ReadInventorFile(file.c_str());
       testFunction(fileroot, filename);
-      if (fileroot != NULL) {
+      if (fileroot != nullptr) {
         fileroot->ref();
         fileroot->unref();
       }

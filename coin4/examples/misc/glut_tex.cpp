@@ -129,7 +129,7 @@ createScenegraph(void)
   in.setBuffer(red_cone_iv, strlen(red_cone_iv));
   
   SoSeparator * result = SoDB::readAll(&in);
-  if (result == NULL) { exit(1); }
+  if (result == nullptr) { exit(1); }
  
   SoPerspectiveCamera *myCamera = new SoPerspectiveCamera;
   SoRotationXYZ *rot = new SoRotationXYZ;
@@ -183,7 +183,7 @@ main(int argc, char ** argv)
 
 #ifdef _WIN32
   int argc = 1;
-  char * argv[] = { "glutiv.exe", (char *) NULL };
+  char * argv[] = { "glutiv.exe", (char *) nullptr };
   glutInit(&argc, argv);
 #else
   glutInit(&argc, argv);

@@ -92,7 +92,7 @@ SoCallbackList::removeCallback(SoCallbackListCB * f, void * userdata)
 
 #if COIN_DEBUG
   // FIXME: Is this warning really necessary? Shouldn't it be possible
-  // to do the equivalent of setCallback(NULL,NULL) -- i.e. "remove if
+  // to do the equivalent of setCallback(nullptr,nullptr) -- i.e. "remove if
   // already exists, else do nothing"? 20050723 kyrah.
   if (idx == -1) {
     SoDebugError::post("SoCallbackList::removeCallback",

@@ -54,7 +54,7 @@ main(int argc, char ** argv)
 
 #ifdef _WIN32
   int argc = 1;
-  char * argv[] = { "glut_glinfo.exe", (char *) NULL };
+  char * argv[] = { "glut_glinfo.exe", (char *) nullptr };
   glutInit(&argc, argv);
 #else
   glutInit(&argc, argv);

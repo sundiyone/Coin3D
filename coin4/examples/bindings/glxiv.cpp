@@ -90,9 +90,9 @@ typedef struct {
 
 // *************************************************************************
 
-SbTime * starttime = NULL;
+SbTime * starttime = nullptr;
 unsigned int rendercounter = 0;
-static SoSeparator * root = NULL;
+static SoSeparator * root = nullptr;
 
 static void
 draw_scene(void * userdata, SoSceneManager * scenemanager)
@@ -164,10 +164,10 @@ make_glx_window(WindowData * win,
     XSetNormalHints(win->display, win->window, &sizehints);
     const char * name = "Coin in GLX";
     XSetStandardProperties(win->display, win->window, name, name,
-                           None, (char **)NULL, 0, &sizehints);
+                           None, (char **)nullptr, 0, &sizehints);
   }
 
-  win->context = glXCreateContext(win->display, visinfo, NULL, True);
+  win->context = glXCreateContext(win->display, visinfo, nullptr, True);
   if (!win->context) {
     (void)fprintf(stderr, "Error: glXCreateContext() failed.\n");
     exit(1);
@@ -207,7 +207,7 @@ event_loop(WindowData * win)
         case KeyPress:
           {
             char buffer[1] = "";
-            (void)XLookupString(&event.xkey, buffer, sizeof(buffer), NULL, NULL);
+            (void)XLookupString(&event.xkey, buffer, sizeof(buffer), nullptr, nullptr);
             if (buffer[0] == /* Esc: */ 27) { return; }
           }
           break;
@@ -271,13 +271,13 @@ main(int argc, char *argv[])
   SoNodeKit::init();
   SoInteraction::init();
 
-  Display * dpy = XOpenDisplay(NULL);
+  Display * dpy = XOpenDisplay(nullptr);
   if (!dpy) {
     (void)fprintf(stderr, "Error: couldn't open default display.\n");
     exit(1);
   }
 
-  WindowData win = { dpy, 0, NULL, NULL };
+  WindowData win = { dpy, 0, nullptr, nullptr };
   make_glx_window(&win, 100, 100, 400, 400);
   make_coin_scenegraph(&win);
 
@@ -297,7 +297,7 @@ main(int argc, char *argv[])
   glXDestroyContext(win.display, win.context);
   XCloseDisplay(win.display);
 
-  win.scenemanager->setSceneGraph(NULL);
+  win.scenemanager->setSceneGraph(nullptr);
   root->unref();
   SoDB::finish();
   return 0;
