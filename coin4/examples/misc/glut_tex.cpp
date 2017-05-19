@@ -92,7 +92,7 @@ void
 idle_cb(void)
 {
   SoDB::getSensorManager()->processTimerQueue();
-  SoDB::getSensorManager()->processDelayQueue(TRUE);
+  SoDB::getSensorManager()->processDelayQueue(true);
 }
 
 // ----------------------------------------------------------------------
@@ -110,14 +110,14 @@ generateTextureMap (SoNode *root, SoTexture2 *texture,
    myRenderer->setBackgroundColor(SbColor(0.8, 0.8, 0.0));
    if (!myRenderer->render(root)) {
       delete myRenderer;
-      return FALSE;
+      return false;
    }
 
    // Generate the texture
    texture->image.setValue(SbVec2s(textureWidth, textureHeight), comp, 
                            myRenderer->getBuffer());
    delete myRenderer;
-   return TRUE; 
+   return true; 
 } 
   
 SoSeparator *

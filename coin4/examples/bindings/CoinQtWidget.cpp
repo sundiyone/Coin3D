@@ -121,7 +121,7 @@ void
 CoinQtManager::update(void)
 {
   SoSensorManager * sensormanager = SoDB::getSensorManager();
-  sensormanager->processDelayQueue(TRUE);
+  sensormanager->processDelayQueue(true);
   sensormanager->processTimerQueue();
 }
 
@@ -222,7 +222,7 @@ CoinQtWidgetP::render(SoSceneManager * manager)
 {
   assert(manager == this->scenemanager);
   this->master->makeCurrent();
-  this->scenemanager->render(TRUE, TRUE);
+  this->scenemanager->render(true, true);
   if ( this->master->doubleBuffer() ) {
     this->master->swapBuffers();
   }
@@ -283,7 +283,7 @@ CoinQtWidget::setSceneGraph(SoNode * node, bool managed)
       PRIVATE(this)->root = NULL;
       PRIVATE(this)->scenemanager->setSceneGraph(NULL);
     }
-    return TRUE;
+    return true;
   } else {
     this->setSceneGraph(NULL);
   }
@@ -299,7 +299,7 @@ CoinQtWidget::setSceneGraph(SoNode * node, bool managed)
     bool status = SoDB::read(&in, scene);
     if ( !status ) {
       assert(0);
-      return FALSE;
+      return false;
     }
     scene->ref(); // actions are applied later
 
@@ -311,13 +311,13 @@ CoinQtWidget::setSceneGraph(SoNode * node, bool managed)
     sa.apply(scene);
     if ( !sa.getPath() ) {
       assert(0 && "no root");
-      return FALSE;
+      return false;
     }
 
     SoNode * root = sa.getPath()->getTail();
     if ( !root->isOfType(SoSeparator::getClassTypeId()) ) {
       assert(0 && "invalid root type");
-      return FALSE;
+      return false;
     }
     PRIVATE(this)->root = (SoSeparator *) root;
     PRIVATE(this)->root->ref();
@@ -332,7 +332,7 @@ CoinQtWidget::setSceneGraph(SoNode * node, bool managed)
     sa.apply(PRIVATE(this)->root);
     if ( !sa.getPath() ) {
       assert(0 && "no camera");
-      return FALSE;
+      return false;
     }
 
     assert(sa.getPath()->getTail()->isOfType(SoCamera::getClassTypeId()));
@@ -350,7 +350,7 @@ CoinQtWidget::setSceneGraph(SoNode * node, bool managed)
   } else {
     PRIVATE(this)->scenemanager->setSceneGraph(PRIVATE(this)->publicroot);
   }
-  return TRUE;
+  return true;
 }
 
 SoNode *
@@ -386,7 +386,7 @@ void
 CoinQtWidget::paintGL(void)
 {
   inherited::paintGL();
-  PRIVATE(this)->scenemanager->render(TRUE, TRUE);
+  PRIVATE(this)->scenemanager->render(true, true);
 }
 
 void

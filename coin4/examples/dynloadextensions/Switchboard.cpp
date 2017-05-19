@@ -71,7 +71,7 @@
   you have full control over the number of times and order each child is
   traversed.
 
-  Default enabled value is \c FALSE.
+  Default enabled value is \c false.
 */
 
 // *************************************************************************
@@ -92,7 +92,7 @@ Switchboard::Switchboard(void)
 {
   SO_NODE_CONSTRUCTOR(Switchboard);
 
-  SO_NODE_ADD_FIELD(enable, (FALSE));
+  SO_NODE_ADD_FIELD(enable, (false));
 }
 
 /*!
@@ -108,7 +108,7 @@ Switchboard::Switchboard(int numchildren)
 {
   SO_NODE_CONSTRUCTOR(Switchboard);
 
-  SO_NODE_ADD_FIELD(enable, (FALSE));
+  SO_NODE_ADD_FIELD(enable, (false));
 }
 
 /*!
@@ -142,7 +142,7 @@ Switchboard::doAction(SoAction * action)
       }
     }
     if (numcenters != 0) {
-      bbaction->setCenter(acccenter / float(numcenters), FALSE);
+      bbaction->setCenter(acccenter / float(numcenters), false);
     }
   } else { // not a GetBoundingBoxAction
     for ( int idx = 0; idx < this->enable.getNum(); idx++ ) {

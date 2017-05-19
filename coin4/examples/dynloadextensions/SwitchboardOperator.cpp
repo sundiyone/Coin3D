@@ -170,16 +170,16 @@ SwitchboardOperator::handleEvent(SoHandleEventAction * action)
         case TOGGLE:
           if ( event->getState() == SoKeyboardEvent::DOWN ) {
             if ( idx >= this->enable.getNum() ) this->enable.setNum(idx+1);
-            this->enable.set1Value(idx, this->enable[idx] ? FALSE : TRUE);
+            this->enable.set1Value(idx, this->enable[idx] ? false : true);
           }
           break;
         case HOLD:
           if ( idx >= this->enable.getNum() ) this->enable.setNum(idx+1);
-          this->enable.set1Value(idx, event->getState() == SoKeyboardEvent::DOWN ? TRUE : FALSE);
+          this->enable.set1Value(idx, event->getState() == SoKeyboardEvent::DOWN ? true : false);
           break;
         case INVERSE_HOLD:
           if ( idx >= this->enable.getNum() ) this->enable.setNum(idx+1);
-          this->enable.set1Value(idx, event->getState() == SoKeyboardEvent::DOWN ? FALSE : TRUE);
+          this->enable.set1Value(idx, event->getState() == SoKeyboardEvent::DOWN ? false : true);
           break;
         case TIME_HOLD:
           SoDebugError::postInfo("SwitchboardOperator::handleEvent", "not implemented yet");
