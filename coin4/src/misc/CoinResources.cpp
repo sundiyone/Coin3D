@@ -86,11 +86,6 @@
 #include "tidbitsp.h"
 #include "coindefs.h"
 
-#if COIN_MSVC <= COIN_MSVC_6_0_VERSION
-// sumbol length truncation
-#pragma warning(disable:4786)
-#endif // VC6.0
-
 #include <map>
 
 #ifndef MAXPATHLEN

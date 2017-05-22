@@ -40,11 +40,6 @@
 
 #include "coindefs.h"
 
-#ifndef COIN_WORKAROUND_NO_USING_STD_FUNCS
-using std::malloc;
-using std::free;
-#endif // !COIN_WORKAROUND_NO_USING_STD_FUNCS
-
 /* ********************************************************************** */
 
 /* internal struct used to store a linked list of free'ed items */
@@ -145,7 +140,7 @@ cc_memalloc *
 cc_memalloc_construct(const unsigned int unitsize)
 {
   cc_memalloc * allocator = (cc_memalloc*)
-    malloc(sizeof(cc_memalloc));
+    std::malloc(sizeof(cc_memalloc));
 
   allocator->chunksize = unitsize;
   if (unitsize < sizeof(cc_memalloc_free)) {
@@ -167,7 +162,7 @@ void
 cc_memalloc_destruct(cc_memalloc * allocator)
 {
   cc_memalloc_clear(allocator);
-  free(allocator);
+  std::free(allocator);
 }
 
 /*!
@@ -208,8 +203,8 @@ cc_memalloc_clear(cc_memalloc * allocator)
   cc_memalloc_memnode * node = allocator->memnode;
   while (node) {
     tmp = node->next;
-    free(node->block);
-    free(node);
+    std::free(node->block);
+    std::free(node);
     node = tmp;
   }
   allocator->free = nullptr;

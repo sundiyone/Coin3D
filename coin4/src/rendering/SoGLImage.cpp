@@ -226,11 +226,6 @@
 #include "threads/threadsutilp.h"
 #include "coindefs.h"
 
-#if COIN_MSVC <= COIN_MSVC_6_0_VERSION
-// truncating symbol length
-#pragma warning(disable:4786)
-#endif // VC6.0
-
 // *************************************************************************
 
 static float DEFAULT_LINEAR_LIMIT = 0.2f;

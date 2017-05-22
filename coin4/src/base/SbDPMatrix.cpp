@@ -74,12 +74,6 @@
 #include <Inventor/errors/SoDebugError.h>
 #endif // COIN_DEBUG
 
-#ifndef COIN_WORKAROUND_NO_USING_STD_FUNCS
-using std::memmove;
-using std::memcmp;
-using std::memcpy;
-#endif // !COIN_WORKAROUND_NO_USING_STD_FUNCS
-
 // FIXME: should merge all the PD code we're using from GGIV into
 // SbDPMatrix, SbDPRotation and SbVec3d proper (for two reasons: 1)
 // there's a lot of duplicated code here (like for instance the
@@ -129,7 +123,7 @@ bool SbDPMatrix_isIdentity(const double fm[][4])
   //
   // Also, we check the first value on it's own, to avoid the function
   // call for the most common case.
-  return (fm[0][0]==1.0) && memcmp(&fm[0][1], &IDENTITYMATRIX[0][1], (4 * 3 + 3) * sizeof(double)) == 0;
+  return (fm[0][0]==1.0) && std::memcmp(&fm[0][1], &IDENTITYMATRIX[0][1], (4 * 3 + 3) * sizeof(double)) == 0;
 #endif
 }
 
@@ -217,7 +211,7 @@ SbDPMatrix::getValue(void) const
 void
 SbDPMatrix::setValue(const SbDPMat & m)
 {
-  (void)memmove(this->matrix, m, sizeof(double)*4*4);
+  (void)std::memmove(this->matrix, m, sizeof(double)*4*4);
 }
 
 /*!
@@ -228,7 +222,7 @@ SbDPMatrix::setValue(const SbDPMat & m)
 void
 SbDPMatrix::setValue(const double * m)
 {
-  (void)memmove(this->matrix, m, sizeof(double)*4*4);
+  (void)std::memmove(this->matrix, m, sizeof(double)*4*4);
 }
 
 /*!
@@ -715,7 +709,7 @@ operator!=(const SbDPMatrix & m1, const SbDPMatrix & m2)
 void
 SbDPMatrix::getValue(SbDPMat & m) const
 {
-  (void)memmove(&m[0][0], &(this->matrix[0][0]), sizeof(double)*4*4);
+  (void)std::memmove(&m[0][0], &(this->matrix[0][0]), sizeof(double)*4*4);
 }
 
 /*!
@@ -1138,7 +1132,7 @@ SbDPMatrix::multRight(const SbDPMatrix & m)
   if (SbDPMatrix_isIdentity(tfm)) { *this = m; return *this; }
 
   SbDPMat tmp;
-  (void)memcpy(tmp, tfm, 4*4*sizeof(double));
+  (void)std::memcpy(tmp, tfm, 4*4*sizeof(double));
 
   for (int i=0; i < 4; i++) {
     for (int j=0; j < 4; j++) {
@@ -1171,7 +1165,7 @@ SbDPMatrix::multLeft(const SbDPMatrix & m)
   if (SbDPMatrix_isIdentity(tfm)) { *this = m; return *this; }
 
   SbDPMat tmp;
-  (void)memcpy(tmp, tfm, 4*4*sizeof(double));
+  (void)std::memcpy(tmp, tfm, 4*4*sizeof(double));
 
   for (int i=0; i < 4; i++) {
     for (int j=0; j < 4; j++) {

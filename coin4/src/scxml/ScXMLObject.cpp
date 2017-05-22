@@ -30,10 +30,6 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 \**************************************************************************/
 
-#ifdef _MSC_VER
-#pragma warning(disable:4786) // symbol truncated
-#endif // _MSC_VER
-
 #include <Inventor/scxml/ScXMLObject.h>
 
 /*!

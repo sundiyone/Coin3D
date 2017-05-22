@@ -68,13 +68,6 @@
 
 #include "coindefs.h"
 
-#ifndef COIN_WORKAROUND_NO_USING_STD_FUNCS
-using std::strncmp;
-using std::strcmp;
-using std::strcpy;
-using std::strlen;
-#endif // !COIN_WORKAROUND_NO_USING_STD_FUNCS
-
 // *************************************************************************
 
 class ScXMLDocument::PImpl {
@@ -275,7 +268,7 @@ ScXMLDocument::readFile(const char * filename)
 {
   ScXMLDocument * scxmldoc = nullptr;
 
-  if (strncmp(filename, "coin:", 5) == 0) { // is a "resource"
+  if (std::strncmp(filename, "coin:", 5) == 0) { // is a "resource"
     //size_t buffersize = 0;
     SbByteBuffer buffer = CoinResources::get(filename);
     if (likely(buffer.isValid())) {
@@ -330,7 +323,7 @@ ScXMLDocument::readXMLData(cc_xml_doc * xmldoc)
 {
   // get a handle on the root element
   cc_xml_elt * root = cc_xml_doc_get_root(xmldoc);
-  if (unlikely(strcmp(cc_xml_elt_get_type(root), "scxml") != 0)) {
+  if (unlikely(std::strcmp(cc_xml_elt_get_type(root), "scxml") != 0)) {
     SoDebugError::post("ScXMLDocument::readXMLData",
                        "expected root to be an <scxml> element, not '%s'",
                        cc_xml_elt_get_type(root));
@@ -353,9 +346,9 @@ void
 ScXMLDocument::setFilename(const char * filename)
 {
   if (filename) {
-    const size_t len = strlen(filename);
+    const size_t len = std::strlen(filename);
     PRIVATE(this)->filename.reset(new char [len + 1]);
-    strcpy(PRIVATE(this)->filename.get(), filename);
+    std::strcpy(PRIVATE(this)->filename.get(), filename);
   } else {
     PRIVATE(this)->filename.reset();
   }

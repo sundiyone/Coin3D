@@ -49,11 +49,6 @@
 #include "fonts/defaultfonts.h"
 #include "coindefs.h"
 
-#ifndef COIN_WORKAROUND_NO_USING_STD_FUNCS
-using std::malloc;
-using std::free;
-#endif // !COIN_WORKAROUND_NO_USING_STD_FUNCS
-
 /* ********************************************************************** */
 
 static bool glyph3d_specmatch(const cc_font_specification * spec1, 
@@ -177,13 +172,13 @@ cc_glyph3d_ref(uint32_t character, const cc_font_specification * spec)
   assert(glyphlist);
 
   /* build a new glyph struct */
-  glyph = (cc_glyph3d *) malloc(sizeof(cc_glyph3d));
+  glyph = (cc_glyph3d *)std::malloc(sizeof(cc_glyph3d));
 
   glyph->c.character = character;
   glyph->c.refcount = 1;
 
 
-  newspec = (cc_font_specification *) malloc(sizeof(cc_font_specification));
+  newspec = (cc_font_specification *)std::malloc(sizeof(cc_font_specification));
   assert(newspec);
   cc_fontspec_copy(spec, newspec);
 
@@ -224,7 +219,7 @@ cc_glyph3d_ref(uint32_t character, const cc_font_specification * spec)
   /* Setup builtin default font if no character was found */
   /* FIXME: this should be moved to fontlib_wrapper.c. 20050623 mortene. */
   if (glyph->vectorglyph == nullptr) {
-    glyph->vectorglyph = (struct cc_font_vector_glyph *) malloc(sizeof(struct cc_font_vector_glyph));
+    glyph->vectorglyph = (struct cc_font_vector_glyph *)std::malloc(sizeof(struct cc_font_vector_glyph));
     glyph->didallocvectorglyph = true;
 
     if (character <= 32 || character >= 127) {
@@ -258,7 +253,7 @@ static void
 finalize_glyph3d(cc_glyph * g)
 {
   cc_glyph3d * g3d = (cc_glyph3d *)g;
-  if (g3d->didallocvectorglyph) { free(g3d->vectorglyph); }
+  if (g3d->didallocvectorglyph) { std::free(g3d->vectorglyph); }
 }
 
 void 

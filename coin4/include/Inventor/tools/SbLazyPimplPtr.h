@@ -47,11 +47,6 @@
 
 /* ********************************************************************** */
 
-#if defined(_MSC_VER) && (_MSC_VER < 1400) /* MSVC <8 */
-#pragma warning(push)
-#pragma warning(disable:4251) // for DLL-interface warning
-#endif /* MSVC <8 */
-
 template <class T>
 class COIN_DLL_API SbLazyPimplPtr {
 public:

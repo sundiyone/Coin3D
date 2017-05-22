@@ -44,13 +44,6 @@
 #include "base/dictp.h"
 #include "coindefs.h"
 
-#ifndef COIN_WORKAROUND_NO_USING_STD_FUNCS
-using std::free;
-using std::malloc;
-using std::calloc;
-using std::memset;
-#endif // !COIN_WORKAROUND_NO_USING_STD_FUNCS
-
 /* ********************************************************************** */
 /* private functions */
 
@@ -85,7 +78,7 @@ dict_resize(cc_dict * ht, unsigned int newsize)
   ht->size = newsize;
   ht->elements = 0;
   ht->threshold = (unsigned int) (newsize * ht->loadfactor);
-  ht->buckets = (cc_dict_entry **) calloc(newsize, sizeof(cc_dict_entry*));
+  ht->buckets = (cc_dict_entry **)std::calloc(newsize, sizeof(cc_dict_entry*));
 
   /* Transfer all mappings */
   for (i = 0; i < oldsize; i++) {
@@ -95,7 +88,7 @@ dict_resize(cc_dict * ht, unsigned int newsize)
       he = he->next;
     }
   }
-  free(oldbuckets);
+  std::free(oldbuckets);
 }
 
 /* ********************************************************************** */
@@ -119,7 +112,7 @@ cc_dict *
 cc_dict_construct(unsigned int size, float loadfactor)
 {
   unsigned int s;
-  cc_dict * ht = (cc_dict *) malloc(sizeof(cc_dict));
+  cc_dict * ht = (cc_dict *)std::malloc(sizeof(cc_dict));
   
   s = (unsigned int) coin_geq_prime_number(size);
   if (loadfactor <= 0.0f) loadfactor = 0.75f;
@@ -128,7 +121,7 @@ cc_dict_construct(unsigned int size, float loadfactor)
   ht->elements = 0;
   ht->threshold = (unsigned int) (s * loadfactor);
   ht->loadfactor = loadfactor;
-  ht->buckets = (cc_dict_entry **) calloc(s, sizeof(cc_dict_entry*));
+  ht->buckets = (cc_dict_entry **)std::calloc(s, sizeof(cc_dict_entry*));
   ht->hashfunc = dict_default_hashfunc;
   /* we use a memory allocator to avoid an operating system malloc
      every time a new entry is needed */
@@ -144,8 +137,8 @@ cc_dict_destruct(cc_dict * ht)
 {
   cc_dict_clear(ht);
   cc_memalloc_destruct(ht->memalloc);
-  free(ht->buckets);
-  free(ht);
+  std::free(ht->buckets);
+  std::free(ht);
 }
 
 /*!
@@ -176,7 +169,7 @@ cc_dict_clear(cc_dict * ht)
 #endif // new version
 
   // all memory has been freed. Just clear buckets
-  memset(ht->buckets, 0, ht->size * sizeof(cc_dict_entry*));
+  std::memset(ht->buckets, 0, ht->size * sizeof(cc_dict_entry*));
   ht->elements = 0;
 }
 

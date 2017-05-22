@@ -40,11 +40,6 @@
 
 #define CC_LIST_DEFAULT_SIZE 4
 
-#ifndef COIN_WORKAROUND_NO_USING_STD_FUNCS
-using std::malloc;
-using std::free;
-#endif // !COIN_WORKAROUND_NO_USING_STD_FUNCS
-
 /* ********************************************************************** */
 
 /* FIXME: consider making this struct public to enable users to have
@@ -65,12 +60,12 @@ list_grow(cc_list * list)
   void ** newbuffer;
   list->itembuffersize <<= 1;
 
-  newbuffer = static_cast<void**>(malloc(list->itembuffersize*sizeof(void*)));
+  newbuffer = static_cast<void**>(std::malloc(list->itembuffersize*sizeof(void*)));
   
   n = list->numitems;
   for (i = 0; i < n; i++) newbuffer[i] = list->itembuffer[i];
   if (list->itembuffer != list->builtinbuffer) {
-    free(list->itembuffer);
+    std::free(list->itembuffer);
   }
   list->itembuffer = newbuffer;
 }
@@ -86,10 +81,10 @@ cc_list_construct(void)
 cc_list *
 cc_list_construct_sized(int size)
 {
-  cc_list * list = static_cast<cc_list*>(malloc(sizeof(cc_list)));
+  cc_list * list = static_cast<cc_list*>(std::malloc(sizeof(cc_list)));
   assert(list);
   if (size > CC_LIST_DEFAULT_SIZE) {
-    list->itembuffer = static_cast<void**>(malloc(sizeof(void*)*size));
+    list->itembuffer = static_cast<void**>(std::malloc(sizeof(void*)*size));
     assert(list->itembuffer);
     list->itembuffersize = size;
   }
@@ -118,9 +113,9 @@ void
 cc_list_destruct(cc_list * list)
 {
   if (list->itembuffer != list->builtinbuffer) {
-    free(list->itembuffer);
+    std::free(list->itembuffer);
   }
-  free(list);
+  std::free(list);
 }
 
 void
@@ -200,7 +195,7 @@ cc_list_fit(cc_list * list)
   
   if (items < list->itembuffersize) {
     void ** newitembuffer = list->builtinbuffer;
-    if (items > CC_LIST_DEFAULT_SIZE) newitembuffer = static_cast<void**>(malloc(sizeof(void*)*items));
+    if (items > CC_LIST_DEFAULT_SIZE) newitembuffer = static_cast<void**>(std::malloc(sizeof(void*)*items));
     
     if (newitembuffer != list->itembuffer) {
       for (i = 0; i < items; i++) {
@@ -209,7 +204,7 @@ cc_list_fit(cc_list * list)
     }
     
     if (list->itembuffer != list->builtinbuffer) {
-      free(list->itembuffer);
+      std::free(list->itembuffer);
     }
     list->itembuffer = newitembuffer;
     list->itembuffersize = items > CC_LIST_DEFAULT_SIZE ? items : CC_LIST_DEFAULT_SIZE;

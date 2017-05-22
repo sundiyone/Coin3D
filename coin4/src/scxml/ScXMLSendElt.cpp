@@ -126,10 +126,6 @@
 #include "scxml/ScXMLCommonP.h"
 #include "SbBasicP.h"
 
-#ifndef COIN_WORKAROUND_NO_USING_STD_FUNCS
-using std::strcmp;
-#endif // !COIN_WORKAROUND_NO_USING_STD_FUNCS
-
 // *************************************************************************
 
 class ScXMLSendEltReader : public ScXMLEltReader {
@@ -162,7 +158,7 @@ ScXMLSendEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocumen
     cc_xml_elt * element = cc_xml_elt_get_child(xmlelt, c);
     const char * elementtype = cc_xml_elt_get_type(element);
 
-    if (strcmp(elementtype, COIN_XML_CDATA_TYPE) == 0) {
+    if (std::strcmp(elementtype, COIN_XML_CDATA_TYPE) == 0) {
       // ignore CDATA
       continue;
     }
@@ -317,38 +313,38 @@ ScXMLSendElt::search(const char * attrname, const char * attrvalue) const
   if (hit) {
     return hit;
   }
-  if (strcmp(attrname, "event") == 0) {
-    if (this->target && strcmp(attrvalue, this->event) == 0) {
+  if (std::strcmp(attrname, "event") == 0) {
+    if (this->target && std::strcmp(attrvalue, this->event) == 0) {
       return this;
     }
   }
-  else if (strcmp(attrname, "target") == 0) {
-    if (this->target && strcmp(attrvalue, this->target) == 0) {
+  else if (std::strcmp(attrname, "target") == 0) {
+    if (this->target && std::strcmp(attrvalue, this->target) == 0) {
       return this;
     }
   }
-  else if (strcmp(attrname, "targettype") == 0) {
-    if (this->targettype && strcmp(attrvalue, this->targettype) == 0) {
+  else if (std::strcmp(attrname, "targettype") == 0) {
+    if (this->targettype && std::strcmp(attrvalue, this->targettype) == 0) {
       return this;
     }
   }
-  else if (strcmp(attrname, "sendid") == 0) {
-    if (this->sendid && strcmp(attrvalue, this->sendid) == 0) {
+  else if (std::strcmp(attrname, "sendid") == 0) {
+    if (this->sendid && std::strcmp(attrvalue, this->sendid) == 0) {
       return this;
     }
   }
-  else if (strcmp(attrname, "delay") == 0) {
-    if (this->delay && strcmp(attrvalue, this->delay) == 0) {
+  else if (std::strcmp(attrname, "delay") == 0) {
+    if (this->delay && std::strcmp(attrvalue, this->delay) == 0) {
       return this;
     }
   }
-  else if (strcmp(attrname, "namelist") == 0) {
-    if (this->namelist && strcmp(attrvalue, this->namelist) == 0) {
+  else if (std::strcmp(attrname, "namelist") == 0) {
+    if (this->namelist && std::strcmp(attrvalue, this->namelist) == 0) {
       return this;
     }
   }
-  else if (strcmp(attrname, "hints") == 0) {
-    if (this->hints && strcmp(attrvalue, this->hints) == 0) {
+  else if (std::strcmp(attrname, "hints") == 0) {
+    if (this->hints && std::strcmp(attrvalue, this->hints) == 0) {
       return this;
     }
   }

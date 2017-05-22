@@ -53,10 +53,6 @@
 #include "tidbitsp.h"
 #include "coindefs.h"
 
-#ifndef COIN_WORKAROUND_NO_USING_STD_FUNCS
-using std::memset;
-#endif // !COIN_WORKAROUND_NO_USING_STD_FUNCS
-
 #undef COIN_ALLOW_CC_HASH
 
 /* ********************************************************************** */
@@ -130,7 +126,7 @@ cc_hash *
 cc_hash_construct(unsigned int size, float loadfactor)
 {
   unsigned int s;
-  cc_hash * ht = (cc_hash *) malloc(sizeof(cc_hash));
+  cc_hash * ht = (cc_hash *) std::malloc(sizeof(cc_hash));
 
   /* size should be a prime number */
   s = (unsigned int) coin_geq_prime_number(size);
@@ -188,7 +184,7 @@ cc_hash_clear(cc_hash * ht)
 #endif // new version
 
   // all memory has been freed. Just clear buckets
-  memset(ht->buckets, 0, ht->size * sizeof(cc_hash_entry*));
+  std::memset(ht->buckets, 0, ht->size * sizeof(cc_hash_entry*));
   ht->elements = 0;
 }
 

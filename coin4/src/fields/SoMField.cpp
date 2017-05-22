@@ -256,12 +256,6 @@
 #include "tidbitsp.h"
 #include "coindefs.h" // COIN_WORKAROUND_*
 
-#ifndef COIN_WORKAROUND_NO_USING_STD_FUNCS
-using std::memcpy;
-using std::memset;
-using std::strlen;
-#endif // !COIN_WORKAROUND_NO_USING_STD_FUNCS
-
 // *************************************************************************
 
 /*!
@@ -368,7 +362,7 @@ SoMField::set1(const int index, const char * const valuestring)
   else if (index >= this->num) this->num = index+1;
 
   SoInput in;
-  in.setBuffer(const_cast<char *>(valuestring), strlen(valuestring));
+  in.setBuffer(const_cast<char *>(valuestring), std::strlen(valuestring));
   if (!this->read1Value(&in, index)) {
     this->num = oldnum; // restore old number of items in field
     return false;
@@ -825,13 +819,13 @@ SoMField::allocValues(int newnum)
         // 20000915 mortene.
         unsigned char * newblock = new unsigned char[this->maxNum * fsize];
         int copysize = fsize * SbMin(this->num, newnum);
-        (void) memcpy(newblock, this->valuesPtr(), copysize);
+        (void)std::memcpy(newblock, this->valuesPtr(), copysize);
         // we have to dereference old values in SoMFNode, SoMFPath and
         // SoMFEngine, so we just initialize the part of the array
         // with no defined values to nullptr.
         int rest = this->maxNum*fsize - copysize;
         if (rest > 0) {
-          (void)memset(newblock + copysize, 0, rest);
+          (void)std::memset(newblock + copysize, 0, rest);
         }
         if (!this->userDataIsUsed) {
           delete[] static_cast<unsigned char *>(this->valuesPtr());
@@ -844,7 +838,7 @@ SoMField::allocValues(int newnum)
       unsigned char * data = new unsigned char[newnum * fsize];
       // we have to dereference old values in SoMFNode, SoMFPath and
       // SoMFEngine, so we just initialize the array to nullptr.
-      (void)memset(data, 0, newnum * fsize);
+      (void)std::memset(data, 0, newnum * fsize);
       this->setValuesPtr(data);
       this->userDataIsUsed = false;
       this->maxNum = newnum;

@@ -48,10 +48,6 @@
 #include "scxml/ScXMLCommonP.h"
 #include "SbBasicP.h"
 
-#ifndef COIN_WORKAROUND_NO_USING_STD_FUNCS
-using std::strcmp;
-#endif // !COIN_WORKAROUND_NO_USING_STD_FUNCS
-
 // *************************************************************************
 
 class ScXMLParamEltReader : public ScXMLEltReader {
@@ -84,7 +80,7 @@ ScXMLParamEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocume
     cc_xml_elt * element = cc_xml_elt_get_child(xmlelt, c);
     const char * elementtype = cc_xml_elt_get_type(element);
 
-    if (strcmp(elementtype, COIN_XML_CDATA_TYPE) == 0) {
+    if (std::strcmp(elementtype, COIN_XML_CDATA_TYPE) == 0) {
       // ignore CDATA
       continue;
     }
@@ -178,13 +174,13 @@ ScXMLParamElt::search(const char * attrname, const char * attrvalue) const
   if (hit) {
     return hit;
   }
-  if (strcmp(attrname, "name") == 0) {
-    if (this->name && strcmp(attrvalue, this->name) == 0) {
+  if (std::strcmp(attrname, "name") == 0) {
+    if (this->name && std::strcmp(attrvalue, this->name) == 0) {
       return this;
     }
   }
-  if (strcmp(attrname, "expr") == 0) {
-    if (this->expr && strcmp(attrvalue, this->expr) == 0) {
+  if (std::strcmp(attrname, "expr") == 0) {
+    if (this->expr && std::strcmp(attrvalue, this->expr) == 0) {
       return this;
     }
   }

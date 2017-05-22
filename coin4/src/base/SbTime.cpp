@@ -81,10 +81,6 @@
 #define SIM_TIMEVAL_TV_USEC_T time_t
 #endif // !SIM_TIMEVAL_TV_USEC_T
 
-#ifndef COIN_WORKAROUND_NO_USING_STD_FUNCS
-using std::strlen;
-#endif // !COIN_WORKAROUND_NO_USING_STD_FUNCS
-
 // *************************************************************************
 
 // FIXME: I don't agree with this willy-nilly, "gut feeling"
@@ -548,7 +544,7 @@ SbTime::formatDate(const char * const fmt) const
 #endif // ! HAVE_WIN32_API
   }
 
-  if (strlen(format) == 0) return SbString("");
+  if (std::strlen(format) == 0) return SbString("");
 
   const size_t buffersize = 256;
   char buffer[buffersize];

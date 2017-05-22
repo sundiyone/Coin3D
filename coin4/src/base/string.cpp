@@ -48,20 +48,6 @@
 #include <config.h>
 #endif /* HAVE_CONFIG_H */
 
-#ifndef COIN_WORKAROUND_NO_USING_STD_FUNCS
-using std::strlen;
-using std::strcpy;
-using std::strncpy;
-using std::strcat;
-using std::strcmp;
-using std::strncmp;
-using std::malloc;
-using std::free;
-using std::memmove;
-using std::atoi;
-using std::printf;
-#endif // !COIN_WORKAROUND_NO_USING_STD_FUNCS
-
 /* ********************************************************************** */
 
 /* FIXME:
@@ -89,13 +75,13 @@ using std::printf;
 void
 cc_string_remove_substring(cc_string * me, int start, int end)
 {
-  const int len = static_cast<int>(strlen(me->pointer));
+  const int len = static_cast<int>(std::strlen(me->pointer));
   if ( end == -1 ) end = len - 1;
 
   assert(!(start < 0 || start >= len || end < 0 || end >= len || start > end) &&
          "invalid arguments for cc_string_remove_substring()");
 
-  (void) memmove(me->pointer + start, me->pointer + end + 1, len - end);
+  (void)std::memmove(me->pointer + start, me->pointer + end + 1, len - end);
 }
 
 static void
@@ -106,13 +92,13 @@ cc_string_grow_buffer(cc_string * me, size_t newsize)
 
   if (debug == -1) {
     const char * env = coin_getenv("COIN_DEBUG_STRING_GROW");
-    debug = (env && (atoi(env) > 0)) ? 1 : 0;
+    debug = (env && (std::atoi(env) > 0)) ? 1 : 0;
   }
 
   /* Can not use cc_debugerror_* interface(), as that could cause an
      infinite recursion. */
   if (debug) {
-    printf("cc_string_grow_buffer: "
+    std::printf("cc_string_grow_buffer: "
            "me->bufsize==%zu, me->pointer==%p, me->buffer==%p => "
            "newsize==%zu\n",
            me->bufsize, me->pointer, me->buffer, newsize);
@@ -124,13 +110,13 @@ cc_string_grow_buffer(cc_string * me, size_t newsize)
   /* FIXME: should first try the vastly more efficient realloc() (if
      the current memory buffer is not the default static, of course).
      20050425 mortene. */
-  newbuf = static_cast<char *>(malloc(newsize));
-  if (debug) { printf("cc_string_grow_buffer: newbuf==%p\n", newbuf); }
+  newbuf = static_cast<char *>(std::malloc(newsize));
+  if (debug) { std::printf("cc_string_grow_buffer: newbuf==%p\n", newbuf); }
   assert(newbuf != nullptr);
 
-  (void) strcpy(newbuf, me->pointer);
+  (void)std::strcpy(newbuf, me->pointer);
 
-  if (me->pointer != me->buffer) { free(me->pointer); }
+  if (me->pointer != me->buffer) { std::free(me->pointer); }
   me->pointer = newbuf;
   me->bufsize = newsize;
 }
@@ -138,7 +124,7 @@ cc_string_grow_buffer(cc_string * me, size_t newsize)
 static void
 cc_string_expand(cc_string * me, size_t additional)
 {
-  const size_t newsize = strlen(me->pointer) + additional + 1;
+  const size_t newsize = std::strlen(me->pointer) + additional + 1;
   cc_string_grow_buffer(me, newsize);
 }
 
@@ -164,7 +150,7 @@ cc_string *
 cc_string_construct_new(void)
 {
   cc_string * me;
-  me = static_cast<cc_string *>(malloc(sizeof(cc_string)));
+  me = static_cast<cc_string *>(std::malloc(sizeof(cc_string)));
   assert(me != nullptr);
   cc_string_construct(me);
   return me;
@@ -191,7 +177,7 @@ void
 cc_string_clean(cc_string * string_struct)
 {
   if ( string_struct->pointer != string_struct->buffer )
-    free(string_struct->pointer);
+    std::free(string_struct->pointer);
 } /* cc_string_clean() */
 
 /*!
@@ -203,7 +189,7 @@ cc_string_destruct(cc_string * me)
 {
   assert(me != nullptr);
   cc_string_clean(me);
-  free(me);
+  std::free(me);
 } /* cc_string_destruct() */
 
 /* ********************************************************************** */
@@ -225,9 +211,9 @@ cc_string_set_text(cc_string * me, const char * text)
     cc_string_remove_substring(me, 0, static_cast<int>(range));
     return;
   }
-  size = strlen(text) + 1;
+  size = std::strlen(text) + 1;
   if (size > me->bufsize) { cc_string_grow_buffer(me, size); }
-  (void) strcpy(me->pointer, text);
+  (void)std::strcpy(me->pointer, text);
 } /* cc_string_set_text() */
 
 static
@@ -294,11 +280,11 @@ cc_string_set_subtext(cc_string * me, const char * text, int start, int end)
   size = end - start + 1;
   if ( size >= me->bufsize ) {
     if ( me->pointer != me->buffer )
-      free(me->pointer);
-    me->pointer = static_cast<char *>(malloc(size + 1));
+      std::free(me->pointer);
+    me->pointer = static_cast<char *>(std::malloc(size + 1));
     me->bufsize = size + 1;
   }
-  (void) strncpy(me->pointer, text + start, size);
+  (void)std::strncpy(me->pointer, text + start, size);
   me->pointer[size] = '\0';
 } /* cc_string_set_subtext() */
 
@@ -343,8 +329,8 @@ void
 cc_string_append_text(cc_string * me, const char * text)
 {
   if ( text ) {
-    cc_string_expand(me, strlen(text));
-    (void) strcat(me->pointer, text);
+    cc_string_expand(me, std::strlen(text));
+    (void)std::strcat(me->pointer, text);
   }
 } /* cc_string_append_text() */
 
@@ -371,7 +357,7 @@ cc_string_append_char(cc_string * me, const char c)
 {
   size_t pos;
   cc_string_expand(me, 1);
-  pos = strlen(me->pointer);
+  pos = std::strlen(me->pointer);
   me->pointer[pos] = c;
   me->pointer[pos+1] = '\0';
 } /* cc_string_append_char() */
@@ -386,7 +372,7 @@ unsigned int
 cc_string_length(const cc_string * me)
 {
   /* FIXME: should cache the length of the string. 20020513 mortene. */
-  return static_cast<unsigned int>(strlen(me->pointer));
+  return static_cast<unsigned int>(std::strlen(me->pointer));
 }
 
 /*!
@@ -397,7 +383,7 @@ void
 cc_string_clear(cc_string * me)
 {
   if ( me->pointer != me->buffer ) {
-    free(me->pointer);
+    std::free(me->pointer);
     me->pointer = me->buffer;
     me->bufsize = CC_STRING_MIN_SIZE;
   }
@@ -481,7 +467,7 @@ cc_string_compare(const cc_string * lhs, const cc_string * rhs)
 int
 cc_string_compare_text(const char * lhs, const char * rhs)
 {
-  return lhs && rhs && strcmp(lhs, rhs);
+  return lhs && rhs && std::strcmp(lhs, rhs);
 } /* cc_string_compare_text() */
 
 /*!
@@ -492,7 +478,7 @@ int
 cc_string_compare_subtext(const cc_string * me, const char * text, int offset)
 {
   /* FIXME: assert on invalid offset */
-  return strncmp(me->pointer + offset, text, strlen(text));
+  return std::strncmp(me->pointer + offset, text, std::strlen(text));
 } /* cc_string_compare_prefix() */
 
 /* ********************************************************************** */
@@ -637,7 +623,7 @@ cc_string_utf8_get_char(const char * str)
   if (disable_utf8) {
     value = static_cast<uint8_t>(*str);
   } else {
-    declen = cc_string_utf8_decode(str, strlen(str), &value);
+    declen = cc_string_utf8_decode(str, std::strlen(str), &value);
     if (!declen) {
       cc_debugerror_postinfo("cc_string_utf8_get_char",
 			     "UTF-8 decoding of string \"%s\" failed.\n\n"
@@ -659,7 +645,7 @@ cc_string_utf8_next_char(const char * str)
   if (disable_utf8) {
     declen = 1;
   } else {
-    declen = cc_string_utf8_decode(str, strlen(str), &value);
+    declen = cc_string_utf8_decode(str, std::strlen(str), &value);
     if (!declen) {
       cc_debugerror_postinfo("cc_string_utf8_get_char",
 			     "UTF-8 decoding of string \"%s\" failed.\n\n"
@@ -677,7 +663,7 @@ cc_string_utf8_validate_length(const char * str)
   static const int disable_utf8 = (coin_getenv("COIN_DISABLE_UTF8") != nullptr);
   const char * s = str;
   size_t declen = 0;
-  size_t srclen = strlen(str);
+  size_t srclen = std::strlen(str);
   size_t utf8len = 0;
   uint32_t value = 0;
 

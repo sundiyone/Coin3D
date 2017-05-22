@@ -71,11 +71,6 @@
 #include "glue/simage_wrapper.h"
 #include "coindefs.h"
 
-#ifndef COIN_WORKAROUND_NO_USING_STD_FUNCS
-using std::memcmp;
-using std::memcpy;
-#endif // !COIN_WORKAROUND_NO_USING_STD_FUNCS
-
 class SbImageP {
 public:
   typedef struct {
@@ -336,7 +331,7 @@ SbImage::setValue(const SbVec3s & size, const int bytesperpixel,
   if (PRIVATE(this)->bytes && PRIVATE(this)->datatype == SbImageP::INTERNAL_DATA) {
     // check for special case where we don't have to reallocate
     if (bytes && (size == PRIVATE(this)->size) && (bytesperpixel == PRIVATE(this)->bpp)) {
-      memcpy(PRIVATE(this)->bytes, bytes, 
+      std::memcpy(PRIVATE(this)->bytes, bytes, 
              int(size[0]) * int(size[1]) * int(size[2]==0?1:size[2]) *
              bytesperpixel);
       PRIVATE(this)->writeUnlock();
@@ -357,7 +352,7 @@ SbImage::setValue(const SbVec3s & size, const int bytesperpixel,
 
     if (bytes) {
       // Important: don't copy buffersize num bytes here!
-      (void)memcpy(PRIVATE(this)->bytes, bytes,
+      (void)std::memcpy(PRIVATE(this)->bytes, bytes,
                    int(size[0]) * int(size[1]) * int(size[2]==0?1:size[2]) * 
                    bytesperpixel);
     }
@@ -553,7 +548,7 @@ SbImage::operator==(const SbImage & image) const
       ret = (PRIVATE(this)->bytes == PRIVATE(&image)->bytes);
     }
     else {
-      ret = memcmp(PRIVATE(this)->bytes, PRIVATE(&image)->bytes,
+      ret = std::memcmp(PRIVATE(this)->bytes, PRIVATE(&image)->bytes,
                    int(PRIVATE(this)->size[0]) *
                    int(PRIVATE(this)->size[1]) *
                    int(PRIVATE(this)->size[2]==0?1:PRIVATE(this)->size[2]) * 

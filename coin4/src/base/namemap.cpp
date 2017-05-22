@@ -40,14 +40,6 @@
 #include "tidbitsp.h"
 #include "coindefs.h"
 
-#ifndef COIN_WORKAROUND_NO_USING_STD_FUNCS
-using std::malloc;
-using std::free;
-using std::strcpy;
-using std::strlen;
-using std::strcmp;
-#endif // !COIN_WORKAROUND_NO_USING_STD_FUNCS
-
 /* ************************************************************************* */
 
 /*
@@ -98,7 +90,7 @@ namemap_cleanup(void)
   struct NamemapMemChunk * chunkptr = headchunk;
   while (chunkptr) {
     struct NamemapMemChunk * next = chunkptr->next;
-    free(chunkptr);
+    std::free(chunkptr);
     chunkptr = next;
   }
   
@@ -106,11 +98,11 @@ namemap_cleanup(void)
     struct NamemapBucketEntry * entry = nametable[i];
     while (entry) {
       struct NamemapBucketEntry * next = entry->next;
-      free(entry);
+      std::free(entry);
       entry = next;
     }
   }
-  free(nametable);
+  std::free(nametable);
   nametable = static_cast<struct NamemapBucketEntry **>(nullptr);
 
   CC_MUTEX_DESTRUCT(access_mutex);
@@ -125,7 +117,7 @@ namemap_init(void)
   unsigned int i;
 
   nametable = static_cast<struct NamemapBucketEntry **>(
-    malloc(sizeof(struct NamemapBucketEntry *) * NAME_TABLE_SIZE));
+    std::malloc(sizeof(struct NamemapBucketEntry *) * NAME_TABLE_SIZE));
   for (i = 0; i < NAME_TABLE_SIZE; i++) { nametable[i] = nullptr; }
 
   headchunk = nullptr;
@@ -136,14 +128,14 @@ namemap_init(void)
 static const char *
 find_string_address(const char * s)
 {
-  size_t len = strlen(s) + 1;
+  size_t len = std::strlen(s) + 1;
 
   /* FIXME: this is an unacceptable limitation. 20030608 mortene. */
   assert(len < CHUNK_SIZE);
 
   if (headchunk == nullptr || headchunk->bytesleft < len) {
     struct NamemapMemChunk * newchunk = static_cast<struct NamemapMemChunk *>(
-      malloc(sizeof(struct NamemapMemChunk))
+      std::malloc(sizeof(struct NamemapMemChunk))
       );
 
     newchunk->curbyte = newchunk->mem;
@@ -153,7 +145,7 @@ find_string_address(const char * s)
     headchunk = newchunk;
   }
 
-  (void)strcpy(headchunk->curbyte, s);
+  (void)std::strcpy(headchunk->curbyte, s);
   s = headchunk->curbyte;
 
   headchunk->curbyte += len;
@@ -179,12 +171,12 @@ namemap_find_or_add_string(const char * str, bool addifnotfound)
   entry = nametable[i];
 
   while (entry != nullptr) {
-    if (entry->hashvalue == h && strcmp(entry->str, str) == 0) { break; }
+    if (entry->hashvalue == h && std::strcmp(entry->str, str) == 0) { break; }
     entry = entry->next;
   }
 
   if ((entry == nullptr) && addifnotfound) {
-    entry = static_cast<struct NamemapBucketEntry *>(malloc(sizeof(struct NamemapBucketEntry)));
+    entry = static_cast<struct NamemapBucketEntry *>(std::malloc(sizeof(struct NamemapBucketEntry)));
     entry->str = find_string_address(str);
     entry->hashvalue = h;
     entry->next = nametable[i];

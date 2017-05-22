@@ -54,10 +54,6 @@
 #include "scxml/ScXMLCommonP.h"
 #include "SbBasicP.h"
 
-#ifndef COIN_WORKAROUND_NO_USING_STD_FUNCS
-using std::strcmp;
-#endif // !COIN_WORKAROUND_NO_USING_STD_FUNCS
-
 // *************************************************************************
 
 class ScXMLElseIfEltReader : public ScXMLEltReader {
@@ -89,7 +85,7 @@ ScXMLElseIfEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocum
   for (int c = 0; c < numchildren; ++c) {
     cc_xml_elt * element = cc_xml_elt_get_child(xmlelt, c);
     const char * elementtype = cc_xml_elt_get_type(element);
-    if (strcmp(elementtype, COIN_XML_CDATA_TYPE) == 0) {
+    if (std::strcmp(elementtype, COIN_XML_CDATA_TYPE) == 0) {
       // ignore CDATA
       continue;
     }
@@ -172,8 +168,8 @@ ScXMLElseIfElt::search(const char * attrname, const char * attrvalue) const
   if (hit) {
     return hit;
   }
-  if (strcmp(attrname, "cond") == 0) {
-    if (this->cond && strcmp(attrvalue, this->cond) == 0) {
+  if (std::strcmp(attrname, "cond") == 0) {
+    if (this->cond && std::strcmp(attrvalue, this->cond) == 0) {
       return this;
     }
   }

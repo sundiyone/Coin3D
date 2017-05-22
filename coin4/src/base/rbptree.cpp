@@ -52,11 +52,6 @@
 #include "tidbitsp.h"
 #include "threads/threadsutilp.h"
 
-#ifndef COIN_WORKAROUND_NO_USING_STD_FUNCS
-using std::malloc;
-using std::free;
-#endif // !COIN_WORKAROUND_NO_USING_STD_FUNCS
-
 static const int RBPTREE_RED = 0;
 static const int RBPTREE_BLACK = 1;
 
@@ -226,7 +221,7 @@ static cc_rbptree_node *
 rbptree_new_node(cc_rbptree * COIN_UNUSED_ARG(t))
 {
   cc_rbptree_node * x = static_cast<cc_rbptree_node*>(
-    malloc(sizeof(cc_rbptree_node)));
+    std::malloc(sizeof(cc_rbptree_node)));
 
   x->left = &rbptree_sentinel;
   x->right = &rbptree_sentinel;
@@ -349,7 +344,7 @@ rbptree_remove_node(cc_rbptree * t, cc_rbptree_node * z)
     rbptree_delete_fixup(t, x);
   }
   /* free memory for node */
-  free(static_cast<void*>(y));
+  std::free(static_cast<void*>(y));
   t->counter--;
 }
 
@@ -387,7 +382,7 @@ rbptree_recursive_clean(cc_rbptree_node * x)
 
   if (x->left != nil) rbptree_recursive_clean(x->left);
   if (x->right != nil) rbptree_recursive_clean(x->right);
-  free(static_cast<void*>(x));
+  std::free(static_cast<void*>(x));
 }
 
 /*!

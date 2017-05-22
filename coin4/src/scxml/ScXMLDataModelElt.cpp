@@ -50,10 +50,6 @@
 #include "scxml/ScXMLCommonP.h"
 #include "SbBasicP.h"
 
-#ifndef COIN_WORKAROUND_NO_USING_STD_FUNCS
-using std::strcmp;
-#endif // !COIN_WORKAROUND_NO_USING_STD_FUNCS
-
 // *************************************************************************
 
 class ScXMLDataModelEltReader : public ScXMLEltReader {
@@ -87,12 +83,12 @@ ScXMLDataModelEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDo
     cc_xml_elt * element = cc_xml_elt_get_child(xmlelt, c);
     const char * elementtype = cc_xml_elt_get_type(element);
 
-    if (strcmp(elementtype, COIN_XML_CDATA_TYPE) == 0) {
+    if (std::strcmp(elementtype, COIN_XML_CDATA_TYPE) == 0) {
       // ignore CDATA
       continue;
     }
 
-    if (strcmp(elementtype, "data") == 0) {
+    if (std::strcmp(elementtype, "data") == 0) {
       // <data> - zero or more times
       ScXMLEltReader * datareader = ScXMLDataElt::getElementReader();
       assert(datareader);
@@ -197,8 +193,8 @@ ScXMLDataModelElt::search(const char * attrname, const char * attrvalue) const
   if (hit) {
     return hit;
   }
-  if (strcmp(attrname, "schema") == 0) {
-    if (this->schema && strcmp(attrvalue, this->schema) == 0) {
+  if (std::strcmp(attrname, "schema") == 0) {
+    if (this->schema && std::strcmp(attrvalue, this->schema) == 0) {
       return this;
     }
   }

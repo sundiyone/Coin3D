@@ -74,15 +74,6 @@
 #include "base/namemap.h"
 #include "coindefs.h"
 
-#ifndef COIN_WORKAROUND_NO_USING_STD_FUNCS
-using std::strlen;
-using std::strchr;
-using std::strcmp;
-using std::isdigit;
-using std::isalnum;
-using std::isalpha;
-#endif // !COIN_WORKAROUND_NO_USING_STD_FUNCS
-
 // *************************************************************************
 
 /*!
@@ -157,7 +148,7 @@ SbName::getLength(void) const
   // UPDATE 20030606 mortene: this can easily be done by storing an
   // extra value in the memory chunk allocated inside namemap.c, right
   // before the string itself.
-  return static_cast<int>(strlen(this->permaaddress));
+  return static_cast<int>(std::strlen(this->permaaddress));
 }
 
 /*!
@@ -180,7 +171,7 @@ SbName::isIdentStartChar(const char c)
   // aswell as for other is*() function. 20021124 mortene.
   const unsigned char uc = static_cast<unsigned char>(c);
 
-  if (isdigit(uc)) return false;
+  if (std::isdigit(uc)) return false;
   return SbName::isIdentChar(c);
 }
 
@@ -197,7 +188,7 @@ SbName::isIdentChar(const char c)
   // lead to "interesting" artifacts. We very likely need to audit and
   // fix our isalnum() calls in the Coin sourcecode to behave in the
   // exact manner that we expect them to. 20020319 mortene.
-  return (isalnum(c) || c == '_');
+  return (std::isalnum(c) || c == '_');
 }
 
 /*!
@@ -227,7 +218,7 @@ SbName::isBaseNameStartChar(const char c)
   // lead to "interesting" artifacts. We very likely need to audit and
   // fix our isalpha() calls in the Coin sourcecode to behave in the
   // exact manner that we expect them to. 20020319 mortene.
-  if (c == '_' || (coin_isascii(c) && isalpha(c))) return true;
+  if (c == '_' || (coin_isascii(c) && std::isalpha(c))) return true;
   return false;
 }
 
@@ -256,7 +247,7 @@ SbName::isBaseNameChar(const char c)
   // SoBase. 20040611 mortene.
 
   static const char invalid[] = "\"\'+.\\{}";
-  if (c <= 0x20 || c >= 0x7f || strchr(invalid, c)) return false;
+  if (c <= 0x20 || c >= 0x7f || std::strchr(invalid, c)) return false;
   return true;
 }
 
@@ -278,7 +269,7 @@ SbName::operator!(void) const
 bool
 operator==(const SbName & lhs, const char * rhs)
 {
-  return (strcmp(lhs.permaaddress, rhs) == 0);
+  return (std::strcmp(lhs.permaaddress, rhs) == 0);
 }
 
 /*!
@@ -288,7 +279,7 @@ operator==(const SbName & lhs, const char * rhs)
 bool
 operator==(const char * lhs, const SbName & rhs)
 {
-  return (strcmp(rhs.permaaddress, lhs) == 0);
+  return (std::strcmp(rhs.permaaddress, lhs) == 0);
 }
 
 /*!

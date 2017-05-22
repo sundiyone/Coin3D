@@ -133,12 +133,6 @@
 
 #include "coindefs.h" // COIN_STUB()
 
-#ifndef COIN_WORKAROUND_NO_USING_STD_FUNCS
-using std::memmove;
-using std::memcmp;
-using std::memcpy;
-#endif // !COIN_WORKAROUND_NO_USING_STD_FUNCS
-
 class SbMatrixP {
 public:
   // FIXME: should merge all the PD code we're using from GGIV into
@@ -183,7 +177,7 @@ public:
     //
     // Also, we check the first value on it's own, to avoid the function
     // call for the most common case.
-    return (fm[0][0]==1.0f) && memcmp(&fm[0][1], &IDENTITYMATRIX[0][1], (4 * 3 + 3) * sizeof(float)) == 0;
+    return (fm[0][0]==1.0f) && std::memcmp(&fm[0][1], &IDENTITYMATRIX[0][1], (4 * 3 + 3) * sizeof(float)) == 0;
 #endif
   }
 
@@ -293,7 +287,7 @@ SbMatrix::getValue(void) const
 void
 SbMatrix::setValue(const SbMat & m)
 {
-  (void)memmove(this->matrix, m, sizeof(float)*4*4);
+  (void)std::memmove(this->matrix, m, sizeof(float)*4*4);
 }
 
 /*!
@@ -304,7 +298,7 @@ SbMatrix::setValue(const SbMat & m)
 void
 SbMatrix::setValue(const float * pMat)
 {
-  (void)memmove(this->matrix, pMat, sizeof(float)*4*4);
+  (void)std::memmove(this->matrix, pMat, sizeof(float)*4*4);
 }
 
 /*!
@@ -835,7 +829,7 @@ operator!=(const SbMatrix & m1, const SbMatrix & m2)
 void
 SbMatrix::getValue(SbMat & m) const
 {
-  (void)memmove(&m[0][0], &(this->matrix[0][0]), sizeof(float)*4*4);
+  (void)std::memmove(&m[0][0], &(this->matrix[0][0]), sizeof(float)*4*4);
 }
 
 /*!
@@ -1349,7 +1343,7 @@ SbMatrix::multRight(const SbMatrix & m)
   if (SbMatrixP::isIdentity(tfm)) { *this = m; return *this; }
 
   SbMat tmp;
-  (void)memcpy(tmp, tfm, 4*4*sizeof(float));
+  (void)std::memcpy(tmp, tfm, 4*4*sizeof(float));
 
   for (int i=0; i < 4; i++) {
     for (int j=0; j < 4; j++) {
@@ -1387,7 +1381,7 @@ SbMatrix::multLeft(const SbMatrix & m)
   if (SbMatrixP::isIdentity(tfm)) { *this = m; return *this; }
 
   SbMat tmp;
-  (void)memcpy(tmp, tfm, 4*4*sizeof(float));
+  (void)std::memcpy(tmp, tfm, 4*4*sizeof(float));
 
   for (int i=0; i < 4; i++) {
     for (int j=0; j < 4; j++) {

@@ -41,12 +41,6 @@
 #include "base/heapp.h"
 #include "coindefs.h"
 
-#ifndef COIN_WORKAROUND_NO_USING_STD_FUNCS
-using std::realloc;
-using std::malloc;
-using std::free;
-#endif // !COIN_WORKAROUND_NO_USING_STD_FUNCS
-
 /* ********************************************************************** */
 /* private functions */
 
@@ -61,7 +55,7 @@ heap_resize(cc_heap * h, unsigned int newsize)
   if (h->size >= newsize)
     return;
 
-  h->array = static_cast<void **>(realloc(h->array, newsize * sizeof(void *)));
+  h->array = static_cast<void **>(std::realloc(h->array, newsize * sizeof(void *)));
   assert(h->array);
   h->size = newsize;
 }
@@ -122,12 +116,12 @@ cc_heap_construct(unsigned int size,
                   cc_heap_compare_cb * comparecb,
                   bool support_remove)
 {
-  cc_heap * h = static_cast<cc_heap *>(malloc(sizeof(cc_heap)));
+  cc_heap * h = static_cast<cc_heap *>(std::malloc(sizeof(cc_heap)));
   assert(h);
 
   h->size = size;
   h->elements = 0;
-  h->array = static_cast<void **>(malloc(size * sizeof(void *)));
+  h->array = static_cast<void **>(std::malloc(size * sizeof(void *)));
   assert(h->array);
   h->compare = comparecb;
   h->support_remove = support_remove;
@@ -145,9 +139,9 @@ void
 cc_heap_destruct(cc_heap * h)
 {
   cc_heap_clear(h);
-  free(h->array);
+  std::free(h->array);
   if (h->hash) cc_dict_destruct(h->hash);
-  free(h);
+  std::free(h);
 }
 
 /*!

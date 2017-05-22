@@ -65,12 +65,6 @@
 
 #include "scxml/ScXMLCommonP.h"
 
-#ifndef COIN_WORKAROUND_NO_USING_STD_FUNCS
-using std::strcmp;
-using std::strcpy;
-using std::strlen;
-#endif // !COIN_WORKAROUND_NO_USING_STD_FUNCS
-
 // *************************************************************************
 
 class ScXMLStateEltReader : public ScXMLEltReader {
@@ -295,12 +289,12 @@ ScXMLStateEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocume
     cc_xml_elt * element = cc_xml_elt_get_child(xmlelt, c);
     const char * elementtype = cc_xml_elt_get_type(element);
 
-    if (strcmp(elementtype, COIN_XML_CDATA_TYPE) == 0) {
+    if (std::strcmp(elementtype, COIN_XML_CDATA_TYPE) == 0) {
       // ignore CDATA
       continue;
     }
 
-    if (strcmp(elementtype, "state") == 0) {
+    if (std::strcmp(elementtype, "state") == 0) {
       // <state> - zero or more times
       ScXMLEltReader * statereader = ScXMLStateElt::getElementReader();
       assert(statereader);
@@ -314,7 +308,7 @@ ScXMLStateEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocume
       state->addState(static_cast<ScXMLStateElt *>(stateobj));
     }
 
-    else if (strcmp(elementtype, "onentry") == 0) {
+    else if (std::strcmp(elementtype, "onentry") == 0) {
       // <onentry> - zero or one time
       if (unlikely(state->getOnEntry())) {
         SoDebugError::post("ScXMLStateEltReader::read",
@@ -335,7 +329,7 @@ ScXMLStateEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocume
       state->setOnEntry(static_cast<ScXMLOnEntryElt *>(onentryobj));
     }
 
-    else if (strcmp(elementtype, "onexit") == 0) {
+    else if (std::strcmp(elementtype, "onexit") == 0) {
       // <onexit> - zero or one time
       if (unlikely(state->getOnExit())) {
         SoDebugError::post("ScXMLStateEltReader::read",
@@ -356,7 +350,7 @@ ScXMLStateEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocume
       state->setOnExit(static_cast<ScXMLOnExitElt *>(onexitobj));
     }
 
-    else if (strcmp(elementtype, "transition") == 0) {
+    else if (std::strcmp(elementtype, "transition") == 0) {
       // <transition> - zero or more times
       ScXMLEltReader * transitionreader = ScXMLTransitionElt::getElementReader();
       assert(transitionreader);
@@ -370,7 +364,7 @@ ScXMLStateEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocume
       state->addTransition(static_cast<ScXMLTransitionElt *>(transitionobj));
     }
 
-    else if (strcmp(elementtype, "initial") == 0) {
+    else if (std::strcmp(elementtype, "initial") == 0) {
       // <initial> - must occur iff states+parallels >= 1
       // or if initial attribute is not set
       ScXMLEltReader * initialreader = ScXMLInitialElt::getElementReader();
@@ -385,7 +379,7 @@ ScXMLStateEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocume
       state->setInitial(static_cast<ScXMLInitialElt *>(initialobj));
     }
 
-    else if (strcmp(elementtype, "parallel") == 0) {
+    else if (std::strcmp(elementtype, "parallel") == 0) {
       // <parallel> - zero or more times
       ScXMLEltReader * parallelreader = ScXMLParallelElt::getElementReader();
       assert(parallelreader);
@@ -399,7 +393,7 @@ ScXMLStateEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocume
       state->addParallel(static_cast<ScXMLParallelElt *>(parallelobj));
     }
 
-    else if (strcmp(elementtype, "final") == 0) {
+    else if (std::strcmp(elementtype, "final") == 0) {
       // <final> - zero or more times
       ScXMLEltReader * finalreader = ScXMLFinalElt::getElementReader();
       assert(finalreader);
@@ -413,7 +407,7 @@ ScXMLStateEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocume
       state->addFinal(static_cast<ScXMLFinalElt *>(finalobj));
     }
 
-    else if (strcmp(elementtype, "history") == 0) {
+    else if (std::strcmp(elementtype, "history") == 0) {
       // <history> - zero or more times
       ScXMLEltReader * historyreader = ScXMLHistoryElt::getElementReader();
       assert(historyreader);
@@ -427,7 +421,7 @@ ScXMLStateEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocume
       state->addHistory(static_cast<ScXMLHistoryElt *>(historyobj));
     }
 
-    else if (strcmp(elementtype, "anchor") == 0) {
+    else if (std::strcmp(elementtype, "anchor") == 0) {
       // <anchor> - zero or more times
       ScXMLEltReader * anchorreader = ScXMLAnchorElt::getElementReader();
       assert(anchorreader);
@@ -441,7 +435,7 @@ ScXMLStateEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocume
       state->addAnchor(static_cast<ScXMLAnchorElt *>(anchorobj));
     }
 
-    else if (strcmp(elementtype, "datamodel") == 0) {
+    else if (std::strcmp(elementtype, "datamodel") == 0) {
       // <datamodel> - zero or one time
       if (unlikely(state->getDataModel())) {
         SoDebugError::post("ScXMLStateEltReader::read",
@@ -464,7 +458,7 @@ ScXMLStateEltReader::read(ScXMLElt * container, cc_xml_elt * xmlelt, ScXMLDocume
 
 #if 0
     // <invoke> - one time iff states+parallel == 0
-    else if (strcmp(elementtype, "invoke") == 0) {
+    else if (std::strcmp(elementtype, "invoke") == 0) {
       ScXMLObject * invokeobj = ScXMLP::readScXMLInvokeElt(state, element, xmlns);
       if (invokeobj) {
         assert(invokeobj->isOfType(ScXMLInvokeElt::getClassTypeId()));
@@ -573,13 +567,13 @@ ScXMLStateElt::~ScXMLStateElt(void)
 void
 ScXMLStateElt::setSrcAttribute(const char * srcstr)
 {
-  if (this->src && strcmp(this->src, "") != 0) {
+  if (this->src && std::strcmp(this->src, "") != 0) {
     // FIXME: remove externally sources states?
   }
 
   SCXML__SET_ATTRIBUTE_VALUE(this->src, "src", srcstr);
 
-  if ((this->src != nullptr) && (strcmp(this->src, "") != 0)) {
+  if ((this->src != nullptr) && (std::strcmp(this->src, "") != 0)) {
     // FIXME: scan string for #
     // FIXME: load/import [externally] referenced states
   }
@@ -692,13 +686,13 @@ ScXMLStateElt::search(const char * attrname, const char * attrvalue) const
   if (hit) {
     return hit;
   }
-  if (strcmp(attrname, "initial") == 0) { // 'initialstate' is dropped
-    if (this->initial && strcmp(attrvalue, this->initial) == 0) {
+  if (std::strcmp(attrname, "initial") == 0) { // 'initialstate' is dropped
+    if (this->initial && std::strcmp(attrvalue, this->initial) == 0) {
       return this;
     }
   }
-  else if (strcmp(attrname, "src") == 0) {
-    if (this->src && strcmp(attrvalue, this->src) == 0) {
+  else if (std::strcmp(attrname, "src") == 0) {
+    if (this->src && std::strcmp(attrvalue, this->src) == 0) {
       return this;
     }
   }

@@ -55,10 +55,6 @@
 #include "coindefs.h"
 #include "SbBasicP.h"
 
-#ifndef COIN_WORKAROUND_NO_USING_STD_FUNCS
-using std::memcpy;
-#endif // !COIN_WORKAROUND_NO_USING_STD_FUNCS
-
 class SoTextureCombineElementP {
 public:
   void ensureCapacity(int unit) const {
@@ -163,10 +159,10 @@ SoTextureCombineElement::get(SoState * const state,
   
   rgboperation = ud.rgboperation;
   alphaoperation = ud.alphaoperation;
-  memcpy(rgbsource, ud.rgbsource, 3*sizeof(Source));
-  memcpy(alphasource, ud.alphasource, 3*sizeof(Source));
-  memcpy(rgboperand, ud.rgboperand, 3*sizeof(Operand));
-  memcpy(alphaoperand, ud.alphaoperand, 3*sizeof(Operand));
+  std::memcpy(rgbsource, ud.rgbsource, 3*sizeof(Source));
+  std::memcpy(alphasource, ud.alphasource, 3*sizeof(Source));
+  std::memcpy(rgboperand, ud.rgboperand, 3*sizeof(Operand));
+  std::memcpy(alphaoperand, ud.alphaoperand, 3*sizeof(Operand));
   constantcolor = ud.constantcolor;
   rgbscale = ud.rgbscale;
   alphascale = ud.alphascale;
@@ -251,10 +247,10 @@ SoTextureCombineElement::setElt(const int unit,
   ud.nodeid = nodeid;
   ud.rgboperation = rgboperation;
   ud.alphaoperation = alphaoperation;
-  memcpy(ud.rgbsource, rgbsource, 3*sizeof(Source));
-  memcpy(ud.alphasource, alphasource, 3*sizeof(Source));
-  memcpy(ud.rgboperand, rgboperand, 3*sizeof(Operand));
-  memcpy(ud.alphaoperand, alphaoperand, 3*sizeof(Operand));
+  std::memcpy(ud.rgbsource, rgbsource, 3*sizeof(Source));
+  std::memcpy(ud.alphasource, alphasource, 3*sizeof(Source));
+  std::memcpy(ud.rgboperand, rgboperand, 3*sizeof(Operand));
+  std::memcpy(ud.alphaoperand, alphaoperand, 3*sizeof(Operand));
   ud.constantcolor = constantcolor;
   ud.rgbscale = rgbscale;
   ud.alphascale = alphascale;
@@ -314,7 +310,7 @@ SoTextureCombineElement::UnitData::UnitData()
 
 SoTextureCombineElement::UnitData::UnitData(const UnitData & org)
 {
-  memcpy(this, &org, sizeof(*this));
+  std::memcpy(this, &org, sizeof(*this));
 }
 
 

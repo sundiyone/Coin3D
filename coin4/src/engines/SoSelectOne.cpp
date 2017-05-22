@@ -78,10 +78,6 @@
 #include "SbBasicP.h"
 #include "coindefs.h"
 
-#ifndef COIN_WORKAROUND_NO_USING_STD_FUNCS
-using std::strstr;
-#endif // !COIN_WORKAROUND_NO_USING_STD_FUNCS
-
 /*!
   \var SoMField * SoSelectOne::input
   The multivalue input field which we will select a single value from
@@ -172,7 +168,7 @@ SoSelectOne::initialize(const SoType inputfieldtype)
   SbString multiname = inputfieldtype.getName().getString();
   // Built-in fields always start with the "MF", but we try to handle
   // user-defined fields aswell.
-  const char * ptr = strstr(multiname.getString(), "MF");
+  const char * ptr = std::strstr(multiname.getString(), "MF");
   assert(ptr != nullptr && "invalid input field type");
   const ptrdiff_t offset = ptr - multiname.getString();
   SbString singlename = (offset == 0) ? SbString("") : multiname.getSubString(0, int(offset - 1));

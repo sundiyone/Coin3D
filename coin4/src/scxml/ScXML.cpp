@@ -42,10 +42,6 @@
   \ingroup scxml
 */
 
-#ifdef _MSC_VER
-#pragma warning(disable:4786) // symbol truncated
-#endif // _MSC_VER
-
 #include <cassert>
 #include <cstring>
 

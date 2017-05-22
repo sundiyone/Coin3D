@@ -45,10 +45,6 @@
 #include "fonts/glyph.h"
 #include "coindefs.h"
 
-#ifndef COIN_WORKAROUND_NO_USING_STD_FUNCS
-using std::malloc;
-#endif // !COIN_WORKAROUND_NO_USING_STD_FUNCS
-
 static bool glyph2d_specmatch(const cc_font_specification * spec1, const cc_font_specification * spec2);
 
 struct cc_glyph2d {
@@ -166,10 +162,10 @@ cc_glyph2d_ref(uint32_t character, const cc_font_specification * spec, float ang
   assert(glyphlist);
 
   /* build a new glyph struct with bitmap */    
-  glyph = (cc_glyph2d *) malloc(sizeof(cc_glyph2d));
+  glyph = (cc_glyph2d *)std::malloc(sizeof(cc_glyph2d));
   glyph->c.character = character;
   
-  newspec = (cc_font_specification *) malloc(sizeof(cc_font_specification)); 
+  newspec = (cc_font_specification *)std::malloc(sizeof(cc_font_specification)); 
   assert(newspec);
   cc_fontspec_copy(spec, newspec);
 

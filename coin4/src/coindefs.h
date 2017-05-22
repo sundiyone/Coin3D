@@ -172,15 +172,10 @@ static void inline COIN_CONCAT(compile_only_before_nofunction,__LINE__) () { \
 #define COIN_MSVC _MSC_VER
 #endif /* _MSC_VER */
 
-#define COIN_MSVC_6_0_VERSION 1200
 #define COIN_MSVC_7_0_VERSION 1300
 #define COIN_MSVC_7_1_VERSION 1310
 #define COIN_MSVC_8_0_VERSION 1400
 #define COIN_MSVC_9_0_VERSION 1500
-
-#if _MSC_VER <= COIN_MSVC_6_0_VERSION
-#define COIN_WORKAROUND_NO_USING_STD_FUNCS
-#endif
 
 #ifdef HAVE___BUILTIN_EXPECT
 /* for branch-prediction hint optimization */

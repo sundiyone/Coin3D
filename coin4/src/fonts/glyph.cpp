@@ -46,10 +46,6 @@
 #include "fontlib_wrapper.h"
 #include "coindefs.h"
 
-#ifndef COIN_WORKAROUND_NO_USING_STD_FUNCS
-using std::free;
-#endif // !COIN_WORKAROUND_NO_USING_STD_FUNCS
-
 /* ********************************************************************** */
 
 void 
@@ -86,12 +82,12 @@ cc_glyph_unref(cc_dict * dict, cc_glyph * glyph, cc_glyph_finalize * f)
   }
 
   cc_fontspec_clean(glyph->fontspec);
-  free(glyph->fontspec);
+  std::free(glyph->fontspec);
 
   cc_flw_done_glyph(glyph->fontidx, glyph->glyphidx);
   cc_flw_unref_font(glyph->fontidx);
 
-  free(glyph);
+  std::free(glyph);
 }
 
 /* ********************************************************************** */

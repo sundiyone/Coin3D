@@ -127,10 +127,6 @@
 #include "tidbitsp.h"
 #include "coindefs.h"
 
-#ifndef COIN_WORKAROUND_NO_USING_STD_FUNCS
-using std::memset;
-#endif // !COIN_WORKAROUND_NO_USING_STD_FUNCS
-
 // *************************************************************************
 
 class SoCacheP {
@@ -162,7 +158,7 @@ SoCache::SoCache(SoState * const state)
   // one bit per element is used to quickly determine whether an
   // element of a given type already has been added.
   PRIVATE(this)->elementflags = new unsigned char[numbytes];
-  memset(PRIVATE(this)->elementflags, 0, numbytes);
+  std::memset(PRIVATE(this)->elementflags, 0, numbytes);
 }
 
 /*!
