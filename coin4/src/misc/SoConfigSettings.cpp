@@ -5,7 +5,7 @@
 #include "misc/SbHash.h"
 
 #include <cstdio>
-
+#include <cstdlib>
 
 namespace {
   SoConfigSettings * singleton = nullptr;

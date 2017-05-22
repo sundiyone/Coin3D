@@ -34,6 +34,8 @@
 #include <config.h>
 #endif // HAVE_CONFIG_H
 
+#include <cstdlib>
+
 #ifdef COIN_HAVE_JAVASCRIPT
   
 /*! \file SoJavaScriptEngine.h */

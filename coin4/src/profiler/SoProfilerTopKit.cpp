@@ -36,10 +36,10 @@
 
 #ifdef HAVE_NODEKITS
 
+#include <memory>
+
 #include <Inventor/annex/Profiler/nodekits/SoProfilerTopKit.h>
 #include "coindefs.h"
-
-#include <boost/intrusive_ptr.hpp>
 
 #include <Inventor/annex/Profiler/engines/SoProfilerTopEngine.h>
 #include <Inventor/annex/Profiler/nodes/SoProfilerStats.h>
@@ -55,6 +55,17 @@
 
 #define PUBLIC(obj) ((obj)->master)
 #define PRIVATE(obj) ((obj)->pimpl)
+
+namespace {
+
+struct UnRef
+{
+  void
+  operator()(SoBase* node)
+  { if (node != nullptr) node->unref(); }
+};
+
+} // anonymous
 
 class SoProfilerTopKitP
 {
@@ -72,8 +83,8 @@ public:
   void detachFromStats();
   void attachToStats();
 
-  boost::intrusive_ptr<SoCalculator> geometryEngine;
-  boost::intrusive_ptr<SoProfilerTopEngine> topListEngine;
+  std::shared_ptr<SoCalculator> geometryEngine;
+  std::shared_ptr<SoProfilerTopEngine> topListEngine;
   SoProfilerStats * last_stats;
   SoFieldSensor * stats_sensor;
 };
@@ -159,10 +170,12 @@ SoProfilerTopKit::SoProfilerTopKit(void)
 
   SO_KIT_INIT_INSTANCE();
 
-  PRIVATE(this)->topListEngine = new SoProfilerTopEngine;
+  PRIVATE(this)->topListEngine
+    = std::unique_ptr<SoProfilerTopEngine, UnRef>(static_cast<SoProfilerTopEngine*>(new SoProfilerTopEngine), UnRef{});
   PRIVATE(this)->topListEngine->decay.setValue(0.99f);
 
-  PRIVATE(this)->geometryEngine = new SoCalculator;
+  PRIVATE(this)->geometryEngine
+    = std::unique_ptr<SoCalculator, UnRef>(static_cast<SoCalculator*>(new SoCalculator), UnRef{});
 
   const char * expr[] = {
     // A = viewportsize, B = wanted position

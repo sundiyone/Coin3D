@@ -63,8 +63,7 @@
 #include <cassert>
 #include <cstring>
 #include <vector>
-
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 
 #include <Inventor/errors/SoDebugError.h>
 #include <Inventor/C/XML/element.h>
@@ -190,8 +189,8 @@ public:
   }
 
   std::vector<ScXMLParamElt *> paramlist;
-  boost::scoped_ptr<ScXMLFinalizeElt> finalizeptr;
-  boost::scoped_ptr<ScXMLContentElt> contentptr;
+  std::unique_ptr<ScXMLFinalizeElt> finalizeptr;
+  std::unique_ptr<ScXMLContentElt> contentptr;
 };
 
 #define PRIVATE(obj) ((obj)->pimpl)

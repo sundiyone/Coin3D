@@ -42,8 +42,7 @@
 #include <cassert>
 #include <cmath>
 #include <cfloat>
-
-#include <boost/intrusive_ptr.hpp>
+#include <memory>
 
 #include <Inventor/SbViewVolume.h>
 #include <Inventor/SbRotation.h>
@@ -72,12 +71,19 @@ public:
 
   bool spinning;
 
-  boost::intrusive_ptr<SoCamera> camera;
+  std::shared_ptr<SoCamera> camera;
   SbTime updatetime;
   SbRotation spinrotation;
 };
 
 static SoScXMLNavigationTarget::Data * NewSpinData(void) { return new SpinData; }
+
+struct UnRef
+{
+  void
+  operator()(SoBase* node)
+  { if (node != nullptr) node->unref(); }
+};
 
 } // namespace
 
@@ -192,7 +198,8 @@ SoScXMLSpinTarget::processOneEvent(const ScXMLEvent * event)
 
     data->spinning = true;
 
-    data->camera = static_cast<SoCamera *>(camera->copy());
+    data->camera
+      = std::unique_ptr<SoCamera, UnRef>(static_cast<SoCamera *>(camera->copy()), UnRef{});
 
     double dtime = 0.0;
     SbRotation spinrot;

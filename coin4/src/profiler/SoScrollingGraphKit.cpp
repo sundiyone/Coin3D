@@ -38,12 +38,9 @@
 
 #include <Inventor/annex/Profiler/nodekits/SoScrollingGraphKit.h>
 
-#include <stdlib.h>
-#include <stdio.h>
-
-#include <boost/scoped_ptr.hpp>
-#include <boost/scoped_array.hpp>
-#include <boost/intrusive_ptr.hpp>
+#include <cstdlib>
+#include <cstdio>
+#include <memory>
 
 #include <Inventor/SbTime.h>
 #include <Inventor/SbColor.h>
@@ -84,6 +81,18 @@ public:
 
 //} // anonymous
 
+namespace {
+
+struct UnRef
+{
+  void
+  operator()(SoBase* node)
+  { if (node != nullptr) node->unref(); }
+};
+
+} // anonymous
+
+
 // *************************************************************************
 
 class SoScrollingGraphKitP {
@@ -108,8 +117,8 @@ public:
     }
   }
 
-  boost::intrusive_ptr<SoSeparator> chart;
-  boost::scoped_ptr<SoFieldSensor> addValuesSensor;
+  std::shared_ptr<SoSeparator> chart;
+  std::unique_ptr<SoFieldSensor> addValuesSensor;
 
   void pullStatistics(void);
   Graph * getGraph(const SbName & key);
@@ -194,7 +203,8 @@ SoScrollingGraphKit::SoScrollingGraphKit(void)
   PRIVATE(this)->addValuesSensor->setData(this);
   PRIVATE(this)->addValuesSensor->attach(&(this->addValues));
 
-  PRIVATE(this)->chart = static_cast<SoSeparator *>(this->getAnyPart("scene", true));
+  PRIVATE(this)->chart
+    = std::unique_ptr<SoSeparator, UnRef>(static_cast<SoSeparator *>(this->getAnyPart("scene", true)), UnRef{});
 }
 
 SoScrollingGraphKit::~SoScrollingGraphKit(void)
@@ -343,11 +353,11 @@ SoScrollingGraphKitP::generateStackedBarsChart(void)
   const int numgraphs = this->graphs.getNumElements();
   if (numgraphs == 0) return;
 
-  boost::scoped_array<SoBaseColor *> colors(new SoBaseColor * [numgraphs]);
-  boost::scoped_array<SoCoordinate3 *> coords(new SoCoordinate3 * [numgraphs]);
-  boost::scoped_array<SoLineSet *> lines(new SoLineSet * [numgraphs]);
-  boost::scoped_array<SoTranslation *> texttrans(new SoTranslation * [numgraphs]);
-  boost::scoped_array<SoText2 *> textnodes(new SoText2 * [numgraphs]);
+  std::unique_ptr<SoBaseColor *[]> colors(new SoBaseColor * [numgraphs]);
+  std::unique_ptr<SoCoordinate3 *[]> coords(new SoCoordinate3 * [numgraphs]);
+  std::unique_ptr<SoLineSet *[]> lines(new SoLineSet * [numgraphs]);
+  std::unique_ptr<SoTranslation *[]> texttrans(new SoTranslation * [numgraphs]);
+  std::unique_ptr<SoText2 *[]> textnodes(new SoText2 * [numgraphs]);
 
   if (this->chart->getNumChildren() != (numgraphs * 4 + 3) ||
       !(this->chart->getChild(2+2)->isOfType(SoLineSet::getClassTypeId()))) {

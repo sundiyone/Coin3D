@@ -36,12 +36,11 @@
 
 #ifdef HAVE_NODEKITS
 
-#include <Inventor/annex/Profiler/nodekits/SoNodeVisualize.h>
-
 #include <map>
 #include <string>
+#include <memory>
 
-#include <boost/scoped_ptr.hpp>
+#include <Inventor/annex/Profiler/nodekits/SoNodeVisualize.h>
 
 #include <Inventor/SoDB.h>
 #include <Inventor/SoInput.h>

@@ -36,10 +36,10 @@
 
 #ifdef HAVE_NODEKITS
 
+#include <memory>
+
 #include <Inventor/annex/Profiler/nodekits/SoProfilerVisualizeKit.h>
 #include "coindefs.h"
-
-#include <boost/scoped_ptr.hpp>
 
 #include <Inventor/actions/SoGLRenderAction.h>
 #include <Inventor/annex/Profiler/nodekits/SoNodeVisualize.h>
@@ -118,10 +118,10 @@ namespace {
 struct SoProfilerVisualizeKitP
 {
   // Sensors
-  boost::scoped_ptr<SoFieldSensor> cacheSensor;
-  boost::scoped_ptr<SoFieldSensor> rootSensor;
-  boost::scoped_ptr<SoFieldSensor> statsTriggerSensor;
-  boost::scoped_ptr<SoFieldSensor> statsSensor;
+  std::unique_ptr<SoFieldSensor> cacheSensor;
+  std::unique_ptr<SoFieldSensor> rootSensor;
+  std::unique_ptr<SoFieldSensor> statsTriggerSensor;
+  std::unique_ptr<SoFieldSensor> statsSensor;
 };
 
 #define PRIVATE(x) ((x)->pimpl)

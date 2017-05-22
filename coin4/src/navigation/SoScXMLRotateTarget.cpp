@@ -39,13 +39,10 @@
   \ingroup navigation
 */
 
-#
 #include <cassert>
 #include <cmath>
 #include <cfloat>
-
-#include <boost/scoped_ptr.hpp>
-#include <boost/intrusive_ptr.hpp>
+#include <memory>
 
 #include <Inventor/SbViewVolume.h>
 #include <Inventor/SbRotation.h>
@@ -89,8 +86,8 @@ public:
   }
 
   SbVec2f downposn;
-  boost::intrusive_ptr<SoCamera> cameraclone;
-  boost::scoped_ptr<SbSphereSheetProjector> projector;
+  std::shared_ptr<SoCamera> cameraclone;
+  std::unique_ptr<SbSphereSheetProjector> projector;
 
   struct log {
     SbVec2f posn;
@@ -100,6 +97,13 @@ public:
 };
 
 static SoScXMLNavigationTarget::Data * NewRotateData(void) { return new RotateData; }
+
+struct UnRef
+{
+  void
+  operator()(SoBase* node)
+  { if (node != nullptr) node->unref(); }
+};
 
 } // namespace
 
@@ -243,7 +247,8 @@ SoScXMLRotateTarget::processOneEvent(const ScXMLEvent * event)
     if unlikely (!camera) { return false; }
 
     // store current camera position
-    data->cameraclone = static_cast<SoCamera *>(camera->copy());
+    data->cameraclone
+      = std::unique_ptr<SoCamera, UnRef>(static_cast<SoCamera *>(camera->copy()), UnRef{});
 
     return true;
   }

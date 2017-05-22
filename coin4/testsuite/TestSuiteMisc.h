@@ -3,7 +3,6 @@
 
 #include <string>
 #include <ostream>
-#include <boost/lexical_cast.hpp>
 #include <Inventor/SbBasic.h>
 #include <Inventor/SbTypeInfo.h>
 
@@ -71,7 +70,7 @@ floatEquals(float a, float b, float tol)
   return fabs(b-a)/fabs(a)<tol;
 }
 
-#define COIN_TESTCASE_CHECK_FLOAT(X,Y) BOOST_CHECK_MESSAGE(floatEquals((X), (Y), 1), std::string("unexpected value: expected ") + boost::lexical_cast<std::string>((Y)) +", got " + boost::lexical_cast<std::string>((X)) + " difference is: " + boost::lexical_cast<std::string>((X)-(Y)))
+#define COIN_TESTCASE_CHECK_FLOAT(X,Y) BOOST_CHECK_MESSAGE(floatEquals((X), (Y), 1), std::string("unexpected value: expected ") + std::to_string((Y)) +", got " + std::to_string((X)) + " difference is: " + std::to_string((X)-(Y)))
 
 namespace SIM { namespace Coin { namespace TestSuite {
 
@@ -120,7 +119,7 @@ struct to<1> {
   static std::string 
   String(const T & v) 
   {
-    return  boost::lexical_cast<std::string>(v);
+    return  std::to_string(v);
   }
 };
 } //namespace internal

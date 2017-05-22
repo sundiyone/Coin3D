@@ -34,12 +34,11 @@
 #include <Inventor/annex/Profiler/utils/SoProfilingReportGenerator.h>
 #include "coindefs.h"
 
-#include <assert.h>
-#include <stdlib.h>
-#include <stdarg.h>
-#include <string.h>
-
-#include <boost/scoped_array.hpp>
+#include <cassert>
+#include <cstdlib>
+#include <cstdarg>
+#include <cstring>
+#include <memory>
 
 #include <Inventor/errors/SoDebugError.h>
 #include <Inventor/threads/SbMutex.h>
@@ -456,11 +455,9 @@ SoProfilingReportGenerator::generate(const SbProfilingData & data,
       sortingconfig = nullptr;
       return;
     }
-    boost::scoped_array<int> indexarray;
-    indexarray.reset(new int [ numindexes ]);
-    for (c = 0; c < numindexes; ++c) {
+    std::unique_ptr<int[]> indexarray(new int[numindexes]);
+    for (c = 0; c < numindexes; ++c)
       indexarray[c] = c;
-    }
 
     sortcategory = NODES;
     arraystart = &indexarray[0];
@@ -508,11 +505,9 @@ SoProfilingReportGenerator::generate(const SbProfilingData & data,
       sortingconfig = nullptr;
       return;
     }
-    boost::scoped_array<int> indexarray;
-    indexarray.reset(new int [ numindexes ]);
-    for (c = 0; c < numindexes; ++c) {
+    std::unique_ptr<int[]> indexarray(new int[numindexes]);
+    for (c = 0; c < numindexes; ++c)
       indexarray[c] = c;
-    }
 
     sortcategory = NAMES;
     arraystart = &indexarray[0];
@@ -561,11 +556,9 @@ SoProfilingReportGenerator::generate(const SbProfilingData & data,
       sortingconfig = nullptr;
       return;
     }
-    boost::scoped_array<int> indexarray;
-    indexarray.reset(new int [ numindexes ]);
-    for (c = 0; c < numindexes; ++c) {
+    std::unique_ptr<int[]> indexarray(new int[numindexes]);
+    for (c = 0; c < numindexes; ++c)
       indexarray[c] = c;
-    }
 
     sortcategory = TYPES;
     arraystart = &indexarray[0];

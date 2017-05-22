@@ -48,8 +48,7 @@
 #include <map>
 #include <list>
 #include <algorithm>
-
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 
 #include <Inventor/SbName.h>
 #include <Inventor/C/threads/mutex.h>
@@ -81,7 +80,7 @@ public:
   char * targettype;
   char * targetname;
   float delay;
-  boost::scoped_ptr<SoAlarmSensor> alarm;
+  std::unique_ptr<SoAlarmSensor> alarm;
   const ScXMLEvent * event;
 };
 

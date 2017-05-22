@@ -740,7 +740,6 @@ SbRotation::print(FILE * fp) const
 #ifdef COIN_TEST_SUITE
 #include <Inventor/SbTypeInfo.h>
 #include <Inventor/SbVec3f.h>
-#include <boost/lexical_cast.hpp>
 #include <cassert>
 
 typedef SbRotation ToTest;
@@ -756,11 +755,11 @@ BOOST_AUTO_TEST_CASE(operatorBrackets)
     BOOST_CHECK_MESSAGE(
                         floatEquals(testVal,rot[i],FLOAT_SENSITIVITY),
                         std::string("Wrong value when trying to access value #")
-                        + boost::lexical_cast<std::string>(i)
+                        + std::to_string(i)
                         + ": "
-                        + boost::lexical_cast<std::string>(rot[i]) +
-                        " == "
-                        + boost::lexical_cast<std::string>(testVal)
+                        + std::to_string(rot[i])
+                        + " == "
+                        + std::to_string(testVal)
                         );
   }
 }

@@ -78,8 +78,9 @@
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
-#include <assert.h>
-#include <string.h>
+#include <cassert>
+#include <cstring>
+#include <cstdlib>
 
 #ifdef HAVE_WINDOWS_H
 #include <windows.h>

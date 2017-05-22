@@ -37,12 +37,11 @@
 #include <config.h>
 #endif // HAVE_CONFIG_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <assert.h>
-
-#include <boost/scoped_array.hpp>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <cassert>
+#include <memory>
 
 #include <coindefs.h>
 #include <Inventor/C/XML/element.h>
@@ -248,8 +247,7 @@ cc_xml_doc_expat_character_data_handler_cb(void * userdata, const XML_Char * cda
   assert(elt);
 
   // need a temporary buffer for the cdata to make a nullterminated string.
-  boost::scoped_array<char> buffer;
-  buffer.reset(new char [len + 1]);
+  std::unique_ptr<char[]> buffer(new char [len + 1]);
   memcpy(buffer.get(), cdata, len);
   buffer[len] = '\0';
   cc_xml_elt_set_type_x(elt, COIN_XML_CDATA_TYPE);
@@ -754,7 +752,7 @@ cc_xml_doc_write_to_file(const cc_xml_doc * doc, const char * path)
   assert(path);;
 
   size_t bufsize = 0;
-  boost::scoped_array<char> buffer;
+  std::unique_ptr<char[]> buffer;
   {
     char * bufptr = nullptr;
     if (!cc_xml_doc_write_to_buffer(doc, bufptr, bufsize)) {
@@ -883,7 +881,6 @@ cc_xml_doc_handle_parse_warning(const cc_xml_doc * doc, const char * message)
 
 #ifdef COIN_TEST_SUITE
 
-#include <boost/scoped_array.hpp>
 #include <Inventor/C/XML/parser.h>
 #include <Inventor/C/XML/path.h>
 
@@ -897,7 +894,7 @@ BOOST_AUTO_TEST_CASE(bufread)
   cc_xml_doc * doc1 = cc_xml_read_buffer(buffer);
   BOOST_CHECK_MESSAGE(doc1 != nullptr, "cc_xml_doc_read_buffer() failed");
 
-  boost::scoped_array<char> buffer2;
+  std::unique_ptr<char[]> buffer2;
   size_t bytecount = 0;
   {
     char * bufptr = nullptr;

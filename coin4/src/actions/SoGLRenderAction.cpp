@@ -66,9 +66,7 @@
 
 #include <cstdlib>
 #include <cstring>
-
-#include <boost/scoped_ptr.hpp>
-#include <boost/scoped_array.hpp>
+#include <memory>
 
 #include <Inventor/C/glue/gl.h>
 #include <Inventor/C/tidbits.h>
@@ -564,7 +562,7 @@ public:
   SoGLRenderAction::TransparentDelayedObjectRenderType transpdelayedrendertype;
   bool renderingtranspbackfaces;
 
-  boost::scoped_ptr<SoGetBoundingBoxAction> bboxaction;
+  std::unique_ptr<SoGetBoundingBoxAction> bboxaction;
   SbVec2f updateorigin, updatesize;
   bool needglinit;
   bool isrendering;
@@ -581,7 +579,7 @@ public:
 
   GLuint depthtextureid;
   GLuint hilotextureid;
-  boost::scoped_array<GLuint> rgbatextureids;
+  std::unique_ptr<GLuint[]> rgbatextureids;
   GLuint sortedlayersblendprogramid;
   unsigned short viewportheight;
   unsigned short viewportwidth;
@@ -621,9 +619,9 @@ public:
   void doPathSort(void);
 
   // For profiling mode auto-redraw functionality
-  boost::scoped_ptr<SoAlarmSensor> redrawSensor;
+  std::unique_ptr<SoAlarmSensor> redrawSensor;
   static void redrawSensorCB(void * userdata, SoSensor * sensor);
-  boost::scoped_ptr<SoNodeSensor> deleteSensor;
+  std::unique_ptr<SoNodeSensor> deleteSensor;
   static void deleteNodeCB(void * userdata, SoSensor * sensor);
 
 };

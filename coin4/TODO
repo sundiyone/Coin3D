@@ -1,6 +1,13 @@
 
   boost
+    lexical_cast -> to_string hopefully.
+    BOOST_CHECK_MESSAGE
+    intrusive_ptr -> shared_ptr
+    scoped_ptr -> unique_ptr<>
+    scoped_array -> unique_ptr<[]>
+    shared_array -> shared_ptr<[]>
 
   qsort
 
   <*.h>
+

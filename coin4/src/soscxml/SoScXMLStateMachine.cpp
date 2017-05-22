@@ -44,8 +44,7 @@
   \ingroup soscxml
 */
 
-#include <boost/scoped_ptr.hpp>
-#include <boost/intrusive_ptr.hpp>
+#include <memory>
 
 #include <Inventor/SbString.h>
 #include <Inventor/SbViewportRegion.h>
@@ -62,6 +61,18 @@
 
 // *************************************************************************
 
+namespace
+{
+
+struct UnRef
+{
+  void
+  operator()(SoBase* node)
+  { if (node != nullptr) node->unref(); }
+};
+
+} // namespace
+
 class SoScXMLStateMachine::PImpl {
 public:
   PImpl(void)
@@ -70,11 +81,11 @@ public:
   ~PImpl(void) { }
 
   // hold a couple of custom non-SoEvent-based events
-  boost::scoped_ptr<ScXMLEvent> preGLRenderEvent;
-  boost::scoped_ptr<ScXMLEvent> postGLRenderEvent;
+  std::unique_ptr<ScXMLEvent> preGLRenderEvent;
+  std::unique_ptr<ScXMLEvent> postGLRenderEvent;
 
-  boost::intrusive_ptr<SoNode> scenegraphroot;
-  boost::intrusive_ptr<SoCamera> activecamera;
+  std::shared_ptr<SoNode> scenegraphroot;
+  std::shared_ptr<SoCamera> activecamera;
   SbViewportRegion viewport;
 
   mutable SbString varstring;
@@ -112,7 +123,7 @@ SoScXMLStateMachine::~SoScXMLStateMachine(void)
 void
 SoScXMLStateMachine::setSceneGraphRoot(SoNode * root)
 {
-  PRIVATE(this)->scenegraphroot = root;
+  PRIVATE(this)->scenegraphroot = std::unique_ptr<SoNode, UnRef>(root, UnRef{});
 }
 
 SoNode *
@@ -124,7 +135,7 @@ SoScXMLStateMachine::getSceneGraphRoot(void) const
 void
 SoScXMLStateMachine::setActiveCamera(SoCamera * camera)
 {
-  PRIVATE(this)->activecamera = camera;
+  PRIVATE(this)->activecamera = std::unique_ptr<SoCamera, UnRef>(camera, UnRef{});
 }
 
 SoCamera *
@@ -168,7 +179,7 @@ SoScXMLStateMachine::processSoEvent(const SoEvent * event)
   // FIXME: Not sure if this check should be here and not somewhere else,
   // but removing this again makes us crash on nullptr scenegraphs. kintel 20080729.
   if (PRIVATE(this)->scenegraphroot.get()) {
-    boost::scoped_ptr<SoScXMLEvent> wrapperevent;
+    std::unique_ptr<SoScXMLEvent> wrapperevent;
     wrapperevent.reset(new SoScXMLEvent);
     wrapperevent->setSoEvent(event);
     wrapperevent->setUpIdentifier();

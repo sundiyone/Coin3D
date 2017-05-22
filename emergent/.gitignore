@@ -1,3 +1,6 @@
 coin_build
 quarter_build
 quarter_examples
+
+bin_coin
+obj_coin

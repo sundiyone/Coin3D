@@ -41,10 +41,7 @@
 #include <cassert>
 #include <cstring>
 #include <map>
-
-#include <boost/scoped_ptr.hpp>
-#include <boost/scoped_array.hpp>
-#include <boost/intrusive_ptr.hpp>
+#include <memory>
 
 #include <Inventor/C/XML/document.h>
 #include <Inventor/C/XML/element.h>
@@ -90,13 +87,13 @@ public:
   { }
   ~PImpl(void) { }
 
-  boost::scoped_array<char> filename;
-  boost::scoped_ptr<ScXMLScxmlElt> root;
+  std::unique_ptr<char[]> filename;
+  std::unique_ptr<ScXMLScxmlElt> root;
 
   typedef std::map<const char *, ScXMLAbstractStateElt *> StateIdMap;
   typedef std::map<const char *, ScXMLDataElt *> DataIdMap;
-  boost::scoped_ptr<StateIdMap> stateidmap;
-  boost::scoped_ptr<DataIdMap> dataidmap;
+  std::unique_ptr<StateIdMap> stateidmap;
+  std::unique_ptr<DataIdMap> dataidmap;
 
   void fillIdentifierMaps(ScXMLElt * object);
 
@@ -260,13 +257,18 @@ ScXMLDocument::~ScXMLDocument(void)
 {
 }
 
-void intrusive_ptr_add_ref(cc_xml_doc * COIN_UNUSED_ARG(doc)) {
-  // nada
+void
+shared_ptr_add_ref(cc_xml_doc * COIN_UNUSED_ARG(doc))
+{
+ // nada
 }
 
-void intrusive_ptr_release(cc_xml_doc * doc) {
-  cc_xml_doc_delete_x(doc);
-}
+struct cc_xml_doc_deleter
+{
+  void
+  operator()(cc_xml_doc * doc)
+  { cc_xml_doc_delete_x(doc); }
+};
 
 ScXMLDocument *
 ScXMLDocument::readFile(const char * filename)
@@ -285,7 +287,9 @@ ScXMLDocument::readFile(const char * filename)
     }
   }
 
-  boost::intrusive_ptr<cc_xml_doc> xmldoc(cc_xml_doc_new());
+  std::shared_ptr<cc_xml_doc> xmldoc
+   = std::unique_ptr<cc_xml_doc, cc_xml_doc_deleter>(cc_xml_doc_new(), cc_xml_doc_deleter());
+
   if (unlikely(!cc_xml_doc_read_file_x(xmldoc.get(), filename))) {
     return nullptr;
   }
@@ -305,7 +309,8 @@ ScXMLDocument::readBuffer(const SbByteBuffer & buffer)
 {
   if (buffer.size()==0) return nullptr;
 
-  boost::intrusive_ptr<cc_xml_doc> xmldoc(cc_xml_doc_new());
+  std::shared_ptr<cc_xml_doc> xmldoc
+    = std::unique_ptr<cc_xml_doc, cc_xml_doc_deleter>(cc_xml_doc_new(), cc_xml_doc_deleter());
   if (unlikely(!cc_xml_doc_read_buffer_x(xmldoc.get(), buffer.constData(), buffer.size()))) {
     return nullptr;
   }
