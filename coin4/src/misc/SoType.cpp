@@ -481,7 +481,7 @@ POTENTIAL_ROTTING_DOCUMENTATION
   platform to platform, and from compiler suite to compiler suite.
 
   So far code built with the following compilers are supported: GNU
-  GCC v2-4, Microsoft Visual C++ v6, 2003, 2005 and 2008), SGI MIPSPro v7.
+  GCC v6-8, Microsoft Visual C++ 2015).
 
   Extensions built with compilers that are known to be binary
   compatible with the above compilers are also supported, such as

@@ -143,13 +143,8 @@
 #define COIN_UNUSED_ARG(x) x
 #endif
 
-
-/* COIN_CT_ASSERT() - a macro for doing compile-time asserting */
-#define COIN_CT_ASSERT(expr) \
-  do { switch ( 0 ) { case 0: case (expr): break; } } while ( 0 )
-
-#define COMPILE_ONLY_BEFORE(MAJOR,MINOR,MICRO,REASON)                            \
-COIN_CT_ASSERT( (COIN_MAJOR_VERSION < MAJOR) || (COIN_MAJOR_VERSION == MAJOR && ((COIN_MINOR_VERSION < MINOR) || ( COIN_MINOR_VERSION == MINOR && (COIN_MICRO_VERSION < MICRO )))))
+#define COMPILE_ONLY_BEFORE(MAJOR,MINOR,MICRO,REASON) \
+static_assert((COIN_MAJOR_VERSION < MAJOR) || (COIN_MAJOR_VERSION == MAJOR && ((COIN_MINOR_VERSION < MINOR) || ( COIN_MINOR_VERSION == MINOR && (COIN_MICRO_VERSION < MICRO )))))
 
 #define COIN_CONCAT( X, Y ) COIN_CONCAT_INTERNAL( X, Y )
 #define COIN_CONCAT_INTERNAL( X, Y ) COIN_CONCAT_INTERNAL2(X,Y)
@@ -166,7 +161,7 @@ static void inline COIN_CONCAT(compile_only_before_nofunction,__LINE__) () { \
   this marker is used in a pure comment, so do not content yourself
   with checking every place that fails.
 */
-#define POTENTIAL_ROTTING_DOCUMENTATION COMPILE_ONLY_BEFORE_NOFUNCTION(4,0,1,"This piece of documentation may potentially be outdated in the future.")
+#define POTENTIAL_ROTTING_DOCUMENTATION COMPILE_ONLY_BEFORE_NOFUNCTION(5,0,1,"This piece of documentation may potentially be outdated in the future.")
 
 #ifdef _MSC_VER
 #define COIN_MSVC _MSC_VER

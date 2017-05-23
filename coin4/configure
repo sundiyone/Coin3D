@@ -3457,7 +3457,7 @@ ac_build_year=$(date +%Y)
 
 COIN_BUILD_YEAR=$ac_build_year
 
-COIN_MAJOR_VERSION=4
+COIN_MAJOR_VERSION=5
 
 COIN_MINOR_VERSION=0
 

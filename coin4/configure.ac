@@ -13,7 +13,7 @@
 # **************************************************************************
 
 # release version number info
-m4_define([COIN_MAJOR], [4])
+m4_define([COIN_MAJOR], [5])
 m4_define([COIN_MINOR], [0])
 m4_define([COIN_MICRO], [0])
 m4_define([COIN_BETA], [a])
