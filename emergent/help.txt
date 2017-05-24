@@ -1,3 +1,9 @@
+Basically:
+$ cmake -G "MSYS Makefiles" ../quarter
+or
+$ cmake -G"Unix Makefiles" ../quarter
+
+
 ESmith-rowland@SEG_SMTHRWLNDLT MINGW64 ~/Coin3D/emergent/quarter_build
 $ rm -rf *
 
