@@ -27,7 +27,7 @@
   subclassing a generated class from an ui file
 */
 
-#include <QtGui/QApplication>
+#include <QtWidgets/QApplication>
 #include <Quarter/QuarterWidget.h>
 #include <Quarter/Quarter.h>
 

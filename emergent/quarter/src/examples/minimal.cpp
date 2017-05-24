@@ -32,8 +32,8 @@
 #include <Quarter/Quarter.h>
 #include <Quarter/QuarterWidget.h>
 
-#include <QApplication>
-#include <QMainWindow>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QMainWindow>
 
 using namespace SIM::Coin3D::Quarter;
 

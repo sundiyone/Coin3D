@@ -32,7 +32,7 @@
 #include <Inventor/nodes/SoBaseColor.h>
 #include <Inventor/nodes/SoSeparator.h>
 
-#include <QtGui/QApplication>
+#include <QtWidgets/QApplication>
 #include <Quarter/QuarterWidget.h>
 #include <Quarter/Quarter.h>
 
