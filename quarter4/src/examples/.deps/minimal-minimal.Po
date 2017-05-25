@@ -1,0 +1,956 @@
+minimal-minimal.o minimal-minimal.o: minimal.cpp \
+  /Library/Frameworks/Inventor.framework/Headers/nodes/SoCone.h \
+  /Library/Frameworks/Inventor.framework/Headers/nodes/SoSubNode.h \
+  /usr/include/string.h /usr/include/_types.h /usr/include/sys/_types.h \
+  /usr/include/sys/cdefs.h /usr/include/sys/_symbol_aliasing.h \
+  /usr/include/sys/_posix_availability.h /usr/include/machine/_types.h \
+  /usr/include/i386/_types.h /usr/include/Availability.h \
+  /usr/include/AvailabilityInternal.h /usr/include/strings.h \
+  /Library/Frameworks/Inventor.framework/Headers/SbName.h \
+  /Library/Frameworks/Inventor.framework/Headers/SbBasic.h \
+  /Library/Frameworks/Inventor.framework/Headers/C/basic.h \
+  /Library/Frameworks/Inventor.framework/Headers/system/inttypes.h \
+  /usr/include/inttypes.h /usr/include/stdint.h /usr/include/sys/types.h \
+  /usr/include/sys/appleapiopts.h /usr/include/machine/types.h \
+  /usr/include/i386/types.h /usr/include/i386/_types.h \
+  /usr/include/machine/endian.h /usr/include/i386/endian.h \
+  /usr/include/sys/_endian.h /usr/include/libkern/_OSByteOrder.h \
+  /usr/include/libkern/i386/_OSByteOrder.h /usr/include/sys/_structs.h \
+  /usr/llvm-gcc-4.2/bin/../lib/gcc/i686-apple-darwin11/4.2.1/include/stddef.h \
+  /usr/include/math.h \
+  /Library/Frameworks/Inventor.framework/Headers/SoType.h \
+  /usr/include/stdlib.h /usr/include/sys/wait.h /usr/include/sys/signal.h \
+  /usr/include/machine/signal.h /usr/include/i386/signal.h \
+  /usr/include/i386/_structs.h /usr/include/machine/_structs.h \
+  /usr/include/mach/i386/_structs.h /usr/include/sys/resource.h \
+  /usr/include/alloca.h \
+  /Library/Frameworks/Inventor.framework/Headers/SbDict.h \
+  /Library/Frameworks/Inventor.framework/Headers/fields/SoFieldData.h \
+  /Library/Frameworks/Inventor.framework/Headers/lists/SbList.h \
+  /usr/include/assert.h \
+  /Library/Frameworks/Inventor.framework/Headers/nodes/SoNode.h \
+  /Library/Frameworks/Inventor.framework/Headers/fields/SoFieldContainer.h \
+  /Library/Frameworks/Inventor.framework/Headers/misc/SoBase.h \
+  /Library/Frameworks/Inventor.framework/Headers/lists/SoAuditorList.h \
+  /Library/Frameworks/Inventor.framework/Headers/lists/SbPList.h \
+  /Library/Frameworks/Inventor.framework/Headers/misc/SoNotification.h \
+  /Library/Frameworks/Inventor.framework/Headers/misc/SoNotRec.h \
+  /usr/include/stdio.h \
+  /Library/Frameworks/Inventor.framework/Headers/C/base/rbptree.h \
+  /usr/llvm-gcc-4.2/bin/../lib/gcc/i686-apple-darwin11/4.2.1/include/stdarg.h \
+  /Library/Frameworks/Inventor.framework/Headers/SoLists.h \
+  /Library/Frameworks/Inventor.framework/Headers/lists/SbIntList.h \
+  /Library/Frameworks/Inventor.framework/Headers/lists/SoBaseList.h \
+  /Library/Frameworks/Inventor.framework/Headers/lists/SoDetailList.h \
+  /Library/Frameworks/Inventor.framework/Headers/lists/SoEnabledElementsList.h \
+  /Library/Frameworks/Inventor.framework/Headers/lists/SoTypeList.h \
+  /Library/Frameworks/Inventor.framework/Headers/lists/SoEngineOutputList.h \
+  /Library/Frameworks/Inventor.framework/Headers/lists/SoEngineList.h \
+  /Library/Frameworks/Inventor.framework/Headers/lists/SoFieldList.h \
+  /Library/Frameworks/Inventor.framework/Headers/lists/SoNodeList.h \
+  /Library/Frameworks/Inventor.framework/Headers/lists/SoPathList.h \
+  /Library/Frameworks/Inventor.framework/Headers/lists/SoPickedPointList.h \
+  /Library/Frameworks/Inventor.framework/Headers/C/tidbits.h \
+  /Library/Frameworks/Inventor.framework/Headers/fields/SoSFBitMask.h \
+  /Library/Frameworks/Inventor.framework/Headers/fields/SoSFEnum.h \
+  /Library/Frameworks/Inventor.framework/Headers/fields/SoSField.h \
+  /Library/Frameworks/Inventor.framework/Headers/fields/SoField.h \
+  /Library/Frameworks/Inventor.framework/Headers/fields/SoMField.h \
+  /Library/Frameworks/Inventor.framework/Headers/fields/SoSubField.h \
+  /Library/Frameworks/Inventor.framework/Headers/SoInput.h \
+  /Library/Frameworks/Inventor.framework/Headers/SoDB.h \
+  /Library/Frameworks/Inventor.framework/Headers/SbString.h \
+  /usr/include/c++/4.2.1/cstdio /usr/include/c++/4.2.1/bits/c++config.h \
+  /usr/include/c++/4.2.1/bits/os_defines.h /usr/include/unistd.h \
+  /usr/include/sys/unistd.h /usr/include/sys/select.h \
+  /usr/include/sys/_select.h /usr/include/c++/4.2.1/bits/cpu_defines.h \
+  /usr/include/c++/4.2.1/cstddef \
+  /Library/Frameworks/Inventor.framework/Headers/C/base/string.h \
+  /Library/Frameworks/Inventor.framework/Headers/sensors/SoSensorManager.h \
+  /Library/Frameworks/Inventor.framework/Headers/SoOutput.h \
+  /Library/Frameworks/Inventor.framework/Headers/fields/SoSFFloat.h \
+  /Library/Frameworks/Inventor.framework/Headers/nodes/SoShape.h \
+  /Library/Frameworks/Inventor.framework/Headers/elements/SoMultiTextureCoordinateElement.h \
+  /Library/Frameworks/Inventor.framework/Headers/elements/SoElement.h \
+  /Library/Frameworks/Inventor.framework/Headers/misc/SoState.h \
+  /Library/Frameworks/Inventor.framework/Headers/elements/SoSubElement.h \
+  /Library/Frameworks/Inventor.framework/Headers/SbVec2f.h \
+  /Library/Frameworks/Inventor.framework/Headers/errors/SoDebugError.h \
+  /Library/Frameworks/Inventor.framework/Headers/errors/SoError.h \
+  /Library/Frameworks/Inventor.framework/Headers/C/errors/error.h \
+  /Library/Frameworks/Inventor.framework/Headers/C/errors/debugerror.h \
+  /Library/Frameworks/Inventor.framework/Headers/SbVec3f.h \
+  /Library/Frameworks/Inventor.framework/Headers/SbByteBuffer.h \
+  /usr/include/c++/4.2.1/cstring \
+  /Library/Frameworks/Inventor.framework/Headers/SbVec4f.h \
+  /Library/Frameworks/Inventor.framework/Headers/SbMatrix.h \
+  /Library/Frameworks/Inventor.framework/Headers/SbVec2s.h \
+  /Library/Frameworks/Inventor.framework/Headers/SbBox3f.h \
+  /Library/Frameworks/Inventor.framework/Headers/nodes/SoBaseColor.h \
+  /Library/Frameworks/Inventor.framework/Headers/fields/SoMFColor.h \
+  /Library/Frameworks/Inventor.framework/Headers/SbColor.h \
+  /Library/Frameworks/Inventor.framework/Headers/nodes/SoSeparator.h \
+  /Library/Frameworks/Inventor.framework/Headers/nodes/SoGroup.h \
+  /Library/Frameworks/Inventor.framework/Headers/tools/SbPimplPtr.h \
+  ../../include/Quarter/Quarter.h ../../include/Quarter/Basic.h \
+  ../../include/Quarter/QuarterWidget.h \
+  /Library/Frameworks/Inventor.framework/Headers/SoRenderManager.h \
+  /Library/Frameworks/Inventor.framework/Headers/SbColor4f.h \
+  /Library/Frameworks/Inventor.framework/Headers/actions/SoGLRenderAction.h \
+  /Library/Frameworks/Inventor.framework/Headers/actions/SoAction.h \
+  /Library/Frameworks/Inventor.framework/Headers/misc/SoTempPath.h \
+  /Library/Frameworks/Inventor.framework/Headers/SoFullPath.h \
+  /Library/Frameworks/Inventor.framework/Headers/SoPath.h \
+  /Library/Frameworks/Inventor.framework/Headers/misc/SoLightPath.h \
+  /Library/Frameworks/Inventor.framework/Headers/lists/SoActionMethodList.h \
+  /Library/Frameworks/Inventor.framework/Headers/actions/SoSubAction.h \
+  /Library/Frameworks/Inventor.framework/Headers/SbViewportRegion.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/QColor \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qcolor.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qrgb.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qglobal.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qconfig.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qfeatures.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qsystemdetection.h \
+  /usr/include/AvailabilityMacros.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qcompilerdetection.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qprocessordetection.h \
+  /usr/include/c++/4.2.1/algorithm \
+  /usr/include/c++/4.2.1/bits/stl_algobase.h \
+  /usr/include/c++/4.2.1/climits \
+  /usr/llvm-gcc-4.2/bin/../lib/gcc/i686-apple-darwin11/4.2.1/include/limits.h \
+  /usr/llvm-gcc-4.2/bin/../lib/gcc/i686-apple-darwin11/4.2.1/include/syslimits.h \
+  /Applications/Xcode.app/Contents/Developer/usr/llvm-gcc-4.2/lib/gcc/i686-apple-darwin11/4.2.1/include/limits.h \
+  /Applications/Xcode.app/Contents/Developer/usr/llvm-gcc-4.2/lib/gcc/i686-apple-darwin11/4.2.1/include/syslimits.h \
+  /usr/include/limits.h /usr/include/machine/limits.h \
+  /usr/include/i386/limits.h /usr/include/i386/_limits.h \
+  /usr/include/sys/syslimits.h /usr/include/c++/4.2.1/cstdlib \
+  /usr/include/c++/4.2.1/iosfwd /usr/include/c++/4.2.1/bits/c++locale.h \
+  /usr/include/c++/4.2.1/clocale /usr/include/locale.h \
+  /usr/include/_locale.h /usr/include/c++/4.2.1/cstdarg \
+  /usr/include/c++/4.2.1/bits/c++io.h /usr/include/c++/4.2.1/bits/gthr.h \
+  /usr/include/c++/4.2.1/bits/gthr-default.h /usr/include/pthread.h \
+  /usr/include/pthread_impl.h /usr/include/sched.h /usr/include/time.h \
+  /usr/include/_structs.h /usr/include/c++/4.2.1/cctype \
+  /usr/include/ctype.h /usr/include/runetype.h \
+  /usr/include/c++/4.2.1/bits/stringfwd.h \
+  /usr/include/c++/4.2.1/bits/postypes.h /usr/include/c++/4.2.1/cwchar \
+  /usr/include/c++/4.2.1/ctime /usr/include/wchar.h \
+  /usr/include/_wctype.h /usr/include/c++/4.2.1/bits/functexcept.h \
+  /usr/include/c++/4.2.1/exception_defines.h \
+  /usr/include/c++/4.2.1/bits/stl_pair.h \
+  /usr/include/c++/4.2.1/bits/cpp_type_traits.h \
+  /usr/include/c++/4.2.1/ext/type_traits.h /usr/include/c++/4.2.1/utility \
+  /usr/include/c++/4.2.1/bits/stl_relops.h \
+  /usr/include/c++/4.2.1/bits/stl_iterator_base_types.h \
+  /usr/include/c++/4.2.1/bits/stl_iterator_base_funcs.h \
+  /usr/include/c++/4.2.1/bits/concept_check.h \
+  /usr/include/c++/4.2.1/bits/stl_iterator.h \
+  /usr/include/c++/4.2.1/debug/debug.h \
+  /usr/include/c++/4.2.1/bits/stl_construct.h /usr/include/c++/4.2.1/new \
+  /usr/include/c++/4.2.1/exception \
+  /usr/include/c++/4.2.1/bits/stl_uninitialized.h \
+  /usr/include/c++/4.2.1/bits/stl_algo.h \
+  /usr/include/c++/4.2.1/bits/stl_heap.h \
+  /usr/include/c++/4.2.1/bits/stl_tempbuf.h /usr/include/c++/4.2.1/memory \
+  /usr/include/c++/4.2.1/bits/allocator.h \
+  /usr/include/c++/4.2.1/bits/c++allocator.h \
+  /usr/include/c++/4.2.1/ext/new_allocator.h \
+  /usr/include/c++/4.2.1/bits/stl_raw_storage_iter.h \
+  /usr/include/c++/4.2.1/limits \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qlogging.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qflags.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qtypeinfo.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qtypetraits.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qsysinfo.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qnamespace.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qstringlist.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qalgorithms.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qdatastream.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qscopedpointer.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qiodevice.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qobject.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qobjectdefs.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qobjectdefs_impl.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qstring.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qchar.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qbytearray.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qrefcount.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qatomic.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qbasicatomic.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qatomic_x86.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qgenericatomic.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qarraydata.h \
+  /usr/include/c++/4.2.1/string /usr/include/c++/4.2.1/bits/char_traits.h \
+  /usr/include/c++/4.2.1/bits/ostream_insert.h \
+  /usr/include/c++/4.2.1/bits/stl_function.h \
+  /usr/include/c++/4.2.1/bits/basic_string.h \
+  /usr/include/c++/4.2.1/ext/atomicity.h \
+  /usr/include/c++/4.2.1/bits/atomic_word.h \
+  /usr/include/c++/4.2.1/bits/basic_string.tcc \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qlist.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qiterator.h \
+  /usr/include/c++/4.2.1/iterator /usr/include/c++/4.2.1/ostream \
+  /usr/include/c++/4.2.1/ios /usr/include/c++/4.2.1/bits/localefwd.h \
+  /usr/include/c++/4.2.1/bits/ios_base.h \
+  /usr/include/c++/4.2.1/bits/locale_classes.h \
+  /usr/include/c++/4.2.1/streambuf \
+  /usr/include/c++/4.2.1/bits/streambuf.tcc \
+  /usr/include/c++/4.2.1/bits/basic_ios.h \
+  /usr/include/c++/4.2.1/bits/streambuf_iterator.h \
+  /usr/include/c++/4.2.1/bits/locale_facets.h \
+  /usr/include/c++/4.2.1/cwctype /usr/include/wctype.h \
+  /usr/include/c++/4.2.1/bits/ctype_base.h \
+  /usr/include/c++/4.2.1/bits/ctype_inline.h \
+  /usr/include/c++/4.2.1/bits/codecvt.h \
+  /usr/include/c++/4.2.1/bits/time_members.h \
+  /usr/include/c++/4.2.1/bits/messages_members.h \
+  /usr/include/c++/4.2.1/bits/basic_ios.tcc \
+  /usr/include/c++/4.2.1/bits/ostream.tcc /usr/include/c++/4.2.1/locale \
+  /usr/include/c++/4.2.1/bits/locale_facets.tcc \
+  /usr/include/c++/4.2.1/typeinfo /usr/include/c++/4.2.1/istream \
+  /usr/include/c++/4.2.1/bits/istream.tcc \
+  /usr/include/c++/4.2.1/bits/stream_iterator.h \
+  /usr/include/c++/4.2.1/list /usr/include/c++/4.2.1/bits/stl_list.h \
+  /usr/include/c++/4.2.1/bits/list.tcc \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qmetatype.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qvarlengtharray.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qcontainerfwd.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qisenum.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qobject_impl.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qpair.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qregexp.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qstringmatcher.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/QUrl \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qurl.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtOpenGL.framework/Headers/QGLWidget \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtOpenGL.framework/Headers/qgl.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qwindowdefs.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qmargins.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qpaintdevice.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qrect.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qsize.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qpoint.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qpalette.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qcolor.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qbrush.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qvector.h \
+  /usr/include/c++/4.2.1/vector /usr/include/c++/4.2.1/bits/stl_vector.h \
+  /usr/include/c++/4.2.1/bits/stl_bvector.h \
+  /usr/include/c++/4.2.1/bits/vector.tcc \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qmatrix.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qpolygon.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qregion.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qline.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qtransform.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qpainterpath.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qimage.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qpixmap.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qsharedpointer.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qshareddata.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qsharedpointer_impl.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qhash.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qfont.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qfontmetrics.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qfontinfo.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtWidgets.framework/Headers/qsizepolicy.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qcursor.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qkeysequence.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qpaintengine.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qpainter.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qtextoption.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qpen.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtOpenGL.framework/Headers/qglcolormap.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtOpenGL.framework/Headers/qtopenglglobal.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qmap.h \
+  /usr/include/c++/4.2.1/map /usr/include/c++/4.2.1/bits/stl_tree.h \
+  /usr/include/c++/4.2.1/bits/stl_map.h \
+  /usr/include/c++/4.2.1/bits/stl_multimap.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/QSurfaceFormat \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qsurfaceformat.h \
+  /System/Library/Frameworks/OpenGL.framework/Headers/gl.h \
+  /System/Library/Frameworks/OpenGL.framework/Headers/glext.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtWidgets.framework/Headers/QApplication \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtWidgets.framework/Headers/qapplication.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qcoreapplication.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qcoreevent.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qeventloop.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qguiapplication.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qinputmethod.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qlocale.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qvariant.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtWidgets.framework/Headers/qtabwidget.h \
+  /Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qicon.h
+
+/Library/Frameworks/Inventor.framework/Headers/nodes/SoCone.h:
+
+/Library/Frameworks/Inventor.framework/Headers/nodes/SoSubNode.h:
+
+/usr/include/string.h:
+
+/usr/include/_types.h:
+
+/usr/include/sys/_types.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/sys/_symbol_aliasing.h:
+
+/usr/include/sys/_posix_availability.h:
+
+/usr/include/machine/_types.h:
+
+/usr/include/i386/_types.h:
+
+/usr/include/Availability.h:
+
+/usr/include/AvailabilityInternal.h:
+
+/usr/include/strings.h:
+
+/Library/Frameworks/Inventor.framework/Headers/SbName.h:
+
+/Library/Frameworks/Inventor.framework/Headers/SbBasic.h:
+
+/Library/Frameworks/Inventor.framework/Headers/C/basic.h:
+
+/Library/Frameworks/Inventor.framework/Headers/system/inttypes.h:
+
+/usr/include/inttypes.h:
+
+/usr/include/stdint.h:
+
+/usr/include/sys/types.h:
+
+/usr/include/sys/appleapiopts.h:
+
+/usr/include/machine/types.h:
+
+/usr/include/i386/types.h:
+
+/usr/include/i386/_types.h:
+
+/usr/include/machine/endian.h:
+
+/usr/include/i386/endian.h:
+
+/usr/include/sys/_endian.h:
+
+/usr/include/libkern/_OSByteOrder.h:
+
+/usr/include/libkern/i386/_OSByteOrder.h:
+
+/usr/include/sys/_structs.h:
+
+/usr/llvm-gcc-4.2/bin/../lib/gcc/i686-apple-darwin11/4.2.1/include/stddef.h:
+
+/usr/include/math.h:
+
+/Library/Frameworks/Inventor.framework/Headers/SoType.h:
+
+/usr/include/stdlib.h:
+
+/usr/include/sys/wait.h:
+
+/usr/include/sys/signal.h:
+
+/usr/include/machine/signal.h:
+
+/usr/include/i386/signal.h:
+
+/usr/include/i386/_structs.h:
+
+/usr/include/machine/_structs.h:
+
+/usr/include/mach/i386/_structs.h:
+
+/usr/include/sys/resource.h:
+
+/usr/include/alloca.h:
+
+/Library/Frameworks/Inventor.framework/Headers/SbDict.h:
+
+/Library/Frameworks/Inventor.framework/Headers/fields/SoFieldData.h:
+
+/Library/Frameworks/Inventor.framework/Headers/lists/SbList.h:
+
+/usr/include/assert.h:
+
+/Library/Frameworks/Inventor.framework/Headers/nodes/SoNode.h:
+
+/Library/Frameworks/Inventor.framework/Headers/fields/SoFieldContainer.h:
+
+/Library/Frameworks/Inventor.framework/Headers/misc/SoBase.h:
+
+/Library/Frameworks/Inventor.framework/Headers/lists/SoAuditorList.h:
+
+/Library/Frameworks/Inventor.framework/Headers/lists/SbPList.h:
+
+/Library/Frameworks/Inventor.framework/Headers/misc/SoNotification.h:
+
+/Library/Frameworks/Inventor.framework/Headers/misc/SoNotRec.h:
+
+/usr/include/stdio.h:
+
+/Library/Frameworks/Inventor.framework/Headers/C/base/rbptree.h:
+
+/usr/llvm-gcc-4.2/bin/../lib/gcc/i686-apple-darwin11/4.2.1/include/stdarg.h:
+
+/Library/Frameworks/Inventor.framework/Headers/SoLists.h:
+
+/Library/Frameworks/Inventor.framework/Headers/lists/SbIntList.h:
+
+/Library/Frameworks/Inventor.framework/Headers/lists/SoBaseList.h:
+
+/Library/Frameworks/Inventor.framework/Headers/lists/SoDetailList.h:
+
+/Library/Frameworks/Inventor.framework/Headers/lists/SoEnabledElementsList.h:
+
+/Library/Frameworks/Inventor.framework/Headers/lists/SoTypeList.h:
+
+/Library/Frameworks/Inventor.framework/Headers/lists/SoEngineOutputList.h:
+
+/Library/Frameworks/Inventor.framework/Headers/lists/SoEngineList.h:
+
+/Library/Frameworks/Inventor.framework/Headers/lists/SoFieldList.h:
+
+/Library/Frameworks/Inventor.framework/Headers/lists/SoNodeList.h:
+
+/Library/Frameworks/Inventor.framework/Headers/lists/SoPathList.h:
+
+/Library/Frameworks/Inventor.framework/Headers/lists/SoPickedPointList.h:
+
+/Library/Frameworks/Inventor.framework/Headers/C/tidbits.h:
+
+/Library/Frameworks/Inventor.framework/Headers/fields/SoSFBitMask.h:
+
+/Library/Frameworks/Inventor.framework/Headers/fields/SoSFEnum.h:
+
+/Library/Frameworks/Inventor.framework/Headers/fields/SoSField.h:
+
+/Library/Frameworks/Inventor.framework/Headers/fields/SoField.h:
+
+/Library/Frameworks/Inventor.framework/Headers/fields/SoMField.h:
+
+/Library/Frameworks/Inventor.framework/Headers/fields/SoSubField.h:
+
+/Library/Frameworks/Inventor.framework/Headers/SoInput.h:
+
+/Library/Frameworks/Inventor.framework/Headers/SoDB.h:
+
+/Library/Frameworks/Inventor.framework/Headers/SbString.h:
+
+/usr/include/c++/4.2.1/cstdio:
+
+/usr/include/c++/4.2.1/bits/c++config.h:
+
+/usr/include/c++/4.2.1/bits/os_defines.h:
+
+/usr/include/unistd.h:
+
+/usr/include/sys/unistd.h:
+
+/usr/include/sys/select.h:
+
+/usr/include/sys/_select.h:
+
+/usr/include/c++/4.2.1/bits/cpu_defines.h:
+
+/usr/include/c++/4.2.1/cstddef:
+
+/Library/Frameworks/Inventor.framework/Headers/C/base/string.h:
+
+/Library/Frameworks/Inventor.framework/Headers/sensors/SoSensorManager.h:
+
+/Library/Frameworks/Inventor.framework/Headers/SoOutput.h:
+
+/Library/Frameworks/Inventor.framework/Headers/fields/SoSFFloat.h:
+
+/Library/Frameworks/Inventor.framework/Headers/nodes/SoShape.h:
+
+/Library/Frameworks/Inventor.framework/Headers/elements/SoMultiTextureCoordinateElement.h:
+
+/Library/Frameworks/Inventor.framework/Headers/elements/SoElement.h:
+
+/Library/Frameworks/Inventor.framework/Headers/misc/SoState.h:
+
+/Library/Frameworks/Inventor.framework/Headers/elements/SoSubElement.h:
+
+/Library/Frameworks/Inventor.framework/Headers/SbVec2f.h:
+
+/Library/Frameworks/Inventor.framework/Headers/errors/SoDebugError.h:
+
+/Library/Frameworks/Inventor.framework/Headers/errors/SoError.h:
+
+/Library/Frameworks/Inventor.framework/Headers/C/errors/error.h:
+
+/Library/Frameworks/Inventor.framework/Headers/C/errors/debugerror.h:
+
+/Library/Frameworks/Inventor.framework/Headers/SbVec3f.h:
+
+/Library/Frameworks/Inventor.framework/Headers/SbByteBuffer.h:
+
+/usr/include/c++/4.2.1/cstring:
+
+/Library/Frameworks/Inventor.framework/Headers/SbVec4f.h:
+
+/Library/Frameworks/Inventor.framework/Headers/SbMatrix.h:
+
+/Library/Frameworks/Inventor.framework/Headers/SbVec2s.h:
+
+/Library/Frameworks/Inventor.framework/Headers/SbBox3f.h:
+
+/Library/Frameworks/Inventor.framework/Headers/nodes/SoBaseColor.h:
+
+/Library/Frameworks/Inventor.framework/Headers/fields/SoMFColor.h:
+
+/Library/Frameworks/Inventor.framework/Headers/SbColor.h:
+
+/Library/Frameworks/Inventor.framework/Headers/nodes/SoSeparator.h:
+
+/Library/Frameworks/Inventor.framework/Headers/nodes/SoGroup.h:
+
+/Library/Frameworks/Inventor.framework/Headers/tools/SbPimplPtr.h:
+
+../../include/Quarter/Quarter.h:
+
+../../include/Quarter/Basic.h:
+
+../../include/Quarter/QuarterWidget.h:
+
+/Library/Frameworks/Inventor.framework/Headers/SoRenderManager.h:
+
+/Library/Frameworks/Inventor.framework/Headers/SbColor4f.h:
+
+/Library/Frameworks/Inventor.framework/Headers/actions/SoGLRenderAction.h:
+
+/Library/Frameworks/Inventor.framework/Headers/actions/SoAction.h:
+
+/Library/Frameworks/Inventor.framework/Headers/misc/SoTempPath.h:
+
+/Library/Frameworks/Inventor.framework/Headers/SoFullPath.h:
+
+/Library/Frameworks/Inventor.framework/Headers/SoPath.h:
+
+/Library/Frameworks/Inventor.framework/Headers/misc/SoLightPath.h:
+
+/Library/Frameworks/Inventor.framework/Headers/lists/SoActionMethodList.h:
+
+/Library/Frameworks/Inventor.framework/Headers/actions/SoSubAction.h:
+
+/Library/Frameworks/Inventor.framework/Headers/SbViewportRegion.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/QColor:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qcolor.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qrgb.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qglobal.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qconfig.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qfeatures.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qsystemdetection.h:
+
+/usr/include/AvailabilityMacros.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qcompilerdetection.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qprocessordetection.h:
+
+/usr/include/c++/4.2.1/algorithm:
+
+/usr/include/c++/4.2.1/bits/stl_algobase.h:
+
+/usr/include/c++/4.2.1/climits:
+
+/usr/llvm-gcc-4.2/bin/../lib/gcc/i686-apple-darwin11/4.2.1/include/limits.h:
+
+/usr/llvm-gcc-4.2/bin/../lib/gcc/i686-apple-darwin11/4.2.1/include/syslimits.h:
+
+/Applications/Xcode.app/Contents/Developer/usr/llvm-gcc-4.2/lib/gcc/i686-apple-darwin11/4.2.1/include/limits.h:
+
+/Applications/Xcode.app/Contents/Developer/usr/llvm-gcc-4.2/lib/gcc/i686-apple-darwin11/4.2.1/include/syslimits.h:
+
+/usr/include/limits.h:
+
+/usr/include/machine/limits.h:
+
+/usr/include/i386/limits.h:
+
+/usr/include/i386/_limits.h:
+
+/usr/include/sys/syslimits.h:
+
+/usr/include/c++/4.2.1/cstdlib:
+
+/usr/include/c++/4.2.1/iosfwd:
+
+/usr/include/c++/4.2.1/bits/c++locale.h:
+
+/usr/include/c++/4.2.1/clocale:
+
+/usr/include/locale.h:
+
+/usr/include/_locale.h:
+
+/usr/include/c++/4.2.1/cstdarg:
+
+/usr/include/c++/4.2.1/bits/c++io.h:
+
+/usr/include/c++/4.2.1/bits/gthr.h:
+
+/usr/include/c++/4.2.1/bits/gthr-default.h:
+
+/usr/include/pthread.h:
+
+/usr/include/pthread_impl.h:
+
+/usr/include/sched.h:
+
+/usr/include/time.h:
+
+/usr/include/_structs.h:
+
+/usr/include/c++/4.2.1/cctype:
+
+/usr/include/ctype.h:
+
+/usr/include/runetype.h:
+
+/usr/include/c++/4.2.1/bits/stringfwd.h:
+
+/usr/include/c++/4.2.1/bits/postypes.h:
+
+/usr/include/c++/4.2.1/cwchar:
+
+/usr/include/c++/4.2.1/ctime:
+
+/usr/include/wchar.h:
+
+/usr/include/_wctype.h:
+
+/usr/include/c++/4.2.1/bits/functexcept.h:
+
+/usr/include/c++/4.2.1/exception_defines.h:
+
+/usr/include/c++/4.2.1/bits/stl_pair.h:
+
+/usr/include/c++/4.2.1/bits/cpp_type_traits.h:
+
+/usr/include/c++/4.2.1/ext/type_traits.h:
+
+/usr/include/c++/4.2.1/utility:
+
+/usr/include/c++/4.2.1/bits/stl_relops.h:
+
+/usr/include/c++/4.2.1/bits/stl_iterator_base_types.h:
+
+/usr/include/c++/4.2.1/bits/stl_iterator_base_funcs.h:
+
+/usr/include/c++/4.2.1/bits/concept_check.h:
+
+/usr/include/c++/4.2.1/bits/stl_iterator.h:
+
+/usr/include/c++/4.2.1/debug/debug.h:
+
+/usr/include/c++/4.2.1/bits/stl_construct.h:
+
+/usr/include/c++/4.2.1/new:
+
+/usr/include/c++/4.2.1/exception:
+
+/usr/include/c++/4.2.1/bits/stl_uninitialized.h:
+
+/usr/include/c++/4.2.1/bits/stl_algo.h:
+
+/usr/include/c++/4.2.1/bits/stl_heap.h:
+
+/usr/include/c++/4.2.1/bits/stl_tempbuf.h:
+
+/usr/include/c++/4.2.1/memory:
+
+/usr/include/c++/4.2.1/bits/allocator.h:
+
+/usr/include/c++/4.2.1/bits/c++allocator.h:
+
+/usr/include/c++/4.2.1/ext/new_allocator.h:
+
+/usr/include/c++/4.2.1/bits/stl_raw_storage_iter.h:
+
+/usr/include/c++/4.2.1/limits:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qlogging.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qflags.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qtypeinfo.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qtypetraits.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qsysinfo.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qnamespace.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qstringlist.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qalgorithms.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qdatastream.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qscopedpointer.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qiodevice.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qobject.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qobjectdefs.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qobjectdefs_impl.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qstring.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qchar.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qbytearray.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qrefcount.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qatomic.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qbasicatomic.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qatomic_x86.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qgenericatomic.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qarraydata.h:
+
+/usr/include/c++/4.2.1/string:
+
+/usr/include/c++/4.2.1/bits/char_traits.h:
+
+/usr/include/c++/4.2.1/bits/ostream_insert.h:
+
+/usr/include/c++/4.2.1/bits/stl_function.h:
+
+/usr/include/c++/4.2.1/bits/basic_string.h:
+
+/usr/include/c++/4.2.1/ext/atomicity.h:
+
+/usr/include/c++/4.2.1/bits/atomic_word.h:
+
+/usr/include/c++/4.2.1/bits/basic_string.tcc:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qlist.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qiterator.h:
+
+/usr/include/c++/4.2.1/iterator:
+
+/usr/include/c++/4.2.1/ostream:
+
+/usr/include/c++/4.2.1/ios:
+
+/usr/include/c++/4.2.1/bits/localefwd.h:
+
+/usr/include/c++/4.2.1/bits/ios_base.h:
+
+/usr/include/c++/4.2.1/bits/locale_classes.h:
+
+/usr/include/c++/4.2.1/streambuf:
+
+/usr/include/c++/4.2.1/bits/streambuf.tcc:
+
+/usr/include/c++/4.2.1/bits/basic_ios.h:
+
+/usr/include/c++/4.2.1/bits/streambuf_iterator.h:
+
+/usr/include/c++/4.2.1/bits/locale_facets.h:
+
+/usr/include/c++/4.2.1/cwctype:
+
+/usr/include/wctype.h:
+
+/usr/include/c++/4.2.1/bits/ctype_base.h:
+
+/usr/include/c++/4.2.1/bits/ctype_inline.h:
+
+/usr/include/c++/4.2.1/bits/codecvt.h:
+
+/usr/include/c++/4.2.1/bits/time_members.h:
+
+/usr/include/c++/4.2.1/bits/messages_members.h:
+
+/usr/include/c++/4.2.1/bits/basic_ios.tcc:
+
+/usr/include/c++/4.2.1/bits/ostream.tcc:
+
+/usr/include/c++/4.2.1/locale:
+
+/usr/include/c++/4.2.1/bits/locale_facets.tcc:
+
+/usr/include/c++/4.2.1/typeinfo:
+
+/usr/include/c++/4.2.1/istream:
+
+/usr/include/c++/4.2.1/bits/istream.tcc:
+
+/usr/include/c++/4.2.1/bits/stream_iterator.h:
+
+/usr/include/c++/4.2.1/list:
+
+/usr/include/c++/4.2.1/bits/stl_list.h:
+
+/usr/include/c++/4.2.1/bits/list.tcc:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qmetatype.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qvarlengtharray.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qcontainerfwd.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qisenum.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qobject_impl.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qpair.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qregexp.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qstringmatcher.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/QUrl:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qurl.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtOpenGL.framework/Headers/QGLWidget:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtOpenGL.framework/Headers/qgl.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtWidgets.framework/Headers/qwidget.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qwindowdefs.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qmargins.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qpaintdevice.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qrect.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qsize.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qpoint.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qpalette.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qcolor.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qbrush.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qvector.h:
+
+/usr/include/c++/4.2.1/vector:
+
+/usr/include/c++/4.2.1/bits/stl_vector.h:
+
+/usr/include/c++/4.2.1/bits/stl_bvector.h:
+
+/usr/include/c++/4.2.1/bits/vector.tcc:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qmatrix.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qpolygon.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qregion.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qline.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qtransform.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qpainterpath.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qimage.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qpixmap.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qsharedpointer.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qshareddata.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qsharedpointer_impl.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qhash.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qfont.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qfontmetrics.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qfontinfo.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtWidgets.framework/Headers/qsizepolicy.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qcursor.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qkeysequence.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qpaintengine.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qpainter.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qtextoption.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qpen.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtOpenGL.framework/Headers/qglcolormap.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtOpenGL.framework/Headers/qtopenglglobal.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qmap.h:
+
+/usr/include/c++/4.2.1/map:
+
+/usr/include/c++/4.2.1/bits/stl_tree.h:
+
+/usr/include/c++/4.2.1/bits/stl_map.h:
+
+/usr/include/c++/4.2.1/bits/stl_multimap.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/QSurfaceFormat:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qsurfaceformat.h:
+
+/System/Library/Frameworks/OpenGL.framework/Headers/gl.h:
+
+/System/Library/Frameworks/OpenGL.framework/Headers/glext.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtWidgets.framework/Headers/QApplication:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtWidgets.framework/Headers/qapplication.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qcoreapplication.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qcoreevent.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qeventloop.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qguiapplication.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qinputmethod.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qlocale.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtCore.framework/Headers/qvariant.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtWidgets.framework/Headers/QMainWindow:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtWidgets.framework/Headers/qtabwidget.h:
+
+/Users/oreilly/Qt5.0.0/5.0.0/clang_64/lib/QtGui.framework/Headers/qicon.h:

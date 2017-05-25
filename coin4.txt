@@ -1,0 +1,10 @@
+
+
+cd coin4_build
+rm -rf *
+export PATH=/home/ed/Coin3D/coin4_install/bin:$PATH
+../coin4/configure --prefix=/home/ed/Coin3D/coin4_install --enable-3ds-import
+make
+make install
+
+

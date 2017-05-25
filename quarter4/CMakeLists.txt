@@ -40,7 +40,7 @@ INCLUDE_DIRECTORIES(${PROJECT_BINARY_DIR})
 # What to build
 ADD_SUBDIRECTORY(src)
 
-SET(CMAKE_INSTALL_PREFIX /home/ed/Coin3D/emergent/coin_install)
+SET(CMAKE_INSTALL_PREFIX /home/ed/Coin3D/coin4_install)
 
 #Install the public headers
 INSTALL(DIRECTORY include/Quarter/ DESTINATION include/Quarter

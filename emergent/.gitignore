@@ -1,8 +1,9 @@
 coin_install
 coin_build
 
-quarter4_build
-
 quarter_build
 
 quarter_examples
+
+viewer_build
+viewer_install

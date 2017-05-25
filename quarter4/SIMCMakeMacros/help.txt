@@ -1,0 +1,6 @@
+#rm -rf *
+
+cmake ../quarter -G "MSYS Makefiles"
+
+make -k
+
