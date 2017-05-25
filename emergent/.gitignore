@@ -1,6 +1,8 @@
+coin_install
 coin_build
-quarter_build
-quarter_examples
 
-bin_coin
-obj_coin
+quarter4_build
+
+quarter_build
+
+quarter_examples
