@@ -1,0 +1,16 @@
+
+# Down in a viewer build try this:
+g++ -fPIC \
+ -I/home/ed/Coin3D/coin4_install/include \
+ -I/home/ed/Coin3D/coin4_install/include/Inventor \
+ -I/home/ed/Coin3D/coin4_install/include/Inventor/annex \
+ -I/home/ed/Coin3D/coin4_install/include/Inventor/scxml \
+ -I/usr/include/x86_64-linux-gnu/qt5 \
+ -D_REENTRANT \
+ -o viewer \
+ ../viewer/viewer.cpp \
+ viewer_automoc.cpp \
+ -L/home/ed/Coin3D/coin4_install/lib \
+ -lQuarter \
+ -lCoin -lGL -lXext -lSM -lICE -lX11 -ldl -lpthread \
+ -lQt5Widgets -lQt5Gui -lQt53DCore -lQt5Core
