@@ -26,8 +26,8 @@ typedef struct XML_ParserStruct *XML_Parser;
 
 /* Should this be defined using stdbool.h when C99 is available? */
 typedef unsigned char XML_Bool;
-#define XML_true   ((XML_Bool) 1)
-#define XML_false  ((XML_Bool) 0)
+#define XML_TRUE   ((XML_Bool) 1)
+#define XML_FALSE  ((XML_Bool) 0)
 
 /* The XML_Status enum gives the possible return values for several
    API functions.  The preprocessor #defines are included so this
@@ -689,13 +689,13 @@ XML_SetEncoding(XML_Parser parser, const XML_Char *encoding);
 XMLPARSEAPI(void)
 XML_UseParserAsHandlerArg(XML_Parser parser);
 
-/* If useDTD == XML_true is passed to this function, then the parser
+/* If useDTD == XML_TRUE is passed to this function, then the parser
    will assume that there is an external subset, even if none is
    specified in the document. In such a case the parser will call the
    externalEntityRefHandler with a value of NULL for the systemId
    argument (the publicId and context arguments will be NULL as well).
    Note: For the purpose of checking WFC: Entity Declared, passing
-     useDTD == XML_true will make the parser behave as if the document
+     useDTD == XML_TRUE will make the parser behave as if the document
      had a DTD with an external subset.
    Note: If this function is called, then this must be done before
      the first call to XML_Parse or XML_ParseBuffer, since it will
