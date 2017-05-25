@@ -3478,14 +3478,14 @@ fi
 
 
 # Libtool versioning
-LT_CURRENT=80
+LT_CURRENT=100
 
 LT_REVISION=0
 
 LT_AGE=0
 
 
-COIN_SO_VERSION=80
+COIN_SO_VERSION=100
 
 
 #  These are for include/Inventor/C/basic.h.
