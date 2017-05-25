@@ -25,3 +25,20 @@ COIN_MAJOR_VERSION
 
 COIN_SO_VERSION
 ----------------------------------
+
+
+ABI incompatibility building a viewer with quarter:
+---------------------------------------------------
+ed@bad-horse:~/Coin3D/quarter4_build$ g++ -fPIC  -I/home/ed/Coin3D/coin4_install/include  -I/home/ed/Coin3D/coin4_install/include/Inventor/annex  -I/usr/include/x86_64-linux-gnu/qt5  -D_REENTRANT  -o viewer  ../viewer/viewer.cpp  -L/home/ed/Coin3D/coin4_install/lib  -lQuarter  -lCoin -lGL -lXext -lSM -lICE -lX11 -ldl -lpthread  -lQt5Widgets -lQt5Gui -lQt53DCore -lQt5Core
+/home/ed/Coin3D/coin4_install/lib/libQuarter.so: undefined reference to `SoInput::openFile(char const*, int)'
+/home/ed/Coin3D/coin4_install/lib/libCoin.so: undefined reference to `SoInput::read(bool&)'
+/home/ed/Coin3D/coin4_install/lib/libQuarter.so: undefined reference to `SoEvent::setAltDown(int)'
+/home/ed/Coin3D/coin4_install/lib/libQuarter.so: undefined reference to `SoSensorManager::processDelayQueue(int)'
+/home/ed/Coin3D/coin4_install/lib/libQuarter.so: undefined reference to `SoSFBool::setValue(int)'
+/home/ed/Coin3D/coin4_install/lib/libQuarter.so: undefined reference to `SbImage::addReadImageCB(int (*)(SbString const&, SbImage*, void*), void*)'
+/home/ed/Coin3D/coin4_install/lib/libQuarter.so: undefined reference to `SoSearchAction::setType(SoType, int)'
+/home/ed/Coin3D/coin4_install/lib/libQuarter.so: undefined reference to `SbImage::removeReadImageCB(int (*)(SbString const&, SbImage*, void*), void*)'
+/home/ed/Coin3D/coin4_install/lib/libQuarter.so: undefined reference to `SoEvent::setCtrlDown(int)'
+/home/ed/Coin3D/coin4_install/lib/libQuarter.so: undefined reference to `SoEvent::setShiftDown(int)'
+/home/ed/Coin3D/coin4_install/lib/libQuarter.so: undefined reference to `SbByteBuffer::SbByteBuffer(unsigned long, char const*)'
+/home/ed/Coin3D/coin4_install/lib/libQuarter.so: undefined reference to `SoRenderManager::enableRealTimeUpdate(int)'
