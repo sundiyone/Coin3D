@@ -152,7 +152,7 @@ dump_cc_flw_font(const char * srcfunc, struct cc_flw_font * f)
                          cc_string_get_text(f->requestname),
                          f->glyphdict, f->sizey, f->angle,
                          f->complexity,
-                         f->defaultfont ? "true" : "false",
+                         f->defaultfont ? "TRUE" : "FALSE",
                          f->fontindex, f->refcount);
 }
 
@@ -163,7 +163,7 @@ dump_cc_flw_glyph(const char * srcfunc, struct cc_flw_glyph * g)
                          "nativeglyphidx==%u, bitmap==%p, vector==%p, "
                          "fromdefaultfont==%s, character=='%c'",
                          g->nativeglyphidx, g->bitmap, g->vector,
-                         g->fromdefaultfont ? "true" : "false",
+                         g->fromdefaultfont ? "TRUE" : "FALSE",
                          g->character);
 }
 
@@ -379,7 +379,7 @@ flw_exit(void)
             cc_string_get_text(fs->requestname),
             fs->glyphdict, fs->sizey, fs->angle,
             fs->complexity,
-            fs->defaultfont ? "true" : "false",
+            fs->defaultfont ? "TRUE" : "FALSE",
             fs->fontindex, fs->refcount);
 #endif /* COIN_DEBUG */
 

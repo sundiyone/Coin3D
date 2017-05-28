@@ -232,7 +232,7 @@ SoTimerSensor::unschedule(void)
   if (!this->isScheduled()) {
     SoDebugError::postWarning("SoTimerSensor::unschedule",
                               "%p not scheduled (istriggering=%s)",
-                              this, this->istriggering ? "true" : "false");
+                              this, this->istriggering ? "TRUE" : "FALSE");
     return;
   }
 #endif // COIN_DEBUG

@@ -694,7 +694,7 @@ SoField::setDefault(bool def)
   if (wLevel>=3) {
     SbString finfo = SoFieldP::getDebugIdString(this);
     SoDebugError::postInfo("SoField::setDefault", "%s, setDefault(%s)",
-                           finfo.getString(), def ? "true" : "false");
+                           finfo.getString(), def ? "TRUE" : "FALSE");
   }
 #endif //COIN_DEBUG_EXTRA
 

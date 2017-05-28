@@ -525,7 +525,7 @@ SoEngine::shouldCopy(void) const
 #if COIN_DEBUG && 0 // debug
   SoDebugError::postInfo("SoEngine::shouldCopy", "%p - %s, result==%s",
                          this, this->getTypeId().getName().getString(),
-                         result ? "true" : "false");
+                         result ? "TRUE" : "FALSE");
 #endif // debug
 
   return result;

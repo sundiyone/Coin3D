@@ -433,7 +433,7 @@ SoGLCacheList::call(SoGLRenderAction * action)
       SoGLRenderCache * cache = PRIVATE(this)->itemlist[i];
       if (cache->getCacheContext() == context) {
         SoDebugError::postInfo("SoGLCacheList::call",
-                               "cache %d isValid()? %s", i, cache->isValid(state) ? "true" : "false");
+                               "cache %d isValid()? %s", i, cache->isValid(state) ? "TRUE" : "FALSE");
         if (!cache->isValid(state)) {
           const SoElement * elem = cache->getInvalidElement(state);
           if (elem) {

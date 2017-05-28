@@ -65,8 +65,8 @@ LINE                [^\n]*
 ID                  {LETTER}({LETTER}|{DIGIT}|[_])*("()")?
 MLID                {ID}("."{ID})*
 
-true                ("true"|"True"|"true")
-false               ("false"|"False"|"false")
+true                ("TRUE"|"True"|"true")
+false               ("FALSE"|"False"|"false")
 EVENTSCOPE          "_event."
 DATASCOPE           "_data."
 CAMERASCOPE         "coin:camera."

@@ -118,12 +118,12 @@ sosfbool_read_value(SoInput * in, bool & val)
     return false;
   }
 
-  if (n == "true") {
+  if (n == "TRUE") {
     val = true;
     return true;
   }
 
-  if (n == "false") {
+  if (n == "FALSE") {
     val = false;
     return true;
   }
@@ -141,7 +141,7 @@ void
 sosfbool_write_value(SoOutput * out, bool val)
 {
   if (out->isBinary()) out->write(static_cast<unsigned int>(val ? 1 : 0));
-  else out->write(val ? "true" : "false");
+  else out->write(val ? "TRUE" : "FALSE");
 }
 
 // *************************************************************************

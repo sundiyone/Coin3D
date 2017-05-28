@@ -2518,7 +2518,7 @@ cc_glglue_instance(int contextid)
       cc_debugerror_postinfo("cc_glglue_instance",
                              "glGetString(GL_VENDOR)=='%s' (=> vendor_is_SGI==%s)",
                              gi->vendorstr,
-                             gi->vendor_is_SGI ? "true" : "false");
+                             gi->vendor_is_SGI ? "TRUE" : "FALSE");
       cc_debugerror_postinfo("cc_glglue_instance",
                              "glGetString(GL_RENDERER)=='%s'",
                              gi->rendererstr);
@@ -2540,7 +2540,7 @@ cc_glglue_instance(int contextid)
       if (coin_glglue_debug()) {
         cc_debugerror_postinfo("cc_glglue_instance",
                                "Anisotropic filtering: %s (%g)",
-                               gi->can_do_anisotropic_filtering ? "true" : "false",
+                               gi->can_do_anisotropic_filtering ? "TRUE" : "FALSE",
                                gi->max_anisotropy);
       }
     }

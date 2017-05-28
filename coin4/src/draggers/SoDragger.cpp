@@ -940,6 +940,18 @@ SoDragger::transformMatrixToLocalSpace(const SbMatrix & frommatrix, SbMatrix & t
 }
 
 /*!
+  Can be called by subclasses to trigger value changed callbacks. This might
+  be needed if a field is changed without changing the motion matrix.
+*/
+void
+SoDragger::valueChanged(void)
+{
+  if (PRIVATE(this)->valuechangedcbenabled) {
+    PRIVATE(this)->valueChangedCB.invokeCallbacks(this);
+  }
+}
+
+/*!
   Sets a new current motion matrix for the dragger geometry.
 
   Triggers value changed callbacks if \a matrix is unequal to the
@@ -952,18 +964,6 @@ SoDragger::setMotionMatrix(const SbMatrix & matrix)
   if (matrix != node->matrix.getValue()) {
     node->matrix = matrix;
     this->valueChanged();
-  }
-}
-
-/*!
-  Can be called by subclasses to trigger value changed callbacks. This might
-  be needed if a field is changed without changing the motion matrix.
-*/
-void
-SoDragger::valueChanged(void)
-{
-  if (PRIVATE(this)->valuechangedcbenabled) {
-    PRIVATE(this)->valueChangedCB.invokeCallbacks(this);
   }
 }
 

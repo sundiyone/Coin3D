@@ -145,7 +145,7 @@ CoinOffscreenGLCanvas::setWantedSize(SbVec2s reqsize)
                            " previous size==[%d, %d], resourcehog==%s",
                            reqsize[0], reqsize[1],
                            this->size[0], this->size[1],
-                           resourcehog ? "true" : "false");
+                           resourcehog ? "TRUE" : "FALSE");
   }
 
   if (resourcehog) {

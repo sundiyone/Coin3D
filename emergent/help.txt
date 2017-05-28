@@ -1,9 +1,9 @@
 
-$ export PATH=/home/ed/Coin3D/emergent/coin_install:$PATH
+$ export PATH=/home/ed/Coin3D/emergent/coin_install/bin:$PATH
 
 $ cd coin_build
 $ rm -rf *
-$ ../coin/configure --prefix=/home/ed/Coin3D/emergent/coin_install --enable-3ds-import
+$ ../coin/configure --prefix=/home/ed/Coin3D/emergent/coin_install
 $ make
 $ make install
 

@@ -561,7 +561,7 @@ SoGetBoundingBoxAction::setCenter(const SbVec3f & centerarg,
                          "center: <%f, %f, %f>, transformcenter: %s, "
                          "this->center: <%f, %f, %f>",
                          centerarg[0], centerarg[1], centerarg[2],
-                         transformcenter ? "true" : "false",
+                         transformcenter ? "TRUE" : "FALSE",
                          this->center[0], this->center[1], this->center[2]);
 #endif // debug
 }

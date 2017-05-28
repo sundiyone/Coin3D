@@ -822,9 +822,9 @@ SoVRMLScriptP::initialize(void)
   // Adding true and false to be bug-compatible. 20050719 erikgors.
   SoSFBool * boolean = (SoSFBool *)SoSFBool::createInstance();
   boolean->setValue(true);
-  this->engine->setScriptField(SbName("true"), boolean);
+  this->engine->setScriptField(SbName("TRUE"), boolean);
   boolean->setValue(false);
-  this->engine->setScriptField(SbName("false"), boolean);
+  this->engine->setScriptField(SbName("FALSE"), boolean);
   delete boolean;
 
   // Run initialize function if it exists

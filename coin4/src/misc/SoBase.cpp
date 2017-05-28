@@ -1076,7 +1076,7 @@ SoBase::read(SoInput * in, SoBase *& base, SoType expectedtype)
     // This output is extremely useful when debugging the import code.
     SoDebugError::postInfo("SoBase::read",
                            "SoInput::read(&name, true) => returns %s, name=='%s'",
-                           result ? "true" : "false", name.getString());
+                           result ? "TRUE" : "FALSE", name.getString());
   }
 #endif // COIN_DEBUG
 
@@ -1126,7 +1126,7 @@ SoBase::read(SoInput * in, SoBase *& base, SoType expectedtype)
 #if COIN_DEBUG
   if (SoInputP::debug()) {
     SoDebugError::postInfo("SoBase::read", "done, name=='%s' baseptr==%p, result==%s",
-                           name.getString(), base, result ? "true" : "false");
+                           name.getString(), base, result ? "TRUE" : "FALSE");
   }
 #endif // COIN_DEBUG
 

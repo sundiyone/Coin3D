@@ -72,8 +72,8 @@ SbStringConvert::typeOf(const SbString & str)
     if (str[0] == '-' && str[1] >= '0' && str[1] <= '9') {
       return NUMERIC;
     }
-    if (strcmp(str.getString(), "true") == 0 ||
-        strcmp(str.getString(), "false") == 0) {
+    if (strcmp(str.getString(), "TRUE") == 0 ||
+        strcmp(str.getString(), "FALSE") == 0) {
       return BOOLEAN;
     }
   }

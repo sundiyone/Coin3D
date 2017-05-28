@@ -329,7 +329,7 @@ SoScXMLStateMachine::getVariable(const char * key) const
           SbVec3f pickpos = pp->getPoint();
           PRIVATE(this)->varstring = SbStringConvert::toString(pickpos);
         } else {
-          PRIVATE(this)->varstring.sprintf("false"); // need a valid undefined-value
+          PRIVATE(this)->varstring.sprintf("FALSE"); // need a valid undefined-value
         }
         return PRIVATE(this)->varstring.getString();
       }

@@ -25,7 +25,7 @@
 (define root (new-soseparator))
 
 (define text-a (new-sotext3))
-(-> (-> text-a 'string) 'setValue "false")
+(-> (-> text-a 'string) 'setValue "FALSE")
 (-> root 'addchild text-a)
 
 (append-translation root
@@ -33,7 +33,7 @@
                             0.0 0.0))
 
 (define text-b (new-sotext3))
-(-> (-> text-b 'string) 'setValue "false")
+(-> (-> text-b 'string) 'setValue "FALSE")
 (-> root 'addchild text-b)
 
 (append-translation root
@@ -48,14 +48,14 @@
                             0.0 0.0))
 
 (define text-result (new-sotext3))
-(-> (-> text-result 'string) 'setValue "false")
+(-> (-> text-result 'string) 'setValue "FALSE")
 (-> root 'addchild text-result)
 (append-translation root
                     (vector (* 1.5 (vector-ref (subgraph-size text-result) 0))
                             0.0 0.0))
 
 (define text-inverse (new-sotext3))
-(-> (-> text-inverse 'string) 'setValue "false")
+(-> (-> text-inverse 'string) 'setValue "FALSE")
 (-> root 'addchild text-inverse)
 
 (define booloperation (new-sobooloperation))

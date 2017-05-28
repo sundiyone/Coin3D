@@ -108,10 +108,10 @@ BOOST_AUTO_TEST_CASE(textinput)
 {
   bool ok;
   SoSFBool field;
-  ok = field.set("true");
+  ok = field.set("TRUE");
   BOOST_CHECK_MESSAGE(ok == true, "did not accept 'true'");
   BOOST_CHECK_EQUAL(field.getValue(), true);
-  ok = field.set("false");
+  ok = field.set("FALSE");
   BOOST_CHECK_MESSAGE(ok == true, "did not accept 'false'");
   BOOST_CHECK_EQUAL(field.getValue(), false);
 

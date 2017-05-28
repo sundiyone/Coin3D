@@ -413,10 +413,10 @@ void
 ScXMLBoolDataObj::convertToString(SbString & str) const
 {
   if (this->value) {
-    str = "true";
+    str = "TRUE";
   }
   else {
-    str = "false";
+    str = "FALSE";
   }
 }
 
