@@ -1,1 +1,0 @@
-./configure --enable-debug --enable-symbols --disable-optimization
