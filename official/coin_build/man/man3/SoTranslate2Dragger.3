@@ -1,0 +1,299 @@
+.TH "SoTranslate2Dragger" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoTranslate2Dragger \- The \fBSoTranslate2Dragger\fP class provides a mechanism for the end-user to translate in a plane\&.
+.PP
+Here's how the dragger looks with its default geometry in the inactive state:  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/draggers/SoTranslate2Dragger\&.h>\fP
+.PP
+Inherits \fBSoDragger\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "virtual const \fBSoNodekitCatalog\fP * \fBgetNodekitCatalog\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoTranslate2Dragger\fP (void)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static const \fBSoNodekitCatalog\fP * \fBgetClassNodekitCatalog\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFVec3f\fP \fBtranslation\fP"
+.br
+.ti -1c
+.RI "\fBSoSFVec2f\fP \fBminTranslation\fP"
+.br
+.ti -1c
+.RI "\fBSoSFVec2f\fP \fBmaxTranslation\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fB~SoTranslate2Dragger\fP (void)"
+.br
+.ti -1c
+.RI "virtual SbBool \fBsetUpConnections\fP (SbBool onoff, SbBool doitalways=FALSE)"
+.br
+.ti -1c
+.RI "virtual void \fBsetMotionMatrix\fP (const \fBSbMatrix\fP &m)"
+.br
+.ti -1c
+.RI "void \fBdragStart\fP (void)"
+.br
+.ti -1c
+.RI "void \fBdrag\fP (void)"
+.br
+.ti -1c
+.RI "void \fBdragFinish\fP (void)"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.ti -1c
+.RI "static const \fBSoNodekitCatalog\fP ** \fBgetClassNodekitCatalogPtr\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBstartCB\fP (void *f, \fBSoDragger\fP *d)"
+.br
+.ti -1c
+.RI "static void \fBmotionCB\fP (void *f, \fBSoDragger\fP *d)"
+.br
+.ti -1c
+.RI "static void \fBfinishCB\fP (void *f, \fBSoDragger\fP *d)"
+.br
+.ti -1c
+.RI "static void \fBmetaKeyChangeCB\fP (void *f, \fBSoDragger\fP *d)"
+.br
+.ti -1c
+.RI "static void \fBfieldSensorCB\fP (void *f, \fBSoSensor\fP *s)"
+.br
+.ti -1c
+.RI "static void \fBvalueChangedCB\fP (void *f, \fBSoDragger\fP *d)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFNode\fP \fBaxisFeedbackSwitch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBfeedback\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBfeedbackActive\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBfeedbackSwitch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslator\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslatorActive\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslatorSwitch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBxAxisFeedback\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fByAxisFeedback\fP"
+.br
+.ti -1c
+.RI "\fBSoFieldSensor\fP * \fBfieldSensor\fP"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP \fBworldRestartPt\fP"
+.br
+.ti -1c
+.RI "\fBSbPlaneProjector\fP * \fBplaneProj\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoTranslate2Dragger\fP class provides a mechanism for the end-user to translate in a plane\&.
+.PP
+Here's how the dragger looks with its default geometry in the inactive state: 
+
+ Screen Shot of Default Dragger
+.PP
+Use this dragger to allow the end-user of your application to translate along the X-axis and the Y-axis at the same time, ie freely inside a 3D plane\&. (Use a transformation node in front of the dragger to position it and re-orient it to translate in any plane\&.)
+.PP
+By holding down a \fCSHIFT\fP key, the end-user can temporarily constrain the dragger to a single one of the two axes\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoTranslate1Dragger\fP, \fBSoDragPointDragger\fP 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoTranslate2Dragger::SoTranslate2Dragger (void)"
+Default constructor, sets up the dragger nodekit catalog with the interaction and feedback geometry\&.
+.PP
+Node kit structure (new entries versus parent class marked with arrow prefix):
+.PP
+.PP
+.nf
+CLASS SoTranslate2Dragger
+-->"this"
+      "callbackList"
+      "topSeparator"
+         "motionMatrix"
+         "geomSeparator"
+-->         "translatorSwitch"
+-->            "translator"
+-->            "translatorActive"
+-->         "feedbackSwitch"
+-->            "feedback"
+-->            "feedbackActive"
+-->         "axisFeedbackSwitch"
+-->            "xAxisFeedback"
+-->            "yAxisFeedback".fi
+.PP
+.PP
+(See \fBSoBaseKit::printDiagram()\fP for information about the output formatting\&.)
+.PP
+Detailed information on catalog parts:
+.PP
+.PP
+.nf
+CLASS SoTranslate2Dragger
+PVT   "this",  SoTranslate2Dragger  ---
+      "callbackList",  SoNodeKitListPart [ SoCallback, SoEventCallback ]
+PVT   "topSeparator",  SoSeparator  ---
+PVT   "motionMatrix",  SoMatrixTransform  ---
+PVT   "geomSeparator",  SoSeparator  ---
+PVT   "translatorSwitch",  SoSwitch  ---
+      "translator",  SoSeparator  ---
+      "translatorActive",  SoSeparator  ---
+PVT   "feedbackSwitch",  SoSwitch  ---
+      "feedback",  SoSeparator  ---
+      "feedbackActive",  SoSeparator  ---
+PVT   "axisFeedbackSwitch",  SoSwitch  ---
+      "xAxisFeedback",  SoSeparator  ---
+      "yAxisFeedback",  SoSeparator  ---
+.fi
+.PP
+.PP
+(See \fBSoBaseKit::printTable()\fP for information about the output formatting\&.) 
+.SS "SoTranslate2Dragger::~SoTranslate2Dragger (void)\fC [protected]\fP, \fC [virtual]\fP"
+Protected destructor\&.
+.PP
+(Dragger classes are derived from \fBSoBase\fP, so they are reference counted and automatically destroyed when their reference count goes to 0\&.) 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoTranslate2Dragger::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Reimplemented from \fBSoDragger\fP\&.
+.SS "const \fBSoFieldData\fP * SoTranslate2Dragger::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoDragger\fP\&.
+.SS "const \fBSoNodekitCatalog\fP * SoTranslate2Dragger::getNodekitCatalog (void) const\fC [virtual]\fP"
+Returns the nodekit catalog which defines the layout of this class' kit\&. 
+.PP
+Reimplemented from \fBSoDragger\fP\&.
+.SS "SbBool SoTranslate2Dragger::setUpConnections (SbBool onoff, SbBool doitalways = \fCFALSE\fP)\fC [protected]\fP, \fC [virtual]\fP"
+Sets up all internal connections for instances of this class\&.
+.PP
+(This method will usually not be of interest to the application programmer, unless you want to extend the library with new custom nodekits or dragger classes\&. If so, see the \fBSoBaseKit\fP class documentation\&.) 
+.PP
+Reimplemented from \fBSoInteractionKit\fP\&.
+.SS "void SoTranslate2Dragger::setMotionMatrix (const \fBSbMatrix\fP & matrix)\fC [protected]\fP, \fC [virtual]\fP"
+Sets a new current motion matrix for the dragger geometry\&.
+.PP
+Triggers value changed callbacks if \fImatrix\fP is unequal to the previous motion matrix\&. 
+.PP
+Reimplemented from \fBSoDragger\fP\&.
+.SS "void SoTranslate2Dragger::startCB (void * f, \fBSoDragger\fP * d)\fC [static]\fP, \fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoTranslate2Dragger::motionCB (void * f, \fBSoDragger\fP * d)\fC [static]\fP, \fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoTranslate2Dragger::finishCB (void * f, \fBSoDragger\fP * d)\fC [static]\fP, \fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoTranslate2Dragger::metaKeyChangeCB (void * f, \fBSoDragger\fP * d)\fC [static]\fP, \fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoTranslate2Dragger::fieldSensorCB (void * d, \fBSoSensor\fP * s)\fC [static]\fP, \fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoTranslate2Dragger::valueChangedCB (void * f, \fBSoDragger\fP * d)\fC [static]\fP, \fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoTranslate2Dragger::dragStart (void)\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP Called when dragger is selected (picked) by the user\&. 
+.SS "void SoTranslate2Dragger::drag (void)\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP Called when user drags the mouse after picking the dragger\&. 
+.SS "void SoTranslate2Dragger::dragFinish (void)\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP Called when mouse button is released after picking and interacting with the dragger\&. 
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSoSFVec3f\fP SoTranslate2Dragger::translation"
+Continuously updated to contain the current translation from the dragger's local origo position\&. Only the first two components (the X and Y values) can be changed by the end-user\&.
+.PP
+The application programmer applying this dragger in his code should connect the relevant node fields in the scene to this field to make it follow the dragger\&. 
+.SS "\fBSoFieldSensor\fP * SoTranslate2Dragger::fieldSensor\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "\fBSbVec3f\fP SoTranslate2Dragger::worldRestartPt\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "\fBSbPlaneProjector\fP * SoTranslate2Dragger::planeProj\fC [protected]\fP"
+The \fBSbPlaneProjector\fP instance used for projecting from 2D mouse cursor positions to 3D points\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

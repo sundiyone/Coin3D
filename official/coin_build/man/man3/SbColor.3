@@ -1,0 +1,136 @@
+.TH "SbColor" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SbColor \- The \fBSbColor\fP class contains the red, green and blue components which make up a color value\&.
+.PP
+This class is used within other classes in Coin\&. It inherits the \fBSbVec3f\fP class, interpreting the 3 component vector as a vector in the RGB cube where the red, green and blue components corresponds to x, y and z respectively\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/SbColor\&.h>\fP
+.PP
+Inherits \fBSbVec3f\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSbColor\fP (void)"
+.br
+.ti -1c
+.RI "\fBSbColor\fP (const \fBSbVec3f\fP &v)"
+.br
+.ti -1c
+.RI "\fBSbColor\fP (const float *const rgb)"
+.br
+.ti -1c
+.RI "\fBSbColor\fP (const float r, const float g, const float b)"
+.br
+.ti -1c
+.RI "\fBSbColor\fP & \fBsetHSVValue\fP (float h, float s, float v)"
+.br
+.ti -1c
+.RI "\fBSbColor\fP & \fBsetHSVValue\fP (const float hsv[3])"
+.br
+.ti -1c
+.RI "void \fBgetHSVValue\fP (float &h, float &s, float &v) const"
+.br
+.ti -1c
+.RI "void \fBgetHSVValue\fP (float hsv[3]) const"
+.br
+.ti -1c
+.RI "\fBSbColor\fP & \fBsetPackedValue\fP (const uint32_t rgba, float &transparency)"
+.br
+.ti -1c
+.RI "uint32_t \fBgetPackedValue\fP (const float transparency=0\&.0f) const"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSbColor\fP class contains the red, green and blue components which make up a color value\&.
+.PP
+This class is used within other classes in Coin\&. It inherits the \fBSbVec3f\fP class, interpreting the 3 component vector as a vector in the RGB cube where the red, green and blue components corresponds to x, y and z respectively\&. 
+
+\fBSbColor\fP also adds a few extra methods for convenient handling of setting and getting color values as 32 bit packed values or as HSV values\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSbVec3f\fP, \fBSbColor4f\fP 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SbColor::SbColor (void)"
+Default constructor\&. The color value will be uninitialized\&. 
+.SS "SbColor::SbColor (const \fBSbVec3f\fP & v)"
+Construct and initialize an \fBSbColor\fP with the red, green and blue values given by the \fCv\fP vector\&. 
+.SS "SbColor::SbColor (const float *const rgb)"
+Construct and initialize an \fBSbColor\fP with the red, green and blue taken from given \fCrgb\fP array\&. 
+.SS "SbColor::SbColor (const float r, const float g, const float b)"
+Construct and initialize an \fBSbColor\fP with the given red, green and blue values\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSbColor\fP & SbColor::setHSVValue (float hue, float saturation, float value)"
+Set the color as a \fChue\fP, \fCsaturation\fP, \fCvalue\fP triplet\&. The hue component should be normalized to within [0, 1] before you call this method, where 0 is equal to 0° and 1 is equal to 360°\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetHSVValue()\fP\&. 
+.RE
+.PP
+
+.SS "\fBSbColor\fP & SbColor::setHSVValue (const float hsv[3])"
+Set the color as a \fChue\fP, \fCsaturation\fP, \fCvalue\fP triplet\&. The hue component should be normalized to within [0, 1] before you call this method, where 0 is equal to 0° and 1 is equal to 360°\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetHSVValue()\fP\&. 
+.RE
+.PP
+
+.SS "void SbColor::getHSVValue (float & h, float & s, float & v) const"
+Return the color as a \fChue\fP, \fCsaturation\fP, \fCvalue\fP triplet\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetHSVValue()\fP\&. 
+.RE
+.PP
+
+.SS "void SbColor::getHSVValue (float hsv[3]) const"
+Return the color as a \fChue\fP, \fCsaturation\fP, \fCvalue\fP triplet\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetHSVValue()\fP\&. 
+.RE
+.PP
+
+.SS "\fBSbColor\fP & SbColor::setPackedValue (const uint32_t rgba, float & transparency)"
+Set the color value as a 32 bit combined red/green/blue/alpha value\&. Each component is 8 bit wide (i\&.e\&. from 0x00 to 0xff), and the red value should be stored leftmost, like this: 0xRRGGBBAA\&.
+.PP
+The transparency value is not stored internally in \fBSbColor\fP, just converted to a transparency value in [0, 1] and returned in the \fCtransparency\fP field\&. A value of 1\&.0 means completely transparent and a value of 0\&.0 is completely opaque\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetPackedValue()\fP\&. 
+.RE
+.PP
+
+.SS "uint32_t SbColor::getPackedValue (const float transparency = \fC0\&.0f\fP) const"
+Return color as a 32 bit packed integer in the form 0xRRGGBBAA\&. The transparency part of the return value is taken from the supplied \fCtransparency\fP argument\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetPackedValue()\fP\&. 
+.RE
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

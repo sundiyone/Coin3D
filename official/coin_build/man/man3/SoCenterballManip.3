@@ -1,0 +1,107 @@
+.TH "SoCenterballManip" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoCenterballManip \- The \fBSoCenterballManip\fP wraps an \fBSoCenterballDragger\fP for convenience\&.
+.PP
+The manipulator class takes care of wrapping up the \fBSoCenterballDragger\fP in a simple and convenient API for the application programmer, making it automatically surround the geometry it influences and taking care of the book-keeping routines for it's interaction with the relevant fields of an \fBSoTransformation\fP node\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/manips/SoCenterballManip\&.h>\fP
+.PP
+Inherits \fBSoTransformManip\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "\fBSoCenterballManip\fP (void)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fB~SoCenterballManip\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBsetDragger\fP (\fBSoDragger\fP *newDragger)"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBfieldSensorCB\fP (void *f, \fBSoSensor\fP *s)"
+.br
+.ti -1c
+.RI "static void \fBvalueChangedCB\fP (void *f, \fBSoDragger\fP *d)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoCenterballManip\fP wraps an \fBSoCenterballDragger\fP for convenience\&.
+.PP
+The manipulator class takes care of wrapping up the \fBSoCenterballDragger\fP in a simple and convenient API for the application programmer, making it automatically surround the geometry it influences and taking care of the book-keeping routines for it's interaction with the relevant fields of an \fBSoTransformation\fP node\&. 
+
+ Example of CenterBall Manipulator 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoCenterballManip::SoCenterballManip (void)"
+Default constructor\&. Allocates an \fBSoCenterballDragger\fP and an \fBSoSurroundScale\fP node to surround the geometry within our part of the scenegraph\&. 
+.SS "SoCenterballManip::~SoCenterballManip (void)\fC [protected]\fP, \fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoCenterballManip::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Reimplemented from \fBSoTransformManip\fP\&.
+.SS "const \fBSoFieldData\fP * SoCenterballManip::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoTransformManip\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

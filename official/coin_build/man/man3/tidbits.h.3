@@ -1,0 +1,113 @@
+.TH "tidbits.h" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+tidbits.h
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <Inventor/C/basic\&.h>\fP
+.br
+\fC#include <stdarg\&.h>\fP
+.br
+
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef void \fBcoin_atexit_f\fP(void)"
+.br
+.in -1c
+.SS "Enumerations"
+
+.in +1c
+.ti -1c
+.RI "enum \fBCoinEndiannessValues\fP { \fBCOIN_HOST_IS_UNKNOWNENDIAN\fP = -1, \fBCOIN_HOST_IS_LITTLEENDIAN\fP = 0, \fBCOIN_HOST_IS_BIGENDIAN\fP = 1 }"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBint\fP \fBcoin_host_get_endianness\fP (void)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBcoin_snprintf\fP (char *dst, unsigned \fBint\fP n, const char *fmtstr,\&.\&.\&.)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBcoin_vsnprintf\fP (char *dst, unsigned \fBint\fP n, const char *fmtstr, va_list args)"
+.br
+.ti -1c
+.RI "const char * \fBcoin_getenv\fP (const char *name)"
+.br
+.ti -1c
+.RI "SbBool \fBcoin_setenv\fP (const char *name, const char *value, \fBint\fP overwrite)"
+.br
+.ti -1c
+.RI "void \fBcoin_unsetenv\fP (const char *name)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBcoin_strncasecmp\fP (const char *str1, const char *str2, \fBint\fP len)"
+.br
+.ti -1c
+.RI "uint16_t \fBcoin_hton_uint16\fP (uint16_t value)"
+.br
+.ti -1c
+.RI "uint16_t \fBcoin_ntoh_uint16\fP (uint16_t value)"
+.br
+.ti -1c
+.RI "uint32_t \fBcoin_hton_uint32\fP (uint32_t value)"
+.br
+.ti -1c
+.RI "uint32_t \fBcoin_ntoh_uint32\fP (uint32_t value)"
+.br
+.ti -1c
+.RI "uint64_t \fBcoin_hton_uint64\fP (uint64_t value)"
+.br
+.ti -1c
+.RI "uint64_t \fBcoin_ntoh_uint64\fP (uint64_t value)"
+.br
+.ti -1c
+.RI "void \fBcoin_hton_float_bytes\fP (float value, char *result)"
+.br
+.ti -1c
+.RI "float \fBcoin_ntoh_float_bytes\fP (const char *value)"
+.br
+.ti -1c
+.RI "void \fBcoin_hton_double_bytes\fP (double value, char *result)"
+.br
+.ti -1c
+.RI "double \fBcoin_ntoh_double_bytes\fP (const char *value)"
+.br
+.ti -1c
+.RI "SbBool \fBcoin_isascii\fP (const \fBint\fP c)"
+.br
+.ti -1c
+.RI "SbBool \fBcoin_isspace\fP (const char c)"
+.br
+.ti -1c
+.RI "SbBool \fBcoin_is_power_of_two\fP (uint32_t x)"
+.br
+.ti -1c
+.RI "uint32_t \fBcoin_next_power_of_two\fP (uint32_t x)"
+.br
+.ti -1c
+.RI "uint32_t \fBcoin_geq_power_of_two\fP (uint32_t x)"
+.br
+.ti -1c
+.RI "void \fBcoin_viewvolume_jitter\fP (\fBint\fP numpasses, \fBint\fP curpass, const \fBint\fP *vpsize, float *jitter)"
+.br
+.ti -1c
+.RI "void \fBcc_coin_atexit\fP (coin_atexit_f *fp)"
+.br
+.ti -1c
+.RI "void \fBcc_coin_atexit_static_internal\fP (coin_atexit_f *fp)"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "void cc_coin_atexit_static_internal (coin_atexit_f * fp)"
+Internal function used for cleaning up static data\&. Do not use from appliction code\&. 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

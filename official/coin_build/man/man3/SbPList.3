@@ -1,0 +1,163 @@
+.TH "SbPList" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SbPList \- The \fBSbPList\fP class is a container class for void pointers\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/lists/SbPList\&.h>\fP
+.PP
+Inherited by \fBSbIntList\fP, \fBSbStringList\fP, \fBSbVec3fList\fP, \fBSoActionMethodList\fP, \fBSoAuditorList\fP\fC [private]\fP, \fBSoBaseList\fP, \fBSoDetailList\fP, \fBSoEngineOutputList\fP, \fBSoFieldList\fP, \fBSoPickedPointList\fP, and \fBSoTypeList\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSbPList\fP (const \fBint\fP sizehint=DEFAULTSIZE)"
+.br
+.ti -1c
+.RI "\fBSbPList\fP (const \fBSbPList\fP &l)"
+.br
+.ti -1c
+.RI "\fB~SbPList\fP ()"
+.br
+.ti -1c
+.RI "void \fBcopy\fP (const \fBSbPList\fP &l)"
+.br
+.ti -1c
+.RI "\fBSbPList\fP & \fBoperator=\fP (const \fBSbPList\fP &l)"
+.br
+.ti -1c
+.RI "void \fBfit\fP (void)"
+.br
+.ti -1c
+.RI "void \fBappend\fP (void *item)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBfind\fP (void *item) const"
+.br
+.ti -1c
+.RI "void \fBinsert\fP (void *item, const \fBint\fP insertbefore)"
+.br
+.ti -1c
+.RI "void \fBremoveItem\fP (void *item)"
+.br
+.ti -1c
+.RI "void \fBremove\fP (const \fBint\fP index)"
+.br
+.ti -1c
+.RI "void \fBremoveFast\fP (const \fBint\fP index)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetLength\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBtruncate\fP (const \fBint\fP length, const \fBint\fP \fBfit\fP=0)"
+.br
+.ti -1c
+.RI "void ** \fBgetArrayPtr\fP (const \fBint\fP start=0) const"
+.br
+.ti -1c
+.RI "void *& \fBoperator[]\fP (const \fBint\fP index) const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBoperator==\fP (const \fBSbPList\fP &l) const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBoperator!=\fP (const \fBSbPList\fP &l) const"
+.br
+.ti -1c
+.RI "void * \fBget\fP (const \fBint\fP index) const"
+.br
+.ti -1c
+.RI "void \fBset\fP (const \fBint\fP index, void *item)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBexpand\fP (const \fBint\fP size)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetArraySize\fP (void) const"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBSbPList\fP class is a container class for void pointers\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SbPList::SbPList (const \fBint\fP sizehint = \fCDEFAULTSIZE\fP)"
+This constructor initializes the internal allocated size for the list to \fIsizehint\fP\&. Note that the list will still initially contain zero items\&.
+.PP
+Default constructor\&. 
+.SS "SbPList::SbPList (const \fBSbPList\fP & l)"
+Copy constructor\&. 
+.SS "SbPList::~SbPList ()"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void SbPList::copy (const \fBSbPList\fP & l)"
+Make this list a copy of \fIl\fP\&. 
+.SS "\fBSbPList\fP & SbPList::operator= (const \fBSbPList\fP & l)"
+Assignment operator 
+.SS "void SbPList::fit (void)"
+Fit the allocated array exactly around the length of the list, descarding memory spent on unused pre-allocated array cells\&.
+.PP
+You should normally not need or want to call this method, and it is only available for the sake of having the option to optimize memory usage for the unlikely event that you should throw around huge \fBSbList\fP objects within your application\&. 
+.SS "void SbPList::append (void * item)\fC [inline]\fP"
+Append \fIitem\fP to the end of the list\&.
+.PP
+Automatically allocates more items internally if needed\&. 
+.SS "\fBint\fP SbPList::find (void * item) const"
+Return index of first occurrence of \fIitem\fP in the list, or -1 if \fIitem\fP is not present\&. 
+.SS "void SbPList::insert (void * item, const \fBint\fP insertbefore)"
+Insert \fIitem\fP at index \fIinsertbefore\fP\&.
+.PP
+\fIinsertbefore\fP should not be larger than the current number of items in the list\&. 
+.SS "void SbPList::removeItem (void * item)"
+Removes an \fIitem\fP from the list\&. If there are several items with the same value, removes the \fIitem\fP with the lowest index\&. 
+.SS "void SbPList::remove (const \fBint\fP index)"
+Remove the item at \fIindex\fP, moving all subsequent items downwards one place in the list\&. 
+.SS "void SbPList::removeFast (const \fBint\fP index)\fC [inline]\fP"
+Remove the item at \fIindex\fP, moving the last item into its place and truncating the list\&. 
+.SS "\fBint\fP SbPList::getLength (void) const\fC [inline]\fP"
+Returns number of items in the list\&. 
+.SS "void SbPList::truncate (const \fBint\fP length, const \fBint\fP fit = \fC0\fP)\fC [inline]\fP"
+Shorten the list to contain \fIlength\fP elements, removing items from \fIindex\fP \fIlength\fP and onwards\&.
+.PP
+If \fIfit\fP is non-zero, will also shrink the internal size of the allocated array\&. Note that this is much less efficient than not re-fitting the array size\&. 
+.SS "void ** SbPList::getArrayPtr (const \fBint\fP start = \fC0\fP) const\fC [inline]\fP"
+Returns pointer to a non-modifiable array of the lists elements\&. \fIstart\fP specifies an index into the array\&.
+.PP
+The caller is \fInot\fP responsible for freeing up the array, as it is just a pointer into the internal array used by the list\&. 
+.SS "void *& SbPList::operator[] (const \fBint\fP index) const\fC [inline]\fP"
+Returns element at \fIindex\fP\&.
+.PP
+Will automatically expand the size of the internal array if \fIindex\fP is outside the current bounds of the list\&. The values of any additional pointers are then set to \fCNULL\fP\&. 
+.SS "\fBint\fP SbPList::operator== (const \fBSbPList\fP & l) const"
+Equality operator\&. Returns \fCTRUE\fP if this list and \fIl\fP are identical, containing the exact same ordered set of elements\&. 
+.SS "SbBool SbPList::operator!= (const \fBSbPList\fP & l) const\fC [inline]\fP"
+Inequality operator\&. Returns \fCTRUE\fP if this list and \fIl\fP are not equal\&. 
+.SS "void * SbPList::get (const \fBint\fP index) const\fC [inline]\fP"
+Returns element at \fIindex\fP\&. Does \fInot\fP expand array bounds if \fIindex\fP is outside the list\&. 
+.SS "void SbPList::set (const \fBint\fP index, void * item)\fC [inline]\fP"
+Index operator to set element at \fIindex\fP\&. Does \fInot\fP expand array bounds if \fIindex\fP is outside the list\&. 
+.SS "void SbPList::expand (const \fBint\fP size)\fC [inline]\fP, \fC [protected]\fP"
+Expand the list to contain \fIsize\fP items\&. The new items added at the end have undefined value\&. 
+.SS "\fBint\fP SbPList::getArraySize (void) const\fC [inline]\fP, \fC [protected]\fP"
+Return number of items there's allocated space for in the array\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetLength()\fP 
+.RE
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

@@ -1,0 +1,109 @@
+.TH "SoEngineOutputData" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoEngineOutputData \- The \fBSoEngineOutputData\fP class is a container for a prototype set of outputs\&.
+.PP
+This class is instantiated once for each class of objects which use outputs, and which needs to be able to import and export them\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/engines/SoOutputData\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSoEngineOutputData\fP (void)"
+.br
+.ti -1c
+.RI "\fBSoEngineOutputData\fP (const \fBSoEngineOutputData\fP *data)"
+.br
+.ti -1c
+.RI "\fBSoEngineOutputData\fP (\fBint\fP approxnum)"
+.br
+.ti -1c
+.RI "\fB~SoEngineOutputData\fP (void)"
+.br
+.ti -1c
+.RI "void \fBaddOutput\fP (const \fBSoEngine\fP *base, const char *name, const \fBSoEngineOutput\fP *output, \fBSoType\fP type)"
+.br
+.ti -1c
+.RI "void \fBaddOutput\fP (const \fBSoNodeEngine\fP *base, const char *name, const \fBSoEngineOutput\fP *output, \fBSoType\fP type)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetNumOutputs\fP (void) const"
+.br
+.ti -1c
+.RI "const \fBSbName\fP & \fBgetOutputName\fP (\fBint\fP index) const"
+.br
+.ti -1c
+.RI "\fBSoEngineOutput\fP * \fBgetOutput\fP (const \fBSoEngine\fP *engine, \fBint\fP index) const"
+.br
+.ti -1c
+.RI "\fBSoEngineOutput\fP * \fBgetOutput\fP (const \fBSoNodeEngine\fP *engine, \fBint\fP index) const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetIndex\fP (const \fBSoEngine\fP *engine, const \fBSoEngineOutput\fP *output) const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetIndex\fP (const \fBSoNodeEngine\fP *engine, const \fBSoEngineOutput\fP *output) const"
+.br
+.ti -1c
+.RI "const \fBSoType\fP & \fBgetType\fP (\fBint\fP index) const"
+.br
+.ti -1c
+.RI "SbBool \fBreadDescriptions\fP (\fBSoInput\fP *input, \fBSoEngine\fP *engine) const"
+.br
+.ti -1c
+.RI "void \fBwriteDescriptions\fP (\fBSoOutput\fP *out, \fBSoEngine\fP *engine) const"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBSoEngineOutputData\fP class is a container for a prototype set of outputs\&.
+.PP
+This class is instantiated once for each class of objects which use outputs, and which needs to be able to import and export them\&. 
+
+Each output of a class is stored with the name and type it has been given within its 'owner' class and a pointer offset to the dynamic instance of the output itself\&.
+.PP
+It is unlikely that application programmers should need to use any of the methods of this class directly\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoEngineOutputData::SoEngineOutputData (void)"
+Constructor\&. 
+.SS "SoEngineOutputData::SoEngineOutputData (const \fBSoEngineOutputData\fP * data)"
+Copy constructor\&. 
+.SS "SoEngineOutputData::SoEngineOutputData (\fBint\fP approxnum)"
+Constructor\&. Supply the approximated number of outputs in the engine ot optimize memory allocation\&. 
+.SS "SoEngineOutputData::~SoEngineOutputData (void)"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void SoEngineOutputData::addOutput (const \fBSoEngine\fP * base, const char * name, const \fBSoEngineOutput\fP * output, \fBSoType\fP type)"
+Add a new output to our internal list\&.
+.PP
+The \fIname\fP and \fItype\fP will be stored along with a pointer offset between \fIbase\fP and \fIoutput\fP, which will be valid for all instances of the class type of \fIbase\fP\&. 
+.SS "void SoEngineOutputData::addOutput (const \fBSoNodeEngine\fP * base, const char * name, const \fBSoEngineOutput\fP * output, \fBSoType\fP type)"
+This is an overloaded member function, provided for convenience\&. It differs from the above function only in what argument(s) it accepts\&. 
+.SS "\fBint\fP SoEngineOutputData::getNumOutputs (void) const"
+Returns the number of outputs contained within this instance\&. 
+.SS "const \fBSbName\fP & SoEngineOutputData::getOutputName (\fBint\fP index) const"
+Returns the name of the output at \fIindex\fP\&. 
+.SS "\fBSoEngineOutput\fP * SoEngineOutputData::getOutput (const \fBSoEngine\fP * engine, \fBint\fP index) const"
+Returns a pointer to the output at \fIindex\fP within the \fIengine\fP instance\&. 
+.SS "\fBSoEngineOutput\fP * SoEngineOutputData::getOutput (const \fBSoNodeEngine\fP * engine, \fBint\fP index) const"
+This is an overloaded member function, provided for convenience\&. It differs from the above function only in what argument(s) it accepts\&. 
+.SS "\fBint\fP SoEngineOutputData::getIndex (const \fBSoEngine\fP * engine, const \fBSoEngineOutput\fP * output) const"
+Returns the internal index value of \fIoutput\fP in \fIengine\fP\&. If \fIoutput\fP is not part of \fIengine\fP, it returns -1\&. 
+.SS "\fBint\fP SoEngineOutputData::getIndex (const \fBSoNodeEngine\fP * engine, const \fBSoEngineOutput\fP * output) const"
+This is an overloaded member function, provided for convenience\&. It differs from the above function only in what argument(s) it accepts\&. 
+.SS "const \fBSoType\fP & SoEngineOutputData::getType (\fBint\fP index) const"
+Returns the type of the output at \fIindex\fP\&. 
+.SS "SbBool SoEngineOutputData::readDescriptions (\fBSoInput\fP * in, \fBSoEngine\fP * engine) const"
+FIXME: doc 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

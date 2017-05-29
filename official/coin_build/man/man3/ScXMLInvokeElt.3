@@ -1,0 +1,160 @@
+.TH "ScXMLInvokeElt" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ScXMLInvokeElt \- implements the <invoke> SCXML element\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/scxml/ScXMLInvokeElt\&.h>\fP
+.PP
+Inherits \fBScXMLExecutableElt\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "virtual void \fBsetTargetTypeAttribute\fP (const char *id)"
+.br
+.ti -1c
+.RI "const char * \fBgetTargetTypeAttribute\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBsetSrcAttribute\fP (const char *id)"
+.br
+.ti -1c
+.RI "const char * \fBgetSrcAttribute\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBsetSrcExprAttribute\fP (const char *id)"
+.br
+.ti -1c
+.RI "const char * \fBgetSrcExprAttribute\fP (void) const"
+.br
+.ti -1c
+.RI "virtual SbBool \fBhandleXMLAttributes\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBcopyContents\fP (const \fBScXMLElt\fP *rhs)"
+.br
+.ti -1c
+.RI "virtual const \fBScXMLElt\fP * \fBsearch\fP (const char *attrname, const char *attrvalue) const"
+.br
+.ti -1c
+.RI "virtual \fBint\fP \fBgetNumParams\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fBScXMLParamElt\fP * \fBgetParam\fP (\fBint\fP idx) const"
+.br
+.ti -1c
+.RI "virtual void \fBaddParam\fP (\fBScXMLParamElt\fP *param)"
+.br
+.ti -1c
+.RI "virtual void \fBremoveParam\fP (\fBScXMLParamElt\fP *param)"
+.br
+.ti -1c
+.RI "virtual void \fBclearAllParams\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBsetFinalize\fP (\fBScXMLFinalizeElt\fP *finalize)"
+.br
+.ti -1c
+.RI "virtual \fBScXMLFinalizeElt\fP * \fBgetFinalize\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBsetContent\fP (\fBScXMLContentElt\fP *content)"
+.br
+.ti -1c
+.RI "virtual \fBScXMLContentElt\fP * \fBgetContent\fP (void) const"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBScXMLEltReader\fP * \fBgetElementReader\fP (void)"
+.br
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void * \fBcreateInstance\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBcleanClass\fP (void)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "char * \fBtargettype\fP"
+.br
+.ti -1c
+.RI "char * \fBsrc\fP"
+.br
+.ti -1c
+.RI "char * \fBsrcexpr\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+implements the <invoke> SCXML element\&. 
+
+Important note for SCXML-users on the Coin 3\&.0 implementation of the <invoke> element: The first SCXML-implementation of Coin was based on a draft from february 2007, and the interpretation done of the <invoke> element was wrong in certain aspects that has become clear in later revisions of the standards draft\&. The SCXML-implementation was for various reasons rushed, with a timeframe where no scripting capabilities would be possible to get ready, and the navigation system code (the primary purpose of implementing the SCXML system) had to be plugged in somewhere\&. This was at that time done on the <invoke> element\&.
+.PP
+For the current implementation, the navigation code has been moved away from being <invoke>-based to being a service communicated to through the <send> element to be more standards-conformant\&. And to make the situation even more ridicilous, that approach will likely be deprecated in the not-too-distant future, to be replaced by a pure, inlined, scripting-based approach\&. Those two approaches should however be fully possible to keep alive side-by-side for a while, so following the current lead in implementing your own custom navigation systems should be a lot safer than doing it over the misguided <invoke>-approach\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 3\&.0 
+.RE
+.PP
+
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP ScXMLInvokeElt::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoBase::getTypeId() const\fP 
+.RE
+.PP
+
+.PP
+Implements \fBScXMLExecutableElt\fP\&.
+.SS "SbBool ScXMLInvokeElt::handleXMLAttributes (void)\fC [virtual]\fP"
+This method is called when the file reader has set all the XML attributes on the object, and wants the object to handle them and report if the values were ok or if a read error should be produced\&.
+.PP
+\fBReturns:\fP
+.RS 4
+TRUE if the attributes are ok, and FALSE on error\&.
+.RE
+.PP
+This base class implementation does nothing and just returns TRUE\&. 
+.PP
+Reimplemented from \fBScXMLElt\fP\&.
+.SS "const \fBScXMLElt\fP * ScXMLInvokeElt::search (const char * attrname, const char * attrvalue) const\fC [virtual]\fP"
+This method searches the SCXML structure for an element with the given attributevalue for the given attribute\&.
+.PP
+Returns NULL if nothing was found\&.
+.PP
+This function needs to be reimplemented to traverse child elements\&. 
+.PP
+Reimplemented from \fBScXMLElt\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

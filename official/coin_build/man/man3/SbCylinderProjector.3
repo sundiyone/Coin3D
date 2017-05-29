@@ -1,0 +1,165 @@
+.TH "SbCylinderProjector" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SbCylinderProjector \- The \fBSbCylinderProjector\fP class is the abstract base class for mapping to cylindrical surfaces\&.
+.PP
+The cylinder projectors map 2D points to various surface types based on cylindrical shapes\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/projectors/SbCylinderProjector\&.h>\fP
+.PP
+Inherits \fBSbProjector\fP\&.
+.PP
+Inherited by \fBSbCylinderSectionProjector\fP, and \fBSbCylinderSheetProjector\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSbVec3f\fP \fBproject\fP (const \fBSbVec2f\fP &point)=0"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP \fBprojectAndGetRotation\fP (const \fBSbVec2f\fP &point, \fBSbRotation\fP &rot)"
+.br
+.ti -1c
+.RI "virtual \fBSbRotation\fP \fBgetRotation\fP (const \fBSbVec3f\fP &point1, const \fBSbVec3f\fP &point2)=0"
+.br
+.ti -1c
+.RI "void \fBsetCylinder\fP (const \fBSbCylinder\fP &cyl)"
+.br
+.ti -1c
+.RI "const \fBSbCylinder\fP & \fBgetCylinder\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBsetOrientToEye\fP (const SbBool orienttoeye)"
+.br
+.ti -1c
+.RI "SbBool \fBisOrientToEye\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBsetFront\fP (const SbBool infront)"
+.br
+.ti -1c
+.RI "SbBool \fBisFront\fP (void) const"
+.br
+.ti -1c
+.RI "SbBool \fBisPointInFront\fP (const \fBSbVec3f\fP &point) const"
+.br
+.ti -1c
+.RI "virtual void \fBsetWorkingSpace\fP (const \fBSbMatrix\fP &space)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSbCylinderProjector\fP (const SbBool orienttoeye)"
+.br
+.ti -1c
+.RI "\fBSbCylinderProjector\fP (const \fBSbCylinder\fP &\fBcylinder\fP, const SbBool orienttoeye)"
+.br
+.ti -1c
+.RI "SbBool \fBintersectCylinderFront\fP (const \fBSbLine\fP &line, \fBSbVec3f\fP &result)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "SbBool \fBintersectFront\fP"
+.br
+.ti -1c
+.RI "\fBSbCylinder\fP \fBcylinder\fP"
+.br
+.ti -1c
+.RI "SbBool \fBorientToEye\fP"
+.br
+.ti -1c
+.RI "SbBool \fBneedSetup\fP"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP \fBlastPoint\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBSbCylinderProjector\fP class is the abstract base class for mapping to cylindrical surfaces\&.
+.PP
+The cylinder projectors map 2D points to various surface types based on cylindrical shapes\&. 
+
+
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSbSphereProjector\fP 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SbCylinderProjector::SbCylinderProjector (const SbBool orienttoeye)\fC [protected]\fP"
+Default constructor sets up a cylinder along the Y axis with height 1\&. 
+.SS "SbCylinderProjector::SbCylinderProjector (const \fBSbCylinder\fP & cylinder, const SbBool orienttoeye)\fC [protected]\fP"
+Constructor taking an explicit \fIcylinder\fP projection definition\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "virtual \fBSbVec3f\fP SbCylinderProjector::project (const \fBSbVec2f\fP & point)\fC [pure virtual]\fP"
+Project the 2D \fIpoint\fP from normalized viewport coordinates to a 3D point\&. The mapping will be done in accordance with the type of the projector\&. 
+.PP
+Implements \fBSbProjector\fP\&.
+.PP
+Implemented in \fBSbCylinderSectionProjector\fP, \fBSbCylinderPlaneProjector\fP, and \fBSbCylinderSheetProjector\fP\&.
+.SS "\fBSbVec3f\fP SbCylinderProjector::projectAndGetRotation (const \fBSbVec2f\fP & point, \fBSbRotation\fP & rot)"
+Project the 2D point to a 3D coordinate on the cylindrical surface, and find the rotation from the last projection to this one\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBproject()\fP, \fBgetRotation()\fP 
+.RE
+.PP
+
+.SS "\fBSbRotation\fP SbCylinderProjector::getRotation (const \fBSbVec3f\fP & point1, const \fBSbVec3f\fP & point2)\fC [pure virtual]\fP"
+Returns rotation on the projection surface which re-orients \fIpoint1\fP to \fIpoint2\fP\&. 
+.PP
+Implemented in \fBSbCylinderSectionProjector\fP, \fBSbCylinderPlaneProjector\fP, and \fBSbCylinderSheetProjector\fP\&.
+.SS "void SbCylinderProjector::setCylinder (const \fBSbCylinder\fP & cylinderref)"
+Set \fIcylinder\fP to project onto\&. 
+.SS "const \fBSbCylinder\fP & SbCylinderProjector::getCylinder (void) const"
+Returns projection cylinder\&. 
+.SS "void SbCylinderProjector::setOrientToEye (const SbBool orienttoeye)"
+Sets whether or not the projection surface should be oriented towards the eye of the viewer\&. 
+.SS "SbBool SbCylinderProjector::isOrientToEye (void) const"
+Returns the state of the cylinder orientation flag\&. 
+.SS "void SbCylinderProjector::setFront (const SbBool infront)"
+Set whether to intersect with the outside of the cylinder (\fIisfront\fP equal to \fCTRUE\fP), or the inside\&. 
+.SS "SbBool SbCylinderProjector::isFront (void) const"
+Returns value of the flag which decides whether to intersect with the outside or inside of the cylinder\&. 
+.SS "SbBool SbCylinderProjector::isPointInFront (const \fBSbVec3f\fP & point) const"
+Check if \fIpoint\fP is on the frontside or the backside of the cylinder\&. 
+.SS "void SbCylinderProjector::setWorkingSpace (const \fBSbMatrix\fP & space)\fC [virtual]\fP"
+Sets the matrix used for converting from the projector's coordinate system to the world coordinate system\&. 
+.PP
+Reimplemented from \fBSbProjector\fP\&.
+.SS "SbBool SbCylinderProjector::intersectCylinderFront (const \fBSbLine\fP & line, \fBSbVec3f\fP & result)\fC [protected]\fP"
+Intersect \fIline\fP with the \fBSbCylinderProjector::cylinder\fP and place the intersection point (if any) in \fIresult\fP\&. Considers \fBsetFront()\fP settings\&.
+.PP
+Returns \fCTRUE\fP if \fIline\fP actually hits the cylinder, \fCFALSE\fP if it doesn't intersect with it\&. 
+.SH "Member Data Documentation"
+.PP 
+.SS "SbCylinderProjector::intersectFront\fC [protected]\fP"
+Flag which says whether or not we should map to the outside or inside of the cylinder surface\&. 
+.SS "SbCylinderProjector::cylinder\fC [protected]\fP"
+Specification of the projection cylinder\&. 
+.SS "SbCylinderProjector::orientToEye\fC [protected]\fP"
+Which direction the cylindrical surface is oriented\&. 
+.SS "SbCylinderProjector::needSetup\fC [protected]\fP"
+Set to \fCTRUE\fP whenever the projection surface needs to be recalculated according to the setting of the \fBSbCylinderProjector::orientToEye\fP flag\&. 
+.SS "SbCylinderProjector::lastPoint\fC [protected]\fP"
+Stores the previously projected 3D point\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

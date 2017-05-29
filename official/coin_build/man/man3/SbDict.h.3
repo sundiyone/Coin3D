@@ -1,0 +1,52 @@
+.TH "SbDict.h" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SbDict.h
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stddef\&.h>\fP
+.br
+\fC#include <Inventor/SbBasic\&.h>\fP
+.br
+
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBSbDict\fP"
+.br
+.RI "The \fBSbDict\fP class organizes a dictionary of keys and values\&.
+.PP
+It uses hashing to quickly insert and find entries in the dictionary\&. An entry consists of an unique key and a generic pointer\&. "
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef uintptr_t \fBSbDictKeyType\fP"
+.br
+.ti -1c
+.RI "typedef void \fBSbDictApplyFunc\fP(\fBSbDictKeyType\fP key, void *value)"
+.br
+.ti -1c
+.RI "typedef void \fBSbDictApplyDataFunc\fP(\fBSbDictKeyType\fP key, void *value, void *data)"
+.br
+.ti -1c
+.RI "typedef \fBSbDictKeyType\fP \fBSbDictHashingFunc\fP(const \fBSbDictKeyType\fP key)"
+.br
+.in -1c
+.SH "Typedef Documentation"
+.PP 
+.SS "uintptr_t \fBSbDictKeyType\fP"
+The type definition for a dictionary key\&. 
+.SS "void SbDictApplyFunc"
+The type definition of the function to be applied to each entry\&. 
+.SS "void SbDictApplyDataFunc"
+The type definition of the function with associated data that is to be applied to each entry\&. 
+.SS "\fBSbDictKeyType\fP SbDictHashingFunc"
+The type definition of a dictionary hashing function\&. 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

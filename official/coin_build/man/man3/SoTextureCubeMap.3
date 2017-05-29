@@ -1,0 +1,310 @@
+.TH "SoTextureCubeMap" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoTextureCubeMap \- The \fBSoTextureCubeMap\fP class is used to map a cube map onto subsequent shape nodes\&.
+.PP
+Shape nodes within the scope of \fBSoTextureCubeMap\fP nodes in the scenegraph (ie below the same \fBSoSeparator\fP and to the righthand side of the \fBSoTextureCubeMap\fP) will have the texture applied according to each shape type's individual characteristics\&. See the documentation of the various shape types (\fBSoFaceSet\fP, \fBSoCube\fP, \fBSoSphere\fP, etc etc) for information about the specifics of how the textures will be applied\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/nodes/SoTextureCubeMap\&.h>\fP
+.PP
+Inherits \fBSoTexture\fP\&.
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBModel\fP { \fBMODULATE\fP = SoMultiTextureImageElement::MODULATE, \fBDECAL\fP = SoMultiTextureImageElement::DECAL, \fBBLEND\fP = SoMultiTextureImageElement::BLEND, \fBREPLACE\fP = SoMultiTextureImageElement::REPLACE }"
+.br
+.ti -1c
+.RI "enum \fBWrap\fP { \fBREPEAT\fP = SoMultiTextureImageElement::REPEAT, \fBCLAMP\fP = SoMultiTextureImageElement::CLAMP }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "\fBSoTextureCubeMap\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBdoAction\fP (\fBSoAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBGLRender\fP (\fBSoGLRenderAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBcallback\fP (\fBSoCallbackAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBrayPick\fP (\fBSoRayPickAction\fP *action)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.ti -1c
+.RI "static SbBool \fBreadImage\fP (const \fBSbString\fP &fname, \fBint\fP &w, \fBint\fP &h, \fBint\fP &nc, unsigned char *&bytes)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoMFString\fP \fBfilenames\fP"
+.br
+.ti -1c
+.RI "\fBSoSFImage\fP \fBimagePosX\fP"
+.br
+.ti -1c
+.RI "\fBSoSFImage\fP \fBimageNegX\fP"
+.br
+.ti -1c
+.RI "\fBSoSFImage\fP \fBimagePosY\fP"
+.br
+.ti -1c
+.RI "\fBSoSFImage\fP \fBimageNegY\fP"
+.br
+.ti -1c
+.RI "\fBSoSFImage\fP \fBimagePosZ\fP"
+.br
+.ti -1c
+.RI "\fBSoSFImage\fP \fBimageNegZ\fP"
+.br
+.ti -1c
+.RI "\fBSoSFEnum\fP \fBwrapS\fP"
+.br
+.ti -1c
+.RI "\fBSoSFEnum\fP \fBwrapT\fP"
+.br
+.ti -1c
+.RI "\fBSoSFEnum\fP \fBmodel\fP"
+.br
+.ti -1c
+.RI "\fBSoSFColor\fP \fBblendColor\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fB~SoTextureCubeMap\fP ()"
+.br
+.ti -1c
+.RI "virtual SbBool \fBreadInstance\fP (\fBSoInput\fP *in, unsigned short flags)"
+.br
+.ti -1c
+.RI "virtual void \fBnotify\fP (\fBSoNotList\fP *list)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetReadStatus\fP (void)"
+.br
+.ti -1c
+.RI "void \fBsetReadStatus\fP (\fBint\fP s)"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoTextureCubeMap\fP class is used to map a cube map onto subsequent shape nodes\&.
+.PP
+Shape nodes within the scope of \fBSoTextureCubeMap\fP nodes in the scenegraph (ie below the same \fBSoSeparator\fP and to the righthand side of the \fBSoTextureCubeMap\fP) will have the texture applied according to each shape type's individual characteristics\&. See the documentation of the various shape types (\fBSoFaceSet\fP, \fBSoCube\fP, \fBSoSphere\fP, etc etc) for information about the specifics of how the textures will be applied\&. 
+
+\fBFILE FORMAT/DEFAULTS:\fP 
+.PP
+.nf
+TextureCubeMap {
+    filenames [  ]
+    imagePosX 0 0 0
+    imageNegX 0 0 0
+    imagePosY 0 0 0
+    imageNegY 0 0 0
+    imagePosZ 0 0 0
+    imageNegZ 0 0 0
+    wrapS REPEAT
+    wrapT REPEAT
+    model MODULATE
+    blendColor 0 0 0
+}
+
+.fi
+.PP
+.PP
+\fBSince:\fP
+.RS 4
+Coin 3\&.0 
+.RE
+.PP
+
+.SH "Member Enumeration Documentation"
+.PP 
+.SS "enum \fBSoTextureCubeMap::Model\fP"
+Texture mapping model, for deciding how to 'merge' the texturemap with the object it is mapped onto\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fIMODULATE \fP\fP
+Texture color is multiplied by the polygon color\&. The result will be Phong shaded (if light model is PHONG)\&. 
+.TP
+\fB\fIDECAL \fP\fP
+Texture image overwrites polygon shading\&. Textured pixels will not be Phong shaded\&. Has undefined behaviour for grayscale and grayscale-alpha textures\&. 
+.TP
+\fB\fIBLEND \fP\fP
+This model is normally used with monochrome textures (i\&.e\&. textures with one or two components)\&. The first component, the intensity, is then used to blend between the shaded color of the polygon and the \fBSoTextureCubeMap::blendColor\fP\&. 
+.TP
+\fB\fIREPLACE \fP\fP
+Texture image overwrites polygon shading\&. Textured pixels will not be Phong shaded\&. Supports grayscale and grayscale alpha textures\&. This feature requires OpenGL 1\&.1\&. MODULATE will be used if OpenGL version < 1\&.1 is detected\&.
+.PP
+Please note that using this texture model will make your Inventor files incompatible with older versions of Coin and Inventor\&. You need Coin >= 2\&.2 or TGS Inventor 4\&.0 to load Inventor files that uses the REPLACE texture model\&. 
+.SS "enum \fBSoTextureCubeMap::Wrap\fP"
+Enumeration of wrapping strategies which can be used when the texturemap doesn't cover the full extent of the geometry\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fIREPEAT \fP\fP
+Repeat texture when coordinate is not between 0 and 1\&. 
+.TP
+\fB\fICLAMP \fP\fP
+Clamp coordinate between 0 and 1\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoTextureCubeMap::SoTextureCubeMap (void)"
+Constructor\&. 
+.SS "SoTextureCubeMap::~SoTextureCubeMap ()\fC [protected]\fP, \fC [virtual]\fP"
+Destructor\&. Frees up internal resources used to store texture image data\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoTextureCubeMap::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Reimplemented from \fBSoTexture\fP\&.
+.SS "const \fBSoFieldData\fP * SoTextureCubeMap::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoTexture\fP\&.
+.SS "void SoTextureCubeMap::doAction (\fBSoAction\fP * action)\fC [virtual]\fP"
+This function performs the typical operation of a node for any action\&. 
+.PP
+Reimplemented from \fBSoTexture\fP\&.
+.SS "void SoTextureCubeMap::GLRender (\fBSoGLRenderAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGLRenderAction\fP\&.
+.PP
+This is called during rendering traversals\&. Nodes influencing the rendering state in any way or who wants to throw geometry primitives at OpenGL overrides this method\&. 
+.PP
+Reimplemented from \fBSoTexture\fP\&.
+.SS "void SoTextureCubeMap::callback (\fBSoCallbackAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoCallbackAction\fP\&.
+.PP
+Simply updates the state according to how the node behaves for the render action, so the application programmer can use the \fBSoCallbackAction\fP for extracting information about the scene graph\&. 
+.PP
+Reimplemented from \fBSoTexture\fP\&.
+.SS "void SoTextureCubeMap::rayPick (\fBSoRayPickAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoRayPickAction\fP\&.
+.PP
+Checks the ray specification of the \fIaction\fP and tests for intersection with the data of the node\&.
+.PP
+Nodes influencing relevant state variables for how picking is done also overrides this method\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "SbBool SoTextureCubeMap::readImage (const \fBSbString\fP & fname, \fBint\fP & w, \fBint\fP & h, \fBint\fP & nc, unsigned char *& bytes)\fC [static]\fP"
+Not implemented in Coin; should probably not have been public in the original SGI Open Inventor API\&. We'll consider to implement it if requested\&. 
+.SS "SbBool SoTextureCubeMap::readInstance (\fBSoInput\fP * in, unsigned short flags)\fC [protected]\fP, \fC [virtual]\fP"
+This method is mainly intended for internal use during file import operations\&.
+.PP
+It reads a definition of an instance from the input stream \fIin\fP\&. The input stream state points to the start of a serialized / persistant representation of an instance of this class type\&.
+.PP
+\fCTRUE\fP or \fCFALSE\fP is returned, depending on if the instantiation and configuration of the new object of this class type went ok or not\&. The import process should be robust and handle corrupted input streams by returning \fCFALSE\fP\&.
+.PP
+\fIflags\fP is used internally during binary import when reading user extension nodes, group nodes or engines\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "void SoTextureCubeMap::notify (\fBSoNotList\fP * l)\fC [protected]\fP, \fC [virtual]\fP"
+Notifies all auditors for this instance when changes are made\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "\fBint\fP SoTextureCubeMap::getReadStatus (void)\fC [protected]\fP"
+Returns read status\&. 1 for success, 0 for failure\&. 
+.SS "void SoTextureCubeMap::setReadStatus (\fBint\fP s)\fC [protected]\fP"
+Sets read status\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetReadStatus()\fP 
+.RE
+.PP
+
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSoSFString\fP SoTextureCubeMap::filenames"
+The filenames in this order: negx, posx, negy, posy, negz, posz\&. 
+.SS "\fBSoSFImage\fP SoTextureCubeMap::imagePosX"
+The pos-x image\&. 
+.SS "\fBSoSFImage\fP SoTextureCubeMap::imageNegX"
+The neg-x image\&. 
+.SS "\fBSoSFImage\fP SoTextureCubeMap::imagePosY"
+The neg-y image\&. 
+.SS "\fBSoSFImage\fP SoTextureCubeMap::imageNegY"
+The neg-y image\&. 
+.SS "\fBSoSFImage\fP SoTextureCubeMap::imagePosZ"
+The pos-z image\&. 
+.SS "\fBSoSFImage\fP SoTextureCubeMap::imageNegZ"
+The neg-z image\&. 
+.SS "\fBSoSFEnum\fP SoTextureCubeMap::wrapS"
+Wrapping strategy for the S coordinate when the texturemap is narrower than the object to map onto\&.
+.PP
+Default value is \fBSoTextureCubeMap::REPEAT\fP\&. 
+.SS "\fBSoSFEnum\fP SoTextureCubeMap::wrapT"
+Wrapping strategy for the T coordinate when the texturemap is shorter than the object to map onto\&.
+.PP
+Default value is \fBSoTextureCubeMap::REPEAT\fP\&. 
+.SS "\fBSoSFEnum\fP SoTextureCubeMap::model"
+Texturemapping model for how the texturemap is 'merged' with the polygon primitives it is applied to\&. Default value is \fBSoTextureCubeMap::MODULATE\fP\&. 
+.SS "\fBSoSFColor\fP SoTextureCubeMap::blendColor"
+Blend color\&. Used when \fBSoTextureCubeMap::model\fP is \fBSoTextureCubeMap::BLEND\fP\&.
+.PP
+Default color value is [0, 0, 0], black, which means no contribution to the blending is made\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

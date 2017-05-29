@@ -1,0 +1,756 @@
+.TH "SoNode" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoNode \- The \fBSoNode\fP class is the base class for nodes used in scene graphs\&.
+.PP
+Coin is a \fIretained\fP \fImode\fP 3D visualization library (built on top of the \fIimmediate\fP \fImode\fP OpenGL library)\&. 'Retained mode' means that instead of passing commands to draw graphics primitives directly to the renderer, you build up data structures which are rendered by the library \fIon\fP \fIdemand\fP\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/nodes/SoNode\&.h>\fP
+.PP
+Inherits \fBSoFieldContainer\fP\&.
+.PP
+Inherited by \fBSoAlphaTest\fP, \fBSoBaseColor\fP, \fBSoBaseKit\fP, \fBSoBumpMap\fP, \fBSoBumpMapCoordinate\fP, \fBSoBumpMapTransform\fP, \fBSoCacheHint\fP, \fBSoCallback\fP, \fBSoCamera\fP, \fBSoClipPlane\fP, \fBSoColorIndex\fP, \fBSoComplexity\fP, \fBSoCoordinate3\fP, \fBSoCoordinate4\fP, \fBSoDepthBuffer\fP, \fBSoDrawStyle\fP, \fBSoEnvironment\fP, \fBSoEventCallback\fP, \fBSoFile\fP, \fBSoFont\fP, \fBSoGeoCoordinate\fP, \fBSoGeoOrigin\fP, \fBSoGroup\fP, \fBSoInfo\fP, \fBSoLabel\fP, \fBSoLight\fP, \fBSoLightModel\fP, \fBSoListener\fP, \fBSoMaterial\fP, \fBSoMaterialBinding\fP, \fBSoNodeEngine\fP, \fBSoNodeKitListPart\fP, \fBSoNormal\fP, \fBSoNormalBinding\fP, \fBSoPackedColor\fP, \fBSoPickStyle\fP, \fBSoPolygonOffset\fP, \fBSoProfile\fP, \fBSoProfileCoordinate2\fP, \fBSoProfileCoordinate3\fP, \fBSoProfilerStats\fP, \fBSoProto\fP, \fBSoProtoInstance\fP, \fBSoSceneTexture2\fP, \fBSoSceneTextureCubeMap\fP, \fBSoShaderObject\fP, \fBSoShaderParameter\fP, \fBSoShaderProgram\fP, \fBSoShadowCulling\fP, \fBSoShadowStyle\fP, \fBSoShape\fP, \fBSoShapeHints\fP, \fBSoTexture\fP, \fBSoTexture2Transform\fP, \fBSoTexture3Transform\fP, \fBSoTextureCombine\fP, \fBSoTextureCoordinate2\fP, \fBSoTextureCoordinate3\fP, \fBSoTextureCoordinateBinding\fP, \fBSoTextureCoordinateCube\fP, \fBSoTextureCoordinateCylinder\fP, \fBSoTextureCoordinateFunction\fP, \fBSoTextureCoordinateSphere\fP, \fBSoTextureMatrixTransform\fP, \fBSoTextureScalePolicy\fP, \fBSoTextureUnit\fP, \fBSoTransformation\fP, \fBSoTransparencyType\fP, \fBSoVertexAttribute\fP, \fBSoVertexAttributeBinding\fP, \fBSoVertexProperty\fP, \fBSoVRMLAppearance\fP, \fBSoVRMLAudioClip\fP, \fBSoVRMLBackground\fP, \fBSoVRMLColor\fP, \fBSoVRMLCoordinate\fP, \fBSoVRMLFog\fP, \fBSoVRMLFontStyle\fP, \fBSoVRMLInline\fP, \fBSoVRMLLight\fP, \fBSoVRMLMaterial\fP, \fBSoVRMLNavigationInfo\fP, \fBSoVRMLNormal\fP, \fBSoVRMLProximitySensor\fP, \fBSoVRMLScript\fP, \fBSoVRMLSensor\fP, \fBSoVRMLShape\fP, \fBSoVRMLSound\fP, \fBSoVRMLTexture\fP, \fBSoVRMLTextureCoordinate\fP, \fBSoVRMLTextureTransform\fP, \fBSoVRMLTouchSensor\fP, \fBSoVRMLViewpoint\fP, \fBSoVRMLVisibilitySensor\fP, \fBSoVRMLWorldInfo\fP, and \fBSoWWWInline\fP\&.
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBNodeType\fP { \fBINVENTOR\fP = 0x0000, \fBVRML1\fP = 0x0001, \fBVRML2\fP = 0x0002, \fBINVENTOR_1\fP = 0x0004, \fBINVENTOR_2_0\fP = 0x0008, \fBINVENTOR_2_1\fP = 0x0010, \fBINVENTOR_2_5\fP = 0x0020, \fBINVENTOR_2_6\fP = 0x0040, \fBCOIN_1_0\fP = 0x0080, \fBCOIN_2_0\fP = 0x0100, \fBEXTENSION\fP = 0x0200, \fBCOIN_2_2\fP = 0x0400, \fBCOIN_2_3\fP = 0x0800, \fBCOIN_2_4\fP = 0x1000, \fBINVENTOR_5_0\fP = 0x2000, \fBCOIN_2_5\fP = 0x4000, \fBCOIN_3_0\fP = 0x8000, \fBINVENTOR_6_0\fP = 0x10000, \fBCOIN_4_0\fP = 0x20000 }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBsetOverride\fP (const SbBool state)"
+.br
+.ti -1c
+.RI "SbBool \fBisOverride\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBsetNodeType\fP (const \fBNodeType\fP type)"
+.br
+.ti -1c
+.RI "\fBNodeType\fP \fBgetNodeType\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fBSoNode\fP * \fBcopy\fP (SbBool copyconnections=FALSE) const"
+.br
+.ti -1c
+.RI "virtual SbBool \fBaffectsState\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBdoAction\fP (\fBSoAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBGLRender\fP (\fBSoGLRenderAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBGLRenderBelowPath\fP (\fBSoGLRenderAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBGLRenderInPath\fP (\fBSoGLRenderAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBGLRenderOffPath\fP (\fBSoGLRenderAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBcallback\fP (\fBSoCallbackAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBgetBoundingBox\fP (\fBSoGetBoundingBoxAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBgetMatrix\fP (\fBSoGetMatrixAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBhandleEvent\fP (\fBSoHandleEventAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBpick\fP (\fBSoPickAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBrayPick\fP (\fBSoRayPickAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBsearch\fP (\fBSoSearchAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBwrite\fP (\fBSoWriteAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBaudioRender\fP (\fBSoAudioRenderAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBgetPrimitiveCount\fP (\fBSoGetPrimitiveCountAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBgrabEventsSetup\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBgrabEventsCleanup\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBstartNotify\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBnotify\fP (\fBSoNotList\fP *l)"
+.br
+.ti -1c
+.RI "uint32_t \fBgetNodeId\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fBSoChildList\fP * \fBgetChildren\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBwriteInstance\fP (\fBSoOutput\fP *out)"
+.br
+.ti -1c
+.RI "virtual \fBSoNode\fP * \fBaddToCopyDict\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBcopyContents\fP (const \fBSoFieldContainer\fP *from, SbBool copyconnections)"
+.br
+.ti -1c
+.RI "virtual \fBSoFieldContainer\fP * \fBcopyThroughConnection\fP (void) const"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static uint32_t \fBgetCompatibilityTypes\fP (const \fBSoType\fP &nodetype)"
+.br
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static \fBSoNode\fP * \fBgetByName\fP (const \fBSbName\fP &name)"
+.br
+.ti -1c
+.RI "static \fBint\fP \fBgetByName\fP (const \fBSbName\fP &name, \fBSoNodeList\fP &l)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClasses\fP (void)"
+.br
+.ti -1c
+.RI "static uint32_t \fBgetNextNodeId\fP (void)"
+.br
+.ti -1c
+.RI "static \fBint\fP \fBgetActionMethodIndex\fP (const \fBSoType\fP type)"
+.br
+.ti -1c
+.RI "static void \fBgetBoundingBoxS\fP (\fBSoAction\fP *action, \fBSoNode\fP *node)"
+.br
+.ti -1c
+.RI "static void \fBGLRenderS\fP (\fBSoAction\fP *action, \fBSoNode\fP *node)"
+.br
+.ti -1c
+.RI "static void \fBcallbackS\fP (\fBSoAction\fP *action, \fBSoNode\fP *node)"
+.br
+.ti -1c
+.RI "static void \fBgetMatrixS\fP (\fBSoAction\fP *action, \fBSoNode\fP *node)"
+.br
+.ti -1c
+.RI "static void \fBhandleEventS\fP (\fBSoAction\fP *action, \fBSoNode\fP *node)"
+.br
+.ti -1c
+.RI "static void \fBpickS\fP (\fBSoAction\fP *action, \fBSoNode\fP *node)"
+.br
+.ti -1c
+.RI "static void \fBrayPickS\fP (\fBSoAction\fP *action, \fBSoNode\fP *node)"
+.br
+.ti -1c
+.RI "static void \fBsearchS\fP (\fBSoAction\fP *action, \fBSoNode\fP *node)"
+.br
+.ti -1c
+.RI "static void \fBwriteS\fP (\fBSoAction\fP *action, \fBSoNode\fP *node)"
+.br
+.ti -1c
+.RI "static void \fBaudioRenderS\fP (\fBSoAction\fP *action, \fBSoNode\fP *node)"
+.br
+.ti -1c
+.RI "static void \fBgetPrimitiveCountS\fP (\fBSoAction\fP *action, \fBSoNode\fP *node)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSoNode\fP (void)"
+.br
+.ti -1c
+.RI "virtual \fB~SoNode\fP ()"
+.br
+.ti -1c
+.RI "virtual SbBool \fBreadInstance\fP (\fBSoInput\fP *in, unsigned short flags)"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBsetNextActionMethodIndex\fP (\fBint\fP index)"
+.br
+.ti -1c
+.RI "static \fBint\fP \fBgetNextActionMethodIndex\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBincNextActionMethodIndex\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBsetCompatibilityTypes\fP (const \fBSoType\fP &nodetype, const uint32_t bitmask)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "uint32_t \fBuniqueId\fP"
+.br
+.in -1c
+.SS "Static Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "static uint32_t \fBnextUniqueId\fP = 1"
+.br
+.ti -1c
+.RI "static \fBint\fP \fBnextActionMethodIndex\fP = 0"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoNode\fP class is the base class for nodes used in scene graphs\&.
+.PP
+Coin is a \fIretained\fP \fImode\fP 3D visualization library (built on top of the \fIimmediate\fP \fImode\fP OpenGL library)\&. 'Retained mode' means that instead of passing commands to draw graphics primitives directly to the renderer, you build up data structures which are rendered by the library \fIon\fP \fIdemand\fP\&. 
+
+The node classes are the main 'primitive' for building these data structures\&. In Coin, you build tree hierarchies made up of different node types: group nodes (for the tree structure layout of the other nodes), appearance nodes (for setting up materials, textures, etc), shape nodes (for the actual geometry), and nodes for lighting and camera positioning\&.
+.PP
+One common issue with newcomers to the API is that you should not and can not use the C++ delete operator on nodes -- the destructor is protected\&. This is because node instances are using a common technique for memory resource handling called 'reference
+counting'\&. Nodes are deleted (actually, they delete themselves) when their \fBunref()\fP method is called and the reference count goes to zero\&.
+.PP
+One important side-effect of this is that SoNode-derived classes should \fInot\fP be statically allocated, neither in static module memory nor on function's stack-frames\&. SoNode-derived classes must \fIalways\fP be allocated dynamically from the memory heap with the \fCnew\fP operator (or else the scheme with self-destruction upon de-referencing to 0 would not work)\&.
+.PP
+Usually application programmers won't manually \fBref()\fP and \fBunref()\fP nodes a lot, because you pass the nodes directly to \fBSoGroup::addChild()\fP or So*Viewer::setSceneGraph() or something similar\&. These functions will \fBref()\fP the nodes they are passed, and \fBunref()\fP them when they are finished with them\&.
+.PP
+Make sure you do \fBref()\fP nodes that you keep pointers to so they aren't accidentally deleted prematurely due to an \fBunref()\fP call from within the library itself\&. If you haven't manually called \fBref()\fP on a top-level root node, it will then be deleted automatically\&. This code shows how to do it:
+.PP
+.PP
+.nf
+SoSeparator * root = new SoSeparator; // root's refcount starts out at zero
+root->addChild(foo_node); // foo_node refcount is increased by 1
+root->addChild(bar_node); // bar_node refcount +1
+
+// increase refcount before passing it to setScenegraph(), to avoid
+// premature destruction
+root->ref();
+
+myviewer->setSceneGraph(root); // root's refcount +1, is now 2
+
+// [misc visualization and processing]
+
+// myviewer will let go of it's reference to the root node, thereby
+// decreasing it's referencecount by 1
+myviewer->setSceneGraph(NULL);
+
+// root's refcount goes from +1 to 0, and it will self-destruct controllably
+root->unref();
+// avoid dangling pointer, in case "root" is attempted used again
+// (not really necessary, but good for smoking out bugs early)
+root = NULL;
+.fi
+.PP
+.PP
+For full information and tutorial-style introductions to all API issues, see the 'Inventor Mentor: Programming Object-Oriented 3D
+Graphics with Open Inventor' (ISBN 0-201-62495-8)\&. It has detailed explanations on all the basic principles involved\&.
+.PP
+See specifically the section 'References and Deletion' in Chapter 3 to learn about the reference counting techniques\&.
+.PP
+Often when using the Coin library, one is interested in making extensions to it\&. Of particular interest is setting up extension nodes, which are then traversed, rendered and otherwise used by the rest of the library as any internal node\&.
+.PP
+The Coin header file \fBInventor/nodes/SoSubNode\&.h\fP includes a set of convenience macros for quick and easy construction of extension nodes\&. Here's a complete snippet of code which shows how to set up a skeleton framework for an extension node class:
+.PP
+.PP
+.nf
+#include <Inventor/nodes/SoWWWInline\&.h>
+
+
+class MyWWWInline : public SoWWWInline {
+  SO_NODE_HEADER(MyWWWInline);
+
+public:
+  static void initClass(void);
+  MyWWWInline(void);
+
+protected:
+  virtual ~MyWWWInline();
+};
+
+
+SO_NODE_SOURCE(MyWWWInline);
+
+MyWWWInline::MyWWWInline(void)
+{
+  SO_NODE_CONSTRUCTOR(MyWWWInline);
+}
+
+MyWWWInline::~MyWWWInline()
+{
+}
+
+void
+MyWWWInline::initClass(void)
+{
+  SO_NODE_INIT_CLASS(MyWWWInline, SoWWWInline, "SoWWWInline");
+}
+
+
+int
+main(int argc, char ** argv)
+{
+  SoDB::init();
+  MyWWWInline::initClass();
+
+  // [\&.\&.\&.]
+
+  return 0;
+}
+.fi
+.PP
+.PP
+You can then override for instance the \fBGLRender()\fP method to have your new class render OpenGL geometry different from it's superclass\&.
+.PP
+For extending the Coin library with your own classes, we strongly recommend that you make yourself acquainted with the excellent «The Inventor Toolmaker» book (ISBN 0-201-62493-1), which describes the tasks involved in detail\&. This book was written by the original SGI Inventor designers and explains many of the underlying design ideas, aswell as having lots of hands-on examples on how to extend the Coin toolkit in ways that are true to the fundamental design ideas\&. («The Inventor Toolmaker» is also available at SGI's online library, at no cost\&. See \fCDownload The Inventor Toolmaker\fP\&.) Reading the sourcecode of the built-in classes in Coin should also provide very helpful\&.
+.PP
+For information about dynamic loading of extension nodes, see the documentation of \fBSoType::fromName()\fP\&. 
+.SH "Member Enumeration Documentation"
+.PP 
+.SS "enum \fBSoNode::NodeType\fP"
+Used to store node type\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fIINVENTOR \fP\fP
+Specifies Inventor node type\&. 
+.TP
+\fB\fIVRML1 \fP\fP
+Node is VRML V1\&.0 compatible\&. 
+.TP
+\fB\fIVRML2 \fP\fP
+Node is from the VRML V2\&.0 specification\&. 
+.TP
+\fB\fIINVENTOR_1 \fP\fP
+Node was part of SGI Inventor version 1\&. 
+.TP
+\fB\fIINVENTOR_2_0 \fP\fP
+Node was part of SGI Inventor version 2\&.0\&. 
+.TP
+\fB\fIINVENTOR_2_1 \fP\fP
+Node was introduced with SGI / TGS Inventor version 2\&.1\&. 
+.TP
+\fB\fIINVENTOR_2_5 \fP\fP
+Node was introduced with TGS Inventor version 2\&.5\&. 
+.TP
+\fB\fIINVENTOR_2_6 \fP\fP
+Node was introduced with TGS Inventor version 2\&.6\&. 
+.TP
+\fB\fICOIN_1_0 \fP\fP
+Node was part of Coin version 1\&. 
+.TP
+\fB\fICOIN_2_0 \fP\fP
+Node was introduced with Coin 2\&.0\&. 
+.TP
+\fB\fIEXTENSION \fP\fP
+Node is a client code extension\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoNode::SoNode (void)\fC [protected]\fP"
+Default constructor, initializes node instance\&. 
+.SS "SoNode::~SoNode ()\fC [protected]\fP, \fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void SoNode::setOverride (const SbBool state)"
+Set the override flag\&.
+.PP
+If this flag is \fCTRUE\fP, the field values of this node will override the field values of other nodes of the same type during scene graph traversal\&.
+.PP
+A common applicaton for 'override nodes' is to place them at the top of the tree as a convenient way to force e\&.g\&. a common drawstyle on the complete tree\&.
+.PP
+The override flag does not exist in the Inventor file format\&. This flag is in other words not persistent, and must be programmatically set\&. The rationale for this flag is for viewers to be able to control rendering style of the 3D models, so it would look stupid if some parts of certain models suddenly didn't adhere to the viewer mode\&. 
+.SS "SbBool SoNode::isOverride (void) const"
+Return status of override flag\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetOverride()\fP 
+.RE
+.PP
+
+.SS "uint32_t SoNode::getCompatibilityTypes (const \fBSoType\fP & nodetype)\fC [static]\fP"
+Get the node compatibility mask for node type \fInodetype\fP\&. The return value will be a bit mask of \fBSoNode::NodeType\fP flags, containing one or several flags\&.
+.PP
+This function is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.RE
+.PP
+
+.SS "void SoNode::setNodeType (const \fBNodeType\fP type)"
+Sets the node type for this node to \fItype\fP\&. Since some nodes should be handled differently in VRML1 vs\&. Inventor, this should be used to get correct behavior for those cases\&. The default node type is INVENTOR\&.
+.PP
+This method is an extension versus the Open Inventor API\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetNodeType()\fP 
+.RE
+.PP
+
+.SS "\fBSoNode::NodeType\fP SoNode::getNodeType (void) const"
+Returns the node type set for this node\&.
+.PP
+This method is an extension versus the Open Inventor API\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetNodeType()\fP 
+.RE
+.PP
+
+.SS "\fBSoNode\fP * SoNode::copy (SbBool copyconnections = \fCFALSE\fP) const\fC [virtual]\fP"
+Make a duplicate of this node and return a pointer to the duplicate\&.
+.PP
+If this node is a group node, children are also copied and we return a pointer to the root of a full copy of the subgraph rooted here\&.
+.PP
+If \fIcopyconnections\fP is \fCTRUE\fP, we also copy the connections to fields within this node (and ditto for any children and children's children etc)\&.
+.PP
+Note that this function has been made virtual in Coin, which is not the case in the original Open Inventor API\&. We may change this method back into being non-virtual again for major Coin versions after this, as it was made virtual more or less by mistake\&. So please don't write application code that depends on \fBSoNode::copy()\fP being virtual\&.
+.PP
+The reason this method should not be virtual is because this is \fInot\fP the function the application programmer should override in extension nodes if she needs some special behavior during a copy operation (like copying the value of internal data not exposed as fields)\&.
+.PP
+For that purpose, override the \fBcopyContents()\fP method\&. Your overridden \fBcopyContents()\fP method should then \fIboth\fP copy internal data aswell as calling the parent superclass' \fBcopyContents()\fP method for automatically handling of fields and other common data\&. 
+.SS "SbBool SoNode::affectsState (void) const\fC [virtual]\fP"
+Returns \fCTRUE\fP if the node could have any effect on the state during traversal\&.
+.PP
+If it returns \fCFALSE\fP, no data in the traversal-state will change from the pre-traversal state to the post-traversal state\&. The \fBSoSeparator\fP node will for instance return \fCFALSE\fP, as it pushes and pops the state before and after traversal of its children\&. All \fBSoShape\fP nodes will also return \fCFALSE\fP, as just pushing out geometry data to the rendering engine won't affect the actual rendering state\&.
+.PP
+The default method returns \fCTRUE\fP, on a 'better safe than sorry' philosophy\&. 
+.PP
+Reimplemented in \fBSoSeparator\fP, \fBSoNodeKitListPart\fP, \fBSoShape\fP, \fBSoVRMLShape\fP, \fBSoVRMLSwitch\fP, \fBSoArray\fP, \fBSoVRMLProximitySensor\fP, \fBSoVRMLTouchSensor\fP, \fBSoSwitch\fP, \fBSoVRMLLOD\fP, \fBSoSceneKit\fP, \fBSoVRMLParent\fP, and \fBSoMultipleCopy\fP\&.
+.SS "void SoNode::doAction (\fBSoAction\fP * action)\fC [virtual]\fP"
+This function performs the typical operation of a node for any action\&. 
+.PP
+Reimplemented in \fBSoSceneTexture2\fP, \fBSoCamera\fP, \fBSoWWWInline\fP, \fBSoVRMLInline\fP, \fBSoBaseKit\fP, \fBSoTextureCombine\fP, \fBSoSceneTextureCubeMap\fP, \fBSoVRMLFontStyle\fP, \fBSoTextureCubeMap\fP, \fBSoShapeHints\fP, \fBSoTexture2\fP, \fBSoVRMLSwitch\fP, \fBSoTexture3\fP, \fBSoVRMLVertexShape\fP, \fBSoVertexProperty\fP, \fBSoNodeKitListPart\fP, \fBSoVRMLTransform\fP, \fBSoVRMLLOD\fP, \fBSoUnits\fP, \fBSoVRMLGroup\fP, \fBSoTransform\fP, \fBSoFontStyle\fP, \fBSoVRMLShape\fP, \fBSoNormalBinding\fP, \fBSoTransparencyType\fP, \fBSoMaterialBinding\fP, \fBSoVRMLParent\fP, \fBSoArray\fP, \fBSoDrawStyle\fP, \fBSoBumpMap\fP, \fBSoVRMLImageTexture\fP, \fBSoVRMLProximitySensor\fP, \fBSoDirectionalLightManip\fP, \fBSoClipPlaneManip\fP, \fBSoSeparator\fP, \fBSoSpotLightManip\fP, \fBSoVertexAttribute\fP, \fBSoGroup\fP, \fBSoPolygonOffset\fP, \fBSoRotationXYZ\fP, \fBSoTransformManip\fP, \fBSoPointLightManip\fP, \fBSoTextureCoordinateBinding\fP, \fBSoProfile\fP, \fBSoVRMLScript\fP, \fBSoComplexity\fP, \fBSoPickStyle\fP, \fBSoMaterial\fP, \fBSoSwitch\fP, \fBSoAntiSquish\fP, \fBSoTexture3Transform\fP, \fBSoVRMLBillboard\fP, \fBSoVRMLMaterial\fP, \fBSoGeoCoordinate\fP, \fBSoVertexAttributeBinding\fP, \fBSoTextureCoordinatePlane\fP, \fBSoTextureUnit\fP, \fBSoGeoLocation\fP, \fBSoResetTransform\fP, \fBSoCacheHint\fP, \fBSoLOD\fP, \fBSoVRMLTextureTransform\fP, \fBSoBumpMapTransform\fP, \fBSoSurroundScale\fP, \fBSoLightModel\fP, \fBSoTexture2Transform\fP, \fBSoVRMLAppearance\fP, \fBSoGeoOrigin\fP, \fBSoLevelOfDetail\fP, \fBSoTextureCoordinateObject\fP, \fBSoFile\fP, \fBSoNormal\fP, \fBSoPathSwitch\fP, \fBSoMultipleCopy\fP, \fBSoVRMLNormal\fP, \fBSoVRMLCoordinate\fP, \fBSoVRMLColor\fP, \fBSoVRMLVertexPoint\fP, \fBSoVRMLPixelTexture\fP, \fBSoVRMLVertexLine\fP, \fBSoVRMLTextureCoordinate\fP, \fBSoTextureCoordinate3\fP, \fBSoClipPlane\fP, \fBSoCoordinate3\fP, \fBSoBaseColor\fP, \fBSoCoordinate4\fP, \fBSoTextureCoordinateReflectionMap\fP, \fBSoFont\fP, \fBSoPackedColor\fP, \fBSoRotation\fP, \fBSoTranslation\fP, \fBSoCallback\fP, \fBSoTextureCoordinate2\fP, \fBSoTextureCoordinateNormalMap\fP, \fBSoMatrixTransform\fP, \fBSoScale\fP, \fBSoTextureMatrixTransform\fP, \fBSoBumpMapCoordinate\fP, \fBSoProfileCoordinate3\fP, \fBSoTransformSeparator\fP, \fBSoProfileCoordinate2\fP, \fBSoTextureCoordinateEnvironment\fP, \fBSoTextureCoordinateDefault\fP, \fBSoTextureCoordinateSphere\fP, \fBSoTextureCoordinateCylinder\fP, \fBSoTexture\fP, and \fBSoTextureCoordinateCube\fP\&.
+.SS "void SoNode::GLRender (\fBSoGLRenderAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGLRenderAction\fP\&.
+.PP
+This is called during rendering traversals\&. Nodes influencing the rendering state in any way or who wants to throw geometry primitives at OpenGL overrides this method\&. 
+.PP
+Reimplemented in \fBSoSceneTexture2\fP, \fBSoCamera\fP, \fBSoWWWInline\fP, \fBSoVRMLInline\fP, \fBSoBaseKit\fP, \fBSoTextureCombine\fP, \fBSoMarkerSet\fP, \fBSoSceneTextureCubeMap\fP, \fBSoVRMLFontStyle\fP, \fBSoTextureCubeMap\fP, \fBSoTabPlaneDragger\fP, \fBSoProfilerStats\fP, \fBSoVRMLSwitch\fP, \fBSoShapeHints\fP, \fBSoTexture2\fP, \fBSoTexture3\fP, \fBSoDragger\fP, \fBSoVRMLVertexShape\fP, \fBSoText3\fP, \fBSoVertexProperty\fP, \fBSoNodeKitListPart\fP, \fBSoImage\fP, \fBSoUnits\fP, \fBSoVRMLElevationGrid\fP, \fBSoVRMLLOD\fP, \fBSoVRMLGroup\fP, \fBSoShaderObject\fP, \fBSoTransform\fP, \fBSoShape\fP, \fBSoVRMLMovieTexture\fP, \fBSoFontStyle\fP, \fBSoVRMLShape\fP, \fBSoArray\fP, \fBSoNormalBinding\fP, \fBSoCylinder\fP, \fBSoTransparencyType\fP, \fBSoMaterialBinding\fP, \fBSoGeometryShader\fP, \fBSoDepthBuffer\fP, \fBSoDrawStyle\fP, \fBSoBumpMap\fP, \fBSoAntiSquish\fP, \fBSoDirectionalLightManip\fP, \fBSoClipPlaneManip\fP, \fBSoVRMLImageTexture\fP, \fBSoVRMLBackground\fP, \fBSoVRMLProximitySensor\fP, \fBSoVRMLText\fP, \fBSoSpotLightManip\fP, \fBSoIndexedNurbsSurface\fP, \fBSoSurroundScale\fP, \fBSoAsciiText\fP, \fBSoCone\fP, \fBSoSeparator\fP, \fBSoPolygonOffset\fP, \fBSoAlphaTest\fP, \fBSoVRMLExtrusion\fP, \fBSoTransformManip\fP, \fBSoPointLightManip\fP, \fBSoShaderProgram\fP, \fBSoComplexity\fP, \fBSoVertexAttribute\fP, \fBSoGroup\fP, \fBSoTextureCoordinateBinding\fP, \fBSoRotationXYZ\fP, \fBSoProfile\fP, \fBSoVRMLScript\fP, \fBSoSwitch\fP, \fBSoVRMLViewpoint\fP, \fBSoText2\fP, \fBSoTexture3Transform\fP, \fBSoMaterial\fP, \fBSoNurbsSurface\fP, \fBSoVRMLBillboard\fP, \fBSoVRMLIndexedFaceSet\fP, \fBSoGeoCoordinate\fP, \fBSoVRMLNavigationInfo\fP, \fBSoVRMLMaterial\fP, \fBSoTextureUnit\fP, \fBSoEnvironment\fP, \fBSoVertexAttributeBinding\fP, \fBSoGeoLocation\fP, \fBSoResetTransform\fP, \fBSoTextureScalePolicy\fP, \fBSoLOD\fP, \fBSoVRMLVisibilitySensor\fP, \fBSoVRMLTextureTransform\fP, \fBSoTextureCoordinatePlane\fP, \fBSoBumpMapTransform\fP, \fBSoTexture2Transform\fP, \fBSoCacheHint\fP, \fBSoShadowStyle\fP, \fBSoVRMLFog\fP, \fBSoVRMLAppearance\fP, \fBSoVRMLCollision\fP, \fBSoLightModel\fP, \fBSoGeoOrigin\fP, \fBSoIndexedNurbsCurve\fP, \fBSoLevelOfDetail\fP, \fBSoVRMLSpotLight\fP, \fBSoFile\fP, \fBSoShadowCulling\fP, \fBSoVRMLCylinder\fP, \fBSoSpotLight\fP, \fBSoTextureCoordinateObject\fP, \fBSoNurbsCurve\fP, \fBSoCube\fP, \fBSoMultipleCopy\fP, \fBSoVRMLLight\fP, \fBSoVRMLCone\fP, \fBSoVRMLTextureCoordinate\fP, \fBSoNormal\fP, \fBSoIndexedLineSet\fP, \fBSoIndexedFaceSet\fP, \fBSoPathSwitch\fP, \fBSoIndexedTriangleStripSet\fP, \fBSoFont\fP, \fBSoVRMLPointLight\fP, \fBSoVRMLNormal\fP, \fBSoVRMLCoordinate\fP, \fBSoVRMLColor\fP, \fBSoVRMLIndexedLineSet\fP, \fBSoVRMLVertexPoint\fP, \fBSoVRMLPixelTexture\fP, \fBSoVRMLVertexLine\fP, \fBSoTextureCoordinate3\fP, \fBSoClipPlane\fP, \fBSoTranslation\fP, \fBSoCallback\fP, \fBSoCoordinate3\fP, \fBSoBaseColor\fP, \fBSoCoordinate4\fP, \fBSoFaceSet\fP, \fBSoTextureCoordinateReflectionMap\fP, \fBSoMatrixTransform\fP, \fBSoPackedColor\fP, \fBSoScale\fP, \fBSoIndexedMarkerSet\fP, \fBSoIndexedPointSet\fP, \fBSoRotation\fP, \fBSoTextureMatrixTransform\fP, \fBSoTransformSeparator\fP, \fBSoLineSet\fP, \fBSoTextureCoordinate2\fP, \fBSoTextureCoordinateNormalMap\fP, \fBSoQuadMesh\fP, \fBSoBumpMapCoordinate\fP, \fBSoProfileCoordinate3\fP, \fBSoPointSet\fP, \fBSoProfileCoordinate2\fP, \fBSoTriangleStripSet\fP, \fBSoSphere\fP, \fBSoDirectionalLight\fP, \fBSoPointLight\fP, \fBSoShadowSpotLight\fP, \fBSoShadowDirectionalLight\fP, \fBSoVRMLBox\fP, \fBSoVRMLSphere\fP, \fBSoVRMLTexture\fP, \fBSoVRMLDirectionalLight\fP, \fBSoTextureCoordinateEnvironment\fP, \fBSoColorIndex\fP, \fBSoTextureCoordinateDefault\fP, \fBSoVRMLPointSet\fP, \fBSoTextureCoordinateSphere\fP, \fBSoTextureCoordinateCylinder\fP, \fBSoTexture\fP, \fBSoAnnotation\fP, and \fBSoTextureCoordinateCube\fP\&.
+.SS "void SoNode::GLRenderBelowPath (\fBSoGLRenderAction\fP * action)\fC [virtual]\fP"
+Implements the SoAction::BELOW_PATH traversal method for the rendering action\&. 
+.PP
+Reimplemented in \fBSoExtSelection\fP, \fBSoVRMLGroup\fP, \fBSoVRMLLOD\fP, \fBSoVRMLTransform\fP, \fBSoShadowGroup\fP, \fBSoVRMLBillboard\fP, \fBSoLocateHighlight\fP, \fBSoSeparator\fP, \fBSoLOD\fP, \fBSoGeoSeparator\fP, and \fBSoAnnotation\fP\&.
+.SS "void SoNode::GLRenderInPath (\fBSoGLRenderAction\fP * action)\fC [virtual]\fP"
+Implements the SoAction::IN_PATH traversal method for the rendering action\&. 
+.PP
+Reimplemented in \fBSoVRMLGroup\fP, \fBSoVRMLLOD\fP, \fBSoVRMLTransform\fP, \fBSoShadowGroup\fP, \fBSoVRMLBillboard\fP, \fBSoLocateHighlight\fP, \fBSoSeparator\fP, \fBSoLOD\fP, \fBSoGeoSeparator\fP, and \fBSoAnnotation\fP\&.
+.SS "void SoNode::GLRenderOffPath (\fBSoGLRenderAction\fP * action)\fC [virtual]\fP"
+Implements the SoAction::OFF_PATH traversal method for the rendering action\&. 
+.PP
+Reimplemented in \fBSoVRMLGroup\fP, \fBSoVRMLLOD\fP, \fBSoVRMLBillboard\fP, \fBSoSeparator\fP, \fBSoLOD\fP, and \fBSoAnnotation\fP\&.
+.SS "void SoNode::callback (\fBSoCallbackAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoCallbackAction\fP\&.
+.PP
+Simply updates the state according to how the node behaves for the render action, so the application programmer can use the \fBSoCallbackAction\fP for extracting information about the scene graph\&. 
+.PP
+Reimplemented in \fBSoSceneTexture2\fP, \fBSoCamera\fP, \fBSoWWWInline\fP, \fBSoVRMLInline\fP, \fBSoBaseKit\fP, \fBSoTextureCombine\fP, \fBSoSceneTextureCubeMap\fP, \fBSoProfilerStats\fP, \fBSoTextureCubeMap\fP, \fBSoVRMLFontStyle\fP, \fBSoShapeHints\fP, \fBSoTexture2\fP, \fBSoTexture3\fP, \fBSoVRMLSwitch\fP, \fBSoVRMLVertexShape\fP, \fBSoVertexProperty\fP, \fBSoDragger\fP, \fBSoNodeKitListPart\fP, \fBSoVRMLTransform\fP, \fBSoShape\fP, \fBSoVRMLLOD\fP, \fBSoUnits\fP, \fBSoTransform\fP, \fBSoVRMLGroup\fP, \fBSoFontStyle\fP, \fBSoNormalBinding\fP, \fBSoSeparator\fP, \fBSoTransparencyType\fP, \fBSoMaterialBinding\fP, \fBSoVRMLShape\fP, \fBSoDrawStyle\fP, \fBSoBumpMap\fP, \fBSoArray\fP, \fBSoVRMLImageTexture\fP, \fBSoVRMLProximitySensor\fP, \fBSoAntiSquish\fP, \fBSoDirectionalLightManip\fP, \fBSoClipPlaneManip\fP, \fBSoGroup\fP, \fBSoRotationXYZ\fP, \fBSoSpotLightManip\fP, \fBSoSurroundScale\fP, \fBSoPolygonOffset\fP, \fBSoTransformManip\fP, \fBSoPointLightManip\fP, \fBSoMaterial\fP, \fBSoTextureCoordinateBinding\fP, \fBSoProfile\fP, \fBSoVRMLScript\fP, \fBSoComplexity\fP, \fBSoPickStyle\fP, \fBSoSwitch\fP, \fBSoVRMLMaterial\fP, \fBSoTextureCoordinatePlane\fP, \fBSoPathSwitch\fP, \fBSoEnvironment\fP, \fBSoVertexAttributeBinding\fP, \fBSoTexture3Transform\fP, \fBSoVRMLBillboard\fP, \fBSoGeoCoordinate\fP, \fBSoCacheHint\fP, \fBSoGeoSeparator\fP, \fBSoLightModel\fP, \fBSoTextureUnit\fP, \fBSoGeoLocation\fP, \fBSoResetTransform\fP, \fBSoLOD\fP, \fBSoVRMLTextureTransform\fP, \fBSoBumpMapTransform\fP, \fBSoTextureCoordinateObject\fP, \fBSoTexture2Transform\fP, \fBSoVRMLAppearance\fP, \fBSoGeoOrigin\fP, \fBSoLevelOfDetail\fP, \fBSoVRMLCoordinate\fP, \fBSoVRMLVertexPoint\fP, \fBSoVRMLVertexLine\fP, \fBSoNormal\fP, \fBSoCoordinate4\fP, \fBSoTextureCoordinateReflectionMap\fP, \fBSoFile\fP, \fBSoFont\fP, \fBSoVRMLNormal\fP, \fBSoVRMLColor\fP, \fBSoVRMLPixelTexture\fP, \fBSoTextureCoordinate3\fP, \fBSoClipPlane\fP, \fBSoCoordinate3\fP, \fBSoBaseColor\fP, \fBSoTextureCoordinateNormalMap\fP, \fBSoPackedColor\fP, \fBSoMultipleCopy\fP, \fBSoVRMLTextureCoordinate\fP, \fBSoRotation\fP, \fBSoLight\fP, \fBSoTextureCoordinate2\fP, \fBSoTranslation\fP, \fBSoTextureCoordinateEnvironment\fP, \fBSoBumpMapCoordinate\fP, \fBSoCallback\fP, \fBSoProfileCoordinate3\fP, \fBSoProfileCoordinate2\fP, \fBSoMatrixTransform\fP, \fBSoScale\fP, \fBSoTextureMatrixTransform\fP, \fBSoTextureCoordinateDefault\fP, \fBSoTransformSeparator\fP, \fBSoTextureCoordinateSphere\fP, \fBSoTextureCoordinateCylinder\fP, \fBSoTexture\fP, and \fBSoTextureCoordinateCube\fP\&.
+.SS "void SoNode::getBoundingBox (\fBSoGetBoundingBoxAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGetBoundingBoxAction\fP\&.
+.PP
+Calculates bounding box and center coordinates for node and modifies the values of the \fIaction\fP to encompass the bounding box for this node and to shift the center point for the scene more towards the one for this node\&.
+.PP
+Nodes influencing how geometry nodes calculates their bounding box also overrides this method to change the relevant state variables\&. 
+.PP
+Reimplemented in \fBSoDragger\fP, \fBSoCamera\fP, \fBSoWWWInline\fP, \fBSoVRMLInline\fP, \fBSoCenterballDragger\fP, \fBSoBaseKit\fP, \fBSoVRMLFontStyle\fP, \fBSoProfilerStats\fP, \fBSoVRMLSwitch\fP, \fBSoShapeHints\fP, \fBSoVRMLVertexShape\fP, \fBSoVertexProperty\fP, \fBSoNodeKitListPart\fP, \fBSoVRMLLOD\fP, \fBSoVRMLTransform\fP, \fBSoVRMLGroup\fP, \fBSoUnits\fP, \fBSoTransform\fP, \fBSoVRMLShape\fP, \fBSoArray\fP, \fBSoSeparator\fP, \fBSoShape\fP, \fBSoFontStyle\fP, \fBSoVRMLProximitySensor\fP, \fBSoAntiSquish\fP, \fBSoDirectionalLightManip\fP, \fBSoClipPlaneManip\fP, \fBSoSpotLightManip\fP, \fBSoSurroundScale\fP, \fBSoGroup\fP, \fBSoRotationXYZ\fP, \fBSoTransformManip\fP, \fBSoPointLightManip\fP, \fBSoProfile\fP, \fBSoLOD\fP, \fBSoSwitch\fP, \fBSoVRMLScript\fP, \fBSoComplexity\fP, \fBSoVRMLBillboard\fP, \fBSoGeoSeparator\fP, \fBSoTextureUnit\fP, \fBSoGeoCoordinate\fP, \fBSoIndexedNurbsCurve\fP, \fBSoGeoLocation\fP, \fBSoResetTransform\fP, \fBSoCacheHint\fP, \fBSoLevelOfDetail\fP, \fBSoGeoOrigin\fP, \fBSoNurbsCurve\fP, \fBSoFile\fP, \fBSoMultipleCopy\fP, \fBSoPathSwitch\fP, \fBSoVRMLIndexedLineSet\fP, \fBSoIndexedLineSet\fP, \fBSoBlinker\fP, \fBSoCoordinate3\fP, \fBSoVRMLCoordinate\fP, \fBSoVRMLVertexPoint\fP, \fBSoVRMLVertexLine\fP, \fBSoRotation\fP, \fBSoTranslation\fP, \fBSoCallback\fP, \fBSoProfileCoordinate3\fP, \fBSoCoordinate4\fP, \fBSoTransformSeparator\fP, \fBSoProfileCoordinate2\fP, \fBSoMatrixTransform\fP, \fBSoScale\fP, \fBSoIndexedPointSet\fP, \fBSoLineSet\fP, \fBSoFont\fP, \fBSoPointSet\fP, and \fBSoVRMLPointSet\fP\&.
+.SS "void SoNode::getMatrix (\fBSoGetMatrixAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoGetMatrixAction\fP\&.
+.PP
+Updates \fIaction\fP by accumulating with the transformation matrix of this node (if any)\&. 
+.PP
+Reimplemented in \fBSoCamera\fP, \fBSoWWWInline\fP, \fBSoVRMLInline\fP, \fBSoCenterballDragger\fP, \fBSoBaseKit\fP, \fBSoProfilerStats\fP, \fBSoVRMLSwitch\fP, \fBSoDragger\fP, \fBSoNodeKitListPart\fP, \fBSoVRMLTransform\fP, \fBSoVRMLGroup\fP, \fBSoUnits\fP, \fBSoTransform\fP, \fBSoArray\fP, \fBSoSeparator\fP, \fBSoAntiSquish\fP, \fBSoDirectionalLightManip\fP, \fBSoClipPlaneManip\fP, \fBSoSpotLightManip\fP, \fBSoSurroundScale\fP, \fBSoGroup\fP, \fBSoRotationXYZ\fP, \fBSoSwitch\fP, \fBSoTransformManip\fP, \fBSoPointLightManip\fP, \fBSoVRMLBillboard\fP, \fBSoGeoSeparator\fP, \fBSoTextureUnit\fP, \fBSoTexture3Transform\fP, \fBSoGeoLocation\fP, \fBSoResetTransform\fP, \fBSoVRMLTextureTransform\fP, \fBSoBumpMapTransform\fP, \fBSoGeoOrigin\fP, \fBSoTexture2Transform\fP, \fBSoMultipleCopy\fP, \fBSoPathSwitch\fP, \fBSoFile\fP, \fBSoRotation\fP, \fBSoTranslation\fP, \fBSoCallback\fP, \fBSoTransformSeparator\fP, \fBSoMatrixTransform\fP, \fBSoScale\fP, and \fBSoTextureMatrixTransform\fP\&.
+.SS "void SoNode::handleEvent (\fBSoHandleEventAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoHandleEventAction\fP\&.
+.PP
+Inspects the event data from \fIaction\fP, and processes it if it is something which this node should react to\&.
+.PP
+Nodes influencing relevant state variables for how event handling is done also overrides this method\&. 
+.PP
+Reimplemented in \fBSoDragger\fP, \fBSoCamera\fP, \fBSoExtSelection\fP, \fBSoSelection\fP, \fBSoWWWInline\fP, \fBSoVRMLInline\fP, \fBSoBaseKit\fP, \fBSoVRMLSwitch\fP, \fBSoEventCallback\fP, \fBSoProfilerStats\fP, \fBSoNodeVisualize\fP, \fBSoNodeKitListPart\fP, \fBSoSeparator\fP, \fBSoArray\fP, \fBSoWWWAnchor\fP, \fBSoDirectionalLightManip\fP, \fBSoClipPlaneManip\fP, \fBSoSpotLightManip\fP, \fBSoGroup\fP, \fBSoTransformManip\fP, \fBSoPointLightManip\fP, \fBSoVRMLScript\fP, \fBSoLocateHighlight\fP, \fBSoSwitch\fP, \fBSoVRMLAnchor\fP, \fBSoVRMLTimeSensor\fP, \fBSoVRMLTouchSensor\fP, \fBSoFile\fP, \fBSoMultipleCopy\fP, \fBSoPathSwitch\fP, \fBSoCallback\fP, and \fBSoVRMLDragSensor\fP\&.
+.SS "void SoNode::pick (\fBSoPickAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoPickAction\fP\&.
+.PP
+Does common processing for \fBSoPickAction\fP \fIaction\fP instances\&. 
+.PP
+Reimplemented in \fBSoWWWInline\fP, \fBSoVRMLInline\fP, \fBSoTextureCombine\fP, \fBSoProfilerStats\fP, \fBSoVRMLFontStyle\fP, \fBSoShapeHints\fP, \fBSoVRMLSwitch\fP, \fBSoVRMLVertexShape\fP, \fBSoNodeKitListPart\fP, \fBSoVertexProperty\fP, \fBSoUnits\fP, \fBSoTransform\fP, \fBSoFontStyle\fP, \fBSoDirectionalLightManip\fP, \fBSoClipPlaneManip\fP, \fBSoNormalBinding\fP, \fBSoMaterialBinding\fP, \fBSoAntiSquish\fP, \fBSoSpotLightManip\fP, \fBSoArray\fP, \fBSoGroup\fP, \fBSoTransformManip\fP, \fBSoPointLightManip\fP, \fBSoSurroundScale\fP, \fBSoRotationXYZ\fP, \fBSoProfile\fP, \fBSoVRMLScript\fP, \fBSoComplexity\fP, \fBSoTextureCoordinateBinding\fP, \fBSoVRMLBillboard\fP, \fBSoTexture3Transform\fP, \fBSoSwitch\fP, \fBSoPickStyle\fP, \fBSoGeoCoordinate\fP, \fBSoGeoLocation\fP, \fBSoResetTransform\fP, \fBSoVertexAttributeBinding\fP, \fBSoCacheHint\fP, \fBSoVRMLTextureTransform\fP, \fBSoBumpMapTransform\fP, \fBSoTextureUnit\fP, \fBSoGeoOrigin\fP, \fBSoTexture2Transform\fP, \fBSoFile\fP, \fBSoTextureCoordinatePlane\fP, \fBSoCallback\fP, \fBSoVRMLCoordinate\fP, \fBSoVRMLVertexPoint\fP, \fBSoVRMLVertexLine\fP, \fBSoNormal\fP, \fBSoRotation\fP, \fBSoTextureCoordinateObject\fP, \fBSoTranslation\fP, \fBSoCoordinate3\fP, \fBSoCoordinate4\fP, \fBSoMatrixTransform\fP, \fBSoFont\fP, \fBSoScale\fP, \fBSoMultipleCopy\fP, \fBSoVRMLNormal\fP, \fBSoVRMLTextureCoordinate\fP, \fBSoTextureCoordinate3\fP, \fBSoClipPlane\fP, \fBSoPathSwitch\fP, \fBSoTextureMatrixTransform\fP, \fBSoTextureCoordinateReflectionMap\fP, \fBSoTextureCoordinate2\fP, \fBSoBumpMapCoordinate\fP, \fBSoProfileCoordinate3\fP, \fBSoTransformSeparator\fP, \fBSoProfileCoordinate2\fP, \fBSoTextureCoordinateNormalMap\fP, \fBSoTextureCoordinateDefault\fP, \fBSoTextureCoordinateEnvironment\fP, \fBSoTextureCoordinateSphere\fP, \fBSoTextureCoordinateCylinder\fP, and \fBSoTextureCoordinateCube\fP\&.
+.SS "void SoNode::rayPick (\fBSoRayPickAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoRayPickAction\fP\&.
+.PP
+Checks the ray specification of the \fIaction\fP and tests for intersection with the data of the node\&.
+.PP
+Nodes influencing relevant state variables for how picking is done also overrides this method\&. 
+.PP
+Reimplemented in \fBSoCamera\fP, \fBSoSceneTexture2\fP, \fBSoBaseKit\fP, \fBSoSceneTextureCubeMap\fP, \fBSoTextureCubeMap\fP, \fBSoProfilerStats\fP, \fBSoTexture2\fP, \fBSoDragger\fP, \fBSoImage\fP, \fBSoVRMLTransform\fP, \fBSoVRMLGroup\fP, \fBSoVRMLElevationGrid\fP, \fBSoVRMLLOD\fP, \fBSoSeparator\fP, \fBSoShape\fP, \fBSoVRMLShape\fP, \fBSoBumpMap\fP, \fBSoVRMLImageTexture\fP, \fBSoVRMLProximitySensor\fP, \fBSoIndexedNurbsSurface\fP, \fBSoCylinder\fP, \fBSoCone\fP, \fBSoGeoSeparator\fP, \fBSoLOD\fP, \fBSoText2\fP, \fBSoNurbsSurface\fP, \fBSoIndexedNurbsCurve\fP, \fBSoLevelOfDetail\fP, \fBSoVRMLCylinder\fP, \fBSoNurbsCurve\fP, \fBSoCube\fP, \fBSoVRMLCone\fP, \fBSoVRMLPixelTexture\fP, \fBSoSphere\fP, \fBSoVRMLBox\fP, and \fBSoVRMLSphere\fP\&.
+.SS "void SoNode::search (\fBSoSearchAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoSearchAction\fP\&.
+.PP
+Compares the search criteria from the \fIaction\fP to see if this node is a match\&. Searching is done by matching up \fIall\fP criteria set up in the \fBSoSearchAction\fP -- if \fIany\fP of the requested criteria is a miss, the search is not deemed successful for the node\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoSearchAction\fP 
+.RE
+.PP
+
+.PP
+Reimplemented in \fBSoWWWInline\fP, \fBSoVRMLInline\fP, \fBSoBaseKit\fP, \fBSoProfilerStats\fP, \fBSoVRMLSwitch\fP, \fBSoDragger\fP, \fBSoNodeKitListPart\fP, \fBSoVRMLGroup\fP, \fBSoVRMLLOD\fP, \fBSoSeparator\fP, \fBSoArray\fP, \fBSoShaderObject\fP, \fBSoVRMLShape\fP, \fBSoDirectionalLightManip\fP, \fBSoClipPlaneManip\fP, \fBSoSpotLightManip\fP, \fBSoGroup\fP, \fBSoTransformManip\fP, \fBSoPointLightManip\fP, \fBSoSwitch\fP, \fBSoVRMLParent\fP, \fBSoVRMLBillboard\fP, \fBSoShaderProgram\fP, \fBSoFile\fP, \fBSoMultipleCopy\fP, \fBSoPathSwitch\fP, \fBSoVRMLAppearance\fP, \fBSoCallback\fP, and \fBSoVRMLGeometry\fP\&.
+.SS "void SoNode::write (\fBSoWriteAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoWriteAction\fP\&.
+.PP
+Writes out a node object, and any connected nodes, engines etc, if necessary\&. 
+.PP
+Reimplemented in \fBSoSceneTexture2\fP, \fBSoBaseKit\fP, \fBSoProfilerStats\fP, \fBSoVRMLSwitch\fP, \fBSoDragger\fP, \fBSoProto\fP, \fBSoVRMLGroup\fP, \fBSoVRMLLOD\fP, \fBSoVRMLShape\fP, \fBSoProtoInstance\fP, \fBSoGroup\fP, \fBSoSwitch\fP, \fBSoVRMLParent\fP, \fBSoVRMLScript\fP, \fBSoVertexShape\fP, \fBSoVertexAttribute\fP, \fBSoVRMLTimeSensor\fP, \fBSoShuttle\fP, \fBSoPendulum\fP, \fBSoCallback\fP, and \fBSoBlinker\fP\&.
+.SS "void SoNode::audioRender (\fBSoAudioRenderAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoAudioRenderAction\fP\&.
+.PP
+Does common processing for \fBSoAudioRenderAction\fP \fIaction\fP instances\&. 
+.PP
+Reimplemented in \fBSoCamera\fP, \fBSoWWWInline\fP, \fBSoVRMLSwitch\fP, \fBSoProfilerStats\fP, \fBSoVRMLSound\fP, \fBSoVRMLGroup\fP, \fBSoVRMLLOD\fP, \fBSoVRMLTransform\fP, \fBSoSeparator\fP, \fBSoArray\fP, \fBSoGroup\fP, \fBSoSwitch\fP, \fBSoLOD\fP, \fBSoPathSwitch\fP, \fBSoFile\fP, \fBSoMultipleCopy\fP, \fBSoListener\fP, \fBSoLevelOfDetail\fP, and \fBSoTransformSeparator\fP\&.
+.SS "void SoNode::getPrimitiveCount (\fBSoGetPrimitiveCountAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGetPrimitiveCountAction\fP\&.
+.PP
+Calculates the number of triangle, line segment and point primitives for the node and adds these to the counters of the \fIaction\fP\&.
+.PP
+Nodes influencing how geometry nodes calculates their primitive count also overrides this method to change the relevant state variables\&. 
+.PP
+Reimplemented in \fBSoCamera\fP, \fBSoWWWInline\fP, \fBSoVRMLInline\fP, \fBSoBaseKit\fP, \fBSoMarkerSet\fP, \fBSoVRMLFontStyle\fP, \fBSoProfilerStats\fP, \fBSoDragger\fP, \fBSoNodeKitListPart\fP, \fBSoVertexProperty\fP, \fBSoVRMLGroup\fP, \fBSoVRMLLOD\fP, \fBSoText3\fP, \fBSoImage\fP, \fBSoVRMLTransform\fP, \fBSoUnits\fP, \fBSoTransform\fP, \fBSoShape\fP, \fBSoVRMLElevationGrid\fP, \fBSoSeparator\fP, \fBSoVRMLShape\fP, \fBSoArray\fP, \fBSoFontStyle\fP, \fBSoGroup\fP, \fBSoNormalBinding\fP, \fBSoMaterialBinding\fP, \fBSoSwitch\fP, \fBSoVRMLParent\fP, \fBSoRotationXYZ\fP, \fBSoIndexedNurbsSurface\fP, \fBSoCylinder\fP, \fBSoCone\fP, \fBSoProfile\fP, \fBSoVRMLText\fP, \fBSoComplexity\fP, \fBSoAsciiText\fP, \fBSoLOD\fP, \fBSoVRMLExtrusion\fP, \fBSoGeoSeparator\fP, \fBSoGeoCoordinate\fP, \fBSoText2\fP, \fBSoGeoLocation\fP, \fBSoResetTransform\fP, \fBSoNurbsSurface\fP, \fBSoVertexAttributeBinding\fP, \fBSoVRMLIndexedFaceSet\fP, \fBSoPathSwitch\fP, \fBSoGeoOrigin\fP, \fBSoFile\fP, \fBSoMultipleCopy\fP, \fBSoCallback\fP, \fBSoIndexedNurbsCurve\fP, \fBSoVRMLCylinder\fP, \fBSoVRMLVertexPoint\fP, \fBSoNormal\fP, \fBSoRotation\fP, \fBSoTranslation\fP, \fBSoCoordinate3\fP, \fBSoCoordinate4\fP, \fBSoNurbsCurve\fP, \fBSoMatrixTransform\fP, \fBSoFont\fP, \fBSoScale\fP, \fBSoCube\fP, \fBSoVRMLNormal\fP, \fBSoVRMLCone\fP, \fBSoVRMLTextureCoordinate\fP, \fBSoIndexedLineSet\fP, \fBSoTransformSeparator\fP, \fBSoIndexedFaceSet\fP, \fBSoProfileCoordinate3\fP, \fBSoFaceSet\fP, \fBSoIndexedTriangleStripSet\fP, \fBSoProfileCoordinate2\fP, \fBSoVRMLIndexedLineSet\fP, \fBSoIndexedPointSet\fP, \fBSoLineSet\fP, \fBSoPointSet\fP, \fBSoSphere\fP, \fBSoQuadMesh\fP, \fBSoVRMLBox\fP, \fBSoVRMLSphere\fP, and \fBSoTriangleStripSet\fP\&.
+.SS "void SoNode::grabEventsSetup (void)\fC [virtual]\fP"
+Called from \fBSoHandleEventAction::setGrabber()\fP to notify a node when it becomes the node where all events are sent\&. 
+.PP
+Reimplemented in \fBSoDragger\fP\&.
+.SS "void SoNode::grabEventsCleanup (void)\fC [virtual]\fP"
+Called from \fBSoHandleEventAction\fP to notify a node when it looses status as the node where events are sent\&. 
+.PP
+Reimplemented in \fBSoDragger\fP\&.
+.SS "void SoNode::startNotify (void)\fC [virtual]\fP"
+This is the method which starts the notification sequence after changes\&.
+.PP
+At the end of a notification sequence, all 'immediate' sensors (i\&.e\&. sensors set up with a zero priority) are triggered\&. 
+.PP
+Reimplemented from \fBSoBase\fP\&.
+.SS "void SoNode::notify (\fBSoNotList\fP * l)\fC [virtual]\fP"
+Notifies all auditors for this instance when changes are made\&. 
+.PP
+Reimplemented from \fBSoFieldContainer\fP\&.
+.PP
+Reimplemented in \fBSoSceneTexture2\fP, \fBSoVRMLSwitch\fP, \fBSoVRMLLOD\fP, \fBSoProfilerStats\fP, \fBSoSceneTextureCubeMap\fP, \fBSoTextureCubeMap\fP, \fBSoText3\fP, \fBSoTexture2\fP, \fBSoImage\fP, \fBSoTexture3\fP, \fBSoVRMLGroup\fP, \fBSoVertexProperty\fP, \fBSoVRMLParent\fP, \fBSoVRMLTransform\fP, \fBSoVRMLVertexShape\fP, \fBSoShadowGroup\fP, \fBSoVRMLElevationGrid\fP, \fBSoAsciiText\fP, \fBSoVRMLShape\fP, \fBSoSeparator\fP, \fBSoVRMLScript\fP, \fBSoBumpMap\fP, \fBSoVRMLProximitySensor\fP, \fBSoVRMLExtrusion\fP, \fBSoSwitch\fP, \fBSoVRMLBillboard\fP, \fBSoVRMLText\fP, \fBSoVertexAttribute\fP, \fBSoMaterial\fP, \fBSoShape\fP, \fBSoLOD\fP, \fBSoVRMLTouchSensor\fP, \fBSoLevelOfDetail\fP, \fBSoVRMLIndexedLine\fP, \fBSoVRMLPixelTexture\fP, \fBSoVRMLAppearance\fP, \fBSoVRMLIndexedLineSet\fP, \fBSoVertexShape\fP, \fBSoIndexedLineSet\fP, \fBSoBlinker\fP, \fBSoPackedColor\fP, \fBSoVRMLVertexPoint\fP, \fBSoVRMLTimeSensor\fP, \fBSoVRMLCollision\fP, \fBSoVRMLGeometry\fP, \fBSoVRMLVertexLine\fP, \fBSoNodeEngine\fP, \fBSoVRMLIndexedShape\fP, and \fBSoIndexedPointSet\fP\&.
+.SS "uint32_t SoNode::getNodeId (void) const"
+This returns the node's current unique identification number\&. It is unlikely that application programmers will ever need use this method fom client application code, unless working with extensions to the core library (and probably not even then)\&.
+.PP
+The id number is only valid for as long as the node is kept unchanged -- upon \fIany\fP kind of change the internal id will be updated (in the \fBnotify()\fP method), and the old id number forgotten\&.
+.PP
+The technique described above plays an important role in the way internal scenegraph caches are set up and invalidated\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoNode::getNextNodeId()\fP 
+.RE
+.PP
+
+.SS "\fBSoChildList\fP * SoNode::getChildren (void) const\fC [virtual]\fP"
+Returns list of children for this node\&. 
+.PP
+Reimplemented in \fBSoVRMLInline\fP, \fBSoBaseKit\fP, \fBSoVRMLSwitch\fP, \fBSoVRMLLOD\fP, \fBSoWWWInline\fP, \fBSoNodeKitListPart\fP, \fBSoVRMLShape\fP, \fBSoGroup\fP, \fBSoDirectionalLightManip\fP, \fBSoClipPlaneManip\fP, \fBSoSpotLightManip\fP, \fBSoTransformManip\fP, \fBSoPointLightManip\fP, \fBSoVRMLText\fP, \fBSoFile\fP, \fBSoVRMLParent\fP, \fBSoVRMLAppearance\fP, and \fBSoVRMLGeometry\fP\&.
+.SS "void SoNode::writeInstance (\fBSoOutput\fP * out)\fC [virtual]\fP"
+Writes all the fields contained in this instance to the output stream within \fIout\fP\&.
+.PP
+This method is solely called from the write methods of fields\&.
+.PP
+Either from \fBSoField\fP if the write is done because of a field-to-field connection, or from one of the fields which may actually write \fBSoFieldContainer\fP instances, i\&.e\&. \fBSoSFNode\fP, \fBSoMFNode\fP, \fBSoSFEngine\fP, \fBSoMFEngine\fP, \fBSoSFPath\fP and \fBSoMFPath\fP\&.
+.PP
+This method, in addition to the ordinary \fBwrite()\fP method of \fBSoNode\fP, needs to be present since the fields don't have a write action instance in their writeValue() method, and \fBwriteInstance()\fP will create a new \fBSoWriteAction\fP and call continueToApply() on it\&. 
+.PP
+Reimplemented from \fBSoFieldContainer\fP\&.
+.PP
+Reimplemented in \fBSoNodeEngine\fP\&.
+.SS "\fBSoNode\fP * SoNode::addToCopyDict (void) const\fC [virtual]\fP"
+Add a copy of this node and (recursively) all children to the copy dictionary of \fBSoFieldContainer\fP if this has not already been done\&.
+.PP
+Used internally during copy operations\&. 
+.PP
+Reimplemented in \fBSoBaseKit\fP\&.
+.SS "void SoNode::copyContents (const \fBSoFieldContainer\fP * from, SbBool copyconnections)\fC [virtual]\fP"
+Makes a deep copy of all data of \fIfrom\fP into this instance, \fIexcept\fP external scenegraph references if \fIcopyconnections\fP is \fCFALSE\fP\&.
+.PP
+This is the method that should be overridden by extension node / engine / dragger / whatever subclasses which needs to account for internal data that are not handled automatically\&.
+.PP
+For copying nodes from application code, you should not invoke this function directly, but rather call the \fBSoNode::copy()\fP function:
+.PP
+.PP
+.nf
+SoNode * mynewnode = templatenode->copy();
+.fi
+.PP
+.PP
+The same also goes for engines\&.
+.PP
+Make sure that when you override the \fBcopyContents()\fP method in your extension class that you also make it call upwards to it's parent superclass in the inheritance hierarchy, as \fBcopyContents()\fP in for instance \fBSoNode\fP and \fBSoFieldContainer\fP does important work\&. It should go something like this:
+.PP
+.PP
+.nf
+void
+MyCoinExtensionNode::copyContents(const SoFieldContainer * from,
+                                  SbBool copyconnections)
+{
+  // let parent superclasses do their thing (copy fields, copy
+  // instance name, etc etc)
+  SoNode::copyContents(from, copyconnections);
+
+  // [\&.\&.then copy internal data\&.\&.]
+}
+.fi
+.PP
+ 
+.PP
+Reimplemented from \fBSoFieldContainer\fP\&.
+.PP
+Reimplemented in \fBSoWWWInline\fP, \fBSoBaseKit\fP, \fBSoVRMLSwitch\fP, \fBSoVRMLLOD\fP, \fBSoInteractionKit\fP, \fBSoNodeKitListPart\fP, \fBSoVRMLParent\fP, \fBSoGroup\fP, \fBSoClipPlaneManip\fP, \fBSoDirectionalLightManip\fP, \fBSoVRMLShape\fP, \fBSoSpotLightManip\fP, \fBSoTransformManip\fP, \fBSoPointLightManip\fP, \fBSoVRMLScript\fP, \fBSoRotateSphericalDragger\fP, \fBSoRotateCylindricalDragger\fP, \fBSoFile\fP, \fBSoCallback\fP, \fBSoVertexAttribute\fP, \fBSoVRMLAppearance\fP, and \fBSoVRMLGeometry\fP\&.
+.SS "\fBSoFieldContainer\fP * SoNode::copyThroughConnection (void) const\fC [virtual]\fP"
+Return copy of this instance\&.
+.PP
+Note: default implementation just returns \fCthis\fP pointer, \fBSoNode\fP and \fBSoEngine\fP overrides this method to return the pointer to the actual copy\&. 
+.PP
+Reimplemented from \fBSoFieldContainer\fP\&.
+.SS "\fBSoNode\fP * SoNode::getByName (const \fBSbName\fP & name)\fC [static]\fP"
+Returns the last node that was registered under \fIname\fP\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoBase::setName()\fP 
+.RE
+.PP
+
+.SS "\fBint\fP SoNode::getByName (const \fBSbName\fP & name, \fBSoNodeList\fP & l)\fC [static]\fP"
+Finds all nodes with \fIname\fP and appends them to the \fIl\fP nodelist\&. Returns the number of nodes with the specified name\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoBase::setName()\fP 
+.RE
+.PP
+
+.SS "void SoNode::initClasses (void)\fC [static]\fP"
+Initialize all the node classes of Coin\&. 
+.SS "uint32_t SoNode::getNextNodeId (void)\fC [static]\fP"
+Return the next unique identification number to be assigned upon node construction or change\&. It is unlikely that application programmers will ever need use this method from client application code, unless working with extensions to the core library (and probably not even then)\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoNode::getNodeId\fP 
+.RE
+.PP
+
+.SS "\fBint\fP SoNode::getActionMethodIndex (const \fBSoType\fP type)\fC [static]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoNode::getBoundingBoxS (\fBSoAction\fP * action, \fBSoNode\fP * node)\fC [static]\fP"
+This is a static 'helper' method registered with the action, and used for calling the \fBSoNode::getBoundingBox()\fP virtual method which does the \fIreal\fP work\&. 
+.SS "void SoNode::GLRenderS (\fBSoAction\fP * action, \fBSoNode\fP * node)\fC [static]\fP"
+This is a static 'helper' method registered with the action, and used for calling the \fBSoNode::GLRender()\fP virtual method which does the \fIreal\fP work\&. 
+.SS "void SoNode::callbackS (\fBSoAction\fP * action, \fBSoNode\fP * node)\fC [static]\fP"
+This is a static 'helper' method registered with the action, and used for calling the \fBSoNode::callback()\fP virtual method which does the \fIreal\fP work\&. 
+.SS "void SoNode::getMatrixS (\fBSoAction\fP * action, \fBSoNode\fP * node)\fC [static]\fP"
+This is a static 'helper' method registered with the action, and used for calling the \fBSoNode::getMatrix()\fP virtual method which does the \fIreal\fP work\&. 
+.SS "void SoNode::handleEventS (\fBSoAction\fP * action, \fBSoNode\fP * node)\fC [static]\fP"
+This is a static 'helper' method registered with the action, and used for calling the \fBSoNode::handleEvent()\fP virtual method which does the \fIreal\fP work\&. 
+.SS "void SoNode::pickS (\fBSoAction\fP * action, \fBSoNode\fP * node)\fC [static]\fP"
+This is a static 'helper' method registered with the action, and used for calling the \fBSoNode::pick()\fP virtual method which does the \fIreal\fP work\&. 
+.SS "void SoNode::rayPickS (\fBSoAction\fP * action, \fBSoNode\fP * node)\fC [static]\fP"
+This is a static 'helper' method registered with the action, and used for calling the \fBSoNode::rayPick()\fP virtual method which does the \fIreal\fP work\&. 
+.SS "void SoNode::searchS (\fBSoAction\fP * action, \fBSoNode\fP * node)\fC [static]\fP"
+This is a static 'helper' method registered with the action, and used for calling the \fBSoNode::search()\fP virtual method which does the \fIreal\fP work\&. 
+.SS "void SoNode::writeS (\fBSoAction\fP * action, \fBSoNode\fP * node)\fC [static]\fP"
+This is a static 'helper' method registered with the action, and used for calling the \fBSoNode::write()\fP virtual method which does the \fIreal\fP work\&. 
+.SS "void SoNode::audioRenderS (\fBSoAction\fP * action, \fBSoNode\fP * node)\fC [static]\fP"
+This is a static 'helper' method registered with the action, and used for calling the \fBSoNode::audioRender()\fP virtual method which does the \fIreal\fP work\&. 
+.SS "void SoNode::getPrimitiveCountS (\fBSoAction\fP * action, \fBSoNode\fP * node)\fC [static]\fP"
+This is a static 'helper' method registered with the action, and used for calling the \fBSoNode::getPrimitiveCount()\fP virtual method which does the \fIreal\fP work\&. 
+.SS "SbBool SoNode::readInstance (\fBSoInput\fP * in, unsigned short flags)\fC [protected]\fP, \fC [virtual]\fP"
+This method is mainly intended for internal use during file import operations\&.
+.PP
+It reads a definition of an instance from the input stream \fIin\fP\&. The input stream state points to the start of a serialized / persistant representation of an instance of this class type\&.
+.PP
+\fCTRUE\fP or \fCFALSE\fP is returned, depending on if the instantiation and configuration of the new object of this class type went ok or not\&. The import process should be robust and handle corrupted input streams by returning \fCFALSE\fP\&.
+.PP
+\fIflags\fP is used internally during binary import when reading user extension nodes, group nodes or engines\&. 
+.PP
+Reimplemented from \fBSoFieldContainer\fP\&.
+.PP
+Reimplemented in \fBSoBaseKit\fP, \fBSoWWWInline\fP, \fBSoVRMLSwitch\fP, \fBSoVRMLLOD\fP, \fBSoInteractionKit\fP, \fBSoTextureCubeMap\fP, \fBSoNodeKitListPart\fP, \fBSoSeparator\fP, \fBSoTexture2\fP, \fBSoImage\fP, \fBSoVRMLParent\fP, \fBSoTexture3\fP, \fBSoShaderObject\fP, \fBSoGroup\fP, \fBSoProto\fP, \fBSoFile\fP, \fBSoVRMLImageTexture\fP, \fBSoNormalBinding\fP, \fBSoProtoInstance\fP, \fBSoBumpMap\fP, \fBSoVertexAttribute\fP, \fBSoTextureCoordinateBinding\fP, \fBSoVRMLBackground\fP, \fBSoNodeEngine\fP, and \fBSoVRMLPixelTexture\fP\&.
+.SS "const \fBSoFieldData\fP ** SoNode::getFieldDataPtr (void)\fC [static]\fP, \fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoNode::setNextActionMethodIndex (\fBint\fP index)\fC [static]\fP, \fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP
+.PP
+Only in TGS Inventor on Win32 -- to avoid needing to export the nextActionMethodIndex member, see \fBSoNode\&.h\fP for more info\&. 
+.SS "\fBint\fP SoNode::getNextActionMethodIndex (void)\fC [static]\fP, \fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP
+.PP
+Only in TGS Inventor on Win32 -- to avoid needing to export the nextActionMethodIndex member, see \fBSoNode\&.h\fP for more info\&. 
+.SS "void SoNode::incNextActionMethodIndex (void)\fC [static]\fP, \fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP
+.PP
+Only in TGS Inventor on Win32 -- to avoid needing to export the nextActionMethodIndex member, see \fBSoNode\&.h\fP for more info\&. 
+.SS "void SoNode::setCompatibilityTypes (const \fBSoType\fP & nodetype, const uint32_t bitmask)\fC [static]\fP, \fC [protected]\fP"
+Set the node compatibility mask for node type \fInodetype\fP\&. The mask specifies for which file formats the node is supported\&.
+.PP
+This function is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&.
+.PP
+\fBSee also:\fP
+.RS 4
+getCompatibilityMode() 
+.RE
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.RE
+.PP
+
+.SH "Member Data Documentation"
+.PP 
+.SS "uint32_t SoNode::uniqueId\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "uint32_t SoNode::nextUniqueId = 1\fC [static]\fP, \fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "\fBint\fP SoNode::nextActionMethodIndex = 0\fC [static]\fP, \fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

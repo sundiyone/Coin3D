@@ -1,0 +1,39 @@
+.TH "SoEventCallback.h" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoEventCallback.h
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <Inventor/nodes/SoSubNode\&.h>\fP
+.br
+\fC#include <Inventor/lists/SbList\&.h>\fP
+.br
+\fC#include <Inventor/actions/SoHandleEventAction\&.h>\fP
+.br
+
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBSoEventCallback\fP"
+.br
+.RI "The \fBSoEventCallback\fP class provides functionality for catching events\&.
+.PP
+Use \fBSoEventCallback\fP nodes in the scenegraph for catching user interaction events with the scenegraph's render canvas\&. "
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef void \fBSoEventCallbackCB\fP(void *userdata, \fBSoEventCallback\fP *node)"
+.br
+.in -1c
+.SH "Typedef Documentation"
+.PP 
+.SS "void SoEventCallbackCB"
+Callback functions for \fBSoEventCallback::addEventCallback()\fP must be of this type\&. \fIuserdata\fP is the last argument to \fBSoEventCallback::addEventCallback()\fP, and \fInode\fP is of course the \fBSoEventCallback\fP node in the scenegraph which caused the invocation of the callback\&. 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

@@ -1,0 +1,151 @@
+.TH "SoProfilerOverlayKit" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoProfilerOverlayKit
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits \fBSoBaseKit\fP\&.
+.PP
+Inherited by \fBSoProfilerTopKit\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "virtual const \fBSoNodekitCatalog\fP * \fBgetNodekitCatalog\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoProfilerOverlayKit\fP (void)"
+.br
+.ti -1c
+.RI "void \fBaddOverlayGeometry\fP (\fBSoNode\fP *node)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static const \fBSoNodekitCatalog\fP * \fBgetClassNodekitCatalog\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFVec3f\fP \fBviewportSize\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fB~SoProfilerOverlayKit\fP (void)"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.ti -1c
+.RI "static const \fBSoNodekitCatalog\fP ** \fBgetClassNodekitCatalogPtr\fP (void)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtopSeparator\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBprofilingStats\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBviewportInfo\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBoverlayCamera\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBdepthTestOff\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBoverlaySep\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBdepthTestOn\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoProfilerOverlayKit::SoProfilerOverlayKit (void)"
+Constructor\&. 
+.SS "SoProfilerOverlayKit::~SoProfilerOverlayKit (void)\fC [protected]\fP, \fC [virtual]\fP"
+Desctructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoProfilerOverlayKit::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Reimplemented from \fBSoBaseKit\fP\&.
+.PP
+Reimplemented in \fBSoProfilerTopKit\fP\&.
+.SS "const \fBSoFieldData\fP * SoProfilerOverlayKit::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoBaseKit\fP\&.
+.PP
+Reimplemented in \fBSoProfilerTopKit\fP\&.
+.SS "const \fBSoNodekitCatalog\fP * SoProfilerOverlayKit::getNodekitCatalog (void) const\fC [virtual]\fP"
+Returns the nodekit catalog which defines the layout of this class' kit\&. 
+.PP
+Reimplemented from \fBSoBaseKit\fP\&.
+.PP
+Reimplemented in \fBSoProfilerTopKit\fP\&.
+.SS "void SoProfilerOverlayKit::addOverlayGeometry (\fBSoNode\fP * node)"
+Display profiling scenegraph on top of the regular viewport\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fInode\fP Scene graph to display 
+.RE
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

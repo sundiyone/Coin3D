@@ -1,0 +1,67 @@
+.TH "ScXMLExecutableElt" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ScXMLExecutableElt \- base class for all SCXML elements with executable content\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/scxml/ScXMLExecutableElt\&.h>\fP
+.PP
+Inherits \fBScXMLElt\fP\&.
+.PP
+Inherited by \fBScXMLAssignElt\fP, \fBScXMLElseElt\fP, \fBScXMLElseIfElt\fP, \fBScXMLEventElt\fP, \fBScXMLIfElt\fP, \fBScXMLInvokeElt\fP, \fBScXMLLogElt\fP, \fBScXMLScriptElt\fP, \fBScXMLSendElt\fP, and \fBScXMLValidateElt\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const =0"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "virtual void \fBcopyContents\fP (const \fBScXMLElt\fP *rhs)"
+.br
+.ti -1c
+.RI "virtual void \fBexecute\fP (\fBScXMLStateMachine\fP *statemachine) const"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBcleanClass\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+base class for all SCXML elements with executable content\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "virtual \fBSoType\fP ScXMLExecutableElt::getTypeId (void) const\fC [pure virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoBase::getTypeId() const\fP 
+.RE
+.PP
+
+.PP
+Implements \fBScXMLElt\fP\&.
+.PP
+Implemented in \fBScXMLInvokeElt\fP, \fBScXMLIfElt\fP, \fBScXMLSendElt\fP, \fBScXMLEventElt\fP, \fBScXMLScriptElt\fP, \fBScXMLElseIfElt\fP, \fBScXMLLogElt\fP, \fBScXMLValidateElt\fP, \fBScXMLElseElt\fP, and \fBScXMLAssignElt\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

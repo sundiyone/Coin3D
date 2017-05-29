@@ -1,0 +1,360 @@
+.TH "SoVRMLTransform" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoVRMLTransform \- The \fBSoVRMLTransform\fP class is a grouping node that defines a transformation for its children\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/VRMLnodes/SoVRMLTransform\&.h>\fP
+.PP
+Inherits \fBSoVRMLGroup\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "\fBSoVRMLTransform\fP (void)"
+.br
+.ti -1c
+.RI "\fBSoVRMLTransform\fP (\fBint\fP \fBchildren\fP)"
+.br
+.ti -1c
+.RI "void \fBpointAt\fP (const \fBSbVec3f\fP &from, const \fBSbVec3f\fP &to)"
+.br
+.ti -1c
+.RI "void \fBgetScaleSpaceMatrix\fP (\fBSbMatrix\fP &matrix, \fBSbMatrix\fP &inverse) const"
+.br
+.ti -1c
+.RI "void \fBgetRotationSpaceMatrix\fP (\fBSbMatrix\fP &matrix, \fBSbMatrix\fP &inverse) const"
+.br
+.ti -1c
+.RI "void \fBgetTranslationSpaceMatrix\fP (\fBSbMatrix\fP &matrix, \fBSbMatrix\fP &inverse) const"
+.br
+.ti -1c
+.RI "void \fBmultLeft\fP (const \fBSbMatrix\fP &matrix)"
+.br
+.ti -1c
+.RI "void \fBmultRight\fP (const \fBSbMatrix\fP &matrix)"
+.br
+.ti -1c
+.RI "void \fBcombineLeft\fP (\fBSoVRMLTransform\fP *leftnode)"
+.br
+.ti -1c
+.RI "void \fBcombineRight\fP (\fBSoVRMLTransform\fP *rightnode)"
+.br
+.ti -1c
+.RI "void \fBsetMatrix\fP (const \fBSbMatrix\fP &matrix)"
+.br
+.ti -1c
+.RI "void \fBrecenter\fP (const \fBSbVec3f\fP &newcenter)"
+.br
+.ti -1c
+.RI "virtual void \fBdoAction\fP (\fBSoAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBcallback\fP (\fBSoCallbackAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBgetBoundingBox\fP (\fBSoGetBoundingBoxAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBgetMatrix\fP (\fBSoGetMatrixAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBrayPick\fP (\fBSoRayPickAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBgetPrimitiveCount\fP (\fBSoGetPrimitiveCountAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBaudioRender\fP (\fBSoAudioRenderAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBGLRenderBelowPath\fP (\fBSoGLRenderAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBGLRenderInPath\fP (\fBSoGLRenderAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBnotify\fP (\fBSoNotList\fP *list)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFVec3f\fP \fBtranslation\fP"
+.br
+.ti -1c
+.RI "\fBSoSFRotation\fP \fBrotation\fP"
+.br
+.ti -1c
+.RI "\fBSoSFVec3f\fP \fBscale\fP"
+.br
+.ti -1c
+.RI "\fBSoSFRotation\fP \fBscaleOrientation\fP"
+.br
+.ti -1c
+.RI "\fBSoSFVec3f\fP \fBcenter\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fB~SoVRMLTransform\fP ()"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoVRMLTransform\fP class is a grouping node that defines a transformation for its children\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP 
+
+
+.PP
+.nf
+Transform {
+  eventIn      MFNode      addChildren
+  eventIn      MFNode      removeChildren
+  exposedField SFVec3f     center           0 0 0    # (-inf,inf)
+  exposedField MFNode      children         []
+  exposedField SFRotation  rotation         0 0 1 0  # [-1,1],(-inf,inf)
+  exposedField SFVec3f     scale            1 1 1    # (0,inf)
+  exposedField SFRotation  scaleOrientation 0 0 1 0  # [-1,1],(-inf,inf)
+  exposedField SFVec3f     translation      0 0 0    # (-inf,inf)
+  field        SFVec3f     bboxCenter       0 0 0    # (-inf,inf)
+  field        SFVec3f     bboxSize         -1 -1 -1 # (0,inf) or -1,-1,-1
+}
+
+.fi
+.PP
+.PP
+The Transform node is a grouping node that defines a coordinate system for its children that is relative to the coordinate systems of its ancestors\&. See 4\&.4\&.4, Transformation hierarchy (http://www.web3d.org/x3d/specifications/vrml/ISO-IEC-14772-VRML97/part1/concepts.html#4.4.4), and 4\&.4\&.5, Standard units and coordinate system (http://www.web3d.org/x3d/specifications/vrml/ISO-IEC-14772-VRML97/part1/concepts.html#4.4.5), for a description of coordinate systems and transformations\&.
+.PP
+4\&.6\&.5, Grouping and children nodes (http://www.web3d.org/x3d/specifications/vrml/ISO-IEC-14772-VRML97/part1/concepts.html#4.6.5), provides a description of the children, addChildren, and removeChildren fields and eventIns\&.
+.PP
+The bboxCenter and bboxSize fields specify a bounding box that encloses the children of the Transform node\&. This is a hint that may be used for optimization purposes\&. The results are undefined if the specified bounding box is smaller than the actual bounding box of the children at any time\&. A default bboxSize value, (-1, -1, -1), implies that the bounding box is not specified and, if needed, shall be calculated by the browser\&. The bounding box shall be large enough at all times to enclose the union of the group's children's bounding boxes; it shall not include any transformations performed by the group itself (i\&.e\&., the bounding box is defined in the local coordinate system of the children)\&. The results are undefined if the specified bounding box is smaller than the true bounding box of the group\&. A description of the bboxCenter and bboxSize fields is provided in 4\&.6\&.4, Bounding boxes (http://www.web3d.org/x3d/specifications/vrml/ISO-IEC-14772-VRML97/part1/concepts.html#4.6.4)\&.
+.PP
+The translation, rotation, scale, scaleOrientation and center fields define a geometric 3D transformation consisting of (in order):
+.PP
+.IP "\(bu" 2
+a (possibly) non-uniform scale about an arbitrary point;
+.IP "\(bu" 2
+a rotation about an arbitrary point and axis;
+.IP "\(bu" 2
+a translation\&.
+.PP
+.PP
+The \fIcenter\fP field specifies a translation offset from the origin of the local coordinate system (0,0,0)\&. The \fIrotation\fP field specifies a rotation of the coordinate system\&. The \fIscale\fP field specifies a non-uniform scale of the coordinate system\&. scale values shall be greater than zero\&. The \fIscaleOrientation\fP specifies a rotation of the coordinate system before the scale (to specify scales in arbitrary orientations)\&. The scaleOrientation applies only to the scale operation\&. The \fItranslation\fP field specifies a translation to the coordinate system\&.
+.PP
+Given a 3-dimensional point P and Transform node, P is transformed into point P' in its parent's coordinate system by a series of intermediate transformations\&. In matrix transformation notation, where C (center), SR (scaleOrientation), T (translation), R (rotation), and S (scale) are the equivalent transformation matrices,
+.PP
+.PP
+.nf
+P' = T × C × R × SR × S × -SR × -C × P
+.fi
+.PP
+.PP
+The following Transform node:
+.PP
+.PP
+.nf
+Transform {
+  center           C
+  rotation         R
+  scale            S
+  scaleOrientation SR
+  translation      T
+  children         [...]
+}
+.fi
+.PP
+.PP
+is equivalent to the nested sequence of:
+.PP
+.PP
+.nf
+Transform {
+  translation T
+  children Transform {
+    translation C
+    children Transform {
+      rotation R
+      children Transform {
+        rotation SR
+        children Transform {
+          scale S
+          children Transform {
+            rotation -SR
+            children Transform {
+              translation -C
+              children [...]
+            }
+          }
+        }
+      }
+    }
+  }
+}
+.fi
+.PP
+ 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoVRMLTransform::SoVRMLTransform (void)"
+Constructor\&. 
+.SS "SoVRMLTransform::SoVRMLTransform (\fBint\fP numchildren)"
+Constructor\&. \fInumchildren\fP is the expected number of children\&. 
+.SS "SoVRMLTransform::~SoVRMLTransform ()\fC [protected]\fP, \fC [virtual]\fP"
+Destructor 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoVRMLTransform::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Reimplemented from \fBSoVRMLGroup\fP\&.
+.SS "const \fBSoFieldData\fP * SoVRMLTransform::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoVRMLGroup\fP\&.
+.SS "void SoVRMLTransform::pointAt (const \fBSbVec3f\fP & from, const \fBSbVec3f\fP & to)"
+Sets the transformation to translate to \fIfrompoint\fP, with a rotation so that the (0,0,-1) vector is rotated into the vector from \fIfrompoint\fP to \fItopoint\fP\&. 
+.SS "void SoVRMLTransform::getScaleSpaceMatrix (\fBSbMatrix\fP & matrix, \fBSbMatrix\fP & inverse) const"
+Calculates the matrices to/from scale space\&. 
+.SS "void SoVRMLTransform::getRotationSpaceMatrix (\fBSbMatrix\fP & matrix, \fBSbMatrix\fP & inverse) const"
+Calculates the matrices to/from rotation space\&. 
+.SS "void SoVRMLTransform::getTranslationSpaceMatrix (\fBSbMatrix\fP & matrix, \fBSbMatrix\fP & inverse) const"
+Calculates the matrices to/from translation space\&. 
+.SS "void SoVRMLTransform::multLeft (const \fBSbMatrix\fP & matrix)"
+Premultiplies this transformation by \fImat\fP\&. 
+.SS "void SoVRMLTransform::multRight (const \fBSbMatrix\fP & matrix)"
+Postmultiplies this transformation by \fImat\fP\&. 
+.SS "void SoVRMLTransform::combineLeft (\fBSoVRMLTransform\fP * leftnode)"
+Premultiplies this transformation by the transformation in \fIleftnode\fP\&. 
+.SS "void SoVRMLTransform::combineRight (\fBSoVRMLTransform\fP * rightnode)"
+Postmultiplies this transformation by the transformation in \fIrightnode\fP\&. 
+.SS "void SoVRMLTransform::setMatrix (const \fBSbMatrix\fP & matrix)"
+Sets the fields to create a transformation equal to \fImat\fP\&. 
+.SS "void SoVRMLTransform::recenter (const \fBSbVec3f\fP & newcenter)"
+Sets the \fIcenter\fP field to \fInewcenter\fP\&. This might affect one or more of the other fields\&. 
+.SS "void SoVRMLTransform::doAction (\fBSoAction\fP * action)\fC [virtual]\fP"
+This function performs the typical operation of a node for any action\&. 
+.PP
+Reimplemented from \fBSoVRMLGroup\fP\&.
+.SS "void SoVRMLTransform::callback (\fBSoCallbackAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoCallbackAction\fP\&.
+.PP
+Simply updates the state according to how the node behaves for the render action, so the application programmer can use the \fBSoCallbackAction\fP for extracting information about the scene graph\&. 
+.PP
+Reimplemented from \fBSoVRMLGroup\fP\&.
+.SS "void SoVRMLTransform::getBoundingBox (\fBSoGetBoundingBoxAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGetBoundingBoxAction\fP\&.
+.PP
+Calculates bounding box and center coordinates for node and modifies the values of the \fIaction\fP to encompass the bounding box for this node and to shift the center point for the scene more towards the one for this node\&.
+.PP
+Nodes influencing how geometry nodes calculates their bounding box also overrides this method to change the relevant state variables\&. 
+.PP
+Reimplemented from \fBSoVRMLGroup\fP\&.
+.SS "void SoVRMLTransform::getMatrix (\fBSoGetMatrixAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoGetMatrixAction\fP\&.
+.PP
+Updates \fIaction\fP by accumulating with the transformation matrix of this node (if any)\&. 
+.PP
+Reimplemented from \fBSoVRMLGroup\fP\&.
+.SS "void SoVRMLTransform::rayPick (\fBSoRayPickAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoRayPickAction\fP\&.
+.PP
+Checks the ray specification of the \fIaction\fP and tests for intersection with the data of the node\&.
+.PP
+Nodes influencing relevant state variables for how picking is done also overrides this method\&. 
+.PP
+Reimplemented from \fBSoVRMLGroup\fP\&.
+.SS "void SoVRMLTransform::getPrimitiveCount (\fBSoGetPrimitiveCountAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGetPrimitiveCountAction\fP\&.
+.PP
+Calculates the number of triangle, line segment and point primitives for the node and adds these to the counters of the \fIaction\fP\&.
+.PP
+Nodes influencing how geometry nodes calculates their primitive count also overrides this method to change the relevant state variables\&. 
+.PP
+Reimplemented from \fBSoVRMLGroup\fP\&.
+.SS "void SoVRMLTransform::audioRender (\fBSoAudioRenderAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoAudioRenderAction\fP\&.
+.PP
+Does common processing for \fBSoAudioRenderAction\fP \fIaction\fP instances\&. 
+.PP
+Reimplemented from \fBSoVRMLGroup\fP\&.
+.SS "void SoVRMLTransform::GLRenderBelowPath (\fBSoGLRenderAction\fP * action)\fC [virtual]\fP"
+Implements the SoAction::BELOW_PATH traversal method for the rendering action\&. 
+.PP
+Reimplemented from \fBSoVRMLGroup\fP\&.
+.SS "void SoVRMLTransform::GLRenderInPath (\fBSoGLRenderAction\fP * action)\fC [virtual]\fP"
+Implements the SoAction::IN_PATH traversal method for the rendering action\&. 
+.PP
+Reimplemented from \fBSoVRMLGroup\fP\&.
+.SS "void SoVRMLTransform::notify (\fBSoNotList\fP * l)\fC [virtual]\fP"
+Notifies all auditors for this instance when changes are made\&. 
+.PP
+Reimplemented from \fBSoVRMLGroup\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSoSFVec3f\fP SoVRMLTransform::translation"
+The translation vector\&. Default value is (0, 0, 0)\&. 
+.SS "\fBSoSFRotation\fP SoVRMLTransform::rotation"
+The rotation around the center point\&. Default value is null-rotation\&. 
+.SS "\fBSoSFVec3f\fP SoVRMLTransform::scale"
+The scale vector about the center point\&. Default value is (1, 1, 1)\&. 
+.SS "\fBSoSFRotation\fP SoVRMLTransform::scaleOrientation"
+The scale orientation\&. Default value is a null-rotation\&. 
+.SS "\fBSoSFVec3f\fP SoVRMLTransform::center"
+The center point\&. Default value is (0, 0, 0)\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

@@ -1,0 +1,233 @@
+.TH "SoEvent" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoEvent \- The \fBSoEvent\fP class is the base class for all Coin events\&.
+.PP
+Coin contains its own set of event classes, independent of the underlying window system\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/events/SoEvent\&.h>\fP
+.PP
+Inherited by \fBSoButtonEvent\fP, \fBSoLocation2Event\fP, and \fBSoMotion3Event\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoEvent\fP (void)"
+.br
+.ti -1c
+.RI "virtual \fB~SoEvent\fP ()"
+.br
+.ti -1c
+.RI "SbBool \fBisOfType\fP (\fBSoType\fP type) const"
+.br
+.ti -1c
+.RI "void \fBsetTime\fP (const \fBSbTime\fP t)"
+.br
+.ti -1c
+.RI "\fBSbTime\fP \fBgetTime\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBsetPosition\fP (const \fBSbVec2s\fP &p)"
+.br
+.ti -1c
+.RI "const \fBSbVec2s\fP & \fBgetPosition\fP (void) const"
+.br
+.ti -1c
+.RI "const \fBSbVec2s\fP \fBgetPosition\fP (const \fBSbViewportRegion\fP &vpRgn) const"
+.br
+.ti -1c
+.RI "const \fBSbVec2f\fP \fBgetNormalizedPosition\fP (const \fBSbViewportRegion\fP &vpRgn) const"
+.br
+.ti -1c
+.RI "void \fBsetShiftDown\fP (SbBool isDown)"
+.br
+.ti -1c
+.RI "SbBool \fBwasShiftDown\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBsetCtrlDown\fP (SbBool isDown)"
+.br
+.ti -1c
+.RI "SbBool \fBwasCtrlDown\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBsetAltDown\fP (SbBool isDown)"
+.br
+.ti -1c
+.RI "SbBool \fBwasAltDown\fP (void) const"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBSoEvent\fP class is the base class for all Coin events\&.
+.PP
+Coin contains its own set of event classes, independent of the underlying window system\&. 
+
+Upon system specific events, a translation is done by the window specific device classes into one of the Coin event object classes listed below\&. The event is then typically sent by the render area to an \fBSoSceneManager\fP which will apply it to the scenegraph through an \fBSoHandleEventAction\fP\&.
+.PP
+Events may be caught by the user by attaching an \fBSoEventCallback\fP node to the scenegraph, or it can automatically be handled by a dragger or manipulator in the graph\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoButtonEvent\fP, \fBSoKeyboardEvent\fP, \fBSoLocation2Event\fP, \fBSoMotion3Event\fP 
+.PP
+\fBSoMouseButtonEvent\fP, \fBSoSpaceballButtonEvent\fP 
+.PP
+\fBSoEventCallback\fP, \fBSoHandleEventAction\fP 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoEvent::SoEvent (void)"
+Constructor, will set all modifiers to 'off' state\&. 
+.SS "SoEvent::~SoEvent ()\fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoEvent::getClassTypeId (void)\fC [static]\fP"
+This static method returns the \fBSoType\fP object associated with objects of this class\&. 
+.SS "\fBSoType\fP SoEvent::getTypeId (void) const\fC [virtual]\fP"
+Returns the actual type id of an instantiated object\&. 
+.PP
+Reimplemented in \fBSoKeyboardEvent\fP, \fBSoSpaceballButtonEvent\fP, \fBSoMouseButtonEvent\fP, \fBSoMotion3Event\fP, \fBSoButtonEvent\fP, and \fBSoLocation2Event\fP\&.
+.SS "void SoEvent::initClass (void)\fC [static]\fP"
+Initialize \fBSoEvent\fP and all it's known subclasses (i\&.e\&. all subclasses which are part of the standard classes in the Coin library)\&.
+.PP
+This method is called from \fBSoDB::init()\fP, so it's very unlikely that you will have to call it explicitly\&. 
+.SS "SbBool SoEvent::isOfType (\fBSoType\fP type) const"
+Returns TRUE if this object either has the same type as the given \fCtype\fP parameter, or if \fCtype\fP belongs to a superclass of ourselves\&. 
+.SS "void SoEvent::setTime (const \fBSbTime\fP t)"
+From a system specific device object, set the time the event occurred\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetTime()\fP 
+.RE
+.PP
+
+.SS "\fBSbTime\fP SoEvent::getTime (void) const"
+Returns the time the event occurred\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetPosition()\fP, \fBwasShiftDown()\fP, \fBwasCtrlDown()\fP, \fBwasAltDown()\fP 
+.RE
+.PP
+
+.SS "void SoEvent::setPosition (const \fBSbVec2s\fP & p)"
+From a system specific device object, set the mouse pointer position when the event occurred\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetPosition()\fP, \fBgetNormalizedPosition()\fP 
+.RE
+.PP
+
+.SS "const \fBSbVec2s\fP & SoEvent::getPosition (void) const"
+Returns the mouse pointer position when the event occurred\&. The coordinates are given relative to the window coordinates\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetNormalizedPosition()\fP, \fBgetTime()\fP, \fBwasShiftDown()\fP, \fBwasCtrlDown()\fP, 
+.PP
+\fBwasAltDown()\fP 
+.RE
+.PP
+
+.SS "const \fBSbVec2s\fP SoEvent::getPosition (const \fBSbViewportRegion\fP & vpRgn) const"
+Returns the mouse pointer position when the event occurred\&. The coordinates are given relative to the viewport coordinates\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetNormalizedPosition()\fP, \fBgetTime()\fP, \fBwasShiftDown()\fP, \fBwasCtrlDown()\fP, 
+.PP
+\fBwasAltDown()\fP 
+.RE
+.PP
+
+.SS "const \fBSbVec2f\fP SoEvent::getNormalizedPosition (const \fBSbViewportRegion\fP & vpRgn) const"
+Returns the mouse pointer position when the event occurred\&. The coordinates are given relative to the viewport coordinates, normalized according to the size of the viewport\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetPosition()\fP, \fBgetTime()\fP, \fBwasShiftDown()\fP, \fBwasCtrlDown()\fP, \fBwasAltDown()\fP 
+.RE
+.PP
+
+.SS "void SoEvent::setShiftDown (SbBool isDown)"
+From a system specific device object, set the state of the Shift key(s) when the event occurred\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBwasShiftDown()\fP, \fBsetCtrlDown()\fP, \fBsetAltDown()\fP 
+.RE
+.PP
+
+.SS "SbBool SoEvent::wasShiftDown (void) const"
+Returns state of Shift key(s) when the event occurred\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBwasCtrlDown()\fP, \fBwasAltDown()\fP, \fBgetPosition()\fP, \fBgetTime()\fP 
+.RE
+.PP
+
+.SS "void SoEvent::setCtrlDown (SbBool isDown)"
+From a system specific device object, set the state of the Ctrl key(s) when the event occurred\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBwasCtrlDown()\fP, \fBsetShiftDown()\fP, \fBsetAltDown()\fP 
+.RE
+.PP
+
+.SS "SbBool SoEvent::wasCtrlDown (void) const"
+Returns state of Ctrl key(s) when the event occurred\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBwasShiftDown()\fP, \fBwasAltDown()\fP, \fBgetPosition()\fP, \fBgetTime()\fP 
+.RE
+.PP
+
+.SS "void SoEvent::setAltDown (SbBool isDown)"
+From a system specific device object, set the state of the Alt key(s) when the event occurred\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBwasAltDown()\fP, \fBsetCtrlDown()\fP, \fBsetShiftDown()\fP 
+.RE
+.PP
+
+.SS "SbBool SoEvent::wasAltDown (void) const"
+Returns state of Alt key(s) when the event occurred\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBwasShiftDown()\fP, \fBwasCtrlDown()\fP, \fBgetPosition()\fP, \fBgetTime()\fP 
+.RE
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

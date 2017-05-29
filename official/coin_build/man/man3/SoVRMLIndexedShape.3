@@ -1,0 +1,149 @@
+.TH "SoVRMLIndexedShape" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoVRMLIndexedShape \- The \fBSoVRMLIndexedShape\fP class is a superclass for geometry that use indexes\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/VRMLnodes/SoVRMLIndexedShape\&.h>\fP
+.PP
+Inherits \fBSoVRMLVertexShape\fP\&.
+.PP
+Inherited by \fBSoVRMLIndexedFaceSet\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoMFInt32\fP \fBcoordIndex\fP"
+.br
+.ti -1c
+.RI "\fBSoMFInt32\fP \fBcolorIndex\fP"
+.br
+.ti -1c
+.RI "\fBSoMFInt32\fP \fBnormalIndex\fP"
+.br
+.ti -1c
+.RI "\fBSoMFInt32\fP \fBtexCoordIndex\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoVRMLIndexedShape\fP (void)"
+.br
+.ti -1c
+.RI "virtual \fB~SoVRMLIndexedShape\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBnotify\fP (\fBSoNotList\fP *list)"
+.br
+.ti -1c
+.RI "virtual void \fBcomputeBBox\fP (\fBSoAction\fP *action, \fBSbBox3f\fP &box, \fBSbVec3f\fP &center)"
+.br
+.ti -1c
+.RI "SbBool \fBgetVertexData\fP (\fBSoState\fP *state, const \fBSoCoordinateElement\fP *&coords, const \fBSbVec3f\fP *&normals, const int32_t *&cindices, const int32_t *&nindices, const int32_t *&tindices, const int32_t *&mindices, \fBint\fP &numcindices, const SbBool neednormals, SbBool &normalcacheused)"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoVRMLIndexedShape\fP class is a superclass for geometry that use indexes\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoVRMLIndexedShape::SoVRMLIndexedShape (void)\fC [protected]\fP"
+Constructor\&. 
+.SS "SoVRMLIndexedShape::~SoVRMLIndexedShape ()\fC [protected]\fP, \fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoVRMLIndexedShape::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Reimplemented from \fBSoVRMLVertexShape\fP\&.
+.PP
+Reimplemented in \fBSoVRMLIndexedFaceSet\fP\&.
+.SS "const \fBSoFieldData\fP * SoVRMLIndexedShape::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoVRMLVertexShape\fP\&.
+.PP
+Reimplemented in \fBSoVRMLIndexedFaceSet\fP\&.
+.SS "void SoVRMLIndexedShape::notify (\fBSoNotList\fP * l)\fC [protected]\fP, \fC [virtual]\fP"
+Notifies all auditors for this instance when changes are made\&. 
+.PP
+Reimplemented from \fBSoVRMLVertexShape\fP\&.
+.SS "void SoVRMLIndexedShape::computeBBox (\fBSoAction\fP * action, \fBSbBox3f\fP & box, \fBSbVec3f\fP & center)\fC [protected]\fP, \fC [virtual]\fP"
+Implemented by \fBSoShape\fP subclasses to let the \fBSoShape\fP superclass know the exact size and weighted center point of the shape's bounding box\&.
+.PP
+The bounding box and center point should be calculated and returned in the local coordinate system\&.
+.PP
+The method implements action behavior for shape nodes for \fBSoGetBoundingBoxAction\fP\&. It is invoked from \fBSoShape::getBoundingBox()\fP\&. (Subclasses should \fInot\fP override \fBSoNode::getBoundingBox()\fP\&.)
+.PP
+The \fIbox\fP parameter sent in is guaranteed to be an empty box, while \fIcenter\fP is undefined upon function entry\&. 
+.PP
+Implements \fBSoShape\fP\&.
+.SS "SbBool SoVRMLIndexedShape::getVertexData (\fBSoState\fP * state, const \fBSoCoordinateElement\fP *& coords, const \fBSbVec3f\fP *& normals, const int32_t *& cindices, const int32_t *& nindices, const int32_t *& tindices, const int32_t *& mindices, \fBint\fP & numcindices, const SbBool neednormals, SbBool & normalcacheused)\fC [protected]\fP"
+Convenience method that will fetch data needed for rendering or generating primitives\&. Takes care of normal cache\&. 
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSoMFInt32\fP SoVRMLIndexedShape::coordIndex"
+The coordinate index array\&. 
+.SS "\fBSoMFInt32\fP SoVRMLIndexedShape::colorIndex"
+The color index array\&. 
+.SS "\fBSoMFInt32\fP SoVRMLIndexedShape::normalIndex"
+The normal index array\&. 
+.SS "\fBSoMFInt32\fP SoVRMLIndexedShape::texCoordIndex"
+The texture coordinate index array\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

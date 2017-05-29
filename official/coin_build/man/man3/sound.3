@@ -1,0 +1,42 @@
+.TH "sound" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+sound
+.SH SYNOPSIS
+.br
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBSoAudioDevice\fP"
+.br
+.RI "The \fBSoAudioDevice\fP class is used to control an audio device\&.
+.PP
+The \fBSoAudioDevice\fP class is responsible for initialization of an audio device, as well as enabling and disabling sound\&. It is a singleton class\&. "
+.ti -1c
+.RI "class \fBSoListener\fP"
+.br
+.RI "The \fBSoListener\fP class defines listener attributes used when rendering sound\&.
+.PP
+When rendering geometry, one needs to have a camera defining certain attributes related to vieweing\&. The \fBSoListener\fP plays a similar role when it comes to rendering audio\&. "
+.ti -1c
+.RI "class \fBSoVRMLAudioClip\fP"
+.br
+.RI "The \fBSoVRMLAudioClip\fP class is used to load and store audio data\&.
+.PP
+Audio data is loaded using the simage library, so make sure you have built the simage library with support for the audio file formats you intend to use (libogg, libvorbis and libvorbisfile for OggVorbis, libsndfile for WAV and several other formats)\&. "
+.ti -1c
+.RI "class \fBSoVRMLSound\fP"
+.br
+.RI "The \fBSoVRMLSound\fP class is used to represent a sound source\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP "
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

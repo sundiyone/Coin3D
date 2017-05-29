@@ -1,0 +1,121 @@
+.TH "SoSFVec2i32" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoSFVec2i32 \- The \fBSoSFVec2i32\fP class is a container for an \fBSbVec2i32\fP vector\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store a single vector with two elements\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/fields/SoSFVec2i32\&.h>\fP
+.PP
+Inherits \fBSoSField\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBcopyFrom\fP (const \fBSoField\fP &field)"
+.br
+.ti -1c
+.RI "const \fBSoSFVec2i32\fP & \fBoperator=\fP (const \fBSoSFVec2i32\fP &field)"
+.br
+.ti -1c
+.RI "virtual SbBool \fBisSame\fP (const \fBSoField\fP &field) const"
+.br
+.ti -1c
+.RI "const \fBSbVec2i32\fP & \fBgetValue\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBsetValue\fP (const \fBSbVec2i32\fP &newvalue)"
+.br
+.ti -1c
+.RI "const \fBSbVec2i32\fP & \fBoperator=\fP (const \fBSbVec2i32\fP &newvalue)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBoperator==\fP (const \fBSoSFVec2i32\fP &field) const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBoperator!=\fP (const \fBSoSFVec2i32\fP &field) const"
+.br
+.ti -1c
+.RI "void \fBsetValue\fP (int32_t x, int32_t y)"
+.br
+.ti -1c
+.RI "void \fBsetValue\fP (const int32_t xy[2])"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static void * \fBcreateInstance\fP (void)"
+.br
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSbVec2i32\fP \fBvalue\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoSFVec2i32\fP class is a container for an \fBSbVec2i32\fP vector\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store a single vector with two elements\&. 
+
+
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSbVec2i32\fP, \fBSoMFVec2i32\fP Be aware that this class is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&. 
+.RE
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.5 
+.RE
+.PP
+
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoSFVec2i32::getTypeId (void) const\fC [virtual]\fP"
+Returns the type identification instance which uniquely identifies the Coin field class the object belongs to\&.
+.PP
+\fBSee also:\fP
+.RS 4
+getClassTypeId(), \fBSoType\fP 
+.RE
+.PP
+
+.PP
+Implements \fBSoField\fP\&.
+.SS "void SoSFVec2i32::copyFrom (const \fBSoField\fP & f)\fC [virtual]\fP"
+Copy value(s) from \fIf\fP into this field\&. \fIf\fP must be of the same type as this field\&. 
+.PP
+Implements \fBSoField\fP\&.
+.SS "SbBool SoSFVec2i32::isSame (const \fBSoField\fP & f) const\fC [virtual]\fP"
+Check for equal type and value(s)\&. 
+.PP
+Implements \fBSoField\fP\&.
+.SS "void SoSFVec2i32::setValue (int32_t x, int32_t y)"
+Set value of vector\&. 
+.SS "void SoSFVec2i32::setValue (const int32_t xy[2])"
+Set value of vector\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

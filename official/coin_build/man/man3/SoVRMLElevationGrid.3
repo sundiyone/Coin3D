@@ -1,0 +1,344 @@
+.TH "SoVRMLElevationGrid" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoVRMLElevationGrid \- The \fBSoVRMLElevationGrid\fP class is used to represent elevation grids\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/VRMLnodes/SoVRMLElevationGrid\&.h>\fP
+.PP
+Inherits \fBSoVRMLGeometry\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "\fBSoVRMLElevationGrid\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBGLRender\fP (\fBSoGLRenderAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBrayPick\fP (\fBSoRayPickAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBgetPrimitiveCount\fP (\fBSoGetPrimitiveCountAction\fP *action)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFBool\fP \fBccw\fP"
+.br
+.ti -1c
+.RI "\fBSoSFBool\fP \fBsolid\fP"
+.br
+.ti -1c
+.RI "\fBSoSFFloat\fP \fBcreaseAngle\fP"
+.br
+.ti -1c
+.RI "\fBSoSFInt32\fP \fBzDimension\fP"
+.br
+.ti -1c
+.RI "\fBSoSFInt32\fP \fBxDimension\fP"
+.br
+.ti -1c
+.RI "\fBSoSFFloat\fP \fBzSpacing\fP"
+.br
+.ti -1c
+.RI "\fBSoSFFloat\fP \fBxSpacing\fP"
+.br
+.ti -1c
+.RI "\fBSoMFFloat\fP \fBheight\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtexCoord\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBnormal\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBcolor\fP"
+.br
+.ti -1c
+.RI "\fBSoSFBool\fP \fBcolorPerVertex\fP"
+.br
+.ti -1c
+.RI "\fBSoSFBool\fP \fBnormalPerVertex\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fB~SoVRMLElevationGrid\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBnotify\fP (\fBSoNotList\fP *list)"
+.br
+.ti -1c
+.RI "virtual void \fBgeneratePrimitives\fP (\fBSoAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBcomputeBBox\fP (\fBSoAction\fP *action, \fBSbBox3f\fP &bbox, \fBSbVec3f\fP &center)"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoVRMLElevationGrid\fP class is used to represent elevation grids\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP 
+
+
+.PP
+.nf
+ElevationGrid {
+  eventIn      MFFloat  set_height
+  exposedField SFNode   color             NULL
+  exposedField SFNode   normal            NULL
+  exposedField SFNode   texCoord          NULL
+  field        MFFloat  height            []      # (-inf,inf)
+  field        SFBool   ccw               TRUE
+  field        SFBool   colorPerVertex    TRUE
+  field        SFFloat  creaseAngle       0       # [0,inf]
+  field        SFBool   normalPerVertex   TRUE
+  field        SFBool   solid             TRUE
+  field        SFInt32  xDimension        0       # [0,inf)
+  field        SFFloat  xSpacing          1.0     # (0,inf)
+  field        SFInt32  zDimension        0       # [0,inf)
+  field        SFFloat  zSpacing          1.0     # (0,inf)
+}
+
+.fi
+.PP
+.PP
+The ElevationGrid node specifies a uniform rectangular grid of varying height in the Y=0 plane of the local coordinate system\&. The geometry is described by a scalar array of height values that specify the height of a surface above each point of the grid\&.
+.PP
+The xDimension and zDimension fields indicate the number of elements of the grid height array in the X and Z directions\&. Both xDimension and zDimension shall be greater than or equal to zero\&. If either the xDimension or the zDimension is less than two, the ElevationGrid contains no quadrilaterals\&. The vertex locations for the rectangles are defined by the height field and the xSpacing and zSpacing fields:
+.PP
+.PD 0
+.IP "\(bu" 2
+The height field is an xDimension by zDimension array of scalar values representing the height above the grid for each vertex\&.
+.PP
+.PD 0
+.IP "\(bu" 2
+The xSpacing and zSpacing fields indicate the distance between vertices in the X and Z directions respectively, and shall be greater than zero\&.
+.PP
+Thus, the vertex corresponding to the point P[i, j] on the grid is placed at:
+.PP
+.PP
+.nf
+  P[i,j].x = xSpacing × i
+  P[i,j].y = height[ i + j × xDimension]
+  P[i,j].z = zSpacing × j     
+
+  where 0 <= i < xDimension and 0 <= j < zDimension, and 
+  P[0,0] is height[0] units above/below the origin of the local
+  coordinate system
+.fi
+.PP
+.PP
+The set_height eventIn allows the height MFFloat field to be changed to support animated ElevationGrid nodes\&.
+.PP
+The color field specifies per-vertex or per-quadrilateral colours for the ElevationGrid node depending on the value of colorPerVertex\&. If the color field is NULL, the ElevationGrid node is rendered with the overall attributes of the Shape node enclosing the ElevationGrid node (see 4\&.14, Lighting model)\&.
+.PP
+The colorPerVertex field determines whether colours specified in the color field are applied to each vertex or each quadrilateral of the ElevationGrid node\&. If colorPerVertex is FALSE and the color field is not NULL, the color field shall specify a Color node containing at least (xDimension-1)×(zDimension-1) colours; one for each quadrilateral, ordered as follows:
+.PP
+.PP
+.nf
+  QuadColor[i,j] = Color[ i + j × (xDimension-1)]
+
+  where 0 <= i < xDimension-1 and 0 <= j < zDimension-1, and
+  QuadColor[i,j] is the colour for the quadrilateral defined by
+  height[i+j×xDimension], height[(i+1)+j×xDimension],
+  height[(i+1)+(j+1)×xDimension] and height[i+(j+1)×xDimension] 
+.fi
+.PP
+.PP
+If colorPerVertex is TRUE and the color field is not NULL, the color field shall specify a Color node containing at least xDimension × zDimension colours, one for each vertex, ordered as follows:
+.PP
+.PP
+.nf
+  VertexColor[i,j] = Color[ i + j × xDimension] 
+
+  where 0 <= i < xDimension and 0 <= j < zDimension, and 
+  VertexColor[i,j] is the colour for the vertex defined by 
+  height[i+j×xDimension] 
+.fi
+.PP
+.PP
+The normal field specifies per-vertex or per-quadrilateral normals for the ElevationGrid node\&. If the normal field is NULL, the browser shall automatically generate normals, using the creaseAngle field to determine if and how normals are smoothed across the surface (see 4\&.6\&.3\&.5, Crease angle field)\&.
+.PP
+The normalPerVertex field determines whether normals are applied to each vertex or each quadrilateral of the ElevationGrid node depending on the value of normalPerVertex\&. If normalPerVertex is FALSE and the normal node is not NULL, the normal field shall specify a Normal node containing at least (xDimension-1)×(zDimension-1) normals; one for each quadrilateral, ordered as follows:
+.PP
+.PP
+.nf
+  QuadNormal[i,j] = Normal[ i + j × (xDimension-1)] 
+
+  where 0 <= i < xDimension-1 and 0 <= j < zDimension-1, and 
+  QuadNormal[i,j] is the normal for the quadrilateral 
+  defined by height[i+j×xDimension], height[(i+1)+j×xDimension], 
+  height[(i+1)+(j+1)×xDimension] and height[i+(j+1)×xDimension] 
+.fi
+.PP
+.PP
+If normalPerVertex is TRUE and the normal field is not NULL, the normal field shall specify a Normal node containing at least xDimension × zDimension normals; one for each vertex, ordered as follows:
+.PP
+.PP
+.nf
+  VertexNormal[i,j] = Normal[ i + j × xDimension] 
+  
+  where 0 <= i < xDimension and 0 <= j < zDimension, and
+  VertexNormal[i,j] is the normal for the vertex defined by
+  height[i+j×xDimension] 
+.fi
+.PP
+.PP
+The texCoord field specifies per-vertex texture coordinates for the ElevationGrid node\&. If texCoord is NULL, default texture coordinates are applied to the geometry\&. The default texture coordinates range from (0,0) at the first vertex to (1,1) at the last vertex\&. The S texture coordinate is aligned with the positive X-axis, and the T texture coordinate with positive Z-axis\&. If texCoord is not NULL, it shall specify a TextureCoordinate node containing at least (xDimension)×(zDimension) texture coordinates; one for each vertex, ordered as follows:
+.PP
+.PP
+.nf
+  VertexTexCoord[i,j] = TextureCoordinate[ i + j × xDimension] 
+
+  where 0 <= i < xDimension and 0 <= j < zDimension, and 
+  VertexTexCoord[i,j] is the texture coordinate for the vertex 
+  defined by height[i+j×xDimension] 
+.fi
+.PP
+.PP
+The ccw, solid, and creaseAngle fields are described in 4\&.6\&.3, Shapes and geometry\&. By default, the quadrilaterals are defined with a counterclockwise ordering\&. Hence, the Y-component of the normal is positive\&. Setting the ccw field to FALSE reverses the normal direction\&. Backface culling is enabled when the solid field is TRUE\&. See Figure 6\&.5 for a depiction of the ElevationGrid node\&.
+.PP
+  Figure 6\&.5  
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoVRMLElevationGrid::SoVRMLElevationGrid (void)"
+Constructor\&. 
+.SS "SoVRMLElevationGrid::~SoVRMLElevationGrid (void)\fC [protected]\fP, \fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoVRMLElevationGrid::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Reimplemented from \fBSoVRMLGeometry\fP\&.
+.SS "const \fBSoFieldData\fP * SoVRMLElevationGrid::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoVRMLGeometry\fP\&.
+.SS "void SoVRMLElevationGrid::GLRender (\fBSoGLRenderAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGLRenderAction\fP\&.
+.PP
+This is called during rendering traversals\&. Nodes influencing the rendering state in any way or who wants to throw geometry primitives at OpenGL overrides this method\&. 
+.PP
+Reimplemented from \fBSoShape\fP\&.
+.SS "void SoVRMLElevationGrid::rayPick (\fBSoRayPickAction\fP * action)\fC [virtual]\fP"
+Calculates picked point based on primitives generated by subclasses\&. 
+.PP
+Reimplemented from \fBSoShape\fP\&.
+.SS "void SoVRMLElevationGrid::getPrimitiveCount (\fBSoGetPrimitiveCountAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGetPrimitiveCountAction\fP\&.
+.PP
+Calculates the number of triangle, line segment and point primitives for the node and adds these to the counters of the \fIaction\fP\&.
+.PP
+Nodes influencing how geometry nodes calculates their primitive count also overrides this method to change the relevant state variables\&. 
+.PP
+Reimplemented from \fBSoShape\fP\&.
+.SS "void SoVRMLElevationGrid::notify (\fBSoNotList\fP * l)\fC [protected]\fP, \fC [virtual]\fP"
+Notifies all auditors for this instance when changes are made\&. 
+.PP
+Reimplemented from \fBSoVRMLGeometry\fP\&.
+.SS "void SoVRMLElevationGrid::generatePrimitives (\fBSoAction\fP * action)\fC [protected]\fP, \fC [virtual]\fP"
+The method implements action behavior for shape nodes for \fBSoCallbackAction\fP\&. It is invoked from \fBSoShape::callback()\fP\&. (Subclasses should \fInot\fP override \fBSoNode::callback()\fP\&.)
+.PP
+The subclass implementations uses the convenience methods \fBSoShape::beginShape()\fP, \fBSoShape::shapeVertex()\fP, and \fBSoShape::endShape()\fP, with \fBSoDetail\fP instances, to pass the primitives making up the shape back to the caller\&. 
+.PP
+Implements \fBSoShape\fP\&.
+.SS "void SoVRMLElevationGrid::computeBBox (\fBSoAction\fP * action, \fBSbBox3f\fP & box, \fBSbVec3f\fP & center)\fC [protected]\fP, \fC [virtual]\fP"
+Implemented by \fBSoShape\fP subclasses to let the \fBSoShape\fP superclass know the exact size and weighted center point of the shape's bounding box\&.
+.PP
+The bounding box and center point should be calculated and returned in the local coordinate system\&.
+.PP
+The method implements action behavior for shape nodes for \fBSoGetBoundingBoxAction\fP\&. It is invoked from \fBSoShape::getBoundingBox()\fP\&. (Subclasses should \fInot\fP override \fBSoNode::getBoundingBox()\fP\&.)
+.PP
+The \fIbox\fP parameter sent in is guaranteed to be an empty box, while \fIcenter\fP is undefined upon function entry\&. 
+.PP
+Implements \fBSoShape\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSoSFBool\fP SoVRMLElevationGrid::ccw"
+Specifies whether generated triangles are counterclockwise\&. Default value is TRUE\&. 
+.SS "\fBSoSFBool\fP SoVRMLElevationGrid::solid"
+Specifies whether backface culling should be done\&. Default value is TRUE\&. 
+.SS "\fBSoSFFloat\fP SoVRMLElevationGrid::creaseAngle"
+Specifies the normal calculation crease angle\&. 
+.SS "\fBSoSFInt32\fP SoVRMLElevationGrid::zDimension"
+Specifies the number of points in the z dimension\&. 
+.SS "\fBSoSFInt32\fP SoVRMLElevationGrid::xDimension"
+Specifies the number of points in the x dimension\&. 
+.SS "\fBSoSFFloat\fP SoVRMLElevationGrid::zSpacing"
+Specifies the spacing between points in the z dimension\&. Default value is 1\&.0\&. 
+.SS "\fBSoSFFloat\fP SoVRMLElevationGrid::xSpacing"
+Specifies the spacing between points in the x dimension\&. Default value is 1\&.0\&. 
+.SS "\fBSoMFFloat\fP SoVRMLElevationGrid::height"
+Contains the array of height values\&. 
+.SS "\fBSoSFNode\fP SoVRMLElevationGrid::texCoord"
+Can contain an \fBSoVRMLTextureCoordinate\fP node containing one texture coordinate per grid point\&. 
+.SS "\fBSoSFNode\fP SoVRMLElevationGrid::normal"
+Can contain an \fBSoVRMLTextureCoordinate\fP node containing normals for the grid\&. 
+.SS "\fBSoSFNode\fP SoVRMLElevationGrid::color"
+Can contain an \fBSoVRMLColor\fP node containing grid colors\&. 
+.SS "\fBSoSFBool\fP SoVRMLElevationGrid::colorPerVertex"
+Specifies whether colors should be applied per vertex\&. Default value is TRUE\&. 
+.SS "\fBSoSFBool\fP SoVRMLElevationGrid::normalPerVertex"
+Specifies whether normals should be applied per vertex\&. Default value is TRUE\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

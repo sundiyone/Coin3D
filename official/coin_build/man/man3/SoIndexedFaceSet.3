@@ -1,0 +1,270 @@
+.TH "SoIndexedFaceSet" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoIndexedFaceSet \- The \fBSoIndexedFaceSet\fP class is used to handle generic indexed facesets\&.
+.PP
+Faces are specified using the coordIndex field\&. Each face must be terminated by a negative (-1) index\&. Coordinates, normals, materials and texture coordinates from the current state (or from the vertexProperty node if set), can be indexed to create triangles, quads or polygons\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/nodes/SoIndexedFaceSet\&.h>\fP
+.PP
+Inherits \fBSoIndexedShape\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "\fBSoIndexedFaceSet\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBGLRender\fP (\fBSoGLRenderAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBgetPrimitiveCount\fP (\fBSoGetPrimitiveCountAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual SbBool \fBgenerateDefaultNormals\fP (\fBSoState\fP *state, \fBSoNormalBundle\fP *bundle)"
+.br
+.ti -1c
+.RI "virtual SbBool \fBgenerateDefaultNormals\fP (\fBSoState\fP *state, \fBSoNormalCache\fP *cache)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fB~SoIndexedFaceSet\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBgeneratePrimitives\fP (\fBSoAction\fP *action)"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoIndexedFaceSet\fP class is used to handle generic indexed facesets\&.
+.PP
+Faces are specified using the coordIndex field\&. Each face must be terminated by a negative (-1) index\&. Coordinates, normals, materials and texture coordinates from the current state (or from the vertexProperty node if set), can be indexed to create triangles, quads or polygons\&. 
+
+Here's a usage example of just about the simplest possible use of this node, to show a single polygon face:
+.PP
+.PP
+.nf
+#Inventor V2.1 ascii
+
+Separator {
+   Coordinate3 {
+      point [ 0 0 0, 1 0 0, 1 1 0 ]
+   }
+   IndexedFaceSet {
+      coordIndex [ 0, 1, 2, -1 ]
+   }
+}
+.fi
+.PP
+.PP
+Binding PER_VERTEX_INDEXED, PER_VERTEX, PER_FACE_INDEXED, PER_FACE or OVERALL can be set for material, and normals\&. The default material binding is OVERALL\&. The default normal binding is PER_VERTEX_INDEXED\&. When PER_VERTEX_INDEXED binding is used and the corresponding materialIndex, normalIndex, texCoordIndex field is empty, the coordIndex field will be used to index material, normal or texture coordinate\&. If you do specify indices for material, normals or texture coordinates for PER_VERTEX_INDEXED binding, make sure your index array matches the coordIndex array: there should be a -1 wherever there is a -1 in the coordIndex field\&. This is done to make this node more easily readable for humans\&.
+.PP
+A fairly common request when rendering facesets is how to display a set of faces with different colors on the backside versus the frontside\&. There is not \fIdirect\fP support for this in the API, but it can easily be implemented by duplicating all faces in both the \fBSoShapeHints::COUNTERCLOCKWISE\fP and the \fBSoShapeHints::CLOCKWISE\fP order\&. Here is a simple usage example, showing the technique for a single polygon, using two \fBSoFaceSet\fP nodes for rendering the same polygon from both sides:
+.PP
+.PP
+.nf
+#Inventor V2.1 ascii
+
+Separator {
+   Coordinate3 { point [ 0 0 0, 1 0 0, 1 1 0 ] }
+
+   Separator {
+      Material { diffuseColor [ 1 1 0 ] }
+      ShapeHints {
+         vertexOrdering COUNTERCLOCKWISE
+         shapeType SOLID
+      }
+      FaceSet { numVertices [ 3 ] }
+   }
+
+   Separator {
+      Material { diffuseColor [ 1 0 0 ] }
+      ShapeHints {
+         vertexOrdering CLOCKWISE
+         shapeType SOLID
+      }
+      FaceSet { numVertices [ 3 ] }
+   }
+}
+.fi
+.PP
+.PP
+The same effect can also be done in the following manner, using an \fBSoIndexedFaceSet\fP to explicitly render the polygon coordinates in both directions (clockwise and counterclockwise):
+.PP
+.PP
+.nf
+#Inventor V2.1 ascii
+
+Separator {
+   Coordinate3 { point [ 0 0 0, 1 0 0, 1 1 0 ] }
+
+   Material { diffuseColor [ 1 0 0, 1 1 0 ] }
+   MaterialBinding { value PER_FACE_INDEXED }
+
+   ShapeHints {
+      vertexOrdering COUNTERCLOCKWISE
+      shapeType SOLID
+   }
+
+   IndexedFaceSet {
+      coordIndex [ 0, 1, 2, -1, 2, 1, 0, -1 ]
+      materialIndex [ 0, 1 ]
+   }
+}
+.fi
+.PP
+.PP
+Another rather rare issue that might be interesting to know about is that to render polygons with concave borders, you should set up an \fBSoShapeHints\fP node with \fBSoShapeHints::faceType\fP set to \fBSoShapeHints::UNKNOWN_FACE_TYPE\fP in the scene graph before the \fBSoIndexedFaceSet\fP (or \fBSoFaceSet\fP) node\&. This needs to be done to force the rendering code to tessellate the polygons properly to triangles before sending it off to OpenGL\&. Without it, the polygons will be sent as-is to OpenGL, and the OpenGL implementation's tessellator is often not able to tessellate properly\&. Here is an example which usually fails without the \fBSoShapeHints\fP node (try commenting it out, and see what happens):
+.PP
+.PP
+.nf
+#Inventor V2.1 ascii
+
+ShapeHints { faceType UNKNOWN_FACE_TYPE }
+
+Coordinate3
+{
+        point [ 2 0 0,
+                1 0 0,
+                1 1 0,
+                0 1 0,
+                0 2 0,
+                1 2 0,
+                2 2 0,
+                2 1 0 ]
+}
+
+FaceSet {}
+.fi
+.PP
+.PP
+\fBFILE FORMAT/DEFAULTS:\fP 
+.PP
+.nf
+IndexedFaceSet {
+    vertexProperty NULL
+    coordIndex 0
+    materialIndex -1
+    normalIndex -1
+    textureCoordIndex -1
+}
+
+.fi
+.PP
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoFaceSet\fP, \fBSoIndexedTriangleStripSet\fP 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoIndexedFaceSet::SoIndexedFaceSet (void)"
+Constructor\&. 
+.SS "SoIndexedFaceSet::~SoIndexedFaceSet ()\fC [protected]\fP, \fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoIndexedFaceSet::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Reimplemented from \fBSoIndexedShape\fP\&.
+.SS "const \fBSoFieldData\fP * SoIndexedFaceSet::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoIndexedShape\fP\&.
+.SS "void SoIndexedFaceSet::GLRender (\fBSoGLRenderAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGLRenderAction\fP\&.
+.PP
+This is called during rendering traversals\&. Nodes influencing the rendering state in any way or who wants to throw geometry primitives at OpenGL overrides this method\&. 
+.PP
+Reimplemented from \fBSoShape\fP\&.
+.SS "void SoIndexedFaceSet::getPrimitiveCount (\fBSoGetPrimitiveCountAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGetPrimitiveCountAction\fP\&.
+.PP
+Calculates the number of triangle, line segment and point primitives for the node and adds these to the counters of the \fIaction\fP\&.
+.PP
+Nodes influencing how geometry nodes calculates their primitive count also overrides this method to change the relevant state variables\&. 
+.PP
+Reimplemented from \fBSoShape\fP\&.
+.SS "SbBool SoIndexedFaceSet::generateDefaultNormals (\fBSoState\fP * state, \fBSoNormalBundle\fP * bundle)\fC [virtual]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP
+.PP
+Subclasses should override this method to generate default normals using the \fBSoNormalBundle\fP class\&. \fCTRUE\fP should be returned if normals were generated, \fCFALSE\fP otherwise\&.
+.PP
+Default method returns \fCFALSE\fP\&.
+.PP
+This function is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&. 
+.PP
+Reimplemented from \fBSoVertexShape\fP\&.
+.SS "SbBool SoIndexedFaceSet::generateDefaultNormals (\fBSoState\fP * state, \fBSoNormalCache\fP * cache)\fC [virtual]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP
+.PP
+Subclasses should override this method to generate default normals using the \fBSoNormalCache\fP class\&. This is more effective than using \fBSoNormalGenerator\fP\&. Return \fCTRUE\fP if normals were generated, \fCFALSE\fP otherwise\&.
+.PP
+Default method just returns \fCFALSE\fP\&.
+.PP
+This function is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&. 
+.PP
+Reimplemented from \fBSoVertexShape\fP\&.
+.SS "void SoIndexedFaceSet::generatePrimitives (\fBSoAction\fP * action)\fC [protected]\fP, \fC [virtual]\fP"
+The method implements action behavior for shape nodes for \fBSoCallbackAction\fP\&. It is invoked from \fBSoShape::callback()\fP\&. (Subclasses should \fInot\fP override \fBSoNode::callback()\fP\&.)
+.PP
+The subclass implementations uses the convenience methods \fBSoShape::beginShape()\fP, \fBSoShape::shapeVertex()\fP, and \fBSoShape::endShape()\fP, with \fBSoDetail\fP instances, to pass the primitives making up the shape back to the caller\&. 
+.PP
+Implements \fBSoShape\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

@@ -1,0 +1,49 @@
+.TH "SoProfiler" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoProfiler \- Main static class for initializing the scene graph profiling subsystem\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Profiler/SoProfiler\&.h>\fP
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static void \fBinit\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBenable\fP (SbBool enable=TRUE)"
+.br
+.ti -1c
+.RI "static SbBool \fBisEnabled\fP (void)"
+.br
+.ti -1c
+.RI "static SbBool \fBisOverlayActive\fP (void)"
+.br
+.ti -1c
+.RI "static SbBool \fBisConsoleActive\fP (void)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Main static class for initializing the scene graph profiling subsystem\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void SoProfiler::init (void)\fC [static]\fP"
+Initializes the Coin scene graph profiling subsystem\&. 
+.SS "void SoProfiler::enable (SbBool enable = \fCTRUE\fP)\fC [static]\fP"
+Enable/disable the profiling subsystem at runtime\&. 
+.SS "SbBool SoProfiler::isEnabled (void)\fC [static]\fP"
+Returns whether profiling is enabled or not\&. 
+.SS "SbBool SoProfiler::isOverlayActive (void)\fC [static]\fP"
+Returns whether profiling info is shown in an overlay fashion on the GL canvas or not\&. 
+.SS "SbBool SoProfiler::isConsoleActive (void)\fC [static]\fP"
+Returns whether profiling info is shown on the console or not\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

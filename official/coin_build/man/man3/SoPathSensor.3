@@ -1,0 +1,166 @@
+.TH "SoPathSensor" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoPathSensor \- The \fBSoPathSensor\fP class detects changes to paths\&.
+.PP
+If you need to know when a path changes (i\&.e\&. nodes in the path has been removed, or new nodes is added), use this sensor to get a notification\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/sensors/SoPathSensor\&.h>\fP
+.PP
+Inherits \fBSoDataSensor\fP\&.
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBTriggerFilter\fP { \fBPATH\fP = 0x1, \fBNODES\fP = 0x2, \fBPATH_AND_NODES\fP = 0x3 }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSoPathSensor\fP (void)"
+.br
+.ti -1c
+.RI "\fBSoPathSensor\fP (\fBSoSensorCB\fP *\fBfunc\fP, void *data)"
+.br
+.ti -1c
+.RI "virtual \fB~SoPathSensor\fP (void)"
+.br
+.ti -1c
+.RI "void \fBsetTriggerFilter\fP (const \fBTriggerFilter\fP type)"
+.br
+.ti -1c
+.RI "\fBTriggerFilter\fP \fBgetTriggerFilter\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBattach\fP (\fBSoPath\fP *path)"
+.br
+.ti -1c
+.RI "void \fBdetach\fP (void)"
+.br
+.ti -1c
+.RI "\fBSoPath\fP * \fBgetAttachedPath\fP (void) const"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual void \fBnotify\fP (\fBSoNotList\fP *l)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoPathSensor\fP class detects changes to paths\&.
+.PP
+If you need to know when a path changes (i\&.e\&. nodes in the path has been removed, or new nodes is added), use this sensor to get a notification\&. 
+
+You can also use this sensor to detect when some node in the path is changed\&.
+.PP
+An \fBSoPathSensor\fP can also act for delete-callback purposes alone and does not need a regular notification-based callback\&. The delete callback will be invoked for when the \fBSoPath\fP instance is deleted, not for anything you would be monitoring in a path\&. 
+.SH "Member Enumeration Documentation"
+.PP 
+.SS "enum \fBSoPathSensor::TriggerFilter\fP"
+Trigger filter, which decides if the sensor should trigger on path changes, changes on nodes in the path, or both\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fIPATH \fP\fP
+Trigger on path changes only\&. 
+.TP
+\fB\fINODES \fP\fP
+Trigger on node changes only\&. This can be nodes in the path, or nodes affecting the nodes in the path (nodes that updates the state and are left of the node in the path)\&. 
+.TP
+\fB\fIPATH_AND_NODES \fP\fP
+Trigger on both path changes and node changes\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoPathSensor::SoPathSensor (void)"
+Default constructor\&. Use \fBsetFunction()\fP to set up a callback function later\&. 
+.SS "SoPathSensor::SoPathSensor (\fBSoSensorCB\fP * func, void * data)"
+Constructor taking as parameters the sensor callback function and the userdata which will be passed the callback\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetFunction()\fP, \fBsetData()\fP 
+.RE
+.PP
+
+.SS "SoPathSensor::~SoPathSensor (void)\fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void SoPathSensor::setTriggerFilter (const \fBTriggerFilter\fP filter)"
+Set the TriggerFilter for this sensor\&.
+.PP
+The default is PATH_AND_NODES\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.RE
+.PP
+
+.SS "\fBSoPathSensor::TriggerFilter\fP SoPathSensor::getTriggerFilter (void) const"
+Return the TriggerFilter for this sensor\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.RE
+.PP
+
+.SS "void SoPathSensor::attach (\fBSoPath\fP * path)"
+Attach sensor to a path\&. Whenever the path changes, the sensor will be triggered and call the callback function\&.
+.PP
+When the \fBSoPath\fP instance is deleted, the sensor will automatically be detached\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBdetach()\fP 
+.RE
+.PP
+
+.SS "void SoPathSensor::detach (void)"
+Detach sensor from path\&. As long as an \fBSoPathSensor\fP is detached, it will never invoke its callback function\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBattach()\fP 
+.RE
+.PP
+
+.SS "\fBSoPath\fP * SoPathSensor::getAttachedPath (void) const"
+Returns a pointer to the path connected to the sensor\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBattach()\fP, \fBdetach()\fP 
+.RE
+.PP
+
+.SS "void SoPathSensor::notify (\fBSoNotList\fP * l)\fC [protected]\fP, \fC [virtual]\fP"
+Called from entity we are monitoring when it changes\&.
+.PP
+If this is an immediate sensor, the field and node (if any) causing the change will be stored and can be fetched by \fBgetTriggerField()\fP and \fBgetTriggerNode()\fP\&. If the triggerpath flag has been set, the path down to the node is also found and stored for later retrieval by \fBgetTriggerPath()\fP\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetTriggerPathFlag()\fP 
+.RE
+.PP
+
+.PP
+Reimplemented from \fBSoDataSensor\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

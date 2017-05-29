@@ -1,0 +1,34 @@
+.TH "SoType.h" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoType.h
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <Inventor/SbBasic\&.h>\fP
+.br
+\fC#include <stdlib\&.h>\fP
+.br
+\fC#include <Inventor/SbDict\&.h>\fP
+.br
+
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBSbList< Type >\fP"
+.br
+.RI "The \fBSbList\fP class is a template container class for lists\&.
+.PP
+\fBSbList\fP is an extension of the Coin library versus the original Open Inventor API\&. Open Inventor handles most list classes by inheriting the \fBSbPList\fP class, which contains an array of generic \fCvoid*\fP pointers\&. By using this template-based class instead, we can share more code and make the list handling code more typesafe\&. "
+.ti -1c
+.RI "class \fBSoType\fP"
+.br
+.RI "The \fBSoType\fP class is the basis for the run-time type system in Coin\&.
+.PP
+Many of the classes in the Coin library must have their type information registered before any instances are created (including, but not limited to: engines, nodes, fields, actions, nodekits and manipulators)\&. The use of \fBSoType\fP to store this information provides lots of various functionality for working with class hierarchies, comparing class types, instantiating objects from classnames, etc etc\&. "
+.in -1c
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

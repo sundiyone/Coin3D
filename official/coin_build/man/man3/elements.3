@@ -1,0 +1,825 @@
+.TH "elements" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+elements \- The element classes in Coin are the containers of state information during action traversals of scene graphs\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBSoGLCacheContextElement\fP"
+.br
+.RI "The \fBSoGLCacheContextElement\fP class handles the OpenGL cache for a context\&. "
+.ti -1c
+.RI "class \fBSoGLClipPlaneElement\fP"
+.br
+.RI "The \fBSoGLClipPlaneElement\fP class is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoGLColorIndexElement\fP"
+.br
+.RI "The \fBSoGLColorIndexElement\fP class sets the current OpenGL color\&.
+.PP
+This element is only used when the OpenGL canvas is in colorindex mode, ie where colors for individual pixels are fetched from a color lookup table ('CLUT')\&. The usual thing to do is to set up a canvas in RGBA truecolor mode\&. "
+.ti -1c
+.RI "class \fBSoGLCoordinateElement\fP"
+.br
+.RI "The \fBSoGLCoordinateElement\fP class is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoGLDepthBufferElement\fP"
+.br
+.RI "The \fBSoGLDepthBufferElement\fP controls the OpenGL depth buffer\&. "
+.ti -1c
+.RI "class \fBSoGLDrawStyleElement\fP"
+.br
+.RI "The \fBSoGLDrawStyleElement\fP updates the current draw style in OpenGL\&. "
+.ti -1c
+.RI "class \fBSoGLEnvironmentElement\fP"
+.br
+.RI "The \fBSoGLEnvironmentElement\fP class is for setting GL fog etc\&. "
+.ti -1c
+.RI "class \fBSoGLLazyElement\fP"
+.br
+.RI "The \fBSoGLLazyElement\fP class is meant to optimize GL rendering\&.
+.PP
+This is just a wrap-around implementation for compatibility\&. It should (hopefully) work in the same way as the Inventor class though\&. "
+.ti -1c
+.RI "class \fBSoGLLightIdElement\fP"
+.br
+.RI "The \fBSoGLLightIdElement\fP class is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoGLLinePatternElement\fP"
+.br
+.RI "The \fBSoGLLinePatternElement\fP class changes the line stipple pattern of the OpenGL render state\&.
+.PP
+Requests from the scenegraph to change the stipple pattern when rendering OpenGL line primitives will be made through this element, which forwards it to the appropriate native OpenGL call\&. "
+.ti -1c
+.RI "class \fBSoGLLineWidthElement\fP"
+.br
+.RI "The \fBSoGLLineWidthElement\fP class changes the linewidth setting of the OpenGL render state\&.
+.PP
+Requests from the scenegraph to change the linewidth when rendering OpenGL line primitives will be made through this element, which forwards it to the appropriate native OpenGL call\&. "
+.ti -1c
+.RI "class \fBSoGLModelMatrixElement\fP"
+.br
+.RI "The \fBSoGLModelMatrixElement\fP class is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoGLMultiTextureCoordinateElement\fP"
+.br
+.RI "The \fBSoGLMultiTextureCoordinateElement\fP class stores the current gltexture coordinates for several units\&. "
+.ti -1c
+.RI "class \fBSoGLMultiTextureMatrixElement\fP"
+.br
+.RI "The \fBSoGLMultiTextureMatrixElement\fP class is used to update the OpenGL texture matrix\&.
+.PP
+Since (for some weird reason) most OpenGL implementations have a very small texture matrix stack, and since the matrix stack also is broken on many OpenGL implementations, the texture matrix is always loaded into OpenGL\&. We do not \fBpush()\fP and \fBpop()\fP matrices\&. "
+.ti -1c
+.RI "class \fBSoGLMultiTextureImageElement\fP"
+.br
+.RI "The \fBSoGLMultiTextureImageElement\fP is used to control the current GL texture for texture units\&. "
+.ti -1c
+.RI "class \fBSoGLNormalElement\fP"
+.br
+.RI "The \fBSoGLNormalElement\fP class is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoGLPointSizeElement\fP"
+.br
+.RI "The \fBSoGLPointSizeElement\fP class changes the pointsize setting of the OpenGL render state\&.
+.PP
+Requests from the scenegraph to change the pointsize when rendering point primitives will be made through this element, which forwards it to the appropriate native OpenGL call\&. "
+.ti -1c
+.RI "class \fBSoGLPolygonOffsetElement\fP"
+.br
+.RI "The \fBSoGLPolygonOffsetElement\fP class is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoGLProjectionMatrixElement\fP"
+.br
+.RI "The \fBSoGLProjectionMatrixElement\fP class is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoGLRenderPassElement\fP"
+.br
+.RI "The \fBSoGLRenderPassElement\fP class is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoGLShapeHintsElement\fP"
+.br
+.RI "The \fBSoGLShapeHintsElement\fP class is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoGLUpdateAreaElement\fP"
+.br
+.RI "The \fBSoGLUpdateAreaElement\fP class is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoGLVBOElement\fP"
+.br
+.RI "The \fBSoGLVBOElement\fP class is used to store VBO state\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoGLViewingMatrixElement\fP"
+.br
+.RI "The \fBSoGLViewingMatrixElement\fP class is used to store the current viewing matrix\&.
+.PP
+The viewing matrix contains the inverse camera coordinate system matrix\&. The camera coordinate system is built from the field values in the current \fBSoCamera\fP (currently either \fBSoPerspectiveCamera\fP or \fBSoOrthographicCamera\fP) and any transformations prior to the camera in the scene graph\&. "
+.ti -1c
+.RI "class \fBSoGLViewportRegionElement\fP"
+.br
+.RI "The \fBSoGLViewportRegionElement\fP class is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoGLDisplayList\fP"
+.br
+.RI "The \fBSoGLDisplayList\fP class stores and manages OpenGL display lists\&.
+.PP
+The TEXTURE_OBJECT type is not directly supported in Coin\&. We handle textures differently in a more flexible class called \fBSoGLImage\fP, which also stores some information about the texture used when rendering\&. Old code which use this element should not stop working though\&. The texture object extension will just not be used, and the texture will be stored in a display list instead\&. "
+.ti -1c
+.RI "class \fBSoAccumulatedElement\fP"
+.br
+.RI "The \fBSoAccumulatedElement\fP class is an abstract class for storing accumulated state\&.
+.PP
+This is the superclass of elements where new element data \fIaccumulates\fP with older data\&. "
+.ti -1c
+.RI "class \fBSoAmbientColorElement\fP"
+.br
+.RI "The \fBSoAmbientColorElement\fP class is yet to be documented\&. "
+.ti -1c
+.RI "class \fBSoAnnoText3CharOrientElement\fP"
+.br
+.RI "The \fBSoAnnoText3CharOrientElement\fP class is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoAnnoText3FontSizeHintElement\fP"
+.br
+.RI "The \fBSoAnnoText3FontSizeHintElement\fP class is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoAnnoText3RenderPrintElement\fP"
+.br
+.RI "The \fBSoAnnoText3RenderPrintElement\fP class is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoBBoxModelMatrixElement\fP"
+.br
+.RI "The \fBSoBBoxModelMatrixElement\fP class keeps track of the current model matrix during a scene graph traversal\&. It is used by amongst others the \fBSoGetBoundingBoxAction\fP class\&. "
+.ti -1c
+.RI "class \fBSoBumpMapElement\fP"
+.br
+.RI "The \fBSoBumpMapElement\fP class is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoBumpMapCoordinateElement\fP"
+.br
+.RI "The \fBSoBumpMapCoordinateElement\fP class is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoBumpMapMatrixElement\fP"
+.br
+.RI "The \fBSoBumpMapMatrixElement\fP class is used to manage the bump map matrix stack\&.
+.PP
+The bump map matrix is used to transform bump map coordinates before being used to map bump maps onto polygons\&. "
+.ti -1c
+.RI "class \fBSoCacheElement\fP"
+.br
+.RI "The \fBSoCacheElement\fP class stores and manages the open caches\&. "
+.ti -1c
+.RI "class \fBSoClipPlaneElement\fP"
+.br
+.RI "The \fBSoClipPlaneElement\fP class is used to manage the clip plane stack\&. "
+.ti -1c
+.RI "class \fBSoComplexityElement\fP"
+.br
+.RI "The \fBSoComplexityElement\fP class contains the current shape complexity for a graph traverser\&. "
+.ti -1c
+.RI "class \fBSoComplexityTypeElement\fP"
+.br
+.RI "The \fBSoComplexityTypeElement\fP class is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoCoordinateElement\fP"
+.br
+.RI "The \fBSoCoordinateElement\fP class is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoCreaseAngleElement\fP"
+.br
+.RI "The \fBSoCreaseAngleElement\fP class stores the crease angle during a scene graph traversal\&. "
+.ti -1c
+.RI "class \fBSoCullElement\fP"
+.br
+.RI "The \fBSoCullElement\fP class is used internally for render and pick culling\&.
+.PP
+The element holds all planes the geometry should be inside, and keeps a bitflag to signal which planes need to be tested\&. "
+.ti -1c
+.RI "class \fBSoDecimationPercentageElement\fP"
+.br
+.RI "The \fBSoDecimationPercentageElement\fP class is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoDecimationTypeElement\fP"
+.br
+.RI "The \fBSoDecimationTypeElement\fP class is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoDepthBufferElement\fP"
+.br
+.RI "The \fBSoDepthBufferElement\fP controls the depth buffer settings\&. "
+.ti -1c
+.RI "class \fBSoDiffuseColorElement\fP"
+.br
+.RI "The \fBSoDiffuseColorElement\fP class is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoDrawStyleElement\fP"
+.br
+.RI "The \fBSoDrawStyleElement\fP class is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoElement\fP"
+.br
+.RI "\fBSoElement\fP is the abstract base class for all elements\&. "
+.ti -1c
+.RI "class \fBSoEmissiveColorElement\fP"
+.br
+.RI "The \fBSoEmissiveColorElement\fP class is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoEnvironmentElement\fP"
+.br
+.RI "The \fBSoEnvironmentElement\fP class is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoFloatElement\fP"
+.br
+.RI "\fBSoFloatElement\fP is an abstract base class for elements that consists of a single float value\&.
+.PP
+This is the superclass of elements where the new element data \fIreplaces\fP the old data, and where the data the element stores is a simple single precision floating point value\&. "
+.ti -1c
+.RI "class \fBSoFocalDistanceElement\fP"
+.br
+.RI "The \fBSoFocalDistanceElement\fP class is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoFontNameElement\fP"
+.br
+.RI "The \fBSoFontNameElement\fP class is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoFontSizeElement\fP"
+.br
+.RI "The \fBSoFontSizeElement\fP class is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoInt32Element\fP"
+.br
+.RI "The \fBSoInt32Element\fP class is the base class for elements that simply store a 32-bit integer\&.
+.PP
+This is the superclass of elements where the new element data \fIreplaces\fP the old data, and where the data the element stores is a simple 32-bit integer value\&. "
+.ti -1c
+.RI "class \fBSoLazyElement\fP"
+.br
+.RI "The \fBSoLazyElement\fP class is used to handle material and shape properties\&.
+.PP
+So[GL]LazyElement is, as the name implies, an element that is lazy about sending things to OpenGL\&. The changes are not sent to OpenGL until \fBSoGLLazyElement::send()\fP is called\&. This means that you can change the state of certain attributes several times, but the state will only be sent to OpenGL once\&. "
+.ti -1c
+.RI "class \fBSoLightAttenuationElement\fP"
+.br
+.RI "The \fBSoLightAttenuationElement\fP class is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoLightElement\fP"
+.br
+.RI "The \fBSoLightElement\fP class manages the currently active light sources\&. "
+.ti -1c
+.RI "class \fBSoLightModelElement\fP"
+.br
+.RI "The \fBSoLightModelElement\fP class is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoLinePatternElement\fP"
+.br
+.RI "The \fBSoLinePatternElement\fP class defines the line stipple pattern\&.
+.PP
+Line stippling is used to mask out fragments of a line\&. "
+.ti -1c
+.RI "class \fBSoLineWidthElement\fP"
+.br
+.RI "The \fBSoLineWidthElement\fP class changes the linewidth setting of the render state\&.
+.PP
+Requests from the scenegraph to change the linewidth when rendering line primitives will be made through this element, which forwards it to the appropriate native call in the underlying rendering library\&. "
+.ti -1c
+.RI "class \fBSoLocalBBoxMatrixElement\fP"
+.br
+.RI "The \fBSoLocalBBoxMatrixElement\fP class is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoMaterialBindingElement\fP"
+.br
+.RI "The \fBSoMaterialBindingElement\fP class is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoVertexAttributeBindingElement\fP"
+.br
+.RI "The \fBSoVertexAttributeBindingElement\fP class is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoMultiTextureCoordinateElement\fP"
+.br
+.RI "The \fBSoMultiTextureCoordinateElement\fP class is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoMultiTextureEnabledElement\fP"
+.br
+.RI "The \fBSoMultiTextureEnabledElement\fP class is an element which stores whether texturing is enabled or not\&.
+.PP
+Be aware that this class is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&. "
+.ti -1c
+.RI "class \fBSoMultiTextureMatrixElement\fP"
+.br
+.RI "The \fBSoMultiTextureMatrixElement\fP class is used to manage the texture matrix stack for texture units > 0\&.
+.PP
+The texture matrix is used to transform texture coordinates before being used to map textures onto polygons\&. "
+.ti -1c
+.RI "class \fBSoMultiTextureImageElement\fP"
+.br
+.RI "The \fBSoMultiTextureImageElement\fP class is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoModelMatrixElement\fP"
+.br
+.RI "The \fBSoModelMatrixElement\fP class is used to manage the current transformation\&.
+.PP
+\fBSoModelMatrixElement\fP contains the object-to-world matrix\&. "
+.ti -1c
+.RI "class \fBSoNormalBindingElement\fP"
+.br
+.RI "The \fBSoNormalBindingElement\fP is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoNormalElement\fP"
+.br
+.RI "The \fBSoNormalElement\fP class is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoOverrideElement\fP"
+.br
+.RI "The \fBSoOverrideElement\fP maintains a list of overridable elements and a list over which elements should be overridden\&.
+.PP
+Only certain elements can be overridden\&. "
+.ti -1c
+.RI "class \fBSoPickRayElement\fP"
+.br
+.RI "The \fBSoPickRayElement\fP class is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoPickStyleElement\fP"
+.br
+.RI "The \fBSoPickStyleElement\fP is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoPointSizeElement\fP"
+.br
+.RI "The \fBSoPointSizeElement\fP changes the pointsize setting of the render state\&.
+.PP
+Requests from the scenegraph to change the pointsize when rendering point primitives will be made through this element\&. "
+.ti -1c
+.RI "class \fBSoPolygonOffsetElement\fP"
+.br
+.RI "The \fBSoPolygonOffsetElement\fP class is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoProfileCoordinateElement\fP"
+.br
+.RI "The \fBSoProfileCoordinateElement\fP class is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoProfileElement\fP"
+.br
+.RI "The \fBSoProfileElement\fP class is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoReplacedElement\fP"
+.br
+.RI "The \fBSoReplacedElement\fP class is an abstract element superclass\&.
+.PP
+This is the superclass of all elements where the new element data \fIreplaces\fP the old data, and where the data the element stores is not just a simple float or integer value\&. "
+.ti -1c
+.RI "class \fBSoShapeStyleElement\fP"
+.br
+.RI "The \fBSoShapeStyleElement\fP class is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoShininessElement\fP"
+.br
+.RI "The \fBSoShininessElement\fP class is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoSpecularColorElement\fP"
+.br
+.RI "The \fBSoSpecularColorElement\fP is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoSwitchElement\fP"
+.br
+.RI "The \fBSoSwitchElement\fP class is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoTextOutlineEnabledElement\fP"
+.br
+.RI "The \fBSoTextOutlineEnabledElement\fP class is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoTextureCombineElement\fP"
+.br
+.RI "The \fBSoTextureCombineElement\fP class is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoTextureCoordinateBindingElement\fP"
+.br
+.RI "The \fBSoTextureCoordinateBindingElement\fP class is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoTextureOverrideElement\fP"
+.br
+.RI "The \fBSoTextureOverrideElement\fP makes it possible to override texture elements\&. "
+.ti -1c
+.RI "class \fBSoTextureUnitElement\fP"
+.br
+.RI "The \fBSoTextureUnitElement\fP class is yet to be documented\&. "
+.ti -1c
+.RI "class \fBSoTextureQualityElement\fP"
+.br
+.RI "The \fBSoTextureQualityElement\fP is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoTransparencyElement\fP"
+.br
+.RI "The \fBSoTransparencyElement\fP is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoUnitsElement\fP"
+.br
+.RI "The \fBSoUnitsElement\fP class is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoViewVolumeElement\fP"
+.br
+.RI "The \fBSoViewVolumeElement\fP class is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoViewingMatrixElement\fP"
+.br
+.RI "The \fBSoViewingMatrixElement\fP class stores the world-to-camera transformation\&. "
+.ti -1c
+.RI "class \fBSoViewportRegionElement\fP"
+.br
+.RI "The \fBSoViewportRegionElement\fP class is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoWindowElement\fP"
+.br
+.RI "The \fBSoWindowElement\fP class is used to store current window attributes\&.
+.PP
+In Coin, this element is not API-compatible with SGI Inventor, since it contains platform specific stuff, which we want to avoid\&. "
+.ti -1c
+.RI "class \fBSoListenerPositionElement\fP"
+.br
+.RI "The \fBSoListenerPositionElement\fP holds the position of the current listener\&.
+.PP
+This position is set by \fBSoListener\fP nodes and \fBSoCamera\fP Nodes during audio rendering\&. When a \fBSoListener\fP is visited by the \fBSoAudioRenderAction\fP, it will add a new \fBSoListenerPositionElement\fP to the state, holding it's position and with the setbylistener flag set\&. When a \fBSoCamera\fP is visited by \fBSoAudioRenderAction\fP, it will add a new \fBSoListenerPositionElement\fP only if there are no previous elements with the setbylistener flag set\&. "
+.ti -1c
+.RI "class \fBSoListenerOrientationElement\fP"
+.br
+.RI "The \fBSoListenerOrientationElement\fP holds the orientation of the current listener\&.
+.PP
+This orientation is set by \fBSoListener\fP nodes and \fBSoCamera\fP Nodes during audio rendering\&. When a \fBSoListener\fP is visited by the \fBSoAudioRenderAction\fP, it will add a new \fBSoListenerOrientationElement\fP to the state, holding it's orientation and with the setbylistener flag set\&. When a \fBSoCamera\fP is visited by \fBSoAudioRenderAction\fP, it will add a new \fBSoListenerOrientationElement\fP only if there are no previous elements with the setbylistener flag set\&. "
+.ti -1c
+.RI "class \fBSoListenerGainElement\fP"
+.br
+.RI "The \fBSoListenerGainElement\fP class stores the \fBSoListener\fP gain during a scene graph traversal\&.
+.PP
+This gain is set by \fBSoListener\fP nodes during audio rendering\&. The \fBSoListenerGainElement\fP is used when the \fBSoVRMLSound\fP nodes render themselves\&. "
+.ti -1c
+.RI "class \fBSoListenerDopplerElement\fP"
+.br
+.RI "The \fBSoListenerDopplerElement\fP holds the doppler velocity and factor of the current listener\&.
+.PP
+The dopplerVelocity and dopplerFactor is set by \fBSoListener\fP nodes during audio rendering\&. The \fBSoListenerDopplerElement\fP is used when the \fBSoVRMLSound\fP nodes render themselves\&. "
+.ti -1c
+.RI "class \fBSoSoundElement\fP"
+.br
+.RI "The \fBSoSoundElement\fP is used for optimizing audio rendering and for turning off inactive \fBSoVRMLSound\fP nodes\&. "
+.ti -1c
+.RI "class \fBSoShadowStyleElement\fP"
+.br
+.RI "The \fBSoShadowStyleElement\fP class is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoGLShadowCullingElement\fP"
+.br
+.RI "The \fBSoGLShadowCullingElement\fP class is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.ti -1c
+.RI "class \fBSoGeoElement\fP"
+.br
+.RI "The \fBSoGeoElement\fP class is yet to be documented\&.
+.PP
+FIXME: write doc\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+The element classes in Coin are the containers of state information during action traversals of scene graphs\&. 
+
+One element usually corresponts to one item of information, or sometimes a group of related information values\&. The elements work like a stack that is pushed and popped as the action traverses in and out of \fBSoSeparator\fP nodes, and the action will always just inspect the top of the stack when it needs to know a value\&.
+.PP
+Elements are internal implementation details of the workings of nodes and actions, and is not something one needs to worry about before writing ones own extension nodes\&. Writing extension elements is even more removed from plain Open Inventor usage, but is fully possible for the experienced Open Inventor developer\&. The Element Classes
+Elements are mostly internal to Coin, unless you create new extension nodes over Coin\&. Then you will probably need to know about them\&.
+.PP
+Elements are part of the design for scenegraph traversal in Coin\&.
+.PP
+It works like this: any traversal action instantiates and keeps a single \fBSoState\fP instance during traversal\&. The \fBSoState\fP instance uses \fBSoElement\fP objects as 'memory units' to keep track of the current state for any feature of the scenegraph nodes\&.
+.PP
+As an example, consider the SoPointSize node: when the SoPointSize node is traversed by for instance a \fBSoGLRenderAction\fP, it will itself push a \fBSoPointSizeElement\fP onto the \fBSoGLRenderAction\fP's \fBSoState\fP stack\&. Later, when a \fBSoPointSet\fP node occurs in the scenegraph, it will request the current pointsize value from the \fBSoState\fP by reading off the value of it's \fBSoPointSizeElement\fP\&.
+.PP
+\fBSoSeparator\fP nodes will push and pop elements on and off the state stack, so anything that changes state below a \fBSoSeparator\fP node will not influence anything \fIabove\fP the \fBSoSeparator\fP\&.
+.PP
+For more information on the theoretical underpinnings of this traversal design, you should consider reading available literature on the so-called 'Visitor pattern'\&. We recommend 'Design Patterns', by Gamma, Helm, Johnson, Vlissides (aka the 'Gang Of Four')\&. This book actually uses the Inventor API traversal mechanism as the case study for explaining the Visitor pattern\&.
+.PP
+For extending the Coin library with your own classes, we strongly recommend that you make yourself acquainted with the excellent «The Inventor Toolmaker» book (ISBN 0-201-62493-1), which describes the tasks involved in detail\&. This book was written by the original SGI Inventor designers and explains many of the underlying design ideas, aswell as having lots of hands-on examples on how to extend the Coin toolkit in ways that are true to the fundamental design ideas\&. («The Inventor Toolmaker» is also available at SGI's online library, at no cost\&. See \fCDownload The Inventor Toolmaker\fP\&.) Reading the sourcecode of the built-in classes in Coin should also provide very helpful\&.
+.PP
+The following is a complete example on how to extend Coin with your own traversal elements\&. First, the class declaration of the new element (ie the header include file):
+.PP
+.PP
+.nf
+// [texturefilenameelement\&.h]
+#ifndef TEXTUREFILENAMEELEMENT_H
+#define TEXTUREFILENAMEELEMENT_H
+
+#include <Inventor/elements/SoReplacedElement\&.h>
+#include <Inventor/SbString\&.h>
+
+class TextureFilenameElement : public SoReplacedElement {
+  typedef SoReplacedElement inherited;
+
+  SO_ELEMENT_HEADER(TextureFilenameElement);
+public:
+  static void initClass(void);
+
+  virtual void init(SoState * state);
+  static void set(SoState * const state, SoNode * const node,
+                  const SbString & filename);
+  static const SbString & get(SoState * const state);
+  static const TextureFilenameElement * getInstance(SoState * state);
+
+protected:
+  virtual ~TextureFilenameElement();
+  virtual void setElt(const SbString & filename);
+
+private:
+  SbString filename;
+};
+
+#endif // !TEXTUREFILENAMEELEMENT_H
+.fi
+.PP
+.PP
+The implementation of the element:
+.PP
+.PP
+.nf
+// [texturefilenameelement\&.cpp]
+//
+// The purpose of the code in this file is to demonstrate how you can
+// make your own elements for scene graph traversals\&.
+//
+// Code by Peder Blekken <pederb@sim\&.no>\&. Copyright (C)
+// Kongsberg Oil & Gas Technologies\&.
+
+#include "texturefilenameelement\&.h"
+
+
+SO_ELEMENT_SOURCE(TextureFilenameElement);
+
+
+void
+TextureFilenameElement::initClass(void)
+{
+  SO_ELEMENT_INIT_CLASS(TextureFilenameElement, inherited);
+}
+
+void
+TextureFilenameElement::init(SoState * state)
+{
+  this->filename = "<none>";
+}
+
+TextureFilenameElement::~TextureFilenameElement()
+{
+}
+
+void
+TextureFilenameElement::set(SoState * const state, SoNode * const node,
+                            const SbString & filename)
+{
+  TextureFilenameElement * elem = (TextureFilenameElement *)
+    SoReplacedElement::getElement(state, classStackIndex, node);
+  elem->setElt(filename);
+}
+
+const SbString &
+TextureFilenameElement::get(SoState * const state)
+{
+  return TextureFilenameElement::getInstance(state)->filename;
+}
+
+void
+TextureFilenameElement::setElt(const SbString & filename)
+{
+  this->filename = filename;
+}
+
+const TextureFilenameElement *
+TextureFilenameElement::getInstance(SoState * state)
+{
+  return (const TextureFilenameElement *)
+    SoElement::getConstElement(state, classStackIndex);
+}
+.fi
+.PP
+.PP
+And a small, stand-alone test application putting the new element to use:
+.PP
+.PP
+.nf
+// [lstextures\&.cpp]
+//
+// The purpose of this file is to make a small wrapper "tool" around
+// the TextureFilenameElement extension element, just for showing
+// example code on how to make use of a user-defined custom element\&.
+//
+// The code goes like this:
+//
+// We initialize the element, enable it for the SoCallbackAction, read
+// a scene graph file, set callbacks on SoTexture2 and all shape nodes
+// and applies the SoCallbackAction\&. The callbacks will then print out
+// the texture filename information from the TextureFilenameElement
+// each time an interesting node is hit\&.
+//
+//
+// Code by Peder Blekken <pederb@sim\&.no>\&. Cleaned up, integrated in
+// Coin distribution and commented by Morten Eriksen
+// <mortene@sim\&.no>\&. Copyright (C) Kongsberg Oil & Gas Technologies\&.
+
+#include <Inventor/SoDB\&.h>
+#include <Inventor/SoInput\&.h>
+#include <Inventor/actions/SoCallbackAction\&.h>
+#include <Inventor/nodes/SoSeparator\&.h>
+#include <Inventor/nodes/SoTexture2\&.h>
+#include <Inventor/nodes/SoShape\&.h>
+#include <Inventor/misc/SoState\&.h>
+#include <cstdio>
+
+#include "texturefilenameelement\&.h"
+
+
+SoCallbackAction::Response
+pre_tex2_cb(void * data, SoCallbackAction * action, const SoNode * node)
+{
+  const SbString & filename = ((SoTexture2 *)node)->filename\&.getValue();
+  TextureFilenameElement::set(action->getState(), (SoNode *)node, filename);
+
+  (void)fprintf(stdout, "=> New texture: %s\n",
+                filename\&.getLength() == 0 ?
+                "<inlined>" : filename\&.getString());
+
+  return SoCallbackAction::CONTINUE;
+}
+
+SoCallbackAction::Response
+pre_shape_cb(void * data, SoCallbackAction * action, const SoNode * node)
+{
+  const SbString & filename =
+    TextureFilenameElement::get(action->getState());
+
+  (void)fprintf(stdout, "   Texturemap on %s: %s\n",
+                node->getTypeId()\&.getName()\&.getString(),
+                filename\&.getLength() == 0 ?
+                "<inlined>" : filename\&.getString());
+
+  return SoCallbackAction::CONTINUE;
+}
+
+void
+usage(const char * appname)
+{
+  (void)fprintf(stderr, "\n\tUsage: %s <modelfile\&.iv>\n\n", appname);
+  (void)fprintf(stderr,
+                "\tLists all texture filenames in the model file,\n"
+                "\tand on which shape nodes they are used\&.\n\n"
+                "\tThe purpose of this example utility is simply to\n"
+                "\tshow how to create and use an extension element for\n"
+                "\tscene graph traversal\&.\n\n");
+}
+
+int
+main(int argc, char ** argv)
+{
+  if (argc != 2) {
+    usage(argv[0]);
+    exit(1);
+  }
+
+  SoDB::init();
+
+  TextureFilenameElement::initClass();
+  SO_ENABLE(SoCallbackAction, TextureFilenameElement);
+
+  SoInput input;
+  if (!input\&.openFile(argv[1])) {
+    (void)fprintf(stderr, "ERROR: couldn't open file ``%s''\&.\n", argv[1]);
+    exit(1);
+  }
+
+  SoSeparator * root = SoDB::readAll(&input);
+  if (root) {
+    root->ref();
+    SoCallbackAction cbaction;
+    cbaction\&.addPreCallback(SoTexture2::getClassTypeId(), pre_tex2_cb, NULL);
+    cbaction\&.addPreCallback(SoShape::getClassTypeId(), pre_shape_cb, NULL);
+    cbaction\&.apply(root);
+    root->unref();
+    return 0;
+  }
+  return 1;
+}
+.fi
+.PP
+ 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

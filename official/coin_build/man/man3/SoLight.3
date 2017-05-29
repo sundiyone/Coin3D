@@ -1,0 +1,149 @@
+.TH "SoLight" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoLight \- The \fBSoLight\fP class is the base class for light emitting nodes\&.
+.PP
+This node type is abstract and does not in itself provide any light sources to the scene, you need to use one of its subclasses\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/nodes/SoLight\&.h>\fP
+.PP
+Inherits \fBSoNode\fP\&.
+.PP
+Inherited by \fBSoDirectionalLight\fP, \fBSoPointLight\fP, and \fBSoSpotLight\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "virtual void \fBcallback\fP (\fBSoCallbackAction\fP *action)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFBool\fP \fBon\fP"
+.br
+.ti -1c
+.RI "\fBSoSFFloat\fP \fBintensity\fP"
+.br
+.ti -1c
+.RI "\fBSoSFColor\fP \fBcolor\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoLight\fP (void)"
+.br
+.ti -1c
+.RI "virtual \fB~SoLight\fP ()"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoLight\fP class is the base class for light emitting nodes\&.
+.PP
+This node type is abstract and does not in itself provide any light sources to the scene, you need to use one of its subclasses\&. 
+
+There are a few important things to know about light sources in Coin\&. First of all, the more light sources you have in your scene, the slower the rendering will be\&. The impact on rendering speed is highly dependent on the graphics hardware and/or rendering subsystem software implementation (i\&.e\&. how optimized an OpenGL you or your users are running), but it could be severe\&.
+.PP
+Another issue which is important to know is that OpenGL rendering engines usually have a fixed maximum number of available light sources which can be present in the state at the same time\&. If you reach the maximum number, further light sources will simply be ignored\&. The maximum number of light sources for OpenGL rendering can be found by using:
+.PP
+.PP
+.nf
+      #include <Inventor/elements/SoGLLightIdElement\&.h>
+#include <Inventor/nodes/SoSubNodeP\&.h>
+      // \&.\&.\&.[snip]\&.\&.\&.
+      int nrlights = SoGLLightIdElement::getMaxGLSources();
+.fi
+.PP
+.PP
+If you are clever with how you use light sources, you can get away with using a lot more lights in a scene graph than the max available from the rendering system\&. This is because light sources are stacked on the traversal state, just like other appearance data\&. So if you put light sources under \fBSoSeparator\fP nodes, they will be popped off and 'forgotten' for the remaining geometry of the scene graph after the subgraph below an \fBSoSeparator\fP has been traversed\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoLight::SoLight (void)\fC [protected]\fP"
+Constructor\&. 
+.SS "SoLight::~SoLight ()\fC [protected]\fP, \fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoLight::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Implements \fBSoBase\fP\&.
+.PP
+Reimplemented in \fBSoDirectionalLightManip\fP, \fBSoSpotLightManip\fP, \fBSoPointLightManip\fP, \fBSoShadowSpotLight\fP, \fBSoShadowDirectionalLight\fP, \fBSoSpotLight\fP, \fBSoDirectionalLight\fP, and \fBSoPointLight\fP\&.
+.SS "const \fBSoFieldData\fP * SoLight::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoFieldContainer\fP\&.
+.PP
+Reimplemented in \fBSoDirectionalLightManip\fP, \fBSoSpotLightManip\fP, \fBSoPointLightManip\fP, \fBSoShadowSpotLight\fP, \fBSoShadowDirectionalLight\fP, \fBSoSpotLight\fP, \fBSoDirectionalLight\fP, and \fBSoPointLight\fP\&.
+.SS "void SoLight::callback (\fBSoCallbackAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoCallbackAction\fP\&.
+.PP
+Simply updates the state according to how the node behaves for the render action, so the application programmer can use the \fBSoCallbackAction\fP for extracting information about the scene graph\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.PP
+Reimplemented in \fBSoDirectionalLightManip\fP, \fBSoSpotLightManip\fP, and \fBSoPointLightManip\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSoSFBool\fP SoLight::on"
+Whether light source should be on or off\&. The on-flag defaults to \fCTRUE\fP\&. 
+.SS "\fBSoSFFloat\fP SoLight::intensity"
+Intensity of light source\&. This decides how much the light source should affect the colors etc of the scene geometry\&. Valid range is 0\&.0 (none) to 1\&.0 (maximum)\&. Default value is 1\&.0\&. 
+.SS "\fBSoSFColor\fP SoLight::color"
+Color of light source\&. Default is an all-white light source\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

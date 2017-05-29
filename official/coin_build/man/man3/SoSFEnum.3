@@ -1,0 +1,209 @@
+.TH "SoSFEnum" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoSFEnum \- The \fBSoSFEnum\fP class is a container for an enum value\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store one particular value out of an enumerated set\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/fields/SoSFEnum\&.h>\fP
+.PP
+Inherits \fBSoSField\fP\&.
+.PP
+Inherited by \fBSoSFBitMask\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBcopyFrom\fP (const \fBSoField\fP &field)"
+.br
+.ti -1c
+.RI "const \fBSoSFEnum\fP & \fBoperator=\fP (const \fBSoSFEnum\fP &field)"
+.br
+.ti -1c
+.RI "virtual SbBool \fBisSame\fP (const \fBSoField\fP &field) const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetValue\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBsetValue\fP (\fBint\fP newvalue)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBoperator=\fP (\fBint\fP newvalue)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBoperator==\fP (const \fBSoSFEnum\fP &field) const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBoperator!=\fP (const \fBSoSFEnum\fP &field) const"
+.br
+.ti -1c
+.RI "void \fBsetValue\fP (const \fBSbName\fP name)"
+.br
+.ti -1c
+.RI "void \fBsetEnums\fP (const \fBint\fP num, const \fBint\fP *vals, const \fBSbName\fP *names)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetNumEnums\fP (void) const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetEnum\fP (const \fBint\fP idx, \fBSbName\fP &name) const"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static void * \fBcreateInstance\fP (void)"
+.br
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual SbBool \fBfindEnumValue\fP (const \fBSbName\fP &name, \fBint\fP &val)"
+.br
+.ti -1c
+.RI "virtual SbBool \fBfindEnumName\fP (\fBint\fP value, const \fBSbName\fP *&name) const"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBint\fP \fBvalue\fP"
+.br
+.ti -1c
+.RI "\fBint\fP \fBnumEnums\fP"
+.br
+.ti -1c
+.RI "\fBint\fP * \fBenumValues\fP"
+.br
+.ti -1c
+.RI "\fBSbName\fP * \fBenumNames\fP"
+.br
+.ti -1c
+.RI "SbBool \fBlegalValuesSet\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoSFEnum\fP class is a container for an enum value\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store one particular value out of an enumerated set\&. 
+
+A field of this type stores its value to file as the symbolic name, rather than the actual integer value\&.
+.PP
+\fBSoSFEnum\fP instances are initialized on an instance basis, usually in the constructor of the fieldcontainer with the macros \fBSO_NODE_DEFINE_ENUM_VALUE(enumtype, symbolvalue)\fP and SO_NODE_SET_SF_ENUM_TYPE(enumfield, enumtype) for nodes, or for engines; SO_ENGINE_DEFINE_ENUM_VALUE() and SO_ENGINE_SET_SF_ENUM_TYPE()\&.
+.PP
+Example initialization from the constructor of the \fBSoCone\fP class: 
+.PP
+.nf
+SO_NODE_DEFINE_ENUM_VALUE(Part, SIDES);
+SO_NODE_DEFINE_ENUM_VALUE(Part, BOTTOM);
+SO_NODE_DEFINE_ENUM_VALUE(Part, ALL);
+SO_NODE_SET_SF_ENUM_TYPE(parts, Part); 
+
+.fi
+.PP
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoMFEnum\fP, \fBSoSFBitMask\fP 
+.RE
+.PP
+
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoSFEnum::getTypeId (void) const\fC [virtual]\fP"
+Returns the type identification instance which uniquely identifies the Coin field class the object belongs to\&.
+.PP
+\fBSee also:\fP
+.RS 4
+getClassTypeId(), \fBSoType\fP 
+.RE
+.PP
+
+.PP
+Implements \fBSoField\fP\&.
+.PP
+Reimplemented in \fBSoSFBitMask\fP\&.
+.SS "void SoSFEnum::copyFrom (const \fBSoField\fP & f)\fC [virtual]\fP"
+Copy value(s) from \fIf\fP into this field\&. \fIf\fP must be of the same type as this field\&. 
+.PP
+Implements \fBSoField\fP\&.
+.PP
+Reimplemented in \fBSoSFBitMask\fP\&.
+.SS "SbBool SoSFEnum::isSame (const \fBSoField\fP & f) const\fC [virtual]\fP"
+Check for equal type and value(s)\&. 
+.PP
+Implements \fBSoField\fP\&.
+.PP
+Reimplemented in \fBSoSFBitMask\fP\&.
+.SS "void SoSFEnum::setValue (const \fBSbName\fP name)"
+Set the value of this field by specifying an enumeration string value\&. 
+.SS "void SoSFEnum::setEnums (const \fBint\fP num, const \fBint\fP * vals, const \fBSbName\fP * names)"
+Makes a set of \fInum\fP enumeration \fInames\fP map to integer values, given by \fIvals\fP\&. 
+.SS "\fBint\fP SoSFEnum::getNumEnums (void) const"
+Returns the number of enum names the \fBSoSFEnum\fP object understands\&.
+.PP
+Note that this API method is not part of the original SGI Inventor 2\&.1 API, and is an extension specific to Coin\&.
+.PP
+This function is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.RE
+.PP
+
+.SS "\fBint\fP SoSFEnum::getEnum (const \fBint\fP idx, \fBSbName\fP & name) const"
+Returns the value of the Nth enum this \fBSoSFEnum\fP object understands, and mutates \fIname\fP to contain the Nth enum's name\&.
+.PP
+Note that this API method is not part of the original SGI Inventor 2\&.1 API, and is an extension specific to Coin\&.
+.PP
+This function is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.RE
+.PP
+
+.SS "SbBool SoSFEnum::findEnumValue (const \fBSbName\fP & name, \fBint\fP & val)\fC [protected]\fP, \fC [virtual]\fP"
+Return in \fIval\fP the enumeration value which matches the given enumeration \fIname\fP\&.
+.PP
+Returns \fCTRUE\fP if \fIname\fP is a valid enumeration string, otherwise \fCFALSE\fP\&. 
+.SS "SbBool SoSFEnum::findEnumName (\fBint\fP valuearg, const \fBSbName\fP *& name) const\fC [protected]\fP, \fC [virtual]\fP"
+Set the enumeration \fIname\fP which matches the given enumeration value\&.
+.PP
+Returns \fCTRUE\fP if \fIvalue\fP is a valid enumeration value, otherwise \fCFALSE\fP\&. 
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBint\fP SoSFEnum::numEnums\fC [protected]\fP"
+Number of enumeration mappings\&. 
+.SS "\fBint\fP * SoSFEnum::enumValues\fC [protected]\fP"
+Array of enumeration values\&. Maps 1-to-1 with the enumNames\&. 
+.SS "\fBSbName\fP * SoSFEnum::enumNames\fC [protected]\fP"
+Array of enumeration names\&. Maps 1-to-1 with the enumValues\&. 
+.SS "SbBool SoSFEnum::legalValuesSet\fC [protected]\fP"
+Is \fCTRUE\fP if a set of enum name-to-value mappings has been set\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

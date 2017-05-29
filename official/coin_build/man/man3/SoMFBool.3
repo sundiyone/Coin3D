@@ -1,0 +1,162 @@
+.TH "SoMFBool" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoMFBool \- The \fBSoMFBool\fP class is a container for SbBool values\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store multiple boolean on/off or TRUE/FALSE values\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/fields/SoMFBool\&.h>\fP
+.PP
+Inherits \fBSoMField\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBcopyFrom\fP (const \fBSoField\fP &field)"
+.br
+.ti -1c
+.RI "const \fBSoMFBool\fP & \fBoperator=\fP (const \fBSoMFBool\fP &field)"
+.br
+.ti -1c
+.RI "virtual SbBool \fBisSame\fP (const \fBSoField\fP &field) const"
+.br
+.ti -1c
+.RI "SbBool \fBoperator[]\fP (const \fBint\fP idx) const"
+.br
+.ti -1c
+.RI "const SbBool * \fBgetValues\fP (const \fBint\fP start) const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBfind\fP (SbBool value, SbBool addifnotfound=FALSE)"
+.br
+.ti -1c
+.RI "void \fBsetValues\fP (const \fBint\fP start, const \fBint\fP \fBnum\fP, const SbBool *newvals)"
+.br
+.ti -1c
+.RI "void \fBset1Value\fP (const \fBint\fP idx, SbBool value)"
+.br
+.ti -1c
+.RI "void \fBsetValue\fP (SbBool value)"
+.br
+.ti -1c
+.RI "SbBool \fBoperator=\fP (SbBool val)"
+.br
+.ti -1c
+.RI "SbBool \fBoperator==\fP (const \fBSoMFBool\fP &field) const"
+.br
+.ti -1c
+.RI "SbBool \fBoperator!=\fP (const \fBSoMFBool\fP &field) const"
+.br
+.ti -1c
+.RI "SbBool * \fBstartEditing\fP (void)"
+.br
+.ti -1c
+.RI "void \fBfinishEditing\fP (void)"
+.br
+.ti -1c
+.RI "void \fBsetValuesPointer\fP (const \fBint\fP \fBnum\fP, const SbBool *userdata)"
+.br
+.ti -1c
+.RI "void \fBsetValuesPointer\fP (const \fBint\fP \fBnum\fP, SbBool *userdata)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static void * \fBcreateInstance\fP (void)"
+.br
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual void \fBdeleteAllValues\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBcopyValue\fP (\fBint\fP to, \fBint\fP from)"
+.br
+.ti -1c
+.RI "virtual \fBint\fP \fBfieldSizeof\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void * \fBvaluesPtr\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBsetValuesPtr\fP (void *ptr)"
+.br
+.ti -1c
+.RI "virtual void \fBallocValues\fP (\fBint\fP \fBnum\fP)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "SbBool * \fBvalues\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoMFBool\fP class is a container for SbBool values\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store multiple boolean on/off or TRUE/FALSE values\&. 
+
+This field supports application data sharing through a setValuesPointer() method\&. See \fBSoMField\fP documentation for information on how to use this function\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoSFBool\fP 
+.RE
+.PP
+
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoMFBool::getTypeId (void) const\fC [virtual]\fP"
+Returns the type identification instance which uniquely identifies the Coin field class the object belongs to\&.
+.PP
+\fBSee also:\fP
+.RS 4
+getClassTypeId(), \fBSoType\fP 
+.RE
+.PP
+
+.PP
+Implements \fBSoField\fP\&.
+.SS "void SoMFBool::copyFrom (const \fBSoField\fP & f)\fC [virtual]\fP"
+Copy value(s) from \fIf\fP into this field\&. \fIf\fP must be of the same type as this field\&. 
+.PP
+Implements \fBSoField\fP\&.
+.SS "SbBool SoMFBool::isSame (const \fBSoField\fP & f) const\fC [virtual]\fP"
+Check for equal type and value(s)\&. 
+.PP
+Implements \fBSoField\fP\&.
+.SS "void SoMFBool::deleteAllValues (void)\fC [protected]\fP, \fC [virtual]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.PP
+Implements \fBSoMField\fP\&.
+.SS "void SoMFBool::copyValue (\fBint\fP to, \fBint\fP from)\fC [protected]\fP, \fC [virtual]\fP"
+This method is used for moving values around internally within a multivalue field\&. It needs to be overridden in each field so it automatically takes care of running copy contructors where necessary\&. 
+.PP
+Implements \fBSoMField\fP\&.
+.SS "const SbBool* SoMFBool::getValues (const \fBint\fP start) const\fC [inline]\fP"
+\\ Returns a pointer to the values array\&. \\ 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

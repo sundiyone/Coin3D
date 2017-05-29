@@ -1,0 +1,601 @@
+.TH "SoDB" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoDB \- The \fBSoDB\fP class keeps track of internal global data\&.
+.PP
+This class collects various methods for initializing, setting and accessing common global data from the Coin library\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/SoDB\&.h>\fP
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "typedef SbBool \fBProgressCallbackType\fP(const \fBSbName\fP &itemid, float fraction, SbBool interruptible, void *userdata)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static void \fBinit\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBfinish\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBcleanup\fP (void)"
+.br
+.ti -1c
+.RI "static const char * \fBgetVersion\fP (void)"
+.br
+.ti -1c
+.RI "static SbBool \fBread\fP (\fBSoInput\fP *input, \fBSoPath\fP *&path)"
+.br
+.ti -1c
+.RI "static SbBool \fBread\fP (\fBSoInput\fP *input, \fBSoBase\fP *&base)"
+.br
+.ti -1c
+.RI "static SbBool \fBread\fP (\fBSoInput\fP *input, \fBSoNode\fP *&rootnode)"
+.br
+.ti -1c
+.RI "static \fBSoSeparator\fP * \fBreadAll\fP (\fBSoInput\fP *input)"
+.br
+.ti -1c
+.RI "static \fBSoVRMLGroup\fP * \fBreadAllVRML\fP (\fBSoInput\fP *input)"
+.br
+.ti -1c
+.RI "static SbBool \fBisValidHeader\fP (const char *teststring)"
+.br
+.ti -1c
+.RI "static SbBool \fBregisterHeader\fP (const \fBSbString\fP &headerstring, SbBool isbinary, float ivversion, \fBSoDBHeaderCB\fP *precallback, \fBSoDBHeaderCB\fP *postcallback, void *userdata=NULL)"
+.br
+.ti -1c
+.RI "static SbBool \fBgetHeaderData\fP (const \fBSbString\fP &headerstring, SbBool &isbinary, float &ivversion, \fBSoDBHeaderCB\fP *&precallback, \fBSoDBHeaderCB\fP *&postcallback, void *&userdata, SbBool substringok=FALSE)"
+.br
+.ti -1c
+.RI "static \fBint\fP \fBgetNumHeaders\fP (void)"
+.br
+.ti -1c
+.RI "static \fBSbString\fP \fBgetHeaderString\fP (const \fBint\fP i)"
+.br
+.ti -1c
+.RI "static \fBSoField\fP * \fBcreateGlobalField\fP (const \fBSbName\fP &name, \fBSoType\fP type)"
+.br
+.ti -1c
+.RI "static \fBSoField\fP * \fBgetGlobalField\fP (const \fBSbName\fP &name)"
+.br
+.ti -1c
+.RI "static void \fBrenameGlobalField\fP (const \fBSbName\fP &from, const \fBSbName\fP &to)"
+.br
+.ti -1c
+.RI "static void \fBsetRealTimeInterval\fP (const \fBSbTime\fP &interval)"
+.br
+.ti -1c
+.RI "static const \fBSbTime\fP & \fBgetRealTimeInterval\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBenableRealTimeSensor\fP (SbBool on)"
+.br
+.ti -1c
+.RI "static \fBSoSensorManager\fP * \fBgetSensorManager\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBsetDelaySensorTimeout\fP (const \fBSbTime\fP &t)"
+.br
+.ti -1c
+.RI "static const \fBSbTime\fP & \fBgetDelaySensorTimeout\fP (void)"
+.br
+.ti -1c
+.RI "static \fBint\fP \fBdoSelect\fP (\fBint\fP nfds, void *readfds, void *writefds, void *exceptfds, struct timeval *usertimeout)"
+.br
+.ti -1c
+.RI "static void \fBaddConverter\fP (\fBSoType\fP from, \fBSoType\fP to, \fBSoType\fP converter)"
+.br
+.ti -1c
+.RI "static \fBSoType\fP \fBgetConverter\fP (\fBSoType\fP from, \fBSoType\fP to)"
+.br
+.ti -1c
+.RI "static SbBool \fBisInitialized\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBstartNotify\fP (void)"
+.br
+.ti -1c
+.RI "static SbBool \fBisNotifying\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBendNotify\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBaddProgressCallback\fP (\fBProgressCallbackType\fP *func, void *userdata)"
+.br
+.ti -1c
+.RI "static void \fBremoveProgressCallback\fP (\fBProgressCallbackType\fP *func, void *userdata)"
+.br
+.ti -1c
+.RI "static SbBool \fBisMultiThread\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBreadlock\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBreadunlock\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBwritelock\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBwriteunlock\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBcreateRoute\fP (\fBSoNode\fP *from, const char *eventout, \fBSoNode\fP *to, const char *eventin)"
+.br
+.ti -1c
+.RI "static void \fBremoveRoute\fP (\fBSoNode\fP *from, const char *eventout, \fBSoNode\fP *to, const char *eventin)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBSoDB\fP class keeps track of internal global data\&.
+.PP
+This class collects various methods for initializing, setting and accessing common global data from the Coin library\&. 
+
+All methods on \fBSoDB\fP are static\&.
+.PP
+Make sure you call \fBSoDB::init()\fP (either directly or indirectly through the \fBinit()\fP method of the GUI glue library) before you use any of the other Coin classes\&. 
+.SH "Member Typedef Documentation"
+.PP 
+.SS "SbBool SoDB::ProgressCallbackType"
+Client code progress callback function must be static functions of this type\&.
+.PP
+The \fIitemid\fP argument is a unique text identifier which says what is being processed (use this for any GUI progress bar informational text), and \fIfraction\fP is a value in the range [0, 1] which indicates how far the process has got\&. If the task is successfully aborted, the callback will be invoked a last time with \fIfraction\fP set to -1\&.0\&.
+.PP
+The return value is an abort flag indication from the client code\&. Note that the process that is being run can only be aborted if the \fIinterruptible\fP flag is set\&.
+.PP
+See \fBSoDB::addProgressCallback()\fP for full documentation of how the progress notification mechanism works\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void SoDB::init (void)\fC [static]\fP"
+Initialize the Coin system\&. This needs to be done as the first thing before you start using the library, or you'll probably see an early crash\&. 
+.SS "void SoDB::finish (void)\fC [static]\fP"
+Invoke this method as the last call of the application code, to trigger a clean-up of all static resources used by the Coin library\&.
+.PP
+This is usually not necessary for stand-alone executable applications, as the operating system will take care of cleaning up after the process as it exits\&.
+.PP
+It may be necessary to invoke this method to avoid leaks for 'special' execution environments, though, like if the Coin library is used as e\&.g\&. a browser plug-in, or some other type of component which can be started, shut down and restarted multiple times\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.4 
+.PP
+TGS Inventor 5\&.0 
+.RE
+.PP
+
+.SS "void SoDB::cleanup (void)\fC [static]\fP"
+This method was renamed from Coin version 2\&.4 onwards, to \fBSoDB::finish()\fP\&. Consider this name for the method obsolete\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.RE
+.PP
+
+.SS "const char * SoDB::getVersion (void)\fC [static]\fP"
+Returns a text string containing the name of the library and version information\&. 
+.SS "SbBool SoDB::read (\fBSoInput\fP * in, \fBSoPath\fP *& path)\fC [static]\fP"
+Instantiates and reads an \fBSoPath\fP object from \fIin\fP and returns a pointer to it in \fIpath\fP\&.
+.PP
+The reference count of the \fBSoPath\fP object will initially be zero\&.
+.PP
+Returns \fCFALSE\fP on error\&. Returns \fCTRUE\fP with \fIpath\fP equal to \fINULL\fP if we hit end of file instead of a new path specification in the file\&. 
+.SS "SbBool SoDB::read (\fBSoInput\fP * in, \fBSoBase\fP *& base)\fC [static]\fP"
+Instantiates and reads an object of type \fBSoBase\fP from \fIin\fP and returns a pointer to it in \fIbase\fP\&. \fIbase\fP will be \fCNULL\fP on return if we hit end of file\&.
+.PP
+The reference count of the base object will initially be zero\&.
+.PP
+Returns \fCFALSE\fP on error\&. 
+.SS "SbBool SoDB::read (\fBSoInput\fP * in, \fBSoNode\fP *& rootnode)\fC [static]\fP"
+Instantiates and reads an object of type \fBSoNode\fP from \fIin\fP and returns a pointer to it in \fIrootnode\fP\&.
+.PP
+The reference count of the node will initially be zero\&.
+.PP
+Returns \fCFALSE\fP on error\&. Returns \fCTRUE\fP with \fIrootnode\fP equal to \fCNULL\fP if we hit end of file instead of a new node specification in the file\&. 
+.SS "\fBSoSeparator\fP * SoDB::readAll (\fBSoInput\fP * in)\fC [static]\fP"
+Reads all graphs from \fIin\fP and returns them under an \fBSoSeparator\fP node\&. If the file contains only a single graph under an \fBSoSeparator\fP node (which is the most common way of constructing and exporting scene graphs), no \fIextra\fP \fBSoSeparator\fP root node will be made, but the returned root node will be the top-most node from the file\&.
+.PP
+The reference count of the root separator returned from this method will be zero\&. Other nodes in the returned scene graph will have reference counts according to the number of parent-child relationships, as usual\&.
+.PP
+The common layout for how to load, work with and then finally destruct and return memory resources of scenegraphs usually goes like this:
+.PP
+.PP
+.nf
+// [snip]
+SoInput in;
+if (!in\&.openFile(filename)) { exit(1); }
+
+SoSeparator * root = SoDB::readAll(&in);
+if (!root) { exit(1); }
+
+// root-node returned from SoDB::readAll() has initial zero
+// ref-count, so reference it before we start using it to
+// avoid premature destruction\&.
+root->ref();
+
+// [do your thing here -- attach the scene to a viewer or whatever]
+
+// Bring ref-count of root-node back to zero to cause the
+// destruction of the scene\&.
+root->unref();
+// (Upon self-destructing, the root-node will also de-reference
+// it's children nodes, so they also self-destruct, and so on
+// recursively down the scenegraph hierarchy until the complete
+// scenegraph has self-destructed and thereby returned all
+// memory resources it was using\&.)
+.fi
+.PP
+.PP
+Returns \fCNULL\fP on any error\&.
+.PP
+Tip: a common operation to do after importing a scene graph is to pick out the memory pointers to one or more of the imported nodes for further handling\&. This can be accomplished by using either the \fBSoNode::getByName()\fP function (which is the easier approach) or by using an instance of the \fBSoSearchAction\fP class (which is the more complex but also more flexible approach)\&. 
+.SS "\fBSoVRMLGroup\fP * SoDB::readAllVRML (\fBSoInput\fP * in)\fC [static]\fP"
+Same as \fBSoDB::readAll()\fP, except it return an \fBSoVRMLGroup\fP instead of an \fBSoSeparator\fP\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoDB::readAll()\fP 
+.RE
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.RE
+.PP
+
+.SS "SbBool SoDB::isValidHeader (const char * teststring)\fC [static]\fP"
+Check if \fItestString\fP is a valid file format header identifier string\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetHeaderData()\fP, \fBregisterHeader()\fP 
+.RE
+.PP
+
+.SS "SbBool SoDB::registerHeader (const \fBSbString\fP & headerstring, SbBool isbinary, float ivversion, \fBSoDBHeaderCB\fP * precallback, \fBSoDBHeaderCB\fP * postcallback, void * userdata = \fCNULL\fP)\fC [static]\fP"
+Register a header string which should be recognized by \fBSoInput\fP upon file import\&. This is a convenient way for library users to register their own VRML or Coin derived file formats\&.
+.PP
+Set \fIisbinary\fP to \fCTRUE\fP if the file should be read as binary data, and set \fIivversion\fP to indicate which Coin library version is needed to read the file\&.
+.PP
+Callbacks \fIprecallback\fP and \fIpostcallback\fP will be called before and after importing the custom format\&.
+.PP
+If \fIheaderstring\fP can not be accepted as a valid file format header for Coin files, \fCFALSE\fP will be returned\&. A valid header \fImust\fP start with a '#' character, and not be more than 80 characters long\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetHeaderData()\fP 
+.RE
+.PP
+
+.SS "SbBool SoDB::getHeaderData (const \fBSbString\fP & headerstring, SbBool & isbinary, float & ivversion, \fBSoDBHeaderCB\fP *& precallback, \fBSoDBHeaderCB\fP *& postcallback, void *& userdata, SbBool substringok = \fCFALSE\fP)\fC [static]\fP"
+Returns the settings for the given \fIheaderstring\fP, if \fIheaderstring\fP is a valid header\&.
+.PP
+If \fIsubstringok\fP is \fCTRUE\fP, ignore trailing characters in \fIheaderstring\fP when checking for validity\&.
+.PP
+If no valid header string by this name is found, \fCFALSE\fP is returned, otherwise \fCTRUE\fP will be returned, and the other input arguments will be set to their respective values\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBisValidHeader()\fP, \fBregisterHeader()\fP 
+.RE
+.PP
+
+.SS "\fBint\fP SoDB::getNumHeaders (void)\fC [static]\fP"
+Returns number of registered file headers\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetHeaderString()\fP 
+.RE
+.PP
+
+.SS "\fBSbString\fP SoDB::getHeaderString (const \fBint\fP i)\fC [static]\fP"
+Returns the identifier header string of index \fIi\fP\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetNumHeaders()\fP, \fBgetHeaderData()\fP 
+.RE
+.PP
+
+.SS "\fBSoField\fP * SoDB::createGlobalField (const \fBSbName\fP & name, \fBSoType\fP type)\fC [static]\fP"
+Create a new global field by the given \fItype\fP, and identified in subsequent accesses to \fBgetGlobalField()\fP by \fIname\fP\&. If a global field by the name and type already exists, returns a pointer to it\&. If a global field with the same name but a different type exists, returns \fCNULL\fP\&.
+.PP
+A global field can be deallocated by calling \fBSoDB::renameGlobalField()\fP, with the second argument set to an empty string\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetGlobalField()\fP, \fBrenameGlobalField()\fP 
+.RE
+.PP
+
+.SS "\fBSoField\fP * SoDB::getGlobalField (const \fBSbName\fP & name)\fC [static]\fP"
+If there exist a global field with the given \fIname\fP, return a pointer to it\&. If there is no field with this name, return \fCNULL\fP\&.
+.PP
+Of particular interest is the \fCrealTime\fP global field set up by the library on initialization\&. This field is used as a source field to all the autonomous animation objects within the library, like for instance the \fBSoTimeCounter\fP engine or the \fBSoRotor\fP node\&.
+.PP
+If you want to control the speed of 'action' of a scene with animating / moving components (for instance for doing fixed frame-time snapshots for generating a movie), grab the global field named 'realTime' and use it in the manner depicted in the class documentation of the \fBSoOffscreenRenderer\fP class\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBcreateGlobalField()\fP, \fBrenameGlobalField()\fP 
+.RE
+.PP
+
+.SS "void SoDB::renameGlobalField (const \fBSbName\fP & from, const \fBSbName\fP & to)\fC [static]\fP"
+Rename a global field\&. If \fIto\fP is an empty name, the \fIfrom\fP field gets deleted\&. If another global field already goes by the name \fIto\fP, that field will get deleted before the rename operation\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetGlobalField()\fP, \fBcreateGlobalField()\fP 
+.RE
+.PP
+
+.SS "void SoDB::setRealTimeInterval (const \fBSbTime\fP & interval)\fC [static]\fP"
+Set the time interval between updates for the \fCrealTime\fP global field to \fIinterval\fP\&. Default value is 1/12 s\&.
+.PP
+The low update rate is due to historical reasons, to be compatible with application code written for SGI Inventor\&.
+.PP
+Setting the interval to a zero time will disable automatic updates of the realTime field\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetRealTimeInterval()\fP, \fBgetGlobalField()\fP 
+.RE
+.PP
+
+.SS "const \fBSbTime\fP & SoDB::getRealTimeInterval (void)\fC [static]\fP"
+Returns the current trigger interval for the global \fIrealTime\fP \fBSbTime\fP field\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetRealTimeInterval()\fP, \fBgetGlobalField()\fP 
+.RE
+.PP
+
+.SS "void SoDB::enableRealTimeSensor (SbBool on)\fC [static]\fP"
+Turn on or off the realtime sensor\&.
+.PP
+The most common use for turning the realtime sensor off is to control the realTime global field from the user application\&. This is for instance handy when you want to take screen snapshots at fixed intervals\&. See the class documentation of \fBSoOffscreenRenderer\fP for further information\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetRealTimeInterval()\fP, \fBgetGlobalField()\fP 
+.RE
+.PP
+
+.SS "\fBSoSensorManager\fP * SoDB::getSensorManager (void)\fC [static]\fP"
+Returns a pointer to the global sensor manager\&. The sensor manager keeps track of the sensor queues\&. 
+.SS "void SoDB::setDelaySensorTimeout (const \fBSbTime\fP & t)\fC [static]\fP"
+This is just a wrapper for the method in \fBSoSensorManager\fP by the same name\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetDelaySensorTimeout()\fP, \fBSoSensorManager\fP 
+.RE
+.PP
+
+.SS "const \fBSbTime\fP & SoDB::getDelaySensorTimeout (void)\fC [static]\fP"
+This is just a wrapper for the method in \fBSoSensorManager\fP by the same name\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetDelaySensorTimeout()\fP, \fBSoSensorManager\fP 
+.RE
+.PP
+
+.SS "\fBint\fP SoDB::doSelect (\fBint\fP nfds, void * readfds, void * writefds, void * exceptfds, struct timeval * usertimeout)\fC [static]\fP"
+NOTE: THIS METHOD IS OBSOLETED\&. DON'T USE IT\&.
+.PP
+This is a wrapper around the POSIX \fCselect()\fP call\&. It is provided so you can do synchronous I/O while Coin continues to handle sensor events, rendering, etc\&. The parameters are the same as for \fCselect()\fP, so check your system documentation on how to use them\&.
+.PP
+The void* arguments must be valid pointers to fd_set structures\&. We've changed this from the original SGI Inventor API to avoid messing up the header file with system-specific includes\&.
+.PP
+NOTE: THIS METHOD IS OBSOLETED\&. DON'T USE IT\&. 
+.SS "void SoDB::addConverter (\fBSoType\fP from, \fBSoType\fP to, \fBSoType\fP converter)\fC [static]\fP"
+Notify \fBSoDB\fP that there exists a way to convert data from the \fIfrom\fP \fBSoField\fP type to the \fIto\fP \fBSoField\fP type, by connecting them with an instance of the \fIconverter\fP \fBSoFieldConverter\fP type\&.
+.PP
+By doing this, \fBSoDB::getConverter()\fP will later be able to automatically return the type of the correct conversion class when requested\&.
+.PP
+Coin internally provides conversion between most field types, so application programmers should usually not need to use this function\&. The exception is if you are writing your own field type classes, and want to be able to connect them to the internal field types (or other extensions field types)\&.
+.PP
+\fBSee also:\fP
+.RS 4
+createConverter(), \fBSoFieldConverter\fP 
+.RE
+.PP
+
+.SS "\fBSoType\fP SoDB::getConverter (\fBSoType\fP from, \fBSoType\fP to)\fC [static]\fP"
+Return the type of an \fBSoFieldConverter\fP class which is able to convert data between fields of type \fIfrom\fP to the data field(s) of field type \fIto\fP\&.
+.PP
+If no conversion between the given field types is possible, returns \fBSoType::badType()\fP\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBaddConverter()\fP 
+.RE
+.PP
+
+.SS "SbBool SoDB::isInitialized (void)\fC [static]\fP"
+Returns \fCTRUE\fP if \fBinit()\fP has been called\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBinit()\fP 
+.RE
+.PP
+
+.SS "void SoDB::startNotify (void)\fC [static]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "SbBool SoDB::isNotifying (void)\fC [static]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoDB::endNotify (void)\fC [static]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoDB::addProgressCallback (\fBProgressCallbackType\fP * func, void * userdata)\fC [static]\fP"
+The concept behind progress information in Coin is that any internal process which may take a long time to complete (like e\&.g\&. file import for huge scenes) can pass on progress information by calling back to a progress callback set up by the code of the client application\&.
+.PP
+The client's progress callback's function signature must match the \fBSoDB::ProgressCallbackType\fP\&.
+.PP
+The mechanism works by enforcing that all progress notification from within Coin must
+.PP
+.PD 0
+.IP "1." 4
+Use a unique text id to identify the 'progress-informing' process (e\&.g\&. 'File import' for \fBSoDB::readAll()\fP / \fBSoInput\fP file reading, 'File export' for \fBSoOutput\fP / \fBSoWriteAction\fP, etc)\&. This is the \fIitemid\fP name passed on to the progress callback\&.
+.PP
+
+.IP "2." 4
+The first invocation of the user callback will be done with an exact 0\&.0 \fIfraction\fP value\&.
+.PP
+
+.IP "3." 4
+The last invocation will be done with an exact 1\&.0 fraction value\&.
+.PP
+
+.IP "4." 4
+An exception to the last point is that if the process is aborted, a final invocation with a -1\&.0 fraction value will be made\&.
+.PP
+
+.PP
+.PP
+One important thing to note about the mechanism is that processes with progress callbacks can be running within \fIother\fP processes using the progress callback functionality\&. Progress information will then have to be considered to be 'stacked', and client code must be aware of and treat this properly\&.
+.PP
+This function is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.2 
+.RE
+.PP
+
+.SS "void SoDB::removeProgressCallback (\fBProgressCallbackType\fP * func, void * userdata)\fC [static]\fP"
+Removes a progress callback function, which will no longer be invoked\&. 
+.SS "SbBool SoDB::isMultiThread (void)\fC [static]\fP"
+Returns \fCTRUE\fP if this is a thread safe version of Coin (i\&.e\&. it was configured and built with --enable-threadsafe)\&. 
+.SS "void SoDB::readlock (void)\fC [static]\fP"
+Places a read lock on the global \fBSoDB\fP mutex\&. This can be used to synchronize between threads that are reading/writing Coin scene graphs\&.
+.PP
+If you call this function, you must make sure that you also call \fBSoDB::readunlock()\fP\&. If you fail to do this, you might experience that your application locks up\&.
+.PP
+All Coin actions has a read-lock on the global \fBSoDB\fP mutex while traversing the scene graph\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoDB::readunlock()\fP, \fBSoDB::writelock()\fP
+.RE
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.3 
+.PP
+TGS Inventor 3\&.0 
+.RE
+.PP
+
+.SS "void SoDB::readunlock (void)\fC [static]\fP"
+Unlocks the read lock on the global \fBSoDB\fP mutex\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoDB::readlock()\fP 
+.RE
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.3 
+.PP
+TGS Inventor 3\&.0 
+.RE
+.PP
+
+.SS "void SoDB::writelock (void)\fC [static]\fP"
+Places a write lock on the global \fBSoDB\fP mutex\&. This can be used to prevent that the scene graph is read or traversed while you modify the scene graph\&.
+.PP
+If you call this function, you must make sure that you also call \fBSoDB::writeunlock()\fP\&. If you fail to do this, you might experience that your application locks up\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoDB::readlock()\fP 
+.RE
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.3 
+.PP
+TGS Inventor 3\&.0 
+.RE
+.PP
+
+.SS "void SoDB::writeunlock (void)\fC [static]\fP"
+Unlocks the write lock on the global \fBSoDB\fP mutex\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoDB::writelock()\fP 
+.RE
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.3 
+.PP
+TGS Inventor 3\&.0 
+.RE
+.PP
+
+.SS "void SoDB::createRoute (\fBSoNode\fP * fromnode, const char * eventout, \fBSoNode\fP * tonode, const char * eventin)\fC [static]\fP"
+Create a connection from one VRML97 node field to another\&.
+.PP
+('Routes' are what field-to-field connections are called for the VRML97 standard\&.)
+.PP
+Connections made in this manner will be persistent upon file export\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoDB::removeRoute()\fP 
+.PP
+SoField::connectFrom(SoField*)
+.RE
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.4 
+.PP
+TGS Inventor 2\&.6 
+.RE
+.PP
+
+.SS "void SoDB::removeRoute (\fBSoNode\fP * fromnode, const char * eventout, \fBSoNode\fP * tonode, const char * eventin)\fC [static]\fP"
+Removes a field-to-field connection\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoDB::createRoute()\fP 
+.PP
+\fBSoField::disconnect(SoField*)\fP
+.RE
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.4 
+.PP
+TGS Inventor 2\&.6 
+.RE
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

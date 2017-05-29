@@ -1,0 +1,78 @@
+.TH "CoinResources" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+CoinResources \- Static utility functions for managing data resources at the basic buffer level\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Namespaces"
+
+.in +1c
+.in -1c
+.SS "Enumerations"
+
+.in +1c
+.ti -1c
+.RI "enum \fBResourceFlags\fP { \fBNONE\fP = 0, \fBCOIN_RESOURCE_NOT_A_FILE\fP =0x0001 }"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBinit\fP (void)"
+.br
+.ti -1c
+.RI "\fBSbByteBuffer\fP \fBget\fP (const char *resloc)"
+.br
+.ti -1c
+.RI "SbBool \fBset\fP (const char *resloc, const \fBSbByteBuffer\fP &buffer, ResourceFlags flags=NONE)"
+.br
+.ti -1c
+.RI "void \fBfreeLoadedExternals\fP (void)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Static utility functions for managing data resources at the basic buffer level\&. 
+
+This class is just a static scope for some resource managing functions\&. With this, Coin can register built-in default resources that can later be retrieved through the same resource locator, either from disk (if present) and as a fallback the built-in (compiled in) buffer
+.PP
+The resource locators take the form of a URL with coin as its schema and empty host eg\&. 'coin://path/to/resource\&.ext'\&.
+.PP
+The 'coin:' prefix is for Coin to differentiate a resource locator from a filename (for multipurpose function usage)\&.
+.PP
+The path/to/resource\&.ext is for most platforms the path under the environment variable $COINDIR where the file should be present\&. For Mac OS X, the path is under the Inventor framework bundle Resources/ directory, if Coin was installed as a framework that is\&.
+.PP
+The file on disk can be an updated version, compared to the compiled-in buffer, which is why the externalized files are prioritized over the builtin buffers\&.
+.PP
+A resource does not need to have a corresponding external file\&. This is configured in the flags parameter when the resource is set\&. You can in other words also register built-in-only resources\&. 
+.SH "Function Documentation"
+.PP 
+.SS "\fBSbByteBuffer\fP CoinResources::get (const char * resloc)"
+Returns a resource if one exists\&. If the Coin installation permits, the resource will be loaded from file, but if the file can not be located or loaded, builtin versions will be returned instead\&.
+.PP
+\fBReturns:\fP
+.RS 4
+TRUE on success, and FALSE if there is no such resource\&. 
+.RE
+.PP
+
+.SS "SbBool CoinResources::set (const char * resloc, const \fBSbByteBuffer\fP & buffer, ResourceFlags flags = \fCNONE\fP)"
+This function registers a new resource\&. The resource locator (\fIresloc\fP) should take the form 'coin:' followed by a relative file path that should lead to the file representation of the resource from where the COINDIR environment variable points\&. The relative path should use / for directory separation, and not \\ if on MS Windows\&.
+.PP
+If you put COIN_RESOURCE_NOT_A_FILE in the \fIflags\fP argument, then the automatic file searching will not be performed\&.
+.PP
+\fBReturns:\fP
+.RS 4
+TRUE if the resource was set, and FALSE if something went wrong\&. FALSE would most likely be returned because the resource already exists\&. 
+.RE
+.PP
+
+.SS "void CoinResources::freeLoadedExternals (void)"
+This function deallocates all the buffers that have been loaded from disk\&. Internal buffers will not be freed, as they are expected to be compiled into the Coin library data section\&. 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

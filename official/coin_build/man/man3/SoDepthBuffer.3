@@ -1,0 +1,188 @@
+.TH "SoDepthBuffer" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoDepthBuffer \- The \fBSoDepthBuffer\fP class is a node used to control the GL depth buffer\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <SoDepthBuffer\&.h>\fP
+.PP
+Inherits \fBSoNode\fP\&.
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBDepthWriteFunction\fP { \fBNEVER\fP = SoDepthBufferElement::NEVER, \fBALWAYS\fP = SoDepthBufferElement::ALWAYS, \fBLESS\fP = SoDepthBufferElement::LESS, \fBLEQUAL\fP = SoDepthBufferElement::LEQUAL, \fBEQUAL\fP = SoDepthBufferElement::EQUAL, \fBGEQUAL\fP = SoDepthBufferElement::GEQUAL, \fBGREATER\fP = SoDepthBufferElement::GREATER, \fBNOTEQUAL\fP = SoDepthBufferElement::NOTEQUAL }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "\fBSoDepthBuffer\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBGLRender\fP (\fBSoGLRenderAction\fP *action)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFBool\fP \fBtest\fP"
+.br
+.ti -1c
+.RI "\fBSoSFBool\fP \fBwrite\fP"
+.br
+.ti -1c
+.RI "\fBSoSFEnum\fP \fBfunction\fP"
+.br
+.ti -1c
+.RI "\fBSoSFVec2f\fP \fBrange\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fB~SoDepthBuffer\fP ()"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoDepthBuffer\fP class is a node used to control the GL depth buffer\&. 
+
+With this node you can control properties related to the OpenGL depth buffer in a variety of ways\&.
+.PP
+.IP "\(bu" 2
+you can enable and disable depth buffer testing during rendering,
+.IP "\(bu" 2
+you can enable and disable writing to the depth buffer during rendering,
+.IP "\(bu" 2
+you can set the function used for the depth buffer testing, and
+.IP "\(bu" 2
+you can set the value range used in the depth buffer\&.
+.PP
+.PP
+The value range setting is useful if you need to segment the 3D world into different segments with different depth buffer resolutions to get a more optimal depth buffer resolution distribution than what a single, uniform depth buffer value range can give you\&.
+.PP
+Be aware that this class is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&. 
+.PP
+\fBSince:\fP
+.RS 4
+Coin 3\&.0 
+.RE
+.PP
+
+.SH "Member Enumeration Documentation"
+.PP 
+.SS "enum \fBSoDepthBuffer::DepthWriteFunction\fP"
+Enumeration for the various depth functions\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fINEVER \fP\fP
+Never passes\&. 
+.TP
+\fB\fIALWAYS \fP\fP
+Always passes\&. 
+.TP
+\fB\fILESS \fP\fP
+Passes if the incoming depth value is less than the stored depth value\&. 
+.TP
+\fB\fILEQUAL \fP\fP
+Passes if the incoming depth value is less than or equal to the stored depth value\&. 
+.TP
+\fB\fIEQUAL \fP\fP
+Passes if the incoming depth value is equal to the stored depth value\&. 
+.TP
+\fB\fIGEQUAL \fP\fP
+Passes if the incoming depth value is greater than or equal to the stored depth value\&. 
+.TP
+\fB\fIGREATER \fP\fP
+Passes if the incoming depth value is greater than the stored depth value\&. 
+.TP
+\fB\fINOTEQUAL \fP\fP
+Passes if the incoming depth value is not equal to the stored depth value\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoDepthBuffer::SoDepthBuffer (void)"
+Constructor\&. 
+.SS "SoDepthBuffer::~SoDepthBuffer ()\fC [protected]\fP, \fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoDepthBuffer::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Implements \fBSoBase\fP\&.
+.SS "const \fBSoFieldData\fP * SoDepthBuffer::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoFieldContainer\fP\&.
+.SS "void SoDepthBuffer::GLRender (\fBSoGLRenderAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGLRenderAction\fP\&.
+.PP
+This is called during rendering traversals\&. Nodes influencing the rendering state in any way or who wants to throw geometry primitives at OpenGL overrides this method\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSoSFBool\fP SoDepthBuffer::test"
+Enable depth buffer testing\&. Defaults to TRUE\&. 
+.SS "\fBSoSFBool\fP SoDepthBuffer::write"
+Enable depth buffer writing\&. Defaults to TRUE\&. 
+.SS "\fBSoSFEnum\fP SoDepthBuffer::function"
+Which depth function to use\&. Defaults to LESS\&. 
+.SS "\fBSoSFVec2f\fP SoDepthBuffer::range"
+The value range for the depth buffer data\&. Defaults to [0\&.0-1\&.0]\&. The range will be clamped to [0\&.0-1\&.0]\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

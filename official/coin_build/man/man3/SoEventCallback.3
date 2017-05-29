@@ -1,0 +1,203 @@
+.TH "SoEventCallback" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoEventCallback \- The \fBSoEventCallback\fP class provides functionality for catching events\&.
+.PP
+Use \fBSoEventCallback\fP nodes in the scenegraph for catching user interaction events with the scenegraph's render canvas\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/nodes/SoEventCallback\&.h>\fP
+.PP
+Inherits \fBSoNode\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "\fBSoEventCallback\fP (void)"
+.br
+.ti -1c
+.RI "void \fBsetPath\fP (\fBSoPath\fP *path)"
+.br
+.ti -1c
+.RI "const \fBSoPath\fP * \fBgetPath\fP (void)"
+.br
+.ti -1c
+.RI "void \fBaddEventCallback\fP (\fBSoType\fP eventtype, \fBSoEventCallbackCB\fP *f, void *userdata=NULL)"
+.br
+.ti -1c
+.RI "void \fBremoveEventCallback\fP (\fBSoType\fP eventtype, \fBSoEventCallbackCB\fP *f, void *userdata=NULL)"
+.br
+.ti -1c
+.RI "\fBSoHandleEventAction\fP * \fBgetAction\fP (void) const"
+.br
+.ti -1c
+.RI "const \fBSoEvent\fP * \fBgetEvent\fP (void) const"
+.br
+.ti -1c
+.RI "const \fBSoPickedPoint\fP * \fBgetPickedPoint\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBsetHandled\fP (void)"
+.br
+.ti -1c
+.RI "SbBool \fBisHandled\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBgrabEvents\fP (void)"
+.br
+.ti -1c
+.RI "void \fBreleaseEvents\fP (void)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fB~SoEventCallback\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBhandleEvent\fP (\fBSoHandleEventAction\fP *action)"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoEventCallback\fP class provides functionality for catching events\&.
+.PP
+Use \fBSoEventCallback\fP nodes in the scenegraph for catching user interaction events with the scenegraph's render canvas\&. 
+
+This is how event handling works in Coin: when the user interacts with the render canvas, for instance by using the mouse pointer or by hitting the keyboard, the GUI interface toolkit (ie SoQt, SoWin, SoXt, Sc21 \&.\&.\&.) will catch the event and translate it from a windowsystem-specific event to a generic Coin event\&. (For the types of generic Coin events, see the classes derived from \fBSoEvent\fP\&.) This event will then be wrapped inside a \fBSoHandleEventAction\fP and applied to the scenegraph\&. All this happens within the So[Qt|Xt|Win|\&.\&.\&.] toolkit\&.
+.PP
+The \fBSoHandleEventAction\fP then traverses the scenegraph, delivering the event to any node type which 'is interested' in it\&. The \fBSoEventCallback\fP nodetype catches the action and forwards the event to a callback function set up by the application programmer\&.
+.PP
+Be careful about which position in the scenegraph you insert \fBSoEventCallback\fP nodes if you are also using any of the built-in Coin library elements which are interested in user interaction events (like for instance the dragger and manipulator classes and the \fBSoSelection\fP nodes)\&. These Coin elements might catch the event for themselves, short-circuiting the \fBSoHandleEventAction\fP traversal so the event will never reach the \fBSoEventCallback\fP node(s) you insert\&.
+.PP
+\fBFILE FORMAT/DEFAULTS:\fP 
+.PP
+.nf
+EventCallback {
+}
+
+.fi
+.PP
+ 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoEventCallback::SoEventCallback (void)"
+Constructor\&. 
+.SS "SoEventCallback::~SoEventCallback ()\fC [protected]\fP, \fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoEventCallback::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Implements \fBSoBase\fP\&.
+.SS "const \fBSoFieldData\fP * SoEventCallback::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoFieldContainer\fP\&.
+.SS "void SoEventCallback::setPath (\fBSoPath\fP * pathptr)"
+Sets the path that must be picked before the registered callbacks are invoked\&. If \fCNULL\fP, callbacks will be invoked for every event that matches the callback event type\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetPath()\fP 
+.RE
+.PP
+
+.SS "const \fBSoPath\fP * SoEventCallback::getPath (void)"
+Returns the path that must be picked before callbacks are invoked\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetPath()\fP 
+.RE
+.PP
+
+.SS "void SoEventCallback::addEventCallback (\fBSoType\fP eventtype, \fBSoEventCallbackCB\fP * f, void * userdata = \fCNULL\fP)"
+Set up a callback function \fIf\fP which will be invoked for the given \fIeventtype\fP\&. \fIuserdata\fP will be given as the first argument to the function\&. 
+.SS "void SoEventCallback::removeEventCallback (\fBSoType\fP eventtype, \fBSoEventCallbackCB\fP * f, void * userdata = \fCNULL\fP)"
+Unregister the given callback function \fIf\fP\&. 
+.SS "\fBSoHandleEventAction\fP * SoEventCallback::getAction (void) const"
+Returns the \fBSoHandleEventAction\fP instance currently traversing the scene graph with the SoEvent-derived event object\&. 
+.SS "const \fBSoEvent\fP * SoEventCallback::getEvent (void) const"
+Returns a pointer to the event object which is currently being sent through the scenegraph\&.
+.PP
+If your application code handles the event, you probably want to call \fBSoEventCallback::setHandled()\fP to notify the \fBSoHandleEventAction\fP that it should stop traversing the scenegraph with the event\&. 
+.SS "const \fBSoPickedPoint\fP * SoEventCallback::getPickedPoint (void) const"
+Returns the picked point for the current handle event traversal\&.
+.PP
+This is obviously only related to events which can be considered 'pick-style' events, like mousebutton presses\&. 
+.SS "void SoEventCallback::setHandled (void)"
+Use this method from a callback function to notify the node that the event has been handled\&.
+.PP
+The rest of the callbacks registered with the node will still be called, but further \fBSoEventCallback\fP nodes in the scene will not be notified about the event, neither will any other Coin elements in the scenegraph (like for instance \fBSoDragger\fP objects, \fBSoSelection\fP nodes or manipulators)\&.
+.PP
+Since callbacks registered within the same \fBSoEventCallback\fP node will still be invoked after the event has been handled, it is likely that you should use \fBSoEventCallback::isHandled()\fP to check for this condition from your callback functions\&. 
+.SS "SbBool SoEventCallback::isHandled (void) const"
+Check whether or not the event from the \fBSoHandleEventAction\fP has been handled\&. 
+.SS "void SoEventCallback::grabEvents (void)"
+Set up the node so all future events (until \fBreleaseEvents()\fP is called) in Coin will be directly forwarded to this node\&. 
+.SS "void SoEventCallback::releaseEvents (void)"
+Do not grab event handling any more\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgrabEvents()\fP 
+.RE
+.PP
+
+.SS "void SoEventCallback::handleEvent (\fBSoHandleEventAction\fP * action)\fC [protected]\fP, \fC [virtual]\fP"
+Invokes the registered callback functions\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

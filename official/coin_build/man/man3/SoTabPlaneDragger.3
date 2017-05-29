@@ -1,0 +1,344 @@
+.TH "SoTabPlaneDragger" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoTabPlaneDragger \- The \fBSoTabPlaneDragger\fP class is a dragger you can translate and scale within a plane\&.
+.PP
+Here's how the dragger looks with its default geometry in the inactive state:  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/draggers/SoTabPlaneDragger\&.h>\fP
+.PP
+Inherits \fBSoDragger\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "virtual const \fBSoNodekitCatalog\fP * \fBgetNodekitCatalog\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoTabPlaneDragger\fP (void)"
+.br
+.ti -1c
+.RI "void \fBadjustScaleTabSize\fP (void)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static const \fBSoNodekitCatalog\fP * \fBgetClassNodekitCatalog\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFVec3f\fP \fBtranslation\fP"
+.br
+.ti -1c
+.RI "\fBSoSFVec3f\fP \fBscaleFactor\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fB~SoTabPlaneDragger\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBGLRender\fP (\fBSoGLRenderAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual SbBool \fBsetUpConnections\fP (SbBool onoff, SbBool doitalways=FALSE)"
+.br
+.ti -1c
+.RI "virtual void \fBsetDefaultOnNonWritingFields\fP (void)"
+.br
+.ti -1c
+.RI "void \fBreallyAdjustScaleTabSize\fP (\fBSoGLRenderAction\fP *action)"
+.br
+.ti -1c
+.RI "void \fBgetXYScreenLengths\fP (\fBSbVec2f\fP &lengths, const \fBSbMatrix\fP &localtoscreen, const \fBSbVec2s\fP &winsize)"
+.br
+.ti -1c
+.RI "void \fBdragStart\fP (void)"
+.br
+.ti -1c
+.RI "void \fBdrag\fP (void)"
+.br
+.ti -1c
+.RI "void \fBdragFinish\fP (void)"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.ti -1c
+.RI "static const \fBSoNodekitCatalog\fP ** \fBgetClassNodekitCatalogPtr\fP (void)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFNode\fP \fBcornerScaleCoords\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBcornerScaleTab0\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBcornerScaleTab1\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBcornerScaleTab2\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBcornerScaleTab3\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBedgeScaleCoords\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBedgeScaleTab0\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBedgeScaleTab1\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBedgeScaleTab2\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBedgeScaleTab3\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBplaneSwitch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBscaleTabHints\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBscaleTabMaterial\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBscaleTabMaterialBinding\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBscaleTabNormal\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBscaleTabNormalBinding\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBscaleTabs\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslator\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoTabPlaneDragger\fP class is a dragger you can translate and scale within a plane\&.
+.PP
+Here's how the dragger looks with its default geometry in the inactive state: 
+
+ Screen Shot of Default Dragger
+.PP
+For translation, click anywhere inside the dragger's plane and move it about in 2D\&.
+.PP
+For non-uniform scaling operations, click and drag any of the 4 side tabs\&. For uniform scaling, click and drag any of the 4 corner tabs\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoTabBoxDragger\fP 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoTabPlaneDragger::SoTabPlaneDragger (void)"
+Default constructor, sets up the dragger nodekit catalog with the interaction and feedback geometry\&.
+.PP
+Node kit structure (new entries versus parent class marked with arrow prefix):
+.PP
+.PP
+.nf
+CLASS SoTabPlaneDragger
+-->"this"
+      "callbackList"
+      "topSeparator"
+         "motionMatrix"
+         "geomSeparator"
+-->         "planeSwitch"
+-->            "translator"
+-->            "scaleTabs"
+-->               "scaleTabMaterial"
+-->               "scaleTabHints"
+-->               "scaleTabMaterialBinding"
+-->               "scaleTabNormalBinding"
+-->               "scaleTabNormal"
+-->               "edgeScaleCoords"
+-->               "edgeScaleTab0"
+-->               "edgeScaleTab1"
+-->               "edgeScaleTab2"
+-->               "edgeScaleTab3"
+-->               "cornerScaleCoords"
+-->               "cornerScaleTab0"
+-->               "cornerScaleTab1"
+-->               "cornerScaleTab2"
+-->               "cornerScaleTab3"
+.fi
+.PP
+.PP
+(See \fBSoBaseKit::printDiagram()\fP for information about the output formatting\&.)
+.PP
+Detailed information on catalog parts:
+.PP
+.PP
+.nf
+CLASS SoTabPlaneDragger
+PVT   "this",  SoTabPlaneDragger  ---
+      "callbackList",  SoNodeKitListPart [ SoCallback, SoEventCallback ]
+PVT   "topSeparator",  SoSeparator  ---
+PVT   "motionMatrix",  SoMatrixTransform  ---
+PVT   "geomSeparator",  SoSeparator  ---
+PVT   "planeSwitch",  SoSwitch  ---
+      "translator",  SoSeparator  ---
+PVT   "scaleTabs",  SoSeparator  ---
+      "scaleTabMaterial",  SoMaterial  ---
+      "scaleTabHints",  SoShapeHints  ---
+PVT   "scaleTabMaterialBinding",  SoMaterialBinding  ---
+PVT   "scaleTabNormalBinding",  SoNormalBinding  ---
+PVT   "scaleTabNormal",  SoNormal  ---
+PVT   "edgeScaleCoords",  SoCoordinate3  ---
+PVT   "edgeScaleTab0",  SoIndexedFaceSet  ---
+PVT   "edgeScaleTab1",  SoIndexedFaceSet  ---
+PVT   "edgeScaleTab2",  SoIndexedFaceSet  ---
+PVT   "edgeScaleTab3",  SoIndexedFaceSet  ---
+PVT   "cornerScaleCoords",  SoCoordinate3  ---
+PVT   "cornerScaleTab0",  SoIndexedFaceSet  ---
+PVT   "cornerScaleTab1",  SoIndexedFaceSet  ---
+PVT   "cornerScaleTab2",  SoIndexedFaceSet  ---
+PVT   "cornerScaleTab3",  SoIndexedFaceSet  ---
+.fi
+.PP
+.PP
+(See \fBSoBaseKit::printTable()\fP for information about the output formatting\&.) 
+.SS "SoTabPlaneDragger::~SoTabPlaneDragger (void)\fC [protected]\fP, \fC [virtual]\fP"
+Protected destructor\&.
+.PP
+(Dragger classes are derived from \fBSoBase\fP, so they are reference counted and automatically destroyed when their reference count goes to 0\&.) 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoTabPlaneDragger::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Reimplemented from \fBSoDragger\fP\&.
+.SS "const \fBSoFieldData\fP * SoTabPlaneDragger::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoDragger\fP\&.
+.SS "const \fBSoNodekitCatalog\fP * SoTabPlaneDragger::getNodekitCatalog (void) const\fC [virtual]\fP"
+Returns the nodekit catalog which defines the layout of this class' kit\&. 
+.PP
+Reimplemented from \fBSoDragger\fP\&.
+.SS "void SoTabPlaneDragger::adjustScaleTabSize (void)"
+Signals the dragger to recalculate the size of its tabs\&. This method is not doing anything useful in Coin, since the tab sizes are recalculated every time the dragger is rendered, even though this method has not been called\&. 
+.SS "void SoTabPlaneDragger::GLRender (\fBSoGLRenderAction\fP * action)\fC [protected]\fP, \fC [virtual]\fP"
+Action method for the \fBSoGLRenderAction\fP\&.
+.PP
+This is called during rendering traversals\&. Nodes influencing the rendering state in any way or who wants to throw geometry primitives at OpenGL overrides this method\&. 
+.PP
+Reimplemented from \fBSoDragger\fP\&.
+.SS "SbBool SoTabPlaneDragger::setUpConnections (SbBool onoff, SbBool doitalways = \fCFALSE\fP)\fC [protected]\fP, \fC [virtual]\fP"
+Sets up all internal connections for instances of this class\&.
+.PP
+(This method will usually not be of interest to the application programmer, unless you want to extend the library with new custom nodekits or dragger classes\&. If so, see the \fBSoBaseKit\fP class documentation\&.) 
+.PP
+Reimplemented from \fBSoInteractionKit\fP\&.
+.SS "void SoTabPlaneDragger::setDefaultOnNonWritingFields (void)\fC [protected]\fP, \fC [virtual]\fP"
+(Be aware that this method is unlikely to be of interest to the application programmer who does not want to extend the library with new custom nodekits or draggers\&. If you indeed \fIare\fP writing extensions, see the information in the \fBSoBaseKit\fP class documentation\&.)
+.PP
+This is a virtual method, and the code in it should call \fBSoField::setDefault()\fP with argument \fCTRUE\fP on part fields that should not be written upon scenegraph export operations\&.
+.PP
+This is typically done when:
+.PP
+.PD 0
+.IP "1." 4
+field value is \fCNULL\fP and part is \fCNULL\fP by default 
+.PP
+
+.IP "2." 4
+it is a leaf \fBSoGroup\fP or \fBSoSeparator\fP node with no children 
+.PP
+
+.IP "3." 4
+it is a leaf listpart with no children and an \fBSoGroup\fP or \fBSoSeparator\fP container 
+.PP
+
+.IP "4." 4
+it is a non-leaf part and it's of \fBSoGroup\fP type and all fields are at their default values 
+.PP
+
+.PP
+.PP
+Subclasses should usually override this to do additional settings for new member fields\&. From the subclass, do remember to call 'upwards' to your superclass' \fBsetDefaultOnNonWritingFields()\fP method\&. 
+.PP
+Reimplemented from \fBSoDragger\fP\&.
+.SS "void SoTabPlaneDragger::reallyAdjustScaleTabSize (\fBSoGLRenderAction\fP * action)\fC [protected]\fP"
+Recalculates the size of the tabs, based on the current view volume, the current viewport, the current model matrix and the current scale factor\&. If \fIaction\fP == \fINULL\fP, a default size will be used\&. 
+.SS "void SoTabPlaneDragger::getXYScreenLengths (\fBSbVec2f\fP & lengths, const \fBSbMatrix\fP & localtoscreen, const \fBSbVec2s\fP & winsize)\fC [protected]\fP"
+Not implemented\&. 
+.SS "void SoTabPlaneDragger::dragStart (void)\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP Called when dragger is selected (picked) by the user\&. 
+.SS "void SoTabPlaneDragger::drag (void)\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP Called when user drags the mouse after picking the dragger\&. 
+.SS "void SoTabPlaneDragger::dragFinish (void)\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP Called when mouse button is released after picking and interacting with the dragger\&. 
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSoSFVec3f\fP SoTabPlaneDragger::translation"
+Continuously updated to contain the current translation from the dragger's local origo position\&. 
+.SS "\fBSoSFVec3f\fP SoTabPlaneDragger::scaleFactor"
+Continuously updated to contain the current vector of scaling along the X, Y and Z axes\&. The Z component will always be 1\&.0\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

@@ -1,0 +1,99 @@
+.TH "SbOctTree" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SbOctTree \- The \fBSbOctTree\fP class defines a generic oct tree for fast geometry searches\&.
+.PP
+Be aware that this class is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/SbOctTree\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSbOctTree\fP (const \fBSbBox3f\fP &bbox, const \fBSbOctTreeFuncs\fP &itemfuncs, const \fBint\fP maxitemspernode=64)"
+.br
+.ti -1c
+.RI "\fB~SbOctTree\fP ()"
+.br
+.ti -1c
+.RI "void \fBaddItem\fP (void *const item)"
+.br
+.ti -1c
+.RI "void \fBremoveItem\fP (void *const item)"
+.br
+.ti -1c
+.RI "void \fBfindItems\fP (const \fBSbVec3f\fP &pos, \fBSbList\fP< void *> &destarray, const SbBool removeduplicates=TRUE) const"
+.br
+.ti -1c
+.RI "void \fBfindItems\fP (const \fBSbBox3f\fP &box, \fBSbList\fP< void *> &destarray, const SbBool removeduplicates=TRUE) const"
+.br
+.ti -1c
+.RI "void \fBfindItems\fP (const \fBSbSphere\fP &sphere, \fBSbList\fP< void *> &destarray, const SbBool removeduplicates=TRUE) const"
+.br
+.ti -1c
+.RI "void \fBfindItems\fP (const \fBSbPlane\fP *const planes, const \fBint\fP numplanes, \fBSbList\fP< void *> &destarray, const SbBool removeduplicates=TRUE) const"
+.br
+.ti -1c
+.RI "const \fBSbBox3f\fP & \fBgetBoundingBox\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBclear\fP (void)"
+.br
+.ti -1c
+.RI "void \fBdebugTree\fP (FILE *fp)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBSbOctTree\fP class defines a generic oct tree for fast geometry searches\&.
+.PP
+Be aware that this class is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SbOctTree::SbOctTree (const \fBSbBox3f\fP & bbox, const \fBSbOctTreeFuncs\fP & itemfuncs, const \fBint\fP maxitems = \fC64\fP)"
+Constructor\&. 
+.SS "SbOctTree::~SbOctTree ()"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void SbOctTree::addItem (void *const item)"
+Adds an item to this oct tree\&. 
+.SS "void SbOctTree::removeItem (void *const item)"
+Removes the item from the octtree\&. The octtree will not be modified/simplified even when all items are removed\&. 
+.SS "void SbOctTree::findItems (const \fBSbVec3f\fP & pos, \fBSbList\fP< void *> & destarray, const SbBool removeduplicates = \fCTRUE\fP) const"
+Finds all items which contains the point \fIpos\fP\&. Items are returned in \fIdestarray\fP\&.
+.PP
+If \fIremoveduplicates\fP is TRUE (the default), \fIdestarray\fP will not contain duplicate items\&. This is not an optimized process, so if you're looking for speed you should set this to FALSE and do your own postprocessing of the array of returned items\&.
+.PP
+\fBNote that if the Coin library has been built as a DLL under Microsoft Windows and you use this method from application code, you \fImust\fP make sure that both the Coin DLL and the application executable is using the same instance of a C Run-Time (CRT) library\&. Otherwise, you \fIwill\fP get memory heap corruption upon deallocating the returned instances, eventually leading to mysterious crashes\&.\fP 
+.SS "void SbOctTree::findItems (const \fBSbBox3f\fP & box, \fBSbList\fP< void *> & destarray, const SbBool removeduplicates = \fCTRUE\fP) const"
+Finds all items inside \fIbox\fP\&. Items are returned in \fIdestarray\fP\&.
+.PP
+If \fIremoveduplicates\fP is TRUE (the default), \fIdestarray\fP will not contain duplicate items\&. This is not an optimized process, so if you're looking for speed you should set this to FALSE and do your own postprocessing of the array of returned items\&.
+.PP
+\fBNote that if the Coin library has been built as a DLL under Microsoft Windows and you use this method from application code, you \fImust\fP make sure that both the Coin DLL and the application executable is using the same instance of a C Run-Time (CRT) library\&. Otherwise, you \fIwill\fP get memory heap corruption upon deallocating the returned instances, eventually leading to mysterious crashes\&.\fP 
+.SS "void SbOctTree::findItems (const \fBSbSphere\fP & sphere, \fBSbList\fP< void *> & destarray, const SbBool removeduplicates = \fCTRUE\fP) const"
+Finds all items inside \fIsphere\fP\&. Items are returned in \fIdestarray\fP\&.
+.PP
+If \fIremoveduplicates\fP is TRUE (the default), \fIdestarray\fP will not contain duplicate items\&. This is not an optimized process, so if you're looking for speed you should set this to FALSE and do your own postprocessing of the array of returned items\&.
+.PP
+\fBNote that if the Coin library has been built as a DLL under Microsoft Windows and you use this method from application code, you \fImust\fP make sure that both the Coin DLL and the application executable is using the same instance of a C Run-Time (CRT) library\&. Otherwise, you \fIwill\fP get memory heap corruption upon deallocating the returned instances, eventually leading to mysterious crashes\&.\fP 
+.SS "void SbOctTree::findItems (const \fBSbPlane\fP *const planes, const \fBint\fP numplanes, \fBSbList\fP< void *> & destarray, const SbBool removeduplicates = \fCTRUE\fP) const"
+Finds all items inside \fIplanes\fP\&. The method \fBSbPlane::isInHalfSpace()\fP should be used, and only items which are (partly) inside \fIall\fP planes are returned\&. Items are returned in \fIdestarray\fP\&.
+.PP
+If \fIremoveduplicates\fP is TRUE (the default), \fIdestarray\fP will not contain duplicate items\&. This is not an optimized process, so if you're looking for speed you should set this to FALSE and do your own postprocessing of the array of returned items\&.
+.PP
+\fBNote that if the Coin library has been built as a DLL under Microsoft Windows and you use this method from application code, you \fImust\fP make sure that both the Coin DLL and the application executable is using the same instance of a C Run-Time (CRT) library\&. Otherwise, you \fIwill\fP get memory heap corruption upon deallocating the returned instances, eventually leading to mysterious crashes\&.\fP 
+.SS "const \fBSbBox3f\fP & SbOctTree::getBoundingBox (void) const"
+Returns a bounding box enclosing all the elements in the tree\&. This is just the same bounding box which was supplied to the constructor\&. 
+.SS "void SbOctTree::clear (void)"
+Restores this oct tree to an empty oct tree\&. The bounding box will still be the same though\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

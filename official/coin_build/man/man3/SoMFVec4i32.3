@@ -1,0 +1,198 @@
+.TH "SoMFVec4i32" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoMFVec4i32 \- The \fBSoMFVec4i32\fP class is a container for \fBSbVec4i32\fP vectors\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store an array of vectors with four elements\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/fields/SoMFVec4i32\&.h>\fP
+.PP
+Inherits \fBSoMField\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBcopyFrom\fP (const \fBSoField\fP &field)"
+.br
+.ti -1c
+.RI "const \fBSoMFVec4i32\fP & \fBoperator=\fP (const \fBSoMFVec4i32\fP &field)"
+.br
+.ti -1c
+.RI "virtual SbBool \fBisSame\fP (const \fBSoField\fP &field) const"
+.br
+.ti -1c
+.RI "const \fBSbVec4i32\fP & \fBoperator[]\fP (const \fBint\fP idx) const"
+.br
+.ti -1c
+.RI "const \fBSbVec4i32\fP * \fBgetValues\fP (const \fBint\fP start) const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBfind\fP (const \fBSbVec4i32\fP &value, SbBool addifnotfound=FALSE)"
+.br
+.ti -1c
+.RI "void \fBsetValues\fP (const \fBint\fP start, const \fBint\fP \fBnum\fP, const \fBSbVec4i32\fP *newvals)"
+.br
+.ti -1c
+.RI "void \fBset1Value\fP (const \fBint\fP idx, const \fBSbVec4i32\fP &value)"
+.br
+.ti -1c
+.RI "void \fBsetValue\fP (const \fBSbVec4i32\fP &value)"
+.br
+.ti -1c
+.RI "const \fBSbVec4i32\fP & \fBoperator=\fP (const \fBSbVec4i32\fP &val)"
+.br
+.ti -1c
+.RI "SbBool \fBoperator==\fP (const \fBSoMFVec4i32\fP &field) const"
+.br
+.ti -1c
+.RI "SbBool \fBoperator!=\fP (const \fBSoMFVec4i32\fP &field) const"
+.br
+.ti -1c
+.RI "\fBSbVec4i32\fP * \fBstartEditing\fP (void)"
+.br
+.ti -1c
+.RI "void \fBfinishEditing\fP (void)"
+.br
+.ti -1c
+.RI "void \fBsetValuesPointer\fP (const \fBint\fP \fBnum\fP, const \fBSbVec4i32\fP *userdata)"
+.br
+.ti -1c
+.RI "void \fBsetValuesPointer\fP (const \fBint\fP \fBnum\fP, \fBSbVec4i32\fP *userdata)"
+.br
+.ti -1c
+.RI "void \fBsetValuesPointer\fP (const \fBint\fP \fBnum\fP, const int32_t *userdata)"
+.br
+.ti -1c
+.RI "void \fBsetValuesPointer\fP (const \fBint\fP \fBnum\fP, int32_t *userdata)"
+.br
+.ti -1c
+.RI "void \fBsetValues\fP (\fBint\fP start, \fBint\fP \fBnum\fP, const int32_t xyzw[][4])"
+.br
+.ti -1c
+.RI "void \fBset1Value\fP (\fBint\fP idx, int32_t x, int32_t y, int32_t z, int32_t w)"
+.br
+.ti -1c
+.RI "void \fBset1Value\fP (\fBint\fP idx, const int32_t xyzw[4])"
+.br
+.ti -1c
+.RI "void \fBsetValue\fP (int32_t x, int32_t y, int32_t z, int32_t w)"
+.br
+.ti -1c
+.RI "void \fBsetValue\fP (const int32_t xyzw[4])"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static void * \fBcreateInstance\fP (void)"
+.br
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual void \fBdeleteAllValues\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBcopyValue\fP (\fBint\fP to, \fBint\fP from)"
+.br
+.ti -1c
+.RI "virtual \fBint\fP \fBfieldSizeof\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void * \fBvaluesPtr\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBsetValuesPtr\fP (void *ptr)"
+.br
+.ti -1c
+.RI "virtual void \fBallocValues\fP (\fBint\fP \fBnum\fP)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSbVec4i32\fP * \fBvalues\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoMFVec4i32\fP class is a container for \fBSbVec4i32\fP vectors\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store an array of vectors with four elements\&. 
+
+This field supports application data sharing through a setValuesPointer() method\&. See \fBSoMField\fP documentation for information on how to use this function\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSbVec4i32\fP, \fBSoSFVec4i32\fP Be aware that this class is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&. 
+.RE
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.5 
+.RE
+.PP
+
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoMFVec4i32::getTypeId (void) const\fC [virtual]\fP"
+Returns the type identification instance which uniquely identifies the Coin field class the object belongs to\&.
+.PP
+\fBSee also:\fP
+.RS 4
+getClassTypeId(), \fBSoType\fP 
+.RE
+.PP
+
+.PP
+Implements \fBSoField\fP\&.
+.SS "void SoMFVec4i32::copyFrom (const \fBSoField\fP & f)\fC [virtual]\fP"
+Copy value(s) from \fIf\fP into this field\&. \fIf\fP must be of the same type as this field\&. 
+.PP
+Implements \fBSoField\fP\&.
+.SS "SbBool SoMFVec4i32::isSame (const \fBSoField\fP & f) const\fC [virtual]\fP"
+Check for equal type and value(s)\&. 
+.PP
+Implements \fBSoField\fP\&.
+.SS "void SoMFVec4i32::deleteAllValues (void)\fC [protected]\fP, \fC [virtual]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.PP
+Implements \fBSoMField\fP\&.
+.SS "void SoMFVec4i32::copyValue (\fBint\fP to, \fBint\fP from)\fC [protected]\fP, \fC [virtual]\fP"
+This method is used for moving values around internally within a multivalue field\&. It needs to be overridden in each field so it automatically takes care of running copy contructors where necessary\&. 
+.PP
+Implements \fBSoMField\fP\&.
+.SS "const \fBSbVec4i32\fP* SoMFVec4i32::getValues (const \fBint\fP start) const\fC [inline]\fP"
+\\ Returns a pointer to the values array\&. \\ 
+.SS "void SoMFVec4i32::setValues (\fBint\fP start, \fBint\fP numarg, const int32_t xyzw[][4])"
+Set \fInum\fP vector array elements from \fIxyzw\fP, starting at index \fIstart\fP\&. 
+.SS "void SoMFVec4i32::set1Value (\fBint\fP idx, int32_t x, int32_t y, int32_t z, int32_t w)"
+Set the vector at \fIidx\fP\&. 
+.SS "void SoMFVec4i32::set1Value (\fBint\fP idx, const int32_t xyzw[4])"
+Set the vector at \fIidx\fP\&. 
+.SS "void SoMFVec4i32::setValue (int32_t x, int32_t y, int32_t z, int32_t w)"
+Set this field to contain a single vector with the given element values\&. 
+.SS "void SoMFVec4i32::setValue (const int32_t xyzw[4])"
+Set this field to contain a single vector with the given element values\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

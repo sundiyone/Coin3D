@@ -1,0 +1,214 @@
+.TH "SoVRMLMovieTexture" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoVRMLMovieTexture \- The \fBSoVRMLMovieTexture\fP class is used the map movies onto geometry\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/VRMLnodes/SoVRMLMovieTexture\&.h>\fP
+.PP
+Inherits \fBSoVRMLTexture\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "\fBSoVRMLMovieTexture\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBGLRender\fP (\fBSoGLRenderAction\fP *action)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFBool\fP \fBloop\fP"
+.br
+.ti -1c
+.RI "\fBSoSFFloat\fP \fBspeed\fP"
+.br
+.ti -1c
+.RI "\fBSoSFTime\fP \fBstartTime\fP"
+.br
+.ti -1c
+.RI "\fBSoSFTime\fP \fBstopTime\fP"
+.br
+.ti -1c
+.RI "\fBSoSFTime\fP \fBpauseTime\fP"
+.br
+.ti -1c
+.RI "\fBSoSFTime\fP \fBresumeTime\fP"
+.br
+.ti -1c
+.RI "\fBSoMFString\fP \fBurl\fP"
+.br
+.ti -1c
+.RI "\fBSoSFTime\fP \fBduration_changed\fP"
+.br
+.ti -1c
+.RI "\fBSoSFBool\fP \fBisActive\fP"
+.br
+.ti -1c
+.RI "\fBSoSFFloat\fP \fBalpha\fP"
+.br
+.ti -1c
+.RI "\fBSoSFEnum\fP \fBmodel\fP"
+.br
+.ti -1c
+.RI "\fBSoSFColor\fP \fBblendColor\fP"
+.br
+.ti -1c
+.RI "\fBSoSFBool\fP \fBscaleTexCoord\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fB~SoVRMLMovieTexture\fP ()"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoVRMLMovieTexture\fP class is used the map movies onto geometry\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP 
+
+
+.PP
+.nf
+MovieTexture {
+  exposedField SFBool   loop             FALSE
+  exposedField SFFloat  speed            1.0      # (-inf, inf)
+  exposedField SFTime   startTime        0        # (-inf, inf)
+  exposedField SFTime   stopTime         0        # (-inf, inf)
+  exposedField MFString url              []
+  field        SFBool   repeatS          TRUE
+  field        SFBool   repeatT          TRUE
+  eventOut     SFTime   duration_changed
+  eventOut     SFBool   isActive
+}
+
+.fi
+.PP
+.PP
+The MovieTexture node defines a time dependent texture map (contained in a movie file) and parameters for controlling the movie and the texture mapping\&. A MovieTexture node can also be used as the source of sound data for a Sound node\&. In this special case, the MovieTexture node is not used for rendering\&.
+.PP
+Texture maps are defined in a 2D coordinate system (s, t) that ranges from 0\&.0 to 1\&.0 in both directions\&. The bottom edge of the image corresponds to the S-axis of the texture map, and left edge of the image corresponds to the T-axis of the texture map\&. The lower-left pixel of the image corresponds to s=0\&.0, t=0\&.0, and the top-right pixel of the image corresponds to s=1\&.0, t=1\&.0\&. Figure 6\&.12 depicts the texture map coordinate system of the MovieTexture\&.
+.PP
+  Figure 6\&.12 -- MovieTexture node coordinate system 
+.PP
+The url field that defines the movie data shall support MPEG1-Systems (audio and video) or MPEG1-Video (video-only) movie file formats 2 Details on the url field can be found in 4\&.5, VRML and the World Wide Web (http://www.web3d.org/x3d/specifications/vrml/ISO-IEC-14772-VRML97/part1/concepts.html#4.5)\&. MovieTexture nodes can be referenced by an Appearance node's texture field (as a movie texture) and by a Sound node's source field (as an audio source only)\&. See 4\&.6\&.11, Texture maps (http://www.web3d.org/x3d/specifications/vrml/ISO-IEC-14772-VRML97/part1/concepts.html#4.6.11), for a general description of texture maps\&. 4\&.14, Lighting model (http://www.web3d.org/x3d/specifications/vrml/ISO-IEC-14772-VRML97/part1/concepts.html#4.14), contains details on lighting equations and the interaction between textures, materials, and geometries\&.
+.PP
+As soon as the movie is loaded, a duration_changed eventOut is sent\&. This indicates the duration of the movie in seconds\&. This eventOut value can be read (for instance, by a Script node) to determine the duration of a movie\&. A value of '-1' implies the movie has not yet loaded or the value is unavailable for some reason\&.
+.PP
+The loop, startTime, and stopTime exposedFields and the isActive eventOut, and their effects on the MovieTexture node, are discussed in detail in the 4\&.6\&.9, Time-dependent nodes, section (http://www.web3d.org/x3d/specifications/vrml/ISO-IEC-14772-VRML97/part1/concepts.html#4.6.9)\&.
+.PP
+The cycle of a MovieTexture node is the length of time in seconds for one playing of the movie at the specified speed\&. The speed exposedField indicates how fast the movie shall be played\&. A speed of 2 indicates the movie plays twice as fast\&. The duration_changed output is not affected by the speed exposedField\&. set_speed events are ignored while the movie is playing\&. A negative speed implies that the movie will play backwards\&.
+.PP
+If a MovieTexture node is inactive when the movie is first loaded, frame 0 of the movie texture is displayed if speed is non-negative or the last frame of the movie texture is shown if speed is negative (see 4\&.11\&.3, Discrete and continuous changes)\&. A MovieTexture node shall display frame 0 if speed = 0\&. For positive values of speed, an active MovieTexture node displays the frame at movie time t as follows (i\&.e\&., in the movie's local time system with frame 0 at time 0 with speed = 1):
+.PP
+.PP
+.nf
+  t = (now - startTime) modulo (duration/speed)
+.fi
+.PP
+.PP
+If speed is negative, the MovieTexture node displays the frame at movie time:
+.PP
+.PP
+.nf
+  t = duration - ((now - startTime) modulo |duration/speed|)
+.fi
+.PP
+.PP
+When a MovieTexture node becomes inactive, the frame corresponding to the time at which the MovieTexture became inactive will remain as the texture\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoVRMLMovieTexture::SoVRMLMovieTexture (void)"
+Constructor\&. 
+.SS "SoVRMLMovieTexture::~SoVRMLMovieTexture ()\fC [protected]\fP, \fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoVRMLMovieTexture::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Reimplemented from \fBSoVRMLTexture\fP\&.
+.SS "const \fBSoFieldData\fP * SoVRMLMovieTexture::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoVRMLTexture\fP\&.
+.SS "void SoVRMLMovieTexture::GLRender (\fBSoGLRenderAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGLRenderAction\fP\&.
+.PP
+This is called during rendering traversals\&. Nodes influencing the rendering state in any way or who wants to throw geometry primitives at OpenGL overrides this method\&. 
+.PP
+Reimplemented from \fBSoVRMLTexture\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSoSFBool\fP SoVRMLMovieTexture::loop"
+Specifies whether movie should be looped or not\&. Default value is FALSE\&. 
+.SS "\fBSoSFFloat\fP SoVRMLMovieTexture::speed"
+Specifies the relative speed\&. Default value is 1\&.0\&. 
+.SS "\fBSoSFTime\fP SoVRMLMovieTexture::startTime"
+Specifies the start time\&. 
+.SS "\fBSoSFTime\fP SoVRMLMovieTexture::stopTime"
+Specifies the stop time\&. 
+.SS "\fBSoMFString\fP SoVRMLMovieTexture::url"
+The filename URL\&. 
+.SS "\fBSoSFTime\fP SoVRMLMovieTexture::duration_changed"
+An eventOut that is signaled after the node is loaded or inserted in the scene graph\&. 
+.SS "\fBSoSFBool\fP SoVRMLMovieTexture::isActive"
+An eventOut that is signaled when the movie begins/finishes playing\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

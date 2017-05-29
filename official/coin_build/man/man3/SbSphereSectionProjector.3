@@ -1,0 +1,175 @@
+.TH "SbSphereSectionProjector" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SbSphereSectionProjector \- The \fBSbSphereSectionProjector\fP projects 2D points to a sliced sphere\&.
+.PP
+The projection sphere for this class is sliced by a clipping plane\&. Projections will be mapped to the remaining sphere part\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/projectors/SbSphereSectionProjector\&.h>\fP
+.PP
+Inherits \fBSbSphereProjector\fP\&.
+.PP
+Inherited by \fBSbSpherePlaneProjector\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSbSphereSectionProjector\fP (const float edgetol=0\&.9f, const SbBool orienttoeye=TRUE)"
+.br
+.ti -1c
+.RI "\fBSbSphereSectionProjector\fP (const \fBSbSphere\fP &sph, const float edgetol=0\&.9f, const SbBool orienttoeye=TRUE)"
+.br
+.ti -1c
+.RI "virtual \fBSbProjector\fP * \fBcopy\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fBSbVec3f\fP \fBproject\fP (const \fBSbVec2f\fP &point)"
+.br
+.ti -1c
+.RI "virtual \fBSbRotation\fP \fBgetRotation\fP (const \fBSbVec3f\fP &point1, const \fBSbVec3f\fP &point2)"
+.br
+.ti -1c
+.RI "void \fBsetTolerance\fP (const float edgetol)"
+.br
+.ti -1c
+.RI "float \fBgetTolerance\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBsetRadialFactor\fP (const float rad=0\&.0f)"
+.br
+.ti -1c
+.RI "float \fBgetRadialFactor\fP (void) const"
+.br
+.ti -1c
+.RI "SbBool \fBisWithinTolerance\fP (const \fBSbVec3f\fP &point)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual void \fBsetupTolerance\fP (void)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "float \fBtolerance\fP"
+.br
+.ti -1c
+.RI "float \fBtolDist\fP"
+.br
+.ti -1c
+.RI "float \fBradialFactor\fP"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP \fBplanePoint\fP"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP \fBplaneDir\fP"
+.br
+.ti -1c
+.RI "float \fBplaneDist\fP"
+.br
+.ti -1c
+.RI "\fBSbPlane\fP \fBtolPlane\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBSbSphereSectionProjector\fP projects 2D points to a sliced sphere\&.
+.PP
+The projection sphere for this class is sliced by a clipping plane\&. Projections will be mapped to the remaining sphere part\&. 
+
+
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSbCylinderSectionProjector\fP 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SbSphereSectionProjector::SbSphereSectionProjector (const float edgetol = \fC0\&.9f\fP, const SbBool orienttoeye = \fCTRUE\fP)"
+Default constructor\&. See \fBSbSphereProjector::SbSphereProjector()\fP\&.
+.PP
+The \fIedgetol\fP value should be within <0, 1], and specifies how much of the sphere is used as a projection surface\&. 1\&.0 means the full front half is used\&. 
+.SS "SbSphereSectionProjector::SbSphereSectionProjector (const \fBSbSphere\fP & sph, const float edgetol = \fC0\&.9f\fP, const SbBool orienttoeye = \fCTRUE\fP)"
+Constructor with explicit setting of the projection sphere\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSbProjector\fP * SbSphereSectionProjector::copy (void) const\fC [virtual]\fP"
+Construct and return a copy of this projector\&. The caller is responsible for destructing the new instance\&.
+.PP
+\fBNote that if the Coin library has been built as a DLL under Microsoft Windows and you use this method from application code, you \fImust\fP make sure that both the Coin DLL and the application executable is using the same instance of a C Run-Time (CRT) library\&. Otherwise, you \fIwill\fP get memory heap corruption upon deallocating the returned instances, eventually leading to mysterious crashes\&.\fP 
+.PP
+Implements \fBSbProjector\fP\&.
+.PP
+Reimplemented in \fBSbSpherePlaneProjector\fP\&.
+.SS "\fBSbVec3f\fP SbSphereSectionProjector::project (const \fBSbVec2f\fP & point)\fC [virtual]\fP"
+Project the 2D \fIpoint\fP from normalized viewport coordinates to a 3D point\&. The mapping will be done in accordance with the type of the projector\&. 
+.PP
+Implements \fBSbProjector\fP\&.
+.PP
+Reimplemented in \fBSbSpherePlaneProjector\fP\&.
+.SS "\fBSbRotation\fP SbSphereSectionProjector::getRotation (const \fBSbVec3f\fP & point1, const \fBSbVec3f\fP & point2)\fC [virtual]\fP"
+Returns rotation on the projection surface which re-orients \fIpoint1\fP to \fIpoint2\fP\&. 
+.PP
+Implements \fBSbSphereProjector\fP\&.
+.PP
+Reimplemented in \fBSbSpherePlaneProjector\fP\&.
+.SS "void SbSphereSectionProjector::setTolerance (const float edgetol)"
+The \fIedgetol\fP value decides how much of the surface of the sphere is used for projection\&. 1\&.0 means the full sphere half is used\&. 
+.SS "float SbSphereSectionProjector::getTolerance (void) const"
+Returns edge tolerance for the sphere half\&. 
+.SS "void SbSphereSectionProjector::setRadialFactor (const float rad = \fC0\&.0f\fP)"
+Set up the controlling value for how the rotation calculation will be done 'outside' the sphere\&.
+.PP
+A radialFactor equal to 0\&.0 will make the rotations be done like if they were done by dragging the sphere, while a value of 1\&.0 will make the rotation be around the axis from the viewpoint towards the sphere\&. 
+.SS "float SbSphereSectionProjector::getRadialFactor (void) const"
+Returns value of radialFactor\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetRadialFactor()\fP 
+.RE
+.PP
+
+.SS "SbBool SbSphereSectionProjector::isWithinTolerance (const \fBSbVec3f\fP & point)"
+Check if \fIpoint\fP is within the part of the sphere used for projections\&. 
+.SS "void SbSphereSectionProjector::setupTolerance (void)\fC [protected]\fP, \fC [virtual]\fP"
+Recalculate the internal projection surface settings\&. Needs to be done if any of the parameters influencing the projection surface have been changed from subclasses without using the access methods\&. 
+.SH "Member Data Documentation"
+.PP 
+.SS "SbSphereSectionProjector::tolerance\fC [protected]\fP"
+Tolerance value, deciding how much of the half-sphere to do projections against\&. 
+.SS "SbSphereSectionProjector::tolDist\fC [protected]\fP"
+Tolerance value multiplied with the sphere radius\&. 
+.SS "SbSphereSectionProjector::radialFactor\fC [protected]\fP"
+The radialfactor value decides how to calculate rotations outside of the sphere\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetRadialFactor()\fP 
+.RE
+.PP
+
+.SS "SbSphereSectionProjector::planePoint\fC [protected]\fP"
+A point in the plane where the center of the sphere is\&. 
+.SS "SbSphereSectionProjector::planeDir\fC [protected]\fP"
+Direction of cutting plane\&. 
+.SS "SbSphereSectionProjector::planeDist\fC [protected]\fP"
+Distance from plane to sphere center\&. 
+.SS "SbSphereSectionProjector::tolPlane\fC [protected]\fP"
+Defines the plane cutting the sphere into a projection part\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

@@ -1,0 +1,816 @@
+diff --git a/coin4/docs/dumpnodes.cpp b/coin4/docs/dumpnodes.cpp
+index 10c0d8a..a2aac95 100644
+--- a/coin4/docs/dumpnodes.cpp
++++ b/coin4/docs/dumpnodes.cpp
+@@ -40,9 +40,9 @@ main(void)
+     (void)fprintf(stdout, "%s", tl[i].getName().getString());
+ 
+     SoFieldContainer * fc = (SoFieldContainer *)
+-      (tl[i].canCreateInstance() ? tl[i].createInstance() : NULL);
++      (tl[i].canCreateInstance() ? tl[i].createInstance() : nullptr);
+ 
+-    if (fc == NULL) {
++    if (fc == nullptr) {
+       (void)fprintf(stdout, "  (abstract)\n");
+       continue;
+     }
+diff --git a/coin4/examples/bindings/CoinQtWidget.cpp b/coin4/examples/bindings/CoinQtWidget.cpp
+index ad5a876..eb628f5 100644
+--- a/coin4/examples/bindings/CoinQtWidget.cpp
++++ b/coin4/examples/bindings/CoinQtWidget.cpp
+@@ -84,7 +84,7 @@ private:
+ 
+ }; // CoinQtManager
+ 
+-CoinQtManager * CoinQtManager::singleton = NULL;
++CoinQtManager * CoinQtManager::singleton = nullptr;
+ 
+ CoinQtManager::CoinQtManager(void)
+ {
+@@ -166,7 +166,7 @@ CoinQtWidgetP::superscene[] = {
+   "  DEF camera PerspectiveCamera {\n",
+   "  }\n",
+   "}\n",
+-  NULL
++  nullptr
+ };
+ 
+ const char *
+@@ -188,14 +188,14 @@ CoinQtWidgetP::aboutscene[] = {
+   "  Cone {\n",
+   "  }\n",
+   "}\n",
+-  NULL
++  nullptr
+ };
+ 
+ CoinQtWidgetP::CoinQtWidgetP(CoinQtWidget * master)
+ {
+   this->master = master;
+-  this->root = NULL;
+-  this->publicroot = NULL;
++  this->root = nullptr;
++  this->publicroot = nullptr;
+   this->scenemanager = new SoSceneManager;
+   this->scenemanager->setRenderCallback(CoinQtWidgetP::renderCB, this);
+   this->scenemanager->activate();
+@@ -208,10 +208,10 @@ CoinQtWidgetP::~CoinQtWidgetP(void)
+ {
+   if ( this->root ) {
+     this->root->unref();
+-    this->root = NULL;
++    this->root = nullptr;
+   }
+   delete this->scenemanager;
+-  this->scenemanager = NULL;
++  this->scenemanager = nullptr;
+   delete this->location2;
+   delete this->keyboard;
+   delete this->mousebutton;
+@@ -243,7 +243,7 @@ CoinQtWidgetP::renderCB(void * closure, SoSceneManager * manager)
+ CoinQtWidget::CoinQtWidget(QWidget * parent, const char * name,
+                            const QGLWidget * shareWidget, WFlags f)
+ : inherited(parent, name, shareWidget, f),
+-  internals(NULL)
++  internals(nullptr)
+ {
+   PRIVATE(this) = new CoinQtWidgetP(this);
+   CoinQtManager * manager = CoinQtManager::getManager();
+@@ -255,7 +255,7 @@ CoinQtWidget::CoinQtWidget(QWidget * parent, const char * name,
+ CoinQtWidget::CoinQtWidget(const QGLFormat & format, QWidget * parent,
+                            const char * name,
+                            const QGLWidget * shareWidget, WFlags f)
+-: inherited(format, parent, name, shareWidget, f), internals(NULL)
++: inherited(format, parent, name, shareWidget, f), internals(nullptr)
+ {
+   PRIVATE(this) = new CoinQtWidgetP(this);
+   CoinQtManager * manager = CoinQtManager::getManager();
+@@ -269,23 +269,23 @@ CoinQtWidget::~CoinQtWidget(void)
+   CoinQtManager * manager = CoinQtManager::getManager();
+   manager->unregisterWidget(this);
+   delete PRIVATE(this);
+-  PRIVATE(this) = NULL;
++  PRIVATE(this) = nullptr;
+ }
+ 
+ bool
+ CoinQtWidget::setSceneGraph(SoNode * node, bool managed)
+ {
+-  if ( node == NULL ) {
++  if ( node == nullptr ) {
+     if ( PRIVATE(this)->publicroot ) {
+       PRIVATE(this)->publicroot->unref();
+-      PRIVATE(this)->publicroot = NULL;
++      PRIVATE(this)->publicroot = nullptr;
+       PRIVATE(this)->root->unref();
+-      PRIVATE(this)->root = NULL;
+-      PRIVATE(this)->scenemanager->setSceneGraph(NULL);
++      PRIVATE(this)->root = nullptr;
++      PRIVATE(this)->scenemanager->setSceneGraph(nullptr);
+     }
+     return true;
+   } else {
+-    this->setSceneGraph(NULL);
++    this->setSceneGraph(nullptr);
+   }
+   if ( managed ) {
+     printf("managed scene graph\n");
+@@ -295,7 +295,7 @@ CoinQtWidget::setSceneGraph(SoNode * node, bool managed)
+   } else {
+     SoInput in;
+     in.setStringArray(CoinQtWidgetP::superscene);
+-    SoNode * scene = NULL;
++    SoNode * scene = nullptr;
+     bool status = SoDB::read(&in, scene);
+     if ( !status ) {
+       assert(0);
+@@ -321,10 +321,10 @@ CoinQtWidget::setSceneGraph(SoNode * node, bool managed)
+     }
+     PRIVATE(this)->root = (SoSeparator *) root;
+     PRIVATE(this)->root->ref();
+-    root = NULL;
++    root = nullptr;
+ 
+     scene->unref();
+-    scene = NULL;
++    scene = nullptr;
+ 
+     sa.reset();
+     sa.setInterest(SoSearchAction::FIRST);
+@@ -582,7 +582,7 @@ CoinQtWidget::keyReleaseEvent(QKeyEvent * event)
+ void
+ CoinQtWidget::about(void)
+ {
+-  QDialog * dialog = new QDialog(NULL, "About");
++  QDialog * dialog = new QDialog(nullptr, "About");
+   dialog->setFixedSize(420, 240);
+ 
+   QPushButton * close = new QPushButton(dialog, "About::Close");
+@@ -597,7 +597,7 @@ CoinQtWidget::about(void)
+ 
+   SoInput in;
+   in.setStringArray(CoinQtWidgetP::aboutscene);
+-  SoNode * scene = NULL;
++  SoNode * scene = nullptr;
+   bool status = SoDB::read(&in, scene);
+   if ( !status ) {
+     assert(0);
+diff --git a/coin4/examples/bindings/glutiv.cpp b/coin4/examples/bindings/glutiv.cpp
+index 461e8da..1642438 100644
+--- a/coin4/examples/bindings/glutiv.cpp
++++ b/coin4/examples/bindings/glutiv.cpp
+@@ -157,7 +157,7 @@ idle_cb(void)
+ SoSeparator *
+ commongraph(void)
+ {
+-  SoSeparator * root = NULL;
++  SoSeparator * root = nullptr;
+ 
+   if (!root) {
+     root = new SoSeparator;
+@@ -229,7 +229,7 @@ main(int argc, char ** argv)
+ 
+ #ifdef _WIN32
+   int argc = 1;
+-  char * argv[] = { "glutiv.exe", (char *) NULL };
++  char * argv[] = { "glutiv.exe", (char *) nullptr };
+   glutInit(&argc, argv);
+ #else
+   glutInit(&argc, argv);
+diff --git a/coin4/examples/bindings/glxiv.cpp b/coin4/examples/bindings/glxiv.cpp
+index 7ae11bc..97e2d0c 100644
+--- a/coin4/examples/bindings/glxiv.cpp
++++ b/coin4/examples/bindings/glxiv.cpp
+@@ -90,9 +90,9 @@ typedef struct {
+ 
+ // *************************************************************************
+ 
+-SbTime * starttime = NULL;
++SbTime * starttime = nullptr;
+ unsigned int rendercounter = 0;
+-static SoSeparator * root = NULL;
++static SoSeparator * root = nullptr;
+ 
+ static void
+ draw_scene(void * userdata, SoSceneManager * scenemanager)
+@@ -164,10 +164,10 @@ make_glx_window(WindowData * win,
+     XSetNormalHints(win->display, win->window, &sizehints);
+     const char * name = "Coin in GLX";
+     XSetStandardProperties(win->display, win->window, name, name,
+-                           None, (char **)NULL, 0, &sizehints);
++                           None, (char **)nullptr, 0, &sizehints);
+   }
+ 
+-  win->context = glXCreateContext(win->display, visinfo, NULL, True);
++  win->context = glXCreateContext(win->display, visinfo, nullptr, True);
+   if (!win->context) {
+     (void)fprintf(stderr, "Error: glXCreateContext() failed.\n");
+     exit(1);
+@@ -207,7 +207,7 @@ event_loop(WindowData * win)
+         case KeyPress:
+           {
+             char buffer[1] = "";
+-            (void)XLookupString(&event.xkey, buffer, sizeof(buffer), NULL, NULL);
++            (void)XLookupString(&event.xkey, buffer, sizeof(buffer), nullptr, nullptr);
+             if (buffer[0] == /* Esc: */ 27) { return; }
+           }
+           break;
+@@ -271,13 +271,13 @@ main(int argc, char *argv[])
+   SoNodeKit::init();
+   SoInteraction::init();
+ 
+-  Display * dpy = XOpenDisplay(NULL);
++  Display * dpy = XOpenDisplay(nullptr);
+   if (!dpy) {
+     (void)fprintf(stderr, "Error: couldn't open default display.\n");
+     exit(1);
+   }
+ 
+-  WindowData win = { dpy, 0, NULL, NULL };
++  WindowData win = { dpy, 0, nullptr, nullptr };
+   make_glx_window(&win, 100, 100, 400, 400);
+   make_coin_scenegraph(&win);
+ 
+@@ -297,7 +297,7 @@ main(int argc, char *argv[])
+   glXDestroyContext(win.display, win.context);
+   XCloseDisplay(win.display);
+ 
+-  win.scenemanager->setSceneGraph(NULL);
++  win.scenemanager->setSceneGraph(nullptr);
+   root->unref();
+   SoDB::finish();
+   return 0;
+diff --git a/coin4/examples/misc/glut_glinfo.cpp b/coin4/examples/misc/glut_glinfo.cpp
+index fa104ba..2da4ca5 100644
+--- a/coin4/examples/misc/glut_glinfo.cpp
++++ b/coin4/examples/misc/glut_glinfo.cpp
+@@ -54,7 +54,7 @@ main(int argc, char ** argv)
+ 
+ #ifdef _WIN32
+   int argc = 1;
+-  char * argv[] = { "glut_glinfo.exe", (char *) NULL };
++  char * argv[] = { "glut_glinfo.exe", (char *) nullptr };
+   glutInit(&argc, argv);
+ #else
+   glutInit(&argc, argv);
+diff --git a/coin4/examples/misc/glut_tex.cpp b/coin4/examples/misc/glut_tex.cpp
+index da330e7..8cdaca9 100644
+--- a/coin4/examples/misc/glut_tex.cpp
++++ b/coin4/examples/misc/glut_tex.cpp
+@@ -129,7 +129,7 @@ createScenegraph(void)
+   in.setBuffer(red_cone_iv, strlen(red_cone_iv));
+   
+   SoSeparator * result = SoDB::readAll(&in);
+-  if (result == NULL) { exit(1); }
++  if (result == nullptr) { exit(1); }
+  
+   SoPerspectiveCamera *myCamera = new SoPerspectiveCamera;
+   SoRotationXYZ *rot = new SoRotationXYZ;
+@@ -183,7 +183,7 @@ main(int argc, char ** argv)
+ 
+ #ifdef _WIN32
+   int argc = 1;
+-  char * argv[] = { "glutiv.exe", (char *) NULL };
++  char * argv[] = { "glutiv.exe", (char *) nullptr };
+   glutInit(&argc, argv);
+ #else
+   glutInit(&argc, argv);
+diff --git a/coin4/examples/misc/ivcp.cpp b/coin4/examples/misc/ivcp.cpp
+index e5186f7..6fdd750 100644
+--- a/coin4/examples/misc/ivcp.cpp
++++ b/coin4/examples/misc/ivcp.cpp
+@@ -104,12 +104,12 @@ main(int argc, char ** argv)
+ 
+   SoNode * firstChild = static_cast<SoSeparator*>(scene)->getNumChildren()?
+     static_cast<SoSeparator*>(scene)->getChild(0)
+-    :NULL;
++    :nullptr;
+ 
+   if (firstChild && firstChild->isOfType(SoForeignFileKit::getClassTypeId())) {
+     SoForeignFileKit * kit = (SoForeignFileKit *) firstChild;
+     if (kit->canWriteScene() ) {
+-      SoNode * subscene = NULL;
++      SoNode * subscene = nullptr;
+       kit->writeScene(subscene);
+       if (!subscene ) {
+         return -1;
+diff --git a/coin4/src/details/SoFaceDetail.cpp b/coin4/src/details/SoFaceDetail.cpp
+index 02cfc49..8be0881 100644
+--- a/coin4/src/details/SoFaceDetail.cpp
++++ b/coin4/src/details/SoFaceDetail.cpp
+@@ -56,7 +56,7 @@ SO_DETAIL_SOURCE(SoFaceDetail);
+   specification.
+  */
+ SoFaceDetail::SoFaceDetail(void)
+-  : pointsarray(NULL),
++  : pointsarray(nullptr),
+     numallocated(0),
+     numpoints(0),
+     faceindex(0),
+diff --git a/coin4/src/details/SoNodeKitDetail.cpp b/coin4/src/details/SoNodeKitDetail.cpp
+index b845eeb..c05d11a 100644
+--- a/coin4/src/details/SoNodeKitDetail.cpp
++++ b/coin4/src/details/SoNodeKitDetail.cpp
+@@ -72,7 +72,7 @@ SO_DETAIL_SOURCE(SoNodeKitDetail);
+   Constructor.
+ */
+ SoNodeKitDetail::SoNodeKitDetail(void)
+-  : myNodeKit(NULL), myPart(NULL), myPartName("")
++  : myNodeKit(nullptr), myPart(nullptr), myPartName("")
+ {
+ }
+ 
+diff --git a/coin4/src/fields/SoSFNode.cpp b/coin4/src/fields/SoSFNode.cpp
+index 5884ac8..213511f 100644
+--- a/coin4/src/fields/SoSFNode.cpp
++++ b/coin4/src/fields/SoSFNode.cpp
+@@ -251,7 +251,7 @@ SoSFNode::countWriteRefs(SoOutput * out) const
+   inherited::countWriteRefs(out);
+ 
+   SoBase * base = this->getValue();
+-  if (base == NULL) return;
++  if (base == nullptr) return;
+ 
+   // NB: This code is common for SoSFNode, SoSFPath and SoSFEngine.
+   // That's why we check the base type before writing/counting
+@@ -327,7 +327,7 @@ SoSFNode::referencesCopy(void) const
+   }
+   else if (n->isOfType(SoPath::getClassTypeId())) {
+     SoPath * p = coin_assert_cast<SoPath *>(n);
+-    if (p->getHead() == NULL) return false;
++    if (p->getHead() == nullptr) return false;
+     if (SoFieldContainer::checkCopy(p->getHead())) return true;
+   }
+   else {
+@@ -363,7 +363,7 @@ BOOST_AUTO_TEST_CASE(vrml97nullchild)
+ 
+   SoInput * in = new SoInput;
+   in->setBuffer(reinterpret_cast<const void*>(scene), strlen(scene));
+-  SoNode * g = NULL;
++  SoNode * g = nullptr;
+   const bool readok = SoDB::read(in, g);
+   delete in;
+ 
+diff --git a/coin4/src/fields/SoSFTrigger.cpp b/coin4/src/fields/SoSFTrigger.cpp
+index 1c6df38..9ad4abf 100644
+--- a/coin4/src/fields/SoSFTrigger.cpp
++++ b/coin4/src/fields/SoSFTrigger.cpp
+@@ -127,7 +127,7 @@ SoSFTrigger::startNotify(void)
+ {
+   // if notification starts here, we should not notify out container
+   SoFieldContainer * oldcontainer = this->getContainer();
+-  this->setContainer(NULL);
++  this->setContainer(nullptr);
+   inherited::startNotify();
+   this->setContainer(oldcontainer);
+ }
+diff --git a/coin4/src/io/SoInput_Reader.cpp b/coin4/src/io/SoInput_Reader.cpp
+index ea2fa0b..f456ebb 100644
+--- a/coin4/src/io/SoInput_Reader.cpp
++++ b/coin4/src/io/SoInput_Reader.cpp
+@@ -132,8 +132,8 @@ SoInput_Reader::createReader(FILE * fp, const SbString & fullname)
+       }
+       else {
+         int bzerror = BZ_OK;
+-        void * bzfp = cc_bzglue_BZ2_bzReadOpen(&bzerror,  fp, 0, 0, NULL, 0);
+-        if ((bzerror == BZ_OK) && (bzfp != NULL)) {
++        void * bzfp = cc_bzglue_BZ2_bzReadOpen(&bzerror,  fp, 0, 0, nullptr, 0);
++        if ((bzerror == BZ_OK) && (bzfp != nullptr)) {
+           reader = new SoInput_BZ2FileReader(fullname.getString(), bzfp);
+         }
+         else {
+@@ -142,7 +142,7 @@ SoInput_Reader::createReader(FILE * fp, const SbString & fullname)
+         }
+       }
+     }
+-    if ((reader == NULL) && valid_header &&
++    if ((reader == nullptr) && valid_header &&
+         (header[0] == 0x1f) &&
+         (header[1] == 0x8b)) {
+       if (!cc_zlibglue_available()) {
+@@ -181,7 +181,7 @@ SoInput_Reader::createReader(FILE * fp, const SbString & fullname)
+     }
+   }
+ 
+-  if (reader == NULL) {
++  if (reader == nullptr) {
+     reader = new SoInput_FileReader(fullname.getString(), fp);
+   }
+   return reader;
+@@ -375,7 +375,7 @@ SoInput_BZ2FileReader::getType(void) const
+ size_t
+ SoInput_BZ2FileReader::readBuffer(char * buf, const size_t readlen)
+ {
+-  if (this->bzfp == NULL) { return 0; }
++  if (this->bzfp == nullptr) { return 0; }
+ 
+   int bzerror = BZ_OK;
+   // FIXME: about the cast; see note about the call to cc_gzm_open()
+@@ -385,7 +385,7 @@ SoInput_BZ2FileReader::readBuffer(char * buf, const size_t readlen)
+   if ((bzerror != BZ_OK) && (bzerror != BZ_STREAM_END)) {
+     ret = 0;
+     cc_bzglue_BZ2_bzReadClose(&bzerror, this->bzfp);
+-    this->bzfp = NULL;
++    this->bzfp = nullptr;
+   }
+   // the signature of this this function was changed to return size_t
+   // without checking that bzRead() actually returns a signed
+diff --git a/coin4/src/lists/SoCallbackList.cpp b/coin4/src/lists/SoCallbackList.cpp
+index 8f20349..c779161 100644
+--- a/coin4/src/lists/SoCallbackList.cpp
++++ b/coin4/src/lists/SoCallbackList.cpp
+@@ -92,7 +92,7 @@ SoCallbackList::removeCallback(SoCallbackListCB * f, void * userdata)
+ 
+ #if COIN_DEBUG
+   // FIXME: Is this warning really necessary? Shouldn't it be possible
+-  // to do the equivalent of setCallback(NULL,NULL) -- i.e. "remove if
++  // to do the equivalent of setCallback(nullptr,nullptr) -- i.e. "remove if
+   // already exists, else do nothing"? 20050723 kyrah.
+   if (idx == -1) {
+     SoDebugError::post("SoCallbackList::removeCallback",
+diff --git a/coin4/src/profiler/SoProfilerStats.cpp b/coin4/src/profiler/SoProfilerStats.cpp
+index 537b8c2..ee46fb8 100644
+--- a/coin4/src/profiler/SoProfilerStats.cpp
++++ b/coin4/src/profiler/SoProfilerStats.cpp
+@@ -109,7 +109,7 @@ private:
+   };
+ 
+ public:
+-  SoProfilerStatsP(void) : master(NULL) {
++  SoProfilerStatsP(void) : master(nullptr) {
+   }
+   ~SoProfilerStatsP(void) { }
+ 
+diff --git a/coin4/src/xml/path.cpp b/coin4/src/xml/path.cpp
+index 12ca641..498ddf8 100644
+--- a/coin4/src/xml/path.cpp
++++ b/coin4/src/xml/path.cpp
+@@ -67,7 +67,7 @@ path_node_new(const char * element, int idx)
+   path_node * node = new path_node;
+   node->element = cc_xml_strdup(element);
+   node->idx = idx;
+-  node->next = NULL;
++  node->next = nullptr;
+   return node;
+ }
+ 
+@@ -93,7 +93,7 @@ static
+ void
+ path_node_delete_chain(path_node * head)
+ {
+-  while ( head != NULL ) {
++  while ( head != nullptr ) {
+     path_node * prev = head;
+     head = head->next;
+     delete[] prev->element;
+@@ -108,7 +108,7 @@ path_node_match_p(path_node * node, const cc_xml_elt * elt)
+   if ( strcmp(node->element, cc_xml_elt_get_type(elt)) != 0 ) return false;
+   if ( node->idx != -1 ) {
+     cc_xml_elt * parent = cc_xml_elt_get_parent(elt);
+-    if ( parent == NULL ) return (node->idx == 0) ? true : false;
++    if ( parent == nullptr ) return (node->idx == 0) ? true : false;
+     int i = cc_xml_elt_get_child_type_index(parent, elt);
+     return (i == node->idx) ? true : false;
+   }
+@@ -121,7 +121,7 @@ cc_xml_path *
+ cc_xml_path_new(void)
+ {
+   cc_xml_path * path = new cc_xml_path;
+-  path->head = NULL;
++  path->head = nullptr;
+   assert(path);
+   return path;
+ } // cc_xml_path_new()
+@@ -139,7 +139,7 @@ cc_xml_path_clear_x(cc_xml_path * path)
+ {
+   assert(path);
+   path_node_delete_chain(path->head);
+-  path->head = NULL;
++  path->head = nullptr;
+ } // cc_xml_path_clear_x()
+ 
+ static
+@@ -147,11 +147,11 @@ void
+ cc_xml_path_set_x_va(cc_xml_path * path, va_list args)
+ {
+   path_node_delete_chain(path->head);
+-  path->head = NULL;
++  path->head = nullptr;
+   char * arg;
+-  while ( (arg = va_arg(args, char *)) != NULL ) {
++  while ( (arg = va_arg(args, char *)) != nullptr ) {
+     char * ptr;
+-    if ( (ptr = strchr(arg, '[')) == NULL ) {
++    if ( (ptr = strchr(arg, '[')) == nullptr ) {
+       cc_xml_path_prepend_x(path, arg, -1);
+     } else {
+       int idx = atoi(ptr + 1);
+@@ -170,11 +170,11 @@ cc_xml_path_copy_x(cc_xml_path * path, cc_xml_path * path2)
+   assert(path && path2);
+   cc_xml_path_clear_x(path);
+   path_node * p1node;
+-  path_node * p1prev = NULL;
++  path_node * p1prev = nullptr;
+   path_node * p2node = path2->head;
+-  while ( p2node != NULL ) {
++  while ( p2node != nullptr ) {
+     p1node = path_node_clone(p2node);
+-    if ( p1prev == NULL ) path->head = p1node;
++    if ( p1prev == nullptr ) path->head = p1node;
+     else p1prev->next = p1node;
+     p1prev = p1node;
+   }
+@@ -194,9 +194,9 @@ void
+ cc_xml_path_reverse_x(cc_xml_path * path)
+ {
+   assert(path);
+-  struct path_node * prev = NULL;
++  struct path_node * prev = nullptr;
+   struct path_node * node = path->head;
+-  while ( node != NULL ) {
++  while ( node != nullptr ) {
+     struct path_node * next = node->next;
+     node->next = prev;
+     prev = node;
+@@ -211,7 +211,7 @@ cc_xml_path_get_length(const cc_xml_path * path)
+   assert(path);
+   int len = 0;
+   struct path_node * node = path->head;
+-  while ( node != NULL ) {
++  while ( node != nullptr ) {
+     assert(len < 100);
+     len++;
+     node = node->next;
+@@ -226,7 +226,7 @@ cc_xml_path_get_type(const cc_xml_path * path, int idx)
+   struct path_node * node = path->head;
+   int i;
+   for ( i = 0; i < idx; i++ ) {
+-    assert(node->next != NULL);
++    assert(node->next != nullptr);
+     node = node->next;
+   }
+   return node->element;
+@@ -239,7 +239,7 @@ cc_xml_path_get_index(const cc_xml_path * path, int idx)
+   struct path_node * node = path->head;
+   int i;
+   for ( i = 0; i < idx; i++ ) {
+-    assert(node->next != NULL);
++    assert(node->next != nullptr);
+     node = node->next;
+   }
+   return node->idx;
+@@ -270,10 +270,10 @@ cc_xml_path_append_x(cc_xml_path * path, const char * elt, int idx)
+ {
+   assert(path);
+   struct path_node * node = path->head;
+-  if ( node == NULL ) {
++  if ( node == nullptr ) {
+     path->head = path_node_new(elt, idx);
+   } else {
+-    while ( node->next != NULL )
++    while ( node->next != nullptr )
+       node = node->next;
+     node->next = path_node_new(elt, idx);
+   }
+@@ -284,17 +284,17 @@ cc_xml_path_append_path_x(cc_xml_path * path, cc_xml_path * path2)
+ {
+   assert(path && path2);
+   struct path_node * p1node = path->head;
+-  struct path_node * p1prev = NULL;
+-  if ( p1node != NULL ) {
+-    while ( p1node->next != NULL ) {
++  struct path_node * p1prev = nullptr;
++  if ( p1node != nullptr ) {
++    while ( p1node->next != nullptr ) {
+       p1prev = p1node;
+       p1node = p1node->next;
+     }
+   }
+   struct path_node * p2node = path2->head;
+-  while ( p2node != NULL ) {
++  while ( p2node != nullptr ) {
+     p1node = path_node_clone(p2node);
+-    if ( p1prev == NULL ) path->head = p1node;
++    if ( p1prev == nullptr ) path->head = p1node;
+     else p1prev->next = p1node;
+     p1prev = p1node;
+   }
+@@ -313,17 +313,17 @@ void
+ cc_xml_path_prepend_path_x(cc_xml_path * path, cc_xml_path * path2)
+ {
+   assert(path && path2);
+-  struct path_node * p1node = NULL;
+-  struct path_node * p1head = NULL;
+-  struct path_node * p1tail = NULL;
++  struct path_node * p1node = nullptr;
++  struct path_node * p1head = nullptr;
++  struct path_node * p1tail = nullptr;
+   struct path_node * p2node = path2->head;
+-  while ( p2node != NULL ) {
++  while ( p2node != nullptr ) {
+     p1tail = path_node_clone(p2node);
+-    if ( p1head == NULL ) p1head = p1tail;
++    if ( p1head == nullptr ) p1head = p1tail;
+     else p1node->next = p1tail;
+     p1node = p1tail;
+   }
+-  if ( p1tail != NULL ) {
++  if ( p1tail != nullptr ) {
+     p1tail->next = path->head;
+     path->head = p1head;
+   }
+@@ -335,13 +335,13 @@ cc_xml_path_truncate_x(cc_xml_path * path, int length)
+   assert(path);
+   int len = 0;
+   struct path_node * node = path->head;
+-  while ( (node != NULL) && (len < length) ) {
++  while ( (node != nullptr) && (len < length) ) {
+     len++;
+     node = node->next;
+   }
+   if ( node ) {
+     path_node_delete_chain(node->next);
+-    node->next = NULL;
++    node->next = nullptr;
+   }
+ } // cc_xml_path_truncate_x()
+ 
+@@ -352,7 +352,7 @@ cc_xml_path_dump(cc_xml_path * path)
+ {
+   assert(path);
+   struct path_node * node = path->head;
+-  while ( node != NULL ) {
++  while ( node != nullptr ) {
+     if ( node != path->head )
+       fprintf(stderr, ".");
+     fprintf(stderr, "%s", node->element);
+diff --git a/coin4/src/xml/utils.cpp b/coin4/src/xml/utils.cpp
+index b6734d2..7ce10c8 100644
+--- a/coin4/src/xml/utils.cpp
++++ b/coin4/src/xml/utils.cpp
+@@ -44,7 +44,7 @@ char *
+ cc_xml_load_file(const char * path)
+ {
+   FILE * fd = fopen(path, "rb");
+-  if ( !fd ) return NULL;
++  if ( !fd ) return nullptr;
+   fseek(fd, 0, SEEK_END);
+   const long bufsize = ftell(fd);
+   fseek(fd, 0, SEEK_SET);
+@@ -69,7 +69,7 @@ char *
+ cc_xml_strndup(const char * str, int len)
+ {
+   char * buf = new char [ len + 1 ];
+-  assert(buf != NULL);
++  assert(buf != nullptr);
+   memcpy(buf, str, len);
+   buf[len] = '\0';
+   return buf;
+@@ -97,7 +97,7 @@ cc_xml_strieq(const char * s1, const char * s2)
+ int
+ sc_whitespace_p(const char * string)
+ {
+-  assert(string != NULL);
++  assert(string != nullptr);
+   while ( *string ) {
+     switch ( *string ) {
+     case ' ':
+diff --git a/coin4/testsuite/StandardTests.cpp b/coin4/testsuite/StandardTests.cpp
+index dae7140..115e67c 100644
+--- a/coin4/testsuite/StandardTests.cpp
++++ b/coin4/testsuite/StandardTests.cpp
+@@ -16,20 +16,20 @@ using namespace SIM::Coin3D::Coin;
+ 
+ static bool
+ testCorrectFile(SoNode * root, std::string & filename) {
+-  BOOST_CHECK_MESSAGE(root != NULL, (std::string("failed to read file ") + filename).c_str() );
+-  return root!=NULL;
++  BOOST_CHECK_MESSAGE(root != nullptr, (std::string("failed to read file ") + filename).c_str() );
++  return root!=nullptr;
+ }
+ 
+ static bool
+ testInCorrectFile(SoNode * root, std::string & filename) {
+-  BOOST_CHECK_MESSAGE(root == NULL, (std::string("Managed to read an incorrect file ") + filename).c_str() );
+-  return root!=NULL;
++  BOOST_CHECK_MESSAGE(root == nullptr, (std::string("Managed to read an incorrect file ") + filename).c_str() );
++  return root!=nullptr;
+ }
+ 
+ static bool
+ testOutOfSpecFile(SoNode * root, std::string & filename) {
+-  BOOST_CHECK_MESSAGE(root != NULL, (std::string("This out of spec file could be read in an earlier version ") + filename).c_str() );
+-  return root!=NULL;
++  BOOST_CHECK_MESSAGE(root != nullptr, (std::string("This out of spec file could be read in an earlier version ") + filename).c_str() );
++  return root!=nullptr;
+ }
+ 
+ 
+diff --git a/coin4/testsuite/TestSuiteUtils.cpp b/coin4/testsuite/TestSuiteUtils.cpp
+index f930635..90b9287 100644
+--- a/coin4/testsuite/TestSuiteUtils.cpp
++++ b/coin4/testsuite/TestSuiteUtils.cpp
+@@ -69,14 +69,14 @@ int memoryerrorcount = 0;
+ struct filterset {
+   char ** filters;
+   filterset * next;
+-} * messagefilters = NULL;
++} * messagefilters = nullptr;
+ 
+ int
+ should_filter(const SbString & msg)
+ {
+   filterset * filters = messagefilters;
+-  while (filters != NULL) {
+-    for (int i = 0; filters->filters[i] != NULL; ++i) {
++  while (filters != nullptr) {
++    for (int i = 0; filters->filters[i] != nullptr; ++i) {
+       if (msg.find(filters->filters[i])) {
+         return 1;
+       }
+@@ -129,9 +129,9 @@ memoryerrormsg_handler(const SoError * error, void * data)
+ void
+ TestSuite::Init(void)
+ {
+-  SoDebugError::setHandlerCallback(debugerrormsg_handler, NULL);
+-  SoReadError::setHandlerCallback(readerrormsg_handler, NULL);
+-  SoMemoryError::setHandlerCallback(memoryerrormsg_handler, NULL);
++  SoDebugError::setHandlerCallback(debugerrormsg_handler, nullptr);
++  SoReadError::setHandlerCallback(readerrormsg_handler, nullptr);
++  SoMemoryError::setHandlerCallback(memoryerrormsg_handler, nullptr);
+ }
+ 
+ void
+@@ -142,13 +142,13 @@ TestSuite::PushMessageSuppressFilters(const char * patterns[])
+   messagefilters = filters;
+ 
+   int count = 0;
+-  for (; patterns[count] != NULL; ++count) { }
++  for (; patterns[count] != nullptr; ++count) { }
+   filters->filters = new char * [ count + 1 ];
+   for (int i = 0; i < count; ++i ) {
+     filters->filters[i] = new char [ strlen(patterns[i]) + 1 ];
+     strcpy(filters->filters[i], patterns[i]);
+   }
+-  filters->filters[count] = NULL;
++  filters->filters[count] = nullptr;
+ }
+ 
+ void
+@@ -158,7 +158,7 @@ TestSuite::PopMessageSuppressFilters(void)
+   filterset * filters = messagefilters;
+   messagefilters = filters->next;
+ 
+-  for (int i = 0; filters->filters[i] != NULL; ++i) {
++  for (int i = 0; filters->filters[i] != nullptr; ++i) {
+     delete [] filters->filters[i];
+   }
+   delete [] filters->filters;
+@@ -229,11 +229,11 @@ SoNode *
+ TestSuite::ReadInventorFile(const char * filename)
+ {
+   assert(filename);
+-  SoNode * root = NULL;
++  SoNode * root = nullptr;
+   {
+     SoInput in;
+     if (!in.openFile(filename)) {
+-      return NULL;
++      return nullptr;
+     }
+     root = SoDB::readAll(&in);
+   }
+@@ -247,13 +247,13 @@ TestSuite::WriteInventorFile(const char * filename, SoNode * root)
+   assert(root);
+   SoOutput out;
+   if (!out.openFile(filename)) {
+-    return FALSE;
++    return false;
+   }
+   SoWriteAction wa(&out);
+   root->ref();
+   wa.apply(root);
+   root->unrefNoDelete();
+-  return TRUE;
++  return true;
+ }
+ 
+ /*
+@@ -277,7 +277,7 @@ namespace {
+     char buf[1024];
+ #ifdef USE_POSIX
+     if (!getcwd(buf,sizeof(buf)))
+-      return NULL;
++      return nullptr;
+ #endif //USE_POSIX
+ #ifdef USE_WIN32
+     GetCurrentDirectory(sizeof(buf),buf);
+@@ -413,7 +413,7 @@ TestSuite::test_all_files(const std::string & search_directory,
+       coin_chdir(dir);
+       SoNode * fileroot = TestSuite::ReadInventorFile(file.c_str());
+       testFunction(fileroot, filename);
+-      if (fileroot != NULL) {
++      if (fileroot != nullptr) {
+         fileroot->ref();
+         fileroot->unref();
+       }

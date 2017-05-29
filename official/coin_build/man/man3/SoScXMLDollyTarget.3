@@ -1,0 +1,161 @@
+.TH "SoScXMLDollyTarget" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoScXMLDollyTarget \- SCXML event target service for zoom-behaviour\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/scxml/SoScXMLDollyTarget\&.h>\fP
+.PP
+Inherits \fBSoScXMLNavigationTarget\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void * \fBcreateInstance\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBcleanClass\fP (void)"
+.br
+.ti -1c
+.RI "static \fBSoScXMLDollyTarget\fP * \fBconstructSingleton\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBdestructSingleton\fP (void)"
+.br
+.ti -1c
+.RI "static \fBSoScXMLDollyTarget\fP * \fBsingleton\fP (void)"
+.br
+.ti -1c
+.RI "static const \fBSbName\fP & \fBBEGIN\fP (void)"
+.br
+.ti -1c
+.RI "static const \fBSbName\fP & \fBUPDATE\fP (void)"
+.br
+.ti -1c
+.RI "static const \fBSbName\fP & \fBEND\fP (void)"
+.br
+.ti -1c
+.RI "static const \fBSbName\fP & \fBJUMP\fP (void)"
+.br
+.ti -1c
+.RI "static const \fBSbName\fP & \fBSTEP_IN\fP (void)"
+.br
+.ti -1c
+.RI "static const \fBSbName\fP & \fBSTEP_OUT\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBdolly\fP (\fBSoCamera\fP *camera, float diff)"
+.br
+.ti -1c
+.RI "static void \fBjump\fP (\fBSoCamera\fP *camera, float focaldistance)"
+.br
+.ti -1c
+.RI "static void \fBstep\fP (\fBSoCamera\fP *camera, SbBool exponential, float diff, float min=0\&.0f, float max=0\&.0f)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSoScXMLDollyTarget\fP (void)"
+.br
+.ti -1c
+.RI "virtual SbBool \fBprocessOneEvent\fP (const \fBScXMLEvent\fP *event)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+SCXML event target service for zoom-behaviour\&. 
+
+Events:
+.PP
+x-coin-navigation\&.Dolly\&.*
+.PP
+BEGIN _sessionid {string} mouseposition {\fBSbVec2f\fP} [absminfocaldistance] {float} [absmaxfocaldistance] {float} [setfocaldistance] {float} [motiontype] {string:exponential,linear}
+.PP
+UPDATE _sessionid {string} mouseposition {\fBSbVec2f\fP}
+.PP
+END _sessionid {string} mouseposition {\fBSbVec2f\fP}
+.PP
+JUMP _sessionid {string} focaldistance {float}
+.PP
+STEP_IN _sessionid [count=1] {float} [absminfocaldistance] {float} [motiontype] {string:exponential,linear}
+.PP
+STEP_OUT _sessionid [count=1] {float} [absmaxfocaldistance] {float} [motiontype] {string:exponential,linear}
+.PP
+\fBSince:\fP
+.RS 4
+2008-02-14 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoScXMLDollyTarget::SoScXMLDollyTarget (void)\fC [protected]\fP"
+The constructor registers the singleton with the proper name and target type\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoScXMLDollyTarget::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoBase::getTypeId() const\fP 
+.RE
+.PP
+
+.PP
+Implements \fBSoScXMLNavigationTarget\fP\&.
+.SS "const \fBSbName\fP & SoScXMLDollyTarget::BEGIN (void)\fC [static]\fP"
+Returns the full name for the dolly BEGIN SCXML event\&. 
+.SS "const \fBSbName\fP & SoScXMLDollyTarget::UPDATE (void)\fC [static]\fP"
+Returns the full name for the dolly UPDATE SCXML event\&. 
+.SS "const \fBSbName\fP & SoScXMLDollyTarget::END (void)\fC [static]\fP"
+Returns the full name for the dolly END SCXML event\&. 
+.SS "const \fBSbName\fP & SoScXMLDollyTarget::JUMP (void)\fC [static]\fP"
+Returns the full name for the dolly JUMP SCXML event\&. 
+.SS "const \fBSbName\fP & SoScXMLDollyTarget::STEP_IN (void)\fC [static]\fP"
+Returns the full name for the dolly STEP_IN SCXML event\&. 
+.SS "const \fBSbName\fP & SoScXMLDollyTarget::STEP_OUT (void)\fC [static]\fP"
+Returns the full name for the dolly STEP_OUT SCXML event\&. 
+.SS "void SoScXMLDollyTarget::jump (\fBSoCamera\fP * camera, float focaldistance)\fC [static]\fP"
+Jumps the camera to \fIfocaldistance\fP distance from the current focal point of the camera\&. This function only changes the \fBSoCamera::position\fP field\&.
+.PP
+This function is more or less useless to use on an \fBSoOrthographicCamera\fP\&. 
+.SS "void SoScXMLDollyTarget::step (\fBSoCamera\fP * camera, SbBool exponential, float diff, float mindistance = \fC0\&.0f\fP, float maxdistance = \fC0\&.0f\fP)\fC [static]\fP"
+Steps the camera relative to its orientation and focal point by diff\&.
+.PP
+If \fIexponential\fP is FALSE, then the diff value is treated as an absolute distance value\&.
+.PP
+If \fImindistance\fP and/or \fImaxdistance\fP is anything but 0\&.0, they are checked against the focaldistance, and the focaldistance will be clamped inside the range\&. Both are not needed, if only one is specified, only that part of the range will be used to limit the dollying\&.
+.PP
+If exponential is TRUE\&.\&.\&.FIXME 
+.SS "SbBool SoScXMLDollyTarget::processOneEvent (const \fBScXMLEvent\fP * event)\fC [protected]\fP, \fC [virtual]\fP"
+Dispatches incoming SCXML events to the corresponding functionality\&. 
+.PP
+Reimplemented from \fBScXMLEventTarget\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

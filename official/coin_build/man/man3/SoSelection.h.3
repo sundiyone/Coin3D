@@ -1,0 +1,49 @@
+.TH "SoSelection.h" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoSelection.h
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <Inventor/nodes/SoSubNode\&.h>\fP
+.br
+\fC#include <Inventor/nodes/SoSeparator\&.h>\fP
+.br
+\fC#include <Inventor/fields/SoSFEnum\&.h>\fP
+.br
+\fC#include <Inventor/lists/SoPathList\&.h>\fP
+.br
+
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBSoSelection\fP"
+.br
+.RI "The \fBSoSelection\fP class manages a list of selected nodes\&.
+.PP
+Inserting an \fBSoSelection\fP node in your scene graph enables you to let the user 'pick' with the left mousebutton to select/deselect objects below the \fBSoSelection\fP node\&. "
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef void \fBSoSelectionPathCB\fP(void *data, \fBSoPath\fP *path)"
+.br
+.ti -1c
+.RI "typedef void \fBSoSelectionClassCB\fP(void *data, \fBSoSelection\fP *sel)"
+.br
+.ti -1c
+.RI "typedef \fBSoPath\fP * \fBSoSelectionPickCB\fP(void *data, const \fBSoPickedPoint\fP *pick)"
+.br
+.in -1c
+.SH "Typedef Documentation"
+.PP 
+.SS "\fBSoPath\fP * SoSelectionPickCB"
+Callback functions for the SoSelection::setPickFilterCallbacksetPassCallback() method need to be of this type\&.
+.PP
+See documentation of that method for more information\&. 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

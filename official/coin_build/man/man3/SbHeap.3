@@ -1,0 +1,97 @@
+.TH "SbHeap" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SbHeap \- The \fBSbHeap\fP class is a generic heap class\&.
+.PP
+FIXME: write doc\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/SbHeap\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSbHeap\fP (const \fBSbHeapFuncs\fP &\fBSbHeapFuncs\fP, const \fBint\fP initsize=1024)"
+.br
+.ti -1c
+.RI "\fB~SbHeap\fP ()"
+.br
+.ti -1c
+.RI "void \fBemptyHeap\fP (void)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBsize\fP (void) const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBadd\fP (void *obj)"
+.br
+.ti -1c
+.RI "void \fBremove\fP (const \fBint\fP pos)"
+.br
+.ti -1c
+.RI "void \fBremove\fP (void *obj)"
+.br
+.ti -1c
+.RI "void * \fBextractMin\fP ()"
+.br
+.ti -1c
+.RI "void * \fBgetMin\fP ()"
+.br
+.ti -1c
+.RI "void * \fBoperator[]\fP (const \fBint\fP idx)"
+.br
+.ti -1c
+.RI "void \fBnewWeight\fP (void *obj, \fBint\fP hpos=\-1)"
+.br
+.ti -1c
+.RI "SbBool \fBbuildHeap\fP (SbBool(*progresscb)(float percentage, void *data)=NULL, void *data=NULL)"
+.br
+.ti -1c
+.RI "SbBool \fBtraverseHeap\fP (SbBool(*func)(void *, void *), void *userdata) const"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBSbHeap\fP class is a generic heap class\&.
+.PP
+FIXME: write doc\&. 
+
+Note: \fBSbHeap\fP is an extension versus the Open Inventor API\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SbHeap::SbHeap (const \fBSbHeapFuncs\fP & hFuncs, const \fBint\fP initsize = \fC1024\fP)"
+Constructor\&. \fIhFuncs\fP specifies the functions for modifying and returning information about the heap object, \fIinitsize\fP specifies the initial number of allocated elements\&. This array will automatically grow when necessary, but if you know approximately how many elements the heap will contain, you should supply this to avoid some reallocs\&. 
+.SS "SbHeap::~SbHeap (void)"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void SbHeap::emptyHeap (void)"
+Removes all the elements from the heap\&. 
+.SS "\fBint\fP SbHeap::size (void) const"
+Returns the number of elements in the heap\&. 
+.SS "\fBint\fP SbHeap::add (void * obj)"
+Adds an element to the heap\&. Returns the element's heap position\&. 
+.SS "void SbHeap::remove (const \fBint\fP idx)"
+Removes an element from the heap\&. 
+.SS "void SbHeap::remove (void * obj)"
+This is an overloaded member function, provided for convenience\&. It differs from the above function only in what argument(s) it accepts\&. 
+.SS "void * SbHeap::extractMin (void)"
+Returns and removes the first element in the heap, or \fINULL\fP if heap is empty\&. 
+.SS "void * SbHeap::getMin (void)"
+Returns the first element in the heap, or \fINULL\fP if heap is empty\&. 
+.SS "void * SbHeap::operator[] (const \fBint\fP idx)"
+Returns the heap element at index \fIidx\fP in the heap\&. 
+.SS "void SbHeap::newWeight (void * obj, \fBint\fP hpos = \fC\-1\fP)"
+Fixes heap if necessary when the element at \fIhpos\fP has changed weight\&. If you know the element's heap position you can supply it in \fIhpos\fP\&. 
+.SS "SbBool SbHeap::buildHeap (SbBool(*)(float percentage, void *data) progresscb = \fCNULL\fP, void * data = \fCNULL\fP)"
+Builds heap out of randomly ordered data-structure\&. 
+.SS "SbBool SbHeap::traverseHeap (SbBool(*)(void *, void *) func, void * userdata) const"
+Traverses each heap elements, and calls \fIfunc\fP for each element\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

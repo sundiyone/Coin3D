@@ -1,0 +1,125 @@
+.TH "SoVRMLWorldInfo" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoVRMLWorldInfo \- The \fBSoVRMLWorldInfo\fP class contains information about the VRML scene\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/VRMLnodes/SoVRMLWorldInfo\&.h>\fP
+.PP
+Inherits \fBSoNode\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "\fBSoVRMLWorldInfo\fP (void)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFString\fP \fBtitle\fP"
+.br
+.ti -1c
+.RI "\fBSoMFString\fP \fBinfo\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fB~SoVRMLWorldInfo\fP ()"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoVRMLWorldInfo\fP class contains information about the VRML scene\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP 
+
+
+.PP
+.nf
+WorldInfo {
+  field MFString info  []
+  field SFString title ""
+}
+
+.fi
+.PP
+.PP
+The WorldInfo node contains information about the world\&. This node is strictly for documentation purposes and has no effect on the visual appearance or behaviour of the world\&. The \fItitle\fP field is intended to store the name or title of the world so that browsers can present this to the user (perhaps in the window border)\&. Any other information about the world can be stored in the \fIinfo\fP field, such as author information, copyright, and usage instructions\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoVRMLWorldInfo::SoVRMLWorldInfo (void)"
+Constructor\&. 
+.SS "SoVRMLWorldInfo::~SoVRMLWorldInfo ()\fC [protected]\fP, \fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoVRMLWorldInfo::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Implements \fBSoBase\fP\&.
+.SS "const \fBSoFieldData\fP * SoVRMLWorldInfo::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoFieldContainer\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSoSFString\fP SoVRMLWorldInfo::title"
+World title strings\&. 
+.SS "\fBSoMFString\fP SoVRMLWorldInfo::info"
+Info strings\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

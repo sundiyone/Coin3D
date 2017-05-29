@@ -1,0 +1,84 @@
+.TH "SbCylinderPlaneProjector" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SbCylinderPlaneProjector \- The \fBSbCylinderPlaneProjector\fP class projects 2D points to a half-cylinder and a plane\&.
+.PP
+This projector uses a plane along with the half-cylinder of \fBSbCylinderSectionProjector\fP for projections\&. If the 2D point mapping 'misses' the cylinder section, the 3D point will be projected onto the plane\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/projectors/SbCylinderPlaneProjector\&.h>\fP
+.PP
+Inherits \fBSbCylinderSectionProjector\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSbCylinderPlaneProjector\fP (const float edgetol=0\&.9f, const SbBool orienttoeye=TRUE)"
+.br
+.ti -1c
+.RI "\fBSbCylinderPlaneProjector\fP (const \fBSbCylinder\fP &cyl, const float edgetol=0\&.9f, const SbBool orienttoeye=TRUE)"
+.br
+.ti -1c
+.RI "virtual \fBSbProjector\fP * \fBcopy\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fBSbVec3f\fP \fBproject\fP (const \fBSbVec2f\fP &point)"
+.br
+.ti -1c
+.RI "virtual \fBSbRotation\fP \fBgetRotation\fP (const \fBSbVec3f\fP &point1, const \fBSbVec3f\fP &point2)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSbRotation\fP \fBgetRotation\fP (const \fBSbVec3f\fP &point1, const SbBool tol1, const \fBSbVec3f\fP &point2, const SbBool tol2)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSbCylinderPlaneProjector\fP class projects 2D points to a half-cylinder and a plane\&.
+.PP
+This projector uses a plane along with the half-cylinder of \fBSbCylinderSectionProjector\fP for projections\&. If the 2D point mapping 'misses' the cylinder section, the 3D point will be projected onto the plane\&. 
+
+
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSbSpherePlaneProjector\fP 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SbCylinderPlaneProjector::SbCylinderPlaneProjector (const float edgetol = \fC0\&.9f\fP, const SbBool orienttoeye = \fCTRUE\fP)"
+Default constructor\&. See \fBSbCylinderSectionProjector::SbCylinderSectionProjector()\fP\&. 
+.SS "SbCylinderPlaneProjector::SbCylinderPlaneProjector (const \fBSbCylinder\fP & cyl, const float edgetol = \fC0\&.9f\fP, const SbBool orienttoeye = \fCTRUE\fP)"
+Constructor with explicit specification of projection cylinder\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSbProjector\fP * SbCylinderPlaneProjector::copy (void) const\fC [virtual]\fP"
+Construct and return a copy of this projector\&. The caller is responsible for destructing the new instance\&.
+.PP
+\fBNote that if the Coin library has been built as a DLL under Microsoft Windows and you use this method from application code, you \fImust\fP make sure that both the Coin DLL and the application executable is using the same instance of a C Run-Time (CRT) library\&. Otherwise, you \fIwill\fP get memory heap corruption upon deallocating the returned instances, eventually leading to mysterious crashes\&.\fP 
+.PP
+Reimplemented from \fBSbCylinderSectionProjector\fP\&.
+.SS "\fBSbVec3f\fP SbCylinderPlaneProjector::project (const \fBSbVec2f\fP & point)\fC [virtual]\fP"
+Project the 2D \fIpoint\fP from normalized viewport coordinates to a 3D point\&. The mapping will be done in accordance with the type of the projector\&. 
+.PP
+Reimplemented from \fBSbCylinderSectionProjector\fP\&.
+.SS "\fBSbRotation\fP SbCylinderPlaneProjector::getRotation (const \fBSbVec3f\fP & point1, const \fBSbVec3f\fP & point2)\fC [virtual]\fP"
+Returns rotation on the projection surface which re-orients \fIpoint1\fP to \fIpoint2\fP\&. 
+.PP
+Reimplemented from \fBSbCylinderSectionProjector\fP\&.
+.SS "\fBSbRotation\fP SbCylinderPlaneProjector::getRotation (const \fBSbVec3f\fP & point1, const SbBool tol1, const \fBSbVec3f\fP & point2, const SbBool tol2)\fC [protected]\fP"
+Calculates rotation from \fIpoint1\fP to \fIpoint2\fP, with \fItol1\fP and \fItol2\fP deciding whether or not to use the tolerance setting\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

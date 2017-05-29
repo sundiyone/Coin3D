@@ -1,0 +1,1384 @@
+The system is: Linux - 4.10.0-21-generic - x86_64
+Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+Compiler: /usr/bin/cc 
+Build flags: 
+Id flags: 
+
+The output was:
+0
+
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
+
+The C compiler identification is GNU, found in "/home/ed/Coin3D/official/coin_build/CMakeFiles/3.2.1/CompilerIdC/a.out"
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+Compiler: /usr/bin/c++ 
+Build flags: 
+Id flags: 
+
+The output was:
+0
+
+
+Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.out"
+
+The CXX compiler identification is GNU, found in "/home/ed/Coin3D/official/coin_build/CMakeFiles/3.2.1/CompilerIdCXX/a.out"
+
+Determining if the C compiler works passed with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec1064979844/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec1064979844.dir/build.make CMakeFiles/cmTryCompileExec1064979844.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1064979844.dir/testCCompiler.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec1064979844.dir/testCCompiler.c.o   -c /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/testCCompiler.c
+Linking C executable cmTryCompileExec1064979844
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1064979844.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec1064979844.dir/testCCompiler.c.o  -o cmTryCompileExec1064979844 -rdynamic 
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+
+Detecting C compiler ABI info compiled with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec2552955998/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec2552955998.dir/build.make CMakeFiles/cmTryCompileExec2552955998.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2552955998.dir/CMakeCCompilerABI.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec2552955998.dir/CMakeCCompilerABI.c.o   -c /usr/local/share/cmake-3.2/Modules/CMakeCCompilerABI.c
+Linking C executable cmTryCompileExec2552955998
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2552955998.dir/link.txt --verbose=1
+/usr/bin/cc      -v CMakeFiles/cmTryCompileExec2552955998.dir/CMakeCCompilerABI.c.o  -o cmTryCompileExec2552955998 -rdynamic  
+Using built-in specs.
+COLLECT_GCC=/usr/bin/cc
+COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/6/lto-wrapper
+Target: x86_64-linux-gnu
+Configured with: ../src/configure -v --with-pkgversion='Ubuntu 6.3.0-12ubuntu2' --with-bugurl=file:///usr/share/doc/gcc-6/README.Bugs --enable-languages=c,ada,c++,java,go,d,fortran,objc,obj-c++ --prefix=/usr --program-suffix=-6 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --with-sysroot=/ --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-libmpx --enable-plugin --enable-default-pie --with-system-zlib --disable-browser-plugin --enable-java-awt=gtk --enable-gtk-cairo --with-java-home=/usr/lib/jvm/java-1.5.0-gcj-6-amd64/jre --enable-java-home --with-jvm-root-dir=/usr/lib/jvm/java-1.5.0-gcj-6-amd64 --with-jvm-jar-dir=/usr/lib/jvm-exports/java-1.5.0-gcj-6-amd64 --with-arch-directory=amd64 --with-ecj-jar=/usr/share/java/eclipse-ecj.jar --with-target-system-zlib --enable-objc-gc=auto --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu
+Thread model: posix
+gcc version 6.3.0 20170406 (Ubuntu 6.3.0-12ubuntu2) 
+COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/6/:/usr/lib/gcc/x86_64-linux-gnu/6/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/6/:/usr/lib/gcc/x86_64-linux-gnu/
+LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/6/:/usr/lib/gcc/x86_64-linux-gnu/6/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/6/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/6/../../../:/lib/:/usr/lib/
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTryCompileExec2552955998' '-rdynamic' '-mtune=generic' '-march=x86-64'
+ /usr/lib/gcc/x86_64-linux-gnu/6/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/6/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/6/lto-wrapper -plugin-opt=-fresolution=/tmp/ccPxCLzD.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTryCompileExec2552955998 /usr/lib/gcc/x86_64-linux-gnu/6/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/6/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/6/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/6 -L/usr/lib/gcc/x86_64-linux-gnu/6/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/6/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/6/../../.. CMakeFiles/cmTryCompileExec2552955998.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc/x86_64-linux-gnu/6/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/6/../../../x86_64-linux-gnu/crtn.o
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTryCompileExec2552955998' '-rdynamic' '-mtune=generic' '-march=x86-64'
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+
+Parsed C implicit link information from above output:
+  link line regex: [^( *|.*[/\])(ld|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+  ignore line: [Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp]
+  ignore line: []
+  ignore line: [Run Build Command:"/usr/bin/make" "cmTryCompileExec2552955998/fast"]
+  ignore line: [/usr/bin/make -f CMakeFiles/cmTryCompileExec2552955998.dir/build.make CMakeFiles/cmTryCompileExec2552955998.dir/build]
+  ignore line: [make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp']
+  ignore line: [/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1]
+  ignore line: [Building C object CMakeFiles/cmTryCompileExec2552955998.dir/CMakeCCompilerABI.c.o]
+  ignore line: [/usr/bin/cc    -o CMakeFiles/cmTryCompileExec2552955998.dir/CMakeCCompilerABI.c.o   -c /usr/local/share/cmake-3.2/Modules/CMakeCCompilerABI.c]
+  ignore line: [Linking C executable cmTryCompileExec2552955998]
+  ignore line: [/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2552955998.dir/link.txt --verbose=1]
+  ignore line: [/usr/bin/cc      -v CMakeFiles/cmTryCompileExec2552955998.dir/CMakeCCompilerABI.c.o  -o cmTryCompileExec2552955998 -rdynamic  ]
+  ignore line: [Using built-in specs.]
+  ignore line: [COLLECT_GCC=/usr/bin/cc]
+  ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/6/lto-wrapper]
+  ignore line: [Target: x86_64-linux-gnu]
+  ignore line: [Configured with: ../src/configure -v --with-pkgversion='Ubuntu 6.3.0-12ubuntu2' --with-bugurl=file:///usr/share/doc/gcc-6/README.Bugs --enable-languages=c,ada,c++,java,go,d,fortran,objc,obj-c++ --prefix=/usr --program-suffix=-6 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --with-sysroot=/ --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-libmpx --enable-plugin --enable-default-pie --with-system-zlib --disable-browser-plugin --enable-java-awt=gtk --enable-gtk-cairo --with-java-home=/usr/lib/jvm/java-1.5.0-gcj-6-amd64/jre --enable-java-home --with-jvm-root-dir=/usr/lib/jvm/java-1.5.0-gcj-6-amd64 --with-jvm-jar-dir=/usr/lib/jvm-exports/java-1.5.0-gcj-6-amd64 --with-arch-directory=amd64 --with-ecj-jar=/usr/share/java/eclipse-ecj.jar --with-target-system-zlib --enable-objc-gc=auto --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu]
+  ignore line: [Thread model: posix]
+  ignore line: [gcc version 6.3.0 20170406 (Ubuntu 6.3.0-12ubuntu2) ]
+  ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/6/:/usr/lib/gcc/x86_64-linux-gnu/6/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/6/:/usr/lib/gcc/x86_64-linux-gnu/]
+  ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/6/:/usr/lib/gcc/x86_64-linux-gnu/6/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/6/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/6/../../../:/lib/:/usr/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTryCompileExec2552955998' '-rdynamic' '-mtune=generic' '-march=x86-64']
+  link line: [ /usr/lib/gcc/x86_64-linux-gnu/6/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/6/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/6/lto-wrapper -plugin-opt=-fresolution=/tmp/ccPxCLzD.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTryCompileExec2552955998 /usr/lib/gcc/x86_64-linux-gnu/6/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/6/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/6/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/6 -L/usr/lib/gcc/x86_64-linux-gnu/6/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/6/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/6/../../.. CMakeFiles/cmTryCompileExec2552955998.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc/x86_64-linux-gnu/6/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/6/../../../x86_64-linux-gnu/crtn.o]
+    arg [/usr/lib/gcc/x86_64-linux-gnu/6/collect2] ==> ignore
+    arg [-plugin] ==> ignore
+    arg [/usr/lib/gcc/x86_64-linux-gnu/6/liblto_plugin.so] ==> ignore
+    arg [-plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/6/lto-wrapper] ==> ignore
+    arg [-plugin-opt=-fresolution=/tmp/ccPxCLzD.res] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+    arg [-plugin-opt=-pass-through=-lc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+    arg [--sysroot=/] ==> ignore
+    arg [--build-id] ==> ignore
+    arg [--eh-frame-hdr] ==> ignore
+    arg [-m] ==> ignore
+    arg [elf_x86_64] ==> ignore
+    arg [--hash-style=gnu] ==> ignore
+    arg [--as-needed] ==> ignore
+    arg [-export-dynamic] ==> ignore
+    arg [-dynamic-linker] ==> ignore
+    arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
+    arg [-pie] ==> ignore
+    arg [-znow] ==> ignore
+    arg [-zrelro] ==> ignore
+    arg [-o] ==> ignore
+    arg [cmTryCompileExec2552955998] ==> ignore
+    arg [/usr/lib/gcc/x86_64-linux-gnu/6/../../../x86_64-linux-gnu/Scrt1.o] ==> ignore
+    arg [/usr/lib/gcc/x86_64-linux-gnu/6/../../../x86_64-linux-gnu/crti.o] ==> ignore
+    arg [/usr/lib/gcc/x86_64-linux-gnu/6/crtbeginS.o] ==> ignore
+    arg [-L/usr/lib/gcc/x86_64-linux-gnu/6] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/6]
+    arg [-L/usr/lib/gcc/x86_64-linux-gnu/6/../../../x86_64-linux-gnu] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/6/../../../x86_64-linux-gnu]
+    arg [-L/usr/lib/gcc/x86_64-linux-gnu/6/../../../../lib] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/6/../../../../lib]
+    arg [-L/lib/x86_64-linux-gnu] ==> dir [/lib/x86_64-linux-gnu]
+    arg [-L/lib/../lib] ==> dir [/lib/../lib]
+    arg [-L/usr/lib/x86_64-linux-gnu] ==> dir [/usr/lib/x86_64-linux-gnu]
+    arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
+    arg [-L/usr/lib/gcc/x86_64-linux-gnu/6/../../..] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/6/../../..]
+    arg [CMakeFiles/cmTryCompileExec2552955998.dir/CMakeCCompilerABI.c.o] ==> ignore
+    arg [-lgcc] ==> lib [gcc]
+    arg [--as-needed] ==> ignore
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [--no-as-needed] ==> ignore
+    arg [-lc] ==> lib [c]
+    arg [-lgcc] ==> lib [gcc]
+    arg [--as-needed] ==> ignore
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [--no-as-needed] ==> ignore
+    arg [/usr/lib/gcc/x86_64-linux-gnu/6/crtendS.o] ==> ignore
+    arg [/usr/lib/gcc/x86_64-linux-gnu/6/../../../x86_64-linux-gnu/crtn.o] ==> ignore
+  remove lib [gcc]
+  remove lib [gcc_s]
+  remove lib [gcc]
+  remove lib [gcc_s]
+  collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/6] ==> [/usr/lib/gcc/x86_64-linux-gnu/6]
+  collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/6/../../../x86_64-linux-gnu] ==> [/usr/lib/x86_64-linux-gnu]
+  collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/6/../../../../lib] ==> [/usr/lib]
+  collapse library dir [/lib/x86_64-linux-gnu] ==> [/lib/x86_64-linux-gnu]
+  collapse library dir [/lib/../lib] ==> [/lib]
+  collapse library dir [/usr/lib/x86_64-linux-gnu] ==> [/usr/lib/x86_64-linux-gnu]
+  collapse library dir [/usr/lib/../lib] ==> [/usr/lib]
+  collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/6/../../..] ==> [/usr/lib]
+  implicit libs: [c]
+  implicit dirs: [/usr/lib/gcc/x86_64-linux-gnu/6;/usr/lib/x86_64-linux-gnu;/usr/lib;/lib/x86_64-linux-gnu;/lib]
+  implicit fwks: []
+
+
+
+
+Detecting C [-std=c11] compiler features compiled with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec1145686805/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec1145686805.dir/build.make CMakeFiles/cmTryCompileExec1145686805.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1145686805.dir/feature_tests.c.o
+/usr/bin/cc   -std=c11 -o CMakeFiles/cmTryCompileExec1145686805.dir/feature_tests.c.o   -c /home/ed/Coin3D/official/coin_build/CMakeFiles/feature_tests.c
+Linking C executable cmTryCompileExec1145686805
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1145686805.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec1145686805.dir/feature_tests.c.o  -o cmTryCompileExec1145686805 -rdynamic 
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+
+    Feature record: C_FEATURE:1c_function_prototypes
+    Feature record: C_FEATURE:1c_restrict
+    Feature record: C_FEATURE:1c_static_assert
+    Feature record: C_FEATURE:1c_variadic_macros
+
+
+Detecting C [-std=c99] compiler features compiled with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec3940895707/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec3940895707.dir/build.make CMakeFiles/cmTryCompileExec3940895707.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3940895707.dir/feature_tests.c.o
+/usr/bin/cc   -std=c99 -o CMakeFiles/cmTryCompileExec3940895707.dir/feature_tests.c.o   -c /home/ed/Coin3D/official/coin_build/CMakeFiles/feature_tests.c
+Linking C executable cmTryCompileExec3940895707
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3940895707.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec3940895707.dir/feature_tests.c.o  -o cmTryCompileExec3940895707 -rdynamic 
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+
+    Feature record: C_FEATURE:1c_function_prototypes
+    Feature record: C_FEATURE:1c_restrict
+    Feature record: C_FEATURE:0c_static_assert
+    Feature record: C_FEATURE:1c_variadic_macros
+
+
+Detecting C [-std=c90] compiler features compiled with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec1511585580/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec1511585580.dir/build.make CMakeFiles/cmTryCompileExec1511585580.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1511585580.dir/feature_tests.c.o
+/usr/bin/cc   -std=c90 -o CMakeFiles/cmTryCompileExec1511585580.dir/feature_tests.c.o   -c /home/ed/Coin3D/official/coin_build/CMakeFiles/feature_tests.c
+Linking C executable cmTryCompileExec1511585580
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1511585580.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec1511585580.dir/feature_tests.c.o  -o cmTryCompileExec1511585580 -rdynamic 
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+
+    Feature record: C_FEATURE:1c_function_prototypes
+    Feature record: C_FEATURE:0c_restrict
+    Feature record: C_FEATURE:0c_static_assert
+    Feature record: C_FEATURE:0c_variadic_macros
+Determining if the CXX compiler works passed with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec201583239/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec201583239.dir/build.make CMakeFiles/cmTryCompileExec201583239.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building CXX object CMakeFiles/cmTryCompileExec201583239.dir/testCXXCompiler.cxx.o
+/usr/bin/c++     -o CMakeFiles/cmTryCompileExec201583239.dir/testCXXCompiler.cxx.o -c /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/testCXXCompiler.cxx
+Linking CXX executable cmTryCompileExec201583239
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec201583239.dir/link.txt --verbose=1
+/usr/bin/c++        CMakeFiles/cmTryCompileExec201583239.dir/testCXXCompiler.cxx.o  -o cmTryCompileExec201583239 -rdynamic 
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+
+Detecting CXX compiler ABI info compiled with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec4219305031/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec4219305031.dir/build.make CMakeFiles/cmTryCompileExec4219305031.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building CXX object CMakeFiles/cmTryCompileExec4219305031.dir/CMakeCXXCompilerABI.cpp.o
+/usr/bin/c++     -o CMakeFiles/cmTryCompileExec4219305031.dir/CMakeCXXCompilerABI.cpp.o -c /usr/local/share/cmake-3.2/Modules/CMakeCXXCompilerABI.cpp
+Linking CXX executable cmTryCompileExec4219305031
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec4219305031.dir/link.txt --verbose=1
+/usr/bin/c++       -v CMakeFiles/cmTryCompileExec4219305031.dir/CMakeCXXCompilerABI.cpp.o  -o cmTryCompileExec4219305031 -rdynamic  
+Using built-in specs.
+COLLECT_GCC=/usr/bin/c++
+COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/6/lto-wrapper
+Target: x86_64-linux-gnu
+Configured with: ../src/configure -v --with-pkgversion='Ubuntu 6.3.0-12ubuntu2' --with-bugurl=file:///usr/share/doc/gcc-6/README.Bugs --enable-languages=c,ada,c++,java,go,d,fortran,objc,obj-c++ --prefix=/usr --program-suffix=-6 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --with-sysroot=/ --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-libmpx --enable-plugin --enable-default-pie --with-system-zlib --disable-browser-plugin --enable-java-awt=gtk --enable-gtk-cairo --with-java-home=/usr/lib/jvm/java-1.5.0-gcj-6-amd64/jre --enable-java-home --with-jvm-root-dir=/usr/lib/jvm/java-1.5.0-gcj-6-amd64 --with-jvm-jar-dir=/usr/lib/jvm-exports/java-1.5.0-gcj-6-amd64 --with-arch-directory=amd64 --with-ecj-jar=/usr/share/java/eclipse-ecj.jar --with-target-system-zlib --enable-objc-gc=auto --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu
+Thread model: posix
+gcc version 6.3.0 20170406 (Ubuntu 6.3.0-12ubuntu2) 
+COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/6/:/usr/lib/gcc/x86_64-linux-gnu/6/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/6/:/usr/lib/gcc/x86_64-linux-gnu/
+LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/6/:/usr/lib/gcc/x86_64-linux-gnu/6/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/6/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/6/../../../:/lib/:/usr/lib/
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTryCompileExec4219305031' '-rdynamic' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+ /usr/lib/gcc/x86_64-linux-gnu/6/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/6/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/6/lto-wrapper -plugin-opt=-fresolution=/tmp/ccRg0Pw3.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTryCompileExec4219305031 /usr/lib/gcc/x86_64-linux-gnu/6/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/6/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/6/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/6 -L/usr/lib/gcc/x86_64-linux-gnu/6/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/6/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/6/../../.. CMakeFiles/cmTryCompileExec4219305031.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/6/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/6/../../../x86_64-linux-gnu/crtn.o
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTryCompileExec4219305031' '-rdynamic' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+
+Parsed CXX implicit link information from above output:
+  link line regex: [^( *|.*[/\])(ld|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+  ignore line: [Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp]
+  ignore line: []
+  ignore line: [Run Build Command:"/usr/bin/make" "cmTryCompileExec4219305031/fast"]
+  ignore line: [/usr/bin/make -f CMakeFiles/cmTryCompileExec4219305031.dir/build.make CMakeFiles/cmTryCompileExec4219305031.dir/build]
+  ignore line: [make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp']
+  ignore line: [/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1]
+  ignore line: [Building CXX object CMakeFiles/cmTryCompileExec4219305031.dir/CMakeCXXCompilerABI.cpp.o]
+  ignore line: [/usr/bin/c++     -o CMakeFiles/cmTryCompileExec4219305031.dir/CMakeCXXCompilerABI.cpp.o -c /usr/local/share/cmake-3.2/Modules/CMakeCXXCompilerABI.cpp]
+  ignore line: [Linking CXX executable cmTryCompileExec4219305031]
+  ignore line: [/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec4219305031.dir/link.txt --verbose=1]
+  ignore line: [/usr/bin/c++       -v CMakeFiles/cmTryCompileExec4219305031.dir/CMakeCXXCompilerABI.cpp.o  -o cmTryCompileExec4219305031 -rdynamic  ]
+  ignore line: [Using built-in specs.]
+  ignore line: [COLLECT_GCC=/usr/bin/c++]
+  ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/6/lto-wrapper]
+  ignore line: [Target: x86_64-linux-gnu]
+  ignore line: [Configured with: ../src/configure -v --with-pkgversion='Ubuntu 6.3.0-12ubuntu2' --with-bugurl=file:///usr/share/doc/gcc-6/README.Bugs --enable-languages=c,ada,c++,java,go,d,fortran,objc,obj-c++ --prefix=/usr --program-suffix=-6 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --with-sysroot=/ --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-libmpx --enable-plugin --enable-default-pie --with-system-zlib --disable-browser-plugin --enable-java-awt=gtk --enable-gtk-cairo --with-java-home=/usr/lib/jvm/java-1.5.0-gcj-6-amd64/jre --enable-java-home --with-jvm-root-dir=/usr/lib/jvm/java-1.5.0-gcj-6-amd64 --with-jvm-jar-dir=/usr/lib/jvm-exports/java-1.5.0-gcj-6-amd64 --with-arch-directory=amd64 --with-ecj-jar=/usr/share/java/eclipse-ecj.jar --with-target-system-zlib --enable-objc-gc=auto --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu]
+  ignore line: [Thread model: posix]
+  ignore line: [gcc version 6.3.0 20170406 (Ubuntu 6.3.0-12ubuntu2) ]
+  ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/6/:/usr/lib/gcc/x86_64-linux-gnu/6/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/6/:/usr/lib/gcc/x86_64-linux-gnu/]
+  ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/6/:/usr/lib/gcc/x86_64-linux-gnu/6/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/6/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/6/../../../:/lib/:/usr/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTryCompileExec4219305031' '-rdynamic' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
+  link line: [ /usr/lib/gcc/x86_64-linux-gnu/6/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/6/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/6/lto-wrapper -plugin-opt=-fresolution=/tmp/ccRg0Pw3.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTryCompileExec4219305031 /usr/lib/gcc/x86_64-linux-gnu/6/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/6/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/6/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/6 -L/usr/lib/gcc/x86_64-linux-gnu/6/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/6/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/6/../../.. CMakeFiles/cmTryCompileExec4219305031.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/6/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/6/../../../x86_64-linux-gnu/crtn.o]
+    arg [/usr/lib/gcc/x86_64-linux-gnu/6/collect2] ==> ignore
+    arg [-plugin] ==> ignore
+    arg [/usr/lib/gcc/x86_64-linux-gnu/6/liblto_plugin.so] ==> ignore
+    arg [-plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/6/lto-wrapper] ==> ignore
+    arg [-plugin-opt=-fresolution=/tmp/ccRg0Pw3.res] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+    arg [--sysroot=/] ==> ignore
+    arg [--build-id] ==> ignore
+    arg [--eh-frame-hdr] ==> ignore
+    arg [-m] ==> ignore
+    arg [elf_x86_64] ==> ignore
+    arg [--hash-style=gnu] ==> ignore
+    arg [--as-needed] ==> ignore
+    arg [-export-dynamic] ==> ignore
+    arg [-dynamic-linker] ==> ignore
+    arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
+    arg [-pie] ==> ignore
+    arg [-znow] ==> ignore
+    arg [-zrelro] ==> ignore
+    arg [-o] ==> ignore
+    arg [cmTryCompileExec4219305031] ==> ignore
+    arg [/usr/lib/gcc/x86_64-linux-gnu/6/../../../x86_64-linux-gnu/Scrt1.o] ==> ignore
+    arg [/usr/lib/gcc/x86_64-linux-gnu/6/../../../x86_64-linux-gnu/crti.o] ==> ignore
+    arg [/usr/lib/gcc/x86_64-linux-gnu/6/crtbeginS.o] ==> ignore
+    arg [-L/usr/lib/gcc/x86_64-linux-gnu/6] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/6]
+    arg [-L/usr/lib/gcc/x86_64-linux-gnu/6/../../../x86_64-linux-gnu] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/6/../../../x86_64-linux-gnu]
+    arg [-L/usr/lib/gcc/x86_64-linux-gnu/6/../../../../lib] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/6/../../../../lib]
+    arg [-L/lib/x86_64-linux-gnu] ==> dir [/lib/x86_64-linux-gnu]
+    arg [-L/lib/../lib] ==> dir [/lib/../lib]
+    arg [-L/usr/lib/x86_64-linux-gnu] ==> dir [/usr/lib/x86_64-linux-gnu]
+    arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
+    arg [-L/usr/lib/gcc/x86_64-linux-gnu/6/../../..] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/6/../../..]
+    arg [CMakeFiles/cmTryCompileExec4219305031.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+    arg [-lstdc++] ==> lib [stdc++]
+    arg [-lm] ==> lib [m]
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [-lgcc] ==> lib [gcc]
+    arg [-lc] ==> lib [c]
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [-lgcc] ==> lib [gcc]
+    arg [/usr/lib/gcc/x86_64-linux-gnu/6/crtendS.o] ==> ignore
+    arg [/usr/lib/gcc/x86_64-linux-gnu/6/../../../x86_64-linux-gnu/crtn.o] ==> ignore
+  remove lib [gcc_s]
+  remove lib [gcc]
+  remove lib [gcc_s]
+  remove lib [gcc]
+  collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/6] ==> [/usr/lib/gcc/x86_64-linux-gnu/6]
+  collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/6/../../../x86_64-linux-gnu] ==> [/usr/lib/x86_64-linux-gnu]
+  collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/6/../../../../lib] ==> [/usr/lib]
+  collapse library dir [/lib/x86_64-linux-gnu] ==> [/lib/x86_64-linux-gnu]
+  collapse library dir [/lib/../lib] ==> [/lib]
+  collapse library dir [/usr/lib/x86_64-linux-gnu] ==> [/usr/lib/x86_64-linux-gnu]
+  collapse library dir [/usr/lib/../lib] ==> [/usr/lib]
+  collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/6/../../..] ==> [/usr/lib]
+  implicit libs: [stdc++;m;c]
+  implicit dirs: [/usr/lib/gcc/x86_64-linux-gnu/6;/usr/lib/x86_64-linux-gnu;/usr/lib;/lib/x86_64-linux-gnu;/lib]
+  implicit fwks: []
+
+
+
+
+Detecting CXX [-std=c++14] compiler features compiled with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec1184415423/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec1184415423.dir/build.make CMakeFiles/cmTryCompileExec1184415423.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building CXX object CMakeFiles/cmTryCompileExec1184415423.dir/feature_tests.cxx.o
+/usr/bin/c++    -std=c++14 -o CMakeFiles/cmTryCompileExec1184415423.dir/feature_tests.cxx.o -c /home/ed/Coin3D/official/coin_build/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTryCompileExec1184415423
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1184415423.dir/link.txt --verbose=1
+/usr/bin/c++        CMakeFiles/cmTryCompileExec1184415423.dir/feature_tests.cxx.o  -o cmTryCompileExec1184415423 -rdynamic 
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+
+    Feature record: CXX_FEATURE:1cxx_aggregate_default_initializers
+    Feature record: CXX_FEATURE:1cxx_alias_templates
+    Feature record: CXX_FEATURE:1cxx_alignas
+    Feature record: CXX_FEATURE:1cxx_alignof
+    Feature record: CXX_FEATURE:1cxx_attributes
+    Feature record: CXX_FEATURE:1cxx_attribute_deprecated
+    Feature record: CXX_FEATURE:1cxx_auto_type
+    Feature record: CXX_FEATURE:1cxx_binary_literals
+    Feature record: CXX_FEATURE:1cxx_constexpr
+    Feature record: CXX_FEATURE:1cxx_contextual_conversions
+    Feature record: CXX_FEATURE:1cxx_decltype
+    Feature record: CXX_FEATURE:1cxx_decltype_auto
+    Feature record: CXX_FEATURE:1cxx_decltype_incomplete_return_types
+    Feature record: CXX_FEATURE:1cxx_default_function_template_args
+    Feature record: CXX_FEATURE:1cxx_defaulted_functions
+    Feature record: CXX_FEATURE:1cxx_defaulted_move_initializers
+    Feature record: CXX_FEATURE:1cxx_delegating_constructors
+    Feature record: CXX_FEATURE:1cxx_deleted_functions
+    Feature record: CXX_FEATURE:1cxx_digit_separators
+    Feature record: CXX_FEATURE:1cxx_enum_forward_declarations
+    Feature record: CXX_FEATURE:1cxx_explicit_conversions
+    Feature record: CXX_FEATURE:1cxx_extended_friend_declarations
+    Feature record: CXX_FEATURE:1cxx_extern_templates
+    Feature record: CXX_FEATURE:1cxx_final
+    Feature record: CXX_FEATURE:1cxx_func_identifier
+    Feature record: CXX_FEATURE:1cxx_generalized_initializers
+    Feature record: CXX_FEATURE:1cxx_generic_lambdas
+    Feature record: CXX_FEATURE:1cxx_inheriting_constructors
+    Feature record: CXX_FEATURE:1cxx_inline_namespaces
+    Feature record: CXX_FEATURE:1cxx_lambdas
+    Feature record: CXX_FEATURE:1cxx_lambda_init_captures
+    Feature record: CXX_FEATURE:1cxx_local_type_template_args
+    Feature record: CXX_FEATURE:1cxx_long_long_type
+    Feature record: CXX_FEATURE:1cxx_noexcept
+    Feature record: CXX_FEATURE:1cxx_nonstatic_member_init
+    Feature record: CXX_FEATURE:1cxx_nullptr
+    Feature record: CXX_FEATURE:1cxx_override
+    Feature record: CXX_FEATURE:1cxx_range_for
+    Feature record: CXX_FEATURE:1cxx_raw_string_literals
+    Feature record: CXX_FEATURE:1cxx_reference_qualified_functions
+    Feature record: CXX_FEATURE:1cxx_relaxed_constexpr
+    Feature record: CXX_FEATURE:1cxx_return_type_deduction
+    Feature record: CXX_FEATURE:1cxx_right_angle_brackets
+    Feature record: CXX_FEATURE:1cxx_rvalue_references
+    Feature record: CXX_FEATURE:1cxx_sizeof_member
+    Feature record: CXX_FEATURE:1cxx_static_assert
+    Feature record: CXX_FEATURE:1cxx_strong_enums
+    Feature record: CXX_FEATURE:1cxx_template_template_parameters
+    Feature record: CXX_FEATURE:1cxx_thread_local
+    Feature record: CXX_FEATURE:1cxx_trailing_return_types
+    Feature record: CXX_FEATURE:1cxx_unicode_literals
+    Feature record: CXX_FEATURE:1cxx_uniform_initialization
+    Feature record: CXX_FEATURE:1cxx_unrestricted_unions
+    Feature record: CXX_FEATURE:1cxx_user_literals
+    Feature record: CXX_FEATURE:1cxx_variable_templates
+    Feature record: CXX_FEATURE:1cxx_variadic_macros
+    Feature record: CXX_FEATURE:1cxx_variadic_templates
+
+
+Detecting CXX [-std=c++11] compiler features compiled with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec3316682096/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec3316682096.dir/build.make CMakeFiles/cmTryCompileExec3316682096.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building CXX object CMakeFiles/cmTryCompileExec3316682096.dir/feature_tests.cxx.o
+/usr/bin/c++    -std=c++11 -o CMakeFiles/cmTryCompileExec3316682096.dir/feature_tests.cxx.o -c /home/ed/Coin3D/official/coin_build/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTryCompileExec3316682096
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3316682096.dir/link.txt --verbose=1
+/usr/bin/c++        CMakeFiles/cmTryCompileExec3316682096.dir/feature_tests.cxx.o  -o cmTryCompileExec3316682096 -rdynamic 
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+
+    Feature record: CXX_FEATURE:0cxx_aggregate_default_initializers
+    Feature record: CXX_FEATURE:1cxx_alias_templates
+    Feature record: CXX_FEATURE:1cxx_alignas
+    Feature record: CXX_FEATURE:1cxx_alignof
+    Feature record: CXX_FEATURE:1cxx_attributes
+    Feature record: CXX_FEATURE:0cxx_attribute_deprecated
+    Feature record: CXX_FEATURE:1cxx_auto_type
+    Feature record: CXX_FEATURE:0cxx_binary_literals
+    Feature record: CXX_FEATURE:1cxx_constexpr
+    Feature record: CXX_FEATURE:0cxx_contextual_conversions
+    Feature record: CXX_FEATURE:1cxx_decltype
+    Feature record: CXX_FEATURE:0cxx_decltype_auto
+    Feature record: CXX_FEATURE:1cxx_decltype_incomplete_return_types
+    Feature record: CXX_FEATURE:1cxx_default_function_template_args
+    Feature record: CXX_FEATURE:1cxx_defaulted_functions
+    Feature record: CXX_FEATURE:1cxx_defaulted_move_initializers
+    Feature record: CXX_FEATURE:1cxx_delegating_constructors
+    Feature record: CXX_FEATURE:1cxx_deleted_functions
+    Feature record: CXX_FEATURE:0cxx_digit_separators
+    Feature record: CXX_FEATURE:1cxx_enum_forward_declarations
+    Feature record: CXX_FEATURE:1cxx_explicit_conversions
+    Feature record: CXX_FEATURE:1cxx_extended_friend_declarations
+    Feature record: CXX_FEATURE:1cxx_extern_templates
+    Feature record: CXX_FEATURE:1cxx_final
+    Feature record: CXX_FEATURE:1cxx_func_identifier
+    Feature record: CXX_FEATURE:1cxx_generalized_initializers
+    Feature record: CXX_FEATURE:0cxx_generic_lambdas
+    Feature record: CXX_FEATURE:1cxx_inheriting_constructors
+    Feature record: CXX_FEATURE:1cxx_inline_namespaces
+    Feature record: CXX_FEATURE:1cxx_lambdas
+    Feature record: CXX_FEATURE:0cxx_lambda_init_captures
+    Feature record: CXX_FEATURE:1cxx_local_type_template_args
+    Feature record: CXX_FEATURE:1cxx_long_long_type
+    Feature record: CXX_FEATURE:1cxx_noexcept
+    Feature record: CXX_FEATURE:1cxx_nonstatic_member_init
+    Feature record: CXX_FEATURE:1cxx_nullptr
+    Feature record: CXX_FEATURE:1cxx_override
+    Feature record: CXX_FEATURE:1cxx_range_for
+    Feature record: CXX_FEATURE:1cxx_raw_string_literals
+    Feature record: CXX_FEATURE:1cxx_reference_qualified_functions
+    Feature record: CXX_FEATURE:0cxx_relaxed_constexpr
+    Feature record: CXX_FEATURE:0cxx_return_type_deduction
+    Feature record: CXX_FEATURE:1cxx_right_angle_brackets
+    Feature record: CXX_FEATURE:1cxx_rvalue_references
+    Feature record: CXX_FEATURE:1cxx_sizeof_member
+    Feature record: CXX_FEATURE:1cxx_static_assert
+    Feature record: CXX_FEATURE:1cxx_strong_enums
+    Feature record: CXX_FEATURE:1cxx_template_template_parameters
+    Feature record: CXX_FEATURE:1cxx_thread_local
+    Feature record: CXX_FEATURE:1cxx_trailing_return_types
+    Feature record: CXX_FEATURE:1cxx_unicode_literals
+    Feature record: CXX_FEATURE:1cxx_uniform_initialization
+    Feature record: CXX_FEATURE:1cxx_unrestricted_unions
+    Feature record: CXX_FEATURE:1cxx_user_literals
+    Feature record: CXX_FEATURE:0cxx_variable_templates
+    Feature record: CXX_FEATURE:1cxx_variadic_macros
+    Feature record: CXX_FEATURE:1cxx_variadic_templates
+
+
+Detecting CXX [-std=c++98] compiler features compiled with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec3049355191/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec3049355191.dir/build.make CMakeFiles/cmTryCompileExec3049355191.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building CXX object CMakeFiles/cmTryCompileExec3049355191.dir/feature_tests.cxx.o
+/usr/bin/c++    -std=c++98 -o CMakeFiles/cmTryCompileExec3049355191.dir/feature_tests.cxx.o -c /home/ed/Coin3D/official/coin_build/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTryCompileExec3049355191
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3049355191.dir/link.txt --verbose=1
+/usr/bin/c++        CMakeFiles/cmTryCompileExec3049355191.dir/feature_tests.cxx.o  -o cmTryCompileExec3049355191 -rdynamic 
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+
+    Feature record: CXX_FEATURE:0cxx_aggregate_default_initializers
+    Feature record: CXX_FEATURE:0cxx_alias_templates
+    Feature record: CXX_FEATURE:0cxx_alignas
+    Feature record: CXX_FEATURE:0cxx_alignof
+    Feature record: CXX_FEATURE:0cxx_attributes
+    Feature record: CXX_FEATURE:0cxx_attribute_deprecated
+    Feature record: CXX_FEATURE:0cxx_auto_type
+    Feature record: CXX_FEATURE:0cxx_binary_literals
+    Feature record: CXX_FEATURE:0cxx_constexpr
+    Feature record: CXX_FEATURE:0cxx_contextual_conversions
+    Feature record: CXX_FEATURE:0cxx_decltype
+    Feature record: CXX_FEATURE:0cxx_decltype_auto
+    Feature record: CXX_FEATURE:0cxx_decltype_incomplete_return_types
+    Feature record: CXX_FEATURE:0cxx_default_function_template_args
+    Feature record: CXX_FEATURE:0cxx_defaulted_functions
+    Feature record: CXX_FEATURE:0cxx_defaulted_move_initializers
+    Feature record: CXX_FEATURE:0cxx_delegating_constructors
+    Feature record: CXX_FEATURE:0cxx_deleted_functions
+    Feature record: CXX_FEATURE:0cxx_digit_separators
+    Feature record: CXX_FEATURE:0cxx_enum_forward_declarations
+    Feature record: CXX_FEATURE:0cxx_explicit_conversions
+    Feature record: CXX_FEATURE:0cxx_extended_friend_declarations
+    Feature record: CXX_FEATURE:0cxx_extern_templates
+    Feature record: CXX_FEATURE:0cxx_final
+    Feature record: CXX_FEATURE:0cxx_func_identifier
+    Feature record: CXX_FEATURE:0cxx_generalized_initializers
+    Feature record: CXX_FEATURE:0cxx_generic_lambdas
+    Feature record: CXX_FEATURE:0cxx_inheriting_constructors
+    Feature record: CXX_FEATURE:0cxx_inline_namespaces
+    Feature record: CXX_FEATURE:0cxx_lambdas
+    Feature record: CXX_FEATURE:0cxx_lambda_init_captures
+    Feature record: CXX_FEATURE:0cxx_local_type_template_args
+    Feature record: CXX_FEATURE:0cxx_long_long_type
+    Feature record: CXX_FEATURE:0cxx_noexcept
+    Feature record: CXX_FEATURE:0cxx_nonstatic_member_init
+    Feature record: CXX_FEATURE:0cxx_nullptr
+    Feature record: CXX_FEATURE:0cxx_override
+    Feature record: CXX_FEATURE:0cxx_range_for
+    Feature record: CXX_FEATURE:0cxx_raw_string_literals
+    Feature record: CXX_FEATURE:0cxx_reference_qualified_functions
+    Feature record: CXX_FEATURE:0cxx_relaxed_constexpr
+    Feature record: CXX_FEATURE:0cxx_return_type_deduction
+    Feature record: CXX_FEATURE:0cxx_right_angle_brackets
+    Feature record: CXX_FEATURE:0cxx_rvalue_references
+    Feature record: CXX_FEATURE:0cxx_sizeof_member
+    Feature record: CXX_FEATURE:0cxx_static_assert
+    Feature record: CXX_FEATURE:0cxx_strong_enums
+    Feature record: CXX_FEATURE:1cxx_template_template_parameters
+    Feature record: CXX_FEATURE:0cxx_thread_local
+    Feature record: CXX_FEATURE:0cxx_trailing_return_types
+    Feature record: CXX_FEATURE:0cxx_unicode_literals
+    Feature record: CXX_FEATURE:0cxx_uniform_initialization
+    Feature record: CXX_FEATURE:0cxx_unrestricted_unions
+    Feature record: CXX_FEATURE:0cxx_user_literals
+    Feature record: CXX_FEATURE:0cxx_variable_templates
+    Feature record: CXX_FEATURE:0cxx_variadic_macros
+    Feature record: CXX_FEATURE:0cxx_variadic_templates
+Determining if the include file sys/types.h exists passed with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec2613893800/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec2613893800.dir/build.make CMakeFiles/cmTryCompileExec2613893800.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2613893800.dir/CheckIncludeFile.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec2613893800.dir/CheckIncludeFile.c.o   -c /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTryCompileExec2613893800
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2613893800.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec2613893800.dir/CheckIncludeFile.c.o  -o cmTryCompileExec2613893800 -rdynamic 
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+
+Determining if the include file stdint.h exists passed with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec2021303931/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec2021303931.dir/build.make CMakeFiles/cmTryCompileExec2021303931.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2021303931.dir/CheckIncludeFile.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec2021303931.dir/CheckIncludeFile.c.o   -c /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTryCompileExec2021303931
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2021303931.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec2021303931.dir/CheckIncludeFile.c.o  -o cmTryCompileExec2021303931 -rdynamic 
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+
+Determining if the include file stddef.h exists passed with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec1176155186/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec1176155186.dir/build.make CMakeFiles/cmTryCompileExec1176155186.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1176155186.dir/CheckIncludeFile.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec1176155186.dir/CheckIncludeFile.c.o   -c /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTryCompileExec1176155186
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1176155186.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec1176155186.dir/CheckIncludeFile.c.o  -o cmTryCompileExec1176155186 -rdynamic 
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+
+Determining size of int8_t passed with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec2061008181/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec2061008181.dir/build.make CMakeFiles/cmTryCompileExec2061008181.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2061008181.dir/INT8_T.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec2061008181.dir/INT8_T.c.o   -c /home/ed/Coin3D/official/coin_build/CMakeFiles/CheckTypeSize/INT8_T.c
+Linking C executable cmTryCompileExec2061008181
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2061008181.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec2061008181.dir/INT8_T.c.o  -o cmTryCompileExec2061008181 -rdynamic 
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+
+Determining size of char passed with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec2268451282/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec2268451282.dir/build.make CMakeFiles/cmTryCompileExec2268451282.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2268451282.dir/CHAR.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec2268451282.dir/CHAR.c.o   -c /home/ed/Coin3D/official/coin_build/CMakeFiles/CheckTypeSize/CHAR.c
+Linking C executable cmTryCompileExec2268451282
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2268451282.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec2268451282.dir/CHAR.c.o  -o cmTryCompileExec2268451282 -rdynamic 
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+
+Determining size of uint8_t passed with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec2951402665/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec2951402665.dir/build.make CMakeFiles/cmTryCompileExec2951402665.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2951402665.dir/UINT8_T.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec2951402665.dir/UINT8_T.c.o   -c /home/ed/Coin3D/official/coin_build/CMakeFiles/CheckTypeSize/UINT8_T.c
+Linking C executable cmTryCompileExec2951402665
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2951402665.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec2951402665.dir/UINT8_T.c.o  -o cmTryCompileExec2951402665 -rdynamic 
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+
+Determining size of u_int8_t passed with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec4285467465/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec4285467465.dir/build.make CMakeFiles/cmTryCompileExec4285467465.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec4285467465.dir/U_INT8_T.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec4285467465.dir/U_INT8_T.c.o   -c /home/ed/Coin3D/official/coin_build/CMakeFiles/CheckTypeSize/U_INT8_T.c
+Linking C executable cmTryCompileExec4285467465
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec4285467465.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec4285467465.dir/U_INT8_T.c.o  -o cmTryCompileExec4285467465 -rdynamic 
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+
+Determining size of unsigned char passed with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec2084374745/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec2084374745.dir/build.make CMakeFiles/cmTryCompileExec2084374745.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2084374745.dir/UNSIGNED_CHAR.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec2084374745.dir/UNSIGNED_CHAR.c.o   -c /home/ed/Coin3D/official/coin_build/CMakeFiles/CheckTypeSize/UNSIGNED_CHAR.c
+Linking C executable cmTryCompileExec2084374745
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2084374745.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec2084374745.dir/UNSIGNED_CHAR.c.o  -o cmTryCompileExec2084374745 -rdynamic 
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+
+Determining size of int16_t passed with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec3473062833/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec3473062833.dir/build.make CMakeFiles/cmTryCompileExec3473062833.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3473062833.dir/INT16_T.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec3473062833.dir/INT16_T.c.o   -c /home/ed/Coin3D/official/coin_build/CMakeFiles/CheckTypeSize/INT16_T.c
+Linking C executable cmTryCompileExec3473062833
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3473062833.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec3473062833.dir/INT16_T.c.o  -o cmTryCompileExec3473062833 -rdynamic 
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+
+Determining size of short passed with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec3794308259/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec3794308259.dir/build.make CMakeFiles/cmTryCompileExec3794308259.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3794308259.dir/SHORT.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec3794308259.dir/SHORT.c.o   -c /home/ed/Coin3D/official/coin_build/CMakeFiles/CheckTypeSize/SHORT.c
+Linking C executable cmTryCompileExec3794308259
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3794308259.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec3794308259.dir/SHORT.c.o  -o cmTryCompileExec3794308259 -rdynamic 
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+
+Determining size of int passed with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec1761773753/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec1761773753.dir/build.make CMakeFiles/cmTryCompileExec1761773753.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1761773753.dir/INT.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec1761773753.dir/INT.c.o   -c /home/ed/Coin3D/official/coin_build/CMakeFiles/CheckTypeSize/INT.c
+Linking C executable cmTryCompileExec1761773753
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1761773753.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec1761773753.dir/INT.c.o  -o cmTryCompileExec1761773753 -rdynamic 
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+
+Determining size of uint16_t passed with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec996347912/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec996347912.dir/build.make CMakeFiles/cmTryCompileExec996347912.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec996347912.dir/UINT16_T.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec996347912.dir/UINT16_T.c.o   -c /home/ed/Coin3D/official/coin_build/CMakeFiles/CheckTypeSize/UINT16_T.c
+Linking C executable cmTryCompileExec996347912
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec996347912.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec996347912.dir/UINT16_T.c.o  -o cmTryCompileExec996347912 -rdynamic 
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+
+Determining size of u_int16_t passed with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec2465727089/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec2465727089.dir/build.make CMakeFiles/cmTryCompileExec2465727089.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2465727089.dir/U_INT16_T.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec2465727089.dir/U_INT16_T.c.o   -c /home/ed/Coin3D/official/coin_build/CMakeFiles/CheckTypeSize/U_INT16_T.c
+Linking C executable cmTryCompileExec2465727089
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2465727089.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec2465727089.dir/U_INT16_T.c.o  -o cmTryCompileExec2465727089 -rdynamic 
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+
+Determining size of unsigned short passed with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec2273727863/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec2273727863.dir/build.make CMakeFiles/cmTryCompileExec2273727863.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2273727863.dir/UNSIGNED_SHORT.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec2273727863.dir/UNSIGNED_SHORT.c.o   -c /home/ed/Coin3D/official/coin_build/CMakeFiles/CheckTypeSize/UNSIGNED_SHORT.c
+Linking C executable cmTryCompileExec2273727863
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2273727863.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec2273727863.dir/UNSIGNED_SHORT.c.o  -o cmTryCompileExec2273727863 -rdynamic 
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+
+Determining size of unsigned int passed with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec2399987803/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec2399987803.dir/build.make CMakeFiles/cmTryCompileExec2399987803.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2399987803.dir/UNSIGNED_INT.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec2399987803.dir/UNSIGNED_INT.c.o   -c /home/ed/Coin3D/official/coin_build/CMakeFiles/CheckTypeSize/UNSIGNED_INT.c
+Linking C executable cmTryCompileExec2399987803
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2399987803.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec2399987803.dir/UNSIGNED_INT.c.o  -o cmTryCompileExec2399987803 -rdynamic 
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+
+Determining size of int32_t passed with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec2695369854/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec2695369854.dir/build.make CMakeFiles/cmTryCompileExec2695369854.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2695369854.dir/INT32_T.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec2695369854.dir/INT32_T.c.o   -c /home/ed/Coin3D/official/coin_build/CMakeFiles/CheckTypeSize/INT32_T.c
+Linking C executable cmTryCompileExec2695369854
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2695369854.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec2695369854.dir/INT32_T.c.o  -o cmTryCompileExec2695369854 -rdynamic 
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+
+Determining size of long passed with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec856131387/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec856131387.dir/build.make CMakeFiles/cmTryCompileExec856131387.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec856131387.dir/LONG.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec856131387.dir/LONG.c.o   -c /home/ed/Coin3D/official/coin_build/CMakeFiles/CheckTypeSize/LONG.c
+Linking C executable cmTryCompileExec856131387
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec856131387.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec856131387.dir/LONG.c.o  -o cmTryCompileExec856131387 -rdynamic 
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+
+Determining size of uint32_t passed with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec750474629/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec750474629.dir/build.make CMakeFiles/cmTryCompileExec750474629.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec750474629.dir/UINT32_T.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec750474629.dir/UINT32_T.c.o   -c /home/ed/Coin3D/official/coin_build/CMakeFiles/CheckTypeSize/UINT32_T.c
+Linking C executable cmTryCompileExec750474629
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec750474629.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec750474629.dir/UINT32_T.c.o  -o cmTryCompileExec750474629 -rdynamic 
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+
+Determining size of u_int32_t passed with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec594766416/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec594766416.dir/build.make CMakeFiles/cmTryCompileExec594766416.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec594766416.dir/U_INT32_T.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec594766416.dir/U_INT32_T.c.o   -c /home/ed/Coin3D/official/coin_build/CMakeFiles/CheckTypeSize/U_INT32_T.c
+Linking C executable cmTryCompileExec594766416
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec594766416.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec594766416.dir/U_INT32_T.c.o  -o cmTryCompileExec594766416 -rdynamic 
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+
+Determining size of unsigned long passed with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec1178088289/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec1178088289.dir/build.make CMakeFiles/cmTryCompileExec1178088289.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1178088289.dir/UNSIGNED_LONG.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec1178088289.dir/UNSIGNED_LONG.c.o   -c /home/ed/Coin3D/official/coin_build/CMakeFiles/CheckTypeSize/UNSIGNED_LONG.c
+Linking C executable cmTryCompileExec1178088289
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1178088289.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec1178088289.dir/UNSIGNED_LONG.c.o  -o cmTryCompileExec1178088289 -rdynamic 
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+
+Determining size of int64_t passed with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec1630424671/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec1630424671.dir/build.make CMakeFiles/cmTryCompileExec1630424671.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1630424671.dir/INT64_T.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec1630424671.dir/INT64_T.c.o   -c /home/ed/Coin3D/official/coin_build/CMakeFiles/CheckTypeSize/INT64_T.c
+Linking C executable cmTryCompileExec1630424671
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1630424671.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec1630424671.dir/INT64_T.c.o  -o cmTryCompileExec1630424671 -rdynamic 
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+
+Determining size of long long passed with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec2110043993/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec2110043993.dir/build.make CMakeFiles/cmTryCompileExec2110043993.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2110043993.dir/LONG_LONG.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec2110043993.dir/LONG_LONG.c.o   -c /home/ed/Coin3D/official/coin_build/CMakeFiles/CheckTypeSize/LONG_LONG.c
+Linking C executable cmTryCompileExec2110043993
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2110043993.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec2110043993.dir/LONG_LONG.c.o  -o cmTryCompileExec2110043993 -rdynamic 
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+
+Determining size of uint64_t passed with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec2803309247/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec2803309247.dir/build.make CMakeFiles/cmTryCompileExec2803309247.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2803309247.dir/UINT64_T.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec2803309247.dir/UINT64_T.c.o   -c /home/ed/Coin3D/official/coin_build/CMakeFiles/CheckTypeSize/UINT64_T.c
+Linking C executable cmTryCompileExec2803309247
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2803309247.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec2803309247.dir/UINT64_T.c.o  -o cmTryCompileExec2803309247 -rdynamic 
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+
+Determining size of u_int64_t passed with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec4052006878/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec4052006878.dir/build.make CMakeFiles/cmTryCompileExec4052006878.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec4052006878.dir/U_INT64_T.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec4052006878.dir/U_INT64_T.c.o   -c /home/ed/Coin3D/official/coin_build/CMakeFiles/CheckTypeSize/U_INT64_T.c
+Linking C executable cmTryCompileExec4052006878
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec4052006878.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec4052006878.dir/U_INT64_T.c.o  -o cmTryCompileExec4052006878 -rdynamic 
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+
+Determining size of unsigned long long passed with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec1451112619/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec1451112619.dir/build.make CMakeFiles/cmTryCompileExec1451112619.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1451112619.dir/UNSIGNED_LONG_LONG.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec1451112619.dir/UNSIGNED_LONG_LONG.c.o   -c /home/ed/Coin3D/official/coin_build/CMakeFiles/CheckTypeSize/UNSIGNED_LONG_LONG.c
+Linking C executable cmTryCompileExec1451112619
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1451112619.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec1451112619.dir/UNSIGNED_LONG_LONG.c.o  -o cmTryCompileExec1451112619 -rdynamic 
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+
+Determining if the include file dlfcn.h exists passed with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec135746289/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec135746289.dir/build.make CMakeFiles/cmTryCompileExec135746289.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec135746289.dir/CheckIncludeFile.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec135746289.dir/CheckIncludeFile.c.o   -c /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTryCompileExec135746289
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec135746289.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec135746289.dir/CheckIncludeFile.c.o  -o cmTryCompileExec135746289 -rdynamic 
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+
+Determining if the include file inttypes.h exists passed with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec2252961461/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec2252961461.dir/build.make CMakeFiles/cmTryCompileExec2252961461.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2252961461.dir/CheckIncludeFile.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec2252961461.dir/CheckIncludeFile.c.o   -c /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTryCompileExec2252961461
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2252961461.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec2252961461.dir/CheckIncludeFile.c.o  -o cmTryCompileExec2252961461 -rdynamic 
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+
+Determining if the include file unistd.h exists passed with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec1407098955/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec1407098955.dir/build.make CMakeFiles/cmTryCompileExec1407098955.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1407098955.dir/CheckIncludeFile.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec1407098955.dir/CheckIncludeFile.c.o   -c /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTryCompileExec1407098955
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1407098955.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec1407098955.dir/CheckIncludeFile.c.o  -o cmTryCompileExec1407098955 -rdynamic 
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+
+Determining if the include file sys/time.h exists passed with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec806285328/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec806285328.dir/build.make CMakeFiles/cmTryCompileExec806285328.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec806285328.dir/CheckIncludeFile.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec806285328.dir/CheckIncludeFile.c.o   -c /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTryCompileExec806285328
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec806285328.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec806285328.dir/CheckIncludeFile.c.o  -o cmTryCompileExec806285328 -rdynamic 
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+
+Determining if the include file libgen.h exists passed with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec3345327932/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec3345327932.dir/build.make CMakeFiles/cmTryCompileExec3345327932.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3345327932.dir/CheckIncludeFile.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec3345327932.dir/CheckIncludeFile.c.o   -c /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTryCompileExec3345327932
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3345327932.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec3345327932.dir/CheckIncludeFile.c.o  -o cmTryCompileExec3345327932 -rdynamic 
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+
+Determining if the include file sys/param.h exists passed with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec3215924496/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec3215924496.dir/build.make CMakeFiles/cmTryCompileExec3215924496.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3215924496.dir/CheckIncludeFile.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec3215924496.dir/CheckIncludeFile.c.o   -c /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTryCompileExec3215924496
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3215924496.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec3215924496.dir/CheckIncludeFile.c.o  -o cmTryCompileExec3215924496 -rdynamic 
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+
+Determining if the include file X11/Xlib.h exists passed with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec3166058682/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec3166058682.dir/build.make CMakeFiles/cmTryCompileExec3166058682.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3166058682.dir/CheckIncludeFile.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec3166058682.dir/CheckIncludeFile.c.o   -c /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTryCompileExec3166058682
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3166058682.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec3166058682.dir/CheckIncludeFile.c.o  -o cmTryCompileExec3166058682 -rdynamic 
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+
+Determining if the function dlopen exists in the dl passed with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec2223281105/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec2223281105.dir/build.make CMakeFiles/cmTryCompileExec2223281105.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2223281105.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=dlopen   -o CMakeFiles/cmTryCompileExec2223281105.dir/CheckFunctionExists.c.o   -c /usr/local/share/cmake-3.2/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec2223281105
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2223281105.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=dlopen    CMakeFiles/cmTryCompileExec2223281105.dir/CheckFunctionExists.c.o  -o cmTryCompileExec2223281105 -rdynamic -ldl 
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+
+Determining if the function glXChooseVisual exists in the GL passed with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec4136823096/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec4136823096.dir/build.make CMakeFiles/cmTryCompileExec4136823096.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec4136823096.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=glXChooseVisual   -o CMakeFiles/cmTryCompileExec4136823096.dir/CheckFunctionExists.c.o   -c /usr/local/share/cmake-3.2/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec4136823096
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec4136823096.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=glXChooseVisual    CMakeFiles/cmTryCompileExec4136823096.dir/CheckFunctionExists.c.o  -o cmTryCompileExec4136823096 -rdynamic -lGL 
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+
+Determining if the function pthread_create exists in the pthread passed with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec4051887669/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec4051887669.dir/build.make CMakeFiles/cmTryCompileExec4051887669.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec4051887669.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTryCompileExec4051887669.dir/CheckFunctionExists.c.o   -c /usr/local/share/cmake-3.2/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec4051887669
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec4051887669.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTryCompileExec4051887669.dir/CheckFunctionExists.c.o  -o cmTryCompileExec4051887669 -rdynamic -lpthread 
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+
+Determining if the va_copy exist passed with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec2816844710/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec2816844710.dir/build.make CMakeFiles/cmTryCompileExec2816844710.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2816844710.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec2816844710.dir/CheckSymbolExists.c.o   -c /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTryCompileExec2816844710
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2816844710.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec2816844710.dir/CheckSymbolExists.c.o  -o cmTryCompileExec2816844710 -rdynamic 
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+File /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <stdarg.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef va_copy
+  return ((int*)(&va_copy))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the strncasecmp exist passed with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec1152572699/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec1152572699.dir/build.make CMakeFiles/cmTryCompileExec1152572699.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1152572699.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec1152572699.dir/CheckSymbolExists.c.o   -c /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTryCompileExec1152572699
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1152572699.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec1152572699.dir/CheckSymbolExists.c.o  -o cmTryCompileExec1152572699 -rdynamic 
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+File /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <string.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef strncasecmp
+  return ((int*)(&strncasecmp))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the gettimeofday exist passed with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec2775911824/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec2775911824.dir/build.make CMakeFiles/cmTryCompileExec2775911824.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2775911824.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec2775911824.dir/CheckSymbolExists.c.o   -c /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTryCompileExec2775911824
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2775911824.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec2775911824.dir/CheckSymbolExists.c.o  -o cmTryCompileExec2775911824 -rdynamic 
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+File /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <sys/time.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef gettimeofday
+  return ((int*)(&gettimeofday))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the getcwd exist passed with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec2407597370/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec2407597370.dir/build.make CMakeFiles/cmTryCompileExec2407597370.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2407597370.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec2407597370.dir/CheckSymbolExists.c.o   -c /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTryCompileExec2407597370
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2407597370.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec2407597370.dir/CheckSymbolExists.c.o  -o cmTryCompileExec2407597370 -rdynamic 
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+File /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <unistd.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef getcwd
+  return ((int*)(&getcwd))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the isinf exist passed with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec2888885918/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec2888885918.dir/build.make CMakeFiles/cmTryCompileExec2888885918.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2888885918.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec2888885918.dir/CheckSymbolExists.c.o   -c /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTryCompileExec2888885918
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2888885918.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec2888885918.dir/CheckSymbolExists.c.o  -o cmTryCompileExec2888885918 -rdynamic 
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+File /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <math.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef isinf
+  return ((int*)(&isinf))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the isnan exist passed with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec2792236035/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec2792236035.dir/build.make CMakeFiles/cmTryCompileExec2792236035.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2792236035.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec2792236035.dir/CheckSymbolExists.c.o   -c /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTryCompileExec2792236035
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2792236035.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec2792236035.dir/CheckSymbolExists.c.o  -o cmTryCompileExec2792236035 -rdynamic 
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+File /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <math.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef isnan
+  return ((int*)(&isnan))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the finite exist passed with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec1733746473/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec1733746473.dir/build.make CMakeFiles/cmTryCompileExec1733746473.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1733746473.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec1733746473.dir/CheckSymbolExists.c.o   -c /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTryCompileExec1733746473
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1733746473.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec1733746473.dir/CheckSymbolExists.c.o  -o cmTryCompileExec1733746473 -rdynamic 
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+File /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <math.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef finite
+  return ((int*)(&finite))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the __func__ exist passed with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec4030141284/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec4030141284.dir/build.make CMakeFiles/cmTryCompileExec4030141284.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec4030141284.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec4030141284.dir/CheckSymbolExists.c.o   -c /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTryCompileExec4030141284
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec4030141284.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec4030141284.dir/CheckSymbolExists.c.o  -o cmTryCompileExec4030141284 -rdynamic 
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+File /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef __func__
+  return ((int*)(&__func__))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the __PRETTY_FUNCTION__ exist passed with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec3207959729/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec3207959729.dir/build.make CMakeFiles/cmTryCompileExec3207959729.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3207959729.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec3207959729.dir/CheckSymbolExists.c.o   -c /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTryCompileExec3207959729
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3207959729.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec3207959729.dir/CheckSymbolExists.c.o  -o cmTryCompileExec3207959729 -rdynamic 
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+File /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef __PRETTY_FUNCTION__
+  return ((int*)(&__PRETTY_FUNCTION__))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the __FUNCTION__ exist passed with the following output:
+Change Dir: /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec3331275720/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec3331275720.dir/build.make CMakeFiles/cmTryCompileExec3331275720.dir/build
+make[1]: Entering directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3331275720.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec3331275720.dir/CheckSymbolExists.c.o   -c /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTryCompileExec3331275720
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3331275720.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec3331275720.dir/CheckSymbolExists.c.o  -o cmTryCompileExec3331275720 -rdynamic 
+make[1]: Leaving directory '/home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp'
+
+File /home/ed/Coin3D/official/coin_build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef __FUNCTION__
+  return ((int*)(&__FUNCTION__))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+

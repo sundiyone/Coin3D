@@ -1,0 +1,183 @@
+.TH "SoPrimitiveVertex" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoPrimitiveVertex \- The \fBSoPrimitiveVertex\fP class represents a single vertex of a generated primitive\&.
+.PP
+Instances of \fBSoPrimitiveVertex\fP are constructed when generating primitive data, primarily during an \fBSoCallbackAction\fP traversal\&. Depending on the context the vertex could represent a single 3D point, one of the two vertices in a line or one of the three vertices in a triangle\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/SoPrimitiveVertex\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSoPrimitiveVertex\fP (void)"
+.br
+.ti -1c
+.RI "\fBSoPrimitiveVertex\fP (const \fBSoPrimitiveVertex\fP &pv)"
+.br
+.ti -1c
+.RI "\fB~SoPrimitiveVertex\fP (void)"
+.br
+.ti -1c
+.RI "\fBSoPrimitiveVertex\fP & \fBoperator=\fP (const \fBSoPrimitiveVertex\fP &pv)"
+.br
+.ti -1c
+.RI "const \fBSbVec3f\fP & \fBgetPoint\fP (void) const"
+.br
+.ti -1c
+.RI "const \fBSbVec3f\fP & \fBgetNormal\fP (void) const"
+.br
+.ti -1c
+.RI "const \fBSbVec4f\fP & \fBgetTextureCoords\fP (void) const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetMaterialIndex\fP (void) const"
+.br
+.ti -1c
+.RI "uint32_t \fBgetPackedColor\fP (void) const"
+.br
+.ti -1c
+.RI "const \fBSoDetail\fP * \fBgetDetail\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBsetPoint\fP (const \fBSbVec3f\fP &pt)"
+.br
+.ti -1c
+.RI "void \fBsetPoint\fP (float x, float y, float z)"
+.br
+.ti -1c
+.RI "void \fBsetNormal\fP (const \fBSbVec3f\fP &n)"
+.br
+.ti -1c
+.RI "void \fBsetNormal\fP (float nx, float ny, float nz)"
+.br
+.ti -1c
+.RI "void \fBsetTextureCoords\fP (const \fBSbVec2f\fP &tex)"
+.br
+.ti -1c
+.RI "void \fBsetTextureCoords\fP (float tx, float ty)"
+.br
+.ti -1c
+.RI "void \fBsetTextureCoords\fP (const \fBSbVec3f\fP &tex)"
+.br
+.ti -1c
+.RI "void \fBsetTextureCoords\fP (float tx, float ty, float tz)"
+.br
+.ti -1c
+.RI "void \fBsetTextureCoords\fP (const \fBSbVec4f\fP &tex)"
+.br
+.ti -1c
+.RI "void \fBsetTextureCoords\fP (float tx, float ty, float tz, float tw)"
+.br
+.ti -1c
+.RI "void \fBsetMaterialIndex\fP (\fBint\fP index)"
+.br
+.ti -1c
+.RI "void \fBsetPackedColor\fP (uint32_t rgba)"
+.br
+.ti -1c
+.RI "void \fBsetDetail\fP (\fBSoDetail\fP *d)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBSoPrimitiveVertex\fP class represents a single vertex of a generated primitive\&.
+.PP
+Instances of \fBSoPrimitiveVertex\fP are constructed when generating primitive data, primarily during an \fBSoCallbackAction\fP traversal\&. Depending on the context the vertex could represent a single 3D point, one of the two vertices in a line or one of the three vertices in a triangle\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoPrimitiveVertex::SoPrimitiveVertex (void)"
+Default constructor, sets up a 'void' instance\&. 
+.SS "SoPrimitiveVertex::SoPrimitiveVertex (const \fBSoPrimitiveVertex\fP & pv)"
+Copy constructor\&. Does a shallow copy\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoPrimitiveVertex::operator=()\fP 
+.RE
+.PP
+
+.SS "SoPrimitiveVertex::~SoPrimitiveVertex (void)"
+Destructor\&. The detail instance is owned by client code and will not be destructed here\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoPrimitiveVertex\fP & SoPrimitiveVertex::operator= (const \fBSoPrimitiveVertex\fP & pv)"
+Copy operator\&.
+.PP
+When \fIpv\fP is copied into this instance, a \fIshallow\fP copy is made\&. Ie, only the reference to the detail instance is copied (if any), not the detail itself\&. 
+.SS "const \fBSbVec3f\fP & SoPrimitiveVertex::getPoint (void) const\fC [inline]\fP"
+Returns vertex coordinates, positioned in object space\&. 
+.SS "const \fBSbVec3f\fP & SoPrimitiveVertex::getNormal (void) const\fC [inline]\fP"
+Returns normal vector, oriented in object space\&. 
+.SS "const \fBSbVec4f\fP & SoPrimitiveVertex::getTextureCoords (void) const\fC [inline]\fP"
+Returns texture coordinates for vertex, specified in object space\&. 
+.SS "\fBint\fP SoPrimitiveVertex::getMaterialIndex (void) const\fC [inline]\fP"
+Returns index of the vertex into the currently active material, if any\&. 
+.SS "uint32_t SoPrimitiveVertex::getPackedColor (void) const\fC [inline]\fP"
+Returns the rgba packed color for the given vertex\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 3\&.0 
+.RE
+.PP
+
+.SS "const \fBSoDetail\fP * SoPrimitiveVertex::getDetail (void) const\fC [inline]\fP"
+Returns pointer to detail instance with more information about the vertex\&. A detail instance may not be available, and if so \fCNULL\fP is returned\&. 
+.SS "void SoPrimitiveVertex::setPoint (const \fBSbVec3f\fP & pt)\fC [inline]\fP"
+Used internally from library client code setting up an \fBSoPrimitiveVertex\fP instance\&. 
+.SS "void SoPrimitiveVertex::setPoint (float x, float y, float z)\fC [inline]\fP"
+Used internally from library client code setting up an \fBSoPrimitiveVertex\fP instance\&. 
+.SS "void SoPrimitiveVertex::setNormal (const \fBSbVec3f\fP & n)\fC [inline]\fP"
+Used internally from library client code setting up an \fBSoPrimitiveVertex\fP instance\&. 
+.SS "void SoPrimitiveVertex::setNormal (float nx, float ny, float nz)\fC [inline]\fP"
+Used internally from library client code setting up an \fBSoPrimitiveVertex\fP instance\&. 
+.SS "void SoPrimitiveVertex::setTextureCoords (const \fBSbVec2f\fP & texcoords)\fC [inline]\fP"
+Used internally from library client code setting up an \fBSoPrimitiveVertex\fP instance\&.
+.PP
+Covenience function\&. Will fill in 0 and 1 in the last two texture coords in the internal \fBSbVec4f\fP texture coordinate instance\&. 
+.SS "void SoPrimitiveVertex::setTextureCoords (float tx, float ty)\fC [inline]\fP"
+Used internally from library client code setting up an \fBSoPrimitiveVertex\fP instance\&.
+.PP
+Covenience function\&. Will fill in 0 and 1 in the last two texture coords in the internal \fBSbVec4f\fP texture coordinate instance\&. 
+.SS "void SoPrimitiveVertex::setTextureCoords (const \fBSbVec3f\fP & texcoords)\fC [inline]\fP"
+Covenience function\&. Will fill in 1 in the last coord\&.
+.PP
+This function is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.RE
+.PP
+
+.SS "void SoPrimitiveVertex::setTextureCoords (float tx, float ty, float tz)\fC [inline]\fP"
+Covenience function\&. Will fill in 1 in the last coord\&.
+.PP
+This function is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&. 
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.5 
+.RE
+.PP
+
+.SS "void SoPrimitiveVertex::setTextureCoords (const \fBSbVec4f\fP & texcoords)\fC [inline]\fP"
+Used internally from library client code setting up an \fBSoPrimitiveVertex\fP instance\&. 
+.SS "void SoPrimitiveVertex::setMaterialIndex (\fBint\fP index)\fC [inline]\fP"
+Used internally from library client code setting up an \fBSoPrimitiveVertex\fP instance\&. 
+.SS "void SoPrimitiveVertex::setPackedColor (uint32_t rgba)\fC [inline]\fP"
+Used internally from library client code setting up an \fBSoPrimitiveVertex\fP instance\&. 
+.SS "void SoPrimitiveVertex::setDetail (\fBSoDetail\fP * detail)\fC [inline]\fP"
+Used internally from library client code setting up an \fBSoPrimitiveVertex\fP instance\&.
+.PP
+Note that it's the client's responsibility to do the deallocation of the detail instance after the \fBSoPrimitiveVertex\fP instance has gone out of scope\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

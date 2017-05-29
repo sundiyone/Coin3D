@@ -1,0 +1,249 @@
+.TH "SoModelMatrixElement" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoModelMatrixElement \- The \fBSoModelMatrixElement\fP class is used to manage the current transformation\&.
+.PP
+\fBSoModelMatrixElement\fP contains the object-to-world matrix\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/elements/SoModelMatrixElement\&.h>\fP
+.PP
+Inherits \fBSoAccumulatedElement\fP\&.
+.PP
+Inherited by \fBSoBBoxModelMatrixElement\fP, and \fBSoGLModelMatrixElement\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual void \fBinit\fP (\fBSoState\fP *state)"
+.br
+.ti -1c
+.RI "virtual void \fBpush\fP (\fBSoState\fP *state)"
+.br
+.ti -1c
+.RI "virtual SbBool \fBmatches\fP (const \fBSoElement\fP *element) const"
+.br
+.ti -1c
+.RI "const \fBSbMatrix\fP & \fBgetModelMatrix\fP (void) const"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static \fBint\fP \fBgetClassStackIndex\fP (void)"
+.br
+.ti -1c
+.RI "static void * \fBcreateInstance\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBmakeIdentity\fP (\fBSoState\fP *const state, \fBSoNode\fP *const node)"
+.br
+.ti -1c
+.RI "static void \fBset\fP (\fBSoState\fP *const state, \fBSoNode\fP *const node, const \fBSbMatrix\fP &matrix)"
+.br
+.ti -1c
+.RI "static void \fBsetCullMatrix\fP (\fBSoState\fP *state, \fBSoNode\fP *node, const \fBSbMatrix\fP &matrix)"
+.br
+.ti -1c
+.RI "static void \fBmult\fP (\fBSoState\fP *const state, \fBSoNode\fP *const node, const \fBSbMatrix\fP &matrix)"
+.br
+.ti -1c
+.RI "static void \fBtranslateBy\fP (\fBSoState\fP *const state, \fBSoNode\fP *const node, const \fBSbVec3f\fP &translation)"
+.br
+.ti -1c
+.RI "static void \fBrotateBy\fP (\fBSoState\fP *const state, \fBSoNode\fP *const node, const \fBSbRotation\fP &rotation)"
+.br
+.ti -1c
+.RI "static void \fBscaleBy\fP (\fBSoState\fP *const state, \fBSoNode\fP *const node, const \fBSbVec3f\fP &scaleFactor)"
+.br
+.ti -1c
+.RI "static \fBSbMatrix\fP \fBpushMatrix\fP (\fBSoState\fP *const state)"
+.br
+.ti -1c
+.RI "static void \fBpopMatrix\fP (\fBSoState\fP *const state, const \fBSbMatrix\fP &matrix)"
+.br
+.ti -1c
+.RI "static const \fBSbMatrix\fP & \fBgetCombinedCullMatrix\fP (\fBSoState\fP *const state)"
+.br
+.ti -1c
+.RI "static const \fBSbMatrix\fP & \fBget\fP (\fBSoState\fP *const state)"
+.br
+.ti -1c
+.RI "static const \fBSbMatrix\fP & \fBget\fP (\fBSoState\fP *const state, SbBool &isIdentity)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fB~SoModelMatrixElement\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBmakeEltIdentity\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBsetElt\fP (const \fBSbMatrix\fP &matrix)"
+.br
+.ti -1c
+.RI "virtual void \fBmultElt\fP (const \fBSbMatrix\fP &matrix)"
+.br
+.ti -1c
+.RI "virtual void \fBtranslateEltBy\fP (const \fBSbVec3f\fP &translation)"
+.br
+.ti -1c
+.RI "virtual void \fBrotateEltBy\fP (const \fBSbRotation\fP &rotation)"
+.br
+.ti -1c
+.RI "virtual void \fBscaleEltBy\fP (const \fBSbVec3f\fP &scaleFactor)"
+.br
+.ti -1c
+.RI "virtual \fBSbMatrix\fP \fBpushMatrixElt\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBpopMatrixElt\fP (const \fBSbMatrix\fP &matrix)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSbMatrix\fP \fBmodelMatrix\fP"
+.br
+.ti -1c
+.RI "\fBSbMatrix\fP \fBcullMatrix\fP"
+.br
+.ti -1c
+.RI "\fBSbMatrix\fP \fBcombinedMatrix\fP"
+.br
+.ti -1c
+.RI "uint32_t \fBflags\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoModelMatrixElement\fP class is used to manage the current transformation\&.
+.PP
+\fBSoModelMatrixElement\fP contains the object-to-world matrix\&. 
+
+The world-to-camera transformation is stored in the \fBSoViewingMatrixElement\fP class\&.
+.PP
+Note that one thing that can be a little confusing with the API is that \fBSoModelMatrixElement\fP does not contain the same matrix as the OpenGL \fCGL_MODELVIEW\fP matrix\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoViewingMatrixElement\fP 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoModelMatrixElement::~SoModelMatrixElement (void)\fC [protected]\fP, \fC [virtual]\fP"
+The destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void * SoModelMatrixElement::createInstance (void)\fC [static]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoModelMatrixElement::initClass (void)\fC [static]\fP"
+This static method initializes static data for the \fBSoModelMatrixElement\fP class\&. 
+.SS "void SoModelMatrixElement::init (\fBSoState\fP * state)\fC [virtual]\fP"
+This function initializes the element type in the given \fBSoState\fP\&. It is called for the first element of each enabled element type in \fBSoState\fP objects\&. 
+.PP
+Reimplemented from \fBSoAccumulatedElement\fP\&.
+.PP
+Reimplemented in \fBSoBBoxModelMatrixElement\fP, and \fBSoGLModelMatrixElement\fP\&.
+.SS "void SoModelMatrixElement::push (\fBSoState\fP * state)\fC [virtual]\fP"
+This method is called every time a new element is required in one of the stacks\&. This happens when a writable element is requested, using \fBSoState::getElement()\fP or indirectly \fBSoElement::getElement()\fP, and the depth of the current element is less than the state depth\&.
+.PP
+Override this method if your element needs to copy data from the previous top of stack\&. The \fBpush()\fP method is called on the new element, and the previous element can be found using \fBSoElement::getNextInStack()\fP\&. 
+.PP
+Reimplemented from \fBSoAccumulatedElement\fP\&.
+.PP
+Reimplemented in \fBSoBBoxModelMatrixElement\fP, and \fBSoGLModelMatrixElement\fP\&.
+.SS "SbBool SoModelMatrixElement::matches (const \fBSoElement\fP * element) const\fC [virtual]\fP"
+This function returns \fCTRUE\fP is the element matches another element (of the same class), with respect to cache validity\&.
+.PP
+If the application programmer's extension element has a \fBmatches()\fP function, it should also have a \fBcopyMatchInfo()\fP function\&. 
+.PP
+Reimplemented from \fBSoAccumulatedElement\fP\&.
+.SS "void SoModelMatrixElement::makeIdentity (\fBSoState\fP *const state, \fBSoNode\fP *const node)\fC [static]\fP"
+Sets the current model matrix to the identity matrix\&. 
+.SS "void SoModelMatrixElement::set (\fBSoState\fP *const state, \fBSoNode\fP *const node, const \fBSbMatrix\fP & matrix)\fC [static]\fP"
+Sets the current model matrix to \fImatrix\fP\&. 
+.SS "void SoModelMatrixElement::setCullMatrix (\fBSoState\fP * state, \fBSoNode\fP * node, const \fBSbMatrix\fP & matrix)\fC [static]\fP"
+Sets the current cull matrix\&. 
+.SS "void SoModelMatrixElement::mult (\fBSoState\fP *const state, \fBSoNode\fP *const node, const \fBSbMatrix\fP & matrix)\fC [static]\fP"
+Multiplies \fImatrix\fP into the model matrix\&. 
+.SS "void SoModelMatrixElement::translateBy (\fBSoState\fP *const state, \fBSoNode\fP *const node, const \fBSbVec3f\fP & translation)\fC [static]\fP"
+Appends \fItranslation\fP to the model matrix\&. 
+.SS "void SoModelMatrixElement::rotateBy (\fBSoState\fP *const state, \fBSoNode\fP *const node, const \fBSbRotation\fP & rotation)\fC [static]\fP"
+Appends \fIrotation\fP to the model matrix\&. 
+.SS "void SoModelMatrixElement::scaleBy (\fBSoState\fP *const state, \fBSoNode\fP *const node, const \fBSbVec3f\fP & scaleFactor)\fC [static]\fP"
+Appends \fIscaleFactor\fP to the model matrix\&. 
+.SS "\fBSbMatrix\fP SoModelMatrixElement::pushMatrix (\fBSoState\fP *const state)\fC [static]\fP"
+Used by \fBSoTransformSeparator\fP to store and restore model matrix\&. Don't use it for any other reason\&. 
+.SS "void SoModelMatrixElement::popMatrix (\fBSoState\fP *const state, const \fBSbMatrix\fP & matrix)\fC [static]\fP"
+Used by \fBSoTransformSeparator\fP to store and restore model matrix\&. Don't use it for any other reason\&. 
+.SS "const \fBSbMatrix\fP & SoModelMatrixElement::getCombinedCullMatrix (\fBSoState\fP *const state)\fC [static]\fP"
+Returns the combined cull and model matrix\&. This matrix is cached\&. 
+.SS "const \fBSbMatrix\fP & SoModelMatrixElement::get (\fBSoState\fP *const state)\fC [static]\fP"
+Returns the current model matrix\&. 
+.SS "const \fBSbMatrix\fP & SoModelMatrixElement::get (\fBSoState\fP *const state, SbBool & isIdentity)\fC [static]\fP"
+Returns the current model matrix\&. Sets \fIisIdentity\fP to TRUE if the model matrix is known to be an identity matrix\&. 
+.SS "void SoModelMatrixElement::makeEltIdentity (void)\fC [protected]\fP, \fC [virtual]\fP"
+virtual method which is called from the static method \fBmakeIdentity()\fP\&. Sets element model matrix to identity\&. 
+.PP
+Reimplemented in \fBSoBBoxModelMatrixElement\fP, and \fBSoGLModelMatrixElement\fP\&.
+.SS "void SoModelMatrixElement::setElt (const \fBSbMatrix\fP & matrix)\fC [protected]\fP, \fC [virtual]\fP"
+virtual method which is called from the static method \fBset()\fP\&. Sets element model matrix to \fImatrix\fP\&. 
+.PP
+Reimplemented in \fBSoBBoxModelMatrixElement\fP, and \fBSoGLModelMatrixElement\fP\&.
+.SS "void SoModelMatrixElement::multElt (const \fBSbMatrix\fP & matrix)\fC [protected]\fP, \fC [virtual]\fP"
+virtual method which is called from the static method \fBmult()\fP\&. Multiplies \fImatrix\fP into element model matrix\&. 
+.PP
+Reimplemented in \fBSoBBoxModelMatrixElement\fP, and \fBSoGLModelMatrixElement\fP\&.
+.SS "void SoModelMatrixElement::translateEltBy (const \fBSbVec3f\fP & translation)\fC [protected]\fP, \fC [virtual]\fP"
+virtual method which is called from the static method \fBtranslateBy()\fP\&. Appends \fItranslation\fP to element model matrix\&. 
+.PP
+Reimplemented in \fBSoBBoxModelMatrixElement\fP, and \fBSoGLModelMatrixElement\fP\&.
+.SS "void SoModelMatrixElement::rotateEltBy (const \fBSbRotation\fP & rotation)\fC [protected]\fP, \fC [virtual]\fP"
+virtual method which is called from the static method \fBrotateBy()\fP\&. Appends \fIrotation\fP to element model matrix\&. 
+.PP
+Reimplemented in \fBSoBBoxModelMatrixElement\fP, and \fBSoGLModelMatrixElement\fP\&.
+.SS "void SoModelMatrixElement::scaleEltBy (const \fBSbVec3f\fP & scaleFactor)\fC [protected]\fP, \fC [virtual]\fP"
+virtual method which is called from the static method \fBscaleBy()\fP\&. Appends \fIscaleFactor\fP to element model matrix\&. 
+.PP
+Reimplemented in \fBSoBBoxModelMatrixElement\fP, and \fBSoGLModelMatrixElement\fP\&.
+.SS "\fBSbMatrix\fP SoModelMatrixElement::pushMatrixElt (void)\fC [protected]\fP, \fC [virtual]\fP"
+virtual method which is called from the static method \fBpushMatrix()\fP\&. Returns current model matrix\&. 
+.PP
+Reimplemented in \fBSoBBoxModelMatrixElement\fP, and \fBSoGLModelMatrixElement\fP\&.
+.SS "void SoModelMatrixElement::popMatrixElt (const \fBSbMatrix\fP & matrix)\fC [protected]\fP, \fC [virtual]\fP"
+virtual method which is called from the static method \fBpopMatrix()\fP\&. Retores model matrix to the matrix returned from \fBpushMatrix()\fP\&. 
+.PP
+Reimplemented in \fBSoBBoxModelMatrixElement\fP, and \fBSoGLModelMatrixElement\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "SoModelMatrixElement::modelMatrix\fC [protected]\fP"
+FIXME: write doc\&. 
+.SS "SoModelMatrixElement::cullMatrix\fC [protected]\fP"
+FIXME: write doc\&. 
+.SS "SoModelMatrixElement::combinedMatrix\fC [protected]\fP"
+FIXME: write doc\&. 
+.SS "SoModelMatrixElement::flags\fC [protected]\fP"
+FIXME: write doc\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

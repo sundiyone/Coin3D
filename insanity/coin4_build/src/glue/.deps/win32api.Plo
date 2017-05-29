@@ -1,0 +1,11 @@
+win32api.lo: ../../../coin4/src/glue/win32api.cpp \
+ /usr/include/stdc-predef.h ../../src/config.h \
+ ../../../coin4/src/unconfig.h ../../src/setup.h
+
+/usr/include/stdc-predef.h:
+
+../../src/config.h:
+
+../../../coin4/src/unconfig.h:
+
+../../src/setup.h:

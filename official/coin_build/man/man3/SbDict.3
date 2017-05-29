@@ -1,0 +1,103 @@
+.TH "SbDict" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SbDict \- The \fBSbDict\fP class organizes a dictionary of keys and values\&.
+.PP
+It uses hashing to quickly insert and find entries in the dictionary\&. An entry consists of an unique key and a generic pointer\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/SbDict\&.h>\fP
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "typedef uintptr_t \fBKey\fP"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSbDict\fP (const \fBint\fP entries=251)"
+.br
+.ti -1c
+.RI "\fBSbDict\fP (const \fBSbDict\fP &from)"
+.br
+.ti -1c
+.RI "\fB~SbDict\fP ()"
+.br
+.ti -1c
+.RI "\fBSbDict\fP & \fBoperator=\fP (const \fBSbDict\fP &from)"
+.br
+.ti -1c
+.RI "void \fBapplyToAll\fP (\fBSbDictApplyFunc\fP *rtn) const"
+.br
+.ti -1c
+.RI "void \fBapplyToAll\fP (\fBSbDictApplyDataFunc\fP *rtn, void *data) const"
+.br
+.ti -1c
+.RI "void \fBclear\fP (void)"
+.br
+.ti -1c
+.RI "SbBool \fBenter\fP (const Key key, void *const value)"
+.br
+.ti -1c
+.RI "SbBool \fBfind\fP (const Key key, void *&value) const"
+.br
+.ti -1c
+.RI "void \fBmakePList\fP (\fBSbPList\fP &keys, \fBSbPList\fP &values)"
+.br
+.ti -1c
+.RI "SbBool \fBremove\fP (const Key key)"
+.br
+.ti -1c
+.RI "void \fBsetHashingFunction\fP (\fBSbDictHashingFunc\fP *func)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBSbDict\fP class organizes a dictionary of keys and values\&.
+.PP
+It uses hashing to quickly insert and find entries in the dictionary\&. An entry consists of an unique key and a generic pointer\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SbDict::SbDict (const \fBint\fP entries = \fC251\fP)"
+Constructor with \fIentries\fP specifying the initial number of buckets in the hash list -- so it need to be larger than 0\&. Other than this, no special care needs to be taken in choosing the value since it is always rounded up to the nearest power of two\&. 
+.SS "SbDict::SbDict (const \fBSbDict\fP & from)"
+Copy constructor\&. 
+.SS "SbDict::~SbDict ()"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSbDict\fP & SbDict::operator= (const \fBSbDict\fP & from)"
+Make a shallow copy of the contents of dictionary \fIfrom\fP into this dictionary\&. 
+.SS "void SbDict::applyToAll (\fBSbDictApplyFunc\fP * rtn) const"
+Applies \fIrtn\fP to all entries in the dictionary\&. 
+.SS "void SbDict::applyToAll (\fBSbDictApplyDataFunc\fP * rtn, void * data) const"
+This is an overloaded member function, provided for convenience\&. It differs from the above function only in what argument(s) it accepts\&. 
+.SS "void SbDict::clear (void)"
+Clear all entries in the dictionary\&. 
+.SS "SbBool SbDict::enter (const Key key, void *const value)"
+Inserts a new entry into the dictionary\&. \fIkey\fP should be a unique number, and \fIvalue\fP is the generic user data\&.
+.PP
+\fIIf\fP \fIkey\fP does not exist in the dictionary, a new entry is created and \fCTRUE\fP is returned\&. Otherwise, the generic user data is changed to \fIvalue\fP, and \fCFALSE\fP is returned\&. 
+.SS "SbBool SbDict::find (const Key key, void *& value) const"
+Searches for \fIkey\fP in the dictionary\&. If an entry with this key exists, \fCTRUE\fP is returned and the entry value is returned in \fIvalue\fP\&. Otherwise, \fCFALSE\fP is returned\&. 
+.SS "void SbDict::makePList (\fBSbPList\fP & keys, \fBSbPList\fP & values)"
+Creates lists with all entries in the dictionary\&. 
+.SS "SbBool SbDict::remove (const Key key)"
+Removes the entry with key \fIkey\fP\&. \fCTRUE\fP is returned if an entry with this key was present, \fCFALSE\fP otherwise\&. 
+.SS "void SbDict::setHashingFunction (\fBSbDictHashingFunc\fP * func)"
+Sets a new hashing function for this dictionary\&. Default hashing function just returns the key\&.
+.PP
+If you find that items entered into the dictionary seems to make clusters in only a few buckets, you should try setting a hashing function\&. If you're for instance using strings, you could use the static \fBSbString::hash()\fP function (you'd need to make a static function that will cast from SbDict::Key to char * of course)\&.
+.PP
+This function is not part of the OIV API\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

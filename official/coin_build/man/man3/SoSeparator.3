@@ -1,0 +1,464 @@
+.TH "SoSeparator" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoSeparator \- The \fBSoSeparator\fP class is a state-preserving group node\&.
+.PP
+Subgraphs parented by \fBSoSeparator\fP nodes will not affect the state, as they push and pop the traversal state before and after traversal of its children\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/nodes/SoSeparator\&.h>\fP
+.PP
+Inherits \fBSoGroup\fP\&.
+.PP
+Inherited by \fBSoAnnotation\fP, \fBSoGeoSeparator\fP, \fBSoLocateHighlight\fP, \fBSoSelection\fP, and \fBSoShadowGroup\fP\&.
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBCacheEnabled\fP { \fBOFF\fP, \fBON\fP, \fBAUTO\fP }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "\fBSoSeparator\fP (void)"
+.br
+.ti -1c
+.RI "\fBSoSeparator\fP (const \fBint\fP nchildren)"
+.br
+.ti -1c
+.RI "virtual void \fBdoAction\fP (\fBSoAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBGLRender\fP (\fBSoGLRenderAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBGLRenderBelowPath\fP (\fBSoGLRenderAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBGLRenderInPath\fP (\fBSoGLRenderAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBGLRenderOffPath\fP (\fBSoGLRenderAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBcallback\fP (\fBSoCallbackAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBgetBoundingBox\fP (\fBSoGetBoundingBoxAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBgetMatrix\fP (\fBSoGetMatrixAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBhandleEvent\fP (\fBSoHandleEventAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBrayPick\fP (\fBSoRayPickAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBsearch\fP (\fBSoSearchAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBgetPrimitiveCount\fP (\fBSoGetPrimitiveCountAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBaudioRender\fP (\fBSoAudioRenderAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBnotify\fP (\fBSoNotList\fP *nl)"
+.br
+.ti -1c
+.RI "virtual SbBool \fBaffectsState\fP (void) const"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBsetNumRenderCaches\fP (const \fBint\fP howmany)"
+.br
+.ti -1c
+.RI "static \fBint\fP \fBgetNumRenderCaches\fP (void)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFEnum\fP \fBrenderCaching\fP"
+.br
+.ti -1c
+.RI "\fBSoSFEnum\fP \fBboundingBoxCaching\fP"
+.br
+.ti -1c
+.RI "\fBSoSFEnum\fP \fBrenderCulling\fP"
+.br
+.ti -1c
+.RI "\fBSoSFEnum\fP \fBpickCulling\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fB~SoSeparator\fP ()"
+.br
+.ti -1c
+.RI "virtual SbBool \fBcullTest\fP (\fBSoState\fP *state)"
+.br
+.ti -1c
+.RI "virtual SbBool \fBcullTest\fP (\fBSoGLRenderAction\fP *action, \fBint\fP &cullresults)"
+.br
+.ti -1c
+.RI "virtual SbBool \fBreadInstance\fP (\fBSoInput\fP *in, unsigned short flags)"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoSeparator\fP class is a state-preserving group node\&.
+.PP
+Subgraphs parented by \fBSoSeparator\fP nodes will not affect the state, as they push and pop the traversal state before and after traversal of its children\&. 
+
+\fBSoSeparator\fP nodes also provides options for traversal optimalization through the use of caching\&.
+.PP
+\fBFILE FORMAT/DEFAULTS:\fP 
+.PP
+.nf
+Separator {
+    renderCaching AUTO
+    boundingBoxCaching AUTO
+    renderCulling AUTO
+    pickCulling AUTO
+}
+
+.fi
+.PP
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoTransformSeparator\fP 
+.RE
+.PP
+
+.SH "Member Enumeration Documentation"
+.PP 
+.SS "enum \fBSoSeparator::CacheEnabled\fP"
+Enumeration of flags for the fields deciding which optimalizations to do in \fBSoSeparator\fP nodes\&. There are two types of settings available: caching policies or culling policies\&. See doumentation of fields\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fIOFF \fP\fP
+No caching\&. 
+.TP
+\fB\fION \fP\fP
+Always try to cache state\&. 
+.TP
+\fB\fIAUTO \fP\fP
+Use heuristics to try to figure out the optimal caching policy\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoSeparator::SoSeparator (void)"
+Default constructor\&. 
+.SS "SoSeparator::SoSeparator (const \fBint\fP nchildren)"
+Constructor\&.
+.PP
+The argument should be the approximate number of children which is expected to be inserted below this node\&. The number need not be exact, as it is only used as a hint for better memory resource allocation\&. 
+.SS "SoSeparator::~SoSeparator ()\fC [protected]\fP, \fC [virtual]\fP"
+Destructor\&. Frees resources used to implement caches\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoSeparator::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Reimplemented from \fBSoGroup\fP\&.
+.PP
+Reimplemented in \fBSoExtSelection\fP, \fBSoSelection\fP, \fBSoWWWAnchor\fP, \fBSoGeoSeparator\fP, \fBSoShadowGroup\fP, \fBSoLocateHighlight\fP, and \fBSoAnnotation\fP\&.
+.SS "const \fBSoFieldData\fP * SoSeparator::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoGroup\fP\&.
+.PP
+Reimplemented in \fBSoExtSelection\fP, \fBSoSelection\fP, \fBSoWWWAnchor\fP, \fBSoGeoSeparator\fP, \fBSoShadowGroup\fP, \fBSoLocateHighlight\fP, and \fBSoAnnotation\fP\&.
+.SS "void SoSeparator::doAction (\fBSoAction\fP * action)\fC [virtual]\fP"
+This function performs the typical operation of a node for any action\&. 
+.PP
+Reimplemented from \fBSoGroup\fP\&.
+.SS "void SoSeparator::GLRender (\fBSoGLRenderAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGLRenderAction\fP\&.
+.PP
+This is called during rendering traversals\&. Nodes influencing the rendering state in any way or who wants to throw geometry primitives at OpenGL overrides this method\&. 
+.PP
+Reimplemented from \fBSoGroup\fP\&.
+.PP
+Reimplemented in \fBSoAnnotation\fP\&.
+.SS "void SoSeparator::GLRenderBelowPath (\fBSoGLRenderAction\fP * action)\fC [virtual]\fP"
+SGI Open Inventor v2\&.1 obsoleted support for \fBSoGLRenderAction::addMethod()\fP\&. Instead, \fBGLRender()\fP might be called directly, and to optimize traversal, the \fBSoSeparator\fP node calls GLRenderBelowPath whenever the path code is BELOW_PATH or NO_PATH (path code is guaranteed not to change)\&. To be compatible with SGI's Inventor (and thereby also TGS') we have chosen to follow their implementation in this respect\&.
+.PP
+\fBSoSeparator::GLRenderBelowPath()\fP do not traverse its children using \fBSoChildList::traverse()\fP, but calls \fBGLRenderBelowPath()\fP directly for all its children\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.PP
+Reimplemented in \fBSoExtSelection\fP, \fBSoShadowGroup\fP, \fBSoLocateHighlight\fP, \fBSoGeoSeparator\fP, and \fBSoAnnotation\fP\&.
+.SS "void SoSeparator::GLRenderInPath (\fBSoGLRenderAction\fP * action)\fC [virtual]\fP"
+Implements the SoAction::IN_PATH traversal method for the rendering action\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.PP
+Reimplemented in \fBSoShadowGroup\fP, \fBSoLocateHighlight\fP, \fBSoGeoSeparator\fP, and \fBSoAnnotation\fP\&.
+.SS "void SoSeparator::GLRenderOffPath (\fBSoGLRenderAction\fP * action)\fC [virtual]\fP"
+Implements the SoAction::OFF_PATH traversal method for the rendering action\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.PP
+Reimplemented in \fBSoAnnotation\fP\&.
+.SS "void SoSeparator::callback (\fBSoCallbackAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoCallbackAction\fP\&.
+.PP
+Simply updates the state according to how the node behaves for the render action, so the application programmer can use the \fBSoCallbackAction\fP for extracting information about the scene graph\&. 
+.PP
+Reimplemented from \fBSoGroup\fP\&.
+.PP
+Reimplemented in \fBSoGeoSeparator\fP\&.
+.SS "void SoSeparator::getBoundingBox (\fBSoGetBoundingBoxAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGetBoundingBoxAction\fP\&.
+.PP
+Calculates bounding box and center coordinates for node and modifies the values of the \fIaction\fP to encompass the bounding box for this node and to shift the center point for the scene more towards the one for this node\&.
+.PP
+Nodes influencing how geometry nodes calculates their bounding box also overrides this method to change the relevant state variables\&. 
+.PP
+Reimplemented from \fBSoGroup\fP\&.
+.PP
+Reimplemented in \fBSoGeoSeparator\fP\&.
+.SS "void SoSeparator::getMatrix (\fBSoGetMatrixAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoGetMatrixAction\fP\&.
+.PP
+Updates \fIaction\fP by accumulating with the transformation matrix of this node (if any)\&. 
+.PP
+Reimplemented from \fBSoGroup\fP\&.
+.PP
+Reimplemented in \fBSoGeoSeparator\fP\&.
+.SS "void SoSeparator::handleEvent (\fBSoHandleEventAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoHandleEventAction\fP\&.
+.PP
+Inspects the event data from \fIaction\fP, and processes it if it is something which this node should react to\&.
+.PP
+Nodes influencing relevant state variables for how event handling is done also overrides this method\&. 
+.PP
+Reimplemented from \fBSoGroup\fP\&.
+.PP
+Reimplemented in \fBSoExtSelection\fP, \fBSoSelection\fP, \fBSoWWWAnchor\fP, and \fBSoLocateHighlight\fP\&.
+.SS "void SoSeparator::rayPick (\fBSoRayPickAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoRayPickAction\fP\&.
+.PP
+Checks the ray specification of the \fIaction\fP and tests for intersection with the data of the node\&.
+.PP
+Nodes influencing relevant state variables for how picking is done also overrides this method\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.PP
+Reimplemented in \fBSoGeoSeparator\fP\&.
+.SS "void SoSeparator::search (\fBSoSearchAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoSearchAction\fP\&.
+.PP
+Compares the search criteria from the \fIaction\fP to see if this node is a match\&. Searching is done by matching up \fIall\fP criteria set up in the \fBSoSearchAction\fP -- if \fIany\fP of the requested criteria is a miss, the search is not deemed successful for the node\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoSearchAction\fP 
+.RE
+.PP
+
+.PP
+Reimplemented from \fBSoGroup\fP\&.
+.SS "void SoSeparator::getPrimitiveCount (\fBSoGetPrimitiveCountAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGetPrimitiveCountAction\fP\&.
+.PP
+Calculates the number of triangle, line segment and point primitives for the node and adds these to the counters of the \fIaction\fP\&.
+.PP
+Nodes influencing how geometry nodes calculates their primitive count also overrides this method to change the relevant state variables\&. 
+.PP
+Reimplemented from \fBSoGroup\fP\&.
+.PP
+Reimplemented in \fBSoGeoSeparator\fP\&.
+.SS "void SoSeparator::audioRender (\fBSoAudioRenderAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoAudioRenderAction\fP\&.
+.PP
+Does common processing for \fBSoAudioRenderAction\fP \fIaction\fP instances\&. 
+.PP
+Reimplemented from \fBSoGroup\fP\&.
+.SS "void SoSeparator::notify (\fBSoNotList\fP * l)\fC [virtual]\fP"
+Notifies all auditors for this instance when changes are made\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.PP
+Reimplemented in \fBSoShadowGroup\fP\&.
+.SS "void SoSeparator::setNumRenderCaches (const \fBint\fP howmany)\fC [static]\fP"
+Set the maximum number of caches that \fBSoSeparator\fP nodes may allocate for render caching\&.
+.PP
+This is a global value which will be used for all \fBSoSeparator\fP nodes, but the value indicate the maximum number \fIper\fP \fBSoSeparator\fP node\&.
+.PP
+More caches might give better performance, but will use more memory\&. The built-in default value is 2\&.
+.PP
+The value can also be changed globally by setting the host system's environment variable IV_SEPARATOR_MAX_CACHES to the wanted number\&. This is primarily meant as an aid during debugging, to make it easy to turn off rendercaching completely (by setting 'IV_SEPARATOR_MAX_CACHES=0') without having to change any application code\&. 
+.SS "\fBint\fP SoSeparator::getNumRenderCaches (void)\fC [static]\fP"
+Returns maximum number of caches \fBSoSeparator\fP nodes are allowed to use for render caching\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetNumRenderCaches()\fP 
+.RE
+.PP
+
+.SS "SbBool SoSeparator::affectsState (void) const\fC [virtual]\fP"
+Returns \fCTRUE\fP if the node could have any effect on the state during traversal\&.
+.PP
+If it returns \fCFALSE\fP, no data in the traversal-state will change from the pre-traversal state to the post-traversal state\&. The \fBSoSeparator\fP node will for instance return \fCFALSE\fP, as it pushes and pops the state before and after traversal of its children\&. All \fBSoShape\fP nodes will also return \fCFALSE\fP, as just pushing out geometry data to the rendering engine won't affect the actual rendering state\&.
+.PP
+The default method returns \fCTRUE\fP, on a 'better safe than sorry' philosophy\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "SbBool SoSeparator::cullTest (\fBSoState\fP * state)\fC [protected]\fP, \fC [virtual]\fP"
+Internal method which do view frustum culling\&. For now, view frustum culling is performed if the renderCulling field is \fCAUTO\fP or \fCON\fP, and the bounding box cache is valid\&.
+.PP
+Returns \fCTRUE\fP if this separator is outside view frustum, \fCFALSE\fP if inside\&. 
+.SS "SbBool SoSeparator::cullTest (\fBSoGLRenderAction\fP * action, \fBint\fP & cullresults)\fC [protected]\fP, \fC [virtual]\fP"
+This is an internal Open Inventor method\&. We've implemented view frustum culling in a different manner\&. Let us know if you need this function, and we'll consider implementing it\&. 
+.SS "SbBool SoSeparator::readInstance (\fBSoInput\fP * in, unsigned short flags)\fC [protected]\fP, \fC [virtual]\fP"
+This method is mainly intended for internal use during file import operations\&.
+.PP
+It reads a definition of an instance from the input stream \fIin\fP\&. The input stream state points to the start of a serialized / persistant representation of an instance of this class type\&.
+.PP
+\fCTRUE\fP or \fCFALSE\fP is returned, depending on if the instantiation and configuration of the new object of this class type went ok or not\&. The import process should be robust and handle corrupted input streams by returning \fCFALSE\fP\&.
+.PP
+\fIflags\fP is used internally during binary import when reading user extension nodes, group nodes or engines\&. 
+.PP
+Reimplemented from \fBSoGroup\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSoSFEnum\fP SoSeparator::renderCaching"
+Policy for caching of rendering instructions for faster execution\&. This will typically use the OpenGL \fIdisplaylist\fP mechanism\&.
+.PP
+Default value is \fBSoSeparator::AUTO\fP\&.
+.PP
+If you know that some parts of your scene will never change, rendering might happen faster if you explicitly set this field to \fBSoSeparator::ON\fP\&. If you on the other hand know that parts of the scene will change a lot (like for every redraw), it will be beneficial to set this field to \fBSoSeparator::OFF\fP for the top-level separator node of this (sub)graph\&.
+.PP
+Usually the default setting of \fCAUTO\fP will handle any scene very well\&. The advantages that \fIcan\fP be had from setting \fBSoSeparator::renderCaching\fP to \fCON\fP are:
+.PP
+.PD 0
+.IP "\(bu" 2
+If you positively know that the geometry under the \fBSoSeparator\fP is static, you get the cache set up right away\&.
+.PP
+Otherwise, the code in Coin will do a bit of testing and decide by some heuristics whether or not to enable it\&. That will make the rendering be a tiny bit slower right after start-up than with renderCaching set to \fCON\fP\&.
+.PP
+(The slow-down should hardly be noticable, though, so we don't advice application programmers to do this\&.) 
+.PP
+
+.IP "\(bu" 2
+For many of the shape nodes that can contain many basic primitives, like e\&.g\&. \fBSoFaceSet\fP, \fBSoIndexedFaceSet\fP, \fBSoLineSet\fP, etc etc, there is an internal threshold for how many primitives a node can contain before we don't do caching when \fBSoSeparator::renderCaching\fP is set to \fCAUTO\fP\&.
+.PP
+The reason we do this is because OpenGL renderlists can potentially suck up a lot of memory resources on the graphics card\&.
+.PP
+But if you know that it will be advantageous on your particular platform, you can override this by setting \fBSoSeparator::renderCaching\fP equal to \fCON\fP\&.
+.PP
+(We don't advice application programmers to do this either\&. A better solution in these cases would simply be to get in touch with SIM and describe the platform and the problem, and we could integrate a proper fix into Coin\&.)  
+.PP
+.PP
+There are good reasons for setting renderCaching to \fCOFF\fP, like when you know the geometry will be changing a lot\&. Still, Coin should work fairly well without even this optimization\&. (If renderCaching is \fCAUTO\fP over a sub-graph with changing geometry or other cache smashing nodes, the caching heuristics will stop the \fBSoSeparator\fP node from trying to make caches -- at least after a few tries has been made and failed\&.)
+.PP
+The short story about how auto-caching works is as follows:
+.PP
+.PD 0
+.IP "\(bu" 2
+For vertex-based shapes with fewer than 100 triangles and where the geometry is detected to be fairly static, caching is enabled\&.
+.PP
+
+.IP "\(bu" 2
+For shapes with more than 1000 trangles, it is disabled, to avoid spending too much of the on-board graphics card's memory resources\&.
+.PP
+
+.IP "\(bu" 2
+For shapes with between 100 and 1000 shapes, displaylist caching will be turned on if our heuristics decides that the geometry can be considered static\&.
+.PP
+
+.PP
+.PP
+The maximum threshold (of 1000) is higher when doing remote rendering (as when rendering from one X11-based system to another)\&.
+.PP
+Disabling the displaylist caching takes precedence over enabling, so if you have an \fBSoSeparator\fP with a shape with more than 1000 triangles and a shape with fewer than 100 triangles, caching will be disabled for the \fBSoSeparator\fP\&.
+.PP
+It's possible to tune the limits using some environment variables:
+.PP
+.PD 0
+.IP "\(bu" 2
+\fCCOIN_AUTOCACHE_LOCAL_MIN\fP can be used to change the enable-caching limit, while \fCCOIN_AUTOCACHE_LOCAL_MAX\fP controls the disable-caching limit\&.
+.PP
+
+.IP "\(bu" 2
+The corresponding variables for remote rendering are \fCCOIN_AUTOCACHE_REMOTE_MIN\fP and \fCCOIN_AUTOCACHE_REMOTE_MAX\fP\&.
+.PP
+
+.PP
+
+.SS "\fBSoSFEnum\fP SoSeparator::boundingBoxCaching"
+Policy for caching bounding box calculations\&. Default value is \fBSoSeparator::AUTO\fP\&.
+.PP
+See also documentation for \fBSoSeparator::renderCaching\fP\&. 
+.SS "\fBSoSFEnum\fP SoSeparator::renderCulling"
+Policy for doing viewport culling during rendering traversals\&. Default value is \fBSoSeparator::AUTO\fP\&.
+.PP
+When the render culling is turned off for Coin, it will be left to be done for the underlying immediate mode rendering library\&. This will often be faster than doing culling from within Coin, so be careful to monitor the change in execution speed if setting this field to \fBSoSeparator::ON\fP\&.
+.PP
+See also documentation for \fBSoSeparator::renderCaching\fP\&. 
+.SS "\fBSoSFEnum\fP SoSeparator::pickCulling"
+Policy for doing viewport culling during pick traversals\&. Default value is \fBSoSeparator::AUTO\fP\&.
+.PP
+See documentation for \fBSoSeparator::renderCulling\fP\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

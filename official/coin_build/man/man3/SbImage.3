@@ -1,0 +1,316 @@
+.TH "SbImage" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SbImage \- The \fBSbImage\fP class is an abstract datatype for 2D and 3D images\&.
+.PP
+Be aware that this class is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/SbImage\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSbImage\fP (void)"
+.br
+.ti -1c
+.RI "\fBSbImage\fP (const unsigned char *bytes, const \fBSbVec2s\fP &size, const \fBint\fP bytesperpixel)"
+.br
+.ti -1c
+.RI "\fBSbImage\fP (const unsigned char *bytes, const \fBSbVec3s\fP &size, const \fBint\fP bytesperpixel)"
+.br
+.ti -1c
+.RI "\fBSbImage\fP (const \fBSbImage\fP &image)"
+.br
+.ti -1c
+.RI "\fB~SbImage\fP ()"
+.br
+.ti -1c
+.RI "void \fBsetValue\fP (const \fBSbVec2s\fP &size, const \fBint\fP bytesperpixel, const unsigned char *bytes)"
+.br
+.ti -1c
+.RI "void \fBsetValue\fP (const \fBSbVec3s\fP &size, const \fBint\fP bytesperpixel, const unsigned char *bytes)"
+.br
+.ti -1c
+.RI "void \fBsetValuePtr\fP (const \fBSbVec2s\fP &size, const \fBint\fP bytesperpixel, const unsigned char *bytes)"
+.br
+.ti -1c
+.RI "void \fBsetValuePtr\fP (const \fBSbVec3s\fP &size, const \fBint\fP bytesperpixel, const unsigned char *bytes)"
+.br
+.ti -1c
+.RI "unsigned char * \fBgetValue\fP (\fBSbVec2s\fP &size, \fBint\fP &bytesperpixel) const"
+.br
+.ti -1c
+.RI "unsigned char * \fBgetValue\fP (\fBSbVec3s\fP &size, \fBint\fP &bytesperpixel) const"
+.br
+.ti -1c
+.RI "\fBSbVec3s\fP \fBgetSize\fP (void) const"
+.br
+.ti -1c
+.RI "SbBool \fBreadFile\fP (const \fBSbString\fP &filename, const \fBSbString\fP *const *searchdirectories=NULL, const \fBint\fP numdirectories=0)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBoperator==\fP (const \fBSbImage\fP &image) const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBoperator!=\fP (const \fBSbImage\fP &image) const"
+.br
+.ti -1c
+.RI "\fBSbImage\fP & \fBoperator=\fP (const \fBSbImage\fP &image)"
+.br
+.ti -1c
+.RI "SbBool \fBhasData\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBreadLock\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBreadUnlock\fP (void) const"
+.br
+.ti -1c
+.RI "SbBool \fBscheduleReadFile\fP (\fBSbImageScheduleReadCB\fP *cb, void *closure, const \fBSbString\fP &filename, const \fBSbString\fP *const *searchdirectories=NULL, const \fBint\fP numdirectories=0)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static void \fBaddReadImageCB\fP (\fBSbImageReadImageCB\fP *cb, void *closure)"
+.br
+.ti -1c
+.RI "static void \fBremoveReadImageCB\fP (\fBSbImageReadImageCB\fP *cb, void *closure)"
+.br
+.ti -1c
+.RI "static \fBSbString\fP \fBsearchForFile\fP (const \fBSbString\fP &basename, const \fBSbString\fP *const *dirlist, const \fBint\fP numdirs)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBSbImage\fP class is an abstract datatype for 2D and 3D images\&.
+.PP
+Be aware that this class is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&. 
+
+
+.PP
+\fBSince:\fP
+.RS 4
+Coin 1\&.0 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SbImage::SbImage (void)"
+Default constructor\&. 
+.SS "SbImage::SbImage (const unsigned char * bytes, const \fBSbVec2s\fP & size, const \fBint\fP bytesperpixel)"
+Constructor which sets 2D data using \fBsetValue()\fP\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetValue()\fP 
+.RE
+.PP
+
+.SS "SbImage::SbImage (const unsigned char * bytes, const \fBSbVec3s\fP & size, const \fBint\fP bytesperpixel)"
+Constructor which sets 3D data using \fBsetValue()\fP\&.
+.PP
+This function is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetValue()\fP 
+.RE
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.RE
+.PP
+
+.SS "SbImage::SbImage (const \fBSbImage\fP & that)"
+Copy constructor
+.PP
+\fBSince:\fP
+.RS 4
+Coin 4\&.0 
+.RE
+.PP
+
+.SS "SbImage::~SbImage (void)"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void SbImage::setValue (const \fBSbVec2s\fP & size, const \fBint\fP bytesperpixel, const unsigned char * bytes)"
+Convenience 2D version of setValue\&. 
+.SS "void SbImage::setValue (const \fBSbVec3s\fP & size, const \fBint\fP bytesperpixel, const unsigned char * bytes)"
+Sets the image to \fIsize\fP and \fIbytesperpixel\fP\&. If \fIbytes\fP != NULL, data is copied from \fIbytes\fP into this class' image data\&. If \fIbytes\fP == NULL, the image data is left uninitialized\&.
+.PP
+The image data will always be allocated in multiples of four\&. This means that if you set an image with size == (1,1,1) and bytesperpixel == 1, four bytes will be allocated to hold the data\&. This is mainly done to simplify the export code in \fBSoSFImage\fP and normally you'll not have to worry about this feature\&.
+.PP
+If the depth of the image (size[2]) is zero, the image is considered a 2D image\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.RE
+.PP
+
+.SS "void SbImage::setValuePtr (const \fBSbVec2s\fP & size, const \fBint\fP bytesperpixel, const unsigned char * bytes)"
+Convenience 2D version of setValuePtr\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetValue()\fP 
+.RE
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.RE
+.PP
+
+.SS "void SbImage::setValuePtr (const \fBSbVec3s\fP & size, const \fBint\fP bytesperpixel, const unsigned char * bytes)"
+Sets the image data without copying the data\&. \fIbytes\fP will be used directly, and the data will not be freed when the image instance is destructed\&.
+.PP
+If the depth of the image (size[2]) is zero, the image is considered a 2D image\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetValue()\fP 
+.RE
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.RE
+.PP
+
+.SS "unsigned char * SbImage::getValue (\fBSbVec2s\fP & size, \fBint\fP & bytesperpixel) const"
+Returns the 2D image data\&. 
+.SS "unsigned char * SbImage::getValue (\fBSbVec3s\fP & size, \fBint\fP & bytesperpixel) const"
+Returns the 3D image data\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.RE
+.PP
+
+.SS "\fBSbVec3s\fP SbImage::getSize (void) const"
+Returns the size of the image\&. If this is a 2D image, the z component is zero\&. If this is a 3D image, the z component is >= 1\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.RE
+.PP
+
+.SS "SbBool SbImage::readFile (const \fBSbString\fP & filename, const \fBSbString\fP *const * searchdirectories = \fCNULL\fP, const \fBint\fP numdirectories = \fC0\fP)"
+Reads image data from \fIfilename\fP\&. In Coin, simage is used to load image files, and several common file formats are supported\&. simage can be downloaded from our webpages\&. If loading fails for some reason this method returns FALSE, and the instance is set to an empty image\&. If the file is successfully loaded, the file image data is copied into this class\&.
+.PP
+If \fInumdirectories\fP > 0, this method will search for \fIfilename\fP in all directories in \fIsearchdirectories\fP\&. 
+.SS "\fBint\fP SbImage::operator== (const \fBSbImage\fP & image) const"
+Compare image of \fIimage\fP with the image in this class and return \fCTRUE\fP if they are equal\&. 
+.SS "\fBint\fP SbImage::operator!= (const \fBSbImage\fP & image) const\fC [inline]\fP"
+Compare image of \fIimage\fP with the image in this class and return \fCFALSE\fP if they are equal\&. 
+.SS "\fBSbImage\fP & SbImage::operator= (const \fBSbImage\fP & image)"
+Assignment operator\&. 
+.SS "void SbImage::addReadImageCB (\fBSbImageReadImageCB\fP * cb, void * closure)\fC [static]\fP"
+Add a callback which will be called whenever Coin wants to read an image file\&. The callback should return TRUE if it was able to successfully read and set the image data, and FALSE otherwise\&.
+.PP
+The callback(s) will be called before attempting to use simage to load images\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBremoveReadImageCB()\fP 
+.RE
+.PP
+\fBSince:\fP
+.RS 4
+Coin 3\&.0 
+.RE
+.PP
+
+.SS "void SbImage::removeReadImageCB (\fBSbImageReadImageCB\fP * cb, void * closure)\fC [static]\fP"
+Remove a read image callback added with \fBaddReadImageCB()\fP\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBaddReadImageCB()\fP 
+.RE
+.PP
+\fBSince:\fP
+.RS 4
+Coin 3\&.0 
+.RE
+.PP
+
+.SS "\fBSbString\fP SbImage::searchForFile (const \fBSbString\fP & basename, const \fBSbString\fP *const * dirlist, const \fBint\fP numdirs)\fC [static]\fP"
+Given a \fIbasename\fP for a file and and array of directories to search (in \fIdirlist\fP, of length \fInumdirs\fP), returns the full name of the file found\&.
+.PP
+In addition to looking at the root of each directory in \fIdirlist\fP, we also look into the subdirectories \fItexture/\fP, \fItextures/\fP, \fIimages/\fP, \fIpics/\fP and \fIpictures/\fP of each \fIdirlist\fP directory\&.
+.PP
+If no file matching \fIbasename\fP could be found, returns an empty string\&. 
+.SS "SbBool SbImage::hasData (void) const"
+Returns \fITRUE\fP if the image is not empty\&. This can be useful, since \fBgetValue()\fP will start loading the image if \fBscheduleReadFile()\fP has been used to set the image data\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.RE
+.PP
+
+.SS "void SbImage::readLock (void) const"
+Apply a read lock on this image\&. This will make it impossible for other threads to change the image while this lock is active\&. Other threads can do read-only operations on this image, of course\&.
+.PP
+For the single thread version of Coin, this method does nothing\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBreadUnlock()\fP 
+.RE
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.RE
+.PP
+
+.SS "void SbImage::readUnlock (void) const"
+Release a read lock on this image\&.
+.PP
+For the single thread version of Coin, this method does nothing\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBreadLock()\fP 
+.RE
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.RE
+.PP
+
+.SS "SbBool SbImage::scheduleReadFile (\fBSbImageScheduleReadCB\fP * cb, void * closure, const \fBSbString\fP & filename, const \fBSbString\fP *const * searchdirectories = \fCNULL\fP, const \fBint\fP numdirectories = \fC0\fP)"
+Schedule a file for reading\&. \fIcb\fP will be called the first time \fBgetValue()\fP is called for this image, and the callback should then start a thread to read the image\&. Do not read the image in the callback, as this will lock up the application\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBreadFile()\fP 
+.RE
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.RE
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

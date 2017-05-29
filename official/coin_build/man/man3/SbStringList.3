@@ -1,0 +1,82 @@
+.TH "SbStringList" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SbStringList \- The \fBSbStringList\fP class is a container for arrays of \fBSbString\fP pointers\&.
+.PP
+Note that upon using the equality and inequality operators, the strings themselves are not compared, only the pointer values\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/lists/SbStringList\&.h>\fP
+.PP
+Inherits \fBSbPList\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSbStringList\fP (void)"
+.br
+.ti -1c
+.RI "\fBSbStringList\fP (const \fBint\fP sizehint)"
+.br
+.ti -1c
+.RI "void \fBappend\fP (\fBSbString\fP *string)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBfind\fP (\fBSbString\fP *string) const"
+.br
+.ti -1c
+.RI "void \fBinsert\fP (\fBSbString\fP *string, \fBint\fP insertbefore)"
+.br
+.ti -1c
+.RI "\fBSbString\fP *& \fBoperator[]\fP (const \fBint\fP idx) const"
+.br
+.ti -1c
+.RI "const \fBSbString\fP ** \fBgetArrayPtr\fP (void) const"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSbStringList\fP class is a container for arrays of \fBSbString\fP pointers\&.
+.PP
+Note that upon using the equality and inequality operators, the strings themselves are not compared, only the pointer values\&. 
+
+This class do not allocate or deallocate strings\&. It's the callers responsibility to allocate/deallocate the \fBSbString\fP instances\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSbPList\fP 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SbStringList::SbStringList (void)\fC [inline]\fP"
+Default constructor\&. 
+.SS "SbStringList::SbStringList (const \fBint\fP sizehint)\fC [inline]\fP"
+This constructor initializes the internal allocated size for the list to \fIsizehint\fP\&. Note that the list will still initially contain zero items\&.
+.PP
+\fBSee also:\fP
+.RS 4
+SPbList::SbList(const int sizehint) 
+.RE
+.PP
+
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBint\fP SbStringList::find (\fBSbString\fP * string) const\fC [inline]\fP"
+Overridden from parent to accept an \fBSbString\fP argument\&. 
+.SS "void SbStringList::insert (\fBSbString\fP * string, \fBint\fP insertbefore)\fC [inline]\fP"
+Overridden from parent to accept an \fBSbString\fP argument\&. 
+.SS "\fBSbString\fP *& SbStringList::operator[] (const \fBint\fP idx) const\fC [inline]\fP"
+Overridden from parent to return an \fBSbString\fP pointer\&. 
+.SS "const \fBSbString\fP ** SbStringList::getArrayPtr (void) const\fC [inline]\fP"
+Overridden from parent to return an \fBSbString\fP pointer array\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

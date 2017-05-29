@@ -1,0 +1,62 @@
+.TH "SoFullPath" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoFullPath \- The \fBSoFullPath\fP class allows examination of hidden children in paths\&.
+.PP
+\fBSoPath\fP allows only access from the head node to the first node with hidden children, but not any further\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/SoFullPath\&.h>\fP
+.PP
+Inherits \fBSoPath\fP\&.
+.PP
+Inherited by \fBSoTempPath\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBpop\fP (void)"
+.br
+.ti -1c
+.RI "\fBSoNode\fP * \fBgetTail\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoNode\fP * \fBgetNodeFromTail\fP (const \fBint\fP index) const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetIndexFromTail\fP (const \fBint\fP index) const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetLength\fP (void) const"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoFullPath\fP class allows examination of hidden children in paths\&.
+.PP
+\fBSoPath\fP allows only access from the head node to the first node with hidden children, but not any further\&. 
+
+Since the \fBSoFullPath\fP is derived from \fBSoPath\fP and contains no private data, you can cast \fBSoPath\fP instances to the \fBSoFullPath\fP type\&. This will allow you to examine hidden children\&.
+.PP
+(Actually, you are not supposed to allocate instances of this class at all\&. It is only available as an 'extended interface' into the superclass \fBSoPath\fP\&.) 
+.SH "Member Function Documentation"
+.PP 
+.SS "void SoFullPath::pop (void)\fC [inline]\fP"
+This method overrides \fBSoPath::pop()\fP to allow clients to get at all the nodes in the path\&. 
+.SS "\fBSoNode\fP * SoFullPath::getTail (void) const"
+This method overrides \fBSoPath::getTail()\fP to allow clients to get the tail node, counting internal path nodes\&. 
+.SS "\fBSoNode\fP * SoFullPath::getNodeFromTail (const \fBint\fP index) const"
+This method overrides \fBSoPath::getNodeFromTail()\fP to allow clients to get the node positioned \fIindex\fP nodes from the tail, counting internal path nodes\&. 
+.SS "\fBint\fP SoFullPath::getIndexFromTail (const \fBint\fP index) const"
+This method overrides \fBSoPath::getIndexFromTail()\fP to allow clients to get the child index number for nodes based on their position from the tail, counting hidden nodes\&. 
+.SS "\fBint\fP SoFullPath::getLength (void) const"
+This method returns the length of the path, counting hidden nodes also\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

@@ -1,0 +1,213 @@
+.TH "SoTextureCoordinate2" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoTextureCoordinate2 \- The \fBSoTextureCoordinate2\fP class contains a set of coordinates for the mapping of 2D textures\&.
+.PP
+When encountering nodes of this type during traversal, the coordinates it contains will be put on the state stack\&. Some shape nodes (for instance \fBSoIndexedFaceSet\fP, among many others) can then use these coordinates for explicit, detailed control of how textures are mapped to it's surfaces\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/nodes/SoTextureCoordinate2\&.h>\fP
+.PP
+Inherits \fBSoNode\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "\fBSoTextureCoordinate2\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBdoAction\fP (\fBSoAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBGLRender\fP (\fBSoGLRenderAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBcallback\fP (\fBSoCallbackAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBpick\fP (\fBSoPickAction\fP *action)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoMFVec2f\fP \fBpoint\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fB~SoTextureCoordinate2\fP ()"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoTextureCoordinate2\fP class contains a set of coordinates for the mapping of 2D textures\&.
+.PP
+When encountering nodes of this type during traversal, the coordinates it contains will be put on the state stack\&. Some shape nodes (for instance \fBSoIndexedFaceSet\fP, among many others) can then use these coordinates for explicit, detailed control of how textures are mapped to it's surfaces\&. 
+
+(If texturemapping is used without any \fBSoTextureCoordinate2\fP nodes in the scenegraph leading up to a shape node, all shape types have default fallbacks\&. So \fBSoTextureCoordinate2\fP nodes are only necessary to use if you are not satisfied with the default mapping\&.)
+.PP
+Note that an \fBSoTextureCoordinate2\fP node will \fIreplace\fP the coordinates already present in the state (if any)\&.
+.PP
+Here's a very simple example (in Inventor scenegraph file format -- mapping it to sourcecode is straightforward) that shows how to set up two quadratic polygons, one mapped 1:1 to the texture, the other using only the upper left quarter of the texture:
+.PP
+.PP
+.nf
+Separator {
+   Texture2 {
+      image 6 8 3
+      0x00ff0000 0x00ff0000 0x000000ff 0x000000ff 0x00ff00ff 0x00ff00ff
+      0x00ff0000 0x00ff0000 0x000000ff 0x000000ff 0x00ff00ff 0x00ff00ff
+      0x00ff0000 0x00ff0000 0x000000ff 0x000000ff 0x00ff00ff 0x00ff00ff
+      0x0000ff00 0x0000ff00 0x0000ffff 0x0000ffff 0x0000ff00 0x0000ff00
+      0x0000ff00 0x0000ff00 0x0000ffff 0x0000ffff 0x0000ff00 0x0000ff00
+      0x00ffff00 0x00ffff00 0x000000ff 0x000000ff 0x00ffffff 0x00ffffff
+      0x00ffff00 0x00ffff00 0x000000ff 0x000000ff 0x00ffffff 0x00ffffff
+      0x00ffff00 0x00ffff00 0x000000ff 0x000000ff 0x00ffffff 0x00ffffff
+   }
+
+   Coordinate3 { point [ -1 -1 0, 1 -1 0, 1 1 0, -1 1 0 ] }
+
+   # "1:1 mapping" to actual texture appearance\&. (Note that Y goes
+   # from bottom to top, versus the common way of specifying bitmap
+   # data from top to bottom\&.)
+   TextureCoordinate2 { point [ 0 1, 1 1, 1 0, 0 0 ] }
+
+   IndexedFaceSet {
+      coordIndex [ 0, 1, 2, 3, -1 ]
+      textureCoordIndex [ 0, 1, 2, 3, -1 ]
+   }
+
+   Translation { translation +4 0 0 }
+
+   # Top left corner\&.
+   TextureCoordinate2 { point [ 0 0\&.5, 0\&.5 0\&.5, 0\&.5 0, 0 0 ] }
+
+   IndexedFaceSet {
+      coordIndex [ 0, 1, 2, 3, -1 ]
+      textureCoordIndex [ 0, 1, 2, 3, -1 ]
+   }
+}
+.fi
+.PP
+.PP
+\fBFILE FORMAT/DEFAULTS:\fP 
+.PP
+.nf
+TextureCoordinate2 {
+    point [  ]
+}
+
+.fi
+.PP
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoTextureCoordinateFunction\fP, \fBSoTextureCoordinateBinding\fP 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoTextureCoordinate2::SoTextureCoordinate2 (void)"
+Constructor\&. 
+.SS "SoTextureCoordinate2::~SoTextureCoordinate2 ()\fC [protected]\fP, \fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoTextureCoordinate2::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Implements \fBSoBase\fP\&.
+.SS "const \fBSoFieldData\fP * SoTextureCoordinate2::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoFieldContainer\fP\&.
+.SS "void SoTextureCoordinate2::doAction (\fBSoAction\fP * action)\fC [virtual]\fP"
+This function performs the typical operation of a node for any action\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "void SoTextureCoordinate2::GLRender (\fBSoGLRenderAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGLRenderAction\fP\&.
+.PP
+This is called during rendering traversals\&. Nodes influencing the rendering state in any way or who wants to throw geometry primitives at OpenGL overrides this method\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "void SoTextureCoordinate2::callback (\fBSoCallbackAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoCallbackAction\fP\&.
+.PP
+Simply updates the state according to how the node behaves for the render action, so the application programmer can use the \fBSoCallbackAction\fP for extracting information about the scene graph\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "void SoTextureCoordinate2::pick (\fBSoPickAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoPickAction\fP\&.
+.PP
+Does common processing for \fBSoPickAction\fP \fIaction\fP instances\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSoMFVec2f\fP SoTextureCoordinate2::point"
+The set of 2D texture coordinates\&. Default value of field is an empty set\&.
+.PP
+Texture coordinates are usually specified in normalized coordinates, ie in the range [0, 1]\&. (0, 0) is the lower left corner, while (1, 1) is the upper right corner of the texture image\&. Coordinates outside the [0, 1] range can be used to repeat the texture across a surface\&.
+.PP
+\fBSee also:\fP
+.RS 4
+SoTexure2::wrapS, \fBSoTexture2::wrapT\fP 
+.RE
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

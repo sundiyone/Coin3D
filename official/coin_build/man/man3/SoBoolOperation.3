@@ -1,0 +1,202 @@
+.TH "SoBoolOperation" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoBoolOperation \- The \fBSoBoolOperation\fP engine evaluates expressions of boolean logic\&.
+.PP
+The multivalue fields \fBSoBoolOperation::a\fP and \fBSoBoolOperation::b\fP are combined according to the operations set in \fBSoBoolOperation::operation\fP, with the resulting \fCTRUE\fP or \fCFALSE\fP value set on \fBSoBoolOperation::output\fP\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/engines/SoBoolOperation\&.h>\fP
+.PP
+Inherits \fBSoEngine\fP\&.
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBOperation\fP { \fBCLEAR\fP, \fBSET\fP, \fBA\fP, \fBNOT_A\fP, \fBB\fP, \fBNOT_B\fP, \fBA_OR_B\fP, \fBNOT_A_OR_B\fP, \fBA_OR_NOT_B\fP, \fBNOT_A_OR_NOT_B\fP, \fBA_AND_B\fP, \fBNOT_A_AND_B\fP, \fBA_AND_NOT_B\fP, \fBNOT_A_AND_NOT_B\fP, \fBA_EQUALS_B\fP, \fBA_NOT_EQUALS_B\fP }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual const \fBSoEngineOutputData\fP * \fBgetOutputData\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoBoolOperation\fP ()"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void * \fBcreateInstance\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP ()"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoMFBool\fP \fBa\fP"
+.br
+.ti -1c
+.RI "\fBSoMFBool\fP \fBb\fP"
+.br
+.ti -1c
+.RI "\fBSoMFEnum\fP \fBoperation\fP"
+.br
+.ti -1c
+.RI "\fBSoEngineOutput\fP \fBoutput\fP"
+.br
+.ti -1c
+.RI "\fBSoEngineOutput\fP \fBinverse\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fB~SoBoolOperation\fP (void)"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetInputDataPtr\fP (void)"
+.br
+.ti -1c
+.RI "static const \fBSoEngineOutputData\fP ** \fBgetOutputDataPtr\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoBoolOperation\fP engine evaluates expressions of boolean logic\&.
+.PP
+The multivalue fields \fBSoBoolOperation::a\fP and \fBSoBoolOperation::b\fP are combined according to the operations set in \fBSoBoolOperation::operation\fP, with the resulting \fCTRUE\fP or \fCFALSE\fP value set on \fBSoBoolOperation::output\fP\&. 
+.SH "Member Enumeration Documentation"
+.PP 
+.SS "enum \fBSoBoolOperation::Operation\fP"
+Enumeration of available boolean logic operators\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fICLEAR \fP\fP
+Always set \fBSoBoolOperation::output\fP to \fCFALSE\fP, no matter the input values\&. 
+.TP
+\fB\fISET \fP\fP
+Always set \fBSoBoolOperation::output\fP to \fCTRUE\fP, no matter the input values\&. 
+.TP
+\fB\fIA \fP\fP
+Output result = \fBSoBoolOperation::a\fP 
+.TP
+\fB\fINOT_A \fP\fP
+Output result = ! \fBSoBoolOperation::a\fP 
+.TP
+\fB\fIB \fP\fP
+Output result = \fBSoBoolOperation::b\fP 
+.TP
+\fB\fINOT_B \fP\fP
+Output result = ! \fBSoBoolOperation::b\fP 
+.TP
+\fB\fIA_OR_B \fP\fP
+r = a || b 
+.TP
+\fB\fINOT_A_OR_B \fP\fP
+r = !a || b 
+.TP
+\fB\fIA_OR_NOT_B \fP\fP
+r = a || !b 
+.TP
+\fB\fINOT_A_OR_NOT_B \fP\fP
+r = !a || !b 
+.TP
+\fB\fIA_AND_B \fP\fP
+r = a && b 
+.TP
+\fB\fINOT_A_AND_B \fP\fP
+r = !a && b 
+.TP
+\fB\fIA_AND_NOT_B \fP\fP
+r = a && !b 
+.TP
+\fB\fINOT_A_AND_NOT_B \fP\fP
+r = !a && !b 
+.TP
+\fB\fIA_EQUALS_B \fP\fP
+r = a==b 
+.TP
+\fB\fIA_NOT_EQUALS_B \fP\fP
+r = ! a==b 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoBoolOperation::SoBoolOperation (void)"
+Default constructor\&. 
+.SS "SoBoolOperation::~SoBoolOperation (void)\fC [protected]\fP, \fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoBoolOperation::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Implements \fBSoBase\fP\&.
+.SS "const \fBSoFieldData\fP * SoBoolOperation::getFieldData (void) const\fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoFieldContainer\fP\&.
+.SS "const \fBSoEngineOutputData\fP * SoBoolOperation::getOutputData (void) const\fC [virtual]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.PP
+Implements \fBSoEngine\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSoMFBool\fP SoBoolOperation::a"
+First set of boolean input 'signal' values\&. 
+.SS "\fBSoMFBool\fP SoBoolOperation::b"
+Second set of boolean input 'signal' values\&. 
+.SS "\fBSoMFEnum\fP SoBoolOperation::operation"
+Set of boolean logic expressions\&. Each of these are used to combine \fBSoBoolOperation::a\fP with \fBSoBoolOperation::b\fP (for each index value from 0 to the last value) to produce the results on the \fBSoBoolOperation::output\fP field\&. 
+.SS "\fBSoEngineOutput\fP SoBoolOperation::output"
+(\fBSoMFBool\fP) The result of each (a[i] operation[i] b[i]) expression\&. 
+.SS "\fBSoEngineOutput\fP SoBoolOperation::inverse"
+(\fBSoMFBool\fP) The set of inverse results\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

@@ -1,0 +1,133 @@
+.TH "SoComposeRotation" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoComposeRotation \- The \fBSoComposeRotation\fP class is used to compose rotations from angle and axis\&.
+.PP
+Simple usage example:  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/engines/SoComposeRotation\&.h>\fP
+.PP
+Inherits \fBSoEngine\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual const \fBSoEngineOutputData\fP * \fBgetOutputData\fP (void) const"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void * \fBcreateInstance\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP ()"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoMFVec3f\fP \fBaxis\fP"
+.br
+.ti -1c
+.RI "\fBSoMFFloat\fP \fBangle\fP"
+.br
+.ti -1c
+.RI "\fBSoEngineOutput\fP \fBrotation\fP"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetInputDataPtr\fP (void)"
+.br
+.ti -1c
+.RI "static const \fBSoEngineOutputData\fP ** \fBgetOutputDataPtr\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoComposeRotation\fP class is used to compose rotations from angle and axis\&.
+.PP
+Simple usage example: 
+
+
+.PP
+.nf
+#Inventor V2\&.1 ascii
+
+Separator {
+   Transform {
+      rotation =
+      ComposeRotation { axis 0 1 0  angle =
+         ElapsedTime { }\&.timeOut
+      }\&.rotation
+   }
+   Cube { }
+}
+
+.fi
+.PP
+ 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoComposeRotation::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Implements \fBSoBase\fP\&.
+.SS "const \fBSoFieldData\fP * SoComposeRotation::getFieldData (void) const\fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoFieldContainer\fP\&.
+.SS "const \fBSoEngineOutputData\fP * SoComposeRotation::getOutputData (void) const\fC [virtual]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.PP
+Implements \fBSoEngine\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSoMFVec3f\fP SoComposeRotation::axis"
+Set of axis vectors for the output rotations\&. Default value is (0\&.0f, 0\&.0f, 1\&.0f)\&. 
+.SS "\fBSoMFFloat\fP SoComposeRotation::angle"
+Set of scalar rotation values for the output rotations\&. Default value is 0\&.0\&. 
+.SS "\fBSoEngineOutput\fP SoComposeRotation::rotation"
+(\fBSoMFRotation\fP) Rotations generated from the angle and axis input fields\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

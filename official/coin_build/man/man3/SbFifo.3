@@ -1,0 +1,43 @@
+.TH "SbFifo" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SbFifo
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBassign\fP (void *ptr, uint32_t type)"
+.br
+.ti -1c
+.RI "void \fBretrieve\fP (void *&ptr, uint32_t &type)"
+.br
+.ti -1c
+.RI "SbBool \fBtryRetrieve\fP (void *&ptr, uint32_t &type)"
+.br
+.ti -1c
+.RI "unsigned \fBint\fP \fBsize\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBlock\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBunlock\fP (void) const"
+.br
+.ti -1c
+.RI "SbBool \fBpeek\fP (void *&item, uint32_t &type) const"
+.br
+.ti -1c
+.RI "SbBool \fBcontains\fP (void *item) const"
+.br
+.ti -1c
+.RI "SbBool \fBreclaim\fP (void *item)"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

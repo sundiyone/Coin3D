@@ -1,0 +1,597 @@
+.TH "SoOffscreenRenderer" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoOffscreenRenderer \- The \fBSoOffscreenRenderer\fP class is used for rendering scenes in offscreen buffers\&.
+.PP
+If you want to render to a memory buffer instead of an on-screen OpenGL context, use this class\&. Rendering to a memory buffer can be used to generate texture maps on-the-fly, or for saving snapshots of the scene to disk files (as pixel bitmaps or as Postscript files for sending to a Postscript-capable printer)\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/SoOffscreenRenderer\&.h>\fP
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBComponents\fP { \fBLUMINANCE\fP = 1, \fBLUMINANCE_TRANSPARENCY\fP = 2, \fBRGB\fP = 3, \fBRGB_TRANSPARENCY\fP = 4 }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSoOffscreenRenderer\fP (const \fBSbViewportRegion\fP &viewportregion)"
+.br
+.ti -1c
+.RI "\fBSoOffscreenRenderer\fP (\fBSoGLRenderAction\fP *action)"
+.br
+.ti -1c
+.RI "\fB~SoOffscreenRenderer\fP ()"
+.br
+.ti -1c
+.RI "void \fBsetComponents\fP (const \fBComponents\fP components)"
+.br
+.ti -1c
+.RI "\fBComponents\fP \fBgetComponents\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBsetViewportRegion\fP (const \fBSbViewportRegion\fP &region)"
+.br
+.ti -1c
+.RI "const \fBSbViewportRegion\fP & \fBgetViewportRegion\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBsetBackgroundColor\fP (const \fBSbColor\fP &color)"
+.br
+.ti -1c
+.RI "const \fBSbColor\fP & \fBgetBackgroundColor\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBsetGLRenderAction\fP (\fBSoGLRenderAction\fP *action)"
+.br
+.ti -1c
+.RI "\fBSoGLRenderAction\fP * \fBgetGLRenderAction\fP (void) const"
+.br
+.ti -1c
+.RI "SbBool \fBrender\fP (\fBSoNode\fP *scene)"
+.br
+.ti -1c
+.RI "SbBool \fBrender\fP (\fBSoPath\fP *scene)"
+.br
+.ti -1c
+.RI "unsigned char * \fBgetBuffer\fP (void) const"
+.br
+.ti -1c
+.RI "const void *const  & \fBgetDC\fP (void) const"
+.br
+.ti -1c
+.RI "SbBool \fBwriteToRGB\fP (FILE *fp) const"
+.br
+.ti -1c
+.RI "SbBool \fBwriteToPostScript\fP (FILE *fp) const"
+.br
+.ti -1c
+.RI "SbBool \fBwriteToPostScript\fP (FILE *fp, const \fBSbVec2f\fP &printsize) const"
+.br
+.ti -1c
+.RI "SbBool \fBwriteToRGB\fP (const char *filename) const"
+.br
+.ti -1c
+.RI "SbBool \fBwriteToPostScript\fP (const char *filename) const"
+.br
+.ti -1c
+.RI "SbBool \fBwriteToPostScript\fP (const char *filename, const \fBSbVec2f\fP &printsize) const"
+.br
+.ti -1c
+.RI "SbBool \fBisWriteSupported\fP (const \fBSbName\fP &filetypeextension) const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetNumWriteFiletypes\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBgetWriteFiletypeInfo\fP (const \fBint\fP idx, \fBSbPList\fP &extlist, \fBSbString\fP &fullname, \fBSbString\fP &description)"
+.br
+.ti -1c
+.RI "SbBool \fBwriteToFile\fP (const \fBSbString\fP &filename, const \fBSbName\fP &filetypeextension) const"
+.br
+.ti -1c
+.RI "void \fBsetPbufferEnable\fP (SbBool enable)"
+.br
+.ti -1c
+.RI "SbBool \fBgetPbufferEnable\fP (void) const"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static float \fBgetScreenPixelsPerInch\fP (void)"
+.br
+.ti -1c
+.RI "static \fBSbVec2s\fP \fBgetMaximumResolution\fP (void)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBSoOffscreenRenderer\fP class is used for rendering scenes in offscreen buffers\&.
+.PP
+If you want to render to a memory buffer instead of an on-screen OpenGL context, use this class\&. Rendering to a memory buffer can be used to generate texture maps on-the-fly, or for saving snapshots of the scene to disk files (as pixel bitmaps or as Postscript files for sending to a Postscript-capable printer)\&. 
+
+Here's a dead simple usage example, just the code directly related to the \fBSoOffscreenRenderer\fP:
+.PP
+.PP
+.nf
+SoOffscreenRenderer myRenderer(vpregion);
+SoNode * root = myViewer->getSceneManager()->getSceneGraph();
+SbBool ok = myRenderer\&.render(root);
+unsigned char * imgbuffer = myRenderer\&.getBuffer();
+// [then use image buffer in a texture, or write it to file, or whatever]
+.fi
+.PP
+.PP
+And here a complete stand-alone example with a moving camera saving multiple frames to disk as JPGs:
+.PP
+.PP
+.nf
+#include <Inventor/SoDB\&.h>
+#include <Inventor/SoOffscreenRenderer\&.h>
+#include <Inventor/engines/SoInterpolateVec3f\&.h>
+#include <Inventor/nodes/SoCube\&.h>
+#include <Inventor/nodes/SoDirectionalLight\&.h>
+#include <Inventor/nodes/SoPerspectiveCamera\&.h>
+#include <Inventor/nodes/SoSeparator\&.h>
+
+#include <iostream>
+
+int main()
+{
+  // Init Coin
+  SoDB::init();
+
+  // The root node
+  SoSeparator * root = new SoSeparator;
+  root->ref();
+
+  // It is mandatory to have at least one light for the offscreen renderer
+  SoDirectionalLight * light = new SoDirectionalLight;
+  root->addChild(light);
+
+  // It is mandatory to have at least one camera for the offscreen renderer
+  SoPerspectiveCamera * camera = new SoPerspectiveCamera;
+  SbRotation cameraRotation = SbRotation::identity();
+  cameraRotation *= SbRotation(SbVec3f(1, 0, 0), -0\&.4f);
+  cameraRotation *= SbRotation(SbVec3f(0, 1, 0), 0\&.4f);
+  camera->orientation = cameraRotation;
+  root->addChild(camera);
+
+  // Something to show\&.\&.\&. A box
+  SoCube * cube = new SoCube;
+  root->addChild(cube);
+
+  // Set up the two camera positions we want to move the camera between
+  SoInterpolateVec3f * interpolate = new SoInterpolateVec3f;
+  interpolate->input0 = SbVec3f(2, 2, 9);
+  interpolate->input1 = SbVec3f(2, 2, 5);
+  camera->position\&.connectFrom(&interpolate->output);
+
+  // Set up the offscreen renderer
+  SbViewportRegion vpRegion(400, 300);
+  SoOffscreenRenderer offscreenRenderer(vpRegion);
+
+  // How many frames to render for the video
+  int frames = 5;
+  std::cout << "Writing " << frames << " frames\&.\&.\&." << std::endl;
+
+  for (int i = 0; i < frames; i++) {
+    // Update the camera position
+    interpolate->alpha = float(i) / (frames - 1);
+
+    // Render the scene
+    SbBool ok = offscreenRenderer\&.render(root);
+
+    // Save the image to disk
+    SbString filename = SbString("coinvideo-") + (i + 1) + "\&.jpg";
+    if (ok) {
+      offscreenRenderer\&.writeToFile(filename\&.getString(), "jpg");
+    } else {
+      std::cout << "Error saving image: " << filename\&.getString() << std::endl;
+      break;
+    }
+  }
+
+  std::cout << "Done!" << std::endl;
+
+  root->unref();
+  return 0;
+}
+.fi
+.PP
+.PP
+Note that the \fBSoOffscreenRenderer\fP potentially allocates a fairly large amount of resources, both OpenGL and general system resources, for each instance\&. You will therefore be well adviced to try to reuse \fBSoOffscreenRenderer\fP instances, instead of constructing and destructing a new instance e\&.g\&. for each frame when generating pictures for video\&.
+.PP
+Offscreen rendering is internally done through either a GLX offscreen context (i\&.e\&. OpenGL on X11), WGL (i\&.e\&. OpenGL on Win32), AGL (old-style OpenGL on the Mac OS X) or CGL (new-style Mac OS X)\&.
+.PP
+If the OpenGL driver supports the pbuffer extension, it is detected and used to provide hardware-accelerated offscreen rendering\&.
+.PP
+The pixeldata is fetched from the OpenGL buffer with glReadPixels(), with the format and type arguments set to GL_RGBA and GL_UNSIGNED_BYTE, respectively\&. This means that the maximum resolution is 32 bits, 8 bits for each of the R/G/B/A components\&.
+.PP
+One particular usage of the \fBSoOffscreenRenderer\fP is to make it render frames to be used for the construction of movies\&. The general technique for doing this is to iterate over the following actions:
+.PP
+.PD 0
+.IP "\(bu" 2
+move camera to correct position for frame 
+.IP "\(bu" 2
+update the \fCrealTime\fP global field (see explanation below) 
+.IP "\(bu" 2
+invoke the \fBSoOffscreenRenderer\fP 
+.IP "\(bu" 2
+dump rendered scene to file 
+.PP
+.PP
+\&.\&.then you use some external tool or library to construct the movie file, for instance in MPEG format, from the set of files dumped to disk from the iterative process above\&.
+.PP
+The code would go something like the following (pseudo-code style)\&. First we need to stop the Coin library itself from doing any automatic updating of the \fCrealTime\fP field, so your application initialization for Coin should look something like:
+.PP
+.PP
+.nf
+[\&.\&.\&.] = SoQt::init([\&.\&.\&.]); // or SoWin::init() or SoDB::init()
+// \&.\&.and then immediately:
+
+// Control realTime field ourselves, so animations within the scene
+// follows "movie-time" and not "wallclock-time"\&.
+SoDB::enableRealTimeSensor(FALSE);
+SoSceneManager::enableRealTimeUpdate(FALSE);
+SoSFTime * realtime = SoDB::getGlobalField("realTime");
+realtime->setValue(0\&.0);
+.fi
+.PP
+.PP
+Note that it is important that the \fCrealTime\fP field is initialized to \fIyour\fP start-time \fIbefore\fP setting up any engines or other entities in the system that uses the \fCrealTime\fP field\&.
+.PP
+Then for the rendering loop, something like:
+.PP
+.PP
+.nf
+for (int i=0; i < NRFRAMES; i++) {
+  // [\&.\&.\&.reposition camera here, if necessary\&.\&.\&.]
+
+  // render
+  offscreenrend->render(root);
+
+  // dump to file
+  SbString framefile;
+  framefile\&.sprintf("frame%06d\&.rgb", i);
+  offscreenrend->writeToRGB(framefile\&.getString());
+
+  // advance "current time" by the frames-per-second value, which
+  // is 24 fps in this example
+  realtime->setValue(realtime\&.getValue() + 1/24\&.0);
+}
+.fi
+.PP
+.PP
+When making movies you need to write your application control code to take care of moving the camera along the correct trajectory yourself, and to explicitly control the global \fCrealTime\fP field\&. The latter is so you're able to 'step' with appropriate time units for each render operation (e\&.g\&. if you want a movie that has a 24 FPS refresh rate, first render with \fCrealTime=0\&.0\fP, then add 1/24s to the \fCrealTime\fP field, render again to a new frame, add another 1/24s to the \fCrealTime\fP field, render, and so on)\&.
+.PP
+For further information about how to control the \fCrealTime\fP field, see documentation of \fBSoDB::getGlobalField()\fP, \fBSoDB::enableRealTimeSensor()\fP, and \fBSoSceneManager::enableRealTimeUpdate()\fP\&.
+.PP
+If you want to use this class to create snapshots of your current viewer's view, but want to control the size of the snapshot, you need to modify the camera a bit while rendering to be sure that everything you see in the current view is visible in the snapshot\&.
+.PP
+Below you'll find some pseude-code that does this\&. There are probably other ways to do this as well\&.
+.PP
+.PP
+.nf
+void render_offscreen(const SbVec2s size)
+{
+  SbVec2s glsize = this->getGLSize(); // size of your normal viewer
+  float glar = float(glsize[0] / float(glsize[1]));
+  float ar = float(size[0]) / float(size[1]);
+  SoCamera * camera = this->getCamera(); // the camera you're using
+  SoCamera::ViewportMapping oldmap = (SoCamera::ViewportMapping)
+    camera->viewportMapping\&.getValue();
+  float oldar = camera->aspectRatio\&.getValue();
+
+  camera->viewportMapping = SoCamera::LEAVE_ALONE;
+  camera->aspectRatio = ar;
+
+  float scaleheight = 1\&.0f;
+  if (glar > ar) {
+    scaleheight = glar / ar;
+    camera->scaleHeight(scaleheight);
+  }
+  else {
+    scaleheight = ar / glar;
+    camera->scaleHeight(scaleheight);
+  }
+  SoOffscreenRenderer * renderer = new SoOffscreenRenderer(size);
+  renderer->render(root);
+
+  // \&.\&.\&. save image
+
+  // restore camera
+  camera->viewportMapping = oldmap;
+  camera->aspectRatio = oldar;
+
+  if (scaleheight != 1\&.0f) {
+    camera->scaleHeight(1\&.0f / scaleheight);
+  }
+}
+.fi
+.PP
+ 
+.SH "Member Enumeration Documentation"
+.PP 
+.SS "enum \fBSoOffscreenRenderer::Components\fP"
+Enumerated values for the available image formats\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetComponents()\fP 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoOffscreenRenderer::SoOffscreenRenderer (const \fBSbViewportRegion\fP & viewportregion)"
+Constructor\&. Argument is the \fIviewportregion\fP we should use when rendering\&. An internal \fBSoGLRenderAction\fP will be constructed\&. 
+.SS "SoOffscreenRenderer::SoOffscreenRenderer (\fBSoGLRenderAction\fP * action)"
+Constructor\&. Argument is the \fIaction\fP we should apply to the scene graph when rendering the scene\&. Information about the viewport is extracted from the \fIaction\fP\&. 
+.SS "SoOffscreenRenderer::~SoOffscreenRenderer ()"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "float SoOffscreenRenderer::getScreenPixelsPerInch (void)\fC [static]\fP"
+Returns the screen pixels per inch resolution of your monitor\&. 
+.SS "\fBSbVec2s\fP SoOffscreenRenderer::getMaximumResolution (void)\fC [static]\fP"
+Get maximum dimensions (width, height) of the offscreen buffer\&.
+.PP
+Note that from Coin version 2 onwards, the returned value will always be (\fCSHRT_MAX\fP, \fCSHRT_MAX\fP), where \fCSHRT_MAX\fP on most systems is equal to 32767\&.
+.PP
+This because the \fBSoOffscreenRenderer\fP can in principle generate unlimited size offscreen canvases by tiling together multiple renderings of the same scene\&. 
+.SS "void SoOffscreenRenderer::setComponents (const \fBComponents\fP components)"
+Sets the component format of the offscreen buffer\&.
+.PP
+If set to \fCLUMINANCE\fP, a grayscale image is rendered, \fCLUMINANCE_TRANSPARENCY\fP gives us a grayscale image with transparency, \fCRGB\fP will give us a 24-bit image with 8 bits each for the red, green and blue component, and \fCRGB_TRANSPARENCY\fP yields a 32-bit image (\fCRGB\fP plus transparency)\&.
+.PP
+The default format to render to is \fCRGB\fP\&.
+.PP
+This will invalidate the current buffer, if any\&. The buffer will not contain valid data until another call to \fBSoOffscreenRenderer::render()\fP happens\&. 
+.SS "\fBSoOffscreenRenderer::Components\fP SoOffscreenRenderer::getComponents (void) const"
+Returns the component format of the offscreen buffer\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetComponents()\fP 
+.RE
+.PP
+
+.SS "void SoOffscreenRenderer::setViewportRegion (const \fBSbViewportRegion\fP & region)"
+Sets the viewport region\&.
+.PP
+This will invalidate the current buffer, if any\&. The buffer will not contain valid data until another call to \fBSoOffscreenRenderer::render()\fP happens\&. 
+.SS "const \fBSbViewportRegion\fP & SoOffscreenRenderer::getViewportRegion (void) const"
+Returns the viewerport region\&. 
+.SS "void SoOffscreenRenderer::setBackgroundColor (const \fBSbColor\fP & color)"
+Sets the background color\&. The buffer is cleared to this color before rendering\&. 
+.SS "const \fBSbColor\fP & SoOffscreenRenderer::getBackgroundColor (void) const"
+Returns the background color\&. 
+.SS "void SoOffscreenRenderer::setGLRenderAction (\fBSoGLRenderAction\fP * action)"
+Sets the render action\&. Use this if you have special rendering needs\&. 
+.SS "\fBSoGLRenderAction\fP * SoOffscreenRenderer::getGLRenderAction (void) const"
+Returns the rendering action currently used\&. 
+.SS "SbBool SoOffscreenRenderer::render (\fBSoNode\fP * scene)"
+Render the scenegraph rooted at \fIscene\fP into our internal pixel buffer\&.
+.PP
+Important note: make sure you pass in a \fIscene\fP node pointer which has both a camera and at least one lightsource below it -- otherwise you are likely to end up with just a blank or black image buffer\&.
+.PP
+This mistake is easily made if you use an \fBSoOffscreenRenderer\fP on a scenegraph from one of the standard viewer components, as you will often just leave the addition of a camera and a headlight lightsource to the viewer to set up\&. This camera and lightsource are then part of the viewer's private 'super-graph' outside of the scope of the scenegraph passed in by the application programmer\&. To make sure the complete scenegraph (including the viewer's 'private parts' (\fIsnicker\fP)) are passed to this method, you can get the scenegraph root from the viewer's internal \fBSoSceneManager\fP instance instead of from the viewer's own getSceneGraph() method, like this:
+.PP
+.PP
+.nf
+SoOffscreenRenderer * myRenderer = new SoOffscreenRenderer(vpregion);
+SoNode * root = myViewer->getSceneManager()->getSceneGraph();
+SbBool ok = myRenderer->render(root);
+// [then use image buffer in a texture, or write it to file, or whatever]
+.fi
+.PP
+.PP
+If you do this and still get a blank buffer, another common problem is to have a camera which is not actually pointing at the scene geometry you want a snapshot of\&. If you suspect that could be the cause of problems on your end, take a look at \fBSoCamera::pointAt()\fP and \fBSoCamera::viewAll()\fP to see how you can make a camera node guaranteed to be directed at the scene geometry\&.
+.PP
+Yet another common mistake when setting up the camera is to specify values for the \fBSoCamera::nearDistance\fP and \fBSoCamera::farDistance\fP fields which doesn't not enclose the full scene\&. This will result in either just the background color, or that parts at the front or the back of the scene will not be visible in the rendering\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBwriteToRGB()\fP 
+.RE
+.PP
+
+.SS "SbBool SoOffscreenRenderer::render (\fBSoPath\fP * scene)"
+Render the \fIscene\fP path into our internal memory buffer\&. 
+.SS "unsigned char * SoOffscreenRenderer::getBuffer (void) const"
+Returns the offscreen memory buffer\&. 
+.SS "const void *const  & SoOffscreenRenderer::getDC (void) const"
+Win32 only:
+.PP
+returns a direct handle to the internal DC of the offscreen context\&.
+.PP
+Useful for efficient access to the raw image under certain special circumstances\&. \fBgetBuffer()\fP might be too slow, for instance due to pixel format conversion (Windows DCs are usually BGRA, while the 32-bit buffers returned from \fBgetBuffer()\fP are RGBA)\&.
+.PP
+Notes:
+.PP
+The return value is a reference to a HDC\&. The HDC typedef has been unwound to a native C++ type for multiplatform compatibility reasons\&.
+.PP
+Returned reference will contain a NULL value on other platforms\&.
+.PP
+Important limitation: if the current dimensions of the \fBSoOffscreenRenderer\fP instance are larger than what can be rendered with a single offscreen buffer, tiling will be used by the \fBSoOffscreenRenderer\fP, and the returned HDC will contain only part of the full rendered image\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetBuffer()\fP 
+.RE
+.PP
+\fBSince:\fP
+.RS 4
+Coin 3\&.1 
+.RE
+.PP
+
+.SS "SbBool SoOffscreenRenderer::writeToRGB (FILE * fp) const"
+Writes the buffer in SGI RGB format by appending it to the already open file\&. Returns \fCFALSE\fP if writing fails\&.
+.PP
+Important note: do \fInot\fP use this method when the Coin library has been compiled as an MSWindows DLL, as passing FILE* instances back or forth to DLLs is dangerous and will most likely cause a crash\&. This is an intrinsic limitation for MSWindows DLLs\&. 
+.SS "SbBool SoOffscreenRenderer::writeToPostScript (FILE * fp) const"
+Writes the buffer in Postscript format by appending it to the already open file\&. Returns \fCFALSE\fP if writing fails\&.
+.PP
+Important note: do \fInot\fP use this method when the Coin library has been compiled as an MSWindows DLL, as passing FILE* instances back or forth to DLLs is dangerous and will most likely cause a crash\&. This is an intrinsic limitation for MSWindows DLLs\&. 
+.SS "SbBool SoOffscreenRenderer::writeToPostScript (FILE * fp, const \fBSbVec2f\fP & printsize) const"
+Writes the buffer to a file in Postscript format, with \fIprintsize\fP dimensions\&.
+.PP
+Important note: do \fInot\fP use this method when the Coin library has been compiled as an MSWindows DLL, as passing FILE* instances back or forth to DLLs is dangerous and will most likely cause a crash\&. This is an intrinsic limitation for MSWindows DLLs\&. 
+.SS "SbBool SoOffscreenRenderer::writeToRGB (const char * filename) const"
+Opens a file with the given name and writes the offscreen buffer in SGI RGB format to the new file\&. If the file already exists, it will be overwritten (if permitted by the filesystem)\&.
+.PP
+Returns \fCTRUE\fP if all went ok, otherwise \fCFALSE\fP\&. 
+.SS "SbBool SoOffscreenRenderer::writeToPostScript (const char * filename) const"
+Opens a file with the given name and writes the offscreen buffer in Postscript format to the new file\&. If the file already exists, it will be overwritten (if permitted by the filesystem)\&.
+.PP
+Returns \fCTRUE\fP if all went ok, otherwise \fCFALSE\fP\&. 
+.SS "SbBool SoOffscreenRenderer::writeToPostScript (const char * filename, const \fBSbVec2f\fP & printsize) const"
+Opens a file with the given name and writes the offscreen buffer in Postscript format with \fIprintsize\fP dimensions to the new file\&. If the file already exists, it will be overwritten (if permitted by the filesystem)\&.
+.PP
+Returns \fCTRUE\fP if all went ok, otherwise \fCFALSE\fP\&. 
+.SS "SbBool SoOffscreenRenderer::isWriteSupported (const \fBSbName\fP & filetypeextension) const"
+Returns \fCTRUE\fP if the buffer can be saved as a file of type \fIfiletypeextension\fP, using \fBSoOffscreenRenderer::writeToFile()\fP\&. This function needs simage v1\&.1 or newer\&.
+.PP
+Examples of possibly supported extensions are: 'jpg', 'png', 'tiff', 'gif', 'bmp', etc\&. The extension match is not case sensitive\&.
+.PP
+Which formats are \fIactually\fP supported depends on the capabilities of Coin's support library for handling import and export of pixel-data files: the simage library\&. If the simage library is not installed on your system, no extension output formats will be supported\&.
+.PP
+Also, note that it is possible to build and install a simage library that lacks support for most or all of the file formats it is \fIcapable\fP of supporting\&. This is so because the simage library depends on other, external 3rd party libraries -- in the same manner as Coin depends on the simage library for added file format support\&.
+.PP
+The two built-in formats that are supported through the \fBSoOffscreenRenderer::writeToRGB()\fP and \fBSoOffscreenRenderer::writeToPostScript()\fP methods (for SGI RGB format and for Adobe Postscript files, respectively) are \fInot\fP considered by this method, as those two formats are guaranteed to \fIalways\fP be supported through those functions\&.
+.PP
+So if you want to be guaranteed to be able to export a screenshot in your wanted format, you will have to use either one of the above mentioned method for writing SGI RGB or Adobe Postscript directly, or make sure the Coin library has been built and is running on top of a version of the simage library (that you have preferably built yourself) with the file format(s) you want support for\&.
+.PP
+This method is an extension versus the original SGI Open Inventor API\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetNumWriteFiletypes()\fP, \fBgetWriteFiletypeInfo()\fP, \fBwriteToFile()\fP 
+.RE
+.PP
+
+.SS "\fBint\fP SoOffscreenRenderer::getNumWriteFiletypes (void) const"
+Returns the number of available exporters\&. Detailed information about the exporters can then be found using \fBgetWriteFiletypeInfo()\fP\&.
+.PP
+See \fBSoOffscreenRenderer::isWriteSupported()\fP for information about which file formats you can expect to be present\&.
+.PP
+Note that the two built-in export formats, SGI RGB and Adobe Postscript, are not counted\&.
+.PP
+This method is an extension versus the original SGI Open Inventor API\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetWriteFiletypeInfo()\fP 
+.RE
+.PP
+
+.SS "void SoOffscreenRenderer::getWriteFiletypeInfo (const \fBint\fP idx, \fBSbPList\fP & extlist, \fBSbString\fP & fullname, \fBSbString\fP & description)"
+Returns information about an image exporter\&. \fIextlist\fP is a list of filename extensions for a file format\&. E\&.g\&. for JPEG it is legal to use both jpg and jpeg\&. Extlist will contain const char * pointers (you need to cast the void * pointers to const char * before using them)\&.
+.PP
+\fIfullname\fP is the full name of the image format\&. \fIdescription\fP is an optional string with more information about the file format\&.
+.PP
+See \fBSoOffscreenRenderer::isWriteSupported()\fP for information about which file formats you can expect to be present\&.
+.PP
+This method is an extension versus the original SGI Open Inventor API\&.
+.PP
+Here is a stand-alone, complete code example that shows how you can check exactly which output formats are supported:
+.PP
+.PP
+.nf
+#include <Inventor/SoDB\&.h>
+#include <Inventor/SoOffscreenRenderer\&.h>
+
+int
+main(int argc, char **argv)
+{
+  SoDB::init();
+  SoOffscreenRenderer * r = new SoOffscreenRenderer(*(new SbViewportRegion));
+  int num = r->getNumWriteFiletypes();
+
+  if (num == 0) {
+    (void)fprintf(stdout,
+                  "No image formats supported by the "
+                  "SoOffscreenRenderer except SGI RGB and Postscript\&.\n");
+  }
+  else {
+    for (int i=0; i < num; i++) {
+      SbPList extlist;
+      SbString fullname, description;
+      r->getWriteFiletypeInfo(i, extlist, fullname, description);
+      (void)fprintf(stdout, "%s: %s (extension%s: ",
+                    fullname\&.getString(), description\&.getString(),
+                    extlist\&.getLength() > 1 ? "s" : "");
+      for (int j=0; j < extlist\&.getLength(); j++) {
+        (void)fprintf(stdout, "%s%s", j>0 ? ", " : "", (const char*) extlist[j]);
+      }
+      (void)fprintf(stdout, ")\n");
+    }
+  }
+
+  delete r;
+  return 0;
+}
+.fi
+.PP
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetNumWriteFiletypes()\fP, \fBwriteToFile()\fP
+.RE
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.3 
+.RE
+.PP
+
+.SS "SbBool SoOffscreenRenderer::writeToFile (const \fBSbString\fP & filename, const \fBSbName\fP & filetypeextension) const"
+Saves the buffer to \fIfilename\fP, in the filetype specified by \fIfiletypeextensions\fP\&.
+.PP
+Note that you must still specify the \fIfull\fP \fIfilename\fP for the first argument, i\&.e\&. the second argument will not automatically be attached to the filename -- it is only used to decide the filetype\&.
+.PP
+This method is an extension versus the orignal SGI Open Inventor API\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBisWriteSupported()\fP 
+.RE
+.PP
+
+.SS "void SoOffscreenRenderer::setPbufferEnable (SbBool enable)"
+Control whether or not \fBSoOffscreenRenderer\fP can use the 'pbuffer' feature of OpenGL to render the scenes with hardware acceleration\&.
+.PP
+This is a dummy function in Coin, provided for API compatibility reasons, as it is really superfluous:
+.PP
+Coin has internal heuristics to figure out if pbuffers are available and can be allocated and used for the \fBSoOffscreenRenderer\fP\&. The \fBSoOffscreenRenderer\fP will also automatically fall back on 'soft' buffers if it can not use pbuffers (or any other hardware accelerated rendering technique)\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 3\&.1 
+.RE
+.PP
+
+.SS "SbBool SoOffscreenRenderer::getPbufferEnable (void) const"
+See \fBSoOffscreenRenderer::setPbufferEnable()\fP\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 3\&.1 
+.RE
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

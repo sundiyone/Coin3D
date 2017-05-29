@@ -1,0 +1,139 @@
+.TH "SoConcatenate" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoConcatenate \- The \fBSoConcatenate\fP class is used to concatenate several inputs into one output\&.
+.PP
+Takes all the values from the 10 input multivalue fields in turn and concatenates them into the multivalue output\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/engines/SoConcatenate\&.h>\fP
+.PP
+Inherits \fBSoEngine\fP\&.
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum { \fBNUMINPUTS\fP = 10 }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual const \fBSoEngineOutputData\fP * \fBgetOutputData\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoConcatenate\fP (\fBSoType\fP inputType)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void * \fBcreateInstance\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoMField\fP * \fBinput\fP [NUMINPUTS]"
+.br
+.ti -1c
+.RI "\fBSoEngineOutput\fP * \fBoutput\fP"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetInputDataPtr\fP (void)"
+.br
+.ti -1c
+.RI "static const \fBSoEngineOutputData\fP ** \fBgetOutputDataPtr\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoConcatenate\fP class is used to concatenate several inputs into one output\&.
+.PP
+Takes all the values from the 10 input multivalue fields in turn and concatenates them into the multivalue output\&. 
+
+Note that this engine's output field deviates a little from the 'standard' output mechanism of the majority of engine classes: the \fBSoConcatenate::output\fP is not a permanent \fBSoEngineOutput\fP instance, but a \fIpointer\fP to a \fBSoEngineOutput\fP instance\&. The reason for this is that it is necessary to allocate the output field dynamically to make it match what the \fBSoConcatenate::input\fP is connected to since the type of the \fBSoConcatenate::output\fP always should be the same as the type of the \fBSoConcatenate::input\fP\&.
+.PP
+The file format for this field is a bit special\&. Note the leading type specification, which is not necessary for most other field types:
+.PP
+.PP
+.nf
+Concatenate {
+  type <multivaluefieldtype>
+  [...fields...]
+}
+.fi
+.PP
+ 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoConcatenate::SoConcatenate (\fBSoType\fP type)"
+Constructor\&. The type of the input/output is specified in \fItype\fP\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "virtual \fBSoType\fP SoConcatenate::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Implements \fBSoBase\fP\&.
+.SS "virtual const \fBSoFieldData\fP* SoConcatenate::getFieldData (void) const\fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoFieldContainer\fP\&.
+.SS "virtual const \fBSoEngineOutputData\fP* SoConcatenate::getOutputData (void) const\fC [virtual]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.PP
+Implements \fBSoEngine\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSoMField\fP * SoConcatenate::input[10]"
+The multivalue input fields which we will concatenate into the output\&. 
+.SS "\fBSoEngineOutput\fP * SoConcatenate::output"
+(\fBSoMField\fP) This is the field output containing the concatenated values of all the input fields\&.
+.PP
+The type of the field will of course match the type of the input field\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

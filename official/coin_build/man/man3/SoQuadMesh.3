@@ -1,0 +1,289 @@
+.TH "SoQuadMesh" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoQuadMesh \- The \fBSoQuadMesh\fP class is used to render and optimize a quadrilateral mesh\&.
+.PP
+This node uses the coordinates in order, either from the state or from the \fBSoQuadMesh::vertexProperty\fP node, to construct a quadrilateral mesh\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/nodes/SoQuadMesh\&.h>\fP
+.PP
+Inherits \fBSoNonIndexedShape\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "\fBSoQuadMesh\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBGLRender\fP (\fBSoGLRenderAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBgetPrimitiveCount\fP (\fBSoGetPrimitiveCountAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual SbBool \fBgenerateDefaultNormals\fP (\fBSoState\fP *state, \fBSoNormalBundle\fP *nb)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFInt32\fP \fBverticesPerColumn\fP"
+.br
+.ti -1c
+.RI "\fBSoSFInt32\fP \fBverticesPerRow\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fB~SoQuadMesh\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBgeneratePrimitives\fP (\fBSoAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBcomputeBBox\fP (\fBSoAction\fP *action, \fBSbBox3f\fP &box, \fBSbVec3f\fP &center)"
+.br
+.ti -1c
+.RI "virtual SbBool \fBgenerateDefaultNormals\fP (\fBSoState\fP *, \fBSoNormalCache\fP *)"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoQuadMesh\fP class is used to render and optimize a quadrilateral mesh\&.
+.PP
+This node uses the coordinates in order, either from the state or from the \fBSoQuadMesh::vertexProperty\fP node, to construct a quadrilateral mesh\&. 
+
+The quads are generated in row major order, using the two fields \fBSoQuadMesh::verticesPerColumn\fP and \fBSoQuadMesh::verticesPerRow\fP to specify the mesh\&. E\&.g\&. if \fBSoQuadMesh::verticesPerColumn\fP is 3 and \fBSoQuadMesh::verticesPerRow\fP is 2, two quads will be generated with the first one using (in order) coordinates 0, 1, 3 and 2, the second one using coordinates 2, 3, 5 and 4 (you get three rows of vertices; the first row uses vertices 0 and 1, the second row 2 and 3, and the third row 4 and 5)\&.
+.PP
+Here's a quick and simple usage example code snippet:
+.PP
+.PP
+.nf
+// Vertices for the Quad mesh\&.
+static float vertices[25][3] = {
+  // Row 1
+  {-11, 0, 1}, {0, 11, 1}, {11, 0, 1}, {0, -11, 1}, {-11, 0, 1},
+  // Row 2
+  {-9, 0, 1}, {0, 9, 1}, {9, 0, 1}, {0, -9, 1}, {-9, 0, 1},
+  // Row 3
+  {-9, 0, -1}, {0, 9, -1}, {9, 0, -1}, {0, -9, -1}, {-9, 0, -1},
+  // Row 4
+  {-11, 0, -1}, {0, 11, -1}, {11, 0, -1}, {0, -11, -1}, {-11, 0, -1},
+  // Row 5
+  {-11, 0, 1}, {0, 11, 1}, {11, 0, 1}, {0, -11, 1}, {-11, 0, 1}
+};
+
+// This function generate an object by using the SoQuadMesh node
+// Return:
+//  SoSeparator *
+static SoSeparator *
+quadMesh(void)
+{
+  SoSeparator * qm = new SoSeparator;
+
+  // Define coordinates
+  SoCoordinate3 * coords = new SoCoordinate3;
+  coords->point\&.setValues(0, 30, vertices);
+  qm->addChild(coords);
+
+  // QuadMesh
+  SoQuadMesh * mesh = new SoQuadMesh;
+  mesh->verticesPerRow = 5;
+  mesh->verticesPerColumn = 5;
+  qm->addChild(mesh);
+
+  return qm;
+}
+.fi
+.PP
+.PP
+The quadmesh geometry resulting from this code looks like this:
+.br
+.PP
+ Rendering of Example Scenegraph
+.PP
+Here is another example, this time making a 2x2 grid, with a texture:
+.PP
+.PP
+.nf
+#Inventor V2.1 ascii
+
+Separator {
+  Complexity { textureQuality 0.01 }
+  Texture2 {
+    image 2 2 4 0xff0000ff 0x00ff00ff 0xffff00ff 0xff00ffff
+  }
+  Coordinate3 {
+    point [
+      0 2 0,
+      1 2 0,
+      2 2 0,
+      0 1 0,
+      1 1 0,
+      2 1 0,
+      0 0 0,
+      1 0 0,
+      2 0 0
+    ]
+  }
+  QuadMesh {
+    verticesPerRow 3
+    verticesPerColumn 3
+  }
+}
+.fi
+.PP
+.PP
+For \fBSoQuadMesh\fP, normals and materials can be bound PER_PART (per row), PER_FACE, PER_VERTEX and OVERALL\&. The default material binding is OVERALL\&. The default normal binding is PER_VERTEX\&.
+.PP
+A note about \fBSoQuadMesh\fP shading: the quads in the mesh are just passed on to OpenGL's GL_QUAD primitive rendering\&. Under certain circumstances, this can lead to artifacts in how your meshes are shaded\&. This is an inherent problem with drawing quads in meshes\&.
+.PP
+There is a work-around solution for the above mentioned problem that can be applied with Coin: by setting the global environment variable \fCCOIN_QUADMESH_PRECISE_LIGHTING\fP to '1', the quads will be broken up in triangles before rendered, and shading will likely look much better\&. Be aware that this technique causes rendering of the \fBSoQuadMesh\fP to slow down by an approximate factor of 6\&.
+.PP
+The 'precise lighting' technique is currently limited to work only when \fBSoQuadMesh\fP rendering is parameterized with 3D coordinates, a materialbinding that is \fInot\fP per vertex, and if texture mapping is done is must be without using any of the \fBSoTextureCoordinateFunction\fP subclass nodes\&.
+.PP
+\fBFILE FORMAT/DEFAULTS:\fP 
+.PP
+.nf
+QuadMesh {
+    vertexProperty NULL
+    startIndex 0
+    verticesPerColumn 1
+    verticesPerRow 1
+}
+
+.fi
+.PP
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoTriangleStripSet\fP \fBSoIndexedTriangleStripSet\fP 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoQuadMesh::SoQuadMesh (void)"
+Constructor\&. 
+.SS "SoQuadMesh::~SoQuadMesh ()\fC [protected]\fP, \fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoQuadMesh::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Reimplemented from \fBSoNonIndexedShape\fP\&.
+.SS "const \fBSoFieldData\fP * SoQuadMesh::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoNonIndexedShape\fP\&.
+.SS "void SoQuadMesh::GLRender (\fBSoGLRenderAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGLRenderAction\fP\&.
+.PP
+This is called during rendering traversals\&. Nodes influencing the rendering state in any way or who wants to throw geometry primitives at OpenGL overrides this method\&. 
+.PP
+Reimplemented from \fBSoShape\fP\&.
+.SS "void SoQuadMesh::getPrimitiveCount (\fBSoGetPrimitiveCountAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGetPrimitiveCountAction\fP\&.
+.PP
+Calculates the number of triangle, line segment and point primitives for the node and adds these to the counters of the \fIaction\fP\&.
+.PP
+Nodes influencing how geometry nodes calculates their primitive count also overrides this method to change the relevant state variables\&. 
+.PP
+Reimplemented from \fBSoShape\fP\&.
+.SS "SbBool SoQuadMesh::generateDefaultNormals (\fBSoState\fP * state, \fBSoNormalBundle\fP * bundle)\fC [virtual]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP
+.PP
+Subclasses should override this method to generate default normals using the \fBSoNormalBundle\fP class\&. \fCTRUE\fP should be returned if normals were generated, \fCFALSE\fP otherwise\&.
+.PP
+Default method returns \fCFALSE\fP\&.
+.PP
+This function is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&. 
+.PP
+Reimplemented from \fBSoVertexShape\fP\&.
+.SS "void SoQuadMesh::generatePrimitives (\fBSoAction\fP * action)\fC [protected]\fP, \fC [virtual]\fP"
+The method implements action behavior for shape nodes for \fBSoCallbackAction\fP\&. It is invoked from \fBSoShape::callback()\fP\&. (Subclasses should \fInot\fP override \fBSoNode::callback()\fP\&.)
+.PP
+The subclass implementations uses the convenience methods \fBSoShape::beginShape()\fP, \fBSoShape::shapeVertex()\fP, and \fBSoShape::endShape()\fP, with \fBSoDetail\fP instances, to pass the primitives making up the shape back to the caller\&. 
+.PP
+Implements \fBSoShape\fP\&.
+.SS "void SoQuadMesh::computeBBox (\fBSoAction\fP * action, \fBSbBox3f\fP & box, \fBSbVec3f\fP & center)\fC [protected]\fP, \fC [virtual]\fP"
+Implemented by \fBSoShape\fP subclasses to let the \fBSoShape\fP superclass know the exact size and weighted center point of the shape's bounding box\&.
+.PP
+The bounding box and center point should be calculated and returned in the local coordinate system\&.
+.PP
+The method implements action behavior for shape nodes for \fBSoGetBoundingBoxAction\fP\&. It is invoked from \fBSoShape::getBoundingBox()\fP\&. (Subclasses should \fInot\fP override \fBSoNode::getBoundingBox()\fP\&.)
+.PP
+The \fIbox\fP parameter sent in is guaranteed to be an empty box, while \fIcenter\fP is undefined upon function entry\&. 
+.PP
+Implements \fBSoShape\fP\&.
+.SS "SbBool SoQuadMesh::generateDefaultNormals (\fBSoState\fP * state, \fBSoNormalCache\fP * cache)\fC [protected]\fP, \fC [virtual]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP
+.PP
+Subclasses should override this method to generate default normals using the \fBSoNormalCache\fP class\&. This is more effective than using \fBSoNormalGenerator\fP\&. Return \fCTRUE\fP if normals were generated, \fCFALSE\fP otherwise\&.
+.PP
+Default method just returns \fCFALSE\fP\&.
+.PP
+This function is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&. 
+.PP
+Reimplemented from \fBSoVertexShape\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSoSFInt32\fP SoQuadMesh::verticesPerColumn"
+Specifies to number of vertices in each column\&. 
+.SS "\fBSoSFInt32\fP SoQuadMesh::verticesPerRow"
+Specifies the number of vertices in each row\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

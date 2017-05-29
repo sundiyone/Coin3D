@@ -1,0 +1,1041 @@
+.TH "SoTransformerDragger" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoTransformerDragger \- The \fBSoTransformerDragger\fP provides geometry for translation, scaling and rotations\&.
+.PP
+Here's how the dragger looks with its default geometry in the inactive state:  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/draggers/SoTransformerDragger\&.h>\fP
+.PP
+Inherits \fBSoDragger\fP\&.
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBState\fP { \fBINACTIVE\fP, \fBRIT_X_ROTATE\fP, \fBTOP_Y_ROTATE\fP, \fBFNT_Z_ROTATE\fP, \fBLFT_X_ROTATE\fP, \fBBOT_Y_ROTATE\fP, \fBBAK_Z_ROTATE\fP, \fBPX_PY_PZ_3D_SCALE\fP, \fBPX_PY_NZ_3D_SCALE\fP, \fBPX_NY_PZ_3D_SCALE\fP, \fBPX_NY_NZ_3D_SCALE\fP, \fBNX_PY_PZ_3D_SCALE\fP, \fBNX_PY_NZ_3D_SCALE\fP, \fBNX_NY_PZ_3D_SCALE\fP, \fBNX_NY_NZ_3D_SCALE\fP, \fBRIT_TRANSLATE\fP, \fBTOP_TRANSLATE\fP, \fBFNT_TRANSLATE\fP, \fBLFT_TRANSLATE\fP, \fBBOT_TRANSLATE\fP, \fBBAK_TRANSLATE\fP }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "virtual const \fBSoNodekitCatalog\fP * \fBgetNodekitCatalog\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoTransformerDragger\fP (void)"
+.br
+.ti -1c
+.RI "\fBState\fP \fBgetCurrentState\fP (void)"
+.br
+.ti -1c
+.RI "void \fBunsquishKnobs\fP (void)"
+.br
+.ti -1c
+.RI "SbBool \fBisLocateHighlighting\fP (void)"
+.br
+.ti -1c
+.RI "void \fBsetLocateHighlighting\fP (SbBool onoff)"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP \fBgetBoxPointInWorldSpace\fP (const \fBSbVec3f\fP &pointonunitbox)"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP \fBgetBoxDirInWorldSpace\fP (const \fBSbVec3f\fP &dironunitbox)"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP \fBgetWorldPointInBoxSpace\fP (const \fBSbVec3f\fP &pointinworldspace)"
+.br
+.ti -1c
+.RI "\fBSbVec2f\fP \fBgetWorldPointInPixelSpace\fP (const \fBSbVec3f\fP &thepoint)"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP \fBgetInteractiveCenterInBoxSpace\fP (void)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static const \fBSoNodekitCatalog\fP * \fBgetClassNodekitCatalog\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBsetColinearThreshold\fP (\fBint\fP newval)"
+.br
+.ti -1c
+.RI "static \fBint\fP \fBgetColinearThreshold\fP (void)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFRotation\fP \fBrotation\fP"
+.br
+.ti -1c
+.RI "\fBSoSFVec3f\fP \fBtranslation\fP"
+.br
+.ti -1c
+.RI "\fBSoSFVec3f\fP \fBscaleFactor\fP"
+.br
+.ti -1c
+.RI "\fBSoSFFloat\fP \fBminDiscRotDot\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fB~SoTransformerDragger\fP (void)"
+.br
+.ti -1c
+.RI "virtual SbBool \fBsetUpConnections\fP (SbBool onoff, SbBool doitalways=FALSE)"
+.br
+.ti -1c
+.RI "virtual void \fBsetDefaultOnNonWritingFields\fP (void)"
+.br
+.ti -1c
+.RI "void \fBdragStart\fP (void)"
+.br
+.ti -1c
+.RI "void \fBdrag\fP (void)"
+.br
+.ti -1c
+.RI "void \fBdragFinish\fP (void)"
+.br
+.ti -1c
+.RI "void \fBupdateAntiSquishList\fP (void)"
+.br
+.ti -1c
+.RI "void \fBsetAllPartSwitches\fP (\fBint\fP scalewhich, \fBint\fP rotatewhich, \fBint\fP translatewhich)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetMouseGestureDirection\fP (SbBool x_ok, SbBool y_ok, SbBool z_ok)"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.ti -1c
+.RI "static const \fBSoNodekitCatalog\fP ** \fBgetClassNodekitCatalogPtr\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBstartCB\fP (void *f, \fBSoDragger\fP *d)"
+.br
+.ti -1c
+.RI "static void \fBmotionCB\fP (void *f, \fBSoDragger\fP *d)"
+.br
+.ti -1c
+.RI "static void \fBfinishCB\fP (void *f, \fBSoDragger\fP *d)"
+.br
+.ti -1c
+.RI "static void \fBmetaKeyChangeCB\fP (void *, \fBSoDragger\fP *)"
+.br
+.ti -1c
+.RI "static void \fBfieldSensorCB\fP (void *f, \fBSoSensor\fP *s)"
+.br
+.ti -1c
+.RI "static void \fBvalueChangedCB\fP (void *f, \fBSoDragger\fP *d)"
+.br
+.ti -1c
+.RI "static \fBint\fP \fBgetIgnoreAxis\fP (\fBSbVec2f\fP axis[3][2], SbBool x_ok, SbBool y_ok, SbBool z_ok)"
+.br
+.ti -1c
+.RI "static void \fBmakeMinorAxisPerpendicularIfColinear\fP (\fBSbVec2f\fP origin, \fBSbVec2f\fP axisends[3][2], \fBint\fP index_a, \fBint\fP index_b)"
+.br
+.ti -1c
+.RI "static SbBool \fBisColinear\fP (\fBSbVec2f\fP a1[2], \fBSbVec2f\fP a2[2], \fBint\fP pixels)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFNode\fP \fBaxisFeedbackLocation\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBaxisFeedbackSep\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBcircleFeedbackAntiSquish\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBcircleFeedbackSep\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBcircleFeedbackTransform\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBcircleFeedbackTransformSwitch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBnegXRoundWallFeedback\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBnegXWallFeedback\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBnegXWallFeedbackSwitch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBnegYRoundWallFeedback\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBnegYWallFeedback\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBnegYWallFeedbackSwitch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBnegZRoundWallFeedback\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBnegZWallFeedback\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBnegZWallFeedbackSwitch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBoverallStyle\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBposXRoundWallFeedback\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBposXWallFeedback\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBposXWallFeedbackSwitch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBposYRoundWallFeedback\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBposYWallFeedback\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBposYWallFeedbackSwitch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBposZRoundWallFeedback\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBposZWallFeedback\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBposZWallFeedbackSwitch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBradialFeedback\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBradialFeedbackSwitch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBrotator1\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBrotator1Active\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBrotator1LocateGroup\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBrotator1Switch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBrotator2\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBrotator2Active\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBrotator2LocateGroup\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBrotator2Switch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBrotator3\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBrotator3Active\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBrotator3LocateGroup\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBrotator3Switch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBrotator4\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBrotator4Active\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBrotator4LocateGroup\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBrotator4Switch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBrotator5\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBrotator5Active\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBrotator5LocateGroup\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBrotator5Switch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBrotator6\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBrotator6Active\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBrotator6LocateGroup\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBrotator6Switch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBrotatorSep\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBscale1\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBscale1Active\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBscale1LocateGroup\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBscale1Switch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBscale2\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBscale2Active\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBscale2LocateGroup\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBscale2Switch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBscale3\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBscale3Active\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBscale3LocateGroup\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBscale3Switch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBscale4\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBscale4Active\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBscale4LocateGroup\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBscale4Switch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBscale5\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBscale5Active\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBscale5LocateGroup\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBscale5Switch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBscale6\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBscale6Active\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBscale6LocateGroup\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBscale6Switch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBscale7\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBscale7Active\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBscale7LocateGroup\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBscale7Switch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBscale8\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBscale8Active\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBscale8LocateGroup\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBscale8Switch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBscaleBoxFeedback\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBscaleBoxFeedbackSwitch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBscaleSep\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBsurroundScale\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslateBoxFeedback\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslateBoxFeedbackRotation\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslateBoxFeedbackSep\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslateBoxFeedbackSwitch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslator1\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslator1Active\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslator1LocateGroup\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslator1Switch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslator2\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslator2Active\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslator2LocateGroup\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslator2Switch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslator3\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslator3Active\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslator3LocateGroup\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslator3Switch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslator4\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslator4Active\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslator4LocateGroup\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslator4Switch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslator5\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslator5Active\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslator5LocateGroup\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslator5Switch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslator6\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslator6Active\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslator6LocateGroup\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslator6Switch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslatorSep\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBxAxisFeedbackActive\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBxAxisFeedbackSelect\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBxAxisFeedbackSwitch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBxCircleFeedback\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBxCircleFeedbackSwitch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBxCrosshairFeedback\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fByAxisFeedbackActive\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fByAxisFeedbackSelect\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fByAxisFeedbackSwitch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fByCircleFeedback\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fByCircleFeedbackSwitch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fByCrosshairFeedback\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBzAxisFeedbackActive\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBzAxisFeedbackSelect\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBzAxisFeedbackSwitch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBzCircleFeedback\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBzCircleFeedbackSwitch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBzCrosshairFeedback\fP"
+.br
+.ti -1c
+.RI "\fBSoFieldSensor\fP * \fBtranslFieldSensor\fP"
+.br
+.ti -1c
+.RI "\fBSoFieldSensor\fP * \fBscaleFieldSensor\fP"
+.br
+.ti -1c
+.RI "\fBSoFieldSensor\fP * \fBrotateFieldSensor\fP"
+.br
+.ti -1c
+.RI "\fBSoNodeList\fP \fBantiSquishList\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoTransformerDragger\fP provides geometry for translation, scaling and rotations\&.
+.PP
+Here's how the dragger looks with its default geometry in the inactive state: 
+
+ Screen Shot of Default Dragger
+.PP
+Translate the dragger by clicking and dragging any of the (invisible) sides\&. Translation will default be done in the plane of the side the end-user selected\&. The user can hold down a \fCSHIFT\fP key to lock translation to a single of the axes in the plane\&. By holding down a \fCCTRL\fP key instead, translation can be done along the plane's normal vector\&.
+.PP
+Scaling is done by dragging the corner cubes\&. By default, uniform scaling will be done\&. Hold down \fCSHIFT\fP before selecting any of the corners to do non-uniform scaling\&. Uniform scaling towards a corner-point can be accomplished by holding down \fCCTRL\fP before clicking and dragging one of the cubes\&.
+.PP
+Rotation is done by dragging any of the 6 end-markers of the axis cross\&. The initial drag direction decides which orientation the rotation will be done in\&. Hold down \fCSHIFT\fP to do free-form rotation around the sphere instead\&.
+.PP
+This is a big and complex dragger which needs a fair amount of proper documentation when provided in end-user applications\&. If what you are trying to accomplish in your application does not really demand most of the features of this dragger, you are advised to investigate whether or not any of the less complex draggers can fulfill your requirements -- so you can provide an as simple as possible user interface to your end-users\&.
+.PP
+For the application programmer's convenience, the Coin library also provides a manipulator class called \fBSoTransformerManip\fP, which wraps the \fBSoTransformerDragger\fP into the necessary mechanisms for making direct insertion of this dragger into a scenegraph possible with very little effort\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoTransformerManip\fP 
+.RE
+.PP
+
+.SH "Member Enumeration Documentation"
+.PP 
+.SS "enum \fBSoTransformerDragger::State\fP"
+The various possible states the dragger might be in at any given time\&. That is: either SoTransformerDragger::INACTIVE if there's no interaction, or any of the other values to indicate what operation the end-user is currently executing\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoTransformerDragger::SoTransformerDragger (void)"
+Default constructor, sets up the dragger nodekit catalog with the interaction and feedback geometry\&.
+.PP
+Node kit structure (new entries versus parent class marked with arrow prefix):
+.PP
+.PP
+.nf
+CLASS SoTransformerDragger
+-->"this"
+      "callbackList"
+      "topSeparator"
+         "motionMatrix"
+-->      "surroundScale"
+-->      "overallStyle"
+         "geomSeparator"
+-->         "axisFeedbackSep"
+-->            "axisFeedbackLocation"
+-->            "xAxisFeedbackSwitch"
+-->               "xAxisFeedbackActive"
+-->               "xAxisFeedbackSelect"
+-->               "xCrosshairFeedback"
+-->            "yAxisFeedbackSwitch"
+-->               "yAxisFeedbackActive"
+-->               "yAxisFeedbackSelect"
+-->               "yCrosshairFeedback"
+-->            "zAxisFeedbackSwitch"
+-->               "zAxisFeedbackActive"
+-->               "zAxisFeedbackSelect"
+-->               "zCrosshairFeedback"
+-->         "translateBoxFeedbackSep"
+-->            "translateBoxFeedbackSwitch"
+-->               "translateBoxFeedbackRotation"
+-->               "translateBoxFeedback"
+-->         "scaleBoxFeedbackSwitch"
+-->            "scaleBoxFeedback"
+-->         "posXWallFeedbackSwitch"
+-->            "posXWallFeedback"
+-->            "posXRoundWallFeedback"
+-->         "posYWallFeedbackSwitch"
+-->            "posYWallFeedback"
+-->            "posYRoundWallFeedback"
+-->         "posZWallFeedbackSwitch"
+-->            "posZWallFeedback"
+-->            "posZRoundWallFeedback"
+-->         "negXWallFeedbackSwitch"
+-->            "negXWallFeedback"
+-->            "negXRoundWallFeedback"
+-->         "negYWallFeedbackSwitch"
+-->            "negYWallFeedback"
+-->            "negYRoundWallFeedback"
+-->         "negZWallFeedbackSwitch"
+-->            "negZWallFeedback"
+-->            "negZRoundWallFeedback"
+-->         "radialFeedbackSwitch"
+-->            "radialFeedback"
+-->      "translatorSep"
+-->         "translator1Switch"
+-->            "translator1LocateGroup"
+-->               "translator1"
+-->            "translator1Active"
+-->         "translator2Switch"
+-->            "translator2LocateGroup"
+-->               "translator2"
+-->            "translator2Active"
+-->         "translator3Switch"
+-->            "translator3LocateGroup"
+-->               "translator3"
+-->            "translator3Active"
+-->         "translator4Switch"
+-->            "translator4LocateGroup"
+-->               "translator4"
+-->            "translator4Active"
+-->         "translator5Switch"
+-->            "translator5LocateGroup"
+-->               "translator5"
+-->            "translator5Active"
+-->         "translator6Switch"
+-->            "translator6LocateGroup"
+-->               "translator6"
+-->            "translator6Active"
+-->      "rotatorSep"
+-->         "rotator1Switch"
+-->            "rotator1LocateGroup"
+-->               "rotator1"
+-->            "rotator1Active"
+-->         "rotator2Switch"
+-->            "rotator2LocateGroup"
+-->               "rotator2"
+-->            "rotator2Active"
+-->         "rotator3Switch"
+-->            "rotator3LocateGroup"
+-->               "rotator3"
+-->            "rotator3Active"
+-->         "rotator4Switch"
+-->            "rotator4LocateGroup"
+-->               "rotator4"
+-->            "rotator4Active"
+-->         "rotator5Switch"
+-->            "rotator5LocateGroup"
+-->               "rotator5"
+-->            "rotator5Active"
+-->         "rotator6Switch"
+-->            "rotator6LocateGroup"
+-->               "rotator6"
+-->            "rotator6Active"
+-->      "scaleSep"
+-->         "scale1Switch"
+-->            "scale1LocateGroup"
+-->               "scale1"
+-->            "scale1Active"
+-->         "scale2Switch"
+-->            "scale2LocateGroup"
+-->               "scale2"
+-->            "scale2Active"
+-->         "scale3Switch"
+-->            "scale3LocateGroup"
+-->               "scale3"
+-->            "scale3Active"
+-->         "scale4Switch"
+-->            "scale4LocateGroup"
+-->               "scale4"
+-->            "scale4Active"
+-->         "scale5Switch"
+-->            "scale5LocateGroup"
+-->               "scale5"
+-->            "scale5Active"
+-->         "scale6Switch"
+-->            "scale6LocateGroup"
+-->               "scale6"
+-->            "scale6Active"
+-->         "scale7Switch"
+-->            "scale7LocateGroup"
+-->               "scale7"
+-->            "scale7Active"
+-->         "scale8Switch"
+-->            "scale8LocateGroup"
+-->               "scale8"
+-->            "scale8Active"
+-->      "circleFeedbackSep"
+-->         "circleFeedbackTransformSwitch"
+-->            "circleFeedbackAntiSquish"
+-->            "circleFeedbackTransform"
+-->         "xCircleFeedbackSwitch"
+-->            "xCircleFeedback"
+-->         "yCircleFeedbackSwitch"
+-->            "yCircleFeedback"
+-->         "zCircleFeedbackSwitch"
+-->            "zCircleFeedback"
+.fi
+.PP
+.PP
+(See \fBSoBaseKit::printDiagram()\fP for information about the output formatting\&.)
+.PP
+Detailed information on catalog parts:
+.PP
+.PP
+.nf
+CLASS SoTransformerDragger
+PVT   "this",  SoTransformerDragger  ---
+      "callbackList",  SoNodeKitListPart [ SoCallback, SoEventCallback ]
+PVT   "topSeparator",  SoSeparator  ---
+PVT   "motionMatrix",  SoMatrixTransform  ---
+      "surroundScale",  SoSurroundScale  ---
+PVT   "overallStyle",  SoGroup  ---
+PVT   "geomSeparator",  SoSeparator  ---
+PVT   "translatorSep",  SoSeparator  ---
+PVT   "translator1Switch",  SoSwitch  ---
+PVT   "translator1LocateGroup",  SoLocateHighlight  ---
+      "translator1",  SoSeparator  ---
+      "translator1Active",  SoSeparator  ---
+PVT   "translator2Switch",  SoSwitch  ---
+PVT   "translator2LocateGroup",  SoLocateHighlight  ---
+      "translator2",  SoSeparator  ---
+      "translator2Active",  SoSeparator  ---
+PVT   "translator3Switch",  SoSwitch  ---
+PVT   "translator3LocateGroup",  SoLocateHighlight  ---
+      "translator3",  SoSeparator  ---
+      "translator3Active",  SoSeparator  ---
+PVT   "translator4Switch",  SoSwitch  ---
+PVT   "translator4LocateGroup",  SoLocateHighlight  ---
+      "translator4",  SoSeparator  ---
+      "translator4Active",  SoSeparator  ---
+PVT   "translator5Switch",  SoSwitch  ---
+PVT   "translator5LocateGroup",  SoLocateHighlight  ---
+      "translator5",  SoSeparator  ---
+      "translator5Active",  SoSeparator  ---
+PVT   "translator6Switch",  SoSwitch  ---
+PVT   "translator6LocateGroup",  SoLocateHighlight  ---
+      "translator6",  SoSeparator  ---
+      "translator6Active",  SoSeparator  ---
+PVT   "rotatorSep",  SoSeparator  ---
+PVT   "rotator1Switch",  SoSwitch  ---
+PVT   "rotator1LocateGroup",  SoLocateHighlight  ---
+      "rotator1",  SoSeparator  ---
+      "rotator1Active",  SoSeparator  ---
+PVT   "rotator2Switch",  SoSwitch  ---
+PVT   "rotator2LocateGroup",  SoLocateHighlight  ---
+      "rotator2",  SoSeparator  ---
+      "rotator2Active",  SoSeparator  ---
+PVT   "rotator3Switch",  SoSwitch  ---
+PVT   "rotator3LocateGroup",  SoLocateHighlight  ---
+      "rotator3",  SoSeparator  ---
+      "rotator3Active",  SoSeparator  ---
+PVT   "rotator4Switch",  SoSwitch  ---
+PVT   "rotator4LocateGroup",  SoLocateHighlight  ---
+      "rotator4",  SoSeparator  ---
+      "rotator4Active",  SoSeparator  ---
+PVT   "rotator5Switch",  SoSwitch  ---
+PVT   "rotator5LocateGroup",  SoLocateHighlight  ---
+      "rotator5",  SoSeparator  ---
+      "rotator5Active",  SoSeparator  ---
+PVT   "rotator6Switch",  SoSwitch  ---
+PVT   "rotator6LocateGroup",  SoLocateHighlight  ---
+      "rotator6",  SoSeparator  ---
+      "rotator6Active",  SoSeparator  ---
+PVT   "scaleSep",  SoSeparator  ---
+PVT   "scale1Switch",  SoSwitch  ---
+PVT   "scale1LocateGroup",  SoLocateHighlight  ---
+      "scale1",  SoSeparator  ---
+      "scale1Active",  SoSeparator  ---
+PVT   "scale2Switch",  SoSwitch  ---
+PVT   "scale2LocateGroup",  SoLocateHighlight  ---
+      "scale2",  SoSeparator  ---
+      "scale2Active",  SoSeparator  ---
+PVT   "scale3Switch",  SoSwitch  ---
+PVT   "scale3LocateGroup",  SoLocateHighlight  ---
+      "scale3",  SoSeparator  ---
+      "scale3Active",  SoSeparator  ---
+PVT   "scale4Switch",  SoSwitch  ---
+PVT   "scale4LocateGroup",  SoLocateHighlight  ---
+      "scale4",  SoSeparator  ---
+      "scale4Active",  SoSeparator  ---
+PVT   "scale5Switch",  SoSwitch  ---
+PVT   "scale5LocateGroup",  SoLocateHighlight  ---
+      "scale5",  SoSeparator  ---
+      "scale5Active",  SoSeparator  ---
+PVT   "scale6Switch",  SoSwitch  ---
+PVT   "scale6LocateGroup",  SoLocateHighlight  ---
+      "scale6",  SoSeparator  ---
+      "scale6Active",  SoSeparator  ---
+PVT   "scale7Switch",  SoSwitch  ---
+PVT   "scale7LocateGroup",  SoLocateHighlight  ---
+      "scale7",  SoSeparator  ---
+      "scale7Active",  SoSeparator  ---
+PVT   "scale8Switch",  SoSwitch  ---
+PVT   "scale8LocateGroup",  SoLocateHighlight  ---
+      "scale8",  SoSeparator  ---
+      "scale8Active",  SoSeparator  ---
+PVT   "circleFeedbackSep",  SoSeparator  ---
+PVT   "circleFeedbackTransformSwitch",  SoSwitch  ---
+PVT   "circleFeedbackAntiSquish",  SoAntiSquish  ---
+PVT   "circleFeedbackTransform",  SoTransform  ---
+PVT   "xCircleFeedbackSwitch",  SoSwitch  ---
+      "xCircleFeedback",  SoSeparator  ---
+PVT   "yCircleFeedbackSwitch",  SoSwitch  ---
+      "yCircleFeedback",  SoSeparator  ---
+PVT   "zCircleFeedbackSwitch",  SoSwitch  ---
+      "zCircleFeedback",  SoSeparator  ---
+PVT   "axisFeedbackSep",  SoSeparator  ---
+PVT   "axisFeedbackLocation",  SoTranslation  ---
+PVT   "xAxisFeedbackSwitch",  SoSwitch  ---
+      "xAxisFeedbackActive",  SoSeparator  ---
+      "xAxisFeedbackSelect",  SoSeparator  ---
+      "xCrosshairFeedback",  SoSeparator  ---
+PVT   "yAxisFeedbackSwitch",  SoSwitch  ---
+      "yAxisFeedbackActive",  SoSeparator  ---
+      "yAxisFeedbackSelect",  SoSeparator  ---
+      "yCrosshairFeedback",  SoSeparator  ---
+PVT   "zAxisFeedbackSwitch",  SoSwitch  ---
+      "zAxisFeedbackActive",  SoSeparator  ---
+      "zAxisFeedbackSelect",  SoSeparator  ---
+      "zCrosshairFeedback",  SoSeparator  ---
+PVT   "translateBoxFeedbackSep",  SoSeparator  ---
+PVT   "translateBoxFeedbackSwitch",  SoSwitch  ---
+PVT   "translateBoxFeedbackRotation",  SoRotation  ---
+      "translateBoxFeedback",  SoSeparator  ---
+PVT   "scaleBoxFeedbackSwitch",  SoSwitch  ---
+      "scaleBoxFeedback",  SoSeparator  ---
+PVT   "posXWallFeedbackSwitch",  SoSwitch  ---
+      "posXWallFeedback",  SoSeparator  ---
+      "posXRoundWallFeedback",  SoSeparator  ---
+PVT   "posYWallFeedbackSwitch",  SoSwitch  ---
+      "posYWallFeedback",  SoSeparator  ---
+      "posYRoundWallFeedback",  SoSeparator  ---
+PVT   "posZWallFeedbackSwitch",  SoSwitch  ---
+      "posZWallFeedback",  SoSeparator  ---
+      "posZRoundWallFeedback",  SoSeparator  ---
+PVT   "negXWallFeedbackSwitch",  SoSwitch  ---
+      "negXWallFeedback",  SoSeparator  ---
+      "negXRoundWallFeedback",  SoSeparator  ---
+PVT   "negYWallFeedbackSwitch",  SoSwitch  ---
+      "negYWallFeedback",  SoSeparator  ---
+      "negYRoundWallFeedback",  SoSeparator  ---
+PVT   "negZWallFeedbackSwitch",  SoSwitch  ---
+      "negZWallFeedback",  SoSeparator  ---
+      "negZRoundWallFeedback",  SoSeparator  ---
+PVT   "radialFeedbackSwitch",  SoSwitch  ---
+      "radialFeedback",  SoSeparator  ---
+.fi
+.PP
+.PP
+(See \fBSoBaseKit::printTable()\fP for information about the output formatting\&.) 
+.SS "SoTransformerDragger::~SoTransformerDragger (void)\fC [protected]\fP, \fC [virtual]\fP"
+Protected destructor\&.
+.PP
+(Dragger classes are derived from \fBSoBase\fP, so they are reference counted and automatically destroyed when their reference count goes to 0\&.) 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoTransformerDragger::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Reimplemented from \fBSoDragger\fP\&.
+.SS "const \fBSoFieldData\fP * SoTransformerDragger::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoDragger\fP\&.
+.SS "const \fBSoNodekitCatalog\fP * SoTransformerDragger::getNodekitCatalog (void) const\fC [virtual]\fP"
+Returns the nodekit catalog which defines the layout of this class' kit\&. 
+.PP
+Reimplemented from \fBSoDragger\fP\&.
+.SS "\fBSoTransformerDragger::State\fP SoTransformerDragger::getCurrentState (void)"
+Returns an indicator for the current operation executed on the dragger by the end-user -- or SoTransformerDragger::INACTIVE if none\&. 
+.SS "SbBool SoTransformerDragger::setUpConnections (SbBool onoff, SbBool doitalways = \fCFALSE\fP)\fC [protected]\fP, \fC [virtual]\fP"
+Sets up all internal connections for instances of this class\&.
+.PP
+(This method will usually not be of interest to the application programmer, unless you want to extend the library with new custom nodekits or dragger classes\&. If so, see the \fBSoBaseKit\fP class documentation\&.) 
+.PP
+Reimplemented from \fBSoInteractionKit\fP\&.
+.SS "void SoTransformerDragger::setDefaultOnNonWritingFields (void)\fC [protected]\fP, \fC [virtual]\fP"
+(Be aware that this method is unlikely to be of interest to the application programmer who does not want to extend the library with new custom nodekits or draggers\&. If you indeed \fIare\fP writing extensions, see the information in the \fBSoBaseKit\fP class documentation\&.)
+.PP
+This is a virtual method, and the code in it should call \fBSoField::setDefault()\fP with argument \fCTRUE\fP on part fields that should not be written upon scenegraph export operations\&.
+.PP
+This is typically done when:
+.PP
+.PD 0
+.IP "1." 4
+field value is \fCNULL\fP and part is \fCNULL\fP by default 
+.PP
+
+.IP "2." 4
+it is a leaf \fBSoGroup\fP or \fBSoSeparator\fP node with no children 
+.PP
+
+.IP "3." 4
+it is a leaf listpart with no children and an \fBSoGroup\fP or \fBSoSeparator\fP container 
+.PP
+
+.IP "4." 4
+it is a non-leaf part and it's of \fBSoGroup\fP type and all fields are at their default values 
+.PP
+
+.PP
+.PP
+Subclasses should usually override this to do additional settings for new member fields\&. From the subclass, do remember to call 'upwards' to your superclass' \fBsetDefaultOnNonWritingFields()\fP method\&. 
+.PP
+Reimplemented from \fBSoDragger\fP\&.
+.SS "void SoTransformerDragger::startCB (void * f, \fBSoDragger\fP * d)\fC [static]\fP, \fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoTransformerDragger::motionCB (void * f, \fBSoDragger\fP * d)\fC [static]\fP, \fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoTransformerDragger::finishCB (void * f, \fBSoDragger\fP * d)\fC [static]\fP, \fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoTransformerDragger::metaKeyChangeCB (void *, \fBSoDragger\fP * d)\fC [static]\fP, \fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoTransformerDragger::fieldSensorCB (void * d, \fBSoSensor\fP * s)\fC [static]\fP, \fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoTransformerDragger::valueChangedCB (void * f, \fBSoDragger\fP * d)\fC [static]\fP, \fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoTransformerDragger::dragStart (void)\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP Called when dragger is selected (picked) by the user\&. 
+.SS "void SoTransformerDragger::drag (void)\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP Called when user drags the mouse after picking the dragger\&. 
+.SS "void SoTransformerDragger::dragFinish (void)\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP Called when mouse button is released after picking and interacting with the dragger\&. 
+.SS "\fBint\fP SoTransformerDragger::getMouseGestureDirection (SbBool x_ok, SbBool y_ok, SbBool z_ok)\fC [protected]\fP"
+Not implemented in Coin; should probably not have been public in the Open Inventor API\&. We'll consider to implement it if requested\&. 
+.SS "\fBint\fP SoTransformerDragger::getIgnoreAxis (\fBSbVec2f\fP axis[3][2], SbBool x_ok, SbBool y_ok, SbBool z_ok)\fC [static]\fP, \fC [protected]\fP"
+Not implemented in Coin; should probably not have been public in the Open Inventor API\&. We'll consider to implement it if requested\&. 
+.SS "void SoTransformerDragger::makeMinorAxisPerpendicularIfColinear (\fBSbVec2f\fP origin, \fBSbVec2f\fP axisends[3][2], \fBint\fP index_a, \fBint\fP index_b)\fC [static]\fP, \fC [protected]\fP"
+Not implemented in Coin; should probably not have been public in the Open Inventor API\&. We'll consider to implement it if requested\&. 
+.SS "SbBool SoTransformerDragger::isColinear (\fBSbVec2f\fP a1[2], \fBSbVec2f\fP a2[2], \fBint\fP pixels)\fC [static]\fP, \fC [protected]\fP"
+Not implemented in Coin; should probably not have been public in the Open Inventor API\&. We'll consider to implement it if requested\&. 
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSoSFRotation\fP SoTransformerDragger::rotation"
+This field is continuously updated to contain the orientation of the dragger\&. 
+.SS "\fBSoSFVec3f\fP SoTransformerDragger::translation"
+The dragger's offset position from the local origo\&. 
+.SS "\fBSoSFVec3f\fP SoTransformerDragger::scaleFactor"
+Continuously updated to contain the current vector of scaling along the X, Y and Z axes\&. 
+.SS "\fBSoFieldSensor\fP * SoTransformerDragger::translFieldSensor\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "\fBSoFieldSensor\fP * SoTransformerDragger::scaleFieldSensor\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "\fBSoFieldSensor\fP * SoTransformerDragger::rotateFieldSensor\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "\fBSoNodeList\fP SoTransformerDragger::antiSquishList\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

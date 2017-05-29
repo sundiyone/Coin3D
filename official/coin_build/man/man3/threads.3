@@ -1,0 +1,100 @@
+.TH "threads" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+threads
+.SH SYNOPSIS
+.br
+.PP
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef struct cc_thread \fBcc_thread\fP"
+.br
+.RI "The type definition for the thread structure\&. "
+.ti -1c
+.RI "typedef struct cc_mutex \fBcc_mutex\fP"
+.br
+.RI "The type definition for the mutex structure\&. "
+.ti -1c
+.RI "typedef struct cc_rwmutex \fBcc_rwmutex\fP"
+.br
+.RI "The type definition for the read-write mutex structure\&. "
+.ti -1c
+.RI "typedef struct cc_storage \fBcc_storage\fP"
+.br
+.RI "The type definition for the thread local memory storage structure\&. "
+.ti -1c
+.RI "typedef struct cc_condvar \fBcc_condvar\fP"
+.br
+.RI "The type definition for the conditional variable structure\&. "
+.ti -1c
+.RI "typedef struct cc_worker \fBcc_worker\fP"
+.br
+.RI "The type definition for the worker thread structure\&. "
+.ti -1c
+.RI "typedef struct cc_wpool \fBcc_wpool\fP"
+.br
+.RI "The type definition for a worker pool structure\&. "
+.ti -1c
+.RI "typedef struct cc_recmutex \fBcc_recmutex\fP"
+.br
+.RI "The type definition for the recursive mutex structure\&. "
+.ti -1c
+.RI "typedef struct cc_sched \fBcc_sched\fP"
+.br
+.RI "The type definition for the thread schduler structure\&. "
+.ti -1c
+.RI "typedef struct cc_fifo \fBcc_fifo\fP"
+.br
+.RI "The type definition for the first-in, first-out queue structure\&. "
+.ti -1c
+.RI "typedef struct cc_barrier \fBcc_barrier\fP"
+.br
+.RI "The type definition for the thread barrier structure\&. "
+.in -1c
+.SS "Enumerations"
+
+.in +1c
+.ti -1c
+.RI "enum \fBcc_threads_implementation\fP { \fBCC_NO_THREADS\fP = -1, \fBCC_PTHREAD\fP = 0, \fBCC_W32THREAD\fP }
+.RI "The definition of the enumerator for identification of the thread type implemented\&. ""
+.br
+.ti -1c
+.RI "enum \fBcc_retval\fP { \fBCC_ERROR\fP = 0, \fBCC_OK\fP = 1, \fBCC_TIMEOUT\fP, \fBCC_BUSY\fP }
+.RI "The enumerator for return values of thread related functions\&. ""
+.br
+.ti -1c
+.RI "enum \fBcc_precedence\fP { \fBCC_READ_PRECEDENCE\fP, \fBCC_WRITE_PRECEDENCE\fP }
+.RI "The precedence values for the read-write mutex\&. ""
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Coin implements a set of abstractions over the native threads data types that can be portably used across all the platforms Coin has been ported to\&. 
+.SH "Enumeration Type Documentation"
+.PP 
+.SS "enum enum \fBcc_threads_implementation\fP \fBcc_threads_implementation\fP"
+
+.PP
+The definition of the enumerator for identification of the thread type implemented\&. The type definition for the implemented thread enumerator\&.
+.PP
+{ CC_NO_THREADS = -1, CC_PTHREAD = 0, CC_W32THREAD } 
+.SS "enum enum \fBcc_retval\fP \fBcc_retval\fP"
+
+.PP
+The enumerator for return values of thread related functions\&. The type definition for the return value enumerator\&.
+.PP
+{ CC_ERROR = 0, CC_OK = 1, CC_TIMEOUT, CC_BUSY } 
+.SS "enum enum \fBcc_precedence\fP \fBcc_precedence\fP"
+
+.PP
+The precedence values for the read-write mutex\&. The type definition of the cc_precedence enumerator\&.
+.PP
+{CC_READ_PRECEDENCE, CC_WRITE_PRECEDENCE}
+.PP
+CC_READ_PRECEDENCE is the default\&. 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

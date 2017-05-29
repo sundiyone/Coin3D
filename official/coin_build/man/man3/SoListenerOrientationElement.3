@@ -1,0 +1,112 @@
+.TH "SoListenerOrientationElement" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoListenerOrientationElement \- The \fBSoListenerOrientationElement\fP holds the orientation of the current listener\&.
+.PP
+This orientation is set by \fBSoListener\fP nodes and \fBSoCamera\fP Nodes during audio rendering\&. When a \fBSoListener\fP is visited by the \fBSoAudioRenderAction\fP, it will add a new \fBSoListenerOrientationElement\fP to the state, holding it's orientation and with the setbylistener flag set\&. When a \fBSoCamera\fP is visited by \fBSoAudioRenderAction\fP, it will add a new \fBSoListenerOrientationElement\fP only if there are no previous elements with the setbylistener flag set\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/elements/SoListenerOrientationElement\&.h>\fP
+.PP
+Inherits \fBSoReplacedElement\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual void \fBinit\fP (\fBSoState\fP *state)"
+.br
+.ti -1c
+.RI "virtual void \fBprint\fP (FILE *file) const"
+.br
+.RI "Prints the contents of the element (unimplemented) "
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static \fBint\fP \fBgetClassStackIndex\fP (void)"
+.br
+.ti -1c
+.RI "static void * \fBcreateInstance\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBset\fP (\fBSoState\fP *const state, \fBSoNode\fP *const node, const \fBSbRotation\fP &\fBorientation\fP, SbBool setbylistener)"
+.br
+.ti -1c
+.RI "static const \fBSbRotation\fP & \fBget\fP (\fBSoState\fP *const state)"
+.br
+.RI "Returns the current listener orientation\&. "
+.ti -1c
+.RI "static SbBool \fBisSetByListener\fP (\fBSoState\fP *const state)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fB~SoListenerOrientationElement\fP ()"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSbRotation\fP \fBorientation\fP"
+.br
+.ti -1c
+.RI "SbBool \fBsetbylistener\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoListenerOrientationElement\fP holds the orientation of the current listener\&.
+.PP
+This orientation is set by \fBSoListener\fP nodes and \fBSoCamera\fP Nodes during audio rendering\&. When a \fBSoListener\fP is visited by the \fBSoAudioRenderAction\fP, it will add a new \fBSoListenerOrientationElement\fP to the state, holding it's orientation and with the setbylistener flag set\&. When a \fBSoCamera\fP is visited by \fBSoAudioRenderAction\fP, it will add a new \fBSoListenerOrientationElement\fP only if there are no previous elements with the setbylistener flag set\&. 
+
+The \fBSoListenerOrientationElement\fP is used when the \fBSoVRMLSound\fP nodes render themselves\&.
+.PP
+Be aware that this class is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoListenerOrientationElement::~SoListenerOrientationElement (void)\fC [protected]\fP, \fC [virtual]\fP"
+The destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void * SoListenerOrientationElement::createInstance (void)\fC [static]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoListenerOrientationElement::initClass (void)\fC [static]\fP"
+This static method initializes static data for the \fBSoListenerOrientationElement\fP class\&. 
+.SS "void SoListenerOrientationElement::init (\fBSoState\fP * state)\fC [virtual]\fP"
+Initializes the element to it's default value\&. The default value for the orientation is (0\&.0f, 0\&.0f, 1\&.0f, 0\&.0f) and the default value for the setByListener flag is FALSE\&. 
+.PP
+Reimplemented from \fBSoReplacedElement\fP\&.
+.SS "void SoListenerOrientationElement::set (\fBSoState\fP *const state, \fBSoNode\fP *const node, const \fBSbRotation\fP & orientation, SbBool setbylistener)\fC [static]\fP"
+Sets the current listener orientation, and indicates if it was set by a \fBSoListener\fP node or a \fBSoCamera\fP node\&. 
+.SS "SbBool SoListenerOrientationElement::isSetByListener (\fBSoState\fP *const state)\fC [static]\fP"
+Returns TRUE if the orientation was set by a \fBSoListener\fP node, and FALSE if it was set by a \fBSoCamera\fP node 
+.SH "Member Data Documentation"
+.PP 
+.SS "SoListenerOrientationElement::orientation\fC [protected]\fP"
+The orientation of the listener\&. Can be set by the \fBSoListener\fP class or the \fBSoCamera\fP class\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

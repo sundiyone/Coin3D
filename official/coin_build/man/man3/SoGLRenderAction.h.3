@@ -1,0 +1,76 @@
+.TH "SoGLRenderAction.h" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoGLRenderAction.h
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <Inventor/actions/SoAction\&.h>\fP
+.br
+\fC#include <Inventor/actions/SoSubAction\&.h>\fP
+.br
+\fC#include <Inventor/SbBasic\&.h>\fP
+.br
+\fC#include <Inventor/SbViewportRegion\&.h>\fP
+.br
+\fC#include <Inventor/system/inttypes\&.h>\fP
+.br
+\fC#include <Inventor/lists/SoPathList\&.h>\fP
+.br
+\fC#include <Inventor/lists/SbList\&.h>\fP
+.br
+
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBSoGLRenderAction\fP"
+.br
+.RI "The \fBSoGLRenderAction\fP class renders the scene graph with OpenGL calls\&.
+.PP
+Applying this method at a root node for a scene graph, path or pathlist will render all geometry contained within that instance to the current OpenGL context\&. "
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef void \fBSoGLRenderPassCB\fP(void *userdata)"
+.br
+.ti -1c
+.RI "typedef void \fBSoGLPreRenderCB\fP(void *userdata, class \fBSoGLRenderAction\fP *action)"
+.br
+.ti -1c
+.RI "typedef float \fBSoGLSortedObjectOrderCB\fP(void *userdata, \fBSoGLRenderAction\fP *action)"
+.br
+.in -1c
+.SH "Typedef Documentation"
+.PP 
+.SS "void SoGLRenderPassCB"
+Callback functions for the setPassCallback() method need to be of this type\&.
+.PP
+\fIuserdata\fP is a void pointer to any data the application need to know of in the callback function (like for instance a \fIthis\fP pointer)\&.
+.PP
+\fBSee also:\fP
+.RS 4
+setPassCallback() 
+.RE
+.PP
+
+.SS "float SoGLSortedObjectOrderCB"
+A callback used for controlling the transparency sorting order\&.
+.PP
+\fBSee also:\fP
+.RS 4
+setSortedObjectOrderStrategy()\&. 
+.RE
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.5 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

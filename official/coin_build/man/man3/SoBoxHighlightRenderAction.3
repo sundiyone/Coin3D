@@ -1,0 +1,213 @@
+.TH "SoBoxHighlightRenderAction" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoBoxHighlightRenderAction \- The \fBSoBoxHighlightRenderAction\fP class renders the scene with highlighted boxes around selections\&.
+.PP
+This action performs the same tasks as its parent class, \fBSoGLRenderAction\fP, with the added ability to render highlighted bounding boxes around geometry in selected nodes\&. This is a simple but convenient way of giving feedback to the user upon interaction with the scene graph\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/actions/SoBoxHighlightRenderAction\&.h>\fP
+.PP
+Inherits \fBSoGLRenderAction\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoBoxHighlightRenderAction\fP (void)"
+.br
+.ti -1c
+.RI "\fBSoBoxHighlightRenderAction\fP (const \fBSbViewportRegion\fP &viewportregion)"
+.br
+.ti -1c
+.RI "virtual \fB~SoBoxHighlightRenderAction\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBapply\fP (\fBSoNode\fP *node)"
+.br
+.ti -1c
+.RI "virtual void \fBapply\fP (\fBSoPath\fP *path)"
+.br
+.ti -1c
+.RI "virtual void \fBapply\fP (const \fBSoPathList\fP &pathlist, SbBool obeysrules=FALSE)"
+.br
+.ti -1c
+.RI "void \fBsetVisible\fP (const SbBool visible)"
+.br
+.ti -1c
+.RI "SbBool \fBisVisible\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBsetColor\fP (const \fBSbColor\fP &color)"
+.br
+.ti -1c
+.RI "const \fBSbColor\fP & \fBgetColor\fP (void)"
+.br
+.ti -1c
+.RI "void \fBsetLinePattern\fP (unsigned short pattern)"
+.br
+.ti -1c
+.RI "unsigned short \fBgetLinePattern\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBsetLineWidth\fP (const float width)"
+.br
+.ti -1c
+.RI "float \fBgetLineWidth\fP (void) const"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBaddMethod\fP (const \fBSoType\fP type, \fBSoActionMethod\fP method)"
+.br
+.ti -1c
+.RI "static void \fBenableElement\fP (const \fBSoType\fP type, const \fBint\fP stackindex)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoEnabledElementsList\fP & \fBgetEnabledElements\fP (void) const"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoEnabledElementsList\fP * \fBgetClassEnabledElements\fP (void)"
+.br
+.ti -1c
+.RI "static \fBSoActionMethodList\fP * \fBgetClassActionMethods\fP (void)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "SbBool \fBhlVisible\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoBoxHighlightRenderAction\fP class renders the scene with highlighted boxes around selections\&.
+.PP
+This action performs the same tasks as its parent class, \fBSoGLRenderAction\fP, with the added ability to render highlighted bounding boxes around geometry in selected nodes\&. This is a simple but convenient way of giving feedback to the user upon interaction with the scene graph\&. 
+
+To have the highlighting actually happen (and to be able to automatically 'select' nodes by picking with the mouse cursor), you need to use \fBSoSelection\fP nodes in place of group nodes\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoLineHighlightRenderAction\fP, \fBSoSelection\fP 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoBoxHighlightRenderAction::SoBoxHighlightRenderAction (void)"
+Default constructor\&. Note: passes a default \fBSbViewportRegion\fP to the parent constructor\&. 
+.SS "SoBoxHighlightRenderAction::SoBoxHighlightRenderAction (const \fBSbViewportRegion\fP & viewportregion)"
+Constructor, taking an explicit \fIviewportregion\fP to render\&. 
+.SS "SoBoxHighlightRenderAction::~SoBoxHighlightRenderAction (void)\fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoBoxHighlightRenderAction::getTypeId (void) const\fC [virtual]\fP"
+Returns the type identification of an action derived from a class inheriting \fBSoAction\fP\&. This is used for run-time type checking and 'downward' casting\&.
+.PP
+Usage example:
+.PP
+.PP
+.nf
+void bar(SoAction * action)
+{
+  if (action->getTypeId() == SoGLRenderAction::getClassTypeId()) {
+    // safe downward cast, know the type
+    SoGLRenderAction * glrender = (SoGLRenderAction *)action;
+  }
+  return; // ignore if not renderaction
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new actions: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through Inventor/nodes/SoSubAction\&.h: SO_ACTION_SOURCE, SO_ACTION_INIT_CLASS and SO_ACTION_CONSTRUCTOR\&.
+.PP
+For more information on writing Coin extensions, see the \fBSoAction\fP class documentation\&.
+.PP
+Returns the actual type id of an object derived from a class inheriting \fBSoAction\fP\&. Needs to be overridden in \fIall\fP subclasses\&. 
+.PP
+Reimplemented from \fBSoGLRenderAction\fP\&.
+.SS "void SoBoxHighlightRenderAction::addMethod (const \fBSoType\fP type, \fBSoActionMethod\fP method)\fC [static]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoBoxHighlightRenderAction::enableElement (const \fBSoType\fP type, const \fBint\fP stackindex)\fC [static]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "const \fBSoEnabledElementsList\fP & SoBoxHighlightRenderAction::getEnabledElements (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a list of the elements used by action instances of this class upon traversal operations\&. 
+.PP
+Reimplemented from \fBSoGLRenderAction\fP\&.
+.SS "void SoBoxHighlightRenderAction::apply (\fBSoNode\fP * root)\fC [virtual]\fP"
+Applies the action to the scene graph rooted at \fIroot\fP\&.
+.PP
+Note that you should \fInot\fP apply an action to a node with a zero reference count\&. The behavior in that case is undefined\&. 
+.PP
+Reimplemented from \fBSoAction\fP\&.
+.SS "void SoBoxHighlightRenderAction::apply (\fBSoPath\fP * path)\fC [virtual]\fP"
+Applies the action to the parts of the graph defined by \fIpath\fP\&.
+.PP
+Note that an \fBSoPath\fP will also contain all nodes that may influence e\&.g\&. geometry nodes in the path\&. So for instance applying an \fBSoGLRenderAction\fP on an \fBSoPath\fP will render that path as expected in the view, where geometry will get its materials, textures, and other appearance settings correctly\&.
+.PP
+If the \fIpath\fP ends in an \fBSoGroup\fP node, the action will also traverse the tail node's children\&. 
+.PP
+Reimplemented from \fBSoAction\fP\&.
+.SS "void SoBoxHighlightRenderAction::apply (const \fBSoPathList\fP & pathlist, SbBool obeysrules = \fCFALSE\fP)\fC [virtual]\fP"
+Applies action to the graphs defined by \fIpathlist\fP\&. If \fIobeysrules\fP is set to \fCTRUE\fP, \fIpathlist\fP must obey the following four conditions (which is the case for path lists returned from search actions for non-group nodes and path lists returned from picking actions):
+.PP
+All paths must start at the same head node\&. All paths must be sorted in traversal order\&. The paths must be unique\&. No path can continue through the end point of another path\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoAction::apply(SoPath * path)\fP 
+.RE
+.PP
+
+.PP
+Reimplemented from \fBSoAction\fP\&.
+.SS "void SoBoxHighlightRenderAction::setVisible (const SbBool visible)"
+Sets if highlighted boxes should be \fIvisible\fP when rendering\&. Defaults to \fCTRUE\fP\&. 
+.SS "SbBool SoBoxHighlightRenderAction::isVisible (void) const"
+Return if highlighted boxes are to be visible\&. 
+.SS "void SoBoxHighlightRenderAction::setColor (const \fBSbColor\fP & color)"
+Sets the \fIcolor\fP for the highlighted boxes\&. Defaults to completely red\&. 
+.SS "const \fBSbColor\fP & SoBoxHighlightRenderAction::getColor (void)"
+Returns rendering color of the highlighted boxes\&. 
+.SS "void SoBoxHighlightRenderAction::setLinePattern (unsigned short pattern)"
+Sets the line \fIpattern\fP used for the highlighted boxes\&. Defaults to \fC0xffff\fP (i\&.e\&. drawn with no stipples)\&. 
+.SS "unsigned short SoBoxHighlightRenderAction::getLinePattern (void) const"
+Returns line pattern used when drawing boxes\&. 
+.SS "void SoBoxHighlightRenderAction::setLineWidth (const float width)"
+Sets the line \fIwidth\fP used when drawing boxes, in screen pixels (as for all OpenGL rendering)\&. Defaults to 3\&. 
+.SS "float SoBoxHighlightRenderAction::getLineWidth (void) const"
+Returns the line width used when drawing highlight boxes\&. 
+.SH "Member Data Documentation"
+.PP 
+.SS "SoBoxHighlightRenderAction::hlVisible\fC [protected]\fP"
+Boolean which decides whether or not the highlights for selected nodes should be visible\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

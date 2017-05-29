@@ -1,0 +1,197 @@
+.TH "SoEventManager" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoEventManager \- The \fBSoEventManager\fP class provides event handling for a Coin3D viewer\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/SoEventManager\&.h>\fP
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBNavigationState\fP { \fBNO_NAVIGATION\fP, \fBJUST_NAVIGATION\fP, \fBMIXED_NAVIGATION\fP }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fB~SoEventManager\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBsetSceneGraph\fP (\fBSoNode\fP *const sceneroot)"
+.br
+.ti -1c
+.RI "virtual \fBSoNode\fP * \fBgetSceneGraph\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBsetCamera\fP (\fBSoCamera\fP *camera)"
+.br
+.ti -1c
+.RI "virtual \fBSoCamera\fP * \fBgetCamera\fP (void) const"
+.br
+.ti -1c
+.RI "virtual SbBool \fBprocessEvent\fP (const \fBSoEvent\fP *const event)"
+.br
+.ti -1c
+.RI "virtual void \fBsetNavigationState\fP (\fBNavigationState\fP state)"
+.br
+.ti -1c
+.RI "virtual \fBNavigationState\fP \fBgetNavigationState\fP (void) const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetNumSoScXMLStateMachines\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoScXMLStateMachine\fP * \fBgetSoScXMLStateMachine\fP (\fBint\fP idx) const"
+.br
+.ti -1c
+.RI "void \fBaddSoScXMLStateMachine\fP (\fBSoScXMLStateMachine\fP *sm)"
+.br
+.ti -1c
+.RI "void \fBremoveSoScXMLStateMachine\fP (\fBSoScXMLStateMachine\fP *sm)"
+.br
+.ti -1c
+.RI "virtual void \fBsetSize\fP (const \fBSbVec2s\fP &newsize)"
+.br
+.ti -1c
+.RI "virtual void \fBsetOrigin\fP (const \fBSbVec2s\fP &newOrigin)"
+.br
+.ti -1c
+.RI "virtual void \fBsetViewportRegion\fP (const \fBSbViewportRegion\fP &newregion)"
+.br
+.ti -1c
+.RI "const \fBSbViewportRegion\fP & \fBgetViewportRegion\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBsetHandleEventAction\fP (\fBSoHandleEventAction\fP *hea)"
+.br
+.ti -1c
+.RI "virtual \fBSoHandleEventAction\fP * \fBgetHandleEventAction\fP (void) const"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual SbBool \fBactuallyProcessEvent\fP (const \fBSoEvent\fP *const event)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBSoEventManager\fP class provides event handling for a Coin3D viewer\&. 
+
+It receives Coin events (typically translated from GUI events by the GUI binding in use) and passes them to the state machine or directly to the scene graph depending on the navigation mode\&. \fBSoEventManager\fP implements the event interface for the Coin3D navigation system based on \fBScXML\fP\&. \fBSoEventManager\fP and \fBSoRenderManager\fP together supersede \fBSoSceneManager\fP, which is now just a wrapper around these classes\&. The class is used by the QuarterWidget in Quarter (the Qt binding for Coin3D)\&. 
+.SH "Member Enumeration Documentation"
+.PP 
+.SS "enum \fBSoEventManager::NavigationState\fP"
+Sets how events are handled\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fINO_NAVIGATION \fP\fP
+Forwards the events only to the scene graph\&. 
+.TP
+\fB\fIJUST_NAVIGATION \fP\fP
+Forwards the events only to the state machines\&. 
+.TP
+\fB\fIMIXED_NAVIGATION \fP\fP
+Forwards the events to the scene graph first\&. If it does not get handled, the events get forwarded to the state machines\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoEventManager::~SoEventManager ()\fC [virtual]\fP"
+Destructor\&.
+.PP
+The destructor destructs all subobjects it still has handles on when invoked\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void SoEventManager::setSceneGraph (\fBSoNode\fP *const sceneroot)\fC [virtual]\fP"
+Set the node which is top of the scene graph we're managing\&. The \fIsceneroot\fP node reference count will be increased by 1, and any previously set scene graph top node will have it's reference count decreased by 1\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetSceneGraph\fP 
+.RE
+.PP
+
+.SS "\fBSoNode\fP * SoEventManager::getSceneGraph (void) const\fC [virtual]\fP"
+Returns pointer to root of scene graph\&. 
+.SS "void SoEventManager::setCamera (\fBSoCamera\fP * camera)\fC [virtual]\fP"
+Sets the camera to be used\&. 
+.SS "\fBSoCamera\fP * SoEventManager::getCamera (void) const\fC [virtual]\fP"
+Returns the current camera\&. 
+.SS "SbBool SoEventManager::processEvent (const \fBSoEvent\fP *const event)\fC [virtual]\fP"
+Handles the event\&. Depending on the navigation state, this forwards the event to the state machines and/or the scene graph\&. 
+.SS "void SoEventManager::setNavigationState (\fBNavigationState\fP state)\fC [virtual]\fP"
+This method sets the navigation mode of the scene manager\&. The navigation mode decides the system the user uses to navigate the 3D model\&.
+.PP
+\fBSoEventManager::NO_NAVIGATION\fP is the default setting\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoEventManager::NavigationState\fP, \fBgetNavigationState\fP 
+.RE
+.PP
+
+.SS "\fBSoEventManager::NavigationState\fP SoEventManager::getNavigationState (void) const\fC [virtual]\fP"
+This method returns which state the camera navigation system is in\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoEventManager::NavigationState\fP, \fBsetNavigationState\fP 
+.RE
+.PP
+
+.SS "\fBint\fP SoEventManager::getNumSoScXMLStateMachines (void) const"
+Returns the number of SCXML state machines registered on the \fBSoEventManager\fP object\&. 
+.SS "\fBSoScXMLStateMachine\fP * SoEventManager::getSoScXMLStateMachine (\fBint\fP idx) const"
+Returns the pointer to the Nth (\fIidx\fP) SCXML state machine registered on the \fBSoSceneManager\fP object\&.
+.PP
+The \fIidx\fP argument must be a valid index, not outside the actual range of SCXML state machine object indices\&. 
+.SS "void SoEventManager::addSoScXMLStateMachine (\fBSoScXMLStateMachine\fP * sm)"
+Adds an SCXML state machine object to the \fBSoEventManager\fP's event pipeline\&.
+.PP
+The calling code is responsible for deleting the passed in state machine after \fBremoveSoScXMLStateMachine()\fP has been invoked\&.
+.PP
+(Note: this behavior changed between Coin 3\&.1 and later, as the \fBSoEventManager\fP used to destruct the state machines upon its own destruction\&.) 
+.SS "void SoEventManager::removeSoScXMLStateMachine (\fBSoScXMLStateMachine\fP * sm)"
+Removes the \fBSoSceneManager\fP object reference to an SCXML state machine\&. It will just be removed, not destructed\&.
+.PP
+If no reference to the given SCXML state machine exists, nothing will happen\&. 
+.SS "void SoEventManager::setSize (const \fBSbVec2s\fP & newsize)\fC [virtual]\fP"
+Set size of rendering area for the viewport within the current window\&. 
+.SS "void SoEventManager::setOrigin (const \fBSbVec2s\fP & newOrigin)\fC [virtual]\fP"
+Set \fIonly\fP the origin of the viewport region within the rendering window\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetViewportRegion()\fP, setWindowSize() 
+.RE
+.PP
+
+.SS "void SoEventManager::setViewportRegion (const \fBSbViewportRegion\fP & newregion)\fC [virtual]\fP"
+Sets the current viewport region\&. This will overwrite the default viewport region created in the constructor\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetViewportRegion()\fP 
+.RE
+.PP
+
+.SS "const \fBSbViewportRegion\fP & SoEventManager::getViewportRegion (void) const"
+Returns the viewport region used by the event manager\&. 
+.SS "void SoEventManager::setHandleEventAction (\fBSoHandleEventAction\fP * handleeventaction)\fC [virtual]\fP"
+Set the \fIaction\fP to use for event handling\&. Overrides the default action made in the constructor\&. 
+.SS "\fBSoHandleEventAction\fP * SoEventManager::getHandleEventAction (void) const\fC [virtual]\fP"
+Returns pointer to event handler action\&. 
+.SS "SbBool SoEventManager::actuallyProcessEvent (const \fBSoEvent\fP *const event)\fC [protected]\fP, \fC [virtual]\fP"
+Forwards the event to the scene graph\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

@@ -1,0 +1,180 @@
+.TH "SbXfBox3f" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SbXfBox3f \- The \fBSbXfBox3f\fP class is a 3 dimensional box with floating point coordinates and an attached transformation\&.
+.PP
+This box class is used by many other classes in Coin for data exchange\&. It provides storage for two box corners with floating point coordinates, and for a floating point 4x4 transformation matrix\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/SbXfBox3f\&.h>\fP
+.PP
+Inherits \fBSbBox3f\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSbXfBox3f\fP (void)"
+.br
+.ti -1c
+.RI "\fBSbXfBox3f\fP (const \fBSbVec3f\fP &boxmin, const \fBSbVec3f\fP &boxmax)"
+.br
+.ti -1c
+.RI "\fBSbXfBox3f\fP (const \fBSbBox3f\fP &box)"
+.br
+.ti -1c
+.RI "\fB~SbXfBox3f\fP ()"
+.br
+.ti -1c
+.RI "void \fBsetTransform\fP (const \fBSbMatrix\fP &m)"
+.br
+.ti -1c
+.RI "const \fBSbMatrix\fP & \fBgetTransform\fP (void) const"
+.br
+.ti -1c
+.RI "const \fBSbMatrix\fP & \fBgetInverse\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP \fBgetCenter\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBextendBy\fP (const \fBSbVec3f\fP &pt)"
+.br
+.ti -1c
+.RI "void \fBextendBy\fP (const \fBSbBox3f\fP &bb)"
+.br
+.ti -1c
+.RI "void \fBextendBy\fP (const \fBSbXfBox3f\fP &bb)"
+.br
+.ti -1c
+.RI "SbBool \fBintersect\fP (const \fBSbVec3f\fP &pt) const"
+.br
+.ti -1c
+.RI "SbBool \fBintersect\fP (const \fBSbBox3f\fP &bb) const"
+.br
+.ti -1c
+.RI "SbBool \fBintersect\fP (const \fBSbXfBox3f\fP &bb) const"
+.br
+.ti -1c
+.RI "void \fBgetSpan\fP (const \fBSbVec3f\fP &direction, float &dMin, float &dMax) const"
+.br
+.ti -1c
+.RI "\fBSbBox3f\fP \fBproject\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBtransform\fP (const \fBSbMatrix\fP &m)"
+.br
+.ti -1c
+.RI "float \fBgetVolume\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBprint\fP (FILE *file) const"
+.br
+.in -1c
+.SS "Friends"
+
+.in +1c
+.ti -1c
+.RI "\fBint\fP \fBoperator==\fP (const \fBSbXfBox3f\fP &b1, const \fBSbXfBox3f\fP &b2)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBoperator!=\fP (const \fBSbXfBox3f\fP &b1, const \fBSbXfBox3f\fP &b2)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSbXfBox3f\fP class is a 3 dimensional box with floating point coordinates and an attached transformation\&.
+.PP
+This box class is used by many other classes in Coin for data exchange\&. It provides storage for two box corners with floating point coordinates, and for a floating point 4x4 transformation matrix\&. 
+
+
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSbBox2s\fP, \fBSbBox2f\fP, \fBSbBox2d\fP, \fBSbBox3s\fP, \fBSbBox3f\fP, \fBSbBox3d\fP, \fBSbMatrix\fP\&. 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SbXfBox3f::SbXfBox3f (void)"
+The default constructor makes an empty box and identity matrix\&. 
+.SS "SbXfBox3f::SbXfBox3f (const \fBSbVec3f\fP & boxmin, const \fBSbVec3f\fP & boxmax)"
+Constructs a box with the given corners\&.
+.PP
+The coordinates of \fImin\fP should be less than the coordinates of \fImax\fP if you want to make a valid box\&. 
+.SS "SbXfBox3f::SbXfBox3f (const \fBSbBox3f\fP & box)"
+Constructs a box from the given \fBSbBox3f\fP\&.
+.PP
+The transformation is set to the identity matrix\&. 
+.SS "SbXfBox3f::~SbXfBox3f ()"
+Default destructor does nothing\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void SbXfBox3f::setTransform (const \fBSbMatrix\fP & m)"
+Sets the transformation to the given \fBSbMatrix\fP\&. 
+.SS "const \fBSbMatrix\fP & SbXfBox3f::getTransform (void) const"
+Returns the current transformation matrix\&. 
+.SS "const \fBSbMatrix\fP & SbXfBox3f::getInverse (void) const"
+Returns the inverse of the current transformation matrix\&. 
+.SS "\fBSbVec3f\fP SbXfBox3f::getCenter (void) const"
+Return the transformed center point of the box\&. 
+.SS "void SbXfBox3f::extendBy (const \fBSbVec3f\fP & pt)"
+Extend the boundaries of the box by the given point, i\&.e\&. make the point fit inside the box if it isn't already so\&.
+.PP
+The point is assumed to be in transformed space\&. 
+.SS "void SbXfBox3f::extendBy (const \fBSbBox3f\fP & bb)"
+Extend the boundaries of the box by the given \fIbb\fP parameter\&. The given box is assumed to be in transformed space\&.
+.PP
+The two given boxes will be combined in such a way so that the resultant bounding box always has the smallest possible volume\&. To accomplish this, the transformation on this \fBSbXfBox3f\fP will sometimes be flattened before it's combined with \fIbb\fP\&. 
+.SS "void SbXfBox3f::extendBy (const \fBSbXfBox3f\fP & bb)"
+Extend the boundaries of the box by the given \fIbb\fP parameter\&.
+.PP
+The given box is assumed to be in transformed space\&.
+.PP
+Note: is not guaranteed to give an optimal result if used for bbox calculation since the transformation matrix might change\&. See documentation in \fBSoGetBoundingBoxAction\fP for more details\&. 
+.SS "SbBool SbXfBox3f::intersect (const \fBSbVec3f\fP & pt) const"
+Check if the given point lies within the boundaries of this box\&.
+.PP
+The point is assumed to be in transformed space\&. 
+.SS "SbBool SbXfBox3f::intersect (const \fBSbBox3f\fP & bb) const"
+Check if the given \fIbox\fP lies wholly or partly within the boundaries of this box\&.
+.PP
+The given box is assumed to be in transformed space\&. 
+.SS "SbBool SbXfBox3f::intersect (const \fBSbXfBox3f\fP & xfbb) const"
+Check if two transformed boxes intersect\&.
+.PP
+This function is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.RE
+.PP
+
+.SS "void SbXfBox3f::getSpan (const \fBSbVec3f\fP & direction, float & dMin, float & dMax) const"
+Find the span of the box in the given direction (i\&.e\&. how much room in the given direction the box needs)\&. The distance is returned as the minimum and maximum distance from origo to the closest and furthest plane defined by the direction vector and each of the box' corners\&. The difference between these values gives the span\&. 
+.SS "\fBSbBox3f\fP SbXfBox3f::project (void) const"
+Project the \fBSbXfBox3f\fP into a \fBSbBox3f\fP\&.
+.PP
+This gives the same resulting \fBSbBox3f\fP as doing a \fBSbBox3f::transform()\fP with this transformation matrix as parameter\&. 
+.SS "void SbXfBox3f::transform (const \fBSbMatrix\fP & m)"
+Overridden from \fBSbBox3f\fP, as the transformations are to be kept separate from the box in the \fBSbXfBox3f\fP class\&. 
+.SS "float SbXfBox3f::getVolume (void) const"
+Return box volume\&. Overridden from parent class to take into account the possibility of scaling in the transformation matrix\&. 
+.SS "void SbXfBox3f::print (FILE * fp) const"
+Dump the state of this object to the \fIfile\fP stream\&. Only works in debug version of library, method does nothing in an optimized compile\&. 
+.SH "Friends And Related Function Documentation"
+.PP 
+.SS "\fBint\fP operator== (const \fBSbXfBox3f\fP & b1, const \fBSbXfBox3f\fP & b2)\fC [friend]\fP"
+Check if \fIb1\fP and \fIb2\fP are equal\&. Return 1 if they are equal, or 0 if they are unequal\&. Note that the method will do a dumb component by component comparison\&. 
+.SS "\fBint\fP operator!= (const \fBSbXfBox3f\fP & b1, const \fBSbXfBox3f\fP & b2)\fC [friend]\fP"
+Check if \fIb1\fP and \fIb2\fP are unequal\&. Return 0 if they are equal, or 1 if they are unequal\&. See the note on \fBoperator==()\fP\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

@@ -1,0 +1,206 @@
+.TH "SoPickStyle" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoPickStyle \- The \fBSoPickStyle\fP class is a node for setting up how to do picking\&.
+.PP
+By default, all geometry in a scene is available for picking\&. Upon writing applications with interaction possibilities, this is often \fInot\fP what you want\&. To exclude parts of the scene graph from pick actions, use the \fBSoPickStyle::UNPICKABLE\fP\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/nodes/SoPickStyle\&.h>\fP
+.PP
+Inherits \fBSoNode\fP\&.
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBStyle\fP { \fBSHAPE\fP = SoPickStyleElement::SHAPE, \fBBOUNDING_BOX\fP = SoPickStyleElement::BOUNDING_BOX, \fBUNPICKABLE\fP = SoPickStyleElement::UNPICKABLE, \fBSHAPE_ON_TOP\fP = SoPickStyleElement::SHAPE_ON_TOP, \fBBOUNDING_BOX_ON_TOP\fP = SoPickStyleElement::BOUNDING_BOX_ON_TOP, \fBSHAPE_FRONTFACES\fP = SoPickStyleElement::SHAPE_FRONTFACES }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "\fBSoPickStyle\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBdoAction\fP (\fBSoAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBcallback\fP (\fBSoCallbackAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBpick\fP (\fBSoPickAction\fP *action)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFEnum\fP \fBstyle\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fB~SoPickStyle\fP ()"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoPickStyle\fP class is a node for setting up how to do picking\&.
+.PP
+By default, all geometry in a scene is available for picking\&. Upon writing applications with interaction possibilities, this is often \fInot\fP what you want\&. To exclude parts of the scene graph from pick actions, use the \fBSoPickStyle::UNPICKABLE\fP\&. 
+
+You can also optimize pick operations by using the \fBSoPickStyle::BOUNDING_BOX\fP pickstyle\&.
+.PP
+\fBFILE FORMAT/DEFAULTS:\fP 
+.PP
+.nf
+PickStyle {
+    style SHAPE
+}
+
+.fi
+.PP
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoRayPickAction\fP 
+.RE
+.PP
+
+.SH "Member Enumeration Documentation"
+.PP 
+.SS "enum \fBSoPickStyle::Style\fP"
+Enumeration of the available picking strategies\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fISHAPE \fP\fP
+Do 'exact' picks, finding the correct intersection point(s), etc\&. 
+.TP
+\fB\fIBOUNDING_BOX \fP\fP
+Only compare pick intersection with the bounding boxes of shapes\&. This is usually much faster than \fBSoPickStyle::SHAPE\fP\&. 
+.TP
+\fB\fIUNPICKABLE \fP\fP
+The geometry following this node in the scene will not be available for picking\&. 
+.TP
+\fB\fISHAPE_ON_TOP \fP\fP
+Do exact picks, like SHAPE, but sort the shape to the front of the list of picked points so it appears to be the frontmost item\&. This does not affect the \fBSoPickedPoint\fP pick coordinate though, just the sorting by depth done on the picked point list\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 3\&.0 
+.RE
+.PP
+
+.TP
+\fB\fIBOUNDING_BOX_ON_TOP \fP\fP
+Do picks against the enclosing bounding box of the object, like BOUNDING_BOX, but sort the shape to the front of the list of picked points so it appears to be the frontmost item\&. This does not affect the \fBSoPickedPoint\fP pick coordinate though, just the sorting by depth done on the picked point list\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 3\&.0 
+.RE
+.PP
+
+.TP
+\fB\fISHAPE_FRONTFACES \fP\fP
+Do exact picks, like SHAPE, but cull all the backface intersections from the list\&. Note that this logic is relative to the ray, not the view, in case the ray and the view direction are not aligned\&.
+.PP
+The behaviour of this setting will also depend on the SoShapeStyle vertexOrdering and shapeType setting, which are used to flip frontfaces to become backfaces and vice versa and to turn backface culling on and off\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 3\&.0 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoPickStyle::SoPickStyle (void)"
+Constructor\&. 
+.SS "SoPickStyle::~SoPickStyle ()\fC [protected]\fP, \fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoPickStyle::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Implements \fBSoBase\fP\&.
+.SS "const \fBSoFieldData\fP * SoPickStyle::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoFieldContainer\fP\&.
+.SS "void SoPickStyle::doAction (\fBSoAction\fP * action)\fC [virtual]\fP"
+This function performs the typical operation of a node for any action\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "void SoPickStyle::callback (\fBSoCallbackAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoCallbackAction\fP\&.
+.PP
+Simply updates the state according to how the node behaves for the render action, so the application programmer can use the \fBSoCallbackAction\fP for extracting information about the scene graph\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "void SoPickStyle::pick (\fBSoPickAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoPickAction\fP\&.
+.PP
+Does common processing for \fBSoPickAction\fP \fIaction\fP instances\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSoSFEnum\fP SoPickStyle::style"
+Which strategy to use for the picking actions for subsequent shapes in the scene graph\&. Default value is \fBSoPickStyle::SHAPE\fP\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

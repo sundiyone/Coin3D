@@ -1,0 +1,125 @@
+.TH "SoGLMultiTextureCoordinateElement" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoGLMultiTextureCoordinateElement \- The \fBSoGLMultiTextureCoordinateElement\fP class stores the current gltexture coordinates for several units\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/elements/SoGLMultiTextureCoordinateElement\&.h>\fP
+.PP
+Inherits \fBSoMultiTextureCoordinateElement\fP\&.
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBGLUnitData\fP"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual void \fBinit\fP (\fBSoState\fP *state)"
+.br
+.RI "FIXME: write doc\&. "
+.ti -1c
+.RI "virtual void \fBpush\fP (\fBSoState\fP *state)"
+.br
+.RI "FIXME: write doc\&. "
+.ti -1c
+.RI "virtual void \fBpop\fP (\fBSoState\fP *state, const \fBSoElement\fP *prevTopElement)"
+.br
+.RI "FIXME: write doc\&. "
+.ti -1c
+.RI "virtual CoordType \fBgetType\fP (const \fBint\fP unit=0) const"
+.br
+.RI "FIXME: write doc\&. "
+.ti -1c
+.RI "void \fBsend\fP (const \fBint\fP unit, const \fBint\fP index) const"
+.br
+.RI "FIXME: write doc\&. "
+.ti -1c
+.RI "void \fBsend\fP (const \fBint\fP unit, const \fBint\fP index, const \fBSbVec3f\fP &c, const \fBSbVec3f\fP &n) const"
+.br
+.RI "FIXME: write doc\&. "
+.ti -1c
+.RI "void \fBinitRender\fP (const SbBool *enabled, const \fBint\fP maxenabled) const"
+.br
+.ti -1c
+.RI "void \fBsend\fP (const \fBint\fP index) const"
+.br
+.ti -1c
+.RI "void \fBsend\fP (const \fBint\fP index, const \fBSbVec3f\fP &c, const \fBSbVec3f\fP &n) const"
+.br
+.ti -1c
+.RI "void \fBinitMulti\fP (\fBSoState\fP *state) const"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static \fBint\fP \fBgetClassStackIndex\fP (void)"
+.br
+.ti -1c
+.RI "static void * \fBcreateInstance\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBsetTexGen\fP (\fBSoState\fP *const state, \fBSoNode\fP *const node, const \fBint\fP unit, SoTexCoordTexgenCB *const texgenFunc, void *const texgenData=NULL, SoTextureCoordinateFunctionCB *const func=NULL, void *const funcData=NULL)"
+.br
+.RI "FIXME: write doc\&. "
+.ti -1c
+.RI "static const \fBSoGLMultiTextureCoordinateElement\fP * \fBgetInstance\fP (\fBSoState\fP *const state)"
+.br
+.RI "FIXME: write doc\&. "
+.ti -1c
+.RI "static void \fBsetTexGen\fP (\fBSoState\fP *const state, \fBSoNode\fP *const node, SoTexCoordTexgenCB *const texgenFunc, void *const texgenData=NULL, SoTextureCoordinateFunctionCB *const func=NULL, void *const funcData=NULL)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSoGLMultiTextureCoordinateElement\fP (void)"
+.br
+.ti -1c
+.RI "virtual \fB~SoGLMultiTextureCoordinateElement\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBsetElt\fP (const \fBint\fP unit, SoTexCoordTexgenCB *func, void *data=NULL)"
+.br
+.RI "FIXME: write doc\&. "
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoGLMultiTextureCoordinateElement\fP class stores the current gltexture coordinates for several units\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoGLMultiTextureCoordinateElement::SoGLMultiTextureCoordinateElement (void)\fC [protected]\fP"
+The constructor\&. 
+.SS "SoGLMultiTextureCoordinateElement::~SoGLMultiTextureCoordinateElement ()\fC [protected]\fP, \fC [virtual]\fP"
+The destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void * SoGLMultiTextureCoordinateElement::createInstance (void)\fC [static]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoGLMultiTextureCoordinateElement::initClass (void)\fC [static]\fP"
+This static method initializes static data for the \fBSoGLMultiTextureCoordinateElement\fP class\&. 
+.SS "void SoGLMultiTextureCoordinateElement::initRender (const SbBool * enabled, const \fBint\fP maxenabled) const"
+Internal method that is called from SoGLTextureCoordinateBundle to set up optimized rendering\&. 
+.SS "void SoGLMultiTextureCoordinateElement::initMulti (\fBSoState\fP * state) const"
+Called from \fBSoTextureCoordinateBundle\fP to initialize multi texturing\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

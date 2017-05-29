@@ -1,0 +1,276 @@
+.TH "SoToVRML2Action" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoToVRML2Action \- The \fBSoToVRML2Action\fP class builds a new scene graph, using only VRML97/VRML2 nodes\&.
+.PP
+This action is used for converting a scene graph of VRML1/Coin nodes to a new scene graph using only VRML97/VRML2 nodes\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/actions/SoToVRML2Action\&.h>\fP
+.PP
+Inherits \fBSoToVRMLAction\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoToVRML2Action\fP (void)"
+.br
+.ti -1c
+.RI "virtual \fB~SoToVRML2Action\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBapply\fP (\fBSoNode\fP *node)"
+.br
+.ti -1c
+.RI "virtual void \fBapply\fP (\fBSoPath\fP *path)"
+.br
+.ti -1c
+.RI "virtual void \fBapply\fP (const \fBSoPathList\fP &pathlist, SbBool obeysrules=FALSE)"
+.br
+.ti -1c
+.RI "class \fBSoVRMLGroup\fP * \fBgetVRML2SceneGraph\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBreuseAppearanceNodes\fP (SbBool appearance)"
+.br
+.ti -1c
+.RI "SbBool \fBdoReuseAppearanceNodes\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBreusePropertyNodes\fP (SbBool property)"
+.br
+.ti -1c
+.RI "SbBool \fBdoReusePropertyNodes\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBreuseGeometryNodes\fP (SbBool geometry)"
+.br
+.ti -1c
+.RI "SbBool \fBdoReuseGeometryNodes\fP (void) const"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBaddMethod\fP (const \fBSoType\fP type, \fBSoActionMethod\fP method)"
+.br
+.ti -1c
+.RI "static void \fBenableElement\fP (const \fBSoType\fP type, const \fBint\fP stackindex)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoEnabledElementsList\fP & \fBgetEnabledElements\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBbeginTraversal\fP (\fBSoNode\fP *node)"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoEnabledElementsList\fP * \fBgetClassEnabledElements\fP (void)"
+.br
+.ti -1c
+.RI "static \fBSoActionMethodList\fP * \fBgetClassActionMethods\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoToVRML2Action\fP class builds a new scene graph, using only VRML97/VRML2 nodes\&.
+.PP
+This action is used for converting a scene graph of VRML1/Coin nodes to a new scene graph using only VRML97/VRML2 nodes\&. 
+
+Due to the basic differences between VRML1/Coin and VRML2 (the latter does not really have a traversal state) the new scene graph will typically be somewhat larger\&. To minimize this effect the action tries to re-use nodes when possible\&.
+.PP
+VRML1 nodes will be converted to its direct equivalent VRML2 node, while Coin nodes with no VRML2 equivalent are converted to IndexedFaceSet\&. If the DrawStyle is POINTS, all geometry will be built using PointSet; if it is LINES IndexedLineSet is used\&.
+.PP
+Here's a basic usage example of this action, in the form of a complete, stand-alone program:
+.PP
+.PP
+.nf
+#include <Inventor/SoDB\&.h>
+#include <Inventor/SoInteraction\&.h>
+#include <Inventor/SoInput\&.h>
+#include <Inventor/SoOutput\&.h>
+#include <Inventor/actions/SoWriteAction\&.h>
+#include <Inventor/actions/SoToVRML2Action\&.h>
+#include <Inventor/nodes/SoSeparator\&.h>
+#include <Inventor/VRMLnodes/SoVRMLGroup\&.h>
+
+int
+main(int argc, char *argv[])
+{
+  SoDB::init();
+  SoInteraction::init();
+  SoInput in;
+  in\&.openFile(argv[1]);
+  printf("Reading\&.\&.\&.\n");
+  SoSeparator *root = SoDB::readAll(&in);
+
+  if (root) {
+    root->ref();
+    SbString hdr = in\&.getHeader();
+    in\&.closeFile();
+
+    printf("Converting\&.\&.\&.\n");
+    SoToVRML2Action tovrml2;
+    tovrml2\&.apply(root);
+    SoVRMLGroup *newroot = tovrml2\&.getVRML2SceneGraph();
+    newroot->ref();
+    root->unref();
+
+    printf("Writing\&.\&.\&.\n");
+
+    SoOutput out;
+    out\&.openFile("out\&.wrl");
+    out\&.setHeaderString("#VRML V2\&.0 utf8");
+    SoWriteAction wra(&out);
+    wra\&.apply(newroot);
+    out\&.closeFile();
+
+    newroot->unref();
+  }
+
+  return 0;
+}
+.fi
+.PP
+.PP
+Note: if VRML97 support is not present in the Coin library, this action does nothing and getVRML2SceneGraph always returns \fCNULL\fP\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoToVRMLAction\fP
+.RE
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.PP
+TGS Inventor 2\&.5 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoToVRML2Action::SoToVRML2Action (void)"
+Constructor\&. 
+.SS "SoToVRML2Action::~SoToVRML2Action (void)\fC [virtual]\fP"
+The destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoToVRML2Action::getTypeId (void) const\fC [virtual]\fP"
+Returns the type identification of an action derived from a class inheriting \fBSoAction\fP\&. This is used for run-time type checking and 'downward' casting\&.
+.PP
+Usage example:
+.PP
+.PP
+.nf
+void bar(SoAction * action)
+{
+  if (action->getTypeId() == SoGLRenderAction::getClassTypeId()) {
+    // safe downward cast, know the type
+    SoGLRenderAction * glrender = (SoGLRenderAction *)action;
+  }
+  return; // ignore if not renderaction
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new actions: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through Inventor/nodes/SoSubAction\&.h: SO_ACTION_SOURCE, SO_ACTION_INIT_CLASS and SO_ACTION_CONSTRUCTOR\&.
+.PP
+For more information on writing Coin extensions, see the \fBSoAction\fP class documentation\&.
+.PP
+Returns the actual type id of an object derived from a class inheriting \fBSoAction\fP\&. Needs to be overridden in \fIall\fP subclasses\&. 
+.PP
+Reimplemented from \fBSoToVRMLAction\fP\&.
+.SS "void SoToVRML2Action::addMethod (const \fBSoType\fP type, \fBSoActionMethod\fP method)\fC [static]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoToVRML2Action::enableElement (const \fBSoType\fP type, const \fBint\fP stackindex)\fC [static]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "const \fBSoEnabledElementsList\fP & SoToVRML2Action::getEnabledElements (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a list of the elements used by action instances of this class upon traversal operations\&. 
+.PP
+Reimplemented from \fBSoToVRMLAction\fP\&.
+.SS "void SoToVRML2Action::apply (\fBSoNode\fP * root)\fC [virtual]\fP"
+Applies the action to the scene graph rooted at \fIroot\fP\&.
+.PP
+Note that you should \fInot\fP apply an action to a node with a zero reference count\&. The behavior in that case is undefined\&. 
+.PP
+Reimplemented from \fBSoToVRMLAction\fP\&.
+.SS "void SoToVRML2Action::apply (\fBSoPath\fP * path)\fC [virtual]\fP"
+Applies the action to the parts of the graph defined by \fIpath\fP\&.
+.PP
+Note that an \fBSoPath\fP will also contain all nodes that may influence e\&.g\&. geometry nodes in the path\&. So for instance applying an \fBSoGLRenderAction\fP on an \fBSoPath\fP will render that path as expected in the view, where geometry will get its materials, textures, and other appearance settings correctly\&.
+.PP
+If the \fIpath\fP ends in an \fBSoGroup\fP node, the action will also traverse the tail node's children\&. 
+.PP
+Reimplemented from \fBSoToVRMLAction\fP\&.
+.SS "void SoToVRML2Action::apply (const \fBSoPathList\fP & pathlist, SbBool obeysrules = \fCFALSE\fP)\fC [virtual]\fP"
+Applies action to the graphs defined by \fIpathlist\fP\&. If \fIobeysrules\fP is set to \fCTRUE\fP, \fIpathlist\fP must obey the following four conditions (which is the case for path lists returned from search actions for non-group nodes and path lists returned from picking actions):
+.PP
+All paths must start at the same head node\&. All paths must be sorted in traversal order\&. The paths must be unique\&. No path can continue through the end point of another path\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoAction::apply(SoPath * path)\fP 
+.RE
+.PP
+
+.PP
+Reimplemented from \fBSoToVRMLAction\fP\&.
+.SS "\fBSoVRMLGroup\fP * SoToVRML2Action::getVRML2SceneGraph (void) const"
+Return a pointer to the root node of the generated scenegraph of only VRML2 / VRML97 nodes\&.
+.PP
+Will return \fCNULL\fP if VRML97 support was not compiled into the library\&. 
+.SS "void SoToVRML2Action::reuseAppearanceNodes (SbBool appearance)"
+Set the flag deciding if appearance nodes should be reused if possible\&. The default is FALSE\&.
+.PP
+Please note that support for reusing Appearance nodes is not implemented yet\&. 
+.SS "SbBool SoToVRML2Action::doReuseAppearanceNodes (void) const"
+Get the flag deciding if appearance nodes should be reused if possible\&. The default is FALSE\&.
+.PP
+Please note that support for reusing Appearance nodes is not implemented yet, so this method will always return FALSE\&. 
+.SS "void SoToVRML2Action::reusePropertyNodes (SbBool property)"
+Set the flag deciding if property nodes should be reused if possible\&. The default is FALSE\&. 
+.SS "SbBool SoToVRML2Action::doReusePropertyNodes (void) const"
+Get the flag deciding if property nodes should be reused if possible\&. The default is FALSE\&. 
+.SS "void SoToVRML2Action::reuseGeometryNodes (SbBool geometry)"
+Set the flag deciding if geometry nodes should be reused if possible\&. The default is FALSE\&.
+.PP
+Please note that support for reusing Geometry nodes is not implemented yet\&. 
+.SS "SbBool SoToVRML2Action::doReuseGeometryNodes (void) const"
+Get the flag deciding if geometry nodes should be reused if possible\&. The default is FALSE\&.
+.PP
+Please note that support for reusing Geometry nodes is not implemented yet, so this function will always return FALSE\&. 
+.SS "void SoToVRML2Action::beginTraversal (\fBSoNode\fP * node)\fC [protected]\fP, \fC [virtual]\fP"
+This virtual method is called from \fBSoAction::apply()\fP, and is the entry point for the actual scenegraph traversal\&.
+.PP
+It can be overridden to initialize the action at traversal start, for specific initializations in the action subclasses inheriting \fBSoAction\fP\&.
+.PP
+Default method just calls \fBtraverse()\fP, which any overridden implementation of the method must do too (or call \fBSoAction::beginTraversal()\fP) to trigger the scenegraph traversal\&. 
+.PP
+Reimplemented from \fBSoToVRMLAction\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

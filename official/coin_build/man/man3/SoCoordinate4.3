@@ -1,0 +1,184 @@
+.TH "SoCoordinate4" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoCoordinate4 \- The \fBSoCoordinate4\fP class is a node for providing coordinates to shape nodes\&.
+.PP
+When encountering nodes of this type during traversal, the coordinates it contains will be put on the statestack for later use by shape nodes of types which needs coordinate sets (like \fBSoFaceSet\fP nodes or \fBSoPointSet\fP nodes)\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/nodes/SoCoordinate4\&.h>\fP
+.PP
+Inherits \fBSoNode\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "\fBSoCoordinate4\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBdoAction\fP (\fBSoAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBGLRender\fP (\fBSoGLRenderAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBgetBoundingBox\fP (\fBSoGetBoundingBoxAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBcallback\fP (\fBSoCallbackAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBpick\fP (\fBSoPickAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBgetPrimitiveCount\fP (\fBSoGetPrimitiveCountAction\fP *action)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoMFVec4f\fP \fBpoint\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fB~SoCoordinate4\fP ()"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoCoordinate4\fP class is a node for providing coordinates to shape nodes\&.
+.PP
+When encountering nodes of this type during traversal, the coordinates it contains will be put on the statestack for later use by shape nodes of types which needs coordinate sets (like \fBSoFaceSet\fP nodes or \fBSoPointSet\fP nodes)\&. 
+
+The fourth element of the coordinate vectors is used for normalization\&. A node of this type where all the normalization values are equal to 1\&.0 is the equivalent of setting up an \fBSoCoordinate3\fP node\&.
+.PP
+Note that an \fBSoCoordinate4\fP node will \fIreplace\fP the coordinates already present in the state (if any)\&.
+.PP
+\fBFILE FORMAT/DEFAULTS:\fP 
+.PP
+.nf
+Coordinate4 {
+    point 0 0 0 1
+}
+
+.fi
+.PP
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoCoordinate3\fP 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoCoordinate4::SoCoordinate4 (void)"
+Constructor\&. 
+.SS "SoCoordinate4::~SoCoordinate4 ()\fC [protected]\fP, \fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoCoordinate4::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Implements \fBSoBase\fP\&.
+.SS "const \fBSoFieldData\fP * SoCoordinate4::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoFieldContainer\fP\&.
+.SS "void SoCoordinate4::doAction (\fBSoAction\fP * action)\fC [virtual]\fP"
+This function performs the typical operation of a node for any action\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "void SoCoordinate4::GLRender (\fBSoGLRenderAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGLRenderAction\fP\&.
+.PP
+This is called during rendering traversals\&. Nodes influencing the rendering state in any way or who wants to throw geometry primitives at OpenGL overrides this method\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "void SoCoordinate4::getBoundingBox (\fBSoGetBoundingBoxAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGetBoundingBoxAction\fP\&.
+.PP
+Calculates bounding box and center coordinates for node and modifies the values of the \fIaction\fP to encompass the bounding box for this node and to shift the center point for the scene more towards the one for this node\&.
+.PP
+Nodes influencing how geometry nodes calculates their bounding box also overrides this method to change the relevant state variables\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "void SoCoordinate4::callback (\fBSoCallbackAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoCallbackAction\fP\&.
+.PP
+Simply updates the state according to how the node behaves for the render action, so the application programmer can use the \fBSoCallbackAction\fP for extracting information about the scene graph\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "void SoCoordinate4::pick (\fBSoPickAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoPickAction\fP\&.
+.PP
+Does common processing for \fBSoPickAction\fP \fIaction\fP instances\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "void SoCoordinate4::getPrimitiveCount (\fBSoGetPrimitiveCountAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGetPrimitiveCountAction\fP\&.
+.PP
+Calculates the number of triangle, line segment and point primitives for the node and adds these to the counters of the \fIaction\fP\&.
+.PP
+Nodes influencing how geometry nodes calculates their primitive count also overrides this method to change the relevant state variables\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSoMFVec4f\fP SoCoordinate4::point"
+Coordinate set of 3D points as 4D vectors (each vector contains a 3D coordinate plus normalization value)\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

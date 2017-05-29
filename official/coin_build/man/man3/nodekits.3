@@ -1,0 +1,107 @@
+.TH "nodekits" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+nodekits \- Nodekits modularize sub-structures of a scene graph\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBSoNodeKit\fP"
+.br
+.RI "The \fBSoNodeKit\fP class is used to initialize the nodekit classes\&.
+.PP
+The sole function of \fBSoNodeKit\fP is to be just a placeholder for the toplevel initialization code for all nodekit-related classes\&. "
+.ti -1c
+.RI "class \fBSoNodeKitPath\fP"
+.br
+.RI "The \fBSoNodeKitPath\fP class is a path that contains only nodekit nodes\&.
+.PP
+All other nodes are hidden from the user\&. "
+.ti -1c
+.RI "class \fBSoNodeKitListPart\fP"
+.br
+.RI "The \fBSoNodeKitListPart\fP class is a container node\&.
+.PP
+This node is basically just a container node with these differences versus the other group nodes: "
+.ti -1c
+.RI "class \fBSoNodekitCatalog\fP"
+.br
+.RI "The \fBSoNodekitCatalog\fP class is a container for nodekit layouts\&.
+.PP
+Nodekits store all their hierarchical layout information and part information in instances of this class\&. "
+.ti -1c
+.RI "class \fBSoBaseKit\fP"
+.br
+.RI "The \fBSoBaseKit\fP class is the toplevel superclass for nodekits\&.
+.PP
+Node kits are collections of nodes and other node kits (from here on node kits which are part of some other node kit, will only be referred to as nodes or parts, see catalogs and parts), organized in a way that is convenient for its use\&. A node kit inherits \fBSoNode\fP and can thus be inserted into a scenegraph as any other node\&. "
+.ti -1c
+.RI "class \fBSoAppearanceKit\fP"
+.br
+.RI "The \fBSoAppearanceKit\fP class is a node kit catalog that collects miscellaneous appearance node types\&.
+.PP
+Node kit structure (new entries versus parent class marked with arrow prefix): "
+.ti -1c
+.RI "class \fBSoCameraKit\fP"
+.br
+.RI "The \fBSoCameraKit\fP class is a node kit with a transform and a camera\&.
+.PP
+Node kit structure (new entries versus parent class marked with arrow prefix): "
+.ti -1c
+.RI "class \fBSoInteractionKit\fP"
+.br
+.RI "The \fBSoInteractionKit\fP class is a base class for draggers\&.
+.PP
+This nodekit class makes it possible to set surrogate paths for parts\&. Instead of creating new geometry for the dragger, it is possible to specify an existing path in your scene to be used for interaction\&. All picks on this path will be handled by the dragger\&. "
+.ti -1c
+.RI "class \fBSoLightKit\fP"
+.br
+.RI "The \fBSoLightKit\fP class provides a kit with a transform, a light and a shape or subgraph\&.
+.PP
+Node kit structure (new entries versus parent class marked with arrow prefix): "
+.ti -1c
+.RI "class \fBSoSceneKit\fP"
+.br
+.RI "The \fBSoSceneKit\fP class collects node kits needed to set up a scene: camera, light and shapes\&.
+.PP
+Node kit structure (new entries versus parent class marked with arrow prefix): "
+.ti -1c
+.RI "class \fBSoSeparatorKit\fP"
+.br
+.RI "The \fBSoSeparatorKit\fP class provides a typical set of nodes to influence a shape subgraph\&.
+.PP
+Node kit structure (new entries versus parent class marked with arrow prefix): "
+.ti -1c
+.RI "class \fBSoShapeKit\fP"
+.br
+.RI "The \fBSoShapeKit\fP class provides templates to insert what is usually needed for shape nodes\&.
+.PP
+Node kit structure (new entries versus parent class marked with arrow prefix): "
+.ti -1c
+.RI "class \fBSoWrapperKit\fP"
+.br
+.RI "The \fBSoWrapperKit\fP class is a simple kit for wrapping a transform and a sub-graph\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Nodekits modularize sub-structures of a scene graph\&. 
+
+Wrapping ones head around when, how, and why to create nodekits can be difficult in the beginning\&. When do you write a nodekit, and when do you write a custom node? It is easy to think in those terms in the beginning, but it is often not an either/or situation\&.
+.PP
+The concept of nodekits is to modularize useful, potentially repeated sub-structures you have in your scene graph as it approaches some level of complexity\&. They are especially useful if you might need to rearrange the structure of the sub-structure in the future, which you probably will\&.
+.PP
+On file, a nodekit is like a macro for the scene graph\&. The nodekit will not expose its internal structure, but when read in it will create the node structure internally\&. The node structure can even have optional parts that are only expanded if necessary\&.
+.PP
+A nodekit will give you access to its 'slots' in the internal structure through its fields\&. Only those fields should be the user interface for the nodekit, the rest of the substructure should be completely automatic, derived from those slot fields\&.
+.PP
+To return to the question on whether to implement a custom node or a nodekit, the answer is to think of what exactly is really custom about what you need to implement, and trim that down to the atomic level (but please stop trimming before you trim away all meaning)\&. If there is nothing really custom in what you want to implement, then it is likely that implementing it as a nodekit is what you ought to do\&. However, if you do have to do somethingcustom that Coin doesn't support, then implement that part as a custom node, and then, if it seems worthwhile, implement the nodekit you need to bundle up this custom part with an auxiliary support structure to achieve what you set out to achieve\&.
+.PP
+For VRML97, you have something called PROTOs, which is something similar to nodekits, except they are not very accessible from C++, as opposed to nodekits\&. 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

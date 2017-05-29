@@ -1,0 +1,215 @@
+.TH "SoProfile" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoProfile \- The \fBSoProfile\fP class is the abstract superclass for profile definitions\&.
+.PP
+Node subclasses of \fBSoProfile\fP specifies profiles for extruded 3D text and nurbs surface data\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/nodes/SoProfile\&.h>\fP
+.PP
+Inherits \fBSoNode\fP\&.
+.PP
+Inherited by \fBSoLinearProfile\fP, and \fBSoNurbsProfile\fP\&.
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBProfile\fP { \fBSTART_FIRST\fP = SoProfileElement::START_FIRST, \fBSTART_NEW\fP = SoProfileElement::START_NEW, \fBADD_TO_CURRENT\fP = SoProfileElement::ADD_TO_CURRENT }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "virtual void \fBdoAction\fP (\fBSoAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBcallback\fP (\fBSoCallbackAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBGLRender\fP (\fBSoGLRenderAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBgetBoundingBox\fP (\fBSoGetBoundingBoxAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBpick\fP (\fBSoPickAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBgetPrimitiveCount\fP (\fBSoGetPrimitiveCountAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBgetTrimCurve\fP (\fBSoState\fP *state, int32_t &numpoints, float *&points, \fBint\fP &floatspervec, int32_t &numknots, float *&knotvector)=0"
+.br
+.ti -1c
+.RI "virtual void \fBgetVertices\fP (\fBSoState\fP *state, int32_t &numvertices, \fBSbVec2f\fP *&vertices)=0"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoMFInt32\fP \fBindex\fP"
+.br
+.ti -1c
+.RI "\fBSoSFEnum\fP \fBlinkage\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoProfile\fP (void)"
+.br
+.ti -1c
+.RI "virtual \fB~SoProfile\fP ()"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoProfile\fP class is the abstract superclass for profile definitions\&.
+.PP
+Node subclasses of \fBSoProfile\fP specifies profiles for extruded 3D text and nurbs surface data\&. 
+.SH "Member Enumeration Documentation"
+.PP 
+.SS "enum \fBSoProfile::Profile\fP"
+Enumeration of various choices of how to link together multiple profiles\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fISTART_FIRST \fP\fP
+Replace the current profile state set with this profile alone\&. 
+.TP
+\fB\fISTART_NEW \fP\fP
+Append this profile to the state as a new profile\&. 
+.TP
+\fB\fIADD_TO_CURRENT \fP\fP
+Append indices of this node to the last profile\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoProfile::SoProfile (void)\fC [protected]\fP"
+Constructor\&. 
+.SS "SoProfile::~SoProfile ()\fC [protected]\fP, \fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoProfile::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Implements \fBSoBase\fP\&.
+.PP
+Reimplemented in \fBSoNurbsProfile\fP, and \fBSoLinearProfile\fP\&.
+.SS "const \fBSoFieldData\fP * SoProfile::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoFieldContainer\fP\&.
+.PP
+Reimplemented in \fBSoNurbsProfile\fP, and \fBSoLinearProfile\fP\&.
+.SS "void SoProfile::doAction (\fBSoAction\fP * action)\fC [virtual]\fP"
+This function performs the typical operation of a node for any action\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "void SoProfile::callback (\fBSoCallbackAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoCallbackAction\fP\&.
+.PP
+Simply updates the state according to how the node behaves for the render action, so the application programmer can use the \fBSoCallbackAction\fP for extracting information about the scene graph\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "void SoProfile::GLRender (\fBSoGLRenderAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGLRenderAction\fP\&.
+.PP
+This is called during rendering traversals\&. Nodes influencing the rendering state in any way or who wants to throw geometry primitives at OpenGL overrides this method\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "void SoProfile::getBoundingBox (\fBSoGetBoundingBoxAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGetBoundingBoxAction\fP\&.
+.PP
+Calculates bounding box and center coordinates for node and modifies the values of the \fIaction\fP to encompass the bounding box for this node and to shift the center point for the scene more towards the one for this node\&.
+.PP
+Nodes influencing how geometry nodes calculates their bounding box also overrides this method to change the relevant state variables\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "void SoProfile::pick (\fBSoPickAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoPickAction\fP\&.
+.PP
+Does common processing for \fBSoPickAction\fP \fIaction\fP instances\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "void SoProfile::getPrimitiveCount (\fBSoGetPrimitiveCountAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGetPrimitiveCountAction\fP\&.
+.PP
+Calculates the number of triangle, line segment and point primitives for the node and adds these to the counters of the \fIaction\fP\&.
+.PP
+Nodes influencing how geometry nodes calculates their primitive count also overrides this method to change the relevant state variables\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "void SoProfile::getTrimCurve (\fBSoState\fP * state, int32_t & numpoints, float *& points, \fBint\fP & floatspervec, int32_t & numknots, float *& knotvector)\fC [pure virtual]\fP"
+Return \fIpoints\fP and \fIknotvector\fP of the \fIstate\fP\&. 
+.PP
+Implemented in \fBSoNurbsProfile\fP, and \fBSoLinearProfile\fP\&.
+.SS "void SoProfile::getVertices (\fBSoState\fP * state, int32_t & numvertices, \fBSbVec2f\fP *& vertices)\fC [pure virtual]\fP"
+Return vertex set of \fIstate\fP\&. 
+.PP
+Implemented in \fBSoNurbsProfile\fP, and \fBSoLinearProfile\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSoMFInt32\fP SoProfile::index"
+Profile coordinate indices\&.
+.PP
+These must match what is available from previous \fBSoProfileCoordinate2\fP and \fBSoProfileCoordinate3\fP nodes in the traversal\&. 
+.SS "\fBSoSFEnum\fP SoProfile::linkage"
+How the indices of this profile node should be combined with the current profile index set of the traversal state\&.
+.PP
+Default value is \fBSoProfile::START_FIRST\fP\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

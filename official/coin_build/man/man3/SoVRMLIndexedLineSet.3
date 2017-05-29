@@ -1,0 +1,171 @@
+.TH "SoVRMLIndexedLineSet" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoVRMLIndexedLineSet \- The \fBSoVRMLIndexedLineSet\fP class is used to represent a generic 3D line shape\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/VRMLnodes/SoVRMLIndexedLineSet\&.h>\fP
+.PP
+Inherits \fBSoVRMLIndexedLine\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "virtual void \fBGLRender\fP (\fBSoGLRenderAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBgetPrimitiveCount\fP (\fBSoGetPrimitiveCountAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBgetBoundingBox\fP (\fBSoGetBoundingBoxAction\fP *action)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBgeneratePrimitives\fP (\fBSoAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBnotify\fP (\fBSoNotList\fP *list)"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoVRMLIndexedLineSet\fP class is used to represent a generic 3D line shape\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP 
+
+
+.PP
+.nf
+IndexedLineSet {
+  eventIn       MFInt32 set_colorIndex
+  eventIn       MFInt32 set_coordIndex
+  exposedField  SFNode  color             NULL
+  exposedField  SFNode  coord             NULL
+  field         MFInt32 colorIndex        []     # [-1, inf)
+  field         SFBool  colorPerVertex    TRUE
+  field         MFInt32 coordIndex        []     # [-1, inf)
+}
+
+.fi
+.PP
+.PP
+The IndexedLineSet node represents a 3D geometry formed by constructing polylines from 3D vertices specified in the coord field\&. IndexedLineSet uses the indices in its coordIndex field to specify the polylines by connecting vertices from the coord field\&. An index of '- 1' indicates that the current polyline has ended and the next one begins\&. The last polyline may be (but does not have to be) followed by a '- 1'\&. IndexedLineSet is specified in the local coordinate system and is affected by the transformations of its ancestors\&.
+.PP
+The coord field specifies the 3D vertices of the line set and contains a Coordinate node\&. Lines are not lit, are not texture-mapped, and do not participate in collision detection\&. The width of lines is implementation dependent and each line segment is solid (i\&.e\&., not dashed)\&. If the color field is not NULL, it shall contain a Color node\&. The colours are applied to the line(s) as follows:
+.PP
+.IP "\(bu" 2
+If colorPerVertex is FALSE:
+.IP "  \(bu" 4
+If the colorIndex field is not empty, one colour is used for each polyline of the IndexedLineSet\&. There shall be at least as many indices in the colorIndex field as there are polylines in the IndexedLineSet\&. If the greatest index in the colorIndex field is N, there shall be N+1 colours in the Color node\&. The colorIndex field shall not contain any negative entries\&.
+.IP "  \(bu" 4
+If the colorIndex field is empty, the colours from the Color node are applied to each polyline of the IndexedLineSet in order\&. There shall be at least as many colours in the Color node as there are polylines\&.
+.PP
+
+.IP "\(bu" 2
+If colorPerVertex is TRUE:
+.IP "  \(bu" 4
+If the colorIndex field is not empty, colours are applied to each vertex of the IndexedLineSet in exactly the same manner that the coordIndex field is used to supply coordinates for each vertex from the Coordinate node\&. The colorIndex field shall contain at least as many indices as the coordIndex field and shall contain end-of-polyline markers (-1) in exactly the same places as the coordIndex field\&. If the greatest index in the colorIndex field is N, there shall be N+1 colours in the Color node\&.
+.IP "  \(bu" 4
+If the colorIndex field is empty, the coordIndex field is used to choose colours from the Color node\&. If the greatest index in the coordIndex field is N, there shall be N+1 colours in the Color node\&.
+.PP
+
+.PP
+.PP
+If the color field is NULL and there is a Material defined for the Appearance affecting this IndexedLineSet, the emissiveColor of the Material shall be used to draw the lines\&. Details on lighting equations as they affect IndexedLineSet nodes are described in 4\&.14, Lighting model (http://www.web3d.org/x3d/specifications/vrml/ISO-IEC-14772-VRML97/part1/concepts.html#4.14)\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoVRMLIndexedLineSet::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Reimplemented from \fBSoVRMLIndexedLine\fP\&.
+.SS "const \fBSoFieldData\fP * SoVRMLIndexedLineSet::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoVRMLIndexedLine\fP\&.
+.SS "void SoVRMLIndexedLineSet::GLRender (\fBSoGLRenderAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGLRenderAction\fP\&.
+.PP
+This is called during rendering traversals\&. Nodes influencing the rendering state in any way or who wants to throw geometry primitives at OpenGL overrides this method\&. 
+.PP
+Reimplemented from \fBSoVRMLVertexLine\fP\&.
+.SS "void SoVRMLIndexedLineSet::getPrimitiveCount (\fBSoGetPrimitiveCountAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGetPrimitiveCountAction\fP\&.
+.PP
+Calculates the number of triangle, line segment and point primitives for the node and adds these to the counters of the \fIaction\fP\&.
+.PP
+Nodes influencing how geometry nodes calculates their primitive count also overrides this method to change the relevant state variables\&. 
+.PP
+Reimplemented from \fBSoShape\fP\&.
+.SS "void SoVRMLIndexedLineSet::getBoundingBox (\fBSoGetBoundingBoxAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGetBoundingBoxAction\fP\&.
+.PP
+Calculates bounding box and center coordinates for node and modifies the values of the \fIaction\fP to encompass the bounding box for this node and to shift the center point for the scene more towards the one for this node\&.
+.PP
+Nodes influencing how geometry nodes calculates their bounding box also overrides this method to change the relevant state variables\&. 
+.PP
+Reimplemented from \fBSoVRMLVertexLine\fP\&.
+.SS "void SoVRMLIndexedLineSet::generatePrimitives (\fBSoAction\fP * action)\fC [protected]\fP, \fC [virtual]\fP"
+The method implements action behavior for shape nodes for \fBSoCallbackAction\fP\&. It is invoked from \fBSoShape::callback()\fP\&. (Subclasses should \fInot\fP override \fBSoNode::callback()\fP\&.)
+.PP
+The subclass implementations uses the convenience methods \fBSoShape::beginShape()\fP, \fBSoShape::shapeVertex()\fP, and \fBSoShape::endShape()\fP, with \fBSoDetail\fP instances, to pass the primitives making up the shape back to the caller\&. 
+.PP
+Implements \fBSoShape\fP\&.
+.SS "void SoVRMLIndexedLineSet::notify (\fBSoNotList\fP * l)\fC [protected]\fP, \fC [virtual]\fP"
+Notifies all auditors for this instance when changes are made\&. 
+.PP
+Reimplemented from \fBSoVRMLIndexedLine\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

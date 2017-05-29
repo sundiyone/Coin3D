@@ -1,0 +1,428 @@
+.TH "SoCenterballDragger" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoCenterballDragger \- The \fBSoCenterballDragger\fP class is a dragger you can rotate and translate\&.
+.PP
+Here's how the dragger looks with its default geometry in the inactive state:  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/draggers/SoCenterballDragger\&.h>\fP
+.PP
+Inherits \fBSoDragger\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "virtual const \fBSoNodekitCatalog\fP * \fBgetNodekitCatalog\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoCenterballDragger\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBsaveStartParameters\fP (void)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static const \fBSoNodekitCatalog\fP * \fBgetClassNodekitCatalog\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFRotation\fP \fBrotation\fP"
+.br
+.ti -1c
+.RI "\fBSoSFVec3f\fP \fBcenter\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fB~SoCenterballDragger\fP (void)"
+.br
+.ti -1c
+.RI "void \fBtransferCenterDraggerMotion\fP (\fBSoDragger\fP *childdragger)"
+.br
+.ti -1c
+.RI "void \fBsetSwitches\fP (\fBSoDragger\fP *activechild)"
+.br
+.ti -1c
+.RI "virtual SbBool \fBsetUpConnections\fP (SbBool onoff, SbBool doitalways=FALSE)"
+.br
+.ti -1c
+.RI "virtual void \fBsetDefaultOnNonWritingFields\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBgetBoundingBox\fP (\fBSoGetBoundingBoxAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBgetMatrix\fP (\fBSoGetMatrixAction\fP *action)"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.ti -1c
+.RI "static const \fBSoNodekitCatalog\fP ** \fBgetClassNodekitCatalogPtr\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBfieldSensorCB\fP (void *f, \fBSoSensor\fP *s)"
+.br
+.ti -1c
+.RI "static void \fBvalueChangedCB\fP (void *f, \fBSoDragger\fP *d)"
+.br
+.ti -1c
+.RI "static void \fBkidStartCB\fP (void *f, \fBSoDragger\fP *d)"
+.br
+.ti -1c
+.RI "static void \fBkidFinishCB\fP (void *f, \fBSoDragger\fP *d)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFNode\fP \fBXAxis\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBXAxisSwitch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBXCenterChanger\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBXRotator\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBYAxis\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBYAxisSwitch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBYCenterChanger\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBYRotator\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBZAxis\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBZAxisSwitch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBZCenterChanger\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBZRotator\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBantiSquish\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBlightModel\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBrot2X90\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBrotX90\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBrotY90\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBrotator\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBsurroundScale\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslateToCenter\fP"
+.br
+.ti -1c
+.RI "\fBSoFieldSensor\fP * \fBrotFieldSensor\fP"
+.br
+.ti -1c
+.RI "\fBSoFieldSensor\fP * \fBcenterFieldSensor\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoCenterballDragger\fP class is a dragger you can rotate and translate\&.
+.PP
+Here's how the dragger looks with its default geometry in the inactive state: 
+
+ Screen Shot of Default Dragger
+.PP
+For rotation, click either the ball 'bands' to constrain rotation to happen around the normal vector of the disc, or anywhere else on the (invisible) ball for free-form rotation\&.
+.PP
+Translation is done by clicking and dragging any of the four arrow markers\&. Hold \fCSHIFT\fP to constrain translation to a single axis instead of in the plane\&.
+.PP
+When translating, instead of modifying the translation part of the motion matrix, a \fIcenter\fP field is updated, and the geometry is moved using an internal transformation node\&.
+.PP
+Here's a simple usage example, in the form of a scene graph as an iv-file:
+.PP
+.PP
+.nf
+#Inventor V2.1 ascii
+
+Separator {
+
+   # The dragger, offset a little bit against the geometry to clip,
+   # so as to not mess up the user interface.
+   Separator {
+      Translation { translation -4 0 0 }
+      DEF cbdragger CenterballDragger { }
+   }
+
+   # The clipping plane sub-graph.
+   TransformSeparator {
+
+      # Connect transformations to those of the dragger.
+      Rotation { rotation 0 0 1 0 = USE cbdragger . rotation }
+      Translation { translation 0 0 0 = USE cbdragger . center }
+
+      # Use a simple lineset-based indicator to show how the
+      # clipping plane is situated in space.
+      Coordinate3 {
+         point [
+          0 2 2, 0 2 -2,
+          0 -2 2, 0 -2 -2,
+          0 2 -2, 0 -2 -2,
+          0 2 2, 0 -2 2
+       ]
+      }
+      LineSet { numVertices [ 2, 2, 2, 2 ] }
+
+      ClipPlane { }
+   }
+
+   # Then follows the geometry that gets clipped. For this
+   # example, we use a simple sphere.
+
+   Sphere { }
+}
+.fi
+.PP
+.PP
+ CenterBall Dragger Action Shot
+.PP
+The figure above shows the example scenegraph in a viewer with the nearest cross on the centerball dragger selected\&. Moving the dragger then moves the associated clip plane over the geometry (the sphere in this case)\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoCenterballDragger::SoCenterballDragger (void)"
+Default constructor, sets up the dragger nodekit catalog with the interaction and feedback geometry\&.
+.PP
+Node kit structure (new entries versus parent class marked with arrow prefix):
+.PP
+.PP
+.nf
+CLASS SoCenterballDragger
+-->"this"
+      "callbackList"
+      "topSeparator"
+         "motionMatrix"
+-->      "translateToCenter"
+-->      "surroundScale"
+-->      "antiSquish"
+-->      "lightModel"
+         "geomSeparator"
+-->         "XAxisSwitch"
+-->            "XAxis"
+-->         "YAxisSwitch"
+-->            "YAxis"
+-->         "ZAxisSwitch"
+-->            "ZAxis"
+-->      "rotator"
+-->      "YRotator"
+-->      "ZCenterChanger"
+-->      "rotX90"
+-->      "ZRotator"
+-->      "YCenterChanger"
+-->      "rotY90"
+-->      "XCenterChanger"
+-->      "rot2X90"
+-->      "XRotator"
+.fi
+.PP
+.PP
+(See \fBSoBaseKit::printDiagram()\fP for information about the output formatting\&.)
+.PP
+Detailed information on catalog parts:
+.PP
+.PP
+.nf
+CLASS SoCenterballDragger
+PVT   "this",  SoCenterballDragger  ---
+      "callbackList",  SoNodeKitListPart [ SoCallback, SoEventCallback ]
+PVT   "topSeparator",  SoSeparator  ---
+PVT   "motionMatrix",  SoMatrixTransform  ---
+      "translateToCenter",  SoMatrixTransform  ---
+      "surroundScale",  SoSurroundScale  ---
+      "antiSquish",  SoAntiSquish  ---
+      "lightModel",  SoLightModel  ---
+PVT   "geomSeparator",  SoSeparator  ---
+      "rotator",  SoRotateSphericalDragger  ---
+      "YRotator",  SoRotateCylindricalDragger  ---
+      "ZCenterChanger",  SoTranslate2Dragger  ---
+PVT   "rotX90",  SoRotation  ---
+      "ZRotator",  SoRotateCylindricalDragger  ---
+      "YCenterChanger",  SoTranslate2Dragger  ---
+PVT   "rotY90",  SoRotation  ---
+      "XCenterChanger",  SoTranslate2Dragger  ---
+PVT   "rot2X90",  SoRotation  ---
+PVT   "XAxisSwitch",  SoSwitch  ---
+      "XAxis",  SoSeparator  ---
+PVT   "YAxisSwitch",  SoSwitch  ---
+      "YAxis",  SoSeparator  ---
+PVT   "ZAxisSwitch",  SoSwitch  ---
+      "ZAxis",  SoSeparator  ---
+      "XRotator",  SoRotateCylindricalDragger  ---
+.fi
+.PP
+.PP
+(See \fBSoBaseKit::printTable()\fP for information about the output formatting\&.) 
+.SS "SoCenterballDragger::~SoCenterballDragger (void)\fC [protected]\fP, \fC [virtual]\fP"
+Protected destructor\&.
+.PP
+(Dragger classes are derived from \fBSoBase\fP, so they are reference counted and automatically destroyed when their reference count goes to 0\&.) 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoCenterballDragger::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Reimplemented from \fBSoDragger\fP\&.
+.SS "const \fBSoFieldData\fP * SoCenterballDragger::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoDragger\fP\&.
+.SS "const \fBSoNodekitCatalog\fP * SoCenterballDragger::getNodekitCatalog (void) const\fC [virtual]\fP"
+Returns the nodekit catalog which defines the layout of this class' kit\&. 
+.PP
+Reimplemented from \fBSoDragger\fP\&.
+.SS "void SoCenterballDragger::saveStartParameters (void)\fC [virtual]\fP"
+This is invoked to save start parameters, to enable draggers to calculate relative motion\&.
+.PP
+Default method in superclass \fBSoDragger\fP just saves the motion matrix, but subclasses should overload this method if other data needs to be saved\&. 
+.PP
+Reimplemented from \fBSoDragger\fP\&.
+.SS "void SoCenterballDragger::transferCenterDraggerMotion (\fBSoDragger\fP * childdragger)\fC [protected]\fP"
+Should be called after motion matrix has been updated by a child dragger\&. 
+.SS "void SoCenterballDragger::setSwitches (\fBSoDragger\fP * activechild)\fC [protected]\fP"
+Sets values for the internal \fBSoSwitch\fP parts\&. If \fIactivechild\fP == \fCNULL\fP, all feedback is deactivated\&. 
+.SS "SbBool SoCenterballDragger::setUpConnections (SbBool onoff, SbBool doitalways = \fCFALSE\fP)\fC [protected]\fP, \fC [virtual]\fP"
+Sets up all internal connections for instances of this class\&.
+.PP
+(This method will usually not be of interest to the application programmer, unless you want to extend the library with new custom nodekits or dragger classes\&. If so, see the \fBSoBaseKit\fP class documentation\&.) 
+.PP
+Reimplemented from \fBSoInteractionKit\fP\&.
+.SS "void SoCenterballDragger::setDefaultOnNonWritingFields (void)\fC [protected]\fP, \fC [virtual]\fP"
+(Be aware that this method is unlikely to be of interest to the application programmer who does not want to extend the library with new custom nodekits or draggers\&. If you indeed \fIare\fP writing extensions, see the information in the \fBSoBaseKit\fP class documentation\&.)
+.PP
+This is a virtual method, and the code in it should call \fBSoField::setDefault()\fP with argument \fCTRUE\fP on part fields that should not be written upon scenegraph export operations\&.
+.PP
+This is typically done when:
+.PP
+.PD 0
+.IP "1." 4
+field value is \fCNULL\fP and part is \fCNULL\fP by default 
+.PP
+
+.IP "2." 4
+it is a leaf \fBSoGroup\fP or \fBSoSeparator\fP node with no children 
+.PP
+
+.IP "3." 4
+it is a leaf listpart with no children and an \fBSoGroup\fP or \fBSoSeparator\fP container 
+.PP
+
+.IP "4." 4
+it is a non-leaf part and it's of \fBSoGroup\fP type and all fields are at their default values 
+.PP
+
+.PP
+.PP
+Subclasses should usually override this to do additional settings for new member fields\&. From the subclass, do remember to call 'upwards' to your superclass' \fBsetDefaultOnNonWritingFields()\fP method\&. 
+.PP
+Reimplemented from \fBSoDragger\fP\&.
+.SS "void SoCenterballDragger::fieldSensorCB (void * d, \fBSoSensor\fP * s)\fC [static]\fP, \fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoCenterballDragger::valueChangedCB (void * f, \fBSoDragger\fP * d)\fC [static]\fP, \fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoCenterballDragger::kidStartCB (void * d, \fBSoDragger\fP * child)\fC [static]\fP, \fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP Needed to activate some feedback\&. 
+.SS "void SoCenterballDragger::kidFinishCB (void * d, \fBSoDragger\fP * child)\fC [static]\fP, \fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP Needed to deactive some feedback\&. 
+.SS "void SoCenterballDragger::getBoundingBox (\fBSoGetBoundingBoxAction\fP * action)\fC [protected]\fP, \fC [virtual]\fP"
+Action method for the \fBSoGetBoundingBoxAction\fP\&.
+.PP
+Calculates bounding box and center coordinates for node and modifies the values of the \fIaction\fP to encompass the bounding box for this node and to shift the center point for the scene more towards the one for this node\&.
+.PP
+Nodes influencing how geometry nodes calculates their bounding box also overrides this method to change the relevant state variables\&. 
+.PP
+Reimplemented from \fBSoDragger\fP\&.
+.SS "void SoCenterballDragger::getMatrix (\fBSoGetMatrixAction\fP * action)\fC [protected]\fP, \fC [virtual]\fP"
+Action method for \fBSoGetMatrixAction\fP\&.
+.PP
+Updates \fIaction\fP by accumulating with the transformation matrix of this node (if any)\&. 
+.PP
+Reimplemented from \fBSoDragger\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSoSFRotation\fP SoCenterballDragger::rotation"
+This field is continuously updated to contain the rotation of the ball\&. 
+.SS "\fBSoSFVec3f\fP SoCenterballDragger::center"
+Continuously updated to contain the current translation from the dragger's internal local origo position\&. 
+.SS "\fBSoFieldSensor\fP * SoCenterballDragger::rotFieldSensor\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "\fBSoFieldSensor\fP * SoCenterballDragger::centerFieldSensor\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

@@ -1,0 +1,300 @@
+.TH "SoVRMLBillboard" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoVRMLBillboard \- The \fBSoVRMLBillboard\fP class is used for rotating geometry towards the viewpoint\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/VRMLnodes/SoVRMLBillboard\&.h>\fP
+.PP
+Inherits \fBSoVRMLParent\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "\fBSoVRMLBillboard\fP (void)"
+.br
+.ti -1c
+.RI "\fBSoVRMLBillboard\fP (\fBint\fP numchildren)"
+.br
+.ti -1c
+.RI "virtual void \fBdoAction\fP (\fBSoAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBcallback\fP (\fBSoCallbackAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBGLRender\fP (\fBSoGLRenderAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBgetBoundingBox\fP (\fBSoGetBoundingBoxAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBgetMatrix\fP (\fBSoGetMatrixAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBpick\fP (\fBSoPickAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBsearch\fP (\fBSoSearchAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBGLRenderBelowPath\fP (\fBSoGLRenderAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBGLRenderInPath\fP (\fBSoGLRenderAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBGLRenderOffPath\fP (\fBSoGLRenderAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBnotify\fP (\fBSoNotList\fP *list)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFVec3f\fP \fBaxisOfRotation\fP"
+.br
+.ti -1c
+.RI "\fBSoSFVec3f\fP \fBbboxCenter\fP"
+.br
+.ti -1c
+.RI "\fBSoSFVec3f\fP \fBbboxSize\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fB~SoVRMLBillboard\fP ()"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoVRMLBillboard\fP class is used for rotating geometry towards the viewpoint\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP 
+
+
+.PP
+.nf
+Billboard {
+  eventIn      MFNode   addChildren
+  eventIn      MFNode   removeChildren
+  exposedField SFVec3f  axisOfRotation 0 1 0     # (-inf, inf)
+  exposedField MFNode   children       []
+  field        SFVec3f  bboxCenter     0 0 0     # (-inf, inf)
+  field        SFVec3f  bboxSize       -1 -1 -1  # (0, inf) or -1,-1,-1
+}
+
+.fi
+.PP
+.PP
+The Billboard node is a grouping node which modifies its coordinate system so that the Billboard node's local Z-axis turns to point at the viewer\&. The Billboard node has children which may be other children nodes\&. The axisOfRotation field specifies which axis to use to perform the rotation\&. This axis is defined in the local coordinate system\&. When the axisOfRotation field is not (0, 0, 0), the following steps describe how to rotate the billboard to face the viewer:
+.PP
+.PD 0
+.IP "\(bu" 2
+a\&. Compute the vector from the Billboard node's origin to the viewer's position\&. This vector is called the billboard-to-viewer vector\&.
+.PP
+.PD 0
+.IP "\(bu" 2
+b\&. Compute the plane defined by the axisOfRotation and the billboard-to-viewer vector\&.
+.PP
+.PD 0
+.IP "\(bu" 2
+c\&. Rotate the local Z-axis of the billboard into the plane from b\&., pivoting around the axisOfRotation\&.
+.PP
+When the axisOfRotation field is set to (0, 0, 0), the special case of viewer-alignment is indicated\&. In this case, the object rotates to keep the billboard's local Y-axis parallel with the Y-axis of the viewer\&. This special case is distinguished by setting the axisOfRotation to (0, 0, 0)\&. The following steps describe how to align the billboard's Y-axis to the Y-axis of the viewer:
+.PP
+.PD 0
+.IP "\(bu" 2
+d\&. Compute the billboard-to-viewer vector\&.
+.PP
+.PD 0
+.IP "\(bu" 2
+e\&. Rotate the Z-axis of the billboard to be collinear with the billboard-to-viewer vector and pointing towards the viewer's position\&.
+.PP
+.PD 0
+.IP "\(bu" 2
+f\&. Rotate the Y-axis of the billboard to be parallel and oriented in the same direction as the Y-axis of the viewer\&.
+.PP
+If the axisOfRotation and the billboard-to-viewer line are coincident, the plane cannot be established and the resulting rotation of the billboard is undefined\&. For example, if the axisOfRotation is set to (0,1,0) (Y-axis) and the viewer flies over the billboard and peers directly down the Y-axis, the results are undefined\&. Multiple instances of Billboard nodes (DEF/USE) operate as expected: each instance rotates in its unique coordinate system to face the viewer\&. Subclause 4\&.6\&.5, Grouping and children nodes (http://www.web3d.org/x3d/specifications/vrml/ISO-IEC-14772-VRML97/part1/concepts.html#4.6.5), provides a description of the children, addChildren, and removeChildren fields and eventIns\&. The bboxCenter and bboxSize fields specify a bounding box that encloses the Billboard node's children\&. This is a hint that may be used for optimization purposes\&. The results are undefined if the specified bounding box is smaller than the actual bounding box of the children at any time\&. A default bboxSize value, (-1, -1, -1), implies that the bounding box is not specified and if needed shall be calculated by the browser\&. A description of the bboxCenter and bboxSize fields is contained in 4\&.6\&.4, Bounding boxes (http://www.web3d.org/x3d/specifications/vrml/ISO-IEC-14772-VRML97/part1/concepts.html#4.6.4),
+.PP
+\fBThe rest of this class documentation is \fInot\fP from the VRML97 standards documentation, but was written specifically for the Coin3D API documentation\&.\fP
+.PP
+The following example VRML scene is a simple illustration of how \fBSoVRMLBillboard::axisOfRotation\fP constrains rotation around the given vector:
+.PP
+.PP
+.nf
+#VRML V2.0 utf8
+
+Transform {
+   translation -2 0 0
+   children [
+      Billboard {
+        children [ Box { } ]
+      }
+   ]
+}
+
+Transform {
+   translation 2 0 0
+   children [
+      Billboard {
+        axisOfRotation 0 1 0
+        children [ Box { } ]
+      }
+   ]
+}
+
+Transform {
+   translation 0 -2 0
+   children [ Box { size 10 0.1 10 } ]
+}
+.fi
+.PP
+ 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoVRMLBillboard::SoVRMLBillboard (void)"
+Constructor\&. 
+.SS "SoVRMLBillboard::SoVRMLBillboard (\fBint\fP numchildren)"
+Constructor\&. \fInumchildren\fP is the expected number of children\&. 
+.SS "SoVRMLBillboard::~SoVRMLBillboard ()\fC [protected]\fP, \fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoVRMLBillboard::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Reimplemented from \fBSoVRMLParent\fP\&.
+.SS "const \fBSoFieldData\fP * SoVRMLBillboard::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoVRMLParent\fP\&.
+.SS "void SoVRMLBillboard::doAction (\fBSoAction\fP * action)\fC [virtual]\fP"
+This function performs the typical operation of a node for any action\&. 
+.PP
+Reimplemented from \fBSoVRMLParent\fP\&.
+.SS "void SoVRMLBillboard::callback (\fBSoCallbackAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoCallbackAction\fP\&.
+.PP
+Simply updates the state according to how the node behaves for the render action, so the application programmer can use the \fBSoCallbackAction\fP for extracting information about the scene graph\&. 
+.PP
+Reimplemented from \fBSoGroup\fP\&.
+.SS "void SoVRMLBillboard::GLRender (\fBSoGLRenderAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGLRenderAction\fP\&.
+.PP
+This is called during rendering traversals\&. Nodes influencing the rendering state in any way or who wants to throw geometry primitives at OpenGL overrides this method\&. 
+.PP
+Reimplemented from \fBSoGroup\fP\&.
+.SS "void SoVRMLBillboard::getBoundingBox (\fBSoGetBoundingBoxAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGetBoundingBoxAction\fP\&.
+.PP
+Calculates bounding box and center coordinates for node and modifies the values of the \fIaction\fP to encompass the bounding box for this node and to shift the center point for the scene more towards the one for this node\&.
+.PP
+Nodes influencing how geometry nodes calculates their bounding box also overrides this method to change the relevant state variables\&. 
+.PP
+Reimplemented from \fBSoGroup\fP\&.
+.SS "void SoVRMLBillboard::getMatrix (\fBSoGetMatrixAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoGetMatrixAction\fP\&.
+.PP
+Updates \fIaction\fP by accumulating with the transformation matrix of this node (if any)\&. 
+.PP
+Reimplemented from \fBSoGroup\fP\&.
+.SS "void SoVRMLBillboard::pick (\fBSoPickAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoPickAction\fP\&.
+.PP
+Does common processing for \fBSoPickAction\fP \fIaction\fP instances\&. 
+.PP
+Reimplemented from \fBSoGroup\fP\&.
+.SS "void SoVRMLBillboard::search (\fBSoSearchAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoSearchAction\fP\&.
+.PP
+Compares the search criteria from the \fIaction\fP to see if this node is a match\&. Searching is done by matching up \fIall\fP criteria set up in the \fBSoSearchAction\fP -- if \fIany\fP of the requested criteria is a miss, the search is not deemed successful for the node\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoSearchAction\fP 
+.RE
+.PP
+
+.PP
+Reimplemented from \fBSoVRMLParent\fP\&.
+.SS "void SoVRMLBillboard::GLRenderBelowPath (\fBSoGLRenderAction\fP * action)\fC [virtual]\fP"
+Implements the SoAction::BELOW_PATH traversal method for the rendering action\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "void SoVRMLBillboard::GLRenderInPath (\fBSoGLRenderAction\fP * action)\fC [virtual]\fP"
+Implements the SoAction::IN_PATH traversal method for the rendering action\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "void SoVRMLBillboard::GLRenderOffPath (\fBSoGLRenderAction\fP * action)\fC [virtual]\fP"
+Implements the SoAction::OFF_PATH traversal method for the rendering action\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "void SoVRMLBillboard::notify (\fBSoNotList\fP * l)\fC [virtual]\fP"
+Notifies all auditors for this instance when changes are made\&. 
+.PP
+Reimplemented from \fBSoVRMLParent\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSoSFVec3f\fP SoVRMLBillboard::axisOfRotation"
+The axis of rotation for the geometry\&. 
+.SS "\fBSoSFVec3f\fP SoVRMLBillboard::bboxCenter"
+The bounding box center hint\&. Default value is (0, 0, 0)\&. 
+.SS "\fBSoSFVec3f\fP SoVRMLBillboard::bboxSize"
+The bounding box size hint\&. Default value is (-1, -1, -1)\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

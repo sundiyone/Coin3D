@@ -56,7 +56,7 @@
   following code:
 
   \code
-  #include <QtGui/QApplication>
+  #include <QtWidgets/QApplication>
 
   #include <Inventor/nodes/SoBaseColor.h>
   #include <Inventor/nodes/SoCone.h>

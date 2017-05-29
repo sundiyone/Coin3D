@@ -1,0 +1,93 @@
+.TH "SoPointSizeElement" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoPointSizeElement \- The \fBSoPointSizeElement\fP changes the pointsize setting of the render state\&.
+.PP
+Requests from the scenegraph to change the pointsize when rendering point primitives will be made through this element\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/elements/SoPointSizeElement\&.h>\fP
+.PP
+Inherits \fBSoFloatElement\fP\&.
+.PP
+Inherited by \fBSoGLPointSizeElement\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual void \fBinit\fP (\fBSoState\fP *state)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static \fBint\fP \fBgetClassStackIndex\fP (void)"
+.br
+.ti -1c
+.RI "static void * \fBcreateInstance\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBset\fP (\fBSoState\fP *const state, \fBSoNode\fP *const node, const float pointSize)"
+.br
+.ti -1c
+.RI "static void \fBset\fP (\fBSoState\fP *const state, const float pointSize)"
+.br
+.ti -1c
+.RI "static float \fBget\fP (\fBSoState\fP *const state)"
+.br
+.ti -1c
+.RI "static float \fBgetDefault\fP ()"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fB~SoPointSizeElement\fP ()"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoPointSizeElement\fP changes the pointsize setting of the render state\&.
+.PP
+Requests from the scenegraph to change the pointsize when rendering point primitives will be made through this element\&. 
+
+The \fBSoPointSizeElement\fP class itself is just a generic abstraction for the underlying So*PointSizeElement classes with code specific for each supported immediate mode rendering library\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoPointSizeElement::~SoPointSizeElement (void)\fC [protected]\fP, \fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void * SoPointSizeElement::createInstance (void)\fC [static]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoPointSizeElement::init (\fBSoState\fP * state)\fC [virtual]\fP"
+This function initializes the element type in the given \fBSoState\fP\&. It is called for the first element of each enabled element type in \fBSoState\fP objects\&. 
+.PP
+Reimplemented from \fBSoFloatElement\fP\&.
+.PP
+Reimplemented in \fBSoGLPointSizeElement\fP\&.
+.SS "void SoPointSizeElement::set (\fBSoState\fP *const state, \fBSoNode\fP *const node, const float pointSize)\fC [static]\fP"
+Static method for setting the current \fIpointSize\fP value in the given traversal \fIstate\fP\&. 
+.SS "void SoPointSizeElement::set (\fBSoState\fP *const state, const float pointSize)\fC [static]\fP"
+Static method for setting the current \fIpointSize\fP value in the given traversal \fIstate\fP\&. 
+.SS "float SoPointSizeElement::get (\fBSoState\fP *const state)\fC [static]\fP"
+Static method for returning the current pointsize setting in the given traversal \fIstate\fP\&. 
+.SS "float SoPointSizeElement::getDefault (void)\fC [static]\fP"
+Returns default pointsize setting\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

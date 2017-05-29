@@ -1,0 +1,151 @@
+.TH "SoGlyph" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoGlyph \- The \fBSoGlyph\fP class is used to generate and reuse font glyph bitmaps and outlines\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/misc/SoGlyph\&.h>\fP
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBFonttype\fP { \fBFONT2D\fP = 1, \fBFONT3D\fP = 2 }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBunref\fP (void) const"
+.br
+.ti -1c
+.RI "const \fBSbVec2f\fP * \fBgetCoords\fP (void) const"
+.br
+.ti -1c
+.RI "const \fBint\fP * \fBgetFaceIndices\fP (void) const"
+.br
+.ti -1c
+.RI "const \fBint\fP * \fBgetEdgeIndices\fP (void) const"
+.br
+.ti -1c
+.RI "const \fBint\fP * \fBgetNextCWEdge\fP (const \fBint\fP edgeidx) const"
+.br
+.ti -1c
+.RI "const \fBint\fP * \fBgetNextCCWEdge\fP (const \fBint\fP edgeidx) const"
+.br
+.ti -1c
+.RI "float \fBgetWidth\fP (void) const"
+.br
+.ti -1c
+.RI "const \fBSbBox2f\fP & \fBgetBoundingBox\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSbVec2s\fP \fBgetAdvance\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSbVec2s\fP \fBgetKerning\fP (const \fBSoGlyph\fP &rightglyph) const"
+.br
+.ti -1c
+.RI "unsigned char * \fBgetBitmap\fP (\fBSbVec2s\fP &size, \fBSbVec2s\fP &pos, const SbBool antialiased) const"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoGlyph\fP * \fBgetGlyph\fP (const char character, const \fBSbName\fP &font)"
+.br
+.ti -1c
+.RI "static const \fBSoGlyph\fP * \fBgetGlyph\fP (\fBSoState\fP *state, const unsigned \fBint\fP character, const \fBSbVec2s\fP &size, const float angle)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSoGlyph\fP (void)"
+.br
+.ti -1c
+.RI "\fB~SoGlyph\fP ()"
+.br
+.ti -1c
+.RI "void \fBsetCoords\fP (const \fBSbVec2f\fP *coords, \fBint\fP numcoords=\-1)"
+.br
+.ti -1c
+.RI "void \fBsetFaceIndices\fP (const \fBint\fP *indices, \fBint\fP numindices=\-1)"
+.br
+.ti -1c
+.RI "void \fBsetEdgeIndices\fP (const \fBint\fP *indices, \fBint\fP numindices=\-1)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBSoGlyph\fP class is used to generate and reuse font glyph bitmaps and outlines\&. 
+
+\fBThis class is now obsolete, and will be removed from a later version of Coin\&.\fP
+.PP
+\fBSoGlyph\fP is the public interface all text nodes (both built-in and extensions) should use to generate bitmaps and outlines for font glyphs\&. It maintains an internal cache of previously requested glyphs to avoid needless calls into the font library\&.
+.PP
+Primer: a \fIglyph\fP is the graphical representation of a given character of a given font at a given size and orientation\&. It can be either a \fIbitmap\fP (pixel aligned with the viewport) or an \fIoutline\fP (polygonal representation) that can be transformed or extruded like any other 3D geometry\&. Bitmaps are used by \fBSoText2\fP, while the other text nodes uses outlines\&.
+.PP
+Be aware that this class is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoText2\fP, \fBSoText3\fP, \fBSoAsciiText\fP 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoGlyph::SoGlyph (void)\fC [protected]\fP"
+Constructor\&. 
+.SS "SoGlyph::~SoGlyph ()\fC [protected]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void SoGlyph::unref (void) const"
+Should be called when a node no longer will use a glyph\&. Will free memory used by this glyph when it is no longer used by any node\&. 
+.SS "const \fBSoGlyph\fP * SoGlyph::getGlyph (const char character, const \fBSbName\fP & font)\fC [static]\fP"
+Returns a character of the specified font, suitable for polygonal rendering\&. 
+.SS "const \fBSbVec2f\fP * SoGlyph::getCoords (void) const"
+Returns coordinates for this glyph\&. 
+.SS "const \fBint\fP * SoGlyph::getFaceIndices (void) const"
+Returns face indices for this glyph\&. 
+.SS "const \fBint\fP * SoGlyph::getEdgeIndices (void) const"
+Returns edge indices for this glyph\&. 
+.SS "const \fBint\fP * SoGlyph::getNextCWEdge (const \fBint\fP edgeidx) const"
+Returns a pointer to the next clockwise edge\&. Returns NULL if none could be found\&. 
+.SS "const \fBint\fP * SoGlyph::getNextCCWEdge (const \fBint\fP edgeidx) const"
+Returns a pointer to the next counter clockwise edge\&. NULL if none could be found\&. 
+.SS "float SoGlyph::getWidth (void) const"
+Convenience method which returns the exact width of the glyph\&. 
+.SS "const \fBSbBox2f\fP & SoGlyph::getBoundingBox (void) const"
+Returns the bounding box of this glyph\&. This value is cached for performance\&. 
+.SS "const \fBSoGlyph\fP * SoGlyph::getGlyph (\fBSoState\fP * state, const unsigned \fBint\fP character, const \fBSbVec2s\fP & size, const float angle)\fC [static]\fP"
+Returns a character of the specified font, suitable for bitmap rendering\&. The size parameter overrides state's \fBSoFontSizeElement\fP (if != \fBSbVec2s(0,0)\fP) 
+.SS "unsigned char * SoGlyph::getBitmap (\fBSbVec2s\fP & size, \fBSbVec2s\fP & pos, const SbBool antialiased) const"
+Bitmap for glyph\&. \fIsize\fP and \fIpos\fP are return parameters\&. Antialiased bitmap graphics not yet supported\&.
+.PP
+Note that this function may return \fCNULL\fP if the glyph has no visible pixels (as for e\&.g\&. the space character)\&.
+.PP
+The returned buffer should \fInot\fP be deallocated by the caller\&. 
+.SS "void SoGlyph::setCoords (const \fBSbVec2f\fP * coords, \fBint\fP numcoords = \fC\-1\fP)\fC [protected]\fP"
+Sets the coordinates for this glyph\&. 
+.SS "void SoGlyph::setFaceIndices (const \fBint\fP * indices, \fBint\fP numindices = \fC\-1\fP)\fC [protected]\fP"
+Sets the face indices for this glyph\&. 
+.SS "void SoGlyph::setEdgeIndices (const \fBint\fP * indices, \fBint\fP numindices = \fC\-1\fP)\fC [protected]\fP"
+Sets the edge indices for this glyph\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

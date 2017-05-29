@@ -1,0 +1,154 @@
+.TH "SoShapeHintsElement" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoShapeHintsElement
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits \fBSoElement\fP\&.
+.PP
+Inherited by \fBSoGLShapeHintsElement\fP\&.
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBVertexOrdering\fP { \fBUNKNOWN_ORDERING\fP, \fBCLOCKWISE\fP, \fBCOUNTERCLOCKWISE\fP, \fBORDERING_AS_IS\fP }"
+.br
+.ti -1c
+.RI "enum \fBShapeType\fP { \fBUNKNOWN_SHAPE_TYPE\fP, \fBSOLID\fP, \fBSHAPE_TYPE_AS_IS\fP }"
+.br
+.ti -1c
+.RI "enum \fBFaceType\fP { \fBUNKNOWN_FACE_TYPE\fP, \fBCONVEX\fP, \fBFACE_TYPE_AS_IS\fP }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual void \fBinit\fP (\fBSoState\fP *state)"
+.br
+.RI "FIXME: write doc\&. "
+.ti -1c
+.RI "virtual void \fBpush\fP (\fBSoState\fP *state)"
+.br
+.RI "FIXME: write doc\&. "
+.ti -1c
+.RI "virtual void \fBpop\fP (\fBSoState\fP *state, const \fBSoElement\fP *prevtopelement)"
+.br
+.ti -1c
+.RI "virtual SbBool \fBmatches\fP (const \fBSoElement\fP *element) const"
+.br
+.RI "FIXME: write doc\&. "
+.ti -1c
+.RI "virtual \fBSoElement\fP * \fBcopyMatchInfo\fP (void) const"
+.br
+.RI "FIXME: write doc\&. "
+.ti -1c
+.RI "virtual void \fBprint\fP (FILE *file) const"
+.br
+.RI "FIXME: write doc\&. "
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static \fBint\fP \fBgetClassStackIndex\fP (void)"
+.br
+.ti -1c
+.RI "static void * \fBcreateInstance\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBset\fP (\fBSoState\fP *const state, \fBSoNode\fP *const node, const VertexOrdering vertexOrdering, const ShapeType shapeType, const FaceType faceType)"
+.br
+.RI "FIXME: write doc\&. "
+.ti -1c
+.RI "static void \fBset\fP (\fBSoState\fP *const state, const VertexOrdering vertexOrdering, const ShapeType shapeType, const FaceType faceType)"
+.br
+.RI "FIXME: write doc\&. "
+.ti -1c
+.RI "static void \fBget\fP (\fBSoState\fP *const state, VertexOrdering &vertexOrdering, ShapeType &shapeType, FaceType &faceType)"
+.br
+.RI "FIXME: write doc\&. "
+.ti -1c
+.RI "static VertexOrdering \fBgetVertexOrdering\fP (\fBSoState\fP *const state)"
+.br
+.RI "FIXME: write doc\&. "
+.ti -1c
+.RI "static ShapeType \fBgetShapeType\fP (\fBSoState\fP *const state)"
+.br
+.RI "FIXME: write doc\&. "
+.ti -1c
+.RI "static FaceType \fBgetFaceType\fP (\fBSoState\fP *const state)"
+.br
+.RI "FIXME: write doc\&. "
+.ti -1c
+.RI "static VertexOrdering \fBgetDefaultVertexOrdering\fP ()"
+.br
+.RI "FIXME: write doc\&. "
+.ti -1c
+.RI "static ShapeType \fBgetDefaultShapeType\fP ()"
+.br
+.RI "FIXME: write doc\&. "
+.ti -1c
+.RI "static FaceType \fBgetDefaultFaceType\fP ()"
+.br
+.RI "FIXME: write doc\&. "
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fB~SoShapeHintsElement\fP ()"
+.br
+.ti -1c
+.RI "void \fBupdateLazyElement\fP (\fBSoState\fP *state)"
+.br
+.ti -1c
+.RI "virtual void \fBsetElt\fP (VertexOrdering vertexOrdering, ShapeType shapeType, FaceType faceType)"
+.br
+.RI "FIXME: write doc\&. "
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "VertexOrdering \fBvertexOrdering\fP"
+.br
+.ti -1c
+.RI "ShapeType \fBshapeType\fP"
+.br
+.ti -1c
+.RI "FaceType \fBfaceType\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoShapeHintsElement::~SoShapeHintsElement (void)\fC [protected]\fP, \fC [virtual]\fP"
+The destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void * SoShapeHintsElement::createInstance (void)\fC [static]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoShapeHintsElement::initClass (void)\fC [static]\fP"
+This static method initializes static data for the \fBSoShapeHintsElement\fP class\&. 
+.SS "void SoShapeHintsElement::pop (\fBSoState\fP * state, const \fBSoElement\fP * prevTopElement)\fC [virtual]\fP"
+This method is callled when the state is popped, and the depth of the element is bigger than the current state depth\&. \fBpop()\fP is called on the new top of stack, and a pointer to the previous top of stack is passed in \fIprevTopElement\fP\&.
+.PP
+Override this method if you need to copy some state information from the previous top of stack\&. 
+.PP
+Reimplemented from \fBSoElement\fP\&.
+.PP
+Reimplemented in \fBSoGLShapeHintsElement\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

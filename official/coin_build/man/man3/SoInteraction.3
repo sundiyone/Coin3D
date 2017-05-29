@@ -1,0 +1,54 @@
+.TH "SoInteraction" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoInteraction \- The \fBSoInteraction\fP class takes care of initalizing internal classes\&.
+.PP
+\fBSoInteraction\fP is present for the sole purpose of providing an interface to the initialization methods of the classes in Coin which are somehow related to user interaction, like the draggers and manipulators\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/SoInteraction\&.h>\fP
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static void \fBinit\fP (void)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBSoInteraction\fP class takes care of initalizing internal classes\&.
+.PP
+\fBSoInteraction\fP is present for the sole purpose of providing an interface to the initialization methods of the classes in Coin which are somehow related to user interaction, like the draggers and manipulators\&. 
+
+It is unlikely that the application programmer should need to worry about this class, as \fBSoInteraction::init()\fP is called by the GUI specific initialization methods\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void SoInteraction::init (void)\fC [static]\fP"
+Calls the initClass() method of these classes: \fBSoAntiSquish\fP, \fBSoSelection\fP, \fBSoExtSelection\fP, \fBSoSurroundScale\fP, \fBSoInteractionKit\fP, \fBSoDragger\fP, \fBSoClipPlaneManip\fP, \fBSoDirectionalLightManip\fP, \fBSoPointLightManip\fP, \fBSoSpotLightManip\fP, \fBSoTransformManip\fP, \fBSoCenterballManip\fP, \fBSoHandleBoxManip\fP, \fBSoJackManip\fP, \fBSoTabBoxManip\fP, \fBSoTrackballManip\fP, \fBSoTransformBoxManip\fP, \fBSoTransformerManip\fP\&.
+.PP
+Note that this method calls \fBSoDB::init()\fP and \fBSoNodeKit::init()\fP to make sure all classes that the interaction functionality depends on have been initialized\&.
+.PP
+Application programmers should usually not have to invoke this method directly from application code, as it is indirectly called from the GUI-binding libraries' \fBinit()\fP-functions\&. Only if you are using your own GUI-binding (and not one of Kongsberg Oil & Gas Technologies's SoQt, SoGtk, SoXt, SoWin, Sc21 etc\&. libraries) do you have to explicitly call \fBSoInteraction::init()\fP\&.
+.PP
+.PP
+.nf
+int main(int argc, char ** argv )
+{
+  // SoQt::init() calls SoDB::init(), SoNodeKit::init() and
+  // SoInteraction::init()\&.
+  QWidget * window = SoQt::init( argv[0] );
+
+  SoSeparator * root = make_scenegraph();
+  root->ref();
+  /// [\&.\&.\&. etc \&.\&.\&.] ///
+.fi
+.PP
+ 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

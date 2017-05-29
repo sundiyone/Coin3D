@@ -1,0 +1,112 @@
+.TH "ScXMLEvent" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ScXMLEvent \- Base class for events sent to SCXML state machines\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/scxml/ScXMLEvent\&.h>\fP
+.PP
+Inherits \fBScXMLObject\fP\&.
+.PP
+Inherited by \fBSoScXMLEvent\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "virtual void \fBsetEventName\fP (const \fBSbName\fP &name)"
+.br
+.ti -1c
+.RI "const \fBSbName\fP & \fBgetEventName\fP (void) const"
+.br
+.ti -1c
+.RI "\fBScXMLEvent\fP * \fBclone\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBsetAssociation\fP (const char *key, const char *value)"
+.br
+.ti -1c
+.RI "const char * \fBgetAssociation\fP (const char *key) const"
+.br
+.ti -1c
+.RI "size_t \fBgetNumAssociations\fP (void) const"
+.br
+.ti -1c
+.RI "size_t \fBgetAssociationKeys\fP (\fBSbList\fP< const char *> &keys) const"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void * \fBcreateInstance\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBcleanClass\fP (void)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual void \fBcopyContents\fP (const \fBScXMLEvent\fP *rhs)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSbName\fP \fBname\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+Base class for events sent to SCXML state machines\&. 
+
+
+.PP
+\fBSince:\fP
+.RS 4
+Coin 3\&.0 
+.RE
+.PP
+
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP ScXMLEvent::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoBase::getTypeId() const\fP 
+.RE
+.PP
+
+.PP
+Implements \fBScXMLObject\fP\&.
+.PP
+Reimplemented in \fBSoScXMLEvent\fP\&.
+.SS "void ScXMLEvent::setEventName (const \fBSbName\fP & namearg)\fC [virtual]\fP"
+This method is for setting a string that will identifies this particular event, having this particular state, and can be used for event matching in the SCXML descriptions\&.
+.PP
+The string should, according to spec\&., be a set of tokens consisting of alphanumeric characters, separated with periods (\&.)\&. This limitation is not enforced by this implementation\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

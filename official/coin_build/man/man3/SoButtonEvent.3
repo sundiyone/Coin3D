@@ -1,0 +1,139 @@
+.TH "SoButtonEvent" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoButtonEvent \- The \fBSoButtonEvent\fP class is the base class for all button events\&.
+.PP
+The event classes which results from the user pushing buttons on some device (keyboard, mouse or spaceball) all inherit this class\&. The \fBSoButtonEvent\fP class contains methods for setting and getting the state of the button(s)\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/events/SoButtonEvent\&.h>\fP
+.PP
+Inherits \fBSoEvent\fP\&.
+.PP
+Inherited by \fBSoKeyboardEvent\fP, \fBSoMouseButtonEvent\fP, and \fBSoSpaceballButtonEvent\fP\&.
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBState\fP { \fBUP\fP, \fBDOWN\fP, \fBUNKNOWN\fP }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoButtonEvent\fP (void)"
+.br
+.ti -1c
+.RI "virtual \fB~SoButtonEvent\fP ()"
+.br
+.ti -1c
+.RI "void \fBsetState\fP (\fBState\fP state)"
+.br
+.ti -1c
+.RI "\fBState\fP \fBgetState\fP (void) const"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.ti -1c
+.RI "static SbBool \fBenumToString\fP (\fBState\fP enumval, \fBSbString\fP &stringrep)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBSoButtonEvent\fP class is the base class for all button events\&.
+.PP
+The event classes which results from the user pushing buttons on some device (keyboard, mouse or spaceball) all inherit this class\&. The \fBSoButtonEvent\fP class contains methods for setting and getting the state of the button(s)\&. 
+
+
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoEvent\fP, \fBSoKeyboardEvent\fP, \fBSoMouseButtonEvent\fP, \fBSoSpaceballButtonEvent\fP 
+.PP
+\fBSoEventCallback\fP, \fBSoHandleEventAction\fP 
+.RE
+.PP
+
+.SH "Member Enumeration Documentation"
+.PP 
+.SS "enum \fBSoButtonEvent::State\fP"
+This gives the actual state of the button\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fIUP \fP\fP
+Button has been released\&. 
+.TP
+\fB\fIDOWN \fP\fP
+Button has been pressed down\&. 
+.TP
+\fB\fIUNKNOWN \fP\fP
+The state of the button is unknown\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoButtonEvent::SoButtonEvent (void)"
+Constructor\&. 
+.SS "SoButtonEvent::~SoButtonEvent ()\fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoButtonEvent::getTypeId (void) const\fC [virtual]\fP"
+Returns the actual type id of an instantiated object\&. 
+.PP
+Reimplemented from \fBSoEvent\fP\&.
+.PP
+Reimplemented in \fBSoKeyboardEvent\fP, \fBSoSpaceballButtonEvent\fP, and \fBSoMouseButtonEvent\fP\&.
+.SS "void SoButtonEvent::initClass (void)\fC [static]\fP"
+Initialize the type information data\&. 
+.SS "void SoButtonEvent::setState (\fBSoButtonEvent::State\fP state)"
+Set the state of the button which the user interacted with\&.
+.PP
+This method is used from the window specific device classes when translating events to the generic Coin library\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetState()\fP 
+.RE
+.PP
+
+.SS "\fBSoButtonEvent::State\fP SoButtonEvent::getState (void) const"
+Returns the state of the button which is the cause of the event, i\&.e\&. whether it was pushed down or released\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBwasShiftDown()\fP, \fBwasCtrlDown()\fP, \fBwasAltDown()\fP, \fBgetPosition()\fP, \fBgetTime()\fP 
+.RE
+.PP
+
+.SS "SbBool SoButtonEvent::enumToString (\fBState\fP enumval, \fBSbString\fP & stringrep)\fC [static]\fP"
+Converts from an enum value of type \fBSoButtonEvent::State\fP to a string containing the enum symbol\&.
+.PP
+This function is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&. 
+.PP
+\fBSince:\fP
+.RS 4
+Coin 3\&.0 
+.RE
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

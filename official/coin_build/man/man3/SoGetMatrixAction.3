@@ -1,0 +1,203 @@
+.TH "SoGetMatrixAction" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoGetMatrixAction \- The \fBSoGetMatrixAction\fP class is an action for accumulating the transformation matrix of a subgraph\&.
+.PP
+This action makes it easy to calculate and convert to and from the global coordinate system of your scene and local coordinates of parts in a hierarchical model\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/actions/SoGetMatrixAction\&.h>\fP
+.PP
+Inherits \fBSoAction\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoGetMatrixAction\fP (const \fBSbViewportRegion\fP &region)"
+.br
+.ti -1c
+.RI "virtual \fB~SoGetMatrixAction\fP (void)"
+.br
+.ti -1c
+.RI "void \fBsetViewportRegion\fP (const \fBSbViewportRegion\fP &region)"
+.br
+.ti -1c
+.RI "const \fBSbViewportRegion\fP & \fBgetViewportRegion\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSbMatrix\fP & \fBgetMatrix\fP (void)"
+.br
+.ti -1c
+.RI "\fBSbMatrix\fP & \fBgetInverse\fP (void)"
+.br
+.ti -1c
+.RI "\fBSbMatrix\fP & \fBgetTextureMatrix\fP (void)"
+.br
+.ti -1c
+.RI "\fBSbMatrix\fP & \fBgetTextureInverse\fP (void)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBaddMethod\fP (const \fBSoType\fP type, \fBSoActionMethod\fP method)"
+.br
+.ti -1c
+.RI "static void \fBenableElement\fP (const \fBSoType\fP type, const \fBint\fP stackindex)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoEnabledElementsList\fP & \fBgetEnabledElements\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBbeginTraversal\fP (\fBSoNode\fP *node)"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoEnabledElementsList\fP * \fBgetClassEnabledElements\fP (void)"
+.br
+.ti -1c
+.RI "static \fBSoActionMethodList\fP * \fBgetClassActionMethods\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoGetMatrixAction\fP class is an action for accumulating the transformation matrix of a subgraph\&.
+.PP
+This action makes it easy to calculate and convert to and from the global coordinate system of your scene and local coordinates of parts in a hierarchical model\&. 
+
+As opposed to most other action types, the \fBSoGetMatrixAction\fP does not traverse children of the node it is applied to -- just the node itself\&. When applied to paths, it stops at the last node and does not continue further with the children of the tail node\&.
+.PP
+Typical usage when querying for world space position, orientation and/or scaling would be as follows:
+.PP
+.PP
+.nf
+// First get hold of an SoPath through the scenegraph down to the
+// node ("mynode") you want to query about its current world space
+// transformation(s)\&.
+
+SoSearchAction * searchaction = new SoSearchAction;
+searchaction->setNode(mynode);
+searchaction->apply(myscenegraphroot);
+
+SoPath * path = searchaction->getPath();
+assert(path != NULL);
+
+// Then apply the SoGetMatrixAction to get the full transformation
+// matrix from world space\&.
+
+const SbViewportRegion vpr = myviewer->getViewportRegion();
+SoGetMatrixAction * getmatrixaction = new SoGetMatrixAction(vpr);
+getmatrixaction->apply(path);
+
+SbMatrix transformation = getmatrixaction->getMatrix();
+
+// And if you want to access the individual transformation
+// components of the matrix:
+
+SbVec3f translation;
+SbRotation rotation;
+SbVec3f scalevector;
+SbRotation scaleorientation;
+
+transformation\&.getTransform(translation, rotation, scalevector, scaleorientation);
+.fi
+.PP
+ 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoGetMatrixAction::SoGetMatrixAction (const \fBSbViewportRegion\fP & region)"
+Constructor\&.
+.PP
+The \fIregion\fP viewport specification is not used by this action, and is passed along in case it is needed by any nodes\&. 
+.SS "SoGetMatrixAction::~SoGetMatrixAction (void)\fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoGetMatrixAction::getTypeId (void) const\fC [virtual]\fP"
+Returns the type identification of an action derived from a class inheriting \fBSoAction\fP\&. This is used for run-time type checking and 'downward' casting\&.
+.PP
+Usage example:
+.PP
+.PP
+.nf
+void bar(SoAction * action)
+{
+  if (action->getTypeId() == SoGLRenderAction::getClassTypeId()) {
+    // safe downward cast, know the type
+    SoGLRenderAction * glrender = (SoGLRenderAction *)action;
+  }
+  return; // ignore if not renderaction
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new actions: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through Inventor/nodes/SoSubAction\&.h: SO_ACTION_SOURCE, SO_ACTION_INIT_CLASS and SO_ACTION_CONSTRUCTOR\&.
+.PP
+For more information on writing Coin extensions, see the \fBSoAction\fP class documentation\&.
+.PP
+Returns the actual type id of an object derived from a class inheriting \fBSoAction\fP\&. Needs to be overridden in \fIall\fP subclasses\&. 
+.PP
+Implements \fBSoAction\fP\&.
+.SS "void SoGetMatrixAction::addMethod (const \fBSoType\fP type, \fBSoActionMethod\fP method)\fC [static]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoGetMatrixAction::enableElement (const \fBSoType\fP type, const \fBint\fP stackindex)\fC [static]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "const \fBSoEnabledElementsList\fP & SoGetMatrixAction::getEnabledElements (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a list of the elements used by action instances of this class upon traversal operations\&. 
+.PP
+Reimplemented from \fBSoAction\fP\&.
+.SS "void SoGetMatrixAction::setViewportRegion (const \fBSbViewportRegion\fP & region)"
+Set the viewport \fIregion\fP\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoGetMatrixAction::SoGetMatrixAction()\fP 
+.RE
+.PP
+
+.SS "const \fBSbViewportRegion\fP & SoGetMatrixAction::getViewportRegion (void) const"
+Returns the viewport region for the action instance\&. 
+.SS "\fBSbMatrix\fP & SoGetMatrixAction::getMatrix (void)"
+Returns the accumulated transformation matrix\&.
+.PP
+Note: don't modify the returned matrix\&. This should only be done if you are implementing your own transformation type node extensions\&. This advice is also valid for the other matrix access methods documented below\&. 
+.SS "\fBSbMatrix\fP & SoGetMatrixAction::getInverse (void)"
+Returns the inverse of the accumulated transformation matrix\&. 
+.SS "\fBSbMatrix\fP & SoGetMatrixAction::getTextureMatrix (void)"
+Returns the accumulated texture matrix\&. 
+.SS "\fBSbMatrix\fP & SoGetMatrixAction::getTextureInverse (void)"
+Returns the inverse of the accumulated texture matrix\&. 
+.SS "void SoGetMatrixAction::beginTraversal (\fBSoNode\fP * node)\fC [protected]\fP, \fC [virtual]\fP"
+This virtual method is called from \fBSoAction::apply()\fP, and is the entry point for the actual scenegraph traversal\&.
+.PP
+It can be overridden to initialize the action at traversal start, for specific initializations in the action subclasses inheriting \fBSoAction\fP\&.
+.PP
+Default method just calls \fBtraverse()\fP, which any overridden implementation of the method must do too (or call \fBSoAction::beginTraversal()\fP) to trigger the scenegraph traversal\&. 
+.PP
+Reimplemented from \fBSoAction\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

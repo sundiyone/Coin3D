@@ -1,0 +1,34 @@
+hg clone https://emsr@bitbucket.org/Coin3D/coin
+cd coin/
+hg pull && hg update default
+cd ..
+mkdir coin_build
+
+export PATH=/home/ed/Coin3D/official/coin_install/bin:$PATH
+
+cd coin_build
+../coin/configure --prefix=/home/ed/Coin3D/official/coin_install
+make
+make install
+
+rm -rf *
+cd ../coin
+hg pull && hg update CMake
+cd ../coin_build
+cmake ../coin -G"Unix Makefiles"
+
+
+
+
+hg clone https://emsr@bitbucket.org/Coin3D/quarter
+cd quarter
+hg pull && hg update CMake
+cd ..
+mkdir quarter_build
+
+cd quarter_build
+cmake ../quarter -G"Unix Makefiles"
+
+
+
+hg clone https://emsr@bitbucket.org/Coin3D/soqt

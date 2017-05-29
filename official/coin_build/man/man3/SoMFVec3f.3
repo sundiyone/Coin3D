@@ -1,0 +1,195 @@
+.TH "SoMFVec3f" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoMFVec3f \- The \fBSoMFVec3f\fP class is a container for \fBSbVec3f\fP vectors\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store an array of vectors with three elements\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/fields/SoMFVec3f\&.h>\fP
+.PP
+Inherits \fBSoMField\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBcopyFrom\fP (const \fBSoField\fP &field)"
+.br
+.ti -1c
+.RI "const \fBSoMFVec3f\fP & \fBoperator=\fP (const \fBSoMFVec3f\fP &field)"
+.br
+.ti -1c
+.RI "virtual SbBool \fBisSame\fP (const \fBSoField\fP &field) const"
+.br
+.ti -1c
+.RI "const \fBSbVec3f\fP & \fBoperator[]\fP (const \fBint\fP idx) const"
+.br
+.ti -1c
+.RI "const \fBSbVec3f\fP * \fBgetValues\fP (const \fBint\fP start) const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBfind\fP (const \fBSbVec3f\fP &value, SbBool addifnotfound=FALSE)"
+.br
+.ti -1c
+.RI "void \fBsetValues\fP (const \fBint\fP start, const \fBint\fP \fBnum\fP, const \fBSbVec3f\fP *newvals)"
+.br
+.ti -1c
+.RI "void \fBset1Value\fP (const \fBint\fP idx, const \fBSbVec3f\fP &value)"
+.br
+.ti -1c
+.RI "void \fBsetValue\fP (const \fBSbVec3f\fP &value)"
+.br
+.ti -1c
+.RI "const \fBSbVec3f\fP & \fBoperator=\fP (const \fBSbVec3f\fP &val)"
+.br
+.ti -1c
+.RI "SbBool \fBoperator==\fP (const \fBSoMFVec3f\fP &field) const"
+.br
+.ti -1c
+.RI "SbBool \fBoperator!=\fP (const \fBSoMFVec3f\fP &field) const"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP * \fBstartEditing\fP (void)"
+.br
+.ti -1c
+.RI "void \fBfinishEditing\fP (void)"
+.br
+.ti -1c
+.RI "void \fBsetValuesPointer\fP (const \fBint\fP \fBnum\fP, const \fBSbVec3f\fP *userdata)"
+.br
+.ti -1c
+.RI "void \fBsetValuesPointer\fP (const \fBint\fP \fBnum\fP, \fBSbVec3f\fP *userdata)"
+.br
+.ti -1c
+.RI "void \fBsetValuesPointer\fP (const \fBint\fP \fBnum\fP, const float *userdata)"
+.br
+.ti -1c
+.RI "void \fBsetValuesPointer\fP (const \fBint\fP \fBnum\fP, float *userdata)"
+.br
+.ti -1c
+.RI "void \fBsetValues\fP (\fBint\fP start, \fBint\fP \fBnum\fP, const float xyz[][3])"
+.br
+.ti -1c
+.RI "void \fBset1Value\fP (\fBint\fP idx, float x, float y, float z)"
+.br
+.ti -1c
+.RI "void \fBset1Value\fP (\fBint\fP idx, const float xyz[3])"
+.br
+.ti -1c
+.RI "void \fBsetValue\fP (float x, float y, float z)"
+.br
+.ti -1c
+.RI "void \fBsetValue\fP (const float xyz[3])"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static void * \fBcreateInstance\fP (void)"
+.br
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual void \fBdeleteAllValues\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBcopyValue\fP (\fBint\fP to, \fBint\fP from)"
+.br
+.ti -1c
+.RI "virtual \fBint\fP \fBfieldSizeof\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void * \fBvaluesPtr\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBsetValuesPtr\fP (void *ptr)"
+.br
+.ti -1c
+.RI "virtual void \fBallocValues\fP (\fBint\fP \fBnum\fP)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSbVec3f\fP * \fBvalues\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoMFVec3f\fP class is a container for \fBSbVec3f\fP vectors\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store an array of vectors with three elements\&. 
+
+This field supports application data sharing through a setValuesPointer() method\&. See \fBSoMField\fP documentation for information on how to use this function\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSbVec3f\fP, \fBSoSFVec3f\fP 
+.RE
+.PP
+
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoMFVec3f::getTypeId (void) const\fC [virtual]\fP"
+Returns the type identification instance which uniquely identifies the Coin field class the object belongs to\&.
+.PP
+\fBSee also:\fP
+.RS 4
+getClassTypeId(), \fBSoType\fP 
+.RE
+.PP
+
+.PP
+Implements \fBSoField\fP\&.
+.SS "void SoMFVec3f::copyFrom (const \fBSoField\fP & f)\fC [virtual]\fP"
+Copy value(s) from \fIf\fP into this field\&. \fIf\fP must be of the same type as this field\&. 
+.PP
+Implements \fBSoField\fP\&.
+.SS "SbBool SoMFVec3f::isSame (const \fBSoField\fP & f) const\fC [virtual]\fP"
+Check for equal type and value(s)\&. 
+.PP
+Implements \fBSoField\fP\&.
+.SS "void SoMFVec3f::deleteAllValues (void)\fC [protected]\fP, \fC [virtual]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.PP
+Implements \fBSoMField\fP\&.
+.SS "void SoMFVec3f::copyValue (\fBint\fP to, \fBint\fP from)\fC [protected]\fP, \fC [virtual]\fP"
+This method is used for moving values around internally within a multivalue field\&. It needs to be overridden in each field so it automatically takes care of running copy contructors where necessary\&. 
+.PP
+Implements \fBSoMField\fP\&.
+.SS "const \fBSbVec3f\fP* SoMFVec3f::getValues (const \fBint\fP start) const\fC [inline]\fP"
+\\ Returns a pointer to the values array\&. \\ 
+.SS "void SoMFVec3f::setValues (\fBint\fP start, \fBint\fP numarg, const float xyz[][3])"
+Set \fInum\fP vector array elements from the \fIxyz\fP array, reading from index 0 in the given float-triplet vector array and storing values from index \fIstart\fP in this \fBSoMFVec3f\fP's array\&.
+.PP
+If \fIstart\fP + \fInum\fP is larger than the current number of elements in the \fBSoMFVec3f\fP field, this method will automatically expand the field to accommodate all given float-vector element values\&. 
+.SS "void SoMFVec3f::set1Value (\fBint\fP idx, float x, float y, float z)"
+Set the vector at \fIidx\fP\&. 
+.SS "void SoMFVec3f::set1Value (\fBint\fP idx, const float xyz[3])"
+Set the vector at \fIidx\fP\&. 
+.SS "void SoMFVec3f::setValue (float x, float y, float z)"
+Set this field to contain a single vector with the given element values\&. 
+.SS "void SoMFVec3f::setValue (const float xyz[3])"
+Set this field to contain a single vector with the given element values\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

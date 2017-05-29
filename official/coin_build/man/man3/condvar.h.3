@@ -1,0 +1,54 @@
+.TH "condvar.h" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+condvar.h
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <Inventor/C/basic\&.h>\fP
+.br
+\fC#include <Inventor/C/base/time\&.h>\fP
+.br
+\fC#include <Inventor/C/threads/common\&.h>\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBcc_condvar\fP * \fBcc_condvar_construct\fP (void)"
+.br
+.ti -1c
+.RI "void \fBcc_condvar_destruct\fP (\fBcc_condvar\fP *condvar)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBcc_condvar_wait\fP (\fBcc_condvar\fP *condvar, \fBcc_mutex\fP *mutex)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBcc_condvar_timed_wait\fP (\fBcc_condvar\fP *condvar, \fBcc_mutex\fP *mutex, cc_time period)"
+.br
+.ti -1c
+.RI "void \fBcc_condvar_wake_one\fP (\fBcc_condvar\fP *condvar)"
+.br
+.ti -1c
+.RI "void \fBcc_condvar_wake_all\fP (\fBcc_condvar\fP *condvar)"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "\fBcc_condvar\fP* cc_condvar_construct (void)"
+Constructs a conditional variable\&. 
+.SS "void cc_condvar_destruct (\fBcc_condvar\fP * condvar)"
+Destroys the given \fIcondvar\fP\&. 
+.SS "\fBint\fP cc_condvar_wait (\fBcc_condvar\fP * condvar, \fBcc_mutex\fP * mutex)"
+Wait indefinitely for the \fIcondvar\fP conditional variable using the specified \fImutex\fP lock\&. 
+.SS "\fBint\fP cc_condvar_timed_wait (\fBcc_condvar\fP * condvar, \fBcc_mutex\fP * mutex, cc_time period)"
+Wait for no more than the \fIperiod\fP for the \fIcondvar\fP conditional variable using the specified \fImutex\fP lock\&. 
+.SS "void cc_condvar_wake_one (\fBcc_condvar\fP * condvar)"
+Wake one thread waiting for the \fIcondvar\fP conditional variable\&. 
+.SS "void cc_condvar_wake_all (\fBcc_condvar\fP * condvar)"
+Wake all threads waiting for the \fIcondvar\fP conditional variable\&. 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

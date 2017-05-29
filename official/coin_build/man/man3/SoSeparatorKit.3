@@ -1,0 +1,262 @@
+.TH "SoSeparatorKit" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoSeparatorKit \- The \fBSoSeparatorKit\fP class provides a typical set of nodes to influence a shape subgraph\&.
+.PP
+Node kit structure (new entries versus parent class marked with arrow prefix):  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/nodekits/SoSeparatorKit\&.h>\fP
+.PP
+Inherits \fBSoBaseKit\fP\&.
+.PP
+Inherited by \fBSoShapeKit\fP, and \fBSoWrapperKit\fP\&.
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBCacheEnabled\fP { \fBOFF\fP, \fBON\fP, \fBAUTO\fP }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "virtual const \fBSoNodekitCatalog\fP * \fBgetNodekitCatalog\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoSeparatorKit\fP (void)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static const \fBSoNodekitCatalog\fP * \fBgetClassNodekitCatalog\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFEnum\fP \fBrenderCaching\fP"
+.br
+.ti -1c
+.RI "\fBSoSFEnum\fP \fBboundingBoxCaching\fP"
+.br
+.ti -1c
+.RI "\fBSoSFEnum\fP \fBrenderCulling\fP"
+.br
+.ti -1c
+.RI "\fBSoSFEnum\fP \fBpickCulling\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fB~SoSeparatorKit\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBsetDefaultOnNonWritingFields\fP (void)"
+.br
+.ti -1c
+.RI "virtual SbBool \fBsetUpConnections\fP (SbBool onoff, SbBool doitalways=FALSE)"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.ti -1c
+.RI "static const \fBSoNodekitCatalog\fP ** \fBgetClassNodekitCatalogPtr\fP (void)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFNode\fP \fBappearance\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBchildList\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBpickStyle\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtexture2Transform\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtopSeparator\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtransform\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBunits\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoSeparatorKit\fP class provides a typical set of nodes to influence a shape subgraph\&.
+.PP
+Node kit structure (new entries versus parent class marked with arrow prefix): 
+
+
+.PP
+.nf
+CLASS SoSeparatorKit
+-->"this"
+      "callbackList"
+-->   "topSeparator"
+-->      "pickStyle"
+-->      "appearance"
+-->      "units"
+-->      "transform"
+-->      "texture2Transform"
+-->      "childList"
+
+.fi
+.PP
+.PP
+(See \fBSoBaseKit::printDiagram()\fP for information about the output formatting\&.)
+.PP
+Detailed information on catalog parts:
+.PP
+.PP
+.nf
+CLASS SoSeparatorKit
+PVT   "this",  SoSeparatorKit  --- 
+      "callbackList",  SoNodeKitListPart [ SoCallback, SoEventCallback ] 
+PVT   "topSeparator",  SoSeparator  --- 
+      "pickStyle",  SoPickStyle  --- 
+      "appearance",  SoAppearanceKit  --- 
+      "units",  SoUnits  --- 
+      "transform",  SoTransform  --- 
+      "texture2Transform",  SoTexture2Transform  --- 
+      "childList",  SoNodeKitListPart [ SoShapeKit, SoSeparatorKit ] 
+.fi
+.PP
+.PP
+(See \fBSoBaseKit::printTable()\fP for information about the output formatting\&.) 
+.SH "Member Enumeration Documentation"
+.PP 
+.SS "enum \fBSoSeparatorKit::CacheEnabled\fP"
+Contains the same values with the same semantics as in the enum with the same name in \fBSoSeparator\fP\&. See documentation of \fBSoSeparator::CacheEnabled\fP\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoSeparatorKit::SoSeparatorKit (void)"
+Constructor\&. 
+.SS "SoSeparatorKit::~SoSeparatorKit ()\fC [protected]\fP, \fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoSeparatorKit::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Reimplemented from \fBSoBaseKit\fP\&.
+.PP
+Reimplemented in \fBSoShapeKit\fP, and \fBSoWrapperKit\fP\&.
+.SS "const \fBSoFieldData\fP * SoSeparatorKit::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoBaseKit\fP\&.
+.PP
+Reimplemented in \fBSoShapeKit\fP, and \fBSoWrapperKit\fP\&.
+.SS "const \fBSoNodekitCatalog\fP * SoSeparatorKit::getNodekitCatalog (void) const\fC [virtual]\fP"
+Returns the nodekit catalog which defines the layout of this class' kit\&. 
+.PP
+Reimplemented from \fBSoBaseKit\fP\&.
+.PP
+Reimplemented in \fBSoShapeKit\fP, and \fBSoWrapperKit\fP\&.
+.SS "void SoSeparatorKit::initClass (void)\fC [static]\fP"
+Does initialization common for all objects of the \fBSoSeparatorKit\fP class\&. This includes setting up the type system, among other things\&. 
+.SS "void SoSeparatorKit::setDefaultOnNonWritingFields (void)\fC [protected]\fP, \fC [virtual]\fP"
+(Be aware that this method is unlikely to be of interest to the application programmer who does not want to extend the library with new custom nodekits or draggers\&. If you indeed \fIare\fP writing extensions, see the information in the \fBSoBaseKit\fP class documentation\&.)
+.PP
+This is a virtual method, and the code in it should call \fBSoField::setDefault()\fP with argument \fCTRUE\fP on part fields that should not be written upon scenegraph export operations\&.
+.PP
+This is typically done when:
+.PP
+.PD 0
+.IP "1." 4
+field value is \fCNULL\fP and part is \fCNULL\fP by default 
+.PP
+
+.IP "2." 4
+it is a leaf \fBSoGroup\fP or \fBSoSeparator\fP node with no children 
+.PP
+
+.IP "3." 4
+it is a leaf listpart with no children and an \fBSoGroup\fP or \fBSoSeparator\fP container 
+.PP
+
+.IP "4." 4
+it is a non-leaf part and it's of \fBSoGroup\fP type and all fields are at their default values 
+.PP
+
+.PP
+.PP
+Subclasses should usually override this to do additional settings for new member fields\&. From the subclass, do remember to call 'upwards' to your superclass' \fBsetDefaultOnNonWritingFields()\fP method\&. 
+.PP
+Reimplemented from \fBSoBaseKit\fP\&.
+.PP
+Reimplemented in \fBSoShapeKit\fP\&.
+.SS "SbBool SoSeparatorKit::setUpConnections (SbBool onoff, SbBool doitalways = \fCFALSE\fP)\fC [protected]\fP, \fC [virtual]\fP"
+Sets up all internal connections for instances of this class\&.
+.PP
+(This method will usually not be of interest to the application programmer, unless you want to extend the library with new custom nodekits or dragger classes\&. If so, see the \fBSoBaseKit\fP class documentation\&.) 
+.PP
+Reimplemented from \fBSoBaseKit\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSoSFEnum\fP SoSeparatorKit::renderCaching"
+See documentation for \fBSoSeparator::renderCaching\fP\&. 
+.SS "\fBSoSFEnum\fP SoSeparatorKit::boundingBoxCaching"
+See documentation for \fBSoSeparator::boundingBoxCaching\fP\&. 
+.SS "\fBSoSFEnum\fP SoSeparatorKit::renderCulling"
+See documentation for \fBSoSeparator::renderCulling\fP\&. 
+.SS "\fBSoSFEnum\fP SoSeparatorKit::pickCulling"
+See documentation for \fBSoSeparator::pickCulling\fP\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

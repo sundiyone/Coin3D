@@ -1,0 +1,119 @@
+.TH "SoConeDetail" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoConeDetail \- The \fBSoConeDetail\fP class contains information about the parts of a \fBSoCone\fP shape\&.
+.PP
+Instances of this class are used for storing information about hit points on cone geometry after pick operations, and for storing information returned to tessellation callbacks\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/details/SoConeDetail\&.h>\fP
+.PP
+Inherits \fBSoDetail\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoConeDetail\fP (void)"
+.br
+.ti -1c
+.RI "virtual \fB~SoConeDetail\fP ()"
+.br
+.ti -1c
+.RI "virtual \fBSoDetail\fP * \fBcopy\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBsetPart\fP (const \fBint\fP \fBpart\fP)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetPart\fP (void) const"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBcleanupClass\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBint\fP \fBpart\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoConeDetail\fP class contains information about the parts of a \fBSoCone\fP shape\&.
+.PP
+Instances of this class are used for storing information about hit points on cone geometry after pick operations, and for storing information returned to tessellation callbacks\&. 
+
+
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoCone\fP, \fBSoRayPickAction\fP, \fBSoCallbackAction\fP 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoConeDetail::SoConeDetail (void)"
+Constructor\&. 
+.SS "SoConeDetail::~SoConeDetail ()\fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoConeDetail::getTypeId (void) const\fC [virtual]\fP"
+Returns the type identification of a detail derived from a class inheriting \fBSoDetail\fP\&. This is used for run-time type checking and 'downward' casting\&.
+.PP
+Usage example:
+.PP
+.PP
+.nf
+void fuhbear(SoDetail * detail)
+{
+  if (detail->getTypeId() == SoFaceDetail::getClassTypeId()) {
+    // safe downward cast, know the type
+    SoFaceDetail * facedetail = (SoFaceDetail *)detail;
+  }
+  return; // ignore if not a SoFaceDetail
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new detail classes: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through Inventor/nodes/SoSubDetail\&.h: SO_DETAIL_SOURCE and SO_DETAIL_INIT_CLASS\&. 
+.PP
+Implements \fBSoDetail\fP\&.
+.SS "\fBSoDetail\fP * SoConeDetail::copy (void) const\fC [virtual]\fP"
+Return a deep copy of ourself\&.
+.PP
+\fBNote that if the Coin library has been built as a DLL under Microsoft Windows and you use this method from application code, you \fImust\fP make sure that both the Coin DLL and the application executable is using the same instance of a C Run-Time (CRT) library\&. Otherwise, you \fIwill\fP get memory heap corruption upon deallocating the returned instances, eventually leading to mysterious crashes\&.\fP 
+.PP
+Implements \fBSoDetail\fP\&.
+.SS "void SoConeDetail::setPart (const \fBint\fP partarg)"
+Set the part of a cone which was selected\&. A cone has two different conceptual parts; SoCone::SIDES or SoCone::BOTTOM\&. 
+.SS "\fBint\fP SoConeDetail::getPart (void) const"
+Returns selected cone part, either SoCone::SIDES or SoCone::BOTTOM\&. 
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBint\fP SoConeDetail::part\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

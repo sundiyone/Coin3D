@@ -1,0 +1,53 @@
+.TH "SoDragger.h" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoDragger.h
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <Inventor/nodekits/SoInteractionKit\&.h>\fP
+.br
+\fC#include <Inventor/tools/SbPimplPtr\&.h>\fP
+.br
+\fC#include <Inventor/fields/SoSFBool\&.h>\fP
+.br
+\fC#include <Inventor/lists/SoCallbackList\&.h>\fP
+.br
+\fC#include <Inventor/SbMatrix\&.h>\fP
+.br
+\fC#include <Inventor/SbVec3f\&.h>\fP
+.br
+\fC#include <Inventor/SbVec2s\&.h>\fP
+.br
+\fC#include <Inventor/SbViewVolume\&.h>\fP
+.br
+\fC#include <Inventor/SbViewportRegion\&.h>\fP
+.br
+\fC#include <Inventor/nodes/SoScale\&.h>\fP
+.br
+
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBSoDragger\fP"
+.br
+.RI "The \fBSoDragger\fP class is the base class for all draggers\&.
+.PP
+Draggers is a mechanism used for letting the end-users of your application code interact with elements in 3D, by scaling, rotating or translating geometry or other instances in the scene (like cameras or lightsources)\&. "
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef void \fBSoDraggerCB\fP(void *data, \fBSoDragger\fP *dragger)"
+.br
+.in -1c
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef void SoDraggerCB(void *data, \fBSoDragger\fP *dragger)"
+Callback definition for draggers 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

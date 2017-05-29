@@ -1,0 +1,72 @@
+.TH "SoMaterialBundle" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoMaterialBundle \- The \fBSoMaterialBundle\fP class simplifies material handling\&.
+.PP
+Every shape node should create (on the stack) an instance of this class and call \fBsendFirst()\fP before sending anything to GL\&. During rendering, \fBsend()\fP should be used to send material values to GL\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <include/Inventor/bundles/SoMaterialBundle\&.h>\fP
+.PP
+Inherits \fBSoBundle\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSoMaterialBundle\fP (\fBSoAction\fP *action)"
+.br
+.ti -1c
+.RI "\fB~SoMaterialBundle\fP ()"
+.br
+.ti -1c
+.RI "void \fBsetUpMultiple\fP (void)"
+.br
+.ti -1c
+.RI "void \fBsendFirst\fP (void)"
+.br
+.ti -1c
+.RI "void \fBforceSend\fP (const \fBint\fP index)"
+.br
+.ti -1c
+.RI "SbBool \fBisColorOnly\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBsend\fP (const \fBint\fP index, const SbBool betweenbeginend)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoMaterialBundle\fP class simplifies material handling\&.
+.PP
+Every shape node should create (on the stack) an instance of this class and call \fBsendFirst()\fP before sending anything to GL\&. During rendering, \fBsend()\fP should be used to send material values to GL\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoMaterialBundle::SoMaterialBundle (\fBSoAction\fP * action)"
+Constructor with \fIaction\fP being the action applied to the geometry node\&. 
+.SS "SoMaterialBundle::~SoMaterialBundle ()"
+Destructor 
+.SH "Member Function Documentation"
+.PP 
+.SS "void SoMaterialBundle::setUpMultiple (void)"
+Currently not in use\&. It is only provided for OIV compliance\&. 
+.SS "void SoMaterialBundle::sendFirst (void)"
+Sends the initial material values to GL\&. Must be done once in all geometry nodes before the rendering begins\&. 
+.SS "void SoMaterialBundle::forceSend (const \fBint\fP index)"
+Will send the material to GL even though \fIindex\fP equals the current index\&.
+.PP
+Provided for compatibility with the SGI Open Inventor v2\&.1 API\&. 
+.SS "SbBool SoMaterialBundle::isColorOnly (void) const"
+Returns \fCTRUE\fP if the current light model is BASE_COLOR\&. 
+.SS "void SoMaterialBundle::send (const \fBint\fP index, const SbBool betweenbeginend)"
+Sends material values with index \fIindex\fP to GL\&. Will test whether the current index equals \fIindex\fP before sending\&.
+.PP
+\fIbetweenBeginEnd\fP should be \fCTRUE\fP if your program is between a glBegin() and glEnd() (it is illegal to change the polygon stipple between a glBegin() and glEnd())\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

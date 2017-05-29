@@ -1,0 +1,47 @@
+.TH "SoByteStream" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoByteStream
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBconvert\fP (\fBSoNode\fP *node, SbBool binary=TRUE)"
+.br
+.ti -1c
+.RI "void \fBconvert\fP (\fBSoPath\fP *path, SbBool binary=TRUE)"
+.br
+.ti -1c
+.RI "void \fBconvert\fP (\fBSoPathList\fP *pl, SbBool binary=TRUE)"
+.br
+.ti -1c
+.RI "void * \fBgetData\fP (void)"
+.br
+.ti -1c
+.RI "uint32_t \fBgetNumBytes\fP (void)"
+.br
+.ti -1c
+.RI "void \fBcopy\fP (void *d, size_t len)"
+.br
+.ti -1c
+.RI "SbBool \fBisRawData\fP (void) const"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoPathList\fP * \fBunconvert\fP (\fBSoByteStream\fP *stream)"
+.br
+.ti -1c
+.RI "static \fBSoPathList\fP * \fBunconvert\fP (void *data, uint32_t bytesinstream)"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

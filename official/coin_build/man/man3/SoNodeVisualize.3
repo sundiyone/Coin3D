@@ -1,0 +1,236 @@
+.TH "SoNodeVisualize" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoNodeVisualize
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits \fBSoBaseKit\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "virtual const \fBSoNodekitCatalog\fP * \fBgetNodekitCatalog\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoNodeVisualize\fP * \fBvisualize\fP (\fBSoNode\fP *)"
+.br
+.ti -1c
+.RI "bool \fBclicked\fP ()"
+.br
+.ti -1c
+.RI "void \fBsetAlternate\fP (bool alternating=true)"
+.br
+.ti -1c
+.RI "bool \fBnodeHasChildren\fP ()"
+.br
+.ti -1c
+.RI "unsigned \fBint\fP \fBnodeNumChildren\fP ()"
+.br
+.ti -1c
+.RI "bool \fBisAlternating\fP () const"
+.br
+.ti -1c
+.RI "virtual void \fBhandleEvent\fP (\fBSoHandleEventAction\fP *action)"
+.br
+.ti -1c
+.RI "void \fBtraverse\fP (\fBSoProfilerStats\fP *stats)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static const \fBSoNodekitCatalog\fP * \fBgetClassNodekitCatalog\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBcleanClass\fP (void)"
+.br
+.ti -1c
+.RI "static \fBSoNodeVisualize\fP * \fBvisualizeTree\fP (\fBSoNode\fP *node, \fBint\fP depth=\-1)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoNodeVisualize\fP (void)"
+.br
+.ti -1c
+.RI "virtual \fB~SoNodeVisualize\fP ()"
+.br
+.ti -1c
+.RI "\fBSbVec2s\fP \fBgetWidth\fP ()"
+.br
+.ti -1c
+.RI "void \fBsetupChildCatalog\fP (\fBSoNode\fP *node, \fBint\fP depth)"
+.br
+.ti -1c
+.RI "void \fBvisualizeSubTree\fP (\fBSoNode\fP *node, \fBint\fP depth=\-1)"
+.br
+.ti -1c
+.RI "void \fBrecalculate\fP ()"
+.br
+.ti -1c
+.RI "\fBSbVec2s\fP \fBrecalculateWidth\fP ()"
+.br
+.ti -1c
+.RI "\fBSoNodeVisualize\fP * \fBgetSoNodeVisualizeRoot\fP ()"
+.br
+.ti -1c
+.RI "void \fBinternalAlternating\fP (bool alternating, \fBint\fP direction)"
+.br
+.ti -1c
+.RI "void \fBreset\fP ()"
+.br
+.ti -1c
+.RI "\fBSoNodeList\fP * \fBgetChildGeometry\fP ()"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.ti -1c
+.RI "static const \fBSoNodekitCatalog\fP ** \fBgetClassNodekitCatalogPtr\fP (void)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtopSeparator\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBchildrenVisible\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBcolor\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtexture\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtextureTransform\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBshape\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBrotSwitch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBrotation\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBchildGeometry\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslation\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBlines\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBlineSep\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoNodeVisualize::SoNodeVisualize (void)\fC [protected]\fP"
+Constructor
+.PP
+Note, this constructor is not public, as it sets up the class in an internally inconsistent way, this also ensures that we do not try to analyze ourself, which may do strange things to our state\&.
+.PP
+FIXME: Should perhaps make a public constructor which takes the same parameters as visualize tree 
+.SS "SoNodeVisualize::~SoNodeVisualize ()\fC [protected]\fP, \fC [virtual]\fP"
+Destructor 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoNodeVisualize::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Reimplemented from \fBSoBaseKit\fP\&.
+.SS "const \fBSoFieldData\fP * SoNodeVisualize::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoBaseKit\fP\&.
+.SS "const \fBSoNodekitCatalog\fP * SoNodeVisualize::getNodekitCatalog (void) const\fC [virtual]\fP"
+Returns the nodekit catalog which defines the layout of this class' kit\&. 
+.PP
+Reimplemented from \fBSoBaseKit\fP\&.
+.SS "void SoNodeVisualize::initClass (void)\fC [static]\fP"
+Standard intialization for node catalog 
+.SS "void SoNodeVisualize::cleanClass (void)\fC [static]\fP"
+Static cleanup 
+.SS "bool SoNodeVisualize::clicked ()"
+Changes the state of a node with children 
+.SS "void SoNodeVisualize::setAlternate (bool alternate = \fCtrue\fP)"
+Turns on the alternating direction state for all children 
+.SS "bool SoNodeVisualize::nodeHasChildren ()"
+Does the associated node have any children? 
+.SS "unsigned \fBint\fP SoNodeVisualize::nodeNumChildren ()"
+Number of children of the associated node 
+.SS "void SoNodeVisualize::handleEvent (\fBSoHandleEventAction\fP * action)\fC [virtual]\fP"
+Checks for intersection with the shape part of the node 
+.PP
+Reimplemented from \fBSoBaseKit\fP\&.
+.SS "\fBSbVec2s\fP SoNodeVisualize::getWidth (void)\fC [protected]\fP"
+Returns the size of a bounding box for this subtree 
+.SS "void SoNodeVisualize::visualizeSubTree (\fBSoNode\fP * node, \fBint\fP depth = \fC\-1\fP)\fC [protected]\fP"
+Visualizes a subtree, stops at depth 1
+.PP
+If no argument given, visualizes everything
+.PP
+WARNING: Allthough the default is to visualize everything, it is recommended to set a limit on how deep you want to traverse\&. If you go to deep, the memory requirements, and recalculation may become so heavy it grinds to a halt\&. Additionally it is difficult to see, when there is too much information on the screen at once\&. 
+.SS "\fBSbVec2s\fP SoNodeVisualize::recalculateWidth ()\fC [protected]\fP"
+Calculates the size of a bounding box for this subtree 
+.SS "\fBSoNodeVisualize\fP * SoNodeVisualize::getSoNodeVisualizeRoot ()\fC [protected]\fP"
+Returns the uppermost connected parent 
+.SS "void SoNodeVisualize::internalAlternating (bool alternate, \fBint\fP direction)\fC [protected]\fP"
+Traverses all nodes, and turns on the alternating state,
+.PP
+May need a recalculation afterwards 
+.SS "void SoNodeVisualize::reset (void)\fC [protected]\fP"
+Resets the datastructure in anticipation of a reanalysis
+.PP
+This puts the structure in the same inconsistent structure as the empty constructor 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

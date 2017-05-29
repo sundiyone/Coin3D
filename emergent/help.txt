@@ -1,3 +1,39 @@
+
+$ export PATH=/home/ed/Coin3D/emergent/coin_install/bin:$PATH
+
+$ cd coin_build
+$ rm -rf *
+$ ../coin/configure --prefix=/home/ed/Coin3D/emergent/coin_install
+$ make
+$ make install
+
+$ cd ../quarter_build
+$ rm -rf *
+$ cmake ../quarter -G"Unix Makefiles"
+$ make
+$ make install
+
+$ cd ../viewer_build
+$ rm -rf *
+$ cmake ../viewer -G"Unix Makefiles"
+$ make
+$ make install
+
+QUARTER
+=======
+
+In quarter4_build make sure my preferred coin-config is up front:
+$ export PATH=/home/ed/Coin3D/coin4_install/bin:$PATH
+check with
+$ which coin-config
+
+Basically, for quarter:
+$ cmake -G "MSYS Makefiles" ../quarter
+or
+$ cmake -G"Unix Makefiles" ../quarter
+
+
+
 ESmith-rowland@SEG_SMTHRWLNDLT MINGW64 ~/Coin3D/emergent/quarter_build
 $ rm -rf *
 

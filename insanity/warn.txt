@@ -1,0 +1,728 @@
+In file included from ../../../../coin4/src/xml/expat/all-expat-c.c:4:0:
+../../../../coin4/src/xml/expat/xmltok.c:484:1: warning: missing initializer for field ‘isName2’ of ‘const struct normal_encoding’ [-Wmissing-field-initializers]
+ };
+ ^
+In file included from ../../../../coin4/src/xml/expat/all-expat-c.c:4:0:
+../../../../coin4/src/xml/expat/xmltok.c:186:21: note: ‘isName2’ declared here
+   int (PTRFASTCALL *isName2)(const ENCODING *, const char *);
+                     ^~~~~~~
+In file included from ../../../../coin4/src/xml/expat/all-expat-c.c:4:0:
+../../../../coin4/src/xml/expat/xmltok.c:517:1: warning: missing initializer for field ‘isName2’ of ‘const struct normal_encoding’ [-Wmissing-field-initializers]
+ };
+ ^
+In file included from ../../../../coin4/src/xml/expat/all-expat-c.c:4:0:
+../../../../coin4/src/xml/expat/xmltok.c:186:21: note: ‘isName2’ declared here
+   int (PTRFASTCALL *isName2)(const ENCODING *, const char *);
+                     ^~~~~~~
+In file included from ../../../../coin4/src/xml/expat/all-expat-c.c:4:0:
+../../../../coin4/src/xml/expat/xmltok.c:749:1: warning: missing initializer for field ‘isName2’ of ‘const struct normal_encoding’ [-Wmissing-field-initializers]
+ };
+ ^
+In file included from ../../../../coin4/src/xml/expat/all-expat-c.c:4:0:
+../../../../coin4/src/xml/expat/xmltok.c:186:21: note: ‘isName2’ declared here
+   int (PTRFASTCALL *isName2)(const ENCODING *, const char *);
+                     ^~~~~~~
+In file included from ../../../../coin4/src/xml/expat/all-expat-c.c:4:0:
+../../../../coin4/src/xml/expat/xmltok.c:775:1: warning: missing initializer for field ‘isName2’ of ‘const struct normal_encoding’ [-Wmissing-field-initializers]
+ };
+ ^
+In file included from ../../../../coin4/src/xml/expat/all-expat-c.c:4:0:
+../../../../coin4/src/xml/expat/xmltok.c:186:21: note: ‘isName2’ declared here
+   int (PTRFASTCALL *isName2)(const ENCODING *, const char *);
+                     ^~~~~~~
+In file included from ../../../../coin4/src/xml/expat/all-expat-c.c:4:0:
+../../../../coin4/src/xml/expat/xmltok.c:890:1: warning: missing initializer for field ‘isName2’ of ‘const struct normal_encoding’ [-Wmissing-field-initializers]
+ };
+ ^
+In file included from ../../../../coin4/src/xml/expat/all-expat-c.c:4:0:
+../../../../coin4/src/xml/expat/xmltok.c:186:21: note: ‘isName2’ declared here
+   int (PTRFASTCALL *isName2)(const ENCODING *, const char *);
+                     ^~~~~~~
+In file included from ../../../../coin4/src/xml/expat/all-expat-c.c:4:0:
+../../../../coin4/src/xml/expat/xmltok.c:916:1: warning: missing initializer for field ‘isName2’ of ‘const struct normal_encoding’ [-Wmissing-field-initializers]
+ };
+ ^
+In file included from ../../../../coin4/src/xml/expat/all-expat-c.c:4:0:
+../../../../coin4/src/xml/expat/xmltok.c:186:21: note: ‘isName2’ declared here
+   int (PTRFASTCALL *isName2)(const ENCODING *, const char *);
+                     ^~~~~~~
+In file included from ../../../../coin4/src/xml/expat/all-expat-c.c:5:0:
+../../../../coin4/src/xml/expat/xmlparse.c: In function ‘XML_Parse’:
+../../../../coin4/src/xml/expat/xmlparse.c:1493:7: warning: enumeration value ‘XML_FINISHED’ not handled in switch [-Wswitch]
+       switch (ps_parsing) {
+       ^~~~~~
+ar: `u' modifier ignored since `D' is the default (see `U')
+ar: `u' modifier ignored since `D' is the default (see `U')
+../../../coin4/src/actions/SoToVRML2Action.cpp: In constructor ‘SoToVRML2ActionP::SoToVRML2ActionP()’:
+../../../coin4/src/actions/SoToVRML2Action.cpp:407:17: warning: ‘SoToVRML2ActionP::vrml2root’ will be initialized after [-Wreorder]
+   SoVRMLGroup * vrml2root;
+                 ^~~~~~~~~
+../../../coin4/src/actions/SoToVRML2Action.cpp:398:28: warning:   ‘SoGetBoundingBoxAction* SoToVRML2ActionP::bboxaction’ [-Wreorder]
+   SoGetBoundingBoxAction * bboxaction;
+                            ^~~~~~~~~~
+../../../coin4/src/actions/SoToVRML2Action.cpp:307:3: warning:   when initialized here [-Wreorder]
+   SoToVRML2ActionP(void)
+   ^~~~~~~~~~~~~~~~
+ar: `u' modifier ignored since `D' is the default (see `U')
+../../../coin4/src/base/SbTime.cpp: In member function ‘bool SbTime::parsedate(const char*)’:
+../../../coin4/src/base/SbTime.cpp:687:5: warning: this ‘while’ clause does not guard... [-Wmisleading-indentation]
+     while (*dateptr != '-') dateptr++; dateptr++;
+     ^~~~~
+../../../coin4/src/base/SbTime.cpp:687:40: note: ...this statement, but the latter is misleadingly indented as if it is guarded by the ‘while’
+     while (*dateptr != '-') dateptr++; dateptr++;
+                                        ^~~~~~~
+ar: `u' modifier ignored since `D' is the default (see `U')
+ar: `u' modifier ignored since `D' is the default (see `U')
+ar: `u' modifier ignored since `D' is the default (see `U')
+ar: `u' modifier ignored since `D' is the default (see `U')
+ar: `u' modifier ignored since `D' is the default (see `U')
+ar: `u' modifier ignored since `D' is the default (see `U')
+ar: `u' modifier ignored since `D' is the default (see `U')
+ar: `u' modifier ignored since `D' is the default (see `U')
+ar: `u' modifier ignored since `D' is the default (see `U')
+ar: `u' modifier ignored since `D' is the default (see `U')
+ar: `u' modifier ignored since `D' is the default (see `U')
+ar: `u' modifier ignored since `D' is the default (see `U')
+ar: `u' modifier ignored since `D' is the default (see `U')
+ar: `u' modifier ignored since `D' is the default (see `U')
+ar: `u' modifier ignored since `D' is the default (see `U')
+In file included from ../../../coin4/src/misc/SoBaseP.h:36:0,
+                 from ../../../coin4/src/misc/SoBase.cpp:87:
+../../../coin4/src/misc/SbHash.h: In constructor ‘SoBase::SoBase()’:
+../../../coin4/src/misc/SbHash.h:458:9: warning: ‘dummy’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+         entry->obj = obj;
+         ^~~~~
+../../../coin4/src/misc/SbHash.h:352:12: note: ‘dummy’ was declared here
+       Type dummy;
+            ^~~~~
+../../../coin4/src/misc/SbHash.h: In static member function ‘static void SoBase::addName(SoBase*, const char*)’:
+../../../coin4/src/misc/SbHash.h:458:9: warning: ‘dummy’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+         entry->obj = obj;
+         ^~~~~
+../../../coin4/src/misc/SbHash.h:352:12: note: ‘dummy’ was declared here
+       Type dummy;
+            ^~~~~
+../../../coin4/src/misc/SbHash.h:458:9: warning: ‘dummy’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+         entry->obj = obj;
+         ^~~~~
+../../../coin4/src/misc/SbHash.h:352:12: note: ‘dummy’ was declared here
+       Type dummy;
+            ^~~~~
+../../../coin4/src/misc/SbHash.h: In member function ‘const SoAuditorList& SoBase::getAuditors() const’:
+../../../coin4/src/misc/SbHash.h:458:9: warning: ‘dummy’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+         entry->obj = obj;
+         ^~~~~
+../../../coin4/src/misc/SbHash.h:352:12: note: ‘dummy’ was declared here
+       Type dummy;
+            ^~~~~
+In file included from ../../../coin4/src/misc/SoContextHandler.cpp:68:0:
+../../../coin4/src/misc/SbHash.h: In static member function ‘static void SoContextHandler::addContextDestructionCallback(void (*)(uint32_t, void*), void*)’:
+../../../coin4/src/misc/SbHash.h:145:69: warning: ‘dummy’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+   SbHashEntry(const Key & key, const Type & obj) : key(key), obj(obj) {}
+                                                                     ^
+../../../coin4/src/misc/SbHash.h:352:12: note: ‘dummy’ was declared here
+       Type dummy;
+            ^~~~~
+In file included from ../../../coin4/include/Inventor/misc/SoJavaScriptEngine.h:37:0,
+                 from ../../../coin4/src/misc/SoJavaScriptEngine.cpp:42:
+../../../coin4/src/misc/SoJavaScriptEngine.cpp: In member function ‘bool SoJavaScriptEngine::field2jsval(const SoField*, jsval*) const’:
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:218:49: warning: left shift of negative value [-Wshift-negative-value]
+ #define INT_TO_JSVAL(i)         (((jsval)(i) << 1) | JSVAL_INT)
+                                                 ^
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:242:22: note: in expansion of macro ‘INT_TO_JSVAL’
+ #define JSVAL_VOID   INT_TO_JSVAL(0 - JSVAL_INT_POW2(30))
+                      ^~~~~~~~~~~~
+../../../coin4/src/misc/SoJavaScriptEngine.cpp:520:8: note: in expansion of macro ‘JSVAL_VOID’
+   *v = JSVAL_VOID;
+        ^~~~~~~~~~
+../../../coin4/src/misc/SoJavaScriptEngine.cpp: In member function ‘virtual bool SoJavaScriptEngine::hasScriptField(const SbName&) const’:
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:218:49: warning: left shift of negative value [-Wshift-negative-value]
+ #define INT_TO_JSVAL(i)         (((jsval)(i) << 1) | JSVAL_INT)
+                                                 ^
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:242:22: note: in expansion of macro ‘INT_TO_JSVAL’
+ #define JSVAL_VOID   INT_TO_JSVAL(0 - JSVAL_INT_POW2(30))
+                      ^~~~~~~~~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:207:41: note: in expansion of macro ‘JSVAL_VOID’
+ #define JSVAL_IS_VOID(v)        ((v) == JSVAL_VOID)
+                                         ^~~~~~~~~~
+../../../coin4/src/misc/SoJavaScriptEngine.cpp:674:10: note: in expansion of macro ‘JSVAL_IS_VOID’
+   return JSVAL_IS_VOID(val) ? false : true;
+          ^~~~~~~~~~~~~
+ar: `u' modifier ignored since `D' is the default (see `U')
+In file included from ../../../coin4/src/rendering/SoGLDriverDatabase.cpp:59:0:
+../../../coin4/src/misc/SbHash.h: In member function ‘void SoGLDriverDatabaseP::addFeatures(const cc_glglue*, const cc_xml_element*, SoGLDriverDatabaseP::SoGLDriver*)’:
+../../../coin4/src/misc/SbHash.h:458:9: warning: ‘dummy’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+         entry->obj = obj;
+         ^~~~~
+../../../coin4/src/misc/SbHash.h:352:12: note: ‘dummy’ was declared here
+       Type dummy;
+            ^~~~~
+../../../coin4/src/misc/SbHash.h: In member function ‘Type& SbHash<Key, Type>::operator[](const Key&) [with Key = const char*; Type = bool (*)(const cc_glglue*)]’:
+../../../coin4/src/misc/SbHash.h:458:9: warning: ‘dummy’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+         entry->obj = obj;
+         ^~~~~
+../../../coin4/src/misc/SbHash.h:352:12: note: ‘dummy’ was declared here
+       Type dummy;
+            ^~~~~
+../../../coin4/src/misc/SbHash.h: In member function ‘void SoGLDriverDatabaseP::initFunctions()’:
+../../../coin4/src/misc/SbHash.h:458:9: warning: ‘dummy’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+         entry->obj = obj;
+         ^~~~~
+../../../coin4/src/misc/SbHash.h:352:12: note: ‘dummy’ was declared here
+       Type dummy;
+            ^~~~~
+../../../coin4/src/misc/SbHash.h:458:9: warning: ‘dummy’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+         entry->obj = obj;
+         ^~~~~
+../../../coin4/src/misc/SbHash.h:352:12: note: ‘dummy’ was declared here
+       Type dummy;
+            ^~~~~
+../../../coin4/src/misc/SbHash.h:458:9: warning: ‘dummy’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+         entry->obj = obj;
+         ^~~~~
+../../../coin4/src/misc/SbHash.h:352:12: note: ‘dummy’ was declared here
+       Type dummy;
+            ^~~~~
+../../../coin4/src/misc/SbHash.h:458:9: warning: ‘dummy’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+         entry->obj = obj;
+         ^~~~~
+../../../coin4/src/misc/SbHash.h:352:12: note: ‘dummy’ was declared here
+       Type dummy;
+            ^~~~~
+../../../coin4/src/misc/SbHash.h:458:9: warning: ‘dummy’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+         entry->obj = obj;
+         ^~~~~
+../../../coin4/src/misc/SbHash.h:352:12: note: ‘dummy’ was declared here
+       Type dummy;
+            ^~~~~
+../../../coin4/src/misc/SbHash.h: In member function ‘Type& SbHash<Key, Type>::operator[](const Key&) [with Key = SoGLDriverDatabaseP::FeatureID; Type = bool]’:
+../../../coin4/src/misc/SbHash.h:145:69: warning: ‘dummy’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+   SbHashEntry(const Key & key, const Type & obj) : key(key), obj(obj) {}
+                                                                     ^
+../../../coin4/src/misc/SbHash.h:352:12: note: ‘dummy’ was declared here
+       Type dummy;
+            ^~~~~
+../../../coin4/src/rendering/SoOffscreenRenderer.cpp: In member function ‘void SoOffscreenRendererP::setCameraViewvolForTile(SoCamera*)’:
+../../../coin4/src/rendering/SoOffscreenRenderer.cpp:1739:49: warning: narrowing conversion of ‘((SoOffscreenRendererP*)this)->SoOffscreenRendererP::glcanvassize[0]’ from ‘unsigned int’ to ‘int’ inside { } [-Wnarrowing]
+     const int vpsize[2] = { this->glcanvassize[0], this->glcanvassize[1] };
+                             ~~~~~~~~~~~~~~~~~~~~^
+../../../coin4/src/rendering/SoOffscreenRenderer.cpp:1739:72: warning: narrowing conversion of ‘((SoOffscreenRendererP*)this)->SoOffscreenRendererP::glcanvassize[1]’ from ‘unsigned int’ to ‘int’ inside { } [-Wnarrowing]
+     const int vpsize[2] = { this->glcanvassize[0], this->glcanvassize[1] };
+                                                    ~~~~~~~~~~~~~~~~~~~~^
+ar: `u' modifier ignored since `D' is the default (see `U')
+ar: `u' modifier ignored since `D' is the default (see `U')
+ar: `u' modifier ignored since `D' is the default (see `U')
+ar: `u' modifier ignored since `D' is the default (see `U')
+../../../coin4/src/nodes/SoSceneTextureCubeMap.cpp: In static member function ‘static void SoSceneTextureCubeMapP::prerendercb(void*, SoGLRenderAction*)’:
+../../../coin4/src/nodes/SoSceneTextureCubeMap.cpp:692:47: warning: ‘*((void*)& col +12)’ is used uninitialized in this function [-Wuninitialized]
+   glClearColor(col[0], col[1], col[2], col[3]);
+                                               ^
+../../../coin4/src/nodes/SoTexture3.cpp: In static member function ‘static void SoTexture3::filenameSensorCB(void*, SoSensor*)’:
+../../../coin4/src/nodes/SoTexture3.cpp:542:39: warning: suggest parentheses around ‘&&’ within ‘||’ [-Wparentheses]
+       thisp->filenames[0].getLength() &&
+       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~
+       !thisp->loadFilenames()) {
+       ~~~~~~~~~~~~~~~~~~~~~~~          
+ar: `u' modifier ignored since `D' is the default (see `U')
+../../../coin4/src/shapenodes/SoFaceSet.cpp: In member function ‘virtual void SoFaceSet::GLRender(SoGLRenderAction*)’:
+../../../coin4/src/shapenodes/SoFaceSet.cpp:571:88: warning: suggest parentheses around ‘&&’ within ‘||’ [-Wparentheses]
+     if (SoGLDriverDatabase::isSupported(sogl_glue_instance(state), SO_GL_VERTEX_ARRAY) &&
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~
+         (PRIVATE(this)->primitivetype == GL_TRIANGLES) ||
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                                  
+ar: `u' modifier ignored since `D' is the default (see `U')
+ar: `u' modifier ignored since `D' is the default (see `U')
+ar: `u' modifier ignored since `D' is the default (see `U')
+ar: `u' modifier ignored since `D' is the default (see `U')
+ar: `u' modifier ignored since `D' is the default (see `U')
+ar: `u' modifier ignored since `D' is the default (see `U')
+ar: `u' modifier ignored since `D' is the default (see `U')
+ar: `u' modifier ignored since `D' is the default (see `U')
+In file included from ../../../coin4/src/geo/SbGeoAngle.cpp:36:0:
+../../../coin4/src/geo/SbGeoAngle.cpp: In constructor ‘SbGeoAngle::SbGeoAngle(double, double, double, char)’:
+../../../coin4/src/geo/SbGeoAngle.cpp:61:27: warning: suggest parentheses around ‘&&’ within ‘||’ [-Wparentheses]
+          direction == 'W' &&
+          ~~~~~~~~~~~~~~~~~^~
+          "direction must be either N, S, E or W");
+          ~                 
+ar: `u' modifier ignored since `D' is the default (see `U')
+ar: `u' modifier ignored since `D' is the default (see `U')
+../../../coin4/src/shaders/SoShader.cpp: In static member function ‘static const char* SoShader::getNamedScript(const SbName&, SoShader::Type)’:
+../../../coin4/src/shaders/SoShader.cpp:362:41: warning: logical not is only applied to the left hand side of comparison [-Wlogical-not-parentheses]
+         if (!fread(shader, size, 1, fp) == 1) {
+                                         ^~
+ar: `u' modifier ignored since `D' is the default (see `U')
+ar: `u' modifier ignored since `D' is the default (see `U')
+../../../coin4/src/vrml97/Parent.cpp: In static member function ‘static void SoVRMLParent::updateChildList(const SoNode* const*, int, SoChildList&)’:
+../../../coin4/src/vrml97/Parent.cpp:410:32: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+   if (numChildren && (numnodes == numChildren)) {
+                       ~~~~~~~~~^~~~~~~~~~~~~~
+../../../coin4/src/vrml97/Sound.cpp: In member function ‘virtual void SoVRMLSound::audioRender(SoAudioRenderAction*)’:
+../../../coin4/src/vrml97/Sound.cpp:716:31: warning: suggest parentheses around ‘&&’ within ‘||’ [-Wparentheses]
+   if ( PRIVATE(this)->playing &&
+                               ^
+In file included from ../../../coin4/include/Inventor/misc/SoJavaScriptEngine.h:37:0,
+                 from ../../../coin4/src/vrml97/JS_VRMLClasses.cpp:42:
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp: In function ‘JSBool getIndex(JSContext*, jsval, const char**, int)’:
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:218:49: warning: left shift of negative value [-Wshift-negative-value]
+ #define INT_TO_JSVAL(i)         (((jsval)(i) << 1) | JSVAL_INT)
+                                                 ^
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:242:22: note: in expansion of macro ‘INT_TO_JSVAL’
+ #define JSVAL_VOID   INT_TO_JSVAL(0 - JSVAL_INT_POW2(30))
+                      ^~~~~~~~~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:202:62: note: in expansion of macro ‘JSVAL_VOID’
+ #define JSVAL_IS_INT(v)         (((v) & JSVAL_INT) && (v) != JSVAL_VOID)
+                                                              ^~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:174:7: note: in expansion of macro ‘JSVAL_IS_INT’
+   if (JSVAL_IS_INT(id)) {
+       ^~~~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp: In function ‘JSBool SFVec2f_multiply(JSContext*, JSObject*, uintN, jsval*, jsval*)’:
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:218:49: warning: left shift of negative value [-Wshift-negative-value]
+ #define INT_TO_JSVAL(i)         (((jsval)(i) << 1) | JSVAL_INT)
+                                                 ^
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:242:22: note: in expansion of macro ‘INT_TO_JSVAL’
+ #define JSVAL_VOID   INT_TO_JSVAL(0 - JSVAL_INT_POW2(30))
+                      ^~~~~~~~~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:202:62: note: in expansion of macro ‘JSVAL_VOID’
+ #define JSVAL_IS_INT(v)         (((v) & JSVAL_INT) && (v) != JSVAL_VOID)
+                                                              ^~~~~~~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:201:34: note: in expansion of macro ‘JSVAL_IS_INT’
+ #define JSVAL_IS_NUMBER(v)      (JSVAL_IS_INT(v) || JSVAL_IS_DOUBLE(v))
+                                  ^~~~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:882:20: note: in expansion of macro ‘JSVAL_IS_NUMBER’
+   if (argc >= 1 && JSVAL_IS_NUMBER(argv[0])) {
+                    ^~~~~~~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp: In function ‘JSBool SFColor_setHSV(JSContext*, JSObject*, uintN, jsval*, jsval*)’:
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:218:49: warning: left shift of negative value [-Wshift-negative-value]
+ #define INT_TO_JSVAL(i)         (((jsval)(i) << 1) | JSVAL_INT)
+                                                 ^
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:242:22: note: in expansion of macro ‘INT_TO_JSVAL’
+ #define JSVAL_VOID   INT_TO_JSVAL(0 - JSVAL_INT_POW2(30))
+                      ^~~~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:1031:11: note: in expansion of macro ‘JSVAL_VOID’
+   *rval = JSVAL_VOID;
+           ^~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp: In function ‘JSBool SFRotation_setAxis(JSContext*, JSObject*, uintN, jsval*, jsval*)’:
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:218:49: warning: left shift of negative value [-Wshift-negative-value]
+ #define INT_TO_JSVAL(i)         (((jsval)(i) << 1) | JSVAL_INT)
+                                                 ^
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:242:22: note: in expansion of macro ‘INT_TO_JSVAL’
+ #define JSVAL_VOID   INT_TO_JSVAL(0 - JSVAL_INT_POW2(30))
+                      ^~~~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:1121:13: note: in expansion of macro ‘JSVAL_VOID’
+     *rval = JSVAL_VOID;
+             ^~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp: In function ‘JSBool SFNodeConstructor(JSContext*, JSObject*, uintN, jsval*, jsval*)’:
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:218:49: warning: left shift of negative value [-Wshift-negative-value]
+ #define INT_TO_JSVAL(i)         (((jsval)(i) << 1) | JSVAL_INT)
+                                                 ^
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:242:22: note: in expansion of macro ‘INT_TO_JSVAL’
+ #define JSVAL_VOID   INT_TO_JSVAL(0 - JSVAL_INT_POW2(30))
+                      ^~~~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:1534:15: note: in expansion of macro ‘JSVAL_VOID’
+       *rval = JSVAL_VOID;
+               ^~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp: In instantiation of ‘static JSBool CoinVrmlJsMFHandler<MFFieldClass, SFFieldClass, desc>::get(JSContext*, JSObject*, jsval, jsval*) [with MFFieldClass = SoMFColor; SFFieldClass = SoSFColor; CoinVrmlJs::ClassDescriptor* desc = (& CoinVrmlJs::MFColor); JSBool = int; JSContext = void; JSObject = void; jsval = long int]’:
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:1864:21:   required from here
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:218:46: warning: left shift of negative value [-Wshift-negative-value]
+ #define INT_TO_JSVAL(i)         (((jsval)(i) << 1) | JSVAL_INT)
+                                  ~~~~~~~~~~~~^~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:242:22: note: in expansion of macro ‘INT_TO_JSVAL’
+ #define JSVAL_VOID   INT_TO_JSVAL(0 - JSVAL_INT_POW2(30))
+                      ^~~~~~~~~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:202:62: note: in expansion of macro ‘JSVAL_VOID’
+ #define JSVAL_IS_INT(v)         (((v) & JSVAL_INT) && (v) != JSVAL_VOID)
+                                                              ^~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:416:9: note: in expansion of macro ‘JSVAL_IS_INT’
+     if (JSVAL_IS_INT(id)) {
+         ^~~~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp: In instantiation of ‘static JSBool CoinVrmlJsMFHandler<MFFieldClass, SFFieldClass, desc>::set(JSContext*, JSObject*, jsval, jsval*) [with MFFieldClass = SoMFColor; SFFieldClass = SoSFColor; CoinVrmlJs::ClassDescriptor* desc = (& CoinVrmlJs::MFColor); JSBool = int; JSContext = void; JSObject = void; jsval = long int]’:
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:1864:42:   required from here
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:218:46: warning: left shift of negative value [-Wshift-negative-value]
+ #define INT_TO_JSVAL(i)         (((jsval)(i) << 1) | JSVAL_INT)
+                                  ~~~~~~~~~~~~^~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:242:22: note: in expansion of macro ‘INT_TO_JSVAL’
+ #define JSVAL_VOID   INT_TO_JSVAL(0 - JSVAL_INT_POW2(30))
+                      ^~~~~~~~~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:202:62: note: in expansion of macro ‘JSVAL_VOID’
+ #define JSVAL_IS_INT(v)         (((v) & JSVAL_INT) && (v) != JSVAL_VOID)
+                                                              ^~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:440:9: note: in expansion of macro ‘JSVAL_IS_INT’
+     if (JSVAL_IS_INT(id)) {
+         ^~~~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp: In instantiation of ‘static JSBool CoinVrmlJsMFHandler<MFFieldClass, SFFieldClass, desc>::get(JSContext*, JSObject*, jsval, jsval*) [with MFFieldClass = SoMFFloat; SFFieldClass = SoSFFloat; CoinVrmlJs::ClassDescriptor* desc = (& CoinVrmlJs::MFFloat); JSBool = int; JSContext = void; JSObject = void; jsval = long int]’:
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:1875:21:   required from here
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:218:46: warning: left shift of negative value [-Wshift-negative-value]
+ #define INT_TO_JSVAL(i)         (((jsval)(i) << 1) | JSVAL_INT)
+                                  ~~~~~~~~~~~~^~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:242:22: note: in expansion of macro ‘INT_TO_JSVAL’
+ #define JSVAL_VOID   INT_TO_JSVAL(0 - JSVAL_INT_POW2(30))
+                      ^~~~~~~~~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:202:62: note: in expansion of macro ‘JSVAL_VOID’
+ #define JSVAL_IS_INT(v)         (((v) & JSVAL_INT) && (v) != JSVAL_VOID)
+                                                              ^~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:416:9: note: in expansion of macro ‘JSVAL_IS_INT’
+     if (JSVAL_IS_INT(id)) {
+         ^~~~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp: In instantiation of ‘static JSBool CoinVrmlJsMFHandler<MFFieldClass, SFFieldClass, desc>::set(JSContext*, JSObject*, jsval, jsval*) [with MFFieldClass = SoMFFloat; SFFieldClass = SoSFFloat; CoinVrmlJs::ClassDescriptor* desc = (& CoinVrmlJs::MFFloat); JSBool = int; JSContext = void; JSObject = void; jsval = long int]’:
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:1875:42:   required from here
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:218:46: warning: left shift of negative value [-Wshift-negative-value]
+ #define INT_TO_JSVAL(i)         (((jsval)(i) << 1) | JSVAL_INT)
+                                  ~~~~~~~~~~~~^~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:242:22: note: in expansion of macro ‘INT_TO_JSVAL’
+ #define JSVAL_VOID   INT_TO_JSVAL(0 - JSVAL_INT_POW2(30))
+                      ^~~~~~~~~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:202:62: note: in expansion of macro ‘JSVAL_VOID’
+ #define JSVAL_IS_INT(v)         (((v) & JSVAL_INT) && (v) != JSVAL_VOID)
+                                                              ^~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:440:9: note: in expansion of macro ‘JSVAL_IS_INT’
+     if (JSVAL_IS_INT(id)) {
+         ^~~~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp: In instantiation of ‘static JSBool CoinVrmlJsMFHandler<MFFieldClass, SFFieldClass, desc>::get(JSContext*, JSObject*, jsval, jsval*) [with MFFieldClass = SoMFInt32; SFFieldClass = SoSFInt32; CoinVrmlJs::ClassDescriptor* desc = (& CoinVrmlJs::MFInt32); JSBool = int; JSContext = void; JSObject = void; jsval = long int]’:
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:1886:21:   required from here
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:218:46: warning: left shift of negative value [-Wshift-negative-value]
+ #define INT_TO_JSVAL(i)         (((jsval)(i) << 1) | JSVAL_INT)
+                                  ~~~~~~~~~~~~^~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:242:22: note: in expansion of macro ‘INT_TO_JSVAL’
+ #define JSVAL_VOID   INT_TO_JSVAL(0 - JSVAL_INT_POW2(30))
+                      ^~~~~~~~~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:202:62: note: in expansion of macro ‘JSVAL_VOID’
+ #define JSVAL_IS_INT(v)         (((v) & JSVAL_INT) && (v) != JSVAL_VOID)
+                                                              ^~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:416:9: note: in expansion of macro ‘JSVAL_IS_INT’
+     if (JSVAL_IS_INT(id)) {
+         ^~~~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp: In instantiation of ‘static JSBool CoinVrmlJsMFHandler<MFFieldClass, SFFieldClass, desc>::set(JSContext*, JSObject*, jsval, jsval*) [with MFFieldClass = SoMFInt32; SFFieldClass = SoSFInt32; CoinVrmlJs::ClassDescriptor* desc = (& CoinVrmlJs::MFInt32); JSBool = int; JSContext = void; JSObject = void; jsval = long int]’:
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:1886:42:   required from here
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:218:46: warning: left shift of negative value [-Wshift-negative-value]
+ #define INT_TO_JSVAL(i)         (((jsval)(i) << 1) | JSVAL_INT)
+                                  ~~~~~~~~~~~~^~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:242:22: note: in expansion of macro ‘INT_TO_JSVAL’
+ #define JSVAL_VOID   INT_TO_JSVAL(0 - JSVAL_INT_POW2(30))
+                      ^~~~~~~~~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:202:62: note: in expansion of macro ‘JSVAL_VOID’
+ #define JSVAL_IS_INT(v)         (((v) & JSVAL_INT) && (v) != JSVAL_VOID)
+                                                              ^~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:440:9: note: in expansion of macro ‘JSVAL_IS_INT’
+     if (JSVAL_IS_INT(id)) {
+         ^~~~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp: In instantiation of ‘static JSBool CoinVrmlJsMFHandler<MFFieldClass, SFFieldClass, desc>::get(JSContext*, JSObject*, jsval, jsval*) [with MFFieldClass = SoMFNode; SFFieldClass = SoSFNode; CoinVrmlJs::ClassDescriptor* desc = (& CoinVrmlJs::MFNode); JSBool = int; JSContext = void; JSObject = void; jsval = long int]’:
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:1897:20:   required from here
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:218:46: warning: left shift of negative value [-Wshift-negative-value]
+ #define INT_TO_JSVAL(i)         (((jsval)(i) << 1) | JSVAL_INT)
+                                  ~~~~~~~~~~~~^~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:242:22: note: in expansion of macro ‘INT_TO_JSVAL’
+ #define JSVAL_VOID   INT_TO_JSVAL(0 - JSVAL_INT_POW2(30))
+                      ^~~~~~~~~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:202:62: note: in expansion of macro ‘JSVAL_VOID’
+ #define JSVAL_IS_INT(v)         (((v) & JSVAL_INT) && (v) != JSVAL_VOID)
+                                                              ^~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:416:9: note: in expansion of macro ‘JSVAL_IS_INT’
+     if (JSVAL_IS_INT(id)) {
+         ^~~~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp: In instantiation of ‘static JSBool CoinVrmlJsMFHandler<MFFieldClass, SFFieldClass, desc>::set(JSContext*, JSObject*, jsval, jsval*) [with MFFieldClass = SoMFNode; SFFieldClass = SoSFNode; CoinVrmlJs::ClassDescriptor* desc = (& CoinVrmlJs::MFNode); JSBool = int; JSContext = void; JSObject = void; jsval = long int]’:
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:1897:40:   required from here
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:218:46: warning: left shift of negative value [-Wshift-negative-value]
+ #define INT_TO_JSVAL(i)         (((jsval)(i) << 1) | JSVAL_INT)
+                                  ~~~~~~~~~~~~^~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:242:22: note: in expansion of macro ‘INT_TO_JSVAL’
+ #define JSVAL_VOID   INT_TO_JSVAL(0 - JSVAL_INT_POW2(30))
+                      ^~~~~~~~~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:202:62: note: in expansion of macro ‘JSVAL_VOID’
+ #define JSVAL_IS_INT(v)         (((v) & JSVAL_INT) && (v) != JSVAL_VOID)
+                                                              ^~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:440:9: note: in expansion of macro ‘JSVAL_IS_INT’
+     if (JSVAL_IS_INT(id)) {
+         ^~~~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp: In instantiation of ‘static JSBool CoinVrmlJsMFHandler<MFFieldClass, SFFieldClass, desc>::get(JSContext*, JSObject*, jsval, jsval*) [with MFFieldClass = SoMFRotation; SFFieldClass = SoSFRotation; CoinVrmlJs::ClassDescriptor* desc = (& CoinVrmlJs::MFRotation); JSBool = int; JSContext = void; JSObject = void; jsval = long int]’:
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:1908:24:   required from here
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:218:46: warning: left shift of negative value [-Wshift-negative-value]
+ #define INT_TO_JSVAL(i)         (((jsval)(i) << 1) | JSVAL_INT)
+                                  ~~~~~~~~~~~~^~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:242:22: note: in expansion of macro ‘INT_TO_JSVAL’
+ #define JSVAL_VOID   INT_TO_JSVAL(0 - JSVAL_INT_POW2(30))
+                      ^~~~~~~~~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:202:62: note: in expansion of macro ‘JSVAL_VOID’
+ #define JSVAL_IS_INT(v)         (((v) & JSVAL_INT) && (v) != JSVAL_VOID)
+                                                              ^~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:416:9: note: in expansion of macro ‘JSVAL_IS_INT’
+     if (JSVAL_IS_INT(id)) {
+         ^~~~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp: In instantiation of ‘static JSBool CoinVrmlJsMFHandler<MFFieldClass, SFFieldClass, desc>::set(JSContext*, JSObject*, jsval, jsval*) [with MFFieldClass = SoMFRotation; SFFieldClass = SoSFRotation; CoinVrmlJs::ClassDescriptor* desc = (& CoinVrmlJs::MFRotation); JSBool = int; JSContext = void; JSObject = void; jsval = long int]’:
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:1908:48:   required from here
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:218:46: warning: left shift of negative value [-Wshift-negative-value]
+ #define INT_TO_JSVAL(i)         (((jsval)(i) << 1) | JSVAL_INT)
+                                  ~~~~~~~~~~~~^~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:242:22: note: in expansion of macro ‘INT_TO_JSVAL’
+ #define JSVAL_VOID   INT_TO_JSVAL(0 - JSVAL_INT_POW2(30))
+                      ^~~~~~~~~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:202:62: note: in expansion of macro ‘JSVAL_VOID’
+ #define JSVAL_IS_INT(v)         (((v) & JSVAL_INT) && (v) != JSVAL_VOID)
+                                                              ^~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:440:9: note: in expansion of macro ‘JSVAL_IS_INT’
+     if (JSVAL_IS_INT(id)) {
+         ^~~~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp: In instantiation of ‘static JSBool CoinVrmlJsMFHandler<MFFieldClass, SFFieldClass, desc>::get(JSContext*, JSObject*, jsval, jsval*) [with MFFieldClass = SoMFString; SFFieldClass = SoSFString; CoinVrmlJs::ClassDescriptor* desc = (& CoinVrmlJs::MFString); JSBool = int; JSContext = void; JSObject = void; jsval = long int]’:
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:1919:22:   required from here
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:218:46: warning: left shift of negative value [-Wshift-negative-value]
+ #define INT_TO_JSVAL(i)         (((jsval)(i) << 1) | JSVAL_INT)
+                                  ~~~~~~~~~~~~^~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:242:22: note: in expansion of macro ‘INT_TO_JSVAL’
+ #define JSVAL_VOID   INT_TO_JSVAL(0 - JSVAL_INT_POW2(30))
+                      ^~~~~~~~~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:202:62: note: in expansion of macro ‘JSVAL_VOID’
+ #define JSVAL_IS_INT(v)         (((v) & JSVAL_INT) && (v) != JSVAL_VOID)
+                                                              ^~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:416:9: note: in expansion of macro ‘JSVAL_IS_INT’
+     if (JSVAL_IS_INT(id)) {
+         ^~~~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp: In instantiation of ‘static JSBool CoinVrmlJsMFHandler<MFFieldClass, SFFieldClass, desc>::set(JSContext*, JSObject*, jsval, jsval*) [with MFFieldClass = SoMFString; SFFieldClass = SoSFString; CoinVrmlJs::ClassDescriptor* desc = (& CoinVrmlJs::MFString); JSBool = int; JSContext = void; JSObject = void; jsval = long int]’:
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:1919:44:   required from here
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:218:46: warning: left shift of negative value [-Wshift-negative-value]
+ #define INT_TO_JSVAL(i)         (((jsval)(i) << 1) | JSVAL_INT)
+                                  ~~~~~~~~~~~~^~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:242:22: note: in expansion of macro ‘INT_TO_JSVAL’
+ #define JSVAL_VOID   INT_TO_JSVAL(0 - JSVAL_INT_POW2(30))
+                      ^~~~~~~~~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:202:62: note: in expansion of macro ‘JSVAL_VOID’
+ #define JSVAL_IS_INT(v)         (((v) & JSVAL_INT) && (v) != JSVAL_VOID)
+                                                              ^~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:440:9: note: in expansion of macro ‘JSVAL_IS_INT’
+     if (JSVAL_IS_INT(id)) {
+         ^~~~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp: In instantiation of ‘static JSBool CoinVrmlJsMFHandler<MFFieldClass, SFFieldClass, desc>::get(JSContext*, JSObject*, jsval, jsval*) [with MFFieldClass = SoMFTime; SFFieldClass = SoSFTime; CoinVrmlJs::ClassDescriptor* desc = (& CoinVrmlJs::MFTime); JSBool = int; JSContext = void; JSObject = void; jsval = long int]’:
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:1930:20:   required from here
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:218:46: warning: left shift of negative value [-Wshift-negative-value]
+ #define INT_TO_JSVAL(i)         (((jsval)(i) << 1) | JSVAL_INT)
+                                  ~~~~~~~~~~~~^~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:242:22: note: in expansion of macro ‘INT_TO_JSVAL’
+ #define JSVAL_VOID   INT_TO_JSVAL(0 - JSVAL_INT_POW2(30))
+                      ^~~~~~~~~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:202:62: note: in expansion of macro ‘JSVAL_VOID’
+ #define JSVAL_IS_INT(v)         (((v) & JSVAL_INT) && (v) != JSVAL_VOID)
+                                                              ^~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:416:9: note: in expansion of macro ‘JSVAL_IS_INT’
+     if (JSVAL_IS_INT(id)) {
+         ^~~~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp: In instantiation of ‘static JSBool CoinVrmlJsMFHandler<MFFieldClass, SFFieldClass, desc>::set(JSContext*, JSObject*, jsval, jsval*) [with MFFieldClass = SoMFTime; SFFieldClass = SoSFTime; CoinVrmlJs::ClassDescriptor* desc = (& CoinVrmlJs::MFTime); JSBool = int; JSContext = void; JSObject = void; jsval = long int]’:
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:1930:40:   required from here
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:218:46: warning: left shift of negative value [-Wshift-negative-value]
+ #define INT_TO_JSVAL(i)         (((jsval)(i) << 1) | JSVAL_INT)
+                                  ~~~~~~~~~~~~^~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:242:22: note: in expansion of macro ‘INT_TO_JSVAL’
+ #define JSVAL_VOID   INT_TO_JSVAL(0 - JSVAL_INT_POW2(30))
+                      ^~~~~~~~~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:202:62: note: in expansion of macro ‘JSVAL_VOID’
+ #define JSVAL_IS_INT(v)         (((v) & JSVAL_INT) && (v) != JSVAL_VOID)
+                                                              ^~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:440:9: note: in expansion of macro ‘JSVAL_IS_INT’
+     if (JSVAL_IS_INT(id)) {
+         ^~~~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp: In instantiation of ‘static JSBool CoinVrmlJsMFHandler<MFFieldClass, SFFieldClass, desc>::get(JSContext*, JSObject*, jsval, jsval*) [with MFFieldClass = SoMFVec2f; SFFieldClass = SoSFVec2f; CoinVrmlJs::ClassDescriptor* desc = (& CoinVrmlJs::MFVec2f); JSBool = int; JSContext = void; JSObject = void; jsval = long int]’:
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:1941:21:   required from here
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:218:46: warning: left shift of negative value [-Wshift-negative-value]
+ #define INT_TO_JSVAL(i)         (((jsval)(i) << 1) | JSVAL_INT)
+                                  ~~~~~~~~~~~~^~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:242:22: note: in expansion of macro ‘INT_TO_JSVAL’
+ #define JSVAL_VOID   INT_TO_JSVAL(0 - JSVAL_INT_POW2(30))
+                      ^~~~~~~~~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:202:62: note: in expansion of macro ‘JSVAL_VOID’
+ #define JSVAL_IS_INT(v)         (((v) & JSVAL_INT) && (v) != JSVAL_VOID)
+                                                              ^~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:416:9: note: in expansion of macro ‘JSVAL_IS_INT’
+     if (JSVAL_IS_INT(id)) {
+         ^~~~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp: In instantiation of ‘static JSBool CoinVrmlJsMFHandler<MFFieldClass, SFFieldClass, desc>::set(JSContext*, JSObject*, jsval, jsval*) [with MFFieldClass = SoMFVec2f; SFFieldClass = SoSFVec2f; CoinVrmlJs::ClassDescriptor* desc = (& CoinVrmlJs::MFVec2f); JSBool = int; JSContext = void; JSObject = void; jsval = long int]’:
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:1941:42:   required from here
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:218:46: warning: left shift of negative value [-Wshift-negative-value]
+ #define INT_TO_JSVAL(i)         (((jsval)(i) << 1) | JSVAL_INT)
+                                  ~~~~~~~~~~~~^~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:242:22: note: in expansion of macro ‘INT_TO_JSVAL’
+ #define JSVAL_VOID   INT_TO_JSVAL(0 - JSVAL_INT_POW2(30))
+                      ^~~~~~~~~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:202:62: note: in expansion of macro ‘JSVAL_VOID’
+ #define JSVAL_IS_INT(v)         (((v) & JSVAL_INT) && (v) != JSVAL_VOID)
+                                                              ^~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:440:9: note: in expansion of macro ‘JSVAL_IS_INT’
+     if (JSVAL_IS_INT(id)) {
+         ^~~~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp: In instantiation of ‘static JSBool CoinVrmlJsMFHandler<MFFieldClass, SFFieldClass, desc>::get(JSContext*, JSObject*, jsval, jsval*) [with MFFieldClass = SoMFVec3f; SFFieldClass = SoSFVec3f; CoinVrmlJs::ClassDescriptor* desc = (& CoinVrmlJs::MFVec3f); JSBool = int; JSContext = void; JSObject = void; jsval = long int]’:
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:1952:21:   required from here
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:218:46: warning: left shift of negative value [-Wshift-negative-value]
+ #define INT_TO_JSVAL(i)         (((jsval)(i) << 1) | JSVAL_INT)
+                                  ~~~~~~~~~~~~^~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:242:22: note: in expansion of macro ‘INT_TO_JSVAL’
+ #define JSVAL_VOID   INT_TO_JSVAL(0 - JSVAL_INT_POW2(30))
+                      ^~~~~~~~~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:202:62: note: in expansion of macro ‘JSVAL_VOID’
+ #define JSVAL_IS_INT(v)         (((v) & JSVAL_INT) && (v) != JSVAL_VOID)
+                                                              ^~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:416:9: note: in expansion of macro ‘JSVAL_IS_INT’
+     if (JSVAL_IS_INT(id)) {
+         ^~~~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp: In instantiation of ‘static JSBool CoinVrmlJsMFHandler<MFFieldClass, SFFieldClass, desc>::set(JSContext*, JSObject*, jsval, jsval*) [with MFFieldClass = SoMFVec3f; SFFieldClass = SoSFVec3f; CoinVrmlJs::ClassDescriptor* desc = (& CoinVrmlJs::MFVec3f); JSBool = int; JSContext = void; JSObject = void; jsval = long int]’:
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:1952:42:   required from here
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:218:46: warning: left shift of negative value [-Wshift-negative-value]
+ #define INT_TO_JSVAL(i)         (((jsval)(i) << 1) | JSVAL_INT)
+                                  ~~~~~~~~~~~~^~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:242:22: note: in expansion of macro ‘INT_TO_JSVAL’
+ #define JSVAL_VOID   INT_TO_JSVAL(0 - JSVAL_INT_POW2(30))
+                      ^~~~~~~~~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:202:62: note: in expansion of macro ‘JSVAL_VOID’
+ #define JSVAL_IS_INT(v)         (((v) & JSVAL_INT) && (v) != JSVAL_VOID)
+                                                              ^~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:440:9: note: in expansion of macro ‘JSVAL_IS_INT’
+     if (JSVAL_IS_INT(id)) {
+         ^~~~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp: In instantiation of ‘static JSBool CoinVrmlJsMFHandler<MFFieldClass, SFFieldClass, desc>::get(JSContext*, JSObject*, jsval, jsval*) [with MFFieldClass = SoMFVec3d; SFFieldClass = SoSFVec3d; CoinVrmlJs::ClassDescriptor* desc = (& CoinVrmlJs::MFVec3d); JSBool = int; JSContext = void; JSObject = void; jsval = long int]’:
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:1963:21:   required from here
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:218:46: warning: left shift of negative value [-Wshift-negative-value]
+ #define INT_TO_JSVAL(i)         (((jsval)(i) << 1) | JSVAL_INT)
+                                  ~~~~~~~~~~~~^~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:242:22: note: in expansion of macro ‘INT_TO_JSVAL’
+ #define JSVAL_VOID   INT_TO_JSVAL(0 - JSVAL_INT_POW2(30))
+                      ^~~~~~~~~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:202:62: note: in expansion of macro ‘JSVAL_VOID’
+ #define JSVAL_IS_INT(v)         (((v) & JSVAL_INT) && (v) != JSVAL_VOID)
+                                                              ^~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:416:9: note: in expansion of macro ‘JSVAL_IS_INT’
+     if (JSVAL_IS_INT(id)) {
+         ^~~~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp: In instantiation of ‘static JSBool CoinVrmlJsMFHandler<MFFieldClass, SFFieldClass, desc>::set(JSContext*, JSObject*, jsval, jsval*) [with MFFieldClass = SoMFVec3d; SFFieldClass = SoSFVec3d; CoinVrmlJs::ClassDescriptor* desc = (& CoinVrmlJs::MFVec3d); JSBool = int; JSContext = void; JSObject = void; jsval = long int]’:
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:1963:42:   required from here
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:218:46: warning: left shift of negative value [-Wshift-negative-value]
+ #define INT_TO_JSVAL(i)         (((jsval)(i) << 1) | JSVAL_INT)
+                                  ~~~~~~~~~~~~^~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:242:22: note: in expansion of macro ‘INT_TO_JSVAL’
+ #define JSVAL_VOID   INT_TO_JSVAL(0 - JSVAL_INT_POW2(30))
+                      ^~~~~~~~~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:202:62: note: in expansion of macro ‘JSVAL_VOID’
+ #define JSVAL_IS_INT(v)         (((v) & JSVAL_INT) && (v) != JSVAL_VOID)
+                                                              ^~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:440:9: note: in expansion of macro ‘JSVAL_IS_INT’
+     if (JSVAL_IS_INT(id)) {
+         ^~~~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp: In instantiation of ‘static void CoinVrmlJsMFHandler<MFFieldClass, SFFieldClass, desc>::resize(JSContext*, JSObject*, uint32_t) [with MFFieldClass = SoMFColor; SFFieldClass = SoSFColor; CoinVrmlJs::ClassDescriptor* desc = (& CoinVrmlJs::MFColor); JSContext = void; JSObject = void; uint32_t = unsigned int]’:
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:453:15:   required from ‘static JSBool CoinVrmlJsMFHandler<MFFieldClass, SFFieldClass, desc>::set(JSContext*, JSObject*, jsval, jsval*) [with MFFieldClass = SoMFColor; SFFieldClass = SoSFColor; CoinVrmlJs::ClassDescriptor* desc = (& CoinVrmlJs::MFColor); JSBool = int; JSContext = void; JSObject = void; jsval = long int]’
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:1864:42:   required from here
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:218:46: warning: left shift of negative value [-Wshift-negative-value]
+ #define INT_TO_JSVAL(i)         (((jsval)(i) << 1) | JSVAL_INT)
+                                  ~~~~~~~~~~~~^~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:242:22: note: in expansion of macro ‘INT_TO_JSVAL’
+ #define JSVAL_VOID   INT_TO_JSVAL(0 - JSVAL_INT_POW2(30))
+                      ^~~~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:365:17: note: in expansion of macro ‘JSVAL_VOID’
+           val = JSVAL_VOID;
+                 ^~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp: In instantiation of ‘static void CoinVrmlJsMFHandler<MFFieldClass, SFFieldClass, desc>::resize(JSContext*, JSObject*, uint32_t) [with MFFieldClass = SoMFFloat; SFFieldClass = SoSFFloat; CoinVrmlJs::ClassDescriptor* desc = (& CoinVrmlJs::MFFloat); JSContext = void; JSObject = void; uint32_t = unsigned int]’:
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:453:15:   required from ‘static JSBool CoinVrmlJsMFHandler<MFFieldClass, SFFieldClass, desc>::set(JSContext*, JSObject*, jsval, jsval*) [with MFFieldClass = SoMFFloat; SFFieldClass = SoSFFloat; CoinVrmlJs::ClassDescriptor* desc = (& CoinVrmlJs::MFFloat); JSBool = int; JSContext = void; JSObject = void; jsval = long int]’
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:1875:42:   required from here
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:218:46: warning: left shift of negative value [-Wshift-negative-value]
+ #define INT_TO_JSVAL(i)         (((jsval)(i) << 1) | JSVAL_INT)
+                                  ~~~~~~~~~~~~^~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:242:22: note: in expansion of macro ‘INT_TO_JSVAL’
+ #define JSVAL_VOID   INT_TO_JSVAL(0 - JSVAL_INT_POW2(30))
+                      ^~~~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:365:17: note: in expansion of macro ‘JSVAL_VOID’
+           val = JSVAL_VOID;
+                 ^~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp: In instantiation of ‘static void CoinVrmlJsMFHandler<MFFieldClass, SFFieldClass, desc>::resize(JSContext*, JSObject*, uint32_t) [with MFFieldClass = SoMFInt32; SFFieldClass = SoSFInt32; CoinVrmlJs::ClassDescriptor* desc = (& CoinVrmlJs::MFInt32); JSContext = void; JSObject = void; uint32_t = unsigned int]’:
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:453:15:   required from ‘static JSBool CoinVrmlJsMFHandler<MFFieldClass, SFFieldClass, desc>::set(JSContext*, JSObject*, jsval, jsval*) [with MFFieldClass = SoMFInt32; SFFieldClass = SoSFInt32; CoinVrmlJs::ClassDescriptor* desc = (& CoinVrmlJs::MFInt32); JSBool = int; JSContext = void; JSObject = void; jsval = long int]’
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:1886:42:   required from here
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:218:46: warning: left shift of negative value [-Wshift-negative-value]
+ #define INT_TO_JSVAL(i)         (((jsval)(i) << 1) | JSVAL_INT)
+                                  ~~~~~~~~~~~~^~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:242:22: note: in expansion of macro ‘INT_TO_JSVAL’
+ #define JSVAL_VOID   INT_TO_JSVAL(0 - JSVAL_INT_POW2(30))
+                      ^~~~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:365:17: note: in expansion of macro ‘JSVAL_VOID’
+           val = JSVAL_VOID;
+                 ^~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp: In instantiation of ‘static void CoinVrmlJsMFHandler<MFFieldClass, SFFieldClass, desc>::resize(JSContext*, JSObject*, uint32_t) [with MFFieldClass = SoMFNode; SFFieldClass = SoSFNode; CoinVrmlJs::ClassDescriptor* desc = (& CoinVrmlJs::MFNode); JSContext = void; JSObject = void; uint32_t = unsigned int]’:
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:453:15:   required from ‘static JSBool CoinVrmlJsMFHandler<MFFieldClass, SFFieldClass, desc>::set(JSContext*, JSObject*, jsval, jsval*) [with MFFieldClass = SoMFNode; SFFieldClass = SoSFNode; CoinVrmlJs::ClassDescriptor* desc = (& CoinVrmlJs::MFNode); JSBool = int; JSContext = void; JSObject = void; jsval = long int]’
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:1897:40:   required from here
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:218:46: warning: left shift of negative value [-Wshift-negative-value]
+ #define INT_TO_JSVAL(i)         (((jsval)(i) << 1) | JSVAL_INT)
+                                  ~~~~~~~~~~~~^~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:242:22: note: in expansion of macro ‘INT_TO_JSVAL’
+ #define JSVAL_VOID   INT_TO_JSVAL(0 - JSVAL_INT_POW2(30))
+                      ^~~~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:365:17: note: in expansion of macro ‘JSVAL_VOID’
+           val = JSVAL_VOID;
+                 ^~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp: In instantiation of ‘static void CoinVrmlJsMFHandler<MFFieldClass, SFFieldClass, desc>::resize(JSContext*, JSObject*, uint32_t) [with MFFieldClass = SoMFRotation; SFFieldClass = SoSFRotation; CoinVrmlJs::ClassDescriptor* desc = (& CoinVrmlJs::MFRotation); JSContext = void; JSObject = void; uint32_t = unsigned int]’:
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:453:15:   required from ‘static JSBool CoinVrmlJsMFHandler<MFFieldClass, SFFieldClass, desc>::set(JSContext*, JSObject*, jsval, jsval*) [with MFFieldClass = SoMFRotation; SFFieldClass = SoSFRotation; CoinVrmlJs::ClassDescriptor* desc = (& CoinVrmlJs::MFRotation); JSBool = int; JSContext = void; JSObject = void; jsval = long int]’
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:1908:48:   required from here
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:218:46: warning: left shift of negative value [-Wshift-negative-value]
+ #define INT_TO_JSVAL(i)         (((jsval)(i) << 1) | JSVAL_INT)
+                                  ~~~~~~~~~~~~^~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:242:22: note: in expansion of macro ‘INT_TO_JSVAL’
+ #define JSVAL_VOID   INT_TO_JSVAL(0 - JSVAL_INT_POW2(30))
+                      ^~~~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:365:17: note: in expansion of macro ‘JSVAL_VOID’
+           val = JSVAL_VOID;
+                 ^~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp: In instantiation of ‘static void CoinVrmlJsMFHandler<MFFieldClass, SFFieldClass, desc>::resize(JSContext*, JSObject*, uint32_t) [with MFFieldClass = SoMFString; SFFieldClass = SoSFString; CoinVrmlJs::ClassDescriptor* desc = (& CoinVrmlJs::MFString); JSContext = void; JSObject = void; uint32_t = unsigned int]’:
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:453:15:   required from ‘static JSBool CoinVrmlJsMFHandler<MFFieldClass, SFFieldClass, desc>::set(JSContext*, JSObject*, jsval, jsval*) [with MFFieldClass = SoMFString; SFFieldClass = SoSFString; CoinVrmlJs::ClassDescriptor* desc = (& CoinVrmlJs::MFString); JSBool = int; JSContext = void; JSObject = void; jsval = long int]’
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:1919:44:   required from here
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:218:46: warning: left shift of negative value [-Wshift-negative-value]
+ #define INT_TO_JSVAL(i)         (((jsval)(i) << 1) | JSVAL_INT)
+                                  ~~~~~~~~~~~~^~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:242:22: note: in expansion of macro ‘INT_TO_JSVAL’
+ #define JSVAL_VOID   INT_TO_JSVAL(0 - JSVAL_INT_POW2(30))
+                      ^~~~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:365:17: note: in expansion of macro ‘JSVAL_VOID’
+           val = JSVAL_VOID;
+                 ^~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp: In instantiation of ‘static void CoinVrmlJsMFHandler<MFFieldClass, SFFieldClass, desc>::resize(JSContext*, JSObject*, uint32_t) [with MFFieldClass = SoMFTime; SFFieldClass = SoSFTime; CoinVrmlJs::ClassDescriptor* desc = (& CoinVrmlJs::MFTime); JSContext = void; JSObject = void; uint32_t = unsigned int]’:
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:453:15:   required from ‘static JSBool CoinVrmlJsMFHandler<MFFieldClass, SFFieldClass, desc>::set(JSContext*, JSObject*, jsval, jsval*) [with MFFieldClass = SoMFTime; SFFieldClass = SoSFTime; CoinVrmlJs::ClassDescriptor* desc = (& CoinVrmlJs::MFTime); JSBool = int; JSContext = void; JSObject = void; jsval = long int]’
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:1930:40:   required from here
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:218:46: warning: left shift of negative value [-Wshift-negative-value]
+ #define INT_TO_JSVAL(i)         (((jsval)(i) << 1) | JSVAL_INT)
+                                  ~~~~~~~~~~~~^~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:242:22: note: in expansion of macro ‘INT_TO_JSVAL’
+ #define JSVAL_VOID   INT_TO_JSVAL(0 - JSVAL_INT_POW2(30))
+                      ^~~~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:365:17: note: in expansion of macro ‘JSVAL_VOID’
+           val = JSVAL_VOID;
+                 ^~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp: In instantiation of ‘static void CoinVrmlJsMFHandler<MFFieldClass, SFFieldClass, desc>::resize(JSContext*, JSObject*, uint32_t) [with MFFieldClass = SoMFVec2f; SFFieldClass = SoSFVec2f; CoinVrmlJs::ClassDescriptor* desc = (& CoinVrmlJs::MFVec2f); JSContext = void; JSObject = void; uint32_t = unsigned int]’:
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:453:15:   required from ‘static JSBool CoinVrmlJsMFHandler<MFFieldClass, SFFieldClass, desc>::set(JSContext*, JSObject*, jsval, jsval*) [with MFFieldClass = SoMFVec2f; SFFieldClass = SoSFVec2f; CoinVrmlJs::ClassDescriptor* desc = (& CoinVrmlJs::MFVec2f); JSBool = int; JSContext = void; JSObject = void; jsval = long int]’
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:1941:42:   required from here
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:218:46: warning: left shift of negative value [-Wshift-negative-value]
+ #define INT_TO_JSVAL(i)         (((jsval)(i) << 1) | JSVAL_INT)
+                                  ~~~~~~~~~~~~^~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:242:22: note: in expansion of macro ‘INT_TO_JSVAL’
+ #define JSVAL_VOID   INT_TO_JSVAL(0 - JSVAL_INT_POW2(30))
+                      ^~~~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:365:17: note: in expansion of macro ‘JSVAL_VOID’
+           val = JSVAL_VOID;
+                 ^~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp: In instantiation of ‘static void CoinVrmlJsMFHandler<MFFieldClass, SFFieldClass, desc>::resize(JSContext*, JSObject*, uint32_t) [with MFFieldClass = SoMFVec3f; SFFieldClass = SoSFVec3f; CoinVrmlJs::ClassDescriptor* desc = (& CoinVrmlJs::MFVec3f); JSContext = void; JSObject = void; uint32_t = unsigned int]’:
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:453:15:   required from ‘static JSBool CoinVrmlJsMFHandler<MFFieldClass, SFFieldClass, desc>::set(JSContext*, JSObject*, jsval, jsval*) [with MFFieldClass = SoMFVec3f; SFFieldClass = SoSFVec3f; CoinVrmlJs::ClassDescriptor* desc = (& CoinVrmlJs::MFVec3f); JSBool = int; JSContext = void; JSObject = void; jsval = long int]’
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:1952:42:   required from here
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:218:46: warning: left shift of negative value [-Wshift-negative-value]
+ #define INT_TO_JSVAL(i)         (((jsval)(i) << 1) | JSVAL_INT)
+                                  ~~~~~~~~~~~~^~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:242:22: note: in expansion of macro ‘INT_TO_JSVAL’
+ #define JSVAL_VOID   INT_TO_JSVAL(0 - JSVAL_INT_POW2(30))
+                      ^~~~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:365:17: note: in expansion of macro ‘JSVAL_VOID’
+           val = JSVAL_VOID;
+                 ^~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp: In instantiation of ‘static void CoinVrmlJsMFHandler<MFFieldClass, SFFieldClass, desc>::resize(JSContext*, JSObject*, uint32_t) [with MFFieldClass = SoMFVec3d; SFFieldClass = SoSFVec3d; CoinVrmlJs::ClassDescriptor* desc = (& CoinVrmlJs::MFVec3d); JSContext = void; JSObject = void; uint32_t = unsigned int]’:
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:453:15:   required from ‘static JSBool CoinVrmlJsMFHandler<MFFieldClass, SFFieldClass, desc>::set(JSContext*, JSObject*, jsval, jsval*) [with MFFieldClass = SoMFVec3d; SFFieldClass = SoSFVec3d; CoinVrmlJs::ClassDescriptor* desc = (& CoinVrmlJs::MFVec3d); JSBool = int; JSContext = void; JSObject = void; jsval = long int]’
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:1963:42:   required from here
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:218:46: warning: left shift of negative value [-Wshift-negative-value]
+ #define INT_TO_JSVAL(i)         (((jsval)(i) << 1) | JSVAL_INT)
+                                  ~~~~~~~~~~~~^~~~~
+../../../coin4/include/Inventor/C/glue/spidermonkey.h:242:22: note: in expansion of macro ‘INT_TO_JSVAL’
+ #define JSVAL_VOID   INT_TO_JSVAL(0 - JSVAL_INT_POW2(30))
+                      ^~~~~~~~~~~~
+../../../coin4/src/vrml97/JS_VRMLClasses.cpp:365:17: note: in expansion of macro ‘JSVAL_VOID’
+           val = JSVAL_VOID;
+                 ^~~~~~~~~~
+ar: `u' modifier ignored since `D' is the default (see `U')
+ar: `u' modifier ignored since `D' is the default (see `U')
+ar: `u' modifier ignored since `D' is the default (see `U')
+ar: `u' modifier ignored since `D' is the default (see `U')

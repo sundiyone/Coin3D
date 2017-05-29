@@ -1,0 +1,84 @@
+.TH "SbSpherePlaneProjector" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SbSpherePlaneProjector \- The \fBSbSpherePlaneProjector\fP class projects 2D points to a half-sphere and a plane\&.
+.PP
+This projector uses a plane along with the half-sphere of \fBSbSphereSectionProjector\fP for projections\&. If the 2D point mapping 'misses' the sphere section, the 3D point will be projected onto the plane\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/projectors/SbSpherePlaneProjector\&.h>\fP
+.PP
+Inherits \fBSbSphereSectionProjector\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSbSpherePlaneProjector\fP (const float edgetol=0\&.9f, const SbBool orienttoeye=TRUE)"
+.br
+.ti -1c
+.RI "\fBSbSpherePlaneProjector\fP (const \fBSbSphere\fP &sph, const float edgetol=0\&.9f, const SbBool orienttoeye=TRUE)"
+.br
+.ti -1c
+.RI "virtual \fBSbProjector\fP * \fBcopy\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fBSbVec3f\fP \fBproject\fP (const \fBSbVec2f\fP &point)"
+.br
+.ti -1c
+.RI "virtual \fBSbRotation\fP \fBgetRotation\fP (const \fBSbVec3f\fP &point1, const \fBSbVec3f\fP &point2)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSbRotation\fP \fBgetRotation\fP (const \fBSbVec3f\fP &point1, const SbBool tol1, const \fBSbVec3f\fP &point2, const SbBool tol2)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSbSpherePlaneProjector\fP class projects 2D points to a half-sphere and a plane\&.
+.PP
+This projector uses a plane along with the half-sphere of \fBSbSphereSectionProjector\fP for projections\&. If the 2D point mapping 'misses' the sphere section, the 3D point will be projected onto the plane\&. 
+
+
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSbCylinderPlaneProjector\fP 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SbSpherePlaneProjector::SbSpherePlaneProjector (const float edgetol = \fC0\&.9f\fP, const SbBool orienttoeye = \fCTRUE\fP)"
+Default constructor\&. See \fBSbSphereSectionProjector::SbSphereSectionProjector()\fP\&. 
+.SS "SbSpherePlaneProjector::SbSpherePlaneProjector (const \fBSbSphere\fP & sph, const float edgetol = \fC0\&.9f\fP, const SbBool orienttoeye = \fCTRUE\fP)"
+Constructor with explicit specification of projection sphere\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSbProjector\fP * SbSpherePlaneProjector::copy (void) const\fC [virtual]\fP"
+Construct and return a copy of this projector\&. The caller is responsible for destructing the new instance\&.
+.PP
+\fBNote that if the Coin library has been built as a DLL under Microsoft Windows and you use this method from application code, you \fImust\fP make sure that both the Coin DLL and the application executable is using the same instance of a C Run-Time (CRT) library\&. Otherwise, you \fIwill\fP get memory heap corruption upon deallocating the returned instances, eventually leading to mysterious crashes\&.\fP 
+.PP
+Reimplemented from \fBSbSphereSectionProjector\fP\&.
+.SS "\fBSbVec3f\fP SbSpherePlaneProjector::project (const \fBSbVec2f\fP & point)\fC [virtual]\fP"
+Project the 2D \fIpoint\fP from normalized viewport coordinates to a 3D point\&. The mapping will be done in accordance with the type of the projector\&. 
+.PP
+Reimplemented from \fBSbSphereSectionProjector\fP\&.
+.SS "\fBSbRotation\fP SbSpherePlaneProjector::getRotation (const \fBSbVec3f\fP & point1, const \fBSbVec3f\fP & point2)\fC [virtual]\fP"
+Returns rotation on the projection surface which re-orients \fIpoint1\fP to \fIpoint2\fP\&. 
+.PP
+Reimplemented from \fBSbSphereSectionProjector\fP\&.
+.SS "\fBSbRotation\fP SbSpherePlaneProjector::getRotation (const \fBSbVec3f\fP & point1, const SbBool tol1, const \fBSbVec3f\fP & point2, const SbBool tol2)\fC [protected]\fP"
+Calculates rotation from \fIpoint1\fP to \fIpoint2\fP, with \fItol1\fP and \fItol2\fP deciding whether or not to use the tolerance setting\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

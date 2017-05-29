@@ -1,0 +1,42 @@
+.TH "thread.h" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+thread.h
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <Inventor/C/basic\&.h>\fP
+.br
+\fC#include <Inventor/C/threads/common\&.h>\fP
+.br
+
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef void * \fBcc_thread_f\fP(void *)"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBcc_thread\fP * \fBcc_thread_construct\fP (cc_thread_f *func, void *closure)"
+.br
+.ti -1c
+.RI "void \fBcc_thread_destruct\fP (\fBcc_thread\fP *thread)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBcc_thread_join\fP (\fBcc_thread\fP *thread, void **retvalptr)"
+.br
+.ti -1c
+.RI "unsigned long \fBcc_thread_id\fP (void)"
+.br
+.ti -1c
+.RI "void \fBcc_sleep\fP (float seconds)"
+.br
+.in -1c
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

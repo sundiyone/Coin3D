@@ -1,0 +1,98 @@
+.TH "common.h" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+common.h
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <Inventor/C/basic\&.h>\fP
+.br
+
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef struct cc_sched \fBcc_sched\fP"
+.br
+.RI "The type definition for the thread schduler structure\&. "
+.ti -1c
+.RI "typedef struct cc_wpool \fBcc_wpool\fP"
+.br
+.RI "The type definition for a worker pool structure\&. "
+.ti -1c
+.RI "typedef struct cc_worker \fBcc_worker\fP"
+.br
+.RI "The type definition for the worker thread structure\&. "
+.ti -1c
+.RI "typedef struct cc_thread \fBcc_thread\fP"
+.br
+.RI "The type definition for the thread structure\&. "
+.ti -1c
+.RI "typedef struct cc_mutex \fBcc_mutex\fP"
+.br
+.RI "The type definition for the mutex structure\&. "
+.ti -1c
+.RI "typedef struct cc_rwmutex \fBcc_rwmutex\fP"
+.br
+.RI "The type definition for the read-write mutex structure\&. "
+.ti -1c
+.RI "typedef struct cc_condvar \fBcc_condvar\fP"
+.br
+.RI "The type definition for the conditional variable structure\&. "
+.ti -1c
+.RI "typedef struct cc_storage \fBcc_storage\fP"
+.br
+.RI "The type definition for the thread local memory storage structure\&. "
+.ti -1c
+.RI "typedef struct cc_fifo \fBcc_fifo\fP"
+.br
+.RI "The type definition for the first-in, first-out queue structure\&. "
+.ti -1c
+.RI "typedef struct cc_barrier \fBcc_barrier\fP"
+.br
+.RI "The type definition for the thread barrier structure\&. "
+.ti -1c
+.RI "typedef struct cc_recmutex \fBcc_recmutex\fP"
+.br
+.RI "The type definition for the recursive mutex structure\&. "
+.ti -1c
+.RI "typedef enum \fBcc_precedence\fP \fBcc_precedence\fP"
+.br
+.ti -1c
+.RI "typedef enum \fBcc_threads_implementation\fP \fBcc_threads_implementation\fP"
+.br
+.ti -1c
+.RI "typedef enum \fBcc_retval\fP \fBcc_retval\fP"
+.br
+.in -1c
+.SS "Enumerations"
+
+.in +1c
+.ti -1c
+.RI "enum \fBcc_precedence\fP { \fBCC_READ_PRECEDENCE\fP, \fBCC_WRITE_PRECEDENCE\fP }
+.RI "The precedence values for the read-write mutex\&. ""
+.br
+.ti -1c
+.RI "enum \fBcc_threads_implementation\fP { \fBCC_NO_THREADS\fP = -1, \fBCC_PTHREAD\fP = 0, \fBCC_W32THREAD\fP }
+.RI "The definition of the enumerator for identification of the thread type implemented\&. ""
+.br
+.ti -1c
+.RI "enum \fBcc_retval\fP { \fBCC_ERROR\fP = 0, \fBCC_OK\fP = 1, \fBCC_TIMEOUT\fP, \fBCC_BUSY\fP }
+.RI "The enumerator for return values of thread related functions\&. ""
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBint\fP \fBcc_thread_implementation\fP (void)"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "\fBint\fP cc_thread_implementation (void)"
+Returns the implemented thread type\&. 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

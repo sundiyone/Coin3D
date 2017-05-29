@@ -1,0 +1,244 @@
+.TH "SbColor4f" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SbColor4f \- The \fBSbColor4f\fP class contains the red, green, blue and alpha components which make up a color value\&.
+.PP
+This class is used internally within other classes in Coin\&. It contains a 4 component vector as a position in the RGB cube with an additional transparency value\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/SbColor4f\&.h>\fP
+.PP
+Inherits \fBSbVec4f\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSbColor4f\fP (void)"
+.br
+.ti -1c
+.RI "\fBSbColor4f\fP (const \fBSbColor\fP &rgb, const float alpha=1\&.0f)"
+.br
+.ti -1c
+.RI "\fBSbColor4f\fP (const \fBSbVec4f\fP &v)"
+.br
+.ti -1c
+.RI "\fBSbColor4f\fP (const float *const rgba)"
+.br
+.ti -1c
+.RI "\fBSbColor4f\fP (const float r, const float g, const float b, const float a=1\&.0f)"
+.br
+.ti -1c
+.RI "void \fBsetValue\fP (const float r, const float g, const float b, const float a=1\&.0f)"
+.br
+.ti -1c
+.RI "void \fBsetValue\fP (const float col[4])"
+.br
+.ti -1c
+.RI "const float * \fBgetValue\fP () const"
+.br
+.ti -1c
+.RI "void \fBgetValue\fP (float &r, float &g, float &b, float &a)"
+.br
+.ti -1c
+.RI "\fBSbColor4f\fP & \fBsetRGB\fP (const \fBSbColor\fP &col)"
+.br
+.ti -1c
+.RI "void \fBgetRGB\fP (\fBSbColor\fP &color)"
+.br
+.ti -1c
+.RI "\fBSbColor4f\fP & \fBsetHSVValue\fP (float h, float s, float v, float a=1\&.0f)"
+.br
+.ti -1c
+.RI "\fBSbColor4f\fP & \fBsetHSVValue\fP (const float hsv[3], float alpha=1\&.0f)"
+.br
+.ti -1c
+.RI "void \fBgetHSVValue\fP (float &h, float &s, float &v) const"
+.br
+.ti -1c
+.RI "void \fBgetHSVValue\fP (float hsv[3]) const"
+.br
+.ti -1c
+.RI "\fBSbColor4f\fP & \fBsetPackedValue\fP (const uint32_t rgba)"
+.br
+.ti -1c
+.RI "uint32_t \fBgetPackedValue\fP () const"
+.br
+.ti -1c
+.RI "float \fBoperator[]\fP (const \fBint\fP idx) const"
+.br
+.ti -1c
+.RI "float & \fBoperator[]\fP (const \fBint\fP idx)"
+.br
+.ti -1c
+.RI "\fBSbColor4f\fP & \fBoperator*=\fP (const float d)"
+.br
+.ti -1c
+.RI "\fBSbColor4f\fP & \fBoperator/=\fP (const float d)"
+.br
+.ti -1c
+.RI "\fBSbColor4f\fP & \fBoperator+=\fP (const \fBSbColor4f\fP &c)"
+.br
+.ti -1c
+.RI "\fBSbColor4f\fP & \fBoperator\-=\fP (const \fBSbColor4f\fP &c)"
+.br
+.in -1c
+.SS "Friends"
+
+.in +1c
+.ti -1c
+.RI "\fBSbColor4f\fP \fBoperator*\fP (const \fBSbColor4f\fP &c, const float d)"
+.br
+.ti -1c
+.RI "\fBSbColor4f\fP \fBoperator*\fP (const float d, const \fBSbColor4f\fP &c)"
+.br
+.ti -1c
+.RI "\fBSbColor4f\fP \fBoperator/\fP (const \fBSbColor4f\fP &c, const float d)"
+.br
+.ti -1c
+.RI "\fBSbColor4f\fP \fBoperator+\fP (const \fBSbColor4f\fP &v1, const \fBSbColor4f\fP &v2)"
+.br
+.ti -1c
+.RI "\fBSbColor4f\fP \fBoperator\-\fP (const \fBSbColor4f\fP &v1, const \fBSbColor4f\fP &v2)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBoperator==\fP (const \fBSbColor4f\fP &v1, const \fBSbColor4f\fP &v2)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBoperator!=\fP (const \fBSbColor4f\fP &v1, const \fBSbColor4f\fP &v2)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSbColor4f\fP class contains the red, green, blue and alpha components which make up a color value\&.
+.PP
+This class is used internally within other classes in Coin\&. It contains a 4 component vector as a position in the RGB cube with an additional transparency value\&. 
+
+The red, green and blue values should be between 0\&.0 and 1\&.0, where 0\&.0 is interpreted as minimum intensity, and 1\&.0 is maximum intensity\&. The transparency value is also between 0\&.0 and 1\&.0\&.
+.PP
+\fBSbColor4f\fP contains methods for convenient handling of setting and getting color values as 32 bit packed values or as HSV values\&.
+.PP
+Note: this class is not part of Open Inventor, but is an extension to the API\&. Don't use it if you want your code to be compatible with Open Inventor\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSbColor\fP 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SbColor4f::SbColor4f (void)"
+Default constructor\&. The color value will be uninitialized until explicitly set\&. 
+.SS "SbColor4f::SbColor4f (const \fBSbColor\fP & rgb, const float alpha = \fC1\&.0f\fP)"
+Construct and initialize an \fBSbColor4f\fP with the red, green and blue components from the \fBSbColor\fP \fCrgb\fP, and the alpha value from the supplied \fCalpha\fP argument\&. 
+.SS "SbColor4f::SbColor4f (const \fBSbVec4f\fP & v)"
+Construct and initialize an \fBSbColor4f\fP with the red, green, blue and alpha values given by the \fCv\fP vector\&. 
+.SS "SbColor4f::SbColor4f (const float *const rgba)"
+Construct and initialize an \fBSbColor4f\fP with the red, green, blue and alpha taken from given \fCrgba\fP array 
+.SS "SbColor4f::SbColor4f (const float r, const float g, const float b, const float a = \fC1\&.0f\fP)"
+Construct and initialize an \fBSbColor4f\fP with the given red, green, blue and alpha values\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void SbColor4f::setValue (const float r, const float g, const float b, const float a = \fC1\&.0f\fP)"
+Set a new color\&. 
+.SS "void SbColor4f::setValue (const float col[4])"
+Set a new color\&. The elements of the array will be read in turned as red, green, blue and transparency\&. 
+.SS "const float * SbColor4f::getValue (void) const"
+Return pointer to array of 4 float values representing the red, green, blue and transparency values of the color\&. 
+.SS "void SbColor4f::getValue (float & r, float & g, float & b, float & a)"
+Return components of the stored color\&. 
+.SS "\fBSbColor4f\fP & SbColor4f::setRGB (const \fBSbColor\fP & col)"
+Sets the RGB components of the color\&. The alpha component is left unchanged\&. 
+.SS "void SbColor4f::getRGB (\fBSbColor\fP & color)"
+Returns the RGB components of this color\&. 
+.SS "\fBSbColor4f\fP & SbColor4f::setHSVValue (float hue, float saturation, float value, float alpha = \fC1\&.0f\fP)"
+Set the color as a \fChue\fP, \fCsaturation\fP, \fCvalue\fP triplet\&. The hue component should be normalized to within [0, 1] before you call this method, where 0 is equal to 0° and 1 is equal to 360°\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetHSVValue()\fP\&. 
+.RE
+.PP
+
+.SS "\fBSbColor4f\fP & SbColor4f::setHSVValue (const float hsv[3], float a = \fC1\&.0f\fP)"
+Set the color as a \fChue\fP, \fCsaturation\fP, \fCvalue\fP triplet\&. The hue component should be normalized to within [0, 1] before you call this method, where 0 is equal to 0° and 1 is equal to 360°\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetHSVValue()\fP\&. 
+.RE
+.PP
+
+.SS "void SbColor4f::getHSVValue (float & h, float & s, float & v) const"
+Return the color as a \fChue\fP, \fCsaturation\fP, \fCvalue\fP triplet\&. Alpha component is ignored\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetHSVValue()\fP\&. 
+.RE
+.PP
+
+.SS "void SbColor4f::getHSVValue (float hsv[3]) const"
+Return the color as a \fChue\fP, \fCsaturation\fP, \fCvalue\fP triplet\&. Alpha component is ignored\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetHSVValue()\fP\&. 
+.RE
+.PP
+
+.SS "\fBSbColor4f\fP & SbColor4f::setPackedValue (const uint32_t rgba)"
+Set the color value as a 32 bit combined red/green/blue/alpha value\&. Each component is 8 bit wide (i\&.e\&. from 0x00 to 0xff), and the red value should be stored leftmost, like this: 0xRRGGBBAA\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetPackedValue()\fP\&. 
+.RE
+.PP
+
+.SS "uint32_t SbColor4f::getPackedValue () const"
+Return color as a 32 bit packed integer in the form 0xRRGGBBAA\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetPackedValue()\fP\&. 
+.RE
+.PP
+
+.SS "float SbColor4f::operator[] (const \fBint\fP idx) const"
+Returns the color component represented by the given index \fIidx\fP\&. 0 is red, 1 is green, 2 is blue and 3 is the transparency value\&. 
+.SS "float & SbColor4f::operator[] (const \fBint\fP idx)"
+Returns the color component represented by the given index \fIidx\fP\&. 0 is red, 1 is green, 2 is blue and 3 is the transparency value\&. 
+.SS "\fBSbColor4f\fP & SbColor4f::operator*= (const float d)"
+Multiplies the RGB components by \fCd\fP\&. The alpha component is left unchanged\&. 
+.SS "\fBSbColor4f\fP & SbColor4f::operator/= (const float d)"
+Divides the RGB components by \fCd\fP\&. The alpha component is left unchanged\&. 
+.SS "\fBSbColor4f\fP & SbColor4f::operator+= (const \fBSbColor4f\fP & c)"
+Adds the RGB components\&. Alpha is ignored\&. 
+.SS "\fBSbColor4f\fP & SbColor4f::operator\-= (const \fBSbColor4f\fP & c)"
+Subtracts the RGB components\&. Alpha is ignored\&. 
+.SH "Friends And Related Function Documentation"
+.PP 
+.SS "\fBSbColor4f\fP operator* (const \fBSbColor4f\fP & c, const float d)\fC [friend]\fP"
+Multiplies the RGB components by \fCd\fP\&. Alpha is left unchanged\&. 
+.SS "\fBSbColor4f\fP operator* (const float d, const \fBSbColor4f\fP & c)\fC [friend]\fP"
+Multiplies the RGB components by \fCd\fP\&. Alpha is left unchanged\&. 
+.SS "\fBSbColor4f\fP operator/ (const \fBSbColor4f\fP & c, const float d)\fC [friend]\fP"
+Divides the RGB components by \fCd\fP\&. Alpha is left unchanged\&. 
+.SS "\fBSbColor4f\fP operator+ (const \fBSbColor4f\fP & v1, const \fBSbColor4f\fP & v2)\fC [friend]\fP"
+Adds the RGB components of the two colors\&. Alpha is taken from the first color (\fCv1\fP)\&. 
+.SS "\fBSbColor4f\fP operator\- (const \fBSbColor4f\fP & v1, const \fBSbColor4f\fP & v2)\fC [friend]\fP"
+Subtracts the RGB components of the two colors\&. Alpha is taken from the first color (\fCv1\fP)\&. 
+.SS "\fBint\fP operator== (const \fBSbColor4f\fP & v1, const \fBSbColor4f\fP & v2)\fC [friend]\fP"
+Check if two colors are equal\&. Returns 1 if equal, 0 if unequal\&. 
+.SS "\fBint\fP operator!= (const \fBSbColor4f\fP & v1, const \fBSbColor4f\fP & v2)\fC [friend]\fP"
+Check if two colors are unequal\&. Returns 0 if equal, 1 if unequal\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

@@ -1,0 +1,141 @@
+.TH "shaders" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+shaders \- Shaders are programs that run on the graphics processor and replace the formerly fixed OpenGL pipeline\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBSoVertexAttribute\fP"
+.br
+.RI "A generic node for providing GL vertex attributes of various types\&. "
+.ti -1c
+.RI "class \fBSoVertexAttributeBinding\fP"
+.br
+.RI "The \fBSoVertexAttributeBinding\fP class is a node for setting up how vertex attributes are mapped to shapes\&. "
+.ti -1c
+.RI "class \fBSoFragmentShader\fP"
+.br
+.RI "The \fBSoFragmentShader\fP class is used for setting up fragment shader programs\&.
+.PP
+See \fBShaders in Coin \fP for more information on how to set up a scene graph with shaders\&. "
+.ti -1c
+.RI "class \fBSoGeometryShader\fP"
+.br
+.RI "The \fBSoGeometryShader\fP class is used for loading geometry shader programs\&.
+.PP
+See \fBShaders in Coin \fP for more information on how to set up a scene graph with shaders\&. "
+.ti -1c
+.RI "class \fBSoShaderObject\fP"
+.br
+.RI "The \fBSoShaderObject\fP class is the superclass for all shader classes in Coin\&. "
+.ti -1c
+.RI "class \fBSoShaderParameter\fP"
+.br
+.RI "The \fBSoShaderParameter\fP class is the base class for all shader parameter classes\&. "
+.ti -1c
+.RI "class \fBSoUniformShaderParameter\fP"
+.br
+.RI "The \fBSoUniformShaderParameter\fP class is the base class for all uniform shader variables\&. "
+.ti -1c
+.RI "class \fBSoShaderParameter1f\fP"
+.br
+.RI "The \fBSoShaderParameter1f\fP class is used to define a floating point value as shader parameter\&. "
+.ti -1c
+.RI "class \fBSoShaderParameter1i\fP"
+.br
+.RI "The \fBSoShaderParameter1i\fP class is used to define an integer value as shader parameter\&. "
+.ti -1c
+.RI "class \fBSoShaderParameter2f\fP"
+.br
+.RI "The \fBSoShaderParameter2f\fP class is used to define a two-dimensional floating point value as shader parameter\&. "
+.ti -1c
+.RI "class \fBSoShaderParameter2i\fP"
+.br
+.RI "The \fBSoShaderParameter2i\fP class is used to define a two-dimensional integer value as shader parameter\&. "
+.ti -1c
+.RI "class \fBSoShaderParameter3f\fP"
+.br
+.RI "The \fBSoShaderParameter3f\fP class is used to define a three-dimensional floating point value as shader parameter\&. "
+.ti -1c
+.RI "class \fBSoShaderParameter3i\fP"
+.br
+.RI "The \fBSoShaderParameter3i\fP class is used to define a three-dimensional integer value as shader parameter\&. "
+.ti -1c
+.RI "class \fBSoShaderParameter4f\fP"
+.br
+.RI "The \fBSoShaderParameter4f\fP class is used to define a four-dimensional floating point value as shader parameter\&. "
+.ti -1c
+.RI "class \fBSoShaderParameter4i\fP"
+.br
+.RI "The \fBSoShaderParameter4i\fP class is used to define a four-dimensional integer value as shader parameter\&. "
+.ti -1c
+.RI "class \fBSoShaderParameterArray1f\fP"
+.br
+.RI "The \fBSoShaderParameterArray1f\fP class is used to define a floating point array as shader parameter\&. "
+.ti -1c
+.RI "class \fBSoShaderParameterArray1i\fP"
+.br
+.RI "The \fBSoShaderParameterArray1i\fP class is used to define an integer array as shader parameter\&. "
+.ti -1c
+.RI "class \fBSoShaderParameterArray2f\fP"
+.br
+.RI "The \fBSoShaderParameterArray2f\fP class is used to define a two-dimensional floating point array as shader parameter\&. "
+.ti -1c
+.RI "class \fBSoShaderParameterArray2i\fP"
+.br
+.RI "The \fBSoShaderParameterArray2i\fP class is used to define a two-dimensional integer array as shader parameter\&. "
+.ti -1c
+.RI "class \fBSoShaderParameterArray3f\fP"
+.br
+.RI "The \fBSoShaderParameterArray3f\fP class is used to define a three-dimensional floating point array as shader parameter\&. "
+.ti -1c
+.RI "class \fBSoShaderParameterArray3i\fP"
+.br
+.RI "The \fBSoShaderParameterArray3i\fP class is used to define a three-dimensional integer array as shader parameter\&. "
+.ti -1c
+.RI "class \fBSoShaderParameterArray4f\fP"
+.br
+.RI "The \fBSoShaderParameterArray4f\fP class is used to define a four-dimensional floating point array as shader parameter\&. "
+.ti -1c
+.RI "class \fBSoShaderParameterArray4i\fP"
+.br
+.RI "The \fBSoShaderParameterArray4i\fP class is used to define a four-dimensional integer array as shader parameter\&. "
+.ti -1c
+.RI "class \fBSoShaderParameterMatrix\fP"
+.br
+.RI "The \fBSoShaderParameterMatrix\fP class is used to define a matrix as shader parameter\&. "
+.ti -1c
+.RI "class \fBSoShaderParameterMatrixArray\fP"
+.br
+.RI "The \fBSoShaderParameterMatrixArray\fP class is used to define a matrix array as shader parameter\&. "
+.ti -1c
+.RI "class \fBSoShaderStateMatrixParameter\fP"
+.br
+.RI "The \fBSoShaderStateMatrixParameter\fP class is used to define a matrix as shader parameter whose content is derived from the traversal state\&. "
+.ti -1c
+.RI "class \fBSoShaderProgram\fP"
+.br
+.RI "The \fBSoShaderProgram\fP class is used to specify a set of vertex/geometry/fragment objects\&. "
+.ti -1c
+.RI "class \fBSoVertexShader\fP"
+.br
+.RI "The \fBSoVertexShader\fP class is used for setting up vertex shader programs\&.
+.PP
+See \fBShaders in Coin \fP for more information on how to set up a scene graph with shaders\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Shaders are programs that run on the graphics processor and replace the formerly fixed OpenGL pipeline\&. 
+
+Coin-2\&.5 added support for Shaders\&. Shaders replace the fixed function vertex and fragment processing in OpenGL by letting the user define the processing that takes place at key points in the OpenGL pipeline\&. Vertex shaders handle the operations that occur on each vertex, while fragment shaders handle the operations that occur on each pixel\&. The \fBSoShaderProgram\fP node in Coin provides a convenient way of specifying the code for vertex and fragment shaders\&.
+.PP
+Coin-3\&.0 expanded upon the shader support by adding support for OpenGL Vertex Attributes\&. When using shaders, programmers are no longer limited to the set of attributes that OpenGL defines (glColor, glNormal, glTexCoord etc\&.) You can now define your own per-vertex data and pass them to the shaders using the \fBSoVertexAttribute\fP node\&. 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

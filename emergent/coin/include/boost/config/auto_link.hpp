@@ -10,64 +10,37 @@
   *   DESCRIPTION: Automatic library inclusion for Borland/Microsoft compilers.
   */
 
-/*************************************************************************
-
-USAGE:
-~~~~~~
-
-Before including this header you must define one or more of define the following macros:
-
-BOOST_LIB_NAME:           Required: A string containing the basename of the library,
-                          for example boost_regex.
-BOOST_LIB_TOOLSET:        Optional: the base name of the toolset.
-BOOST_DYN_LINK:           Optional: when set link to dll rather than static library.
-BOOST_LIB_DIAGNOSTIC:     Optional: when set the header will print out the name
-                          of the library selected (useful for debugging).
-BOOST_AUTO_LINK_NOMANGLE: Specifies that we should link to BOOST_LIB_NAME.lib,
-                          rather than a mangled-name version.
-
-These macros will be undef'ed at the end of the header, further this header
-has no include guards - so be sure to include it only once from your library!
-
-Algorithm:
-~~~~~~~~~~
-
-Libraries for Borland and Microsoft compilers are automatically
-selected here, the name of the lib is selected according to the following
-formula:
-
-BOOST_LIB_PREFIX
-   + BOOST_LIB_NAME
-   + "_"
-   + BOOST_LIB_TOOLSET
-   + BOOST_LIB_THREAD_OPT
-   + BOOST_LIB_RT_OPT
-   "-"
-   + BOOST_LIB_VERSION
-
-These are defined as:
-
-BOOST_LIB_PREFIX:     "lib" for static libraries otherwise "".
-
-BOOST_LIB_NAME:       The base name of the lib ( for example boost_regex).
-
-BOOST_LIB_TOOLSET:    The compiler toolset name (vc6, vc7, bcb5 etc).
-
-BOOST_LIB_THREAD_OPT: "-mt" for multithread builds, otherwise nothing.
-
-BOOST_LIB_RT_OPT:     A suffix that indicates the runtime library used,
-                      contains one or more of the following letters after
-                      a hiphen:
-
-                      s      static runtime (dynamic if not present).
-                      d      debug build (release if not present).
-                      g      debug/diagnostic runtime (release if not present).
-                      p      STLPort Build.
-
-BOOST_LIB_VERSION:    The Boost version, in the form x_y, for Boost version x.y.
-
-
-***************************************************************************/
+/**************************************************************************\
+ * Copyright (c) Kongsberg Oil & Gas Technologies AS
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are
+ * met:
+ * 
+ * Redistributions of source code must retain the above copyright notice,
+ * this list of conditions and the following disclaimer.
+ * 
+ * Redistributions in binary form must reproduce the above copyright
+ * notice, this list of conditions and the following disclaimer in the
+ * documentation and/or other materials provided with the distribution.
+ * 
+ * Neither the name of the copyright holder nor the names of its
+ * contributors may be used to endorse or promote products derived from
+ * this software without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ * HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+\**************************************************************************/
 
 #ifdef __cplusplus
 #  ifndef BOOST_CONFIG_HPP

@@ -1,0 +1,354 @@
+.TH "SoGLImage" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoGLImage \- The \fBSoGLImage\fP class is used to handle OpenGL 2D/3D textures\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <include/Inventor/misc/SoGLImage\&.h>\fP
+.PP
+Inherited by \fBSoGLBigImage\fP, and \fBSoGLCubeMapImage\fP\&.
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBWrap\fP { \fBREPEAT\fP = 0, \fBCLAMP\fP, \fBCLAMP_TO_EDGE\fP, \fBCLAMP_TO_BORDER\fP }"
+.br
+.ti -1c
+.RI "enum \fBResizeReason\fP { \fBIMAGE\fP = 0, \fBSUBIMAGE\fP, \fBMIPMAP\fP }"
+.br
+.ti -1c
+.RI "enum \fBFlags\fP { \fBSCALE_DOWN\fP = 0x0001, \fBNO_MIPMAP\fP = 0x0002, \fBLINEAR_MAG_FILTER\fP = 0x0004, \fBLINEAR_MIN_FILTER\fP = 0x0008, \fBLINEAR_MIPMAP_FILTER\fP = 0x0010, \fBFORCE_TRANSPARENCY_TRUE\fP = 0x0020, \fBFORCE_TRANSPARENCY_FALSE\fP = 0x0040, \fBFORCE_ALPHA_TEST_TRUE\fP = 0x0080, \fBFORCE_ALPHA_TEST_FALSE\fP = 0x0100, \fBINVINCIBLE\fP = 0x0200, \fBRECTANGLE\fP = 0x0400, \fBCOMPRESSED\fP = 0x0800, \fBUSE_QUALITY_VALUE\fP = 0X8000 }"
+.br
+.ti -1c
+.RI "typedef SbBool \fBSoGLImageResizeCB\fP(\fBSoState\fP *state, const \fBSbVec3s\fP &newsize, unsigned char *destbuffer, \fBResizeReason\fP reason, void *closure, class \fBSoGLImage\fP *image)"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSoGLImage\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBunref\fP (\fBSoState\fP *state=NULL)"
+.br
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.ti -1c
+.RI "virtual SbBool \fBisOfType\fP (\fBSoType\fP type) const"
+.br
+.ti -1c
+.RI "void \fBsetGLDisplayList\fP (\fBSoGLDisplayList\fP *dl, \fBSoState\fP *state, const \fBWrap\fP wraps=REPEAT, const \fBWrap\fP wrapt=REPEAT, const float quality=0\&.5f)"
+.br
+.ti -1c
+.RI "void \fBsetPBuffer\fP (\fBSoState\fP *state, void *context, const \fBWrap\fP wraps=REPEAT, const \fBWrap\fP wrapt=REPEAT, const float quality=0\&.5f)"
+.br
+.ti -1c
+.RI "void \fBsetData\fP (const unsigned char *bytes, const \fBSbVec2s\fP &size, const \fBint\fP numcomponents, const \fBWrap\fP wraps=REPEAT, const \fBWrap\fP wrapt=REPEAT, const float quality=0\&.5f, const int border=0, SoState *createinstate=NULL)"
+.br
+.ti -1c
+.RI "void \fBsetData\fP (const unsigned char *bytes, const \fBSbVec3s\fP &size, const \fBint\fP numcomponents, const \fBWrap\fP wraps=REPEAT, const \fBWrap\fP wrapt=REPEAT, const \fBWrap\fP wrapr=REPEAT, const float quality=0\&.5f, const int border=0, SoState *createinstate=NULL)"
+.br
+.ti -1c
+.RI "virtual void \fBsetData\fP (const \fBSbImage\fP *image, const \fBWrap\fP wraps=REPEAT, const \fBWrap\fP wrapt=REPEAT, const float quality=0\&.5f, const int border=0, SoState *createinstate=NULL)"
+.br
+.ti -1c
+.RI "virtual void \fBsetData\fP (const \fBSbImage\fP *image, const \fBWrap\fP wraps, const \fBWrap\fP wrapt, const \fBWrap\fP wrapr, const float quality=0\&.5f, const int border=0, SoState *createinstate=NULL)"
+.br
+.ti -1c
+.RI "void \fBsetFlags\fP (const uint32_t flags)"
+.br
+.ti -1c
+.RI "uint32_t \fBgetFlags\fP (void) const"
+.br
+.ti -1c
+.RI "const \fBSbImage\fP * \fBgetImage\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fBSoGLDisplayList\fP * \fBgetGLDisplayList\fP (\fBSoState\fP *state)"
+.br
+.ti -1c
+.RI "SbBool \fBhasTransparency\fP (void) const"
+.br
+.ti -1c
+.RI "SbBool \fBuseAlphaTest\fP (void) const"
+.br
+.ti -1c
+.RI "\fBWrap\fP \fBgetWrapS\fP (void) const"
+.br
+.ti -1c
+.RI "\fBWrap\fP \fBgetWrapT\fP (void) const"
+.br
+.ti -1c
+.RI "\fBWrap\fP \fBgetWrapR\fP (void) const"
+.br
+.ti -1c
+.RI "float \fBgetQuality\fP (void) const"
+.br
+.ti -1c
+.RI "uint32_t \fBgetGLImageId\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBsetEndFrameCallback\fP (void(*cb)(void *), void *closure)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetNumFramesSinceUsed\fP (void) const"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBbeginFrame\fP (\fBSoState\fP *state)"
+.br
+.ti -1c
+.RI "static void \fBtagImage\fP (\fBSoState\fP *state, \fBSoGLImage\fP *image)"
+.br
+.ti -1c
+.RI "static void \fBendFrame\fP (\fBSoState\fP *state)"
+.br
+.ti -1c
+.RI "static void \fBsetDisplayListMaxAge\fP (const uint32_t maxage)"
+.br
+.ti -1c
+.RI "static void \fBfreeAllImages\fP (\fBSoState\fP *state=NULL)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBsetResizeCallback\fP (\fBSoGLImageResizeCB\fP *f, void *closure)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBincAge\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBresetAge\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBunrefOldDL\fP (\fBSoState\fP *state, const uint32_t maxage)"
+.br
+.ti -1c
+.RI "virtual \fB~SoGLImage\fP ()"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBSoGLImage\fP class is used to handle OpenGL 2D/3D textures\&. 
+
+A number of environment variables can be set to control how textures are created\&. This is useful to tune Coin to fit your system\&. E\&.g\&. if you are running on a laptop, it might be a good idea to disable linear filtering and mipmaps\&.
+.PP
+.PD 0
+.IP "\(bu" 2
+COIN_TEX2_LINEAR_LIMIT: Linear filtering is enabled if Complexity::textureQuality is greater or equal to this value\&. Default value is 0\&.2\&.
+.PP
+.PD 0
+.IP "\(bu" 2
+COIN_TEX2_MIPMAP_LIMIT: Mipmaps are created if textureQuality is greater or equal to this value\&. Default value is 0\&.5\&.
+.PP
+.PD 0
+.IP "\(bu" 2
+COIN_TEX2_LINEAR_MIPMAP_LIMIT: Linear filtering between mipmap levels is enabled if textureQuality is greater or equal to this value\&. Default value is 0\&.8\&.
+.PP
+.PD 0
+.IP "\(bu" 2
+COIN_TEX2_SCALEUP_LIMIT: Textures with width or height not equal to a power of two will always be scaled up if textureQuality is greater or equal to this value\&. Default value is 0\&.7\&. If textureQuality is lower than this value, and the width or height is larger than 256 pixels, the texture is only scaled up if it's relatively close to the next power of two size\&. This could save a lot of texture memory\&.
+.PP
+.PD 0
+.IP "\(bu" 2
+COIN_TEX2_USE_GLTEXSUBIMAGE: When set, and when the new texture data has the same attributes as the old data, glTexSubImage() will be used to copy new data into the texture instead of recreating the texture\&. This is not enabled by default, since it seems to trigger a bug in the Linux nVidia drivers\&. It just happens in some unreproducable cases\&. It could be a bug in our glTexSubImage() code, of course\&. :)
+.PP
+.PD 0
+.IP "\(bu" 2
+COIN_TEX2_USE_SGIS_GENERATE_MIPMAP: When set, use the GL_SGIS_generate_mip extension (if available) to generate mipmaps, otherwise use a fast internal routine to generate them\&. Use of SGIS_generate_mipmap is not enabled by default since we suspect some ATi drivers have problems with this extensions\&.
+.PP
+.PD 0
+.IP "\(bu" 2
+COIN_ENABLE_CONFORMANT_GL_CLAMP: When set, GL_CLAMP will be used when SoGLImage::CLAMP is specified as the texture wrap mode\&. By default GL_CLAMP_TO_EDGE is used, since this is usually what people want\&. See http://www.opengl.org/discussion_boards/ubb/Forum3/HTML/007306.html for a discussion regarding GL_CLAMP and GL_CLAMP_TO_EDGE\&.
+.PP
+.PD 0
+.IP "\(bu" 2
+COIN_TEX2_ANISOTROPIC_LIMIT: Anisotropic filtering is enabled for textures when the texture quality is higher than this value\&. Default value is 0\&.85
+.PP
+Be aware that this class is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.RE
+.PP
+
+.SH "Member Typedef Documentation"
+.PP 
+.SS "bool SoGLImage::SoGLImageResizeCB"
+Image resize callback type\&. If registered using \fBsetResizeCallback()\fP, this function will be called whenever Coin needs to resize an image\&. The function will be called both for 2D and 3D images\&.
+.PP
+\fIstate\fP is the current state at the time of resizing\&. \fInewsize\fP is the requested new image size\&. Note that the z size of a 2D image is 0\&. \fIdestbuffer\fP is a pre-allocated buffer big enough to hold the pixels for the resized image\&. The # of bytes per pixel is the same as for the original image\&. \fIreason\fP is a hint about why the image is resized\&. At the moment, only IMAGE is supported\&. \fIimage\fP is the original image\&.
+.PP
+Return value: TRUE if the resize ahs been resized, FALSE if not\&. If FALSE is returned, Coin will resize the image instead\&. 
+.SH "Member Enumeration Documentation"
+.PP 
+.SS "enum \fBSoGLImage::Wrap\fP"
+Used to specify how texture coordinates < 0\&.0 and > 1\&.0 should be handled\&. It can either be repeated (REPEAT), clamped (CLAMP) or clamped to edge (CLAMP_TO_EDGE), which is useful when tiling textures\&. Since 2002-11-18, CLAMP will be treated as CLAMP_TO_EDGE\&. The environment variable COIN_ENABLE_CONFORMANT_GL_CLAMP can be used to override this behaviour\&. 
+.SS "enum \fBSoGLImage::ResizeReason\fP"
+Sent as a parameter to SoGLImageResizeCB as a hint to why an image is being resized\&. IMAGE means that a whole image is being initially resized (e\&.g\&. a texture image)\&. SUBIMAGE and MIPMAP are not in use and reserved for future use\&. 
+.SS "enum \fBSoGLImage::Flags\fP"
+Can be used to tune/optimize the GL texture handling\&. Normally the texture quality will be used to decide scaling and filtering, and the image data will be scanned to decide if the image is (partly) transparent, and if the texture can be rendered using the cheaper alpha test instead of blending if it does contain transparency\&. If you know the contents of your texture image, or if you have special requirements on how the texture should be rendered, you can set the flags using the \fBSoGLImage::setFlags()\fP method\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoGLImage::SoGLImage (void)"
+Constructor\&. 
+.SS "SoGLImage::~SoGLImage ()\fC [protected]\fP, \fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void SoGLImage::unref (\fBSoState\fP * state = \fCNULL\fP)\fC [virtual]\fP"
+This class has a private destuctor since we want users to supply the current GL state when deleting the image\&. This is to make sure gl texture objects are freed as soon as possible\&. If you supply NULL to this method, the gl texture objects won't be deleted until the next time an GLRenderAction is applied in the image's cache context(s)\&. 
+.PP
+Reimplemented in \fBSoGLBigImage\fP, and \fBSoGLCubeMapImage\fP\&.
+.SS "\fBSoType\fP SoGLImage::getClassTypeId (void)\fC [static]\fP"
+Returns the type id for this class\&. 
+.SS "\fBSoType\fP SoGLImage::getTypeId (void) const\fC [virtual]\fP"
+Returns the type id for an \fBSoGLImage\fP instance\&. 
+.PP
+Reimplemented in \fBSoGLBigImage\fP, and \fBSoGLCubeMapImage\fP\&.
+.SS "SbBool SoGLImage::isOfType (\fBSoType\fP type) const\fC [virtual]\fP"
+Returns whether an \fBSoGLImage\fP instance inherits (or is of) type \fItype\fP\&. 
+.SS "void SoGLImage::setGLDisplayList (\fBSoGLDisplayList\fP * dl, \fBSoState\fP * state, const \fBWrap\fP wraps = \fCREPEAT\fP, const \fBWrap\fP wrapt = \fCREPEAT\fP, const float quality = \fC0\&.5f\fP)"
+Can be used for creating a custom OpenGL texture inside an \fBSoGLImage\fP instance\&.
+.PP
+Example use (creates a depth texture):
+.PP
+\fBSoGLDisplayList\fP * depthmap = new \fBSoGLDisplayList(state, SoGLDisplayList::TEXTURE_OBJECT)\fP; depthmap->ref(); depthmap->open(state);
+.PP
+glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, // GL_DEPTH_COMPONENT24 size[0], size[1], 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_BYTE, NULL);
+.PP
+glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE); glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+.PP
+depthmap->close(state);
+.PP
+\fBSoGLImage\fP * image = new \fBSoGLImage\fP; image->setGLDisplayList(depthmap, state);
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.5 
+.RE
+.PP
+
+.SS "void SoGLImage::setPBuffer (\fBSoState\fP * state, void * pbuffer, const \fBWrap\fP wraps = \fCREPEAT\fP, const \fBWrap\fP wrapt = \fCREPEAT\fP, const float quality = \fC0\&.5f\fP)"
+Sets the pbuffer for this texture\&. Experimental code, use with care\&. 
+.SS "void SoGLImage::setData (const unsigned char * bytes, const \fBSbVec2s\fP & size, const \fBint\fP numcomponents, const \fBWrap\fP wraps = \fCREPEAT\fP, const \fBWrap\fP wrapt = \fCREPEAT\fP, const float quality = \fC0\&.5f\fP, const \fBint\fP border = \fC0\fP, \fBSoState\fP * createinstate = \fCNULL\fP)"
+2D \fBsetData()\fP wrapper\&. Supplies raw data, size and numcomponents instead of an \fBSbImage\fP\&. Creates a temporary image, then calls the read \fBsetData()\fP\&. This is an overloaded member function, provided for convenience\&. It differs from the above function only in what argument(s) it accepts\&. 
+.SS "void SoGLImage::setData (const unsigned char * bytes, const \fBSbVec3s\fP & size, const \fBint\fP numcomponents, const \fBWrap\fP wraps = \fCREPEAT\fP, const \fBWrap\fP wrapt = \fCREPEAT\fP, const \fBWrap\fP wrapr = \fCREPEAT\fP, const float quality = \fC0\&.5f\fP, const \fBint\fP border = \fC0\fP, \fBSoState\fP * createinstate = \fCNULL\fP)"
+3D \fBsetData()\fP wrapper\&. Supplies raw data, size and numcomponents instead of an \fBSbImage\fP\&. Creates a temporary image, then calls the read \fBsetData()\fP\&. This is an overloaded member function, provided for convenience\&. It differs from the above function only in what argument(s) it accepts\&. 
+.SS "void SoGLImage::setData (const \fBSbImage\fP * image, const \fBWrap\fP wraps = \fCREPEAT\fP, const \fBWrap\fP wrapt = \fCREPEAT\fP, const float quality = \fC0\&.5f\fP, const \fBint\fP border = \fC0\fP, \fBSoState\fP * createinstate = \fCNULL\fP)\fC [virtual]\fP"
+Convenience 2D wrapper function around the 3D \fBsetData()\fP\&. 
+.PP
+Reimplemented in \fBSoGLCubeMapImage\fP, and \fBSoGLBigImage\fP\&.
+.SS "void SoGLImage::setData (const \fBSbImage\fP * image, const \fBWrap\fP wraps, const \fBWrap\fP wrapt, const \fBWrap\fP wrapr, const float quality = \fC0\&.5f\fP, const \fBint\fP border = \fC0\fP, \fBSoState\fP * createinstate = \fCNULL\fP)\fC [virtual]\fP"
+Sets the data for this GL image\&. Should only be called when one of the parameters have changed, since this will cause the GL texture object to be recreated\&. Caller is responsible for sending legal Wrap values\&. CLAMP_TO_EDGE is only supported on OpenGL v1\&.2 implementations, and as an extension on some earlier SGI implementations (GL_SGIS_texture_edge_clamp)\&.
+.PP
+For now, if quality > 0\&.5 when created, we create mipmaps, otherwise a regular texture is created\&. Be aware, if you for instance create a texture with texture quality 0\&.4, and then later try to apply the texture with a texture quality greater than 0\&.5, the texture object will be recreated as a mipmap texture object\&. This will happen only once though, of course\&.
+.PP
+If \fIborder\fP != 0, the OpenGL texture will be created with this border size\&. Be aware that this might be extremely slow on most PC hardware\&.
+.PP
+Normally, the OpenGL texture object isn't created until the first time it is needed, but if \fIcreateinstate\fP is != NULL, the texture object is created immediately\&. This is useful if you use a temporary buffer to hold the texture data\&. Be careful when using this feature, since the texture data might be needed at a later stage (for instance to create a texture object for another context)\&. It will not be possible to create texture objects for other cache contexts when \fIcreateinstate\fP is != NULL\&.
+.PP
+Also if \fIcreateinstate\fP is supplied, and all the attributes are the same as the current data in the image, glTexSubImage() will be used to insert the image data instead of creating a new texture object\&. This is much faster on most OpenGL drivers, and is very useful, for instance when doing animated textures\&.
+.PP
+If you supply NULL for \fIimage\fP, the instance will be reset, causing all display lists and memory to be freed\&. 
+.PP
+Reimplemented in \fBSoGLCubeMapImage\fP, and \fBSoGLBigImage\fP\&.
+.SS "void SoGLImage::setFlags (const uint32_t flags)"
+Sets flags to control how the texture is handled/initialized\&. 
+.SS "uint32_t SoGLImage::getFlags (void) const"
+Returns the flags\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetFlags()\fP 
+.RE
+.PP
+
+.SS "const \fBSbImage\fP * SoGLImage::getImage (void) const"
+Returns a pointer to the image data\&. 
+.SS "\fBSoGLDisplayList\fP * SoGLImage::getGLDisplayList (\fBSoState\fP * state)\fC [virtual]\fP"
+Returns or creates a \fBSoGLDisplayList\fP to be used for rendering\&. Returns NULL if no SoDLDisplayList could be created\&. 
+.PP
+Reimplemented in \fBSoGLCubeMapImage\fP, and \fBSoGLBigImage\fP\&.
+.SS "SbBool SoGLImage::hasTransparency (void) const"
+Returns \fITRUE\fP if this texture has some pixels with alpha != 255 
+.SS "SbBool SoGLImage::useAlphaTest (void) const"
+Returns TRUE if this image has some alpha value != 255, and all these values are 0\&. If this is the case, alpha test can be used to render this texture instead of for instance blending, which is usually slower and might yield z-buffer artifacts\&. 
+.SS "\fBSoGLImage::Wrap\fP SoGLImage::getWrapS (void) const"
+Returns the wrap strategy for the S (horizontal) direction\&. 
+.SS "\fBSoGLImage::Wrap\fP SoGLImage::getWrapT (void) const"
+Returns the wrap strategy for the T (vertical) direction\&. 
+.SS "\fBSoGLImage::Wrap\fP SoGLImage::getWrapR (void) const"
+Returns the wrap strategy for the R (depth) direction\&. 
+.SS "float SoGLImage::getQuality (void) const"
+Returns the texture quality for this texture image\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.5 
+.RE
+.PP
+
+.SS "uint32_t SoGLImage::getGLImageId (void) const"
+Returns an unique if for this GL image\&. This id can be used to test for changes in an \fBSoGLImage\fP's internal data\&. 
+.SS "void SoGLImage::unrefOldDL (\fBSoState\fP * state, const uint32_t maxage)\fC [protected]\fP, \fC [virtual]\fP"
+Virtual method that will be called once each frame\&. The method should unref display lists that has an age bigger or equal to \fImaxage\fP, and increment the age for other display lists\&. 
+.PP
+Reimplemented in \fBSoGLBigImage\fP\&.
+.SS "void SoGLImage::beginFrame (\fBSoState\fP * state)\fC [static]\fP"
+When doing texture resource control, call this method before rendering the scene, typically in the viewer's actualRedraw()\&. \fIstate\fP should be your \fBSoGLRenderAction\fP state\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBendFrame()\fP, \fBtagImage()\fP, \fBsetDisplayListMaxAge()\fP 
+.RE
+.PP
+
+.SS "void SoGLImage::tagImage (\fBSoState\fP * state, \fBSoGLImage\fP * image)\fC [static]\fP"
+Should be called when a texture image is used\&. In Coin this is handled by SoGLTextureImageElement, but if you use an \fBSoGLImage\fP on your own, you should call this method to avoid that the display list is deleted too soon\&. \fIstate\fP should be your \fBSoGLRenderAction\fP state, \fIimage\fP the image you are about to use/have used\&. 
+.SS "void SoGLImage::endFrame (\fBSoState\fP * state)\fC [static]\fP"
+Should be called after your scene is rendered\&. Old display lists will be deleted when you call this method\&. \fIstate\fP should be your \fBSoGLRenderAction\fP state\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBbeginFrame()\fP, \fBtagImage()\fP, \fBsetDisplayListMaxAge()\fP 
+.RE
+.PP
+
+.SS "void SoGLImage::setDisplayListMaxAge (const uint32_t maxage)\fC [static]\fP"
+Set the maximum age for a texture object/display list\&. The age of an image is the number of frames since it has been used\&. Default maximum age is 60\&. 
+.SS "void SoGLImage::freeAllImages (\fBSoState\fP * state = \fCNULL\fP)\fC [static]\fP"
+Free all GL images currently used\&. This can be used to help the operating system and/or OpenGL driver's resource handling\&. If you know you're not going to render for a while, maybe you're switching to a different application or something, calling this method could be a good idea since it will release all the texture memory used by your application\&. 
+.SS "void SoGLImage::initClass (void)\fC [static]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoGLImage::setResizeCallback (\fBSoGLImageResizeCB\fP * f, void * closure)\fC [static]\fP"
+Sets a custom image resize function\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.5 
+.RE
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

@@ -1,0 +1,209 @@
+.TH "SbList< Type >" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SbList< Type > \- The \fBSbList\fP class is a template container class for lists\&.
+.PP
+\fBSbList\fP is an extension of the Coin library versus the original Open Inventor API\&. Open Inventor handles most list classes by inheriting the \fBSbPList\fP class, which contains an array of generic \fCvoid*\fP pointers\&. By using this template-based class instead, we can share more code and make the list handling code more typesafe\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/lists/SbList\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSbList\fP (const \fBint\fP sizehint=DEFAULTSIZE)"
+.br
+.ti -1c
+.RI "\fBSbList\fP (const \fBSbList\fP< Type > &l)"
+.br
+.ti -1c
+.RI "\fB~SbList\fP ()"
+.br
+.ti -1c
+.RI "void \fBcopy\fP (const \fBSbList\fP< Type > &l)"
+.br
+.ti -1c
+.RI "\fBSbList\fP< Type > & \fBoperator=\fP (const \fBSbList\fP< Type > &l)"
+.br
+.ti -1c
+.RI "void \fBfit\fP (void)"
+.br
+.ti -1c
+.RI "void \fBappend\fP (const Type item)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBfind\fP (const Type item) const"
+.br
+.ti -1c
+.RI "void \fBinsert\fP (const Type item, const \fBint\fP insertbefore)"
+.br
+.ti -1c
+.RI "void \fBremoveItem\fP (const Type item)"
+.br
+.ti -1c
+.RI "void \fBremove\fP (const \fBint\fP index)"
+.br
+.ti -1c
+.RI "void \fBremoveFast\fP (const \fBint\fP index)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetLength\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBtruncate\fP (const \fBint\fP length, const \fBint\fP dofit=0)"
+.br
+.ti -1c
+.RI "void \fBpush\fP (const Type item)"
+.br
+.ti -1c
+.RI "Type \fBpop\fP (void)"
+.br
+.ti -1c
+.RI "const Type * \fBgetArrayPtr\fP (const \fBint\fP start=0) const"
+.br
+.ti -1c
+.RI "Type \fBoperator[]\fP (const \fBint\fP index) const"
+.br
+.ti -1c
+.RI "Type & \fBoperator[]\fP (const \fBint\fP index)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBoperator==\fP (const \fBSbList\fP< Type > &l) const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBoperator!=\fP (const \fBSbList\fP< Type > &l) const"
+.br
+.ti -1c
+.RI "void \fBensureCapacity\fP (const \fBint\fP size)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBexpand\fP (const \fBint\fP size)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetArraySize\fP (void) const"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.SS "template<class Type>
+.br
+class SbList< Type >"
+The \fBSbList\fP class is a template container class for lists\&.
+.PP
+\fBSbList\fP is an extension of the Coin library versus the original Open Inventor API\&. Open Inventor handles most list classes by inheriting the \fBSbPList\fP class, which contains an array of generic \fCvoid*\fP pointers\&. By using this template-based class instead, we can share more code and make the list handling code more typesafe\&. 
+
+Care has been taken to make sure the list classes which are part of the Open Inventor API to still be compatible with their original interfaces, as derived from the \fBSbPList\fP base class\&. But if you still bump into any problems when porting your Open Inventor applications, let us know and we'll do our best to sort them out\&.
+.PP
+A feature with this class is that the list object arrays grow dynamically as you \fBappend()\fP more items to the list\&. The actual growing technique used is to double the list size when it becomes too small\&.
+.PP
+There are also other array-related convenience methods; e\&.g\&. finding item indices, inserting items at any position, removing items (and shrink the array), copying of arrays, etc\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSbPList\fP 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "template<class Type> \fBSbList\fP< Type >::\fBSbList\fP (const \fBint\fP sizehint = \fCDEFAULTSIZE\fP)\fC [inline]\fP"
+Default constructor\&.
+.PP
+The \fIsizehint\fP argument hints about how many elements the list will contain, so memory allocation can be done efficiently\&.
+.PP
+Important note: explicitly specifying an \fIsizehint\fP value does \fInot\fP mean that the list will initially contain this number of values\&. After construction, the list will contain zero items, just as for the default constructor\&. Here's a good example on how to give yourself hard to find bugs:
+.PP
+.PP
+.nf
+SbList<SbBool> flags(2); // Assume we need only 2 elements\&. Note
+                         // that the list is still 0 elements long\&.
+flags[0] = TRUE;         // Ouch\&. List is still 0 elements long\&.
+.fi
+.PP
+.PP
+Since this conceptual misunderstanding is so easy to make, you're probably better (or at least safer) off leaving the \fIsizehint\fP argument to its default value by not explicitly specifying it\&.
+.PP
+It improves performance if you know the approximate total size of the list in advance before adding list elements, as the number of reallocations will be minimized\&. 
+.SS "template<class Type> \fBSbList\fP< Type >::\fBSbList\fP (const \fBSbList\fP< Type > & l)\fC [inline]\fP"
+Copy constructor\&. Creates a complete copy of the given list\&. 
+.SS "template<class Type> \fBSbList\fP< Type >::~\fBSbList\fP ()\fC [inline]\fP"
+Destructor, frees all internal resources used by the list container\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "template<class Type> void \fBSbList\fP< Type >::copy (const \fBSbList\fP< Type > & l)\fC [inline]\fP"
+Make this list a copy of \fIl\fP\&. 
+.SS "template<class Type> \fBSbList\fP< Type > & \fBSbList\fP< Type >::operator= (const \fBSbList\fP< Type > & l)\fC [inline]\fP"
+Make this list a copy of \fIl\fP\&. 
+.SS "template<class Type> void \fBSbList\fP< Type >::fit (void)\fC [inline]\fP"
+Fit the allocated array exactly around the length of the list, descarding memory spent on unused pre-allocated array cells\&.
+.PP
+You should normally not need or want to call this method, and it is only available for the sake of having the option to optimize memory usage for the unlikely event that you should throw around huge \fBSbList\fP objects within your application\&. 
+.SS "template<class Type> void \fBSbList\fP< Type >::append (const Type item)\fC [inline]\fP"
+Append the \fIitem\fP at the end of list, expanding the list array by one\&. 
+.SS "template<class Type> \fBint\fP \fBSbList\fP< Type >::find (const Type item) const\fC [inline]\fP"
+Return index of first occurrence of \fIitem\fP in the list, or -1 if \fIitem\fP is not present\&. 
+.SS "template<class Type> void \fBSbList\fP< Type >::insert (const Type item, const \fBint\fP insertbefore)\fC [inline]\fP"
+Insert \fIitem\fP at index \fIinsertbefore\fP\&.
+.PP
+\fIinsertbefore\fP should not be larger than the current number of items in the list\&. 
+.SS "template<class Type> void \fBSbList\fP< Type >::removeItem (const Type item)\fC [inline]\fP"
+Removes an \fIitem\fP from the list\&. If there are several items with the same value, removes the \fIitem\fP with the lowest index\&. 
+.SS "template<class Type> void \fBSbList\fP< Type >::remove (const \fBint\fP index)\fC [inline]\fP"
+Remove the item at \fIindex\fP, moving all subsequent items downwards one place in the list\&. 
+.SS "template<class Type> void \fBSbList\fP< Type >::removeFast (const \fBint\fP index)\fC [inline]\fP"
+Remove the item at \fIindex\fP, moving the last item into its place and truncating the list\&. 
+.SS "template<class Type> \fBint\fP \fBSbList\fP< Type >::getLength (void) const\fC [inline]\fP"
+Returns number of items in the list\&. 
+.SS "template<class Type> void \fBSbList\fP< Type >::truncate (const \fBint\fP length, const \fBint\fP fit = \fC0\fP)\fC [inline]\fP"
+Shorten the list to contain \fIlength\fP elements, removing items from \fIindex\fP \fIlength\fP and onwards\&.
+.PP
+If \fIfit\fP is non-zero, will also shrink the internal size of the allocated array\&. Note that this is much less efficient than not re-fitting the array size\&. 
+.SS "template<class Type> void \fBSbList\fP< Type >::push (const Type item)\fC [inline]\fP"
+This appends \fIitem\fP at the end of the list in the same fashion as \fBappend()\fP does\&. Provided as an abstraction for using the list class as a stack\&. 
+.SS "template<class Type> Type \fBSbList\fP< Type >::pop (void)\fC [inline]\fP"
+Pops off the last element of the list and returns it\&. 
+.SS "template<class Type> const Type * \fBSbList\fP< Type >::getArrayPtr (const \fBint\fP start = \fC0\fP) const\fC [inline]\fP"
+Returns pointer to a non-modifiable array of the lists elements\&. \fIstart\fP specifies an index into the array\&.
+.PP
+The caller is \fInot\fP responsible for freeing up the array, as it is just a pointer into the internal array used by the list\&. 
+.SS "template<class Type> Type \fBSbList\fP< Type >::operator[] (const \fBint\fP index) const\fC [inline]\fP"
+Returns a copy of item at \fIindex\fP\&. 
+.SS "template<class Type> Type & \fBSbList\fP< Type >::operator[] (const \fBint\fP index)\fC [inline]\fP"
+Returns a reference to item at \fIindex\fP\&. 
+.SS "template<class Type> SbBool \fBSbList\fP< Type >::operator== (const \fBSbList\fP< Type > & l) const\fC [inline]\fP"
+Equality operator\&. Returns \fCTRUE\fP if this list and \fIl\fP are identical, containing the exact same set of elements\&. 
+.SS "template<class Type> SbBool \fBSbList\fP< Type >::operator!= (const \fBSbList\fP< Type > & l) const\fC [inline]\fP"
+Inequality operator\&. Returns \fCTRUE\fP if this list and \fIl\fP are not equal\&. 
+.SS "template<class Type> void \fBSbList\fP< Type >::ensureCapacity (const \fBint\fP size)\fC [inline]\fP"
+Ensure that the internal buffer can hold at least \fIsize\fP elements\&. \fBSbList\fP will automatically resize itself to make room for new elements, but this method can be used to improve performance (and avoid memory fragmentation) if you know approximately the number of elements that is going to be added to the list\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.5 
+.RE
+.PP
+
+.SS "template<class Type> void \fBSbList\fP< Type >::expand (const \fBint\fP size)\fC [inline]\fP, \fC [protected]\fP"
+Expand the list to contain \fIsize\fP items\&. The new items added at the end have undefined value\&. 
+.SS "template<class Type> \fBint\fP \fBSbList\fP< Type >::getArraySize (void) const\fC [inline]\fP, \fC [protected]\fP"
+Return number of items there's allocated space for in the array\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetLength()\fP 
+.RE
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

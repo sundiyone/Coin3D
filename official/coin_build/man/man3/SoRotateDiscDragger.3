@@ -1,0 +1,255 @@
+.TH "SoRotateDiscDragger" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoRotateDiscDragger \- The \fBSoRotateDiscDragger\fP class is for rotating geometry around a single axis\&.
+.PP
+Here's how the dragger looks with its default geometry in the inactive state:  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/draggers/SoRotateDiscDragger\&.h>\fP
+.PP
+Inherits \fBSoDragger\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "virtual const \fBSoNodekitCatalog\fP * \fBgetNodekitCatalog\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoRotateDiscDragger\fP (void)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static const \fBSoNodekitCatalog\fP * \fBgetClassNodekitCatalog\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFRotation\fP \fBrotation\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fB~SoRotateDiscDragger\fP (void)"
+.br
+.ti -1c
+.RI "virtual SbBool \fBsetUpConnections\fP (SbBool onoff, SbBool doitalways=FALSE)"
+.br
+.ti -1c
+.RI "void \fBdragStart\fP (void)"
+.br
+.ti -1c
+.RI "void \fBdrag\fP (void)"
+.br
+.ti -1c
+.RI "void \fBdragFinish\fP (void)"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.ti -1c
+.RI "static const \fBSoNodekitCatalog\fP ** \fBgetClassNodekitCatalogPtr\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBstartCB\fP (void *f, \fBSoDragger\fP *d)"
+.br
+.ti -1c
+.RI "static void \fBmotionCB\fP (void *f, \fBSoDragger\fP *d)"
+.br
+.ti -1c
+.RI "static void \fBdoneCB\fP (void *f, \fBSoDragger\fP *d)"
+.br
+.ti -1c
+.RI "static void \fBfieldSensorCB\fP (void *f, \fBSoSensor\fP *s)"
+.br
+.ti -1c
+.RI "static void \fBvalueChangedCB\fP (void *f, \fBSoDragger\fP *d)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFNode\fP \fBfeedback\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBfeedbackActive\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBfeedbackSwitch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBrotator\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBrotatorActive\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBrotatorSwitch\fP"
+.br
+.ti -1c
+.RI "\fBSoFieldSensor\fP * \fBfieldSensor\fP"
+.br
+.ti -1c
+.RI "\fBSbPlaneProjector\fP * \fBplaneProj\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoRotateDiscDragger\fP class is for rotating geometry around a single axis\&.
+.PP
+Here's how the dragger looks with its default geometry in the inactive state: 
+
+ Screen Shot of Default Dragger
+.PP
+Use an instance of this dragger class in your scenegraph to let the end-users of your application rotate geometry around a pre-defined axis vector in 3D\&.
+.PP
+The special feature of this dragger that sets it apart from the other draggers that provides rotation around an axis (like the \fBSoRotateCylindricalDragger\fP) is that it provides a convenient interface to rotate around an axis that is pointing in approximately the same direction as the camera\&. This is useful for interacting with for instance something like a 'volume' knob\&.
+.PP
+For the dragger orientation and positioning itself, use some kind of transformation node in your scenegraph, as usual\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoRotateDiscDragger::SoRotateDiscDragger (void)"
+Default constructor, sets up the dragger nodekit catalog with the interaction and feedback geometry\&.
+.PP
+Node kit structure (new entries versus parent class marked with arrow prefix):
+.PP
+.PP
+.nf
+CLASS SoRotateDiscDragger
+-->"this"
+      "callbackList"
+      "topSeparator"
+         "motionMatrix"
+         "geomSeparator"
+-->         "rotatorSwitch"
+-->            "rotator"
+-->            "rotatorActive"
+-->         "feedbackSwitch"
+-->            "feedback"
+-->            "feedbackActive"
+.fi
+.PP
+.PP
+(See \fBSoBaseKit::printDiagram()\fP for information about the output formatting\&.)
+.PP
+Detailed information on catalog parts:
+.PP
+.PP
+.nf
+CLASS SoRotateDiscDragger
+PVT   "this",  SoRotateDiscDragger  ---
+      "callbackList",  SoNodeKitListPart [ SoCallback, SoEventCallback ]
+PVT   "topSeparator",  SoSeparator  ---
+PVT   "motionMatrix",  SoMatrixTransform  ---
+PVT   "geomSeparator",  SoSeparator  ---
+PVT   "rotatorSwitch",  SoSwitch  ---
+      "rotator",  SoSeparator  ---
+      "rotatorActive",  SoSeparator  ---
+PVT   "feedbackSwitch",  SoSwitch  ---
+      "feedback",  SoSeparator  ---
+      "feedbackActive",  SoSeparator  ---
+.fi
+.PP
+.PP
+(See \fBSoBaseKit::printTable()\fP for information about the output formatting\&.) 
+.SS "SoRotateDiscDragger::~SoRotateDiscDragger (void)\fC [protected]\fP, \fC [virtual]\fP"
+Protected destructor\&.
+.PP
+(Dragger classes are derived from \fBSoBase\fP, so they are reference counted and automatically destroyed when their reference count goes to 0\&.) 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoRotateDiscDragger::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Reimplemented from \fBSoDragger\fP\&.
+.SS "const \fBSoFieldData\fP * SoRotateDiscDragger::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoDragger\fP\&.
+.SS "const \fBSoNodekitCatalog\fP * SoRotateDiscDragger::getNodekitCatalog (void) const\fC [virtual]\fP"
+Returns the nodekit catalog which defines the layout of this class' kit\&. 
+.PP
+Reimplemented from \fBSoDragger\fP\&.
+.SS "SbBool SoRotateDiscDragger::setUpConnections (SbBool onoff, SbBool doitalways = \fCFALSE\fP)\fC [protected]\fP, \fC [virtual]\fP"
+Sets up all internal connections for instances of this class\&.
+.PP
+(This method will usually not be of interest to the application programmer, unless you want to extend the library with new custom nodekits or dragger classes\&. If so, see the \fBSoBaseKit\fP class documentation\&.) 
+.PP
+Reimplemented from \fBSoInteractionKit\fP\&.
+.SS "void SoRotateDiscDragger::startCB (void * f, \fBSoDragger\fP * d)\fC [static]\fP, \fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoRotateDiscDragger::motionCB (void * f, \fBSoDragger\fP * d)\fC [static]\fP, \fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoRotateDiscDragger::doneCB (void * f, \fBSoDragger\fP * d)\fC [static]\fP, \fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoRotateDiscDragger::fieldSensorCB (void * d, \fBSoSensor\fP * s)\fC [static]\fP, \fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoRotateDiscDragger::valueChangedCB (void * f, \fBSoDragger\fP * d)\fC [static]\fP, \fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoRotateDiscDragger::dragStart (void)\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP Called when dragger is selected (picked) by the user\&. 
+.SS "void SoRotateDiscDragger::drag (void)\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP Called when user drags the mouse after picking the dragger\&. 
+.SS "void SoRotateDiscDragger::dragFinish (void)\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP Called when mouse button is released after picking and interacting with the dragger\&. 
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSoSFRotation\fP SoRotateDiscDragger::rotation"
+This field is continuously updated to contain the rotation of the current direction vector of the dragger\&.
+.PP
+The application programmer using this dragger in his scenegraph should connect the relevant node fields in the scene to this field to make them follow the dragger orientation\&. 
+.SS "\fBSoFieldSensor\fP * SoRotateDiscDragger::fieldSensor\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "\fBSbPlaneProjector\fP * SoRotateDiscDragger::planeProj\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

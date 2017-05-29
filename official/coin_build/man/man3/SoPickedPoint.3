@@ -1,0 +1,153 @@
+.TH "SoPickedPoint" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoPickedPoint \- The \fBSoPickedPoint\fP class is used for specifying picked points\&.
+.PP
+It holds miscellaneous information about the picked point, such as position, normal, texture coordinate and material index in the current material\&. It might also hold detail information (an \fBSoDetail\fP subclass) for every node in the picked path\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/SoPickedPoint\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSoPickedPoint\fP (const \fBSoPickedPoint\fP &pp)"
+.br
+.ti -1c
+.RI "\fBSoPickedPoint\fP (const \fBSoPath\fP *const path, \fBSoState\fP *const state, const \fBSbVec3f\fP &objSpacePoint)"
+.br
+.ti -1c
+.RI "\fB~SoPickedPoint\fP ()"
+.br
+.ti -1c
+.RI "\fBSoPickedPoint\fP * \fBcopy\fP () const"
+.br
+.ti -1c
+.RI "const \fBSbVec3f\fP & \fBgetPoint\fP () const"
+.br
+.ti -1c
+.RI "const \fBSbVec3f\fP & \fBgetNormal\fP () const"
+.br
+.ti -1c
+.RI "const \fBSbVec4f\fP & \fBgetTextureCoords\fP () const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetMaterialIndex\fP () const"
+.br
+.ti -1c
+.RI "\fBSoPath\fP * \fBgetPath\fP () const"
+.br
+.ti -1c
+.RI "SbBool \fBisOnGeometry\fP () const"
+.br
+.ti -1c
+.RI "const \fBSoDetail\fP * \fBgetDetail\fP (const \fBSoNode\fP *const node=NULL) const"
+.br
+.ti -1c
+.RI "const \fBSbMatrix\fP & \fBgetObjectToWorld\fP (const \fBSoNode\fP *const node=NULL) const"
+.br
+.ti -1c
+.RI "const \fBSbMatrix\fP & \fBgetWorldToObject\fP (const \fBSoNode\fP *const node=NULL) const"
+.br
+.ti -1c
+.RI "const \fBSbMatrix\fP & \fBgetObjectToImage\fP (const \fBSoNode\fP *const node=NULL) const"
+.br
+.ti -1c
+.RI "const \fBSbMatrix\fP & \fBgetImageToObject\fP (const \fBSoNode\fP *const node=NULL) const"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP \fBgetObjectPoint\fP (const \fBSoNode\fP *const node=NULL) const"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP \fBgetObjectNormal\fP (const \fBSoNode\fP *const node=NULL) const"
+.br
+.ti -1c
+.RI "\fBSbVec4f\fP \fBgetObjectTextureCoords\fP (const \fBSoNode\fP *const node=NULL) const"
+.br
+.ti -1c
+.RI "void \fBsetObjectNormal\fP (const \fBSbVec3f\fP &normal)"
+.br
+.ti -1c
+.RI "void \fBsetObjectTextureCoords\fP (const \fBSbVec4f\fP &texCoords)"
+.br
+.ti -1c
+.RI "void \fBsetMaterialIndex\fP (const \fBint\fP index)"
+.br
+.ti -1c
+.RI "void \fBsetDetail\fP (\fBSoDetail\fP *detail, \fBSoNode\fP *node)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBSoPickedPoint\fP class is used for specifying picked points\&.
+.PP
+It holds miscellaneous information about the picked point, such as position, normal, texture coordinate and material index in the current material\&. It might also hold detail information (an \fBSoDetail\fP subclass) for every node in the picked path\&. 
+
+
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoRayPickAction\fP 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoPickedPoint::SoPickedPoint (const \fBSoPickedPoint\fP & pp)"
+Copy constructor\&. 
+.SS "SoPickedPoint::SoPickedPoint (const \fBSoPath\fP *const pathptr, \fBSoState\fP *const stateptr, const \fBSbVec3f\fP & objSpacePoint)"
+Constructor\&. Uses the state to convert between world and object space for the data\&. 
+.SS "SoPickedPoint::~SoPickedPoint ()"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoPickedPoint\fP * SoPickedPoint::copy (void) const"
+Returns a copy of this picked point\&.
+.PP
+\fBNote that if the Coin library has been built as a DLL under Microsoft Windows and you use this method from application code, you \fImust\fP make sure that both the Coin DLL and the application executable is using the same instance of a C Run-Time (CRT) library\&. Otherwise, you \fIwill\fP get memory heap corruption upon deallocating the returned instances, eventually leading to mysterious crashes\&.\fP 
+.SS "const \fBSbVec3f\fP & SoPickedPoint::getPoint (void) const"
+Returns the world space point\&. 
+.SS "const \fBSbVec3f\fP & SoPickedPoint::getNormal (void) const"
+Returns the world space normal\&. 
+.SS "const \fBSbVec4f\fP & SoPickedPoint::getTextureCoords () const"
+Returns the image space texture coordinates\&. 
+.SS "\fBint\fP SoPickedPoint::getMaterialIndex (void) const"
+Returns the material index\&. 
+.SS "\fBSoPath\fP * SoPickedPoint::getPath (void) const"
+Returns the path to the picked object\&. 
+.SS "SbBool SoPickedPoint::isOnGeometry () const"
+Returns TRUE if this picked point is on the actual geometry of the picked object, or FALSE if not (it might for instance be on the bounding box if picking was done on bounding boxes)\&. 
+.SS "const \fBSoDetail\fP * SoPickedPoint::getDetail (const \fBSoNode\fP *const node = \fCNULL\fP) const"
+Returns detail for \fInode\fP\&. If \fInode\fP equals NULL, the detail for the picked object is returned\&. 
+.SS "const \fBSbMatrix\fP & SoPickedPoint::getObjectToWorld (const \fBSoNode\fP *const node = \fCNULL\fP) const"
+Returns the matrix which converts from object (specified by \fInode\fP) to world space\&. If \fInode\fP equals NULL, the object space of the picked object will used\&. 
+.SS "const \fBSbMatrix\fP & SoPickedPoint::getWorldToObject (const \fBSoNode\fP *const node = \fCNULL\fP) const"
+Returns the matrix which converts from world to object (specified by \fInode\fP) space\&. If \fInode\fP equals NULL, the object space of the picked object will used\&. 
+.SS "const \fBSbMatrix\fP & SoPickedPoint::getObjectToImage (const \fBSoNode\fP *const node = \fCNULL\fP) const"
+Returns the matrix which converts from object (specified by \fInode\fP) to image space\&. If \fInode\fP equals NULL, the object space of the picked object will used\&. 
+.SS "const \fBSbMatrix\fP & SoPickedPoint::getImageToObject (const \fBSoNode\fP *const node = \fCNULL\fP) const"
+Returns the matrix which converts from image to object (specified by \fInode\fP) space\&. If \fInode\fP equals NULL, the object space of the picked object will used\&. 
+.SS "\fBSbVec3f\fP SoPickedPoint::getObjectPoint (const \fBSoNode\fP *const node = \fCNULL\fP) const"
+Returns the object space point, in the object space specified by \fInode\fP\&. If \fInode\fP equals \fCNULL\fP, the object space of the node where the point was actually picked will be used (this is what one would usually be interested in)\&.
+.PP
+\fInode\fP can be any node in the scenegraph\&. 
+.SS "\fBSbVec3f\fP SoPickedPoint::getObjectNormal (const \fBSoNode\fP *const node = \fCNULL\fP) const"
+Returns the object space (specified by \fInode\fP) normal\&. If \fInode\fP equals NULL, the picked point object space will be used\&. 
+.SS "\fBSbVec4f\fP SoPickedPoint::getObjectTextureCoords (const \fBSoNode\fP *const node = \fCNULL\fP) const"
+Returns the object space (specified by \fInode\fP) texture coordinates\&. If \fInode\fP equals NULL, the picked point object space will be used\&. 
+.SS "void SoPickedPoint::setObjectNormal (const \fBSbVec3f\fP & normalref)"
+Sets the picked point objects space normal vector\&. 
+.SS "void SoPickedPoint::setObjectTextureCoords (const \fBSbVec4f\fP & texCoordsref)"
+Sets the picked point object space texture coordinates\&. 
+.SS "void SoPickedPoint::setMaterialIndex (const \fBint\fP index)"
+Sets the material index\&. 
+.SS "void SoPickedPoint::setDetail (\fBSoDetail\fP * detail, \fBSoNode\fP * node)"
+Sets the detail for \fInode\fP\&. \fInode\fP must be in the picked path, of course\&. Set to NULL if you want to remove a detail for a node\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

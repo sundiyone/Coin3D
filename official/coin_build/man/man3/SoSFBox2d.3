@@ -1,0 +1,121 @@
+.TH "SoSFBox2d" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoSFBox2d \- The \fBSoSFBox2d\fP class is a container for an \fBSbBox2d\fP vector\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store a box\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/fields/SoSFBox2d\&.h>\fP
+.PP
+Inherits \fBSoSField\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBcopyFrom\fP (const \fBSoField\fP &field)"
+.br
+.ti -1c
+.RI "const \fBSoSFBox2d\fP & \fBoperator=\fP (const \fBSoSFBox2d\fP &field)"
+.br
+.ti -1c
+.RI "virtual SbBool \fBisSame\fP (const \fBSoField\fP &field) const"
+.br
+.ti -1c
+.RI "const \fBSbBox2d\fP & \fBgetValue\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBsetValue\fP (const \fBSbBox2d\fP &newvalue)"
+.br
+.ti -1c
+.RI "const \fBSbBox2d\fP & \fBoperator=\fP (const \fBSbBox2d\fP &newvalue)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBoperator==\fP (const \fBSoSFBox2d\fP &field) const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBoperator!=\fP (const \fBSoSFBox2d\fP &field) const"
+.br
+.ti -1c
+.RI "void \fBsetValue\fP (double xmin, double ymin, double xmax, double ymax)"
+.br
+.ti -1c
+.RI "void \fBsetValue\fP (const \fBSbVec2d\fP &minvec, const \fBSbVec2d\fP &maxvec)"
+.br
+.ti -1c
+.RI "void \fBgetValue\fP (\fBSbBox2d\fP &box) const"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static void * \fBcreateInstance\fP (void)"
+.br
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSbBox2d\fP \fBvalue\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoSFBox2d\fP class is a container for an \fBSbBox2d\fP vector\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store a box\&. 
+
+Be aware that this class is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&. 
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.5 
+.RE
+.PP
+
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoSFBox2d::getTypeId (void) const\fC [virtual]\fP"
+Returns the type identification instance which uniquely identifies the Coin field class the object belongs to\&.
+.PP
+\fBSee also:\fP
+.RS 4
+getClassTypeId(), \fBSoType\fP 
+.RE
+.PP
+
+.PP
+Implements \fBSoField\fP\&.
+.SS "void SoSFBox2d::copyFrom (const \fBSoField\fP & f)\fC [virtual]\fP"
+Copy value(s) from \fIf\fP into this field\&. \fIf\fP must be of the same type as this field\&. 
+.PP
+Implements \fBSoField\fP\&.
+.SS "SbBool SoSFBox2d::isSame (const \fBSoField\fP & f) const\fC [virtual]\fP"
+Check for equal type and value(s)\&. 
+.PP
+Implements \fBSoField\fP\&.
+.SS "void SoSFBox2d::setValue (double xmin, double ymin, double xmax, double ymax)"
+Set value of vector\&. 
+.SS "void SoSFBox2d::setValue (const \fBSbVec2d\fP & minvec, const \fBSbVec2d\fP & maxvec)"
+Set value of vector\&. 
+.SS "void SoSFBox2d::getValue (\fBSbBox2d\fP & box) const"
+Set value of vector\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

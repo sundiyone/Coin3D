@@ -1,0 +1,171 @@
+.TH "SoVRMLCollision" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoVRMLCollision \- The \fBSoVRMLCollision\fP class is used for collision detection with the avatar\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/VRMLnodes/SoVRMLCollision\&.h>\fP
+.PP
+Inherits \fBSoVRMLGroup\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "\fBSoVRMLCollision\fP (void)"
+.br
+.ti -1c
+.RI "\fBSoVRMLCollision\fP (\fBint\fP numchildren)"
+.br
+.ti -1c
+.RI "virtual void \fBGLRender\fP (\fBSoGLRenderAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBnotify\fP (\fBSoNotList\fP *list)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFBool\fP \fBcollide\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBproxy\fP"
+.br
+.ti -1c
+.RI "\fBSoSFTime\fP \fBcollideTime\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fB~SoVRMLCollision\fP ()"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoVRMLCollision\fP class is used for collision detection with the avatar\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP 
+
+
+.PP
+.nf
+Collision {
+  eventIn      MFNode   addChildren
+  eventIn      MFNode   removeChildren
+  exposedField MFNode   children        []
+  exposedField SFBool   collide         TRUE
+  field        SFVec3f  bboxCenter      0 0 0      # (-,)
+  field        SFVec3f  bboxSize        -1 -1 -1   # (0,) or -1,-1,-1
+  field        SFNode   proxy           NULL
+  eventOut     SFTime   collideTime
+}
+
+.fi
+.PP
+.PP
+The Collision node is a grouping node that specifies the collision detection properties for its children (and their descendants), specifies surrogate objects that replace its children during collision detection, and sends events signalling that a collision has occurred between the avatar and the Collision node's geometry or surrogate\&. By default, all geometric nodes in the scene are collidable with the viewer except IndexedLineSet, PointSet, and Text\&. Browsers shall detect geometric collisions between the avatar (see \fBSoVRMLNavigationInfo\fP) and the scene's geometry and prevent the avatar from 'entering' the geometry\&. See 4\&.13\&.4, Collision detection and terrain following (http://www.web3d.org/x3d/specifications/vrml/ISO-IEC-14772-VRML97/part1/concepts.html#4.13.4), for general information on collision detection\&.
+.PP
+If there are no Collision nodes specified in a VRML file, browsers shall detect collisions between the avatar and all objects during navigation\&.
+.PP
+Subclause 4\&.6\&.5, Grouping and children nodes (http://www.web3d.org/x3d/specifications/vrml/ISO-IEC-14772-VRML97/part1/concepts.html#4.6.5), contains a description of the children, addChildren, and removeChildren fields and eventIns\&.
+.PP
+The Collision node's collide field enables and disables collision detection\&. If collide is set to FALSE, the children and all descendants of the Collision node shall not be checked for collision, even though they are drawn\&. This includes any descendent Collision nodes that have collide set to TRUE (i\&.e\&., setting collide to FALSE turns collision off for every node below it)\&.
+.PP
+Collision nodes with the collide field set to TRUE detect the nearest collision with their descendent geometry (or proxies)\&. When the nearest collision is detected, the collided Collision node sends the time of the collision through its collideTime eventOut\&. If a Collision node contains a child, descendant, or proxy (see below) that is a Collision node, and both Collision nodes detect that a collision has occurred, both send a collideTime event at the same time\&. A collideTime event shall be generated if the avatar is colliding with collidable geometry when the Collision node is read from a VRML file or inserted into the transformation hierarchy\&.
+.PP
+The bboxCenter and bboxSize fields specify a bounding box that encloses the Collision node's children\&. This is a hint that may be used for optimization purposes\&. The results are undefined if the specified bounding box is smaller than the actual bounding box of the children at any time\&. A default bboxSize value, (-1, -1, -1), implies that the bounding box is not specified and if needed shall be calculated by the browser\&. More details on the bboxCenter and bboxSize fields can be found in 4\&.6\&.4, Bounding boxes\&. (http://www.web3d.org/x3d/specifications/vrml/ISO-IEC-14772-VRML97/part1/concepts.html#4.6.4),
+.PP
+The collision proxy, defined in the proxy field, is any legal children node as described in 4\&.6\&.5, Grouping and children nodes, (http://www.web3d.org/x3d/specifications/vrml/ISO-IEC-14772-VRML97/part1/concepts.html#4.6.5), that is used as a substitute for the Collision node's children during collision detection\&. The proxy is used strictly for collision detection; it is not drawn\&. If the value of the collide field is TRUE and the proxy field is non-NULL, the proxy field defines the scene on which collision detection is performed\&. If the proxy value is NULL, collision detection is performed against the children of the Collision node\&. If proxy is specified, any descendent children of the Collision node are ignored during collision detection\&. If children is empty, collide is TRUE, and proxy is specified, collision detection is performed against the proxy but nothing is displayed\&. In this manner, invisible collision objects may be supported\&.
+.PP
+The collideTime eventOut generates an event specifying the time when the avatar (see \fBSoVRMLNavigationInfo\fP) makes contact with the collidable children or proxy of the Collision node\&. An ideal implementation computes the exact time of collision\&. Implementations may approximate the ideal by sampling the positions of collidable objects and the user\&. The \fBSoVRMLNavigationInfo\fP node contains additional information for parameters that control the avatar size\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoVRMLCollision::SoVRMLCollision (void)"
+Constructor\&. 
+.SS "SoVRMLCollision::SoVRMLCollision (\fBint\fP numchildren)"
+Constructor\&. \fInumchildren\fP is the expected number of children\&. 
+.SS "SoVRMLCollision::~SoVRMLCollision ()\fC [protected]\fP, \fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoVRMLCollision::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Reimplemented from \fBSoVRMLGroup\fP\&.
+.SS "const \fBSoFieldData\fP * SoVRMLCollision::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoVRMLGroup\fP\&.
+.SS "void SoVRMLCollision::GLRender (\fBSoGLRenderAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGLRenderAction\fP\&.
+.PP
+This is called during rendering traversals\&. Nodes influencing the rendering state in any way or who wants to throw geometry primitives at OpenGL overrides this method\&. 
+.PP
+Reimplemented from \fBSoVRMLGroup\fP\&.
+.SS "void SoVRMLCollision::notify (\fBSoNotList\fP * l)\fC [virtual]\fP"
+Notifies all auditors for this instance when changes are made\&. 
+.PP
+Reimplemented from \fBSoVRMLGroup\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSoSFBool\fP SoVRMLCollision::collide"
+Enable/disable collision\&. 
+.SS "\fBSoSFNode\fP SoVRMLCollision::proxy"
+Proxy node(s) used for collision testing\&. 
+.SS "\fBSoSFTime\fP SoVRMLCollision::collideTime"
+An eventOut sent for each collision that occurs\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

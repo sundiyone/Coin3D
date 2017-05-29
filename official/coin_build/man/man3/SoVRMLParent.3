@@ -1,0 +1,368 @@
+.TH "SoVRMLParent" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoVRMLParent \- The \fBSoVRMLParent\fP node is a superclass for all VRML grouping nodes\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/VRMLnodes/SoVRMLParent\&.h>\fP
+.PP
+Inherits \fBSoGroup\fP\&.
+.PP
+Inherited by \fBSoVRMLAnchor\fP, \fBSoVRMLBillboard\fP, and \fBSoVRMLGroup\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "virtual SbBool \fBaffectsState\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBaddChild\fP (\fBSoNode\fP *child)"
+.br
+.ti -1c
+.RI "virtual void \fBinsertChild\fP (\fBSoNode\fP *child, \fBint\fP idx)"
+.br
+.ti -1c
+.RI "virtual \fBSoNode\fP * \fBgetChild\fP (\fBint\fP idx) const"
+.br
+.ti -1c
+.RI "virtual \fBint\fP \fBfindChild\fP (const \fBSoNode\fP *child) const"
+.br
+.ti -1c
+.RI "virtual \fBint\fP \fBgetNumChildren\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBremoveChild\fP (\fBint\fP idx)"
+.br
+.ti -1c
+.RI "virtual void \fBremoveChild\fP (\fBSoNode\fP *child)"
+.br
+.ti -1c
+.RI "virtual void \fBremoveAllChildren\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBreplaceChild\fP (\fBint\fP idx, \fBSoNode\fP *child)"
+.br
+.ti -1c
+.RI "virtual void \fBreplaceChild\fP (\fBSoNode\fP *old, \fBSoNode\fP *child)"
+.br
+.ti -1c
+.RI "virtual \fBSoChildList\fP * \fBgetChildren\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBdoAction\fP (\fBSoAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBsearch\fP (\fBSoSearchAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBwrite\fP (\fBSoWriteAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBgetPrimitiveCount\fP (\fBSoGetPrimitiveCountAction\fP *action)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBupdateChildList\fP (const \fBSoNode\fP *const *nodes, const \fBint\fP numnodes, \fBSoChildList\fP &cl)"
+.br
+.ti -1c
+.RI "static void \fBupdateChildList\fP (\fBSoNode\fP *nodewithsfnode, \fBSoChildList\fP &cl)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoMFNode\fP \fBchildren\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoVRMLParent\fP (void)"
+.br
+.ti -1c
+.RI "\fBSoVRMLParent\fP (\fBint\fP approxchildren)"
+.br
+.ti -1c
+.RI "virtual \fB~SoVRMLParent\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBnotify\fP (\fBSoNotList\fP *list)"
+.br
+.ti -1c
+.RI "virtual SbBool \fBreadInstance\fP (\fBSoInput\fP *in, unsigned short flags)"
+.br
+.ti -1c
+.RI "virtual void \fBcopyContents\fP (const \fBSoFieldContainer\fP *from, SbBool copyConn)"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoMFNode\fP \fBaddChildren\fP"
+.br
+.ti -1c
+.RI "\fBSoMFNode\fP \fBremoveChildren\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoVRMLParent\fP node is a superclass for all VRML grouping nodes\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoVRMLParent::SoVRMLParent (void)\fC [protected]\fP"
+Constructor\&. 
+.SS "SoVRMLParent::SoVRMLParent (\fBint\fP numchildren)\fC [protected]\fP"
+Destructor\&. \fInumchildren\fP is the expected number of children\&. 
+.SS "SoVRMLParent::~SoVRMLParent ()\fC [protected]\fP, \fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoVRMLParent::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Reimplemented from \fBSoGroup\fP\&.
+.PP
+Reimplemented in \fBSoVRMLAnchor\fP, \fBSoVRMLBillboard\fP, \fBSoVRMLGroup\fP, \fBSoVRMLCollision\fP, and \fBSoVRMLTransform\fP\&.
+.SS "const \fBSoFieldData\fP * SoVRMLParent::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoGroup\fP\&.
+.PP
+Reimplemented in \fBSoVRMLAnchor\fP, \fBSoVRMLBillboard\fP, \fBSoVRMLGroup\fP, \fBSoVRMLCollision\fP, and \fBSoVRMLTransform\fP\&.
+.SS "SbBool SoVRMLParent::affectsState (void) const\fC [virtual]\fP"
+Returns \fCTRUE\fP if the node could have any effect on the state during traversal\&.
+.PP
+If it returns \fCFALSE\fP, no data in the traversal-state will change from the pre-traversal state to the post-traversal state\&. The \fBSoSeparator\fP node will for instance return \fCFALSE\fP, as it pushes and pops the state before and after traversal of its children\&. All \fBSoShape\fP nodes will also return \fCFALSE\fP, as just pushing out geometry data to the rendering engine won't affect the actual rendering state\&.
+.PP
+The default method returns \fCTRUE\fP, on a 'better safe than sorry' philosophy\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "void SoVRMLParent::addChild (\fBSoNode\fP * node)\fC [virtual]\fP"
+Append a child \fInode\fP to the list of children nodes this group node is managing\&.
+.PP
+Please note that this method is not virtual in the original SGI Inventor API\&. 
+.PP
+Reimplemented from \fBSoGroup\fP\&.
+.SS "void SoVRMLParent::insertChild (\fBSoNode\fP * child, \fBint\fP newchildindex)\fC [virtual]\fP"
+Insert a \fIchild\fP node at position \fInewchildindex\fP\&.
+.PP
+\fInewchildindex\fP must be <= this->\fBgetNumChildren()\fP
+.PP
+Please note that this method is not virtual in the original SGI Inventor API\&. 
+.PP
+Reimplemented from \fBSoGroup\fP\&.
+.SS "\fBSoNode\fP * SoVRMLParent::getChild (\fBint\fP index) const\fC [virtual]\fP"
+Returns pointer to child node at \fIindex\fP\&.
+.PP
+Please note that this method is not virtual in the original SGI Inventor API\&. 
+.PP
+Reimplemented from \fBSoGroup\fP\&.
+.SS "\fBint\fP SoVRMLParent::findChild (const \fBSoNode\fP * node) const\fC [virtual]\fP"
+Returns index in our list of children for child \fInode\fP, or -1 if \fInode\fP is not a child of this group node\&.
+.PP
+Please note that this method is not virtual in the original SGI Inventor API\&. 
+.PP
+Reimplemented from \fBSoGroup\fP\&.
+.SS "\fBint\fP SoVRMLParent::getNumChildren (void) const\fC [virtual]\fP"
+Returns number of child nodes managed by this group\&.
+.PP
+Please note that this method is not virtual in the original SGI Inventor API\&. 
+.PP
+Reimplemented from \fBSoGroup\fP\&.
+.SS "void SoVRMLParent::removeChild (\fBint\fP childindex)\fC [virtual]\fP"
+Remove node at \fIchildindex\fP in our list of children\&.
+.PP
+Please note that this method is not virtual in the original SGI Inventor API\&. 
+.PP
+Reimplemented from \fBSoGroup\fP\&.
+.SS "void SoVRMLParent::removeChild (\fBSoNode\fP * child)\fC [virtual]\fP"
+Remove \fIchild\fP from the set of children managed by this group node\&. Will decrease the reference count of \fIchild\fP by 1\&.
+.PP
+This is a convenience method\&. It will simply call \fBfindChild()\fP with \fIchild\fP as argument, and then call \fBremoveChild(int)\fP if the child is found\&.
+.PP
+Please note that this method is not virtual in the original SGI Inventor API\&. 
+.PP
+Reimplemented from \fBSoGroup\fP\&.
+.SS "void SoVRMLParent::removeAllChildren (void)\fC [virtual]\fP"
+Do not manage the children anymore\&. Will dereference all children by 1 as they are removed\&.
+.PP
+Please note that this method is not virtual in the original SGI Inventor API\&. 
+.PP
+Reimplemented from \fBSoGroup\fP\&.
+.SS "void SoVRMLParent::replaceChild (\fBint\fP index, \fBSoNode\fP * newchild)\fC [virtual]\fP"
+Replace child at \fIindex\fP with \fInewChild\fP\&.
+.PP
+Dereferences the child previously at \fIindex\fP, and increases the reference count of \fInewChild\fP by 1\&.
+.PP
+\fIindex\fP must be < this->\fBgetNumChildren()\fP
+.PP
+Please note that this method is not virtual in the original SGI Inventor API\&. 
+.PP
+Reimplemented from \fBSoGroup\fP\&.
+.SS "void SoVRMLParent::replaceChild (\fBSoNode\fP * oldchild, \fBSoNode\fP * newchild)\fC [virtual]\fP"
+Replace \fIoldchild\fP with \fInewchild\fP\&.
+.PP
+Dereferences \fIoldchild\fP by 1, and increases the reference count of \fInewchild\fP by 1\&.
+.PP
+This is a convenience method\&. It will simply call \fBfindChild()\fP with \fIoldchild\fP as argument, and call \fBreplaceChild(int, SoNode*)\fP if the child is found\&.
+.PP
+Please note that this method is not virtual in the original SGI Inventor API\&. 
+.PP
+Reimplemented from \fBSoGroup\fP\&.
+.SS "\fBSoChildList\fP * SoVRMLParent::getChildren (void) const\fC [virtual]\fP"
+Returns list of children\&. 
+.PP
+Reimplemented from \fBSoGroup\fP\&.
+.SS "void SoVRMLParent::doAction (\fBSoAction\fP * action)\fC [virtual]\fP"
+This function performs the typical operation of a node for any action\&. 
+.PP
+Reimplemented from \fBSoGroup\fP\&.
+.PP
+Reimplemented in \fBSoVRMLTransform\fP, \fBSoVRMLGroup\fP, and \fBSoVRMLBillboard\fP\&.
+.SS "void SoVRMLParent::search (\fBSoSearchAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoSearchAction\fP\&.
+.PP
+Compares the search criteria from the \fIaction\fP to see if this node is a match\&. Searching is done by matching up \fIall\fP criteria set up in the \fBSoSearchAction\fP -- if \fIany\fP of the requested criteria is a miss, the search is not deemed successful for the node\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoSearchAction\fP 
+.RE
+.PP
+
+.PP
+Reimplemented from \fBSoGroup\fP\&.
+.PP
+Reimplemented in \fBSoVRMLGroup\fP, and \fBSoVRMLBillboard\fP\&.
+.SS "void SoVRMLParent::write (\fBSoWriteAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoWriteAction\fP\&.
+.PP
+Writes out a node object, and any connected nodes, engines etc, if necessary\&. 
+.PP
+Reimplemented from \fBSoGroup\fP\&.
+.PP
+Reimplemented in \fBSoVRMLGroup\fP\&.
+.SS "void SoVRMLParent::getPrimitiveCount (\fBSoGetPrimitiveCountAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGetPrimitiveCountAction\fP\&.
+.PP
+Calculates the number of triangle, line segment and point primitives for the node and adds these to the counters of the \fIaction\fP\&.
+.PP
+Nodes influencing how geometry nodes calculates their primitive count also overrides this method to change the relevant state variables\&. 
+.PP
+Reimplemented from \fBSoGroup\fP\&.
+.PP
+Reimplemented in \fBSoVRMLGroup\fP, and \fBSoVRMLTransform\fP\&.
+.SS "void SoVRMLParent::updateChildList (const \fBSoNode\fP *const * nodes, const \fBint\fP numnodes, \fBSoChildList\fP & cl)\fC [static]\fP"
+A convenience method that can be used to update \fIcl\fP to match the list of nodes in \fInodes\fP\&. 
+.SS "void SoVRMLParent::updateChildList (\fBSoNode\fP * nodewithsfnode, \fBSoChildList\fP & cl)\fC [static]\fP"
+A convenience method that is used to sync the nodes in \fIcl\fP with all nodes in \fBSoSFNode\fP fields in \fInodewithsfnode\fP\&. 
+.SS "void SoVRMLParent::notify (\fBSoNotList\fP * l)\fC [protected]\fP, \fC [virtual]\fP"
+Notifies all auditors for this instance when changes are made\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.PP
+Reimplemented in \fBSoVRMLGroup\fP, \fBSoVRMLTransform\fP, \fBSoVRMLBillboard\fP, and \fBSoVRMLCollision\fP\&.
+.SS "SbBool SoVRMLParent::readInstance (\fBSoInput\fP * in, unsigned short flags)\fC [protected]\fP, \fC [virtual]\fP"
+This method is mainly intended for internal use during file import operations\&.
+.PP
+It reads a definition of an instance from the input stream \fIin\fP\&. The input stream state points to the start of a serialized / persistant representation of an instance of this class type\&.
+.PP
+\fCTRUE\fP or \fCFALSE\fP is returned, depending on if the instantiation and configuration of the new object of this class type went ok or not\&. The import process should be robust and handle corrupted input streams by returning \fCFALSE\fP\&.
+.PP
+\fIflags\fP is used internally during binary import when reading user extension nodes, group nodes or engines\&. 
+.PP
+Reimplemented from \fBSoGroup\fP\&.
+.SS "void SoVRMLParent::copyContents (const \fBSoFieldContainer\fP * from, SbBool copyconnections)\fC [protected]\fP, \fC [virtual]\fP"
+Makes a deep copy of all data of \fIfrom\fP into this instance, \fIexcept\fP external scenegraph references if \fIcopyconnections\fP is \fCFALSE\fP\&.
+.PP
+This is the method that should be overridden by extension node / engine / dragger / whatever subclasses which needs to account for internal data that are not handled automatically\&.
+.PP
+For copying nodes from application code, you should not invoke this function directly, but rather call the \fBSoNode::copy()\fP function:
+.PP
+.PP
+.nf
+SoNode * mynewnode = templatenode->copy();
+.fi
+.PP
+.PP
+The same also goes for engines\&.
+.PP
+Make sure that when you override the \fBcopyContents()\fP method in your extension class that you also make it call upwards to it's parent superclass in the inheritance hierarchy, as \fBcopyContents()\fP in for instance \fBSoNode\fP and \fBSoFieldContainer\fP does important work\&. It should go something like this:
+.PP
+.PP
+.nf
+void
+MyCoinExtensionNode::copyContents(const SoFieldContainer * from,
+                                  SbBool copyconnections)
+{
+  // let parent superclasses do their thing (copy fields, copy
+  // instance name, etc etc)
+  SoNode::copyContents(from, copyconnections);
+
+  // [\&.\&.then copy internal data\&.\&.]
+}
+.fi
+.PP
+ 
+.PP
+Reimplemented from \fBSoGroup\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSoMFNode\fP SoVRMLParent::children"
+The children nodes\&. 
+.SS "\fBSoMFNode\fP SoVRMLParent::addChildren\fC [protected]\fP"
+An event in that is used to add children to this node\&. 
+.SS "\fBSoMFNode\fP SoVRMLParent::removeChildren\fC [protected]\fP"
+An event in that is used to remove children from this node\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

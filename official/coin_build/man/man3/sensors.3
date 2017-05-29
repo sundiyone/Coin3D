@@ -1,0 +1,93 @@
+.TH "sensors" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+sensors \- Sensors are objects that monitor other objects for changes and invoke callbacks when changes occur\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBSoAlarmSensor\fP"
+.br
+.RI "The \fBSoAlarmSensor\fP class is a sensor which will trigger once at a specified time\&.
+.PP
+\fBSoAlarmSensor\fP provides a convenient way of setting up triggers for jobs which should be executed only once when they are scheduled\&. "
+.ti -1c
+.RI "class \fBSoDataSensor\fP"
+.br
+.RI "The \fBSoDataSensor\fP class is the abstract base class for sensors monitoring changes in a scene graph\&.
+.PP
+If you need to know when a particular entity (as a field or a node) changes, subclasses of \fBSoDataSensor\fP can be used to monitor the entity and notify you when it changes\&. "
+.ti -1c
+.RI "class \fBSoDelayQueueSensor\fP"
+.br
+.RI "The \fBSoDelayQueueSensor\fP class is the abstract base class for priority scheduled sensors\&.
+.PP
+Delay queue sensors are invoked upon various events \fInot\fP related to time occurrences\&. See documentation of subclasses to see which types of events can be surveilled by the builtin sensor types\&. "
+.ti -1c
+.RI "class \fBSoFieldSensor\fP"
+.br
+.RI "The \fBSoFieldSensor\fP class detects changes to a field\&.
+.PP
+Attach a field to a sensor of this type to put it under surveillance, so you can act upon changes to the field\&. "
+.ti -1c
+.RI "class \fBSoIdleSensor\fP"
+.br
+.RI "The \fBSoIdleSensor\fP class is a sensor which will trigger as soon as the application is idle\&.
+.PP
+An \fBSoIdleSensor\fP differs from an \fBSoOneShotSensor\fP in that it will not trigger if the delay queue processing is occurring due to the delay queue timeout, but \fIonly\fP when the application is idle\&. "
+.ti -1c
+.RI "class \fBSoNodeSensor\fP"
+.br
+.RI "The \fBSoNodeSensor\fP class detects changes to nodes\&.
+.PP
+Attach a node to a sensor of this type to put it under surveillance, so you can act upon changes to the node\&. "
+.ti -1c
+.RI "class \fBSoOneShotSensor\fP"
+.br
+.RI "The \fBSoOneShotSensor\fP class is a sensor which will trigger once\&.
+.PP
+Since \fBSoOneShotSensor\fP is a subclass of \fBSoDelayQueueSensor\fP, it will trigger as soon as either the run-time system is idle, or if it is continually busy it will trigger within a fixed amount of time (this is by default 1/12th of a second, see \fBSoSensorManager::setDelaySensorTimeout()\fP)\&. "
+.ti -1c
+.RI "class \fBSoPathSensor\fP"
+.br
+.RI "The \fBSoPathSensor\fP class detects changes to paths\&.
+.PP
+If you need to know when a path changes (i\&.e\&. nodes in the path has been removed, or new nodes is added), use this sensor to get a notification\&. "
+.ti -1c
+.RI "class \fBSoSensor\fP"
+.br
+.RI "The \fBSoSensor\fP class is the abstract base class for all sensors\&.
+.PP
+Sensors is a mechanism in Coin for scheduling jobs to be run upon specific events\&. The events in question could be particular points in time, or changes to entities in the scene graph\&. "
+.ti -1c
+.RI "class \fBSoSensorManager\fP"
+.br
+.RI "The \fBSoSensorManager\fP class handles the sensor queues\&.
+.PP
+There are two major sensor types in Coin, 'delay' sensors and 'timer' sensors: "
+.ti -1c
+.RI "class \fBSoTimerQueueSensor\fP"
+.br
+.RI "The \fBSoTimerQueueSensor\fP class is the abstract base class for sensors triggering on certain timer events\&.
+.PP
+Timer sensors triggers upon specific points in time\&. "
+.ti -1c
+.RI "class \fBSoTimerSensor\fP"
+.br
+.RI "The \fBSoTimerSensor\fP class is a sensor which will trigger at given intervals\&.
+.PP
+Use sensors of this class when you want a job repeated at a certain interval, without explicitly needing to reschedule the sensor (i\&.e\&. \fBSoTimerSensor\fP automatically re-schedules itself after it has been triggered)\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Sensors are objects that monitor other objects for changes and invoke callbacks when changes occur\&. 
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

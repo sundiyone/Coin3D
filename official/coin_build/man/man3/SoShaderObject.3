@@ -1,0 +1,214 @@
+.TH "SoShaderObject" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoShaderObject \- The \fBSoShaderObject\fP class is the superclass for all shader classes in Coin\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/nodes/SoShaderObject\&.h>\fP
+.PP
+Inherits \fBSoNode\fP\&.
+.PP
+Inherited by \fBSoFragmentShader\fP, \fBSoGeometryShader\fP, and \fBSoVertexShader\fP\&.
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBSourceType\fP { \fBARB_PROGRAM\fP, \fBCG_PROGRAM\fP, \fBGLSL_PROGRAM\fP, \fBFILENAME\fP }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "virtual void \fBGLRender\fP (\fBSoGLRenderAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBsearch\fP (\fBSoSearchAction\fP *action)"
+.br
+.ti -1c
+.RI "void \fBupdateParameters\fP (\fBSoState\fP *state)"
+.br
+.ti -1c
+.RI "\fBSourceType\fP \fBgetSourceType\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSbString\fP \fBgetSourceProgram\fP (void) const"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFBool\fP \fBisActive\fP"
+.br
+.ti -1c
+.RI "\fBSoSFEnum\fP \fBsourceType\fP"
+.br
+.ti -1c
+.RI "\fBSoSFString\fP \fBsourceProgram\fP"
+.br
+.ti -1c
+.RI "\fBSoMFNode\fP \fBparameter\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoShaderObject\fP (void)"
+.br
+.ti -1c
+.RI "virtual \fB~SoShaderObject\fP ()"
+.br
+.ti -1c
+.RI "virtual SbBool \fBreadInstance\fP (\fBSoInput\fP *in, unsigned short flags)"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoShaderObject\fP class is the superclass for all shader classes in Coin\&. 
+
+See \fBShaders in Coin \fP for more information on how to set up a scene graph with shaders\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoShaderProgram\fP 
+.RE
+.PP
+
+.SH "Member Enumeration Documentation"
+.PP 
+.SS "enum \fBSoShaderObject::SourceType\fP"
+Used for enumerating the shader types in sourceProgram\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fIARB_PROGRAM \fP\fP
+Specifies an ARB shader\&. 
+.TP
+\fB\fICG_PROGRAM \fP\fP
+Specifies a Cg shader program\&. 
+.TP
+\fB\fIGLSL_PROGRAM \fP\fP
+Specifies a GLSL program\&. 
+.TP
+\fB\fIFILENAME \fP\fP
+Shader should be loaded from the file in sourceProgram\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoShaderObject::SoShaderObject (void)\fC [protected]\fP"
+Constructor\&. 
+.SS "SoShaderObject::~SoShaderObject ()\fC [protected]\fP, \fC [virtual]\fP"
+Destructor 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoShaderObject::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Implements \fBSoBase\fP\&.
+.PP
+Reimplemented in \fBSoGeometryShader\fP, \fBSoFragmentShader\fP, and \fBSoVertexShader\fP\&.
+.SS "const \fBSoFieldData\fP * SoShaderObject::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoFieldContainer\fP\&.
+.PP
+Reimplemented in \fBSoGeometryShader\fP, \fBSoFragmentShader\fP, and \fBSoVertexShader\fP\&.
+.SS "void SoShaderObject::GLRender (\fBSoGLRenderAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGLRenderAction\fP\&.
+.PP
+This is called during rendering traversals\&. Nodes influencing the rendering state in any way or who wants to throw geometry primitives at OpenGL overrides this method\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.PP
+Reimplemented in \fBSoGeometryShader\fP\&.
+.SS "void SoShaderObject::search (\fBSoSearchAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoSearchAction\fP\&.
+.PP
+Compares the search criteria from the \fIaction\fP to see if this node is a match\&. Searching is done by matching up \fIall\fP criteria set up in the \fBSoSearchAction\fP -- if \fIany\fP of the requested criteria is a miss, the search is not deemed successful for the node\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoSearchAction\fP 
+.RE
+.PP
+
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "void SoShaderObject::updateParameters (\fBSoState\fP * state)"
+Used internally to update shader paramters\&. 
+.SS "\fBSoShaderObject::SourceType\fP SoShaderObject::getSourceType (void) const"
+Returns the shader type detected in sourceProgram\&. 
+.SS "\fBSbString\fP SoShaderObject::getSourceProgram (void) const"
+Returns the actual shader program\&. 
+.SS "SbBool SoShaderObject::readInstance (\fBSoInput\fP * in, unsigned short flags)\fC [protected]\fP, \fC [virtual]\fP"
+This method is mainly intended for internal use during file import operations\&.
+.PP
+It reads a definition of an instance from the input stream \fIin\fP\&. The input stream state points to the start of a serialized / persistant representation of an instance of this class type\&.
+.PP
+\fCTRUE\fP or \fCFALSE\fP is returned, depending on if the instantiation and configuration of the new object of this class type went ok or not\&. The import process should be robust and handle corrupted input streams by returning \fCFALSE\fP\&.
+.PP
+\fIflags\fP is used internally during binary import when reading user extension nodes, group nodes or engines\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSoSFBool\fP SoShaderObject::isActive"
+Enabled/disables the shader\&. Default value is TRUE\&. 
+.SS "\fBSoSFEnum\fP SoShaderObject::sourceType"
+The type of shader\&. 
+.SS "\fBSoSFString\fP SoShaderObject::sourceProgram"
+The shader program, or a file name if the shader should be loaded from a file\&. If the shader is loaded from a file, the shader type is identified by the file extension\&. \&.glsl for GLSL shaders, \&.cg for Cg shaders, and \&.vp and \&.fp for ARB shaders\&. 
+.SS "\fBSoMFNode\fP SoShaderObject::parameter"
+The shader program parameters\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

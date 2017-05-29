@@ -1,0 +1,38 @@
+.TH "SoSensor.h" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoSensor.h
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <Inventor/SbBasic\&.h>\fP
+.br
+
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBSoSensor\fP"
+.br
+.RI "The \fBSoSensor\fP class is the abstract base class for all sensors\&.
+.PP
+Sensors is a mechanism in Coin for scheduling jobs to be run upon specific events\&. The events in question could be particular points in time, or changes to entities in the scene graph\&. "
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef void \fBSoSensorCB\fP(void *data, \fBSoSensor\fP *sensor)"
+.br
+.ti -1c
+.RI "typedef \fBSoSensorCB\fP * \fBSoSensorCBPtr\fP"
+.br
+.in -1c
+.SH "Typedef Documentation"
+.PP 
+.SS "void SoSensorCB"
+Sensor callback functions must have this signature to be valid for registering with \fBSoSensor\fP\&. 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

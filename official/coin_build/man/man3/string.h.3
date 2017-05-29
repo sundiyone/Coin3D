@@ -1,0 +1,146 @@
+.TH "string.h" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+string.h
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <Inventor/C/basic\&.h>\fP
+.br
+\fC#include <stdarg\&.h>\fP
+.br
+
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "struct \fBcc_string\fP"
+.br
+.RI "The \fBcc_string\fP type is a C ADT for ASCII string management\&.
+.PP
+This is a Coin extension\&. "
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef struct \fBcc_string\fP \fBcc_string\fP"
+.br
+.ti -1c
+.RI "typedef char(* \fBcc_apply_f\fP) (char)"
+.br
+.in -1c
+.SS "Enumerations"
+
+.in +1c
+.ti -1c
+.RI "enum \fBcc_string_constants\fP { \fBCC_STRING_MIN_SIZE\fP = 128 - sizeof(char *) + sizeof(size_t), \fBCC_STRING_RESIZE\fP = 128 }"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBcc_string_construct\fP (\fBcc_string\fP *me)"
+.br
+.ti -1c
+.RI "\fBcc_string\fP * \fBcc_string_construct_new\fP (void)"
+.br
+.ti -1c
+.RI "\fBcc_string\fP * \fBcc_string_clone\fP (const \fBcc_string\fP *str)"
+.br
+.ti -1c
+.RI "void \fBcc_string_clean\fP (\fBcc_string\fP *str)"
+.br
+.ti -1c
+.RI "void \fBcc_string_destruct\fP (\fBcc_string\fP *str)"
+.br
+.ti -1c
+.RI "void \fBcc_string_set_string\fP (\fBcc_string\fP *str, const \fBcc_string\fP *str2)"
+.br
+.ti -1c
+.RI "void \fBcc_string_set_text\fP (\fBcc_string\fP *str, const char *text)"
+.br
+.ti -1c
+.RI "void \fBcc_string_set_subtext\fP (\fBcc_string\fP *str, const char *text, \fBint\fP start, \fBint\fP end)"
+.br
+.ti -1c
+.RI "void \fBcc_string_set_integer\fP (\fBcc_string\fP *str, \fBint\fP integer)"
+.br
+.ti -1c
+.RI "void \fBcc_string_append_string\fP (\fBcc_string\fP *str, const \fBcc_string\fP *str2)"
+.br
+.ti -1c
+.RI "void \fBcc_string_append_text\fP (\fBcc_string\fP *str, const char *text)"
+.br
+.ti -1c
+.RI "void \fBcc_string_append_integer\fP (\fBcc_string\fP *str, const \fBint\fP digits)"
+.br
+.ti -1c
+.RI "void \fBcc_string_append_char\fP (\fBcc_string\fP *str, const char c)"
+.br
+.ti -1c
+.RI "unsigned \fBint\fP \fBcc_string_length\fP (const \fBcc_string\fP *str)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBcc_string_is\fP (const \fBcc_string\fP *str)"
+.br
+.ti -1c
+.RI "void \fBcc_string_clear\fP (\fBcc_string\fP *str)"
+.br
+.ti -1c
+.RI "void \fBcc_string_clear_no_free\fP (\fBcc_string\fP *str)"
+.br
+.ti -1c
+.RI "uint32_t \fBcc_string_hash\fP (const \fBcc_string\fP *str)"
+.br
+.ti -1c
+.RI "uint32_t \fBcc_string_hash_text\fP (const char *text)"
+.br
+.ti -1c
+.RI "const char * \fBcc_string_get_text\fP (const \fBcc_string\fP *str)"
+.br
+.ti -1c
+.RI "void \fBcc_string_remove_substring\fP (\fBcc_string\fP *str, \fBint\fP start, \fBint\fP end)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBcc_string_compare\fP (const \fBcc_string\fP *lhs, const \fBcc_string\fP *rhs)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBcc_string_compare_text\fP (const char *lhs, const char *rhs)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBcc_string_compare_subtext\fP (const \fBcc_string\fP *str, const char *text, \fBint\fP offset)"
+.br
+.ti -1c
+.RI "void \fBcc_string_apply\fP (\fBcc_string\fP *str, cc_apply_f function)"
+.br
+.ti -1c
+.RI "void \fBcc_string_sprintf\fP (\fBcc_string\fP *str, const char *formatstr,\&.\&.\&.)"
+.br
+.ti -1c
+.RI "void \fBcc_string_vsprintf\fP (\fBcc_string\fP *str, const char *formatstr, va_list args)"
+.br
+.ti -1c
+.RI "size_t \fBcc_string_utf8_decode\fP (const char *src, size_t srclen, uint32_t *value)"
+.br
+.ti -1c
+.RI "size_t \fBcc_string_utf8_encode\fP (char *buffer, size_t buflen, uint32_t value)"
+.br
+.ti -1c
+.RI "uint32_t \fBcc_string_utf8_get_char\fP (const char *str)"
+.br
+.ti -1c
+.RI "const char * \fBcc_string_utf8_next_char\fP (const char *str)"
+.br
+.ti -1c
+.RI "size_t \fBcc_string_utf8_validate_length\fP (const char *str)"
+.br
+.ti -1c
+.RI "void \fBcc_string_set_wtext\fP (\fBcc_string\fP *str, const wchar_t *text)"
+.br
+.in -1c
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

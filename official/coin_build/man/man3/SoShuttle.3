@@ -1,0 +1,146 @@
+.TH "SoShuttle" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoShuttle \- The \fBSoShuttle\fP class is used to oscillate between two translations\&.
+.PP
+A smooth transition between translation0 and translation1 is created using a cosine function\&. In the beginning of the cycle, translation0 is used\&. Halfway through the cycle, the resulting translation equals translation1, and at the end of the cycle, we're at translation0 again\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/nodes/SoShuttle\&.h>\fP
+.PP
+Inherits \fBSoTranslation\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "\fBSoShuttle\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBwrite\fP (\fBSoWriteAction\fP *action)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFVec3f\fP \fBtranslation0\fP"
+.br
+.ti -1c
+.RI "\fBSoSFVec3f\fP \fBtranslation1\fP"
+.br
+.ti -1c
+.RI "\fBSoSFFloat\fP \fBspeed\fP"
+.br
+.ti -1c
+.RI "\fBSoSFBool\fP \fBon\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fB~SoShuttle\fP ()"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoShuttle\fP class is used to oscillate between two translations\&.
+.PP
+A smooth transition between translation0 and translation1 is created using a cosine function\&. In the beginning of the cycle, translation0 is used\&. Halfway through the cycle, the resulting translation equals translation1, and at the end of the cycle, we're at translation0 again\&. 
+
+\fBFILE FORMAT/DEFAULTS:\fP 
+.PP
+.nf
+Shuttle {
+    translation 0 0 0
+    translation0 0 0 0
+    translation1 0 0 0
+    speed 1
+    on TRUE
+}
+
+.fi
+.PP
+ 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoShuttle::SoShuttle (void)"
+Constructor\&. 
+.SS "SoShuttle::~SoShuttle ()\fC [protected]\fP, \fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoShuttle::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Reimplemented from \fBSoTranslation\fP\&.
+.SS "const \fBSoFieldData\fP * SoShuttle::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoTranslation\fP\&.
+.SS "void SoShuttle::write (\fBSoWriteAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoWriteAction\fP\&.
+.PP
+Writes out a node object, and any connected nodes, engines etc, if necessary\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSoSFVec3f\fP SoShuttle::translation0"
+Translation at the start and end of the cycle\&. Default value is (0, 0, 0)\&. 
+.SS "\fBSoSFVec3f\fP SoShuttle::translation1"
+Translation at the middle of the cycle\&. Default value is (0, 0, 0)\&. 
+.SS "\fBSoSFFloat\fP SoShuttle::speed"
+Number of cycles per second\&. Default value is 1\&. 
+.SS "\fBSoSFBool\fP SoShuttle::on"
+Toggles animation on or off\&. Defauls to \fCTRUE\fP\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

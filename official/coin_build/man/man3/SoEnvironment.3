@@ -1,0 +1,198 @@
+.TH "SoEnvironment" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoEnvironment \- The \fBSoEnvironment\fP class is a node for specifying global rendering parameters\&.
+.PP
+This node type provides the application programmer with the ability to set global parameters influencing lighting and fog\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/nodes/SoEnvironment\&.h>\fP
+.PP
+Inherits \fBSoNode\fP\&.
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBFogType\fP { \fBNONE\fP = SoEnvironmentElement::NONE, \fBHAZE\fP = SoEnvironmentElement::HAZE, \fBFOG\fP = SoEnvironmentElement::FOG, \fBSMOKE\fP = SoEnvironmentElement::SMOKE }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "\fBSoEnvironment\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBGLRender\fP (\fBSoGLRenderAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBcallback\fP (\fBSoCallbackAction\fP *action)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFFloat\fP \fBambientIntensity\fP"
+.br
+.ti -1c
+.RI "\fBSoSFColor\fP \fBambientColor\fP"
+.br
+.ti -1c
+.RI "\fBSoSFVec3f\fP \fBattenuation\fP"
+.br
+.ti -1c
+.RI "\fBSoSFEnum\fP \fBfogType\fP"
+.br
+.ti -1c
+.RI "\fBSoSFColor\fP \fBfogColor\fP"
+.br
+.ti -1c
+.RI "\fBSoSFFloat\fP \fBfogVisibility\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fB~SoEnvironment\fP ()"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoEnvironment\fP class is a node for specifying global rendering parameters\&.
+.PP
+This node type provides the application programmer with the ability to set global parameters influencing lighting and fog\&. 
+
+\fBFILE FORMAT/DEFAULTS:\fP 
+.PP
+.nf
+Environment {
+    ambientIntensity 0\&.2
+    ambientColor 1 1 1
+    attenuation 0 0 1
+    fogType NONE
+    fogColor 1 1 1
+    fogVisibility 0
+}
+
+.fi
+.PP
+ 
+.SH "Member Enumeration Documentation"
+.PP 
+.SS "enum \fBSoEnvironment::FogType\fP"
+Enumeration of available types of fog\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fINONE \fP\fP
+No fog\&. Visibility will be equal for all objects, independent of distance to camera\&. 
+.TP
+\fB\fIHAZE \fP\fP
+Fog where visibility will decrease linearly with distance to camera\&. 
+.TP
+\fB\fIFOG \fP\fP
+Fog where visibility will decrease exponentially with distance to camera\&. 
+.TP
+\fB\fISMOKE \fP\fP
+Fog where visibility will decrease exponentially with the square of the distance to camera (simulating really thick fog)\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoEnvironment::SoEnvironment (void)"
+Constructor\&. 
+.SS "SoEnvironment::~SoEnvironment ()\fC [protected]\fP, \fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoEnvironment::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Implements \fBSoBase\fP\&.
+.SS "const \fBSoFieldData\fP * SoEnvironment::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoFieldContainer\fP\&.
+.SS "void SoEnvironment::GLRender (\fBSoGLRenderAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGLRenderAction\fP\&.
+.PP
+This is called during rendering traversals\&. Nodes influencing the rendering state in any way or who wants to throw geometry primitives at OpenGL overrides this method\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "void SoEnvironment::callback (\fBSoCallbackAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoCallbackAction\fP\&.
+.PP
+Simply updates the state according to how the node behaves for the render action, so the application programmer can use the \fBSoCallbackAction\fP for extracting information about the scene graph\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSoSFFloat\fP SoEnvironment::ambientIntensity"
+A global ambient value for the light intensity for the complete scene\&. This will provide some light even when there are no light sources defined for the scene\&.
+.PP
+Valid values is from 0\&.0 (no ambient light) to 1\&.0 (full ambient light intensity)\&. Default value is 0\&.2\&. 
+.SS "\fBSoSFColor\fP SoEnvironment::ambientColor"
+The color of the global ambient light\&. Defaults to full intensity white, ie <1\&.0, 1\&.0, 1\&.0>\&.
+.PP
+Each component of this RGB vector is multiplied with the scalar value of \fBSoEnvironment::ambientIntensity\fP\&. 
+.SS "\fBSoSFVec3f\fP SoEnvironment::attenuation"
+Squared, linear, and constant light attenuation coefficients (in that order)\&. Please note that this is the reverse order of how attenuation is usually specified\&. 
+.SS "\fBSoSFEnum\fP SoEnvironment::fogType"
+The fog model\&. See SoEnvironment::FoType\&. 
+.SS "\fBSoSFColor\fP SoEnvironment::fogColor"
+Color of fog\&. Defaults to full intensity white\&. 
+.SS "\fBSoSFFloat\fP SoEnvironment::fogVisibility"
+The 'cut-off' distance from the camera where objects will be totally obscured by fog\&. If set to 0\&.0, the far plane distance will be used instead\&.
+.PP
+Default value is 0\&.0\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

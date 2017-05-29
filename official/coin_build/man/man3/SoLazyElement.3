@@ -1,0 +1,366 @@
+.TH "SoLazyElement" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoLazyElement \- The \fBSoLazyElement\fP class is used to handle material and shape properties\&.
+.PP
+So[GL]LazyElement is, as the name implies, an element that is lazy about sending things to OpenGL\&. The changes are not sent to OpenGL until \fBSoGLLazyElement::send()\fP is called\&. This means that you can change the state of certain attributes several times, but the state will only be sent to OpenGL once\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/elements/SoLazyElement\&.h>\fP
+.PP
+Inherits \fBSoElement\fP\&.
+.PP
+Inherited by \fBSoGLLazyElement\fP\&.
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "struct \fBCoinState\fP"
+.br
+.in -1c
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBcases\fP { \fBLIGHT_MODEL_CASE\fP = 0, \fBCOLOR_MATERIAL_CASE\fP, \fBDIFFUSE_CASE\fP, \fBAMBIENT_CASE\fP, \fBEMISSIVE_CASE\fP, \fBSPECULAR_CASE\fP, \fBSHININESS_CASE\fP, \fBBLENDING_CASE\fP, \fBTRANSPARENCY_CASE\fP, \fBVERTEXORDERING_CASE\fP, \fBTWOSIDE_CASE\fP, \fBCULLING_CASE\fP, \fBSHADE_MODEL_CASE\fP, \fBALPHATEST_CASE\fP, \fBGLIMAGE_CASE\fP, \fBLAZYCASES_LAST\fP }"
+.br
+.ti -1c
+.RI "enum \fBmasks\fP { \fBLIGHT_MODEL_MASK\fP = 1 << LIGHT_MODEL_CASE, \fBCOLOR_MATERIAL_MASK\fP = 1 << COLOR_MATERIAL_CASE, \fBDIFFUSE_MASK\fP = 1 << DIFFUSE_CASE, \fBAMBIENT_MASK\fP = 1 << AMBIENT_CASE, \fBEMISSIVE_MASK\fP = 1<<EMISSIVE_CASE, \fBSPECULAR_MASK\fP = 1 << SPECULAR_CASE, \fBSHININESS_MASK\fP = 1 << SHININESS_CASE, \fBTRANSPARENCY_MASK\fP = 1 << TRANSPARENCY_CASE, \fBBLENDING_MASK\fP = 1 << BLENDING_CASE, \fBVERTEXORDERING_MASK\fP = 1 << VERTEXORDERING_CASE, \fBTWOSIDE_MASK\fP = 1 << TWOSIDE_CASE, \fBCULLING_MASK\fP = 1 << CULLING_CASE, \fBSHADE_MODEL_MASK\fP = 1 << SHADE_MODEL_CASE, \fBALPHATEST_MASK\fP = 1 << ALPHATEST_CASE, \fBGLIMAGE_MASK\fP = 1 << GLIMAGE_CASE, \fBALL_MASK\fP = (1 << LAZYCASES_LAST)-1 }"
+.br
+.ti -1c
+.RI "enum \fBinternalMasks\fP { \fBOTHER_COLOR_MASK\fP = AMBIENT_MASK|EMISSIVE_MASK|SPECULAR_MASK|SHININESS_MASK, \fBALL_COLOR_MASK\fP = OTHER_COLOR_MASK|DIFFUSE_MASK, \fBNO_COLOR_MASK\fP = ALL_MASK & (~ALL_COLOR_MASK), \fBALL_BUT_DIFFUSE_MASK\fP = ALL_MASK &(~ DIFFUSE_MASK), \fBDIFFUSE_ONLY_MASK\fP = ALL_MASK &(~ OTHER_COLOR_MASK) }"
+.br
+.ti -1c
+.RI "enum \fBLightModel\fP { \fBBASE_COLOR\fP, \fBPHONG\fP }"
+.br
+.ti -1c
+.RI "enum \fBVertexOrdering\fP { \fBCW\fP, \fBCCW\fP }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual void \fBinit\fP (\fBSoState\fP *state)"
+.br
+.ti -1c
+.RI "virtual void \fBpush\fP (\fBSoState\fP *state)"
+.br
+.ti -1c
+.RI "virtual SbBool \fBmatches\fP (const \fBSoElement\fP *) const"
+.br
+.ti -1c
+.RI "virtual \fBSoElement\fP * \fBcopyMatchInfo\fP (void) const"
+.br
+.ti -1c
+.RI "int32_t \fBgetNumDiffuse\fP (void) const"
+.br
+.ti -1c
+.RI "int32_t \fBgetNumTransparencies\fP (void) const"
+.br
+.ti -1c
+.RI "int32_t \fBgetNumColorIndices\fP (void) const"
+.br
+.ti -1c
+.RI "SbBool \fBisPacked\fP (void) const"
+.br
+.ti -1c
+.RI "SbBool \fBisTransparent\fP (void) const"
+.br
+.ti -1c
+.RI "const uint32_t * \fBgetPackedPointer\fP (void) const"
+.br
+.ti -1c
+.RI "const \fBSbColor\fP * \fBgetDiffusePointer\fP (void) const"
+.br
+.ti -1c
+.RI "const int32_t * \fBgetColorIndexPointer\fP (void) const"
+.br
+.ti -1c
+.RI "const float * \fBgetTransparencyPointer\fP (void) const"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static \fBint\fP \fBgetClassStackIndex\fP (void)"
+.br
+.ti -1c
+.RI "static void * \fBcreateInstance\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP ()"
+.br
+.ti -1c
+.RI "static void \fBsetToDefault\fP (\fBSoState\fP *state)"
+.br
+.ti -1c
+.RI "static void \fBsetDiffuse\fP (\fBSoState\fP *state, \fBSoNode\fP *node, int32_t numcolors, const \fBSbColor\fP *colors, \fBSoColorPacker\fP *packer)"
+.br
+.ti -1c
+.RI "static void \fBsetTransparency\fP (\fBSoState\fP *state, \fBSoNode\fP *node, int32_t numvalues, const float *transparency, \fBSoColorPacker\fP *packer)"
+.br
+.ti -1c
+.RI "static void \fBsetPacked\fP (\fBSoState\fP *state, \fBSoNode\fP *node, int32_t numcolors, const uint32_t *colors, const SbBool packedtransparency=FALSE)"
+.br
+.ti -1c
+.RI "static void \fBsetColorIndices\fP (\fBSoState\fP *state, \fBSoNode\fP *node, int32_t numindices, const int32_t *indices)"
+.br
+.ti -1c
+.RI "static void \fBsetAmbient\fP (\fBSoState\fP *state, const \fBSbColor\fP *color)"
+.br
+.ti -1c
+.RI "static void \fBsetEmissive\fP (\fBSoState\fP *state, const \fBSbColor\fP *color)"
+.br
+.ti -1c
+.RI "static void \fBsetSpecular\fP (\fBSoState\fP *state, const \fBSbColor\fP *color)"
+.br
+.ti -1c
+.RI "static void \fBsetShininess\fP (\fBSoState\fP *state, float value)"
+.br
+.ti -1c
+.RI "static void \fBsetColorMaterial\fP (\fBSoState\fP *state, SbBool value)"
+.br
+.ti -1c
+.RI "static void \fBenableBlending\fP (\fBSoState\fP *state, \fBint\fP sfactor, \fBint\fP dfactor)"
+.br
+.ti -1c
+.RI "static void \fBenableSeparateBlending\fP (\fBSoState\fP *state, \fBint\fP sfactor, \fBint\fP dfactor, \fBint\fP alpha_sfactor, \fBint\fP alpha_dfactor)"
+.br
+.ti -1c
+.RI "static void \fBdisableBlending\fP (\fBSoState\fP *state)"
+.br
+.ti -1c
+.RI "static void \fBsetLightModel\fP (\fBSoState\fP *state, const int32_t model)"
+.br
+.ti -1c
+.RI "static void \fBsetVertexOrdering\fP (\fBSoState\fP *state, VertexOrdering ordering)"
+.br
+.ti -1c
+.RI "static void \fBsetBackfaceCulling\fP (\fBSoState\fP *state, SbBool onoff)"
+.br
+.ti -1c
+.RI "static void \fBsetTwosideLighting\fP (\fBSoState\fP *state, SbBool onoff)"
+.br
+.ti -1c
+.RI "static void \fBsetShadeModel\fP (\fBSoState\fP *state, SbBool flatshading)"
+.br
+.ti -1c
+.RI "static void \fBsetAlphaTest\fP (\fBSoState\fP *state, \fBint\fP func, float value)"
+.br
+.ti -1c
+.RI "static const \fBSbColor\fP & \fBgetDiffuse\fP (\fBSoState\fP *state, \fBint\fP index)"
+.br
+.ti -1c
+.RI "static float \fBgetTransparency\fP (\fBSoState\fP *, \fBint\fP index)"
+.br
+.ti -1c
+.RI "static const uint32_t * \fBgetPackedColors\fP (\fBSoState\fP *)"
+.br
+.ti -1c
+.RI "static const int32_t * \fBgetColorIndices\fP (\fBSoState\fP *)"
+.br
+.ti -1c
+.RI "static int32_t \fBgetColorIndex\fP (\fBSoState\fP *, \fBint\fP num)"
+.br
+.ti -1c
+.RI "static const \fBSbColor\fP & \fBgetAmbient\fP (\fBSoState\fP *)"
+.br
+.ti -1c
+.RI "static const \fBSbColor\fP & \fBgetEmissive\fP (\fBSoState\fP *)"
+.br
+.ti -1c
+.RI "static const \fBSbColor\fP & \fBgetSpecular\fP (\fBSoState\fP *)"
+.br
+.ti -1c
+.RI "static float \fBgetShininess\fP (\fBSoState\fP *)"
+.br
+.ti -1c
+.RI "static SbBool \fBgetColorMaterial\fP (\fBSoState\fP *)"
+.br
+.ti -1c
+.RI "static SbBool \fBgetBlending\fP (\fBSoState\fP *, \fBint\fP &sfactor, \fBint\fP &dfactor)"
+.br
+.ti -1c
+.RI "static SbBool \fBgetAlphaBlending\fP (\fBSoState\fP *, \fBint\fP &sfactor, \fBint\fP &dfactor)"
+.br
+.ti -1c
+.RI "static int32_t \fBgetLightModel\fP (\fBSoState\fP *)"
+.br
+.ti -1c
+.RI "static \fBint\fP \fBgetAlphaTest\fP (\fBSoState\fP *state, float &value)"
+.br
+.ti -1c
+.RI "static SbBool \fBgetTwoSidedLighting\fP (\fBSoState\fP *state)"
+.br
+.ti -1c
+.RI "static \fBSoLazyElement\fP * \fBgetInstance\fP (\fBSoState\fP *state)"
+.br
+.ti -1c
+.RI "static float \fBgetDefaultAmbientIntensity\fP (void)"
+.br
+.ti -1c
+.RI "static \fBSbColor\fP \fBgetDefaultDiffuse\fP (void)"
+.br
+.ti -1c
+.RI "static \fBSbColor\fP \fBgetDefaultAmbient\fP (void)"
+.br
+.ti -1c
+.RI "static \fBSbColor\fP \fBgetDefaultSpecular\fP (void)"
+.br
+.ti -1c
+.RI "static \fBSbColor\fP \fBgetDefaultEmissive\fP (void)"
+.br
+.ti -1c
+.RI "static float \fBgetDefaultShininess\fP (void)"
+.br
+.ti -1c
+.RI "static uint32_t \fBgetDefaultPacked\fP (void)"
+.br
+.ti -1c
+.RI "static float \fBgetDefaultTransparency\fP (void)"
+.br
+.ti -1c
+.RI "static int32_t \fBgetDefaultLightModel\fP (void)"
+.br
+.ti -1c
+.RI "static int32_t \fBgetDefaultColorIndex\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBsetMaterials\fP (\fBSoState\fP *state, \fBSoNode\fP *node, uint32_t bitmask, \fBSoColorPacker\fP *cPacker, const \fBSbColor\fP *diffuse, const \fBint\fP numdiffuse, const float *transp, const \fBint\fP numtransp, const \fBSbColor\fP &ambient, const \fBSbColor\fP &emissive, const \fBSbColor\fP &specular, const float shininess, const SbBool istransparent)"
+.br
+.ti -1c
+.RI "static \fBSoLazyElement\fP * \fBgetWInstance\fP (\fBSoState\fP *state)"
+.br
+.ti -1c
+.RI "static void \fBsetTransparencyType\fP (\fBSoState\fP *state, int32_t type)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual void \fBlazyDidSet\fP (uint32_t mask)"
+.br
+.ti -1c
+.RI "virtual void \fBlazyDidntSet\fP (uint32_t mask)"
+.br
+.ti -1c
+.RI "virtual void \fBsetDiffuseElt\fP (\fBSoNode\fP *, int32_t numcolors, const \fBSbColor\fP *colors, \fBSoColorPacker\fP *packer)"
+.br
+.ti -1c
+.RI "virtual void \fBsetPackedElt\fP (\fBSoNode\fP *node, int32_t numcolors, const uint32_t *colors, const SbBool packedtransparency)"
+.br
+.ti -1c
+.RI "virtual void \fBsetColorIndexElt\fP (\fBSoNode\fP *node, int32_t numindices, const int32_t *indices)"
+.br
+.ti -1c
+.RI "virtual void \fBsetTranspElt\fP (\fBSoNode\fP *node, int32_t numtransp, const float *transp, \fBSoColorPacker\fP *packer)"
+.br
+.ti -1c
+.RI "virtual void \fBsetTranspTypeElt\fP (int32_t type)"
+.br
+.ti -1c
+.RI "virtual void \fBsetAmbientElt\fP (const \fBSbColor\fP *color)"
+.br
+.ti -1c
+.RI "virtual void \fBsetEmissiveElt\fP (const \fBSbColor\fP *color)"
+.br
+.ti -1c
+.RI "virtual void \fBsetSpecularElt\fP (const \fBSbColor\fP *color)"
+.br
+.ti -1c
+.RI "virtual void \fBsetShininessElt\fP (float value)"
+.br
+.ti -1c
+.RI "virtual void \fBsetColorMaterialElt\fP (SbBool value)"
+.br
+.ti -1c
+.RI "virtual void \fBenableBlendingElt\fP (\fBint\fP sfactor, \fBint\fP dfactor, \fBint\fP alpha_sfactor, \fBint\fP alpha_dfactor)"
+.br
+.ti -1c
+.RI "virtual void \fBdisableBlendingElt\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBsetLightModelElt\fP (\fBSoState\fP *state, int32_t model)"
+.br
+.ti -1c
+.RI "virtual void \fBsetMaterialElt\fP (\fBSoNode\fP *node, uint32_t bitmask, \fBSoColorPacker\fP *packer, const \fBSbColor\fP *diffuse, const \fBint\fP numdiffuse, const float *transp, const \fBint\fP numtransp, const \fBSbColor\fP &ambient, const \fBSbColor\fP &emissive, const \fBSbColor\fP &specular, const float shininess, const SbBool istransparent)"
+.br
+.ti -1c
+.RI "virtual void \fBsetVertexOrderingElt\fP (VertexOrdering ordering)"
+.br
+.ti -1c
+.RI "virtual void \fBsetBackfaceCullingElt\fP (SbBool onoff)"
+.br
+.ti -1c
+.RI "virtual void \fBsetTwosideLightingElt\fP (SbBool onoff)"
+.br
+.ti -1c
+.RI "virtual void \fBsetShadeModelElt\fP (SbBool flatshading)"
+.br
+.ti -1c
+.RI "virtual void \fBsetAlphaTestElt\fP (\fBint\fP func, float value)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "struct \fBSoLazyElement::CoinState\fP \fBcoinstate\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoLazyElement\fP class is used to handle material and shape properties\&.
+.PP
+So[GL]LazyElement is, as the name implies, an element that is lazy about sending things to OpenGL\&. The changes are not sent to OpenGL until \fBSoGLLazyElement::send()\fP is called\&. This means that you can change the state of certain attributes several times, but the state will only be sent to OpenGL once\&. 
+
+When creating a new shape node in Coin, it's a common operation to modify the OpenGL diffuse color\&. There are several ways you can send the color to OpenGL\&. If you're not going to use the color outside your node, you can just as well send it using plain OpenGL\&. You can also set the color in the element, and then force a send by using \fBSoGLLazyElement::send\fP(state, SoLazyElement::DIFFUSE_MASK)\&.
+.PP
+However, when creating an extension shape node, it's always recommended to create an instance of \fBSoMaterialBundle\fP on the stack\&. If this instance is created after you update \fBSoLazyElement\fP with a new color, the new color will be sent to OpenGL when you call \fBSoMaterialBundle::sendFirst()\fP\&. This call will also update all other lazy OpenGL state, and it's actually required to either use \fBSoMaterialBundle::sendFirst()\fP or call \fBSoGLLazyElement::send\fP(state, SoLazyElement::ALL_MASK) when creating a shape node\&.
+.PP
+If you decide to send the color to OpenGL using glColor*(), you should notify \fBSoGLLazyElement\fP about this by calling SoGLLazyElement::reset(state, SoLazyElement::DIFFUSE_MASK)\&. This will notify \fBSoGLLazyElement\fP that the current OpenGL diffuse color is unknown\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void * SoLazyElement::createInstance (void)\fC [static]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoLazyElement::initClass (void)\fC [static]\fP"
+This static method initializes static data for the \fBSoDiffuseColorElement\fP class\&. 
+.SS "void SoLazyElement::init (\fBSoState\fP * state)\fC [virtual]\fP"
+This function initializes the element type in the given \fBSoState\fP\&. It is called for the first element of each enabled element type in \fBSoState\fP objects\&. 
+.PP
+Reimplemented from \fBSoElement\fP\&.
+.PP
+Reimplemented in \fBSoGLLazyElement\fP\&.
+.SS "void SoLazyElement::push (\fBSoState\fP * state)\fC [virtual]\fP"
+This method is called every time a new element is required in one of the stacks\&. This happens when a writable element is requested, using \fBSoState::getElement()\fP or indirectly \fBSoElement::getElement()\fP, and the depth of the current element is less than the state depth\&.
+.PP
+Override this method if your element needs to copy data from the previous top of stack\&. The \fBpush()\fP method is called on the new element, and the previous element can be found using \fBSoElement::getNextInStack()\fP\&. 
+.PP
+Reimplemented from \fBSoElement\fP\&.
+.PP
+Reimplemented in \fBSoGLLazyElement\fP\&.
+.SS "SbBool SoLazyElement::matches (const \fBSoElement\fP * element) const\fC [virtual]\fP"
+Will always return TRUE in Coin\&. 
+.PP
+Implements \fBSoElement\fP\&.
+.SS "\fBSoElement\fP * SoLazyElement::copyMatchInfo (void) const\fC [virtual]\fP"
+Just returns NULL in Coin\&. 
+.PP
+Implements \fBSoElement\fP\&.
+.SS "void SoLazyElement::setToDefault (\fBSoState\fP * state)\fC [static]\fP"
+Internal function used for resetting the OpenGL state before FBO rendering\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

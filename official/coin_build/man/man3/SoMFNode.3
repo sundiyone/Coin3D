@@ -1,0 +1,328 @@
+.TH "SoMFNode" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoMFNode \- The \fBSoMFNode\fP class is a container for nodes\&.
+.PP
+This field container stores an array of pointers to nodes\&. It takes care of the necessary functionality for handling copy, import and export operations\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/fields/SoMFNode\&.h>\fP
+.PP
+Inherits \fBSoMField\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBcopyFrom\fP (const \fBSoField\fP &field)"
+.br
+.ti -1c
+.RI "const \fBSoMFNode\fP & \fBoperator=\fP (const \fBSoMFNode\fP &field)"
+.br
+.ti -1c
+.RI "virtual SbBool \fBisSame\fP (const \fBSoField\fP &field) const"
+.br
+.ti -1c
+.RI "\fBSoNode\fP * \fBoperator[]\fP (const \fBint\fP idx) const"
+.br
+.ti -1c
+.RI "const \fBSoNode\fP ** \fBgetValues\fP (const \fBint\fP start) const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBfind\fP (\fBSoNode\fP *value, SbBool addifnotfound=FALSE)"
+.br
+.ti -1c
+.RI "void \fBsetValues\fP (const \fBint\fP start, const \fBint\fP \fBnum\fP, const \fBSoNode\fP **newvals)"
+.br
+.ti -1c
+.RI "void \fBset1Value\fP (const \fBint\fP idx, \fBSoNode\fP *value)"
+.br
+.ti -1c
+.RI "void \fBsetValue\fP (\fBSoNode\fP *value)"
+.br
+.ti -1c
+.RI "\fBSoNode\fP * \fBoperator=\fP (\fBSoNode\fP *val)"
+.br
+.ti -1c
+.RI "SbBool \fBoperator==\fP (const \fBSoMFNode\fP &field) const"
+.br
+.ti -1c
+.RI "SbBool \fBoperator!=\fP (const \fBSoMFNode\fP &field) const"
+.br
+.ti -1c
+.RI "\fBSoNode\fP ** \fBstartEditing\fP (void)"
+.br
+.ti -1c
+.RI "void \fBfinishEditing\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBfixCopy\fP (SbBool copyconnections)"
+.br
+.ti -1c
+.RI "virtual SbBool \fBreferencesCopy\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBaddNode\fP (\fBSoNode\fP *node)"
+.br
+.ti -1c
+.RI "void \fBinsertNode\fP (\fBSoNode\fP *node, \fBint\fP idx)"
+.br
+.ti -1c
+.RI "\fBSoNode\fP * \fBgetNode\fP (\fBint\fP idx) const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBfindNode\fP (const \fBSoNode\fP *node) const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetNumNodes\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBremoveNode\fP (\fBint\fP index)"
+.br
+.ti -1c
+.RI "void \fBremoveNode\fP (\fBSoNode\fP *node)"
+.br
+.ti -1c
+.RI "void \fBremoveAllNodes\fP (void)"
+.br
+.ti -1c
+.RI "void \fBreplaceNode\fP (\fBint\fP idx, \fBSoNode\fP *newnode)"
+.br
+.ti -1c
+.RI "void \fBreplaceNode\fP (\fBSoNode\fP *oldnode, \fBSoNode\fP *newnode)"
+.br
+.ti -1c
+.RI "virtual void \fBdeleteValues\fP (\fBint\fP start, \fBint\fP \fBnum\fP=\-1)"
+.br
+.ti -1c
+.RI "virtual void \fBinsertSpace\fP (\fBint\fP start, \fBint\fP \fBnum\fP)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static void * \fBcreateInstance\fP (void)"
+.br
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual void \fBdeleteAllValues\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBcopyValue\fP (\fBint\fP to, \fBint\fP from)"
+.br
+.ti -1c
+.RI "virtual \fBint\fP \fBfieldSizeof\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void * \fBvaluesPtr\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBsetValuesPtr\fP (void *ptr)"
+.br
+.ti -1c
+.RI "virtual void \fBallocValues\fP (\fBint\fP \fBnum\fP)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoNode\fP ** \fBvalues\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoMFNode\fP class is a container for nodes\&.
+.PP
+This field container stores an array of pointers to nodes\&. It takes care of the necessary functionality for handling copy, import and export operations\&. 
+
+Note that node pointers stored in field instances of this type may be \fCNULL\fP pointers\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoNode\fP, \fBSoSFNode\fP 
+.RE
+.PP
+
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoMFNode::getTypeId (void) const\fC [virtual]\fP"
+Returns the type identification instance which uniquely identifies the Coin field class the object belongs to\&.
+.PP
+\fBSee also:\fP
+.RS 4
+getClassTypeId(), \fBSoType\fP 
+.RE
+.PP
+
+.PP
+Implements \fBSoField\fP\&.
+.SS "void SoMFNode::copyFrom (const \fBSoField\fP & f)\fC [virtual]\fP"
+Copy value(s) from \fIf\fP into this field\&. \fIf\fP must be of the same type as this field\&. 
+.PP
+Implements \fBSoField\fP\&.
+.SS "SbBool SoMFNode::isSame (const \fBSoField\fP & f) const\fC [virtual]\fP"
+Check for equal type and value(s)\&. 
+.PP
+Implements \fBSoField\fP\&.
+.SS "const \fBSoNode\fP* * SoMFNode::getValues (const \fBint\fP start) const\fC [inline]\fP"
+\\ Returns a pointer to the values array\&. \\ 
+.SS "void SoMFNode::fixCopy (SbBool copyconnections)\fC [virtual]\fP"
+This method is internally called after \fBSoField::copyFrom()\fP during scene graph copies, and should do the operations necessary for fixing up the field instance after it has gotten a new value\&.
+.PP
+The default method in the \fBSoField\fP superclass does nothing\&.
+.PP
+The application programmer should normally not need to consider this method, unless he constructs a complex field type which contains new references to container instances (i\&.e\&. nodes or engines)\&. Overriding this method is then necessary to update the reference pointers, as they could have been duplicated during the copy operation\&. 
+.PP
+Reimplemented from \fBSoField\fP\&.
+.SS "SbBool SoMFNode::referencesCopy (void) const\fC [virtual]\fP"
+Returns \fCTRUE\fP if this field has references to any containers in the scene graph which are also duplicated during the copy operation\&.
+.PP
+Note that this method \fIonly\fP is valid to call during copy operations\&.
+.PP
+See also the note about the relevance of the \fBfixCopy()\fP method for application programmers, as it is applicable on this method aswell\&. 
+.PP
+Reimplemented from \fBSoField\fP\&.
+.SS "void SoMFNode::addNode (\fBSoNode\fP * node)"
+Adds a node at the end of the array\&.
+.PP
+This function is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.RE
+.PP
+
+.SS "void SoMFNode::insertNode (\fBSoNode\fP * node, \fBint\fP idx)"
+Inserts a node at index \fIidx\fP\&.
+.PP
+This function is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.RE
+.PP
+
+.SS "\fBSoNode\fP * SoMFNode::getNode (\fBint\fP idx) const"
+Returns the node at index \fIidx\fP\&.
+.PP
+This function is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.RE
+.PP
+
+.SS "\fBint\fP SoMFNode::findNode (const \fBSoNode\fP * node) const"
+Returns the index for the first instance of \fInode\fP in the field, or -1 if not found\&.
+.PP
+This function is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.RE
+.PP
+
+.SS "\fBint\fP SoMFNode::getNumNodes (void) const"
+Returns the number of nodes in this field\&.
+.PP
+This function is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.RE
+.PP
+
+.SS "void SoMFNode::removeNode (\fBint\fP idx)"
+Removes the node at index \fIidx\fP\&.
+.PP
+This function is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.RE
+.PP
+
+.SS "void SoMFNode::removeNode (\fBSoNode\fP * node)"
+Removes the first instance of \fInode\fP in the field\&.
+.PP
+This function is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.RE
+.PP
+
+.SS "void SoMFNode::removeAllNodes (void)"
+Removes all nodes from the field\&.
+.PP
+This function is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.RE
+.PP
+
+.SS "void SoMFNode::replaceNode (\fBint\fP idx, \fBSoNode\fP * newnode)"
+Replaces the node at index \fIidx\fP with \fInewnode\fP\&.
+.PP
+This function is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.RE
+.PP
+
+.SS "void SoMFNode::replaceNode (\fBSoNode\fP * oldnode, \fBSoNode\fP * newnode)"
+Replaces the first instance of \fIoldnode\fP with \fInewnode\fP\&.
+.PP
+This function is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.RE
+.PP
+
+.SS "virtual void SoMFNode::deleteValues (\fBint\fP start, \fBint\fP numarg = \fC\-1\fP)\fC [virtual]\fP"
+Remove value elements from index \fIstart\fP up to and including index \fIstart\fP + \fInum\fP - 1\&.
+.PP
+Elements with indices larger than the last deleted element will be moved downwards in the value array\&.
+.PP
+If \fInum\fP equals -1, delete from index \fIstart\fP and to the end of the array\&. 
+.PP
+Reimplemented from \fBSoMField\fP\&.
+.SS "virtual void SoMFNode::insertSpace (\fBint\fP start, \fBint\fP numarg)\fC [virtual]\fP"
+Insert \fInum\fP 'slots' for new value elements from \fIstart\fP\&. The elements already present from \fIstart\fP will be moved 'upward' in the extended array\&. 
+.PP
+Reimplemented from \fBSoMField\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

@@ -1,0 +1,48 @@
+.TH "SoTempPath" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoTempPath \- The \fBSoTempPath\fP class is used to store temporary paths\&.
+.PP
+The path simply turns off auditing in the constructor, and leaves the user with the responsibility of keeping the path valid\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/misc/SoTempPath\&.h>\fP
+.PP
+Inherits \fBSoFullPath\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSoTempPath\fP (const \fBint\fP approxlength)"
+.br
+.ti -1c
+.RI "void \fBsimpleAppend\fP (\fBSoNode\fP *const node, const \fBint\fP index)"
+.br
+.ti -1c
+.RI "void \fBreplaceTail\fP (\fBSoNode\fP *const node, const \fBint\fP index)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoTempPath\fP class is used to store temporary paths\&.
+.PP
+The path simply turns off auditing in the constructor, and leaves the user with the responsibility of keeping the path valid\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoTempPath::SoTempPath (const \fBint\fP approxlength)"
+Constructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void SoTempPath::simpleAppend (\fBSoNode\fP *const node, const \fBint\fP index)"
+Append a node (specified by \fInode\fP and parent child \fIindex\fP) to the path\&. This method is only available in \fBSoTempPath\fP, since it will not consider auditing or hidden children\&. 
+.SS "void SoTempPath::replaceTail (\fBSoNode\fP *const node, const \fBint\fP index)"
+Replace the tail of this path\&. The node is specified by \fInode\fP and parent child \fIindex\fP\&. This method is only available in \fBSoTempPath\fP,, since it will not consider auditing or hidden children\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

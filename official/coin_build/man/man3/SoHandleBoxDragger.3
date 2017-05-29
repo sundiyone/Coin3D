@@ -1,0 +1,645 @@
+.TH "SoHandleBoxDragger" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoHandleBoxDragger \- The \fBSoHandleBoxDragger\fP class provides support for interactive scaling and translation\&.
+.PP
+Here's how the dragger looks with its default geometry in the inactive state:  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/draggers/SoHandleBoxDragger\&.h>\fP
+.PP
+Inherits \fBSoDragger\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "virtual const \fBSoNodekitCatalog\fP * \fBgetNodekitCatalog\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoHandleBoxDragger\fP (void)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static const \fBSoNodekitCatalog\fP * \fBgetClassNodekitCatalog\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFVec3f\fP \fBscaleFactor\fP"
+.br
+.ti -1c
+.RI "\fBSoSFVec3f\fP \fBtranslation\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fB~SoHandleBoxDragger\fP (void)"
+.br
+.ti -1c
+.RI "virtual SbBool \fBsetUpConnections\fP (SbBool onoff, SbBool doitalways=FALSE)"
+.br
+.ti -1c
+.RI "virtual void \fBsetDefaultOnNonWritingFields\fP (void)"
+.br
+.ti -1c
+.RI "void \fBdragStart\fP (void)"
+.br
+.ti -1c
+.RI "void \fBdrag\fP (void)"
+.br
+.ti -1c
+.RI "void \fBdragFinish\fP (void)"
+.br
+.ti -1c
+.RI "void \fBsetAllPartsActive\fP (SbBool onoroff)"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.ti -1c
+.RI "static const \fBSoNodekitCatalog\fP ** \fBgetClassNodekitCatalogPtr\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBstartCB\fP (void *f, \fBSoDragger\fP *d)"
+.br
+.ti -1c
+.RI "static void \fBmotionCB\fP (void *f, \fBSoDragger\fP *d)"
+.br
+.ti -1c
+.RI "static void \fBfinishCB\fP (void *f, \fBSoDragger\fP *d)"
+.br
+.ti -1c
+.RI "static void \fBmetaKeyChangeCB\fP (void *f, \fBSoDragger\fP *d)"
+.br
+.ti -1c
+.RI "static void \fBfieldSensorCB\fP (void *f, \fBSoSensor\fP *s)"
+.br
+.ti -1c
+.RI "static void \fBvalueChangedCB\fP (void *f, \fBSoDragger\fP *d)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFNode\fP \fBarrow1\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBarrow1Switch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBarrow2\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBarrow2Switch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBarrow3\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBarrow3Switch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBarrow4\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBarrow4Switch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBarrow5\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBarrow5Switch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBarrow6\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBarrow6Switch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBarrowTranslation\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBdrawStyle\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBextruder1\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBextruder1Active\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBextruder1Switch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBextruder2\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBextruder2Active\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBextruder2Switch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBextruder3\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBextruder3Active\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBextruder3Switch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBextruder4\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBextruder4Active\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBextruder4Switch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBextruder5\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBextruder5Active\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBextruder5Switch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBextruder6\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBextruder6Active\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBextruder6Switch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBsurroundScale\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslator1\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslator1Active\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslator1Switch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslator2\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslator2Active\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslator2Switch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslator3\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslator3Active\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslator3Switch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslator4\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslator4Active\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslator4Switch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslator5\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslator5Active\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslator5Switch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslator6\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslator6Active\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslator6Switch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBuniform1\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBuniform1Active\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBuniform1Switch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBuniform2\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBuniform2Active\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBuniform2Switch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBuniform3\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBuniform3Active\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBuniform3Switch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBuniform4\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBuniform4Active\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBuniform4Switch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBuniform5\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBuniform5Active\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBuniform5Switch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBuniform6\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBuniform6Active\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBuniform6Switch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBuniform7\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBuniform7Active\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBuniform7Switch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBuniform8\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBuniform8Active\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBuniform8Switch\fP"
+.br
+.ti -1c
+.RI "\fBSoFieldSensor\fP * \fBtranslFieldSensor\fP"
+.br
+.ti -1c
+.RI "\fBSoFieldSensor\fP * \fBscaleFieldSensor\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoHandleBoxDragger\fP class provides support for interactive scaling and translation\&.
+.PP
+Here's how the dragger looks with its default geometry in the inactive state: 
+
+ Screen Shot of Default Dragger
+.PP
+A handlebox dragger is convenient to use for letting the user interact with geometry that can be scaled (uniformly or in a non-uniform way) and translated in 3D\&.
+.PP
+The dragger consists of a 'cube' of interaction geometry\&. The end-user can click and drag any side of the cube to translate the dragger and click and drag any of the corner or edge markers for scaling operations\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoHandleBoxDragger::SoHandleBoxDragger (void)"
+Default constructor, sets up the dragger nodekit catalog with the interaction and feedback geometry\&.
+.PP
+Node kit structure (new entries versus parent class marked with arrow prefix):
+.PP
+.PP
+.nf
+CLASS SoHandleBoxDragger
+-->"this"
+      "callbackList"
+      "topSeparator"
+         "motionMatrix"
+-->      "surroundScale"
+         "geomSeparator"
+-->         "drawStyle"
+-->         "translator1Switch"
+-->            "translator1"
+-->            "translator1Active"
+-->         "translator2Switch"
+-->            "translator2"
+-->            "translator2Active"
+-->         "translator3Switch"
+-->            "translator3"
+-->            "translator3Active"
+-->         "translator4Switch"
+-->            "translator4"
+-->            "translator4Active"
+-->         "translator5Switch"
+-->            "translator5"
+-->            "translator5Active"
+-->         "translator6Switch"
+-->            "translator6"
+-->            "translator6Active"
+-->         "extruder1Switch"
+-->            "extruder1"
+-->            "extruder1Active"
+-->         "extruder2Switch"
+-->            "extruder2"
+-->            "extruder2Active"
+-->         "extruder3Switch"
+-->            "extruder3"
+-->            "extruder3Active"
+-->         "extruder4Switch"
+-->            "extruder4"
+-->            "extruder4Active"
+-->         "extruder5Switch"
+-->            "extruder5"
+-->            "extruder5Active"
+-->         "extruder6Switch"
+-->            "extruder6"
+-->            "extruder6Active"
+-->         "uniform1Switch"
+-->            "uniform1"
+-->            "uniform1Active"
+-->         "uniform2Switch"
+-->            "uniform2"
+-->            "uniform2Active"
+-->         "uniform3Switch"
+-->            "uniform3"
+-->            "uniform3Active"
+-->         "uniform4Switch"
+-->            "uniform4"
+-->            "uniform4Active"
+-->         "uniform5Switch"
+-->            "uniform5"
+-->            "uniform5Active"
+-->         "uniform6Switch"
+-->            "uniform6"
+-->            "uniform6Active"
+-->         "uniform7Switch"
+-->            "uniform7"
+-->            "uniform7Active"
+-->         "uniform8Switch"
+-->            "uniform8"
+-->            "uniform8Active"
+-->         "arrowTranslation"
+-->         "arrow1Switch"
+-->            "arrow1"
+-->         "arrow2Switch"
+-->            "arrow2"
+-->         "arrow3Switch"
+-->            "arrow3"
+-->         "arrow4Switch"
+-->            "arrow4"
+-->         "arrow5Switch"
+-->            "arrow5"
+-->         "arrow6Switch"
+-->            "arrow6"
+.fi
+.PP
+.PP
+(See \fBSoBaseKit::printDiagram()\fP for information about the output formatting\&.)
+.PP
+Detailed information on catalog parts:
+.PP
+.PP
+.nf
+CLASS SoHandleBoxDragger
+PVT   "this",  SoHandleBoxDragger  ---
+      "callbackList",  SoNodeKitListPart [ SoCallback, SoEventCallback ]
+PVT   "topSeparator",  SoSeparator  ---
+PVT   "motionMatrix",  SoMatrixTransform  ---
+      "surroundScale",  SoSurroundScale  ---
+PVT   "geomSeparator",  SoSeparator  ---
+PVT   "drawStyle",  SoDrawStyle  ---
+PVT   "translator1Switch",  SoSwitch  ---
+      "translator1",  SoSeparator  ---
+      "translator1Active",  SoSeparator  ---
+PVT   "translator2Switch",  SoSwitch  ---
+      "translator2",  SoSeparator  ---
+      "translator2Active",  SoSeparator  ---
+PVT   "translator3Switch",  SoSwitch  ---
+      "translator3",  SoSeparator  ---
+      "translator3Active",  SoSeparator  ---
+PVT   "translator4Switch",  SoSwitch  ---
+      "translator4",  SoSeparator  ---
+      "translator4Active",  SoSeparator  ---
+PVT   "translator5Switch",  SoSwitch  ---
+      "translator5",  SoSeparator  ---
+      "translator5Active",  SoSeparator  ---
+PVT   "translator6Switch",  SoSwitch  ---
+      "translator6",  SoSeparator  ---
+      "translator6Active",  SoSeparator  ---
+PVT   "extruder1Switch",  SoSwitch  ---
+      "extruder1",  SoSeparator  ---
+      "extruder1Active",  SoSeparator  ---
+PVT   "extruder2Switch",  SoSwitch  ---
+      "extruder2",  SoSeparator  ---
+      "extruder2Active",  SoSeparator  ---
+PVT   "extruder3Switch",  SoSwitch  ---
+      "extruder3",  SoSeparator  ---
+      "extruder3Active",  SoSeparator  ---
+PVT   "extruder4Switch",  SoSwitch  ---
+      "extruder4",  SoSeparator  ---
+      "extruder4Active",  SoSeparator  ---
+PVT   "extruder5Switch",  SoSwitch  ---
+      "extruder5",  SoSeparator  ---
+      "extruder5Active",  SoSeparator  ---
+PVT   "extruder6Switch",  SoSwitch  ---
+      "extruder6",  SoSeparator  ---
+      "extruder6Active",  SoSeparator  ---
+PVT   "uniform1Switch",  SoSwitch  ---
+      "uniform1",  SoSeparator  ---
+      "uniform1Active",  SoSeparator  ---
+PVT   "uniform2Switch",  SoSwitch  ---
+      "uniform2",  SoSeparator  ---
+      "uniform2Active",  SoSeparator  ---
+PVT   "uniform3Switch",  SoSwitch  ---
+      "uniform3",  SoSeparator  ---
+      "uniform3Active",  SoSeparator  ---
+PVT   "uniform4Switch",  SoSwitch  ---
+      "uniform4",  SoSeparator  ---
+      "uniform4Active",  SoSeparator  ---
+PVT   "uniform5Switch",  SoSwitch  ---
+      "uniform5",  SoSeparator  ---
+      "uniform5Active",  SoSeparator  ---
+PVT   "uniform6Switch",  SoSwitch  ---
+      "uniform6",  SoSeparator  ---
+      "uniform6Active",  SoSeparator  ---
+PVT   "uniform7Switch",  SoSwitch  ---
+      "uniform7",  SoSeparator  ---
+      "uniform7Active",  SoSeparator  ---
+PVT   "uniform8Switch",  SoSwitch  ---
+      "uniform8",  SoSeparator  ---
+      "uniform8Active",  SoSeparator  ---
+PVT   "arrowTranslation",  SoTranslation  ---
+PVT   "arrow1Switch",  SoSwitch  ---
+      "arrow1",  SoSeparator  ---
+PVT   "arrow2Switch",  SoSwitch  ---
+      "arrow2",  SoSeparator  ---
+PVT   "arrow3Switch",  SoSwitch  ---
+      "arrow3",  SoSeparator  ---
+PVT   "arrow4Switch",  SoSwitch  ---
+      "arrow4",  SoSeparator  ---
+PVT   "arrow5Switch",  SoSwitch  ---
+      "arrow5",  SoSeparator  ---
+PVT   "arrow6Switch",  SoSwitch  ---
+      "arrow6",  SoSeparator  ---
+.fi
+.PP
+.PP
+(See \fBSoBaseKit::printTable()\fP for information about the output formatting\&.) 
+.SS "SoHandleBoxDragger::~SoHandleBoxDragger (void)\fC [protected]\fP, \fC [virtual]\fP"
+Protected destructor\&.
+.PP
+(Dragger classes are derived from \fBSoBase\fP, so they are reference counted and automatically destroyed when their reference count goes to 0\&.) 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoHandleBoxDragger::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Reimplemented from \fBSoDragger\fP\&.
+.SS "const \fBSoFieldData\fP * SoHandleBoxDragger::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoDragger\fP\&.
+.SS "const \fBSoNodekitCatalog\fP * SoHandleBoxDragger::getNodekitCatalog (void) const\fC [virtual]\fP"
+Returns the nodekit catalog which defines the layout of this class' kit\&. 
+.PP
+Reimplemented from \fBSoDragger\fP\&.
+.SS "SbBool SoHandleBoxDragger::setUpConnections (SbBool onoff, SbBool doitalways = \fCFALSE\fP)\fC [protected]\fP, \fC [virtual]\fP"
+Sets up all internal connections for instances of this class\&.
+.PP
+(This method will usually not be of interest to the application programmer, unless you want to extend the library with new custom nodekits or dragger classes\&. If so, see the \fBSoBaseKit\fP class documentation\&.) 
+.PP
+Reimplemented from \fBSoInteractionKit\fP\&.
+.SS "void SoHandleBoxDragger::setDefaultOnNonWritingFields (void)\fC [protected]\fP, \fC [virtual]\fP"
+(Be aware that this method is unlikely to be of interest to the application programmer who does not want to extend the library with new custom nodekits or draggers\&. If you indeed \fIare\fP writing extensions, see the information in the \fBSoBaseKit\fP class documentation\&.)
+.PP
+This is a virtual method, and the code in it should call \fBSoField::setDefault()\fP with argument \fCTRUE\fP on part fields that should not be written upon scenegraph export operations\&.
+.PP
+This is typically done when:
+.PP
+.PD 0
+.IP "1." 4
+field value is \fCNULL\fP and part is \fCNULL\fP by default 
+.PP
+
+.IP "2." 4
+it is a leaf \fBSoGroup\fP or \fBSoSeparator\fP node with no children 
+.PP
+
+.IP "3." 4
+it is a leaf listpart with no children and an \fBSoGroup\fP or \fBSoSeparator\fP container 
+.PP
+
+.IP "4." 4
+it is a non-leaf part and it's of \fBSoGroup\fP type and all fields are at their default values 
+.PP
+
+.PP
+.PP
+Subclasses should usually override this to do additional settings for new member fields\&. From the subclass, do remember to call 'upwards' to your superclass' \fBsetDefaultOnNonWritingFields()\fP method\&. 
+.PP
+Reimplemented from \fBSoDragger\fP\&.
+.SS "void SoHandleBoxDragger::startCB (void * f, \fBSoDragger\fP * d)\fC [static]\fP, \fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoHandleBoxDragger::motionCB (void * f, \fBSoDragger\fP * d)\fC [static]\fP, \fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoHandleBoxDragger::finishCB (void * f, \fBSoDragger\fP * d)\fC [static]\fP, \fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoHandleBoxDragger::metaKeyChangeCB (void * f, \fBSoDragger\fP * d)\fC [static]\fP, \fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoHandleBoxDragger::fieldSensorCB (void * d, \fBSoSensor\fP * s)\fC [static]\fP, \fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoHandleBoxDragger::valueChangedCB (void * f, \fBSoDragger\fP * d)\fC [static]\fP, \fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoHandleBoxDragger::dragStart (void)\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP Called when dragger is selected (picked) by the user\&. 
+.SS "void SoHandleBoxDragger::drag (void)\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP Called when user drags the mouse after picking the dragger\&. 
+.SS "void SoHandleBoxDragger::dragFinish (void)\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP Called when mouse button is released after picking and interacting with the dragger\&. 
+.SS "void SoHandleBoxDragger::setAllPartsActive (SbBool onoroff)\fC [protected]\fP"
+Activate or deactive all dragger geometry parts\&. 
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSoSFVec3f\fP SoHandleBoxDragger::scaleFactor"
+Continuously updated to contain the current vector of scaling along the X, Y and Z axes\&. 
+.SS "\fBSoSFVec3f\fP SoHandleBoxDragger::translation"
+Continuously updated to contain the current translation from the dragger's local origo position\&.
+.PP
+The application programmer applying this dragger in his code should connect the relevant node fields in the scene to this field to make it follow the dragger\&. 
+.SS "\fBSoFieldSensor\fP * SoHandleBoxDragger::translFieldSensor\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "\fBSoFieldSensor\fP * SoHandleBoxDragger::scaleFieldSensor\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

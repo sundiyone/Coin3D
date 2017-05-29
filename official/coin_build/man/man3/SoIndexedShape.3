@@ -1,0 +1,193 @@
+.TH "SoIndexedShape" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoIndexedShape \- The \fBSoIndexedShape\fP class is the superclass for all indexed vertex shapes\&.
+.PP
+This is an abstract class which contains storage for four fields for indices to coordinates, normals, materials and texture coordinates for it's subclasses\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/nodes/SoIndexedShape\&.h>\fP
+.PP
+Inherits \fBSoVertexShape\fP\&.
+.PP
+Inherited by \fBSoIndexedFaceSet\fP, \fBSoIndexedLineSet\fP, \fBSoIndexedPointSet\fP, and \fBSoIndexedTriangleStripSet\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoMFInt32\fP \fBcoordIndex\fP"
+.br
+.ti -1c
+.RI "\fBSoMFInt32\fP \fBmaterialIndex\fP"
+.br
+.ti -1c
+.RI "\fBSoMFInt32\fP \fBnormalIndex\fP"
+.br
+.ti -1c
+.RI "\fBSoMFInt32\fP \fBtextureCoordIndex\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoIndexedShape\fP (void)"
+.br
+.ti -1c
+.RI "virtual \fB~SoIndexedShape\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBcomputeBBox\fP (\fBSoAction\fP *action, \fBSbBox3f\fP &box, \fBSbVec3f\fP &center)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetNumVerts\fP (const \fBint\fP startCoord)"
+.br
+.ti -1c
+.RI "void \fBsetupIndices\fP (const \fBint\fP numParts, const \fBint\fP numFaces, const SbBool needNormals, const SbBool needTexCoords)"
+.br
+.ti -1c
+.RI "const int32_t * \fBgetNormalIndices\fP (void)"
+.br
+.ti -1c
+.RI "const int32_t * \fBgetColorIndices\fP (void)"
+.br
+.ti -1c
+.RI "const int32_t * \fBgetTexCoordIndices\fP (void)"
+.br
+.ti -1c
+.RI "SbBool \fBgetVertexData\fP (\fBSoState\fP *state, const \fBSoCoordinateElement\fP *&coords, const \fBSbVec3f\fP *&normals, const int32_t *&cindices, const int32_t *&nindices, const int32_t *&tindices, const int32_t *&mindices, \fBint\fP &numcindices, const SbBool needNormals, SbBool &normalCacheUsed)"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.ti -1c
+.RI "static SbBool \fBareTexCoordsIndexed\fP (\fBSoAction\fP *action)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoIndexedShape\fP class is the superclass for all indexed vertex shapes\&.
+.PP
+This is an abstract class which contains storage for four fields for indices to coordinates, normals, materials and texture coordinates for it's subclasses\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoIndexedShape::SoIndexedShape (void)\fC [protected]\fP"
+Constructor\&. 
+.SS "SoIndexedShape::~SoIndexedShape ()\fC [protected]\fP, \fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoIndexedShape::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Reimplemented from \fBSoVertexShape\fP\&.
+.PP
+Reimplemented in \fBSoIndexedLineSet\fP, \fBSoIndexedFaceSet\fP, \fBSoIndexedTriangleStripSet\fP, \fBSoIndexedPointSet\fP, and \fBSoIndexedMarkerSet\fP\&.
+.SS "const \fBSoFieldData\fP * SoIndexedShape::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoVertexShape\fP\&.
+.PP
+Reimplemented in \fBSoIndexedLineSet\fP, \fBSoIndexedFaceSet\fP, \fBSoIndexedTriangleStripSet\fP, \fBSoIndexedPointSet\fP, and \fBSoIndexedMarkerSet\fP\&.
+.SS "void SoIndexedShape::computeBBox (\fBSoAction\fP * action, \fBSbBox3f\fP & box, \fBSbVec3f\fP & center)\fC [protected]\fP, \fC [virtual]\fP"
+Implemented by \fBSoShape\fP subclasses to let the \fBSoShape\fP superclass know the exact size and weighted center point of the shape's bounding box\&.
+.PP
+The bounding box and center point should be calculated and returned in the local coordinate system\&.
+.PP
+The method implements action behavior for shape nodes for \fBSoGetBoundingBoxAction\fP\&. It is invoked from \fBSoShape::getBoundingBox()\fP\&. (Subclasses should \fInot\fP override \fBSoNode::getBoundingBox()\fP\&.)
+.PP
+The \fIbox\fP parameter sent in is guaranteed to be an empty box, while \fIcenter\fP is undefined upon function entry\&. 
+.PP
+Implements \fBSoShape\fP\&.
+.SS "\fBint\fP SoIndexedShape::getNumVerts (const \fBint\fP startCoord)\fC [protected]\fP"
+Starting at index position \fIstartCoord\fP, returns the number of indices until either the end of index array or a separator index (-1)\&. 
+.SS "void SoIndexedShape::setupIndices (const \fBint\fP numParts, const \fBint\fP numFaces, const SbBool needNormals, const SbBool needTexCoords)\fC [protected]\fP"
+Not implemented\&. Probably only used for internal purposes in SGI's original Open Inventor, which means it should have been private\&.
+.PP
+Let us know if you need this method for any code you are porting and we'll look into implement it properly\&. 
+.SS "const int32_t * SoIndexedShape::getNormalIndices (void)\fC [protected]\fP"
+Not implemented\&. Probably only used for internal purposes in SGI's original Open Inventor, which means it should have been private\&.
+.PP
+Let us know if you need this method for any code you are porting and we'll look into implement it properly\&. 
+.SS "const int32_t * SoIndexedShape::getColorIndices (void)\fC [protected]\fP"
+Not implemented\&. Probably only used for internal purposes in SGI's original Open Inventor, which means it should have been private\&.
+.PP
+Let us know if you need this method for any code you are porting and we'll look into implement it properly\&. 
+.SS "const int32_t * SoIndexedShape::getTexCoordIndices (void)\fC [protected]\fP"
+Not implemented\&. Probably only used for internal purposes in SGI's original Open Inventor, which means it should have been private\&.
+.PP
+Let us know if you need this method for any code you are porting and we'll look into implement it properly\&. 
+.SS "SbBool SoIndexedShape::areTexCoordsIndexed (\fBSoAction\fP * action)\fC [static]\fP, \fC [protected]\fP"
+Returns whether texture coordinates should be indexed or not\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoTextureCoordinateBinding\fP 
+.RE
+.PP
+
+.SS "SbBool SoIndexedShape::getVertexData (\fBSoState\fP * state, const \fBSoCoordinateElement\fP *& coords, const \fBSbVec3f\fP *& normals, const int32_t *& cindices, const int32_t *& nindices, const int32_t *& tindices, const int32_t *& mindices, \fBint\fP & numcindices, const SbBool needNormals, SbBool & normalCacheUsed)\fC [protected]\fP"
+Convenience method that will fetch data needed for rendering or generating primitives\&. Takes care of normal cache\&.
+.PP
+This method was not part of the original SGI Open Inventor API, and is an extension specific for Coin\&. 
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSoMFInt32\fP SoIndexedShape::coordIndex"
+Coordinate indices\&. 
+.SS "\fBSoMFInt32\fP SoIndexedShape::materialIndex"
+Material indices\&. 
+.SS "\fBSoMFInt32\fP SoIndexedShape::normalIndex"
+Normal indices\&. 
+.SS "\fBSoMFInt32\fP SoIndexedShape::textureCoordIndex"
+Texture coordinate indices\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

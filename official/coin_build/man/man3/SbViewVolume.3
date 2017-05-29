@@ -1,0 +1,563 @@
+.TH "SbViewVolume" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SbViewVolume \- The \fBSbViewVolume\fP class is a viewing volume in 3D space\&.
+.PP
+This class contains the necessary information for storing a view volume\&. It has methods for projection of primitives into the 3D volume from 2D points in the projection plane or vice versa, doing camera transforms, view volume transforms, etc\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/SbViewVolume\&.h>\fP
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBProjectionType\fP { \fBORTHOGRAPHIC\fP = 0, \fBPERSPECTIVE\fP = 1 }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSbViewVolume\fP (void)"
+.br
+.ti -1c
+.RI "\fB~SbViewVolume\fP (void)"
+.br
+.ti -1c
+.RI "void \fBgetMatrices\fP (\fBSbMatrix\fP &affine, \fBSbMatrix\fP &proj) const"
+.br
+.ti -1c
+.RI "\fBSbMatrix\fP \fBgetMatrix\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSbMatrix\fP \fBgetCameraSpaceMatrix\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBprojectPointToLine\fP (const \fBSbVec2f\fP &pt, \fBSbLine\fP &line) const"
+.br
+.ti -1c
+.RI "void \fBprojectPointToLine\fP (const \fBSbVec2f\fP &pt, \fBSbVec3f\fP &line0, \fBSbVec3f\fP &line1) const"
+.br
+.ti -1c
+.RI "void \fBprojectToScreen\fP (const \fBSbVec3f\fP &src, \fBSbVec3f\fP &dst) const"
+.br
+.ti -1c
+.RI "\fBSbPlane\fP \fBgetPlane\fP (const float distFromEye) const"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP \fBgetSightPoint\fP (const float distFromEye) const"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP \fBgetPlanePoint\fP (const float distFromEye, const \fBSbVec2f\fP &normPoint) const"
+.br
+.ti -1c
+.RI "\fBSbRotation\fP \fBgetAlignRotation\fP (SbBool rightAngleOnly=FALSE) const"
+.br
+.ti -1c
+.RI "float \fBgetWorldToScreenScale\fP (const \fBSbVec3f\fP &worldCenter, float normRadius) const"
+.br
+.ti -1c
+.RI "\fBSbVec2f\fP \fBprojectBox\fP (const \fBSbBox3f\fP &box) const"
+.br
+.ti -1c
+.RI "\fBSbViewVolume\fP \fBnarrow\fP (float left, float bottom, float right, float top) const"
+.br
+.ti -1c
+.RI "\fBSbViewVolume\fP \fBnarrow\fP (const \fBSbBox3f\fP &box) const"
+.br
+.ti -1c
+.RI "void \fBortho\fP (float left, float right, float bottom, float top, float nearval, float farval)"
+.br
+.ti -1c
+.RI "void \fBperspective\fP (float fovy, float aspect, float nearval, float farval)"
+.br
+.ti -1c
+.RI "void \fBfrustum\fP (float left, float right, float bottom, float top, float nearval, float farval)"
+.br
+.ti -1c
+.RI "void \fBrotateCamera\fP (const \fBSbRotation\fP &q)"
+.br
+.ti -1c
+.RI "void \fBtranslateCamera\fP (const \fBSbVec3f\fP &v)"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP \fBzVector\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSbViewVolume\fP \fBzNarrow\fP (float nearval, float farval) const"
+.br
+.ti -1c
+.RI "void \fBscale\fP (float factor)"
+.br
+.ti -1c
+.RI "void \fBscaleWidth\fP (float ratio)"
+.br
+.ti -1c
+.RI "void \fBscaleHeight\fP (float ratio)"
+.br
+.ti -1c
+.RI "\fBProjectionType\fP \fBgetProjectionType\fP (void) const"
+.br
+.ti -1c
+.RI "const \fBSbVec3f\fP & \fBgetProjectionPoint\fP (void) const"
+.br
+.ti -1c
+.RI "const \fBSbVec3f\fP & \fBgetProjectionDirection\fP (void) const"
+.br
+.ti -1c
+.RI "float \fBgetNearDist\fP (void) const"
+.br
+.ti -1c
+.RI "float \fBgetWidth\fP (void) const"
+.br
+.ti -1c
+.RI "float \fBgetHeight\fP (void) const"
+.br
+.ti -1c
+.RI "float \fBgetDepth\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBprint\fP (FILE *fp) const"
+.br
+.ti -1c
+.RI "void \fBgetViewVolumePlanes\fP (\fBSbPlane\fP planes[6]) const"
+.br
+.ti -1c
+.RI "void \fBtransform\fP (const \fBSbMatrix\fP &matrix)"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP \fBgetViewUp\fP (void) const"
+.br
+.ti -1c
+.RI "SbBool \fBintersect\fP (const \fBSbVec3f\fP &p) const"
+.br
+.ti -1c
+.RI "SbBool \fBintersect\fP (const \fBSbVec3f\fP &p0, const \fBSbVec3f\fP &p1, \fBSbVec3f\fP &closestpoint) const"
+.br
+.ti -1c
+.RI "SbBool \fBintersect\fP (const \fBSbBox3f\fP &box) const"
+.br
+.ti -1c
+.RI "\fBSbBox3f\fP \fBintersectionBox\fP (const \fBSbBox3f\fP &box) const"
+.br
+.ti -1c
+.RI "SbBool \fBoutsideTest\fP (const \fBSbPlane\fP &p, const \fBSbVec3f\fP &bmin, const \fBSbVec3f\fP &bmax) const"
+.br
+.ti -1c
+.RI "const \fBSbDPViewVolume\fP & \fBgetDPViewVolume\fP (void) const"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBProjectionType\fP \fBtype\fP"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP \fBprojPoint\fP"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP \fBprojDir\fP"
+.br
+.ti -1c
+.RI "float \fBnearDist\fP"
+.br
+.ti -1c
+.RI "float \fBnearToFar\fP"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP \fBllf\fP"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP \fBlrf\fP"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP \fBulf\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBSbViewVolume\fP class is a viewing volume in 3D space\&.
+.PP
+This class contains the necessary information for storing a view volume\&. It has methods for projection of primitives into the 3D volume from 2D points in the projection plane or vice versa, doing camera transforms, view volume transforms, etc\&. 
+
+
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSbViewportRegion\fP 
+.RE
+.PP
+
+.SH "Member Enumeration Documentation"
+.PP 
+.SS "enum \fBSbViewVolume::ProjectionType\fP"
+An \fBSbViewVolume\fP instance can represent either an orthogonal projection volume or a perspective projection volume\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBortho()\fP, \fBperspective()\fP, \fBgetProjectionType()\fP\&. 
+.RE
+.PP
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fIORTHOGRAPHIC \fP\fP
+Orthographic projection\&. 
+.TP
+\fB\fIPERSPECTIVE \fP\fP
+Perspective projection\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SbViewVolume::SbViewVolume (void)"
+Constructor\&. Note that the \fBSbViewVolume\fP instance will be uninitialized until you explicitly call \fI\fBortho()\fP\fP or \fI\fBperspective()\fP\fP\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBortho()\fP, \fBperspective()\fP\&. 
+.RE
+.PP
+
+.SS "SbViewVolume::~SbViewVolume (void)"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void SbViewVolume::getMatrices (\fBSbMatrix\fP & affine, \fBSbMatrix\fP & proj) const"
+Returns the view volume's affine matrix and projection matrix\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetMatrix()\fP, \fBgetCameraSpaceMatrix()\fP 
+.RE
+.PP
+
+.SS "\fBSbMatrix\fP SbViewVolume::getMatrix (void) const"
+Returns the combined affine and projection matrix\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetMatrices()\fP, \fBgetCameraSpaceMatrix()\fP 
+.RE
+.PP
+
+.SS "\fBSbMatrix\fP SbViewVolume::getCameraSpaceMatrix (void) const"
+Returns a matrix which will translate the view volume camera back to origo, and rotate the camera so it'll point along the negative z axis\&.
+.PP
+Note that the matrix will \fInot\fP include the rotation necessary to make the camera up vector point along the positive y axis (i\&.e\&. camera roll is not accounted for)\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetMatrices()\fP, \fBgetMatrix()\fP 
+.RE
+.PP
+
+.SS "void SbViewVolume::projectPointToLine (const \fBSbVec2f\fP & pt, \fBSbLine\fP & line) const"
+Project the given 2D point from the projection plane into a 3D line\&.
+.PP
+\fIpt\fP coordinates should be normalized to be within [0, 1]\&. 
+.SS "void SbViewVolume::projectPointToLine (const \fBSbVec2f\fP & pt, \fBSbVec3f\fP & line0, \fBSbVec3f\fP & line1) const"
+Project the given 2D point from the projection plane into two points defining a 3D line\&. The first point, \fIline0\fP, will be the corresponding point for the projection on the near plane, while \fIline1\fP will be the line endpoint, lying in the far plane\&. 
+.SS "void SbViewVolume::projectToScreen (const \fBSbVec3f\fP & src, \fBSbVec3f\fP & dst) const"
+Project the \fIsrc\fP point to a normalized set of screen coordinates in the projection plane and place the result in \fIdst\fP\&.
+.PP
+It is safe to let \fIsrc\fP and  be the same \fBSbVec3f\fP instance\&.
+.PP
+The z-coordinate of \fIdst\fP is monotonically increasing for points closer to the far plane\&. Note however that this is not a linear relationship, the \fIdst\fP z-coordinate is calculated as follows:
+.PP
+Orthogonal view: DSTz = (-2 * SRCz - far - near) / (far - near), Perspective view: DSTz = (-SRCz * (far - near) - 2*far*near) / (far - near)
+.PP
+The returned coordinates (\fIdst\fP) are normalized to be in range [0, 1]\&. 
+.SS "\fBSbPlane\fP SbViewVolume::getPlane (const float distFromEye) const"
+Returns an \fBSbPlane\fP instance which has a normal vector in the opposite direction of which the camera is pointing\&. This means the plane will be parallel to the near and far clipping planes\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetSightPoint()\fP 
+.RE
+.PP
+
+.SS "\fBSbVec3f\fP SbViewVolume::getSightPoint (const float distFromEye) const"
+Returns the point on the center line-of-sight from the camera position with the given distance\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetPlane()\fP 
+.RE
+.PP
+
+.SS "\fBSbVec3f\fP SbViewVolume::getPlanePoint (const float distFromEye, const \fBSbVec2f\fP & normPoint) const"
+Return the 3D point which projects to \fInormPoint\fP and lies on the plane perpendicular to the camera direction and \fIdistFromEye\fP distance away from the camera position\&.
+.PP
+\fInormPoint\fP should be given in normalized coordinates, where the visible render canvas is covered by the range [0\&.0, 1\&.0]\&. 
+.SS "\fBSbRotation\fP SbViewVolume::getAlignRotation (SbBool rightangleonly = \fCFALSE\fP) const"
+Returns a rotation that aligns an object so that its positive x-axis is to the right and its positive y-axis is up in the view volume\&.
+.PP
+If rightangleonly is TRUE, it will create a rotation that aligns the x and y-axis with the closest orthogonal axes to right and up\&. 
+.SS "float SbViewVolume::getWorldToScreenScale (const \fBSbVec3f\fP & worldCenter, float normRadius) const"
+Given a sphere with center in \fIworldCenter\fP and an initial radius of 1\&.0, return the scale factor needed to make this sphere have a \fInormRadius\fP radius when projected onto the near clipping plane\&. 
+.SS "\fBSbVec2f\fP SbViewVolume::projectBox (const \fBSbBox3f\fP & box) const"
+Projects the given box onto the projection plane and returns the normalized screen space it occupies\&. 
+.SS "\fBSbViewVolume\fP SbViewVolume::narrow (float left, float bottom, float right, float top) const"
+Returns a narrowed version of the view volume which is within the given [0, 1] normalized coordinates\&. The coordinates are taken to be corner points of a normalized 'view window' on the near clipping plane\&. I\&.e\&.:
+.PP
+.PP
+.nf
+SbViewVolume view;
+view\&.ortho(0, 100, 0, 100, 0\&.1, 1000);
+view = view\&.narrow(0\&.25, 0\&.5, 0\&.75, 1\&.0);
+.fi
+.PP
+.PP
+\&.\&.will give a view volume with corner points <25, 75> and <50, 100>\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBscale()\fP, \fBscaleWidth()\fP, \fBscaleHeight()\fP 
+.RE
+.PP
+
+.SS "\fBSbViewVolume\fP SbViewVolume::narrow (const \fBSbBox3f\fP & box) const"
+Returns a narrowed version of the view volume which is within the given [0, 1] normalized coordinates\&. The box x and y coordinates are taken to be corner points of a normalized 'view window' on the near clipping plane\&. The box z coordinates are used to adjust the near and far clipping planes, and should be relative to the current clipping planes\&. A value of 1\&.0 is at the current near plane\&. A value of 0\&.0 is at the current far plane\&. 
+.SS "void SbViewVolume::ortho (float left, float right, float bottom, float top, float nearval, float farval)"
+Set up the view volume as a rectangular box for orthographic parallel projections\&.
+.PP
+The line of sight will be along the negative z axis, through the center of the plane defined by the point 
+.PP
+.nf
+[(right+left)/2, (top+bottom)/2, 0]
+
+.fi
+.PP
+.PP
+\fBSee also:\fP
+.RS 4
+\fBperspective()\fP\&. 
+.RE
+.PP
+
+.SS "void SbViewVolume::perspective (float fovy, float aspect, float nearval, float farval)"
+Set up the view volume for perspective projections\&. The line of sight will be through origo along the negative z axis\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBortho()\fP\&. 
+.RE
+.PP
+
+.SS "void SbViewVolume::frustum (float left, float right, float bottom, float top, float nearval, float farval)"
+Set up the frustum for perspective projection\&. This is an alternative to \fBperspective()\fP that lets you specify any kind of view volumes (e\&.g\&. off center volumes)\&. It has the same arguments and functionality as the corresponding OpenGL glFrustum() function\&.
+.PP
+This function is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+\fBperspective()\fP 
+.RE
+.PP
+
+.SS "void SbViewVolume::rotateCamera (const \fBSbRotation\fP & q)"
+Rotate the direction which the camera is pointing in\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBtranslateCamera()\fP\&. 
+.RE
+.PP
+
+.SS "void SbViewVolume::translateCamera (const \fBSbVec3f\fP & v)"
+Translate the camera position of the view volume\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBrotateCamera()\fP\&. 
+.RE
+.PP
+
+.SS "\fBSbVec3f\fP SbViewVolume::zVector (void) const"
+Return the vector pointing from the center of the view volume towards the camera\&. This is just the vector pointing in the opposite direction of \fI\fBgetProjectionDirection()\fP\fP\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetProjectionDirection()\fP\&. 
+.RE
+.PP
+
+.SS "\fBSbViewVolume\fP SbViewVolume::zNarrow (float nearval, float farval) const"
+Return a copy \fBSbViewVolume\fP with narrowed depth by supplying parameters for new near and far clipping planes\&.
+.PP
+\fInearval\fP and  should be relative to the current clipping planes\&. A value of 1\&.0 is at the current near plane\&. A value of 0\&.0 is at the current far plane\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBzVector()\fP\&. 
+.RE
+.PP
+
+.SS "void SbViewVolume::scale (float factor)"
+Scale width and height of viewing frustum by the given ratio around the projection plane center axis\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBscaleWidth()\fP, \fBscaleHeight()\fP\&. 
+.RE
+.PP
+
+.SS "void SbViewVolume::scaleWidth (float ratio)"
+Scale width of viewing frustum by the given ratio around the vertical center axis in the projection plane\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBscale()\fP, \fBscaleHeight()\fP\&. 
+.RE
+.PP
+
+.SS "void SbViewVolume::scaleHeight (float ratio)"
+Scale height of viewing frustum by the given ratio around the horizontal center axis in the projection plane\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBscale()\fP, \fBscaleWidth()\fP\&. 
+.RE
+.PP
+
+.SS "\fBSbViewVolume::ProjectionType\fP SbViewVolume::getProjectionType (void) const"
+Return current view volume projection type, which can be either \fIORTHOGRAPHIC\fP or \fIPERSPECTIVE\fP\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSbViewVolume::ProjectionType\fP 
+.RE
+.PP
+
+.SS "const \fBSbVec3f\fP & SbViewVolume::getProjectionPoint (void) const"
+Returns the projection point, i\&.e\&. the camera position\&. 
+.SS "const \fBSbVec3f\fP & SbViewVolume::getProjectionDirection (void) const"
+Returns the direction of projection, i\&.e\&. the direction the camera is pointing\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetNearDist()\fP\&. 
+.RE
+.PP
+
+.SS "float SbViewVolume::getNearDist (void) const"
+Returns distance from projection plane to near clipping plane\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetProjectionDirection()\fP\&. 
+.RE
+.PP
+
+.SS "float SbViewVolume::getWidth (void) const"
+Returns width of viewing frustum in the projection plane\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetHeight()\fP, \fBgetDepth()\fP\&. 
+.RE
+.PP
+
+.SS "float SbViewVolume::getHeight (void) const"
+Returns height of viewing frustum in the projection plane\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetWidth()\fP, \fBgetDepth()\fP\&. 
+.RE
+.PP
+
+.SS "float SbViewVolume::getDepth (void) const"
+Returns depth of viewing frustum, i\&.e\&. the distance from the near clipping plane to the far clipping plane\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetWidth()\fP, \fBgetHeight()\fP\&. 
+.RE
+.PP
+
+.SS "void SbViewVolume::print (FILE * fp) const"
+Dump the state of this object to the \fIfile\fP stream\&. Only works in debug version of library, method does nothing in an optimized compile\&. 
+.SS "void SbViewVolume::getViewVolumePlanes (\fBSbPlane\fP planes[6]) const"
+Returns the six planes defining the view volume in the following order: left, bottom, right, top, near, far\&. Plane normals are directed into the view volume\&.
+.PP
+This method is an extension for Coin, and is not available in the original Open Inventor\&. 
+.SS "void SbViewVolume::transform (const \fBSbMatrix\fP & matrix)"
+Transform the viewing volume by \fImatrix\fP\&. 
+.SS "\fBSbVec3f\fP SbViewVolume::getViewUp (void) const"
+Returns the view up vector for this view volume\&. It's a vector which is perpendicular to the projection direction, and parallel and oriented in the same direction as the vector from the lower left corner to the upper left corner of the near plane\&. 
+.SS "SbBool SbViewVolume::intersect (const \fBSbVec3f\fP & p) const"
+Returns TRUE if \fIp\fP is inside the view volume\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.3 
+.RE
+.PP
+
+.SS "SbBool SbViewVolume::intersect (const \fBSbVec3f\fP & p0, const \fBSbVec3f\fP & p1, \fBSbVec3f\fP & closestpoint) const"
+Returns TRUE if the line segment \fIp0\fP, \fIp1\fP may intersect volume\&. Be aware that it's not 100% certain that the line segment intersects the volume even if this function returns TRUE\&.
+.PP
+\fIclosestpoint\fP is set to the closest point on the line to the center ray of the view volume\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.3 
+.RE
+.PP
+
+.SS "SbBool SbViewVolume::intersect (const \fBSbBox3f\fP & box) const"
+Returns TRUE if \fIbox\fP may be inside the view volume\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.3 
+.RE
+.PP
+
+.SS "\fBSbBox3f\fP SbViewVolume::intersectionBox (const \fBSbBox3f\fP & box) const"
+Calculates the bbox of the intersection between \fIbbox\fP and the view volume\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 4\&.0 
+.RE
+.PP
+
+.SS "SbBool SbViewVolume::outsideTest (const \fBSbPlane\fP & p, const \fBSbVec3f\fP & bmin, const \fBSbVec3f\fP & bmax) const"
+Returns TRUE if all eight corner points in \fIbmin\fP, \fIbmax\fP is outside \fIp\fP\&. 
+.SS "const \fBSbDPViewVolume\fP & SbViewVolume::getDPViewVolume (void) const"
+Returns the double precision version of this view volume\&. 
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSbViewVolume::ProjectionType\fP SbViewVolume::type"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "\fBSbVec3f\fP SbViewVolume::projPoint"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "\fBSbVec3f\fP SbViewVolume::projDir"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "float SbViewVolume::nearDist"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "float SbViewVolume::nearToFar"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "\fBSbVec3f\fP SbViewVolume::llf"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "\fBSbVec3f\fP SbViewVolume::lrf"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "\fBSbVec3f\fP SbViewVolume::ulf"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

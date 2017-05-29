@@ -1,0 +1,75 @@
+.TH "SbIntList" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SbIntList \- The \fBSbIntList\fP class is a container for integer list arrays\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/lists/SbIntList\&.h>\fP
+.PP
+Inherits \fBSbPList\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSbIntList\fP (void)"
+.br
+.ti -1c
+.RI "\fBSbIntList\fP (const \fBint\fP sizehint)"
+.br
+.ti -1c
+.RI "void \fBappend\fP (const \fBint\fP item)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBfind\fP (const \fBint\fP item)"
+.br
+.ti -1c
+.RI "void \fBinsert\fP (const \fBint\fP item, const \fBint\fP addbefore)"
+.br
+.ti -1c
+.RI "\fBint\fP & \fBoperator[]\fP (const \fBint\fP idx) const"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSbIntList\fP class is a container for integer list arrays\&. 
+
+
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSbList\fP 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SbIntList::SbIntList (void)\fC [inline]\fP"
+Default constructor\&. 
+.SS "SbIntList::SbIntList (const \fBint\fP sizehint)\fC [inline]\fP"
+This constructor initializes the internal allocated size for the list to \fIsizehint\fP\&. Note that the list will still initially contain zero items\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSbList::SbList(const int sizehint)\fP 
+.RE
+.PP
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void SbIntList::append (const \fBint\fP item)\fC [inline]\fP"
+Overridden from parent to accept an integer argument\&. 
+.SS "\fBint\fP SbIntList::find (const \fBint\fP item)\fC [inline]\fP"
+Overridden from parent to accept an integer argument\&. 
+.SS "void SbIntList::insert (const \fBint\fP item, const \fBint\fP addbefore)\fC [inline]\fP"
+Overridden from parent to accept an integer argument\&. 
+.SS "\fBint\fP & SbIntList::operator[] (const \fBint\fP idx) const\fC [inline]\fP"
+Overridden from parent to return an integer\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

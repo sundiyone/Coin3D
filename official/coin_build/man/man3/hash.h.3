@@ -1,0 +1,102 @@
+.TH "hash.h" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+hash.h
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stdlib\&.h>\fP
+.br
+\fC#include <Inventor/C/basic\&.h>\fP
+.br
+
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef uintptr_t \fBcc_hash_key\fP"
+.br
+.ti -1c
+.RI "typedef struct \fBcc_hash\fP \fBcc_hash\fP"
+.br
+.ti -1c
+.RI "typedef \fBcc_hash_key\fP \fBcc_hash_func\fP(const \fBcc_hash_key\fP key)"
+.br
+.ti -1c
+.RI "typedef void \fBcc_hash_apply_func\fP(\fBcc_hash_key\fP key, void *val, void *closure)"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBcc_hash\fP * \fBcc_hash_construct\fP (unsigned \fBint\fP size, float loadfactor)"
+.br
+.ti -1c
+.RI "void \fBcc_hash_destruct\fP (\fBcc_hash\fP *ht)"
+.br
+.ti -1c
+.RI "void \fBcc_hash_clear\fP (\fBcc_hash\fP *ht)"
+.br
+.ti -1c
+.RI "SbBool \fBcc_hash_put\fP (\fBcc_hash\fP *ht, \fBcc_hash_key\fP key, void *val)"
+.br
+.ti -1c
+.RI "SbBool \fBcc_hash_get\fP (\fBcc_hash\fP *ht, \fBcc_hash_key\fP key, void **val)"
+.br
+.ti -1c
+.RI "SbBool \fBcc_hash_remove\fP (\fBcc_hash\fP *ht, \fBcc_hash_key\fP key)"
+.br
+.ti -1c
+.RI "void \fBcc_hash_apply\fP (\fBcc_hash\fP *ht, \fBcc_hash_apply_func\fP *func, void *closure)"
+.br
+.ti -1c
+.RI "unsigned \fBint\fP \fBcc_hash_get_num_elements\fP (\fBcc_hash\fP *ht)"
+.br
+.ti -1c
+.RI "void \fBcc_hash_set_hash_func\fP (\fBcc_hash\fP *ht, \fBcc_hash_func\fP *func)"
+.br
+.ti -1c
+.RI "void \fBcc_hash_print_stat\fP (\fBcc_hash\fP *ht)"
+.br
+.in -1c
+.SH "Typedef Documentation"
+.PP 
+.SS "uintptr_t \fBcc_hash_key\fP"
+The type definition used locally for a hash key\&. 
+.SS "struct \fBcc_hash\fP \fBcc_hash\fP"
+The type definition for the cc_hash structure\&. 
+.SS "\fBcc_hash_key\fP cc_hash_func"
+A type definition for cc_hash_func function pointers\&. 
+.SS "void cc_hash_apply_func"
+A type definition for cc_hash_apply_func function pointers\&. 
+.SH "Function Documentation"
+.PP 
+.SS "\fBcc_hash\fP* cc_hash_construct (unsigned \fBint\fP size, float loadfactor)"
+Construct a hash table\&.
+.PP
+\fIsize\fP is the initial bucket size\&. The caller need not attempt to find a good (prime number) value for this argument to ensure good hashing\&. That will be taken care of internally\&.
+.PP
+\fIloadfactor\fP is the percentage the table should be filled before resizing, and should be a number from 0 to 1\&. It is of course possible to specify a number bigger than 1, but then there will be greater chance of having many elements on the same bucket (linear search for an element)\&. If you supply a number <= 0 for loadfactor, the default value 0\&.75 will be used\&. 
+.SS "void cc_hash_destruct (\fBcc_hash\fP * ht)"
+Destruct the hash table \fIht\fP\&. 
+.SS "void cc_hash_clear (\fBcc_hash\fP * ht)"
+Clear/remove all elements in the hash table \fIht\fP\&. 
+.SS "SbBool cc_hash_put (\fBcc_hash\fP * ht, \fBcc_hash_key\fP key, void * val)"
+Insert a new element in the hash table \fIht\fP\&. \fIkey\fP is the key used to identify the element, while \fIval\fP is the element value\&. If \fIkey\fP is already used by another element, the element value will be overwritten, and \fIFALSE\fP is returned\&. Otherwise a new element is created and \fITRUE\fP is returned\&. 
+.SS "SbBool cc_hash_get (\fBcc_hash\fP * ht, \fBcc_hash_key\fP key, void ** val)"
+Find the element with key value \fIkey\fP\&. If found, the value is written to \fIval\fP, and TRUE is returned\&. Otherwise FALSE is returned and \fIval\fP is not changed\&. 
+.SS "SbBool cc_hash_remove (\fBcc_hash\fP * ht, \fBcc_hash_key\fP key)"
+Attempt to remove the element with key value \fIkey\fP\&. Returns TRUE if found, FALSE otherwise\&. 
+.SS "void cc_hash_apply (\fBcc_hash\fP * ht, \fBcc_hash_apply_func\fP * func, void * closure)"
+Call \fIfunc\fP for for each element in the hash table\&. 
+.SS "unsigned \fBint\fP cc_hash_get_num_elements (\fBcc_hash\fP * ht)"
+Return the number of elements in the hash table\&. 
+.SS "void cc_hash_set_hash_func (\fBcc_hash\fP * ht, \fBcc_hash_func\fP * func)"
+Set the hash func that is used to map key values into a bucket index\&. 
+.SS "void cc_hash_print_stat (\fBcc_hash\fP * ht)"
+For debugging only\&. Prints information about hash with \fBcc_debugerror\fP\&. 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

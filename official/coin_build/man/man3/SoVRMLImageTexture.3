@@ -1,0 +1,292 @@
+.TH "SoVRMLImageTexture" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoVRMLImageTexture \- The \fBSoVRMLImageTexture\fP class is used for mapping a texture file onto geometry\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/VRMLnodes/SoVRMLImageTexture\&.h>\fP
+.PP
+Inherits \fBSoVRMLTexture\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "\fBSoVRMLImageTexture\fP (void)"
+.br
+.ti -1c
+.RI "void \fBallowPrequalifyFile\fP (SbBool enable)"
+.br
+.ti -1c
+.RI "virtual void \fBdoAction\fP (\fBSoAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBGLRender\fP (\fBSoGLRenderAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBcallback\fP (\fBSoCallbackAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBrayPick\fP (\fBSoRayPickAction\fP *action)"
+.br
+.ti -1c
+.RI "void \fBsetImage\fP (const \fBSbImage\fP &image)"
+.br
+.ti -1c
+.RI "const \fBSbImage\fP * \fBgetImage\fP (void) const"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBsetDelayFetchURL\fP (const SbBool onoff)"
+.br
+.ti -1c
+.RI "static void \fBsetPrequalifyFileCallBack\fP (VRMLPrequalifyFileCallback *cb, void *closure)"
+.br
+.ti -1c
+.RI "static void \fBsetImageDataMaxAge\fP (const uint32_t maxage)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoMFString\fP \fBurl\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fB~SoVRMLImageTexture\fP ()"
+.br
+.ti -1c
+.RI "virtual SbBool \fBreadInstance\fP (\fBSoInput\fP *in, unsigned short flags)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetReadStatus\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBsetReadStatus\fP (\fBint\fP status)"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoVRMLImageTexture\fP class is used for mapping a texture file onto geometry\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP 
+
+
+.PP
+.nf
+ImageTexture {
+  exposedField MFString url     []
+  field        SFBool   repeatS TRUE
+  field        SFBool   repeatT TRUE
+}
+
+.fi
+.PP
+.PP
+The ImageTexture node defines a texture map by specifying an image file and general parameters for mapping to geometry\&. Texture maps are defined in a 2D coordinate system (s, t) that ranges from [0\&.0, 1\&.0] in both directions\&. The bottom edge of the image corresponds to the S-axis of the texture map, and left edge of the image corresponds to the T-axis of the texture map\&. The lower-left pixel of the image corresponds to s=0, t=0, and the top-right pixel of the image corresponds to s=1, t=1\&. These relationships are depicted in Figure 6\&.9\&.
+.PP
+  Figure 6\&.9 
+.PP
+The texture is read from the URL specified by the url field\&. When the url field contains no values ([]), texturing is disabled\&. Browsers shall support the JPEG and PNG image file formats\&. In addition, browsers may support other image formats (e\&.g\&. CGM) which can be rendered into a 2D image\&. Support for the GIF format is also recommended (including transparency)\&.
+.PP
+Details on the url field can be found in 4\&.5, VRML and the World Wide Web\&.
+.PP
+See 4\&.6\&.11, Texture maps (http://www.web3d.org/x3d/specifications/vrml/ISO-IEC-14772-VRML97/part1/concepts.html#4.6.11), for a general description of texture maps\&.
+.PP
+See 4\&.14, Lighting model (http://www.web3d.org/x3d/specifications/vrml/ISO-IEC-14772-VRML97/part1/concepts.html#4.14), for a description of lighting equations and the interaction between textures, materials, and geometry appearance\&.
+.PP
+The repeatS and repeatT fields specify how the texture wraps in the S and T directions\&. If repeatS is TRUE (the default), the texture map is repeated outside the [0\&.0, 1\&.0] texture coordinate range in the S direction so that it fills the shape\&. If repeatS is FALSE, the texture coordinates are clamped in the S direction to lie within the [0\&.0, 1\&.0] range\&. The repeatT field is analogous to the repeatS field\&.
+.PP
+\fBThe rest of this class documentation is \fInot\fP from the VRML97 standards documentation, but was written specifically for the Coin3D API documentation\&.\fP
+.PP
+One common flaw with many programs that has support for exporting VRML or Inventor files, is that the same texture file is exported several times, but as different nodes\&. This can cause excessive texture memory usage and slow rendering\&. Below is an example program that fixes this by replacing all instances of the same texture with a pointer to the first node:
+.PP
+.PP
+.nf
+#include <Inventor/actions/SoSearchAction\&.h>
+#include <Inventor/actions/SoWriteAction\&.h>
+#include <Inventor/VRMLnodes/SoVRMLGroup\&.h>
+#include <Inventor/VRMLnodes/SoVRMLImageTexture\&.h>
+#include <Inventor/VRMLnodes/SoVRMLAppearance\&.h>
+#include <Inventor/SoDB\&.h>
+#include <Inventor/SoInput\&.h>
+#include <Inventor/SoOutput\&.h>
+#include <assert\&.h>
+
+int main(int argc, char ** argv)
+{
+  if (argc < 2) return -1;
+  SoDB::init();
+
+  SoInput in;
+  if (!in\&.openFile(argv[1])) return -1;
+
+  if (!in\&.isFileVRML2()) return -1; // file is not a vrml2 file 
+
+  SoVRMLGroup * root = SoDB::readAllVRML(&in);
+
+  if (!root) return -1;
+  root->ref();
+
+  SoSearchAction sa;
+  sa\&.setType(SoVRMLImageTexture::getClassTypeId());
+  sa\&.setInterest(SoSearchAction::ALL);
+  sa\&.setSearchingAll(TRUE);
+  sa\&.apply(root);
+  SoPathList & pl = sa\&.getPaths();
+  SbDict namedict;
+
+  for (int i = 0; i < pl\&.getLength(); i++) {
+    SoFullPath * p = (SoFullPath*) pl[i];
+    if (p->getTail()->isOfType(SoVRMLImageTexture::getClassTypeId())) {
+      SoVRMLImageTexture * tex = (SoVRMLImageTexture*) p->getTail();
+      if (tex->url\&.getNum()) {
+        // FIXME: we only check the first name here\&. Should really check all of them
+        SbName name = tex->url[0]\&.getString();
+        unsigned long key = (unsigned long) ((void*) name\&.getString());
+        void * tmp;
+        if (!namedict\&.find(key, tmp)) {
+          (void) namedict\&.enter(key, tex);
+        }
+        else if (tmp != (void*) tex) {
+          SoNode * parent = p->getNodeFromTail(1);
+          if (parent->isOfType(SoVRMLAppearance::getClassTypeId())) {
+            ((SoVRMLAppearance*)parent)->texture = (SoNode*) tmp;
+          }
+          else {
+            // not a valid VRML2 file\&. Print a warning or something\&.
+          }
+        }
+      }
+    }
+  }   
+  sa\&.reset();
+  SoOutput out;
+  out\&.setHeaderString("#VRML V2\&.0 utf8");
+  SoWriteAction wa(&out);
+  wa\&.apply(root);
+  root->unref();
+}
+.fi
+.PP
+ 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoVRMLImageTexture::SoVRMLImageTexture (void)"
+Constructor\&. 
+.SS "SoVRMLImageTexture::~SoVRMLImageTexture ()\fC [protected]\fP, \fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoVRMLImageTexture::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Reimplemented from \fBSoVRMLTexture\fP\&.
+.SS "const \fBSoFieldData\fP * SoVRMLImageTexture::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoVRMLTexture\fP\&.
+.SS "void SoVRMLImageTexture::setDelayFetchURL (const SbBool onoff)\fC [static]\fP"
+Sets whether the image loading is delayed until the first time the image is needed, or if the image is loaded immediately when the url field is changed/set\&. Default value is \fITRUE\fP\&. 
+.SS "void SoVRMLImageTexture::setPrequalifyFileCallBack (VRMLPrequalifyFileCallback * cb, void * closure)\fC [static]\fP"
+Sets the prequalify callback for ImageTexture nodes\&. This is a callback that will be called when an image is about to be read\&. 
+.SS "void SoVRMLImageTexture::allowPrequalifyFile (SbBool enable)"
+Enable prequalify file loading\&. 
+.SS "void SoVRMLImageTexture::doAction (\fBSoAction\fP * action)\fC [virtual]\fP"
+This function performs the typical operation of a node for any action\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "void SoVRMLImageTexture::GLRender (\fBSoGLRenderAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGLRenderAction\fP\&.
+.PP
+This is called during rendering traversals\&. Nodes influencing the rendering state in any way or who wants to throw geometry primitives at OpenGL overrides this method\&. 
+.PP
+Reimplemented from \fBSoVRMLTexture\fP\&.
+.SS "void SoVRMLImageTexture::callback (\fBSoCallbackAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoCallbackAction\fP\&.
+.PP
+Simply updates the state according to how the node behaves for the render action, so the application programmer can use the \fBSoCallbackAction\fP for extracting information about the scene graph\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "void SoVRMLImageTexture::rayPick (\fBSoRayPickAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoRayPickAction\fP\&.
+.PP
+Checks the ray specification of the \fIaction\fP and tests for intersection with the data of the node\&.
+.PP
+Nodes influencing relevant state variables for how picking is done also overrides this method\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "void SoVRMLImageTexture::setImage (const \fBSbImage\fP & image)"
+Set the image data for this node\&. Can be used by the prequalify callback to set the data in the node\&. 
+.SS "const \fBSbImage\fP * SoVRMLImageTexture::getImage (void) const"
+Returns the texture image\&. 
+.SS "void SoVRMLImageTexture::setImageDataMaxAge (const uint32_t maxage)\fC [static]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "SbBool SoVRMLImageTexture::readInstance (\fBSoInput\fP * in, unsigned short flags)\fC [protected]\fP, \fC [virtual]\fP"
+This method is mainly intended for internal use during file import operations\&.
+.PP
+It reads a definition of an instance from the input stream \fIin\fP\&. The input stream state points to the start of a serialized / persistant representation of an instance of this class type\&.
+.PP
+\fCTRUE\fP or \fCFALSE\fP is returned, depending on if the instantiation and configuration of the new object of this class type went ok or not\&. The import process should be robust and handle corrupted input streams by returning \fCFALSE\fP\&.
+.PP
+\fIflags\fP is used internally during binary import when reading user extension nodes, group nodes or engines\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "\fBint\fP SoVRMLImageTexture::getReadStatus (void) const\fC [protected]\fP"
+Returns the read status\&. 
+.SS "void SoVRMLImageTexture::setReadStatus (\fBint\fP status)\fC [protected]\fP"
+Sets the read status\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

@@ -1,0 +1,110 @@
+.TH "SoNormalCache" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoNormalCache \- The \fBSoNormalCache\fP class is used to hold cached normals\&.
+.PP
+As an extension to the original SGI Open Inventor v2\&.1 API, it is also possible to generate normals using this class\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/caches/SoNormalCache\&.h>\fP
+.PP
+Inherits \fBSoCache\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSoNormalCache\fP (\fBSoState\fP *const state)"
+.br
+.ti -1c
+.RI "virtual \fB~SoNormalCache\fP ()"
+.br
+.ti -1c
+.RI "void \fBset\fP (const \fBint\fP num, const \fBSbVec3f\fP *const normals)"
+.br
+.ti -1c
+.RI "void \fBset\fP (\fBSoNormalGenerator\fP *generator)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetNum\fP (void) const"
+.br
+.ti -1c
+.RI "const \fBSbVec3f\fP * \fBgetNormals\fP (void) const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetNumIndices\fP (void) const"
+.br
+.ti -1c
+.RI "const int32_t * \fBgetIndices\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBgeneratePerVertex\fP (const \fBSbVec3f\fP *const coords, const unsigned \fBint\fP numcoords, const int32_t *coordindices, const \fBint\fP numcoordindices, const float crease_angle, const \fBSbVec3f\fP *facenormals=NULL, const \fBint\fP numfacenormals=\-1, const SbBool ccw=TRUE, const SbBool tristrip=FALSE)"
+.br
+.ti -1c
+.RI "void \fBgeneratePerFace\fP (const \fBSbVec3f\fP *const coords, const unsigned \fBint\fP numcoords, const int32_t *coordindices, const \fBint\fP numcoorindices, const SbBool ccw)"
+.br
+.ti -1c
+.RI "void \fBgeneratePerFaceStrip\fP (const \fBSbVec3f\fP *const coords, const unsigned \fBint\fP numcoords, const int32_t *coordindices, const \fBint\fP numcoorindices, const SbBool ccw)"
+.br
+.ti -1c
+.RI "void \fBgeneratePerStrip\fP (const \fBSbVec3f\fP *const coords, const unsigned \fBint\fP numcoords, const int32_t *coordindices, const \fBint\fP numcoorindices, const SbBool ccw)"
+.br
+.ti -1c
+.RI "void \fBgeneratePerVertexQuad\fP (const \fBSbVec3f\fP *const coords, const unsigned \fBint\fP numcoords, const \fBint\fP vPerRow, const \fBint\fP vPerColumn, const SbBool ccw)"
+.br
+.ti -1c
+.RI "void \fBgeneratePerFaceQuad\fP (const \fBSbVec3f\fP *const coords, const unsigned \fBint\fP numcoords, const \fBint\fP vPerRow, const \fBint\fP vPerColumn, const SbBool ccw)"
+.br
+.ti -1c
+.RI "void \fBgeneratePerRowQuad\fP (const \fBSbVec3f\fP *const coords, const unsigned \fBint\fP numcoords, const \fBint\fP vPerRow, const \fBint\fP vPerColumn, const SbBool ccw)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoNormalCache\fP class is used to hold cached normals\&.
+.PP
+As an extension to the original SGI Open Inventor v2\&.1 API, it is also possible to generate normals using this class\&. 
+
+It is more powerful and easier to use than the \fBSoNormalGenerator\fP class\&. It is possible to generate normals per vertex with indices (using much less memory than plain per vertex normals), and it contains special methods to generate normals for triangle strips and quads\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoNormalCache::SoNormalCache (\fBSoState\fP *const state)"
+Contructor with \fIstate\fP being the current state\&. 
+.SS "SoNormalCache::~SoNormalCache ()\fC [virtual]\fP"
+Destructor 
+.SH "Member Function Documentation"
+.PP 
+.SS "void SoNormalCache::set (const \fBint\fP num, const \fBSbVec3f\fP *const normals)"
+Sets an array of normals for this cache\&. The normals will not be deleted when the instance is deleted\&. 
+.SS "void SoNormalCache::set (\fBSoNormalGenerator\fP * generator)"
+Uses a normal generator in this cache\&. The normal generator will be deleted when the cache is deleted or reset\&. 
+.SS "\fBint\fP SoNormalCache::getNum (void) const"
+Returns the number of normals in the cache\&. 
+.SS "const \fBSbVec3f\fP * SoNormalCache::getNormals (void) const"
+Return a pointer to the normals in this cache\&. 
+.SS "\fBint\fP SoNormalCache::getNumIndices (void) const"
+Returns the number of indices in this cache\&. Normals are generated with PER_VERTEX_INDEXED binding\&. 
+.SS "const int32_t * SoNormalCache::getIndices (void) const"
+Returns the normal indices\&. 
+.SS "void SoNormalCache::generatePerVertex (const \fBSbVec3f\fP *const coords, const unsigned \fBint\fP numcoords, const int32_t * vindex, const \fBint\fP numvi, const float crease_angle, const \fBSbVec3f\fP * facenormals = \fCNULL\fP, const \fBint\fP numfacenormals = \fC\-1\fP, const SbBool ccw = \fCTRUE\fP, const SbBool tristrip = \fCFALSE\fP)"
+Generates normals for each vertex for each face\&. It is possible to specify face normals if these have been calculated somewhere else, otherwise the face normals will be calculated before the vertex normals are calculated\&. \fItristrip\fP should be \fCTRUE\fP if the geometry consists of triangle strips\&. 
+.SS "void SoNormalCache::generatePerFace (const \fBSbVec3f\fP *const coords, const unsigned \fBint\fP numcoords, const int32_t * cind, const \fBint\fP nv, const SbBool ccw)"
+Generates face normals for the faceset defined by \fIcoords\fP and \fIcind\fP\&. 
+.SS "void SoNormalCache::generatePerFaceStrip (const \fBSbVec3f\fP *const coords, const unsigned \fBint\fP numcoords, const int32_t * cind, const \fBint\fP nv, const SbBool ccw)"
+Generates face normals for triangle strips\&. 
+.SS "void SoNormalCache::generatePerStrip (const \fBSbVec3f\fP *const coords, const unsigned \fBint\fP numcoords, const int32_t * cind, const \fBint\fP nv, const SbBool ccw)"
+Generates one normal per triangle strips (avarages all triangle normals)\&. 
+.SS "void SoNormalCache::generatePerVertexQuad (const \fBSbVec3f\fP *const coords, const unsigned \fBint\fP numcoords, const \fBint\fP vPerRow, const \fBint\fP vPerColumn, const SbBool ccw)"
+Generates PER_VERTEX normals for quad data\&. 
+.SS "void SoNormalCache::generatePerFaceQuad (const \fBSbVec3f\fP *const coords, const unsigned \fBint\fP numcoords, const \fBint\fP vPerRow, const \fBint\fP vPerColumn, const SbBool ccw)"
+Generates per face normals for quad data\&. 
+.SS "void SoNormalCache::generatePerRowQuad (const \fBSbVec3f\fP *const coords, const unsigned \fBint\fP numcoords, const \fBint\fP vPerRow, const \fBint\fP vPerColumn, const SbBool ccw)"
+Generates per row normals for quad data\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

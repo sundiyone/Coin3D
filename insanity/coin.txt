@@ -1,0 +1,11 @@
+
+Why does cmake quarter install *.so without exe?
+
+cd coin4_build
+rm -rf *
+export PATH=/home/ed/Coin3D/coin4_install/bin:$PATH
+CPPFLAGS=-I/home/ed/Coin3D/coin4_install/include ../coin4/configure --prefix=/home/ed/Coin3D/coin4_install --enable-3ds-import
+make
+make install
+
+

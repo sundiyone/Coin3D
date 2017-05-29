@@ -1,0 +1,142 @@
+.TH "SoFieldConverter" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoFieldConverter \- The \fBSoFieldConverter\fP class is the abstract base class for field converters\&.
+.PP
+When fields of different types are attempted connected, the Coin library tries to find a field converter class which can be inserted between them, acting as a filter converting values from the master field to values matching the type of the slave field\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/engines/SoFieldConverter\&.h>\fP
+.PP
+Inherits \fBSoEngine\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual const \fBSoEngineOutputData\fP * \fBgetOutputData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fBSoField\fP * \fBgetInput\fP (\fBSoType\fP type)=0"
+.br
+.ti -1c
+.RI "virtual \fBSoEngineOutput\fP * \fBgetOutput\fP (\fBSoType\fP type)=0"
+.br
+.ti -1c
+.RI "virtual \fBSoField\fP * \fBgetConnectedInput\fP (void)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetForwardConnections\fP (\fBSoFieldList\fP &l) const"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClasses\fP (void)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSoFieldConverter\fP (void)"
+.br
+.ti -1c
+.RI "virtual \fB~SoFieldConverter\fP (void)"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetInputDataPtr\fP (void)"
+.br
+.ti -1c
+.RI "static const \fBSoEngineOutputData\fP ** \fBgetOutputDataPtr\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoFieldConverter\fP class is the abstract base class for field converters\&.
+.PP
+When fields of different types are attempted connected, the Coin library tries to find a field converter class which can be inserted between them, acting as a filter converting values from the master field to values matching the type of the slave field\&. 
+
+If a value type conversion is possible (like between an \fBSoSFFloat\fP field and an \fBSoSFInt32\fP field, for instance, where we could do a simple typecast for converting the value of one to the other), an \fBSoFieldConverter\fP derived object is inserted\&.
+.PP
+This class is the abstract base superclass which all such field converters needs to inherit\&.
+.PP
+Coin comes with one built-in field converter class which takes care of all possible field-to-field conversions we know about\&. This means applications programmers should seldom need to care about this class, it will probably only be useful if you expand the Coin library with your own field type classes\&. (Doing so is considered advanced use of the library\&.)
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoDB::addConverter()\fP 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoFieldConverter::SoFieldConverter (void)\fC [protected]\fP"
+Default constructor\&. 
+.SS "SoFieldConverter::~SoFieldConverter (void)\fC [protected]\fP, \fC [virtual]\fP"
+Default destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoFieldConverter::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Implements \fBSoBase\fP\&.
+.SS "const \fBSoFieldData\fP * SoFieldConverter::getFieldData (void) const\fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoFieldContainer\fP\&.
+.SS "const \fBSoEngineOutputData\fP * SoFieldConverter::getOutputData (void) const\fC [virtual]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.PP
+Implements \fBSoEngine\fP\&.
+.SS "\fBSoField\fP * SoFieldConverter::getInput (\fBSoType\fP type)\fC [pure virtual]\fP"
+Returns input field for the converter engine\&. Must be overridden in non-abstract converter engine classes\&. 
+.SS "\fBSoEngineOutput\fP * SoFieldConverter::getOutput (\fBSoType\fP type)\fC [pure virtual]\fP"
+Returns output for the converter engine\&. Must be overridden in non-abstract converter engine classes\&. 
+.SS "\fBSoField\fP * SoFieldConverter::getConnectedInput (void)\fC [virtual]\fP"
+This method is obsoleted in Coin\&. It should probably have been private in OIV\&. 
+.SS "\fBint\fP SoFieldConverter::getForwardConnections (\fBSoFieldList\fP & l) const"
+Returns fields which are connected as slaves of the engine output\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

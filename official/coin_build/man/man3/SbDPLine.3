@@ -1,0 +1,117 @@
+.TH "SbDPLine" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SbDPLine \- The \fBSbDPLine\fP class represents a line using double precision coordinates\&.
+.PP
+\fBSbDPLine\fP is used by many other classes in Coin\&. It provides a way of specifying a directed line (also known as a ray) through a specified point (origin) and a direction in 3D space\&. Note that the line is infinite in both directions from its definition point\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/SbDPLine\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSbDPLine\fP (void)"
+.br
+.ti -1c
+.RI "\fBSbDPLine\fP (const \fBSbVec3d\fP &p0, const \fBSbVec3d\fP &p1)"
+.br
+.ti -1c
+.RI "void \fBsetValue\fP (const \fBSbVec3d\fP &p0, const \fBSbVec3d\fP &p1)"
+.br
+.ti -1c
+.RI "void \fBsetPosDir\fP (const \fBSbVec3d\fP &position, const \fBSbVec3d\fP &direction)"
+.br
+.ti -1c
+.RI "SbBool \fBgetClosestPoints\fP (const \fBSbDPLine\fP &line2, \fBSbVec3d\fP &ptOnThis, \fBSbVec3d\fP &ptOnLine2) const"
+.br
+.ti -1c
+.RI "\fBSbVec3d\fP \fBgetClosestPoint\fP (const \fBSbVec3d\fP &point) const"
+.br
+.ti -1c
+.RI "const \fBSbVec3d\fP & \fBgetPosition\fP (void) const"
+.br
+.ti -1c
+.RI "const \fBSbVec3d\fP & \fBgetDirection\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBprint\fP (FILE *file) const"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBSbDPLine\fP class represents a line using double precision coordinates\&.
+.PP
+\fBSbDPLine\fP is used by many other classes in Coin\&. It provides a way of specifying a directed line (also known as a ray) through a specified point (origin) and a direction in 3D space\&. Note that the line is infinite in both directions from its definition point\&. 
+
+Be aware that this class is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSbVec3d\fP 
+.RE
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SbDPLine::SbDPLine (void)"
+The empty constructor does nothing\&. The line will be uninitialized until the first assignment or \fBsetValue()\fP call\&. 
+.SS "SbDPLine::SbDPLine (const \fBSbVec3d\fP & p0, const \fBSbVec3d\fP & p1)"
+Constructor with \fIp0\fP specifying the line start point and \fIp1\fP the line end point\&. \fIp0\fP should not be the same as \fIp1\fP, as this will lead to having a null vector as the direction vector, which would cause division by zero problems in some of the other methods on this class\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void SbDPLine::setValue (const \fBSbVec3d\fP & p0, const \fBSbVec3d\fP & p1)"
+Set new position and direction of the line by specifying line start point and end point\&. \fIp0\fP should not be the same as \fIp1\fP, as this will lead to having a null vector as the direction vector, which would cause division by zero problems in some of the other methods on this class\&. 
+.SS "void SbDPLine::setPosDir (const \fBSbVec3d\fP & position, const \fBSbVec3d\fP & direction)"
+Set position and direction\&.
+.PP
+Be aware that the direction vector will be normalized and not be the same as provided to this method\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetValue\fP, getOrigin, \fBgetDirection\fP 
+.RE
+.PP
+\fBSince:\fP
+.RS 4
+Coin 4\&.0 
+.RE
+.PP
+
+.SS "SbBool SbDPLine::getClosestPoints (const \fBSbDPLine\fP & line2, \fBSbVec3d\fP & ptOnThis, \fBSbVec3d\fP & ptOnLine2) const"
+Returns the two closest points on the lines\&. If the lines are parallel, all points are equally close and we return \fCFALSE\fP\&. If the lines are not parallel, the point positions will be stored in \fIptOnThis\fP and \fIptOnLine2\fP, and we'll return \fCTRUE\fP\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetClosestPoint()\fP\&. 
+.RE
+.PP
+
+.SS "\fBSbVec3d\fP SbDPLine::getClosestPoint (const \fBSbVec3d\fP & point) const"
+Returns the point on the line which is closest to \fIpoint\fP\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetClosestPoints()\fP\&. 
+.RE
+.PP
+
+.SS "const \fBSbVec3d\fP & SbDPLine::getPosition (void) const"
+Return a vector representing a point on the line\&. 
+.SS "const \fBSbVec3d\fP & SbDPLine::getDirection (void) const"
+Return a vector representing the direction of the line\&. The direction vector will always be normalized\&. 
+.SS "void SbDPLine::print (FILE * fp) const"
+Dump the state of this object to the \fIfile\fP stream\&. Only works in debug version of library, method does nothing in an optimized compile\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

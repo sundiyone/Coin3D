@@ -1,0 +1,38 @@
+
+  boost
+    lexical_cast -> to_string hopefully.
+    BOOST_CHECK_MESSAGE
+    intrusive_ptr -> shared_ptr
+    scoped_ptr -> unique_ptr<>
+    scoped_array -> unique_ptr<[]>
+    shared_array -> shared_ptr<[]>
+
+  qsort
+
+  <*.h>
+
+
+  I'm going to have to rename the library version:
+  COIN_MAJOR_VERSION
+  SO_NUMBER
+  COIN_MAJOR
+  COIN_ABI_CURRENT
+  LT_CURRENT
+  COIN_SO_VERSION
+
+  In principal, 80 should be available beause coin-4 was never really released but...
+
+  ../coin4/configure.ac:m4_define([SO_NUMBER], [m4_eval(COIN_MAJOR*20)])
+  ../coin4/configure.ac:AC_SUBST([COIN_SO_VERSION], [SO_NUMBER])
+
+  ../coin4/configure:COIN_SO_VERSION
+  ../coin4/configure:COIN_SO_VERSION=80
+
+
+  ed@bad-horse:~/Coin3D/coin4_build$ grep -rw COIN_MAJOR ../coin4
+  ../coin4/configure.ac:m4_define([COIN_MAJOR], [4])
+  ../coin4/configure.ac:m4_define([COIN_ABI_CURRENT], [m4_eval((COIN_MAJOR*20)+COIN_MINOR)])
+  ../coin4/configure.ac:m4_define([SO_NUMBER], [m4_eval(COIN_MAJOR*20)])
+  ../coin4/configure.ac:AC_INIT([Coin], [COIN_MAJOR.COIN_MINOR.COIN_MICRO[]COIN_BETA],
+  ../coin4/configure.ac:AC_SUBST([COIN_MAJOR_VERSION], [COIN_MAJOR])
+  ../coin4/TODO:  ../coin4/configure.ac:m4_define([SO_NUMBER], [m4_eval(COIN_MAJOR*20)])

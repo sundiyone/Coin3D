@@ -1,0 +1,23 @@
+.TH "xmlparsing" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+xmlparsingXML Parsing with Coin 
+ \- For Coin 3\&.0, we added an XML parser to Coin\&. This document describes how it can be used for generic purposes\&.
+.PP
+Why another XML parser, you might ask? First of all, the XML parser is actually a third-party parser, expat\&. Coin needed one, and many Coin-dependent projects needed one as well\&. We therefore needed to expose an API for it\&. However, integrating a 3rd-party parser into Coin, we can not expose its API directly, or other projects also using Expat would get conflicts\&. We therefore needed to expose the XML API with a unique API, hence the API you see here\&. It is based on a XML DOM API we use(d) in a couple of other projects, but it has been tweaked to fit into Coin and to be wrapped over Expat (the original implementation just used flex)\&.
+.PP
+The XML parser is both a streaming parser and a DOM parser\&. Being a streaming parser means that documents can be read in without having to be fully contained in memory\&. When used as a DOM parser, the whole document is fully parsed in first, and then inspected by client code by traversing the DOM\&. The two modes can actually be mixed arbitrarily if ending up with a partial DOM sounds useful\&.
+.PP
+The XML parser has both a C API and a C++ API\&. The C++ API is just a wrapper around the C API, and only serves as convenience if you prefer to read/write C++ code (which is tighter) over more verbose C code\&.
+.PP
+The C API naming convention may look a bit strange, unless you have written libraries to be wrapped for scheme/lisp-like languages before\&. Then you might be familiar with the convention of suffixing your functions based on their behaviour/usage meaning\&. Mutating functions are suffixed with '!', or '_x' for (eXclamation point), and predicates are suffixed with '?', or '_p' in C\&.
+.PP
+The simplest way to use the XML parser is to just call cc_xml_read_file(filename) and then traverse the DOM model through using cc_xml_doc_get_root(), cc_xml_elt_get_child(), and cc_xml_elt_get_attr()\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBXML related functions and objects\fP, \fBcc_xml_doc\fP, cc_xml_elt, cc_xml_attr 
+.RE
+.PP
+

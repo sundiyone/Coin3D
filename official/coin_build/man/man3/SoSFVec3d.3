@@ -1,0 +1,116 @@
+.TH "SoSFVec3d" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoSFVec3d \- The \fBSoSFVec3d\fP class is a container for an \fBSbVec3d\fP vector\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store a single vector with three elements\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/fields/SoSFVec3d\&.h>\fP
+.PP
+Inherits \fBSoSField\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBcopyFrom\fP (const \fBSoField\fP &field)"
+.br
+.ti -1c
+.RI "const \fBSoSFVec3d\fP & \fBoperator=\fP (const \fBSoSFVec3d\fP &field)"
+.br
+.ti -1c
+.RI "virtual SbBool \fBisSame\fP (const \fBSoField\fP &field) const"
+.br
+.ti -1c
+.RI "const \fBSbVec3d\fP & \fBgetValue\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBsetValue\fP (const \fBSbVec3d\fP &newvalue)"
+.br
+.ti -1c
+.RI "const \fBSbVec3d\fP & \fBoperator=\fP (const \fBSbVec3d\fP &newvalue)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBoperator==\fP (const \fBSoSFVec3d\fP &field) const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBoperator!=\fP (const \fBSoSFVec3d\fP &field) const"
+.br
+.ti -1c
+.RI "void \fBsetValue\fP (double x, double y, double z)"
+.br
+.ti -1c
+.RI "void \fBsetValue\fP (const double xyz[3])"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static void * \fBcreateInstance\fP (void)"
+.br
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSbVec3d\fP \fBvalue\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoSFVec3d\fP class is a container for an \fBSbVec3d\fP vector\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store a single vector with three elements\&. 
+
+
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSbVec3d\fP, \fBSoMFVec3d\fP 
+.RE
+.PP
+
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoSFVec3d::getTypeId (void) const\fC [virtual]\fP"
+Returns the type identification instance which uniquely identifies the Coin field class the object belongs to\&.
+.PP
+\fBSee also:\fP
+.RS 4
+getClassTypeId(), \fBSoType\fP 
+.RE
+.PP
+
+.PP
+Implements \fBSoField\fP\&.
+.SS "void SoSFVec3d::copyFrom (const \fBSoField\fP & f)\fC [virtual]\fP"
+Copy value(s) from \fIf\fP into this field\&. \fIf\fP must be of the same type as this field\&. 
+.PP
+Implements \fBSoField\fP\&.
+.SS "SbBool SoSFVec3d::isSame (const \fBSoField\fP & f) const\fC [virtual]\fP"
+Check for equal type and value(s)\&. 
+.PP
+Implements \fBSoField\fP\&.
+.SS "void SoSFVec3d::setValue (double x, double y, double z)"
+Set value of vector\&. 
+.SS "void SoSFVec3d::setValue (const double xyz[3])"
+Set value of vector\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

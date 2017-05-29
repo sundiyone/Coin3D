@@ -1,0 +1,92 @@
+.TH "ScXMLInitialElt" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ScXMLInitialElt \- implements the <initial> SCXML element\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/scxml/ScXMLInitialElt\&.h>\fP
+.PP
+Inherits \fBScXMLElt\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "virtual void \fBcopyContents\fP (const \fBScXMLElt\fP *rhs)"
+.br
+.ti -1c
+.RI "virtual const \fBScXMLElt\fP * \fBsearch\fP (const char *attrname, const char *attrvalue) const"
+.br
+.ti -1c
+.RI "virtual void \fBsetTransition\fP (\fBScXMLTransitionElt\fP *transition)"
+.br
+.ti -1c
+.RI "virtual \fBScXMLTransitionElt\fP * \fBgetTransition\fP (void) const"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBScXMLEltReader\fP * \fBgetElementReader\fP (void)"
+.br
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void * \fBcreateInstance\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBcleanClass\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+implements the <initial> SCXML element\&. 
+
+An <initial> elements has no attributes, and should contain one conditionless <transition> element with a target attribute that identifies a descendant state element of the parent state element\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 3\&.0 
+.RE
+.PP
+
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP ScXMLInitialElt::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoBase::getTypeId() const\fP 
+.RE
+.PP
+
+.PP
+Implements \fBScXMLElt\fP\&.
+.SS "const \fBScXMLElt\fP * ScXMLInitialElt::search (const char * attrname, const char * attrvalue) const\fC [virtual]\fP"
+This method searches the SCXML structure for an element with the given attributevalue for the given attribute\&.
+.PP
+Returns NULL if nothing was found\&.
+.PP
+This function needs to be reimplemented to traverse child elements\&. 
+.PP
+Reimplemented from \fBScXMLElt\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

@@ -41,7 +41,10 @@ INCLUDE_DIRECTORIES(${PROJECT_BINARY_DIR})
 ADD_SUBDIRECTORY(src)
 
 #SET(CMAKE_INSTALL_PREFIX "/mingw64")
-SET(CMAKE_INSTALL_PREFIX "D:/msys64/home/ESmith-rowland/Coin3D/coin4_install")
+#SET(CMAKE_INSTALL_PREFIX "D:/msys64/home/ESmith-rowland/Coin3D/coin4_install")
+#SET(CMAKE_INSTALL_PREFIX /home/ed/Coin3D/emergent/coin_install)
+set(CMAKE_INSTALL_PREFIX "${HOME}"/Coin3D/emergent/coin_install)
+
 #Install the public headers
 INSTALL(DIRECTORY include/Quarter/ DESTINATION include/Quarter
         FILES_MATCHING PATTERN "*.h"

@@ -1,0 +1,39 @@
+.TH "SoScriptEngine" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoScriptEngine
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherited by \fBSoJavaScriptEngine\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual SbBool \fBexecuteScript\fP (const \fBSbName\fP &name, const \fBSbString\fP &script) const =0"
+.br
+.ti -1c
+.RI "virtual SbBool \fBexecuteFile\fP (const \fBSbName\fP &filename) const =0"
+.br
+.ti -1c
+.RI "virtual SbBool \fBexecuteFunction\fP (const \fBSbName\fP &name, \fBint\fP argc, const \fBSoField\fP *argv, \fBSoField\fP *rval=NULL) const =0"
+.br
+.ti -1c
+.RI "virtual SbBool \fBsetScriptField\fP (const \fBSbName\fP &name, const \fBSoField\fP *f) const =0"
+.br
+.ti -1c
+.RI "virtual SbBool \fBgetScriptField\fP (const \fBSbName\fP &name, \fBSoField\fP *f) const =0"
+.br
+.ti -1c
+.RI "virtual SbBool \fBunsetScriptField\fP (const \fBSbName\fP &name) const =0"
+.br
+.ti -1c
+.RI "virtual SbBool \fBhasScriptField\fP (const \fBSbName\fP &name) const =0"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

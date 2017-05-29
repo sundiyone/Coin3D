@@ -1,0 +1,91 @@
+.TH "SoListenerGainElement" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoListenerGainElement \- The \fBSoListenerGainElement\fP class stores the \fBSoListener\fP gain during a scene graph traversal\&.
+.PP
+This gain is set by \fBSoListener\fP nodes during audio rendering\&. The \fBSoListenerGainElement\fP is used when the \fBSoVRMLSound\fP nodes render themselves\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/elements/SoListenerGainElement\&.h>\fP
+.PP
+Inherits \fBSoFloatElement\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual void \fBinit\fP (\fBSoState\fP *state)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static \fBint\fP \fBgetClassStackIndex\fP (void)"
+.br
+.ti -1c
+.RI "static void * \fBcreateInstance\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBset\fP (\fBSoState\fP *const state, \fBSoNode\fP *const node, const float gain)"
+.br
+.ti -1c
+.RI "static void \fBset\fP (\fBSoState\fP *const state, const float gain)"
+.br
+.ti -1c
+.RI "static float \fBget\fP (\fBSoState\fP *const state)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fB~SoListenerGainElement\fP ()"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoListenerGainElement\fP class stores the \fBSoListener\fP gain during a scene graph traversal\&.
+.PP
+This gain is set by \fBSoListener\fP nodes during audio rendering\&. The \fBSoListenerGainElement\fP is used when the \fBSoVRMLSound\fP nodes render themselves\&. 
+
+Be aware that this class is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoListenerGainElement::~SoListenerGainElement (void)\fC [protected]\fP, \fC [virtual]\fP"
+The destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void * SoListenerGainElement::createInstance (void)\fC [static]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoListenerGainElement::init (\fBSoState\fP * state)\fC [virtual]\fP"
+This function initializes the element type in the given \fBSoState\fP\&. It is called for the first element of each enabled element type in \fBSoState\fP objects\&. 
+.PP
+Reimplemented from \fBSoFloatElement\fP\&.
+.SS "void SoListenerGainElement::set (\fBSoState\fP *const state, \fBSoNode\fP *const node, const float gain)\fC [static]\fP"
+Sets the value of this element\&. 
+.SS "void SoListenerGainElement::set (\fBSoState\fP *const state, const float gain)\fC [static]\fP"
+This is an overloaded member function, provided for convenience\&. It differs from the above function only in what argument(s) it accepts\&. 
+.SS "float SoListenerGainElement::get (\fBSoState\fP *const state)\fC [static]\fP"
+Returns the element value\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

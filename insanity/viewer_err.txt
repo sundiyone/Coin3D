@@ -1,0 +1,52 @@
+ed@bad-horse:~/Coin3D/viewer_build$ g++ -fPIC  -I/home/ed/Coin3D/coin4_install/include  -I/home/ed/Coin3D/coin4_install/include/Inventor/annex  -I/usr/include/x86_64-linux-gnu/qt5  -D_REENTRANT  -o viewer  ../viewer/viewer.cpp  viewer_automoc.cpp  -L/home/ed/Coin3D/coin4_install/lib  -lQuarter  -lCoin -lGL -lXext -lSM -lICE -lX11 -ldl -lpthread  -lQt5Widgets -lQt5Gui -lQt53DCore -lQt5Core
+/home/ed/Coin3D/coin4_install/lib/libCoin.so: undefined reference to `SoDragger::addValueChangedCallback(void (*)(void*, SoDragger*), void*)'
+/home/ed/Coin3D/coin4_install/lib/libCoin.so: undefined reference to `SoSpotLightDragger::SoSpotLightDragger()'
+/home/ed/Coin3D/coin4_install/lib/libCoin.so: undefined reference to `SoInput::read(bool&)'
+/home/ed/Coin3D/coin4_install/lib/libCoin.so: undefined reference to `SoTrackballDragger::SoTrackballDragger()'
+/home/ed/Coin3D/coin4_install/lib/libCoin.so: undefined reference to `SoTransformerDragger::unsquishKnobs()'
+/home/ed/Coin3D/coin4_install/lib/libCoin.so: undefined reference to `SoCenterballDragger::SoCenterballDragger()'
+/home/ed/Coin3D/coin4_install/lib/libCoin.so: undefined reference to `SoTransformerDragger::isLocateHighlighting()'
+/home/ed/Coin3D/coin4_install/lib/libCoin.so: undefined reference to `SoJackDragger::SoJackDragger()'
+/home/ed/Coin3D/coin4_install/lib/libCoin.so: undefined reference to `SoDragger::valueChanged()'
+/home/ed/Coin3D/coin4_install/lib/libCoin.so: undefined reference to `SoTransformBoxDragger::SoTransformBoxDragger()'
+/home/ed/Coin3D/coin4_install/lib/libCoin.so: undefined reference to `SoTransformerDragger::getClassTypeId()'
+/home/ed/Coin3D/coin4_install/lib/libCoin.so: undefined reference to `SoTransformerDragger::SoTransformerDragger()'
+/home/ed/Coin3D/coin4_install/lib/libCoin.so: undefined reference to `SoPointLightDragger::SoPointLightDragger()'
+/home/ed/Coin3D/coin4_install/lib/libCoin.so: undefined reference to `SoTabBoxDragger::SoTabBoxDragger()'
+/home/ed/Coin3D/coin4_install/lib/libCoin.so: undefined reference to `SoDragPointDragger::getClassTypeId()'
+/home/ed/Coin3D/coin4_install/lib/libCoin.so: undefined reference to `SoSpotLightDragger::getClassTypeId()'
+/home/ed/Coin3D/coin4_install/lib/libCoin.so: undefined reference to `SoDragger::removeValueChangedCallback(void (*)(void*, SoDragger*), void*)'
+/home/ed/Coin3D/coin4_install/lib/libCoin.so: undefined reference to `SoDirectionalLightDragger::SoDirectionalLightDragger()'
+/home/ed/Coin3D/coin4_install/lib/libCoin.so: undefined reference to `SoTransformerDragger::setLocateHighlighting(bool)'
+/home/ed/Coin3D/coin4_install/lib/libCoin.so: undefined reference to `SoDragger::getClassTypeId()'
+/home/ed/Coin3D/coin4_install/lib/libCoin.so: undefined reference to `SoHandleBoxDragger::SoHandleBoxDragger()'
+/home/ed/Coin3D/coin4_install/lib/libCoin.so: undefined reference to `SoDragger::getMotionMatrix()'
+/home/ed/Coin3D/coin4_install/lib/libCoin.so: undefined reference to `SoDragger::initClass()'
+/home/ed/Coin3D/coin4_install/lib/libCoin.so: undefined reference to `SoDragger::enableValueChangedCallbacks(bool)'
+
+
+$ nm -C -D ../coin4_install/lib/libCoin.so.100.0.0 | grep '     U ' | grep So
+                 U SoJackDragger::SoJackDragger()
+                 U SoTabBoxDragger::SoTabBoxDragger()
+                 U SoDragPointDragger::getClassTypeId()
+                 U SoHandleBoxDragger::SoHandleBoxDragger()
+                 U SoSpotLightDragger::getClassTypeId()
+                 U SoSpotLightDragger::SoSpotLightDragger()
+                 U SoTrackballDragger::SoTrackballDragger()
+                 U SoCenterballDragger::SoCenterballDragger()
+                 U SoPointLightDragger::SoPointLightDragger()
+                 U SoTransformerDragger::unsquishKnobs()
+                 U SoTransformerDragger::getClassTypeId()
+                 U SoTransformerDragger::isLocateHighlighting()
+                 U SoTransformerDragger::setLocateHighlighting(bool)
+                 U SoTransformerDragger::SoTransformerDragger()
+                 U SoTransformBoxDragger::SoTransformBoxDragger()
+                 U SoDirectionalLightDragger::SoDirectionalLightDragger()
+                 U SoInput::read(bool&)
+                 U SoDragger::valueChanged()
+                 U SoDragger::getClassTypeId()
+                 U SoDragger::getMotionMatrix()
+                 U SoDragger::addValueChangedCallback(void (*)(void*, SoDragger*), void*)
+                 U SoDragger::removeValueChangedCallback(void (*)(void*, SoDragger*), void*)
+                 U SoDragger::enableValueChangedCallbacks(bool)
+                 U SoDragger::initClass()
