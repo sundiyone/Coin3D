@@ -1507,6 +1507,28 @@ READ_NUM(readUnsignedInteger, uint32_t, num, type)
 READ_NUM(readReal, double, num, type)
 
 /*!
+  Read bool from current file or buffer position and place
+  it in \a b. Returns \c false if we hit end of file prematurely.
+ */
+bool
+SoInput::read(bool & b)
+{
+  SoInput_FileInfo * fi = this->getTopOfStack();
+  assert(fi);
+
+  if (fi->isBinary()) { // Assume checkheader has been called
+    int32_t tmp;
+    if (!this->readBinaryArray(&tmp, 1)) return false;
+    b = (bool) tmp;
+    return true;
+  }
+  else {
+    READ_UNSIGNED_INTEGER(b, bool);
+  }
+  return true;
+}
+
+/*!
   Read integer from current file or buffer position and place it in \a i.
   Returns \c false if we hit end of file prematurely.
  */
