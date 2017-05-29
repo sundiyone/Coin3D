@@ -3,8 +3,8 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.2)
 PROJECT(Quarter LANGUAGES C CXX)
 SET(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/SIMCMakeMacros/")
 
-#SET(CMAKE_C_COMPILER "/mingw64/bin/gcc")
-#SET(CMAKE_CXX_COMPILER "/mingw64/bin/g++")
+set(CMAKE_C_COMPILER "D:/msys64/mingw64/bin/gcc")
+SET(CMAKE_CXX_COMPILER "D:/msys64/mingw64/bin/g++")
 
 # Add an option to enable static builds
 OPTION(Quarter_BUILD_STATIC_LIBRARY "Build static library instead of shared library (DLL, so etc..)" OFF)
@@ -40,8 +40,8 @@ INCLUDE_DIRECTORIES(${PROJECT_BINARY_DIR})
 # What to build
 ADD_SUBDIRECTORY(src)
 
-#SET(CMAKE_INSTALL_PREFIX /mingw64)
-
+#SET(CMAKE_INSTALL_PREFIX "/mingw64")
+SET(CMAKE_INSTALL_PREFIX "D:/msys64/home/ESmith-rowland/Coin3D/coin4_install")
 #Install the public headers
 INSTALL(DIRECTORY include/Quarter/ DESTINATION include/Quarter
         FILES_MATCHING PATTERN "*.h"
