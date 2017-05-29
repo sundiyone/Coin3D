@@ -1,0 +1,342 @@
+.TH "SoTabBoxDragger" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoTabBoxDragger \- The \fBSoTabBoxDragger\fP wraps a box around geometry you can then translate and scale\&.
+.PP
+Here's how the dragger looks with its default geometry in the inactive state:  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/draggers/SoTabBoxDragger\&.h>\fP
+.PP
+Inherits \fBSoDragger\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "virtual const \fBSoNodekitCatalog\fP * \fBgetNodekitCatalog\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoTabBoxDragger\fP (void)"
+.br
+.ti -1c
+.RI "void \fBadjustScaleTabSize\fP (void)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static const \fBSoNodekitCatalog\fP * \fBgetClassNodekitCatalog\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFVec3f\fP \fBtranslation\fP"
+.br
+.ti -1c
+.RI "\fBSoSFVec3f\fP \fBscaleFactor\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fB~SoTabBoxDragger\fP (void)"
+.br
+.ti -1c
+.RI "virtual SbBool \fBsetUpConnections\fP (SbBool onoff, SbBool doitalways=FALSE)"
+.br
+.ti -1c
+.RI "virtual void \fBsetDefaultOnNonWritingFields\fP (void)"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.ti -1c
+.RI "static const \fBSoNodekitCatalog\fP ** \fBgetClassNodekitCatalogPtr\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinvalidateSurroundScaleCB\fP (void *f, \fBSoDragger\fP *d)"
+.br
+.ti -1c
+.RI "static void \fBfieldSensorCB\fP (void *f, \fBSoSensor\fP *s)"
+.br
+.ti -1c
+.RI "static void \fBvalueChangedCB\fP (void *f, \fBSoDragger\fP *d)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFNode\fP \fBboxGeom\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBsurroundScale\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtabPlane1\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtabPlane1Sep\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtabPlane1Xf\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtabPlane2\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtabPlane2Sep\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtabPlane2Xf\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtabPlane3\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtabPlane3Sep\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtabPlane3Xf\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtabPlane4\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtabPlane4Sep\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtabPlane4Xf\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtabPlane5\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtabPlane5Sep\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtabPlane5Xf\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtabPlane6\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtabPlane6Sep\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtabPlane6Xf\fP"
+.br
+.ti -1c
+.RI "\fBSoFieldSensor\fP * \fBtranslFieldSensor\fP"
+.br
+.ti -1c
+.RI "\fBSoFieldSensor\fP * \fBscaleFieldSensor\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoTabBoxDragger\fP wraps a box around geometry you can then translate and scale\&.
+.PP
+Here's how the dragger looks with its default geometry in the inactive state: 
+
+ Screen Shot of Default Dragger
+.PP
+This dragger lets the end-user do translation and non-uniform scaling of geometry with an easy to understand interface\&.
+.PP
+Click and drag any side of the box to translate (hold down a SHIFT key to lock to one axis) and click and drag any of the tab markers in the corners to scale\&. The way the different tabs influences the scale operation should be straight-forward and intuitive to the end-user\&.
+.PP
+The \fBSoTabBoxDragger\fP is a composite dragger, implemented with 6 \fBSoTabPlaneDragger\fP instances set up as the sides of a box\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoTabBoxDragger::SoTabBoxDragger (void)"
+Default constructor, sets up the dragger nodekit catalog with the interaction and feedback geometry\&.
+.PP
+Node kit structure (new entries versus parent class marked with arrow prefix):
+.PP
+.PP
+.nf
+CLASS SoTabBoxDragger
+-->"this"
+      "callbackList"
+      "topSeparator"
+         "motionMatrix"
+-->      "surroundScale"
+-->      "tabPlane1Sep"
+-->         "tabPlane1Xf"
+-->         "tabPlane1"
+-->      "tabPlane2Sep"
+-->         "tabPlane2Xf"
+-->         "tabPlane2"
+-->      "tabPlane3Sep"
+-->         "tabPlane3Xf"
+-->         "tabPlane3"
+-->      "tabPlane4Sep"
+-->         "tabPlane4Xf"
+-->         "tabPlane4"
+-->      "tabPlane5Sep"
+-->         "tabPlane5Xf"
+-->         "tabPlane5"
+-->      "tabPlane6Sep"
+-->         "tabPlane6Xf"
+-->         "tabPlane6"
+         "geomSeparator"
+-->         "boxGeom"
+.fi
+.PP
+.PP
+(See \fBSoBaseKit::printDiagram()\fP for information about the output formatting\&.)
+.PP
+Detailed information on catalog parts:
+.PP
+.PP
+.nf
+CLASS SoTabBoxDragger
+PVT   "this",  SoTabBoxDragger  --- 
+      "callbackList",  SoNodeKitListPart [ SoCallback, SoEventCallback ] 
+PVT   "topSeparator",  SoSeparator  --- 
+PVT   "motionMatrix",  SoMatrixTransform  --- 
+      "surroundScale",  SoSurroundScale  --- 
+PVT   "tabPlane1Sep",  SoSeparator  --- 
+PVT   "tabPlane1Xf",  SoTransform  --- 
+      "tabPlane1",  SoTabPlaneDragger  --- 
+PVT   "tabPlane2Sep",  SoSeparator  --- 
+PVT   "tabPlane2Xf",  SoTransform  --- 
+      "tabPlane2",  SoTabPlaneDragger  --- 
+PVT   "tabPlane3Sep",  SoSeparator  --- 
+PVT   "tabPlane3Xf",  SoTransform  --- 
+      "tabPlane3",  SoTabPlaneDragger  --- 
+PVT   "tabPlane4Sep",  SoSeparator  --- 
+PVT   "tabPlane4Xf",  SoTransform  --- 
+      "tabPlane4",  SoTabPlaneDragger  --- 
+PVT   "tabPlane5Sep",  SoSeparator  --- 
+PVT   "tabPlane5Xf",  SoTransform  --- 
+      "tabPlane5",  SoTabPlaneDragger  --- 
+PVT   "tabPlane6Sep",  SoSeparator  --- 
+PVT   "tabPlane6Xf",  SoTransform  --- 
+      "tabPlane6",  SoTabPlaneDragger  --- 
+PVT   "geomSeparator",  SoSeparator  --- 
+      "boxGeom",  SoSeparator  --- 
+.fi
+.PP
+.PP
+(See \fBSoBaseKit::printTable()\fP for information about the output formatting\&.) 
+.SS "SoTabBoxDragger::~SoTabBoxDragger (void)\fC [protected]\fP, \fC [virtual]\fP"
+Protected destructor\&.
+.PP
+(Dragger classes are derived from \fBSoBase\fP, so they are reference counted and automatically destroyed when their reference count goes to 0\&.) 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoTabBoxDragger::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Reimplemented from \fBSoDragger\fP\&.
+.SS "const \fBSoFieldData\fP * SoTabBoxDragger::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoDragger\fP\&.
+.SS "const \fBSoNodekitCatalog\fP * SoTabBoxDragger::getNodekitCatalog (void) const\fC [virtual]\fP"
+Returns the nodekit catalog which defines the layout of this class' kit\&. 
+.PP
+Reimplemented from \fBSoDragger\fP\&.
+.SS "void SoTabBoxDragger::adjustScaleTabSize (void)"
+Signals the dragger to recalculate the size of its tabs\&.
+.PP
+Simply calls \fBSoTabPlaneDragger::adjustScaleTabSize()\fP for all 6 planes this dragger consists of\&. 
+.SS "SbBool SoTabBoxDragger::setUpConnections (SbBool onoff, SbBool doitalways = \fCFALSE\fP)\fC [protected]\fP, \fC [virtual]\fP"
+Sets up all internal connections for instances of this class\&.
+.PP
+(This method will usually not be of interest to the application programmer, unless you want to extend the library with new custom nodekits or dragger classes\&. If so, see the \fBSoBaseKit\fP class documentation\&.) 
+.PP
+Reimplemented from \fBSoInteractionKit\fP\&.
+.SS "void SoTabBoxDragger::setDefaultOnNonWritingFields (void)\fC [protected]\fP, \fC [virtual]\fP"
+(Be aware that this method is unlikely to be of interest to the application programmer who does not want to extend the library with new custom nodekits or draggers\&. If you indeed \fIare\fP writing extensions, see the information in the \fBSoBaseKit\fP class documentation\&.)
+.PP
+This is a virtual method, and the code in it should call \fBSoField::setDefault()\fP with argument \fCTRUE\fP on part fields that should not be written upon scenegraph export operations\&.
+.PP
+This is typically done when:
+.PP
+.PD 0
+.IP "1." 4
+field value is \fCNULL\fP and part is \fCNULL\fP by default 
+.PP
+
+.IP "2." 4
+it is a leaf \fBSoGroup\fP or \fBSoSeparator\fP node with no children 
+.PP
+
+.IP "3." 4
+it is a leaf listpart with no children and an \fBSoGroup\fP or \fBSoSeparator\fP container 
+.PP
+
+.IP "4." 4
+it is a non-leaf part and it's of \fBSoGroup\fP type and all fields are at their default values 
+.PP
+
+.PP
+.PP
+Subclasses should usually override this to do additional settings for new member fields\&. From the subclass, do remember to call 'upwards' to your superclass' \fBsetDefaultOnNonWritingFields()\fP method\&. 
+.PP
+Reimplemented from \fBSoDragger\fP\&.
+.SS "void SoTabBoxDragger::invalidateSurroundScaleCB (void * d, \fBSoDragger\fP * d)\fC [static]\fP, \fC [protected]\fP"
+\fIsurroundScale\fP is invalidated every time a child dragger is activated/deactivated using this callback 
+.SS "void SoTabBoxDragger::fieldSensorCB (void * d, \fBSoSensor\fP * s)\fC [static]\fP, \fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoTabBoxDragger::valueChangedCB (void * f, \fBSoDragger\fP * d)\fC [static]\fP, \fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSoSFVec3f\fP SoTabBoxDragger::translation"
+Continuously updated to contain the current translation from the dragger's local origo position\&. 
+.SS "\fBSoSFVec3f\fP SoTabBoxDragger::scaleFactor"
+Continuously updated to contain the current vector of scaling along the X, Y and Z axes\&. 
+.SS "\fBSoFieldSensor\fP * SoTabBoxDragger::translFieldSensor\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "\fBSoFieldSensor\fP * SoTabBoxDragger::scaleFieldSensor\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

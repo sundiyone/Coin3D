@@ -1,0 +1,189 @@
+.TH "SoProto" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoProto \- The \fBSoProto\fP class handles PROTO definitions\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/misc/SoProto\&.h>\fP
+.PP
+Inherits \fBSoNode\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSoProto\fP (const SbBool externproto=FALSE)"
+.br
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "\fBSoProtoInstance\fP * \fBcreateProtoInstance\fP (void)"
+.br
+.ti -1c
+.RI "void \fBaddISReference\fP (\fBSoNode\fP *container, const \fBSbName\fP &fieldname, const \fBSbName\fP &interfacename)"
+.br
+.ti -1c
+.RI "\fBSbName\fP \fBfindISReference\fP (const \fBSoFieldContainer\fP *container, const \fBSbName\fP &fieldname)"
+.br
+.ti -1c
+.RI "void \fBaddReference\fP (const \fBSbName\fP &name, \fBSoBase\fP *base)"
+.br
+.ti -1c
+.RI "void \fBremoveReference\fP (const \fBSbName\fP &name)"
+.br
+.ti -1c
+.RI "\fBSoBase\fP * \fBfindReference\fP (const \fBSbName\fP &name) const"
+.br
+.ti -1c
+.RI "void \fBaddRoute\fP (const \fBSbName\fP &fromnode, const \fBSbName\fP &fromfield, const \fBSbName\fP &tonode, const \fBSbName\fP &tofield)"
+.br
+.ti -1c
+.RI "\fBSbName\fP \fBgetProtoName\fP (void) const"
+.br
+.ti -1c
+.RI "virtual SbBool \fBreadInstance\fP (\fBSoInput\fP *input, unsigned short flags)"
+.br
+.ti -1c
+.RI "virtual void \fBwrite\fP (\fBSoWriteAction\fP *action)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static void \fBsetFetchExternProtoCallback\fP (SoFetchExternProtoCB *cb, void *closure)"
+.br
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static \fBSoProto\fP * \fBfindProto\fP (const \fBSbName\fP &name)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fB~SoProto\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBdestroy\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoProto\fP class handles PROTO definitions\&. 
+
+\fBSoProto\fP and \fBSoProtoInstance\fP are mostly internal classes\&. They're designed to read and handle VRML97 PROTOs\&. However, it's possible to define your protos in C++\&. You must define your proto in a char array, and read that char array using \fBSoInput::setBuffer()\fP and \fBSoDB::readAllVRML()\fP\&. Example:
+.PP
+.PP
+.nf
+char myproto[] =
+"#VRML V2\&.0 utf8\n"
+"PROTO ColorCube [\n"
+"  field SFColor color 1 1 1\n"
+"  field SFVec3f size 1 1 1\n"
+"]\n"
+"{\n"
+"  Shape {\n"
+"    appearance Appearance {\n"
+"      material Material {\n"
+"        diffuseColor IS color\n"
+"      }\n"
+"    }\n"
+"    geometry Box { size IS size }\n"
+"  }\n"
+"}\n"
+"ColorCube { color 1 0 0 size 2 1 1 }\n";
+
+SoInput in;
+in\&.setBuffer((void*) myproto, strlen(myproto));
+SoVRMLGroup * protoroot = SoDB::readAllVRML(&in);
+.fi
+.PP
+.PP
+Now you can create new instances of the ColorCube proto using \fBSoProto::findProto()\fP and \fBSoProto::createProtoInstance()\fP\&. If you want to insert proto instances into your scene graph, you should insert the node returned from \fBSoProtoInstance::getRootNode()\fP\&.
+.PP
+See http://www.web3d.org/technicalinfo/specifications/ISO-IEC-14772-IS-VRML97WithAmendment1/part1/concepts.html#4.8 for more information about PROTOs in VRML97\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoProto::SoProto (const SbBool externproto = \fCFALSE\fP)"
+Constructor\&. 
+.SS "SoProto::~SoProto ()\fC [protected]\fP, \fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoProto::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Implements \fBSoBase\fP\&.
+.SS "\fBSoProto\fP * SoProto::findProto (const \fBSbName\fP & name)\fC [static]\fP"
+Returns the PROTO definition named \fIname\fP or NULL if not found\&. 
+.SS "\fBSoProtoInstance\fP * SoProto::createProtoInstance (void)"
+Creates an instance of the PROTO\&. 
+.SS "void SoProto::addISReference (\fBSoNode\fP * container, const \fBSbName\fP & fieldname, const \fBSbName\fP & interfacename)"
+Adds an IS reference for this PROTO definition\&. 
+.SS "\fBSbName\fP SoProto::findISReference (const \fBSoFieldContainer\fP * container, const \fBSbName\fP & fieldname)"
+If \fIcontainer\fP is a PROTO definition node with an IS interface field named \fIfieldname\fP, return the interface name, otherwise return an empty \fBSbName\fP\&. 
+.SS "void SoProto::addReference (const \fBSbName\fP & name, \fBSoBase\fP * base)"
+Adds a reference for this PROTO definition\&. 
+.SS "void SoProto::removeReference (const \fBSbName\fP & name)"
+Removes a reference for this PROTO definition\&. 
+.SS "\fBSoBase\fP * SoProto::findReference (const \fBSbName\fP & name) const"
+Finds a reference for this PROTO definition\&. 
+.SS "void SoProto::addRoute (const \fBSbName\fP & fromnode, const \fBSbName\fP & fromfield, const \fBSbName\fP & tonode, const \fBSbName\fP & tofield)"
+Adds a ROUTE for this PROTO definition\&. 
+.SS "\fBSbName\fP SoProto::getProtoName (void) const"
+Returns the PROTO name\&. 
+.SS "SbBool SoProto::readInstance (\fBSoInput\fP * in, unsigned short flags)\fC [virtual]\fP"
+This method is mainly intended for internal use during file import operations\&.
+.PP
+It reads a definition of an instance from the input stream \fIin\fP\&. The input stream state points to the start of a serialized / persistant representation of an instance of this class type\&.
+.PP
+\fCTRUE\fP or \fCFALSE\fP is returned, depending on if the instantiation and configuration of the new object of this class type went ok or not\&. The import process should be robust and handle corrupted input streams by returning \fCFALSE\fP\&.
+.PP
+\fIflags\fP is used internally during binary import when reading user extension nodes, group nodes or engines\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "void SoProto::write (\fBSoWriteAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoWriteAction\fP\&.
+.PP
+Writes out a node object, and any connected nodes, engines etc, if necessary\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "void SoProto::destroy (void)\fC [protected]\fP, \fC [virtual]\fP"
+Cleans up all hanging references to and from this instance, and then commits suicide\&.
+.PP
+Called automatically when the reference count goes to zero\&. 
+.PP
+Reimplemented from \fBSoBase\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

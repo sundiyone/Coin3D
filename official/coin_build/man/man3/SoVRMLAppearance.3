@@ -1,0 +1,225 @@
+.TH "SoVRMLAppearance" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoVRMLAppearance \- The \fBSoVRMLAppearance\fP class specifies visual properties for shapes\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/VRMLnodes/SoVRMLAppearance\&.h>\fP
+.PP
+Inherits \fBSoNode\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "\fBSoVRMLAppearance\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBdoAction\fP (\fBSoAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBcallback\fP (\fBSoCallbackAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBGLRender\fP (\fBSoGLRenderAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBsearch\fP (\fBSoSearchAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual \fBSoChildList\fP * \fBgetChildren\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBnotify\fP (\fBSoNotList\fP *list)"
+.br
+.ti -1c
+.RI "virtual void \fBcopyContents\fP (const \fBSoFieldContainer\fP *from, SbBool copyConn)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFNode\fP \fBmaterial\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtexture\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtextureTransform\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fB~SoVRMLAppearance\fP ()"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoVRMLAppearance\fP class specifies visual properties for shapes\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP 
+
+
+.PP
+.nf
+Appearance {
+  exposedField SFNode material          NULL
+  exposedField SFNode texture           NULL
+  exposedField SFNode textureTransform  NULL
+}
+
+.fi
+.PP
+.PP
+The Appearance node specifies the visual properties of geometry\&. The value for each of the fields in this node may be NULL\&. However, if the field is non-NULL, it shall contain one node of the appropriate type\&. The material field, if specified, shall contain a VRMLMaterial node\&. If the material field is NULL or unspecified, lighting is off (all lights are ignored during rendering of the object that references this Appearance) and the unlit object colour is (1, 1, 1)\&. Details of the VRML lighting model are in 4\&.14, Lighting model (http://www.web3d.org/x3d/specifications/vrml/ISO-IEC-14772-VRML97/part1/concepts.html#4.14)\&.
+.PP
+The texture field, if specified, shall contain one of the various types of texture nodes (VRMLImageTexture, VRMLMovieTexture, or VRMLPixelTexture)\&. If the texture node is NULL or the texture field is unspecified, the object that references this Appearance is not textured\&. The textureTransform field, if specified, shall contain a VRMLTextureTransform node\&. If the textureTransform is NULL or unspecified, the textureTransform field has no effect\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoVRMLAppearance::SoVRMLAppearance (void)"
+Constructor\&. 
+.SS "SoVRMLAppearance::~SoVRMLAppearance ()\fC [protected]\fP, \fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoVRMLAppearance::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Implements \fBSoBase\fP\&.
+.SS "const \fBSoFieldData\fP * SoVRMLAppearance::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoFieldContainer\fP\&.
+.SS "void SoVRMLAppearance::doAction (\fBSoAction\fP * action)\fC [virtual]\fP"
+This function performs the typical operation of a node for any action\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "void SoVRMLAppearance::callback (\fBSoCallbackAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoCallbackAction\fP\&.
+.PP
+Simply updates the state according to how the node behaves for the render action, so the application programmer can use the \fBSoCallbackAction\fP for extracting information about the scene graph\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "void SoVRMLAppearance::GLRender (\fBSoGLRenderAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGLRenderAction\fP\&.
+.PP
+This is called during rendering traversals\&. Nodes influencing the rendering state in any way or who wants to throw geometry primitives at OpenGL overrides this method\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "void SoVRMLAppearance::search (\fBSoSearchAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoSearchAction\fP\&.
+.PP
+Compares the search criteria from the \fIaction\fP to see if this node is a match\&. Searching is done by matching up \fIall\fP criteria set up in the \fBSoSearchAction\fP -- if \fIany\fP of the requested criteria is a miss, the search is not deemed successful for the node\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoSearchAction\fP 
+.RE
+.PP
+
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "\fBSoChildList\fP * SoVRMLAppearance::getChildren (void) const\fC [virtual]\fP"
+Returns list of children for this node\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "void SoVRMLAppearance::notify (\fBSoNotList\fP * l)\fC [virtual]\fP"
+Notifies all auditors for this instance when changes are made\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "void SoVRMLAppearance::copyContents (const \fBSoFieldContainer\fP * from, SbBool copyconnections)\fC [virtual]\fP"
+Makes a deep copy of all data of \fIfrom\fP into this instance, \fIexcept\fP external scenegraph references if \fIcopyconnections\fP is \fCFALSE\fP\&.
+.PP
+This is the method that should be overridden by extension node / engine / dragger / whatever subclasses which needs to account for internal data that are not handled automatically\&.
+.PP
+For copying nodes from application code, you should not invoke this function directly, but rather call the \fBSoNode::copy()\fP function:
+.PP
+.PP
+.nf
+SoNode * mynewnode = templatenode->copy();
+.fi
+.PP
+.PP
+The same also goes for engines\&.
+.PP
+Make sure that when you override the \fBcopyContents()\fP method in your extension class that you also make it call upwards to it's parent superclass in the inheritance hierarchy, as \fBcopyContents()\fP in for instance \fBSoNode\fP and \fBSoFieldContainer\fP does important work\&. It should go something like this:
+.PP
+.PP
+.nf
+void
+MyCoinExtensionNode::copyContents(const SoFieldContainer * from,
+                                  SbBool copyconnections)
+{
+  // let parent superclasses do their thing (copy fields, copy
+  // instance name, etc etc)
+  SoNode::copyContents(from, copyconnections);
+
+  // [\&.\&.then copy internal data\&.\&.]
+}
+.fi
+.PP
+ 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSoSFNode\fP SoVRMLAppearance::material"
+Can contain an \fBSoVRMLMaterial\fP node\&. Is NULL by default\&. 
+.SS "\fBSoSFNode\fP SoVRMLAppearance::texture"
+Can contain a texture node\&. Is NULL by default\&. 
+.SS "\fBSoSFNode\fP SoVRMLAppearance::textureTransform"
+Can contain an \fBSoVRMLTextureTransform\fP node\&. Is NULL by default\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

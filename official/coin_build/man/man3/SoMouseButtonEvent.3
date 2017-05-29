@@ -1,0 +1,170 @@
+.TH "SoMouseButtonEvent" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoMouseButtonEvent \- The \fBSoMouseButtonEvent\fP class contains information about mousebutton interaction\&.
+.PP
+When the user presses any buttons on the mouse, these will be translated from a system specific event into a Coin event and sent to the scenegraph by using instances of this class\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/events/SoMouseButtonEvent\&.h>\fP
+.PP
+Inherits \fBSoButtonEvent\fP\&.
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBButton\fP { \fBANY\fP, \fBBUTTON1\fP, \fBBUTTON2\fP, \fBBUTTON3\fP, \fBBUTTON4\fP, \fBBUTTON5\fP }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoMouseButtonEvent\fP (void)"
+.br
+.ti -1c
+.RI "virtual \fB~SoMouseButtonEvent\fP ()"
+.br
+.ti -1c
+.RI "void \fBsetButton\fP (\fBButton\fP button)"
+.br
+.ti -1c
+.RI "\fBButton\fP \fBgetButton\fP (void) const"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.ti -1c
+.RI "static SbBool \fBisButtonPressEvent\fP (const \fBSoEvent\fP *e, \fBButton\fP whichButton)"
+.br
+.ti -1c
+.RI "static SbBool \fBisButtonReleaseEvent\fP (const \fBSoEvent\fP *e, \fBButton\fP whichButton)"
+.br
+.ti -1c
+.RI "static SbBool \fBenumToString\fP (\fBButton\fP enumval, \fBSbString\fP &stringrep)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBSoMouseButtonEvent\fP class contains information about mousebutton interaction\&.
+.PP
+When the user presses any buttons on the mouse, these will be translated from a system specific event into a Coin event and sent to the scenegraph by using instances of this class\&. 
+
+
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoEvent\fP, \fBSoButtonEvent\fP, \fBSoSpaceballButtonEvent\fP, \fBSoKeyboardEvent\fP 
+.PP
+\fBSoEventCallback\fP, \fBSoHandleEventAction\fP 
+.RE
+.PP
+
+.SH "Member Enumeration Documentation"
+.PP 
+.SS "enum \fBSoMouseButtonEvent::Button\fP"
+This enum contains all mouse buttons detected by Coin\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fIANY \fP\fP
+Unknown button\&. 
+.TP
+\fB\fIBUTTON1 \fP\fP
+First mouse button (usually the leftmost button)\&. 
+.TP
+\fB\fIBUTTON2 \fP\fP
+Second mouse button (usually the middle button)\&. 
+.TP
+\fB\fIBUTTON3 \fP\fP
+Third mouse button (usually the rightmost button)\&. 
+.TP
+\fB\fIBUTTON4 \fP\fP
+Fourth mouse button (typically from a wheelmouse)\&. This is \fInot\fP part of the original Open Inventor API\&. 
+.TP
+\fB\fIBUTTON5 \fP\fP
+Fifth mouse button (typically from a wheelmouse)\&. This is \fInot\fP part of the original Open Inventor API\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoMouseButtonEvent::SoMouseButtonEvent (void)"
+Constructor\&. 
+.SS "SoMouseButtonEvent::~SoMouseButtonEvent ()\fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoMouseButtonEvent::getTypeId (void) const\fC [virtual]\fP"
+Returns the actual type id of an instantiated object\&. 
+.PP
+Reimplemented from \fBSoButtonEvent\fP\&.
+.SS "void SoMouseButtonEvent::initClass (void)\fC [static]\fP"
+Initialize the type information data\&. 
+.SS "void SoMouseButtonEvent::setButton (\fBSoMouseButtonEvent::Button\fP buttonarg)"
+Set the value of the button which the user interacted with\&.
+.PP
+This method is used from the window specific device classes when translating events to the generic Coin library\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetButton()\fP 
+.RE
+.PP
+
+.SS "\fBSoMouseButtonEvent::Button\fP SoMouseButtonEvent::getButton (void) const"
+Returns the value of the button which was pressed or released\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetState()\fP 
+.PP
+\fBwasShiftDown()\fP, \fBwasCtrlDown()\fP, \fBwasAltDown()\fP, \fBgetPosition()\fP, \fBgetTime()\fP 
+.RE
+.PP
+
+.SS "SbBool SoMouseButtonEvent::isButtonPressEvent (const \fBSoEvent\fP * e, \fBSoMouseButtonEvent::Button\fP whichButton)\fC [static]\fP"
+Convenience method for quickly checking if the given event is a press on the given button, \fIwhichButton\fP\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBisButtonReleaseEvent()\fP, \fBisOfType()\fP, \fBgetButton()\fP, \fBgetState()\fP 
+.RE
+.PP
+
+.SS "SbBool SoMouseButtonEvent::isButtonReleaseEvent (const \fBSoEvent\fP * e, \fBSoMouseButtonEvent::Button\fP whichButton)\fC [static]\fP"
+Convenience method for quickly checking if the given event is a release of the given button, \fIwhichButton\fP\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBisButtonPressEvent()\fP, \fBisOfType()\fP, \fBgetButton()\fP, \fBgetState()\fP 
+.RE
+.PP
+
+.SS "SbBool SoMouseButtonEvent::enumToString (\fBButton\fP enumval, \fBSbString\fP & stringrep)\fC [static]\fP"
+Converts from an enum value of type \fBSoMouseButtonEvent::Button\fP to a string containing the enum symbol\&.
+.PP
+This function is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&. 
+.PP
+\fBSince:\fP
+.RS 4
+Coin 3\&.0 
+.RE
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

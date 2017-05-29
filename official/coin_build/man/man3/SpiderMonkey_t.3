@@ -1,0 +1,295 @@
+.TH "SpiderMonkey_t" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SpiderMonkey_t
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBint\fP \fBavailable\fP"
+.br
+.ti -1c
+.RI "JS_CallFunctionName_t \fBJS_CallFunctionName\fP"
+.br
+.ti -1c
+.RI "JS_CallFunctionValue_t \fBJS_CallFunctionValue\fP"
+.br
+.ti -1c
+.RI "JS_ConstructObjectWithArguments_t \fBJS_ConstructObjectWithArguments\fP"
+.br
+.ti -1c
+.RI "JS_ConvertStub_t \fBJS_ConvertStub\fP"
+.br
+.ti -1c
+.RI "JS_DestroyContext_t \fBJS_DestroyContext\fP"
+.br
+.ti -1c
+.RI "JS_DestroyRuntime_t \fBJS_DestroyRuntime\fP"
+.br
+.ti -1c
+.RI "JS_EnumerateStub_t \fBJS_EnumerateStub\fP"
+.br
+.ti -1c
+.RI "JS_EvaluateScript_t \fBJS_EvaluateScript\fP"
+.br
+.ti -1c
+.RI "JS_FinalizeStub_t \fBJS_FinalizeStub\fP"
+.br
+.ti -1c
+.RI "JS_GetClass_t \fBJS_GetClass\fP"
+.br
+.ti -1c
+.RI "JS_GetImplementationVersion_t \fBJS_GetImplementationVersion\fP"
+.br
+.ti -1c
+.RI "JS_GetProperty_t \fBJS_GetProperty\fP"
+.br
+.ti -1c
+.RI "JS_GetStringBytes_t \fBJS_GetStringBytes\fP"
+.br
+.ti -1c
+.RI "JS_InitStandardClasses_t \fBJS_InitStandardClasses\fP"
+.br
+.ti -1c
+.RI "JS_NewContext_t \fBJS_NewContext\fP"
+.br
+.ti -1c
+.RI "JS_NewObject_t \fBJS_NewObject\fP"
+.br
+.ti -1c
+.RI "JS_NewRuntime_t \fBJS_NewRuntime\fP"
+.br
+.ti -1c
+.RI "JS_PropertyStub_t \fBJS_PropertyStub\fP"
+.br
+.ti -1c
+.RI "JS_ResolveStub_t \fBJS_ResolveStub\fP"
+.br
+.ti -1c
+.RI "JS_SetErrorReporter_t \fBJS_SetErrorReporter\fP"
+.br
+.ti -1c
+.RI "JS_SetProperty_t \fBJS_SetProperty\fP"
+.br
+.ti -1c
+.RI "JS_ShutDown_t \fBJS_ShutDown\fP"
+.br
+.ti -1c
+.RI "JS_ValueToString_t \fBJS_ValueToString\fP"
+.br
+.ti -1c
+.RI "JS_DefineObject_t \fBJS_DefineObject\fP"
+.br
+.ti -1c
+.RI "JS_DefineProperties_t \fBJS_DefineProperties\fP"
+.br
+.ti -1c
+.RI "JS_GetPrivate_t \fBJS_GetPrivate\fP"
+.br
+.ti -1c
+.RI "JS_SetPrivate_t \fBJS_SetPrivate\fP"
+.br
+.ti -1c
+.RI "JS_NewFunction_t \fBJS_NewFunction\fP"
+.br
+.ti -1c
+.RI "JS_GetFunctionObject_t \fBJS_GetFunctionObject\fP"
+.br
+.ti -1c
+.RI "JS_GetParent_t \fBJS_GetParent\fP"
+.br
+.ti -1c
+.RI "JS_SetParent_t \fBJS_SetParent\fP"
+.br
+.ti -1c
+.RI "JS_DefineFunctions_t \fBJS_DefineFunctions\fP"
+.br
+.ti -1c
+.RI "JS_NewStringCopyZ_t \fBJS_NewStringCopyZ\fP"
+.br
+.ti -1c
+.RI "JS_TypeOfValue_t \fBJS_TypeOfValue\fP"
+.br
+.ti -1c
+.RI "JS_GetTypeName_t \fBJS_GetTypeName\fP"
+.br
+.ti -1c
+.RI "JS_InstanceOf_t \fBJS_InstanceOf\fP"
+.br
+.ti -1c
+.RI "JS_InitClass_t \fBJS_InitClass\fP"
+.br
+.ti -1c
+.RI "JS_NewDoubleValue_t \fBJS_NewDoubleValue\fP"
+.br
+.ti -1c
+.RI "JS_GetContextPrivate_t \fBJS_GetContextPrivate\fP"
+.br
+.ti -1c
+.RI "JS_SetContextPrivate_t \fBJS_SetContextPrivate\fP"
+.br
+.ti -1c
+.RI "JS_ValueToBoolean_t \fBJS_ValueToBoolean\fP"
+.br
+.ti -1c
+.RI "JS_ValueToNumber_t \fBJS_ValueToNumber\fP"
+.br
+.ti -1c
+.RI "JS_NewArrayObject_t \fBJS_NewArrayObject\fP"
+.br
+.ti -1c
+.RI "JS_GetArrayLength_t \fBJS_GetArrayLength\fP"
+.br
+.ti -1c
+.RI "JS_SetArrayLength_t \fBJS_SetArrayLength\fP"
+.br
+.ti -1c
+.RI "JS_HasArrayLength_t \fBJS_HasArrayLength\fP"
+.br
+.ti -1c
+.RI "JS_GetElement_t \fBJS_GetElement\fP"
+.br
+.ti -1c
+.RI "JS_SetElement_t \fBJS_SetElement\fP"
+.br
+.ti -1c
+.RI "JS_AddRoot_t \fBJS_AddRoot\fP"
+.br
+.ti -1c
+.RI "JS_RemoveRoot_t \fBJS_RemoveRoot\fP"
+.br
+.ti -1c
+.RI "JS_GetStringLength_t \fBJS_GetStringLength\fP"
+.br
+.ti -1c
+.RI "JS_LookupProperty_t \fBJS_LookupProperty\fP"
+.br
+.ti -1c
+.RI "JS_DefineProperty_t \fBJS_DefineProperty\fP"
+.br
+.ti -1c
+.RI "JS_CompileFile_t \fBJS_CompileFile\fP"
+.br
+.ti -1c
+.RI "JS_ValueToObject_t \fBJS_ValueToObject\fP"
+.br
+.ti -1c
+.RI "JS_ExecuteScript_t \fBJS_ExecuteScript\fP"
+.br
+.ti -1c
+.RI "JS_IsExceptionPending_t \fBJS_IsExceptionPending\fP"
+.br
+.ti -1c
+.RI "JS_GetPendingException_t \fBJS_GetPendingException\fP"
+.br
+.ti -1c
+.RI "JS_SetPendingException_t \fBJS_SetPendingException\fP"
+.br
+.ti -1c
+.RI "JS_ClearPendingException_t \fBJS_ClearPendingException\fP"
+.br
+.ti -1c
+.RI "JS_NewDouble_t \fBJS_NewDouble\fP"
+.br
+.ti -1c
+.RI "JS_CallFunction_t \fBJS_CallFunction\fP"
+.br
+.ti -1c
+.RI "JS_ValueToFunction_t \fBJS_ValueToFunction\fP"
+.br
+.ti -1c
+.RI "JS_ReportError_t \fBJS_ReportError\fP"
+.br
+.ti -1c
+.RI "JS_IsArrayObject_t \fBJS_IsArrayObject\fP"
+.br
+.ti -1c
+.RI "JS_ObjectIsFunction_t \fBJS_ObjectIsFunction\fP"
+.br
+.ti -1c
+.RI "JS_ValueToECMAInt32_t \fBJS_ValueToECMAInt32\fP"
+.br
+.ti -1c
+.RI "JS_DefineFunction_t \fBJS_DefineFunction\fP"
+.br
+.ti -1c
+.RI "JS_GetGlobalObject_t \fBJS_GetGlobalObject\fP"
+.br
+.ti -1c
+.RI "JS_SetGCCallback_t \fBJS_SetGCCallback\fP"
+.br
+.ti -1c
+.RI "JS_GC_t \fBJS_GC\fP"
+.br
+.ti -1c
+.RI "JS_MaybeGC_t \fBJS_MaybeGC\fP"
+.br
+.ti -1c
+.RI "JS_IsRunning_t \fBJS_IsRunning\fP"
+.br
+.ti -1c
+.RI "JS_DeleteProperty_t \fBJS_DeleteProperty\fP"
+.br
+.ti -1c
+.RI "JS_CompileScript_t \fBJS_CompileScript\fP"
+.br
+.ti -1c
+.RI "JS_GetNaNValue_t \fBJS_GetNaNValue\fP"
+.br
+.ti -1c
+.RI "JS_GetNegativeInfinityValue_t \fBJS_GetNegativeInfinityValue\fP"
+.br
+.ti -1c
+.RI "JS_GetPositiveInfinityValue_t \fBJS_GetPositiveInfinityValue\fP"
+.br
+.ti -1c
+.RI "JS_GetEmptyStringValue_t \fBJS_GetEmptyStringValue\fP"
+.br
+.ti -1c
+.RI "JS_SetPropertyAttributes_t \fBJS_SetPropertyAttributes\fP"
+.br
+.ti -1c
+.RI "JS_GetPropertyAttributes_t \fBJS_GetPropertyAttributes\fP"
+.br
+.ti -1c
+.RI "JS_GetPrototype_t \fBJS_GetPrototype\fP"
+.br
+.ti -1c
+.RI "JS_SetPrototype_t \fBJS_SetPrototype\fP"
+.br
+.ti -1c
+.RI "JS_CompareStrings_t \fBJS_CompareStrings\fP"
+.br
+.ti -1c
+.RI "JS_GetOptions_t \fBJS_GetOptions\fP"
+.br
+.ti -1c
+.RI "JS_SetOptions_t \fBJS_SetOptions\fP"
+.br
+.ti -1c
+.RI "JS_ToggleOptions_t \fBJS_ToggleOptions\fP"
+.br
+.ti -1c
+.RI "JS_Enumerate_t \fBJS_Enumerate\fP"
+.br
+.ti -1c
+.RI "JS_IdToValue_t \fBJS_IdToValue\fP"
+.br
+.ti -1c
+.RI "JS_GetFunctionName_t \fBJS_GetFunctionName\fP"
+.br
+.ti -1c
+.RI "JS_GetConstructor_t \fBJS_GetConstructor\fP"
+.br
+.ti -1c
+.RI "JS_DestroyIdArray_t \fBJS_DestroyIdArray\fP"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

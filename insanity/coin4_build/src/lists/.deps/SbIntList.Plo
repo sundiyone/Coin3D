@@ -1,0 +1,4 @@
+SbIntList.lo: ../../../coin4/src/lists/SbIntList.cpp \
+ /usr/include/stdc-predef.h
+
+/usr/include/stdc-predef.h:

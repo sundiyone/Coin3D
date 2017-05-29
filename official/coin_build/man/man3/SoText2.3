@@ -1,0 +1,214 @@
+.TH "SoText2" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoText2 \- The \fBSoText2\fP class is a node type for visualizing 2D text aligned with the camera plane\&.
+.PP
+\fBSoText2\fP text is not scaled according to the distance from the camera, and is not influenced by rotation or scaling as 3D primitives are\&. If these are properties that you want the text to have, you should instead use an \fBSoText3\fP or \fBSoAsciiText\fP node\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/nodes/SoText2\&.h>\fP
+.PP
+Inherits \fBSoShape\fP\&.
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBJustification\fP { \fBLEFT\fP = 1, \fBRIGHT\fP, \fBCENTER\fP }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "\fBSoText2\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBGLRender\fP (\fBSoGLRenderAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBrayPick\fP (\fBSoRayPickAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBgetPrimitiveCount\fP (\fBSoGetPrimitiveCountAction\fP *action)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoMFString\fP \fBstring\fP"
+.br
+.ti -1c
+.RI "\fBSoSFFloat\fP \fBspacing\fP"
+.br
+.ti -1c
+.RI "\fBSoSFEnum\fP \fBjustification\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fB~SoText2\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBgeneratePrimitives\fP (\fBSoAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBcomputeBBox\fP (\fBSoAction\fP *action, \fBSbBox3f\fP &box, \fBSbVec3f\fP &center)"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoText2\fP class is a node type for visualizing 2D text aligned with the camera plane\&.
+.PP
+\fBSoText2\fP text is not scaled according to the distance from the camera, and is not influenced by rotation or scaling as 3D primitives are\&. If these are properties that you want the text to have, you should instead use an \fBSoText3\fP or \fBSoAsciiText\fP node\&. 
+
+Note that even though the size of the 2D text is not influenced by the distance from the camera, the text is still subject to the usual rules with regard to the depthbuffer, so it \fIwill\fP be obscured by graphics laying in front of it\&.
+.PP
+The text will be \fIpositioned\fP according to the current transformation\&. The x origin of the text is the first pixel of the leftmost character of the text\&. The y origin of the text is the baseline of the first line of text (the baseline being the imaginary line on which all upper case characters are standing)\&.
+.PP
+The size of the fonts on screen is decided from the \fBSoFont::size\fP field of a preceding SoFont-node in the scene graph, which specifies the size in pixel dimensions\&. This value sets the approximate vertical dimension of the letters\&. The default value if no SoFont-nodes are used, is 10\&.
+.PP
+One important issue about rendering performance: since the positioning and rendering of an \fBSoText2\fP node depends on the current viewport and camera, having \fBSoText2\fP nodes in the scene graph will lead to a cache dependency on the previously encountered SoCamera-node\&. This can have severe influence on the rendering performance, since if the camera is above the \fBSoText2\fP's nearest parent \fBSoSeparator\fP, the \fBSoSeparator\fP will not be able to cache the geometry under it\&.
+.PP
+(Even worse rendering performance will be forced if the \fBSoSeparator::renderCaching\fP flag is explicitly set to \fCON\fP, as the \fBSoSeparator\fP node will then continuously generate and destruct the same cache as the camera moves\&.)
+.PP
+\fBSoText2\fP nodes are therefore best positioned under their own \fBSoSeparator\fP node, outside areas in the scene graph that otherwise contains static geometry\&.
+.PP
+Also note that \fBSoText2\fP nodes cache the ids and positions of each glyph bitmap used to render \fCstring\fP\&. This means that \fCUSE\fP of a \fCDEF'ed\fP \fBSoText2\fP node, with a different font, will be noticeably slower than using two separate \fBSoText2\fP nodes, one for each font, since it will have to recalculate glyph bitmap ids and positions for each call to \fCGLrender()\fP\&.
+.PP
+\fBSoScale\fP nodes can not be used to influence the dimensions of the rendering output of \fBSoText2\fP nodes\&.
+.PP
+\fBFILE FORMAT/DEFAULTS:\fP 
+.PP
+.nf
+Text2 {
+    string ""
+    spacing 1
+    justification LEFT
+}
+
+.fi
+.PP
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoFont\fP, \fBSoFontStyle\fP, \fBSoText3\fP, \fBSoAsciiText\fP 
+.RE
+.PP
+
+.SH "Member Enumeration Documentation"
+.PP 
+.SS "enum \fBSoText2::Justification\fP"
+Enum contains the various options for how the horizontal text layout text should be done\&. Valid values are LEFT, RIGHT and CENTER\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoText2::SoText2 (void)"
+Constructor\&. 
+.SS "SoText2::~SoText2 ()\fC [protected]\fP, \fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoText2::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Reimplemented from \fBSoShape\fP\&.
+.SS "const \fBSoFieldData\fP * SoText2::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoShape\fP\&.
+.SS "void SoText2::GLRender (\fBSoGLRenderAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGLRenderAction\fP\&.
+.PP
+This is called during rendering traversals\&. Nodes influencing the rendering state in any way or who wants to throw geometry primitives at OpenGL overrides this method\&. 
+.PP
+Reimplemented from \fBSoShape\fP\&.
+.SS "void SoText2::rayPick (\fBSoRayPickAction\fP * action)\fC [virtual]\fP"
+Calculates picked point based on primitives generated by subclasses\&. 
+.PP
+Reimplemented from \fBSoShape\fP\&.
+.SS "void SoText2::getPrimitiveCount (\fBSoGetPrimitiveCountAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGetPrimitiveCountAction\fP\&.
+.PP
+Calculates the number of triangle, line segment and point primitives for the node and adds these to the counters of the \fIaction\fP\&.
+.PP
+Nodes influencing how geometry nodes calculates their primitive count also overrides this method to change the relevant state variables\&. 
+.PP
+Reimplemented from \fBSoShape\fP\&.
+.SS "void SoText2::generatePrimitives (\fBSoAction\fP * action)\fC [protected]\fP, \fC [virtual]\fP"
+The method implements action behavior for shape nodes for \fBSoCallbackAction\fP\&. It is invoked from \fBSoShape::callback()\fP\&. (Subclasses should \fInot\fP override \fBSoNode::callback()\fP\&.)
+.PP
+The subclass implementations uses the convenience methods \fBSoShape::beginShape()\fP, \fBSoShape::shapeVertex()\fP, and \fBSoShape::endShape()\fP, with \fBSoDetail\fP instances, to pass the primitives making up the shape back to the caller\&. 
+.PP
+Implements \fBSoShape\fP\&.
+.SS "void SoText2::computeBBox (\fBSoAction\fP * action, \fBSbBox3f\fP & box, \fBSbVec3f\fP & center)\fC [protected]\fP, \fC [virtual]\fP"
+Implemented by \fBSoShape\fP subclasses to let the \fBSoShape\fP superclass know the exact size and weighted center point of the shape's bounding box\&.
+.PP
+The bounding box and center point should be calculated and returned in the local coordinate system\&.
+.PP
+The method implements action behavior for shape nodes for \fBSoGetBoundingBoxAction\fP\&. It is invoked from \fBSoShape::getBoundingBox()\fP\&. (Subclasses should \fInot\fP override \fBSoNode::getBoundingBox()\fP\&.)
+.PP
+The \fIbox\fP parameter sent in is guaranteed to be an empty box, while \fIcenter\fP is undefined upon function entry\&. 
+.PP
+Implements \fBSoShape\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSoMFString\fP SoText2::string"
+The set of strings to render\&. Each string in the multiple value field will be rendered on it's own line\&.
+.PP
+The default value of the field is a single empty string\&. 
+.SS "\fBSoSFFloat\fP SoText2::spacing"
+Spacing between each consecutive vertical line\&. Default value is 1\&.0, which means that the space between the uppermost line of each rendered string will equal the vertical size of the highest character in the bitmap alphabet\&. 
+.SS "\fBSoSFEnum\fP SoText2::justification"
+Decides how the horizontal layout of the text strings is done\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

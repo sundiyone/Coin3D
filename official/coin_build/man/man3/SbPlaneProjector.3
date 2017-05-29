@@ -1,0 +1,165 @@
+.TH "SbPlaneProjector" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SbPlaneProjector \- The \fBSbPlaneProjector\fP class projects 2D points to 3D points in a plane\&.
+.PP
+The 3D projection of the 2D coordinates is for this projector class constrained to lie inside a pre-defined 3D plane\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/projectors/SbPlaneProjector\&.h>\fP
+.PP
+Inherits \fBSbProjector\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSbPlaneProjector\fP (const SbBool orient=FALSE)"
+.br
+.ti -1c
+.RI "\fBSbPlaneProjector\fP (const \fBSbPlane\fP &\fBplane\fP, const SbBool orient=FALSE)"
+.br
+.ti -1c
+.RI "virtual \fBSbProjector\fP * \fBcopy\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fBSbVec3f\fP \fBproject\fP (const \fBSbVec2f\fP &point)"
+.br
+.ti -1c
+.RI "virtual SbBool \fBtryProject\fP (const \fBSbVec2f\fP &point, const float epsilon, \fBSbVec3f\fP &result)"
+.br
+.ti -1c
+.RI "void \fBsetPlane\fP (const \fBSbPlane\fP &\fBplane\fP)"
+.br
+.ti -1c
+.RI "const \fBSbPlane\fP & \fBgetPlane\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBsetOrientToEye\fP (const SbBool orienttoeye)"
+.br
+.ti -1c
+.RI "SbBool \fBisOrientToEye\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fBSbVec3f\fP \fBgetVector\fP (const \fBSbVec2f\fP &viewpos1, const \fBSbVec2f\fP &viewpos2)"
+.br
+.ti -1c
+.RI "virtual \fBSbVec3f\fP \fBgetVector\fP (const \fBSbVec2f\fP &viewpos)"
+.br
+.ti -1c
+.RI "void \fBsetStartPosition\fP (const \fBSbVec2f\fP &viewpos)"
+.br
+.ti -1c
+.RI "void \fBsetStartPosition\fP (const \fBSbVec3f\fP &point)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBsetupPlane\fP (void)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSbPlane\fP \fBplane\fP"
+.br
+.ti -1c
+.RI "\fBSbPlane\fP \fBnonOrientPlane\fP"
+.br
+.ti -1c
+.RI "SbBool \fBorientToEye\fP"
+.br
+.ti -1c
+.RI "SbBool \fBneedSetup\fP"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP \fBlastPoint\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBSbPlaneProjector\fP class projects 2D points to 3D points in a plane\&.
+.PP
+The 3D projection of the 2D coordinates is for this projector class constrained to lie inside a pre-defined 3D plane\&. 
+
+
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSbLineProjector\fP 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SbPlaneProjector::SbPlaneProjector (const SbBool orient = \fCFALSE\fP)"
+Constructor\&. Sets up a projection plane parallel with the XY-plane in world coordinates\&. 
+.SS "SbPlaneProjector::SbPlaneProjector (const \fBSbPlane\fP & plane, const SbBool orient = \fCFALSE\fP)"
+Constructor taking an explicit projection \fIplane\fP definition\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSbProjector\fP * SbPlaneProjector::copy (void) const\fC [virtual]\fP"
+Construct and return a copy of this projector\&. The caller is responsible for destructing the new instance\&.
+.PP
+\fBNote that if the Coin library has been built as a DLL under Microsoft Windows and you use this method from application code, you \fImust\fP make sure that both the Coin DLL and the application executable is using the same instance of a C Run-Time (CRT) library\&. Otherwise, you \fIwill\fP get memory heap corruption upon deallocating the returned instances, eventually leading to mysterious crashes\&.\fP 
+.PP
+Implements \fBSbProjector\fP\&.
+.SS "\fBSbVec3f\fP SbPlaneProjector::project (const \fBSbVec2f\fP & point)\fC [virtual]\fP"
+Projects 2D \fIpoint\fP into a 3D point within the current projection plane\&. 
+.PP
+Implements \fBSbProjector\fP\&.
+.SS "SbBool SbPlaneProjector::tryProject (const \fBSbVec2f\fP & point, const float epsilon, \fBSbVec3f\fP & result)\fC [virtual]\fP"
+Try projecting the 2D \fIpoint\fP from normalized viewport coordinates to a 3D point\&. The mapping will be done in accordance with the type of the projector\&.
+.PP
+If the projection can't be done safely (for instance when the projection plane or line is parallel to the view volume projection), this function should return FALSE\&.
+.PP
+Default implementation will call \fBproject()\fP and always return TRUE, but subclasses can override this behavior to support safe projections\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 3\&.0 
+.RE
+.PP
+
+.PP
+Reimplemented from \fBSbProjector\fP\&.
+.SS "void SbPlaneProjector::setPlane (const \fBSbPlane\fP & planeref)"
+Set a new projection \fIplane\fP\&. 
+.SS "const \fBSbPlane\fP & SbPlaneProjector::getPlane (void) const"
+Returns the current projection plane\&. 
+.SS "void SbPlaneProjector::setOrientToEye (const SbBool orienttoeye)"
+Sets whether or not the plane should always be oriented towards the 'eye' of the viewer\&. 
+.SS "SbBool SbPlaneProjector::isOrientToEye (void) const"
+Returns the state of the plane orientation flag\&. 
+.SS "\fBSbVec3f\fP SbPlaneProjector::getVector (const \fBSbVec2f\fP & viewpos1, const \fBSbVec2f\fP & viewpos2)\fC [virtual]\fP"
+Returns a vector between the projected 3D points of \fIviewpos1\fP and \fIviewpos2\fP\&. 
+.SS "\fBSbVec3f\fP SbPlaneProjector::getVector (const \fBSbVec2f\fP & viewpos)\fC [virtual]\fP"
+Returns a vector between the last projected point and the projected 3D point of \fIviewpos\fP\&. 
+.SS "void SbPlaneProjector::setStartPosition (const \fBSbVec2f\fP & viewpos)"
+Explicitly set position of initial projection, so we get correct values for later calls to \fBgetVector()\fP etc\&. 
+.SS "void SbPlaneProjector::setStartPosition (const \fBSbVec3f\fP & point)"
+Explicitly set position of initial projection, so we get correct values for later calls to \fBgetVector()\fP etc\&. 
+.SS "void SbPlaneProjector::setupPlane (void)\fC [protected]\fP"
+Should be called whenever \fBSbPlaneProjector::needSetup\fP is \fCTRUE\fP\&. Will recalculate projection plane\&. 
+.SH "Member Data Documentation"
+.PP 
+.SS "SbPlaneProjector::plane\fC [protected]\fP"
+The projection plane\&. 
+.SS "SbPlaneProjector::nonOrientPlane\fC [protected]\fP"
+The 'original' plane which was set (as opposed to the recalculated projection plane according to the \fBSbPlaneProjector::orientToEye\fP setting)\&. 
+.SS "SbPlaneProjector::orientToEye\fC [protected]\fP"
+Which direction the plane is oriented\&. 
+.SS "SbPlaneProjector::needSetup\fC [protected]\fP"
+Set to \fCTRUE\fP whenever the plane needs to be recalculated according to the setting of the \fBSbPlaneProjector::orientToEye\fP flag\&. 
+.SS "SbPlaneProjector::lastPoint\fC [protected]\fP"
+Stores the previously projected 3D point\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

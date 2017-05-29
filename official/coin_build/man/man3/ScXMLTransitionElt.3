@@ -1,0 +1,249 @@
+.TH "ScXMLTransitionElt" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ScXMLTransitionElt \- the \fC<transition>\fP SCXML element\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/scxml/ScXMLTransitionElt\&.h>\fP
+.PP
+Inherits \fBScXMLElt\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "virtual void \fBsetEventAttribute\fP (const char *event)"
+.br
+.ti -1c
+.RI "const char * \fBgetEventAttribute\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBsetCondAttribute\fP (const char *cond)"
+.br
+.ti -1c
+.RI "const char * \fBgetCondAttribute\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBsetTargetAttribute\fP (const char *target)"
+.br
+.ti -1c
+.RI "const char * \fBgetTargetAttribute\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBsetAnchorAttribute\fP (const char *anchor)"
+.br
+.ti -1c
+.RI "const char * \fBgetAnchorAttribute\fP (void) const"
+.br
+.ti -1c
+.RI "virtual SbBool \fBhandleXMLAttributes\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBcopyContents\fP (const \fBScXMLElt\fP *rhs)"
+.br
+.ti -1c
+.RI "virtual const \fBScXMLElt\fP * \fBsearch\fP (const char *attrname, const char *attrvalue) const"
+.br
+.ti -1c
+.RI "SbBool \fBisConditionLess\fP (void) const"
+.br
+.ti -1c
+.RI "SbBool \fBisTargetLess\fP (void) const"
+.br
+.ti -1c
+.RI "SbBool \fBisSelfReferencing\fP (void) const"
+.br
+.ti -1c
+.RI "virtual SbBool \fBisEventMatch\fP (const \fBScXMLEvent\fP *event) const"
+.br
+.ti -1c
+.RI "virtual SbBool \fBevaluateCondition\fP (\fBScXMLStateMachine\fP *statemachine)"
+.br
+.ti -1c
+.RI "virtual \fBint\fP \fBgetNumExecutables\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fBScXMLExecutableElt\fP * \fBgetExecutable\fP (\fBint\fP idx) const"
+.br
+.ti -1c
+.RI "virtual void \fBaddExecutable\fP (\fBScXMLExecutableElt\fP *executable)"
+.br
+.ti -1c
+.RI "virtual void \fBremoveExecutable\fP (\fBScXMLExecutableElt\fP *executable)"
+.br
+.ti -1c
+.RI "virtual void \fBclearAllExecutables\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBexecute\fP (\fBScXMLStateMachine\fP *statemachine) const"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBScXMLEltReader\fP * \fBgetElementReader\fP (void)"
+.br
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void * \fBcreateInstance\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBcleanClass\fP (void)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "char * \fBevent\fP"
+.br
+.ti -1c
+.RI "char * \fBcond\fP"
+.br
+.ti -1c
+.RI "char * \fBtarget\fP"
+.br
+.ti -1c
+.RI "char * \fBanchor\fP"
+.br
+.ti -1c
+.RI "SbBool \fBneedprefixmatching\fP"
+.br
+.ti -1c
+.RI "\fBSbName\fP \fBeventkey\fP"
+.br
+.ti -1c
+.RI "\fBSbName\fP \fBtargetkey\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+the \fC<transition>\fP SCXML element\&. 
+
+The \fC<transition>\fP element is used for invoking executable code and transition from the current active states in a state machine to a new set of active states\&.
+.PP
+By plural active states, it is meant that all the parent states of active states are also active at the same time, which is helpful when organizing common event triggered \fC<transition>\fP transitions\&. Putting transitions in the root \fC<scxml>\fP element means that they are always active\&.
+.PP
+You also have the concept of parallel states in SCXML\&. This is not \fIyet\fP supported in Coin SCXML\&.
+.PP
+The following attributes are accepted: 
+.PD 0
+
+.IP "\(bu" 2
+\fCevent\fP 
+.IP "\(bu" 2
+\fCcond\fP 
+.IP "\(bu" 2
+\fCtarget\fP 
+.IP "\(bu" 2
+\fCanchor\fP - not supported
+.PP
+The \fCevent\fP attribute specifies the event that the transition will trigger for, if the \fC<transition>\fP element is in an active state\&. The \fIevent\fP attribute can be specified with wildcard matching using \fC'*'\fP, but with the following restrictions: 
+.PD 0
+
+.IP "\(bu" 2
+\fC'*'\fP must be at the end of the event name match\&. 
+.IP "\(bu" 2
+\fC'*'\fP must match full dot-separated words\&.
+.PP
+Example 1: \fCevent='*'\fP 
+.PP
+Example 2: \fCevent='error\&.*'\fP 
+.PP
+The \fCcond\fP attribute can be used to specify additional conditions that must be met for the \fC<transition>\fP to be triggered\&. The condition expression language depends on which profile the SCXML state machine uses\&.
+.PP
+The \fC'minimum'\fP profile only specifies one function, which is the \fCIn\fP({ID}) function\&. In() evaluates to TRUE if the state machine is currently in the state with the given ID\&.
+.PP
+The \fC'x-coin'\fP profile implements a number of expressions that evaluates to a truth value\&. While in development, documenting the expression language seems like too much overhead, so that part will have to wait\&. The source code can do the talking\&. See Coin/src/scxml/eval-coin-tab\&.y\&.
+.PP
+The \fCtarget\fP attribute specifies the target states to transition to\&. If parallel states had been implemented, you would be able to specify multiple states in this attribute, but for now you can only specify one target state\&. If \fCtarget\fP is dropped, then the transition does not change what the active state is and will just execute the executable parts it contains\&. If \fCtarget\fP is the \fCid\fP of the \fCstate\fP the \fC<transition>\fP is in, the state will be left/exited and then reentered again\&. For active substates, this means they will also be exited of course\&.
+.PP
+The \fCanchor\fP attribute is not supported\&.
+.PP
+\fC<transition>\fP elements can contain executable SCXML elements as XML children, meaning \fC<if>\fP /\fC<elseif>\fP / \fC<else>\fP, \fC<assign>\fP, \fC<send>\fP, \fC<event>\fP, \fC<log>\fP\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 3\&.0 
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+\fBScXMLIfElt\fP, \fBScXMLAssignElt\fP, \fBScXMLSendElt\fP, \fBScXMLEventElt\fP, \fBScXMLLogElt\fP 
+.RE
+.PP
+
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP ScXMLTransitionElt::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoBase::getTypeId() const\fP 
+.RE
+.PP
+
+.PP
+Implements \fBScXMLElt\fP\&.
+.SS "SbBool ScXMLTransitionElt::handleXMLAttributes (void)\fC [virtual]\fP"
+This method is called when the file reader has set all the XML attributes on the object, and wants the object to handle them and report if the values were ok or if a read error should be produced\&.
+.PP
+\fBReturns:\fP
+.RS 4
+TRUE if the attributes are ok, and FALSE on error\&.
+.RE
+.PP
+This base class implementation does nothing and just returns TRUE\&. 
+.PP
+Reimplemented from \fBScXMLElt\fP\&.
+.SS "const \fBScXMLElt\fP * ScXMLTransitionElt::search (const char * attrname, const char * attrvalue) const\fC [virtual]\fP"
+This method searches the SCXML structure for an element with the given attributevalue for the given attribute\&.
+.PP
+Returns NULL if nothing was found\&.
+.PP
+This function needs to be reimplemented to traverse child elements\&. 
+.PP
+Reimplemented from \fBScXMLElt\fP\&.
+.SS "SbBool ScXMLTransitionElt::isConditionLess (void) const"
+Returns whether this is a conditionless SCXML transition or not\&.
+.PP
+A conditionless transition should always be taken\&. 
+.SS "SbBool ScXMLTransitionElt::isTargetLess (void) const"
+Returns whether this is a transition without a target setting or not\&.
+.PP
+When a targetless transition is taken, the state machine's state does not change\&. This differs from setting the target to its own state, which will cause the state machine to leave the state and reenter it again\&. 
+.SS "SbBool ScXMLTransitionElt::isSelfReferencing (void) const"
+Returns whether this transition is referencing its container or not\&.
+.PP
+If TRUE, this means you should end up in the same state as you started with when doing this transition\&. Note however that as opposed to a targetless transition, this transition should actually exit the state and then reenter it again\&. Executable content will be invoked after exiting the state, before reentering\&. 
+.SS "SbBool ScXMLTransitionElt::isEventMatch (const \fBScXMLEvent\fP * eventobj) const\fC [virtual]\fP"
+This function returns TRUE if the transition matches the given \fIeventobj\fP object and FALSE otherwise\&. 
+.SS "SbBool ScXMLTransitionElt::evaluateCondition (\fBScXMLStateMachine\fP * statemachine)\fC [virtual]\fP"
+This function uses the statemachine evaluator to evaluate its condition expression, and returns TRUE or FALSE based on the evaluation\&.
+.PP
+On expression error, error events are emit'ed to the SCXML state machine\&.
+.PP
+If the transition is conditionless, this function will return TRUE\&. 
+.SS "void ScXMLTransitionElt::execute (\fBScXMLStateMachine\fP * statemachine) const\fC [virtual]\fP"
+Calls invoke on all the ScXMLInvoke children\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

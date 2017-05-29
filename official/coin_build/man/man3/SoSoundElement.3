@@ -1,0 +1,151 @@
+.TH "SoSoundElement" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoSoundElement \- The \fBSoSoundElement\fP is used for optimizing audio rendering and for turning off inactive \fBSoVRMLSound\fP nodes\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/elements/SoSoundElement\&.h>\fP
+.PP
+Inherits \fBSoReplacedElement\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual void \fBinit\fP (\fBSoState\fP *state)"
+.br
+.ti -1c
+.RI "virtual void \fBpush\fP (\fBSoState\fP *state)"
+.br
+.ti -1c
+.RI "virtual void \fBpop\fP (\fBSoState\fP *state, const \fBSoElement\fP *prevTopElement)"
+.br
+.ti -1c
+.RI "virtual void \fBprint\fP (FILE *file) const"
+.br
+.RI "Prints contents of element (not implemented) "
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static \fBint\fP \fBgetClassStackIndex\fP (void)"
+.br
+.ti -1c
+.RI "static void * \fBcreateInstance\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBset\fP (\fBSoState\fP *const state, \fBSoNode\fP *const node, SbBool scenegraphhassoundnode, SbBool soundnodeisplaying, SbBool ispartofactivescenegraph)"
+.br
+.ti -1c
+.RI "static SbBool \fBsetSceneGraphHasSoundNode\fP (\fBSoState\fP *const state, \fBSoNode\fP *const node, SbBool flag)"
+.br
+.ti -1c
+.RI "static SbBool \fBsceneGraphHasSoundNode\fP (\fBSoState\fP *const state)"
+.br
+.ti -1c
+.RI "static SbBool \fBsetSoundNodeIsPlaying\fP (\fBSoState\fP *const state, \fBSoNode\fP *const node, SbBool flag)"
+.br
+.ti -1c
+.RI "static SbBool \fBsoundNodeIsPlaying\fP (\fBSoState\fP *const state)"
+.br
+.ti -1c
+.RI "static SbBool \fBsetIsPartOfActiveSceneGraph\fP (\fBSoState\fP *const state, \fBSoNode\fP *const node, SbBool flag)"
+.br
+.ti -1c
+.RI "static SbBool \fBisPartOfActiveSceneGraph\fP (\fBSoState\fP *const state)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fB~SoSoundElement\fP ()"
+.br
+.ti -1c
+.RI "void \fBsetDefaultValues\fP ()"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "SbBool \fBscenegraphhassoundnode\fP"
+.br
+.ti -1c
+.RI "SbBool \fBsoundnodeisplaying\fP"
+.br
+.ti -1c
+.RI "SbBool \fBispartofactivescenegraph\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoSoundElement\fP is used for optimizing audio rendering and for turning off inactive \fBSoVRMLSound\fP nodes\&. 
+
+
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoSoundElement::~SoSoundElement (void)\fC [protected]\fP, \fC [virtual]\fP"
+The destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void * SoSoundElement::createInstance (void)\fC [static]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoSoundElement::initClass (void)\fC [static]\fP"
+This static method initializes static data for the \fBSoSoundElement\fP class\&. 
+.SS "void SoSoundElement::init (\fBSoState\fP * state)\fC [virtual]\fP"
+Initializes the element to it's default value\&. 
+.PP
+Reimplemented from \fBSoReplacedElement\fP\&.
+.SS "void SoSoundElement::set (\fBSoState\fP *const state, \fBSoNode\fP *const node, SbBool scenegraphhassoundnode, SbBool soundnodeisplaying, SbBool ispartofactivescenegraph)\fC [static]\fP"
+Sets the flags\&. 
+.SS "SbBool SoSoundElement::setSceneGraphHasSoundNode (\fBSoState\fP *const state, \fBSoNode\fP *const node, SbBool flag)\fC [static]\fP"
+Sets the sceneGraphHasSoundNode flag\&. 
+.SS "SbBool SoSoundElement::sceneGraphHasSoundNode (\fBSoState\fP *const state)\fC [static]\fP"
+The sceneGraphHasSoundNode flag is used to stop the \fBSoAudioRenderAction\fP in \fBSoSeparator\fP and \fBSoVRMLGroup\fP nodes for cases where the sub-graph doesn not contain any \fBSoVRMLSound\fP nodes\&.
+.PP
+Returns the value of the sceneGraphHasSoundNode flag\&. 
+.SS "SbBool SoSoundElement::setSoundNodeIsPlaying (\fBSoState\fP *const state, \fBSoNode\fP *const node, SbBool flag)\fC [static]\fP"
+Sets the soundNodeIsPlaying flag\&. 
+.SS "SbBool SoSoundElement::soundNodeIsPlaying (\fBSoState\fP *const state)\fC [static]\fP"
+The soundNodeIsPlaying flag is currently unused\&.
+.PP
+Returns the value of the soundNodeIsPlaying flag\&. 
+.SS "SbBool SoSoundElement::setIsPartOfActiveSceneGraph (\fBSoState\fP *const state, \fBSoNode\fP *const node, SbBool flag)\fC [static]\fP"
+Sets the isPartOfActiveSceneGraph flag\&. 
+.SS "SbBool SoSoundElement::isPartOfActiveSceneGraph (\fBSoState\fP *const state)\fC [static]\fP"
+The isPartOfActiveSceneGraph flag is used to make \fBSoVRMLSound\fP that are below inactive parts of the scenegraph (i\&.e\&. below a \fBSoSwitch\fP or \fBSoLOD\fP node) stop playing\&.
+.PP
+Returns the value of the isPartOfActiveSceneGraph flag\&. 
+.SS "void SoSoundElement::push (\fBSoState\fP * state)\fC [virtual]\fP"
+Calls the superclass' push method\&. Initializes the element to the default values\&. Uses previous element's isPartOfActiveSceneGraph flag\&. 
+.PP
+Reimplemented from \fBSoElement\fP\&.
+.SS "void SoSoundElement::pop (\fBSoState\fP * state, const \fBSoElement\fP * prevTopElement)\fC [virtual]\fP"
+Calls the superclass' pop method\&. 
+.PP
+Reimplemented from \fBSoElement\fP\&.
+.SS "void SoSoundElement::setDefaultValues ()\fC [protected]\fP"
+Initializes the element to the default values\&. The default values for the sceneGraphHasSoundNode is FALSE\&. The default value for the isPartOfActiveSceneGraph flag is TRUE\&. the default value for the soundNodeIsPlaying flag is FALSE\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

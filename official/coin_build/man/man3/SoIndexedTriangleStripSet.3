@@ -1,0 +1,194 @@
+.TH "SoIndexedTriangleStripSet" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoIndexedTriangleStripSet \- The \fBSoIndexedTriangleStripSet\fP class keeps data for rendering and otherwise representing triangle strips\&.
+.PP
+Use nodes of this type as an effective way of drawing triangles which are strung together\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/nodes/SoIndexedTriangleStripSet\&.h>\fP
+.PP
+Inherits \fBSoIndexedShape\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "\fBSoIndexedTriangleStripSet\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBGLRender\fP (\fBSoGLRenderAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBgetPrimitiveCount\fP (\fBSoGetPrimitiveCountAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual SbBool \fBgenerateDefaultNormals\fP (\fBSoState\fP *state, \fBSoNormalBundle\fP *nb)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fB~SoIndexedTriangleStripSet\fP ()"
+.br
+.ti -1c
+.RI "virtual SbBool \fBgenerateDefaultNormals\fP (\fBSoState\fP *state, \fBSoNormalCache\fP *nc)"
+.br
+.ti -1c
+.RI "virtual void \fBgeneratePrimitives\fP (\fBSoAction\fP *action)"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoIndexedTriangleStripSet\fP class keeps data for rendering and otherwise representing triangle strips\&.
+.PP
+Use nodes of this type as an effective way of drawing triangles which are strung together\&. 
+
+For more information, see the documentation of the \fBSoTriangleStripSet\fP node\&.
+.PP
+To render several strips within the same node, just separate the coordinate indices with -1\&. For more information about indexed shapes, see documentation in \fBSoIndexedShape\fP and \fBSoIndexedFaceSet\fP\&.
+.PP
+Example scene graph:
+.PP
+.PP
+.nf
+#Inventor V2.1 ascii
+
+Separator {
+   Coordinate3 {
+      point [
+       -2 1 0, -1 -1 0, 0 1 0, 1 -1 0, 2 1 0, # first strip, z==0
+       -2 1 5, -1 -1 5, 0 1 5, 1 -1 5, 2 1 5  # second strip, z==5
+      ]
+   }
+
+   IndexedTriangleStripSet {
+      coordIndex [
+       0, 1, 2, 3, 4, -1,
+       5, 6, 7, 8, 9, -1
+      ]
+   }
+}
+.fi
+.PP
+.PP
+\fBFILE FORMAT/DEFAULTS:\fP 
+.PP
+.nf
+IndexedTriangleStripSet {
+    vertexProperty NULL
+    coordIndex 0
+    materialIndex -1
+    normalIndex -1
+    textureCoordIndex -1
+}
+
+.fi
+.PP
+ 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoIndexedTriangleStripSet::SoIndexedTriangleStripSet (void)"
+Constructor\&. Default field values will equal those set in the \fBSoIndexedShape\fP parent class\&. 
+.SS "SoIndexedTriangleStripSet::~SoIndexedTriangleStripSet ()\fC [protected]\fP, \fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoIndexedTriangleStripSet::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Reimplemented from \fBSoIndexedShape\fP\&.
+.SS "const \fBSoFieldData\fP * SoIndexedTriangleStripSet::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoIndexedShape\fP\&.
+.SS "void SoIndexedTriangleStripSet::GLRender (\fBSoGLRenderAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGLRenderAction\fP\&.
+.PP
+This is called during rendering traversals\&. Nodes influencing the rendering state in any way or who wants to throw geometry primitives at OpenGL overrides this method\&. 
+.PP
+Reimplemented from \fBSoShape\fP\&.
+.SS "void SoIndexedTriangleStripSet::getPrimitiveCount (\fBSoGetPrimitiveCountAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGetPrimitiveCountAction\fP\&.
+.PP
+Calculates the number of triangle, line segment and point primitives for the node and adds these to the counters of the \fIaction\fP\&.
+.PP
+Nodes influencing how geometry nodes calculates their primitive count also overrides this method to change the relevant state variables\&. 
+.PP
+Reimplemented from \fBSoShape\fP\&.
+.SS "SbBool SoIndexedTriangleStripSet::generateDefaultNormals (\fBSoState\fP * state, \fBSoNormalBundle\fP * bundle)\fC [virtual]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP
+.PP
+Subclasses should override this method to generate default normals using the \fBSoNormalBundle\fP class\&. \fCTRUE\fP should be returned if normals were generated, \fCFALSE\fP otherwise\&.
+.PP
+Default method returns \fCFALSE\fP\&.
+.PP
+This function is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&. 
+.PP
+Reimplemented from \fBSoVertexShape\fP\&.
+.SS "SbBool SoIndexedTriangleStripSet::generateDefaultNormals (\fBSoState\fP * state, \fBSoNormalCache\fP * cache)\fC [protected]\fP, \fC [virtual]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP
+.PP
+Subclasses should override this method to generate default normals using the \fBSoNormalCache\fP class\&. This is more effective than using \fBSoNormalGenerator\fP\&. Return \fCTRUE\fP if normals were generated, \fCFALSE\fP otherwise\&.
+.PP
+Default method just returns \fCFALSE\fP\&.
+.PP
+This function is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&. 
+.PP
+Reimplemented from \fBSoVertexShape\fP\&.
+.SS "void SoIndexedTriangleStripSet::generatePrimitives (\fBSoAction\fP * action)\fC [protected]\fP, \fC [virtual]\fP"
+The method implements action behavior for shape nodes for \fBSoCallbackAction\fP\&. It is invoked from \fBSoShape::callback()\fP\&. (Subclasses should \fInot\fP override \fBSoNode::callback()\fP\&.)
+.PP
+The subclass implementations uses the convenience methods \fBSoShape::beginShape()\fP, \fBSoShape::shapeVertex()\fP, and \fBSoShape::endShape()\fP, with \fBSoDetail\fP instances, to pass the primitives making up the shape back to the caller\&. 
+.PP
+Implements \fBSoShape\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

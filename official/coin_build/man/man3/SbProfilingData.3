@@ -1,0 +1,223 @@
+.TH "SbProfilingData" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SbProfilingData \- Data structure for gathering scene graph traversal profiling information\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBFootprintType\fP { \fBMEMORY_SIZE\fP, \fBVIDEO_MEMORY_SIZE\fP }"
+.br
+.ti -1c
+.RI "enum \fBNodeFlag\fP { \fBGL_CACHED_FLAG\fP, \fBCULLED_FLAG\fP }"
+.br
+.ti -1c
+.RI "enum \fBNodeDataQueryFlags\fP { \fBINCLUDE_CHILDREN\fP = 0x01 }"
+.br
+.ti -1c
+.RI "typedef void \fBSbProfilingDataCB\fP(void *userdata, const \fBSbProfilingData\fP &data, const \fBSbList\fP< \fBSoNode\fP *> &pointers, \fBSbList\fP< \fBint\fP > &childindices, \fBint\fP idx)"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSbProfilingData\fP (void)"
+.br
+.ti -1c
+.RI "\fBSbProfilingData\fP (const \fBSbProfilingData\fP &rhs)"
+.br
+.ti -1c
+.RI "\fB~SbProfilingData\fP (void)"
+.br
+.ti -1c
+.RI "void \fBsetActionType\fP (\fBSoType\fP actiontype)"
+.br
+.ti -1c
+.RI "\fBSoType\fP \fBgetActionType\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBsetActionStartTime\fP (\fBSbTime\fP starttime)"
+.br
+.ti -1c
+.RI "\fBSbTime\fP \fBgetActionStartTime\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBsetActionStopTime\fP (\fBSbTime\fP stoptime)"
+.br
+.ti -1c
+.RI "\fBSbTime\fP \fBgetActionStopTime\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSbTime\fP \fBgetActionDuration\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBsetNodeTiming\fP (const \fBSoPath\fP *path, \fBSbTime\fP timing)"
+.br
+.ti -1c
+.RI "void \fBsetNodeTiming\fP (\fBint\fP idx, \fBSbTime\fP timing)"
+.br
+.ti -1c
+.RI "void \fBpreOffsetNodeTiming\fP (\fBint\fP idx, \fBSbTime\fP timing)"
+.br
+.ti -1c
+.RI "\fBSbTime\fP \fBgetNodeTiming\fP (const \fBSoPath\fP *path, unsigned \fBint\fP queryflags=0) const"
+.br
+.ti -1c
+.RI "\fBSbTime\fP \fBgetNodeTiming\fP (\fBint\fP idx, unsigned \fBint\fP queryflags=0) const"
+.br
+.ti -1c
+.RI "void \fBsetNodeFootprint\fP (const \fBSoPath\fP *path, FootprintType type, size_t footprint)"
+.br
+.ti -1c
+.RI "void \fBsetNodeFootprint\fP (\fBint\fP idx, FootprintType type, size_t footprint)"
+.br
+.ti -1c
+.RI "size_t \fBgetNodeFootprint\fP (const \fBSoPath\fP *path, FootprintType type, unsigned \fBint\fP queryflags=0) const"
+.br
+.ti -1c
+.RI "size_t \fBgetNodeFootprint\fP (\fBint\fP idx, FootprintType type, unsigned \fBint\fP queryflags=0) const"
+.br
+.ti -1c
+.RI "void \fBsetNodeFlag\fP (const \fBSoPath\fP *path, NodeFlag flag, SbBool on)"
+.br
+.ti -1c
+.RI "void \fBsetNodeFlag\fP (\fBint\fP idx, NodeFlag flag, SbBool on)"
+.br
+.ti -1c
+.RI "SbBool \fBgetNodeFlag\fP (const \fBSoPath\fP *path, NodeFlag flag) const"
+.br
+.ti -1c
+.RI "SbBool \fBgetNodeFlag\fP (\fBint\fP idx, NodeFlag flag) const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetIndex\fP (const \fBSoPath\fP *path, SbBool create=FALSE)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetParentIndex\fP (\fBint\fP idx) const"
+.br
+.ti -1c
+.RI "\fBSoType\fP \fBgetNodeType\fP (\fBint\fP idx) const"
+.br
+.ti -1c
+.RI "\fBSbName\fP \fBgetNodeName\fP (\fBint\fP idx) const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetLongestNameLength\fP (void) const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetLongestTypeNameLength\fP (void) const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetNumNodeEntries\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBreportAll\fP (SbProfilingDataCB *callback, void *userdata) const"
+.br
+.ti -1c
+.RI "void \fBgetStatsForTypesKeyList\fP (\fBSbList\fP< \fBSbProfilingNodeTypeKey\fP > &keys_out) const"
+.br
+.ti -1c
+.RI "void \fBgetStatsForType\fP (\fBSbProfilingNodeTypeKey\fP type, \fBSbTime\fP &total, \fBSbTime\fP &max, uint32_t &count) const"
+.br
+.ti -1c
+.RI "void \fBgetStatsForNamesKeyList\fP (\fBSbList\fP< \fBSbProfilingNodeNameKey\fP > &keys_out) const"
+.br
+.ti -1c
+.RI "void \fBgetStatsForName\fP (\fBSbProfilingNodeNameKey\fP name, \fBSbTime\fP &total, \fBSbTime\fP &max, uint32_t &count) const"
+.br
+.ti -1c
+.RI "void \fBreset\fP (void)"
+.br
+.ti -1c
+.RI "\fBSbProfilingData\fP & \fBoperator=\fP (const \fBSbProfilingData\fP &rhs)"
+.br
+.ti -1c
+.RI "\fBSbProfilingData\fP & \fBoperator+=\fP (const \fBSbProfilingData\fP &rhs)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBoperator==\fP (const \fBSbProfilingData\fP &rhs) const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBoperator!=\fP (const \fBSbProfilingData\fP &rhs) const"
+.br
+.ti -1c
+.RI "size_t \fBgetProfilingDataSize\fP (void) const"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoType\fP \fBactionType\fP"
+.br
+.ti -1c
+.RI "\fBSbTime\fP \fBactionStartTime\fP"
+.br
+.ti -1c
+.RI "\fBSbTime\fP \fBactionStopTime\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Data structure for gathering scene graph traversal profiling information\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SbProfilingData::SbProfilingData (void)"
+Constructor\&. 
+.SS "SbProfilingData::SbProfilingData (const \fBSbProfilingData\fP & rhs)"
+Copy constructor\&. 
+.SS "SbProfilingData::~SbProfilingData (void)"
+Desctructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void SbProfilingData::setActionType (\fBSoType\fP actiontype)"
+Register which type of action we are recording statistics for\&. 
+.SS "\fBSoType\fP SbProfilingData::getActionType (void) const"
+Return the action type set for this \fBSbProfilingData\fP\&. 
+.SS "void SbProfilingData::setActionStartTime (\fBSbTime\fP starttime)"
+Set traversal start time\&. 
+.SS "\fBSbTime\fP SbProfilingData::getActionStartTime (void) const"
+Return the action start time\&. 
+.SS "void SbProfilingData::setActionStopTime (\fBSbTime\fP stoptime)"
+Set traversal stop time\&. 
+.SS "\fBSbTime\fP SbProfilingData::getActionStopTime (void) const"
+Return the action stop time\&. 
+.SS "\fBSbTime\fP SbProfilingData::getActionDuration (void) const"
+Return the time the action has spent on the traversal that was profiled\&. 
+.SS "void SbProfilingData::setNodeTiming (const \fBSoPath\fP * path, \fBSbTime\fP timing)"
+This function calls the index-version of setNodeTiming after having fetched the index\&. 
+.SS "void SbProfilingData::setNodeTiming (\fBint\fP idx, \fBSbTime\fP timing)"
+This method sets the timing for a node, as if it was new data to be registered\&. This means that counters of various types are implicitly incremented and similar things\&. To avoid those sideeffects, use offsetNodeTiming, which leaves all the counters alone\&.
+.PP
+\fBSee also:\fP
+.RS 4
+offsetNodeTiming 
+.RE
+.PP
+
+.SS "void SbProfilingData::preOffsetNodeTiming (\fBint\fP idx, \fBSbTime\fP timing)"
+This function will adjust node timings without touching traversal counters\&. 
+.SS "\fBSbTime\fP SbProfilingData::getNodeTiming (const \fBSoPath\fP * path, unsigned \fBint\fP flags = \fC0\fP) const"
+Returns the timing for a node\&. 
+.SS "\fBint\fP SbProfilingData::getIndex (const \fBSoPath\fP * path, SbBool create = \fCFALSE\fP)"
+Return the index of the tail node in the path\&. If node is not registered, add it and return that index\&. 
+.SS "\fBint\fP SbProfilingData::getParentIndex (\fBint\fP idx) const"
+Return the index of the parent of the node entry at index \fIidx\fP\&. If entry is a root entry, -1 is returned\&. 
+.SS "void SbProfilingData::reset (void)"
+Remove all stored data\&. 
+.SS "\fBSbProfilingData\fP & SbProfilingData::operator= (const \fBSbProfilingData\fP & rhs)"
+Assignment operator\&. 
+.SS "\fBSbProfilingData\fP & SbProfilingData::operator+= (const \fBSbProfilingData\fP & rhs)"
+Add profiling data from another data set\&. 
+.SS "size_t SbProfilingData::getProfilingDataSize (void) const"
+Returns the amount of memory allocated for this data structure\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

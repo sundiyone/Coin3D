@@ -1,0 +1,163 @@
+.TH "SoIndexedMarkerSet" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoIndexedMarkerSet \- The \fBSoIndexedMarkerSet\fP class is used to display a set of bitmap markers at 3D positions\&.
+.PP
+This node either uses the coordinates currently on the state (typically set up by a leading \fBSoCoordinate3\fP node in the scenegraph) or from a \fBSoVertexProperty\fP node attached to this node to render a set of 3D points\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/nodes/SoIndexedMarkerSet\&.h>\fP
+.PP
+Inherits \fBSoIndexedPointSet\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "\fBSoIndexedMarkerSet\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBGLRender\fP (\fBSoGLRenderAction\fP *action)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoMFInt32\fP \fBmarkerIndex\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fB~SoIndexedMarkerSet\fP ()"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoIndexedMarkerSet\fP class is used to display a set of bitmap markers at 3D positions\&.
+.PP
+This node either uses the coordinates currently on the state (typically set up by a leading \fBSoCoordinate3\fP node in the scenegraph) or from a \fBSoVertexProperty\fP node attached to this node to render a set of 3D points\&. 
+
+To add new markers, use the static functions in \fBSoMarkerSet\fP\&.
+.PP
+Here's a simple usage example of \fBSoIndexedMarkerSet\fP in a scenegraph:
+.PP
+.PP
+.nf
+#Inventor V2.1 ascii
+
+Separator {
+   Material {
+      diffuseColor [
+       1 0 0, 0 1 0, 0 0 1, 1 1 0, 1 0 1, 1 1 1, 1 0.8 0.6, 0.6 0.8 1
+      ]
+   }
+   MaterialBinding { value PER_VERTEX_INDEXED }
+
+   Coordinate3 {
+      point [
+       -1 1 0, -1 -1 0, 1 -1 0, 1 1 0, 0 2 -1, -2 0 -1, 0 -2 -1, 2 0 -1
+      ]
+   }
+
+   IndexedMarkerSet {
+      coordIndex [0, 1, 2, 3, 4, 5, 6, 7]
+      markerIndex [0, 1, 0, 1, 0, 1, 0, 1]
+   }
+}.fi
+.PP
+.PP
+\fBFILE FORMAT/DEFAULTS:\fP 
+.PP
+.nf
+IndexedMarkerSet {
+  vertexProperty        NULL
+  coordIndex        0
+  materialIndex        -1
+  normalIndex        -1
+  textureCoordIndex        -1
+  markerIndex   -1
+}
+
+.fi
+.PP
+.PP
+\fBSince:\fP
+.RS 4
+TGS Inventor 6\&.0, Coin 3\&.1 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoIndexedMarkerSet::SoIndexedMarkerSet (void)"
+Constructor\&. 
+.SS "SoIndexedMarkerSet::~SoIndexedMarkerSet ()\fC [protected]\fP, \fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoIndexedMarkerSet::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Reimplemented from \fBSoIndexedPointSet\fP\&.
+.SS "const \fBSoFieldData\fP * SoIndexedMarkerSet::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoIndexedPointSet\fP\&.
+.SS "void SoIndexedMarkerSet::GLRender (\fBSoGLRenderAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGLRenderAction\fP\&.
+.PP
+This is called during rendering traversals\&. Nodes influencing the rendering state in any way or who wants to throw geometry primitives at OpenGL overrides this method\&. 
+.PP
+Reimplemented from \fBSoIndexedPointSet\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

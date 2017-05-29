@@ -1,0 +1,785 @@
+.TH "SoRenderManager" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoRenderManager \- The \fBSoRenderManager\fP class is used for controlling the rendering of a scene graph\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/SoRenderManager\&.h>\fP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBSuperimposition\fP"
+.br
+.in -1c
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBRenderMode\fP { \fBAS_IS\fP, \fBWIREFRAME\fP, \fBPOINTS\fP, \fBWIREFRAME_OVERLAY\fP, \fBHIDDEN_LINE\fP, \fBBOUNDING_BOX\fP }"
+.br
+.ti -1c
+.RI "enum \fBStereoMode\fP { \fBMONO\fP, \fBANAGLYPH\fP, \fBSEPARATE_OUTPUT\fP, \fBQUAD_BUFFER\fP = SEPARATE_OUTPUT, \fBINTERLEAVED_ROWS\fP, \fBINTERLEAVED_COLUMNS\fP }"
+.br
+.ti -1c
+.RI "enum \fBBufferType\fP { \fBBUFFER_SINGLE\fP, \fBBUFFER_DOUBLE\fP }"
+.br
+.ti -1c
+.RI "enum \fBAutoClippingStrategy\fP { \fBNO_AUTO_CLIPPING\fP, \fBFIXED_NEAR_PLANE\fP, \fBVARIABLE_NEAR_PLANE\fP }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSoRenderManager\fP (void)"
+.br
+.ti -1c
+.RI "virtual \fB~SoRenderManager\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBrender\fP (const SbBool clearwindow=TRUE, const SbBool clearzbuffer=TRUE)"
+.br
+.ti -1c
+.RI "virtual void \fBrender\fP (\fBSoGLRenderAction\fP *action, const SbBool initmatrices=TRUE, const SbBool clearwindow=TRUE, const SbBool clearzbuffer=TRUE)"
+.br
+.ti -1c
+.RI "\fBSuperimposition\fP * \fBaddSuperimposition\fP (\fBSoNode\fP *scene, uint32_t flags=Superimposition::AUTOREDRAW|Superimposition::ZBUFFERON|Superimposition::CLEARZBUFFER)"
+.br
+.ti -1c
+.RI "void \fBremoveSuperimposition\fP (\fBSuperimposition\fP *s)"
+.br
+.ti -1c
+.RI "virtual void \fBsetSceneGraph\fP (\fBSoNode\fP *const sceneroot)"
+.br
+.ti -1c
+.RI "virtual \fBSoNode\fP * \fBgetSceneGraph\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBsetCamera\fP (\fBSoCamera\fP *camera)"
+.br
+.ti -1c
+.RI "\fBSoCamera\fP * \fBgetCamera\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBsetAutoClipping\fP (\fBAutoClippingStrategy\fP autoclipping)"
+.br
+.ti -1c
+.RI "\fBAutoClippingStrategy\fP \fBgetAutoClipping\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBsetNearPlaneValue\fP (float value)"
+.br
+.ti -1c
+.RI "float \fBgetNearPlaneValue\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBsetTexturesEnabled\fP (const SbBool onoff)"
+.br
+.ti -1c
+.RI "SbBool \fBisTexturesEnabled\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBsetDoubleBuffer\fP (const SbBool enable)"
+.br
+.ti -1c
+.RI "SbBool \fBisDoubleBuffer\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBsetRenderMode\fP (const \fBRenderMode\fP mode)"
+.br
+.ti -1c
+.RI "\fBRenderMode\fP \fBgetRenderMode\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBsetStereoMode\fP (const \fBStereoMode\fP mode)"
+.br
+.ti -1c
+.RI "\fBStereoMode\fP \fBgetStereoMode\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBsetStereoOffset\fP (const float offset)"
+.br
+.ti -1c
+.RI "float \fBgetStereoOffset\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBsetRenderCallback\fP (SoRenderManagerRenderCB *f, void *const userData=NULL)"
+.br
+.ti -1c
+.RI "SbBool \fBisAutoRedraw\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBsetRedrawPriority\fP (const uint32_t priority)"
+.br
+.ti -1c
+.RI "uint32_t \fBgetRedrawPriority\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBscheduleRedraw\fP (void)"
+.br
+.ti -1c
+.RI "void \fBsetWindowSize\fP (const \fBSbVec2s\fP &newsize)"
+.br
+.ti -1c
+.RI "const \fBSbVec2s\fP & \fBgetWindowSize\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBsetSize\fP (const \fBSbVec2s\fP &newsize)"
+.br
+.ti -1c
+.RI "const \fBSbVec2s\fP & \fBgetSize\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBsetOrigin\fP (const \fBSbVec2s\fP &newOrigin)"
+.br
+.ti -1c
+.RI "const \fBSbVec2s\fP & \fBgetOrigin\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBsetViewportRegion\fP (const \fBSbViewportRegion\fP &newRegion)"
+.br
+.ti -1c
+.RI "const \fBSbViewportRegion\fP & \fBgetViewportRegion\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBsetBackgroundColor\fP (const \fBSbColor4f\fP &color)"
+.br
+.ti -1c
+.RI "const \fBSbColor4f\fP & \fBgetBackgroundColor\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBsetOverlayColor\fP (const \fBSbColor4f\fP &color)"
+.br
+.ti -1c
+.RI "\fBSbColor4f\fP \fBgetOverlayColor\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBsetBackgroundIndex\fP (const \fBint\fP index)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetBackgroundIndex\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBsetRGBMode\fP (const SbBool onOrOff)"
+.br
+.ti -1c
+.RI "SbBool \fBisRGBMode\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBactivate\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBdeactivate\fP (void)"
+.br
+.ti -1c
+.RI "void \fBsetAntialiasing\fP (const SbBool smoothing, const \fBint\fP numPasses)"
+.br
+.ti -1c
+.RI "void \fBgetAntialiasing\fP (SbBool &smoothing, \fBint\fP &numPasses) const"
+.br
+.ti -1c
+.RI "void \fBsetGLRenderAction\fP (\fBSoGLRenderAction\fP *const action)"
+.br
+.ti -1c
+.RI "\fBSoGLRenderAction\fP * \fBgetGLRenderAction\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBsetAudioRenderAction\fP (\fBSoAudioRenderAction\fP *const action)"
+.br
+.ti -1c
+.RI "\fBSoAudioRenderAction\fP * \fBgetAudioRenderAction\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBaddPreRenderCallback\fP (SoRenderManagerRenderCB *cb, void *data)"
+.br
+.ti -1c
+.RI "void \fBremovePreRenderCallback\fP (SoRenderManagerRenderCB *cb, void *data)"
+.br
+.ti -1c
+.RI "void \fBaddPostRenderCallback\fP (SoRenderManagerRenderCB *cb, void *data)"
+.br
+.ti -1c
+.RI "void \fBremovePostRenderCallback\fP (SoRenderManagerRenderCB *cb, void *data)"
+.br
+.ti -1c
+.RI "void \fBreinitialize\fP (void)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static void \fBenableRealTimeUpdate\fP (const SbBool flag)"
+.br
+.ti -1c
+.RI "static SbBool \fBisRealTimeUpdateEnabled\fP (void)"
+.br
+.ti -1c
+.RI "static uint32_t \fBgetDefaultRedrawPriority\fP (void)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBint\fP \fBisActive\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBredraw\fP (void)"
+.br
+.ti -1c
+.RI "void \fBrenderScene\fP (\fBSoGLRenderAction\fP *action, \fBSoNode\fP *scene, uint32_t clearmask)"
+.br
+.ti -1c
+.RI "void \fBactuallyRender\fP (\fBSoGLRenderAction\fP *action, const SbBool initmatrices=TRUE, const SbBool clearwindow=TRUE, const SbBool clearzbuffer=TRUE)"
+.br
+.ti -1c
+.RI "void \fBrenderSingle\fP (\fBSoGLRenderAction\fP *action, SbBool initmatrices, SbBool clearwindow, SbBool clearzbuffer)"
+.br
+.RI "Render once in correct draw style\&. "
+.ti -1c
+.RI "void \fBrenderStereo\fP (\fBSoGLRenderAction\fP *action, SbBool initmatrices, SbBool clearwindow, SbBool clearzbuffer)"
+.br
+.RI "Render scene according to current stereo mode\&. "
+.ti -1c
+.RI "void \fBinitStencilBufferForInterleavedStereo\fP (void)"
+.br
+.ti -1c
+.RI "void \fBclearBuffers\fP (SbBool color, SbBool depth)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBSoRenderManager\fP class is used for controlling the rendering of a scene graph\&. 
+
+You can use this class to configure things like clipping planes, rendering mode, stereo rendering and the background color\&. In earlier versions of Coin/Inventor, this was set up in the GUI toolkits, making it quite hard to make a new Coin viewer for another GUI toolkit\&. With this new class all that is needed is to create one \fBSoRenderManager\fP instance per viewer/view\&.
+.PP
+This class does not handle events for the scene graph/viewer\&. To do that you can use the \fBSoEventManager\fP class\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 3\&.0 
+.RE
+.PP
+
+.SH "Member Enumeration Documentation"
+.PP 
+.SS "enum \fBSoRenderManager::RenderMode\fP"
+Sets how rendering of primitives is done\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fIAS_IS \fP\fP
+Render primitives as they are described in the scenegraph\&. 
+.TP
+\fB\fIWIREFRAME \fP\fP
+Render polygons as wireframe 
+.TP
+\fB\fIPOINTS \fP\fP
+Render only the vertices of the polygons and lines\&. 
+.TP
+\fB\fIWIREFRAME_OVERLAY \fP\fP
+Render a wireframe overlay in addition to the AS_IS mode 
+.TP
+\fB\fIHIDDEN_LINE \fP\fP
+As WIREFRAME, but culls lines which would otherwise not be shown due to geometric culling\&. 
+.TP
+\fB\fIBOUNDING_BOX \fP\fP
+Only show the bounding box of each object\&. 
+.SS "enum \fBSoRenderManager::StereoMode\fP"
+Manages how to render steroscopic images\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fIMONO \fP\fP
+No stereoscopic rendering 
+.TP
+\fB\fIANAGLYPH \fP\fP
+Anaglyph rendering is used to provide a steroscopic 3D effect, when viewed with 3D glasses\&. The image is made up of two color layers which are superimposed on each other, and appears as 3 dimensional when viewed through corresponding colored filters(glases) 
+.TP
+\fB\fISEPARATE_OUTPUT \fP\fP
+Send output to separate buffers\&. 
+.TP
+\fB\fIQUAD_BUFFER \fP\fP
+Same as SEPARATE_OUTPUT, SEPARATE_OUTPUT is more commonly known as QUAD_BUFFER, when also using double buffering\&. 
+.TP
+\fB\fIINTERLEAVED_ROWS \fP\fP
+Render every second row as left and right image\&. If rendered with a polarized projector, polarized filters kan be used to give a 3D effect\&. 
+.TP
+\fB\fIINTERLEAVED_COLUMNS \fP\fP
+Render every second column as left and right image\&. If rendered with a polarized projector, polarized filters kan be used to give a 3D effect\&. 
+.SS "enum \fBSoRenderManager::BufferType\fP"
+Buffering strategy 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fIBUFFER_SINGLE \fP\fP
+Output to one buffer 
+.TP
+\fB\fIBUFFER_DOUBLE \fP\fP
+Alternate between output buffers 
+.SS "enum \fBSoRenderManager::AutoClippingStrategy\fP"
+Strategy for adjusting camera near/far clipping plane 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fINO_AUTO_CLIPPING \fP\fP
+Turn off automatic clipping\&. The user needs to set the correct values in the camera\&. 
+.TP
+\fB\fIFIXED_NEAR_PLANE \fP\fP
+Keep near plane at a fixed distance from the camera\&. The far plane is always set at the end of the bounding box\&. 
+.TP
+\fB\fIVARIABLE_NEAR_PLANE \fP\fP
+Variable adjustment of the nearplane relative to the camera\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoRenderManager::SoRenderManager (void)"
+Constructor\&. 
+.SS "SoRenderManager::~SoRenderManager ()\fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void SoRenderManager::render (const SbBool clearwindow = \fCTRUE\fP, const SbBool clearzbuffer = \fCTRUE\fP)\fC [virtual]\fP"
+Render the scene graph\&.
+.PP
+All SbBool arguments should normally be \fCTRUE\fP, but they can be set to \fCFALSE\fP to optimize for special cases (e\&.g\&. when doing wireframe rendering one doesn't need a depth buffer)\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIclearwindow\fP If set to \fCTRUE\fP, clear the rendering buffer before drawing\&.
+.br
+\fIclearzbuffer\fP If set to \fCTRUE\fP, clear the depth buffer values before rendering\&. 
+.RE
+.PP
+
+.SS "void SoRenderManager::render (\fBSoGLRenderAction\fP * action, const SbBool initmatrices = \fCTRUE\fP, const SbBool clearwindow = \fCTRUE\fP, const SbBool clearzbuffer = \fCTRUE\fP)\fC [virtual]\fP"
+Render the scene graph\&.
+.PP
+All SbBool arguments should normally be \fCTRUE\fP, but they can be set to \fCFALSE\fP to optimize for special cases (e\&.g\&. when doing wireframe rendering one doesn't need a depth buffer)\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIclearwindow\fP If set to \fCTRUE\fP, clear the rendering buffer before drawing\&.
+.br
+\fIclearzbuffer\fP If set to \fCTRUE\fP, clear the depth buffer values before rendering\&.
+.br
+\fIinitmatrices\fP if true, the projection and modelview matrices are reset to identity 
+.br
+\fIaction\fP Renders with a user supplied action 
+.RE
+.PP
+
+.SS "\fBSoRenderManager::Superimposition\fP * SoRenderManager::addSuperimposition (\fBSoNode\fP * scene, uint32_t flags = \fCSuperimposition::AUTOREDRAW | Superimposition::ZBUFFERON | Superimposition::CLEARZBUFFER\fP)"
+Add a superimposition for this scene graph\&. A superimposition can either be a scene rendered in the background, or a scene rendered in the front of the actual scene graph\&.
+.PP
+This is useful, for instance, if you want to add a gradient or an image in the background, and for having some HUD info in the foreground\&.
+.PP
+Please note that if you use superimpositions, multipass antialiasing have to be handled in the render manager, and not in \fBSoGLRenderAction\fP, so the pass update features in \fBSoGLRenderAction\fP will be disabled\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoGLRenderAction::setNumPasses()\fP 
+.PP
+\fBSoGLRenderAction::setPassUpdate()\fP 
+.PP
+\fBSoGLRenderAction::setPassCallback()\fP 
+.RE
+.PP
+
+.SS "void SoRenderManager::removeSuperimposition (\fBSuperimposition\fP * s)"
+Removes a superimposition\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBaddSuperimposition()\fP 
+.RE
+.PP
+
+.SS "void SoRenderManager::setSceneGraph (\fBSoNode\fP *const sceneroot)\fC [virtual]\fP"
+Set the node which is top of the scene graph we're managing\&. The \fIsceneroot\fP node reference count will be increased by 1, and any previously set scene graph top node will have it's reference count decreased by 1\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetSceneGraph()\fP 
+.RE
+.PP
+
+.SS "\fBSoNode\fP * SoRenderManager::getSceneGraph (void) const\fC [virtual]\fP"
+Returns the pointer to root of scene graph\&. 
+.SS "void SoRenderManager::setCamera (\fBSoCamera\fP * camera)"
+Sets the camera to be used\&. 
+.SS "\fBSoCamera\fP * SoRenderManager::getCamera (void) const"
+Returns the current camera\&. 
+.SS "void SoRenderManager::setAutoClipping (\fBAutoClippingStrategy\fP autoclipping)"
+Sets strategy for adjusting camera clipping plane
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoRenderManager::AutoClippingStrategy\fP 
+.RE
+.PP
+
+.SS "\fBSoRenderManager::AutoClippingStrategy\fP SoRenderManager::getAutoClipping (void) const"
+This method returns the current autoclipping strategy\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetAutoClipping\fP 
+.RE
+.PP
+
+.SS "void SoRenderManager::setNearPlaneValue (float value)"
+When the \fBSoRenderManager::FIXED_NEAR_PLANE\fP autoclipping strategy is used, you set the value of the near plane distance with this method\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetAutoClipping\fP, \fBgetNearPlaneValue\fP, \fBSoRenderManager::AutoClippingStrategy\fP 
+.RE
+.PP
+
+.SS "float SoRenderManager::getNearPlaneValue (void) const"
+This method returns the near plane distance value that will be used when the \fBSoRenderManager::FIXED_NEAR_PLANE\fP autoclipping strategy is used\&.
+.PP
+Default value is 0\&.6\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetAutoClipping\fP, \fBsetNearPlaneValue\fP, \fBSoRenderManager::AutoClippingStrategy\fP 
+.RE
+.PP
+
+.SS "void SoRenderManager::setTexturesEnabled (const SbBool onoff)"
+Enable/disable textures when rendering\&. Defaults to TRUE\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBisTexturesEnabled\fP 
+.RE
+.PP
+
+.SS "SbBool SoRenderManager::isTexturesEnabled (void) const"
+Returns whether textures are enabled or not\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetTexturesEnabled\fP 
+.RE
+.PP
+
+.SS "void SoRenderManager::setDoubleBuffer (const SbBool enable)"
+Tell the scenemanager that double buffering is used 
+.SS "SbBool SoRenderManager::isDoubleBuffer (void) const"
+returns if the scenemanager is double buffered 
+.SS "void SoRenderManager::setRenderMode (const \fBRenderMode\fP mode)"
+Sets the render mode\&. 
+.SS "\fBSoRenderManager::RenderMode\fP SoRenderManager::getRenderMode (void) const"
+Returns the current render mode\&. 
+.SS "void SoRenderManager::setStereoMode (const \fBStereoMode\fP mode)"
+Sets the stereo mode\&. 
+.SS "\fBSoRenderManager::StereoMode\fP SoRenderManager::getStereoMode (void) const"
+Returns the current stereo mode\&. 
+.SS "void SoRenderManager::setStereoOffset (const float offset)"
+Sets the stereo offset used when doing stereo rendering\&. 
+.SS "float SoRenderManager::getStereoOffset (void) const"
+Returns the current stereo offset\&. 
+.SS "void SoRenderManager::setRenderCallback (SoRenderManagerRenderCB * f, void *const userdata = \fCNULL\fP)"
+Set the callback function \fIf\fP to invoke when rendering the scene\&. \fIuserdata\fP will be passed as the first argument of the function\&. 
+.SS "SbBool SoRenderManager::isAutoRedraw (void) const"
+Returns \fCTRUE\fP if the \fBSoRenderManager\fP automatically redraws the scene upon detecting changes in the scene graph\&.
+.PP
+The automatic redraw is turned on and off by setting either a valid callback function with \fBsetRenderCallback()\fP, or by passing \fCNULL\fP\&. 
+.SS "void SoRenderManager::setRedrawPriority (const uint32_t priority)"
+Set up the redraw \fIpriority\fP for the \fBSoOneShotSensor\fP used to trigger redraws\&. By setting this lower than for your own sensors, you can make sure some code is always run before redraw happens\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoDelayQueueSensor\fP 
+.RE
+.PP
+
+.SS "uint32_t SoRenderManager::getRedrawPriority (void) const"
+Returns value of priority on the redraw sensor\&. 
+.SS "void SoRenderManager::scheduleRedraw (void)"
+Redraw at first opportunity as system becomes idle\&.
+.PP
+Multiple calls to this method before an actual redraw has taken place will only result in a single redraw of the scene\&. 
+.SS "void SoRenderManager::setWindowSize (const \fBSbVec2s\fP & newsize)"
+Update window size of our \fBSoGLRenderAction\fP's viewport settings\&.
+.PP
+Note that this will \fIonly\fP change the information about window dimensions, the actual viewport size and origin (ie the rectangle which redraws are confined to) will stay the same\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetViewportRegion()\fP 
+.RE
+.PP
+
+.SS "const \fBSbVec2s\fP & SoRenderManager::getWindowSize (void) const"
+Returns the current render action window size\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetWindowSize()\fP 
+.RE
+.PP
+
+.SS "void SoRenderManager::setSize (const \fBSbVec2s\fP & newsize)"
+Set size of rendering area for the viewport within the current window\&. 
+.SS "const \fBSbVec2s\fP & SoRenderManager::getSize (void) const"
+Returns size of render area\&. 
+.SS "void SoRenderManager::setOrigin (const \fBSbVec2s\fP & newOrigin)"
+Set \fIonly\fP the origin of the viewport region within the rendering window\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetViewportRegion()\fP, \fBsetWindowSize()\fP 
+.RE
+.PP
+
+.SS "const \fBSbVec2s\fP & SoRenderManager::getOrigin (void) const"
+Returns origin of rendering area viewport\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetOrigin()\fP 
+.RE
+.PP
+
+.SS "void SoRenderManager::setViewportRegion (const \fBSbViewportRegion\fP & newregion)"
+Update our \fBSoGLRenderAction\fP's viewport settings\&.
+.PP
+This will change \fIboth\fP the information about window dimensions and the actual viewport size and origin\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetWindowSize()\fP 
+.RE
+.PP
+
+.SS "const \fBSbViewportRegion\fP & SoRenderManager::getViewportRegion (void) const"
+Returns current viewport region used by the renderaction and the event handling\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetViewportRegion()\fP 
+.RE
+.PP
+
+.SS "void SoRenderManager::setBackgroundColor (const \fBSbColor4f\fP & color)"
+Sets color of rendering canvas\&. 
+.SS "const \fBSbColor4f\fP & SoRenderManager::getBackgroundColor (void) const"
+Returns color used for clearing the rendering area before rendering the scene\&. 
+.SS "void SoRenderManager::setOverlayColor (const \fBSbColor4f\fP & color)"
+Sets color of overlay\&. 
+.SS "\fBSbColor4f\fP SoRenderManager::getOverlayColor (void) const"
+Returns color used rendering overlay\&. 
+.SS "void SoRenderManager::setBackgroundIndex (const \fBint\fP index)"
+Set index of background color in the color lookup table if rendering in colorindex mode\&.
+.PP
+Note: colorindex mode is not supported yet in Coin\&. 
+.SS "\fBint\fP SoRenderManager::getBackgroundIndex (void) const"
+Returns index of colormap for background filling\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetBackgroundIndex()\fP 
+.RE
+.PP
+
+.SS "void SoRenderManager::setRGBMode (const SbBool yes)"
+Turn RGB truecolor mode on or off\&. If you turn truecolor mode off, colorindex mode will be used instead\&. 
+.SS "SbBool SoRenderManager::isRGBMode (void) const"
+Returns the 'truecolor or colorindex' mode flag\&. 
+.SS "void SoRenderManager::activate (void)\fC [virtual]\fP"
+Activate rendering and event handling\&. Default is \fCoff\fP\&. 
+.SS "void SoRenderManager::deactivate (void)\fC [virtual]\fP"
+Deactive rendering and event handling\&. 
+.SS "void SoRenderManager::setAntialiasing (const SbBool smoothing, const \fBint\fP numpasses)"
+Turn antialiased rendering on or off\&.
+.PP
+See documentation for \fBSoGLRenderAction::setSmoothing()\fP and \fBSoGLRenderAction::setNumPasses()\fP\&. 
+.SS "void SoRenderManager::getAntialiasing (SbBool & smoothing, \fBint\fP & numpasses) const"
+Returns rendering pass information\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetAntialiasing()\fP 
+.RE
+.PP
+
+.SS "void SoRenderManager::setGLRenderAction (\fBSoGLRenderAction\fP *const action)"
+Set the \fIaction\fP to use for rendering\&. Overrides the default action made in the constructor\&. 
+.SS "\fBSoGLRenderAction\fP * SoRenderManager::getGLRenderAction (void) const"
+Returns pointer to render action\&. 
+.SS "void SoRenderManager::setAudioRenderAction (\fBSoAudioRenderAction\fP *const action)"
+Set the \fIaction\fP to use for rendering audio\&. Overrides the default action made in the constructor\&. 
+.SS "\fBSoAudioRenderAction\fP * SoRenderManager::getAudioRenderAction (void) const"
+Returns pointer to audio render action\&. 
+.SS "void SoRenderManager::enableRealTimeUpdate (const SbBool flag)\fC [static]\fP"
+Set whether or not for \fBSoRenderManager\fP instances to 'touch' the global \fCrealTime\fP field after a redraw\&. If this is not done, redrawing when animating the scene will only happen as fast as the \fCrealTime\fP interval goes (which defaults to 12 times a second)\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoDB::setRealTimeInterval()\fP 
+.RE
+.PP
+
+.SS "SbBool SoRenderManager::isRealTimeUpdateEnabled (void)\fC [static]\fP"
+Returns whether or not we automatically notifies everything connected to the \fCrealTime\fP field after a redraw\&. 
+.SS "uint32_t SoRenderManager::getDefaultRedrawPriority (void)\fC [static]\fP"
+Returns the default priority of the redraw sensor\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoDelayQueueSensor\fP, \fBsetRedrawPriority()\fP 
+.RE
+.PP
+
+.SS "void SoRenderManager::addPreRenderCallback (SoRenderManagerRenderCB * cb, void * data)"
+Adds a function to be called before rendering starts
+.PP
+\fBParameters:\fP
+.RS 4
+\fIcb\fP function to be called 
+.br
+\fIdata\fP User specified data to supply to callback function 
+.RE
+.PP
+
+.SS "void SoRenderManager::removePreRenderCallback (SoRenderManagerRenderCB * cb, void * data)"
+Removes a prerendercallback\&.
+.PP
+\fBPrecondition:\fP
+.RS 4
+The tuple (cb, data) must exactly match an earlier call to \fBSoRenderManager::addPreRenderCallback\fP
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIcb\fP function to be called 
+.br
+\fIdata\fP User specified data to supply to callback function 
+.RE
+.PP
+
+.SS "void SoRenderManager::addPostRenderCallback (SoRenderManagerRenderCB * cb, void * data)"
+Adds a function to be called after rendering is complete
+.PP
+\fBParameters:\fP
+.RS 4
+\fIcb\fP function to be called 
+.br
+\fIdata\fP User specified data to supply to callback function 
+.RE
+.PP
+
+.SS "void SoRenderManager::removePostRenderCallback (SoRenderManagerRenderCB * cb, void * data)"
+Removes a postrendercallback\&.
+.PP
+\fBPrecondition:\fP
+.RS 4
+The tuple (cb, data) must exactly match an earlier call to \fBSoRenderManager::addPostRenderCallback\fP
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIcb\fP function to be called 
+.br
+\fIdata\fP User specified data to supply to callback function 
+.RE
+.PP
+
+.SS "void SoRenderManager::reinitialize (void)"
+Reinitialize after parameters affecting the OpenGL context has changed\&. 
+.SS "\fBint\fP SoRenderManager::isActive (void) const\fC [protected]\fP"
+Returns the \fIactive\fP flag\&. 
+.SS "void SoRenderManager::redraw (void)\fC [protected]\fP"
+Do an immediate redraw by calling the redraw callback function\&. 
+.SS "void SoRenderManager::renderScene (\fBSoGLRenderAction\fP * action, \fBSoNode\fP * scene, uint32_t clearmask)\fC [protected]\fP"
+Renders a scene and applies clear state as given by this renderManager
+.PP
+\fBParameters:\fP
+.RS 4
+\fIaction\fP Action to apply 
+.br
+\fIscene\fP Scene to render 
+.br
+\fIclearmask\fP mask to pass to glClear 
+.RE
+.PP
+
+.SS "void SoRenderManager::actuallyRender (\fBSoGLRenderAction\fP * action, const SbBool initmatrices = \fCTRUE\fP, const SbBool clearwindow = \fCTRUE\fP, const SbBool clearzbuffer = \fCTRUE\fP)\fC [protected]\fP"
+Convenience function for \fBSoRenderManager::renderScene\fP
+.PP
+\fBParameters:\fP
+.RS 4
+\fIaction\fP Renders with a user supplied action
+.br
+\fIinitmatrices\fP if true, the projection and modelview matrices are reset to identity
+.br
+\fIclearwindow\fP If set to \fCTRUE\fP, clear the rendering buffer before drawing\&.
+.br
+\fIclearzbuffer\fP If set to \fCTRUE\fP, clear the depth buffer values before rendering\&. 
+.RE
+.PP
+
+.SS "void SoRenderManager::renderSingle (\fBSoGLRenderAction\fP * action, SbBool initmatrices, SbBool clearwindow, SbBool clearzbuffer)\fC [protected]\fP"
+
+.PP
+Render once in correct draw style\&. Convenience function for \fBSoRenderManager::renderScene\fP
+.PP
+\fBParameters:\fP
+.RS 4
+\fIaction\fP Renders with a user supplied action
+.br
+\fIinitmatrices\fP if true, the projection and modelview matrices are reset to identity
+.br
+\fIclearwindow\fP If set to \fCTRUE\fP, clear the rendering buffer before drawing\&.
+.br
+\fIclearzbuffer\fP If set to \fCTRUE\fP, clear the depth buffer values before rendering\&. 
+.RE
+.PP
+
+.SS "void SoRenderManager::renderStereo (\fBSoGLRenderAction\fP * action, SbBool initmatrices, SbBool clearwindow, SbBool clearzbuffer)\fC [protected]\fP"
+
+.PP
+Render scene according to current stereo mode\&. Convenience function for \fBSoRenderManager::renderScene\fP
+.PP
+\fBParameters:\fP
+.RS 4
+\fIaction\fP Renders with a user supplied action
+.br
+\fIinitmatrices\fP if true, the projection and modelview matrices are reset to identity
+.br
+\fIclearwindow\fP If set to \fCTRUE\fP, clear the rendering buffer before drawing\&.
+.br
+\fIclearzbuffer\fP If set to \fCTRUE\fP, clear the depth buffer values before rendering\&. 
+.RE
+.PP
+
+.SS "void SoRenderManager::initStencilBufferForInterleavedStereo (void)\fC [protected]\fP"
+Initializes stencilbuffers for interleaved stereo 
+.SS "void SoRenderManager::clearBuffers (SbBool color, SbBool depth)\fC [protected]\fP"
+Clears buffers with the backgroundcolor set correctly
+.PP
+\fBParameters:\fP
+.RS 4
+\fIcolor\fP Set to \fCTRUE\fP if color buffer should be cleared 
+.br
+\fIdepth\fP Set to \fCTRUE\fP if depth buffer should be cleared 
+.RE
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

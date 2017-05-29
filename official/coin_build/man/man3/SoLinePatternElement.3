@@ -1,0 +1,110 @@
+.TH "SoLinePatternElement" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoLinePatternElement \- The \fBSoLinePatternElement\fP class defines the line stipple pattern\&.
+.PP
+Line stippling is used to mask out fragments of a line\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/elements/SoLinePatternElement\&.h>\fP
+.PP
+Inherits \fBSoInt32Element\fP\&.
+.PP
+Inherited by \fBSoGLLinePatternElement\fP\&.
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBPatterns\fP { \fBCONTINUOUS\fP = 0xFFFF }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual void \fBinit\fP (\fBSoState\fP *state)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static \fBint\fP \fBgetClassStackIndex\fP (void)"
+.br
+.ti -1c
+.RI "static void * \fBcreateInstance\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBset\fP (\fBSoState\fP *const state, \fBSoNode\fP *const node, const int32_t pattern, const int32_t factor=1)"
+.br
+.ti -1c
+.RI "static void \fBset\fP (\fBSoState\fP *const state, const int32_t pattern, const int32_t factor=1)"
+.br
+.ti -1c
+.RI "static int32_t \fBget\fP (\fBSoState\fP *const state)"
+.br
+.ti -1c
+.RI "static int32_t \fBgetDefault\fP ()"
+.br
+.ti -1c
+.RI "static int32_t \fBgetScaleFactor\fP (\fBSoState\fP *const state)"
+.br
+.ti -1c
+.RI "static int32_t \fBgetDefaultScaleFactor\fP ()"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fB~SoLinePatternElement\fP ()"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoLinePatternElement\fP class defines the line stipple pattern\&.
+.PP
+Line stippling is used to mask out fragments of a line\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoLinePatternElement::~SoLinePatternElement (void)\fC [protected]\fP, \fC [virtual]\fP"
+The destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void * SoLinePatternElement::createInstance (void)\fC [static]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoLinePatternElement::initClass (void)\fC [static]\fP"
+This static method initializes static data for the \fBSoLinePatternElement\fP class\&. 
+.SS "void SoLinePatternElement::init (\fBSoState\fP * state)\fC [virtual]\fP"
+Initializes element in state to default value\&. 
+.PP
+Reimplemented from \fBSoInt32Element\fP\&.
+.PP
+Reimplemented in \fBSoGLLinePatternElement\fP\&.
+.SS "void SoLinePatternElement::set (\fBSoState\fP *const state, \fBSoNode\fP *const node, const int32_t pattern, const int32_t factor = \fC1\fP)\fC [static]\fP"
+Sets the given pattern in the state\&. 
+.SS "void SoLinePatternElement::set (\fBSoState\fP *const state, const int32_t pattern, const int32_t factor = \fC1\fP)\fC [static]\fP"
+Sets the given pattern in the state\&. 
+.SS "int32_t SoLinePatternElement::get (\fBSoState\fP *const state)\fC [static]\fP"
+Returns line stipple pattern from state\&. 
+.SS "int32_t SoLinePatternElement::getDefault (void)\fC [static]\fP"
+Returns default line stipple pattern\&. 
+.SS "int32_t SoLinePatternElement::getScaleFactor (\fBSoState\fP *const state)\fC [static]\fP"
+Returns line stipple pattern scale factor from state\&. 
+.SS "int32_t SoLinePatternElement::getDefaultScaleFactor ()\fC [static]\fP"
+Returns default line stipple pattern scale factor\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

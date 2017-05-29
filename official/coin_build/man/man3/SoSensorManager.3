@@ -1,0 +1,221 @@
+.TH "SoSensorManager" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoSensorManager \- The \fBSoSensorManager\fP class handles the sensor queues\&.
+.PP
+There are two major sensor types in Coin, 'delay' sensors and 'timer' sensors:  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/sensors/SoSensorManager\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSensorManager\fP (void)"
+.br
+.ti -1c
+.RI "\fB~SoSensorManager\fP ()"
+.br
+.ti -1c
+.RI "void \fBinsertDelaySensor\fP (\fBSoDelayQueueSensor\fP *s)"
+.br
+.ti -1c
+.RI "void \fBinsertTimerSensor\fP (\fBSoTimerQueueSensor\fP *s)"
+.br
+.ti -1c
+.RI "void \fBremoveDelaySensor\fP (\fBSoDelayQueueSensor\fP *s)"
+.br
+.ti -1c
+.RI "void \fBremoveTimerSensor\fP (\fBSoTimerQueueSensor\fP *s)"
+.br
+.ti -1c
+.RI "void \fBsetChangedCallback\fP (void(*sensorQueueChangedCB)(void *), void *data)"
+.br
+.ti -1c
+.RI "void \fBrescheduleTimer\fP (\fBSoTimerSensor\fP *s)"
+.br
+.ti -1c
+.RI "void \fBremoveRescheduledTimer\fP (\fBSoTimerQueueSensor\fP *s)"
+.br
+.ti -1c
+.RI "void \fBprocessDelayQueue\fP (SbBool isidle)"
+.br
+.ti -1c
+.RI "void \fBprocessImmediateQueue\fP (void)"
+.br
+.ti -1c
+.RI "void \fBprocessTimerQueue\fP (void)"
+.br
+.ti -1c
+.RI "SbBool \fBisDelaySensorPending\fP (void)"
+.br
+.ti -1c
+.RI "SbBool \fBisTimerSensorPending\fP (\fBSbTime\fP &tm)"
+.br
+.ti -1c
+.RI "void \fBsetDelaySensorTimeout\fP (const \fBSbTime\fP &t)"
+.br
+.ti -1c
+.RI "const \fBSbTime\fP & \fBgetDelaySensorTimeout\fP (void)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBdoSelect\fP (\fBint\fP nfds, void *readfds, void *writefds, void *exceptfds, struct timeval *userTimeOut)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBSoSensorManager\fP class handles the sensor queues\&.
+.PP
+There are two major sensor types in Coin, 'delay' sensors and 'timer' sensors: 
+
+
+.PD 0
+
+.IP "\(bu" 2
+Delay sensors trigger when the application is otherwise idle\&. In addition, to avoid starvation in applications that are continually busy, the delay-sensor queue also has a timeout which, when reached, will empty the queue anyhow\&.
+.PP
+.PD 0
+.IP "\(bu" 2
+Timer sensors are set up to trigger at specific, absolute times\&.
+.PP
+Each of these two types has its own queue, which is handled by the \fBSoSensorManager\fP\&. The queues are kept in sorted order by \fBSoSensorManager\fP, either according to trigger-time (for timer sensors) or by priority (for delay sensors)\&.
+.PP
+The \fBSoSensorManager\fP provides methods for managing these queues, by insertion and removal of sensors, and processing (emptying) of the queues\&.
+.PP
+The sensor mechanism is crucial in Coin for a number of important features, most notably automatic scheduling redrawal upon changes, and for making it possible to set up animations in the scenegraph which does \fInot\fP need any additional book-keeping from the application code\&.
+.PP
+\fBSoSensorManager\fP should usually be considered as an internal class in the Coin API\&. It is only interesting for application programmers when \fIimplementing\fP new windowsystem-specific libraries (like Kongsberg Oil & Gas Technologies's SoQt, SoXt, SoGtk, SoWin or Sc21) or wrappers\&. Then one has to set up code to empty the queues at the correct intervals\&. For detailed information on how to do that, we would advise you to look at the implementation of said mechanisms in the So*-libraries which SIM provides\&.
+.PP
+Please note that before Coin 2\&.3\&.1, sensors with equal priority (or the same trigger time for SoTimerQueue sensors) were processed LIFO\&. This has now been changed to FIFO to be conformant to SGI Inventor\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoSensor\fP \fBSoTimerQueueSensor\fP \fBSoDelayQueueSensor\fP 
+.PP
+\fBSoTimerSensor\fP \fBSoAlarmSensor\fP 
+.PP
+\fBSoIdleSensor\fP \fBSoDataSensor\fP \fBSoOneShotSensor\fP 
+.PP
+\fBSoPathSensor\fP \fBSoFieldSensor\fP \fBSoNodeSensor\fP 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoSensorManager::SoSensorManager (void)"
+Constructor\&. 
+.SS "SoSensorManager::~SoSensorManager ()"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void SoSensorManager::insertDelaySensor (\fBSoDelayQueueSensor\fP * newentry)"
+Add a new entry to the queue of delay sensors\&.
+.PP
+\fBSee also:\fP
+.RS 4
+removeFromQueue() 
+.RE
+.PP
+
+.SS "void SoSensorManager::insertTimerSensor (\fBSoTimerQueueSensor\fP * newentry)"
+Add a new entry to the timer queue of sensors\&. The queue will be sorted in order of supposed trigger time\&.
+.PP
+\fBSee also:\fP
+.RS 4
+removeFromQueue() 
+.RE
+.PP
+
+.SS "void SoSensorManager::removeDelaySensor (\fBSoDelayQueueSensor\fP * entry)"
+Remove an entry from the queue of prioritized sensors\&.
+.PP
+\fBSee also:\fP
+.RS 4
+addToQueue() 
+.RE
+.PP
+
+.SS "void SoSensorManager::removeTimerSensor (\fBSoTimerQueueSensor\fP * entry)"
+Remove an entry from the queue of timer sensors\&. 
+.SS "void SoSensorManager::setChangedCallback (void(*)(void *) func, void * data)"
+For setting up a callback function to be invoked whenever any of the sensor queues are changed\&.
+.PP
+This callback should typically be responsible for updating the client-side mechanism which is used for processing the queues\&. 
+.SS "void SoSensorManager::rescheduleTimer (\fBSoTimerSensor\fP * s)"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoSensorManager::removeRescheduledTimer (\fBSoTimerQueueSensor\fP * s)"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoSensorManager::processDelayQueue (SbBool isidle)"
+Trigger all delay queue entries in priority order\&.
+.PP
+The \fIisidle\fP flag indicates whether or not the processing happens because the application is idle or because the delay queue timeout was reached\&.
+.PP
+A delay queue sensor with priority > 0 can only be triggered once during a call to this function\&. If a delay sensor is rescheduled during \fBprocessDelayQueue()\fP, it is not processed until the next time this function is called\&. This is done to avoid an infinite loop while processing the sensors\&.
+.PP
+A delay queue sensor with priority 0 is called an immediate sensor\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoDB::setDelaySensorTimeout()\fP 
+.PP
+\fBSoSensorManager::processImmediateQueue()\fP 
+.RE
+.PP
+
+.SS "void SoSensorManager::processImmediateQueue (void)"
+Process all immediate sensors (delay sensors with priority 0)\&.
+.PP
+Be aware that you might risk an infinite loop using immediate sensors\&. Unlike delay queue sensors, immediate sensors can be rescheduled and triggered multiple times during immediate queue processing\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoDelayQueueSensor::setPriority()\fP 
+.RE
+.PP
+
+.SS "void SoSensorManager::processTimerQueue (void)"
+Trigger all the timers which has expired\&. 
+.SS "SbBool SoSensorManager::isDelaySensorPending (void)"
+Returns \fCTRUE\fP if at least one delay sensor or immediate sensor is present in the respective queue, otherwise \fCFALSE\fP\&. 
+.SS "SbBool SoSensorManager::isTimerSensorPending (\fBSbTime\fP & tm)"
+Returns \fCTRUE\fP if at least one timer sensor is present in the queue, otherwise \fCFALSE\fP\&.
+.PP
+If sensors are pending, the time interval until the next one should be triggered will be put in the \fItm\fP variable\&. 
+.SS "void SoSensorManager::setDelaySensorTimeout (const \fBSbTime\fP & t)"
+Delay sensors are usually triggered only when the system is idle\&. But when there are continuous updates to the scene graph, there's a possibility that the delay queue will starve and sensors are never triggered\&. To make sure this won't happen, this is a timeout value for the delay queue\&. When this timeout has been reached, the sensors in the delay queue gets processed before other sensors and events\&. This method will let the user set this timeout value\&.
+.PP
+The default value is 1/12 of a second\&.
+.PP
+Specifying a zero time will disable the timeout, opening for potential delay queue starvation\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetDelaySensorTimeout()\fP, \fBSoDelayQueueSensor\fP 
+.RE
+.PP
+
+.SS "const \fBSbTime\fP & SoSensorManager::getDelaySensorTimeout (void)"
+Returns the timeout value for sensors in the delay queue\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetDelaySensorTimeout()\fP, \fBSoDelayQueueSensor\fP 
+.RE
+.PP
+
+.SS "\fBint\fP SoSensorManager::doSelect (\fBint\fP nfds, void * readfds, void * writefds, void * exceptfds, struct timeval * usertimeout)"
+NOTE: THIS METHOD IS OBSOLETED\&. DON'T USE IT\&.
+.PP
+This is a wrapper around the standard select(2) call, which will make sure the sensor queues are updated while waiting for any action to happen on the given file descriptors\&.
+.PP
+The void* arguments must be valid pointers to fd_set structures\&. We've changed this from the original SGI Inventor API to avoid messing up the header file with system-specific includes\&.
+.PP
+NOTE: THIS METHOD IS OBSOLETED\&. DON'T USE IT\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

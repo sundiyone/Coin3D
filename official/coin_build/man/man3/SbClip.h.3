@@ -1,0 +1,39 @@
+.TH "SbClip.h" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SbClip.h
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <Inventor/lists/SbList\&.h>\fP
+.br
+\fC#include <Inventor/SbVec3f\&.h>\fP
+.br
+\fC#include <stddef\&.h>\fP
+.br
+
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBSbClip\fP"
+.br
+.RI "The \fBSbClip\fP class is a generic polygon clipper class\&.
+.PP
+It is used by first adding all vertices in the polygon, and then clipping against any number of planes\&. If you need to supply additional information per vertex (e\&.g\&. texture coordinates), you should supply a callback in the constructor, and a pointer to your vertex structure in \fBaddVertex()\fP\&. For every new vertex created, the callback is called with the line being clipped, including the pointers to your vertex structures and the position of the new (clipped against some plane) vertex\&. You should then create a new vertex structure, calculate your data (e\&.g\&. a new texture coordinate) and return a pointer to this structure\&. "
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef void * \fBSbClipCallback\fP(const \fBSbVec3f\fP &v0, void *vdata0, const \fBSbVec3f\fP &v1, void *vdata1, const \fBSbVec3f\fP &newvertex, void *userdata)"
+.br
+.in -1c
+.SH "Typedef Documentation"
+.PP 
+.SS "void * SbClipCallback"
+The type definition for the callback function when additional data handling per vertex is required\&. 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

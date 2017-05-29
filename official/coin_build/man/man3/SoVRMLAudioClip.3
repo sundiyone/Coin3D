@@ -1,0 +1,262 @@
+.TH "SoVRMLAudioClip" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoVRMLAudioClip \- The \fBSoVRMLAudioClip\fP class is used to load and store audio data\&.
+.PP
+Audio data is loaded using the simage library, so make sure you have built the simage library with support for the audio file formats you intend to use (libogg, libvorbis and libvorbisfile for OggVorbis, libsndfile for WAV and several other formats)\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/VRMLnodes/SoVRMLAudioClip\&.h>\fP
+.PP
+Inherits \fBSoNode\fP\&.
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "typedef void * \fBopen_func\fP(const \fBSbStringList\fP &\fBurl\fP, \fBSoVRMLAudioClip\fP *clip, void *userdataptr)"
+.br
+.ti -1c
+.RI "typedef size_t \fBread_func\fP(void *datasource, void *buffer, \fBint\fP numframes, \fBint\fP &channels, \fBSoVRMLAudioClip\fP *clip, void *userdataptr)"
+.br
+.ti -1c
+.RI "typedef \fBint\fP \fBseek_func\fP(void *datasource, long offset, \fBint\fP whence, \fBSoVRMLAudioClip\fP *clip, void *userdataptr)"
+.br
+.ti -1c
+.RI "typedef long \fBtell_func\fP(void *datasource, \fBSoVRMLAudioClip\fP *clip, void *userdataptr)"
+.br
+.ti -1c
+.RI "typedef \fBint\fP \fBclose_func\fP(void *datasource, \fBSoVRMLAudioClip\fP *clip, void *userdataptr)"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "\fBSoVRMLAudioClip\fP (void)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetSampleRate\fP ()"
+.br
+.ti -1c
+.RI "void * \fBopen\fP (const \fBSbStringList\fP &\fBurl\fP)"
+.br
+.ti -1c
+.RI "size_t \fBread\fP (void *datasource, void *buffer, \fBint\fP numframes, \fBint\fP &channels)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBseek\fP (void *datasource, long offset, \fBint\fP whence)"
+.br
+.ti -1c
+.RI "long \fBtell\fP (void *datasource)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBclose\fP (void *datasource)"
+.br
+.ti -1c
+.RI "void \fBsetCallbacks\fP (open_func *opencb, read_func *readcb, seek_func *seekcb, tell_func *tellcb, close_func *closecb, void *userdataptr)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBsetSubdirectories\fP (const \fBSbList\fP< \fBSbString\fP > &subdirectories)"
+.br
+.ti -1c
+.RI "static const \fBSbStringList\fP & \fBgetSubdirectories\fP ()"
+.br
+.ti -1c
+.RI "static void \fBsetDefaultPauseBetweenTracks\fP (\fBSbTime\fP pause)"
+.br
+.ti -1c
+.RI "static \fBSbTime\fP \fBgetDefaultPauseBetweenTracks\fP ()"
+.br
+.ti -1c
+.RI "static void \fBsetDefaultIntroPause\fP (\fBSbTime\fP pause)"
+.br
+.ti -1c
+.RI "static \fBSbTime\fP \fBgetDefaultIntroPause\fP ()"
+.br
+.ti -1c
+.RI "static void \fBsetDefaultSampleRate\fP (\fBint\fP samplerate)"
+.br
+.ti -1c
+.RI "static \fBint\fP \fBgetDefaultSampleRate\fP ()"
+.br
+.ti -1c
+.RI "static void \fBsetDefaultTimerInterval\fP (\fBSbTime\fP interval)"
+.br
+.ti -1c
+.RI "static \fBSbTime\fP \fBgetDefaultTimerInterval\fP ()"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFString\fP \fBdescription\fP"
+.br
+.ti -1c
+.RI "\fBSoSFBool\fP \fBloop\fP"
+.br
+.ti -1c
+.RI "\fBSoSFFloat\fP \fBpitch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFTime\fP \fBstartTime\fP"
+.br
+.ti -1c
+.RI "\fBSoSFTime\fP \fBstopTime\fP"
+.br
+.ti -1c
+.RI "\fBSoMFString\fP \fBurl\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fB~SoVRMLAudioClip\fP ()"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFTime\fP \fBduration_changed\fP"
+.br
+.ti -1c
+.RI "\fBSoSFBool\fP \fBisActive\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoVRMLAudioClip\fP class is used to load and store audio data\&.
+.PP
+Audio data is loaded using the simage library, so make sure you have built the simage library with support for the audio file formats you intend to use (libogg, libvorbis and libvorbisfile for OggVorbis, libsndfile for WAV and several other formats)\&. 
+
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP
+.PP
+.PP
+.nf
+AudioClip {
+  exposedField   SFString description      ""
+  exposedField   SFBool   loop             FALSE
+  exposedField   SFFloat  pitch            1.0        # (0, inf)
+  exposedField   SFTime   startTime        0          # (-inf, inf)
+  exposedField   SFTime   stopTime         0          # (-inf, inf)
+  exposedField   MFString url              []
+  eventOut       SFTime   duration_changed
+  eventOut       SFBool   isActive
+}
+.fi
+.PP
+.PP
+An AudioClip node specifies audio data that can be referenced by Sound nodes\&. The description field specifies a textual description of the audio source\&. A browser is not required to display the description field but may choose to do so in addition to playing the sound\&. The url field specifies the URL from which the sound is loaded\&. Browsers shall support at least the wavefile format in uncompressed PCM format (see http://www.web3d.org/x3d/specifications/vrml/ISO-IEC-14772-VRML97/part1/bibliography.html#[WAV])\&. It is recommended that browsers also support the MIDI file type 1 sound format (see http://www.web3d.org/x3d/specifications/vrml/ISO-IEC-14772-VRML97/part1/references.html#[MIDI]); MIDI files are presumed to use the General MIDI patch set\&. Subclause 4\&.5, VRML and the World Wide Web (http://www.web3d.org/x3d/specifications/vrml/ISO-IEC-14772-VRML97/part1/concepts.html#4.5), contains details on the url field\&. The results are undefined when no URLs refer to supported data types\&.
+.PP
+The loop, startTime, and stopTime exposedFields and the isActive eventOut, and their effects on the AudioClip node, are discussed in detail in 4\&.6\&.9, Time-dependent nodes (http://www.web3d.org/x3d/specifications/vrml/ISO-IEC-14772-VRML97/part1/concepts.html#4.6.9)\&. The 'cycle' of an AudioClip is the length of time in seconds for one playing of the audio at the specified pitch\&. The pitch field specifies a multiplier for the rate at which sampled sound is played\&. Values for the pitch field shall be greater than zero\&. Changing the pitch field affects both the pitch and playback speed of a sound\&. A set_pitch event to an active AudioClip is ignored and no pitch_changed eventOut is generated\&. If pitch is set to 2\&.0, the sound shall be played one octave higher than normal and played twice as fast\&. For a sampled sound, the pitch field alters the sampling rate at which the sound is played\&. The proper implementation of pitch control for MIDI (or other note sequence sound clips) is to multiply the tempo of the playback by the pitch value and adjust the MIDI Coarse Tune and Fine Tune controls to achieve the proper pitch change\&. A duration_changed event is sent whenever there is a new value for the 'normal' duration of the clip\&. Typically, this will only occur when the current url in use changes and the sound data has been loaded, indicating that the clip is playing a different sound source\&. The duration is the length of time in seconds for one cycle of the audio for a pitch set to 1\&.0\&. Changing the pitch field will not trigger a duration_changed event\&. A duration value of '-1' implies that the sound data has not yet loaded or the value is unavailable for some reason\&. A duration_changed event shall be generated if the AudioClip node is loaded when the VRML file is read or the AudioClip node is added to the scene graph\&. The isActive eventOut may be used by other nodes to determine if the clip is currently active\&. If an AudioClip is active, it shall be playing the sound corresponding to the sound time (i\&.e\&., in the sound's local time system with sample 0 at time 0): 
+.PP
+.nf
+t = (now - startTime) modulo (duration / pitch)
+
+.fi
+.PP
+ 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoVRMLAudioClip::SoVRMLAudioClip (void)"
+Constructor\&. 
+.SS "SoVRMLAudioClip::~SoVRMLAudioClip ()\fC [protected]\fP, \fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoVRMLAudioClip::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Implements \fBSoBase\fP\&.
+.SS "const \fBSoFieldData\fP * SoVRMLAudioClip::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoFieldContainer\fP\&.
+.SS "void * SoVRMLAudioClip::open (const \fBSbStringList\fP & urlref)"
+Opens an audio source with the given \fIurl\fP\&. Returns a handle to the datasource\&. 
+.SS "size_t SoVRMLAudioClip::read (void * datasource, void * buffer, \fBint\fP numframes, \fBint\fP & channels)"
+Reads \fInumframes\fP frames of audio with \fIchannels\fP channels from \fIdatasource\fP into \fIbuffer\fP\&. Buffer must be allocated by the caller, and must be able to hold all the audio data (size = \fInumframes\fP * \fIchannels\fP * sizeof(int16_t))\&. The function must always fill the buffer completely unless \fIbuffer\fP == NULL\&.
+.PP
+When an error occurs, or when end-of-file has been reached, this function returns 0\&. Otherwise, the function should return \fInumframes\fP\&.
+.PP
+When the caller receives a return value of 0, it will queue the returned buffer for playing\&. When this buffer is finished playing, the caller will call \fBread()\fP one final time, with \fIbuffer\fP == NULL\&. The \fBread()\fP function can then set the isActive field to FALSE, free any resources allocated, etc\&. 
+.SS "\fBint\fP SoVRMLAudioClip::seek (void * datasource, long offset, \fBint\fP whence)"
+Moves the 'filepointer' in the \fIdatasource\fP, returns -1L on error\&. 
+.SS "long SoVRMLAudioClip::tell (void * datasource)"
+Returns the current position of the 'filepointer' in the \fIdatasource\fP, or -1L on error\&. 
+.SS "\fBint\fP SoVRMLAudioClip::close (void * datasource)"
+Closes \fIdatasource\fP\&. 
+.SS "void SoVRMLAudioClip::setCallbacks (open_func * opencb, read_func * readcb, seek_func * seekcb, tell_func * tellcb, close_func * closecb, void * userdataptr)"
+Sets callbacks for opening, reading, seeking, telling and closing an audio source\&. Specifying NULL for a function is OK, except for the read function\&. If a function set to NULL is later called, a default implementation doing nothing is called in it's place\&. 
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSoSFString\fP SoVRMLAudioClip::description"
+Description of the audio clip\&. Default value is an empty string\&. 
+.SS "\fBSoSFBool\fP SoVRMLAudioClip::loop"
+Specifies whether sound should be looped\&. Is FALSE by default\&. 
+.SS "\fBSoSFFloat\fP SoVRMLAudioClip::pitch"
+Specifies the pitch\&. The default value is 1\&.0\&.
+.PP
+Alters the sampling rate at which the sound is played\&. A pitch of 2\&.0 means that the sound should be played twice as fast and one octave higher than normal\&. 
+.SS "\fBSoSFTime\fP SoVRMLAudioClip::startTime"
+Specifies the start time\&. Default value is 0\&. 
+.SS "\fBSoSFTime\fP SoVRMLAudioClip::stopTime"
+Specifies the stop time\&. Default value is 0\&. 
+.SS "\fBSoMFString\fP SoVRMLAudioClip::url"
+The audio data URL\&. 
+.SS "SoVRMLAudioClip::duration_changed\fC [protected]\fP"
+An eventOut sent when a new sound starts playing\&. 
+.SS "SoVRMLAudioClip::isActive\fC [protected]\fP"
+This eventOut is sent when the sound starts/stops playing\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

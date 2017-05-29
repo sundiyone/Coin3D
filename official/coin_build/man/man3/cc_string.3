@@ -1,0 +1,120 @@
+.TH "cc_string" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+cc_string \- The \fBcc_string\fP type is a C ADT for ASCII string management\&.
+.PP
+This is a Coin extension\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/C/base/string\&.h>\fP
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "char * \fBpointer\fP"
+.br
+.ti -1c
+.RI "size_t \fBbufsize\fP"
+.br
+.ti -1c
+.RI "char \fBbuffer\fP [CC_STRING_MIN_SIZE]"
+.br
+.in -1c
+.SS "Related Functions"
+(Note that these are not member functions\&.) 
+.in +1c
+.ti -1c
+.RI "void \fBcc_string_remove_substring\fP (\fBcc_string\fP *me, \fBint\fP start, \fBint\fP end)"
+.br
+.ti -1c
+.RI "void \fBcc_string_construct\fP (\fBcc_string\fP *me)"
+.br
+.ti -1c
+.RI "\fBcc_string\fP * \fBcc_string_construct_new\fP (void)"
+.br
+.ti -1c
+.RI "\fBcc_string\fP * \fBcc_string_clone\fP (const \fBcc_string\fP *string)"
+.br
+.ti -1c
+.RI "void \fBcc_string_clean\fP (\fBcc_string\fP *string_struct)"
+.br
+.ti -1c
+.RI "void \fBcc_string_destruct\fP (\fBcc_string\fP *me)"
+.br
+.ti -1c
+.RI "void \fBcc_string_set_text\fP (\fBcc_string\fP *me, const char *text)"
+.br
+.ti -1c
+.RI "void \fBcc_string_set_subtext\fP (\fBcc_string\fP *me, const char *text, \fBint\fP start, \fBint\fP end)"
+.br
+.ti -1c
+.RI "void \fBcc_string_set_integer\fP (\fBcc_string\fP *me, \fBint\fP integer)"
+.br
+.ti -1c
+.RI "void \fBcc_string_set_string\fP (\fBcc_string\fP *me, const \fBcc_string\fP *string)"
+.br
+.ti -1c
+.RI "void \fBcc_string_append_string\fP (\fBcc_string\fP *me, const \fBcc_string\fP *string)"
+.br
+.ti -1c
+.RI "void \fBcc_string_append_text\fP (\fBcc_string\fP *me, const char *text)"
+.br
+.ti -1c
+.RI "void \fBcc_string_append_integer\fP (\fBcc_string\fP *me, const \fBint\fP digits)"
+.br
+.ti -1c
+.RI "void \fBcc_string_append_char\fP (\fBcc_string\fP *me, const char c)"
+.br
+.ti -1c
+.RI "unsigned \fBint\fP \fBcc_string_length\fP (const \fBcc_string\fP *me)"
+.br
+.ti -1c
+.RI "void \fBcc_string_clear\fP (\fBcc_string\fP *me)"
+.br
+.ti -1c
+.RI "void \fBcc_string_clear_no_free\fP (\fBcc_string\fP *me)"
+.br
+.ti -1c
+.RI "uint32_t \fBcc_string_hash_text\fP (const char *text)"
+.br
+.ti -1c
+.RI "uint32_t \fBcc_string_hash\fP (const \fBcc_string\fP *me)"
+.br
+.ti -1c
+.RI "const char * \fBcc_string_get_text\fP (const \fBcc_string\fP *me)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBcc_string_is\fP (const \fBcc_string\fP *me)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBcc_string_compare\fP (const \fBcc_string\fP *lhs, const \fBcc_string\fP *rhs)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBcc_string_compare_text\fP (const char *lhs, const char *rhs)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBcc_string_compare_subtext\fP (const \fBcc_string\fP *me, const char *text, \fBint\fP offset)"
+.br
+.ti -1c
+.RI "void \fBcc_string_apply\fP (\fBcc_string\fP *string, cc_apply_f function)"
+.br
+.ti -1c
+.RI "void \fBcc_string_sprintf\fP (\fBcc_string\fP *me, const char *formatstr,\&.\&.\&.)"
+.br
+.ti -1c
+.RI "void \fBcc_string_vsprintf\fP (\fBcc_string\fP *me, const char *formatstr, va_list args)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBcc_string\fP type is a C ADT for ASCII string management\&.
+.PP
+This is a Coin extension\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

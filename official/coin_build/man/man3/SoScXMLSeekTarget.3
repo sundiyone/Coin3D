@@ -1,0 +1,101 @@
+.TH "SoScXMLSeekTarget" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoScXMLSeekTarget \- Navigation system event target for seekmotion operations\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/scxml/SoScXMLSeekTarget\&.h>\fP
+.PP
+Inherits \fBSoScXMLNavigationTarget\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void * \fBcreateInstance\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBcleanClass\fP (void)"
+.br
+.ti -1c
+.RI "static \fBSoScXMLSeekTarget\fP * \fBconstructSingleton\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBdestructSingleton\fP (void)"
+.br
+.ti -1c
+.RI "static \fBSoScXMLSeekTarget\fP * \fBsingleton\fP (void)"
+.br
+.ti -1c
+.RI "static const \fBSbName\fP & \fBBEGIN\fP (void)"
+.br
+.ti -1c
+.RI "static const \fBSbName\fP & \fBUPDATE\fP (void)"
+.br
+.ti -1c
+.RI "static const \fBSbName\fP & \fBEND\fP (void)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual SbBool \fBprocessOneEvent\fP (const \fBScXMLEvent\fP *event)"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSbName\fP & \fBMISS\fP (void)"
+.br
+.ti -1c
+.RI "static const \fBSbName\fP & \fBDONE\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+Navigation system event target for seekmotion operations\&. 
+
+emits events \&.MISS and \&.DONE to the sessionid state-machine 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoScXMLSeekTarget::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoBase::getTypeId() const\fP 
+.RE
+.PP
+
+.PP
+Implements \fBSoScXMLNavigationTarget\fP\&.
+.SS "SbBool SoScXMLSeekTarget::processOneEvent (const \fBScXMLEvent\fP * event)\fC [protected]\fP, \fC [virtual]\fP"
+This function processes one event\&. The base class implementation does nothing\&. 
+.PP
+Reimplemented from \fBScXMLEventTarget\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

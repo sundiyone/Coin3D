@@ -1,0 +1,44 @@
+.TH "SoLockManager" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoLockManager \- The \fBSoLockManager\fP is a defunct software license lock mechanism\&.
+.PP
+This is just a dummy implementation of the TGS Inventor class used to provide a license locking mechanism\&. Since Coin can be used without any royalty fees or client-site license locks, no such mechanism is needed\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/lock/SoLockMgr\&.h>\fP
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static void \fBSetUnlockString\fP (char *unlockstr)"
+.br
+.ti -1c
+.RI "static char * \fBGetUnlockString\fP (void)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBSoLockManager\fP is a defunct software license lock mechanism\&.
+.PP
+This is just a dummy implementation of the TGS Inventor class used to provide a license locking mechanism\&. Since Coin can be used without any royalty fees or client-site license locks, no such mechanism is needed\&. 
+
+If you are looking for information about using Coin in proprietary applications for commercial distribution, read about the Coin Professional Edition License on the Coin web-pages \fChere\fP\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void SoLockManager::SetUnlockString (char * unlockstr)\fC [static]\fP"
+A void method provided just for sourcecode compatibility in client applications with TGS Inventor\&.
+.PP
+It just stores the \fIunlockstr\fP argument internally to be able to provide it upon calls to \fBGetUnlockString()\fP\&. 
+.SS "char * SoLockManager::GetUnlockString (void)\fC [static]\fP"
+A void method provided just for sourcecode compatibility in client applications with TGS Inventor\&.
+.PP
+Returns the string set through \fBSetUnlockString()\fP\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

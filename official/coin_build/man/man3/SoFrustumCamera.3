@@ -1,0 +1,180 @@
+.TH "SoFrustumCamera" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoFrustumCamera \- The \fBSoFrustumCamera\fP class defines a camera with a generic frustum\&.\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/nodes/SoFrustumCamera\&.h>\fP
+.PP
+Inherits \fBSoCamera\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "\fBSoFrustumCamera\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBscaleHeight\fP (float scalefactor)"
+.br
+.ti -1c
+.RI "virtual \fBSbViewVolume\fP \fBgetViewVolume\fP (float useaspectratio=0\&.0f) const"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFFloat\fP \fBleft\fP"
+.br
+.ti -1c
+.RI "\fBSoSFFloat\fP \fBright\fP"
+.br
+.ti -1c
+.RI "\fBSoSFFloat\fP \fBtop\fP"
+.br
+.ti -1c
+.RI "\fBSoSFFloat\fP \fBbottom\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fB~SoFrustumCamera\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBviewBoundingBox\fP (const \fBSbBox3f\fP &box, float aspect, float slack)"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoFrustumCamera\fP class defines a camera with a generic frustum\&.\&. 
+
+The \fBSoFrustumCamera\fP class makes it possible to specify a frustum in the same manner as the OpenGL glFrustum() function\&. It has four new fields (left, right, top, bottom), and will use \fBSoCamera::nearDistance\fP and \fBSoCamera::farDistance\fP for the two last glFrustum() parameters\&.
+.PP
+This camera can be useful in applications that require full control over the view frustum, such as in CAVE or other multipipe applications\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.5 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoFrustumCamera::SoFrustumCamera (void)"
+Constructor\&. 
+.SS "SoFrustumCamera::~SoFrustumCamera (void)\fC [protected]\fP, \fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoFrustumCamera::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Reimplemented from \fBSoCamera\fP\&.
+.SS "const \fBSoFieldData\fP * SoFrustumCamera::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoCamera\fP\&.
+.SS "void SoFrustumCamera::scaleHeight (float scalefactor)\fC [virtual]\fP"
+Sets a \fIscalefactor\fP for the height of the camera viewport\&. What 'viewport height' means exactly in this context depends on the camera model\&. See documentation in subclasses\&. 
+.PP
+Implements \fBSoCamera\fP\&.
+.SS "\fBSbViewVolume\fP SoFrustumCamera::getViewVolume (float useaspectratio = \fC0\&.0f\fP) const\fC [virtual]\fP"
+Returns total view volume covered by the camera under the current settings\&.
+.PP
+This view volume is not adjusted to account for viewport mapping\&. If you want the same view volume as the one used during rendering, you should use getViewVolume(SbViewportRegion & vp, const SbMatrix & mm), or do something like this:
+.PP
+.PP
+.nf
+SbViewVolume vv;
+float aspectratio = myviewport.getViewportAspectRatio();
+
+switch (camera->viewportMapping.getValue()) {
+case SoCamera::CROP_VIEWPORT_FILL_FRAME:
+case SoCamera::CROP_VIEWPORT_LINE_FRAME:
+case SoCamera::CROP_VIEWPORT_NO_FRAME:
+  vv = camera->getViewVolume(0.0f);
+  break;
+case SoCamera::ADJUST_CAMERA:
+  vv = camera->getViewVolume(aspectratio);
+  if (aspectratio < 1.0f) vv.scale(1.0f / aspectratio);
+  break;
+case SoCamera::LEAVE_ALONE:
+  vv = camera->getViewVolume(0.0f);
+  break;
+default:
+  assert(0 && "unknown viewport mapping");
+  break;
+}.fi
+.PP
+.PP
+Also, for the CROPPED viewport mappings, the viewport might be changed if the viewport aspect ratio is not equal to the camera aspect ratio\&. See the SoCamera::getView() source-code (private method) to see how this is done\&. 
+.PP
+Implements \fBSoCamera\fP\&.
+.SS "void SoFrustumCamera::viewBoundingBox (const \fBSbBox3f\fP & box, float aspect, float slack)\fC [protected]\fP, \fC [virtual]\fP"
+Convenience method for setting up the camera definition to cover the given bounding \fIbox\fP with the given \fIaspect\fP ratio\&. Multiplies the exact dimensions with a \fIslack\fP factor to have some space between the rendered model and the borders of the rendering area\&.
+.PP
+If you define your own camera node class, be aware that this method should \fInot\fP set the orientation field of the camera, only the position, focal distance and near and far clipping planes\&. 
+.PP
+Implements \fBSoCamera\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSoSFFloat\fP SoFrustumCamera::left"
+The left clipping plane position\&. Default value is -0\&.5\&. 
+.SS "\fBSoSFFloat\fP SoFrustumCamera::right"
+The right clipping plane position\&. Default value is 0\&.5 
+.SS "\fBSoSFFloat\fP SoFrustumCamera::top"
+The top clipping plane position\&. Default value is 0\&.5\&. 
+.SS "\fBSoSFFloat\fP SoFrustumCamera::bottom"
+The bottom clipping plane position\&. Default value is -0\&.5\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

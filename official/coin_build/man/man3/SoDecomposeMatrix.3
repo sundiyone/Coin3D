@@ -1,0 +1,125 @@
+.TH "SoDecomposeMatrix" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoDecomposeMatrix \- The \fBSoDecomposeMatrix\fP class is used to decompose a matrix into simple transformations\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/engines/SoDecomposeMatrix\&.h>\fP
+.PP
+Inherits \fBSoEngine\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual const \fBSoEngineOutputData\fP * \fBgetOutputData\fP (void) const"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void * \fBcreateInstance\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP ()"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoMFMatrix\fP \fBmatrix\fP"
+.br
+.ti -1c
+.RI "\fBSoMFVec3f\fP \fBcenter\fP"
+.br
+.ti -1c
+.RI "\fBSoEngineOutput\fP \fBtranslation\fP"
+.br
+.ti -1c
+.RI "\fBSoEngineOutput\fP \fBrotation\fP"
+.br
+.ti -1c
+.RI "\fBSoEngineOutput\fP \fBscaleFactor\fP"
+.br
+.ti -1c
+.RI "\fBSoEngineOutput\fP \fBscaleOrientation\fP"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetInputDataPtr\fP (void)"
+.br
+.ti -1c
+.RI "static const \fBSoEngineOutputData\fP ** \fBgetOutputDataPtr\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoDecomposeMatrix\fP class is used to decompose a matrix into simple transformations\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoDecomposeMatrix::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Implements \fBSoBase\fP\&.
+.SS "const \fBSoFieldData\fP * SoDecomposeMatrix::getFieldData (void) const\fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoFieldContainer\fP\&.
+.SS "const \fBSoEngineOutputData\fP * SoDecomposeMatrix::getOutputData (void) const\fC [virtual]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.PP
+Implements \fBSoEngine\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSoMFMatrix\fP SoDecomposeMatrix::matrix"
+Set of transformation matrices to decompose into their translation/rotation/scale parts\&. 
+.SS "\fBSoMFVec3f\fP SoDecomposeMatrix::center"
+Center points of transform matrices\&. 
+.SS "\fBSoEngineOutput\fP SoDecomposeMatrix::translation"
+(\fBSoMFVec3f\fP) Translation parts of input matrices\&. 
+.SS "\fBSoEngineOutput\fP SoDecomposeMatrix::rotation"
+(\fBSoMFRotation\fP) Rotation parts of input matrices\&. 
+.SS "\fBSoEngineOutput\fP SoDecomposeMatrix::scaleFactor"
+(\fBSoMFVec3f\fP) Scale vectors of input matrices\&. 
+.SS "\fBSoEngineOutput\fP SoDecomposeMatrix::scaleOrientation"
+(\fBSoMFRotation\fP) Scale orientation values of the input matrices\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

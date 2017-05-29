@@ -1,0 +1,162 @@
+.TH "SoDirectionalLight" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoDirectionalLight \- The \fBSoDirectionalLight\fP class is a node type for specifying directional light sources\&.
+.PP
+A directional light source provides a model of light sources which are at infinite distance from the geometry it illuminates, thereby having no set position and consisting of an infinite volume of parallel rays\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/nodes/SoDirectionalLight\&.h>\fP
+.PP
+Inherits \fBSoLight\fP\&.
+.PP
+Inherited by \fBSoDirectionalLightManip\fP, and \fBSoShadowDirectionalLight\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "\fBSoDirectionalLight\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBGLRender\fP (\fBSoGLRenderAction\fP *action)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFVec3f\fP \fBdirection\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fB~SoDirectionalLight\fP ()"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoDirectionalLight\fP class is a node type for specifying directional light sources\&.
+.PP
+A directional light source provides a model of light sources which are at infinite distance from the geometry it illuminates, thereby having no set position and consisting of an infinite volume of parallel rays\&. 
+
+This is of course a simplified model of far-away light sources, as 'infinite distance' is impossible\&.
+.PP
+The sun shining on objects on earth is a good example of something which can be modeled rather well for the most common purposes with a directional light source\&.
+.PP
+See also documentation of parent class for important information regarding light sources in general\&.
+.PP
+\fBFILE FORMAT/DEFAULTS:\fP 
+.PP
+.nf
+DirectionalLight {
+    on TRUE
+    intensity 1
+    color 1 1 1
+    direction 0 0 -1
+}
+
+.fi
+.PP
+.PP
+A common thing to do with an \fBSoDirectionalLight\fP is to connect it to a camera, so it works in the style of a head light to that camera\&. This can easily be accomplished by linking an \fBSoRotation::rotation\fP field, influencing the light, to the \fBSoCamera::orientation\fP field\&. Here is a complete example iv-file demonstrating the technique:
+.PP
+.PP
+.nf
+#Inventor V2.1 ascii
+
+DEF mycam PerspectiveCamera { }
+
+TransformSeparator {
+   SoRotation { rotation = USE mycam.orientation }
+   DirectionalLight { direction 0 0 -1 }
+}
+
+Cube { }
+.fi
+.PP
+.PP
+(The \fBSoTransformSeparator\fP is included to keep the effect of the \fBSoRotation\fP node within a scope where it will only influence the light, and not the geometry following the light in the scene graph\&.) 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoDirectionalLight::SoDirectionalLight (void)"
+Constructor\&. 
+.SS "SoDirectionalLight::~SoDirectionalLight ()\fC [protected]\fP, \fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoDirectionalLight::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Reimplemented from \fBSoLight\fP\&.
+.PP
+Reimplemented in \fBSoDirectionalLightManip\fP, and \fBSoShadowDirectionalLight\fP\&.
+.SS "const \fBSoFieldData\fP * SoDirectionalLight::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoLight\fP\&.
+.PP
+Reimplemented in \fBSoDirectionalLightManip\fP, and \fBSoShadowDirectionalLight\fP\&.
+.SS "void SoDirectionalLight::GLRender (\fBSoGLRenderAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGLRenderAction\fP\&.
+.PP
+This is called during rendering traversals\&. Nodes influencing the rendering state in any way or who wants to throw geometry primitives at OpenGL overrides this method\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.PP
+Reimplemented in \fBSoDirectionalLightManip\fP, and \fBSoShadowDirectionalLight\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSoSFVec3f\fP SoDirectionalLight::direction"
+The direction of the light source\&. Defaults to pointing along the negative z-axis\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

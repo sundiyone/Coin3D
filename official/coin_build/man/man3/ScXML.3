@@ -1,0 +1,74 @@
+.TH "ScXML" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ScXML \- namespace for static ScXML-related functions\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/scxml/ScXML\&.h>\fP
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static void \fBinitClasses\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBcleanClasses\fP (void)"
+.br
+.ti -1c
+.RI "static \fBScXMLStateMachine\fP * \fBreadFile\fP (const char *filename)"
+.br
+.ti -1c
+.RI "static \fBScXMLStateMachine\fP * \fBreadBuffer\fP (const \fBSbByteBuffer\fP &buffer)"
+.br
+.ti -1c
+.RI "static SbBool \fBregisterEvaluatorType\fP (\fBSbName\fP profilename, \fBSoType\fP evaluatortype)"
+.br
+.ti -1c
+.RI "static SbBool \fBunregisterEvaluatorType\fP (\fBSbName\fP profilename, \fBSoType\fP evaluatortype)"
+.br
+.ti -1c
+.RI "static \fBSoType\fP \fBgetEvaluatorTypeForProfile\fP (\fBSbName\fP profilename)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+namespace for static ScXML-related functions\&. 
+
+This is a static namespace class for ScXML-related functions\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 3\&.0 
+.RE
+.PP
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void ScXML::initClasses (void)\fC [static]\fP"
+Initializes the basic \fBScXML\fP classes\&. 
+.SS "\fBScXMLStateMachine\fP * ScXML::readFile (const char * filename)\fC [static]\fP"
+This function reads in an SCXML document from a file\&.
+.PP
+\fBReturns:\fP
+.RS 4
+an ScXMLDocument-derived statemachine object hierarchy\&. 
+.RE
+.PP
+
+.SS "\fBScXMLStateMachine\fP * ScXML::readBuffer (const \fBSbByteBuffer\fP & bufferdata)\fC [static]\fP"
+This function reads in an SCXML document residing in memory\&.
+.PP
+\fBReturns:\fP
+.RS 4
+an ScXMLDocument-derived statemachine object hierarchy\&. 
+.RE
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

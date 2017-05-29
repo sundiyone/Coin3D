@@ -1,0 +1,198 @@
+.TH "SoMFVec2d" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoMFVec2d \- The \fBSoMFVec2d\fP class is a container for \fBSbVec2d\fP vectors\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store an array of vectors with two elements\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/fields/SoMFVec2d\&.h>\fP
+.PP
+Inherits \fBSoMField\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBcopyFrom\fP (const \fBSoField\fP &field)"
+.br
+.ti -1c
+.RI "const \fBSoMFVec2d\fP & \fBoperator=\fP (const \fBSoMFVec2d\fP &field)"
+.br
+.ti -1c
+.RI "virtual SbBool \fBisSame\fP (const \fBSoField\fP &field) const"
+.br
+.ti -1c
+.RI "const \fBSbVec2d\fP & \fBoperator[]\fP (const \fBint\fP idx) const"
+.br
+.ti -1c
+.RI "const \fBSbVec2d\fP * \fBgetValues\fP (const \fBint\fP start) const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBfind\fP (const \fBSbVec2d\fP &value, SbBool addifnotfound=FALSE)"
+.br
+.ti -1c
+.RI "void \fBsetValues\fP (const \fBint\fP start, const \fBint\fP \fBnum\fP, const \fBSbVec2d\fP *newvals)"
+.br
+.ti -1c
+.RI "void \fBset1Value\fP (const \fBint\fP idx, const \fBSbVec2d\fP &value)"
+.br
+.ti -1c
+.RI "void \fBsetValue\fP (const \fBSbVec2d\fP &value)"
+.br
+.ti -1c
+.RI "const \fBSbVec2d\fP & \fBoperator=\fP (const \fBSbVec2d\fP &val)"
+.br
+.ti -1c
+.RI "SbBool \fBoperator==\fP (const \fBSoMFVec2d\fP &field) const"
+.br
+.ti -1c
+.RI "SbBool \fBoperator!=\fP (const \fBSoMFVec2d\fP &field) const"
+.br
+.ti -1c
+.RI "\fBSbVec2d\fP * \fBstartEditing\fP (void)"
+.br
+.ti -1c
+.RI "void \fBfinishEditing\fP (void)"
+.br
+.ti -1c
+.RI "void \fBsetValuesPointer\fP (const \fBint\fP \fBnum\fP, const \fBSbVec2d\fP *userdata)"
+.br
+.ti -1c
+.RI "void \fBsetValuesPointer\fP (const \fBint\fP \fBnum\fP, \fBSbVec2d\fP *userdata)"
+.br
+.ti -1c
+.RI "void \fBsetValuesPointer\fP (const \fBint\fP \fBnum\fP, const double *userdata)"
+.br
+.ti -1c
+.RI "void \fBsetValuesPointer\fP (const \fBint\fP \fBnum\fP, double *userdata)"
+.br
+.ti -1c
+.RI "void \fBsetValues\fP (\fBint\fP start, \fBint\fP \fBnum\fP, const double xy[][2])"
+.br
+.ti -1c
+.RI "void \fBset1Value\fP (\fBint\fP idx, double x, double y)"
+.br
+.ti -1c
+.RI "void \fBset1Value\fP (\fBint\fP idx, const double xy[2])"
+.br
+.ti -1c
+.RI "void \fBsetValue\fP (double x, double y)"
+.br
+.ti -1c
+.RI "void \fBsetValue\fP (const double xy[2])"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static void * \fBcreateInstance\fP (void)"
+.br
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual void \fBdeleteAllValues\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBcopyValue\fP (\fBint\fP to, \fBint\fP from)"
+.br
+.ti -1c
+.RI "virtual \fBint\fP \fBfieldSizeof\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void * \fBvaluesPtr\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBsetValuesPtr\fP (void *ptr)"
+.br
+.ti -1c
+.RI "virtual void \fBallocValues\fP (\fBint\fP \fBnum\fP)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSbVec2d\fP * \fBvalues\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoMFVec2d\fP class is a container for \fBSbVec2d\fP vectors\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store an array of vectors with two elements\&. 
+
+This field supports application data sharing through a setValuesPointer() method\&. See \fBSoMField\fP documentation for information on how to use this function\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSbVec2d\fP, \fBSoSFVec2d\fP Be aware that this class is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&. 
+.RE
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.5 
+.RE
+.PP
+
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoMFVec2d::getTypeId (void) const\fC [virtual]\fP"
+Returns the type identification instance which uniquely identifies the Coin field class the object belongs to\&.
+.PP
+\fBSee also:\fP
+.RS 4
+getClassTypeId(), \fBSoType\fP 
+.RE
+.PP
+
+.PP
+Implements \fBSoField\fP\&.
+.SS "void SoMFVec2d::copyFrom (const \fBSoField\fP & f)\fC [virtual]\fP"
+Copy value(s) from \fIf\fP into this field\&. \fIf\fP must be of the same type as this field\&. 
+.PP
+Implements \fBSoField\fP\&.
+.SS "SbBool SoMFVec2d::isSame (const \fBSoField\fP & f) const\fC [virtual]\fP"
+Check for equal type and value(s)\&. 
+.PP
+Implements \fBSoField\fP\&.
+.SS "void SoMFVec2d::deleteAllValues (void)\fC [protected]\fP, \fC [virtual]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.PP
+Implements \fBSoMField\fP\&.
+.SS "void SoMFVec2d::copyValue (\fBint\fP to, \fBint\fP from)\fC [protected]\fP, \fC [virtual]\fP"
+This method is used for moving values around internally within a multivalue field\&. It needs to be overridden in each field so it automatically takes care of running copy contructors where necessary\&. 
+.PP
+Implements \fBSoMField\fP\&.
+.SS "const \fBSbVec2d\fP* SoMFVec2d::getValues (const \fBint\fP start) const\fC [inline]\fP"
+\\ Returns a pointer to the values array\&. \\ 
+.SS "void SoMFVec2d::setValues (\fBint\fP start, \fBint\fP numarg, const double xy[][2])"
+Set \fInum\fP vector array elements from \fIxy\fP, starting at index \fIstart\fP\&. 
+.SS "void SoMFVec2d::set1Value (\fBint\fP idx, double x, double y)"
+Set the vector at \fIidx\fP\&. 
+.SS "void SoMFVec2d::set1Value (\fBint\fP idx, const double xy[2])"
+Set the vector at \fIidx\fP\&. 
+.SS "void SoMFVec2d::setValue (double x, double y)"
+Set this field to contain a single vector with the given element values\&. 
+.SS "void SoMFVec2d::setValue (const double xy[2])"
+Set this field to contain a single vector with the given element values\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

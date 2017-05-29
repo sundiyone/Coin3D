@@ -1,0 +1,167 @@
+.TH "ScXMLEventTarget" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ScXMLEventTarget \- base class for event targets for inter-system event communication  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/scxml/ScXMLEventTarget\&.h>\fP
+.PP
+Inherits \fBScXMLObject\fP\&.
+.PP
+Inherited by \fBScXMLStateMachine\fP, and \fBSoScXMLNavigationTarget\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const =0"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "virtual void \fBsetEventTargetType\fP (const char *targettype)"
+.br
+.ti -1c
+.RI "const char * \fBgetEventTargetType\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBsetEventTargetName\fP (const char *targetname)"
+.br
+.ti -1c
+.RI "const char * \fBgetEventTargetName\fP (void) const"
+.br
+.ti -1c
+.RI "virtual const \fBScXMLEvent\fP * \fBgetCurrentEvent\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBqueueEvent\fP (const \fBScXMLEvent\fP *event)"
+.br
+.ti -1c
+.RI "virtual void \fBqueueEvent\fP (const \fBSbName\fP &eventid)"
+.br
+.ti -1c
+.RI "virtual SbBool \fBprocessEventQueue\fP (void)"
+.br
+.ti -1c
+.RI "virtual SbBool \fBsendExternalEvent\fP (const \fBScXMLSendElt\fP *sendelt)"
+.br
+.ti -1c
+.RI "virtual SbBool \fBsendInternalEvent\fP (const \fBScXMLEventElt\fP *sendelt)"
+.br
+.ti -1c
+.RI "virtual void \fBqueueInternalEvent\fP (const \fBScXMLEvent\fP *event)"
+.br
+.ti -1c
+.RI "virtual void \fBqueueInternalEvent\fP (const \fBSbName\fP &eventid)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBcleanClass\fP (void)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual void \fBsetCurrentEvent\fP (const \fBScXMLEvent\fP *event)"
+.br
+.ti -1c
+.RI "virtual const \fBScXMLEvent\fP * \fBgetNextEvent\fP (void)"
+.br
+.ti -1c
+.RI "virtual const \fBScXMLEvent\fP * \fBgetNextInternalEvent\fP (void)"
+.br
+.ti -1c
+.RI "virtual const \fBScXMLEvent\fP * \fBgetNextExternalEvent\fP (void)"
+.br
+.ti -1c
+.RI "virtual SbBool \fBprocessOneEvent\fP (const \fBScXMLEvent\fP *event)"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static void \fBregisterEventTarget\fP (\fBScXMLEventTarget\fP *target, const char *sessionid=NULL)"
+.br
+.ti -1c
+.RI "static void \fBunregisterEventTarget\fP (\fBScXMLEventTarget\fP *target, const char *sessionid=NULL)"
+.br
+.ti -1c
+.RI "static \fBScXMLEventTarget\fP * \fBgetEventTarget\fP (const char *targettype, const char *targetname, const char *sessionid=NULL)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "char * \fBtargetname\fP"
+.br
+.ti -1c
+.RI "char * \fBtargettype\fP"
+.br
+.ti -1c
+.RI "const \fBScXMLEvent\fP * \fBcurrentevent\fP"
+.br
+.ti -1c
+.RI "SbBool \fBisprocessingqueue\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+base class for event targets for inter-system event communication 
+
+This class manages inter-communication between SCXML systems and systems intended for communicating with such systems\&. It also manages the external event queue for such systems (systems may also have internal event queues)\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 3\&.1 
+.RE
+.PP
+
+.SH "Member Function Documentation"
+.PP 
+.SS "virtual \fBSoType\fP ScXMLEventTarget::getTypeId (void) const\fC [pure virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoBase::getTypeId() const\fP 
+.RE
+.PP
+
+.PP
+Implements \fBScXMLObject\fP\&.
+.PP
+Implemented in \fBScXMLStateMachine\fP, \fBSoScXMLNavigationTarget\fP, \fBSoScXMLDollyTarget\fP, \fBSoScXMLZoomTarget\fP, \fBSoScXMLSeekTarget\fP, \fBSoScXMLRotateTarget\fP, \fBSoScXMLPanTarget\fP, \fBSoScXMLStateMachine\fP, \fBSoScXMLSpinTarget\fP, \fBSoScXMLFlightControlTarget\fP, \fBSoScXMLMiscTarget\fP, and \fBSoScXMLMotionTarget\fP\&.
+.SS "const \fBScXMLEvent\fP * ScXMLEventTarget::getCurrentEvent (void) const\fC [inline]\fP, \fC [virtual]\fP"
+This method returns the current event during event processing, and NULL when not processing events\&.
+.PP
+Event processing is in special cases done with NULL as the current event, as for instance during state machine initialization\&. 
+.SS "void ScXMLEventTarget::queueEvent (const \fBScXMLEvent\fP * event)\fC [virtual]\fP"
+Queues an \fBScXMLEvent\fP event\&. The event is copied, and can be deleted as soon as the function return\&. 
+.SS "void ScXMLEventTarget::queueEvent (const \fBSbName\fP & eventid)\fC [virtual]\fP"
+Queues an \fBScXMLEvent\fP event that has the given \fIeventid\fP as its event name\&. 
+.SS "void ScXMLEventTarget::setCurrentEvent (const \fBScXMLEvent\fP * event)\fC [protected]\fP, \fC [virtual]\fP"
+Sets a pointer for the event that is 'current' during event processing\&. This is an internal method, and the updating of the current event should be handled automatically\&. 
+.SS "SbBool ScXMLEventTarget::processOneEvent (const \fBScXMLEvent\fP * event)\fC [protected]\fP, \fC [virtual]\fP"
+This function processes one event\&. The base class implementation does nothing\&. 
+.PP
+Reimplemented in \fBScXMLStateMachine\fP, \fBSoScXMLPanTarget\fP, \fBSoScXMLRotateTarget\fP, \fBSoScXMLDollyTarget\fP, \fBSoScXMLZoomTarget\fP, \fBSoScXMLFlightControlTarget\fP, \fBSoScXMLSeekTarget\fP, \fBSoScXMLSpinTarget\fP, \fBSoScXMLMiscTarget\fP, and \fBSoScXMLMotionTarget\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

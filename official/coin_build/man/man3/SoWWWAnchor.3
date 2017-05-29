@@ -1,0 +1,239 @@
+.TH "SoWWWAnchor" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoWWWAnchor \- The \fBSoWWWAnchor\fP class adds URL callbacks to the highlighted geometry\&.
+.PP
+In addition to highlighting geometry under the cursor, the application programmer can set callbacks\&. It is possible to set one callback for picking, the fetch callback, and one callback for highlighting\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/nodes/SoWWWAnchor\&.h>\fP
+.PP
+Inherits \fBSoLocateHighlight\fP\&.
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBMapping\fP { \fBNONE\fP, \fBPOINT\fP }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "\fBSoWWWAnchor\fP (void)"
+.br
+.ti -1c
+.RI "void \fBsetFullURLName\fP (const \fBSbString\fP &url)"
+.br
+.ti -1c
+.RI "const \fBSbString\fP & \fBgetFullURLName\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBhandleEvent\fP (\fBSoHandleEventAction\fP *action)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBsetFetchURLCallBack\fP (SoWWWAnchorCB *f, void *userData)"
+.br
+.ti -1c
+.RI "static void \fBsetHighlightURLCallBack\fP (SoWWWAnchorCB *f, void *userData)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFString\fP \fBname\fP"
+.br
+.ti -1c
+.RI "\fBSoSFString\fP \fBdescription\fP"
+.br
+.ti -1c
+.RI "\fBSoSFEnum\fP \fBmap\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fB~SoWWWAnchor\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBredrawHighlighted\fP (\fBSoAction\fP *act, SbBool isNowHighlighting)"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoWWWAnchor\fP class adds URL callbacks to the highlighted geometry\&.
+.PP
+In addition to highlighting geometry under the cursor, the application programmer can set callbacks\&. It is possible to set one callback for picking, the fetch callback, and one callback for highlighting\&. 
+
+
+.PP
+.nf
+#Inventor V2.1 ascii
+
+WWWAnchor {
+   name "http://www.coin3d.org/Coin/egg.iv"
+   description "Easter Egg"
+
+   Separator {
+      Transform { scaleFactor 0.8 1.2 0.8 }
+      Sphere { }
+   }
+}
+
+.fi
+.PP
+.PP
+\fBFILE FORMAT/DEFAULTS:\fP 
+.PP
+.nf
+WWWAnchor {
+    renderCaching AUTO
+    boundingBoxCaching AUTO
+    renderCulling AUTO
+    pickCulling AUTO
+    color 0\&.3 0\&.3 0\&.3
+    style EMISSIVE
+    mode AUTO
+    name "<Undefined URL>"
+    description ""
+    map NONE
+}
+
+.fi
+.PP
+.PP
+\fBSince:\fP
+.RS 4
+Inventor 2\&.1 
+.RE
+.PP
+
+.SH "Member Enumeration Documentation"
+.PP 
+.SS "enum \fBSoWWWAnchor::Mapping\fP"
+Enum that says how a picked node's position should be mapped to the URL\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fINONE \fP\fP
+The position of the picked node is not mapped to the URL\&. 
+.TP
+\fB\fIPOINT \fP\fP
+The position of the picked node is mapped to the URL as object space coordinates, adding a parameter string to the end of the URL\&. To assure that the URL works with all browsers, the coordinates are divided by commas sent as the hex representation\&.
+.PP
+If a model by the name of sim\&.wrl resided at www\&.coin3d\&.org and the picked point had the coordinates [1\&.5, 10, 6\&.77], the resulting URL would be 'http://www\&.coin3d\&.org/sim\&.wrl?1\&.5%2c10%2c6\&.77'\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoWWWAnchor::SoWWWAnchor (void)"
+Constructor\&. 
+.SS "SoWWWAnchor::~SoWWWAnchor ()\fC [protected]\fP, \fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoWWWAnchor::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Reimplemented from \fBSoLocateHighlight\fP\&.
+.SS "const \fBSoFieldData\fP * SoWWWAnchor::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoLocateHighlight\fP\&.
+.SS "void SoWWWAnchor::setFullURLName (const \fBSbString\fP & url)"
+Sets the full URL to \fIurl\fP\&. If this is set, this URL will be used in callbacks instead of the URL set in \fBSoWWWAnchor::name\fP\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoWWWAnchor::getFullURLName()\fP 
+.RE
+.PP
+
+.SS "const \fBSbString\fP & SoWWWAnchor::getFullURLName (void)"
+Returns the full URL if it's set by \fBSoWWWAnchor::setFullURLName()\fP\&. Otherwise the contents of \fBSoWWWAnchor::name\fP is returned\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoWWWAnchor::setFullURLName()\fP 
+.RE
+.PP
+
+.SS "void SoWWWAnchor::handleEvent (\fBSoHandleEventAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoHandleEventAction\fP\&.
+.PP
+Inspects the event data from \fIaction\fP, and processes it if it is something which this node should react to\&.
+.PP
+Nodes influencing relevant state variables for how event handling is done also overrides this method\&. 
+.PP
+Reimplemented from \fBSoLocateHighlight\fP\&.
+.SS "void SoWWWAnchor::setFetchURLCallBack (SoWWWAnchorCB * f, void * userData)\fC [static]\fP"
+Sets the callback function \fIf\fP that is called when a \fBSoWWWAnchor\fP node is clicked on\&. This callback can among other things be used to provide a browser with the URL of this node\&.
+.PP
+The callback will be called with the URL, \fIuserData\fP and a pointer to this node as arguments\&. 
+.SS "void SoWWWAnchor::setHighlightURLCallBack (SoWWWAnchorCB * f, void * userData)\fC [static]\fP"
+Sets the callback function \fIf\fP that is called when a \fBSoWWWAnchor\fP node is highlighted\&. This callback can among other things be used to provide the user with a visual clue on which URL the node points to, for example by showing the URL as a string\&.
+.PP
+The callback will be called with the URL, \fIuserData\fP and a pointer to this node as arguments\&. 
+.SS "void SoWWWAnchor::redrawHighlighted (\fBSoAction\fP * act, SbBool isNowHighlighting)\fC [protected]\fP, \fC [virtual]\fP"
+Calls the highlight callback set up with \fBSoWWWAnchor::setHighlightURLCallBack()\fP\&. 
+.PP
+Reimplemented from \fBSoLocateHighlight\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSoSFString\fP SoWWWAnchor::name"
+The name of the URL which the anchor points to\&. 
+.SS "\fBSoSFString\fP SoWWWAnchor::description"
+The description of the URL\&. 
+.SS "\fBSoSFEnum\fP SoWWWAnchor::map"
+Enum describing how a node's position should be mapped to the URL\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

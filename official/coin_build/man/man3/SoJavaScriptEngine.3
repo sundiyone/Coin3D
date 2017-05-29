@@ -1,0 +1,96 @@
+.TH "SoJavaScriptEngine" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoJavaScriptEngine
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits \fBSoScriptEngine\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual SbBool \fBexecuteScript\fP (const \fBSbName\fP &name, const \fBSbString\fP &script) const"
+.br
+.ti -1c
+.RI "virtual SbBool \fBexecuteFile\fP (const \fBSbName\fP &filename) const"
+.br
+.ti -1c
+.RI "virtual SbBool \fBexecuteFunction\fP (const \fBSbName\fP &name, \fBint\fP argc, const \fBSoField\fP *argv, \fBSoField\fP *rval=NULL) const"
+.br
+.ti -1c
+.RI "virtual SbBool \fBsetScriptField\fP (const \fBSbName\fP &name, const \fBSoField\fP *f) const"
+.br
+.ti -1c
+.RI "virtual SbBool \fBunsetScriptField\fP (const \fBSbName\fP &name) const"
+.br
+.ti -1c
+.RI "virtual SbBool \fBgetScriptField\fP (const \fBSbName\fP &name, \fBSoField\fP *f) const"
+.br
+.ti -1c
+.RI "virtual SbBool \fBhasScriptField\fP (const \fBSbName\fP &name) const"
+.br
+.ti -1c
+.RI "SbBool \fBfield2jsval\fP (const \fBSoField\fP *f, jsval *v) const"
+.br
+.ti -1c
+.RI "SbBool \fBjsval2field\fP (const jsval v, \fBSoField\fP *f) const"
+.br
+.ti -1c
+.RI "void \fBenableAutoNodeUnref\fP (SbBool onoff)"
+.br
+.ti -1c
+.RI "SbBool \fBgetAutoNodeUnrefState\fP (void) const"
+.br
+.ti -1c
+.RI "JSContext * \fBgetContext\fP (void) const"
+.br
+.ti -1c
+.RI "JSObject * \fBgetGlobal\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBaddHandler\fP (const \fBSoType\fP &type, SoJSWrapperInitFunc *init, SoJSfield2jsvalFunc *field2jsval, SoJSjsval2field2Func *jsval2field)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoJavaScriptEngine\fP * \fBgetEngine\fP (JSContext *cx)"
+.br
+.ti -1c
+.RI "static SbBool \fBinit\fP (uint32_t maxbytes=4194304)"
+.br
+.ti -1c
+.RI "static void \fBshutdown\fP (void)"
+.br
+.ti -1c
+.RI "static SbBool \fBdebug\fP (void)"
+.br
+.ti -1c
+.RI "static JSRuntime * \fBgetRuntime\fP (void)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBsetContext\fP (JSContext *context)"
+.br
+.ti -1c
+.RI "void \fBsetGlobal\fP (JSObject *global)"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static void \fBsetRuntime\fP (JSRuntime *runtime)"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

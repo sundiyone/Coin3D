@@ -1,0 +1,113 @@
+.TH "SbTesselator" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SbTesselator \- The \fBSbTesselator\fP class is used to tessellate polygons into triangles\&.
+.PP
+\fBSbTesselator\fP is used within Coin to split polygons into triangles\&. It handles concave polygons, does Delaunay triangulation and avoids generating self-intersecting triangles\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/SbTesselator\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSbTesselator\fP (\fBSbTesselatorCB\fP *func=NULL, void *data=NULL)"
+.br
+.ti -1c
+.RI "\fB~SbTesselator\fP (void)"
+.br
+.ti -1c
+.RI "void \fBbeginPolygon\fP (SbBool keepVertices=FALSE, const \fBSbVec3f\fP &normal=\fBSbVec3f\fP(0\&.0f, 0\&.0f, 0\&.0f))"
+.br
+.ti -1c
+.RI "void \fBaddVertex\fP (const \fBSbVec3f\fP &v, void *data)"
+.br
+.ti -1c
+.RI "void \fBendPolygon\fP (void)"
+.br
+.ti -1c
+.RI "void \fBsetCallback\fP (\fBSbTesselatorCB\fP *func, void *data)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBSbTesselator\fP class is used to tessellate polygons into triangles\&.
+.PP
+\fBSbTesselator\fP is used within Coin to split polygons into triangles\&. It handles concave polygons, does Delaunay triangulation and avoids generating self-intersecting triangles\&. 
+
+Here's a simple example which shows how to tessellate a quad polygon with corners in <0, 0, 0>, <1, 0, 0>, <1, 1, 0> and <0, 1, 0>\&.
+.PP
+.PP
+.nf
+// Callback function for the tessellator\&. Called once for each
+// generated triangle with the vertices\&.
+static void
+tess_cb(void * v0, void * v1, void * v2, void * cbdata)
+{
+  SbVec3f * vtx0 = (SbVec3f *)v0;
+  SbVec3f * vtx1 = (SbVec3f *)v1;
+  SbVec3f * vtx2 = (SbVec3f *)v2;
+  (void) fprintf(stdout, "triangle: <%f, %f, %f> <%f, %f, %f> <%f, %f, %f>\n",
+    (*vtx0)[0], (*vtx0)[1], (*vtx0)[2],
+    (*vtx1)[0], (*vtx1)[1], (*vtx1)[2],
+    (*vtx2)[0], (*vtx2)[1], (*vtx2)[2]);
+
+  // Do stuff with triangle here\&.
+}
+
+static SbVec3f vertices[] = {
+  SbVec3f(1, 0, 0), SbVec3f(1, 1, 0),
+  SbVec3f(0, 1, 0), SbVec3f(0, 0, 0)
+};
+
+SbTesselator mytessellator(tess_cb, NULL);
+mytessellator\&.beginPolygon();
+for (int i=0; i < 4; i++) {
+  mytessellator\&.addVertex(vertices[i], &vertices[i]);
+}
+mytessellator\&.endPolygon();
+.fi
+.PP
+.PP
+The call to \fBSbTesselator::endPolygon()\fP triggers the \fBSbTesselator\fP to spring into action, calling the tess_cb() function for each triangle it generates\&.
+.PP
+The reason we use 2 arguments to \fBSbTesselator::addVertex()\fP and passes void pointers for the vertices to the callback function is to make it possible to have more complex structures than just the coordinates themselves (as in the example above), like material information, lighting information or whatever other attributes your vertices have\&.
+.PP
+This class is not part of the original Open Inventor API\&.
+.PP
+Another option for tessellating polygons is the tessellator of the GLU library\&. It has some features not part of \fBSbTesselator\fP (like handling hulls), but the GLU library is known to have bugs in various implementations and doesn't do Delaunay triangulation\&. If you however still prefer to use the GLU tessellator instead of this one, that can be forced by setting an environment variable:
+.PP
+.PP
+.nf
+(void) coin_setenv("COIN_PREFER_GLU_TESSELLATOR", "1", 1);
+.fi
+.PP
+ 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SbTesselator::SbTesselator (\fBSbTesselatorCB\fP * func = \fCNULL\fP, void * data = \fCNULL\fP)"
+Initializes a tessellator\&. The \fIcallback\fP argument specifies a function which will be called for each triangle returned by the tessellator\&. The callback function will get three pointers to each vertex and the \fIuserdata\fP pointer\&. The vertex pointers are specified in the \fBSbTesselator::addVertex()\fP method\&. 
+.SS "SbTesselator::~SbTesselator (void)"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void SbTesselator::beginPolygon (SbBool keepVerts = \fCFALSE\fP, const \fBSbVec3f\fP & normal = \fC\fBSbVec3f\fP(0\&.0f, 0\&.0f, 0\&.0f)\fP)"
+Initializes new polygon\&.
+.PP
+You can explicitly set the polygon normal if you know what it is\&. Otherwise it will be calculated internally\&.
+.PP
+If \fIkeepVerts\fP is \fCTRUE\fP, all vertices will be included in the returned triangles, even though this might lead to triangles without area\&. 
+.SS "void SbTesselator::addVertex (const \fBSbVec3f\fP & v, void * data)"
+Adds a new vertex to the polygon\&. \fIdata\fP will be returned as a vertex in the callback-function\&. 
+.SS "void SbTesselator::endPolygon (void)"
+Signals the tessellator to begin tessellating\&. The callback function specified in the constructor (or set using the \fBSbTesselator::setCallback()\fP method) will be called for each triangle before returning\&. 
+.SS "void SbTesselator::setCallback (\fBSbTesselatorCB\fP * func, void * data)"
+Sets the callback function for this tessellator\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

@@ -1,0 +1,197 @@
+.TH "SoForeignFileKit" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoForeignFileKit \- Abstract base class for foreign file format support in Coin\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <ForeignFiles/SoForeignFileKit\&.h>\fP
+.PP
+Inherits \fBSoBaseKit\fP\&.
+.PP
+Inherited by \fBSoSTLFileKit\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "virtual const \fBSoNodekitCatalog\fP * \fBgetNodekitCatalog\fP (void) const"
+.br
+.ti -1c
+.RI "virtual SbBool \fBcanReadFile\fP (const char *filename=NULL) const"
+.br
+.ti -1c
+.RI "virtual SbBool \fBreadFile\fP (const char *filename)"
+.br
+.ti -1c
+.RI "virtual SbBool \fBcanWriteFile\fP (const char *filename=NULL) const"
+.br
+.ti -1c
+.RI "virtual SbBool \fBwriteFile\fP (const char *filename)"
+.br
+.ti -1c
+.RI "virtual class \fBSoSeparator\fP * \fBconvert\fP ()=0"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static const \fBSoNodekitCatalog\fP * \fBgetClassNodekitCatalog\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.ti -1c
+.RI "static SbBool \fBisFileSupported\fP (\fBSoInput\fP *in, SbBool exhaust=FALSE)"
+.br
+.ti -1c
+.RI "static SbBool \fBisFileSupported\fP (const char *filename, SbBool exhaust=FALSE)"
+.br
+.ti -1c
+.RI "static \fBSoForeignFileKit\fP * \fBcreateForeignFileKit\fP (\fBSoInput\fP *in, SbBool exhaust=FALSE)"
+.br
+.ti -1c
+.RI "static \fBSoForeignFileKit\fP * \fBcreateForeignFileKit\fP (const char *filename, SbBool exhaust=FALSE)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.ti -1c
+.RI "static const \fBSoNodekitCatalog\fP ** \fBgetClassNodekitCatalogPtr\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClasses\fP (void)"
+.br
+.ti -1c
+.RI "static SbBool \fBregisterFileExtension\fP (\fBSoType\fP handler, \fBSbName\fP extension, SoForeignFileIdentifyFunc *identify)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtopSeparator\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+Abstract base class for foreign file format support in Coin\&. 
+
+Abstract base class for foreign file format support in Coin\&.
+.PP
+Be aware that this class is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&. 
+.PP
+\fBSince:\fP
+.RS 4
+Coin 3\&.0 
+.RE
+.PP
+
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoForeignFileKit::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Reimplemented from \fBSoBaseKit\fP\&.
+.PP
+Reimplemented in \fBSoSTLFileKit\fP\&.
+.SS "const \fBSoFieldData\fP * SoForeignFileKit::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoBaseKit\fP\&.
+.PP
+Reimplemented in \fBSoSTLFileKit\fP\&.
+.SS "const \fBSoNodekitCatalog\fP * SoForeignFileKit::getNodekitCatalog (void) const\fC [virtual]\fP"
+Returns the nodekit catalog which defines the layout of this class' kit\&. 
+.PP
+Reimplemented from \fBSoBaseKit\fP\&.
+.PP
+Reimplemented in \fBSoSTLFileKit\fP\&.
+.SS "SbBool SoForeignFileKit::isFileSupported (\fBSoInput\fP * in, SbBool exhaust = \fCFALSE\fP)\fC [static]\fP"
+Convenience method\&. Will extract the filename from \fIin\fP and call the other ieFileSupported() method\&.
+.PP
+Will return false if file is not supported or /e in is not representing a normal file\&. 
+.SS "SbBool SoForeignFileKit::isFileSupported (const char * filename, SbBool exhaust = \fCFALSE\fP)\fC [static]\fP"
+Checks if the filename can be read by a registered \fBSoForeignFileKit\fP handler\&.
+.PP
+FIXME: \fIexhaust\fP is not implemented\&. 
+.SS "\fBSoForeignFileKit\fP * SoForeignFileKit::createForeignFileKit (\fBSoInput\fP * in, SbBool exhaust = \fCFALSE\fP)\fC [static]\fP"
+Convenience method\&. Will extract the filename from \fIin\fP and call the other ieFileSupported() method\&. 
+.SS "\fBSoForeignFileKit\fP * SoForeignFileKit::createForeignFileKit (const char * filename, SbBool exhaust = \fCFALSE\fP)\fC [static]\fP"
+Creates an instance of a suitable \fBSoForeignFileKit\fP subtype from the given file and reads its content\&. Returns NULL on failure or a kit with refcount of 0 on success\&.
+.PP
+FIXME: \fIexhaust\fP is not implemented\&. 
+.SS "SbBool SoForeignFileKit::canReadFile (const char * filename = \fCNULL\fP) const\fC [virtual]\fP"
+Checks if this concrete class can read the given file\&. 
+.PP
+Reimplemented in \fBSoSTLFileKit\fP\&.
+.SS "SbBool SoForeignFileKit::readFile (const char * filename)\fC [virtual]\fP"
+Reads the given file into the internal representation\&. If successful, Coin should now be able to render the scene\&. If you need a pure Coin scenegraph, call \fBconvert()\fP\&. 
+.PP
+Reimplemented in \fBSoSTLFileKit\fP\&.
+.SS "SbBool SoForeignFileKit::canWriteFile (const char * filename = \fCNULL\fP) const\fC [virtual]\fP"
+Checks if this concrete class can write to the given file\&. 
+.PP
+Reimplemented in \fBSoSTLFileKit\fP\&.
+.SS "SbBool SoForeignFileKit::writeFile (const char * filename)\fC [virtual]\fP"
+Writes the current contents to the given file\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBcanWriteFile\fP 
+.RE
+.PP
+
+.PP
+Reimplemented in \fBSoSTLFileKit\fP\&.
+.SS "virtual class \fBSoSeparator\fP* SoForeignFileKit::convert ()\fC [pure virtual]\fP"
+Converts (if necessary) the internal representation of the foreign file to a pure Coin scenegraph\&. Returns the root node with a refcount of 0\&. 
+.PP
+Implemented in \fBSoSTLFileKit\fP\&.
+.SS "SbBool SoForeignFileKit::registerFileExtension (\fBSoType\fP handler, \fBSbName\fP extension, SoForeignFileIdentifyFunc * identify)\fC [static]\fP, \fC [protected]\fP"
+Registers a concrete \fBSoForeignFileKit\fP subtype to be a handler for files with the given extension\&. One class can be a handler for multiple filename extensions\&.
+.PP
+FIXME: \fIidentify\fP is not implemented 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

@@ -1,0 +1,102 @@
+.TH "manips" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+manips \- Manipulators are objects you can swap back and forth into a scene graph at locations where you have an \fBSoTransform\fP node\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBSoClipPlaneManip\fP"
+.br
+.RI "The \fBSoClipPlaneManip\fP class is used to manipulate clip planes\&.
+.PP
+A manipulator is used by replacing the node you want to edit in the graph with the manipulator\&. Draggers are used to manipulate the node\&. When manipulation is finished, the node is put back into the graph, replacing the manipulator\&. "
+.ti -1c
+.RI "class \fBSoDirectionalLightManip\fP"
+.br
+.RI "The \fBSoDirectionalLightManip\fP class is used to manipulate \fBSoDirectionalLight\fP nodes\&.
+.PP
+A manipulator is used by replacing the node you want to edit in the graph with the manipulator\&. Draggers are used to manipulate the node\&. When manipulation is finished, the node is put back into the graph, replacing the manipulator\&. "
+.ti -1c
+.RI "class \fBSoPointLightManip\fP"
+.br
+.RI "The \fBSoPointLightManip\fP class is used to manipulate point light nodes\&.
+.PP
+A manipulator is used by replacing the node you want to edit in the graph with the manipulator\&. Draggers are used to to manipulate the node\&. When manipulation is finished, the node is put back into the graph, replacing the manipulator\&. "
+.ti -1c
+.RI "class \fBSoSpotLightManip\fP"
+.br
+.RI "The \fBSoSpotLightManip\fP class is used to manipulate spot light nodes\&.
+.PP
+A manipulator is used by replacing the node you want to edit in the graph with the manipulator\&. Draggers are used to to manipulate the node\&. When manipulation is finished, the node is put back into the graph, replacing the manipulator\&. "
+.ti -1c
+.RI "class \fBSoTransformManip\fP"
+.br
+.RI "The \fBSoTransformManip\fP class is used to manipulate transformations\&.
+.PP
+A manipulator is used by replacing the node you want to edit in the graph with the manipulator\&. Draggers are used to to manipulate the node\&. When manipulation is finished, the node is put back into the graph, replacing the manipulator\&. "
+.ti -1c
+.RI "class \fBSoCenterballManip\fP"
+.br
+.RI "The \fBSoCenterballManip\fP wraps an \fBSoCenterballDragger\fP for convenience\&.
+.PP
+The manipulator class takes care of wrapping up the \fBSoCenterballDragger\fP in a simple and convenient API for the application programmer, making it automatically surround the geometry it influences and taking care of the book-keeping routines for it's interaction with the relevant fields of an \fBSoTransformation\fP node\&. "
+.ti -1c
+.RI "class \fBSoHandleBoxManip\fP"
+.br
+.RI "The \fBSoHandleBoxManip\fP class wraps an \fBSoHandleBoxDragger\fP for manipulating a transformation\&.
+.PP
+A manipulator is used by replacing the node you want to edit in the graph with the manipulator\&. Draggers are used to manipulate the node\&. When manipulation is finished, the node is put back into the graph, replacing the manipulator\&. "
+.ti -1c
+.RI "class \fBSoJackManip\fP"
+.br
+.RI "The \fBSoJackManip\fP wraps an \fBSoJackDragger\fP for convenience\&.
+.PP
+The manipulator class takes care of wrapping up the \fBSoJackDragger\fP in a simple and convenient API for the application programmer, making it automatically surround the geometry it influences and taking care of the book-keeping routines for it's interaction with the relevant fields of an \fBSoTransformation\fP node\&. "
+.ti -1c
+.RI "class \fBSoTabBoxManip\fP"
+.br
+.RI "The \fBSoTabBoxManip\fP class wraps an \fBSoTabBoxDragger\fP\&.
+.PP
+The \fBSoTabBoxManip\fP provides a convenient mechanism for the application programmer for setting up an \fBSoTabBoxDragger\fP in the scene connected to the relevant fields of an \fBSoTransform\fP node\&. "
+.ti -1c
+.RI "class \fBSoTrackballManip\fP"
+.br
+.RI "The \fBSoTrackballManip\fP wraps an \fBSoTrackballDragger\fP for convenience\&.
+.PP
+The manipulator class takes care of wrapping up the \fBSoTrackballDragger\fP in a simple and convenient API for the application programmer, making it automatically surround the geometry it influences and taking care of the book-keeping routines for it's interaction with the relevant fields of an \fBSoTransformation\fP node\&. "
+.ti -1c
+.RI "class \fBSoTransformBoxManip\fP"
+.br
+.RI "The \fBSoTransformBoxManip\fP wraps an \fBSoTransformBoxDragger\fP for convenience\&.
+.PP
+The manipulator class takes care of wrapping up the \fBSoTransformBoxDragger\fP in a simple and convenient API for the application programmer, making it automatically surround the geometry it influences and taking care of the book-keeping routines for it's interaction with the relevant fields of an \fBSoTransformation\fP node\&. "
+.ti -1c
+.RI "class \fBSoTransformerManip\fP"
+.br
+.RI "The \fBSoTransformerManip\fP wraps an \fBSoTransformerDragger\fP for convenience\&.
+.PP
+The manipulator class takes care of wrapping up the \fBSoTransformerDragger\fP in a simple and convenient API for the application programmer, making it automatically surround the geometry it influences and taking care of the book-keeping routines for it's interaction with the relevant fields of an \fBSoTransformation\fP node\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Manipulators are objects you can swap back and forth into a scene graph at locations where you have an \fBSoTransform\fP node\&. 
+
+They take the place of the \fBSoTransform\fP, continue to act like the \fBSoTransform\fP, but in addition give the user a 3D user interface, using draggers, for controlling the transform\&. When the user is done manipulating, the manipulator can swap itself back out, replacing itself with an \fBSoTransform\fP that represent the new transform value\&.
+.PP
+Manipulators is one of the concepts that really made Open Inventor stand out against the alternatives when it came out\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBDragger Classes\fP 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

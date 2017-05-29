@@ -1,0 +1,30 @@
+.TH "dynload_overview" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+dynload_overviewDynamic Loading of Extension Nodes 
+ \- When Coin tries to get hold of a node type object (\fBSoType\fP) for a class based on the name string of the node type, it will - if no such node type has been initialized yet - scan the file system for a dynamically loadable extension node with that given name\&. This can be completely disabled by setting the environment variable COIN_NO_SOTYPE_DYNLOAD to a positive integer value, new from Coin v2\&.5\&.0\&.
+.PP
+On UNIX, extensions nodes are regular \&.so files\&. On Win32, extension nodes are built as DLLs\&. On Mac OS X systems, extension nodes are built as \&.dylib files\&. (Note: The extension nodes have to be built using the flag '-dynamiclib', not '-bundle'\&.)
+.PP
+Whether the dynamically loadable objects should be named with or without the 'lib' prefix is optional\&. Both schemes will work\&.
+.PP
+People don't usually program in a way so that they instantiate new nodes through the node class' \fBSoType\fP object, but that is the way nodes are created when model files are loaded\&. This means that for all Coin applications that load model files, the custom extension nodes will automatically be supported for the model files without you having to modify their source code and rebuild the applications\&.
+.PP
+See ftp://ftp.coin3d.org/pub/coin/src/dynloadsample.tar.gz for an example using two dynamically loadable extension nodes\&. You only use an examiner viewer to view the two extension nodes in action\&.
+.PP
+Only a limited set of C++ compilers are supported as of yet\&. This is because, to initialize the extension node, it is necessary to know something about how the C++ compiler mangles the initClass symbol\&. If we don't know that, there is no way to locate the initClass method in the library, which means the extension node can \fInot\fP make itself known to the type system\&.
+.PP
+If your C++ compiler is not supported, the source file to add support for a new compiler in is src/misc/cppmangle\&.icc\&. It is fairly trivial to add support for new compilers, but if you don't understand how, just ask us about it\&. Patches with support for new compilers are of course very welcome\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoType\fP
+.RE
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.RE
+.PP
+

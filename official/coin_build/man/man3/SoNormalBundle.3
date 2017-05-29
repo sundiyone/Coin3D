@@ -1,0 +1,131 @@
+.TH "SoNormalBundle" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoNormalBundle \- The \fBSoNormalBundle\fP class simplifies normal handling\&.
+.PP
+This class is currently not used in Coin but is provided for API compatibility\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <include/Inventor/bundles/SoNormalBundle\&.h>\fP
+.PP
+Inherits \fBSoBundle\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSoNormalBundle\fP (\fBSoAction\fP *action, SbBool forrendering)"
+.br
+.ti -1c
+.RI "\fB~SoNormalBundle\fP ()"
+.br
+.ti -1c
+.RI "SbBool \fBshouldGenerate\fP (\fBint\fP numneeded)"
+.br
+.ti -1c
+.RI "void \fBinitGenerator\fP (\fBint\fP initnum=100)"
+.br
+.ti -1c
+.RI "void \fBbeginPolygon\fP (void)"
+.br
+.ti -1c
+.RI "void \fBpolygonVertex\fP (const \fBSbVec3f\fP &v)"
+.br
+.ti -1c
+.RI "void \fBendPolygon\fP (void)"
+.br
+.ti -1c
+.RI "void \fBtriangle\fP (const \fBSbVec3f\fP &p1, const \fBSbVec3f\fP &p2, const \fBSbVec3f\fP &p3)"
+.br
+.ti -1c
+.RI "void \fBgenerate\fP (\fBint\fP startindex=0, SbBool addtostate=TRUE)"
+.br
+.ti -1c
+.RI "const \fBSbVec3f\fP * \fBgetGeneratedNormals\fP (void) const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetNumGeneratedNormals\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBset\fP (int32_t num, const \fBSbVec3f\fP *normals)"
+.br
+.ti -1c
+.RI "const \fBSbVec3f\fP & \fBget\fP (\fBint\fP index) const"
+.br
+.ti -1c
+.RI "void \fBsend\fP (\fBint\fP index) const"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoNormalGenerator\fP * \fBgenerator\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoNormalBundle\fP class simplifies normal handling\&.
+.PP
+This class is currently not used in Coin but is provided for API compatibility\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoNormalBundle::SoNormalBundle (\fBSoAction\fP * action, SbBool forrendering)"
+Constructor\&. 
+.SS "SoNormalBundle::~SoNormalBundle ()"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "SbBool SoNormalBundle::shouldGenerate (\fBint\fP numneeded)"
+Returns FALSE if there are normals on the state\&. Otherwise \fBinitGenerator()\fP is called with \fInumneeded\fP as argument, and TRUE is returned\&. 
+.SS "void SoNormalBundle::initGenerator (\fBint\fP initnum = \fC100\fP)"
+Initializes the normal generator\&. \fIinitnum\fP is a hint that should contain the approximate number of normals to be generated\&. 
+.SS "void SoNormalBundle::beginPolygon (void)"
+Start polygon specification\&. Call \fBpolygonVertex()\fP for each vertex in the polygon, and then \fBendPolygon()\fP to close the polygon\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBpolygonVertex()\fP, \fBendPolygon()\fP 
+.RE
+.PP
+
+.SS "void SoNormalBundle::polygonVertex (const \fBSbVec3f\fP & v)"
+Call for each vertex in a polygon\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBbeginPolygon()\fP, \fBendPolygon()\fP 
+.RE
+.PP
+
+.SS "void SoNormalBundle::endPolygon (void)"
+Call to close a polygon\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBbeginPolygon()\fP, \fBpolygonVertex()\fP 
+.RE
+.PP
+
+.SS "void SoNormalBundle::triangle (const \fBSbVec3f\fP & p1, const \fBSbVec3f\fP & p2, const \fBSbVec3f\fP & p3)"
+Convenience method to specify a triangle\&. \fIp1\fP, \fIp2\fP, and \fIp3\fP are the triangles vertices\&. 
+.SS "void SoNormalBundle::generate (\fBint\fP startindex = \fC0\fP, SbBool addtostate = \fCTRUE\fP)"
+Generate normals for the shape\&. \fIstartindex\fP should always be 0 (the \fBSoNonIndexedShape::startIndex\fP field is obsoleted)\&. \fIaddtostate\fP should be true if the generated normals should be pushed onto the current state\&. 
+.SS "const \fBSbVec3f\fP * SoNormalBundle::getGeneratedNormals (void) const"
+Returns the number of generated normals\&. 
+.SS "\fBint\fP SoNormalBundle::getNumGeneratedNormals (void) const"
+Returns a pointer to the generated normals\&. 
+.SS "void SoNormalBundle::set (int32_t num, const \fBSbVec3f\fP * normals)"
+Can be used by nodes that generate their own normals\&. The state will be updated with the new normals, and the state will be popped again when the \fBSoNormalBundle\fP destructor is called\&. 
+.SS "const \fBSbVec3f\fP & SoNormalBundle::get (\fBint\fP index) const"
+Returns the \fIindex'th\fP normal from the state\&. 
+.SS "void SoNormalBundle::send (\fBint\fP index) const"
+Send the index'th normal to OpenGL\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

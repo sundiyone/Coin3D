@@ -1,0 +1,85 @@
+.TH "rbptree.h" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+rbptree.h
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <Inventor/C/basic\&.h>\fP
+.br
+\fC#include <stdarg\&.h>\fP
+.br
+
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "struct \fBcc_rbptree\fP"
+.br
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef struct cc_rbptree_node \fBcc_rbptree_node\fP"
+.br
+.ti -1c
+.RI "typedef struct \fBcc_rbptree\fP \fBcc_rbptree\fP"
+.br
+.ti -1c
+.RI "typedef void \fBcc_rbptree_traversecb\fP(void *p, void *data, void *closure)"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBcc_rbptree_init\fP (\fBcc_rbptree\fP *t)"
+.br
+.ti -1c
+.RI "void \fBcc_rbptree_clean\fP (\fBcc_rbptree\fP *t)"
+.br
+.ti -1c
+.RI "void \fBcc_rbptree_insert\fP (\fBcc_rbptree\fP *t, void *p, void *data)"
+.br
+.ti -1c
+.RI "SbBool \fBcc_rbptree_remove\fP (\fBcc_rbptree\fP *t, void *p)"
+.br
+.ti -1c
+.RI "uint32_t \fBcc_rbptree_size\fP (const \fBcc_rbptree\fP *t)"
+.br
+.ti -1c
+.RI "void \fBcc_rbptree_traverse\fP (const \fBcc_rbptree\fP *t, \fBcc_rbptree_traversecb\fP *func, void *closure)"
+.br
+.ti -1c
+.RI "void \fBcc_rbptree_debug\fP (const \fBcc_rbptree\fP *t)"
+.br
+.in -1c
+.SH "Typedef Documentation"
+.PP 
+.SS "struct cc_rbptree_node cc_rbptree_node"
+The type definition for the rbptree node structure\&. 
+.SS "struct \fBcc_rbptree\fP \fBcc_rbptree\fP"
+The type definition for the whole rbptree structure\&. 
+.SS "void cc_rbptree_traversecb"
+The type definition for a tree traversal callback function\&. 
+.SH "Function Documentation"
+.PP 
+.SS "void cc_rbptree_init (\fBcc_rbptree\fP * t)"
+Initialize \fCt\fP\&. This is needed before making any operations on the tree\&. 
+.SS "void cc_rbptree_clean (\fBcc_rbptree\fP * t)"
+Delete all nodes in \fCt\fP\&. After this call, the tree will be reinitialized to an empty tree\&. 
+.SS "void cc_rbptree_insert (\fBcc_rbptree\fP * t, void * p, void * data)"
+Insert a new value \fCp\fP into \fCt\fP\&. 
+.SS "SbBool cc_rbptree_remove (\fBcc_rbptree\fP * t, void * p)"
+Remove the (first) node with value \fCp\fP\&. Returns \fITRUE\fP if \fCp\fP is found and removed, \fIFALSE\fP otherwise\&. 
+.SS "uint32_t cc_rbptree_size (const \fBcc_rbptree\fP * t)"
+Returns the total numbers of items in the tree 
+.SS "void cc_rbptree_traverse (const \fBcc_rbptree\fP * t, \fBcc_rbptree_traversecb\fP * func, void * closure)"
+Traverse the tree \fCt\fP 
+.SS "void cc_rbptree_debug (const \fBcc_rbptree\fP * t)"
+for debugging only\&. Prints the tree to stdout\&. 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

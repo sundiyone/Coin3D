@@ -1,0 +1,172 @@
+.TH "SoError" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoError \- The \fBSoError\fP class is the base class for all the error handling classes\&.
+.PP
+The default error handler just prints messages on the standard error output channel, but this can be overridden by client applications\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/errors/SoError\&.h>\fP
+.PP
+Inherited by \fBSoDebugError\fP, \fBSoMemoryError\fP, and \fBSoReadError\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fB~SoError\fP ()"
+.br
+.ti -1c
+.RI "const \fBSbString\fP & \fBgetDebugString\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.ti -1c
+.RI "SbBool \fBisOfType\fP (const \fBSoType\fP type) const"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static void \fBsetHandlerCallback\fP (SoErrorCB *const func, void *const data)"
+.br
+.ti -1c
+.RI "static SoErrorCB * \fBgetHandlerCallback\fP (void)"
+.br
+.ti -1c
+.RI "static void * \fBgetHandlerData\fP (void)"
+.br
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBpost\fP (const char *const format,\&.\&.\&.)"
+.br
+.ti -1c
+.RI "static \fBSbString\fP \fBgetString\fP (const \fBSoNode\fP *const node)"
+.br
+.ti -1c
+.RI "static \fBSbString\fP \fBgetString\fP (const \fBSoPath\fP *const path)"
+.br
+.ti -1c
+.RI "static \fBSbString\fP \fBgetString\fP (const \fBSoEngine\fP *const engine)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClasses\fP (void)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual SoErrorCBPtr \fBgetHandler\fP (void *&data) const"
+.br
+.ti -1c
+.RI "void \fBsetDebugString\fP (const char *const str)"
+.br
+.ti -1c
+.RI "void \fBappendToDebugString\fP (const char *const str)"
+.br
+.ti -1c
+.RI "void \fBhandleError\fP (void)"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static void \fBdefaultHandlerCB\fP (const \fBSoError\fP *error, void *userdata)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBSoError\fP class is the base class for all the error handling classes\&.
+.PP
+The default error handler just prints messages on the standard error output channel, but this can be overridden by client applications\&. 
+
+Being able to override the default handler is useful when you want to collect error messages upon e\&.g\&. model import for later presentation of the messages to the user in any custom manner (like for instance in a GUI messagebox)\&.
+.PP
+The \fBSoError\fP class is not designed to be particularly useful for 'direct use'\&. Within the Coin library it is only used through its subclasses\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoError::~SoError ()\fC [inline]\fP, \fC [virtual]\fP"
+The default destructor does nothing\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void SoError::setHandlerCallback (SoErrorCB *const function, void *const data)\fC [static]\fP"
+This method sets the error handler callback for messages posted via this class\&.
+.PP
+Note that this will not override the error/debug message handler for subclasses, these will have to be overrided by calling the subclass' \fBsetHandlerCallback()\fP method\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBdefaultHandlerCB()\fP 
+.RE
+.PP
+
+.SS "SoErrorCB * SoError::getHandlerCallback (void)\fC [static]\fP"
+Returns the error handler callback for messages posted via this class\&. 
+.SS "void * SoError::getHandlerData (void)\fC [static]\fP"
+This method returns the pointer used for passing data back to the callback handler method\&. 
+.SS "const \fBSbString\fP & SoError::getDebugString (void) const"
+This method returns an \fBSbString\fP containing error info from the given error instance\&. 
+.SS "\fBSoType\fP SoError::getClassTypeId (void)\fC [static]\fP"
+This static method returns the \fBSoType\fP for this class\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetTypeId()\fP 
+.RE
+.PP
+
+.SS "\fBSoType\fP SoError::getTypeId (void) const\fC [virtual]\fP"
+This method returns the \fBSoType\fP of a particular object instance\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetClassTypeId()\fP 
+.RE
+.PP
+
+.PP
+Reimplemented in \fBSoDebugError\fP, \fBSoReadError\fP, and \fBSoMemoryError\fP\&.
+.SS "SbBool SoError::isOfType (const \fBSoType\fP type) const"
+This method returns \fCTRUE\fP if the error instance is of - or derived from - \fItype\fP, and \fCFALSE\fP otherwise\&. 
+.SS "void SoError::post (const char *const format,  \&.\&.\&.)\fC [static]\fP"
+This method posts an error message\&. The \fIformat\fP string and the trailing aguments should follow the printf() standard\&. 
+.SS "\fBSbString\fP SoError::getString (const \fBSoNode\fP *const node)\fC [static]\fP"
+Constructs a string identifying the \fInode\fP with name (if available) and memory pointer\&. 
+.SS "\fBSbString\fP SoError::getString (const \fBSoPath\fP *const path)\fC [static]\fP"
+Constructs a string identifying the \fIpath\fP with name (if available) and memory pointer\&. 
+.SS "\fBSbString\fP SoError::getString (const \fBSoEngine\fP *const engine)\fC [static]\fP"
+Constructs a string identifying the \fIengine\fP with name (if available) and memory pointer\&. 
+.SS "void SoError::initClass (void)\fC [static]\fP"
+This method takes care of initializing all static data for the class\&. 
+.SS "void SoError::initClasses (void)\fC [static]\fP"
+This static method initializes all the \fBSoError\fP classes\&. 
+.SS "void SoError::defaultHandlerCB (const \fBSoError\fP * error, void * data)\fC [static]\fP, \fC [protected]\fP"
+Contains the default code for handling error strings\&.
+.PP
+Default treatment of an error message is to print it out on the standard error file handle\&. 
+.SS "SoErrorCB * SoError::getHandler (void *& data) const\fC [protected]\fP, \fC [virtual]\fP"
+This is just a convenience wrapper around the \fBgetHandlerCallback()\fP and \fBgetHandlerData()\fP methods\&. 
+.PP
+Reimplemented in \fBSoDebugError\fP, \fBSoReadError\fP, and \fBSoMemoryError\fP\&.
+.SS "void SoError::setDebugString (const char *const str)\fC [protected]\fP"
+Replace the latest stored debug string with \fIstr\fP\&. 
+.SS "void SoError::appendToDebugString (const char *const str)\fC [protected]\fP"
+Add \fIstr\fP at the end of the currently stored debug string\&. 
+.SS "void SoError::handleError (void)\fC [protected]\fP"
+This method calls the appropriate handler for an error instance\&. All error handling goes through this method, and is therefore a good candidate for a debugger breakpoint\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

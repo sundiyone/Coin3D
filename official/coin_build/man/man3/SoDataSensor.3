@@ -1,0 +1,233 @@
+.TH "SoDataSensor" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoDataSensor \- The \fBSoDataSensor\fP class is the abstract base class for sensors monitoring changes in a scene graph\&.
+.PP
+If you need to know when a particular entity (as a field or a node) changes, subclasses of \fBSoDataSensor\fP can be used to monitor the entity and notify you when it changes\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/sensors/SoDataSensor\&.h>\fP
+.PP
+Inherits \fBSoDelayQueueSensor\fP\&.
+.PP
+Inherited by \fBSoFieldSensor\fP, \fBSoNodeSensor\fP, and \fBSoPathSensor\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSoDataSensor\fP (void)"
+.br
+.ti -1c
+.RI "\fBSoDataSensor\fP (\fBSoSensorCB\fP *\fBfunc\fP, void *data)"
+.br
+.ti -1c
+.RI "virtual \fB~SoDataSensor\fP (void)"
+.br
+.ti -1c
+.RI "void \fBsetDeleteCallback\fP (\fBSoSensorCB\fP *function, void *data=NULL)"
+.br
+.ti -1c
+.RI "\fBSoNode\fP * \fBgetTriggerNode\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoField\fP * \fBgetTriggerField\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoPath\fP * \fBgetTriggerPath\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBsetTriggerPathFlag\fP (SbBool flag)"
+.br
+.ti -1c
+.RI "SbBool \fBgetTriggerPathFlag\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoNotRec::OperationType\fP \fBgetTriggerOperationType\fP (void) const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetTriggerIndex\fP (void) const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetTriggerFieldNumIndices\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoNode\fP * \fBgetTriggerGroupChild\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoNode\fP * \fBgetTriggerReplacedGroupChild\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBtrigger\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBnotify\fP (\fBSoNotList\fP *l)"
+.br
+.ti -1c
+.RI "virtual void \fBdyingReference\fP (void)=0"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBinvokeDeleteCallback\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoDataSensor\fP class is the abstract base class for sensors monitoring changes in a scene graph\&.
+.PP
+If you need to know when a particular entity (as a field or a node) changes, subclasses of \fBSoDataSensor\fP can be used to monitor the entity and notify you when it changes\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoDataSensor::SoDataSensor (void)"
+Default constructor\&. 
+.SS "SoDataSensor::SoDataSensor (\fBSoSensorCB\fP * func, void * data)"
+Constructor taking as parameters the sensor callback function and the userdata which will be passed the callback\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetFunction()\fP, \fBsetData()\fP 
+.RE
+.PP
+
+.SS "SoDataSensor::~SoDataSensor (void)\fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void SoDataSensor::setDeleteCallback (\fBSoSensorCB\fP * function, void * data = \fCNULL\fP)"
+If an object monitored by a data sensor is deleted, the given callback function will be called with the given userdata\&.
+.PP
+The sensor priority setting does not affect the delete callback\&. It will be called immediately, before the object is deleted\&. 
+.SS "\fBSoNode\fP * SoDataSensor::getTriggerNode (void) const"
+Returns a pointer to the node causing the sensor to trigger, or \fCNULL\fP if there was no such node\&.
+.PP
+\fCNULL\fP will also be returned for sensors which are not immediate sensors (i\&.e\&. with priority equal to 0), as the result could otherwise be misleading (non-immediate sensors could have been scheduled and rescheduled multiple times, so there wouldn't be a single node responsible for the sensor triggering)\&.
+.PP
+The result is only valid within the scope of a \fBtrigger()\fP, so if you need to use the pointer outside your sensor callback, you must store it\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetTriggerField()\fP 
+.RE
+.PP
+
+.SS "\fBSoField\fP * SoDataSensor::getTriggerField (void) const"
+Returns a pointer to the field causing the sensor to trigger, or \fCNULL\fP if the change didn't start at a field\&.
+.PP
+Only valid for immediate sensors (will return \fCNULL\fP otherwise), for the same reason as described for \fBSoDataSensor::getTriggerNode()\fP\&.
+.PP
+The result is only valid within the scope of a \fBtrigger()\fP, so if you need to use the pointer outside your sensor callback, you must store it\&. 
+.SS "\fBSoPath\fP * SoDataSensor::getTriggerPath (void) const"
+Returns a pointer to the path from the node under the surveillance of this sensor (either directly or indirectly through a field watch) down to the node which caused the sensor to be triggered\&.
+.PP
+Will only work for immediate mode sensors, for the same reason explained under \fBgetTriggerNode()\fP\&.
+.PP
+The resulting path is only valid within the scope of \fBtrigger()\fP, so if you need to use the path outside your sensor callback, you must store the pointer and call \fBSoPath::ref()\fP to avoid its destruction at the end of \fBSoDataSensor::trigger()\fP\&. 
+.SS "void SoDataSensor::setTriggerPathFlag (SbBool flag)"
+This flag indicates whether or not the path should be queried whenever a node triggers the data sensor\&.
+.PP
+This flag is provided because finding a node path through a scene graph is an expensive operation\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetTriggerPathFlag()\fP, \fBgetTriggerPath()\fP 
+.RE
+.PP
+
+.SS "SbBool SoDataSensor::getTriggerPathFlag (void) const"
+Returns whether or not any node induced trigger operations will make the sensor find the path of the node which caused it\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetTriggerPathFlag()\fP, \fBgetTriggerPath()\fP 
+.RE
+.PP
+
+.SS "\fBSoNotRec::OperationType\fP SoDataSensor::getTriggerOperationType (void) const"
+Returns the type of the scenegraph operation on the node that caused the sensor to trigger\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetTriggerNode()\fP, \fBgetTriggerField()\fP, \fBgetTriggerGroupChild()\fP 
+.RE
+.PP
+
+.SS "\fBint\fP SoDataSensor::getTriggerIndex (void) const"
+Returns the index of the child node or value in the node or multifield that caused the sensor to trigger\&.
+.PP
+Please note that this method is an extension to the original SGI Inventor API\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetTriggerFieldNumIndices()\fP, \fBgetTriggerGroupChild()\fP, \fBgetTriggerNode()\fP, \fBgetTriggerField()\fP 
+.RE
+.PP
+
+.SS "\fBint\fP SoDataSensor::getTriggerFieldNumIndices (void) const"
+Returns the number of indices of the multifield that caused the sensor to trigger\&.
+.PP
+Please note that this method is an extension to the original SGI Inventor API\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetTriggerIndex()\fP, \fBgetTriggerField()\fP 
+.RE
+.PP
+
+.SS "\fBSoNode\fP * SoDataSensor::getTriggerGroupChild (void) const"
+Returns a pointer to the actual child node in the node that caused the sensor to trigger, or \fCNULL\fP if there was no such node\&.
+.PP
+Please note that this method is an extension to the original SGI Inventor API\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetTriggerNode()\fP, \fBgetTriggerReplacedGroupChild\fP 
+.RE
+.PP
+
+.SS "\fBSoNode\fP * SoDataSensor::getTriggerReplacedGroupChild (void) const"
+Returns a pointer to the actual child node for a SoNotRec::GROUP_REPLACECHILD type of operation in the node that is about to be replaced and caused the sensor to trigger, or \fCNULL\fP if there was no such node\&.
+.PP
+Please note that this method is an extension to the original SGI Inventor API\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetTriggerNode()\fP, \fBgetTriggerGroupChild\fP 
+.RE
+.PP
+
+.SS "void SoDataSensor::trigger (void)\fC [virtual]\fP"
+Trigger the sensor's callback function\&. 
+.PP
+Reimplemented from \fBSoDelayQueueSensor\fP\&.
+.PP
+Reimplemented in \fBSoFieldSensor\fP\&.
+.SS "void SoDataSensor::notify (\fBSoNotList\fP * l)\fC [virtual]\fP"
+Called from entity we are monitoring when it changes\&.
+.PP
+If this is an immediate sensor, the field and node (if any) causing the change will be stored and can be fetched by \fBgetTriggerField()\fP and \fBgetTriggerNode()\fP\&. If the triggerpath flag has been set, the path down to the node is also found and stored for later retrieval by \fBgetTriggerPath()\fP\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetTriggerPathFlag()\fP 
+.RE
+.PP
+
+.PP
+Reimplemented in \fBSoPathSensor\fP\&.
+.SS "void SoDataSensor::dyingReference (void)\fC [pure virtual]\fP"
+This method is called when the entity we are connected to is about to be deleted\&. 
+.SS "void SoDataSensor::invokeDeleteCallback (void)\fC [protected]\fP"
+Runs the callback set in \fBsetDeleteCallback()\fP\&.
+.PP
+Called from subclasses when the entity we're monitoring is about to be deleted\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

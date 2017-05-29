@@ -1,0 +1,190 @@
+diff --git a/coin4/examples/bindings/CoinQtWidget.cpp b/coin4/examples/bindings/CoinQtWidget.cpp
+index b461a40..ad5a876 100644
+--- a/coin4/examples/bindings/CoinQtWidget.cpp
++++ b/coin4/examples/bindings/CoinQtWidget.cpp
+@@ -121,7 +121,7 @@ void
+ CoinQtManager::update(void)
+ {
+   SoSensorManager * sensormanager = SoDB::getSensorManager();
+-  sensormanager->processDelayQueue(TRUE);
++  sensormanager->processDelayQueue(true);
+   sensormanager->processTimerQueue();
+ }
+ 
+@@ -222,7 +222,7 @@ CoinQtWidgetP::render(SoSceneManager * manager)
+ {
+   assert(manager == this->scenemanager);
+   this->master->makeCurrent();
+-  this->scenemanager->render(TRUE, TRUE);
++  this->scenemanager->render(true, true);
+   if ( this->master->doubleBuffer() ) {
+     this->master->swapBuffers();
+   }
+@@ -283,7 +283,7 @@ CoinQtWidget::setSceneGraph(SoNode * node, bool managed)
+       PRIVATE(this)->root = NULL;
+       PRIVATE(this)->scenemanager->setSceneGraph(NULL);
+     }
+-    return TRUE;
++    return true;
+   } else {
+     this->setSceneGraph(NULL);
+   }
+@@ -299,7 +299,7 @@ CoinQtWidget::setSceneGraph(SoNode * node, bool managed)
+     bool status = SoDB::read(&in, scene);
+     if ( !status ) {
+       assert(0);
+-      return FALSE;
++      return false;
+     }
+     scene->ref(); // actions are applied later
+ 
+@@ -311,13 +311,13 @@ CoinQtWidget::setSceneGraph(SoNode * node, bool managed)
+     sa.apply(scene);
+     if ( !sa.getPath() ) {
+       assert(0 && "no root");
+-      return FALSE;
++      return false;
+     }
+ 
+     SoNode * root = sa.getPath()->getTail();
+     if ( !root->isOfType(SoSeparator::getClassTypeId()) ) {
+       assert(0 && "invalid root type");
+-      return FALSE;
++      return false;
+     }
+     PRIVATE(this)->root = (SoSeparator *) root;
+     PRIVATE(this)->root->ref();
+@@ -332,7 +332,7 @@ CoinQtWidget::setSceneGraph(SoNode * node, bool managed)
+     sa.apply(PRIVATE(this)->root);
+     if ( !sa.getPath() ) {
+       assert(0 && "no camera");
+-      return FALSE;
++      return false;
+     }
+ 
+     assert(sa.getPath()->getTail()->isOfType(SoCamera::getClassTypeId()));
+@@ -350,7 +350,7 @@ CoinQtWidget::setSceneGraph(SoNode * node, bool managed)
+   } else {
+     PRIVATE(this)->scenemanager->setSceneGraph(PRIVATE(this)->publicroot);
+   }
+-  return TRUE;
++  return true;
+ }
+ 
+ SoNode *
+@@ -386,7 +386,7 @@ void
+ CoinQtWidget::paintGL(void)
+ {
+   inherited::paintGL();
+-  PRIVATE(this)->scenemanager->render(TRUE, TRUE);
++  PRIVATE(this)->scenemanager->render(true, true);
+ }
+ 
+ void
+diff --git a/coin4/examples/bindings/CoinQtWidget.h b/coin4/examples/bindings/CoinQtWidget.h
+index c34efe5..2e4ed20 100644
+--- a/coin4/examples/bindings/CoinQtWidget.h
++++ b/coin4/examples/bindings/CoinQtWidget.h
+@@ -57,7 +57,7 @@ public:
+                WFlags f = 0);
+   virtual ~CoinQtWidget(void);
+ 
+-  virtual bool setSceneGraph(SoNode * root, bool managed = FALSE);
++  virtual bool setSceneGraph(SoNode * root, bool managed = false);
+   virtual SoNode * getSceneGraph(void) const;
+ 
+ public slots:
+diff --git a/coin4/examples/dynloadextensions/Switchboard.cpp b/coin4/examples/dynloadextensions/Switchboard.cpp
+index fcfa8f3..915f42b 100644
+--- a/coin4/examples/dynloadextensions/Switchboard.cpp
++++ b/coin4/examples/dynloadextensions/Switchboard.cpp
+@@ -71,7 +71,7 @@
+   you have full control over the number of times and order each child is
+   traversed.
+ 
+-  Default enabled value is \c FALSE.
++  Default enabled value is \c false.
+ */
+ 
+ // *************************************************************************
+@@ -92,7 +92,7 @@ Switchboard::Switchboard(void)
+ {
+   SO_NODE_CONSTRUCTOR(Switchboard);
+ 
+-  SO_NODE_ADD_FIELD(enable, (FALSE));
++  SO_NODE_ADD_FIELD(enable, (false));
+ }
+ 
+ /*!
+@@ -108,7 +108,7 @@ Switchboard::Switchboard(int numchildren)
+ {
+   SO_NODE_CONSTRUCTOR(Switchboard);
+ 
+-  SO_NODE_ADD_FIELD(enable, (FALSE));
++  SO_NODE_ADD_FIELD(enable, (false));
+ }
+ 
+ /*!
+@@ -142,7 +142,7 @@ Switchboard::doAction(SoAction * action)
+       }
+     }
+     if (numcenters != 0) {
+-      bbaction->setCenter(acccenter / float(numcenters), FALSE);
++      bbaction->setCenter(acccenter / float(numcenters), false);
+     }
+   } else { // not a GetBoundingBoxAction
+     for ( int idx = 0; idx < this->enable.getNum(); idx++ ) {
+diff --git a/coin4/examples/dynloadextensions/SwitchboardOperator.cpp b/coin4/examples/dynloadextensions/SwitchboardOperator.cpp
+index 81eb1d3..6fc49ed 100644
+--- a/coin4/examples/dynloadextensions/SwitchboardOperator.cpp
++++ b/coin4/examples/dynloadextensions/SwitchboardOperator.cpp
+@@ -170,16 +170,16 @@ SwitchboardOperator::handleEvent(SoHandleEventAction * action)
+         case TOGGLE:
+           if ( event->getState() == SoKeyboardEvent::DOWN ) {
+             if ( idx >= this->enable.getNum() ) this->enable.setNum(idx+1);
+-            this->enable.set1Value(idx, this->enable[idx] ? FALSE : TRUE);
++            this->enable.set1Value(idx, this->enable[idx] ? false : true);
+           }
+           break;
+         case HOLD:
+           if ( idx >= this->enable.getNum() ) this->enable.setNum(idx+1);
+-          this->enable.set1Value(idx, event->getState() == SoKeyboardEvent::DOWN ? TRUE : FALSE);
++          this->enable.set1Value(idx, event->getState() == SoKeyboardEvent::DOWN ? true : false);
+           break;
+         case INVERSE_HOLD:
+           if ( idx >= this->enable.getNum() ) this->enable.setNum(idx+1);
+-          this->enable.set1Value(idx, event->getState() == SoKeyboardEvent::DOWN ? FALSE : TRUE);
++          this->enable.set1Value(idx, event->getState() == SoKeyboardEvent::DOWN ? false : true);
+           break;
+         case TIME_HOLD:
+           SoDebugError::postInfo("SwitchboardOperator::handleEvent", "not implemented yet");
+diff --git a/coin4/examples/misc/glut_tex.cpp b/coin4/examples/misc/glut_tex.cpp
+index 5cacd86..da330e7 100644
+--- a/coin4/examples/misc/glut_tex.cpp
++++ b/coin4/examples/misc/glut_tex.cpp
+@@ -92,7 +92,7 @@ void
+ idle_cb(void)
+ {
+   SoDB::getSensorManager()->processTimerQueue();
+-  SoDB::getSensorManager()->processDelayQueue(TRUE);
++  SoDB::getSensorManager()->processDelayQueue(true);
+ }
+ 
+ // ----------------------------------------------------------------------
+@@ -110,14 +110,14 @@ generateTextureMap (SoNode *root, SoTexture2 *texture,
+    myRenderer->setBackgroundColor(SbColor(0.8, 0.8, 0.0));
+    if (!myRenderer->render(root)) {
+       delete myRenderer;
+-      return FALSE;
++      return false;
+    }
+ 
+    // Generate the texture
+    texture->image.setValue(SbVec2s(textureWidth, textureHeight), comp, 
+                            myRenderer->getBuffer());
+    delete myRenderer;
+-   return TRUE; 
++   return true; 
+ } 
+   
+ SoSeparator *

@@ -1,0 +1,134 @@
+.TH "SoScXMLZoomTarget" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoScXMLZoomTarget \- SCXML event target service for zoom-behaviour\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/scxml/SoScXMLZoomTarget\&.h>\fP
+.PP
+Inherits \fBSoScXMLNavigationTarget\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void * \fBcreateInstance\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBcleanClass\fP (void)"
+.br
+.ti -1c
+.RI "static \fBSoScXMLZoomTarget\fP * \fBconstructSingleton\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBdestructSingleton\fP (void)"
+.br
+.ti -1c
+.RI "static \fBSoScXMLZoomTarget\fP * \fBsingleton\fP (void)"
+.br
+.ti -1c
+.RI "static const \fBSbName\fP & \fBBEGIN\fP (void)"
+.br
+.ti -1c
+.RI "static const \fBSbName\fP & \fBUPDATE\fP (void)"
+.br
+.ti -1c
+.RI "static const \fBSbName\fP & \fBEND\fP (void)"
+.br
+.ti -1c
+.RI "static const \fBSbName\fP & \fBZOOM\fP (void)"
+.br
+.ti -1c
+.RI "static const \fBSbName\fP & \fBZOOM_IN\fP (void)"
+.br
+.ti -1c
+.RI "static const \fBSbName\fP & \fBZOOM_OUT\fP (void)"
+.br
+.ti -1c
+.RI "static const \fBSbName\fP & \fBRESET\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBzoom\fP (\fBSoCamera\fP *camera, float factor)"
+.br
+.ti -1c
+.RI "static void \fBreset\fP (\fBSoCamera\fP *camera)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual SbBool \fBprocessOneEvent\fP (const \fBScXMLEvent\fP *event)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+SCXML event target service for zoom-behaviour\&. 
+
+Events:
+.PP
+x-coin-navigation\&.Zoom\&.*
+.PP
+{ BEGIN _sessionid {string} mouseposition {\fBSbVec2f\fP}
+.PP
+UPDATE _sessionid {string} mouseposition {\fBSbVec2f\fP}
+.PP
+END _sessionid {string} mouseposition {\fBSbVec2f\fP} }
+.PP
+ZOOM _sessionid factor {float}
+.PP
+ZOOM_IN _sessionid {string} [factor] {float=1\&.2} [count] {float=1}
+.PP
+ZOOM_OUT _sessionid {string} [factor] {float=1\&.2} [count] {float=1}
+.PP
+RESET _sessionid {string}
+.PP
+\fBSince:\fP
+.RS 4
+2008-02-14 
+.RE
+.PP
+
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoScXMLZoomTarget::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoBase::getTypeId() const\fP 
+.RE
+.PP
+
+.PP
+Implements \fBSoScXMLNavigationTarget\fP\&.
+.SS "void SoScXMLZoomTarget::reset (\fBSoCamera\fP * camera)\fC [static]\fP"
+This function resets the zooming attributes of the camera to the default values\&. 
+.SS "SbBool SoScXMLZoomTarget::processOneEvent (const \fBScXMLEvent\fP * event)\fC [protected]\fP, \fC [virtual]\fP"
+This function processes one event\&. The base class implementation does nothing\&. 
+.PP
+Reimplemented from \fBScXMLEventTarget\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

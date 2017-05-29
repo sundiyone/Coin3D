@@ -1,0 +1,211 @@
+.TH "SoVRMLSpotLight" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoVRMLSpotLight \- The \fBSoVRMLSpotLight\fP class defines a spot light source\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/VRMLnodes/SoVRMLSpotLight\&.h>\fP
+.PP
+Inherits \fBSoVRMLLight\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "\fBSoVRMLSpotLight\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBGLRender\fP (\fBSoGLRenderAction\fP *action)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFVec3f\fP \fBlocation\fP"
+.br
+.ti -1c
+.RI "\fBSoSFVec3f\fP \fBdirection\fP"
+.br
+.ti -1c
+.RI "\fBSoSFFloat\fP \fBbeamWidth\fP"
+.br
+.ti -1c
+.RI "\fBSoSFFloat\fP \fBcutOffAngle\fP"
+.br
+.ti -1c
+.RI "\fBSoSFFloat\fP \fBradius\fP"
+.br
+.ti -1c
+.RI "\fBSoSFVec3f\fP \fBattenuation\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fB~SoVRMLSpotLight\fP ()"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoVRMLSpotLight\fP class defines a spot light source\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP 
+
+
+.PP
+.nf
+SpotLight {
+  exposedField SFFloat ambientIntensity  0         # [0,1]
+  exposedField SFVec3f attenuation       1 0 0     # [0,inf)
+  exposedField SFFloat beamWidth         1.570796  # (0,pi/2]
+  exposedField SFColor color             1 1 1     # [0,1]
+  exposedField SFFloat cutOffAngle       0.785398  # (0,pi/2]
+  exposedField SFVec3f direction         0 0 -1    # (-inf, inf)
+  exposedField SFFloat intensity         1         # [0,1]
+  exposedField SFVec3f location          0 0 0     # (-inf, inf)
+  exposedField SFBool  on                TRUE
+  exposedField SFFloat radius            100       # [0, inf)
+}
+
+.fi
+.PP
+.PP
+The SpotLight node defines a light source that emits light from a specific point along a specific direction vector and constrained within a solid angle\&. Spotlights may illuminate geometry nodes that respond to light sources and intersect the solid angle defined by the SpotLight\&. Spotlight nodes are specified in the local coordinate system and are affected by ancestors' transformations\&.
+.PP
+A detailed description of ambientIntensity, color, intensity, and VRML's lighting equations is provided in 4\&.6\&.6, Light sources (http://www.web3d.org/x3d/specifications/vrml/ISO-IEC-14772-VRML97/part1/concepts.html#4.6.6)\&. More information on lighting concepts can be found in 4\&.14, Lighting model (http://www.web3d.org/x3d/specifications/vrml/ISO-IEC-14772-VRML97/part1/concepts.html#4.14), including a detailed description of the VRML lighting equations\&.
+.PP
+The \fIlocation\fP field specifies a translation offset of the centre point of the light source from the light's local coordinate system origin\&. This point is the apex of the solid angle which bounds light emission from the given light source\&.
+.PP
+The \fIdirection\fP field specifies the direction vector of the light's central axis defined in the local coordinate system\&.
+.PP
+The \fIon\fP field specifies whether the light source emits light\&. If on is TRUE, the light source is emitting light and may illuminate geometry in the scene\&. If on is FALSE, the light source does not emit light and does not illuminate any geometry\&.
+.PP
+The \fIradius\fP field specifies the radial extent of the solid angle and the maximum distance from location that may be illuminated by the light source\&. The light source does not emit light outside this radius\&. The radius shall be greater than or equal to zero\&.
+.PP
+Both \fIradius\fP and \fIlocation\fP are affected by ancestors' transformations (scales affect radius and transformations affect location)\&.
+.PP
+The \fIcutOffAngle\fP field specifies the outer bound of the solid angle\&. The light source does not emit light outside of this solid angle\&.
+.PP
+The \fIbeamWidth\fP field specifies an inner solid angle in which the light source emits light at uniform full intensity\&. The light source's emission intensity drops off from the inner solid angle (beamWidth) to the outer solid angle (cutOffAngle) as described in the following equations:
+.PP
+.PP
+.nf
+angle = the angle between the Spotlight's direction vector
+        and the vector from the Spotlight location to the point
+        to be illuminated
+
+if (angle >= cutOffAngle):
+  multiplier = 0
+else if (angle <= beamWidth):
+  multiplier = 1
+else:
+  multiplier = (angle - cutOffAngle) / (beamWidth - cutOffAngle)
+
+intensity(angle) = SpotLight.intensity × multiplier
+.fi
+.PP
+.PP
+If the beamWidth is greater than the cutOffAngle, beamWidth is defined to be equal to the cutOffAngle and the light source emits full intensity within the entire solid angle defined by cutOffAngle\&. Both beamWidth and cutOffAngle shall be greater than 0\&.0 and less than or equal to pi/2\&.
+.PP
+Figure 6\&.16 depicts the beamWidth, cutOffAngle, direction, location, and radius fields of the SpotLight node\&.
+.PP
+  Figure 6\&.16 -- SpotLight node 
+.PP
+SpotLight illumination falls off with distance as specified by three attenuation coefficients\&. The attenuation factor is
+.PP
+.PP
+.nf
+1/max(attenuation[0] + attenuation[1]×r + attenuation[2]×r^2 , 1),
+.fi
+.PP
+.PP
+where r is the distance from the light to the surface being illuminated\&. The default is no attenuation\&. An attenuation value of (0, 0, 0) is identical to (1, 0, 0)\&. Attenuation values shall be greater than or equal to zero\&. A detailed description of VRML's lighting equations is contained in 4\&.14, Lighting model (http://www.web3d.org/x3d/specifications/vrml/ISO-IEC-14772-VRML97/part1/concepts.html#4.14)\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoVRMLSpotLight::SoVRMLSpotLight (void)"
+Constructor\&. 
+.SS "SoVRMLSpotLight::~SoVRMLSpotLight ()\fC [protected]\fP, \fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoVRMLSpotLight::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Reimplemented from \fBSoVRMLLight\fP\&.
+.SS "const \fBSoFieldData\fP * SoVRMLSpotLight::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoVRMLLight\fP\&.
+.SS "void SoVRMLSpotLight::GLRender (\fBSoGLRenderAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGLRenderAction\fP\&.
+.PP
+This is called during rendering traversals\&. Nodes influencing the rendering state in any way or who wants to throw geometry primitives at OpenGL overrides this method\&. 
+.PP
+Reimplemented from \fBSoVRMLLight\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSoSFVec3f\fP SoVRMLSpotLight::location"
+The light position\&. Default value is (0, 0, 0)\&. 
+.SS "\fBSoSFVec3f\fP SoVRMLSpotLight::direction"
+The light direction\&. Default value is (0, 0, 1)\&. 
+.SS "\fBSoSFFloat\fP SoVRMLSpotLight::beamWidth"
+The spot beam width\&. Default value is PI/2\&. 
+.SS "\fBSoSFFloat\fP SoVRMLSpotLight::cutOffAngle"
+The spot light cut off angle\&. Default value is PI/4\&. 
+.SS "\fBSoSFFloat\fP SoVRMLSpotLight::radius"
+The light radius\&. Light is not emitted past it\&. Default value is 100\&. 
+.SS "\fBSoSFVec3f\fP SoVRMLSpotLight::attenuation"
+The attenuiation vector\&. Default value is (1, 0, 0)\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

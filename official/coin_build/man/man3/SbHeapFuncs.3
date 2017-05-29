@@ -1,0 +1,39 @@
+.TH "SbHeapFuncs" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SbHeapFuncs \- The \fBSbHeapFuncs\fP struct is used to specify functions on heap elements\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/SbHeap\&.h>\fP
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "float(* \fBeval_func\fP )(void *)"
+.br
+.ti -1c
+.RI "\fBint\fP(* \fBget_index_func\fP )(void *)"
+.br
+.ti -1c
+.RI "void(* \fBset_index_func\fP )(void *, \fBint\fP)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBSbHeapFuncs\fP struct is used to specify functions on heap elements\&. 
+.SH "Member Data Documentation"
+.PP 
+.SS "SbHeapFuncs::eval_func"
+The \fIeval_func\fP member is a pointer to a function that should return a weight-value for a heap element\&. Smaller elements are extracted first from the heap\&. 
+.SS "SbHeapFuncs::get_index_func"
+\fIget_index_func\fP is a pointer to a function which should return the element's heap index\&. If you want to remove an element from the heap (other than the first element), or change the weight for a heap element, you must supply the two index functions\&. Each element must then store its heap index in its own data structures\&. 
+.SS "SbHeapFuncs::set_index_func"
+\fIset_index_func\fP is used to set this index value, and will be called whenever the element is moved in the heap\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

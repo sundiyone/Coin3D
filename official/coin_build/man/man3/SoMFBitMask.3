@@ -1,0 +1,87 @@
+.TH "SoMFBitMask" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoMFBitMask \- The \fBSoMFBitMask\fP class is a container for a set of bitmasks\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store multiple bitmasks with values from an enumerated set\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/fields/SoMFBitMask\&.h>\fP
+.PP
+Inherits \fBSoMFEnum\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBcopyFrom\fP (const \fBSoField\fP &field)"
+.br
+.ti -1c
+.RI "const \fBSoMFBitMask\fP & \fBoperator=\fP (const \fBSoMFBitMask\fP &field)"
+.br
+.ti -1c
+.RI "virtual SbBool \fBisSame\fP (const \fBSoField\fP &field) const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBoperator=\fP (\fBint\fP val)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static void * \fBcreateInstance\fP (void)"
+.br
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoMFBitMask\fP class is a container for a set of bitmasks\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store multiple bitmasks with values from an enumerated set\&. 
+
+
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoSFBitMask\fP 
+.RE
+.PP
+
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoMFBitMask::getTypeId (void) const\fC [virtual]\fP"
+Returns the type identification instance which uniquely identifies the Coin field class the object belongs to\&.
+.PP
+\fBSee also:\fP
+.RS 4
+getClassTypeId(), \fBSoType\fP 
+.RE
+.PP
+
+.PP
+Reimplemented from \fBSoMFEnum\fP\&.
+.SS "void SoMFBitMask::copyFrom (const \fBSoField\fP & f)\fC [virtual]\fP"
+Copy value(s) from \fIf\fP into this field\&. \fIf\fP must be of the same type as this field\&. 
+.PP
+Reimplemented from \fBSoMFEnum\fP\&.
+.SS "SbBool SoMFBitMask::isSame (const \fBSoField\fP & f) const\fC [virtual]\fP"
+Check for equal type and value(s)\&. 
+.PP
+Reimplemented from \fBSoMFEnum\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

@@ -1,0 +1,41 @@
+.TH "SbTesselator.h" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SbTesselator.h
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <Inventor/SbBasic\&.h>\fP
+.br
+\fC#include <Inventor/tools/SbPimplPtr\&.h>\fP
+.br
+\fC#include <Inventor/SbVec3f\&.h>\fP
+.br
+\fC#include <stddef\&.h>\fP
+.br
+
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBSbTesselator\fP"
+.br
+.RI "The \fBSbTesselator\fP class is used to tessellate polygons into triangles\&.
+.PP
+\fBSbTesselator\fP is used within Coin to split polygons into triangles\&. It handles concave polygons, does Delaunay triangulation and avoids generating self-intersecting triangles\&. "
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef void \fBSbTesselatorCB\fP(void *v0, void *v1, void *v2, void *data)"
+.br
+.in -1c
+.SH "Typedef Documentation"
+.PP 
+.SS "void SbTesselatorCB"
+The type definition of the callback function which is called for each triangle returned by the tesselator\&. 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

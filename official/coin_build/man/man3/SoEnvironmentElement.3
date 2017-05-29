@@ -1,0 +1,164 @@
+.TH "SoEnvironmentElement" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoEnvironmentElement \- The \fBSoEnvironmentElement\fP class is yet to be documented\&.
+.PP
+FIXME: write doc\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/elements/SoEnvironmentElement\&.h>\fP
+.PP
+Inherits \fBSoReplacedElement\fP\&.
+.PP
+Inherited by \fBSoGLEnvironmentElement\fP\&.
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBFogType\fP { \fBNONE\fP, \fBHAZE\fP, \fBFOG\fP, \fBSMOKE\fP }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual void \fBinit\fP (\fBSoState\fP *state)"
+.br
+.RI "FIXME: write doc\&. "
+.ti -1c
+.RI "virtual void \fBprint\fP (FILE *file) const"
+.br
+.RI "FIXME: write doc\&. "
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static \fBint\fP \fBgetClassStackIndex\fP (void)"
+.br
+.ti -1c
+.RI "static void * \fBcreateInstance\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBset\fP (\fBSoState\fP *const state, \fBSoNode\fP *const node, const float \fBambientIntensity\fP, const \fBSbColor\fP &\fBambientColor\fP, const \fBSbVec3f\fP &\fBattenuation\fP, const int32_t \fBfogType\fP, const \fBSbColor\fP &\fBfogColor\fP, const float \fBfogVisibility\fP, const float \fBfogStart\fP=0\&.0f)"
+.br
+.RI "FIXME: write doc\&. "
+.ti -1c
+.RI "static void \fBget\fP (\fBSoState\fP *const state, float &\fBambientIntensity\fP, \fBSbColor\fP &\fBambientColor\fP, \fBSbVec3f\fP &\fBattenuation\fP, int32_t &\fBfogType\fP, \fBSbColor\fP &\fBfogColor\fP, float &\fBfogVisibility\fP, float &\fBfogStart\fP)"
+.br
+.RI "FIXME: write doc\&. "
+.ti -1c
+.RI "static float \fBgetAmbientIntensity\fP (\fBSoState\fP *const state)"
+.br
+.RI "FIXME: write doc\&. "
+.ti -1c
+.RI "static float \fBgetFogVisibility\fP (\fBSoState\fP *const state)"
+.br
+.RI "FIXME: write doc\&. "
+.ti -1c
+.RI "static const \fBSbVec3f\fP & \fBgetLightAttenuation\fP (\fBSoState\fP *const state)"
+.br
+.RI "FIXME: write doc\&. "
+.ti -1c
+.RI "static const \fBSbColor\fP & \fBgetAmbientColor\fP (\fBSoState\fP *const state)"
+.br
+.RI "FIXME: write doc\&. "
+.ti -1c
+.RI "static const \fBSbColor\fP & \fBgetFogColor\fP (\fBSoState\fP *const state)"
+.br
+.RI "FIXME: write doc\&. "
+.ti -1c
+.RI "static int32_t \fBgetFogType\fP (\fBSoState\fP *const state)"
+.br
+.RI "FIXME: write doc\&. "
+.ti -1c
+.RI "static void \fBgetDefault\fP (float &\fBambientIntensity\fP, \fBSbColor\fP &\fBambientColor\fP, \fBSbVec3f\fP &\fBattenuation\fP, int32_t &\fBfogType\fP, \fBSbColor\fP &\fBfogColor\fP, float &\fBfogVisibility\fP, float &fogNear)"
+.br
+.RI "FIXME: write doc\&. "
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fB~SoEnvironmentElement\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBsetElt\fP (\fBSoState\fP *const state, const float \fBambientIntensity\fP, const \fBSbColor\fP &\fBambientColor\fP, const \fBSbVec3f\fP &\fBattenuation\fP, const int32_t \fBfogType\fP, const \fBSbColor\fP &\fBfogColor\fP, const float \fBfogVisibility\fP, const float fogNear)"
+.br
+.RI "FIXME: doc\&. "
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "float \fBambientIntensity\fP"
+.br
+.ti -1c
+.RI "\fBSbColor\fP \fBambientColor\fP"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP \fBattenuation\fP"
+.br
+.ti -1c
+.RI "int32_t \fBfogType\fP"
+.br
+.ti -1c
+.RI "\fBSbColor\fP \fBfogColor\fP"
+.br
+.ti -1c
+.RI "float \fBfogVisibility\fP"
+.br
+.ti -1c
+.RI "float \fBfogStart\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoEnvironmentElement\fP class is yet to be documented\&.
+.PP
+FIXME: write doc\&. 
+.SH "Member Enumeration Documentation"
+.PP 
+.SS "enum \fBSoEnvironmentElement::FogType\fP"
+FIXME: write doc\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoEnvironmentElement::~SoEnvironmentElement (void)\fC [protected]\fP, \fC [virtual]\fP"
+The destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void * SoEnvironmentElement::createInstance (void)\fC [static]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoEnvironmentElement::initClass (void)\fC [static]\fP"
+This static method initializes static data for the \fBSoEnvironmentElement\fP class\&. 
+.SH "Member Data Documentation"
+.PP 
+.SS "SoEnvironmentElement::ambientIntensity\fC [protected]\fP"
+FIXME: write doc\&. 
+.SS "SoEnvironmentElement::ambientColor\fC [protected]\fP"
+FIXME: write doc\&. 
+.SS "SoEnvironmentElement::attenuation\fC [protected]\fP"
+FIXME: write doc\&. 
+.SS "SoEnvironmentElement::fogType\fC [protected]\fP"
+FIXME: write doc\&. 
+.SS "SoEnvironmentElement::fogColor\fC [protected]\fP"
+FIXME: write doc\&. 
+.SS "SoEnvironmentElement::fogVisibility\fC [protected]\fP"
+FIXME: write doc\&. 
+.SS "SoEnvironmentElement::fogStart\fC [protected]\fP"
+FIXME: write doc\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

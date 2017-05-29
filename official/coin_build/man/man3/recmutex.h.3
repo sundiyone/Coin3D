@@ -1,0 +1,47 @@
+.TH "recmutex.h" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+recmutex.h
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <Inventor/C/basic\&.h>\fP
+.br
+\fC#include <Inventor/C/threads/common\&.h>\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBcc_recmutex\fP * \fBcc_recmutex_construct\fP (void)"
+.br
+.ti -1c
+.RI "void \fBcc_recmutex_destruct\fP (\fBcc_recmutex\fP *recmutex)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBcc_recmutex_lock\fP (\fBcc_recmutex\fP *recmutex)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBcc_recmutex_unlock\fP (\fBcc_recmutex\fP *recmutex)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBcc_recmutex_try_lock\fP (\fBcc_recmutex\fP *recmutex)"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "\fBcc_recmutex\fP* cc_recmutex_construct (void)"
+Constructs a recursive mutex\&. 
+.SS "void cc_recmutex_destruct (\fBcc_recmutex\fP * recmutex)"
+Destroys the recursive mutex \fIrecmutex\fP\&. 
+.SS "\fBint\fP cc_recmutex_lock (\fBcc_recmutex\fP * recmutex)"
+Locks the recursive mutex \fIrecmutex\fP\&. Returns the nesting level\&. 
+.SS "\fBint\fP cc_recmutex_unlock (\fBcc_recmutex\fP * recmutex)"
+Unlocks the recursive mutex \fIrecmutex\fP\&. Returns the nesting level after unlocking\&. 
+.SS "\fBint\fP cc_recmutex_try_lock (\fBcc_recmutex\fP * recmutex)"
+Attempts to lock the recursive mutex \fIrecmutex\fP\&. Returns TRUE if thread got the lock or already had the lock\&. 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

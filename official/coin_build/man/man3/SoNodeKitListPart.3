@@ -1,0 +1,363 @@
+.TH "SoNodeKitListPart" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoNodeKitListPart \- The \fBSoNodeKitListPart\fP class is a container node\&.
+.PP
+This node is basically just a container node with these differences versus the other group nodes:  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/nodekits/SoNodeKitListPart\&.h>\fP
+.PP
+Inherits \fBSoNode\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "\fBSoNodeKitListPart\fP (void)"
+.br
+.ti -1c
+.RI "\fBSoType\fP \fBgetContainerType\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBsetContainerType\fP (\fBSoType\fP newContainerType)"
+.br
+.ti -1c
+.RI "const \fBSoTypeList\fP & \fBgetChildTypes\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBaddChildType\fP (\fBSoType\fP typeToAdd)"
+.br
+.ti -1c
+.RI "SbBool \fBisTypePermitted\fP (\fBSoType\fP typeToCheck) const"
+.br
+.ti -1c
+.RI "SbBool \fBisChildPermitted\fP (const \fBSoNode\fP *child) const"
+.br
+.ti -1c
+.RI "void \fBcontainerSet\fP (const char *fieldDataString)"
+.br
+.ti -1c
+.RI "void \fBlockTypes\fP (void)"
+.br
+.ti -1c
+.RI "SbBool \fBisTypeLocked\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBaddChild\fP (\fBSoNode\fP *child)"
+.br
+.ti -1c
+.RI "void \fBinsertChild\fP (\fBSoNode\fP *child, \fBint\fP childIndex)"
+.br
+.ti -1c
+.RI "\fBSoNode\fP * \fBgetChild\fP (\fBint\fP index) const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBfindChild\fP (\fBSoNode\fP *child) const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetNumChildren\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBremoveChild\fP (\fBint\fP index)"
+.br
+.ti -1c
+.RI "void \fBremoveChild\fP (\fBSoNode\fP *child)"
+.br
+.ti -1c
+.RI "void \fBreplaceChild\fP (\fBint\fP index, \fBSoNode\fP *newChild)"
+.br
+.ti -1c
+.RI "void \fBreplaceChild\fP (\fBSoNode\fP *oldChild, \fBSoNode\fP *newChild)"
+.br
+.ti -1c
+.RI "virtual SbBool \fBaffectsState\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBdoAction\fP (\fBSoAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBcallback\fP (\fBSoCallbackAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBGLRender\fP (\fBSoGLRenderAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBgetBoundingBox\fP (\fBSoGetBoundingBoxAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBgetMatrix\fP (\fBSoGetMatrixAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBhandleEvent\fP (\fBSoHandleEventAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBpick\fP (\fBSoPickAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBsearch\fP (\fBSoSearchAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBgetPrimitiveCount\fP (\fBSoGetPrimitiveCountAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual \fBSoChildList\fP * \fBgetChildren\fP (void) const"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fB~SoNodeKitListPart\fP ()"
+.br
+.ti -1c
+.RI "\fBSoGroup\fP * \fBgetContainerNode\fP (void)"
+.br
+.ti -1c
+.RI "virtual SbBool \fBreadInstance\fP (\fBSoInput\fP *in, unsigned short flags)"
+.br
+.ti -1c
+.RI "virtual void \fBcopyContents\fP (const \fBSoFieldContainer\fP *fromFC, SbBool copyConnections)"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoChildList\fP * \fBchildren\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoNodeKitListPart\fP class is a container node\&.
+.PP
+This node is basically just a container node with these differences versus the other group nodes: 
+
+
+.IP "1." 4
+It is possible to make a list of which node class types are allowed as children\&.
+.IP "2." 4
+You can freely select which kind of group node behaviour you want this container to have\&. Default is to act like an \fBSoGroup\fP node, but by using \fBSoNodeKitListPart::setContainerType()\fP, you can change the behaviour to be like a separator, a switch or whatever else you have of node types inheriting \fBSoGroup\fP\&.
+.PP
+.PP
+It might be necessary to get the container node, e\&.g\&. to change \fBSoSwitch::whichChild\fP if the container node is a \fBSoSwitch\fP\&. The container node is located in the first position of its children, i\&.e\&. (*getChildren())[0]\&. Note that \fBgetNumChildren()\fP returns 0, while \fBgetChildren()\fP->getLength() returns 1 after initialization\&. The former amount returns its internal group nodes, while the latter returns all the nodes containing the container node\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoGroup\fP, \fBSoSeparator\fP, \fBSoSwitch\fP 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoNodeKitListPart::SoNodeKitListPart (void)"
+Constructor\&. 
+.SS "SoNodeKitListPart::~SoNodeKitListPart ()\fC [protected]\fP, \fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoNodeKitListPart::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Implements \fBSoBase\fP\&.
+.SS "const \fBSoFieldData\fP * SoNodeKitListPart::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoFieldContainer\fP\&.
+.SS "void SoNodeKitListPart::initClass (void)\fC [static]\fP"
+Does initialization common for all objects of the \fBSoNodeKitListPart\fP class\&. This includes setting up the type system, among other things\&. 
+.SS "\fBSoType\fP SoNodeKitListPart::getContainerType (void) const"
+Return type id for the list container\&. Default is \fBSoGroup\fP\&. 
+.SS "void SoNodeKitListPart::setContainerType (\fBSoType\fP newContainerType)"
+Change the behaviour of this container node\&. \fInewContainerType\fP must be derived from \fBSoGroup\fP\&. 
+.SS "const \fBSoTypeList\fP & SoNodeKitListPart::getChildTypes (void) const"
+Return a list of all types which are allowed as children of this node\&. Default is to allow all nodetypes\&. 
+.SS "void SoNodeKitListPart::addChildType (\fBSoType\fP typeToAdd)"
+Add one more node class type which should be allowed to be used in the node list\&.
+.PP
+Note: the default single \fBSoNode\fP type in the list will be removed upon the first call to this method\&. 
+.SS "SbBool SoNodeKitListPart::isTypePermitted (\fBSoType\fP typeToCheck) const"
+Return \fCTRUE\fP if nodes of the \fItypeToCheck\fP class type can be added to the list\&. 
+.SS "SbBool SoNodeKitListPart::isChildPermitted (const \fBSoNode\fP * child) const"
+Return \fCTRUE\fP if \fIchild\fP has a class type which is permitted to be in the list\&. 
+.SS "void SoNodeKitListPart::containerSet (const char * fieldDataString)"
+Calls \fBset()\fP on the container node with \fIfieldDataString\fP\&. 
+.SS "void SoNodeKitListPart::lockTypes (void)"
+Lock type list so no more node class types can be added by using \fBaddChildType()\fP, and locks container type so it no longer can be changed by \fBsetContainerType()\fP\&. 
+.SS "SbBool SoNodeKitListPart::isTypeLocked (void) const"
+Returns \fCTRUE\fP if the list of allowable node types and the container type have both been locked\&. 
+.SS "void SoNodeKitListPart::addChild (\fBSoNode\fP * child)"
+Adds \fIchild\fP to the internal list of children, if it is of a type permitted to be added\&. 
+.SS "void SoNodeKitListPart::insertChild (\fBSoNode\fP * child, \fBint\fP childIndex)"
+Inserts \fIchild\fP in the internal list of children at position \fCchildIndex\fP, if it is of a type permitted to be added\&. 
+.SS "\fBSoNode\fP * SoNodeKitListPart::getChild (\fBint\fP index) const"
+Return child node at position \fIindex\fP\&. 
+.SS "\fBint\fP SoNodeKitListPart::findChild (\fBSoNode\fP * child) const"
+Return position index of \fIchild\fP in list of children\&. 
+.SS "\fBint\fP SoNodeKitListPart::getNumChildren (void) const"
+Return number of children\&. 
+.SS "void SoNodeKitListPart::removeChild (\fBint\fP index)"
+
+.PP
+Remove node at \fIchildindex\fP in our list of children\&.
+.PP
+Please note that this method is not virtual in the original SGI Inventor API\&. 
+.SS "void SoNodeKitListPart::removeChild (\fBSoNode\fP * child)"
+
+.PP
+Remove \fIchild\fP from the set of children managed by this group node\&. Will decrease the reference count of \fIchild\fP by 1\&.
+.PP
+This is a convenience method\&. It will simply call \fBfindChild()\fP with \fIchild\fP as argument, and then call \fBremoveChild(int)\fP if the child is found\&.
+.PP
+Please note that this method is not virtual in the original SGI Inventor API\&. 
+.SS "void SoNodeKitListPart::replaceChild (\fBint\fP index, \fBSoNode\fP * newChild)"
+Replace child at \fIindex\fP with \fInewChild\fP, if \fInewChild\fP is of a permitted type\&. 
+.SS "void SoNodeKitListPart::replaceChild (\fBSoNode\fP * oldChild, \fBSoNode\fP * newChild)"
+Replace \fIoldChild\fP with \fInewChild\fP, if \fInewChild\fP is of a permitted type\&. 
+.SS "SbBool SoNodeKitListPart::affectsState (void) const\fC [virtual]\fP"
+Returns \fCTRUE\fP if the node could have any effect on the state during traversal\&.
+.PP
+If it returns \fCFALSE\fP, no data in the traversal-state will change from the pre-traversal state to the post-traversal state\&. The \fBSoSeparator\fP node will for instance return \fCFALSE\fP, as it pushes and pops the state before and after traversal of its children\&. All \fBSoShape\fP nodes will also return \fCFALSE\fP, as just pushing out geometry data to the rendering engine won't affect the actual rendering state\&.
+.PP
+The default method returns \fCTRUE\fP, on a 'better safe than sorry' philosophy\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "void SoNodeKitListPart::doAction (\fBSoAction\fP * action)\fC [virtual]\fP"
+This just 'forwards' the call to the same method at the container node\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "void SoNodeKitListPart::callback (\fBSoCallbackAction\fP * action)\fC [virtual]\fP"
+This just 'forwards' the call to the same method at the container node\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "void SoNodeKitListPart::GLRender (\fBSoGLRenderAction\fP * action)\fC [virtual]\fP"
+This just 'forwards' the call to the same method at the container node\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "void SoNodeKitListPart::getBoundingBox (\fBSoGetBoundingBoxAction\fP * action)\fC [virtual]\fP"
+This just 'forwards' the call to the same method at the container node\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "void SoNodeKitListPart::getMatrix (\fBSoGetMatrixAction\fP * action)\fC [virtual]\fP"
+This just 'forwards' the call to the same method at the container node\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "void SoNodeKitListPart::handleEvent (\fBSoHandleEventAction\fP * action)\fC [virtual]\fP"
+This just 'forwards' the call to the same method at the container node\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "void SoNodeKitListPart::pick (\fBSoPickAction\fP * action)\fC [virtual]\fP"
+This just 'forwards' the call to the same method at the container node\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "void SoNodeKitListPart::search (\fBSoSearchAction\fP * action)\fC [virtual]\fP"
+This just 'forwards' the call to the same method at the container node\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "void SoNodeKitListPart::getPrimitiveCount (\fBSoGetPrimitiveCountAction\fP * action)\fC [virtual]\fP"
+This just 'forwards' the call to the same method at the container node\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "\fBSoChildList\fP * SoNodeKitListPart::getChildren (void) const\fC [virtual]\fP"
+This just 'forwards' the call to the same method at the container node\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "\fBSoGroup\fP * SoNodeKitListPart::getContainerNode (void)\fC [protected]\fP"
+Return the \fBSoGroup\fP container which is the parent of all the children which has been added\&. 
+.SS "SbBool SoNodeKitListPart::readInstance (\fBSoInput\fP * in, unsigned short flags)\fC [protected]\fP, \fC [virtual]\fP"
+This method is mainly intended for internal use during file import operations\&.
+.PP
+It reads a definition of an instance from the input stream \fIin\fP\&. The input stream state points to the start of a serialized / persistant representation of an instance of this class type\&.
+.PP
+\fCTRUE\fP or \fCFALSE\fP is returned, depending on if the instantiation and configuration of the new object of this class type went ok or not\&. The import process should be robust and handle corrupted input streams by returning \fCFALSE\fP\&.
+.PP
+\fIflags\fP is used internally during binary import when reading user extension nodes, group nodes or engines\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "void SoNodeKitListPart::copyContents (const \fBSoFieldContainer\fP * from, SbBool copyconnections)\fC [protected]\fP, \fC [virtual]\fP"
+Makes a deep copy of all data of \fIfrom\fP into this instance, \fIexcept\fP external scenegraph references if \fIcopyconnections\fP is \fCFALSE\fP\&.
+.PP
+This is the method that should be overridden by extension node / engine / dragger / whatever subclasses which needs to account for internal data that are not handled automatically\&.
+.PP
+For copying nodes from application code, you should not invoke this function directly, but rather call the \fBSoNode::copy()\fP function:
+.PP
+.PP
+.nf
+SoNode * mynewnode = templatenode->copy();
+.fi
+.PP
+.PP
+The same also goes for engines\&.
+.PP
+Make sure that when you override the \fBcopyContents()\fP method in your extension class that you also make it call upwards to it's parent superclass in the inheritance hierarchy, as \fBcopyContents()\fP in for instance \fBSoNode\fP and \fBSoFieldContainer\fP does important work\&. It should go something like this:
+.PP
+.PP
+.nf
+void
+MyCoinExtensionNode::copyContents(const SoFieldContainer * from,
+                                  SbBool copyconnections)
+{
+  // let parent superclasses do their thing (copy fields, copy
+  // instance name, etc etc)
+  SoNode::copyContents(from, copyconnections);
+
+  // [\&.\&.then copy internal data\&.\&.]
+}
+.fi
+.PP
+ 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSoChildList\fP * SoNodeKitListPart::children\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

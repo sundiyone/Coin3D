@@ -1,0 +1,346 @@
+.TH "SbVec4f" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SbVec4f \- The \fBSbVec4f\fP class is a 4 dimensional vector with floating point coordinates\&.
+.PP
+This vector class is used by many other classes in Coin\&. It provides storage for a 3 dimensional homogeneoues vector (with the 4 components usually referred to as <x, y, z, w>) as well as simple floating point arithmetic operations\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/SbVec4f\&.h>\fP
+.PP
+Inherited by \fBSbColor4f\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSbVec4f\fP (void)"
+.br
+.ti -1c
+.RI "\fBSbVec4f\fP (const float v[4])"
+.br
+.ti -1c
+.RI "\fBSbVec4f\fP (float x, float y, float z, float w)"
+.br
+.ti -1c
+.RI "\fBSbVec4f\fP (const \fBSbVec4d\fP &v)"
+.br
+.ti -1c
+.RI "\fBSbVec4f\fP (const \fBSbVec4b\fP &v)"
+.br
+.ti -1c
+.RI "\fBSbVec4f\fP (const \fBSbVec4s\fP &v)"
+.br
+.ti -1c
+.RI "\fBSbVec4f\fP (const \fBSbVec4i32\fP &v)"
+.br
+.ti -1c
+.RI "\fBSbVec4f\fP & \fBsetValue\fP (const float v[4])"
+.br
+.ti -1c
+.RI "\fBSbVec4f\fP & \fBsetValue\fP (float x, float y, float z, float w)"
+.br
+.ti -1c
+.RI "\fBSbVec4f\fP & \fBsetValue\fP (const \fBSbVec4d\fP &v)"
+.br
+.ti -1c
+.RI "\fBSbVec4f\fP & \fBsetValue\fP (const \fBSbVec4b\fP &v)"
+.br
+.ti -1c
+.RI "\fBSbVec4f\fP & \fBsetValue\fP (const \fBSbVec4s\fP &v)"
+.br
+.ti -1c
+.RI "\fBSbVec4f\fP & \fBsetValue\fP (const \fBSbVec4i32\fP &v)"
+.br
+.ti -1c
+.RI "const float * \fBgetValue\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBgetValue\fP (float &x, float &y, float &z, float &w) const"
+.br
+.ti -1c
+.RI "float & \fBoperator[]\fP (\fBint\fP i)"
+.br
+.ti -1c
+.RI "const float & \fBoperator[]\fP (\fBint\fP i) const"
+.br
+.ti -1c
+.RI "SbBool \fBequals\fP (const \fBSbVec4f\fP &v, float tolerance) const"
+.br
+.ti -1c
+.RI "float \fBdot\fP (const \fBSbVec4f\fP &v) const"
+.br
+.ti -1c
+.RI "void \fBgetReal\fP (\fBSbVec3f\fP &v) const"
+.br
+.ti -1c
+.RI "float \fBlength\fP (void) const"
+.br
+.ti -1c
+.RI "float \fBsqrLength\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBnegate\fP (void)"
+.br
+.ti -1c
+.RI "float \fBnormalize\fP (void)"
+.br
+.ti -1c
+.RI "\fBSbVec4f\fP & \fBoperator*=\fP (float d)"
+.br
+.ti -1c
+.RI "\fBSbVec4f\fP & \fBoperator/=\fP (float d)"
+.br
+.ti -1c
+.RI "\fBSbVec4f\fP & \fBoperator+=\fP (const \fBSbVec4f\fP &v)"
+.br
+.ti -1c
+.RI "\fBSbVec4f\fP & \fBoperator\-=\fP (const \fBSbVec4f\fP &v)"
+.br
+.ti -1c
+.RI "\fBSbVec4f\fP \fBoperator\-\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBprint\fP (FILE *fp) const"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "float \fBvec\fP [4]"
+.br
+.in -1c
+.SS "Related Functions"
+(Note that these are not member functions\&.) 
+.in +1c
+.ti -1c
+.RI "\fBSbVec4f\fP \fBoperator*\fP (const \fBSbVec4f\fP &v, float d)"
+.br
+.ti -1c
+.RI "\fBSbVec4f\fP \fBoperator*\fP (float d, const \fBSbVec4f\fP &v)"
+.br
+.ti -1c
+.RI "\fBSbVec4f\fP \fBoperator/\fP (const \fBSbVec4f\fP &v, float d)"
+.br
+.ti -1c
+.RI "\fBSbVec4f\fP \fBoperator+\fP (const \fBSbVec4f\fP &v1, const \fBSbVec4f\fP &v2)"
+.br
+.ti -1c
+.RI "\fBSbVec4f\fP \fBoperator\-\fP (const \fBSbVec4f\fP &v1, const \fBSbVec4f\fP &v2)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBoperator==\fP (const \fBSbVec4f\fP &v1, const \fBSbVec4f\fP &v2)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBoperator!=\fP (const \fBSbVec4f\fP &v1, const \fBSbVec4f\fP &v2)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBSbVec4f\fP class is a 4 dimensional vector with floating point coordinates\&.
+.PP
+This vector class is used by many other classes in Coin\&. It provides storage for a 3 dimensional homogeneoues vector (with the 4 components usually referred to as <x, y, z, w>) as well as simple floating point arithmetic operations\&. 
+
+
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSbVec2s\fP, \fBSbVec2f\fP, \fBSbVec2d\fP, \fBSbVec3s\fP, \fBSbVec3f\fP, \fBSbVec3d\fP, \fBSbVec4d\fP\&. 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SbVec4f::SbVec4f (void)\fC [inline]\fP"
+The default constructor does nothing\&. The vector coordinates will be uninitialized until a call the \fBsetValue()\fP\&. 
+.SS "SbVec4f::SbVec4f (const float v[4])\fC [inline]\fP"
+Constructs an \fBSbVec4f\fP instance with initial values from \fIv\fP\&. 
+.SS "SbVec4f::SbVec4f (float x, float y, float z, float w)\fC [inline]\fP"
+Constructs an \fBSbVec4f\fP instance with the initial homogeneous vector set to \fI<x\fP,y,z,w>\&. 
+.SS "SbVec4f::SbVec4f (const \fBSbVec4d\fP & v)\fC [inline]\fP, \fC [explicit]\fP"
+Constructs an \fBSbVec4f\fP instance from an \fBSbVec4d\fP instance\&. 
+.SS "SbVec4f::SbVec4f (const \fBSbVec4b\fP & v)\fC [inline]\fP, \fC [explicit]\fP"
+Constructs an \fBSbVec4f\fP instance from an \fBSbVec4b\fP instance\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.5 
+.RE
+.PP
+
+.SS "SbVec4f::SbVec4f (const \fBSbVec4s\fP & v)\fC [inline]\fP, \fC [explicit]\fP"
+Constructs an \fBSbVec4f\fP instance from an \fBSbVec4s\fP instance\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.5 
+.RE
+.PP
+
+.SS "SbVec4f::SbVec4f (const \fBSbVec4i32\fP & v)\fC [inline]\fP, \fC [explicit]\fP"
+Constructs an \fBSbVec4f\fP instance from an \fBSbVec4i32\fP instance\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.5 
+.RE
+.PP
+
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSbVec4f\fP & SbVec4f::setValue (const float v[4])\fC [inline]\fP"
+Set new coordinates for the vector from \fIv\fP\&. Returns reference to self\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetValue()\fP\&. 
+.RE
+.PP
+
+.SS "\fBSbVec4f\fP & SbVec4f::setValue (float x, float y, float z, float w)\fC [inline]\fP"
+Set new coordinates for the vector\&. Returns reference to self\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetValue()\fP\&. 
+.RE
+.PP
+
+.SS "\fBSbVec4f\fP & SbVec4f::setValue (const \fBSbVec4d\fP & v)"
+Sets the value from an \fBSbVec4d\fP instance\&. 
+.SS "\fBSbVec4f\fP & SbVec4f::setValue (const \fBSbVec4b\fP & v)"
+
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.5 
+.RE
+.PP
+
+.SS "\fBSbVec4f\fP & SbVec4f::setValue (const \fBSbVec4s\fP & v)"
+
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.5 
+.RE
+.PP
+
+.SS "\fBSbVec4f\fP & SbVec4f::setValue (const \fBSbVec4i32\fP & v)"
+
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.5 
+.RE
+.PP
+
+.SS "const float * SbVec4f::getValue (void) const\fC [inline]\fP"
+Returns a pointer to an array of four floats containing the x, y, z and w coordinates of the vector\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetValue()\fP\&. 
+.RE
+.PP
+
+.SS "void SbVec4f::getValue (float & x, float & y, float & z, float & w) const\fC [inline]\fP"
+Returns the x, y, z and w coordinates of the vector\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetValue()\fP\&. 
+.RE
+.PP
+
+.SS "float & SbVec4f::operator[] (\fBint\fP i)\fC [inline]\fP"
+Index operator\&. Returns modifiable x, y, z or w component of vector\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetValue()\fP and \fBsetValue()\fP\&. 
+.RE
+.PP
+
+.SS "const float & SbVec4f::operator[] (\fBint\fP i) const\fC [inline]\fP"
+Index operator\&. Returns x, y, z or w component of vector\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetValue()\fP and \fBsetValue()\fP\&. 
+.RE
+.PP
+
+.SS "SbBool SbVec4f::equals (const \fBSbVec4f\fP & v, float tolerance) const"
+Compares the vector with \fIv\fP and returns \fCTRUE\fP if the distance between the vectors is smaller or equal to the square root of \fItolerance\fP\&.
+.PP
+The comparison is done in 4D-space, i\&.e\&. the \fIw\fP component of the vector is \fInot\fP used to make x, y and z into Cartesian coordinates first\&. 
+.SS "float SbVec4f::dot (const \fBSbVec4f\fP & v) const\fC [inline]\fP"
+Calculates and returns the result of taking the dot product of this vector and \fIv\fP\&. 
+.SS "void SbVec4f::getReal (\fBSbVec3f\fP & v) const"
+Returns the vector as a Cartesian 3D vector in \fIv\fP\&. This means that the 3 first components x, y and z will be divided by the fourth, w\&. 
+.SS "float SbVec4f::length (void) const"
+Return the length of the vector in 4D space\&. 
+.SS "float SbVec4f::sqrLength (void) const\fC [inline]\fP"
+Return the square of the length of the vector in 4D space\&. 
+.SS "void SbVec4f::negate (void)\fC [inline]\fP"
+Negate the vector\&. 
+.SS "float SbVec4f::normalize (void)"
+Normalize the vector to unit length\&. Return value is the original length of the vector before normalization\&. 
+.SS "\fBSbVec4f\fP & SbVec4f::operator*= (float d)\fC [inline]\fP"
+Multiply components of vector with value \fId\fP\&. Returns reference to self\&. 
+.SS "\fBSbVec4f\fP & SbVec4f::operator/= (float d)\fC [inline]\fP"
+Divides components of vector with value \fId\fP\&. Returns reference to self\&. 
+.SS "\fBSbVec4f\fP & SbVec4f::operator+= (const \fBSbVec4f\fP & v)\fC [inline]\fP"
+Adds this vector and vector \fIv\fP\&. Returns reference to self\&. 
+.SS "\fBSbVec4f\fP & SbVec4f::operator\-= (const \fBSbVec4f\fP & v)\fC [inline]\fP"
+Subtracts vector \fIv\fP from this vector\&. Returns reference to self\&. 
+.SS "\fBSbVec4f\fP SbVec4f::operator\- (void) const\fC [inline]\fP"
+Non-destructive negation operator\&. Returns a new \fBSbVec4f\fP instance which has all components negated\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBnegate()\fP\&. 
+.RE
+.PP
+
+.SS "void SbVec4f::print (FILE * fp) const"
+Dump the state of this object to the \fIfile\fP stream\&. Only works in debug version of library, method does nothing in an optimized compile\&. 
+.SH "Friends And Related Function Documentation"
+.PP 
+.SS "\fBSbVec4f\fP operator* (const \fBSbVec4f\fP & v, float d)\fC [related]\fP"
+Returns an \fBSbVec4f\fP instance which is the components of vector \fIv\fP multiplied with \fId\fP\&. 
+.SS "\fBSbVec4f\fP operator* (float d, const \fBSbVec4f\fP & v)\fC [related]\fP"
+Returns an \fBSbVec4f\fP instance which is the components of vector \fIv\fP multiplied with \fId\fP\&. 
+.SS "\fBSbVec4f\fP operator/ (const \fBSbVec4f\fP & v, float d)\fC [related]\fP"
+Returns an \fBSbVec4f\fP instance which is the components of vector \fIv\fP divided on the scalar factor \fId\fP\&. 
+.SS "\fBSbVec4f\fP operator+ (const \fBSbVec4f\fP & v1, const \fBSbVec4f\fP & v2)\fC [related]\fP"
+Returns an \fBSbVec4f\fP instance which is the sum of vectors \fIv1\fP and \fIv2\fP\&. 
+.SS "\fBSbVec4f\fP operator\- (const \fBSbVec4f\fP & v1, const \fBSbVec4f\fP & v2)\fC [related]\fP"
+Returns an \fBSbVec4f\fP instance which is vector \fIv2\fP subtracted from vector \fIv1\fP\&. 
+.SS "\fBint\fP operator== (const \fBSbVec4f\fP & v1, const \fBSbVec4f\fP & v2)\fC [related]\fP"
+Returns \fI1\fP if \fIv1\fP and \fIv2\fP are equal, \fI0\fP otherwise\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBequals()\fP\&. 
+.RE
+.PP
+
+.SS "\fBint\fP operator!= (const \fBSbVec4f\fP & v1, const \fBSbVec4f\fP & v2)\fC [related]\fP"
+Returns \fI1\fP if \fIv1\fP and \fIv2\fP are not equal, \fI0\fP if they are equal\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBequals()\fP\&. 
+.RE
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

@@ -1,0 +1,345 @@
+.TH "SoPath" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoPath \- The \fBSoPath\fP class is a container class for traversal path descriptions\&.
+.PP
+\fBSoPath\fP objects contain a list of \fBSoNode\fP pointers and a list of child indices\&. Indices are necessary to disambiguate situations where a node uses the same node as a child multiple times\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/SoPath\&.h>\fP
+.PP
+Inherits \fBSoBase\fP\&.
+.PP
+Inherited by \fBSoFullPath\fP, and \fBSoNodeKitPath\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSoPath\fP (const \fBint\fP approxlength=4)"
+.br
+.ti -1c
+.RI "\fBSoPath\fP (\fBSoNode\fP *const head)"
+.br
+.ti -1c
+.RI "\fBSoPath\fP (const \fBSoPath\fP &rhs)"
+.br
+.ti -1c
+.RI "\fBSoPath\fP & \fBoperator=\fP (const \fBSoPath\fP &rhs)"
+.br
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "void \fBsetHead\fP (\fBSoNode\fP *const head)"
+.br
+.ti -1c
+.RI "\fBSoNode\fP * \fBgetHead\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBappend\fP (const \fBint\fP childindex)"
+.br
+.ti -1c
+.RI "void \fBappend\fP (\fBSoNode\fP *const node)"
+.br
+.ti -1c
+.RI "void \fBappend\fP (const \fBSoPath\fP *const frompath)"
+.br
+.ti -1c
+.RI "void \fBpush\fP (const \fBint\fP childindex)"
+.br
+.ti -1c
+.RI "void \fBpop\fP (void)"
+.br
+.ti -1c
+.RI "\fBSoNode\fP * \fBgetTail\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoNode\fP * \fBgetNode\fP (const \fBint\fP index) const"
+.br
+.ti -1c
+.RI "\fBSoNode\fP * \fBgetNodeFromTail\fP (const \fBint\fP index) const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetIndex\fP (const \fBint\fP index) const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetIndexFromTail\fP (const \fBint\fP index) const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetLength\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBtruncate\fP (const \fBint\fP length)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBfindFork\fP (const \fBSoPath\fP *const path) const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBfindNode\fP (const \fBSoNode\fP *const node) const"
+.br
+.ti -1c
+.RI "SbBool \fBcontainsNode\fP (const \fBSoNode\fP *const node) const"
+.br
+.ti -1c
+.RI "SbBool \fBcontainsPath\fP (const \fBSoPath\fP *const path) const"
+.br
+.ti -1c
+.RI "\fBSoPath\fP * \fBcopy\fP (const \fBint\fP startfromnodeindex=0, \fBint\fP numnodes=0) const"
+.br
+.ti -1c
+.RI "void \fBinsertIndex\fP (\fBSoNode\fP *const parent, const \fBint\fP newindex)"
+.br
+.ti -1c
+.RI "void \fBremoveIndex\fP (\fBSoNode\fP *const parent, const \fBint\fP oldindex)"
+.br
+.ti -1c
+.RI "void \fBreplaceIndex\fP (\fBSoNode\fP *const parent, const \fBint\fP index, \fBSoNode\fP *const newchild)"
+.br
+.ti -1c
+.RI "SbBool \fBisRelevantNotification\fP (\fBSoNotList\fP *const l) const"
+.br
+.ti -1c
+.RI "virtual void \fBwrite\fP (\fBSoWriteAction\fP *action)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static \fBSoPath\fP * \fBgetByName\fP (const \fBSbName\fP name)"
+.br
+.ti -1c
+.RI "static \fBint\fP \fBgetByName\fP (const \fBSbName\fP name, \fBSoPathList\fP &l)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fB~SoPath\fP ()"
+.br
+.ti -1c
+.RI "void \fBauditPath\fP (const SbBool flag)"
+.br
+.in -1c
+.SS "Friends"
+
+.in +1c
+.ti -1c
+.RI "SbBool \fBoperator==\fP (const \fBSoPath\fP &lhs, const \fBSoPath\fP &rhs)"
+.br
+.ti -1c
+.RI "SbBool \fBoperator!=\fP (const \fBSoPath\fP &lhs, const \fBSoPath\fP &rhs)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoPath\fP class is a container class for traversal path descriptions\&.
+.PP
+\fBSoPath\fP objects contain a list of \fBSoNode\fP pointers and a list of child indices\&. Indices are necessary to disambiguate situations where a node uses the same node as a child multiple times\&. 
+
+Paths can be export and imported to/from file, like other \fBSoBase\fP derived objects\&. Read the documentation on the \fBwrite()\fP method to see how the file format is\&.
+.PP
+It's important to know the difference between this class and \fBSoFullPath\fP when working with paths\&. \fBSoPath::getTail()\fP will return the first node in the path that doesn't inherit \fBSoGroup\fP, and \fBgetLength()\fP returns the number of nodes down to this node\&.
+.PP
+If you need the actual path length, or the actual tail node, you need to cast the path to \fBSoFullPath\fP\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoPath::SoPath (const \fBint\fP approxlength = \fC4\fP)"
+The default constructor\&. \fIapproxlength\fP is used to indicate in advance the length of the path to minimize the number of reallocations\&. 
+.SS "SoPath::SoPath (\fBSoNode\fP *const head)"
+A constructor\&. The argument is set as the \fIhead\fP (and only) node of the path\&. 
+.SS "SoPath::SoPath (const \fBSoPath\fP & rhs)"
+Copy constructor\&. Not part of the original Open Inventor API\&. 
+.SS "SoPath::~SoPath (void)\fC [protected]\fP, \fC [virtual]\fP"
+The destructor is protected as destruction of \fBSoPath\fP instances happens through \fBunref()\fP (as for all objects derived from classes inheriting \fBSoBase\fP)\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoPath\fP & SoPath::operator= (const \fBSoPath\fP & rhs)"
+Assignment operator, copies the \fIrhs\fP path into this\&. Not part of the original Open Inventor API\&. 
+.SS "\fBSoType\fP SoPath::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Implements \fBSoBase\fP\&.
+.SS "void SoPath::setHead (\fBSoNode\fP *const node)"
+This method sets the head of the path to \fInode\fP\&. If the object already has a path set, it will be truncated\&. 
+.SS "\fBSoNode\fP * SoPath::getHead (void) const"
+This method returns the head of the path, or \fCNULL\fP if the path is empty\&. 
+.SS "void SoPath::append (const \fBint\fP childindex)"
+This function appends the \fIchildindex\fP child of the path's tail to the end of the path\&. It can only be used after the head is set\&. 
+.SS "void SoPath::append (\fBSoNode\fP *const node)"
+This function adds \fInode\fP to the end if it is a child of the current tail\&. If path is empty, this is equivalent to calling \fBsetHead()\fP\&. 
+.SS "void SoPath::append (const \fBSoPath\fP *const frompath)"
+This method appends the path to the end of the path if the head of \fIfrompath\fP is either the tail of the path or a child of the path's tail\&. If the head of \fIfrompath\fP is used multiple times as a child of the path tail, the lowest child index is used\&. 
+.SS "void SoPath::push (const \fBint\fP childindex)\fC [inline]\fP"
+This method pushes the child at \fIchildindex\fP on the tail on the path\&. 
+.SS "void SoPath::pop (void)\fC [inline]\fP"
+This method pops the tail off the path\&. 
+.SS "\fBSoNode\fP * SoPath::getTail (void) const"
+This method returns the tail node of the path\&. Please note that this method only considers group nodes without hidden children (nodes inheriting \fBSoGroup\fP) when finding the tail\&.
+.PP
+If you want to find the real tail node (also below node kits and VRML nodes with hidden children), you have to use \fBSoFullPath::getTail()\fP\&. You don't have to create an \fBSoFullPath\fP instance to do this, just cast the \fBSoPath\fP instance to \fBSoFullPath\fP before gettting the tail node:
+.PP
+.PP
+.nf
+SoNode * tail = static_cast<SoFullPath*>(path)->getTail();
+.fi
+.PP
+ 
+.SS "\fBSoNode\fP * SoPath::getNode (const \fBint\fP index) const"
+This method returns the node at \fIindex\fP in the path, counted from 0 at the head\&. 
+.SS "\fBSoNode\fP * SoPath::getNodeFromTail (const \fBint\fP index) const"
+This method returns the node at \fIindex\fP in the path, counting from the tail\&. The \fIindex\fP argument should be zero or positive\&. 
+.SS "\fBint\fP SoPath::getIndex (const \fBint\fP index) const"
+This method returns the child index of the node at \fIindex\fP in the path\&. 
+.SS "\fBint\fP SoPath::getIndexFromTail (const \fBint\fP index) const"
+This method returns the child index of the node at \fIindex\fP in the path, counting from the tail\&. The \fIindex\fP argument should be zero or positive\&. 
+.SS "\fBint\fP SoPath::getLength (void) const"
+This method returns the number of nodes in the path\&. Only the 'visible' nodes are counted, i\&.e\&. hidden nodes of e\&.g\&. nodekits are not included\&.
+.PP
+If you need the actual path length, you need to cast your path to \fBSoFullPath\fP and use \fBSoFullPath::getLength()\fP\&. 
+.SS "void SoPath::truncate (const \fBint\fP length)"
+This method truncates the path to the given \fIlength\fP (i\&.e\&. all nodes in the path list from index \fIlength\fP and onwards will be removed from the path list)\&. 
+.SS "\fBint\fP SoPath::findFork (const \fBSoPath\fP *const path) const"
+This method returns the index of the last node that is the same for both paths, or \fC-1\fP if the paths don't even start on the same node\&. 
+.SS "\fBint\fP SoPath::findNode (const \fBSoNode\fP *const node) const"
+Returns the index of \fInode\fP if found in the \fIfull\fP path (possibly also in the normally hidden parts), or \fC-1\fP otherwise\&.
+.PP
+Note that this method is not part of the original Open Inventor API\&. 
+.SS "SbBool SoPath::containsNode (const \fBSoNode\fP *const node) const"
+This method returns \fCTRUE\fP is \fInode\fP is contained somewhere in the \fIfull\fP path (possibly also in the normally hidden parts), and \fCFALSE\fP otherwise\&. 
+.SS "SbBool SoPath::containsPath (const \fBSoPath\fP *const path) const"
+This method returns \fCTRUE\fP if path is contained in the path, and \fCFALSE\fP otherwise\&. 
+.SS "\fBSoPath\fP * SoPath::copy (const \fBint\fP startfromnodeindex = \fC0\fP, \fBint\fP numnodes = \fC0\fP) const"
+This method returns a copy of the path starting at \fIstartfromnodeindex\fP with length \fInumnodes\fP\&. If \fInumnodes\fP is 0 (default) the path will be copied to the end\&.
+.PP
+The returned \fBSoPath\fP instance will have an initial reference count of 0\&. It is the caller's responsibility to \fBref()\fP and \fBunref()\fP it according to use\&. 
+.SS "\fBSoPath\fP * SoPath::getByName (const \fBSbName\fP name)\fC [static]\fP"
+This static method is for retrieving an \fBSoPath\fP by it's \fIname\fP\&. The last registered \fBSoPath\fP with the given \fIname\fP is returned, or \fCNULL\fP if no \fBSoPath\fP by \fIname\fP exists\&. 
+.SS "\fBint\fP SoPath::getByName (const \fBSbName\fP name, \fBSoPathList\fP & l)\fC [static]\fP"
+This static method is for finding all the paths with a given \fIname\fP and append them to the \fIl\fP list\&. The number of \fBSoPath\fP instances with \fIname\fP found is returned\&. 
+.SS "void SoPath::insertIndex (\fBSoNode\fP *const parent, const \fBint\fP newindex)"
+This method is called when a node in the path chain has a child added, to update the index of it's child\&.
+.PP
+\fInewindex\fP is the index of the child which was inserted\&. If \fInewindex\fP is lower than the index value of the child node stored in the path, the path is updated accordingly\&. 
+.SS "void SoPath::removeIndex (\fBSoNode\fP *const parent, const \fBint\fP oldindex)"
+This method is called when a node in the path chain has a child removed, to update the index of it's child\&.
+.PP
+\fIoldindex\fP was the index of the removed child\&. If \fIoldindex\fP is lower than or equal to the index value of the child node stored in the path, the path is updated accordingly\&. 
+.SS "void SoPath::replaceIndex (\fBSoNode\fP *const parent, const \fBint\fP index, \fBSoNode\fP *const newchild)"
+This method is called when a node \fInewchild\fP replaces a node in the path\&. \fIindex\fP is the position of the child which has been replaced\&. 
+.SS "SbBool SoPath::isRelevantNotification (\fBSoNotList\fP *const l) const"
+Return TRUE if the notification chain \fIl\fP will affect the path\&. \fIl\fP will affect the path either if the notification is in the path (the notification started on a field in a node in the path), or off the path (the notification started in a non-separator node that is left of the path's node)\&. 
+.SS "void SoPath::write (\fBSoWriteAction\fP * action)\fC [virtual]\fP"
+This method is used to write the contents of an \fBSoPath\fP\&.
+.PP
+A path is written as: 
+.PP
+.nf
+Path {
+  HEAD-NODE-OF-SUBGRAPH
+  NUMBER-OF-INDICES
+  INDEX0
+  INDEX1
+  \&.\&.\&.
+}
+
+.fi
+.PP
+.PP
+[The rest of the documentation for this method only explains the reason behind a mismatch in behavior between the original Open Inventor and Coin\&. Don't read it if you're not taking a particular interest\&. (Short version: we do \fBSoPath\fP export in a somewhat more inefficient way to avoid the potential for bugs)\&.]
+.PP
+Note that unlike Open Inventor, we write the complete subgraph below the head node\&. Only writing the parts of the subgraph affecting the state for nodes within the path is error prone if a subgraph is written out as part of path \fIbefore\fP it is written out 'properly'\&. Consider writing a scene graph which looks like this (in memory):
+.PP
+.PP
+.nf
+DEF top_sep Separator {
+  Cone { }
+  DEF a_sphere Sphere { }
+  Cube { }
+}
+
+DEF path_switch PathSwitch {
+  path Path {
+    \&.\&.\&.path from "top_sep" to "a_sphere"\&.\&.\&.
+  }
+}
+.fi
+.PP
+.PP
+\&.\&.if we now do:
+.PP
+.PP
+.nf
+SoSeparator * root = new SoSeparator;
+root->addChild([ptr to path_switch]);
+root->addChild([ptr to top_sep]);
+SoWriteAction wa;
+wa\&.apply(root);
+.fi
+.PP
+.PP
+\&.\&.we would get the scene graph exported like this:
+.PP
+.PP
+.nf
+Separator {
+  DEF path_switch PathSwitch {
+    path Path {
+      DEF top_sep Separator {
+        DEF a_sphere Sphere {
+        }
+      }
+      1
+      0
+    }
+  }
+  USE top_sep
+}
+.fi
+.PP
+.PP
+\&.\&.and as you can see, \fIboth\fP the Cone and the Cube nodes has vanished, as they was not important for the part per se, and not written as part of it\&.
+.PP
+This is why we do full subgraph export for head nodes in paths\&. 
+.SS "void SoPath::auditPath (const SbBool flag)\fC [protected]\fP"
+Set whether or not to audit the nodes in the path to detect changes\&. 
+.SH "Friends And Related Function Documentation"
+.PP 
+.SS "SbBool operator== (const \fBSoPath\fP & lhs, const \fBSoPath\fP & rhs)\fC [friend]\fP"
+Compares contents of path \fIlhs\fP and path \fIrhs\fP, and returns \fCTRUE\fP if they are equal\&. 
+.SS "SbBool operator!= (const \fBSoPath\fP & lhs, const \fBSoPath\fP & rhs)\fC [friend]\fP"
+Returns \fCTRUE\fP if paths \fIlhs\fP and \fIrhs\fP does not contain the same nodes in the same order\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

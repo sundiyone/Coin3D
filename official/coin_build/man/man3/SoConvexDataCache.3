@@ -1,0 +1,160 @@
+.TH "SoConvexDataCache" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoConvexDataCache \- The \fBSoConvexDataCache\fP class is used to cache convexified polygons\&.
+.PP
+\fBSoConvexDataCache\fP is used to speed up rendering of concave polygons by tessellating all polygons into triangles and storing the newly generated primitives in an internal cache\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/caches/SoConvexDataCache\&.h>\fP
+.PP
+Inherits \fBSoCache\fP\&.
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBBinding\fP { \fBNONE\fP = 0, \fBPER_FACE\fP, \fBPER_FACE_INDEXED\fP, \fBPER_VERTEX\fP, \fBPER_VERTEX_INDEXED\fP }
+.RI "The Binding enum is used to specify bindings\&. ""
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSoConvexDataCache\fP (\fBSoState\fP *const state)"
+.br
+.ti -1c
+.RI "virtual \fB~SoConvexDataCache\fP ()"
+.br
+.ti -1c
+.RI "void \fBgenerate\fP (const \fBSoCoordinateElement\fP *const coords, const \fBSbMatrix\fP &matrix, const int32_t *coordindices, const \fBint\fP numcoordindices, const int32_t *matindices, const int32_t *normindices, const int32_t *texindices, const \fBBinding\fP matbinding, const \fBBinding\fP normbinding, const \fBBinding\fP texbinding)"
+.br
+.ti -1c
+.RI "const int32_t * \fBgetCoordIndices\fP (void) const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetNumCoordIndices\fP (void) const"
+.br
+.ti -1c
+.RI "const int32_t * \fBgetMaterialIndices\fP (void) const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetNumMaterialIndices\fP (void) const"
+.br
+.ti -1c
+.RI "const int32_t * \fBgetNormalIndices\fP (void) const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetNumNormalIndices\fP (void) const"
+.br
+.ti -1c
+.RI "const int32_t * \fBgetTexIndices\fP (void) const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetNumTexIndices\fP (void) const"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoConvexDataCache\fP class is used to cache convexified polygons\&.
+.PP
+\fBSoConvexDataCache\fP is used to speed up rendering of concave polygons by tessellating all polygons into triangles and storing the newly generated primitives in an internal cache\&. 
+
+This class is not part of the original SGI Open Inventor v2\&.1 API, but is a Coin extension\&. 
+.SH "Member Enumeration Documentation"
+.PP 
+.SS "enum \fBSoConvexDataCache::Binding\fP"
+
+.PP
+The Binding enum is used to specify bindings\&. Binding applies to normals, materials and texture coordinates\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoConvexDataCache::SoConvexDataCache (\fBSoState\fP *const state)"
+Constructor with \fIstate\fP being the current state\&. 
+.SS "SoConvexDataCache::~SoConvexDataCache ()\fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void SoConvexDataCache::generate (const \fBSoCoordinateElement\fP *const coords, const \fBSbMatrix\fP & matrix, const int32_t * vind, const \fBint\fP numv, const int32_t * mind, const int32_t * nind, const int32_t * tind, const \fBBinding\fP matbind, const \fBBinding\fP normbind, const \fBBinding\fP texbind)"
+Generates the convexified data\&. FIXME: doc 
+.SS "const int32_t * SoConvexDataCache::getCoordIndices (void) const"
+Returns a pointer to the convexified coordinate indices\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoConvexDataCache::getNumCoordIndices()\fP 
+.RE
+.PP
+
+.SS "\fBint\fP SoConvexDataCache::getNumCoordIndices (void) const"
+Returns the number of coordinate indices\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoConvexDataCache::getCoordIndices()\fP 
+.RE
+.PP
+
+.SS "const int32_t * SoConvexDataCache::getMaterialIndices (void) const"
+Returns the convexified material indices\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoConvexDataCache::getNumMaterialIndices()\fP 
+.RE
+.PP
+
+.SS "\fBint\fP SoConvexDataCache::getNumMaterialIndices (void) const"
+Returns the number of material indices\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoConvexDataCache::getMaterialIndices()\fP 
+.RE
+.PP
+
+.SS "const int32_t * SoConvexDataCache::getNormalIndices (void) const"
+Returns the convexified normal indices\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoConvexDataCache::getNumNormalIndices()\fP 
+.RE
+.PP
+
+.SS "\fBint\fP SoConvexDataCache::getNumNormalIndices (void) const"
+Returns the number of normal indices\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoConvexDataCache::getNormalIndices()\fP 
+.RE
+.PP
+
+.SS "const int32_t * SoConvexDataCache::getTexIndices (void) const"
+Returns the convexified texture coordinate indices\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoConvexDataCache::getNumTexIndices()\fP 
+.RE
+.PP
+
+.SS "\fBint\fP SoConvexDataCache::getNumTexIndices (void) const"
+Returns the number of texture coordinate indices\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoConvexDataCache::getTexIndices()\fP 
+.RE
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

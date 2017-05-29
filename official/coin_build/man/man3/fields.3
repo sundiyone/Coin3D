@@ -1,0 +1,578 @@
+.TH "fields" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+fields \- The fields are the data containers in the scene graph\&. Nodes and engines all use fields to store their public data\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBSoField\fP"
+.br
+.RI "The \fBSoField\fP class is the top-level abstract base class for fields\&.
+.PP
+Fields is the mechanism used throughout Coin for encapsulating basic data types to detect changes made to them, and to provide conversion, import and export facilities\&. "
+.ti -1c
+.RI "class \fBSoFieldData\fP"
+.br
+.RI "The \fBSoFieldData\fP class is a container for a prototype set of fields\&.
+.PP
+This class is instantiated once for each class of objects which use fields, and which needs to be able to import and export them\&. "
+.ti -1c
+.RI "class \fBSoMFBitMask\fP"
+.br
+.RI "The \fBSoMFBitMask\fP class is a container for a set of bitmasks\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store multiple bitmasks with values from an enumerated set\&. "
+.ti -1c
+.RI "class \fBSoMFBool\fP"
+.br
+.RI "The \fBSoMFBool\fP class is a container for SbBool values\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store multiple boolean on/off or TRUE/FALSE values\&. "
+.ti -1c
+.RI "class \fBSoMFColor\fP"
+.br
+.RI "The \fBSoMFColor\fP class is a container for \fBSbColor\fP values\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store multiple color values (i\&.e\&. 'Red Green Blue' triplets)\&. "
+.ti -1c
+.RI "class \fBSoMFColorRGBA\fP"
+.br
+.RI "The \fBSoMFColorRGBA\fP class is a container for \fBSbColor4f\fP values\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store multiple color values (i\&.e\&. 'Red Green Blue' triplets)\&. "
+.ti -1c
+.RI "class \fBSoMFDouble\fP"
+.br
+.RI "The \fBSoMFDouble\fP class is a container for double float precision point values\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store a group of multiple floating point values\&. "
+.ti -1c
+.RI "class \fBSoMFEngine\fP"
+.br
+.RI "The \fBSoMFEngine\fP class is a container for engines\&.
+.PP
+This field container stores an array of pointers to engines\&. It takes care of the necessary functionality for handling copy, import and export operations\&. "
+.ti -1c
+.RI "class \fBSoMFEnum\fP"
+.br
+.RI "The \fBSoMFEnum\fP class is a container for a set of enumerated values\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store values constrained to be from an enumerated set\&. "
+.ti -1c
+.RI "class \fBSoMFFloat\fP"
+.br
+.RI "The \fBSoMFFloat\fP class is a container for floating point values\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store a group of multiple floating point values\&. "
+.ti -1c
+.RI "class \fBSoMFInt32\fP"
+.br
+.RI "The \fBSoMFInt32\fP class is a container for 32-bit integer values\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store a group of multiple 32-bit integer values\&. "
+.ti -1c
+.RI "class \fBSoMFMatrix\fP"
+.br
+.RI "The \fBSoMFMatrix\fP class is a container for \fBSbMatrix\fP values\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store matrices\&. "
+.ti -1c
+.RI "class \fBSoMFName\fP"
+.br
+.RI "The \fBSoMFName\fP class is a container for \fBSbName\fP values\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store arrays of names\&. "
+.ti -1c
+.RI "class \fBSoMFNode\fP"
+.br
+.RI "The \fBSoMFNode\fP class is a container for nodes\&.
+.PP
+This field container stores an array of pointers to nodes\&. It takes care of the necessary functionality for handling copy, import and export operations\&. "
+.ti -1c
+.RI "class \fBSoMFPath\fP"
+.br
+.RI "The \fBSoMFPath\fP class is a container for paths\&.
+.PP
+This field container stores an array of pointers to paths\&. It takes care of the necessary functionality for handling copy, import and export operations\&. "
+.ti -1c
+.RI "class \fBSoMFPlane\fP"
+.br
+.RI "The \fBSoMFPlane\fP class is a container for \fBSbPlane\fP values\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store multiple 3D plane definitions\&. "
+.ti -1c
+.RI "class \fBSoMFRotation\fP"
+.br
+.RI "The \fBSoMFRotation\fP class is a container for \fBSbRotation\fP values\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store multiple rotation definitions\&. "
+.ti -1c
+.RI "class \fBSoMFShort\fP"
+.br
+.RI "The \fBSoMFShort\fP class is a container for short integer values\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store a group of multiple short integer values\&. "
+.ti -1c
+.RI "class \fBSoMFString\fP"
+.br
+.RI "The \fBSoMFString\fP class is a container for \fBSbString\fP values\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store arrays of strings\&. "
+.ti -1c
+.RI "class \fBSoMFTime\fP"
+.br
+.RI "The \fBSoMFTime\fP class is a container for \fBSbTime\fP values\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store multiple time representations\&. "
+.ti -1c
+.RI "class \fBSoMFUInt32\fP"
+.br
+.RI "The \fBSoMFUInt32\fP class is a container for 32-bit unsigned integer values\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store a group of multiple 32-bit unsigned integer values\&. "
+.ti -1c
+.RI "class \fBSoMFUShort\fP"
+.br
+.RI "The \fBSoMFUShort\fP class is a container for unsigned short integer values\&.
+.PP
+This field supports application data sharing through a setValuesPointer() method\&. See \fBSoMField\fP documentation for information on how to use this function\&. "
+.ti -1c
+.RI "class \fBSoMFVec2b\fP"
+.br
+.RI "The \fBSoMFVec2b\fP class is a container for \fBSbVec2b\fP vectors\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store an array of vectors with two elements\&. "
+.ti -1c
+.RI "class \fBSoMFVec2s\fP"
+.br
+.RI "The \fBSoMFVec2s\fP class is a container for \fBSbVec2s\fP vectors\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store an array of vectors with two elements\&. "
+.ti -1c
+.RI "class \fBSoMFVec2i32\fP"
+.br
+.RI "The \fBSoMFVec2i32\fP class is a container for \fBSbVec2i32\fP vectors\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store an array of vectors with two elements\&. "
+.ti -1c
+.RI "class \fBSoMFVec2f\fP"
+.br
+.RI "The \fBSoMFVec2f\fP class is a container for \fBSbVec2f\fP vectors\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store an array of vectors with two elements\&. "
+.ti -1c
+.RI "class \fBSoMFVec2d\fP"
+.br
+.RI "The \fBSoMFVec2d\fP class is a container for \fBSbVec2d\fP vectors\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store an array of vectors with two elements\&. "
+.ti -1c
+.RI "class \fBSoMFVec3b\fP"
+.br
+.RI "The \fBSoMFVec3b\fP class is a container for \fBSbVec3b\fP vectors\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store an array of vectors with three elements\&. "
+.ti -1c
+.RI "class \fBSoMFVec3s\fP"
+.br
+.RI "The \fBSoMFVec3s\fP class is a container for \fBSbVec3s\fP vectors\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store an array of vectors with three elements\&. "
+.ti -1c
+.RI "class \fBSoMFVec3i32\fP"
+.br
+.RI "The \fBSoMFVec3i32\fP class is a container for \fBSbVec3i32\fP vectors\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store an array of vectors with three elements\&. "
+.ti -1c
+.RI "class \fBSoMFVec3f\fP"
+.br
+.RI "The \fBSoMFVec3f\fP class is a container for \fBSbVec3f\fP vectors\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store an array of vectors with three elements\&. "
+.ti -1c
+.RI "class \fBSoMFVec3d\fP"
+.br
+.RI "The \fBSoMFVec3d\fP class is a container for \fBSbVec3d\fP vectors\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store an array of vectors with three elements\&. "
+.ti -1c
+.RI "class \fBSoMFVec4b\fP"
+.br
+.RI "The \fBSoMFVec4b\fP class is a container for \fBSbVec4b\fP vectors\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store an array of vectors with four elements\&. "
+.ti -1c
+.RI "class \fBSoMFVec4ub\fP"
+.br
+.RI "The \fBSoMFVec4ub\fP class is a container for \fBSbVec4ub\fP vectors\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store an array of vectors with four elements\&. "
+.ti -1c
+.RI "class \fBSoMFVec4s\fP"
+.br
+.RI "The \fBSoMFVec4s\fP class is a container for \fBSbVec4s\fP vectors\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store an array of vectors with four elements\&. "
+.ti -1c
+.RI "class \fBSoMFVec4us\fP"
+.br
+.RI "The \fBSoMFVec4us\fP class is a container for \fBSbVec4us\fP vectors\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store an array of vectors with four elements\&. "
+.ti -1c
+.RI "class \fBSoMFVec4i32\fP"
+.br
+.RI "The \fBSoMFVec4i32\fP class is a container for \fBSbVec4i32\fP vectors\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store an array of vectors with four elements\&. "
+.ti -1c
+.RI "class \fBSoMFVec4ui32\fP"
+.br
+.RI "The \fBSoMFVec4ui32\fP class is a container for \fBSbVec4ui32\fP vectors\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store an array of vectors with four elements\&. "
+.ti -1c
+.RI "class \fBSoMFVec4f\fP"
+.br
+.RI "The \fBSoMFVec4f\fP class is a container for \fBSbVec4f\fP vectors\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store an array of vectors with four elements\&. "
+.ti -1c
+.RI "class \fBSoMFVec4d\fP"
+.br
+.RI "The \fBSoMFVec4d\fP class is a container for \fBSbVec4d\fP vectors\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store an array of vectors with four elements\&. "
+.ti -1c
+.RI "class \fBSoMField\fP"
+.br
+.RI "The \fBSoMField\fP class is the base class for fields which can contain multiple values\&.
+.PP
+All field types which may contain more than one member value inherits this class\&. \fBSoMField\fP is an abstract class\&. "
+.ti -1c
+.RI "class \fBSoSFBitMask\fP"
+.br
+.RI "The \fBSoSFBitMask\fP class is a container for a set of bit flags\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store one particular set of bit flags from an enumerated set\&. "
+.ti -1c
+.RI "class \fBSoSFBool\fP"
+.br
+.RI "The \fBSoSFBool\fP class is a container for an SbBool value\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store a boolean on/off or TRUE/FALSE value, like for instance as the 'on' field of the \fBSoPointLight\fP, \fBSoSpotLight\fP and \fBSoDirectionalLight\fP node classes\&. "
+.ti -1c
+.RI "class \fBSoSFBox2s\fP"
+.br
+.RI "The \fBSoSFBox2s\fP class is a container for an \fBSbBox2s\fP vector\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store a box\&. "
+.ti -1c
+.RI "class \fBSoSFBox2i32\fP"
+.br
+.RI "The \fBSoSFBox2i32\fP class is a container for an \fBSbBox2i32\fP vector\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store a box\&. "
+.ti -1c
+.RI "class \fBSoSFBox2f\fP"
+.br
+.RI "The \fBSoSFBox2f\fP class is a container for an \fBSbBox2f\fP vector\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store a box\&. "
+.ti -1c
+.RI "class \fBSoSFBox2d\fP"
+.br
+.RI "The \fBSoSFBox2d\fP class is a container for an \fBSbBox2d\fP vector\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store a box\&. "
+.ti -1c
+.RI "class \fBSoSFBox3s\fP"
+.br
+.RI "The \fBSoSFBox3s\fP class is a container for an \fBSbBox3s\fP vector\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store a box\&. "
+.ti -1c
+.RI "class \fBSoSFBox3i32\fP"
+.br
+.RI "The \fBSoSFBox3i32\fP class is a container for an \fBSbBox3i32\fP vector\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store a box\&. "
+.ti -1c
+.RI "class \fBSoSFBox3f\fP"
+.br
+.RI "The \fBSoSFBox3f\fP class is a container for an \fBSbBox3f\fP vector\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store a box\&. "
+.ti -1c
+.RI "class \fBSoSFBox3d\fP"
+.br
+.RI "The \fBSoSFBox3d\fP class is a container for an \fBSbBox3d\fP vector\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store a box\&. "
+.ti -1c
+.RI "class \fBSoSFColor\fP"
+.br
+.RI "The \fBSoSFColor\fP class is a container for an \fBSbColor\fP value\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store a single color value (i\&.e\&. Red + Green + Blue)\&. "
+.ti -1c
+.RI "class \fBSoSFColorRGBA\fP"
+.br
+.RI "The \fBSoSFColorRGBA\fP class is a container for an \fBSbColor4f\fP value\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store a single color value (i\&.e\&. Red + Green + Blue + Alpha)\&. "
+.ti -1c
+.RI "class \fBSoSFDouble\fP"
+.br
+.RI "The \fBSoSFDouble\fP class is a container for a double precision floating point value\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store a single floating point value\&. "
+.ti -1c
+.RI "class \fBSoSFEngine\fP"
+.br
+.RI "The \fBSoSFEngine\fP class is a container for a single engine\&.
+.PP
+This field container stores a pointer to a Coin engine\&. It takes care of the necessary functionality for handling copy, import and export operations\&. "
+.ti -1c
+.RI "class \fBSoSFEnum\fP"
+.br
+.RI "The \fBSoSFEnum\fP class is a container for an enum value\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store one particular value out of an enumerated set\&. "
+.ti -1c
+.RI "class \fBSoSFFloat\fP"
+.br
+.RI "The \fBSoSFFloat\fP class is a container for a floating point value\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store a single floating point value\&. "
+.ti -1c
+.RI "class \fBSoSFImage\fP"
+.br
+.RI "The \fBSoSFImage\fP class is used to store pixel images\&.
+.PP
+The \fBSoSFImage\fP class provides storage for inline 2D image maps\&. Images in Coin are mainly used for texture mapping support\&. "
+.ti -1c
+.RI "class \fBSoSFImage3\fP"
+.br
+.RI "The \fBSoSFImage3\fP class is used to store 3D (volume) images\&.
+.PP
+The \fBSoSFImage3\fP class provides storage for inline 3D image maps\&. 3D images in Coin are mainly used for 3D texture mapping support\&. "
+.ti -1c
+.RI "class \fBSoSFInt32\fP"
+.br
+.RI "The \fBSoSFInt32\fP class is a container for a 32-bit integer value\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store a single 32-bit integer value\&. "
+.ti -1c
+.RI "class \fBSoSFMatrix\fP"
+.br
+.RI "The \fBSoSFMatrix\fP class is a container for an \fBSbMatrix\fP\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store a 4x4 matrix\&. "
+.ti -1c
+.RI "class \fBSoSFName\fP"
+.br
+.RI "The \fBSoSFName\fP class is a container for an \fBSbName\fP\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store a single name string\&. "
+.ti -1c
+.RI "class \fBSoSFNode\fP"
+.br
+.RI "The \fBSoSFNode\fP class is a container for a single node\&.
+.PP
+This field container stores a pointer to a Coin node\&. It takes care of the necessary functionality for handling copy, import and export operations\&. "
+.ti -1c
+.RI "class \fBSoSFPath\fP"
+.br
+.RI "The \fBSoSFPath\fP class is a container for a single path\&.
+.PP
+This field container stores a pointer to a Coin path\&. It takes care of the necessary functionality for handling copy, import and export operations\&. "
+.ti -1c
+.RI "class \fBSoSFPlane\fP"
+.br
+.RI "The \fBSoSFPlane\fP class is a container for an \fBSbPlane\fP value\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store a single definition of a 3D plane\&. "
+.ti -1c
+.RI "class \fBSoSFRotation\fP"
+.br
+.RI "The \fBSoSFRotation\fP class is a container for an \fBSbRotation\fP\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store a single rotation definition\&. "
+.ti -1c
+.RI "class \fBSoSFShort\fP"
+.br
+.RI "The \fBSoSFShort\fP class is a container for a short integer value\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store a single short integer value\&. "
+.ti -1c
+.RI "class \fBSoSFString\fP"
+.br
+.RI "The \fBSoSFString\fP class is a container for an \fBSbString\fP\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store a single string\&. "
+.ti -1c
+.RI "class \fBSoSFTime\fP"
+.br
+.RI "The \fBSoSFTime\fP class is a container for an \fBSbTime\fP value\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store a single time representation\&. "
+.ti -1c
+.RI "class \fBSoSFTrigger\fP"
+.br
+.RI "The \fBSoSFTrigger\fP class is the 'void' class used for detecting field changes\&.
+.PP
+Connect this field to a master field (or engine output) to detect when the master field changes its value\&. "
+.ti -1c
+.RI "class \fBSoSFUInt32\fP"
+.br
+.RI "The \fBSoSFUInt32\fP class is a container for a 32-bit unsigned integer value\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store a single 32-bit unsigned integer value\&. "
+.ti -1c
+.RI "class \fBSoSFUShort\fP"
+.br
+.RI "The \fBSoSFUShort\fP class is a container for a unsigned short integer value\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store a single short unsigned integer value\&. "
+.ti -1c
+.RI "class \fBSoSFVec2b\fP"
+.br
+.RI "The \fBSoSFVec2b\fP class is a container for an \fBSbVec2b\fP vector\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store a single vector with two elements\&. "
+.ti -1c
+.RI "class \fBSoSFVec2s\fP"
+.br
+.RI "The \fBSoSFVec2s\fP class is a container for an \fBSbVec2s\fP vector\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store a single vector with two elements\&. "
+.ti -1c
+.RI "class \fBSoSFVec2i32\fP"
+.br
+.RI "The \fBSoSFVec2i32\fP class is a container for an \fBSbVec2i32\fP vector\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store a single vector with two elements\&. "
+.ti -1c
+.RI "class \fBSoSFVec2f\fP"
+.br
+.RI "The \fBSoSFVec2f\fP class is a container for an \fBSbVec2f\fP vector\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store a single vector with two elements\&. "
+.ti -1c
+.RI "class \fBSoSFVec2d\fP"
+.br
+.RI "The \fBSoSFVec2d\fP class is a container for an \fBSbVec2d\fP vector\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store a single vector with two elements\&. "
+.ti -1c
+.RI "class \fBSoSFVec3b\fP"
+.br
+.RI "The \fBSoSFVec3b\fP class is a container for an \fBSbVec3b\fP vector\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store a single vector with three elements\&. "
+.ti -1c
+.RI "class \fBSoSFVec3s\fP"
+.br
+.RI "The \fBSoSFVec3s\fP class is a container for an \fBSbVec3s\fP vector\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store a single vector with three elements\&. "
+.ti -1c
+.RI "class \fBSoSFVec3i32\fP"
+.br
+.RI "The \fBSoSFVec3i32\fP class is a container for an \fBSbVec3i32\fP vector\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store a single vector with three elements\&. "
+.ti -1c
+.RI "class \fBSoSFVec3f\fP"
+.br
+.RI "The \fBSoSFVec3f\fP class is a container for an \fBSbVec3f\fP vector\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store a single vector with three elements\&. "
+.ti -1c
+.RI "class \fBSoSFVec3d\fP"
+.br
+.RI "The \fBSoSFVec3d\fP class is a container for an \fBSbVec3d\fP vector\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store a single vector with three elements\&. "
+.ti -1c
+.RI "class \fBSoSFVec4b\fP"
+.br
+.RI "The \fBSoSFVec4b\fP class is a container for an \fBSbVec4b\fP vector\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store a single vector with four elements\&. "
+.ti -1c
+.RI "class \fBSoSFVec4ub\fP"
+.br
+.RI "The \fBSoSFVec4ub\fP class is a container for an \fBSbVec4ub\fP vector\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store a single vector with four elements\&. "
+.ti -1c
+.RI "class \fBSoSFVec4s\fP"
+.br
+.RI "The \fBSoSFVec4s\fP class is a container for an \fBSbVec4s\fP vector\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store a single vector with four elements\&. "
+.ti -1c
+.RI "class \fBSoSFVec4us\fP"
+.br
+.RI "The \fBSoSFVec4us\fP class is a container for an \fBSbVec4us\fP vector\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store a single vector with four elements\&. "
+.ti -1c
+.RI "class \fBSoSFVec4i32\fP"
+.br
+.RI "The \fBSoSFVec4i32\fP class is a container for an \fBSbVec4i32\fP vector\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store a single vector with four elements\&. "
+.ti -1c
+.RI "class \fBSoSFVec4ui32\fP"
+.br
+.RI "The \fBSoSFVec4ui32\fP class is a container for an \fBSbVec4ui32\fP vector\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store a single vector with four elements\&. "
+.ti -1c
+.RI "class \fBSoSFVec4f\fP"
+.br
+.RI "The \fBSoSFVec4f\fP class is a container for an \fBSbVec4f\fP vector\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store a single vector with four elements\&. "
+.ti -1c
+.RI "class \fBSoSFVec4d\fP"
+.br
+.RI "The \fBSoSFVec4d\fP class is a container for an \fBSbVec4d\fP vector\&.
+.PP
+This field is used where nodes, engines or other field containers needs to store a single vector with four elements\&. "
+.ti -1c
+.RI "class \fBSoSField\fP"
+.br
+.RI "The \fBSoSField\fP class is the base class for fields which contains only a single value\&.
+.PP
+All field types which should always contain only a single member value inherits this class\&. \fBSoSField\fP is an abstract class\&. "
+.ti -1c
+.RI "class \fBSoFieldList\fP"
+.br
+.RI "The \fBSoFieldList\fP class is a container for pointers to \fBSoField\fP objects\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+The fields are the data containers in the scene graph\&. Nodes and engines all use fields to store their public data\&. 
+
+Fields can be inter-connected, causing changes at one location in a scene graph to cause other parts of the scene graph to automatically also get updated\&. Direct field-to-field connections will cause values to get duplicated, while field connections together with engines can create complex networks for such updating that include mathematical computations and logical operations\&. Field connections are uni-directional, but setting up a connection in both directions will cause a bi-directional connection\&.
+.PP
+Fields are first divided into two groups; 'single fields' and 'multi
+fields'\&. Single-fields contain just one value, while multi-fields can contain many values or even none at all\&.
+.PP
+Besides fields that are part of nodes, you also have 'global fields'\&. The 'realtime' field is one such field\&.
+.PP
+The fields in VRML97 nodes have additional semantics\&. Some are 'event_in' and some are 'event_out', listening for events or triggering events\&. 'event_in' events should not be read from, and 'event_out' fields should not be written to\&. 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

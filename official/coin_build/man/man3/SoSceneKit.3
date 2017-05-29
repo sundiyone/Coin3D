@@ -1,0 +1,178 @@
+.TH "SoSceneKit" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoSceneKit \- The \fBSoSceneKit\fP class collects node kits needed to set up a scene: camera, light and shapes\&.
+.PP
+Node kit structure (new entries versus parent class marked with arrow prefix):  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/nodekits/SoSceneKit\&.h>\fP
+.PP
+Inherits \fBSoBaseKit\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "virtual const \fBSoNodekitCatalog\fP * \fBgetNodekitCatalog\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoSceneKit\fP (void)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetCameraNumber\fP (void)"
+.br
+.ti -1c
+.RI "void \fBsetCameraNumber\fP (\fBint\fP camNum)"
+.br
+.ti -1c
+.RI "virtual SbBool \fBaffectsState\fP (void) const"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static const \fBSoNodekitCatalog\fP * \fBgetClassNodekitCatalog\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fB~SoSceneKit\fP ()"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.ti -1c
+.RI "static const \fBSoNodekitCatalog\fP ** \fBgetClassNodekitCatalogPtr\fP (void)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFNode\fP \fBcameraList\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBchildList\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBlightList\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtopSeparator\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoSceneKit\fP class collects node kits needed to set up a scene: camera, light and shapes\&.
+.PP
+Node kit structure (new entries versus parent class marked with arrow prefix): 
+
+
+.PP
+.nf
+CLASS SoSceneKit
+-->"this"
+      "callbackList"
+-->   "topSeparator"
+-->      "cameraList"
+-->      "lightList"
+-->      "childList"
+
+.fi
+.PP
+.PP
+(See \fBSoBaseKit::printDiagram()\fP for information about the output formatting\&.)
+.PP
+Detailed information on catalog parts:
+.PP
+.PP
+.nf
+CLASS SoSceneKit
+PVT   "this",  SoSceneKit  --- 
+      "callbackList",  SoNodeKitListPart [ SoCallback, SoEventCallback ] 
+PVT   "topSeparator",  SoSeparator  --- 
+      "cameraList",  SoNodeKitListPart [ SoCameraKit ] 
+      "lightList",  SoNodeKitListPart [ SoLightKit ] 
+      "childList",  SoNodeKitListPart [ SoShapeKit, SoSeparatorKit ] 
+.fi
+.PP
+.PP
+(See \fBSoBaseKit::printTable()\fP for information about the output formatting\&.) 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoSceneKit::SoSceneKit (void)"
+Constructor\&. 
+.SS "SoSceneKit::~SoSceneKit ()\fC [protected]\fP, \fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoSceneKit::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Reimplemented from \fBSoBaseKit\fP\&.
+.SS "const \fBSoFieldData\fP * SoSceneKit::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoBaseKit\fP\&.
+.SS "const \fBSoNodekitCatalog\fP * SoSceneKit::getNodekitCatalog (void) const\fC [virtual]\fP"
+Returns the nodekit catalog which defines the layout of this class' kit\&. 
+.PP
+Reimplemented from \fBSoBaseKit\fP\&.
+.SS "\fBint\fP SoSceneKit::getCameraNumber (void)"
+Returns the index of the current active camera in cameraList\&. 
+.SS "void SoSceneKit::setCameraNumber (\fBint\fP camnum)"
+Sets the current active camera in cameraList\&. 
+.SS "SbBool SoSceneKit::affectsState (void) const\fC [virtual]\fP"
+Returns \fCTRUE\fP if the node could have any effect on the state during traversal\&.
+.PP
+If it returns \fCFALSE\fP, no data in the traversal-state will change from the pre-traversal state to the post-traversal state\&. The \fBSoSeparator\fP node will for instance return \fCFALSE\fP, as it pushes and pops the state before and after traversal of its children\&. All \fBSoShape\fP nodes will also return \fCFALSE\fP, as just pushing out geometry data to the rendering engine won't affect the actual rendering state\&.
+.PP
+The default method returns \fCTRUE\fP, on a 'better safe than sorry' philosophy\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

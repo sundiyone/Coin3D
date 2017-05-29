@@ -1,0 +1,169 @@
+.TH "SoSimplifyAction" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoSimplifyAction \- The \fBSoSimplifyAction\fP class is the base class for the simplify action classes\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/actions/SoSimplifyAction\&.h>\fP
+.PP
+Inherits \fBSoAction\fP\&.
+.PP
+Inherited by \fBSoGlobalSimplifyAction\fP, \fBSoReorganizeAction\fP, and \fBSoShapeSimplifyAction\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoSimplifyAction\fP (void)"
+.br
+.ti -1c
+.RI "virtual \fB~SoSimplifyAction\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBapply\fP (\fBSoNode\fP *root)"
+.br
+.ti -1c
+.RI "virtual void \fBapply\fP (\fBSoPath\fP *path)"
+.br
+.ti -1c
+.RI "virtual void \fBapply\fP (const \fBSoPathList\fP &pathlist, SbBool obeysrules=FALSE)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBaddMethod\fP (const \fBSoType\fP type, \fBSoActionMethod\fP method)"
+.br
+.ti -1c
+.RI "static void \fBenableElement\fP (const \fBSoType\fP type, const \fBint\fP stackindex)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoEnabledElementsList\fP & \fBgetEnabledElements\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBbeginTraversal\fP (\fBSoNode\fP *node)"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoEnabledElementsList\fP * \fBgetClassEnabledElements\fP (void)"
+.br
+.ti -1c
+.RI "static \fBSoActionMethodList\fP * \fBgetClassActionMethods\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoSimplifyAction\fP class is the base class for the simplify action classes\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoSimplifyAction::SoSimplifyAction (void)"
+A constructor\&. 
+.SS "SoSimplifyAction::~SoSimplifyAction (void)\fC [virtual]\fP"
+The destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoSimplifyAction::getTypeId (void) const\fC [virtual]\fP"
+Returns the type identification of an action derived from a class inheriting \fBSoAction\fP\&. This is used for run-time type checking and 'downward' casting\&.
+.PP
+Usage example:
+.PP
+.PP
+.nf
+void bar(SoAction * action)
+{
+  if (action->getTypeId() == SoGLRenderAction::getClassTypeId()) {
+    // safe downward cast, know the type
+    SoGLRenderAction * glrender = (SoGLRenderAction *)action;
+  }
+  return; // ignore if not renderaction
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new actions: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through Inventor/nodes/SoSubAction\&.h: SO_ACTION_SOURCE, SO_ACTION_INIT_CLASS and SO_ACTION_CONSTRUCTOR\&.
+.PP
+For more information on writing Coin extensions, see the \fBSoAction\fP class documentation\&.
+.PP
+Returns the actual type id of an object derived from a class inheriting \fBSoAction\fP\&. Needs to be overridden in \fIall\fP subclasses\&. 
+.PP
+Implements \fBSoAction\fP\&.
+.PP
+Reimplemented in \fBSoGlobalSimplifyAction\fP, \fBSoShapeSimplifyAction\fP, and \fBSoReorganizeAction\fP\&.
+.SS "void SoSimplifyAction::addMethod (const \fBSoType\fP type, \fBSoActionMethod\fP method)\fC [static]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoSimplifyAction::enableElement (const \fBSoType\fP type, const \fBint\fP stackindex)\fC [static]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "const \fBSoEnabledElementsList\fP & SoSimplifyAction::getEnabledElements (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a list of the elements used by action instances of this class upon traversal operations\&. 
+.PP
+Reimplemented from \fBSoAction\fP\&.
+.PP
+Reimplemented in \fBSoGlobalSimplifyAction\fP, \fBSoShapeSimplifyAction\fP, and \fBSoReorganizeAction\fP\&.
+.SS "void SoSimplifyAction::apply (\fBSoNode\fP * root)\fC [virtual]\fP"
+Applies the action to the scene graph rooted at \fIroot\fP\&.
+.PP
+Note that you should \fInot\fP apply an action to a node with a zero reference count\&. The behavior in that case is undefined\&. 
+.PP
+Reimplemented from \fBSoAction\fP\&.
+.PP
+Reimplemented in \fBSoReorganizeAction\fP\&.
+.SS "void SoSimplifyAction::apply (\fBSoPath\fP * path)\fC [virtual]\fP"
+Applies the action to the parts of the graph defined by \fIpath\fP\&.
+.PP
+Note that an \fBSoPath\fP will also contain all nodes that may influence e\&.g\&. geometry nodes in the path\&. So for instance applying an \fBSoGLRenderAction\fP on an \fBSoPath\fP will render that path as expected in the view, where geometry will get its materials, textures, and other appearance settings correctly\&.
+.PP
+If the \fIpath\fP ends in an \fBSoGroup\fP node, the action will also traverse the tail node's children\&. 
+.PP
+Reimplemented from \fBSoAction\fP\&.
+.PP
+Reimplemented in \fBSoReorganizeAction\fP\&.
+.SS "void SoSimplifyAction::apply (const \fBSoPathList\fP & pathlist, SbBool obeysrules = \fCFALSE\fP)\fC [virtual]\fP"
+Applies action to the graphs defined by \fIpathlist\fP\&. If \fIobeysrules\fP is set to \fCTRUE\fP, \fIpathlist\fP must obey the following four conditions (which is the case for path lists returned from search actions for non-group nodes and path lists returned from picking actions):
+.PP
+All paths must start at the same head node\&. All paths must be sorted in traversal order\&. The paths must be unique\&. No path can continue through the end point of another path\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoAction::apply(SoPath * path)\fP 
+.RE
+.PP
+
+.PP
+Reimplemented from \fBSoAction\fP\&.
+.PP
+Reimplemented in \fBSoReorganizeAction\fP\&.
+.SS "void SoSimplifyAction::beginTraversal (\fBSoNode\fP * node)\fC [protected]\fP, \fC [virtual]\fP"
+This virtual method is called from \fBSoAction::apply()\fP, and is the entry point for the actual scenegraph traversal\&.
+.PP
+It can be overridden to initialize the action at traversal start, for specific initializations in the action subclasses inheriting \fBSoAction\fP\&.
+.PP
+Default method just calls \fBtraverse()\fP, which any overridden implementation of the method must do too (or call \fBSoAction::beginTraversal()\fP) to trigger the scenegraph traversal\&. 
+.PP
+Reimplemented from \fBSoAction\fP\&.
+.PP
+Reimplemented in \fBSoReorganizeAction\fP, \fBSoGlobalSimplifyAction\fP, and \fBSoShapeSimplifyAction\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

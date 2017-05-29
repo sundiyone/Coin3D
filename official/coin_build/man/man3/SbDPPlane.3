@@ -1,0 +1,158 @@
+.TH "SbDPPlane" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SbDPPlane \- The \fBSbDPPlane\fP class represents a plane in 3D space\&.
+.PP
+\fBSbDPPlane\fP is used by many other classes in Coin\&. It provides a way of representing a plane, specified by a plane normal vector and a distance from the origin of the coordinate system\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/SbLinear\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSbDPPlane\fP (void)"
+.br
+.ti -1c
+.RI "\fBSbDPPlane\fP (const \fBSbVec3d\fP &normal, const double D)"
+.br
+.ti -1c
+.RI "\fBSbDPPlane\fP (const \fBSbVec3d\fP &p0, const \fBSbVec3d\fP &p1, const \fBSbVec3d\fP &p2)"
+.br
+.ti -1c
+.RI "\fBSbDPPlane\fP (const \fBSbVec3d\fP &normal, const \fBSbVec3d\fP &point)"
+.br
+.ti -1c
+.RI "void \fBoffset\fP (const double d)"
+.br
+.ti -1c
+.RI "SbBool \fBintersect\fP (const \fBSbDPLine\fP &l, \fBSbVec3d\fP &intersection) const"
+.br
+.ti -1c
+.RI "void \fBtransform\fP (const \fBSbDPMatrix\fP &matrix)"
+.br
+.ti -1c
+.RI "SbBool \fBisInHalfSpace\fP (const \fBSbVec3d\fP &point) const"
+.br
+.ti -1c
+.RI "double \fBgetDistance\fP (const \fBSbVec3d\fP &point) const"
+.br
+.ti -1c
+.RI "const \fBSbVec3d\fP & \fBgetNormal\fP (void) const"
+.br
+.ti -1c
+.RI "double \fBgetDistanceFromOrigin\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBprint\fP (FILE *file) const"
+.br
+.ti -1c
+.RI "SbBool \fBintersect\fP (const \fBSbDPPlane\fP &pl, \fBSbDPLine\fP &line) const"
+.br
+.in -1c
+.SS "Friends"
+
+.in +1c
+.ti -1c
+.RI "\fBint\fP \fBoperator==\fP (const \fBSbDPPlane\fP &p1, const \fBSbDPPlane\fP &p2)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBoperator!=\fP (const \fBSbDPPlane\fP &p1, const \fBSbDPPlane\fP &p2)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBSbDPPlane\fP class represents a plane in 3D space\&.
+.PP
+\fBSbDPPlane\fP is used by many other classes in Coin\&. It provides a way of representing a plane, specified by a plane normal vector and a distance from the origin of the coordinate system\&. 
+
+Be aware that this class is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SbDPPlane::SbDPPlane (void)"
+An \fBSbDPPlane\fP instantiated with the default constructor will be uninitialized\&. 
+.SS "SbDPPlane::SbDPPlane (const \fBSbVec3d\fP & normalref, const double D)"
+Construct an \fBSbDPPlane\fP instance with a normal pointing in the given direction and the given shortest distance from the origin of the coordinate system to a point in the plane\&.
+.PP
+\fInormal\fP must not be a null vector\&. 
+.SS "SbDPPlane::SbDPPlane (const \fBSbVec3d\fP & p0, const \fBSbVec3d\fP & p1, const \fBSbVec3d\fP & p2)"
+Construct an \fBSbDPPlane\fP with three points laying in the plane\&. Make sure \fIp0\fP, \fIp1\fP and \fIp2\fP are actually three distinct points when using this constructor\&. 
+.SS "SbDPPlane::SbDPPlane (const \fBSbVec3d\fP & normalref, const \fBSbVec3d\fP & point)"
+Construct an \fBSbDPPlane\fP from a normal and a point laying in the plane\&.
+.PP
+\fInormal\fP must not be a null vector\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void SbDPPlane::offset (const double d)"
+Add the given offset \fId\fP to the plane distance from the origin\&. 
+.SS "SbBool SbDPPlane::intersect (const \fBSbDPLine\fP & l, \fBSbVec3d\fP & intersection) const"
+Find the point on given line \fIl\fP intersecting the plane and return it in \fIintersection\fP\&. If the line is parallel to the plane, we return \fCFALSE\fP, otherwise \fCTRUE\fP\&.
+.PP
+Do not pass an invalid line for the \fIl\fP parameter (i\&.e\&. with a null direction vector)\&. 
+.SS "void SbDPPlane::transform (const \fBSbDPMatrix\fP & matrix)"
+Transform the plane by \fImatrix\fP\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBoffset()\fP 
+.RE
+.PP
+
+.SS "SbBool SbDPPlane::isInHalfSpace (const \fBSbVec3d\fP & point) const"
+Check if the given point lies in the halfspace of the plane which the plane normal vector is pointing\&. 
+.SS "double SbDPPlane::getDistance (const \fBSbVec3d\fP & point) const"
+Return the distance from \fIpoint\fP to plane\&. Positive distance means the point is in the plane's half space\&.
+.PP
+This method is an extension specific to Coin versus the original SGI Inventor API\&. 
+.SS "const \fBSbVec3d\fP & SbDPPlane::getNormal (void) const"
+Return the plane's normal vector, which indicates which direction the plane is oriented\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetDistanceFromOrigin()\fP\&. 
+.RE
+.PP
+
+.SS "double SbDPPlane::getDistanceFromOrigin (void) const"
+Return distance from origin of coordinate system to the point in the plane which is closest to the origin\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetNormal()\fP\&. 
+.RE
+.PP
+
+.SS "void SbDPPlane::print (FILE * fp) const"
+Dump the state of this object to the \fIfile\fP stream\&. Only works in debug version of library, method does nothing in an optimized build\&. 
+.SS "SbBool SbDPPlane::intersect (const \fBSbDPPlane\fP & pl, \fBSbDPLine\fP & line) const"
+Intersect this plane with \fIpl\fP, and return the resulting line in \fIline\fP\&. Returns \fCTRUE\fP if an intersection line can be found, and \fCFALSE\fP if the planes are parallel\&.
+.PP
+This function is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.RE
+.PP
+
+.SH "Friends And Related Function Documentation"
+.PP 
+.SS "\fBint\fP operator== (const \fBSbDPPlane\fP & p1, const \fBSbDPPlane\fP & p2)\fC [friend]\fP"
+Check the two given planes for equality\&. 
+.SS "\fBint\fP operator!= (const \fBSbDPPlane\fP & p1, const \fBSbDPPlane\fP & p2)\fC [friend]\fP"
+Check the two given planes for unequality\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

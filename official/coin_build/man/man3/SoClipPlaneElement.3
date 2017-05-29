@@ -1,0 +1,119 @@
+.TH "SoClipPlaneElement" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoClipPlaneElement \- The \fBSoClipPlaneElement\fP class is used to manage the clip plane stack\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/elements/SoClipPlaneElement\&.h>\fP
+.PP
+Inherits \fBSoAccumulatedElement\fP\&.
+.PP
+Inherited by \fBSoGLClipPlaneElement\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual void \fBinit\fP (\fBSoState\fP *state)"
+.br
+.ti -1c
+.RI "virtual void \fBpush\fP (\fBSoState\fP *state)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetNum\fP (void) const"
+.br
+.ti -1c
+.RI "const \fBSbPlane\fP & \fBget\fP (const \fBint\fP index, const SbBool inworldspace=TRUE) const"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static \fBint\fP \fBgetClassStackIndex\fP (void)"
+.br
+.ti -1c
+.RI "static void * \fBcreateInstance\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBadd\fP (\fBSoState\fP *const state, \fBSoNode\fP *const node, const \fBSbPlane\fP &plane)"
+.br
+.ti -1c
+.RI "static const \fBSoClipPlaneElement\fP * \fBgetInstance\fP (\fBSoState\fP *const state)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fB~SoClipPlaneElement\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBaddToElt\fP (const \fBSbPlane\fP &plane, const \fBSbMatrix\fP &modelmatrix)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSbList\fP< so_plane_data > \fBplanes\fP"
+.br
+.ti -1c
+.RI "\fBint\fP \fBstartIndex\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoClipPlaneElement\fP class is used to manage the clip plane stack\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoClipPlaneElement::~SoClipPlaneElement ()\fC [protected]\fP, \fC [virtual]\fP"
+The destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void * SoClipPlaneElement::createInstance (void)\fC [static]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoClipPlaneElement::init (\fBSoState\fP * state)\fC [virtual]\fP"
+This function initializes the element type in the given \fBSoState\fP\&. It is called for the first element of each enabled element type in \fBSoState\fP objects\&. 
+.PP
+Reimplemented from \fBSoAccumulatedElement\fP\&.
+.PP
+Reimplemented in \fBSoGLClipPlaneElement\fP\&.
+.SS "void SoClipPlaneElement::push (\fBSoState\fP * state)\fC [virtual]\fP"
+This method is called every time a new element is required in one of the stacks\&. This happens when a writable element is requested, using \fBSoState::getElement()\fP or indirectly \fBSoElement::getElement()\fP, and the depth of the current element is less than the state depth\&.
+.PP
+Override this method if your element needs to copy data from the previous top of stack\&. The \fBpush()\fP method is called on the new element, and the previous element can be found using \fBSoElement::getNextInStack()\fP\&. 
+.PP
+Reimplemented from \fBSoAccumulatedElement\fP\&.
+.SS "void SoClipPlaneElement::add (\fBSoState\fP *const state, \fBSoNode\fP *const node, const \fBSbPlane\fP & plane)\fC [static]\fP"
+Adds \fIplane\fP as an active plane\&. Calls \fBaddToElt()\fP to do the job\&. 
+.SS "const \fBSoClipPlaneElement\fP * SoClipPlaneElement::getInstance (\fBSoState\fP *const state)\fC [static]\fP"
+Returns the current (top-of-stack) element\&. 
+.SS "\fBint\fP SoClipPlaneElement::getNum (void) const"
+Returns the current number of active clipping planes\&. 
+.SS "const \fBSbPlane\fP & SoClipPlaneElement::get (const \fBint\fP index, const SbBool inworldspace = \fCTRUE\fP) const"
+Returns the 'th plane\&. 
+.SS "void SoClipPlaneElement::addToElt (const \fBSbPlane\fP & plane, const \fBSbMatrix\fP & modelMatrix)\fC [protected]\fP, \fC [virtual]\fP"
+This method adds the clipping plane, \fIplane\fP, to an instance\&. \fImodelmatrix\fP is the current model matrix\&. 
+.PP
+Reimplemented in \fBSoGLClipPlaneElement\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "SoClipPlaneElement::planes\fC [protected]\fP"
+List of currently active planes\&. 
+.SS "SoClipPlaneElement::startIndex\fC [protected]\fP"
+Index of first clip plane in this element\&. Used to disable clip planes in \fBSoGLClipPlaneElement::pop()\fP\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

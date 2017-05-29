@@ -1,0 +1,463 @@
+.TH "SoDragPointDragger" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoDragPointDragger \- The \fBSoDragPointDragger\fP class provides mechanisms for moving a point in 3D\&.
+.PP
+Here's how the dragger looks with its default geometry in the inactive state:  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/draggers/SoDragPointDragger\&.h>\fP
+.PP
+Inherits \fBSoDragger\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "virtual const \fBSoNodekitCatalog\fP * \fBgetNodekitCatalog\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoDragPointDragger\fP (void)"
+.br
+.ti -1c
+.RI "void \fBsetJumpLimit\fP (const float limit)"
+.br
+.ti -1c
+.RI "float \fBgetJumpLimit\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBshowNextDraggerSet\fP (void)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static const \fBSoNodekitCatalog\fP * \fBgetClassNodekitCatalog\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFVec3f\fP \fBtranslation\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fB~SoDragPointDragger\fP (void)"
+.br
+.ti -1c
+.RI "virtual SbBool \fBsetUpConnections\fP (SbBool onoff, SbBool doitalways=FALSE)"
+.br
+.ti -1c
+.RI "virtual void \fBsetDefaultOnNonWritingFields\fP (void)"
+.br
+.ti -1c
+.RI "void \fBdragStart\fP (void)"
+.br
+.ti -1c
+.RI "void \fBdrag\fP (void)"
+.br
+.ti -1c
+.RI "void \fBdragFinish\fP (void)"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.ti -1c
+.RI "static const \fBSoNodekitCatalog\fP ** \fBgetClassNodekitCatalogPtr\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBstartCB\fP (void *f, \fBSoDragger\fP *d)"
+.br
+.ti -1c
+.RI "static void \fBmotionCB\fP (void *f, \fBSoDragger\fP *d)"
+.br
+.ti -1c
+.RI "static void \fBfinishCB\fP (void *f, \fBSoDragger\fP *d)"
+.br
+.ti -1c
+.RI "static void \fBmetaKeyChangeCB\fP (void *f, \fBSoDragger\fP *d)"
+.br
+.ti -1c
+.RI "static void \fBfieldSensorCB\fP (void *f, \fBSoSensor\fP *s)"
+.br
+.ti -1c
+.RI "static void \fBvalueChangedCB\fP (void *f, \fBSoDragger\fP *d)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFNode\fP \fBnoRotSep\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBplaneFeedbackSep\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBplaneFeedbackSwitch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBplaneFeedbackTranslation\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBrotX\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBrotXSep\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBrotY\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBrotYSep\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBrotZ\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBrotZSep\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBxFeedback\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBxFeedbackSep\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBxFeedbackSwitch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBxFeedbackTranslation\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBxTranslator\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBxTranslatorSwitch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBxyFeedback\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBxyTranslator\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBxyTranslatorSwitch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBxzFeedback\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBxzTranslator\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBxzTranslatorSwitch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fByFeedback\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fByFeedbackSep\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fByFeedbackSwitch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fByFeedbackTranslation\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fByTranslator\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fByTranslatorSwitch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fByzFeedback\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fByzTranslator\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fByzTranslatorSwitch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBzFeedback\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBzFeedbackSep\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBzFeedbackSwitch\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBzFeedbackTranslation\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBzTranslator\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBzTranslatorSwitch\fP"
+.br
+.ti -1c
+.RI "\fBSoFieldSensor\fP * \fBfieldSensor\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoDragPointDragger\fP class provides mechanisms for moving a point in 3D\&.
+.PP
+Here's how the dragger looks with its default geometry in the inactive state: 
+
+ Screen Shot of Default Dragger
+.PP
+This dragger is convenient to use when it is desirable that the end-user should interact with points by positioning them freely in 3D space\&.
+.PP
+The dragger consists of a part for 2D motion in a plane (like the \fBSoTranslate2Dragger\fP) and another part on the axis normal to the plane\&.
+.PP
+While the dragger is inactive (ie the user is not currently grabbing and / or dragging it's parts), the CTRL keys on the keyboard can be used to switch the orientation of the 2D-plane part and the normal-axis part so the normal-axis part points along one of the other principal axes\&. This is done by position the mouse pointer over the dragger geometry and pressing and releasing a CTRL key\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoDragPointDragger::SoDragPointDragger (void)"
+Default constructor, sets up the dragger nodekit catalog with the interaction and feedback geometry\&.
+.PP
+Node kit structure (new entries versus parent class marked with arrow prefix):
+.PP
+.PP
+.nf
+CLASS SoDragPointDragger
+-->"this"
+      "callbackList"
+      "topSeparator"
+         "motionMatrix"
+-->      "noRotSep"
+-->         "xTranslatorSwitch"
+-->            "xTranslator"
+-->         "xyTranslatorSwitch"
+-->            "xyTranslator"
+-->      "rotXSep"
+-->         "rotX"
+-->         "xzTranslatorSwitch"
+-->            "xzTranslator"
+-->      "rotYSep"
+-->         "rotY"
+-->         "zTranslatorSwitch"
+-->            "zTranslator"
+-->         "yzTranslatorSwitch"
+-->            "yzTranslator"
+-->      "rotZSep"
+-->         "rotZ"
+-->         "yTranslatorSwitch"
+-->            "yTranslator"
+-->      "xFeedbackSwitch"
+-->         "xFeedbackSep"
+-->            "xFeedbackTranslation"
+-->            "xFeedback"
+-->      "yFeedbackSwitch"
+-->         "yFeedbackSep"
+-->            "yFeedbackTranslation"
+-->            "yFeedback"
+-->      "zFeedbackSwitch"
+-->         "zFeedbackSep"
+-->            "zFeedbackTranslation"
+-->            "zFeedback"
+-->      "planeFeedbackSep"
+-->         "planeFeedbackTranslation"
+-->         "planeFeedbackSwitch"
+-->            "yzFeedback"
+-->            "xzFeedback"
+-->            "xyFeedback"
+         "geomSeparator"
+.fi
+.PP
+.PP
+(See \fBSoBaseKit::printDiagram()\fP for information about the output formatting\&.)
+.PP
+Detailed information on catalog parts:
+.PP
+.PP
+.nf
+CLASS SoDragPointDragger
+PVT   "this",  SoDragPointDragger  --- 
+      "callbackList",  SoNodeKitListPart [ SoCallback, SoEventCallback ] 
+PVT   "topSeparator",  SoSeparator  --- 
+PVT   "motionMatrix",  SoMatrixTransform  --- 
+PVT   "noRotSep",  SoSeparator  --- 
+PVT   "xTranslatorSwitch",  SoSwitch  --- 
+      "xTranslator",  SoTranslate1Dragger  --- 
+PVT   "xyTranslatorSwitch",  SoSwitch  --- 
+      "xyTranslator",  SoTranslate2Dragger  --- 
+PVT   "rotXSep",  SoSeparator  --- 
+PVT   "rotX",  SoRotation  --- 
+PVT   "xzTranslatorSwitch",  SoSwitch  --- 
+      "xzTranslator",  SoTranslate2Dragger  --- 
+PVT   "rotYSep",  SoSeparator  --- 
+PVT   "rotY",  SoRotation  --- 
+PVT   "zTranslatorSwitch",  SoSwitch  --- 
+      "zTranslator",  SoTranslate1Dragger  --- 
+PVT   "yzTranslatorSwitch",  SoSwitch  --- 
+      "yzTranslator",  SoTranslate2Dragger  --- 
+PVT   "rotZSep",  SoSeparator  --- 
+PVT   "rotZ",  SoRotation  --- 
+PVT   "yTranslatorSwitch",  SoSwitch  --- 
+      "yTranslator",  SoTranslate1Dragger  --- 
+PVT   "xFeedbackSwitch",  SoSwitch  --- 
+PVT   "xFeedbackSep",  SoSeparator  --- 
+PVT   "xFeedbackTranslation",  SoTranslation  --- 
+      "xFeedback",  SoSeparator  --- 
+PVT   "yFeedbackSwitch",  SoSwitch  --- 
+PVT   "yFeedbackSep",  SoSeparator  --- 
+PVT   "yFeedbackTranslation",  SoTranslation  --- 
+      "yFeedback",  SoSeparator  --- 
+PVT   "zFeedbackSwitch",  SoSwitch  --- 
+PVT   "zFeedbackSep",  SoSeparator  --- 
+PVT   "zFeedbackTranslation",  SoTranslation  --- 
+      "zFeedback",  SoSeparator  --- 
+PVT   "planeFeedbackSep",  SoSeparator  --- 
+PVT   "planeFeedbackTranslation",  SoTranslation  --- 
+PVT   "planeFeedbackSwitch",  SoSwitch  --- 
+      "yzFeedback",  SoSeparator  --- 
+      "xzFeedback",  SoSeparator  --- 
+      "xyFeedback",  SoSeparator  --- 
+PVT   "geomSeparator",  SoSeparator  --- 
+.fi
+.PP
+.PP
+(See \fBSoBaseKit::printTable()\fP for information about the output formatting\&.) 
+.SS "SoDragPointDragger::~SoDragPointDragger (void)\fC [protected]\fP, \fC [virtual]\fP"
+Protected destructor\&.
+.PP
+(Dragger classes are derived from \fBSoBase\fP, so they are reference counted and automatically destroyed when their reference count goes to 0\&.) 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoDragPointDragger::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Reimplemented from \fBSoDragger\fP\&.
+.SS "const \fBSoFieldData\fP * SoDragPointDragger::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoDragger\fP\&.
+.SS "const \fBSoNodekitCatalog\fP * SoDragPointDragger::getNodekitCatalog (void) const\fC [virtual]\fP"
+Returns the nodekit catalog which defines the layout of this class' kit\&. 
+.PP
+Reimplemented from \fBSoDragger\fP\&.
+.SS "void SoDragPointDragger::setJumpLimit (const float limit)"
+The dragger plane jump limit is ignored in Coin, as we use a continuous moving plane\&.
+.PP
+This method still included for API compatibility with the original SGI Inventor API\&. 
+.SS "float SoDragPointDragger::getJumpLimit (void) const"
+The dragger plane jump limit is ignored in Coin, as we use a continuous moving plane\&.
+.PP
+This method still included for API compatibility with the original SGI Inventor API\&. 
+.SS "void SoDragPointDragger::showNextDraggerSet (void)"
+Circulate the dragger's three different sets of geometry, to circulate the orientation of the translation axis and translation plane through the three principal axes\&.
+.PP
+This function is triggered when the user taps the \fCCTRL\fP key\&. 
+.SS "SbBool SoDragPointDragger::setUpConnections (SbBool onoff, SbBool doitalways = \fCFALSE\fP)\fC [protected]\fP, \fC [virtual]\fP"
+Sets up all internal connections for instances of this class\&.
+.PP
+(This method will usually not be of interest to the application programmer, unless you want to extend the library with new custom nodekits or dragger classes\&. If so, see the \fBSoBaseKit\fP class documentation\&.) 
+.PP
+Reimplemented from \fBSoInteractionKit\fP\&.
+.SS "void SoDragPointDragger::setDefaultOnNonWritingFields (void)\fC [protected]\fP, \fC [virtual]\fP"
+(Be aware that this method is unlikely to be of interest to the application programmer who does not want to extend the library with new custom nodekits or draggers\&. If you indeed \fIare\fP writing extensions, see the information in the \fBSoBaseKit\fP class documentation\&.)
+.PP
+This is a virtual method, and the code in it should call \fBSoField::setDefault()\fP with argument \fCTRUE\fP on part fields that should not be written upon scenegraph export operations\&.
+.PP
+This is typically done when:
+.PP
+.PD 0
+.IP "1." 4
+field value is \fCNULL\fP and part is \fCNULL\fP by default 
+.PP
+
+.IP "2." 4
+it is a leaf \fBSoGroup\fP or \fBSoSeparator\fP node with no children 
+.PP
+
+.IP "3." 4
+it is a leaf listpart with no children and an \fBSoGroup\fP or \fBSoSeparator\fP container 
+.PP
+
+.IP "4." 4
+it is a non-leaf part and it's of \fBSoGroup\fP type and all fields are at their default values 
+.PP
+
+.PP
+.PP
+Subclasses should usually override this to do additional settings for new member fields\&. From the subclass, do remember to call 'upwards' to your superclass' \fBsetDefaultOnNonWritingFields()\fP method\&. 
+.PP
+Reimplemented from \fBSoDragger\fP\&.
+.SS "void SoDragPointDragger::dragStart (void)\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP Called when dragger is selected (picked) by the user\&. 
+.SS "void SoDragPointDragger::drag (void)\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP Called when user drags the mouse after picking the dragger\&. 
+.SS "void SoDragPointDragger::dragFinish (void)\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP Called when mouse button is released after picking and interacting with the dragger\&. 
+.SS "void SoDragPointDragger::startCB (void * d, \fBSoDragger\fP * d)\fC [static]\fP, \fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoDragPointDragger::motionCB (void * d, \fBSoDragger\fP * d)\fC [static]\fP, \fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoDragPointDragger::finishCB (void * d, \fBSoDragger\fP * d)\fC [static]\fP, \fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoDragPointDragger::metaKeyChangeCB (void * d, \fBSoDragger\fP * d)\fC [static]\fP, \fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoDragPointDragger::fieldSensorCB (void * d, \fBSoSensor\fP * s)\fC [static]\fP, \fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoDragPointDragger::valueChangedCB (void * f, \fBSoDragger\fP * d)\fC [static]\fP, \fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSoSFVec3f\fP SoDragPointDragger::translation"
+Continuously updated to contain the current translation from the dragger's local origo position\&.
+.PP
+The application programmer applying this dragger in his code should connect the relevant node fields in the scene to this field to make it follow the dragger\&. 
+.SS "\fBSoFieldSensor\fP * SoDragPointDragger::fieldSensor\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

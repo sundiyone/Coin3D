@@ -1,0 +1,160 @@
+.TH "SoNormalGenerator" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoNormalGenerator \- The \fBSoNormalGenerator\fP class is used to generate normals\&.
+.PP
+FIXME: document properly\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <include/Inventor/misc/SoNormalGenerator\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSoNormalGenerator\fP (const SbBool ccw, const \fBint\fP approxVertices=64)"
+.br
+.ti -1c
+.RI "\fB~SoNormalGenerator\fP ()"
+.br
+.ti -1c
+.RI "void \fBreset\fP (const SbBool ccw)"
+.br
+.ti -1c
+.RI "void \fBbeginPolygon\fP ()"
+.br
+.ti -1c
+.RI "void \fBpolygonVertex\fP (const \fBSbVec3f\fP &v)"
+.br
+.ti -1c
+.RI "void \fBendPolygon\fP ()"
+.br
+.ti -1c
+.RI "void \fBtriangle\fP (const \fBSbVec3f\fP &v0, const \fBSbVec3f\fP &v1, const \fBSbVec3f\fP &v2)"
+.br
+.ti -1c
+.RI "void \fBquad\fP (const \fBSbVec3f\fP &v0, const \fBSbVec3f\fP &v1, const \fBSbVec3f\fP &v2, const \fBSbVec3f\fP &v3)"
+.br
+.ti -1c
+.RI "void \fBgenerate\fP (const float creaseAngle, const int32_t *striplens=NULL, const \fBint\fP numstrips=0)"
+.br
+.ti -1c
+.RI "void \fBgeneratePerStrip\fP (const int32_t *striplens, const \fBint\fP numstrips)"
+.br
+.ti -1c
+.RI "void \fBgeneratePerFace\fP (void)"
+.br
+.ti -1c
+.RI "void \fBgenerateOverall\fP (void)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetNumNormals\fP () const"
+.br
+.ti -1c
+.RI "void \fBsetNumNormals\fP (const \fBint\fP num)"
+.br
+.ti -1c
+.RI "const \fBSbVec3f\fP * \fBgetNormals\fP () const"
+.br
+.ti -1c
+.RI "const \fBSbVec3f\fP & \fBgetNormal\fP (const int32_t i) const"
+.br
+.ti -1c
+.RI "void \fBsetNormal\fP (const int32_t index, const \fBSbVec3f\fP &normal)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBSoNormalGenerator\fP class is used to generate normals\&.
+.PP
+FIXME: document properly\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoNormalGenerator::SoNormalGenerator (const SbBool isccw, const \fBint\fP approxVertices = \fC64\fP)"
+Constructor with \fIisccw\fP indicating if polygons are specified in counter clockwise order\&. The \fIapproxVertices\fP can be used to optimize normal generation\&. 
+.SS "SoNormalGenerator::~SoNormalGenerator ()"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void SoNormalGenerator::reset (const SbBool ccwarg)"
+Resets the normal generator, making it possible to reuse it without allocating a new one\&.
+.PP
+This function is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.RE
+.PP
+
+.SS "void SoNormalGenerator::beginPolygon (void)"
+Signals the start of a new polygon\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoNormalGenerator::polygonVertex()\fP 
+.PP
+\fBSoNormalGenerator::endPolygon()\fP 
+.RE
+.PP
+
+.SS "void SoNormalGenerator::polygonVertex (const \fBSbVec3f\fP & v)"
+Adds a vertex to the current polygon\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoNormalGenerator::beginPolygon()\fP 
+.PP
+\fBSoNormalGenerator::endPolygon()\fP 
+.RE
+.PP
+
+.SS "void SoNormalGenerator::endPolygon (void)"
+Signals the end of a polygon\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoNormalGenerator::beginPolygon()\fP 
+.PP
+\fBSoNormalGenerator::polygonVertex()\fP 
+.RE
+.PP
+
+.SS "void SoNormalGenerator::triangle (const \fBSbVec3f\fP & v0, const \fBSbVec3f\fP & v1, const \fBSbVec3f\fP & v2)"
+Convenience method for adding a triangle\&. 
+.SS "void SoNormalGenerator::quad (const \fBSbVec3f\fP & v0, const \fBSbVec3f\fP & v1, const \fBSbVec3f\fP & v2, const \fBSbVec3f\fP & v3)"
+Convenience method for adding a quad 
+.SS "void SoNormalGenerator::generate (const float creaseAngle, const int32_t * striplens = \fCNULL\fP, const \fBint\fP numstrips = \fC0\fP)"
+Triggers the normal generation\&. Normals are generated using \fIcreaseAngle\fP to find which edges should be flat-shaded and which should be smooth-shaded\&.
+.PP
+If normals are generated for triangle strips, the \fIstriplens\fP and \fInumstrips\fP must be supplied\&. See src/nodes/SoTriangleStripSet\&.cpp (generateDefaultNormals()) for an example on how you send triangle strip information to this generator\&. It's not trivial, since you have to know how OpenGL/Coin generate triangles from triangle strips\&. 
+.SS "void SoNormalGenerator::generatePerStrip (const int32_t * striplens, const \fBint\fP numstrips)"
+Generates one normal per strip by averaging face normals\&. 
+.SS "void SoNormalGenerator::generatePerFace (void)"
+Generates the normals per face\&. Use this when PER_FACE normal binding is needed\&. This method is not part of the OIV API\&. 
+.SS "void SoNormalGenerator::generateOverall (void)"
+Generates one overall normal by averaging all face normals\&. Use when normal binding is OVERALL\&. This method is not part of the OIV API\&. 
+.SS "\fBint\fP SoNormalGenerator::getNumNormals (void) const"
+Returns the number of normals generated\&. 
+.SS "void SoNormalGenerator::setNumNormals (const \fBint\fP num)"
+Sets the number of generated normals\&. This method is not supported in Coin, and is provided for API compatibility only\&. 
+.SS "const \fBSbVec3f\fP * SoNormalGenerator::getNormals (void) const"
+Returns a pointer to the generated normals\&. 
+.SS "const \fBSbVec3f\fP & SoNormalGenerator::getNormal (const int32_t i) const"
+Returns the normal at index \fIi\fP\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoNormalGenerator::getNumNormals()\fP 
+.RE
+.PP
+
+.SS "void SoNormalGenerator::setNormal (const int32_t index, const \fBSbVec3f\fP & normal)"
+Sets the normal at index \fIindex\fP to \fInormal\fP\&. This method is not supported in Coin, and is provided for API compatibility only\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

@@ -1,0 +1,46 @@
+.TH "SbImage.h" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SbImage.h
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <Inventor/SbVec2s\&.h>\fP
+.br
+\fC#include <Inventor/SbVec3s\&.h>\fP
+.br
+\fC#include <Inventor/SbString\&.h>\fP
+.br
+\fC#include <stddef\&.h>\fP
+.br
+
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBSbImage\fP"
+.br
+.RI "The \fBSbImage\fP class is an abstract datatype for 2D and 3D images\&.
+.PP
+Be aware that this class is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&. "
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef SbBool \fBSbImageScheduleReadCB\fP(const \fBSbString\fP &, \fBSbImage\fP *, void *)"
+.br
+.ti -1c
+.RI "typedef SbBool \fBSbImageReadImageCB\fP(const \fBSbString\fP &, \fBSbImage\fP *, void *)"
+.br
+.in -1c
+.SH "Typedef Documentation"
+.PP 
+.SS "SbBool SbImageScheduleReadCB"
+The type definition of the callback function that is called when a file is scheduled for reading\&. 
+.SS "SbBool SbImageReadImageCB"
+The type definition of the callback function that is called to actually read the image file\&. 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

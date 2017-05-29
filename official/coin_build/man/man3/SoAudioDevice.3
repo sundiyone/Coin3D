@@ -1,0 +1,76 @@
+.TH "SoAudioDevice" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoAudioDevice \- The \fBSoAudioDevice\fP class is used to control an audio device\&.
+.PP
+The \fBSoAudioDevice\fP class is responsible for initialization of an audio device, as well as enabling and disabling sound\&. It is a singleton class\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/misc/SoAudioDevice\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "SbBool \fBinit\fP (const \fBSbString\fP &devicetype, const \fBSbString\fP &devicename)"
+.br
+.ti -1c
+.RI "SbBool \fBenable\fP ()"
+.br
+.ti -1c
+.RI "void \fBdisable\fP ()"
+.br
+.ti -1c
+.RI "SbBool \fBisEnabled\fP ()"
+.br
+.ti -1c
+.RI "SbBool \fBhaveSound\fP ()"
+.br
+.ti -1c
+.RI "void \fBsetGain\fP (float gain)"
+.br
+.ti -1c
+.RI "void \fBmute\fP (SbBool mute=TRUE)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoAudioDevice\fP * \fBinstance\fP ()"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBSoAudioDevice\fP class is used to control an audio device\&.
+.PP
+The \fBSoAudioDevice\fP class is responsible for initialization of an audio device, as well as enabling and disabling sound\&. It is a singleton class\&. 
+
+The application programmer does not need to use this class directly, as audio support is enabled by default, and the default settings are reasonable\&.
+.PP
+Coin uses OpenAL (http://www.openal.org/, http://developer.soundblaster.com [Games section]) to render audio\&. OpenAL should work with any soundcard, and on most modern operating systems (including Unix, Linux, IRIX, *BSD, Mac OS X and Microsoft Windows)\&. 2 speaker output is always available, and on some OS and soundcard combinations, more advanced speaker configurations are supported\&. On Microsoft Windows, OpenAL can use DirectSound3D to render audio, thus supporting any speaker configuration the current DirectSound3D driver supports\&. Configuring speakers are done through the soundcard driver, and is transparent to both Coin and OpenAL\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoAudioDevice\fP * SoAudioDevice::instance ()\fC [static]\fP"
+Returns a pointer to the \fBSoAudioDevice\fP class, which is a singleton\&. 
+.SS "SbBool SoAudioDevice::init (const \fBSbString\fP & devicetype, const \fBSbString\fP & devicename)"
+Initializes the audio device\&. Currently, the only supported \fIdevicetype\fP is 'OpenAL'\&. The supported \fIdevicename\fP depends on the OS and on installed soundcards and drivers\&. On Microsoft Windows, supported device names are 'DirectSound3D', 'DirectSound', and 'MMSYSTEM'\&. See OpenAL documentation (available from http://www.openal.org/) for further information\&.
+.PP
+The application programmer may override the default setting by calling this method with the wanted device type and name\&.
+.PP
+The user can also control which \fIdevicename\fP OpenAL uses by setting the COIN_SOUND_DRIVER_NAME environment variable\&. On Microsoft Windows, the default driver name is 'DirectSound3D', which should normally be what the user wants\&. 
+.SS "SbBool SoAudioDevice::enable ()"
+Enables sound 
+.SS "void SoAudioDevice::disable ()"
+Disables sound\&. Effectively silencing all audio output\&. 
+.SS "SbBool SoAudioDevice::isEnabled (void)"
+Returns TRUE if audio is enabled\&. 
+.SS "SbBool SoAudioDevice::haveSound ()"
+returns true if the audio device has been initialized successfully\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

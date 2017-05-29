@@ -1,0 +1,190 @@
+.TH "SoVRMLPlaneSensor" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoVRMLPlaneSensor \- The \fBSoVRMLPlaneSensor\fP class maps pointer motion into object space translations\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/VRMLnodes/SoVRMLPlaneSensor>\fP
+.PP
+Inherits \fBSoVRMLDragSensor\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "\fBSoVRMLPlaneSensor\fP (void)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFVec2f\fP \fBminPosition\fP"
+.br
+.ti -1c
+.RI "\fBSoSFVec2f\fP \fBmaxPosition\fP"
+.br
+.ti -1c
+.RI "\fBSoSFVec3f\fP \fBoffset\fP"
+.br
+.ti -1c
+.RI "\fBSoSFVec3f\fP \fBtranslation_changed\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual SbBool \fBdragStart\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBdrag\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBdragFinish\fP (void)"
+.br
+.ti -1c
+.RI "virtual \fB~SoVRMLPlaneSensor\fP ()"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoVRMLPlaneSensor\fP class maps pointer motion into object space translations\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP 
+
+
+.PP
+.nf
+PlaneSensor {
+  exposedField SFBool  autoOffset          TRUE
+  exposedField SFBool  enabled             TRUE
+  exposedField SFVec2f maxPosition         -1 -1     # (-,)
+  exposedField SFVec2f minPosition         0 0       # (-,)
+  exposedField SFVec3f offset              0 0 0     # (-,)
+  eventOut     SFBool  isActive
+  eventOut     SFVec3f trackPoint_changed
+  eventOut     SFVec3f translation_changed
+}
+
+.fi
+.PP
+.PP
+The PlaneSensor node maps pointing device motion into two-dimensional translation in a plane parallel to the Z=0 plane of the local coordinate system\&. The PlaneSensor node uses the descendent geometry of its parent node to determine whether it is liable to generate events\&.
+.PP
+The \fIenabled\fP exposedField enables and disables the PlaneSensor\&. If \fIenabled\fP is TRUE, the sensor reacts appropriately to user events\&. If \fIenabled\fP is FALSE, the sensor does not track user input or send events\&.
+.PP
+If \fIenabled\fP receives a FALSE event and \fIisActive\fP is TRUE, the sensor becomes disabled and deactivated, and outputs an \fIisActive\fP FALSE event\&.
+.PP
+If enabled receives a TRUE event, the sensor is enabled and made ready for user activation\&.
+.PP
+The PlaneSensor node generates events when the pointing device is activated while the pointer is indicating any descendent geometry nodes of the sensor's parent group\&. See 4\&.6\&.7\&.5, Activating and manipulating sensors (http://www.web3d.org/x3d/specifications/vrml/ISO-IEC-14772-VRML97/part1/concepts.html#4.6.7.5), for details on using the pointing device to activate the PlaneSensor\&.
+.PP
+Upon activation of the pointing device (e\&.g\&., mouse button down) while indicating the sensor's geometry, an \fIisActive\fP TRUE event is sent\&. Pointer motion is mapped into relative translation in the tracking plane, (a plane parallel to the sensor's local Z=0 plane and coincident with the initial point of intersection)\&. For each subsequent movement of the bearing, a translation_changed event is output which corresponds to the sum of the relative translation from the original intersection point to the intersection point of the new bearing in the plane plus the offset value\&. The sign of the translation is defined by the Z=0 plane of the sensor's coordinate system\&.
+.PP
+\fItrackPoint_changed\fP events reflect the unclamped drag position on the surface of this plane\&. When the pointing device is deactivated and \fIautoOffset\fP is TRUE, offset is set to the last translation_changed value and an offset_changed event is generated\&. More details are provided in 4\&.6\&.7\&.4, Drag sensors (http://www.web3d.org/x3d/specifications/vrml/ISO-IEC-14772-VRML97/part1/concepts.html#4.6.7.4)\&.
+.PP
+When the sensor generates an isActive TRUE event, it grabs all further motion events from the pointing device until it is deactivated and generates an isActive FALSE event\&. Other pointing-device sensors shall not generate events during this time\&. Motion of the pointing device while isActive is TRUE is referred to as a 'drag'\&.
+.PP
+If a 2D pointing device is in use, isActive events typically reflect the state of the primary button associated with the device (i\&.e\&., isActive is TRUE when the primary button is pressed, and is FALSE when it is released)\&.
+.PP
+If a 3D pointing device (e\&.g\&., wand) is in use, isActive events typically reflect whether the pointer is within or in contact with the sensor's geometry\&.
+.PP
+\fIminPosition\fP and \fImaxPosition\fP may be set to clamp translation_changed events to a range of values as measured from the origin of the Z=0 plane\&. If the X or Y component of minPosition is greater than the corresponding component of maxPosition, translation_changed events are not clamped in that dimension\&. If the X or Y component of minPosition is equal to the corresponding component of maxPosition, that component is constrained to the given value\&. This technique provides a way to implement a line sensor that maps dragging motion into a translation in one dimension\&.
+.PP
+While the pointing device is activated and moved, \fItrackPoint_changed\fP and \fItranslation_changed\fP events are sent\&. \fItrackPoint_changed\fP events represent the unclamped intersection points on the surface of the tracking plane\&. If the pointing device is dragged off of the tracking plane while activated (e\&.g\&., above horizon line), browsers may interpret this in a variety ways (e\&.g\&., clamp all values to the horizon)\&. Each movement of the pointing device, while isActive is TRUE, generates \fItrackPoint_changed\fP and \fItranslation_changed\fP events\&. Further information about this behaviour can be found in 4\&.6\&.7\&.3, Pointing-device sensors (http://www.web3d.org/x3d/specifications/vrml/ISO-IEC-14772-VRML97/part1/concepts.html#4.6.7.3), 4\&.6\&.7\&.4, Drag sensors (http://www.web3d.org/x3d/specifications/vrml/ISO-IEC-14772-VRML97/part1/concepts.html#4.6.7.4), and 4\&.6\&.7\&.5, Activating and manipulating sensors (http://www.web3d.org/x3d/specifications/vrml/ISO-IEC-14772-VRML97/part1/concepts.html#4.6.7.5)\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoVRMLPlaneSensor::SoVRMLPlaneSensor (void)"
+Constructor\&. 
+.SS "SoVRMLPlaneSensor::~SoVRMLPlaneSensor ()\fC [protected]\fP, \fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoVRMLPlaneSensor::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Reimplemented from \fBSoVRMLDragSensor\fP\&.
+.SS "const \fBSoFieldData\fP * SoVRMLPlaneSensor::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoVRMLDragSensor\fP\&.
+.SS "SbBool SoVRMLPlaneSensor::dragStart (void)\fC [protected]\fP, \fC [virtual]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP
+.PP
+Called when dragger is selected (picked) by the user\&. 
+.PP
+Implements \fBSoVRMLDragSensor\fP\&.
+.SS "void SoVRMLPlaneSensor::drag (void)\fC [protected]\fP, \fC [virtual]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP
+.PP
+Called when user drags the mouse after picking the dragger\&. 
+.PP
+Implements \fBSoVRMLDragSensor\fP\&.
+.SS "void SoVRMLPlaneSensor::dragFinish (void)\fC [protected]\fP, \fC [virtual]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP
+.PP
+Called when mouse button is released after picking and interacting with the dragger\&. 
+.PP
+Implements \fBSoVRMLDragSensor\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSoSFVec2f\fP SoVRMLPlaneSensor::minPosition"
+The minimum position\&. 
+.SS "\fBSoSFVec2f\fP SoVRMLPlaneSensor::maxPosition"
+The maximum position\&. 
+.SS "\fBSoSFVec3f\fP SoVRMLPlaneSensor::offset"
+Current position\&. Initial value is (0, 0)\&. 
+.SS "\fBSoSFVec3f\fP SoVRMLPlaneSensor::translation_changed"
+An eventOut that is sent during interaction\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

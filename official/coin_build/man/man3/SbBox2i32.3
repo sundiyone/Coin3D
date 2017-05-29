@@ -1,0 +1,277 @@
+.TH "SbBox2i32" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SbBox2i32 \- The \fBSbBox2i32\fP class is a 2 dimensional box with 32-bit integer coordinates\&.
+.PP
+This box class is used by other classes in Coin for data exchange\&. It provides storage for two box corners with 32-bit integer coordinates, which is among other things useful for representing screen or canvas areas in absolute window coordinates\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/SbBox2i32\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSbBox2i32\fP (void)"
+.br
+.ti -1c
+.RI "\fBSbBox2i32\fP (int32_t xmin, int32_t ymin, int32_t xmax, int32_t ymax)"
+.br
+.ti -1c
+.RI "\fBSbBox2i32\fP (const \fBSbVec2i32\fP &minpoint, const \fBSbVec2i32\fP &maxpoint)"
+.br
+.ti -1c
+.RI "\fBSbBox2i32\fP (const \fBSbBox2s\fP &box)"
+.br
+.ti -1c
+.RI "\fBSbBox2i32\fP (const \fBSbBox2f\fP &box)"
+.br
+.ti -1c
+.RI "\fBSbBox2i32\fP (const \fBSbBox2d\fP &box)"
+.br
+.ti -1c
+.RI "\fBSbBox2i32\fP & \fBsetBounds\fP (int32_t xmin, int32_t ymin, int32_t xmax, int32_t ymax)"
+.br
+.ti -1c
+.RI "\fBSbBox2i32\fP & \fBsetBounds\fP (const \fBSbVec2i32\fP &minpoint, const \fBSbVec2i32\fP &maxpoint)"
+.br
+.ti -1c
+.RI "\fBSbBox2i32\fP & \fBsetBounds\fP (const \fBSbBox2s\fP &box)"
+.br
+.ti -1c
+.RI "\fBSbBox2i32\fP & \fBsetBounds\fP (const \fBSbBox2f\fP &box)"
+.br
+.ti -1c
+.RI "\fBSbBox2i32\fP & \fBsetBounds\fP (const \fBSbBox2d\fP &box)"
+.br
+.ti -1c
+.RI "void \fBgetBounds\fP (int32_t &xmin, int32_t &ymin, int32_t &xmax, int32_t &ymax) const"
+.br
+.ti -1c
+.RI "void \fBgetBounds\fP (\fBSbVec2i32\fP &minpoint, \fBSbVec2i32\fP &maxpoint) const"
+.br
+.ti -1c
+.RI "const \fBSbVec2i32\fP & \fBgetMin\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSbVec2i32\fP & \fBgetMin\fP (void)"
+.br
+.ti -1c
+.RI "const \fBSbVec2i32\fP & \fBgetMax\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSbVec2i32\fP & \fBgetMax\fP (void)"
+.br
+.ti -1c
+.RI "void \fBextendBy\fP (const \fBSbVec2i32\fP &point)"
+.br
+.ti -1c
+.RI "void \fBextendBy\fP (const \fBSbBox2i32\fP &box)"
+.br
+.ti -1c
+.RI "void \fBmakeEmpty\fP (void)"
+.br
+.ti -1c
+.RI "SbBool \fBisEmpty\fP (void) const"
+.br
+.ti -1c
+.RI "SbBool \fBhasArea\fP (void) const"
+.br
+.ti -1c
+.RI "SbBool \fBintersect\fP (const \fBSbVec2i32\fP &point) const"
+.br
+.ti -1c
+.RI "SbBool \fBintersect\fP (const \fBSbBox2i32\fP &box) const"
+.br
+.ti -1c
+.RI "\fBSbVec2f\fP \fBgetCenter\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBgetOrigin\fP (int32_t &originX, int32_t &originY) const"
+.br
+.ti -1c
+.RI "void \fBgetSize\fP (int32_t &sizeX, int32_t &sizeY) const"
+.br
+.ti -1c
+.RI "\fBSbVec2i32\fP \fBgetSize\fP (void) const"
+.br
+.ti -1c
+.RI "float \fBgetAspectRatio\fP (void) const"
+.br
+.in -1c
+.SS "Related Functions"
+(Note that these are not member functions\&.) 
+.in +1c
+.ti -1c
+.RI "\fBint\fP \fBoperator==\fP (const \fBSbBox2i32\fP &b1, const \fBSbBox2i32\fP &b2)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBoperator!=\fP (const \fBSbBox2i32\fP &b1, const \fBSbBox2i32\fP &b2)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBSbBox2i32\fP class is a 2 dimensional box with 32-bit integer coordinates\&.
+.PP
+This box class is used by other classes in Coin for data exchange\&. It provides storage for two box corners with 32-bit integer coordinates, which is among other things useful for representing screen or canvas areas in absolute window coordinates\&. 
+
+
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSbBox2f\fP, \fBSbBox2d\fP, \fBSbBox3s\fP, \fBSbBox3f\fP, \fBSbBox3d\fP, \fBSbXfBox3f\fP\&. 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SbBox2i32::SbBox2i32 (void)\fC [inline]\fP"
+The default constructor makes an empty box\&. 
+.SS "SbBox2i32::SbBox2i32 (int32_t xmin, int32_t ymin, int32_t xmax, int32_t ymax)\fC [inline]\fP"
+Constructs a box with the given corner coordinates\&.
+.PP
+\fIxmin\fP should be less than \fIxmax\fP and \fIymin\fP should be less than \fIymax\fP if you want to make a valid box\&. 
+.SS "SbBox2i32::SbBox2i32 (const \fBSbVec2i32\fP & minpt, const \fBSbVec2i32\fP & maxpt)\fC [inline]\fP"
+Constructs a box with the given corners\&.
+.PP
+The coordinates of \fImin\fP should be less than the coordinates of \fImax\fP if you want to make a valid box\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSbBox2i32\fP & SbBox2i32::setBounds (int32_t xmin, int32_t ymin, int32_t xmax, int32_t ymax)\fC [inline]\fP"
+Reset the boundaries of the box\&.
+.PP
+\fIxmin\fP should be less than \fIxmax\fP and \fIymin\fP should be less than \fIymax\fP if you want to make a valid box\&.
+.PP
+Returns reference to self\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetBounds()\fP\&. 
+.RE
+.PP
+
+.SS "\fBSbBox2i32\fP & SbBox2i32::setBounds (const \fBSbVec2i32\fP & boxmin, const \fBSbVec2i32\fP & boxmax)\fC [inline]\fP"
+Reset the boundaries of the box with the given corners\&.
+.PP
+The coordinates of \fImin\fP should be less than the coordinates of \fImax\fP if you want to make a valid box\&.
+.PP
+Returns reference to self\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetBounds()\fP\&. 
+.RE
+.PP
+
+.SS "\fBSbBox2i32\fP & SbBox2i32::setBounds (const \fBSbBox2s\fP & box)"
+Reset the boundaries to the boundaries of the given \fIbox\fP\&.
+.PP
+Returns reference to self\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetBounds()\fP 
+.RE
+.PP
+
+.SS "\fBSbBox2i32\fP & SbBox2i32::setBounds (const \fBSbBox2f\fP & box)"
+Reset the boundaries to the boundaries of the given \fIbox\fP\&.
+.PP
+Returns reference to self\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetBounds()\fP 
+.RE
+.PP
+
+.SS "\fBSbBox2i32\fP & SbBox2i32::setBounds (const \fBSbBox2d\fP & box)"
+Reset the boundaries to the boundaries of the given \fIbox\fP\&.
+.PP
+Returns reference to self\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetBounds()\fP 
+.RE
+.PP
+
+.SS "void SbBox2i32::getBounds (int32_t & xmin, int32_t & ymin, int32_t & xmax, int32_t & ymax) const\fC [inline]\fP"
+Returns the box boundary coordinates\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetBounds()\fP, getMin(), getMax()\&. 
+.RE
+.PP
+
+.SS "void SbBox2i32::getBounds (\fBSbVec2i32\fP & boxmin, \fBSbVec2i32\fP & boxmax) const\fC [inline]\fP"
+Returns the box corner points\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetBounds()\fP, getMin(), getMax()\&. 
+.RE
+.PP
+
+.SS "const \fBSbVec2i32\fP & SbBox2i32::getMin (void) const\fC [inline]\fP"
+Returns the minimum point\&. This should usually be the lower left corner point of the box\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetOrigin()\fP, getMax()\&. 
+.RE
+.PP
+
+.SS "const \fBSbVec2i32\fP & SbBox2i32::getMax (void) const\fC [inline]\fP"
+Returns the maximum point\&. This should usually be the upper right corner point of the box\&.
+.PP
+\fBSee also:\fP
+.RS 4
+getMin()\&. 
+.RE
+.PP
+
+.SS "void SbBox2i32::extendBy (const \fBSbVec2i32\fP & point)"
+Extend the boundaries of the box by the given point, i\&.e\&. make the point fit inside the box if it isn't already within it\&. 
+.SS "void SbBox2i32::extendBy (const \fBSbBox2i32\fP & box)"
+Extend the boundaries of the box by the given \fIbox\fP parameter\&. This is equal to calling \fBextendBy()\fP twice with the corner points\&. 
+.SS "void SbBox2i32::makeEmpty (void)"
+Marks this as an empty box\&.
+.PP
+\fBSee also:\fP
+.RS 4
+isEmpty()\&. 
+.RE
+.PP
+
+.SS "SbBool SbBox2i32::intersect (const \fBSbVec2i32\fP & point) const"
+Check if the given point lies within the boundaries of this box\&. 
+.SS "SbBool SbBox2i32::intersect (const \fBSbBox2i32\fP & box) const"
+Check if \fIbox\fP lies wholly or partly within the boundaries of this box\&. 
+.SS "void SbBox2i32::getOrigin (int32_t & originX, int32_t & originY) const\fC [inline]\fP"
+Returns the coordinates of the box origin (i\&.e\&. the lower left corner)\&.
+.PP
+\fBSee also:\fP
+.RS 4
+getMin()\&. 
+.RE
+.PP
+
+.SS "void SbBox2i32::getSize (int32_t & sizeX, int32_t & sizeY) const\fC [inline]\fP"
+Returns width and height of box\&. 
+.SS "float SbBox2i32::getAspectRatio (void) const\fC [inline]\fP"
+Returns aspect ratio of box, which is defined as box width divided on box height\&. 
+.SH "Friends And Related Function Documentation"
+.PP 
+.SS "\fBint\fP operator== (const \fBSbBox2i32\fP & b1, const \fBSbBox2i32\fP & b2)\fC [related]\fP"
+Check \fIb1\fP and \fIb2\fP for equality\&. 
+.SS "\fBint\fP operator!= (const \fBSbBox2i32\fP & b1, const \fBSbBox2i32\fP & b2)\fC [related]\fP"
+Check \fIb1\fP and \fIb2\fP for inequality\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

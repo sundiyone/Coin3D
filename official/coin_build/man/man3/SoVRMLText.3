@@ -1,0 +1,224 @@
+.TH "SoVRMLText" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoVRMLText \- The \fBSoVRMLText\fP class is used to represent text in a scene\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/VRMLnodes/SoVRMLText\&.h>\fP
+.PP
+Inherits \fBSoVRMLGeometry\fP\&.
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBJustification\fP { \fBBEGIN\fP = 0x01, \fBEND\fP = 0x02, \fBMIDDLE\fP = 0x03 }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "\fBSoVRMLText\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBGLRender\fP (\fBSoGLRenderAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBgetPrimitiveCount\fP (\fBSoGetPrimitiveCountAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBnotify\fP (\fBSoNotList\fP *list)"
+.br
+.ti -1c
+.RI "virtual \fBSoChildList\fP * \fBgetChildren\fP (void) const"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoMFString\fP \fBstring\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBfontStyle\fP"
+.br
+.ti -1c
+.RI "\fBSoSFFloat\fP \fBmaxExtent\fP"
+.br
+.ti -1c
+.RI "\fBSoMFFloat\fP \fBlength\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fB~SoVRMLText\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBcomputeBBox\fP (\fBSoAction\fP *action, \fBSbBox3f\fP &box, \fBSbVec3f\fP &center)"
+.br
+.ti -1c
+.RI "virtual void \fBgeneratePrimitives\fP (\fBSoAction\fP *action)"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoChildList\fP * \fBchildren\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoVRMLText\fP class is used to represent text in a scene\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP 
+
+Important note: currently, the implementation of this node is not complete, and some of the features mentioned in the documentation below may not be working yet\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP
+.PP
+.PP
+.nf
+Text { 
+  exposedField  MFString string    []
+  exposedField  SFNode   fontStyle NULL
+  exposedField  MFFloat  length    []      # [0,)
+  exposedField  SFFloat  maxExtent 0.0     # [0,)
+}
+.fi
+.PP
+.PP
+The Text node specifies a two-sided, flat text string object positioned in the Z=0 plane of the local coordinate system based on values defined in the fontStyle field (see \fBSoVRMLFontStyle\fP)\&. Text nodes may contain multiple text strings specified using the UTF-8 encoding as specified by ISO 10646-1:1993 (see <http://www.web3d.org/x3d/specifications/vrml/ISO-IEC-14772-VRML97/part1/references.html#[UTF8]>)\&. The text strings are stored in the order in which the text mode characters are to be produced as defined by the parameters in the FontStyle node\&.
+.PP
+The text strings are contained in the string field\&. The fontStyle field contains one FontStyle node that specifies the font size, font family and style, direction of the text strings, and any specific language rendering techniques used for the text\&.
+.PP
+The maxExtent field limits and compresses all of the text strings if the length of the maximum string is longer than the maximum extent, as measured in the local coordinate system\&. If the text string with the maximum length is shorter than the maxExtent, then there is no compressing\&. The maximum extent is measured horizontally for horizontal text (FontStyle node: horizontal=TRUE) and vertically for vertical text (FontStyle node: horizontal=FALSE)\&. The maxExtent field shall be greater than or equal to zero\&.
+.PP
+The length field contains an MFFloat value that specifies the length of each text string in the local coordinate system\&. If the string is too short, it is stretched (either by scaling the text or by adding space between the characters)\&. If the string is too long, it is compressed (either by scaling the text or by subtracting space between the characters)\&. If a length value is missing (for example, if there are four strings but only three length values), the missing values are considered to be 0\&. The length field shall be greater than or equal to zero\&.
+.PP
+Specifying a value of 0 for both the maxExtent and length fields indicates that the string may be any length\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoVRMLFontStyle\fP 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoVRMLText::SoVRMLText (void)"
+Constructor\&. 
+.SS "SoVRMLText::~SoVRMLText ()\fC [protected]\fP, \fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoVRMLText::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Reimplemented from \fBSoVRMLGeometry\fP\&.
+.SS "const \fBSoFieldData\fP * SoVRMLText::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoVRMLGeometry\fP\&.
+.SS "void SoVRMLText::GLRender (\fBSoGLRenderAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGLRenderAction\fP\&.
+.PP
+This is called during rendering traversals\&. Nodes influencing the rendering state in any way or who wants to throw geometry primitives at OpenGL overrides this method\&. 
+.PP
+Reimplemented from \fBSoShape\fP\&.
+.SS "void SoVRMLText::getPrimitiveCount (\fBSoGetPrimitiveCountAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGetPrimitiveCountAction\fP\&.
+.PP
+Calculates the number of triangle, line segment and point primitives for the node and adds these to the counters of the \fIaction\fP\&.
+.PP
+Nodes influencing how geometry nodes calculates their primitive count also overrides this method to change the relevant state variables\&. 
+.PP
+Reimplemented from \fBSoShape\fP\&.
+.SS "void SoVRMLText::notify (\fBSoNotList\fP * l)\fC [virtual]\fP"
+Notifies all auditors for this instance when changes are made\&. 
+.PP
+Reimplemented from \fBSoVRMLGeometry\fP\&.
+.SS "\fBSoChildList\fP * SoVRMLText::getChildren (void) const\fC [virtual]\fP"
+Returns list of children for this node\&. 
+.PP
+Reimplemented from \fBSoVRMLGeometry\fP\&.
+.SS "void SoVRMLText::computeBBox (\fBSoAction\fP * action, \fBSbBox3f\fP & box, \fBSbVec3f\fP & center)\fC [protected]\fP, \fC [virtual]\fP"
+Implemented by \fBSoShape\fP subclasses to let the \fBSoShape\fP superclass know the exact size and weighted center point of the shape's bounding box\&.
+.PP
+The bounding box and center point should be calculated and returned in the local coordinate system\&.
+.PP
+The method implements action behavior for shape nodes for \fBSoGetBoundingBoxAction\fP\&. It is invoked from \fBSoShape::getBoundingBox()\fP\&. (Subclasses should \fInot\fP override \fBSoNode::getBoundingBox()\fP\&.)
+.PP
+The \fIbox\fP parameter sent in is guaranteed to be an empty box, while \fIcenter\fP is undefined upon function entry\&. 
+.PP
+Implements \fBSoShape\fP\&.
+.SS "void SoVRMLText::generatePrimitives (\fBSoAction\fP * action)\fC [protected]\fP, \fC [virtual]\fP"
+The method implements action behavior for shape nodes for \fBSoCallbackAction\fP\&. It is invoked from \fBSoShape::callback()\fP\&. (Subclasses should \fInot\fP override \fBSoNode::callback()\fP\&.)
+.PP
+The subclass implementations uses the convenience methods \fBSoShape::beginShape()\fP, \fBSoShape::shapeVertex()\fP, and \fBSoShape::endShape()\fP, with \fBSoDetail\fP instances, to pass the primitives making up the shape back to the caller\&. 
+.PP
+Implements \fBSoShape\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSoMFString\fP SoVRMLText::string"
+The strings\&. Empty by default\&. 
+.SS "\fBSoSFNode\fP SoVRMLText::fontStyle"
+Can contain an \fBSoVRMLFontStyle\fP node\&. 
+.SS "\fBSoSFFloat\fP SoVRMLText::maxExtent"
+Maximum object space extent of longest string\&. 
+.SS "\fBSoMFFloat\fP SoVRMLText::length"
+Length of each string in the local coordinate system\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

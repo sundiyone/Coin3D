@@ -1,0 +1,49 @@
+.TH "SbTypeInfo< T >" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SbTypeInfo< T > \- a type information library for Coin types and their relations\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/SbTypeInfo\&.h>\fP
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "typedef T \fBType\fP"
+.br
+.ti -1c
+.RI "typedef const T & \fBParamType\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.SS "template<typename T>
+.br
+class SbTypeInfo< T >"
+a type information library for Coin types and their relations\&. 
+
+SbTypeInfo<> makes it possible to write generic code using Coin types that is able to adjust itself to the parameter types used\&. Usually you would be able to do that quite easily if the Sb-classes had been template classes of Type and Dimension arguments\&. This type library makes it possible to work around that lack of genericity by looking up type relationships instead\&.
+.PP
+Certain inside types of SbTypeInfo<> are always defined\&. Others will only be defined if the template argument type is of certain characteristics\&.
+.PP
+Type is the type the SbTypeInfo<>-specialization is for\&. It is always defined\&.
+.PP
+ParamType is a type deemed to be efficient for function parameter transfer\&. It is always defined\&.
+.PP
+If the type is a primitive type that has
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.5 
+.RE
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

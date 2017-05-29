@@ -1,0 +1,593 @@
+.TH "SoVectorizeAction" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoVectorizeAction \- The \fBSoVectorizeAction\fP class is the base class for vectorizing Coin scene graphs\&.
+.PP
+\fBSoVectorizeAction\fP will traverse the scene graph and convert all supported geometry into vectorized data\&. Subclasses can then use this data to produce vector files of different formats\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/annex/HardCopy/SoVectorizeAction\&.h>\fP
+.PP
+Inherits \fBSoCallbackAction\fP\&.
+.PP
+Inherited by \fBSoVectorizePSAction\fP\&.
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBDimensionUnit\fP { \fBINCH\fP, \fBMM\fP, \fBMETER\fP }"
+.br
+.ti -1c
+.RI "enum \fBOrientation\fP { \fBPORTRAIT\fP, \fBLANDSCAPE\fP }"
+.br
+.ti -1c
+.RI "enum \fBPageSize\fP { \fBA0\fP = 0, \fBA1\fP, \fBA2\fP, \fBA3\fP, \fBA4\fP, \fBA5\fP, \fBA6\fP, \fBA7\fP, \fBA8\fP, \fBA9\fP, \fBA10\fP }"
+.br
+.ti -1c
+.RI "enum \fBPointStyle\fP { \fBCIRCLE\fP, \fBSQUARE\fP }"
+.br
+.ti -1c
+.RI "enum \fBColorTranslationMethod\fP { \fBREVERSE_ONLY_BLACK_AND_WHITE\fP, \fBAS_IS\fP, \fBREVERSE\fP }"
+.br
+.ti -1c
+.RI "enum \fBJoinLineStyle\fP { \fBNO_JOIN\fP, \fBMITERED_JOIN\fP, \fBMITERED_BEVELED_JOIN\fP, \fBBEVELED_JOIN\fP, \fBTRIANGULAR_JOIN\fP, \fBROUNDED_JOIN\fP }"
+.br
+.ti -1c
+.RI "enum \fBEndLineStyle\fP { \fBBUTT_END\fP, \fBSQUARE_END\fP, \fBTRIANGULAR_END\fP, \fBROUND_END\fP }"
+.br
+.ti -1c
+.RI "enum \fBHLHSRMode\fP { \fBNO_HLHSR\fP, \fBHLHSR_SIMPLE_PAINTER\fP, \fBHLHSR_PAINTER\fP, \fBHLHSR_PAINTER_SURFACE_REMOVAL\fP, \fBHIDDEN_LINES_REMOVAL\fP }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoVectorizeAction\fP (void)"
+.br
+.ti -1c
+.RI "virtual \fB~SoVectorizeAction\fP ()"
+.br
+.ti -1c
+.RI "\fBSoVectorOutput\fP * \fBgetOutput\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBapply\fP (\fBSoNode\fP *node)"
+.br
+.ti -1c
+.RI "virtual void \fBapply\fP (\fBSoPath\fP *path)"
+.br
+.ti -1c
+.RI "virtual void \fBapply\fP (const \fBSoPathList\fP &pathlist, SbBool obeysrules=FALSE)"
+.br
+.ti -1c
+.RI "void \fBbeginStandardPage\fP (const \fBPageSize\fP &pagesize, const float border=10\&.0f)"
+.br
+.ti -1c
+.RI "virtual void \fBbeginPage\fP (const \fBSbVec2f\fP &startpagepos, const \fBSbVec2f\fP &pagesize, \fBDimensionUnit\fP u=MM)"
+.br
+.ti -1c
+.RI "virtual void \fBendPage\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBcalibrate\fP (const \fBSbViewportRegion\fP &vp)"
+.br
+.ti -1c
+.RI "virtual void \fBbeginViewport\fP (const \fBSbVec2f\fP &startpos=\fBSbVec2f\fP(\-1\&.0f, 1\&.0f), const SbVec2f &size=SbVec2f(\-1\&.0f, \-1\&.0f), DimensionUnit u=MM)"
+.br
+.ti -1c
+.RI "virtual void \fBendViewport\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBsetOrientation\fP (\fBOrientation\fP o)"
+.br
+.ti -1c
+.RI "virtual \fBOrientation\fP \fBgetOrientation\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBsetBackgroundColor\fP (SbBool bg, const \fBSbColor\fP &col=\fBSbColor\fP(0\&.0f, 0\&.0f, 0\&.0f))"
+.br
+.ti -1c
+.RI "virtual SbBool \fBgetBackgroundColor\fP (\fBSbColor\fP &col) const"
+.br
+.ti -1c
+.RI "virtual void \fBsetNominalWidth\fP (float w, \fBDimensionUnit\fP u=MM)"
+.br
+.ti -1c
+.RI "virtual float \fBgetNominalWidth\fP (\fBDimensionUnit\fP u=MM) const"
+.br
+.ti -1c
+.RI "virtual void \fBsetPixelImageSize\fP (float w, \fBDimensionUnit\fP u=MM)"
+.br
+.ti -1c
+.RI "virtual float \fBgetPixelImageSize\fP (\fBDimensionUnit\fP u=MM) const"
+.br
+.ti -1c
+.RI "virtual void \fBsetPointStyle\fP (const \fBPointStyle\fP &style)"
+.br
+.ti -1c
+.RI "virtual \fBPointStyle\fP \fBgetPointStyle\fP (void) const"
+.br
+.ti -1c
+.RI "const \fBSbVec2f\fP & \fBgetPageStartpos\fP (void) const"
+.br
+.ti -1c
+.RI "const \fBSbVec2f\fP & \fBgetPageSize\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBsetDrawingDimensions\fP (const \fBSbVec2f\fP &d, \fBDimensionUnit\fP u=MM)"
+.br
+.ti -1c
+.RI "virtual void \fBsetDrawingDimensions\fP (float w, float h, \fBDimensionUnit\fP u=MM)"
+.br
+.ti -1c
+.RI "virtual \fBSbVec2f\fP \fBgetDrawingDimensions\fP (\fBDimensionUnit\fP u=MM) const"
+.br
+.ti -1c
+.RI "virtual void \fBsetStartPosition\fP (const \fBSbVec2f\fP &p, \fBDimensionUnit\fP u=MM)"
+.br
+.ti -1c
+.RI "virtual void \fBsetStartPosition\fP (float x, float y, \fBDimensionUnit\fP u=MM)"
+.br
+.ti -1c
+.RI "virtual \fBSbVec2f\fP \fBgetStartPosition\fP (\fBDimensionUnit\fP u=MM) const"
+.br
+.ti -1c
+.RI "virtual void \fBsetColorTranslationMethod\fP (ColorTranslationMethod method)"
+.br
+.ti -1c
+.RI "virtual ColorTranslationMethod \fBgetColorTranslationMethod\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBsetLineEndStyle\fP (EndLineStyle style)"
+.br
+.ti -1c
+.RI "virtual EndLineStyle \fBgetLineEndStyle\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBsetLineJoinsStyle\fP (JoinLineStyle style)"
+.br
+.ti -1c
+.RI "virtual JoinLineStyle \fBgetLineJoinsStyle\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBsetHLHSRMode\fP (HLHSRMode mode)"
+.br
+.ti -1c
+.RI "HLHSRMode \fBgetHLHSRMode\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBsetBorder\fP (float width)"
+.br
+.ti -1c
+.RI "virtual void \fBsetBorder\fP (float width, \fBSbColor\fP color)"
+.br
+.ti -1c
+.RI "virtual void \fBsetMiterLimit\fP (float limit)"
+.br
+.ti -1c
+.RI "virtual float \fBgetMiterLimit\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBsetPenDescription\fP (\fBint\fP num_pens, const \fBSbColor\fP *colors=0, const float *widths=0, \fBDimensionUnit\fP u=MM)"
+.br
+.ti -1c
+.RI "virtual void \fBgetPenDescription\fP (\fBSbColor\fP *colors, float *widths, \fBDimensionUnit\fP u=MM) const"
+.br
+.ti -1c
+.RI "virtual \fBint\fP \fBgetPenNum\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBsetColorPriority\fP (SbBool priority)"
+.br
+.ti -1c
+.RI "virtual SbBool \fBgetColorPriority\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBenableLighting\fP (SbBool flag)"
+.br
+.ti -1c
+.RI "SbBool \fBisLightingEnabled\fP (void) const"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBaddMethod\fP (const \fBSoType\fP type, \fBSoActionMethod\fP method)"
+.br
+.ti -1c
+.RI "static void \fBenableElement\fP (const \fBSoType\fP type, const \fBint\fP stackindex)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoEnabledElementsList\fP & \fBgetEnabledElements\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBsetOutput\fP (\fBSoVectorOutput\fP *output)"
+.br
+.ti -1c
+.RI "virtual float \fBpixelsToUnits\fP (const \fBint\fP pixels)"
+.br
+.ti -1c
+.RI "virtual void \fBprintHeader\fP (void) const =0"
+.br
+.ti -1c
+.RI "virtual void \fBprintFooter\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBprintBackground\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBprintItem\fP (const SoVectorizeItem *item) const =0"
+.br
+.ti -1c
+.RI "virtual void \fBprintViewport\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSbVec2f\fP \fBgetRotatedViewportStartpos\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSbVec2f\fP \fBgetRotatedViewportSize\fP (void) const"
+.br
+.ti -1c
+.RI "const \fBSbBSPTree\fP & \fBgetBSPTree\fP (void) const"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoEnabledElementsList\fP * \fBgetClassEnabledElements\fP (void)"
+.br
+.ti -1c
+.RI "static \fBSoActionMethodList\fP * \fBgetClassActionMethods\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoVectorizeAction\fP class is the base class for vectorizing Coin scene graphs\&.
+.PP
+\fBSoVectorizeAction\fP will traverse the scene graph and convert all supported geometry into vectorized data\&. Subclasses can then use this data to produce vector files of different formats\&. 
+
+Currently supported geometry:
+.PP
+.PD 0
+.IP "\(bu" 2
+Triangles (polygons will be tessellated) 
+.IP "\(bu" 2
+Line segments 
+.IP "\(bu" 2
+Points (can be drawn as circles or squares) 
+.IP "\(bu" 2
+2D text 
+.IP "\(bu" 2
+3D text (will be converted to triangles) 
+.IP "\(bu" 2
+Images (from the \fBSoImage\fP node)
+.PP
+The geometry will be shaded based on the OpenGL shading model, so lights and material will affect the geometry in the same way as in a standard Coin viewer\&. Please note that neither transparency nor texture mapping is supported yet\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.1 
+.PP
+TGS provides HardCopy support as a separate extension for TGS Inventor\&. 
+.RE
+.PP
+
+.SH "Member Enumeration Documentation"
+.PP 
+.SS "enum \fBSoVectorizeAction::DimensionUnit\fP"
+The unit used by the scene graph\&. 
+.SS "enum \fBSoVectorizeAction::Orientation\fP"
+The drawing orientation\&. 
+.SS "enum \fBSoVectorizeAction::PageSize\fP"
+The size of the destination page\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fIA0 \fP\fP
+841 x 1189 mm\&. 
+.TP
+\fB\fIA1 \fP\fP
+594 x 841 mm\&. 
+.TP
+\fB\fIA2 \fP\fP
+420 x 594 mm\&. 
+.TP
+\fB\fIA3 \fP\fP
+297 x 420 mm\&. 
+.TP
+\fB\fIA4 \fP\fP
+210 x 297 mm\&. 
+.TP
+\fB\fIA5 \fP\fP
+148 x 210 mm\&. 
+.TP
+\fB\fIA6 \fP\fP
+105 x 148 mm\&. 
+.TP
+\fB\fIA7 \fP\fP
+74 x 105 mm\&. 
+.TP
+\fB\fIA8 \fP\fP
+52 x 74 mm\&. 
+.TP
+\fB\fIA9 \fP\fP
+37 x 52 mm\&. 
+.TP
+\fB\fIA10 \fP\fP
+26 x 37 mm\&. 
+.SS "enum \fBSoVectorizeAction::PointStyle\fP"
+Enumerates point rendering styles\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fICIRCLE \fP\fP
+Render points as circles\&. 
+.TP
+\fB\fISQUARE \fP\fP
+Render points as squares\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoVectorizeAction::SoVectorizeAction (void)"
+Default constructor\&. 
+.SS "SoVectorizeAction::~SoVectorizeAction ()\fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoVectorizeAction::getTypeId (void) const\fC [virtual]\fP"
+Returns the type identification of an action derived from a class inheriting \fBSoAction\fP\&. This is used for run-time type checking and 'downward' casting\&.
+.PP
+Usage example:
+.PP
+.PP
+.nf
+void bar(SoAction * action)
+{
+  if (action->getTypeId() == SoGLRenderAction::getClassTypeId()) {
+    // safe downward cast, know the type
+    SoGLRenderAction * glrender = (SoGLRenderAction *)action;
+  }
+  return; // ignore if not renderaction
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new actions: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through Inventor/nodes/SoSubAction\&.h: SO_ACTION_SOURCE, SO_ACTION_INIT_CLASS and SO_ACTION_CONSTRUCTOR\&.
+.PP
+For more information on writing Coin extensions, see the \fBSoAction\fP class documentation\&.
+.PP
+Returns the actual type id of an object derived from a class inheriting \fBSoAction\fP\&. Needs to be overridden in \fIall\fP subclasses\&. 
+.PP
+Reimplemented from \fBSoCallbackAction\fP\&.
+.PP
+Reimplemented in \fBSoVectorizePSAction\fP\&.
+.SS "void SoVectorizeAction::addMethod (const \fBSoType\fP type, \fBSoActionMethod\fP method)\fC [static]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoVectorizeAction::enableElement (const \fBSoType\fP type, const \fBint\fP stackindex)\fC [static]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "const \fBSoEnabledElementsList\fP & SoVectorizeAction::getEnabledElements (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a list of the elements used by action instances of this class upon traversal operations\&. 
+.PP
+Reimplemented from \fBSoCallbackAction\fP\&.
+.PP
+Reimplemented in \fBSoVectorizePSAction\fP\&.
+.SS "\fBSoVectorOutput\fP * SoVectorizeAction::getOutput (void) const"
+Returns the \fBSoVectorOutput\fP class used by this action\&. The output is written to stdout by default, but you can change this by using \fBSoVectorOutput::openFile()\fP\&. 
+.SS "void SoVectorizeAction::apply (\fBSoNode\fP * root)\fC [virtual]\fP"
+Applies the action to the scene graph rooted at \fIroot\fP\&.
+.PP
+Note that you should \fInot\fP apply an action to a node with a zero reference count\&. The behavior in that case is undefined\&. 
+.PP
+Reimplemented from \fBSoAction\fP\&.
+.SS "void SoVectorizeAction::apply (\fBSoPath\fP * path)\fC [virtual]\fP"
+Applies the action to the parts of the graph defined by \fIpath\fP\&.
+.PP
+Note that an \fBSoPath\fP will also contain all nodes that may influence e\&.g\&. geometry nodes in the path\&. So for instance applying an \fBSoGLRenderAction\fP on an \fBSoPath\fP will render that path as expected in the view, where geometry will get its materials, textures, and other appearance settings correctly\&.
+.PP
+If the \fIpath\fP ends in an \fBSoGroup\fP node, the action will also traverse the tail node's children\&. 
+.PP
+Reimplemented from \fBSoAction\fP\&.
+.SS "void SoVectorizeAction::apply (const \fBSoPathList\fP & pathlist, SbBool obeysrules = \fCFALSE\fP)\fC [virtual]\fP"
+Applies action to the graphs defined by \fIpathlist\fP\&. If \fIobeysrules\fP is set to \fCTRUE\fP, \fIpathlist\fP must obey the following four conditions (which is the case for path lists returned from search actions for non-group nodes and path lists returned from picking actions):
+.PP
+All paths must start at the same head node\&. All paths must be sorted in traversal order\&. The paths must be unique\&. No path can continue through the end point of another path\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoAction::apply(SoPath * path)\fP 
+.RE
+.PP
+
+.PP
+Reimplemented from \fBSoAction\fP\&.
+.SS "void SoVectorizeAction::beginPage (const \fBSbVec2f\fP & startpagepos, const \fBSbVec2f\fP & pagesize, \fBDimensionUnit\fP u = \fCMM\fP)\fC [virtual]\fP"
+Begin writing a page\&. This will write file header information and print background (if enabled) and border\&. 
+.SS "void SoVectorizeAction::endPage (void)\fC [virtual]\fP"
+End page\&. This will write all remaining geometry, and write the file footer\&. 
+.SS "void SoVectorizeAction::calibrate (const \fBSbViewportRegion\fP & vp)\fC [virtual]\fP"
+Will calibrate pixel based attributes (font size, line width, points size, etc) so that it will match OpenGL rendering done in \fIvp\fP\&.
+.PP
+\fBSee also:\fP
+.RS 4
+setPixelSize() 
+.PP
+\fBsetNominalWidth()\fP 
+.RE
+.PP
+
+.SS "void SoVectorizeAction::beginViewport (const \fBSbVec2f\fP & start = \fC\fBSbVec2f\fP(\-1\&.0f, 1\&.0f)\fP, const \fBSbVec2f\fP & size = \fC\fBSbVec2f\fP(\-1\&.0f, \-1\&.0f)\fP, \fBDimensionUnit\fP u = \fCMM\fP)\fC [virtual]\fP"
+Begin writing a viewport inside the current page\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBbeginPage()\fP, \fBendViewport()\fP 
+.RE
+.PP
+
+.SS "void SoVectorizeAction::endViewport (void)\fC [virtual]\fP"
+End writing a viewport\&. This will flush all vector items\&. 
+.SS "void SoVectorizeAction::setOrientation (\fBOrientation\fP o)\fC [virtual]\fP"
+Sets the orientation to \fIo\fP\&. 
+.SS "\fBSoVectorizeAction::Orientation\fP SoVectorizeAction::getOrientation (void) const\fC [virtual]\fP"
+Returns the current orientation\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetOrientation()\fP 
+.RE
+.PP
+
+.SS "void SoVectorizeAction::setBackgroundColor (SbBool bg, const \fBSbColor\fP & col = \fC\fBSbColor\fP(0\&.0f, 0\&.0f, 0\&.0f)\fP)\fC [virtual]\fP"
+Sets the background color\&. If \fIbg\fP is \fIFALSE\fP, the background will not be cleared before rendering\&. If \fIbg\fP is \fITRUE\fP, the background will be cleared to \fIcol\fP before in \fBbeginPage()\fP\&. 
+.SS "SbBool SoVectorizeAction::getBackgroundColor (\fBSbColor\fP & col) const\fC [virtual]\fP"
+Returns if the background will be cleared or not\&. When this function returns \fITRUE\fP, \fIcol\fP will be set to the background color\&. 
+.SS "void SoVectorizeAction::setNominalWidth (float w, \fBDimensionUnit\fP u = \fCMM\fP)\fC [virtual]\fP"
+Sets how to convert pixel based attributes (line width and point size) to vector sizes\&. By default 1 pixel equals 0\&.35 mm\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBcalibrate()\fP 
+.RE
+.PP
+
+.SS "void SoVectorizeAction::setPixelImageSize (float w, \fBDimensionUnit\fP u = \fCMM\fP)\fC [virtual]\fP"
+Sets how the images and 2D fonts are converted\&. By default 1 pixel equals 0\&.35 mm\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBcalibrate()\fP 
+.RE
+.PP
+
+.SS "float SoVectorizeAction::getPixelImageSize (\fBDimensionUnit\fP u = \fCMM\fP) const\fC [virtual]\fP"
+Returns the pixel image size\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetPixelImageSize()\fP 
+.RE
+.PP
+
+.SS "void SoVectorizeAction::setPointStyle (const \fBPointStyle\fP & style)\fC [virtual]\fP"
+Sets the points rendering style\&. Default style is CIRCLE\&. 
+.SS "\fBSoVectorizeAction::PointStyle\fP SoVectorizeAction::getPointStyle (void) const\fC [virtual]\fP"
+Returns the points rendering style\&. 
+.SS "const \fBSbVec2f\fP & SoVectorizeAction::getPageStartpos (void) const"
+Returns the current page startpos\&. 
+.SS "const \fBSbVec2f\fP & SoVectorizeAction::getPageSize (void) const"
+Returns the current page size\&. 
+.SS "void SoVectorizeAction::setDrawingDimensions (const \fBSbVec2f\fP & d, \fBDimensionUnit\fP u = \fCMM\fP)\fC [virtual]\fP"
+Sets the drawing dimensions\&. You can use this and \fBsetStartPosition()\fP instead of using \fBbeginViewport()\fP\&. Provided for TGS OIV compatibility\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBbeginViewport()\fP 
+.RE
+.PP
+
+.SS "\fBSbVec2f\fP SoVectorizeAction::getDrawingDimensions (\fBDimensionUnit\fP u = \fCMM\fP) const\fC [virtual]\fP"
+Returns the current drawing dimensions\&. 
+.SS "void SoVectorizeAction::setStartPosition (const \fBSbVec2f\fP & p, \fBDimensionUnit\fP u = \fCMM\fP)\fC [virtual]\fP"
+Sets the drawing staring position\&. You can use this and \fBsetDrawingDimensions()\fP instead of using \fBbeginViewport()\fP\&. Provided for TGS OIV compatibility\&. 
+.SS "\fBSbVec2f\fP SoVectorizeAction::getStartPosition (\fBDimensionUnit\fP u = \fCMM\fP) const\fC [virtual]\fP"
+Returns the current drawing starting position\&. 
+.SS "void SoVectorizeAction::setColorTranslationMethod (ColorTranslationMethod method)\fC [virtual]\fP"
+Not implemented yet\&. Provided for TGS OIV compatibility\&. 
+.SS "SoVectorizeAction::ColorTranslationMethod SoVectorizeAction::getColorTranslationMethod (void) const\fC [virtual]\fP"
+Not implemented yet\&. Provided for TGS OIV compatibility\&. 
+.SS "void SoVectorizeAction::setLineEndStyle (EndLineStyle style)\fC [virtual]\fP"
+Not implemented yet\&. Provided for TGS OIV compatibility\&. 
+.SS "SoVectorizeAction::EndLineStyle SoVectorizeAction::getLineEndStyle (void) const\fC [virtual]\fP"
+Not implemented yet\&. Provided for TGS OIV compatibility\&. 
+.SS "void SoVectorizeAction::setLineJoinsStyle (JoinLineStyle style)\fC [virtual]\fP"
+Not implemented yet\&. Provided for TGS OIV compatibility\&. 
+.SS "SoVectorizeAction::JoinLineStyle SoVectorizeAction::getLineJoinsStyle (void) const\fC [virtual]\fP"
+Not implemented yet\&. Provided for TGS OIV compatibility\&. 
+.SS "void SoVectorizeAction::setHLHSRMode (HLHSRMode mode)\fC [virtual]\fP"
+Not implemented yet\&. Provided for TGS OIV compatibility\&. 
+.SS "SoVectorizeAction::HLHSRMode SoVectorizeAction::getHLHSRMode (void) const"
+Not implemented yet\&. Provided for TGS OIV compatibility\&. 
+.SS "void SoVectorizeAction::setBorder (float width)\fC [virtual]\fP"
+Not implemented yet\&. Provided for TGS OIV compatibility\&. 
+.SS "void SoVectorizeAction::setBorder (float width, \fBSbColor\fP color)\fC [virtual]\fP"
+Not implemented yet\&. Provided for TGS OIV compatibility\&. 
+.SS "void SoVectorizeAction::setMiterLimit (float limit)\fC [virtual]\fP"
+Not implemented yet\&. Provided for TGS OIV compatibility\&. 
+.SS "void SoVectorizeAction::setPenDescription (\fBint\fP num_pens, const \fBSbColor\fP * colors = \fC0\fP, const float * widths = \fC0\fP, \fBDimensionUnit\fP u = \fCMM\fP)\fC [virtual]\fP"
+Not implemented yet\&. Provided for TGS OIV compatibility\&. 
+.SS "void SoVectorizeAction::getPenDescription (\fBSbColor\fP * colors, float * widths, \fBDimensionUnit\fP u = \fCMM\fP) const\fC [virtual]\fP"
+Not implemented yet\&. Provided for TGS OIV compatibility\&. 
+.SS "\fBint\fP SoVectorizeAction::getPenNum (void) const\fC [virtual]\fP"
+Not implemented yet\&. Provided for TGS OIV compatibility\&. 
+.SS "void SoVectorizeAction::setColorPriority (SbBool priority)\fC [virtual]\fP"
+Not implemented yet\&. Provided for TGS OIV compatibility\&. 
+.SS "SbBool SoVectorizeAction::getColorPriority (void) const\fC [virtual]\fP"
+Not implemented yet\&. Provided for TGS OIV compatibility\&. 
+.SS "void SoVectorizeAction::enableLighting (SbBool flag)\fC [virtual]\fP"
+Not implemented yet\&. Provided for TGS OIV compatibility\&. 
+.SS "SbBool SoVectorizeAction::isLightingEnabled (void) const"
+Not implemented yet\&. Provided for TGS OIV compatibility\&. 
+.SS "void SoVectorizeAction::setOutput (\fBSoVectorOutput\fP * output)\fC [protected]\fP"
+Should be used by subclasses to set the \fBSoVectorOutput\fP instance that should be used\&. 
+.SS "float SoVectorizeAction::pixelsToUnits (const \fBint\fP pixels)\fC [protected]\fP, \fC [virtual]\fP"
+Converts pixels to normalized units\&. 
+.SS "void SoVectorizeAction::printHeader (void) const\fC [protected]\fP, \fC [pure virtual]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.PP
+Implemented in \fBSoVectorizePSAction\fP\&.
+.SS "void SoVectorizeAction::printFooter (void) const\fC [protected]\fP, \fC [virtual]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP
+.PP
+Should be overridden by subclasses to print file footer data\&. 
+.PP
+Reimplemented in \fBSoVectorizePSAction\fP\&.
+.SS "void SoVectorizeAction::printBackground (void) const\fC [protected]\fP, \fC [virtual]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP
+.PP
+Should be overridden by subclasses to print background data\&. 
+.PP
+Reimplemented in \fBSoVectorizePSAction\fP\&.
+.SS "void SoVectorizeAction::printItem (const SoVectorizeItem * item) const\fC [protected]\fP, \fC [pure virtual]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP
+.PP
+Should be overridden by subclasses to print an item\&. 
+.PP
+Implemented in \fBSoVectorizePSAction\fP\&.
+.SS "void SoVectorizeAction::printViewport (void) const\fC [protected]\fP, \fC [virtual]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP
+.PP
+Should be overridden by subclasses to set up the current page viewport\&. 
+.PP
+Reimplemented in \fBSoVectorizePSAction\fP\&.
+.SS "\fBSbVec2f\fP SoVectorizeAction::getRotatedViewportStartpos (void) const\fC [protected]\fP"
+Convenience method for subclasses\&. Will return the viewport startpos, taking the orientation into account 
+.SS "\fBSbVec2f\fP SoVectorizeAction::getRotatedViewportSize (void) const\fC [protected]\fP"
+Convenience method for subclasses\&. Will return the viewport size, taking the orientation into account 
+.SS "const \fBSbBSPTree\fP & SoVectorizeAction::getBSPTree (void) const\fC [protected]\fP"
+Returns the bps tree used to store triangle and line vertices\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

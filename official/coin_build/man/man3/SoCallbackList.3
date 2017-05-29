@@ -1,0 +1,69 @@
+.TH "SoCallbackList" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoCallbackList \- The \fBSoCallbackList\fP is a container for callback function pointers\&.
+.PP
+This list stores callback function pointers (along with user-specified extra data to pass to the callbacks) and provides a method for triggering the callback functions\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/lists/SoCallbackList\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSoCallbackList\fP (void)"
+.br
+.ti -1c
+.RI "\fB~SoCallbackList\fP ()"
+.br
+.ti -1c
+.RI "void \fBaddCallback\fP (\fBSoCallbackListCB\fP *f, void *userData=NULL)"
+.br
+.ti -1c
+.RI "void \fBremoveCallback\fP (\fBSoCallbackListCB\fP *f, void *userdata=NULL)"
+.br
+.ti -1c
+.RI "void \fBclearCallbacks\fP (void)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetNumCallbacks\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBinvokeCallbacks\fP (void *callbackdata)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBSoCallbackList\fP is a container for callback function pointers\&.
+.PP
+This list stores callback function pointers (along with user-specified extra data to pass to the callbacks) and provides a method for triggering the callback functions\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoCallbackList::SoCallbackList (void)"
+Default constructor\&. 
+.SS "SoCallbackList::~SoCallbackList (void)"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void SoCallbackList::addCallback (\fBSoCallbackListCB\fP * f, void * userdata = \fCNULL\fP)"
+Append the callback function \fIf\fP to the list\&. It will be passed the \fIuserdata\fP upon invocation\&. 
+.SS "void SoCallbackList::removeCallback (\fBSoCallbackListCB\fP * f, void * userdata = \fCNULL\fP)"
+Remove callback \fIf\fP from the list\&. 
+.SS "void SoCallbackList::clearCallbacks (void)"
+Remove all callbacks in the list\&. 
+.SS "\fBint\fP SoCallbackList::getNumCallbacks (void) const"
+Returns number of callback functions\&. 
+.SS "void SoCallbackList::invokeCallbacks (void * callbackdata)"
+Invoke all callback functions, passing the userdata and the \fIcallbackdata\fP as the first and second argument, respectively\&.
+.PP
+All callbacks registered when the method is invoked will be triggered, even though if the code in one callback removes another callback\&.
+.PP
+It is safe for a callback to remove itself or any other callbacks during execution\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

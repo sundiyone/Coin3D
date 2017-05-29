@@ -1,0 +1,147 @@
+.TH "SoCacheElement" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoCacheElement \- The \fBSoCacheElement\fP class stores and manages the open caches\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/elements/SoCacheElement\&.h>\fP
+.PP
+Inherits \fBSoElement\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual void \fBinit\fP (\fBSoState\fP *state)"
+.br
+.ti -1c
+.RI "virtual void \fBpush\fP (\fBSoState\fP *state)"
+.br
+.ti -1c
+.RI "virtual void \fBpop\fP (\fBSoState\fP *state, const \fBSoElement\fP *prevTopElement)"
+.br
+.ti -1c
+.RI "\fBSoCache\fP * \fBgetCache\fP (void) const"
+.br
+.ti -1c
+.RI "virtual SbBool \fBmatches\fP (const \fBSoElement\fP *element) const"
+.br
+.ti -1c
+.RI "virtual \fBSoElement\fP * \fBcopyMatchInfo\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoCacheElement\fP * \fBgetNextCacheElement\fP (void) const"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static \fBint\fP \fBgetClassStackIndex\fP (void)"
+.br
+.ti -1c
+.RI "static void * \fBcreateInstance\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBset\fP (\fBSoState\fP *const state, \fBSoCache\fP *const cache)"
+.br
+.ti -1c
+.RI "static SbBool \fBanyOpen\fP (\fBSoState\fP *const state)"
+.br
+.ti -1c
+.RI "static void \fBinvalidate\fP (\fBSoState\fP *const state)"
+.br
+.ti -1c
+.RI "static void \fBaddElement\fP (\fBSoState\fP *const state, const \fBSoElement\fP *const element)"
+.br
+.ti -1c
+.RI "static void \fBaddCacheDependency\fP (\fBSoState\fP *const state, \fBSoCache\fP *const cache)"
+.br
+.ti -1c
+.RI "static SbBool \fBsetInvalid\fP (const SbBool newvalue)"
+.br
+.ti -1c
+.RI "static \fBSoCache\fP * \fBgetCurrentCache\fP (\fBSoState\fP *const state)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fB~SoCacheElement\fP ()"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoCacheElement\fP class stores and manages the open caches\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoCacheElement::~SoCacheElement (void)\fC [protected]\fP, \fC [virtual]\fP"
+The destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void * SoCacheElement::createInstance (void)\fC [static]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoCacheElement::init (\fBSoState\fP * state)\fC [virtual]\fP"
+This function initializes the element type in the given \fBSoState\fP\&. It is called for the first element of each enabled element type in \fBSoState\fP objects\&. 
+.PP
+Reimplemented from \fBSoElement\fP\&.
+.SS "void SoCacheElement::push (\fBSoState\fP * state)\fC [virtual]\fP"
+This method is called every time a new element is required in one of the stacks\&. This happens when a writable element is requested, using \fBSoState::getElement()\fP or indirectly \fBSoElement::getElement()\fP, and the depth of the current element is less than the state depth\&.
+.PP
+Override this method if your element needs to copy data from the previous top of stack\&. The \fBpush()\fP method is called on the new element, and the previous element can be found using \fBSoElement::getNextInStack()\fP\&. 
+.PP
+Reimplemented from \fBSoElement\fP\&.
+.SS "void SoCacheElement::pop (\fBSoState\fP * state, const \fBSoElement\fP * prevTopElement)\fC [virtual]\fP"
+This method is callled when the state is popped, and the depth of the element is bigger than the current state depth\&. \fBpop()\fP is called on the new top of stack, and a pointer to the previous top of stack is passed in \fIprevTopElement\fP\&.
+.PP
+Override this method if you need to copy some state information from the previous top of stack\&. 
+.PP
+Reimplemented from \fBSoElement\fP\&.
+.SS "void SoCacheElement::set (\fBSoState\fP *const state, \fBSoCache\fP *const cache)\fC [static]\fP"
+Sets the current cache\&. The cache is ref'ed before returning\&. 
+.SS "\fBSoCache\fP * SoCacheElement::getCache (void) const"
+This method returns the cache, or NULL if there is no cache\&. 
+.SS "SbBool SoCacheElement::anyOpen (\fBSoState\fP *const state)\fC [static]\fP"
+This method returns TRUE if a cache is currently open\&. 
+.SS "void SoCacheElement::invalidate (\fBSoState\fP *const state)\fC [static]\fP"
+This method invalidates open caches\&. It should be called by uncacheable nodes\&. 
+.SS "SbBool SoCacheElement::matches (const \fBSoElement\fP * element) const\fC [virtual]\fP"
+\fBSoCacheElement\fP objects should not be compared because you obviously don't cache them in the cache\&. 
+.PP
+Implements \fBSoElement\fP\&.
+.SS "\fBSoElement\fP * SoCacheElement::copyMatchInfo (void) const\fC [virtual]\fP"
+\fBSoCacheElement\fP objects should not be 'copied' because you obviously don't cache them in the cache\&.
+.PP
+\fBSee also:\fP
+.RS 4
+SbBool \fBSoCacheElement::matches(const SoElement * element) const\fP 
+.RE
+.PP
+
+.PP
+Implements \fBSoElement\fP\&.
+.SS "\fBSoCacheElement\fP * SoCacheElement::getNextCacheElement (void) const"
+This method returns the next cache element\&. That is the next cache element pointing towards the bottom of the state\&. 
+.SS "void SoCacheElement::addElement (\fBSoState\fP *const state, const \fBSoElement\fP *const element)\fC [static]\fP"
+This method adds \fIelement\fP to the elements used lists of all the open caches in \fIstate\fP\&. 
+.SS "void SoCacheElement::addCacheDependency (\fBSoState\fP *const state, \fBSoCache\fP *const cache)\fC [static]\fP"
+This method creates dependencies on \fIcache\fP for all the open caches in \fIstate\fP\&. 
+.SS "SbBool SoCacheElement::setInvalid (const SbBool newvalue)\fC [static]\fP"
+This method returns the old invalidated bit value, and sets it to \fInewvalue\fP\&. 
+.SS "\fBSoCache\fP * SoCacheElement::getCurrentCache (\fBSoState\fP *const state)\fC [static]\fP"
+This method returns the current cache\&. No cache dependencies are honored\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

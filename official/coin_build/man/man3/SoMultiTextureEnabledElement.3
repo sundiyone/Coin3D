@@ -1,0 +1,245 @@
+.TH "SoMultiTextureEnabledElement" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoMultiTextureEnabledElement \- The \fBSoMultiTextureEnabledElement\fP class is an element which stores whether texturing is enabled or not\&.
+.PP
+Be aware that this class is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/elements/SoMultiTextureEnabledElement\&.h>\fP
+.PP
+Inherits \fBSoElement\fP\&.
+.PP
+Inherited by \fBSoGLMultiTextureEnabledElement\fP\&.
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBMode\fP { \fBDISABLED\fP = 0, \fBTEXTURE2D\fP, \fBRECTANGLE\fP, \fBCUBEMAP\fP, \fBTEXTURE3D\fP }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual void \fBinit\fP (\fBSoState\fP *state)"
+.br
+.ti -1c
+.RI "virtual void \fBsetElt\fP (const \fBint\fP unit, const \fBint\fP mode)"
+.br
+.ti -1c
+.RI "virtual void \fBpush\fP (\fBSoState\fP *state)"
+.br
+.ti -1c
+.RI "virtual SbBool \fBmatches\fP (const \fBSoElement\fP *elem) const"
+.br
+.ti -1c
+.RI "\fBSoElement\fP * \fBcopyMatchInfo\fP (void) const"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static \fBint\fP \fBgetClassStackIndex\fP (void)"
+.br
+.ti -1c
+.RI "static void * \fBcreateInstance\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBset\fP (\fBSoState\fP *state, \fBSoNode\fP *node, const \fBint\fP unit, const SbBool enabled)"
+.br
+.ti -1c
+.RI "static SbBool \fBget\fP (\fBSoState\fP *state, const \fBint\fP unit=0)"
+.br
+.ti -1c
+.RI "static const SbBool * \fBgetEnabledUnits\fP (\fBSoState\fP *state, \fBint\fP &lastenabled)"
+.br
+.ti -1c
+.RI "static const Mode * \fBgetActiveUnits\fP (\fBSoState\fP *state, \fBint\fP &lastenabled)"
+.br
+.ti -1c
+.RI "static void \fBenableRectangle\fP (\fBSoState\fP *state, \fBSoNode\fP *node, const \fBint\fP unit=0)"
+.br
+.ti -1c
+.RI "static void \fBenableCubeMap\fP (\fBSoState\fP *state, \fBSoNode\fP *node, const \fBint\fP unit=0)"
+.br
+.ti -1c
+.RI "static void \fBenableTexture3\fP (\fBSoState\fP *state, \fBSoNode\fP *node, const \fBint\fP unit=0)"
+.br
+.ti -1c
+.RI "static Mode \fBgetMode\fP (\fBSoState\fP *state, const \fBint\fP unit=0)"
+.br
+.ti -1c
+.RI "static void \fBdisableAll\fP (\fBSoState\fP *state)"
+.br
+.ti -1c
+.RI "static void \fBset\fP (\fBSoState\fP *state, const SbBool enabled)"
+.br
+.ti -1c
+.RI "static void \fBset\fP (\fBSoState\fP *state, \fBSoNode\fP *node, const SbBool enabled)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSoMultiTextureEnabledElement\fP (void)"
+.br
+.ti -1c
+.RI "virtual \fB~SoMultiTextureEnabledElement\fP ()"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetMaxUnits\fP () const"
+.br
+.ti -1c
+.RI "SbBool \fBisEnabled\fP (const \fBint\fP unit) const"
+.br
+.ti -1c
+.RI "Mode \fBgetMode\fP (const \fBint\fP unit) const"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoMultiTextureEnabledElement\fP class is an element which stores whether texturing is enabled or not\&.
+.PP
+Be aware that this class is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&. 
+
+
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.2 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoMultiTextureEnabledElement::SoMultiTextureEnabledElement (void)\fC [protected]\fP"
+The constructor\&. 
+.SS "SoMultiTextureEnabledElement::~SoMultiTextureEnabledElement (void)\fC [protected]\fP, \fC [virtual]\fP"
+The destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void * SoMultiTextureEnabledElement::createInstance (void)\fC [static]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoMultiTextureEnabledElement::init (\fBSoState\fP * state)\fC [virtual]\fP"
+This function initializes the element type in the given \fBSoState\fP\&. It is called for the first element of each enabled element type in \fBSoState\fP objects\&. 
+.PP
+Reimplemented from \fBSoElement\fP\&.
+.PP
+Reimplemented in \fBSoGLMultiTextureEnabledElement\fP\&.
+.SS "void SoMultiTextureEnabledElement::set (\fBSoState\fP * state, \fBSoNode\fP * node, const \fBint\fP unit, const SbBool enabled)\fC [static]\fP"
+Sets the state of this element\&. 
+.SS "SbBool SoMultiTextureEnabledElement::get (\fBSoState\fP * state, const \fBint\fP unit = \fC0\fP)\fC [static]\fP"
+Return current state of this element for \fIunit\fP\&. 
+.SS "void SoMultiTextureEnabledElement::setElt (const \fBint\fP unit, const \fBint\fP mode_in)\fC [virtual]\fP"
+virtual element set function\&. 
+.PP
+Reimplemented in \fBSoGLMultiTextureEnabledElement\fP\&.
+.SS "void SoMultiTextureEnabledElement::push (\fBSoState\fP * state)\fC [virtual]\fP"
+This method is called every time a new element is required in one of the stacks\&. This happens when a writable element is requested, using \fBSoState::getElement()\fP or indirectly \fBSoElement::getElement()\fP, and the depth of the current element is less than the state depth\&.
+.PP
+Override this method if your element needs to copy data from the previous top of stack\&. The \fBpush()\fP method is called on the new element, and the previous element can be found using \fBSoElement::getNextInStack()\fP\&. 
+.PP
+Reimplemented from \fBSoElement\fP\&.
+.PP
+Reimplemented in \fBSoGLMultiTextureEnabledElement\fP\&.
+.SS "SbBool SoMultiTextureEnabledElement::matches (const \fBSoElement\fP * element) const\fC [virtual]\fP"
+This function returns \fCTRUE\fP is the element matches another element (of the same class), with respect to cache validity\&.
+.PP
+If the application programmer's extension element has a \fBmatches()\fP function, it should also have a \fBcopyMatchInfo()\fP function\&. 
+.PP
+Implements \fBSoElement\fP\&.
+.SS "\fBSoElement\fP * SoMultiTextureEnabledElement::copyMatchInfo (void) const\fC [virtual]\fP"
+This function creates a copy of the element that contains enough information to enable the \fBmatches()\fP function to work\&.
+.PP
+Used to help with scenegraph traversal caching operations\&. 
+.PP
+Implements \fBSoElement\fP\&.
+.SS "const SbBool * SoMultiTextureEnabledElement::getEnabledUnits (\fBSoState\fP * state, \fBint\fP & lastenabled)\fC [static]\fP"
+Returns a pointer to a boolean array\&. TRUE means unit is enabled and that texture coordinates must be sent to the unit\&. \fIlastenabled\fP is set to the last enabled unit\&. 
+.SS "const SoMultiTextureEnabledElement::Mode * SoMultiTextureEnabledElement::getActiveUnits (\fBSoState\fP * state, \fBint\fP & lastenabled)\fC [static]\fP"
+Returns the mode of all units\&. Also returns the last enabled unit in \fIlastenabled\fP\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.5 
+.RE
+.PP
+
+.SS "void SoMultiTextureEnabledElement::enableRectangle (\fBSoState\fP * state, \fBSoNode\fP * node, const \fBint\fP unit = \fC0\fP)\fC [static]\fP"
+Enable RECTANGLE texture mode\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.5 
+.RE
+.PP
+
+.SS "void SoMultiTextureEnabledElement::enableCubeMap (\fBSoState\fP * state, \fBSoNode\fP * node, const \fBint\fP unit = \fC0\fP)\fC [static]\fP"
+Enable CUBEMAP texture mode\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.5 
+.RE
+.PP
+
+.SS "void SoMultiTextureEnabledElement::enableTexture3 (\fBSoState\fP * state, \fBSoNode\fP * node, const \fBint\fP unit = \fC0\fP)\fC [static]\fP"
+Enable Texture3 texture mode\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 4\&.0 
+.RE
+.PP
+
+.SS "SoMultiTextureEnabledElement::Mode SoMultiTextureEnabledElement::getMode (\fBSoState\fP * state, const \fBint\fP unit = \fC0\fP)\fC [static]\fP"
+Returns the mode for a texture unit\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.5 
+.RE
+.PP
+
+.SS "void SoMultiTextureEnabledElement::disableAll (\fBSoState\fP * state)\fC [static]\fP"
+Disable all active texture units\&. Convenient when all textures needs to be disabled before rendering\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.5 
+.RE
+.PP
+
+.SS "void SoMultiTextureEnabledElement::set (\fBSoState\fP * state, const SbBool enabled)\fC [inline]\fP, \fC [static]\fP"
+Coin-3 support\&. 
+.SS "void SoMultiTextureEnabledElement::set (\fBSoState\fP * state, \fBSoNode\fP * node, const SbBool enabled)\fC [inline]\fP, \fC [static]\fP"
+Coin-3 support\&. 
+.SS "\fBint\fP SoMultiTextureEnabledElement::getMaxUnits () const\fC [protected]\fP"
+Returns the max number of texture units enabled/disabled 
+.PP
+\fBSince:\fP
+.RS 4
+Coin 4\&.0 
+.RE
+.PP
+
+.SS "SbBool SoMultiTextureEnabledElement::isEnabled (const \fBint\fP unit) const\fC [protected]\fP"
+Returns TRUE if unit is enabled (Mode == DISABLED)\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

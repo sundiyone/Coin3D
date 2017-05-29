@@ -1,0 +1,45 @@
+.TH "SbOctTreeFuncs" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SbOctTreeFuncs
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/SbOctTree\&.h>\fP
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "SbBool(* \fBptinsidefunc\fP )(void *const item, const \fBSbVec3f\fP &pt)"
+.br
+.ti -1c
+.RI "SbBool(* \fBinsideboxfunc\fP )(void *const item, const \fBSbBox3f\fP &box)"
+.br
+.ti -1c
+.RI "SbBool(* \fBinsidespherefunc\fP )(void *const item, const \fBSbSphere\fP &sphere)"
+.br
+.ti -1c
+.RI "SbBool(* \fBinsideplanesfunc\fP )(void *const item, const \fBSbPlane\fP *const planes, const \fBint\fP numplanes)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBSbOctTreeFuncs\fP struct is used to specify callback functions for working with items in an \fBSbOctTree\fP\&.
+.PP
+The only function pointer that \fImust\fP be set up is \fCinsideboxfunc\fP\&. The other functions must be set if you intend to use the corresponding find methods in \fBSbOctTree\fP\&. 
+.SH "Member Data Documentation"
+.PP 
+.SS "SbOctTreeFuncs::ptinsidefunc"
+Should return whether a point is inside item\&. 
+.SS "SbOctTreeFuncs::insideboxfunc"
+Should return whether item is either fully or partly inside a box\&. 
+.SS "SbOctTreeFuncs::insidespherefunc"
+Should return whether item is either fully or partly inside a sphere\&. 
+.SS "SbOctTreeFuncs::insideplanesfunc"
+Should return whether item is either fully or partly inside a set of planes\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

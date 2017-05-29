@@ -1,0 +1,77 @@
+.TH "fifo.h" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+fifo.h
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <Inventor/C/basic\&.h>\fP
+.br
+\fC#include <Inventor/C/threads/common\&.h>\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBcc_fifo\fP * \fBcc_fifo_new\fP (void)"
+.br
+.ti -1c
+.RI "void \fBcc_fifo_delete\fP (\fBcc_fifo\fP *fifo)"
+.br
+.ti -1c
+.RI "void \fBcc_fifo_assign\fP (\fBcc_fifo\fP *fifo, void *ptr, uint32_t type)"
+.br
+.ti -1c
+.RI "void \fBcc_fifo_retrieve\fP (\fBcc_fifo\fP *fifo, void **ptr, uint32_t *type)"
+.br
+.ti -1c
+.RI "SbBool \fBcc_fifo_try_retrieve\fP (\fBcc_fifo\fP *fifo, void **ptr, uint32_t *type)"
+.br
+.ti -1c
+.RI "unsigned \fBint\fP \fBcc_fifo_size\fP (\fBcc_fifo\fP *fifo)"
+.br
+.ti -1c
+.RI "void \fBcc_fifo_lock\fP (\fBcc_fifo\fP *fifo)"
+.br
+.ti -1c
+.RI "void \fBcc_fifo_unlock\fP (\fBcc_fifo\fP *fifo)"
+.br
+.ti -1c
+.RI "SbBool \fBcc_fifo_peek\fP (\fBcc_fifo\fP *fifo, void **item, uint32_t *type)"
+.br
+.ti -1c
+.RI "SbBool \fBcc_fifo_contains\fP (\fBcc_fifo\fP *fifo, void *item)"
+.br
+.ti -1c
+.RI "SbBool \fBcc_fifo_reclaim\fP (\fBcc_fifo\fP *fifo, void *item)"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "\fBcc_fifo\fP* cc_fifo_new (void)"
+Constructs a new first-in, first-out queue\&. 
+.SS "void cc_fifo_delete (\fBcc_fifo\fP * fifo)"
+Destroys the \fIfifo\fP first-in, first-out queue\&. 
+.SS "void cc_fifo_assign (\fBcc_fifo\fP * fifo, void * ptr, uint32_t type)"
+Appends the \fIptr\fP of type \fItype\fP to the end of the \fIfifo\fP first-in, first-out queue\&. 
+.SS "void cc_fifo_retrieve (\fBcc_fifo\fP * fifo, void ** ptr, uint32_t * type)"
+Retrieves the first item from the \fIfifo\fP first-in, first-out queue\&. 
+.SS "SbBool cc_fifo_try_retrieve (\fBcc_fifo\fP * fifo, void ** ptr, uint32_t * type)"
+Checks the \fIfifo\fP first-in, first-out queue to see if an item can be retrieved\&. If so the properties of the first available item are returned\&. 
+.SS "unsigned \fBint\fP cc_fifo_size (\fBcc_fifo\fP * fifo)"
+Returns the number of elements in the \fIfifo\fP first-in, first-out queue\&. 
+.SS "void cc_fifo_lock (\fBcc_fifo\fP * fifo)"
+Locks the \fIfifo\fP first-in, first-out queue\&. 
+.SS "void cc_fifo_unlock (\fBcc_fifo\fP * fifo)"
+Unlocks the \fIfifo\fP first-in, first-out queue\&. 
+.SS "SbBool cc_fifo_peek (\fBcc_fifo\fP * fifo, void ** item, uint32_t * type)"
+Returns the properties of the first item in the \fIfifo\fP first-in, first-out queue\&. 
+.SS "SbBool cc_fifo_contains (\fBcc_fifo\fP * fifo, void * itemptr)"
+Checks if the \fIfifo\fP first-in, first-out queue contains the \fIitemptr\fP item\&. 
+.SS "SbBool cc_fifo_reclaim (\fBcc_fifo\fP * fifo, void * itemptr)"
+Removes from the \fIfifo\fP first-in, first-out queue the \fIitemptr\fP item if present\&. 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

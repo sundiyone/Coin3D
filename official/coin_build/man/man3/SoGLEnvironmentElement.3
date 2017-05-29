@@ -1,0 +1,75 @@
+.TH "SoGLEnvironmentElement" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoGLEnvironmentElement \- The \fBSoGLEnvironmentElement\fP class is for setting GL fog etc\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/elements/SoGLEnvironmentElement\&.h>\fP
+.PP
+Inherits \fBSoEnvironmentElement\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual void \fBinit\fP (\fBSoState\fP *state)"
+.br
+.RI "FIXME: write doc\&. "
+.ti -1c
+.RI "virtual void \fBpop\fP (\fBSoState\fP *state, const \fBSoElement\fP *prevTopElement)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static \fBint\fP \fBgetClassStackIndex\fP (void)"
+.br
+.ti -1c
+.RI "static void * \fBcreateInstance\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fB~SoGLEnvironmentElement\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBsetElt\fP (\fBSoState\fP *const state, const float \fBambientIntensity\fP, const \fBSbColor\fP &\fBambientColor\fP, const \fBSbVec3f\fP &\fBattenuation\fP, const int32_t \fBfogType\fP, const \fBSbColor\fP &\fBfogColor\fP, const float \fBfogVisibility\fP, const float \fBfogStart\fP)"
+.br
+.RI "FIXME: doc\&. "
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoGLEnvironmentElement\fP class is for setting GL fog etc\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoGLEnvironmentElement::~SoGLEnvironmentElement ()\fC [protected]\fP, \fC [virtual]\fP"
+The destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void * SoGLEnvironmentElement::createInstance (void)\fC [static]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoGLEnvironmentElement::initClass (void)\fC [static]\fP"
+This static method initializes static data for the \fBSoGLEnvironmentElement\fP class\&. 
+.SS "void SoGLEnvironmentElement::pop (\fBSoState\fP * state, const \fBSoElement\fP * prevTopElement)\fC [virtual]\fP"
+This method is callled when the state is popped, and the depth of the element is bigger than the current state depth\&. \fBpop()\fP is called on the new top of stack, and a pointer to the previous top of stack is passed in \fIprevTopElement\fP\&.
+.PP
+Override this method if you need to copy some state information from the previous top of stack\&. 
+.PP
+Reimplemented from \fBSoElement\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

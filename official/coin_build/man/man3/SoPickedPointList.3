@@ -1,0 +1,94 @@
+.TH "SoPickedPointList" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoPickedPointList \- The \fBSoPickedPointList\fP class is a container for pointers to \fBSoPickedPoint\fP objects\&.
+.PP
+This list class will delete the picked points when destructed/truncated, or when a picked point in the list is replaced by another picked point The caller is responsible for allocating the picked points passed to the list, but should not deallocate them since this will be handled by the list\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/lists/SoPickedPointList\&.h>\fP
+.PP
+Inherits \fBSbPList\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSoPickedPointList\fP (void)"
+.br
+.ti -1c
+.RI "\fBSoPickedPointList\fP (const \fBint\fP sizehint)"
+.br
+.ti -1c
+.RI "\fBSoPickedPointList\fP (const \fBSoPickedPointList\fP &l)"
+.br
+.ti -1c
+.RI "void \fBappend\fP (\fBSoPickedPoint\fP *pp)"
+.br
+.ti -1c
+.RI "void \fBinsert\fP (\fBSoPickedPoint\fP *pp, const \fBint\fP insertbefore)"
+.br
+.ti -1c
+.RI "\fBSoPickedPoint\fP * \fBoperator[]\fP (const \fBint\fP idx) const"
+.br
+.ti -1c
+.RI "void \fBtruncate\fP (const \fBint\fP start, const \fBint\fP \fBfit\fP=0)"
+.br
+.ti -1c
+.RI "void \fBset\fP (const \fBint\fP idx, \fBSoPickedPoint\fP *pp)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoPickedPointList\fP class is a container for pointers to \fBSoPickedPoint\fP objects\&.
+.PP
+This list class will delete the picked points when destructed/truncated, or when a picked point in the list is replaced by another picked point The caller is responsible for allocating the picked points passed to the list, but should not deallocate them since this will be handled by the list\&. 
+
+
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSbPList\fP 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoPickedPointList::SoPickedPointList (void)\fC [inline]\fP"
+Default constructor\&. 
+.SS "SoPickedPointList::SoPickedPointList (const \fBint\fP sizehint)\fC [inline]\fP"
+This constructor initializes the internal allocated size for the list to \fIsizehint\fP\&. Note that the list will still initially contain zero items\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSbList::SbList(const int sizehint)\fP 
+.RE
+.PP
+
+.SS "SoPickedPointList::SoPickedPointList (const \fBSoPickedPointList\fP & l)"
+Copy constructor\&. Will copy picked points, not just pointers\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSbList::SbList(const SbList<Type> & l)\fP 
+.RE
+.PP
+
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoPickedPoint\fP * SoPickedPointList::operator[] (const \fBint\fP idx) const\fC [inline]\fP"
+Returns element at \fIidx\fP\&.
+.PP
+Will automatically expand the size of the internal array if \fIidx\fP is outside the current bounds of the list\&. The values of any additional pointers are then set to \fCNULL\fP\&. 
+.SS "void SoPickedPointList::truncate (const \fBint\fP start, const \fBint\fP fit = \fC0\fP)"
+Overridden to delete truncated items\&. 
+.SS "void SoPickedPointList::set (const \fBint\fP idx, \fBSoPickedPoint\fP * pp)"
+Overridden to destruct the replaced item\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

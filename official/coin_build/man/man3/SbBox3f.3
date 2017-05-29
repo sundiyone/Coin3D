@@ -1,0 +1,334 @@
+.TH "SbBox3f" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SbBox3f \- The \fBSbBox3f\fP class is an abstraction for an axis aligned 3 dimensional box\&.
+.PP
+This box abstraction class is used by other entities in the Coin library for data exchange and storage\&. It provides a representation of the defining corners of a box in 3D space, with the sides aligned with the 3 principal axes\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/SbBox3f\&.h>\fP
+.PP
+Inherited by \fBSbXfBox3f\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSbBox3f\fP (void)"
+.br
+.ti -1c
+.RI "\fBSbBox3f\fP (float xmin, float ymin, float zmin, float xmax, float ymax, float zmax)"
+.br
+.ti -1c
+.RI "\fBSbBox3f\fP (const \fBSbVec3f\fP &minpoint, const \fBSbVec3f\fP &maxpoint)"
+.br
+.ti -1c
+.RI "\fBSbBox3f\fP (const \fBSbBox3d\fP &box)"
+.br
+.ti -1c
+.RI "\fBSbBox3f\fP (const \fBSbBox3s\fP &box)"
+.br
+.ti -1c
+.RI "\fBSbBox3f\fP (const \fBSbBox3i32\fP &box)"
+.br
+.ti -1c
+.RI "\fBSbBox3f\fP & \fBsetBounds\fP (float xmin, float ymin, float zmin, float xmax, float ymax, float zmax)"
+.br
+.ti -1c
+.RI "\fBSbBox3f\fP & \fBsetBounds\fP (const \fBSbVec3f\fP &minpoint, const \fBSbVec3f\fP &maxpoint)"
+.br
+.ti -1c
+.RI "\fBSbBox3f\fP & \fBsetBounds\fP (const \fBSbBox3d\fP &box)"
+.br
+.ti -1c
+.RI "\fBSbBox3f\fP & \fBsetBounds\fP (const \fBSbBox3s\fP &box)"
+.br
+.ti -1c
+.RI "\fBSbBox3f\fP & \fBsetBounds\fP (const \fBSbBox3i32\fP &box)"
+.br
+.ti -1c
+.RI "void \fBgetBounds\fP (float &xmin, float &ymin, float &zmin, float &xmax, float &ymax, float &zmax) const"
+.br
+.ti -1c
+.RI "void \fBgetBounds\fP (\fBSbVec3f\fP &minpoint, \fBSbVec3f\fP &maxpoint) const"
+.br
+.ti -1c
+.RI "const \fBSbVec3f\fP & \fBgetMin\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP & \fBgetMin\fP (void)"
+.br
+.ti -1c
+.RI "const \fBSbVec3f\fP & \fBgetMax\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP & \fBgetMax\fP (void)"
+.br
+.ti -1c
+.RI "void \fBextendBy\fP (const \fBSbVec3f\fP &pt)"
+.br
+.ti -1c
+.RI "void \fBextendBy\fP (const \fBSbBox3f\fP &box)"
+.br
+.ti -1c
+.RI "void \fBtransform\fP (const \fBSbMatrix\fP &matrix)"
+.br
+.ti -1c
+.RI "void \fBmakeEmpty\fP (void)"
+.br
+.ti -1c
+.RI "SbBool \fBisEmpty\fP (void) const"
+.br
+.ti -1c
+.RI "SbBool \fBhasVolume\fP (void) const"
+.br
+.ti -1c
+.RI "float \fBgetVolume\fP (void) const"
+.br
+.ti -1c
+.RI "SbBool \fBintersect\fP (const \fBSbVec3f\fP &pt) const"
+.br
+.ti -1c
+.RI "SbBool \fBintersect\fP (const \fBSbBox3f\fP &box) const"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP \fBgetClosestPoint\fP (const \fBSbVec3f\fP &point) const"
+.br
+.ti -1c
+.RI "SbBool \fBoutside\fP (const \fBSbMatrix\fP &mvp, \fBint\fP &cullbits) const"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP \fBgetCenter\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBgetOrigin\fP (float &originX, float &originY, float &originZ) const"
+.br
+.ti -1c
+.RI "void \fBgetSize\fP (float &sizeX, float &sizeY, float &sizeZ) const"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP \fBgetSize\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBgetSpan\fP (const \fBSbVec3f\fP &dir, float &dmin, float &dmax) const"
+.br
+.ti -1c
+.RI "void \fBprint\fP (FILE *file) const"
+.br
+.in -1c
+.SS "Related Functions"
+(Note that these are not member functions\&.) 
+.in +1c
+.ti -1c
+.RI "\fBint\fP \fBoperator==\fP (const \fBSbBox3f\fP &b1, const \fBSbBox3f\fP &b2)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBoperator!=\fP (const \fBSbBox3f\fP &b1, const \fBSbBox3f\fP &b2)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBSbBox3f\fP class is an abstraction for an axis aligned 3 dimensional box\&.
+.PP
+This box abstraction class is used by other entities in the Coin library for data exchange and storage\&. It provides a representation of the defining corners of a box in 3D space, with the sides aligned with the 3 principal axes\&. 
+
+
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSbBox2s\fP, \fBSbBox2f\fP, \fBSbBox2d\fP, \fBSbBox3s\fP, \fBSbBox3d\fP, \fBSbXfBox3f\fP\&. 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SbBox3f::SbBox3f (void)\fC [inline]\fP"
+The default constructor makes an empty box\&. 
+.SS "SbBox3f::SbBox3f (float minx, float miny, float minz, float maxx, float maxy, float maxz)\fC [inline]\fP"
+Constructs a box with the given corners\&.
+.PP
+\fIminx\fP should be less than \fImaxx\fP, \fIminy\fP should be less than \fImaxy\fP and \fIminz\fP should be less than \fImaxz\fP if you want to make a valid box\&. 
+.SS "SbBox3f::SbBox3f (const \fBSbVec3f\fP & minval, const \fBSbVec3f\fP & maxval)\fC [inline]\fP"
+Constructs a box with the given corners\&.
+.PP
+The coordinates of \fImin\fP should be less than the coordinates of \fImax\fP if you want to make a valid box\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSbBox3f\fP & SbBox3f::setBounds (float minx, float miny, float minz, float maxx, float maxy, float maxz)\fC [inline]\fP"
+Reset the boundaries of the box\&.
+.PP
+\fIminx\fP should be less than \fImaxx\fP, \fIminy\fP should be less than \fImaxy\fP and \fIminz\fP should be less than \fImaxz\fP if you want to make a valid box\&.
+.PP
+Returns reference to self\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetBounds()\fP\&. 
+.RE
+.PP
+
+.SS "\fBSbBox3f\fP & SbBox3f::setBounds (const \fBSbVec3f\fP & minval, const \fBSbVec3f\fP & maxval)\fC [inline]\fP"
+Reset the boundaries of the box with the given corners\&.
+.PP
+The coordinates of \fImin\fP should be less than the coordinates of \fImax\fP if you want to make a valid box\&.
+.PP
+Returns reference to self\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetBounds()\fP\&. 
+.RE
+.PP
+
+.SS "\fBSbBox3f\fP & SbBox3f::setBounds (const \fBSbBox3d\fP & box)"
+Reset the boundaries to the boundaries of the given \fIbox\fP\&.
+.PP
+Returns reference to self\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetBounds()\fP\&. 
+.RE
+.PP
+
+.SS "\fBSbBox3f\fP & SbBox3f::setBounds (const \fBSbBox3s\fP & box)"
+Reset the boundaries to the boundaries of the given \fIbox\fP\&.
+.PP
+Returns reference to self\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetBounds()\fP\&. 
+.RE
+.PP
+
+.SS "\fBSbBox3f\fP & SbBox3f::setBounds (const \fBSbBox3i32\fP & box)"
+Reset the boundaries to the boundaries of the given \fIbox\fP\&.
+.PP
+Returns reference to self\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetBounds()\fP\&. 
+.RE
+.PP
+
+.SS "void SbBox3f::getBounds (float & minx, float & miny, float & minz, float & maxx, float & maxy, float & maxz) const\fC [inline]\fP"
+Returns the box boundaries\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetBounds()\fP\&. 
+.RE
+.PP
+
+.SS "void SbBox3f::getBounds (\fBSbVec3f\fP & minobj, \fBSbVec3f\fP & maxobj) const\fC [inline]\fP"
+Returns the box corner points\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetBounds()\fP\&. 
+.RE
+.PP
+
+.SS "const \fBSbVec3f\fP & SbBox3f::getMin (void) const\fC [inline]\fP"
+Returns the minimum point\&. This should usually be the lower left corner point of the box\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetOrigin()\fP, \fBgetMax()\fP\&. 
+.RE
+.PP
+
+.SS "\fBSbVec3f\fP & SbBox3f::getMin (void)\fC [inline]\fP"
+Returns a modifiable reference the minimum point\&. 
+.SS "const \fBSbVec3f\fP & SbBox3f::getMax (void) const\fC [inline]\fP"
+Returns the maximum point\&. This should usually be the upper right corner point of the box\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetMin()\fP\&. 
+.RE
+.PP
+
+.SS "\fBSbVec3f\fP & SbBox3f::getMax (void)\fC [inline]\fP"
+Returns a modifiable reference the maximum point\&. 
+.SS "void SbBox3f::extendBy (const \fBSbVec3f\fP & point)"
+Extend the boundaries of the box by the given point, i\&.e\&. make the point fit inside the box if it isn't already so\&. 
+.SS "void SbBox3f::extendBy (const \fBSbBox3f\fP & box)"
+Extend the boundaries of the box by the given \fIbox\fP parameter\&. This is equal to calling \fBextendBy()\fP twice with the corner points\&. 
+.SS "void SbBox3f::transform (const \fBSbMatrix\fP & matrix)"
+Transform the box by the matrix, and change its boundaries to contain the transformed box\&.
+.PP
+Doesn't touch illegal/empty boxes\&. 
+.SS "void SbBox3f::makeEmpty (void)"
+Marks this as an empty box\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBisEmpty()\fP\&. 
+.RE
+.PP
+
+.SS "SbBool SbBox3f::isEmpty (void) const\fC [inline]\fP"
+Check if this has been marked as an empty box\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBmakeEmpty()\fP\&. 
+.RE
+.PP
+
+.SS "SbBool SbBox3f::hasVolume (void) const\fC [inline]\fP"
+Check if the box has been correctly specified and by that virtue has volume\&. 
+.SS "float SbBox3f::getVolume (void) const\fC [inline]\fP"
+Check if the box has 'positive' volume, i\&.e\&. the lower left corner is actually lower and more left than the maximum point\&. 
+.SS "SbBool SbBox3f::intersect (const \fBSbVec3f\fP & point) const"
+Check if the given point lies within the boundaries of this box\&. 
+.SS "SbBool SbBox3f::intersect (const \fBSbBox3f\fP & box) const"
+Check if the given \fIbox\fP lies wholly or partly within the boundaries of this box\&. 
+.SS "\fBSbVec3f\fP SbBox3f::getClosestPoint (const \fBSbVec3f\fP & point) const"
+Return the point on the box closest to the given \fIpoint\fP\&. 
+.SS "SbBool SbBox3f::outside (const \fBSbMatrix\fP & mvp, \fBint\fP & cullbits) const"
+Check if the box is outside the view volume defined by the \fImvp\fP matrix\&. Sets \fIcullbits\fP according to which planes we're inside or outside\&. Bit 0 (0x1) is cleared when box is completely inside left and right clipping planes\&. Bit 1 (0x2) is cleared when box is inside top and bottom clipping planes\&. Bit 2 (0x4) is cleared when box is inside near and far clipping planes\&.
+.PP
+Returns \fCTRUE\fP if box is completely outside one of the clipping planes\&. \fCFALSE\fP otherwise\&. 
+.SS "\fBSbVec3f\fP SbBox3f::getCenter (void) const\fC [inline]\fP"
+Returns the center point of the box\&. 
+.SS "void SbBox3f::getOrigin (float & x0, float & y0, float & z0) const\fC [inline]\fP"
+Returns the coordinates of the box origin (i\&.e\&. the lower left corner)\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetMin()\fP\&. 
+.RE
+.PP
+
+.SS "void SbBox3f::getSize (float & dx, float & dy, float & dz) const\fC [inline]\fP"
+Returns width, height and depth of box\&. 
+.SS "\fBSbVec3f\fP SbBox3f::getSize (void) const\fC [inline]\fP"
+Returns width, height and depth of box as a 3D vector\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 3\&.0 
+.RE
+.PP
+
+.SS "void SbBox3f::getSpan (const \fBSbVec3f\fP & dir, float & dmin, float & dmax) const"
+Find the span of the box in the given direction (i\&.e\&. how much room in the given direction the box needs)\&. The distance is returned as the minimum and maximum distance from origo to the closest and furthest plane defined by the direction vector and each of the box' corners\&. The difference between these values gives the span\&. 
+.SS "void SbBox3f::print (FILE * fp) const"
+Dump the state of this object to the \fIfile\fP stream\&. Only works in debug version of library, method does nothing in an optimized compile\&. 
+.SH "Friends And Related Function Documentation"
+.PP 
+.SS "\fBint\fP operator== (const \fBSbBox3f\fP & b1, const \fBSbBox3f\fP & b2)\fC [related]\fP"
+Check \fIb1\fP and \fIb2\fP for equality\&. 
+.SS "\fBint\fP operator!= (const \fBSbBox3f\fP & b1, const \fBSbBox3f\fP & b2)\fC [related]\fP"
+Check \fIb1\fP and \fIb2\fP for inequality\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

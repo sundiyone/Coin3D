@@ -1,0 +1,103 @@
+.TH "SoBoundingBoxCache" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoBoundingBoxCache \- The \fBSoBoundingBoxCache\fP class is used to cache bounding boxes\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/caches/SoBoundingBoxCache\&.h>\fP
+.PP
+Inherits \fBSoCache\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSoBoundingBoxCache\fP (\fBSoState\fP *state)"
+.br
+.ti -1c
+.RI "virtual \fB~SoBoundingBoxCache\fP ()"
+.br
+.ti -1c
+.RI "void \fBset\fP (const \fBSbXfBox3f\fP &boundingbox, SbBool centerset, const \fBSbVec3f\fP &centerpoint)"
+.br
+.ti -1c
+.RI "const \fBSbXfBox3f\fP & \fBgetBox\fP () const"
+.br
+.ti -1c
+.RI "const \fBSbBox3f\fP & \fBgetProjectedBox\fP () const"
+.br
+.ti -1c
+.RI "SbBool \fBisCenterSet\fP () const"
+.br
+.ti -1c
+.RI "const \fBSbVec3f\fP & \fBgetCenter\fP () const"
+.br
+.ti -1c
+.RI "SbBool \fBhasLinesOrPoints\fP (void) const"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static void \fBsetHasLinesOrPoints\fP (\fBSoState\fP *state)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoBoundingBoxCache\fP class is used to cache bounding boxes\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoBoundingBoxCache::SoBoundingBoxCache (\fBSoState\fP * state)"
+Constructor with \fIstate\fP being the current state\&. 
+.SS "SoBoundingBoxCache::~SoBoundingBoxCache ()\fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void SoBoundingBoxCache::set (const \fBSbXfBox3f\fP & boundingbox, SbBool centerset, const \fBSbVec3f\fP & centerpoint)"
+Sets the data for this cache\&. \fIboundingBox\fP is the node's bounding box, \fIcenterSet\fP and \fIcenterPoints\fP specifies the center of the geometry inside \fIboundingBox\fP\&. 
+.SS "const \fBSbXfBox3f\fP & SoBoundingBoxCache::getBox (void) const"
+Returns the bounding box for this cache\&. 
+.SS "const \fBSbBox3f\fP & SoBoundingBoxCache::getProjectedBox (void) const"
+Returns the projected bounding box for this cache\&. 
+.SS "SbBool SoBoundingBoxCache::isCenterSet (void) const"
+Returns whether the center of the bounding box was set in the \fBSoBoundingBoxCache::set()\fP method\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoBoundingBoxCache::getCenter()\fP 
+.RE
+.PP
+
+.SS "const \fBSbVec3f\fP & SoBoundingBoxCache::getCenter (void) const"
+Returns the center of the bounding box\&. Should only be used if \fBSoBoundingBoxCache::isCenterSet()\fP returns \fCTRUE\fP\&. 
+.SS "void SoBoundingBoxCache::setHasLinesOrPoints (\fBSoState\fP * state)\fC [static]\fP"
+Sets the flag returned from \fBSoBoundingBoxCache::hasLinesOrPoints()\fP to \fCTRUE\fP for all open bounding box caches\&.
+.PP
+The reason bounding box caches keep a lines-or-points flag is to make it known to client code if the shape(s) they contain have any of these primitives -- or are rendered with these primitives\&. The reason this is important to know for the client code is because it might need to add an 'epsilon' slack value to the calculated bounding box to account for smoothing / anti-aliasing effects in the renderer, so lines and points graphics is not accidently clipped by near and far clipping planes, for instance\&.
+.PP
+This method is a static method on the class\&. It will upon invocation scan through the state stack and set the flag for all open \fBSoBoundingBoxCache\fP elements\&. It has been made to work like this so it can easily be invoked on all current bounding box cache instances from the SoShape-type nodes using lines and / or point primitives\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBhasLinesOrPoints()\fP 
+.RE
+.PP
+
+.SS "SbBool SoBoundingBoxCache::hasLinesOrPoints (void) const"
+Return \fCTRUE\fP if the hasLinesOrPoints flag has been set\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetHasLinesOrPoints()\fP 
+.RE
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

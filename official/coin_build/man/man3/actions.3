@@ -1,0 +1,143 @@
+.TH "actions" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+actions \- Actions are objects that traverse a scene graph to drive some scene-related process\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBSoAction\fP"
+.br
+.RI "The \fBSoAction\fP class is the base class for all traversal actions\&.
+.PP
+Applying actions is the basic mechanism in Coin for executing various operations on scene graphs or paths within scene graphs, including search operations, rendering, interaction through picking, etc\&. "
+.ti -1c
+.RI "class \fBSoBoxHighlightRenderAction\fP"
+.br
+.RI "The \fBSoBoxHighlightRenderAction\fP class renders the scene with highlighted boxes around selections\&.
+.PP
+This action performs the same tasks as its parent class, \fBSoGLRenderAction\fP, with the added ability to render highlighted bounding boxes around geometry in selected nodes\&. This is a simple but convenient way of giving feedback to the user upon interaction with the scene graph\&. "
+.ti -1c
+.RI "class \fBSoCallbackAction\fP"
+.br
+.RI "The \fBSoCallbackAction\fP class invokes callbacks at specific nodes\&.
+.PP
+This action has mechanisms for tracking traversal position and traversal state\&. In combination with the ability to pass geometry primitives to callback actions set by the user, this does for instance make it rather straightforward to extract the geometry of a scene graph\&. "
+.ti -1c
+.RI "class \fBSoGLRenderAction\fP"
+.br
+.RI "The \fBSoGLRenderAction\fP class renders the scene graph with OpenGL calls\&.
+.PP
+Applying this method at a root node for a scene graph, path or pathlist will render all geometry contained within that instance to the current OpenGL context\&. "
+.ti -1c
+.RI "class \fBSoGetBoundingBoxAction\fP"
+.br
+.RI "The \fBSoGetBoundingBoxAction\fP class calculates bounding boxes for nodes and subgraphs\&.
+.PP
+If this action is applied to a path or scene graph root, it will calculate the bounding box and the center point of the geometry contained within the scene\&. "
+.ti -1c
+.RI "class \fBSoGetMatrixAction\fP"
+.br
+.RI "The \fBSoGetMatrixAction\fP class is an action for accumulating the transformation matrix of a subgraph\&.
+.PP
+This action makes it easy to calculate and convert to and from the global coordinate system of your scene and local coordinates of parts in a hierarchical model\&. "
+.ti -1c
+.RI "class \fBSoGetPrimitiveCountAction\fP"
+.br
+.RI "The \fBSoGetPrimitiveCountAction\fP class counts the primitives in a scene\&.
+.PP
+Apply this action to a scene if you need to know the number of primitives present in a scenegraph, or parts of a scenegraph\&. "
+.ti -1c
+.RI "class \fBSoHandleEventAction\fP"
+.br
+.RI "The \fBSoHandleEventAction\fP class distributes user events to the scene\&.
+.PP
+This is the action used by the GUI viewer classes to pass interaction events from the window system to the nodes in the scene graph\&. "
+.ti -1c
+.RI "class \fBSoLineHighlightRenderAction\fP"
+.br
+.RI "The \fBSoLineHighlightRenderAction\fP class renders selections with line highlighting\&.
+.PP
+See the documentation of \fBSoBoxHighlightRenderAction\fP\&. "
+.ti -1c
+.RI "class \fBSoPickAction\fP"
+.br
+.RI "The \fBSoPickAction\fP class is the base class for picking actions\&.
+.PP
+The basis for all interaction features that Coin provides for the application programmer is the pick actions\&. Draggers, manipulators, \fBSoSelection\fP nodes, etc all make use of the functionality provided by the pick actions for selecting and manipulating scene geometry in various ways\&. "
+.ti -1c
+.RI "class \fBSoRayPickAction\fP"
+.br
+.RI "The \fBSoRayPickAction\fP class does ray intersection with scene graphs\&.
+.PP
+For interaction with the scene graph geometry, it is necessary to be able to do intersection testing for rays\&. This functionality is provided by the \fBSoRayPickAction\fP class\&. "
+.ti -1c
+.RI "class \fBSoReorganizeAction\fP"
+.br
+.RI "The \fBSoReorganizeAction\fP class reorganizes your scene graph to optimize traversal/rendering\&. "
+.ti -1c
+.RI "class \fBSoSearchAction\fP"
+.br
+.RI "The \fBSoSearchAction\fP class provides methods for searching through scene graphs\&.
+.PP
+Nodes can be searched for by pointer, type, and name, or a combination of those criteria\&. Types can be interpreted as exact types, or the type can match nodes derived from it\&. Every single node can be searched, or normal traversal rules can be followed when searching (this is especially important to note with regard to switch nodes)\&. "
+.ti -1c
+.RI "class \fBSoToVRMLAction\fP"
+.br
+.RI "The \fBSoToVRMLAction\fP class builds a new scene graph using only VRML 1\&.0 nodes\&.
+.PP
+This action is used for converting a scene graph of VRML2/VRML97 nodes to a new scene graph using only VRML1 compatible nodes\&. "
+.ti -1c
+.RI "class \fBSoToVRML2Action\fP"
+.br
+.RI "The \fBSoToVRML2Action\fP class builds a new scene graph, using only VRML97/VRML2 nodes\&.
+.PP
+This action is used for converting a scene graph of VRML1/Coin nodes to a new scene graph using only VRML97/VRML2 nodes\&. "
+.ti -1c
+.RI "class \fBSoWriteAction\fP"
+.br
+.RI "The \fBSoWriteAction\fP class writes a scene graph to file\&.
+.PP
+When applied to a scene, this action writes its contents to the stream contained within an \fBSoOutput\fP instance\&. This can be a file, a memory buffer or a system filehandle like \fCstdout\fP, for instance\&. "
+.ti -1c
+.RI "class \fBSoAudioRenderAction\fP"
+.br
+.RI "The \fBSoAudioRenderAction\fP class renders the aural parts of the scene graph\&.
+.PP
+Applying this method at a root node for a scene graph, path or pathlist will render all sound-related nodes contained within that instance to the current \fBSoAudioDevice\fP\&. "
+.ti -1c
+.RI "class \fBSoActionMethodList\fP"
+.br
+.RI "The \fBSoActionMethodList\fP class contains function pointers for action methods\&.
+.PP
+An \fBSoActionMethodList\fP contains one function pointer per node type\&. Each action contains an SoActioMethodList to know which functions to call during scene graph traversal\&. "
+.ti -1c
+.RI "class \fBSoEnabledElementsList\fP"
+.br
+.RI "The \fBSoEnabledElementsList\fP class is a container for type info for element types that are enabled in actions\&.
+.PP
+This class is probably not interesting for the application programmer\&. "
+.ti -1c
+.RI "class \fBSoIntersectionDetectionAction\fP"
+.br
+.RI "The \fBSoIntersectionDetectionAction\fP class is for detecting intersecting primitives in a scene\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Actions are objects that traverse a scene graph to drive some scene-related process\&. 
+
+One example is OpenGL rendering, and another one ray picking\&. At the most basic level, most action management will be done for the user behind the scenes in an \fBSoSceneManager\fP object, and the only actions one might need to get acquainted with are \fBSoSearchAction\fP and \fBSoWriteAction\fP\&.
+.PP
+For more advanced usage of Coin, one might want (or need) to take full control over driving all the actions oneself, in which case one will also need to know about the \fBSoGLRenderAction\fP, \fBSoHandleEventAction\fP, \fBSoGetBoundingBoxAction\fP, and \fBSoRayPickAction\fP\&.
+.PP
+The remaining actions are mostly more special-purpose actions of various kinds, except for the \fBSoCallbackAction\fP\&.
+.PP
+Before going to the step of implementing an extension action, one should really take a good look at the \fBSoCallbackAction\fP class, which is a general-purpose action that can be used as the framework for implementing almost any traversal-based process, with callback-hooks for all kinds of events that happen during traversal\&. In most cases, one can avoid the hassle of writing a new action, and just use \fBSoCallbackAction\fP instead\&. 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

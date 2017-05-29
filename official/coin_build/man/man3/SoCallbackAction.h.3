@@ -1,0 +1,125 @@
+.TH "SoCallbackAction.h" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoCallbackAction.h
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <Inventor/actions/SoAction\&.h>\fP
+.br
+\fC#include <Inventor/actions/SoSubAction\&.h>\fP
+.br
+\fC#include <Inventor/elements/SoDecimationTypeElement\&.h>\fP
+.br
+\fC#include <Inventor/lists/SbList\&.h>\fP
+.br
+\fC#include <Inventor/nodes/SoComplexity\&.h>\fP
+.br
+\fC#include <Inventor/nodes/SoDrawStyle\&.h>\fP
+.br
+\fC#include <Inventor/nodes/SoLightModel\&.h>\fP
+.br
+\fC#include <Inventor/nodes/SoMaterialBinding\&.h>\fP
+.br
+\fC#include <Inventor/nodes/SoNormalBinding\&.h>\fP
+.br
+\fC#include <Inventor/nodes/SoPickStyle\&.h>\fP
+.br
+\fC#include <Inventor/nodes/SoShapeHints\&.h>\fP
+.br
+\fC#include <Inventor/nodes/SoTexture2\&.h>\fP
+.br
+\fC#include <Inventor/nodes/SoTextureCoordinateBinding\&.h>\fP
+.br
+\fC#include <Inventor/nodes/SoUnits\&.h>\fP
+.br
+
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBSoCallbackAction\fP"
+.br
+.RI "The \fBSoCallbackAction\fP class invokes callbacks at specific nodes\&.
+.PP
+This action has mechanisms for tracking traversal position and traversal state\&. In combination with the ability to pass geometry primitives to callback actions set by the user, this does for instance make it rather straightforward to extract the geometry of a scene graph\&. "
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef void \fBSoTriangleCB\fP(void *userdata, \fBSoCallbackAction\fP *action, const \fBSoPrimitiveVertex\fP *v1, const \fBSoPrimitiveVertex\fP *v2, const \fBSoPrimitiveVertex\fP *v3)"
+.br
+.ti -1c
+.RI "typedef void \fBSoLineSegmentCB\fP(void *userdata, \fBSoCallbackAction\fP *action, const \fBSoPrimitiveVertex\fP *v1, const \fBSoPrimitiveVertex\fP *v2)"
+.br
+.ti -1c
+.RI "typedef void \fBSoPointCB\fP(void *userdata, \fBSoCallbackAction\fP *action, const \fBSoPrimitiveVertex\fP *v)"
+.br
+.in -1c
+.SH "Typedef Documentation"
+.PP 
+.SS "void SoTriangleCB"
+
+.PP
+\fBParameters:\fP
+.RS 4
+\fIuserdata\fP is a void pointer to any data the application need to know of in the callback function (like for instance a \fIthis\fP pointer)\&. 
+.br
+\fIaction\fP the action which invoked the callback 
+.br
+\fIv1\fP first vertex of the triangle 
+.br
+\fIv2\fP second vertex of the triangle 
+.br
+\fIv3\fP third vertex of the triangle
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoLineSegmentCB\fP, \fBSoPointCB\fP 
+.RE
+.PP
+
+.SS "void SoLineSegmentCB"
+
+.PP
+\fBParameters:\fP
+.RS 4
+\fIuserdata\fP is a void pointer to any data the application need to know of in the callback function (like for instance a \fIthis\fP pointer)\&. 
+.br
+\fIaction\fP the action which invoked the callback 
+.br
+\fIv1\fP first vertex of the line 
+.br
+\fIv2\fP second vertex of the line
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+setPassCallback() \fBSoPointCB\fP 
+.RE
+.PP
+
+.SS "void SoPointCB"
+
+.PP
+\fBParameters:\fP
+.RS 4
+\fIuserdata\fP is a void pointer to any data the application need to know of in the callback function (like for instance a \fIthis\fP pointer)\&. 
+.br
+\fIaction\fP the action which invoked the callback 
+.br
+\fIv\fP the vertex of the point
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+setPassCallback() 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

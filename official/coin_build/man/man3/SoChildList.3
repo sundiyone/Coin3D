@@ -1,0 +1,140 @@
+.TH "SoChildList" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoChildList \- The \fBSoChildList\fP class is a container for node children\&.
+.PP
+This class does automatic notification on the parent nodes upon adding or removing children\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/misc/SoChildList\&.h>\fP
+.PP
+Inherits \fBSoNodeList\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSoChildList\fP (\fBSoNode\fP *const parent)"
+.br
+.ti -1c
+.RI "\fBSoChildList\fP (\fBSoNode\fP *const parent, const \fBint\fP size)"
+.br
+.ti -1c
+.RI "\fBSoChildList\fP (\fBSoNode\fP *const parent, const \fBSoChildList\fP &cl)"
+.br
+.ti -1c
+.RI "\fB~SoChildList\fP ()"
+.br
+.ti -1c
+.RI "void \fBappend\fP (\fBSoNode\fP *const node)"
+.br
+.ti -1c
+.RI "void \fBinsert\fP (\fBSoNode\fP *const ptr, const \fBint\fP addbefore)"
+.br
+.ti -1c
+.RI "void \fBremove\fP (const \fBint\fP index)"
+.br
+.ti -1c
+.RI "void \fBtruncate\fP (const \fBint\fP length)"
+.br
+.ti -1c
+.RI "void \fBcopy\fP (const \fBSoChildList\fP &cl)"
+.br
+.ti -1c
+.RI "void \fBset\fP (const \fBint\fP index, \fBSoNode\fP *const node)"
+.br
+.ti -1c
+.RI "void \fBtraverseInPath\fP (\fBSoAction\fP *const action, const \fBint\fP numindices, const \fBint\fP *indices)"
+.br
+.ti -1c
+.RI "void \fBtraverse\fP (\fBSoAction\fP *const action)"
+.br
+.ti -1c
+.RI "void \fBtraverse\fP (\fBSoAction\fP *const action, const \fBint\fP index)"
+.br
+.ti -1c
+.RI "void \fBtraverse\fP (\fBSoAction\fP *const action, \fBSoNode\fP *node)"
+.br
+.ti -1c
+.RI "void \fBtraverse\fP (\fBSoAction\fP *const action, const \fBint\fP first, const \fBint\fP last)"
+.br
+.ti -1c
+.RI "void \fBaddPathAuditor\fP (\fBSoPath\fP *const path)"
+.br
+.ti -1c
+.RI "void \fBremovePathAuditor\fP (\fBSoPath\fP *const path)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoChildList\fP class is a container for node children\&.
+.PP
+This class does automatic notification on the parent nodes upon adding or removing children\&. 
+
+Methods for action traversal of the children are also provided\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoChildList::SoChildList (\fBSoNode\fP *const parentptr)"
+Default constructor, sets parent container and initializes a minimal list\&. 
+.SS "SoChildList::SoChildList (\fBSoNode\fP *const parentptr, const \fBint\fP size)"
+Constructor with hint about list size\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoNodeList::SoNodeList(const int)\fP 
+.RE
+.PP
+
+.SS "SoChildList::SoChildList (\fBSoNode\fP *const parentptr, const \fBSoChildList\fP & cl)"
+Copy constructor\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoNodeList::SoNodeList(const SoNodeList &)\fP 
+.RE
+.PP
+
+.SS "SoChildList::~SoChildList ()"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void SoChildList::append (\fBSoNode\fP *const node)"
+Append a new \fInode\fP instance as a child of our parent container\&.
+.PP
+Automatically notifies parent node and any \fBSoPath\fP instances auditing paths with nodes from this list\&. 
+.SS "void SoChildList::insert (\fBSoNode\fP *const node, const \fBint\fP addbefore)"
+Insert a new \fInode\fP instance as a child of our parent container at position \fIaddbefore\fP\&.
+.PP
+Automatically notifies parent node and any \fBSoPath\fP instances auditing paths with nodes from this list\&. 
+.SS "void SoChildList::remove (const \fBint\fP index)"
+Remove the child node pointer at \fIindex\fP\&.
+.PP
+Automatically notifies parent node and any \fBSoPath\fP instances auditing paths with nodes from this list\&. 
+.SS "void SoChildList::copy (const \fBSoChildList\fP & cl)"
+Copy contents of \fIcl\fP into this list\&. 
+.SS "void SoChildList::set (const \fBint\fP index, \fBSoNode\fP *const node)"
+Index operator to set element at \fIindex\fP\&. Does \fInot\fP expand array bounds if \fIindex\fP is outside the list\&. 
+.SS "void SoChildList::traverseInPath (\fBSoAction\fP *const action, const \fBint\fP numindices, const \fBint\fP * indices)"
+Optimized IN_PATH traversal method\&.
+.PP
+This method is an extension versus the Open Inventor API\&. 
+.SS "void SoChildList::traverse (\fBSoAction\fP *const action)"
+Traverse all nodes in the list, invoking their methods for the given \fIaction\fP\&. 
+.SS "void SoChildList::traverse (\fBSoAction\fP *const action, const \fBint\fP index)"
+Traverse the node at \fIindex\fP (and possibly its children, if its a group node), applying the nodes' method for the given \fIaction\fP\&. 
+.SS "void SoChildList::traverse (\fBSoAction\fP *const action, \fBSoNode\fP * node)"
+Traverse the \fInode\fP (and possibly its children, if its a group node), applying the nodes' method for the given \fIaction\fP\&. 
+.SS "void SoChildList::traverse (\fBSoAction\fP *const action, const \fBint\fP first, const \fBint\fP last)"
+Traverse child nodes in the list from index \fIfirst\fP up to and including index \fIlast\fP, or until the \fBSoAction::hasTerminated()\fP flag of \fIaction\fP has been set\&. 
+.SS "void SoChildList::addPathAuditor (\fBSoPath\fP *const path)"
+Notify \fIpath\fP whenever this list of node children changes\&. 
+.SS "void SoChildList::removePathAuditor (\fBSoPath\fP *const path)"
+Remove \fIpath\fP as an auditor for our list of node children\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

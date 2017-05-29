@@ -1,0 +1,311 @@
+.TH "SoSFImage" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoSFImage \- The \fBSoSFImage\fP class is used to store pixel images\&.
+.PP
+The \fBSoSFImage\fP class provides storage for inline 2D image maps\&. Images in Coin are mainly used for texture mapping support\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/fields/SoSFImage\&.h>\fP
+.PP
+Inherits \fBSoSField\fP\&.
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBCopyPolicy\fP { \fBCOPY\fP, \fBNO_COPY\fP, \fBNO_COPY_AND_DELETE\fP, \fBNO_COPY_AND_FREE\fP }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBcopyFrom\fP (const \fBSoField\fP &field)"
+.br
+.ti -1c
+.RI "const \fBSoSFImage\fP & \fBoperator=\fP (const \fBSoSFImage\fP &field)"
+.br
+.ti -1c
+.RI "virtual SbBool \fBisSame\fP (const \fBSoField\fP &field) const"
+.br
+.ti -1c
+.RI "const unsigned char * \fBgetValue\fP (\fBSbVec2s\fP &size, \fBint\fP &nc) const"
+.br
+.ti -1c
+.RI "const \fBSbImage\fP & \fBgetValue\fP () const"
+.br
+.ti -1c
+.RI "void \fBsetValue\fP (const \fBSbVec2s\fP &size, const \fBint\fP nc, const unsigned char *pixels, CopyPolicy copypolicy=COPY)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBoperator==\fP (const \fBSoSFImage\fP &field) const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBoperator!=\fP (const \fBSoSFImage\fP &field) const"
+.br
+.ti -1c
+.RI "unsigned char * \fBstartEditing\fP (\fBSbVec2s\fP &size, \fBint\fP &nc)"
+.br
+.ti -1c
+.RI "void \fBfinishEditing\fP (void)"
+.br
+.ti -1c
+.RI "void \fBsetSubValue\fP (const \fBSbVec2s\fP &dims, const \fBSbVec2s\fP &offset, unsigned char *pixels)"
+.br
+.ti -1c
+.RI "void \fBsetSubValues\fP (const \fBSbVec2s\fP *dims, const \fBSbVec2s\fP *offsets, \fBint\fP num, unsigned char **pixelblocks)"
+.br
+.ti -1c
+.RI "unsigned char * \fBgetSubTexture\fP (\fBint\fP idx, \fBSbVec2s\fP &dims, \fBSbVec2s\fP &offset) const"
+.br
+.ti -1c
+.RI "SbBool \fBhasSubTextures\fP (\fBint\fP &numsubtextures)"
+.br
+.ti -1c
+.RI "void \fBsetNeverWrite\fP (SbBool flag)"
+.br
+.ti -1c
+.RI "SbBool \fBisNeverWrite\fP (void) const"
+.br
+.ti -1c
+.RI "SbBool \fBhasTransparency\fP (void) const"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static void * \fBcreateInstance\fP (void)"
+.br
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoSFImage\fP class is used to store pixel images\&.
+.PP
+The \fBSoSFImage\fP class provides storage for inline 2D image maps\&. Images in Coin are mainly used for texture mapping support\&. 
+
+\fBSoSFImage\fP instances can be exported and imported as any other field class in Coin\&.
+.PP
+The components of an \fBSoSFImage\fP is: its image dimensions (width and height), the number of bytes used for describing each pixel (number of components) and an associated pixel buffer\&. The size of the pixel buffer will be width*height*components\&.
+.PP
+For texture maps, the components / bytes-per-pixel setting translates as follows: use 1 for a grayscale imagemap, 2 for grayscale + opacity (i\&.e\&. alpha value), 3 for RGB (1 byte each for red, green and blue) and 4 components means 3 bytes for RGB + 1 byte opacity value (aka RGBA)\&.
+.PP
+This field is serializable into the Inventor / Coin file format in the following manner:
+.PP
+.PP
+.nf
+FIELDNAME X Y C 0xRRGGBBAA 0xRRGGBBAA \&.\&.\&.
+.fi
+.PP
+.PP
+'X' and 'Y' are the image dimensions along the given axes, 'C' is the number of components in the image\&. The number of 0xRRGGBBAA pixel color specifications needs to equal the exact number of pixels, which of course is given by X*Y\&. Each part of the pixel color value is in the range 0x00 to 0xff (hexadecimal, 0 to 255 decimal)\&.
+.PP
+For 3-component images, the pixel-format is 0xXXRRGGBB, where the byte in the pixel color value marked as 'XX' is ignored and can be left out\&.
+.PP
+For 2-component images, the pixel-format is 0xXXXXGGAA, where the bytes in the pixel color values marked as 'XX' are ignored and can be left out\&. 'GG' is the part which gives a grayscale value and 'AA' is for opacity\&.
+.PP
+For 1-component images, the pixel-format is 0xXXXXXXGG, where the bytes in the pixel color values marked as 'XX' are ignored and can be left out\&.
+.PP
+The pixels are read as being ordered in rows along X (width) and columns along Y (height, bottom to top)\&.
+.PP
+Here's a simple example of the file format serialization, for a 2x2 RGB-image inside an \fBSoTexture2\fP node, as mapped onto an \fBSoCube\fP:
+.PP
+.PP
+.nf
+Complexity { textureQuality 0\&.1 }   # set low to avoid smoothing
+
+Texture2 {
+   image 2 2 4
+
+   0xffffffff 0x00ff0088   # white   semi-transparent green
+   0xff0000ff 0xffff00ff   #  red    yellow
+}
+
+Cube { }
+.fi
+.PP
+.PP
+The mini-scenegraph above results in the following mapping on the cube:
+.br
+.PP
+ Rendering of Example Scenegraph
+.PP
+The cube has only been \fIslightly\fP rotated, so as you can see from the snapshot, the Y-rows are mapped from bottom to top, while the X-column pixels are mapped onto the cube from left to right\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoTexture2\fP, \fBSoSFImage3\fP 
+.RE
+.PP
+
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoSFImage::getTypeId (void) const\fC [virtual]\fP"
+Returns the type identification instance which uniquely identifies the Coin field class the object belongs to\&.
+.PP
+\fBSee also:\fP
+.RS 4
+getClassTypeId(), \fBSoType\fP 
+.RE
+.PP
+
+.PP
+Implements \fBSoField\fP\&.
+.SS "void SoSFImage::copyFrom (const \fBSoField\fP & f)\fC [virtual]\fP"
+Copy value(s) from \fIf\fP into this field\&. \fIf\fP must be of the same type as this field\&. 
+.PP
+Implements \fBSoField\fP\&.
+.SS "SbBool SoSFImage::isSame (const \fBSoField\fP & f) const\fC [virtual]\fP"
+Check for equal type and value(s)\&. 
+.PP
+Implements \fBSoField\fP\&.
+.SS "const unsigned char * SoSFImage::getValue (\fBSbVec2s\fP & size, \fBint\fP & nc) const"
+Return pixel buffer, set \fIsize\fP to contain the image dimensions and \fInc\fP to the number of components in the image\&. 
+.SS "const \fBSbImage\fP & SoSFImage::getValue (void) const"
+
+.PP
+\fBReturn values:\fP
+.RS 4
+\fI\fBSbImage\fP\fP contained by this \fBSoSFImage\fP 
+.RE
+.PP
+
+.SS "void SoSFImage::setValue (const \fBSbVec2s\fP & size, const \fBint\fP nc, const unsigned char * pixels, SoSFImage::CopyPolicy copypolicy = \fCCOPY\fP)"
+Initialize this field to \fIsize\fP and \fInc\fP\&.
+.PP
+If \fIpixels\fP is not \fCNULL\fP, the image data is copied from \fIpixels\fP into this field\&. If \fIpixels\fP is \fCNULL\fP, the image data is cleared by setting all bytes to 0 (note that the behavior on passing a \fCNULL\fP pointer is specific for Coin, Open Inventor will crash if you try it)\&.
+.PP
+The image dimensions is given by the \fIsize\fP argument, and the \fInc\fP argument specifies the number of bytes-pr-pixel\&. A 24-bit RGB image would for instance have an \fInc\fP equal to 3\&.
+.PP
+The \fIcopypolicy\fP argument makes it possible to share image data with \fBSoSFImage\fP without the data being copied (thereby using less memory resources)\&. The default is to copy image data from the \fIpixels\fP source into an internal copy\&.
+.PP
+\fIImportant\fP \fInote:\fP if you call this with \fIcopypolicy\fP as either \fCNO_COPY_AND_DELETE\fP or \fCNO_COPY_AND_FREE\fP, and your application is running on Mirosoft Windows, be aware that you will get mysterious crashes if your application is not using the same C library run-time as the Coin library\&.
+.PP
+The cause of this is that a memory block would then be allocated by the application on the memory heap of one C library run-time (say, for instance \fCMSVCRT\&.LIB\fP), but attempted deallocated in the memory heap of another C library run-time (e\&.g\&. \fCMSVCRTD\&.LIB\fP), which typically leads to hard-to-debug crashes\&.
+.PP
+\fBSince:\fP
+.RS 4
+The CopyPolicy argument was added in Coin 2\&.0\&. 
+.PP
+CopyPolicy was added to TGS Inventor 3\&.0\&. 
+.RE
+.PP
+
+.SS "\fBint\fP SoSFImage::operator== (const \fBSoSFImage\fP & field) const"
+Compare image of \fIfield\fP with the image in this field and return \fCTRUE\fP if they are equal\&. 
+.SS "\fBint\fP SoSFImage::operator!= (const \fBSoSFImage\fP & field) const\fC [inline]\fP"
+Compare image of \fIfield\fP with the image in this field and return \fCFALSE\fP if they are equal\&. 
+.SS "unsigned char * SoSFImage::startEditing (\fBSbVec2s\fP & size, \fBint\fP & nc)"
+Return pixel buffer\&. Return the image size and components in \fIsize\fP and \fInc\fP\&.
+.PP
+You can not use this method to set a new image size\&. Use \fBsetValue()\fP to change the size of the image buffer\&.
+.PP
+The field's container will not be notified about the changes until you call \fBfinishEditing()\fP\&. 
+.SS "void SoSFImage::finishEditing (void)"
+Notify the field's auditors that the image data has been modified\&. 
+.SS "void SoSFImage::setSubValue (const \fBSbVec2s\fP & dims, const \fBSbVec2s\fP & offset, unsigned char * pixels)"
+Not yet implemented for Coin\&. Get in touch if you need this method\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.PP
+TGS Inventor 3\&.0 
+.RE
+.PP
+
+.SS "void SoSFImage::setSubValues (const \fBSbVec2s\fP * dims, const \fBSbVec2s\fP * offsets, \fBint\fP num, unsigned char ** pixelblocks)"
+Not yet implemented for Coin\&. Get in touch if you need this method\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.PP
+TGS Inventor 3\&.0 
+.RE
+.PP
+
+.SS "unsigned char * SoSFImage::getSubTexture (\fBint\fP idx, \fBSbVec2s\fP & dims, \fBSbVec2s\fP & offset) const"
+Not yet implemented for Coin\&. Get in touch if you need this method\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.PP
+TGS Inventor 3\&.0 
+.RE
+.PP
+
+.SS "SbBool SoSFImage::hasSubTextures (\fBint\fP & numsubtextures)"
+Returns whether or not sub textures was set up for this field\&.
+.PP
+If \fCTRUE\fP is returned, the \fInumsubtextures\fP argument will be set to the number of sub textures in this image\&. This number can be used for iterating over all textures with the SoSFImage::getSubTextures() method\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.PP
+TGS Inventor 3\&.0 
+.RE
+.PP
+
+.SS "void SoSFImage::setNeverWrite (SbBool flag)"
+Set this flag to true to avoid writing out the texture to file\&. This can save a lot on file size\&.
+.PP
+Default value is \fCFALSE\fP (i\&.e\&. write texture data to file\&.)
+.PP
+(Note: yet unimplemented for Coin\&.)
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.PP
+TGS Inventor ?\&.? 
+.RE
+.PP
+
+.SS "SbBool SoSFImage::isNeverWrite (void) const"
+Returns value of 'never write texture data' flag\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoSFImage::setNeverWrite()\fP
+.RE
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.PP
+TGS Inventor ?\&.? 
+.RE
+.PP
+
+.SS "SbBool SoSFImage::hasTransparency (void) const"
+Returns \fCTRUE\fP if at least one pixel of the image in this field is not completely opaque, otherwise \fCFALSE\fP\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.PP
+TGS Inventor ?\&.? 
+.RE
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

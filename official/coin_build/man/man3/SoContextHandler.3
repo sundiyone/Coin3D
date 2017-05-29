@@ -1,0 +1,77 @@
+.TH "SoContextHandler" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoContextHandler \- The \fBSoContextHandler\fP class is for now to be treated as an internal class\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/misc/SoContextHandler\&.h>\fP
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "typedef void \fBContextDestructionCB\fP(uint32_t contextid, void *userdata)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static void \fBdestructingContext\fP (uint32_t contextid)"
+.br
+.ti -1c
+.RI "static void \fBaddContextDestructionCallback\fP (ContextDestructionCB *func, void *closure)"
+.br
+.ti -1c
+.RI "static void \fBremoveContextDestructionCallback\fP (ContextDestructionCB *func, void *closure)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBSoContextHandler\fP class is for now to be treated as an internal class\&. 
+
+
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.RE
+.PP
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void SoContextHandler::destructingContext (uint32_t contextid)\fC [static]\fP"
+This method \fImust\fP be called by client code which destructs a context, to guarantee that there are no memory leaks upon context destruction\&.
+.PP
+This will take care of correctly freeing context-bound resources, like OpenGL texture objects and display lists\&.
+.PP
+Before calling this function, the context \fImust\fP be made current\&.
+.PP
+Note that if you are using one of the standard GUI-binding libraries from Kongsberg Oil & Gas Technologies, this is taken care of automatically for contexts for canvases set up by SoQt, SoWin, etc\&. 
+.SS "void SoContextHandler::addContextDestructionCallback (ContextDestructionCB * func, void * closure)\fC [static]\fP"
+Add a callback which will be called every time a GL context is destructed\&. The callback should delete all GL resources tied to that context\&.
+.PP
+All nodes/classes that allocate GL resources should set up a callback like this\&. Add the callback in the constructor of the node/class, and remove it in the destructor\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBremoveContextDestructionCallback()\fP 
+.RE
+.PP
+
+.SS "void SoContextHandler::removeContextDestructionCallback (ContextDestructionCB * func, void * closure)\fC [static]\fP"
+Remove a context destruction callback\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBaddContextDestructionCallback()\fP 
+.RE
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

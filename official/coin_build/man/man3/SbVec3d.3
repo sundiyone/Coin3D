@@ -1,0 +1,346 @@
+.TH "SbVec3d" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SbVec3d \- The \fBSbVec3d\fP class is a 3 dimensional vector with double precision floating point coordinates\&.
+.PP
+This vector class provides storage for a 3 dimensional double precision floating point vector as well as simple floating point arithmetic operations\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/SbVec3d\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSbVec3d\fP (void)"
+.br
+.ti -1c
+.RI "\fBSbVec3d\fP (const double v[3])"
+.br
+.ti -1c
+.RI "\fBSbVec3d\fP (double x, double y, double z)"
+.br
+.ti -1c
+.RI "\fBSbVec3d\fP (const \fBSbVec3f\fP &v)"
+.br
+.ti -1c
+.RI "\fBSbVec3d\fP (const \fBSbVec3b\fP &v)"
+.br
+.ti -1c
+.RI "\fBSbVec3d\fP (const \fBSbVec3s\fP &v)"
+.br
+.ti -1c
+.RI "\fBSbVec3d\fP (const \fBSbVec3i32\fP &v)"
+.br
+.ti -1c
+.RI "\fBSbVec3d\fP (const \fBSbDPPlane\fP &p0, const \fBSbDPPlane\fP &p1, const \fBSbDPPlane\fP &p2)"
+.br
+.ti -1c
+.RI "\fBSbVec3d\fP & \fBsetValue\fP (const double v[3])"
+.br
+.ti -1c
+.RI "\fBSbVec3d\fP & \fBsetValue\fP (double x, double y, double z)"
+.br
+.ti -1c
+.RI "\fBSbVec3d\fP & \fBsetValue\fP (const \fBSbVec3d\fP &barycentric, const \fBSbVec3d\fP &v0, const \fBSbVec3d\fP &v1, const \fBSbVec3d\fP &v2)"
+.br
+.ti -1c
+.RI "\fBSbVec3d\fP & \fBsetValue\fP (const \fBSbVec3f\fP &v)"
+.br
+.ti -1c
+.RI "\fBSbVec3d\fP & \fBsetValue\fP (const \fBSbVec3b\fP &v)"
+.br
+.ti -1c
+.RI "\fBSbVec3d\fP & \fBsetValue\fP (const \fBSbVec3s\fP &v)"
+.br
+.ti -1c
+.RI "\fBSbVec3d\fP & \fBsetValue\fP (const \fBSbVec3i32\fP &v)"
+.br
+.ti -1c
+.RI "const double * \fBgetValue\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBgetValue\fP (double &x, double &y, double &z) const"
+.br
+.ti -1c
+.RI "double & \fBoperator[]\fP (const \fBint\fP i)"
+.br
+.ti -1c
+.RI "const double & \fBoperator[]\fP (const \fBint\fP i) const"
+.br
+.ti -1c
+.RI "\fBSbVec3d\fP \fBcross\fP (const \fBSbVec3d\fP &v) const"
+.br
+.ti -1c
+.RI "double \fBdot\fP (const \fBSbVec3d\fP &v) const"
+.br
+.ti -1c
+.RI "SbBool \fBequals\fP (const \fBSbVec3d\fP &v, double tolerance) const"
+.br
+.ti -1c
+.RI "\fBSbVec3d\fP \fBgetClosestAxis\fP (void) const"
+.br
+.ti -1c
+.RI "double \fBlength\fP (void) const"
+.br
+.ti -1c
+.RI "double \fBsqrLength\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBnegate\fP (void)"
+.br
+.ti -1c
+.RI "double \fBnormalize\fP (void)"
+.br
+.ti -1c
+.RI "\fBSbVec3d\fP & \fBoperator*=\fP (double d)"
+.br
+.ti -1c
+.RI "\fBSbVec3d\fP & \fBoperator/=\fP (double d)"
+.br
+.ti -1c
+.RI "\fBSbVec3d\fP & \fBoperator+=\fP (const \fBSbVec3d\fP &v)"
+.br
+.ti -1c
+.RI "\fBSbVec3d\fP & \fBoperator\-=\fP (const \fBSbVec3d\fP &v)"
+.br
+.ti -1c
+.RI "\fBSbVec3d\fP \fBoperator\-\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSbString\fP \fBtoString\fP () const"
+.br
+.ti -1c
+.RI "SbBool \fBfromString\fP (const \fBSbString\fP &str)"
+.br
+.ti -1c
+.RI "void \fBprint\fP (FILE *fp) const"
+.br
+.in -1c
+.SS "Related Functions"
+(Note that these are not member functions\&.) 
+.in +1c
+.ti -1c
+.RI "\fBSbVec3d\fP \fBoperator*\fP (const \fBSbVec3d\fP &v, double d)"
+.br
+.ti -1c
+.RI "\fBSbVec3d\fP \fBoperator*\fP (double d, const \fBSbVec3d\fP &v)"
+.br
+.ti -1c
+.RI "\fBSbVec3d\fP \fBoperator/\fP (const \fBSbVec3d\fP &v, double d)"
+.br
+.ti -1c
+.RI "\fBSbVec3d\fP \fBoperator+\fP (const \fBSbVec3d\fP &v1, const \fBSbVec3d\fP &v2)"
+.br
+.ti -1c
+.RI "\fBSbVec3d\fP \fBoperator\-\fP (const \fBSbVec3d\fP &v1, const \fBSbVec3d\fP &v2)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBoperator==\fP (const \fBSbVec3d\fP &v1, const \fBSbVec3d\fP &v2)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBoperator!=\fP (const \fBSbVec3d\fP &v1, const \fBSbVec3d\fP &v2)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBSbVec3d\fP class is a 3 dimensional vector with double precision floating point coordinates\&.
+.PP
+This vector class provides storage for a 3 dimensional double precision floating point vector as well as simple floating point arithmetic operations\&. 
+
+
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSbVec2s\fP, \fBSbVec2f\fP, \fBSbVec2d\fP, \fBSbVec3s\fP, \fBSbVec3f\fP, \fBSbVec4f\fP, \fBSbVec4d\fP\&. 
+.RE
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.PP
+TGS Inventor 2\&.6 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SbVec3d::SbVec3d (void)\fC [inline]\fP"
+The default constructor does nothing\&. The vector coordinates will be uninitialized until you do a \fBsetValue()\fP call\&. 
+.SS "SbVec3d::SbVec3d (const double v[3])\fC [inline]\fP"
+Constructs an \fBSbVec3d\fP instance with initial values from \fIv\fP\&. 
+.SS "SbVec3d::SbVec3d (double x, double y, double z)\fC [inline]\fP"
+Constructs an \fBSbVec3d\fP instance with the initial vector endpoint set to \fI<x\fP,y,z>\&. 
+.SS "SbVec3d::SbVec3d (const \fBSbVec3f\fP & v)\fC [inline]\fP, \fC [explicit]\fP"
+Constructs an \fBSbVec3d\fP instance from an \fBSbVec3f\fP instance\&. 
+.SS "SbVec3d::SbVec3d (const \fBSbVec3b\fP & v)\fC [inline]\fP, \fC [explicit]\fP"
+Constructs an \fBSbVec3d\fP instance from an \fBSbVec3b\fP instance\&.
+.PP
+2\&.5 
+.SS "SbVec3d::SbVec3d (const \fBSbVec3s\fP & v)\fC [inline]\fP, \fC [explicit]\fP"
+Constructs an \fBSbVec3d\fP instance from an \fBSbVec3s\fP instance\&.
+.PP
+2\&.5 
+.SS "SbVec3d::SbVec3d (const \fBSbVec3i32\fP & v)\fC [inline]\fP, \fC [explicit]\fP"
+Constructs an \fBSbVec3d\fP instance from an \fBSbVec3i32\fP instance\&.
+.PP
+2\&.5 
+.SS "SbVec3d::SbVec3d (const \fBSbDPPlane\fP & p0, const \fBSbDPPlane\fP & p1, const \fBSbDPPlane\fP & p2)"
+Constructs an \fBSbVec3d\fP instance by combining the three given planes\&. None of the planes should be parallel to any of the other two, otherwise a divide by zero error will occur\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSbVec3d\fP & SbVec3d::setValue (const double v[3])\fC [inline]\fP"
+Set new coordinates for the vector from \fIv\fP\&. Returns reference to self\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetValue()\fP\&. 
+.RE
+.PP
+
+.SS "\fBSbVec3d\fP & SbVec3d::setValue (double x, double y, double z)\fC [inline]\fP"
+Set new coordinates for the vector\&. Returns reference to self\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetValue()\fP\&. 
+.RE
+.PP
+
+.SS "\fBSbVec3d\fP & SbVec3d::setValue (const \fBSbVec3d\fP & barycentric, const \fBSbVec3d\fP & v0, const \fBSbVec3d\fP & v1, const \fBSbVec3d\fP & v2)"
+Set this vector to be the average of \fIv0\fP, \fIv1\fP and \fIv2\fP\&. The vector components are weighted by the \fIbarycentric\fP vector\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetValue()\fP\&. 
+.RE
+.PP
+
+.SS "\fBSbVec3d\fP & SbVec3d::setValue (const \fBSbVec3f\fP & v)"
+Sets this vector to the single precision vector \fIv\fP, converting the vector to a double precision vector\&. 
+.SS "\fBSbVec3d\fP & SbVec3d::setValue (const \fBSbVec3b\fP & v)"
+Sets this vector to the vector \fIv\fP\&.
+.PP
+2\&.5 
+.SS "\fBSbVec3d\fP & SbVec3d::setValue (const \fBSbVec3s\fP & v)"
+Sets this vector to the vector \fIv\fP\&.
+.PP
+2\&.5 
+.SS "\fBSbVec3d\fP & SbVec3d::setValue (const \fBSbVec3i32\fP & v)"
+Sets this vector to the vector \fIv\fP\&.
+.PP
+2\&.5 
+.SS "const double * SbVec3d::getValue (void) const\fC [inline]\fP"
+Returns a pointer to an array of three doubles containing the x, y and z coordinates of the vector\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetValue()\fP\&. 
+.RE
+.PP
+
+.SS "void SbVec3d::getValue (double & x, double & y, double & z) const\fC [inline]\fP"
+Returns the x, y and z coordinates of the vector\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetValue()\fP\&. 
+.RE
+.PP
+
+.SS "double & SbVec3d::operator[] (const \fBint\fP i)\fC [inline]\fP"
+Index operator\&. Returns modifiable x, y or z coordinate of vector\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetValue()\fP and \fBsetValue()\fP\&. 
+.RE
+.PP
+
+.SS "double SbVec3d::operator[] (const \fBint\fP i) const\fC [inline]\fP"
+Index operator\&. Returns x, y or z coordinate of vector\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetValue()\fP and \fBsetValue()\fP\&. 
+.RE
+.PP
+
+.SS "\fBSbVec3d\fP SbVec3d::cross (const \fBSbVec3d\fP & v) const"
+Returns the result of taking the cross product of this vector and \fIv\fP\&. 
+.SS "double SbVec3d::dot (const \fBSbVec3d\fP & v) const\fC [inline]\fP"
+Calculates and returns the result of taking the dot product of this vector and \fIv\fP\&. 
+.SS "SbBool SbVec3d::equals (const \fBSbVec3d\fP & v, double tolerance) const"
+Compares the vector with \fIv\fP and returns \fCTRUE\fP if the distance between the vectors is smaller or equal to the square root of \fItolerance\fP\&. 
+.SS "\fBSbVec3d\fP SbVec3d::getClosestAxis (void) const"
+Return the vector representing the principal axis closest to this vector\&. 
+.SS "double SbVec3d::length (void) const"
+Return length of vector\&. 
+.SS "double SbVec3d::sqrLength (void) const\fC [inline]\fP"
+Returns the squared length of the vector\&. 
+.SS "void SbVec3d::negate (void)\fC [inline]\fP"
+Negate the vector (i\&.e\&. point it in the opposite direction)\&. 
+.SS "double SbVec3d::normalize (void)"
+Normalize the vector to unit length\&. Return value is the original length of the vector before normalization\&.
+.PP
+If the vector is the null vector, no attempt at normalization will be done\&. 
+.SS "\fBSbVec3d\fP & SbVec3d::operator*= (double d)\fC [inline]\fP"
+Multiply components of vector with value \fId\fP\&. Returns reference to self\&. 
+.SS "\fBSbVec3d\fP & SbVec3d::operator/= (double d)\fC [inline]\fP"
+Divides components of vector with value \fId\fP\&. Returns reference to self\&. 
+.SS "\fBSbVec3d\fP & SbVec3d::operator+= (const \fBSbVec3d\fP & v)\fC [inline]\fP"
+Adds this vector and vector \fIv\fP\&. Returns reference to self\&. 
+.SS "\fBSbVec3d\fP & SbVec3d::operator\-= (const \fBSbVec3d\fP & v)\fC [inline]\fP"
+Subtracts vector \fIv\fP from this vector\&. Returns reference to self\&. 
+.SS "\fBSbVec3d\fP SbVec3d::operator\- (void) const\fC [inline]\fP"
+Non-destructive negation operator\&. Returns a new \fBSbVec3d\fP instance which points in the opposite direction of this vector\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBnegate()\fP\&. 
+.RE
+.PP
+
+.SS "\fBSbString\fP SbVec3d::toString () const"
+Return a string representation of this object 
+.SS "SbBool SbVec3d::fromString (const \fBSbString\fP & str)"
+Convert from a string representation, return wether this is a valid conversion 
+.SS "void SbVec3d::print (FILE * fp) const"
+Dump the state of this object to the \fIfile\fP stream\&. Only works in debug version of library, method does nothing in an optimized compile\&. 
+.SH "Friends And Related Function Documentation"
+.PP 
+.SS "\fBSbVec3d\fP operator* (const \fBSbVec3d\fP & v, double d)\fC [related]\fP"
+Returns an \fBSbVec3d\fP instance which is the components of vector \fIv\fP multiplied with \fId\fP\&. 
+.SS "\fBSbVec3d\fP operator* (double d, const \fBSbVec3d\fP & v)\fC [related]\fP"
+Returns an \fBSbVec3d\fP instance which is the components of vector \fIv\fP multiplied with \fId\fP\&. 
+.SS "\fBSbVec3d\fP operator/ (const \fBSbVec3d\fP & v, double d)\fC [related]\fP"
+Returns an \fBSbVec3d\fP instance which is the components of vector \fIv\fP divided on the scalar factor \fId\fP\&. 
+.SS "\fBSbVec3d\fP operator+ (const \fBSbVec3d\fP & v1, const \fBSbVec3d\fP & v2)\fC [related]\fP"
+Returns an \fBSbVec3d\fP instance which is the sum of vectors \fIv1\fP and \fIv2\fP\&. 
+.SS "\fBSbVec3d\fP operator\- (const \fBSbVec3d\fP & v1, const \fBSbVec3d\fP & v2)\fC [related]\fP"
+Returns an \fBSbVec3d\fP instance which is vector \fIv2\fP subtracted from vector \fIv1\fP\&. 
+.SS "\fBint\fP operator== (const \fBSbVec3d\fP & v1, const \fBSbVec3d\fP & v2)\fC [related]\fP"
+Returns \fI1\fP if \fIv1\fP and \fIv2\fP are \fIexactly\fP equal, \fI0\fP otherwise\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBequals()\fP\&. 
+.RE
+.PP
+
+.SS "\fBint\fP operator!= (const \fBSbVec3d\fP & v1, const \fBSbVec3d\fP & v2)\fC [related]\fP"
+Returns \fI1\fP if \fIv1\fP and \fIv2\fP are not equal, \fI0\fP if they are equal\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBequals()\fP\&. 
+.RE
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

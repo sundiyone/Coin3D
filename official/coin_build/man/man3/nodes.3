@@ -1,0 +1,952 @@
+.TH "nodes" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+nodes \- Nodes are scene based objects performs various actions such as rendering\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBSoAlphaTest\fP"
+.br
+.RI "The \fBSoAlphaTest\fP class is a node used to control the GL alpha test function\&. "
+.ti -1c
+.RI "class \fBSoAnnotation\fP"
+.br
+.RI "The \fBSoAnnotation\fP node draws all its child geometry on top of other geometry\&.
+.PP
+This group-type node uses delayed rendering in combination with Z-buffer disabling to let its children transparently render their geometry on top of the other geometry in the scene\&. "
+.ti -1c
+.RI "class \fBSoAntiSquish\fP"
+.br
+.RI "The \fBSoAntiSquish\fP class is used to reset to uniform scaling\&.
+.PP
+When traversed, this node replaces the scale vector of the matrix with uniform values, based on one of the \fBSoAntiSquish::Sizing\fP strategies\&. "
+.ti -1c
+.RI "class \fBSoArray\fP"
+.br
+.RI "The \fBSoArray\fP class is a group node for setting up regular arrays of subgraphs\&.
+.PP
+\fBSoArray\fP presents a convenient way of duplicating a node (typically a shape node) or a complete subgraph in 1 to 3 dimensions\&. "
+.ti -1c
+.RI "class \fBSoBaseColor\fP"
+.br
+.RI "The \fBSoBaseColor\fP class provides a node type for convenient setting of the base material color\&.
+.PP
+If you want to just set the diffuse color of the following geometry, you can use this node for simplicity\&. "
+.ti -1c
+.RI "class \fBSoBlinker\fP"
+.br
+.RI "The \fBSoBlinker\fP class is a cycling switch node\&.
+.PP
+This switch node cycles its children \fBSoBlinker::speed\fP number of times per second\&. If the node has only one child, it will be cycled on and off\&. Cycling can be turned off using the \fBSoBlinker::on\fP field, and the node then behaves like a normal \fBSoSwitch\fP node\&. "
+.ti -1c
+.RI "class \fBSoBumpMap\fP"
+.br
+.RI "The \fBSoBumpMap\fP class is used to map a bump map onto subsequent shapes\&.
+.PP
+\fBSoBumpMap\fP has support for two types of maps\&. If the image is a three component (RGB) image, it will be treated as a normal map, where the red image component equals the X normal component, green equals Y, and blue is Z\&. See http://www.paulsprojects.net/tutorials/simplebump/simplebump.html for a nice introduction about bump mapping and normal maps\&. "
+.ti -1c
+.RI "class \fBSoBumpMapCoordinate\fP"
+.br
+.RI "The \fBSoBumpMapCoordinate\fP class is a node for providing bump map coordinates to shape nodes\&.
+.PP
+When encountering nodes of this type during traversal, the coordinates it contains will be put on the state stack for later use by shape nodes\&. The bump map coordinates can be used to specify explicit coordinates for a bump map\&. The \fBSoBumpMap\fP node is used to specify a bump map for the shape nodes\&. "
+.ti -1c
+.RI "class \fBSoBumpMapTransform\fP"
+.br
+.RI "The \fBSoBumpMapTransform\fP class is used to define 2D bump map transformations\&.
+.PP
+Bump maps applied to shapes in the scene can be transformed by 'prefixing' in the state with instances of this node type\&. Translations, rotations and scaling in 2D can all be done\&. "
+.ti -1c
+.RI "class \fBSoCallback\fP"
+.br
+.RI "The \fBSoCallback\fP class is a node type which provides a means of setting callback hooks in the scene graph\&.
+.PP
+By inserting \fBSoCallback\fP nodes in a scene graph, the application programmer can set up functions to be executed at certain points in the traversal\&. "
+.ti -1c
+.RI "class \fBSoCacheHint\fP"
+.br
+.RI "The \fBSoCacheHint\fP class is a node containing hints about how to cache geometry\&.
+.PP
+The \fBSoCacheHint\fP node is used to set up clues to the rendering subsystem about how Coin should cache vertex data\&. "
+.ti -1c
+.RI "class \fBSoCamera\fP"
+.br
+.RI "The \fBSoCamera\fP class is the abstract base class for camera definition nodes\&.
+.PP
+To be able to view a scene, one needs to have a camera in the scene graph\&. A camera node will set up the projection and viewing matrices for rendering of the geometry in the scene\&. "
+.ti -1c
+.RI "class \fBSoClipPlane\fP"
+.br
+.RI "The \fBSoClipPlane\fP class is a node type for specifying clipping planes\&.
+.PP
+A scene graph \fIwithout\fP any \fBSoClipPlane\fP nodes uses six clipping planes to define the viewing frustum: top, bottom, left, right, near and far\&. If you want extra clipping planes for 'slicing' the visible geometry, you can do that by using nodes of this type\&. Geometry on the back side of the clipping plane is clipped away\&. "
+.ti -1c
+.RI "class \fBSoColorIndex\fP"
+.br
+.RI "The \fBSoColorIndex\fP class is used to specify color indices for subsequent shapes\&.
+.PP
+This node should only be used in OpenGL color-index mode, and only when the current light model is set to \fBSoLightModel::BASE_COLOR\fP\&. "
+.ti -1c
+.RI "class \fBSoComplexity\fP"
+.br
+.RI "The \fBSoComplexity\fP class is a node type which is used to set the tradeoff between quality and performance\&.
+.PP
+By inserting \fBSoComplexity\fP nodes in the scene graph, you can control the accuracy by which complex shapes are rendered and the quality of the texture mapping used for geometry in the scene\&. "
+.ti -1c
+.RI "class \fBSoCoordinate3\fP"
+.br
+.RI "The \fBSoCoordinate3\fP class is a node for providing coordinates to shape nodes\&.
+.PP
+When encountering nodes of this type during traversal, the coordinates it contains will be put on the state stack for later use by shape nodes of types which needs coordinate sets (like \fBSoFaceSet\fP nodes or \fBSoPointSet\fP nodes)\&. "
+.ti -1c
+.RI "class \fBSoCoordinate4\fP"
+.br
+.RI "The \fBSoCoordinate4\fP class is a node for providing coordinates to shape nodes\&.
+.PP
+When encountering nodes of this type during traversal, the coordinates it contains will be put on the statestack for later use by shape nodes of types which needs coordinate sets (like \fBSoFaceSet\fP nodes or \fBSoPointSet\fP nodes)\&. "
+.ti -1c
+.RI "class \fBSoDepthBuffer\fP"
+.br
+.RI "The \fBSoDepthBuffer\fP class is a node used to control the GL depth buffer\&. "
+.ti -1c
+.RI "class \fBSoDirectionalLight\fP"
+.br
+.RI "The \fBSoDirectionalLight\fP class is a node type for specifying directional light sources\&.
+.PP
+A directional light source provides a model of light sources which are at infinite distance from the geometry it illuminates, thereby having no set position and consisting of an infinite volume of parallel rays\&. "
+.ti -1c
+.RI "class \fBSoDrawStyle\fP"
+.br
+.RI "The \fBSoDrawStyle\fP class specificies common rendering properties for shapes\&.
+.PP
+Use \fBSoDrawStyle\fP nodes to influence how shape nodes following them in the scenegraph will be rendered\&. This node type have fields to help decide how certain aspects of point-based shapes, line-based shapes and filled shape primitives are rendered\&. "
+.ti -1c
+.RI "class \fBSoEnvironment\fP"
+.br
+.RI "The \fBSoEnvironment\fP class is a node for specifying global rendering parameters\&.
+.PP
+This node type provides the application programmer with the ability to set global parameters influencing lighting and fog\&. "
+.ti -1c
+.RI "class \fBSoEventCallback\fP"
+.br
+.RI "The \fBSoEventCallback\fP class provides functionality for catching events\&.
+.PP
+Use \fBSoEventCallback\fP nodes in the scenegraph for catching user interaction events with the scenegraph's render canvas\&. "
+.ti -1c
+.RI "class \fBSoExtSelection\fP"
+.br
+.RI "The \fBSoExtSelection\fP class can be used for extended selection functionality\&.
+.PP
+This class enables you to select geometry by specifying a lasso (a polygon) or a rectangle on screen\&. When objects are selected, you'll receive the same callbacks as for the \fBSoSelection\fP node\&. "
+.ti -1c
+.RI "class \fBSoFile\fP"
+.br
+.RI "The \fBSoFile\fP class is node container for another model file\&.
+.PP
+This node provides a way to split your models into a set of 'component' models to include into larger 'master' files\&. "
+.ti -1c
+.RI "class \fBSoFont\fP"
+.br
+.RI "The \fBSoFont\fP class is an appearance node for setting fonts\&.
+.PP
+Successive text rendering nodes (like \fBSoText2\fP, \fBSoText3\fP, \fBSoAsciiText\fP, etc) will use the font specified from an \fBSoFont\fP node when visualizing text\&. "
+.ti -1c
+.RI "class \fBSoFontStyle\fP"
+.br
+.RI "The \fBSoFontStyle\fP class changes the appearance of fonts for text rendering nodes\&.
+.PP
+Successive text rendering nodes will use fonts with the style settings of this node, if a font with the given settings can be found and loaded from the system\&. "
+.ti -1c
+.RI "class \fBSoFrustumCamera\fP"
+.br
+.RI "The \fBSoFrustumCamera\fP class defines a camera with a generic frustum\&.\&. "
+.ti -1c
+.RI "class \fBSoGroup\fP"
+.br
+.RI "The \fBSoGroup\fP class is a node which managed other node instances\&.
+.PP
+The internal scene data structures in Coin are managed as directed graphs\&. The graphs are built by setting up a hierarchy through the use of group nodes (either of this type, or from subclasses like \fBSoSeparator\fP) which is then traversed when applying actions (like \fBSoGLRenderAction\fP) to it\&. "
+.ti -1c
+.RI "class \fBSoInfo\fP"
+.br
+.RI "The \fBSoInfo\fP class is a node for holding text information\&.
+.PP
+This is simply a placeholder for textual information about a scene\&. Typically used for specifying author and copyright information in Inventor format files, but can also be used for other purposes, of course\&. "
+.ti -1c
+.RI "class \fBSoLOD\fP"
+.br
+.RI "The \fBSoLOD\fP class is used to choose a child based distance between viewer and object\&.
+.PP
+The class documentation for the \fBSoLOD\fP node class would be similar enough to that of \fBSoLevelOfDetail\fP that we will refer you to look at that one first\&. It will explain the general principles of what a level-of-detail mechanism is, and why and how to use it\&. "
+.ti -1c
+.RI "class \fBSoLabel\fP"
+.br
+.RI "The \fBSoLabel\fP class is a node for holding label information in a scene graph\&.
+.PP
+Use this node as a convenient way of labeling nodes or subgraphs within a scene graph\&. "
+.ti -1c
+.RI "class \fBSoLevelOfDetail\fP"
+.br
+.RI "The \fBSoLevelOfDetail\fP class is used to choose a child based on projected size\&.
+.PP
+A level-of-detail mechanism is typically used by application programmers to assist the library in speeding up the rendering\&. "
+.ti -1c
+.RI "class \fBSoLight\fP"
+.br
+.RI "The \fBSoLight\fP class is the base class for light emitting nodes\&.
+.PP
+This node type is abstract and does not in itself provide any light sources to the scene, you need to use one of its subclasses\&. "
+.ti -1c
+.RI "class \fBSoLightModel\fP"
+.br
+.RI "The \fBSoLightModel\fP class is a node for specifying the model for geometry lighting\&.
+.PP
+Use nodes of this type to set up how lighting should affect subsequent geometry in the scene\&. "
+.ti -1c
+.RI "class \fBSoLinearProfile\fP"
+.br
+.RI "The \fBSoLinearProfile\fP class is a node for specifying linear profile curves\&.
+.PP
+Use nodes of this type if you want to set up profiles that are simply straight lines connected by control points\&. "
+.ti -1c
+.RI "class \fBSoListener\fP"
+.br
+.RI "The \fBSoListener\fP class defines listener attributes used when rendering sound\&.
+.PP
+When rendering geometry, one needs to have a camera defining certain attributes related to vieweing\&. The \fBSoListener\fP plays a similar role when it comes to rendering audio\&. "
+.ti -1c
+.RI "class \fBSoLocateHighlight\fP"
+.br
+.RI "The \fBSoLocateHighlight\fP class highlights geometry under the cursor\&.
+.PP
+Note: this node is supposed to draw to the front buffer\&. However, in Coin we always draw to the back buffer, forcing a scene redraw whenever a highlight state changes\&. "
+.ti -1c
+.RI "class \fBSoMaterial\fP"
+.br
+.RI "The \fBSoMaterial\fP class is a node type for setting up material values for scene geometry\&.
+.PP
+After traversing an \fBSoMaterial\fP node, subsequent shape nodes with geometry in the scene graph will use values from the material 'pool' of the traversal state set up from nodes of this type\&. "
+.ti -1c
+.RI "class \fBSoMaterialBinding\fP"
+.br
+.RI "The \fBSoMaterialBinding\fP class is a node for setting up how materials are mapped to shapes\&.
+.PP
+The material binding specified in nodes of this type decides how the material values of \fBSoMaterial\fP nodes are mapped on the builtin geometry shape nodes\&. "
+.ti -1c
+.RI "class \fBSoMatrixTransform\fP"
+.br
+.RI "The \fBSoMatrixTransform\fP class is a transformation node\&.
+.PP
+This class is the most flexible transformation node, as you can use it to accumulate any kind of transformation matrix on top of the current model transformation matrix\&. "
+.ti -1c
+.RI "class \fBSoMultipleCopy\fP"
+.br
+.RI "The \fBSoMultipleCopy\fP class redraws it's children multiple times at different transformations\&.
+.PP
+The \fBSoMultipleCopy\fP group node duplicates it's children nodes / subgraphs without using additional memory resources\&. "
+.ti -1c
+.RI "class \fBSoNode\fP"
+.br
+.RI "The \fBSoNode\fP class is the base class for nodes used in scene graphs\&.
+.PP
+Coin is a \fIretained\fP \fImode\fP 3D visualization library (built on top of the \fIimmediate\fP \fImode\fP OpenGL library)\&. 'Retained mode' means that instead of passing commands to draw graphics primitives directly to the renderer, you build up data structures which are rendered by the library \fIon\fP \fIdemand\fP\&. "
+.ti -1c
+.RI "class \fBSoNormal\fP"
+.br
+.RI "The \fBSoNormal\fP class is a node for providing normals to the state\&.
+.PP
+Coin will automatically calculate normals for you if no \fBSoNormal\fP nodes are present in the scene graph, but explicitly setting normals is useful for at least two purposes: 1) a potential increase in performance, 2) you can calculate and use 'incorrect' normals to do various special effects\&. "
+.ti -1c
+.RI "class \fBSoNormalBinding\fP"
+.br
+.RI "The \fBSoNormalBinding\fP class is a node for specifying normal vector bindings\&.
+.PP
+Use nodes of this type to specify how to map normal vectors from \fBSoNormal\fP nodes in the scene graph to shape nodes\&. "
+.ti -1c
+.RI "class \fBSoNurbsProfile\fP"
+.br
+.RI "The \fBSoNurbsProfile\fP class is a node for specifying smooth profile curves\&.
+.PP
+Use nodes of this type if you want to set up profiles that are smooth curves\&. "
+.ti -1c
+.RI "class \fBSoOrthographicCamera\fP"
+.br
+.RI "The \fBSoOrthographicCamera\fP class defines a camera node with orthographic rendering\&.
+.PP
+Orthographic rendering will not give a particularly realistic impression of the scene, but non-realistic rendering is for various reasons widely used in applications for e\&.g\&. Computer Aided Design\&. "
+.ti -1c
+.RI "class \fBSoPackedColor\fP"
+.br
+.RI "The \fBSoPackedColor\fP class is a node for setting diffuse and transparency material values\&.
+.PP
+This node provides a convenient way of setting diffuse colors and transparency values with packed 32-bit RGBA vectors\&. "
+.ti -1c
+.RI "class \fBSoPathSwitch\fP"
+.br
+.RI "The \fBSoPathSwitch\fP class traverses only when current path matches a configurable path\&.
+.PP
+\fBFILE FORMAT/DEFAULTS:\fP "
+.ti -1c
+.RI "class \fBSoPendulum\fP"
+.br
+.RI "The \fBSoPendulum\fP class is used to create oscillating rotations\&.
+.PP
+A smooth transition between rotation0 and rotation1 is created using a cosine function\&. In the beginning of the cycle, rotation0 is used\&. Halfway through the cycle, the resulting rotation equals rotation1, and at the end of the cycle, we're at rotation0 again\&. "
+.ti -1c
+.RI "class \fBSoPerspectiveCamera\fP"
+.br
+.RI "The \fBSoPerspectiveCamera\fP class defines a camera node with perspective rendering\&.
+.PP
+For realistic looking 3D scene, the geometry should be rendered with perspective calculations\&. Use this camera type to accomplish this\&. "
+.ti -1c
+.RI "class \fBSoPickStyle\fP"
+.br
+.RI "The \fBSoPickStyle\fP class is a node for setting up how to do picking\&.
+.PP
+By default, all geometry in a scene is available for picking\&. Upon writing applications with interaction possibilities, this is often \fInot\fP what you want\&. To exclude parts of the scene graph from pick actions, use the \fBSoPickStyle::UNPICKABLE\fP\&. "
+.ti -1c
+.RI "class \fBSoPointLight\fP"
+.br
+.RI "The \fBSoPointLight\fP class is a node type for light sources\&.
+.PP
+Pointlights emits light equally in all directions from a specified 3D location\&. "
+.ti -1c
+.RI "class \fBSoPolygonOffset\fP"
+.br
+.RI "The \fBSoPolygonOffset\fP class is a node type for 'layering' rendering primitives\&.
+.PP
+A common problem with realtime 3D rendering systems is that rendered primitives which are at approximately the same depth with regard to the camera viewpoint will appear to flicker\&. I\&.e\&.: from one angle one primitive will appear to be closer, while at another angle, another primitive will appear closer\&. When this happens, the rendered graphics at that part of the scene will of course look a lot less visually pleasing\&. "
+.ti -1c
+.RI "class \fBSoProfile\fP"
+.br
+.RI "The \fBSoProfile\fP class is the abstract superclass for profile definitions\&.
+.PP
+Node subclasses of \fBSoProfile\fP specifies profiles for extruded 3D text and nurbs surface data\&. "
+.ti -1c
+.RI "class \fBSoProfileCoordinate2\fP"
+.br
+.RI "The \fBSoProfileCoordinate2\fP class is a node specifying a set of 2D coordinates for profiles\&.
+.PP
+Use nodes of this type to provide coordinates to profiles\&. "
+.ti -1c
+.RI "class \fBSoProfileCoordinate3\fP"
+.br
+.RI "The \fBSoProfileCoordinate3\fP class is a node specifying a set of 3D coordinates for profiles\&.
+.PP
+Use nodes of this type to provide coordinates to profiles\&. "
+.ti -1c
+.RI "class \fBSoResetTransform\fP"
+.br
+.RI "The \fBSoResetTransform\fP class is a node type which makes it possible to 'nullify' state during traversal\&.
+.PP
+\fBSoResetTransform\fP is useful for setting up geometry in the scene graph which will not be influenced by the transformation nodes before it during traversal\&. "
+.ti -1c
+.RI "class \fBSoReversePerspectiveCamera\fP"
+.br
+.RI "The \fBSoReversePerspectiveCamera\fP class defines a camera node with reverse perspective rendering\&.
+.PP
+For realistic looking 3D scene, the geometry should be rendered with perspective calculations\&. Use this camera type to accomplish this\&. "
+.ti -1c
+.RI "class \fBSoRotation\fP"
+.br
+.RI "The \fBSoRotation\fP class specifies a rotation transformation\&.
+.PP
+Use nodes of this class type to re-orient geometry data within the scene graph\&. "
+.ti -1c
+.RI "class \fBSoRotationXYZ\fP"
+.br
+.RI "The \fBSoRotationXYZ\fP class is a node type for specifying rotation around a particular axis\&.
+.PP
+Application programmers can use nodes of this type instead of \fBSoRotation\fP nodes for simplicity and clarity if the rotation will only happen around one particular axis\&. "
+.ti -1c
+.RI "class \fBSoRotor\fP"
+.br
+.RI "The \fBSoRotor\fP class is a node used to animate rotations\&.
+.PP
+Insert this node in your hierarchy to apply a continuous rotation to some geometry\&. Since this node inherits the \fBSoRotation\fP node, rotation is restricted around the axis specified in the rotation field\&. "
+.ti -1c
+.RI "class \fBSoScale\fP"
+.br
+.RI "The \fBSoScale\fP class is a node type for scaling scene graph geometry\&.
+.PP
+Use nodes of this type to apply scaling operations during scenegraph traversals for e\&.g\&. rendering\&. Scale values are specified in a triple-value vector, with one scale factor for each of the 3 principal axes\&. "
+.ti -1c
+.RI "class \fBSoSceneTexture2\fP"
+.br
+.RI "The \fBSoSceneTexture2\fP class is used to create a 2D texture from a Coin scene graph\&.
+.PP
+Lets the rendering of a scene graph be specified as a texture image to be used in another scene graph\&. Set up the scene graph used for a texture in the \fBSoSceneTexture2::scene\fP field\&. "
+.ti -1c
+.RI "class \fBSoSceneTextureCubeMap\fP"
+.br
+.RI "Renders a scene into a texture cube map\&. "
+.ti -1c
+.RI "class \fBSoSelection\fP"
+.br
+.RI "The \fBSoSelection\fP class manages a list of selected nodes\&.
+.PP
+Inserting an \fBSoSelection\fP node in your scene graph enables you to let the user 'pick' with the left mousebutton to select/deselect objects below the \fBSoSelection\fP node\&. "
+.ti -1c
+.RI "class \fBSoSeparator\fP"
+.br
+.RI "The \fBSoSeparator\fP class is a state-preserving group node\&.
+.PP
+Subgraphs parented by \fBSoSeparator\fP nodes will not affect the state, as they push and pop the traversal state before and after traversal of its children\&. "
+.ti -1c
+.RI "class \fBSoShapeHints\fP"
+.br
+.RI "The \fBSoShapeHints\fP class is a node containing hints about how to render geometry\&.
+.PP
+The \fBSoShapeHints\fP node is used to set up clues to the rendering subsystem about how particular aspects of the subsequent geometry in the scene graph should be drawn\&. "
+.ti -1c
+.RI "class \fBSoShuttle\fP"
+.br
+.RI "The \fBSoShuttle\fP class is used to oscillate between two translations\&.
+.PP
+A smooth transition between translation0 and translation1 is created using a cosine function\&. In the beginning of the cycle, translation0 is used\&. Halfway through the cycle, the resulting translation equals translation1, and at the end of the cycle, we're at translation0 again\&. "
+.ti -1c
+.RI "class \fBSoSpotLight\fP"
+.br
+.RI "The \fBSoSpotLight\fP class is a node type for light sources with a cone shaped lightvolume\&.
+.PP
+Spotlights are light sources with a position and a direction\&. They can be thought of as a pointlight with a lampshade\&. "
+.ti -1c
+.RI "class \fBSoSurroundScale\fP"
+.br
+.RI "The \fBSoSurroundScale\fP class is used to automatically scale geometry to surround other geometry\&.
+.PP
+This node calculates a transformation (a translation and a scale) which will, when the node is traversed, be appended to the current model matrix, making a default cube placed directly to the right of this node in the graph surround geometry to the right of the container branch this node is on\&. The container is specified by the field \fBSoSurroundScale::numNodesUpToContainer\fP\&. "
+.ti -1c
+.RI "class \fBSoSwitch\fP"
+.br
+.RI "The \fBSoSwitch\fP class is a group node which selects one child subgraph for traversal\&.
+.PP
+Which child to traverse is controlled by the application programmer by using the \fBSoSwitch::whichChild\fP field\&. In addition to picking out a single child for traversal, it is also possible to flip all children on or off for traversal\&. "
+.ti -1c
+.RI "class \fBSoTexture2\fP"
+.br
+.RI "The \fBSoTexture2\fP class is used to map a 2D texture onto subsequent geometry in the scenegraph\&.
+.PP
+Shape nodes within the scope of \fBSoTexture2\fP nodes in the scenegraph (ie below the same \fBSoSeparator\fP and to the righthand side of the \fBSoTexture2\fP) will have the texture applied according to each shape type's individual characteristics\&. See the documentation of the various shape types (\fBSoFaceSet\fP, \fBSoCube\fP, \fBSoSphere\fP, etc etc) for information about the specifics of how the textures will be applied\&. "
+.ti -1c
+.RI "class \fBSoTexture3\fP"
+.br
+.RI "The \fBSoTexture3\fP class is used to map a 3D texture onto geometry\&.
+.PP
+Shape nodes within the scope of \fBSoTexture3\fP nodes in the scenegraph (ie below the same \fBSoSeparator\fP and to the righthand side of the \fBSoTexture3\fP) will have the texture applied according to each shape type's individual characteristics\&. See the documentation of the various shape types (\fBSoFaceSet\fP, \fBSoCube\fP, \fBSoSphere\fP, etc etc) for information about the specifics of how the textures will be applied\&. An \fBSoTexture3\fP node will override any previous encountered \fBSoTexture2\fP nodes and vice versa\&. Mixing of \fBSoTexture3\fP and \fBSoTextureCoordinate2\fP (or the other way around) is legal, but the third texture coordinate component will be ignored (set to 0\&.0)\&. "
+.ti -1c
+.RI "class \fBSoTexture2Transform\fP"
+.br
+.RI "The \fBSoTexture2Transform\fP class is used to define 2D texture transformations\&.
+.PP
+Textures applied to shapes in the scene can be transformed by 'prefixing' in the state with instances of this node type\&. Translations, rotations and scaling in 2D can all be done\&. "
+.ti -1c
+.RI "class \fBSoTexture3Transform\fP"
+.br
+.RI "The \fBSoTexture3Transform\fP class is used to define 3D texture transformations\&.
+.PP
+Textures applied to shapes in the scene can be transformed by 'prefixing' in the state with instances of this node type\&. Translations, rotations and scaling in 3D can all be done\&. "
+.ti -1c
+.RI "class \fBSoTextureCombine\fP"
+.br
+.RI "The \fBSoTextureCombine\fP class is a node for setting texture combine functions\&.
+.PP
+This node is more or less an exact mapping of the OpenGL ARB_texture_env_combine extension (included in OpenGL in OpenGL v1\&.3)\&. See http://oss.sgi.com/projects/ogl-sample/registry/ARB/texture_env_combine.txt for more information about this extension\&. "
+.ti -1c
+.RI "class \fBSoTextureCoordinate2\fP"
+.br
+.RI "The \fBSoTextureCoordinate2\fP class contains a set of coordinates for the mapping of 2D textures\&.
+.PP
+When encountering nodes of this type during traversal, the coordinates it contains will be put on the state stack\&. Some shape nodes (for instance \fBSoIndexedFaceSet\fP, among many others) can then use these coordinates for explicit, detailed control of how textures are mapped to it's surfaces\&. "
+.ti -1c
+.RI "class \fBSoTextureCoordinate3\fP"
+.br
+.RI "The \fBSoTextureCoordinate3\fP class contains a set of coordinates for the mapping of 2D textures\&.
+.PP
+When encountering nodes of this type during traversal, the coordinates it contains will be put on the state stack\&. Some shape nodes can then use these coordinates for explicit, detailed control of how 3D textures are mapped\&. "
+.ti -1c
+.RI "class \fBSoTextureCoordinateBinding\fP"
+.br
+.RI "The \fBSoTextureCoordinateBinding\fP class says how texture coordinates should be bound to shapes\&.
+.PP
+\fBSoTextureCoordinateBinding\fP binds current coordinates to subsequent shapes by using either per vertex or per indexed vertex binding\&. "
+.ti -1c
+.RI "class \fBSoTextureCoordinateCube\fP"
+.br
+.RI "The \fBSoTextureCoordinateCube\fP class autogenerates cubemapped texture coordinated for shapes\&.
+.PP
+The cube used for reference when mapping is the boundingbox for the shape\&. "
+.ti -1c
+.RI "class \fBSoTextureCoordinateCylinder\fP"
+.br
+.RI "The \fBSoTextureCoordinateCylinder\fP class autogenerates cylinder mapped texture coordinated for shapes\&.
+.PP
+\fBFILE FORMAT/DEFAULTS:\fP "
+.ti -1c
+.RI "class \fBSoTextureCoordinateSphere\fP"
+.br
+.RI "The \fBSoTextureCoordinateSphere\fP class autogenerates spheremapped texture coordinated for shapes\&.
+.PP
+\fBFILE FORMAT/DEFAULTS:\fP "
+.ti -1c
+.RI "class \fBSoTextureCoordinateDefault\fP"
+.br
+.RI "The \fBSoTextureCoordinateDefault\fP class removes texture coordinates from the state\&.
+.PP
+Shapes below this node in the scenegraph will have to use its default texture coordinates as \fBSoTextureCoordinateDefault\fP cleans out all previously defined texture coordinates and texture coordinate functions\&. "
+.ti -1c
+.RI "class \fBSoTextureCoordinateEnvironment\fP"
+.br
+.RI "The \fBSoTextureCoordinateEnvironment\fP class generates texture coordinates by projecting onto a surrounding texture\&.
+.PP
+The texture specifying the enviroment will be mapped around the scenegraph below this node using a sphere\&. The texture will be mapped onto the scenegraph taking camera position into account\&. This will lead to an object reflecting its enviroment\&. "
+.ti -1c
+.RI "class \fBSoTextureCoordinateFunction\fP"
+.br
+.RI "The \fBSoTextureCoordinateFunction\fP class is an abstract base class for texture coordinate generating nodes
+.PP
+Classes reimplementing \fBSoTextureCoordinateFunction\fP generate texture coordinates by projecting object space surface points using some function\&. "
+.ti -1c
+.RI "class \fBSoTextureCoordinatePlane\fP"
+.br
+.RI "The \fBSoTextureCoordinatePlane\fP class generates texture coordinates by projecting onto a plane\&.
+.PP
+\fBSoTextureCoordinatePlane\fP is used for generating texture coordinates by projecting the object onto a texture plane\&. The s, t and r texture coordinates are computed as the distance from the origin to the projected point, in the respective directions\&. The texture plane is specified using two direction vectors, given as \fBSoTextureCoordinatePlane::directionS\fP and \fBSoTextureCoordinatePlane::directionT\fP in object space coordinates\&. \fBSoTextureCoordinatePlane::directionR\fP is used for generating the third coordinate, and can be used for generating texture coordinate for 3D textures\&. For 2D textures you can just leave this field alone\&. "
+.ti -1c
+.RI "class \fBSoTextureCoordinateNormalMap\fP"
+.br
+.RI "The \fBSoTextureCoordinateNormalMap\fP class generates texture coordinates by projecting onto a surrounding texture\&.
+.PP
+The texture specifying the enviroment will be mapped around the scenegraph below this node using a sphere\&. The texture will be mapped onto the scenegraph taking camera position into account\&. This will lead to an object reflecting its enviroment\&. "
+.ti -1c
+.RI "class \fBSoTextureCoordinateReflectionMap\fP"
+.br
+.RI "The \fBSoTextureCoordinateReflectionMap\fP class generates 3D reflection texture coordinates\&.
+.PP
+This node is usually used along with a SoCubeMapTexture node\&.\&.\&. "
+.ti -1c
+.RI "class \fBSoTextureCoordinateObject\fP"
+.br
+.RI "The \fBSoTextureCoordinateObject\fP class generates texture coordinates by\&.\&.\&.
+.PP
+FIXME: not implemented yet\&. pederb, 2005-04-20\&. "
+.ti -1c
+.RI "class \fBSoTextureCubeMap\fP"
+.br
+.RI "The \fBSoTextureCubeMap\fP class is used to map a cube map onto subsequent shape nodes\&.
+.PP
+Shape nodes within the scope of \fBSoTextureCubeMap\fP nodes in the scenegraph (ie below the same \fBSoSeparator\fP and to the righthand side of the \fBSoTextureCubeMap\fP) will have the texture applied according to each shape type's individual characteristics\&. See the documentation of the various shape types (\fBSoFaceSet\fP, \fBSoCube\fP, \fBSoSphere\fP, etc etc) for information about the specifics of how the textures will be applied\&. "
+.ti -1c
+.RI "class \fBSoTextureMatrixTransform\fP"
+.br
+.RI "The \fBSoTextureMatrixTransform\fP class is used to define a texture matrix transformation\&.
+.PP
+Textures applied to shapes in the scene can be transformed by 'prefixing' in the state with instances of this node type\&. "
+.ti -1c
+.RI "class \fBSoTextureScalePolicy\fP"
+.br
+.RI "The \fBSoTextureScalePolicy\fP class is a node for controlling the texture scale policy\&.
+.PP
+If a texture map is of size != 2^n, it must be scaled before OpenGL can handle it\&. This node enables you to control how/if textures are scaled before it is sent to OpenGL\&. "
+.ti -1c
+.RI "class \fBSoTextureUnit\fP"
+.br
+.RI "The \fBSoTextureUnit\fP class is a node for setting the active texture unit\&.
+.PP
+When an \fBSoTextureUnit\fP node is inserted into the scene graph, all subsequent texture nodes (\fBSoTexture2\fP, \fBSoTextureCoordinate2\fP, \fBSoTextureCoordinate3\fP, \fBSoTexture2Transform\fP, \fBSoTexture3Transform\fP, \fBSoTextureCoordinateEnvironment\fP, \fBSoTextureCoordinatePlane\fP and \fBSoComplexity\fP) will affect the texture unit set in the unit field\&. "
+.ti -1c
+.RI "class \fBSoTransform\fP"
+.br
+.RI "The \fBSoTransform\fP class is the 'all-purpose' transformation node type\&.
+.PP
+Like \fBSoMatrixTransform\fP, nodes of this type gives the application programmer maximum flexibility when specifying geometry transformations in a scene graph\&. If you want to set and keep the various components of the transformation matrix in separate entities, this node type is preferable, though\&. "
+.ti -1c
+.RI "class \fBSoTransparencyType\fP"
+.br
+.RI "The \fBSoTransparencyType\fP class is a node for setting the transparency type for shapes\&.
+.PP
+In earlier versions of Coin/Open Inventor it was only possible to set the transparency mode globally for an entire scene graph, which could be inconvenient if different transparency types was wanted for different shapes\&. "
+.ti -1c
+.RI "class \fBSoTransformSeparator\fP"
+.br
+.RI "The \fBSoTransformSeparator\fP class is a group node preserving the current transformations\&.
+.PP
+This node works like the \fBSoSeparator\fP group node, except that it only stores and restores the current model matrix transformation\&. Other appearance settings, like materials, textures, cameras, lights, etc, will affect the remaining parts of the scenegraph after traversal, just like as for the \fBSoGroup\fP node\&. "
+.ti -1c
+.RI "class \fBSoTransformation\fP"
+.br
+.RI "The \fBSoTransformation\fP class is the abstract base class for transformation nodes\&.
+.PP
+To position and orient geometry within the 3D world space, various node types for transformations are used\&. These nodes all inherit the \fBSoTransformation\fP base class\&. "
+.ti -1c
+.RI "class \fBSoTranslation\fP"
+.br
+.RI "The \fBSoTranslation\fP class is a node type for specifying geometry translations\&.
+.PP
+For simply translating some geometry in a scene graph, you can use this node type\&. "
+.ti -1c
+.RI "class \fBSoUnits\fP"
+.br
+.RI "The \fBSoUnits\fP class is a node for setting unit types\&.
+.PP
+Even though Coin doesn't care what units you are using in your scene graph \fIper\fP \fIse\fP, there's an advantage to using \fBSoUnits\fP nodes: you have a way to split your scene graph into different 'conceptual' parts\&. "
+.ti -1c
+.RI "class \fBSoVertexProperty\fP"
+.br
+.RI "The \fBSoVertexProperty\fP class collects the functionality of various appearance nodes\&.
+.PP
+Instead of reading data from the current state stack of the scenegraph traversal, nodes inheriting \fBSoVertexShape\fP can be set up with an \fBSoVertexProperty\fP node in the \fBSoVertexShape::vertexProperty\fP field\&. Coordinates, normals, texture coordinates and material / color information will then be fetched from the vertexshape's \fBSoVertexProperty\fP node instead of from the state stack\&. "
+.ti -1c
+.RI "class \fBSoWWWAnchor\fP"
+.br
+.RI "The \fBSoWWWAnchor\fP class adds URL callbacks to the highlighted geometry\&.
+.PP
+In addition to highlighting geometry under the cursor, the application programmer can set callbacks\&. It is possible to set one callback for picking, the fetch callback, and one callback for highlighting\&. "
+.ti -1c
+.RI "class \fBSoWWWInline\fP"
+.br
+.RI "The \fBSoWWWInline\fP class is a node used to include data from an URL\&.
+.PP
+If the URL is not a local file, the application is responsible for supplying a callback to a function which will fetch the data of the URL\&. "
+.ti -1c
+.RI "class \fBSoAsciiText\fP"
+.br
+.RI "The \fBSoAsciiText\fP class renders flat 3D text\&.
+.PP
+The text is rendered using 3D polygon geometry\&. "
+.ti -1c
+.RI "class \fBSoCone\fP"
+.br
+.RI "The \fBSoCone\fP class is for rendering cone shapes\&.
+.PP
+Insert a cone shape into the scenegraph\&. The cone is rendered with the current material, texture and drawstyle settings (if any, otherwise the default settings are used)\&. "
+.ti -1c
+.RI "class \fBSoCube\fP"
+.br
+.RI "The \fBSoCube\fP class is for rendering cubes\&.
+.PP
+Insert a cube shape into the scenegraph\&. The cube is rendered with the current material, texture and drawstyle settings (if any, otherwise the default settings are used)\&. "
+.ti -1c
+.RI "class \fBSoCylinder\fP"
+.br
+.RI "The \fBSoCylinder\fP class is for rendering cylinder shapes\&.
+.PP
+Insert a cylinder shape into the scenegraph\&. The cylinder is rendered with the current material, texture and drawstyle settings (if any, otherwise the default settings are used)\&. "
+.ti -1c
+.RI "class \fBSoFaceSet\fP"
+.br
+.RI "The \fBSoFaceSet\fP class is used to render and organize non-indexed polygonal face data\&.
+.PP
+Faces are specified using the numVertices field\&. Coordinates, normals, materials and texture coordinates are fetched in order from the current state or from the vertexProperty node if set\&. For example, if numVertices is set to [3, 4, 5, 3], this node would specify a triangle from coordinates 0, 1 and 2, a quad from coordinates 3, 4, 5 and 6, a polygon from coordinates 7, 8, 9, 10 and 11 and finally a triangle from coordinates 12, 13, 14\&. "
+.ti -1c
+.RI "class \fBSoImage\fP"
+.br
+.RI "The \fBSoImage\fP class draws a 2D image on the viewport\&.
+.PP
+An image can be specified either by using the image field, or by specifying a filename\&. If width and or height is specified, the image will be resized to match those values before it is displayed\&. "
+.ti -1c
+.RI "class \fBSoIndexedFaceSet\fP"
+.br
+.RI "The \fBSoIndexedFaceSet\fP class is used to handle generic indexed facesets\&.
+.PP
+Faces are specified using the coordIndex field\&. Each face must be terminated by a negative (-1) index\&. Coordinates, normals, materials and texture coordinates from the current state (or from the vertexProperty node if set), can be indexed to create triangles, quads or polygons\&. "
+.ti -1c
+.RI "class \fBSoIndexedLineSet\fP"
+.br
+.RI "The \fBSoIndexedLineSet\fP class is used to render and otherwise represent indexed lines\&.
+.PP
+The indexed counterpart of \fBSoLineSet\fP\&. Lines can specified using indices for coordinates, normals, materials and texture coordinates\&. "
+.ti -1c
+.RI "class \fBSoIndexedMarkerSet\fP"
+.br
+.RI "The \fBSoIndexedMarkerSet\fP class is used to display a set of bitmap markers at 3D positions\&.
+.PP
+This node either uses the coordinates currently on the state (typically set up by a leading \fBSoCoordinate3\fP node in the scenegraph) or from a \fBSoVertexProperty\fP node attached to this node to render a set of 3D points\&. "
+.ti -1c
+.RI "class \fBSoIndexedNurbsCurve\fP"
+.br
+.RI "The \fBSoIndexedNurbsCurve\fP class is a node for representing smooth curves\&.
+.PP
+Explaining NURBS is beyond the scope of this documentation\&. If you are unfamiliar with the principles of representing smooth curves and surfaces when doing 3D visualization, we recommend finding a good book on the subject\&. "
+.ti -1c
+.RI "class \fBSoIndexedNurbsSurface\fP"
+.br
+.RI "The \fBSoIndexedNurbsSurface\fP class can be used to render NURBS surfaces\&.
+.PP
+It is very similar to the \fBSoNurbsSurface\fP class, but controlpoints can be specified using indices\&. "
+.ti -1c
+.RI "class \fBSoIndexedPointSet\fP"
+.br
+.RI "The \fBSoIndexedPointSet\fP class is used to display a set of 3D points\&.
+.PP
+This node either uses the coordinates currently on the state (typically set up by a leading \fBSoCoordinate3\fP node in the scenegraph) or from a \fBSoVertexProperty\fP node attached to this node to render a set of 3D points\&. "
+.ti -1c
+.RI "class \fBSoIndexedShape\fP"
+.br
+.RI "The \fBSoIndexedShape\fP class is the superclass for all indexed vertex shapes\&.
+.PP
+This is an abstract class which contains storage for four fields for indices to coordinates, normals, materials and texture coordinates for it's subclasses\&. "
+.ti -1c
+.RI "class \fBSoIndexedTriangleStripSet\fP"
+.br
+.RI "The \fBSoIndexedTriangleStripSet\fP class keeps data for rendering and otherwise representing triangle strips\&.
+.PP
+Use nodes of this type as an effective way of drawing triangles which are strung together\&. "
+.ti -1c
+.RI "class \fBSoLineSet\fP"
+.br
+.RI "The \fBSoLineSet\fP class is used to render and organize non-indexed polylines\&.
+.PP
+Polylines are specified using the numVertices field\&. Coordinates, normals, materials and texture coordinates are fetched in order from the current state or from the vertexProperty node if set\&. For example, if numVertices is set to [3, 4, 2], this node would specify a line through coordinates 0, 1 and 2, a line through coordinates 3, 4, 5 and 6, and finally a single line segment between coordinates 7 and 8\&. "
+.ti -1c
+.RI "class \fBSoMarkerSet\fP"
+.br
+.RI "The \fBSoMarkerSet\fP class displays a set of 2D bitmap markers in 3D\&.
+.PP
+This node uses the coordinates currently on the state (or in the vertexProperty field) in order\&. The numPoints field specifies the number of points in the set\&. "
+.ti -1c
+.RI "class \fBSoNonIndexedShape\fP"
+.br
+.RI "The \fBSoNonIndexedShape\fP class is the superclass for all non-indexed vertex based shapes\&.
+.PP
+It contains the (now obsoleted) startIndex field and a convenience method for calculating the bounding box\&. "
+.ti -1c
+.RI "class \fBSoNurbsCurve\fP"
+.br
+.RI "The \fBSoNurbsCurve\fP class is a node for representing smooth curves\&.
+.PP
+A general explanation of NURBS is beyond the scope of the Coin documentation\&. For detailed information, refer to the specialized literature on the topic (for example 'An Introduction to NURBS: With
+Historical Perspective' by David F\&. Rogers)\&. A basic overview of curve and surface rendering using NURBS can be found in chapter 8 of 'The Inventor Mentor'\&. "
+.ti -1c
+.RI "class \fBSoNurbsSurface\fP"
+.br
+.RI "The \fBSoNurbsSurface\fP class is used to render smooth surfaces\&.
+.PP
+A general explanation of NURBS is beyond the scope of the Coin documentation\&. For detailed information, refer to the specialized literature on the topic (for example 'An Introduction to NURBS: With
+Historical Perspective' by David F\&. Rogers)\&. A basic overview of curve and surface rendering using NURBS can be found in chapter 8 of 'The Inventor Mentor'\&. "
+.ti -1c
+.RI "class \fBSoPointSet\fP"
+.br
+.RI "The \fBSoPointSet\fP class is used to display a set of 3D points\&.
+.PP
+This node either uses the coordinates currently on the state (typically set up by a leading \fBSoCoordinate3\fP node in the scenegraph) or from a \fBSoVertexProperty\fP node attached to this node to render a set of 3D points\&. "
+.ti -1c
+.RI "class \fBSoQuadMesh\fP"
+.br
+.RI "The \fBSoQuadMesh\fP class is used to render and optimize a quadrilateral mesh\&.
+.PP
+This node uses the coordinates in order, either from the state or from the \fBSoQuadMesh::vertexProperty\fP node, to construct a quadrilateral mesh\&. "
+.ti -1c
+.RI "class \fBSoShape\fP"
+.br
+.RI "The \fBSoShape\fP class is the superclass for geometry shapes\&.
+.PP
+The node types which have actual geometry to render inherits this class\&. For convenience, the \fBSoShape\fP class contains various common code used by the subclasses\&. "
+.ti -1c
+.RI "class \fBSoSphere\fP"
+.br
+.RI "The \fBSoSphere\fP class is for rendering sphere shapes\&.
+.PP
+Renders a sphere with the size given by the \fBSoSphere::radius\fP field\&. The sphere is rendered with the current material, texture and drawstyle settings (if any, otherwise the default settings are used)\&. "
+.ti -1c
+.RI "class \fBSoText2\fP"
+.br
+.RI "The \fBSoText2\fP class is a node type for visualizing 2D text aligned with the camera plane\&.
+.PP
+\fBSoText2\fP text is not scaled according to the distance from the camera, and is not influenced by rotation or scaling as 3D primitives are\&. If these are properties that you want the text to have, you should instead use an \fBSoText3\fP or \fBSoAsciiText\fP node\&. "
+.ti -1c
+.RI "class \fBSoText3\fP"
+.br
+.RI "The \fBSoText3\fP class renders extruded 3D text\&.
+.PP
+Render text as 3D geometry\&. "
+.ti -1c
+.RI "class \fBSoTriangleStripSet\fP"
+.br
+.RI "The \fBSoTriangleStripSet\fP class is used to render and control non-indexed triangle strips\&.
+.PP
+Triangle strips are specified using the numVertices field\&. "
+.ti -1c
+.RI "class \fBSoVertexShape\fP"
+.br
+.RI "The \fBSoVertexShape\fP class is the superclass for all vertex based shapes\&.
+.PP
+Basically, every polygon-, line- or point-based shape will inherit this class\&. It contains methods for organizing the normal cache, and also holds the \fBSoVertexShape::vertexProperty\fP field which can be used to set vertex data inside the node\&. "
+.ti -1c
+.RI "class \fBSoShadowStyle\fP"
+.br
+.RI "The \fBSoShadowStyle\fP class is a node for setting the shadow style on nodes\&. "
+.ti -1c
+.RI "class \fBSoShadowSpotLight\fP"
+.br
+.RI "The \fBSoShadowSpotLight\fP class is a node for setting up a spot light which casts shadows\&. "
+.ti -1c
+.RI "class \fBSoShadowCulling\fP"
+.br
+.RI "The \fBSoShadowCulling\fP class is a node for setting the shadow style on nodes\&. "
+.ti -1c
+.RI "class \fBSoGeoOrigin\fP"
+.br
+.RI "The \fBSoGeoOrigin\fP class is used to specify an absolute geographic location against which geometry is referenced\&.
+.PP
+\fBFILE FORMAT/DEFAULTS:\fP "
+.ti -1c
+.RI "class \fBSoGeoLocation\fP"
+.br
+.RI "The \fBSoGeoLocation\fP class is used to georeference the following nodes\&.
+.PP
+\fBFILE FORMAT/DEFAULTS:\fP "
+.ti -1c
+.RI "class \fBSoGeoSeparator\fP"
+.br
+.RI "The \fBSoGeoSeparator\fP class is used to georeference a scene graph\&.
+.PP
+\fBFILE FORMAT/DEFAULTS:\fP "
+.ti -1c
+.RI "class \fBSoGeoCoordinate\fP"
+.br
+.RI "The \fBSoGeoCoordinate\fP class is used to specify a list of geographical coordinates\&.
+.PP
+\fBFILE FORMAT/DEFAULTS:\fP "
+.in -1c
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBSO_NODE_HEADER\fP(classname)"
+.br
+.ti -1c
+.RI "#define \fBSO_NODE_ABSTRACT_HEADER\fP(classname)"
+.br
+.ti -1c
+.RI "#define \fBSO_NODE_INIT_CLASS\fP(classname,  parentclass,  parentname)"
+.br
+.ti -1c
+.RI "#define \fBSO_NODE_INIT_ABSTRACT_CLASS\fP(classname,  parentclass,  parentname)"
+.br
+.ti -1c
+.RI "#define \fBSO_NODE_SOURCE\fP(classname)"
+.br
+.ti -1c
+.RI "#define \fBSO_NODE_ABSTRACT_SOURCE\fP(classname)"
+.br
+.ti -1c
+.RI "#define \fBSO_NODE_CONSTRUCTOR\fP(classname)"
+.br
+.ti -1c
+.RI "#define \fBSO_NODE_IS_FIRST_INSTANCE\fP()"
+.br
+.ti -1c
+.RI "#define \fBSO_NODE_ADD_FIELD\fP(field,  defaultvalue)"
+.br
+.ti -1c
+.RI "#define \fBSO_NODE_DEFINE_ENUM_VALUE\fP(enumname,  enumvalue)"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBSoTexture::getClassTypeId\fP (void)"
+.br
+.RI "Common base class for texture nodes\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Nodes are scene based objects performs various actions such as rendering\&. 
+
+This is the set of nodes Coin implements using the original Open Inventor pattern, meaning they read and write to and from files using the Inventor/VRML1 format, and produce side-effects for subsequent siblings under the same \fBSoSeparator\fP node during action traversal\&.
+.PP
+A subset of these nodes constitute the VRML1 format, and a bigger subset constitutes the Inventor format\&. The rest of the nodes are extensions that are not part of any standardized format\&.
+.PP
+For VRML97 nodes, see the \fBVRML97 Classes\fP page\&.
+.PP
+The VRML1\&.0 specification is at http://www.web3d.org/x3d/specifications/vrml/VRML1.0/index.html 
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define SO_NODE_HEADER(classname)"
+This macro adds standard declarations needed in Coin nodes for object creation and type identification\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSO_NODE_SOURCE\fP 
+.RE
+.PP
+
+.SS "#define SO_NODE_ABSTRACT_HEADER(classname)"
+This macro adds standard declarations needed in Coin nodes for type identification\&. It differs from \fBSO_NODE_HEADER\fP in that the object creation part is omitted\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSO_NODE_ABSTRACT_SOURCE\fP 
+.RE
+.PP
+
+.SS "#define SO_NODE_INIT_CLASS(classname, parentclass, parentname)"
+This macro is used in the initClass-function in a node class\&. It registers the class by name (by creating a new \fBSoType\fP for the class), so file reading will be able to create a node of this type and fill it with its field values\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSO_NODE_INIT_ABSTRACT_CLASS\fP 
+.RE
+.PP
+
+.SS "#define SO_NODE_INIT_ABSTRACT_CLASS(classname, parentclass, parentname)"
+This macro is used in the initClass-function in abstract node classes\&. It registers the class by name (by creating a new \fBSoType\fP for the class) for type identification purposes\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSO_NODE_INIT_CLASS\fP 
+.RE
+.PP
+
+.SS "#define SO_NODE_SOURCE(classname)"
+This macro sets up the impementation of the declarations in \fBSO_NODE_HEADER\fP\&. It chould be placed in the implementation file for extension nodes\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSO_NODE_HEADER\fP 
+.RE
+.PP
+
+.SS "#define SO_NODE_ABSTRACT_SOURCE(classname)"
+This macro sets up the impementation of the declarations in \fBSO_NODE_ABSTRACT_HEADER\fP\&. It chould be placed in the implementation file for abstract extension nodes\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSO_NODE_ABSTRACT_HEADER\fP 
+.RE
+.PP
+
+.SS "#define SO_NODE_CONSTRUCTOR(classname)"
+Place this in the node constructor\&. It sets up the fielddata object for the node class\&. 
+.SS "#define SO_NODE_IS_FIRST_INSTANCE()"
+This macro can be used as a predicate to test if the constructed node is the first constructed instance of a node class, in case some extra initialization needs to be done that can't be done in the initClass() function\&. 
+.SS "#define SO_NODE_ADD_FIELD(field, defaultvalue)"
+This registers a field for a node, and sets its value to the default value\&. For use in the constructor, below the \fBSO_NODE_CONSTRUCTOR\fP macro\&. 
+.SS "#define SO_NODE_DEFINE_ENUM_VALUE(enumname, enumvalue)"
+This macro associates enum names with values, used for file input/output\&. 
+.SH "Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoTexture::getClassTypeId (void)\fC [static]\fP"
+
+.PP
+Common base class for texture nodes\&. \fBSoTexture\fP \fBSoTexture\&.h\fP \fBInventor/nodes/SoTexture\&.h\fP
+.PP
+Be aware that this class is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&. 
+.PP
+\fBSince:\fP
+.RS 4
+Coin 3\&.0 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

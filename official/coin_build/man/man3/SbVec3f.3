@@ -1,0 +1,429 @@
+.TH "SbVec3f" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SbVec3f \- The \fBSbVec3f\fP class is a 3 dimensional vector with floating point coordinates\&.
+.PP
+This vector class is used by many other classes in Coin\&. It provides storage for a 3 dimensional vector as well as simple floating point arithmetic operations\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/SbVec3f\&.h>\fP
+.PP
+Inherited by \fBSbColor\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSbVec3f\fP (void)"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP (const float v[3])"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP (float x, float y, float z)"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP (const \fBSbVec3d\fP &v)"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP (const \fBSbVec3b\fP &v)"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP (const \fBSbVec3s\fP &v)"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP (const \fBSbVec3i32\fP &v)"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP (const \fBSbPlane\fP &p0, const \fBSbPlane\fP &p1, const \fBSbPlane\fP &p2)"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP & \fBsetValue\fP (const float v[3])"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP & \fBsetValue\fP (float x, float y, float z)"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP & \fBsetValue\fP (const \fBSbVec3f\fP &barycentric, const \fBSbVec3f\fP &v0, const \fBSbVec3f\fP &v1, const \fBSbVec3f\fP &v2)"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP & \fBsetValue\fP (const \fBSbVec3d\fP &v)"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP & \fBsetValue\fP (const \fBSbVec3b\fP &v)"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP & \fBsetValue\fP (const \fBSbVec3s\fP &v)"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP & \fBsetValue\fP (const \fBSbVec3i32\fP &v)"
+.br
+.ti -1c
+.RI "const float * \fBgetValue\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBgetValue\fP (float &x, float &y, float &z) const"
+.br
+.ti -1c
+.RI "float & \fBoperator[]\fP (\fBint\fP i)"
+.br
+.ti -1c
+.RI "const float & \fBoperator[]\fP (\fBint\fP i) const"
+.br
+.ti -1c
+.RI "SbBool \fBequals\fP (const \fBSbVec3f\fP &v, float tolerance) const"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP \fBcross\fP (const \fBSbVec3f\fP &v) const"
+.br
+.ti -1c
+.RI "float \fBdot\fP (const \fBSbVec3f\fP &v) const"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP \fBgetClosestAxis\fP (void) const"
+.br
+.ti -1c
+.RI "float \fBlength\fP (void) const"
+.br
+.ti -1c
+.RI "float \fBsqrLength\fP (void) const"
+.br
+.ti -1c
+.RI "float \fBnormalize\fP (void)"
+.br
+.ti -1c
+.RI "void \fBnegate\fP (void)"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP & \fBoperator*=\fP (float d)"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP & \fBoperator/=\fP (float d)"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP & \fBoperator+=\fP (const \fBSbVec3f\fP &v)"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP & \fBoperator\-=\fP (const \fBSbVec3f\fP &v)"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP \fBoperator\-\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSbString\fP \fBtoString\fP () const"
+.br
+.ti -1c
+.RI "SbBool \fBfromString\fP (const \fBSbString\fP &str)"
+.br
+.ti -1c
+.RI "void \fBprint\fP (FILE *fp) const"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "float \fBvec\fP [3]"
+.br
+.in -1c
+.SS "Related Functions"
+(Note that these are not member functions\&.) 
+.in +1c
+.ti -1c
+.RI "\fBSbVec3f\fP \fBoperator*\fP (const \fBSbVec3f\fP &v, float d)"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP \fBoperator*\fP (float d, const \fBSbVec3f\fP &v)"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP \fBoperator/\fP (const \fBSbVec3f\fP &v, float d)"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP \fBoperator+\fP (const \fBSbVec3f\fP &v1, const \fBSbVec3f\fP &v2)"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP \fBoperator\-\fP (const \fBSbVec3f\fP &v1, const \fBSbVec3f\fP &v2)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBoperator==\fP (const \fBSbVec3f\fP &v1, const \fBSbVec3f\fP &v2)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBoperator!=\fP (const \fBSbVec3f\fP &v1, const \fBSbVec3f\fP &v2)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBSbVec3f\fP class is a 3 dimensional vector with floating point coordinates\&.
+.PP
+This vector class is used by many other classes in Coin\&. It provides storage for a 3 dimensional vector as well as simple floating point arithmetic operations\&. 
+
+
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSbVec2s\fP, \fBSbVec2f\fP, \fBSbVec2d\fP, \fBSbVec3s\fP, \fBSbVec3d\fP, \fBSbVec4f\fP, \fBSbVec4d\fP\&. 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SbVec3f::SbVec3f (void)\fC [inline]\fP"
+The default constructor does nothing\&. The vector coordinates will be uninitialized until you do a \fBsetValue()\fP call\&. 
+.SS "SbVec3f::SbVec3f (const float v[3])\fC [inline]\fP"
+Constructs an \fBSbVec3f\fP instance with initial values from \fIv\fP\&. 
+.SS "SbVec3f::SbVec3f (float x, float y, float z)\fC [inline]\fP"
+Constructs an \fBSbVec3f\fP instance with the initial vector endpoint set to \fI<x\fP,y,z>\&. 
+.SS "SbVec3f::SbVec3f (const \fBSbVec3d\fP & v)\fC [inline]\fP, \fC [explicit]\fP"
+Constructs an \fBSbVec3f\fP instance from an \fBSbVec3d\fP instance\&. 
+.SS "SbVec3f::SbVec3f (const \fBSbVec3b\fP & v)\fC [inline]\fP, \fC [explicit]\fP"
+Constructs an \fBSbVec3f\fP instance from an \fBSbVec3b\fP instance\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.5 
+.RE
+.PP
+
+.SS "SbVec3f::SbVec3f (const \fBSbVec3s\fP & v)\fC [inline]\fP, \fC [explicit]\fP"
+Constructs an \fBSbVec3f\fP instance from an \fBSbVec3s\fP instance\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.5 
+.RE
+.PP
+
+.SS "SbVec3f::SbVec3f (const \fBSbVec3i32\fP & v)\fC [inline]\fP, \fC [explicit]\fP"
+Constructs an \fBSbVec3f\fP instance from an \fBSbVec3i32\fP instance\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.5 
+.RE
+.PP
+
+.SS "SbVec3f::SbVec3f (const \fBSbPlane\fP & p0, const \fBSbPlane\fP & p1, const \fBSbPlane\fP & p2)"
+Constructs an \fBSbVec3f\fP instance by combining the three given planes\&. None of the planes should be parallel to any of the other two, otherwise a divide by zero error will occur\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSbVec3f\fP & SbVec3f::setValue (const float v[3])\fC [inline]\fP"
+Set new coordinates for the vector from \fIv\fP\&. Returns reference to self\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetValue()\fP\&. 
+.RE
+.PP
+
+.SS "\fBSbVec3f\fP & SbVec3f::setValue (float x, float y, float z)\fC [inline]\fP"
+Set new coordinates for the vector\&. Returns reference to self\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetValue()\fP\&. 
+.RE
+.PP
+
+.SS "\fBSbVec3f\fP & SbVec3f::setValue (const \fBSbVec3f\fP & barycentric, const \fBSbVec3f\fP & v0, const \fBSbVec3f\fP & v1, const \fBSbVec3f\fP & v2)"
+Set this vector to be the average of \fIv0\fP, \fIv1\fP and \fIv2\fP\&. The vector components are weighted by the \fIbarycentric\fP vector\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetValue()\fP\&. 
+.RE
+.PP
+
+.SS "\fBSbVec3f\fP & SbVec3f::setValue (const \fBSbVec3d\fP & v)"
+Sets this vector to the double precision vector \fIv\fP, converting the vector to a single precision vector\&.
+.PP
+This is a Coin extension\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.RE
+.PP
+
+.SS "\fBSbVec3f\fP & SbVec3f::setValue (const \fBSbVec3b\fP & v)"
+
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.5 
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetValue()\fP 
+.RE
+.PP
+
+.SS "\fBSbVec3f\fP & SbVec3f::setValue (const \fBSbVec3s\fP & v)"
+
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.5 
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetValue()\fP 
+.RE
+.PP
+
+.SS "\fBSbVec3f\fP & SbVec3f::setValue (const \fBSbVec3i32\fP & v)"
+
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.5 
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetValue()\fP 
+.RE
+.PP
+
+.SS "const float * SbVec3f::getValue (void) const\fC [inline]\fP"
+Returns a pointer to an array of three floats containing the x, y and z coordinates of the vector\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetValue()\fP\&. 
+.RE
+.PP
+
+.SS "void SbVec3f::getValue (float & x, float & y, float & z) const\fC [inline]\fP"
+Returns the x, y and z coordinates of the vector\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetValue()\fP\&. 
+.RE
+.PP
+
+.SS "float & SbVec3f::operator[] (\fBint\fP i)\fC [inline]\fP"
+Index operator\&. Returns modifiable x, y or z coordinate of vector\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetValue()\fP and \fBsetValue()\fP\&. 
+.RE
+.PP
+
+.SS "float SbVec3f::operator[] (\fBint\fP i) const\fC [inline]\fP"
+Index operator\&. Returns x, y or z coordinate of vector\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetValue()\fP and \fBsetValue()\fP\&. 
+.RE
+.PP
+
+.SS "SbBool SbVec3f::equals (const \fBSbVec3f\fP & v, float tolerance) const"
+Compares the vector with \fIv\fP and returns \fCTRUE\fP if the distance between the vectors is smaller or equal to the square root of \fItolerance\fP\&. 
+.SS "\fBSbVec3f\fP SbVec3f::cross (const \fBSbVec3f\fP & v) const"
+Returns the result of taking the cross product of this vector and \fIv\fP\&. 
+.SS "float SbVec3f::dot (const \fBSbVec3f\fP & v) const\fC [inline]\fP"
+Calculates and returns the result of taking the dot product of this vector and \fIv\fP\&. 
+.SS "\fBSbVec3f\fP SbVec3f::getClosestAxis (void) const"
+Return the vector representing the principal axis closest to this vector\&. 
+.SS "float SbVec3f::length (void) const"
+Return length of vector\&. 
+.SS "float SbVec3f::sqrLength (void) const\fC [inline]\fP"
+Returns the squared length of the vector\&. 
+.SS "float SbVec3f::normalize (void)"
+Normalize the vector to unit length\&. Return value is the original length of the vector before normalization\&.
+.PP
+If the vector is the null vector, no attempt at normalization will be done\&. If the Coin library was built in a debug version, and the COIN_DEBUG_NORMALIZE environment variable is set, this error message will then be shown:
+.PP
+.PP
+.nf
+  Coin warning in SbVec3f::normalize(): The length of the vector
+  should be > 0.0f to be able to normalize.
+.fi
+.PP
+.PP
+We've made it possible for Coin to spit out a warning when an attempt at normalizing a null-vector is made, as that seems to sometimes be a symptom caused by some graver error somewhere else -- either an internal error in Coin code, a programming error in application code, or an error in an input file (like for instance invalid polygon specifications)\&.
+.PP
+If you run into bugs/problems with your application or with Coin, it could be a good idea to set COIN_DEBUG_NORMALIZE=1, and then restart the application to see if you get any warnings from \fBnormalize()\fP\&.
+.PP
+If this happens, you should run the application in a debugger and see how the call-stack backtrace looks when it hits\&. An easy way of getting a debugger break at the warning spot is to set the following debugging environment variable which will make the code assert:
+.PP
+.PP
+.nf
+  COIN_DEBUG_BREAK="SbVec3f::normalize"
+.fi
+.PP
+.PP
+If you from the backtrace analysis strongly suspects an internal Coin bug, please report the call-stack to us at \fIcoin-support@coin3d.org\fP and we'll look into it\&. Example code that triggers the bug would then also be very helpful\&.
+.PP
+A note for developers porting code from SGI or TGS Inventor to Coin: those Inventor implementations are more slack about detecting and giving out warning messages upon API misuses, and you may suddenly have gotten this warning with Coin without seeing any indication of an error with SGI/TGS Inventor\&. This does \fInot\fP necessarily mean that it is a bug in Coin -- it is much more likely that you are getting a warning as an indication of API misuse or import file errors which were just not detected and/or reported with those Inventor implementations\&. 
+.SS "void SbVec3f::negate (void)\fC [inline]\fP"
+Negate the vector (i\&.e\&. point it in the opposite direction)\&. 
+.SS "\fBSbVec3f\fP & SbVec3f::operator*= (float d)\fC [inline]\fP"
+Multiply components of vector with scalar value \fId\fP\&. Returns reference to self\&. 
+.SS "\fBSbVec3f\fP & SbVec3f::operator/= (float d)\fC [inline]\fP"
+Divides components of vector with scalar value \fId\fP\&. Returns reference to self\&. 
+.SS "\fBSbVec3f\fP & SbVec3f::operator+= (const \fBSbVec3f\fP & u)\fC [inline]\fP"
+Adds this vector and vector \fIu\fP\&. Returns reference to self\&. 
+.SS "\fBSbVec3f\fP & SbVec3f::operator\-= (const \fBSbVec3f\fP & u)\fC [inline]\fP"
+Subtracts vector \fIu\fP from this vector\&. Returns reference to self\&. 
+.SS "\fBSbVec3f\fP SbVec3f::operator\- (void) const\fC [inline]\fP"
+Non-destructive negation operator\&. Returns a new \fBSbVec3f\fP instance which points in the opposite direction of this vector\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBnegate()\fP\&. 
+.RE
+.PP
+
+.SS "\fBSbString\fP SbVec3f::toString () const"
+Return a string representation of this object 
+.SS "SbBool SbVec3f::fromString (const \fBSbString\fP & str)"
+Convert from a string representation, return wether this is a valid conversion 
+.SS "void SbVec3f::print (FILE * fp) const"
+Dump the state of this object to the \fIfile\fP stream\&. Only works in debug version of library, method does nothing in an optimized compile\&. 
+.SH "Friends And Related Function Documentation"
+.PP 
+.SS "\fBSbVec3f\fP operator* (const \fBSbVec3f\fP & v, float d)\fC [related]\fP"
+Returns an \fBSbVec3f\fP instance which is the components of vector \fIv\fP multiplied with \fId\fP\&. 
+.SS "\fBSbVec3f\fP operator* (float d, const \fBSbVec3f\fP & v)\fC [related]\fP"
+Returns an \fBSbVec3f\fP instance which is the components of vector \fIv\fP multiplied with \fId\fP\&. 
+.SS "\fBSbVec3f\fP operator/ (const \fBSbVec3f\fP & v, float d)\fC [related]\fP"
+Returns an \fBSbVec3f\fP instance which is the components of vector \fIv\fP divided on the scalar factor \fId\fP\&. 
+.SS "\fBSbVec3f\fP operator+ (const \fBSbVec3f\fP & v1, const \fBSbVec3f\fP & v2)\fC [related]\fP"
+Returns an \fBSbVec3f\fP instance which is the sum of vectors \fIv1\fP and \fIv2\fP\&. 
+.SS "\fBSbVec3f\fP operator\- (const \fBSbVec3f\fP & v1, const \fBSbVec3f\fP & v2)\fC [related]\fP"
+Returns an \fBSbVec3f\fP instance which is vector \fIv2\fP subtracted from vector \fIv1\fP\&. 
+.SS "\fBint\fP operator== (const \fBSbVec3f\fP & v1, const \fBSbVec3f\fP & v2)\fC [related]\fP"
+Returns \fI1\fP if \fIv1\fP and \fIv2\fP are \fIexactly\fP equal, \fI0\fP otherwise\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBequals()\fP\&. 
+.RE
+.PP
+
+.SS "\fBint\fP operator!= (const \fBSbVec3f\fP & v1, const \fBSbVec3f\fP & v2)\fC [related]\fP"
+Returns \fI1\fP if \fIv1\fP and \fIv2\fP are not equal, \fI0\fP if they are equal\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBequals()\fP\&. 
+.RE
+.PP
+
+.SH "Member Data Documentation"
+.PP 
+.SS "SbVec3f::vec[3]\fC [protected]\fP"
+The container for all values of this class\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

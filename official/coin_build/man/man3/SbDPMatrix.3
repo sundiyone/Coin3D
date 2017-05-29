@@ -1,0 +1,553 @@
+.TH "SbDPMatrix" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SbDPMatrix \- The \fBSbDPMatrix\fP class is a 4x4 dimensional representation of a double-precision matrix\&.
+.PP
+This class is like the \fBSbMatrix\fP class, but uses double-precision floating point values for its elements\&. For more class documentation, see \fBSbMatrix\fP\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/SbDPMatrix\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSbDPMatrix\fP (void)"
+.br
+.ti -1c
+.RI "\fBSbDPMatrix\fP (const double a11, const double a12, const double a13, const double a14, const double a21, const double a22, const double a23, const double a24, const double a31, const double a32, const double a33, const double a34, const double a41, const double a42, const double a43, const double a44)"
+.br
+.ti -1c
+.RI "\fBSbDPMatrix\fP (const SbDPMat &matrix)"
+.br
+.ti -1c
+.RI "\fBSbDPMatrix\fP (const SbDPMat *matrix)"
+.br
+.ti -1c
+.RI "\fBSbDPMatrix\fP (const \fBSbMatrix\fP &matrix)"
+.br
+.ti -1c
+.RI "\fB~SbDPMatrix\fP (void)"
+.br
+.ti -1c
+.RI "void \fBsetValue\fP (const SbDPMat &m)"
+.br
+.ti -1c
+.RI "void \fBsetValue\fP (const \fBSbMatrix\fP &m)"
+.br
+.ti -1c
+.RI "void \fBsetValue\fP (const double *pMat)"
+.br
+.ti -1c
+.RI "const SbDPMat & \fBgetValue\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBmakeIdentity\fP (void)"
+.br
+.ti -1c
+.RI "void \fBsetRotate\fP (const \fBSbDPRotation\fP &q)"
+.br
+.ti -1c
+.RI "\fBSbDPMatrix\fP \fBinverse\fP (void) const"
+.br
+.ti -1c
+.RI "double \fBdet3\fP (\fBint\fP r1, \fBint\fP r2, \fBint\fP r3, \fBint\fP c1, \fBint\fP c2, \fBint\fP c3) const"
+.br
+.ti -1c
+.RI "double \fBdet3\fP (void) const"
+.br
+.ti -1c
+.RI "double \fBdet4\fP (void) const"
+.br
+.ti -1c
+.RI "SbBool \fBequals\fP (const \fBSbDPMatrix\fP &m, double tolerance) const"
+.br
+.ti -1c
+.RI "void \fBgetValue\fP (SbDPMat &m) const"
+.br
+.ti -1c
+.RI "void \fBsetScale\fP (const double s)"
+.br
+.ti -1c
+.RI "void \fBsetScale\fP (const \fBSbVec3d\fP &s)"
+.br
+.ti -1c
+.RI "void \fBsetTranslate\fP (const \fBSbVec3d\fP &t)"
+.br
+.ti -1c
+.RI "void \fBsetTransform\fP (const \fBSbVec3d\fP &t, const \fBSbDPRotation\fP &r, const \fBSbVec3d\fP &s)"
+.br
+.ti -1c
+.RI "void \fBsetTransform\fP (const \fBSbVec3d\fP &t, const \fBSbDPRotation\fP &r, const \fBSbVec3d\fP &s, const \fBSbDPRotation\fP &so)"
+.br
+.ti -1c
+.RI "void \fBsetTransform\fP (const \fBSbVec3d\fP &translation, const \fBSbDPRotation\fP &rotation, const \fBSbVec3d\fP &scaleFactor, const \fBSbDPRotation\fP &scaleOrientation, const \fBSbVec3d\fP &center)"
+.br
+.ti -1c
+.RI "void \fBgetTransform\fP (\fBSbVec3d\fP &t, \fBSbDPRotation\fP &r, \fBSbVec3d\fP &s, \fBSbDPRotation\fP &so) const"
+.br
+.ti -1c
+.RI "void \fBgetTransform\fP (\fBSbVec3d\fP &translation, \fBSbDPRotation\fP &rotation, \fBSbVec3d\fP &scaleFactor, \fBSbDPRotation\fP &scaleOrientation, const \fBSbVec3d\fP &center) const"
+.br
+.ti -1c
+.RI "SbBool \fBfactor\fP (\fBSbDPMatrix\fP &r, \fBSbVec3d\fP &s, \fBSbDPMatrix\fP &u, \fBSbVec3d\fP &t, \fBSbDPMatrix\fP &proj)"
+.br
+.ti -1c
+.RI "SbBool \fBLUDecomposition\fP (\fBint\fP index[4], double &d)"
+.br
+.ti -1c
+.RI "void \fBLUBackSubstitution\fP (\fBint\fP index[4], double b[4]) const"
+.br
+.ti -1c
+.RI "\fBSbDPMatrix\fP \fBtranspose\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSbDPMatrix\fP & \fBmultRight\fP (const \fBSbDPMatrix\fP &m)"
+.br
+.ti -1c
+.RI "\fBSbDPMatrix\fP & \fBmultLeft\fP (const \fBSbDPMatrix\fP &m)"
+.br
+.ti -1c
+.RI "void \fBmultMatrixVec\fP (const \fBSbVec3d\fP &src, \fBSbVec3d\fP &dst) const"
+.br
+.ti -1c
+.RI "void \fBmultVecMatrix\fP (const \fBSbVec3d\fP &src, \fBSbVec3d\fP &dst) const"
+.br
+.ti -1c
+.RI "void \fBmultDirMatrix\fP (const \fBSbVec3d\fP &src, \fBSbVec3d\fP &dst) const"
+.br
+.ti -1c
+.RI "void \fBmultLineMatrix\fP (const \fBSbDPLine\fP &src, \fBSbDPLine\fP &dst) const"
+.br
+.ti -1c
+.RI "void \fBmultVecMatrix\fP (const \fBSbVec4d\fP &src, \fBSbVec4d\fP &dst) const"
+.br
+.ti -1c
+.RI "void \fBprint\fP (FILE *fp) const"
+.br
+.ti -1c
+.RI "\fBoperator double *\fP (void)"
+.br
+.ti -1c
+.RI "\fBoperator SbDPMat &\fP (void)"
+.br
+.ti -1c
+.RI "double * \fBoperator[]\fP (\fBint\fP i)"
+.br
+.ti -1c
+.RI "const double * \fBoperator[]\fP (\fBint\fP i) const"
+.br
+.ti -1c
+.RI "\fBSbDPMatrix\fP & \fBoperator=\fP (const SbDPMat &m)"
+.br
+.ti -1c
+.RI "\fBSbDPMatrix\fP & \fBoperator=\fP (const \fBSbDPMatrix\fP &m)"
+.br
+.ti -1c
+.RI "\fBSbDPMatrix\fP & \fBoperator=\fP (const \fBSbDPRotation\fP &q)"
+.br
+.ti -1c
+.RI "\fBSbDPMatrix\fP & \fBoperator*=\fP (const \fBSbDPMatrix\fP &m)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSbDPMatrix\fP \fBidentity\fP (void)"
+.br
+.in -1c
+.SS "Friends"
+
+.in +1c
+.ti -1c
+.RI "\fBSbDPMatrix\fP \fBoperator*\fP (const \fBSbDPMatrix\fP &m1, const \fBSbDPMatrix\fP &m2)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBoperator==\fP (const \fBSbDPMatrix\fP &m1, const \fBSbDPMatrix\fP &m2)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBoperator!=\fP (const \fBSbDPMatrix\fP &m1, const \fBSbDPMatrix\fP &m2)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBSbDPMatrix\fP class is a 4x4 dimensional representation of a double-precision matrix\&.
+.PP
+This class is like the \fBSbMatrix\fP class, but uses double-precision floating point values for its elements\&. For more class documentation, see \fBSbMatrix\fP\&. 
+
+
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0\&. 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SbDPMatrix::SbDPMatrix (void)"
+The default constructor does nothing\&. The matrix will be uninitialized\&. 
+.SS "SbDPMatrix::SbDPMatrix (const double a11, const double a12, const double a13, const double a14, const double a21, const double a22, const double a23, const double a24, const double a31, const double a32, const double a33, const double a34, const double a41, const double a42, const double a43, const double a44)"
+Constructs a matrix instance with the given initial elements\&. 
+.SS "SbDPMatrix::SbDPMatrix (const SbDPMat & matrixref)"
+Constructs a matrix instance with the initial elements from the \fImatrix\fP argument\&. 
+.SS "SbDPMatrix::SbDPMatrix (const SbDPMat * matrixptr)"
+This constructor is courtesy of the Microsoft Visual C++ compiler\&. 
+.SS "SbDPMatrix::SbDPMatrix (const \fBSbMatrix\fP & matrixref)"
+This constructor converts a single-precision matrix to a double-precision matrix\&. 
+.SS "SbDPMatrix::~SbDPMatrix (void)"
+Default destructor does nothing\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void SbDPMatrix::setValue (const SbDPMat & m)"
+Copies the elements from \fIm\fP into the matrix\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetValue()\fP\&. 
+.RE
+.PP
+
+.SS "void SbDPMatrix::setValue (const \fBSbMatrix\fP & m)"
+Copies the elements from \fIm\fP into the matrix\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetValue()\fP\&. 
+.RE
+.PP
+
+.SS "void SbDPMatrix::setValue (const double * m)"
+Copies the elements from \fIm\fP into the matrix\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetValue()\fP\&. 
+.RE
+.PP
+
+.SS "const SbDPMat & SbDPMatrix::getValue (void) const"
+Returns a pointer to the 2 dimensional double array with the matrix elements\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetValue()\fP\&. 
+.RE
+.PP
+
+.SS "void SbDPMatrix::makeIdentity (void)"
+Set the matrix to be the identity matrix\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBidentity()\fP\&. 
+.RE
+.PP
+
+.SS "void SbDPMatrix::setRotate (const \fBSbDPRotation\fP & q)"
+Set matrix to be a rotation matrix with the given rotation\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetTranslate()\fP, \fBsetScale()\fP\&. 
+.RE
+.PP
+
+.SS "\fBSbDPMatrix\fP SbDPMatrix::inverse (void) const"
+Return a new matrix which is the inverse matrix of this\&.
+.PP
+The user is responsible for checking that this is a valid operation to execute, by first making sure that the result of \fBSbDPMatrix::det4()\fP is not equal to zero\&. 
+.SS "double SbDPMatrix::det3 (\fBint\fP r1, \fBint\fP r2, \fBint\fP r3, \fBint\fP c1, \fBint\fP c2, \fBint\fP c3) const"
+Returns the determinant of the 3x3 submatrix specified by the row and column indices\&. 
+.SS "double SbDPMatrix::det3 (void) const"
+Returns the determinant of the upper left 3x3 submatrix\&. 
+.SS "double SbDPMatrix::det4 (void) const"
+Returns the determinant of the matrix\&. 
+.SS "SbBool SbDPMatrix::equals (const \fBSbDPMatrix\fP & m, double tolerance) const"
+Check if the \fIm\fP matrix is equal to this one, within the given tolerance value\&. The tolerance value is applied in the comparison on a component by component basis\&. 
+.SS "void SbDPMatrix::getValue (SbDPMat & m) const"
+Return matrix components in the SbDPMat structure\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetValue()\fP\&. 
+.RE
+.PP
+
+.SS "\fBSbDPMatrix\fP SbDPMatrix::identity (void)\fC [static]\fP"
+Return the identity matrix\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBmakeIdentity()\fP\&. 
+.RE
+.PP
+
+.SS "void SbDPMatrix::setScale (const double s)"
+Set matrix to be a pure scaling matrix\&. Scale factors are specified by \fIs\fP\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetRotate()\fP, \fBsetTranslate()\fP\&. 
+.RE
+.PP
+
+.SS "void SbDPMatrix::setScale (const \fBSbVec3d\fP & s)"
+Set matrix to be a pure scaling matrix\&. Scale factors in x, y and z is specified by the \fIs\fP vector\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetRotate()\fP, \fBsetTranslate()\fP\&. 
+.RE
+.PP
+
+.SS "void SbDPMatrix::setTranslate (const \fBSbVec3d\fP & t)"
+Make this matrix into a pure translation matrix (no scale or rotation components) with the given vector  as the translation\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetRotate()\fP, \fBsetScale()\fP\&. 
+.RE
+.PP
+
+.SS "void SbDPMatrix::setTransform (const \fBSbVec3d\fP & t, const \fBSbDPRotation\fP & r, const \fBSbVec3d\fP & s)"
+Set translation, rotation and scaling all at once\&. The resulting matrix gets calculated like this:
+.PP
+.PP
+.nf
+M = S * R * T
+.fi
+.PP
+.PP
+where \fIS\fP, \fIR\fP and \fIT\fP is scaling, rotation and translation matrices\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetTranslate()\fP, \fBsetRotate()\fP, \fBsetScale()\fP and \fBgetTransform()\fP\&. 
+.RE
+.PP
+
+.SS "void SbDPMatrix::setTransform (const \fBSbVec3d\fP & t, const \fBSbDPRotation\fP & r, const \fBSbVec3d\fP & s, const \fBSbDPRotation\fP & so)"
+Set translation, rotation and scaling all at once with a specified scale orientation\&. The resulting matrix gets calculated like this:
+.PP
+.PP
+.nf
+M = Ro-¹ * S * Ro * R * T
+.fi
+.PP
+.PP
+where \fIRo\fP is the scale orientation, and \fIS\fP, \fIR\fP and \fIT\fP is scaling, rotation and translation\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetTranslate()\fP, \fBsetRotate()\fP, \fBsetScale()\fP and \fBgetTransform()\fP\&. 
+.RE
+.PP
+
+.SS "void SbDPMatrix::setTransform (const \fBSbVec3d\fP & translation, const \fBSbDPRotation\fP & rotation, const \fBSbVec3d\fP & scaleFactor, const \fBSbDPRotation\fP & scaleOrientation, const \fBSbVec3d\fP & center)"
+Set translation, rotation and scaling all at once with a specified scale orientation and center point\&. The resulting matrix gets calculated like this:
+.PP
+.PP
+.nf
+M = -Tc * Ro-¹ * S * Ro * R * T * Tc
+.fi
+.PP
+.PP
+where \fITc\fP is the center point, \fIRo\fP the scale orientation, \fIS\fP, \fIR\fP and \fIT\fP is scaling, rotation and translation\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetTranslate()\fP, \fBsetRotate()\fP, \fBsetScale()\fP and \fBgetTransform()\fP\&. 
+.RE
+.PP
+
+.SS "void SbDPMatrix::getTransform (\fBSbVec3d\fP & t, \fBSbDPRotation\fP & r, \fBSbVec3d\fP & s, \fBSbDPRotation\fP & so) const"
+Factor the matrix back into its translation, rotation, scale and scaleorientation components\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBfactor()\fP 
+.RE
+.PP
+
+.SS "void SbDPMatrix::getTransform (\fBSbVec3d\fP & translation, \fBSbDPRotation\fP & rotation, \fBSbVec3d\fP & scaleFactor, \fBSbDPRotation\fP & scaleOrientation, const \fBSbVec3d\fP & center) const"
+Factor the matrix back into its \fItranslation\fP, \fIrotation\fP, \fIscaleFactor\fP and \fIscaleorientation\fP components\&. Will eliminate the \fIcenter\fP variable from the matrix\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBfactor()\fP 
+.RE
+.PP
+
+.SS "SbBool SbDPMatrix::factor (\fBSbDPMatrix\fP & r, \fBSbVec3d\fP & s, \fBSbDPMatrix\fP & u, \fBSbVec3d\fP & t, \fBSbDPMatrix\fP & proj)"
+This function is not implemented in Coin\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetTransform()\fP 
+.RE
+.PP
+
+.SS "SbBool SbDPMatrix::LUDecomposition (\fBint\fP index[4], double & d)"
+This function produces a permuted LU decomposition of the matrix\&. It uses the common single-row-pivoting strategy\&.
+.PP
+\fIFALSE\fP is returned if the matrix is singular, which it never is, because of small adjustment values inserted if a singularity is found (as Open Inventor does too)\&.
+.PP
+The parity argument is always set to 1\&.0 or -1\&.0\&. Don't really know what it's for, so it's not checked for correctness\&.
+.PP
+The index[] argument returns the permutation that was done on the matrix to LU-decompose it\&. index[i] is the row that row i was swapped with at step i in the decomposition, so index[] is not the actual permutation of the row indexes!
+.PP
+BUGS: The function does not produce results that are numerically identical with those produced by Open Inventor for the same matrices, because the pivoting strategy in OI was never fully understood\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSbDPMatrix::LUBackSubstitution\fP 
+.RE
+.PP
+
+.SS "void SbDPMatrix::LUBackSubstitution (\fBint\fP index[4], double b[4]) const"
+This function does a solve on the 'Ax = b' system, given that the matrix is LU-decomposed in advance\&. First, a forward substitution is done on the lower system (Ly = b), and then a backwards substitution is done on the upper triangular system (Ux = y)\&.
+.PP
+The index[] argument is the one returned from \fBSbDPMatrix::LUDecomposition()\fP, so see that function for an explanation\&.
+.PP
+The b[] argument must contain the b vector in 'Ax = b' when calling the function\&. After the function has solved the system, the b[] vector contains the x vector\&.
+.PP
+BUGS: As is done by Open Inventor, unsolvable x values will not return NaN but 0\&. 
+.SS "\fBSbDPMatrix\fP SbDPMatrix::transpose (void) const"
+Returns the transpose of this matrix\&. 
+.SS "\fBSbDPMatrix\fP & SbDPMatrix::multRight (const \fBSbDPMatrix\fP & m)"
+Let this matrix be right-multiplied by \fIm\fP\&. Returns reference to self\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBmultLeft()\fP 
+.RE
+.PP
+
+.SS "\fBSbDPMatrix\fP & SbDPMatrix::multLeft (const \fBSbDPMatrix\fP & m)"
+Let this matrix be left-multiplied by \fIm\fP\&. Returns reference to self\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBmultRight()\fP 
+.RE
+.PP
+
+.SS "void SbDPMatrix::multMatrixVec (const \fBSbVec3d\fP & src, \fBSbVec3d\fP & dst) const"
+Multiply \fIsrc\fP vector with this matrix and return the result in \fIdst\fP\&. Multiplication is done with the vector on the right side of the expression, i\&.e\&. dst = M * src\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBmultVecMatrix()\fP, \fBmultDirMatrix()\fP and \fBmultLineMatrix()\fP\&. 
+.RE
+.PP
+
+.SS "void SbDPMatrix::multVecMatrix (const \fBSbVec3d\fP & src, \fBSbVec3d\fP & dst) const"
+Multiply \fIsrc\fP vector with this matrix and return the result in \fIdst\fP\&. Multiplication is done with the vector on the left side of the expression, i\&.e\&. dst = src * M\&.
+.PP
+It is safe to let \fIsrc\fP and  be the same \fBSbVec3d\fP instance\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBmultMatrixVec()\fP, \fBmultDirMatrix()\fP and \fBmultLineMatrix()\fP\&. 
+.RE
+.PP
+
+.SS "void SbDPMatrix::multDirMatrix (const \fBSbVec3d\fP & src, \fBSbVec3d\fP & dst) const"
+Multiplies \fIsrc\fP by the matrix\&. \fIsrc\fP is assumed to be a direction vector, and the translation components of the matrix are therefore ignored\&.
+.PP
+Multiplication is done with the vector on the left side of the expression, i\&.e\&. dst = src * M\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBmultVecMatrix()\fP, \fBmultMatrixVec()\fP and \fBmultLineMatrix()\fP\&. 
+.RE
+.PP
+
+.SS "void SbDPMatrix::multLineMatrix (const \fBSbDPLine\fP & src, \fBSbDPLine\fP & dst) const"
+Multiplies line point with the full matrix and multiplies the line direction with the matrix without the translation components\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBmultVecMatrix()\fP, \fBmultMatrixVec()\fP and \fBmultDirMatrix()\fP\&. 
+.RE
+.PP
+
+.SS "void SbDPMatrix::multVecMatrix (const \fBSbVec4d\fP & src, \fBSbVec4d\fP & dst) const"
+This is an overloaded member function, provided for convenience\&. It differs from the above function only in what argument(s) it accepts\&. 
+.SS "void SbDPMatrix::print (FILE * fp) const"
+Write out the matrix contents to the given file\&. 
+.SS "SbDPMatrix::operator double * (void)"
+Return pointer to the matrix' 4x4 double array\&. 
+.SS "SbDPMatrix::operator SbDPMat & (void)"
+Return pointer to the matrix' 4x4 double array\&. 
+.SS "double * SbDPMatrix::operator[] (\fBint\fP i)"
+Returns pointer to the 4 element array representing a matrix row\&. \fIi\fP should be within [0, 3]\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetValue()\fP, \fBsetValue()\fP\&. 
+.RE
+.PP
+
+.SS "const double * SbDPMatrix::operator[] (\fBint\fP i) const"
+Returns pointer to the 4 element array representing a matrix row\&. \fIi\fP should be within [0, 3]\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetValue()\fP, \fBsetValue()\fP\&. 
+.RE
+.PP
+
+.SS "\fBSbDPMatrix\fP & SbDPMatrix::operator= (const SbDPMat & m)"
+Assignment operator\&. Copies the elements from \fIm\fP to the matrix\&. 
+.SS "\fBSbDPMatrix\fP & SbDPMatrix::operator= (const \fBSbDPMatrix\fP & m)"
+Assignment operator\&. Copies the elements from \fIm\fP to the matrix\&. 
+.SS "\fBSbDPMatrix\fP & SbDPMatrix::operator= (const \fBSbDPRotation\fP & q)"
+Set matrix to be a rotation matrix with the given rotation\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetRotate()\fP\&. 
+.RE
+.PP
+
+.SS "\fBSbDPMatrix\fP & SbDPMatrix::operator*= (const \fBSbDPMatrix\fP & m)"
+Right-multiply with the \fIm\fP matrix\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBmultRight()\fP\&. 
+.RE
+.PP
+
+.SH "Friends And Related Function Documentation"
+.PP 
+.SS "\fBSbDPMatrix\fP operator* (const \fBSbDPMatrix\fP & m1, const \fBSbDPMatrix\fP & m2)\fC [friend]\fP"
+Multiplies matrix \fIm1\fP with matrix \fIm2\fP and returns the resultant matrix\&. 
+.SS "\fBint\fP operator== (const \fBSbDPMatrix\fP & m1, const \fBSbDPMatrix\fP & m2)\fC [friend]\fP"
+Compare matrices to see if they are equal\&. For two matrices to be equal, all their individual elements must be equal\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBequals()\fP\&. 
+.RE
+.PP
+
+.SS "\fBint\fP operator!= (const \fBSbDPMatrix\fP & m1, const \fBSbDPMatrix\fP & m2)\fC [friend]\fP"
+Compare matrices to see if they are not equal\&. For two matrices to not be equal, it is enough that at least one of their elements are unequal\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBequals()\fP\&. 
+.RE
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

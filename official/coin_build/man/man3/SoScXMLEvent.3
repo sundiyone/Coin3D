@@ -1,0 +1,112 @@
+.TH "SoScXMLEvent" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoScXMLEvent \- Adds an \fBSoEvent\fP holder to the \fBScXMLEvent\fP base\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/scxml/SoScXMLEvent\&.h>\fP
+.PP
+Inherits \fBScXMLEvent\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "virtual void \fBsetSoEvent\fP (const \fBSoEvent\fP *soevent)"
+.br
+.ti -1c
+.RI "virtual const \fBSoEvent\fP * \fBgetSoEvent\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBsetUpIdentifier\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBcopyContents\fP (const \fBScXMLEvent\fP *rhs)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void * \fBcreateInstance\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBcleanClass\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+Adds an \fBSoEvent\fP holder to the \fBScXMLEvent\fP base\&. 
+
+This class is part of integrating the Coin types with the SCXML subsystem\&. \fBSoScXMLEvent\fP objects are ScXMLEvents that wraps/passes an \fBSoEvent\fP to the SCXML state machine\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 3\&.0 
+.RE
+.PP
+
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoScXMLEvent::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoBase::getTypeId() const\fP 
+.RE
+.PP
+
+.PP
+Reimplemented from \fBScXMLEvent\fP\&.
+.SS "void SoScXMLEvent::setSoEvent (const \fBSoEvent\fP * soevent)\fC [virtual]\fP"
+This function stores a pointer to the originator \fBSoEvent\fP that caused the given event, if any\&.
+.PP
+The event is duplicated when set, and can be deleted immediately by the caller\&.
+.PP
+\fBSee also:\fP
+.RS 4
+setUpIdentifiers 
+.RE
+.PP
+
+.SS "const \fBSoEvent\fP * SoScXMLEvent::getSoEvent (void) const\fC [virtual]\fP"
+Returns the pointer to the stored \fBSoEvent\fP or NULL if no event has been stored yet\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetSoEvent\fP 
+.RE
+.PP
+
+.SS "void SoScXMLEvent::setUpIdentifier (void)\fC [virtual]\fP"
+This method updates the \fBScXMLEvent\fP event class and event identifier strings based on the set \fBSoEvent\fP object\&.
+.PP
+The identifiers will be cleared if no \fBSoEvent\fP object has been stored\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetSoEvent\fP 
+.RE
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

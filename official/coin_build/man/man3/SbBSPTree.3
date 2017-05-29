@@ -1,0 +1,186 @@
+.TH "SbBSPTree" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SbBSPTree \- The \fBSbBSPTree\fP class provides a binary space partitioning container\&.
+.PP
+This class can be used to organize searches for 3D points or normals in a set in O(log(n)) time\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/SbBSPTree\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSbBSPTree\fP (const \fBint\fP maxnodepts=64, const \fBint\fP initsize=4)"
+.br
+.ti -1c
+.RI "\fB~SbBSPTree\fP ()"
+.br
+.ti -1c
+.RI "\fBint\fP \fBnumPoints\fP () const"
+.br
+.ti -1c
+.RI "\fBSbVec3f\fP \fBgetPoint\fP (const \fBint\fP idx) const"
+.br
+.ti -1c
+.RI "void \fBgetPoint\fP (const \fBint\fP idx, \fBSbVec3f\fP &pt) const"
+.br
+.ti -1c
+.RI "void * \fBgetUserData\fP (const \fBint\fP idx) const"
+.br
+.ti -1c
+.RI "void \fBsetUserData\fP (const \fBint\fP idx, void *const data)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBaddPoint\fP (const \fBSbVec3f\fP &pt, void *const userdata=NULL)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBremovePoint\fP (const \fBSbVec3f\fP &pt)"
+.br
+.ti -1c
+.RI "void \fBremovePoint\fP (const \fBint\fP idx)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBfindPoint\fP (const \fBSbVec3f\fP &pos) const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBfindClosest\fP (const \fBSbVec3f\fP &pos) const"
+.br
+.ti -1c
+.RI "void \fBclear\fP (const \fBint\fP initsize=4)"
+.br
+.ti -1c
+.RI "void \fBfindPoints\fP (const \fBSbSphere\fP &sphere, \fBSbIntList\fP &array) const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBfindClosest\fP (const \fBSbSphere\fP &sphere, \fBSbIntList\fP &array) const"
+.br
+.ti -1c
+.RI "const \fBSbBox3f\fP & \fBgetBBox\fP () const"
+.br
+.ti -1c
+.RI "const \fBSbVec3f\fP * \fBgetPointsArrayPtr\fP () const"
+.br
+.ti -1c
+.RI "void \fBfindPoints\fP (const \fBSbSphere\fP &sphere, \fBSbList\fP< \fBint\fP > &array) const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBfindClosest\fP (const \fBSbSphere\fP &sphere, \fBSbList\fP< \fBint\fP > &array) const"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBSbBSPTree\fP class provides a binary space partitioning container\&.
+.PP
+This class can be used to organize searches for 3D points or normals in a set in O(log(n)) time\&. 
+
+Note: \fBSbBSPTree\fP is an extension to the original Open Inventor API\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SbBSPTree::SbBSPTree (const \fBint\fP maxnodepts = \fC64\fP, const \fBint\fP initsize = \fC4\fP)"
+Constructor with \fImaxnodepts\fP specifying the maximum number of points in a node before it must be split, and \fIinitsize\fP is the number of initially allocated points in the growable points array\&. If you know approximately the number of points which will be added to the tree, it will help the performance if you supply this in \fIinitsize\fP\&. 
+.SS "SbBSPTree::~SbBSPTree ()"
+Destructor\&. Frees used memory\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBint\fP SbBSPTree::numPoints () const"
+Returns the number of points in the BSP tree\&. 
+.SS "\fBSbVec3f\fP SbBSPTree::getPoint (const \fBint\fP idx) const"
+Returns the point at index \fIidx\fP\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSbBSPTree::numPoints()\fP 
+.RE
+.PP
+
+.SS "void SbBSPTree::getPoint (const \fBint\fP idx, \fBSbVec3f\fP & pt) const"
+This is an overloaded member function, provided for convenience\&. It differs from the above function only in what argument(s) it accepts\&. 
+.SS "void * SbBSPTree::getUserData (const \fBint\fP idx) const"
+Returns the user data for the point at index \fIidx\fP\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSbBSPTree::addPoint()\fP 
+.PP
+\fBSbBSPTree::numPoints()\fP 
+.RE
+.PP
+
+.SS "void SbBSPTree::setUserData (const \fBint\fP idx, void *const data)"
+Sets the user data for the point at index \fIidx\fP to \fIdata\fP\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSbBSPTree::addPoint()\fP 
+.PP
+\fBSbBSPTree::numPoints()\fP 
+.RE
+.PP
+
+.SS "\fBint\fP SbBSPTree::addPoint (const \fBSbVec3f\fP & pt, void *const data = \fCNULL\fP)"
+Adds a new point \fIpt\fP to the BSP tree, and returns the index to the new point\&. The user data for that point will be set to \fIdata\fP\&.
+.PP
+If the point already exists in the BSP tree, the index to the old point will be returned\&. The user data for that point will not be changed\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSbBSPTree::findPoint()\fP 
+.RE
+.PP
+
+.SS "\fBint\fP SbBSPTree::removePoint (const \fBSbVec3f\fP & pt)"
+Removes the point with coordinates \fIpt\fP, and returns the index to the removed point\&. -1 is returned if no point with those coordinates could be found\&. 
+.SS "void SbBSPTree::removePoint (const \fBint\fP idx)"
+Removes the point at index \fIidx\fP\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSbBSPTree::numPoints()\fP 
+.RE
+.PP
+
+.SS "\fBint\fP SbBSPTree::findPoint (const \fBSbVec3f\fP & pos) const"
+Will search the tree, and return the index to the point with coordinates matching \fIpos\fP\&. If no such point can be found, -1 is returned\&. 
+.SS "\fBint\fP SbBSPTree::findClosest (const \fBSbVec3f\fP & pos) const"
+This is an overloaded member function, provided for convenience\&. It differs from the above function only in what argument(s) it accepts\&. 
+.SS "void SbBSPTree::clear (const \fBint\fP initsize = \fC4\fP)"
+Will empty all points from the BSP tree\&. 
+.SS "void SbBSPTree::findPoints (const \fBSbSphere\fP & sphere, \fBSbIntList\fP & array) const"
+Will return indices to all points inside \fIsphere\fP\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.3 
+.RE
+.PP
+
+.SS "\fBint\fP SbBSPTree::findClosest (const \fBSbSphere\fP & sphere, \fBSbIntList\fP & arr) const"
+Will return the index to the point closest to the center of \fIsphere\fP\&. Indices to all points inside the sphere is returned in \fIarr\fP\&. If no points can be found inside the sphere, -1 is returned\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.3 
+.RE
+.PP
+
+.SS "const \fBSbBox3f\fP & SbBSPTree::getBBox () const"
+Will return the bounding box of all points in the BSP tree\&. 
+.SS "const \fBSbVec3f\fP * SbBSPTree::getPointsArrayPtr (void) const"
+Returns a pointer to the array of points inserted into the BPS tree\&. 
+.SS "void SbBSPTree::findPoints (const \fBSbSphere\fP & sphere, \fBSbList\fP< \fBint\fP > & array) const"
+WARNING: Please don't use this function\&. It can cause hard to find bugs on the Windows platform if your application is linked against a different CRT than your Coin DLL\&.
+.PP
+Use void findPoints(const SbSphere &sphere, SbIntList & array) instead\&. 
+.SS "\fBint\fP SbBSPTree::findClosest (const \fBSbSphere\fP & sphere, \fBSbList\fP< \fBint\fP > & arr) const"
+WARNING: Please don't use this function\&. It can cause hard to find bugs on the Windows platform if your application is linked against a different CRT than your Coin DLL\&.
+.PP
+Use int findClosest(const SbSphere &sphere, SbIntList & arr) instead\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

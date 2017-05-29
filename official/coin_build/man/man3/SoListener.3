@@ -1,0 +1,165 @@
+.TH "SoListener" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoListener \- The \fBSoListener\fP class defines listener attributes used when rendering sound\&.
+.PP
+When rendering geometry, one needs to have a camera defining certain attributes related to vieweing\&. The \fBSoListener\fP plays a similar role when it comes to rendering audio\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/nodes/SoListener\&.h>\fP
+.PP
+Inherits \fBSoNode\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "\fBSoListener\fP ()"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP ()"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFVec3f\fP \fBposition\fP"
+.br
+.ti -1c
+.RI "\fBSoSFRotation\fP \fBorientation\fP"
+.br
+.ti -1c
+.RI "\fBSoSFFloat\fP \fBgain\fP"
+.br
+.ti -1c
+.RI "\fBSoSFVec3f\fP \fBdopplerVelocity\fP"
+.br
+.ti -1c
+.RI "\fBSoSFFloat\fP \fBdopplerFactor\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBaudioRender\fP (class \fBSoAudioRenderAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual \fB~SoListener\fP ()"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoListener\fP class defines listener attributes used when rendering sound\&.
+.PP
+When rendering geometry, one needs to have a camera defining certain attributes related to vieweing\&. The \fBSoListener\fP plays a similar role when it comes to rendering audio\&. 
+
+If no \fBSoListener\fP has been encountered when a \fBSoVRMLSound\fP node renders itself, it will use the position and the orientation of the current camera\&. In this case, a gain of 1, a dopplerVelocity of 0 and a dopplerFactor of 0 will be assumed\&.
+.PP
+Coin does not currently support doppler effects, so the dopplerVelocity and dopplerFactor fields are currently ignored\&.
+.PP
+\fBFILE FORMAT/DEFAULTS:\fP 
+.PP
+.nf
+Listener {
+    position 0 0 0
+    orientation 0 0 1  0
+    dopplerVelocity 0 0 0
+    dopplerFactor 0
+    gain 1
+}
+
+.fi
+.PP
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoVRMLSound\fP 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoListener::SoListener ()"
+Contructor\&. 
+.SS "SoListener::~SoListener ()\fC [protected]\fP, \fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoListener::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Implements \fBSoBase\fP\&.
+.SS "const \fBSoFieldData\fP * SoListener::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoFieldContainer\fP\&.
+.SS "void SoListener::audioRender (class \fBSoAudioRenderAction\fP * action)\fC [protected]\fP, \fC [virtual]\fP"
+Action method for \fBSoAudioRenderAction\fP\&.
+.PP
+Does common processing for \fBSoAudioRenderAction\fP \fIaction\fP instances\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSoSFVec3f\fP SoListener::position"
+Listener position\&. Defaults to (0\&.0f, 0\&.0f, 0\&.0f)\&. 
+.SS "\fBSoSFVec3f\fP SoListener::orientation"
+Listener orientation specified as a rotation value from the default orientation where the listener is looking pointing along the negative z-axis, with 'up' along the positive y-axis\&. Defaults to \fBSbRotation\fP(\fBSbVec3f\fP(0\&.0f, 0\&.0f, 1\&.0f), 0\&.0f)\&. 
+.SS "\fBSoSFVec3f\fP SoListener::gain"
+The gain is a scalar amplitude multiplier that attenuates all sounds in the scene\&. The legal range is [0\&.0f, any), however a gain value > 1\&.0f might be clamped to 1\&.0f by the audio device\&. Defaults to 1\&.0f, meaning that the sound is un-attenuated\&. A gain value of 0\&.5f would be equivalent to a 6dB attenuation\&. If gain is set to 0\&.0f, no sound can be heard\&. 
+.SS "\fBSoSFVec3f\fP SoListener::dopplerVelocity"
+The doppler velocity of the sound\&. It is the application programmer's responsibility to set this value\&. Coin does not update this value automatically based on changes in a sound's position\&. The default value is (0\&.0f, 0\&.0f, 0\&.0f)\&.
+.PP
+Coin does not yet support doppler effects\&. 
+.SS "\fBSoSFFloat\fP SoListener::dopplerFactor"
+The amount of doppler effect applied to the sound\&. The legal range is [0\&.0f, any>, where 0\&.0f is default and disable all doppler effects, 1\&.0f would be a typical value for this field if doppler effects are required\&.
+.PP
+Coin does not yet support doppler effects\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

@@ -1,0 +1,207 @@
+.TH "ScXMLSendElt" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ScXMLSendElt \- the \fC<\fP send> SCXML element\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/scxml/ScXMLSendElt\&.h>\fP
+.PP
+Inherits \fBScXMLExecutableElt\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "virtual void \fBsetEventAttribute\fP (const char *event)"
+.br
+.ti -1c
+.RI "virtual const char * \fBgetEventAttribute\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBsetTargetAttribute\fP (const char *event)"
+.br
+.ti -1c
+.RI "virtual const char * \fBgetTargetAttribute\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBsetTargetTypeAttribute\fP (const char *event)"
+.br
+.ti -1c
+.RI "virtual const char * \fBgetTargetTypeAttribute\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBsetSendIDAttribute\fP (const char *event)"
+.br
+.ti -1c
+.RI "virtual const char * \fBgetSendIDAttribute\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBsetDelayAttribute\fP (const char *event)"
+.br
+.ti -1c
+.RI "virtual const char * \fBgetDelayAttribute\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBsetNameListAttribute\fP (const char *event)"
+.br
+.ti -1c
+.RI "virtual const char * \fBgetNameListAttribute\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBsetHintsAttribute\fP (const char *event)"
+.br
+.ti -1c
+.RI "virtual const char * \fBgetHintsAttribute\fP (void) const"
+.br
+.ti -1c
+.RI "virtual SbBool \fBhandleXMLAttributes\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBcopyContents\fP (const \fBScXMLElt\fP *rhs)"
+.br
+.ti -1c
+.RI "virtual const \fBScXMLElt\fP * \fBsearch\fP (const char *attrname, const char *attrvalue) const"
+.br
+.ti -1c
+.RI "\fBScXMLEvent\fP * \fBcreateEvent\fP (\fBScXMLEventTarget\fP *host) const"
+.br
+.ti -1c
+.RI "virtual void \fBexecute\fP (\fBScXMLStateMachine\fP *statemachine) const"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBScXMLEltReader\fP * \fBgetElementReader\fP (void)"
+.br
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void * \fBcreateInstance\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBcleanClass\fP (void)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "char * \fBevent\fP"
+.br
+.ti -1c
+.RI "char * \fBtarget\fP"
+.br
+.ti -1c
+.RI "char * \fBtargettype\fP"
+.br
+.ti -1c
+.RI "char * \fBsendid\fP"
+.br
+.ti -1c
+.RI "char * \fBdelay\fP"
+.br
+.ti -1c
+.RI "char * \fBnamelist\fP"
+.br
+.ti -1c
+.RI "char * \fBhints\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+the \fC<\fP send> SCXML element\&. 
+
+The \fC<send>\fP element is only useful in profiles that have an implementation of the External Communication Module\&. Both the \fC'minimum'\fP and the \fC'x-coin'\fP profile have implementations, but the \fC'minimum'\fP profile does not implement The Data Module, so only plain events without associated data can be sent\&.
+.PP
+The \fC<send>\fP element can take the following attributes: 
+.PD 0
+
+.IP "\(bu" 2
+\fCevent\fP 
+.IP "\(bu" 2
+\fCtarget\fP 
+.IP "\(bu" 2
+\fCtargettype\fP 
+.IP "\(bu" 2
+\fCsendid\fP - not supported 
+.IP "\(bu" 2
+\fCdelay\fP 
+.IP "\(bu" 2
+\fCnamelist\fP 
+.IP "\(bu" 2
+\fChints\fP - not supported
+.PP
+The <send> element sends \fBexternal\fP events\&. State machines have typically two event queues - one internal, and one external\&. The internal event queue has full priority over the external event queue\&. State machines  can send external events to itself, but it is more likely internal events are what you want\&. To send internal events, see the \fC<event>\fP element implemented in \fBScXMLEventElt\fP\&. To send an external event to the containing state machine, do not specify the \fCtarget\fP attribute\&.
+.PP
+The \fCevent\fP attribute specifies the event name for the event that is being sent\&. Event names are dot-separated names like \fC'error\&.InvalidExpr'\fP or \fC'x-coin-navigation\&.Rotate\&.BEGIN'\fP, and the event names are treated case-sensitive in the current implementation of Coin SCXML\&. The \fCevent\fP attribute is required\&.
+.PP
+The \fCtargettype\fP attribute specifies the type of the target system\&. Other SCXML state machines have the type \fC'scxml'\fP\&. Services related to Coin navigation systems have the targettype \fC'x-coin-navigation'\fP\&. When sending external events to yourself, \fCtargettype\fP can be omitted\&.
+.PP
+The \fCtarget\fP attribute is the name of the target event system\&. If it is not specified, it means the event will be sent to the containing state machine\&. Coin navigation services are typically names \fC'Rotate'\fP, but for other SCXML state machines, the \fC<scxml>\fP \fCname\fP attribute decides this\&. That name is not unique though if multiple such names have been created, so \fCtarget\fP can also be the state machine \fC_sessionid\fP identifier\&. (FIXME: check if this is implemented)
+.PP
+The \fCsendid\fP attribute is not supported\&.
+.PP
+If \fCdelay\fP is specified, it must take the form of \fC'{number}s'\fP or \fC'{number}ms'\fP giving you the option of specifying the delay in number of seconds or milliseconds before the event should be sent\&. For delayed events to be sent, the Coin delayqueue processing must be performed\&. Most Coin users do that wether they know it or not\&. If \fCdelay\fP is not specified, the event is passed to the target immediately\&. If a state machine is deleted, any events scheduled to be sent out in a delayed manner are going to be missing in action\&. The delay queue is a feature of the sending state machine, not the receiving one\&.
+.PP
+The \fCnamelist\fP attribute specifies which data variables to include with the event for the event target\&. This attribute is only useful in profiles that implement the Data Module\&. The \fC'minimum'\fP profile does not, but the \fC'x-coin'\fP profile does\&. For the \fC'x-coin'\fP profile, you can specify \fC<data>\fP variables by addressing them with the \fC_data\fP\&.{ID} scheme, or you can specify temporary variables, either by using the \fCcoin:temp\fP\&.{ID} scheme or have the prefix implicit by just specifying the {ID}\&. The is the most useful method, since event targets do not want to know where in a data model a variable comes from, nor the name it had where it was contained\&. With temporary variables, the values can get names that are intended for the event target instead of the name used at the source\&.
+.PP
+The \fChints\fP attribute is not supported\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBScXMLEventTarget\fP, \fBScXMLEventElt\fP, \fBScXMLDataElt\fP, \fBScXMLAssignElt\fP 
+.RE
+.PP
+
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP ScXMLSendElt::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoBase::getTypeId() const\fP 
+.RE
+.PP
+
+.PP
+Implements \fBScXMLExecutableElt\fP\&.
+.SS "SbBool ScXMLSendElt::handleXMLAttributes (void)\fC [virtual]\fP"
+This method is called when the file reader has set all the XML attributes on the object, and wants the object to handle them and report if the values were ok or if a read error should be produced\&.
+.PP
+\fBReturns:\fP
+.RS 4
+TRUE if the attributes are ok, and FALSE on error\&.
+.RE
+.PP
+This base class implementation does nothing and just returns TRUE\&. 
+.PP
+Reimplemented from \fBScXMLElt\fP\&.
+.SS "const \fBScXMLElt\fP * ScXMLSendElt::search (const char * attrname, const char * attrvalue) const\fC [virtual]\fP"
+This method searches the SCXML structure for an element with the given attributevalue for the given attribute\&.
+.PP
+Returns NULL if nothing was found\&.
+.PP
+This function needs to be reimplemented to traverse child elements\&. 
+.PP
+Reimplemented from \fBScXMLElt\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

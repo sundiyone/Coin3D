@@ -1,0 +1,101 @@
+.TH "ScXMLMinimumEvaluator" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ScXMLMinimumEvaluator \- implements the evaluator for the minimum profile\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/scxml/ScXMLMinimumEvaluator\&.h>\fP
+.PP
+Inherits \fBScXMLEvaluator\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "virtual void \fBsetStateMachine\fP (\fBScXMLStateMachine\fP *)"
+.br
+.ti -1c
+.RI "virtual \fBScXMLDataObj\fP * \fBevaluate\fP (const char *expression) const"
+.br
+.ti -1c
+.RI "virtual SbBool \fBsetAtLocation\fP (const char *location, \fBScXMLDataObj\fP *obj)"
+.br
+.ti -1c
+.RI "virtual \fBScXMLDataObj\fP * \fBlocate\fP (const char *location) const"
+.br
+.ti -1c
+.RI "virtual void \fBclearTemporaryVariables\fP (void)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void * \fBcreateInstance\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBcleanClass\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+implements the evaluator for the minimum profile\&. 
+
+
+.IP "\(bu" 2
+In() 
+.PP
+
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP ScXMLMinimumEvaluator::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoBase::getTypeId() const\fP 
+.RE
+.PP
+
+.PP
+Implements \fBScXMLEvaluator\fP\&.
+.SS "void ScXMLMinimumEvaluator::setStateMachine (\fBScXMLStateMachine\fP * sm)\fC [virtual]\fP"
+Override to perform actions when installed on a state machine\&. 
+.PP
+Reimplemented from \fBScXMLEvaluator\fP\&.
+.SS "\fBScXMLDataObj\fP * ScXMLMinimumEvaluator::evaluate (const char * expression) const\fC [virtual]\fP"
+Returns the result of evaluating the expression\&. The only expression that is allowed is the In({ID}) predicate, and the result should, if all things go as they should, be of type \fBScXMLBoolDataObj\fP\&. 
+.PP
+Implements \fBScXMLEvaluator\fP\&.
+.SS "SbBool ScXMLMinimumEvaluator::setAtLocation (const char * location, \fBScXMLDataObj\fP * obj)\fC [virtual]\fP"
+Returns FALSE\&. The minimum profile does not implement the data module\&. 
+.PP
+Implements \fBScXMLEvaluator\fP\&.
+.SS "\fBScXMLDataObj\fP * ScXMLMinimumEvaluator::locate (const char * location) const\fC [virtual]\fP"
+Returns NULL\&. The minimum profile does not implement the data module\&. 
+.PP
+Implements \fBScXMLEvaluator\fP\&.
+.SS "void ScXMLMinimumEvaluator::clearTemporaryVariables (void)\fC [virtual]\fP"
+Does nothing\&. 
+.PP
+Reimplemented from \fBScXMLEvaluator\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

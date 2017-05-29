@@ -1,0 +1,108 @@
+.TH "SoUniformShaderParameter" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoUniformShaderParameter \- The \fBSoUniformShaderParameter\fP class is the base class for all uniform shader variables\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/nodes/SoShaderParameter\&.h>\fP
+.PP
+Inherits \fBSoShaderParameter\fP\&.
+.PP
+Inherited by \fBSoShaderParameter1f\fP, \fBSoShaderParameter1i\fP, \fBSoShaderParameter2f\fP, \fBSoShaderParameter2i\fP, \fBSoShaderParameter3f\fP, \fBSoShaderParameter3i\fP, \fBSoShaderParameter4f\fP, \fBSoShaderParameter4i\fP, \fBSoShaderParameterArray1f\fP, \fBSoShaderParameterArray1i\fP, \fBSoShaderParameterArray2f\fP, \fBSoShaderParameterArray2i\fP, \fBSoShaderParameterArray3f\fP, \fBSoShaderParameterArray3i\fP, \fBSoShaderParameterArray4f\fP, \fBSoShaderParameterArray4i\fP, \fBSoShaderParameterMatrix\fP, \fBSoShaderParameterMatrixArray\fP, and \fBSoShaderStateMatrixParameter\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "virtual void \fBupdateParameter\fP (SoGLShaderObject *shaderObject)=0"
+.br
+.RI "Updates the shader parameter in the OpenGL state with the content of the value field\&. "
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "SoGLShaderParameter * \fBgetGLShaderParameter\fP (const uint32_t cachecontext)"
+.br
+.ti -1c
+.RI "void \fBensureParameter\fP (SoGLShaderObject *shader)"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoUniformShaderParameter\fP class is the base class for all uniform shader variables\&. 
+
+Uniform shader variables are used to pass parameters from the scene graph to the shader program\&.
+.PP
+In the shader program the variable is declared like this:
+.PP
+.PP
+.nf
+uniform float shininess;
+.fi
+.PP
+.PP
+See \fBShaders in Coin \fP for more information\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoUniformShaderParameter::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Reimplemented from \fBSoShaderParameter\fP\&.
+.PP
+Reimplemented in \fBSoShaderStateMatrixParameter\fP, \fBSoShaderParameterMatrixArray\fP, \fBSoShaderParameterMatrix\fP, \fBSoShaderParameterArray4i\fP, \fBSoShaderParameterArray4f\fP, \fBSoShaderParameterArray3i\fP, \fBSoShaderParameterArray3f\fP, \fBSoShaderParameterArray2i\fP, \fBSoShaderParameterArray2f\fP, \fBSoShaderParameterArray1i\fP, \fBSoShaderParameterArray1f\fP, \fBSoShaderParameter4i\fP, \fBSoShaderParameter4f\fP, \fBSoShaderParameter3i\fP, \fBSoShaderParameter3f\fP, \fBSoShaderParameter2i\fP, \fBSoShaderParameter2f\fP, \fBSoShaderParameter1i\fP, and \fBSoShaderParameter1f\fP\&.
+.SS "const \fBSoFieldData\fP * SoUniformShaderParameter::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoShaderParameter\fP\&.
+.PP
+Reimplemented in \fBSoShaderStateMatrixParameter\fP, \fBSoShaderParameterMatrixArray\fP, \fBSoShaderParameterMatrix\fP, \fBSoShaderParameterArray4i\fP, \fBSoShaderParameterArray4f\fP, \fBSoShaderParameterArray3i\fP, \fBSoShaderParameterArray3f\fP, \fBSoShaderParameterArray2i\fP, \fBSoShaderParameterArray2f\fP, \fBSoShaderParameterArray1i\fP, \fBSoShaderParameterArray1f\fP, \fBSoShaderParameter4i\fP, \fBSoShaderParameter4f\fP, \fBSoShaderParameter3i\fP, \fBSoShaderParameter3f\fP, \fBSoShaderParameter2i\fP, \fBSoShaderParameter2f\fP, \fBSoShaderParameter1i\fP, and \fBSoShaderParameter1f\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

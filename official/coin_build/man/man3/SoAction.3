@@ -1,0 +1,544 @@
+.TH "SoAction" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoAction \- The \fBSoAction\fP class is the base class for all traversal actions\&.
+.PP
+Applying actions is the basic mechanism in Coin for executing various operations on scene graphs or paths within scene graphs, including search operations, rendering, interaction through picking, etc\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/actions/SoAction\&.h>\fP
+.PP
+Inherited by \fBSoAudioRenderAction\fP, \fBSoCallbackAction\fP, \fBSoGetBoundingBoxAction\fP, \fBSoGetMatrixAction\fP, \fBSoGetPrimitiveCountAction\fP, \fBSoGLRenderAction\fP, \fBSoHandleEventAction\fP, \fBSoIntersectionDetectionAction\fP, \fBSoPickAction\fP, \fBSoSearchAction\fP, \fBSoSimplifyAction\fP, \fBSoToVRMLAction\fP, and \fBSoWriteAction\fP\&.
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBAppliedCode\fP { \fBNODE\fP = 0, \fBPATH\fP = 1, \fBPATH_LIST\fP = 2 }"
+.br
+.ti -1c
+.RI "enum \fBPathCode\fP { \fBNO_PATH\fP = 0, \fBIN_PATH\fP = 1, \fBBELOW_PATH\fP = 2, \fBOFF_PATH\fP = 3 }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fB~SoAction\fP (void)"
+.br
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const =0"
+.br
+.ti -1c
+.RI "virtual SbBool \fBisOfType\fP (\fBSoType\fP type) const"
+.br
+.ti -1c
+.RI "virtual void \fBapply\fP (\fBSoNode\fP *root)"
+.br
+.ti -1c
+.RI "virtual void \fBapply\fP (\fBSoPath\fP *path)"
+.br
+.ti -1c
+.RI "virtual void \fBapply\fP (const \fBSoPathList\fP &pathlist, SbBool obeysrules=FALSE)"
+.br
+.ti -1c
+.RI "void \fBapply\fP (\fBSoAction\fP *beingApplied)"
+.br
+.ti -1c
+.RI "virtual void \fBinvalidateState\fP (void)"
+.br
+.ti -1c
+.RI "\fBAppliedCode\fP \fBgetWhatAppliedTo\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoNode\fP * \fBgetNodeAppliedTo\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoPath\fP * \fBgetPathAppliedTo\fP (void) const"
+.br
+.ti -1c
+.RI "const \fBSoPathList\fP * \fBgetPathListAppliedTo\fP (void) const"
+.br
+.ti -1c
+.RI "const \fBSoPathList\fP * \fBgetOriginalPathListAppliedTo\fP (void) const"
+.br
+.ti -1c
+.RI "SbBool \fBisLastPathListAppliedTo\fP (void) const"
+.br
+.ti -1c
+.RI "\fBPathCode\fP \fBgetPathCode\fP (\fBint\fP &numindices, const \fBint\fP *&indices)"
+.br
+.ti -1c
+.RI "void \fBtraverse\fP (\fBSoNode\fP *const node)"
+.br
+.ti -1c
+.RI "SbBool \fBhasTerminated\fP (void) const"
+.br
+.ti -1c
+.RI "const \fBSoPath\fP * \fBgetCurPath\fP (void)"
+.br
+.ti -1c
+.RI "\fBSoState\fP * \fBgetState\fP (void) const"
+.br
+.ti -1c
+.RI "\fBPathCode\fP \fBgetCurPathCode\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fBSoNode\fP * \fBgetCurPathTail\fP (void)"
+.br
+.ti -1c
+.RI "void \fBusePathCode\fP (\fBint\fP &numindices, const \fBint\fP *&indices)"
+.br
+.ti -1c
+.RI "void \fBpushCurPath\fP (const \fBint\fP childindex, \fBSoNode\fP *node=NULL)"
+.br
+.ti -1c
+.RI "void \fBpopCurPath\fP (const \fBPathCode\fP prevpathcode)"
+.br
+.ti -1c
+.RI "void \fBpushCurPath\fP (void)"
+.br
+.ti -1c
+.RI "void \fBpopPushCurPath\fP (const \fBint\fP childindex, \fBSoNode\fP *node=NULL)"
+.br
+.ti -1c
+.RI "void \fBpopCurPath\fP (void)"
+.br
+.ti -1c
+.RI "void \fBswitchToPathTraversal\fP (\fBSoPath\fP *path)"
+.br
+.ti -1c
+.RI "void \fBswitchToNodeTraversal\fP (\fBSoNode\fP *node)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClasses\fP (void)"
+.br
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBnullAction\fP (\fBSoAction\fP *action, \fBSoNode\fP *node)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSoAction\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBbeginTraversal\fP (\fBSoNode\fP *node)"
+.br
+.ti -1c
+.RI "virtual void \fBendTraversal\fP (\fBSoNode\fP *node)"
+.br
+.ti -1c
+.RI "void \fBsetTerminated\fP (const SbBool flag)"
+.br
+.ti -1c
+.RI "virtual const \fBSoEnabledElementsList\fP & \fBgetEnabledElements\fP (void) const"
+.br
+.ti -1c
+.RI "virtual SbBool \fBshouldCompactPathList\fP (void) const"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoEnabledElementsList\fP * \fBgetClassEnabledElements\fP (void)"
+.br
+.ti -1c
+.RI "static \fBSoActionMethodList\fP * \fBgetClassActionMethods\fP (void)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoState\fP * \fBstate\fP"
+.br
+.ti -1c
+.RI "\fBSoActionMethodList\fP * \fBtraversalMethods\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBSoAction\fP class is the base class for all traversal actions\&.
+.PP
+Applying actions is the basic mechanism in Coin for executing various operations on scene graphs or paths within scene graphs, including search operations, rendering, interaction through picking, etc\&. 
+
+The basic operation is to instantiate an action, set it up with miscellaneous parameters if necessary, then call it's \fBapply()\fP method on the root node of the scenegraph (or sub-graph of a scenegraph)\&. The action then traverses the scenegraph from the root node, depth-first and left-to-right, applying it's specific processing at the nodes where it is applicable\&.
+.PP
+(The \fBSoAction\fP and it's derived classes in Coin is an implementation of the design pattern commonly known as the 'Visitor' pattern\&.)
+.PP
+Here's a simple example that shows how to use the \fBSoWriteAction\fP to dump a scenegraph in the Inventor format to a file:
+.PP
+.PP
+.nf
+int write_scenegraph(const char * filename, SoNode * root)
+{
+  SoOutput output;
+  if (!output\&.openFile(filename)) return 0;
+
+  // This is where the action is\&.  ;-)
+  SoWriteAction wa(&output);
+  wa\&.apply(root);
+
+  return 1;
+}
+.fi
+.PP
+.PP
+After traversal, some action types have stored information about the (sub-)scenegraph that was traversed, which you can then inquire about through methods like \fBSoGetBoundingBoxAction::getBoundingBox()\fP, \fBSoRayPickAction::getPickedPoint()\fP, \fBSoGetPrimitiveCountAction::getTriangleCount()\fP, etc etc\&.
+.PP
+See the various built-in actions for further information (ie the subclasses of this class), or look at the example code applications of the Coin library to see how actions are generally used\&.
+.PP
+For extending the Coin library with your own classes, we strongly recommend that you make yourself acquainted with the excellent «The Inventor Toolmaker» book (ISBN 0-201-62493-1), which describes the tasks involved in detail\&. This book was written by the original SGI Inventor designers and explains many of the underlying design ideas, aswell as having lots of hands-on examples on how to extend the Coin toolkit in ways that are true to the fundamental design ideas\&. («The Inventor Toolmaker» is also available at SGI's online library, at no cost\&. See \fCDownload The Inventor Toolmaker\fP\&.) Reading the sourcecode of the built-in classes in Coin should also provide very helpful\&.
+.PP
+The following example shows the basic outline on how to set up your own extension action class:
+.PP
+.PP
+.nf
+// This is sample code on how you can get progress indication on Coin
+// export operations by extending the library with your own action
+// class\&. The new class inherits SoWriteAction\&. The code is presented
+// as a stand-alone example\&.
+//
+// The general technique is to inherit SoWriteAction and override it's
+// "entry point" into each node of the scenegraph\&. The granularity of
+// the progress callbacks is on a per-node basis, which should usually
+// be good enough\&.
+
+#include <Inventor/SoDB\&.h>
+#include <Inventor/actions/SoWriteAction\&.h>
+#include <Inventor/nodes/SoSeparator\&.h>
+
+
+
+class MyWriteAction : public SoWriteAction {
+  SO_ACTION_HEADER(SoWriteAction);
+
+public:
+  MyWriteAction(SoOutput * out);
+  virtual ~MyWriteAction();
+
+  static void initClass(void);
+
+protected:
+  virtual void beginTraversal(SoNode * node);
+
+private:
+  static void actionMethod(SoAction *, SoNode *);
+  int nrnodes;
+  int totalnrnodes;
+};
+
+
+SO_ACTION_SOURCE(MyWriteAction);
+
+MyWriteAction::MyWriteAction(SoOutput * out)
+  : SoWriteAction(out)
+{
+  SO_ACTION_CONSTRUCTOR(MyWriteAction);
+}
+
+MyWriteAction::~MyWriteAction()
+{
+}
+
+void
+MyWriteAction::initClass(void)
+{
+  SO_ACTION_INIT_CLASS(MyWriteAction, SoWriteAction);
+
+  SO_ACTION_ADD_METHOD(SoNode, MyWriteAction::actionMethod);
+}
+
+void
+MyWriteAction::beginTraversal(SoNode * node)
+{
+  this->nrnodes = 0;
+  this->totalnrnodes = 0;
+  SoWriteAction::beginTraversal(node);
+}
+
+void
+MyWriteAction::actionMethod(SoAction * a, SoNode * n)
+{
+  // To abort the export process in mid-writing, we could just avoid
+  // calling in to the SoNode::writeS() method\&.
+  SoNode::writeS(a, n);
+
+  MyWriteAction * mwa = (MyWriteAction *)a;
+  SoOutput * out = mwa->getOutput();
+  if (out->getStage() == SoOutput::COUNT_REFS) {
+    mwa->totalnrnodes++;
+  }
+  else { //  (out->getStage() == SoOutput::WRITE)
+    mwa->nrnodes++;
+    SbString s;
+    s\&.sprintf(" # wrote node %p (%d/%d) \n", n, mwa->nrnodes, mwa->totalnrnodes);
+    out->write(s\&.getString());
+  }
+}
+
+
+int
+main(int argc, char ** argv)
+{
+  if (argc < 2) {
+    (void)fprintf(stderr, "\n\nUsage: %s <filename>\n\n", argv[0]);
+    exit(1);
+  }
+
+  SoDB::init();
+  MyWriteAction::initClass();
+
+  SoInput in;
+  if (!in\&.openFile(argv[1])) { exit(1); }
+
+  SoSeparator * root = SoDB::readAll(&in);
+  if (!root) { exit(1); }
+
+  root->ref();
+
+  SoOutput out;
+  MyWriteAction mwa(&out);
+  mwa\&.apply(root);
+
+  root->unref();
+
+  return 0;
+}
+.fi
+.PP
+ 
+.SH "Member Enumeration Documentation"
+.PP 
+.SS "enum \fBSoAction::AppliedCode\fP"
+Enumerated values for what the action was applied to\&. 
+.SS "enum \fBSoAction::PathCode\fP"
+Enumerated values for how the action is applied to a scene graph\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoAction::~SoAction (void)\fC [virtual]\fP"
+Destructor, free resources\&. 
+.SS "SoAction::SoAction (void)\fC [protected]\fP"
+Default constructor, does all necessary toplevel initialization\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void SoAction::initClass (void)\fC [static]\fP"
+Initializes the run-time type system for this class, and sets up the enabled elements and action method list\&. 
+.SS "void SoAction::initClasses (void)\fC [static]\fP"
+Initialize all the \fBSoAction\fP subclasses\&. Automatically called from \fBSoAction::initClass()\fP\&. 
+.SS "\fBSoType\fP SoAction::getClassTypeId (void)\fC [static]\fP"
+Returns the run-time type object associated with instances of this class\&. 
+.SS "\fBSoType\fP SoAction::getTypeId (void) const\fC [pure virtual]\fP"
+Returns the type identification of an action derived from a class inheriting \fBSoAction\fP\&. This is used for run-time type checking and 'downward' casting\&.
+.PP
+Usage example:
+.PP
+.PP
+.nf
+void bar(SoAction * action)
+{
+  if (action->getTypeId() == SoGLRenderAction::getClassTypeId()) {
+    // safe downward cast, know the type
+    SoGLRenderAction * glrender = (SoGLRenderAction *)action;
+  }
+  return; // ignore if not renderaction
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new actions: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through Inventor/nodes/SoSubAction\&.h: SO_ACTION_SOURCE, SO_ACTION_INIT_CLASS and SO_ACTION_CONSTRUCTOR\&.
+.PP
+For more information on writing Coin extensions, see the \fBSoAction\fP class documentation\&.
+.PP
+Returns the actual type id of an object derived from a class inheriting \fBSoAction\fP\&. Needs to be overridden in \fIall\fP subclasses\&. 
+.PP
+Implemented in \fBSoCallbackAction\fP, \fBSoIntersectionDetectionAction\fP, \fBSoGLRenderAction\fP, \fBSoRayPickAction\fP, \fBSoVectorizeAction\fP, \fBSoGetMatrixAction\fP, \fBSoHandleEventAction\fP, \fBSoGetBoundingBoxAction\fP, \fBSoGlobalSimplifyAction\fP, \fBSoShapeSimplifyAction\fP, \fBSoVectorizePSAction\fP, \fBSoGetPrimitiveCountAction\fP, \fBSoSearchAction\fP, \fBSoPickAction\fP, \fBSoReorganizeAction\fP, \fBSoAudioRenderAction\fP, \fBSoWriteAction\fP, \fBSoBoxHighlightRenderAction\fP, \fBSoSimplifyAction\fP, \fBSoToVRMLAction\fP, \fBSoLineHighlightRenderAction\fP, and \fBSoToVRML2Action\fP\&.
+.SS "SbBool SoAction::isOfType (\fBSoType\fP type) const\fC [virtual]\fP"
+Returns \fCTRUE\fP if the type of this object is either of the same type or a subclass of \fItype\fP\&. 
+.SS "void SoAction::apply (\fBSoNode\fP * root)\fC [virtual]\fP"
+Applies the action to the scene graph rooted at \fIroot\fP\&.
+.PP
+Note that you should \fInot\fP apply an action to a node with a zero reference count\&. The behavior in that case is undefined\&. 
+.PP
+Reimplemented in \fBSoIntersectionDetectionAction\fP, \fBSoVectorizeAction\fP, \fBSoReorganizeAction\fP, \fBSoBoxHighlightRenderAction\fP, \fBSoLineHighlightRenderAction\fP, \fBSoSimplifyAction\fP, \fBSoToVRMLAction\fP, and \fBSoToVRML2Action\fP\&.
+.SS "void SoAction::apply (\fBSoPath\fP * path)\fC [virtual]\fP"
+Applies the action to the parts of the graph defined by \fIpath\fP\&.
+.PP
+Note that an \fBSoPath\fP will also contain all nodes that may influence e\&.g\&. geometry nodes in the path\&. So for instance applying an \fBSoGLRenderAction\fP on an \fBSoPath\fP will render that path as expected in the view, where geometry will get its materials, textures, and other appearance settings correctly\&.
+.PP
+If the \fIpath\fP ends in an \fBSoGroup\fP node, the action will also traverse the tail node's children\&. 
+.PP
+Reimplemented in \fBSoIntersectionDetectionAction\fP, \fBSoVectorizeAction\fP, \fBSoReorganizeAction\fP, \fBSoBoxHighlightRenderAction\fP, \fBSoLineHighlightRenderAction\fP, \fBSoSimplifyAction\fP, \fBSoToVRMLAction\fP, and \fBSoToVRML2Action\fP\&.
+.SS "void SoAction::apply (const \fBSoPathList\fP & pathlist, SbBool obeysrules = \fCFALSE\fP)\fC [virtual]\fP"
+Applies action to the graphs defined by \fIpathlist\fP\&. If \fIobeysrules\fP is set to \fCTRUE\fP, \fIpathlist\fP must obey the following four conditions (which is the case for path lists returned from search actions for non-group nodes and path lists returned from picking actions):
+.PP
+All paths must start at the same head node\&. All paths must be sorted in traversal order\&. The paths must be unique\&. No path can continue through the end point of another path\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoAction::apply(SoPath * path)\fP 
+.RE
+.PP
+
+.PP
+Reimplemented in \fBSoIntersectionDetectionAction\fP, \fBSoVectorizeAction\fP, \fBSoReorganizeAction\fP, \fBSoBoxHighlightRenderAction\fP, \fBSoLineHighlightRenderAction\fP, \fBSoSimplifyAction\fP, \fBSoToVRMLAction\fP, and \fBSoToVRML2Action\fP\&.
+.SS "void SoAction::apply (\fBSoAction\fP * beingApplied)"
+Applies this action object to the same as \fIbeingApplied\fP is being applied to\&.
+.PP
+This function is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.1 
+.RE
+.PP
+
+.SS "void SoAction::invalidateState (void)\fC [virtual]\fP"
+Invalidates the state, forcing it to be recreated at the next \fBapply()\fP invocation\&. 
+.PP
+Reimplemented in \fBSoGLRenderAction\fP\&.
+.SS "void SoAction::nullAction (\fBSoAction\fP * action, \fBSoNode\fP * node)\fC [static]\fP"
+This method is used for filling up the lookup tables with void methods\&. 
+.SS "\fBSoAction::AppliedCode\fP SoAction::getWhatAppliedTo (void) const"
+Returns a code indicating what (node, path, or pathlist) the action instance is being applied to\&. 
+.SS "\fBSoNode\fP * SoAction::getNodeAppliedTo (void) const"
+Returns a pointer to the node the action is being applied to\&.
+.PP
+If action is not being applied to a node (but a path or a pathlist), the method returns \fCNULL\fP\&. 
+.SS "\fBSoPath\fP * SoAction::getPathAppliedTo (void) const"
+Returns the pointer to the path the action is being applied to\&. The path is managed by the action instance and should not be destroyed or modified by the caller\&.
+.PP
+If action is not being applied to a path (but a node or a pathlist), the method returns \fCNULL\fP\&. 
+.SS "const \fBSoPathList\fP * SoAction::getPathListAppliedTo (void) const"
+Returns the pointer to the path list the action is currently being applied to\&. The path list is managed by the action instance and should not be destroyed or modified by the caller\&.
+.PP
+If action is not being applied to a path list (but a node or a path), the method returns \fCNULL\fP\&.
+.PP
+The returned pathlist pointer need not be equal to the list \fBapply()\fP was called with, as the action may have reorganized the path list for efficiency reasons\&.
+.PP
+\fBSee also:\fP
+.RS 4
+void \fBSoAction::apply(const SoPathList &, SbBool)\fP 
+.RE
+.PP
+
+.SS "const \fBSoPathList\fP * SoAction::getOriginalPathListAppliedTo (void) const"
+Returns a pointer to the original path list the action is being applied to\&.
+.PP
+If the action is not being applied to a path list (but a node or a path), the method returns \fCNULL\fP\&. 
+.SS "SbBool SoAction::isLastPathListAppliedTo (void) const"
+This method is not supported in Coin\&. It should probably have been private in OIV\&. 
+.SS "\fBSoAction::PathCode\fP SoAction::getPathCode (\fBint\fP & numindices, const \fBint\fP *& indices)"
+Returns a code that indicates where the current node lies with respect to the path(s) the action is being applied to\&. The arguments \fIindices\fP and \fInumindices\fP are only set if the method returns \fCIN_PATH\fP\&. 
+.SS "void SoAction::traverse (\fBSoNode\fP *const node)"
+Traverses a scene graph rooted at \fInode\fP, invoking the action methods of the nodes in the graph\&. 
+.SS "SbBool SoAction::hasTerminated (void) const"
+Returns \fCTRUE\fP if the action was prematurely terminated\&.
+.PP
+Note that the termination flag will be \fCFALSE\fP if the action simply completed its run over the scene graph in the 'ordinary' fashion, i\&.e\&. was not explicitly aborted from any of the nodes in the graph\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetTerminated()\fP 
+.RE
+.PP
+
+.SS "const \fBSoPath\fP * SoAction::getCurPath (void)"
+Returns a pointer to the path generated during traversal, from the root of the traversed graph to the current node\&. 
+.SS "\fBSoState\fP * SoAction::getState (void) const"
+Returns a pointer to the state of the action instance\&. The state contains the current set of elements used during traversal\&. 
+.SS "\fBSoAction::PathCode\fP SoAction::getCurPathCode (void) const\fC [inline]\fP"
+Returns the current traversal path code\&. 
+.SS "\fBSoNode\fP * SoAction::getCurPathTail (void)\fC [virtual]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.PP
+Reimplemented in \fBSoCallbackAction\fP\&.
+.SS "void SoAction::usePathCode (\fBint\fP & numindices, const \fBint\fP *& indices)"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoAction::pushCurPath (const \fBint\fP childindex, \fBSoNode\fP * node = \fCNULL\fP)"
+Get ready to traverse the \fIchildindex'th\fP child\&. Use this method if the path code might change as a result of this\&.
+.PP
+This method is very internal\&. Do not use unless you know what you're doing\&. 
+.SS "void SoAction::popCurPath (const \fBPathCode\fP prevpathcode)"
+Pops the current path, and sets the path code to \fIprevpathcode\fP\&.
+.PP
+This method is very internal\&. Do not use unless you know what you're doing\&. 
+.SS "void SoAction::pushCurPath (void)"
+Pushes a NULL node onto the current path\&. Use this before traversing all children when you know that the path code will not change while traversing children\&.
+.PP
+This method is very internal\&. Do not use unless you know what you're doing\&. 
+.SS "void SoAction::popPushCurPath (const \fBint\fP childindex, \fBSoNode\fP * node = \fCNULL\fP)"
+Get ready to traverse the \fIchildindex'th\fP child\&. Use this method if you know the path code will not change as a result of this\&.
+.PP
+This method is very internal\&. Do not use unless you know what you're doing\&. 
+.SS "void SoAction::popCurPath (void)"
+Pops of the last child in the current path\&. Use this if you know the path code hasn't changed since the current path was pushed\&.
+.PP
+This method is very internal\&. Do not use unless you know what you're doing\&. 
+.SS "void SoAction::switchToPathTraversal (\fBSoPath\fP * path)"
+Store our state, traverse the given \fIpath\fP, restore our state and continue traversal\&. 
+.SS "void SoAction::switchToNodeTraversal (\fBSoNode\fP * node)"
+Store our state, traverse the subgraph rooted at the given \fInode\fP, restore our state and continue traversal\&. 
+.SS "void SoAction::beginTraversal (\fBSoNode\fP * node)\fC [protected]\fP, \fC [virtual]\fP"
+This virtual method is called from \fBSoAction::apply()\fP, and is the entry point for the actual scenegraph traversal\&.
+.PP
+It can be overridden to initialize the action at traversal start, for specific initializations in the action subclasses inheriting \fBSoAction\fP\&.
+.PP
+Default method just calls \fBtraverse()\fP, which any overridden implementation of the method must do too (or call \fBSoAction::beginTraversal()\fP) to trigger the scenegraph traversal\&. 
+.PP
+Reimplemented in \fBSoCallbackAction\fP, \fBSoGLRenderAction\fP, \fBSoRayPickAction\fP, \fBSoGetBoundingBoxAction\fP, \fBSoGetPrimitiveCountAction\fP, \fBSoToVRMLAction\fP, \fBSoSearchAction\fP, \fBSoReorganizeAction\fP, \fBSoHandleEventAction\fP, \fBSoToVRML2Action\fP, \fBSoGetMatrixAction\fP, \fBSoPickAction\fP, \fBSoWriteAction\fP, \fBSoSimplifyAction\fP, \fBSoGlobalSimplifyAction\fP, \fBSoAudioRenderAction\fP, and \fBSoShapeSimplifyAction\fP\&.
+.SS "void SoAction::endTraversal (\fBSoNode\fP * node)\fC [protected]\fP, \fC [virtual]\fP"
+This virtual method can be overridden to execute code after the scene graph traversal\&. Default method does nothing\&. 
+.PP
+Reimplemented in \fBSoGLRenderAction\fP\&.
+.SS "void SoAction::setTerminated (const SbBool flag)\fC [protected]\fP"
+Set the termination flag\&.
+.PP
+Typically set to TRUE from nodes upon special conditions being met during scene graph traversal -- like the correct node being found when doing \fBSoSearchAction\fP traversal or when grabbing the event from an \fBSoHandleEventAction\fP\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBhasTerminated()\fP 
+.RE
+.PP
+
+.SS "const \fBSoEnabledElementsList\fP & SoAction::getEnabledElements (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a list of the elements used by action instances of this class upon traversal operations\&. 
+.PP
+Reimplemented in \fBSoCallbackAction\fP, \fBSoIntersectionDetectionAction\fP, \fBSoGLRenderAction\fP, \fBSoRayPickAction\fP, \fBSoVectorizeAction\fP, \fBSoGetMatrixAction\fP, \fBSoHandleEventAction\fP, \fBSoGetBoundingBoxAction\fP, \fBSoGlobalSimplifyAction\fP, \fBSoShapeSimplifyAction\fP, \fBSoVectorizePSAction\fP, \fBSoGetPrimitiveCountAction\fP, \fBSoSearchAction\fP, \fBSoPickAction\fP, \fBSoReorganizeAction\fP, \fBSoAudioRenderAction\fP, \fBSoWriteAction\fP, \fBSoBoxHighlightRenderAction\fP, \fBSoSimplifyAction\fP, \fBSoToVRMLAction\fP, \fBSoLineHighlightRenderAction\fP, and \fBSoToVRML2Action\fP\&.
+.SS "SbBool SoAction::shouldCompactPathList (void) const\fC [protected]\fP, \fC [virtual]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "\fBSoEnabledElementsList\fP * SoAction::getClassEnabledElements (void)\fC [static]\fP, \fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP
+.PP
+This method not available in the original OIV API, see \fBSoSubAction\&.h\fP for explanation\&. 
+.SS "\fBSoActionMethodList\fP * SoAction::getClassActionMethods (void)\fC [static]\fP, \fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP
+.PP
+This method not available in the original OIV API, see \fBSoSubAction\&.h\fP for explanation\&. 
+.SH "Member Data Documentation"
+.PP 
+.SS "SoAction::state\fC [protected]\fP"
+Pointer to the traversal state instance of the action\&. 
+.SS "SoAction::traversalMethods\fC [protected]\fP"
+Stores the list of 'nodetype to actionmethod' mappings for the particular action instance\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

@@ -1,0 +1,327 @@
+.TH "SbBox2d" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SbBox2d \- The \fBSbBox2d\fP class is a 2 dimensional box with double precision corner coordinates\&.
+.PP
+This box class is used by many other classes in Coin for data exchange and storage\&. It provides two box corners with double precision coordinates, which is among other things useful for representing screen or canvas dimensions in normalized coordinates\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/SbBox2d\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSbBox2d\fP (void)"
+.br
+.ti -1c
+.RI "\fBSbBox2d\fP (double xmin, double ymin, double xmax, double ymax)"
+.br
+.ti -1c
+.RI "\fBSbBox2d\fP (const \fBSbVec2d\fP &minpoint, const \fBSbVec2d\fP &maxpoint)"
+.br
+.ti -1c
+.RI "\fBSbBox2d\fP (const \fBSbBox2f\fP &box)"
+.br
+.ti -1c
+.RI "\fBSbBox2d\fP (const \fBSbBox2s\fP &box)"
+.br
+.ti -1c
+.RI "\fBSbBox2d\fP (const \fBSbBox2i32\fP &box)"
+.br
+.ti -1c
+.RI "\fBSbBox2d\fP & \fBsetBounds\fP (double xmin, double ymin, double xmax, double ymax)"
+.br
+.ti -1c
+.RI "\fBSbBox2d\fP & \fBsetBounds\fP (const \fBSbVec2d\fP &minpoint, const \fBSbVec2d\fP &maxpoint)"
+.br
+.ti -1c
+.RI "\fBSbBox2d\fP & \fBsetBounds\fP (const \fBSbBox2f\fP &box)"
+.br
+.ti -1c
+.RI "\fBSbBox2d\fP & \fBsetBounds\fP (const \fBSbBox2s\fP &box)"
+.br
+.ti -1c
+.RI "\fBSbBox2d\fP & \fBsetBounds\fP (const \fBSbBox2i32\fP &box)"
+.br
+.ti -1c
+.RI "void \fBgetBounds\fP (double &xmin, double &ymin, double &xmax, double &ymax) const"
+.br
+.ti -1c
+.RI "void \fBgetBounds\fP (\fBSbVec2d\fP &minpoint, \fBSbVec2d\fP &maxpoint) const"
+.br
+.ti -1c
+.RI "const \fBSbVec2d\fP & \fBgetMin\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSbVec2d\fP & \fBgetMin\fP (void)"
+.br
+.ti -1c
+.RI "const \fBSbVec2d\fP & \fBgetMax\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSbVec2d\fP & \fBgetMax\fP (void)"
+.br
+.ti -1c
+.RI "void \fBextendBy\fP (const \fBSbVec2d\fP &point)"
+.br
+.ti -1c
+.RI "void \fBextendBy\fP (const \fBSbBox2d\fP &box)"
+.br
+.ti -1c
+.RI "void \fBmakeEmpty\fP (void)"
+.br
+.ti -1c
+.RI "SbBool \fBisEmpty\fP (void) const"
+.br
+.ti -1c
+.RI "SbBool \fBhasArea\fP (void) const"
+.br
+.ti -1c
+.RI "SbBool \fBintersect\fP (const \fBSbVec2d\fP &point) const"
+.br
+.ti -1c
+.RI "SbBool \fBintersect\fP (const \fBSbBox2d\fP &box) const"
+.br
+.ti -1c
+.RI "\fBSbVec2d\fP \fBgetClosestPoint\fP (const \fBSbVec2d\fP &p) const"
+.br
+.ti -1c
+.RI "SbBool \fBfindIntersection\fP (const \fBSbVec2d\fP &a, const \fBSbVec2d\fP &b, \fBSbVec2d\fP &ia, \fBSbVec2d\fP &ib) const"
+.br
+.ti -1c
+.RI "\fBSbVec2d\fP \fBgetCenter\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBgetOrigin\fP (double &originX, double &originY) const"
+.br
+.ti -1c
+.RI "void \fBgetSize\fP (double &sizeX, double &sizeY) const"
+.br
+.ti -1c
+.RI "\fBSbVec2d\fP \fBgetSize\fP (void) const"
+.br
+.ti -1c
+.RI "double \fBgetAspectRatio\fP (void) const"
+.br
+.in -1c
+.SS "Related Functions"
+(Note that these are not member functions\&.) 
+.in +1c
+.ti -1c
+.RI "\fBint\fP \fBoperator==\fP (const \fBSbBox2d\fP &b1, const \fBSbBox2d\fP &b2)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBoperator!=\fP (const \fBSbBox2d\fP &b1, const \fBSbBox2d\fP &b2)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBSbBox2d\fP class is a 2 dimensional box with double precision corner coordinates\&.
+.PP
+This box class is used by many other classes in Coin for data exchange and storage\&. It provides two box corners with double precision coordinates, which is among other things useful for representing screen or canvas dimensions in normalized coordinates\&. 
+
+This class is a Coin extension\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSbBox2s\fP, \fBSbBox2f\fP, \fBSbBox3s\fP, \fBSbBox3f\fP, \fBSbBox3d\fP, \fBSbXfBox3f\fP\&.
+.RE
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.PP
+TGS Inventor 2\&.6 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SbBox2d::SbBox2d (void)\fC [inline]\fP"
+The default constructor makes an empty box\&. 
+.SS "SbBox2d::SbBox2d (double xmin, double ymin, double xmax, double ymax)\fC [inline]\fP"
+Constructs a box with the given corners\&.
+.PP
+\fIxmin\fP should be less than \fIxmax\fP and \fIymin\fP should be less than \fIymax\fP if you want to make a valid box\&. 
+.SS "SbBox2d::SbBox2d (const \fBSbVec2d\fP & min, const \fBSbVec2d\fP & max)\fC [inline]\fP"
+Constructs a box with the given lower left and upper right corners\&.
+.PP
+The coordinates of \fImin\fP should be less than the coordinates of \fImax\fP if you want to make a valid box\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSbBox2d\fP & SbBox2d::setBounds (double xmin, double ymin, double xmax, double ymax)\fC [inline]\fP"
+Reset the boundaries of the box\&.
+.PP
+\fIxmin\fP should be less than \fIxmax\fP and \fIymin\fP should be less than \fIymax\fP if you want to make a valid box\&.
+.PP
+Returns reference to self\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetBounds()\fP\&. 
+.RE
+.PP
+
+.SS "\fBSbBox2d\fP & SbBox2d::setBounds (const \fBSbVec2d\fP & min, const \fBSbVec2d\fP & max)\fC [inline]\fP"
+Reset the boundaries of the box with the given corners\&.
+.PP
+The coordinates of \fImin\fP should be less than the coordinates of \fImax\fP if you want to make a valid box\&.
+.PP
+Returns reference to self\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetBounds()\fP\&. 
+.RE
+.PP
+
+.SS "\fBSbBox2d\fP & SbBox2d::setBounds (const \fBSbBox2f\fP & box)"
+Reset the boundaries of the box with the given \fIbox\fP boundaries\&.
+.PP
+Returns reference to self\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetBounds()\fP 
+.RE
+.PP
+
+.SS "\fBSbBox2d\fP & SbBox2d::setBounds (const \fBSbBox2s\fP & box)"
+Reset the boundaries of the box with the given \fIbox\fP boundaries\&.
+.PP
+Returns reference to self\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetBounds()\fP 
+.RE
+.PP
+
+.SS "\fBSbBox2d\fP & SbBox2d::setBounds (const \fBSbBox2i32\fP & box)"
+Reset the boundaries of the box with the given \fIbox\fP boundaries\&.
+.PP
+Returns reference to self\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetBounds()\fP 
+.RE
+.PP
+
+.SS "void SbBox2d::getBounds (double & xmin, double & ymin, double & xmax, double & ymax) const\fC [inline]\fP"
+Returns the box boundaries\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetBounds()\fP, \fBgetMin()\fP, \fBgetMax()\fP\&. 
+.RE
+.PP
+
+.SS "void SbBox2d::getBounds (\fBSbVec2d\fP & min, \fBSbVec2d\fP & max) const\fC [inline]\fP"
+Returns the box min and max corner points\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetBounds()\fP, \fBgetMin()\fP, \fBgetMax()\fP\&. 
+.RE
+.PP
+
+.SS "const \fBSbVec2d\fP & SbBox2d::getMin (void) const\fC [inline]\fP"
+Returns the lower left corner of the box\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetOrigin()\fP, \fBgetMax()\fP\&. 
+.RE
+.PP
+
+.SS "\fBSbVec2d\fP & SbBox2d::getMin (void)\fC [inline]\fP"
+Returns the lower left corner of the box\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetOrigin()\fP, \fBgetMax()\fP\&. 
+.RE
+.PP
+
+.SS "const \fBSbVec2d\fP & SbBox2d::getMax (void) const\fC [inline]\fP"
+Returns the upper right corner of the box\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetMin()\fP\&. 
+.RE
+.PP
+
+.SS "\fBSbVec2d\fP & SbBox2d::getMax (void)\fC [inline]\fP"
+Returns the upper right corner of the box\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetMin()\fP\&. 
+.RE
+.PP
+
+.SS "void SbBox2d::extendBy (const \fBSbVec2d\fP & point)"
+Extend the boundaries of the box by the given point, i\&.e\&. make the box fit around the \fIpoint\fP if it isn't already situated within it\&. 
+.SS "void SbBox2d::extendBy (const \fBSbBox2d\fP & box)"
+Extend the boundaries of the box by the given \fIbox\fP parameter\&. This is equal to calling the above method twice with the corner points\&. 
+.SS "void SbBox2d::makeEmpty (void)"
+Marks this as an empty box\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBisEmpty()\fP\&. 
+.RE
+.PP
+
+.SS "SbBool SbBox2d::isEmpty (void) const\fC [inline]\fP"
+Check if this has been marked as an empty box\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBmakeEmpty()\fP\&. 
+.RE
+.PP
+
+.SS "SbBool SbBox2d::hasArea (void) const\fC [inline]\fP"
+Check if the box has 'positive' area, i\&.e\&. the lower left corner is actually lower and more to the left than the other corner point\&. 
+.SS "SbBool SbBox2d::intersect (const \fBSbVec2d\fP & point) const"
+Check if \fIpoint\fP lies within the boundaries of this box\&. 
+.SS "SbBool SbBox2d::intersect (const \fBSbBox2d\fP & box) const"
+Check if \fIbox\fP lies wholly or partly within the boundaries of this box\&. 
+.SS "\fBSbVec2d\fP SbBox2d::getClosestPoint (const \fBSbVec2d\fP & p) const"
+Return the point on the box closest to the given point \fIp\fP\&. 
+.SS "SbBool SbBox2d::findIntersection (const \fBSbVec2d\fP & a, const \fBSbVec2d\fP & b, \fBSbVec2d\fP & ia, \fBSbVec2d\fP & ib) const"
+Check if a a line from \fIa\fP to \fIb\fP intersects the box, and return the coordinates of the union line in \fIia\fP and \fIib\fP\&.
+.PP
+This function is a Coin extension\&. 
+.SS "\fBSbVec2d\fP SbBox2d::getCenter (void) const\fC [inline]\fP"
+Returns the center point of the box\&. 
+.SS "void SbBox2d::getOrigin (double & originX, double & originY) const\fC [inline]\fP"
+Returns the coordinates of the box origin (i\&.e\&. the lower left corner)\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetMin()\fP\&. 
+.RE
+.PP
+
+.SS "void SbBox2d::getSize (double & sizeX, double & sizeY) const\fC [inline]\fP"
+Returns width and height of box\&. 
+.SS "double SbBox2d::getAspectRatio (void) const\fC [inline]\fP"
+Returns aspect ratio of box, which is defined as box width divided on box height\&. 
+.SH "Friends And Related Function Documentation"
+.PP 
+.SS "\fBint\fP operator== (const \fBSbBox2d\fP & b1, const \fBSbBox2d\fP & b2)\fC [related]\fP"
+Check \fIb1\fP and \fIb2\fP for equality\&. 
+.SS "\fBint\fP operator!= (const \fBSbBox2d\fP & b1, const \fBSbBox2d\fP & b2)\fC [related]\fP"
+Check \fIb1\fP and \fIb2\fP for inequality\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

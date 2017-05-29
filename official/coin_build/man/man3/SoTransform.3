@@ -1,0 +1,294 @@
+.TH "SoTransform" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoTransform \- The \fBSoTransform\fP class is the 'all-purpose' transformation node type\&.
+.PP
+Like \fBSoMatrixTransform\fP, nodes of this type gives the application programmer maximum flexibility when specifying geometry transformations in a scene graph\&. If you want to set and keep the various components of the transformation matrix in separate entities, this node type is preferable, though\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/nodes/SoTransform\&.h>\fP
+.PP
+Inherits \fBSoTransformation\fP\&.
+.PP
+Inherited by \fBSoTransformManip\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "\fBSoTransform\fP (void)"
+.br
+.ti -1c
+.RI "void \fBpointAt\fP (const \fBSbVec3f\fP &frompoint, const \fBSbVec3f\fP &topoint)"
+.br
+.ti -1c
+.RI "void \fBgetScaleSpaceMatrix\fP (\fBSbMatrix\fP &mat, \fBSbMatrix\fP &inv) const"
+.br
+.ti -1c
+.RI "void \fBgetRotationSpaceMatrix\fP (\fBSbMatrix\fP &mat, \fBSbMatrix\fP &inv) const"
+.br
+.ti -1c
+.RI "void \fBgetTranslationSpaceMatrix\fP (\fBSbMatrix\fP &mat, \fBSbMatrix\fP &inv) const"
+.br
+.ti -1c
+.RI "void \fBmultLeft\fP (const \fBSbMatrix\fP &mat)"
+.br
+.ti -1c
+.RI "void \fBmultRight\fP (const \fBSbMatrix\fP &mat)"
+.br
+.ti -1c
+.RI "void \fBcombineLeft\fP (\fBSoTransformation\fP *nodeonright)"
+.br
+.ti -1c
+.RI "void \fBcombineRight\fP (\fBSoTransformation\fP *nodeonleft)"
+.br
+.ti -1c
+.RI "void \fBsetMatrix\fP (const \fBSbMatrix\fP &mat)"
+.br
+.ti -1c
+.RI "void \fBrecenter\fP (const \fBSbVec3f\fP &newcenter)"
+.br
+.ti -1c
+.RI "virtual void \fBdoAction\fP (\fBSoAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBGLRender\fP (\fBSoGLRenderAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBcallback\fP (\fBSoCallbackAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBgetBoundingBox\fP (\fBSoGetBoundingBoxAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBgetMatrix\fP (\fBSoGetMatrixAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBpick\fP (\fBSoPickAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBgetPrimitiveCount\fP (\fBSoGetPrimitiveCountAction\fP *action)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFVec3f\fP \fBtranslation\fP"
+.br
+.ti -1c
+.RI "\fBSoSFRotation\fP \fBrotation\fP"
+.br
+.ti -1c
+.RI "\fBSoSFVec3f\fP \fBscaleFactor\fP"
+.br
+.ti -1c
+.RI "\fBSoSFRotation\fP \fBscaleOrientation\fP"
+.br
+.ti -1c
+.RI "\fBSoSFVec3f\fP \fBcenter\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fB~SoTransform\fP ()"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoTransform\fP class is the 'all-purpose' transformation node type\&.
+.PP
+Like \fBSoMatrixTransform\fP, nodes of this type gives the application programmer maximum flexibility when specifying geometry transformations in a scene graph\&. If you want to set and keep the various components of the transformation matrix in separate entities, this node type is preferable, though\&. 
+
+The order of operations is: first scaling is done, then rotation, then translation\&.
+.PP
+\fBFILE FORMAT/DEFAULTS:\fP 
+.PP
+.nf
+Transform {
+    translation 0 0 0
+    rotation 0 0 1  0
+    scaleFactor 1 1 1
+    scaleOrientation 0 0 1  0
+    center 0 0 0
+}
+
+.fi
+.PP
+ 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoTransform::SoTransform (void)"
+Constructor\&. 
+.SS "SoTransform::~SoTransform ()\fC [protected]\fP, \fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoTransform::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Reimplemented from \fBSoTransformation\fP\&.
+.PP
+Reimplemented in \fBSoTransformManip\fP, \fBSoHandleBoxManip\fP, \fBSoTrackballManip\fP, \fBSoTransformerManip\fP, \fBSoTransformBoxManip\fP, \fBSoTabBoxManip\fP, \fBSoCenterballManip\fP, and \fBSoJackManip\fP\&.
+.SS "const \fBSoFieldData\fP * SoTransform::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoTransformation\fP\&.
+.PP
+Reimplemented in \fBSoTransformManip\fP, \fBSoHandleBoxManip\fP, \fBSoTrackballManip\fP, \fBSoTransformerManip\fP, \fBSoTransformBoxManip\fP, \fBSoTabBoxManip\fP, \fBSoCenterballManip\fP, and \fBSoJackManip\fP\&.
+.SS "void SoTransform::pointAt (const \fBSbVec3f\fP & frompoint, const \fBSbVec3f\fP & topoint)"
+Sets the transformation to translate to \fIfrompoint\fP, with a rotation so that the (0,0,-1) vector is rotated into the vector from \fIfrompoint\fP to \fItopoint\fP\&. 
+.SS "void SoTransform::getScaleSpaceMatrix (\fBSbMatrix\fP & mat, \fBSbMatrix\fP & inv) const"
+Calculates the matrices to/from scale space\&. 
+.SS "void SoTransform::getRotationSpaceMatrix (\fBSbMatrix\fP & mat, \fBSbMatrix\fP & inv) const"
+Calculates the matrices to/from rotation space\&. 
+.SS "void SoTransform::getTranslationSpaceMatrix (\fBSbMatrix\fP & mat, \fBSbMatrix\fP & inv) const"
+Calculates the matrices to/from translation space\&. 
+.SS "void SoTransform::multLeft (const \fBSbMatrix\fP & mat)"
+Premultiplies this transformation by \fImat\fP\&. 
+.SS "void SoTransform::multRight (const \fBSbMatrix\fP & mat)"
+Postmultiplies this transformation by \fImat\fP\&. 
+.SS "void SoTransform::combineLeft (\fBSoTransformation\fP * nodeonright)"
+Premultiplies this transformation by the transformation in \fInodeonright\fP\&. 
+.SS "void SoTransform::combineRight (\fBSoTransformation\fP * nodeonleft)"
+Postmultiplies this transformation by the transformation in \fInodeonleft\fP\&. 
+.SS "void SoTransform::setMatrix (const \fBSbMatrix\fP & mat)"
+Sets the fields to create a transformation equal to \fImat\fP\&. 
+.SS "void SoTransform::recenter (const \fBSbVec3f\fP & newcenter)"
+Sets the \fIcenter\fP field to \fInewcenter\fP\&. This might affect one or more of the other fields\&. 
+.SS "void SoTransform::doAction (\fBSoAction\fP * action)\fC [virtual]\fP"
+This function performs the typical operation of a node for any action\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.PP
+Reimplemented in \fBSoTransformManip\fP\&.
+.SS "void SoTransform::GLRender (\fBSoGLRenderAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGLRenderAction\fP\&.
+.PP
+This is called during rendering traversals\&. Nodes influencing the rendering state in any way or who wants to throw geometry primitives at OpenGL overrides this method\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.PP
+Reimplemented in \fBSoTransformManip\fP\&.
+.SS "void SoTransform::callback (\fBSoCallbackAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoCallbackAction\fP\&.
+.PP
+Simply updates the state according to how the node behaves for the render action, so the application programmer can use the \fBSoCallbackAction\fP for extracting information about the scene graph\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.PP
+Reimplemented in \fBSoTransformManip\fP\&.
+.SS "void SoTransform::getBoundingBox (\fBSoGetBoundingBoxAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGetBoundingBoxAction\fP\&.
+.PP
+Calculates bounding box and center coordinates for node and modifies the values of the \fIaction\fP to encompass the bounding box for this node and to shift the center point for the scene more towards the one for this node\&.
+.PP
+Nodes influencing how geometry nodes calculates their bounding box also overrides this method to change the relevant state variables\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.PP
+Reimplemented in \fBSoTransformManip\fP\&.
+.SS "void SoTransform::getMatrix (\fBSoGetMatrixAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoGetMatrixAction\fP\&.
+.PP
+Updates \fIaction\fP by accumulating with the transformation matrix of this node (if any)\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.PP
+Reimplemented in \fBSoTransformManip\fP\&.
+.SS "void SoTransform::pick (\fBSoPickAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoPickAction\fP\&.
+.PP
+Does common processing for \fBSoPickAction\fP \fIaction\fP instances\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.PP
+Reimplemented in \fBSoTransformManip\fP\&.
+.SS "void SoTransform::getPrimitiveCount (\fBSoGetPrimitiveCountAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGetPrimitiveCountAction\fP\&.
+.PP
+Calculates the number of triangle, line segment and point primitives for the node and adds these to the counters of the \fIaction\fP\&.
+.PP
+Nodes influencing how geometry nodes calculates their primitive count also overrides this method to change the relevant state variables\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSoSFVec3f\fP SoTransform::translation"
+The translation part of the transformation\&. 
+.SS "\fBSoSFRotation\fP SoTransform::rotation"
+The rotation part of the transformation\&.
+.PP
+Note that there is one \fIvery\fP common mistake that is easy to make when setting the value of a an \fBSoSFRotation\fP field, and that is to inadvertently use the wrong \fBSbRotation\fP constructor\&. This example should clarify the problem:
+.PP
+.PP
+.nf
+mytransformnode->rotation\&.setValue(0, 0, 1, 1\&.5707963f);
+.fi
+.PP
+.PP
+The programmer clearly tries to set a PI/2 rotation around the Z axis, but this will fail, as the \fBSbRotation\fP constructor invoked above is the one that takes as arguments the 4 floats of a \fIquaternion\fP\&. What the programmer almost certainly wanted to do was to use the \fBSbRotation\fP constructor that takes a rotation vector and a rotation angle, which is invoked like this:
+.PP
+.PP
+.nf
+mytransformnode->rotation\&.setValue(SbVec3f(0, 0, 1), 1\&.5707963f);
+.fi
+.PP
+ 
+.SS "\fBSoSFVec3f\fP SoTransform::scaleFactor"
+The scaling part of the transformation\&. 
+.SS "\fBSoSFRotation\fP SoTransform::scaleOrientation"
+The orientation the object is set to before scaling\&. 
+.SS "\fBSoSFVec3f\fP SoTransform::center"
+The center point for the rotation\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

@@ -1,0 +1,221 @@
+.TH "SoDrawStyle" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoDrawStyle \- The \fBSoDrawStyle\fP class specificies common rendering properties for shapes\&.
+.PP
+Use \fBSoDrawStyle\fP nodes to influence how shape nodes following them in the scenegraph will be rendered\&. This node type have fields to help decide how certain aspects of point-based shapes, line-based shapes and filled shape primitives are rendered\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/nodes/SoDrawStyle\&.h>\fP
+.PP
+Inherits \fBSoNode\fP\&.
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBStyle\fP { \fBFILLED\fP = SoDrawStyleElement::FILLED, \fBLINES\fP = SoDrawStyleElement::LINES, \fBPOINTS\fP = SoDrawStyleElement::POINTS, \fBINVISIBLE\fP = SoDrawStyleElement::INVISIBLE }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "\fBSoDrawStyle\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBdoAction\fP (\fBSoAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBGLRender\fP (\fBSoGLRenderAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBcallback\fP (\fBSoCallbackAction\fP *action)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFEnum\fP \fBstyle\fP"
+.br
+.ti -1c
+.RI "\fBSoSFFloat\fP \fBpointSize\fP"
+.br
+.ti -1c
+.RI "\fBSoSFFloat\fP \fBlineWidth\fP"
+.br
+.ti -1c
+.RI "\fBSoSFUShort\fP \fBlinePattern\fP"
+.br
+.ti -1c
+.RI "\fBSoSFInt32\fP \fBlinePatternScaleFactor\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fB~SoDrawStyle\fP ()"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoDrawStyle\fP class specificies common rendering properties for shapes\&.
+.PP
+Use \fBSoDrawStyle\fP nodes to influence how shape nodes following them in the scenegraph will be rendered\&. This node type have fields to help decide how certain aspects of point-based shapes, line-based shapes and filled shape primitives are rendered\&. 
+
+Simple scenegraph structure usage example:
+.PP
+.PP
+.nf
+#Inventor V2\&.1 ascii
+
+Separator {
+   Sphere { }
+   Translation { translation 4 0 0 }
+   DrawStyle { style LINES  lineWidth 2 }
+   Sphere { }
+   Translation { translation 4 0 0 }
+   DrawStyle { style POINTS  pointSize 2 }
+   Sphere { }
+}
+.fi
+.PP
+.PP
+ Rendering of Example Scenegraph
+.PP
+\fBFILE FORMAT/DEFAULTS:\fP 
+.PP
+.nf
+DrawStyle {
+    style FILLED
+    pointSize 0
+    lineWidth 0
+    linePattern 0xffff
+    linePatternScaleFactor 1
+}
+
+.fi
+.PP
+ 
+.SH "Member Enumeration Documentation"
+.PP 
+.SS "enum \fBSoDrawStyle::Style\fP"
+Enumeration for the various ways to render geometry\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fIFILLED \fP\fP
+Render all geometry as-is\&. 
+.TP
+\fB\fILINES \fP\fP
+Render all geometry as border lines\&. 
+.TP
+\fB\fIPOINTS \fP\fP
+Render all geometry as vertex points\&. 
+.TP
+\fB\fIINVISIBLE \fP\fP
+Don't render geometry\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoDrawStyle::SoDrawStyle (void)"
+Constructor\&. 
+.SS "SoDrawStyle::~SoDrawStyle ()\fC [protected]\fP, \fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoDrawStyle::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Implements \fBSoBase\fP\&.
+.SS "const \fBSoFieldData\fP * SoDrawStyle::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoFieldContainer\fP\&.
+.SS "void SoDrawStyle::doAction (\fBSoAction\fP * action)\fC [virtual]\fP"
+This function performs the typical operation of a node for any action\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "void SoDrawStyle::GLRender (\fBSoGLRenderAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGLRenderAction\fP\&.
+.PP
+This is called during rendering traversals\&. Nodes influencing the rendering state in any way or who wants to throw geometry primitives at OpenGL overrides this method\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "void SoDrawStyle::callback (\fBSoCallbackAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoCallbackAction\fP\&.
+.PP
+Simply updates the state according to how the node behaves for the render action, so the application programmer can use the \fBSoCallbackAction\fP for extracting information about the scene graph\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSoSFEnum\fP SoDrawStyle::style"
+How to render the geometry following a drawstyle node in the scene graph\&. Default \fBSoDrawStyle::FILLED\fP\&. 
+.SS "\fBSoSFFloat\fP SoDrawStyle::pointSize"
+Size in screen pixels of \fBSoPointSet\fP points, and also of geometry vertex points if setting the \fBSoDrawStyle::style\fP to \fBSoDrawStyle::POINTS\fP\&.
+.PP
+The valid range of pointsize settings varies according to which OpenGL implementation is used\&. For the purpose of not trying to set illegal values, the application programmer should at run-time check the valid range\&. How this can be accomplished is described in the class documentation of \fBSoGLPointSizeElement\fP\&.
+.PP
+Default value is 0\&.0f, which is a 'tag' value which tells the rendering library to use the default setting\&. 
+.SS "\fBSoSFFloat\fP SoDrawStyle::lineWidth"
+Width in screen pixels of \fBSoLineSet\fP and \fBSoIndexedLineSet\fP lines, and also of geometry border lines if setting the \fBSoDrawStyle::style\fP to \fBSoDrawStyle::LINES\fP\&.
+.PP
+The valid range of linewidth settings varies according to which OpenGL implementation is used\&. For the purpose of not trying to set illegal values, the application programmer should at run-time check the valid range\&. How this can be accomplished is described in the class documentation of \fBSoGLLineWidthElement\fP\&.
+.PP
+Default value is 0\&.0f, which is a 'tag' value which tells the rendering library to use the default setting\&. 
+.SS "\fBSoSFUShort\fP SoDrawStyle::linePattern"
+Pattern as a bitmask used when drawing lines\&. Default is 0xffff (no 'holes')\&. 
+.SS "\fBSoSFInt32\fP SoDrawStyle::linePatternScaleFactor"
+Multiplier for the bitmask in linePattern (range 1 - 256)\&. Default is 1\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

@@ -1,0 +1,353 @@
+.TH "VRMLnodes" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+VRMLnodes \- Nodes implementaing the VRML97 standard\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBSoVRMLAnchor\fP"
+.br
+.RI "The \fBSoVRMLAnchor\fP class is used for linking to other URL resources\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP "
+.ti -1c
+.RI "class \fBSoVRMLAppearance\fP"
+.br
+.RI "The \fBSoVRMLAppearance\fP class specifies visual properties for shapes\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP "
+.ti -1c
+.RI "class \fBSoVRMLAudioClip\fP"
+.br
+.RI "The \fBSoVRMLAudioClip\fP class is used to load and store audio data\&.
+.PP
+Audio data is loaded using the simage library, so make sure you have built the simage library with support for the audio file formats you intend to use (libogg, libvorbis and libvorbisfile for OggVorbis, libsndfile for WAV and several other formats)\&. "
+.ti -1c
+.RI "class \fBSoVRMLBackground\fP"
+.br
+.RI "The \fBSoVRMLBackground\fP class is used for specifying a viewer panorama\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP "
+.ti -1c
+.RI "class \fBSoVRMLBillboard\fP"
+.br
+.RI "The \fBSoVRMLBillboard\fP class is used for rotating geometry towards the viewpoint\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP "
+.ti -1c
+.RI "class \fBSoVRMLBox\fP"
+.br
+.RI "The \fBSoVRMLBox\fP class is used for representing a 3D box\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP "
+.ti -1c
+.RI "class \fBSoVRMLCollision\fP"
+.br
+.RI "The \fBSoVRMLCollision\fP class is used for collision detection with the avatar\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP "
+.ti -1c
+.RI "class \fBSoVRMLColor\fP"
+.br
+.RI "The \fBSoVRMLColor\fP class is used to specify multiple colors for a single shape\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP "
+.ti -1c
+.RI "class \fBSoVRMLColorInterpolator\fP"
+.br
+.RI "The \fBSoVRMLColorInterpolator\fP class is used to interpolate color values\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP "
+.ti -1c
+.RI "class \fBSoVRMLCone\fP"
+.br
+.RI "The \fBSoVRMLCone\fP class is used to represent a Cone object\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP "
+.ti -1c
+.RI "class \fBSoVRMLCoordinate\fP"
+.br
+.RI "The \fBSoVRMLCoordinate\fP class is used to define 3D coordinates for shapes\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP "
+.ti -1c
+.RI "class \fBSoVRMLCoordinateInterpolator\fP"
+.br
+.RI "The \fBSoVRMLCoordinateInterpolator\fP class is used to interpolate 3D coordinates\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP "
+.ti -1c
+.RI "class \fBSoVRMLCylinder\fP"
+.br
+.RI "The \fBSoVRMLCylinder\fP class is used to represent a cylinder object\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP "
+.ti -1c
+.RI "class \fBSoVRMLCylinderSensor\fP"
+.br
+.RI "The \fBSoVRMLCylinderSensor\fP class maps pointer motion into rotations around the Y axis\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP "
+.ti -1c
+.RI "class \fBSoVRMLDirectionalLight\fP"
+.br
+.RI "The \fBSoVRMLDirectionalLight\fP class is a node type for specifying directional light sources
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP "
+.ti -1c
+.RI "class \fBSoVRMLElevationGrid\fP"
+.br
+.RI "The \fBSoVRMLElevationGrid\fP class is used to represent elevation grids\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP "
+.ti -1c
+.RI "class \fBSoVRMLExtrusion\fP"
+.br
+.RI "The \fBSoVRMLExtrusion\fP class is a a geometry node for extruding a cross section along a spine\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP "
+.ti -1c
+.RI "class \fBSoVRMLFog\fP"
+.br
+.RI "The \fBSoVRMLFog\fP class is used to specify a global scene fog\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP "
+.ti -1c
+.RI "class \fBSoVRMLFontStyle\fP"
+.br
+.RI "The \fBSoVRMLFontStyle\fP class is used to define the current font\&.
+.PP
+Important note: currently, the \fBSoVRMLText\fP node implementation is not complete, and some of the features mentioned in the documentation below may not be working yet\&. "
+.ti -1c
+.RI "class \fBSoVRMLGroup\fP"
+.br
+.RI "The \fBSoVRMLGroup\fP class is used for grouping VRML nodes\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP "
+.ti -1c
+.RI "class \fBSoVRMLImageTexture\fP"
+.br
+.RI "The \fBSoVRMLImageTexture\fP class is used for mapping a texture file onto geometry\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP "
+.ti -1c
+.RI "class \fBSoVRMLIndexedFaceSet\fP"
+.br
+.RI "The \fBSoVRMLIndexedFaceSet\fP class is used for representing a generic 3D shape\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP "
+.ti -1c
+.RI "class \fBSoVRMLIndexedLine\fP"
+.br
+.RI "The \fBSoVRMLIndexedLine\fP class is an abstract superclass for lines specified with indices\&.
+.PP
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP "
+.ti -1c
+.RI "class \fBSoVRMLIndexedLineSet\fP"
+.br
+.RI "The \fBSoVRMLIndexedLineSet\fP class is used to represent a generic 3D line shape\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP "
+.ti -1c
+.RI "class \fBSoVRMLInline\fP"
+.br
+.RI "The \fBSoVRMLInline\fP class is used to insert VRML files into a scene\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP "
+.ti -1c
+.RI "class \fBSoVRMLLOD\fP"
+.br
+.RI "The \fBSoVRMLLOD\fP class is used to represent various levels of detail based on distance\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP "
+.ti -1c
+.RI "class \fBSoVRMLMaterial\fP"
+.br
+.RI "The \fBSoVRMLMaterial\fP class is used to assign a material to geometry\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP "
+.ti -1c
+.RI "class \fBSoVRMLMovieTexture\fP"
+.br
+.RI "The \fBSoVRMLMovieTexture\fP class is used the map movies onto geometry\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP "
+.ti -1c
+.RI "class \fBSoVRMLNavigationInfo\fP"
+.br
+.RI "The \fBSoVRMLNavigationInfo\fP class is used to specify avatar and viewer settings\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP "
+.ti -1c
+.RI "class \fBSoVRMLNormal\fP"
+.br
+.RI "The \fBSoVRMLNormal\fP class is used to bind normals to geometry\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP "
+.ti -1c
+.RI "class \fBSoVRMLNormalInterpolator\fP"
+.br
+.RI "The \fBSoVRMLNormalInterpolator\fP class is used to interpolate normals\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP "
+.ti -1c
+.RI "class \fBSoVRMLOrientationInterpolator\fP"
+.br
+.RI "The \fBSoVRMLOrientationInterpolator\fP class is used to interpolate orientations\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP "
+.ti -1c
+.RI "class \fBSoVRMLPixelTexture\fP"
+.br
+.RI "The \fBSoVRMLPixelTexture\fP class is used for mapping a texture image onto geometry\&.\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP "
+.ti -1c
+.RI "class \fBSoVRMLPlaneSensor\fP"
+.br
+.RI "The \fBSoVRMLPlaneSensor\fP class maps pointer motion into object space translations\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP "
+.ti -1c
+.RI "class \fBSoVRMLPointLight\fP"
+.br
+.RI "The \fBSoVRMLPointLight\fP class is used to represent a point light\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP "
+.ti -1c
+.RI "class \fBSoVRMLPointSet\fP"
+.br
+.RI "The \fBSoVRMLPointSet\fP class is used to represent a set of 3D points\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP "
+.ti -1c
+.RI "class \fBSoVRMLPositionInterpolator\fP"
+.br
+.RI "The \fBSoVRMLPositionInterpolator\fP class is used to interpolate 3D points\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP "
+.ti -1c
+.RI "class \fBSoVRMLProximitySensor\fP"
+.br
+.RI "The \fBSoVRMLProximitySensor\fP class is used to generate events when the viewer enters or exits a region\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP "
+.ti -1c
+.RI "class \fBSoVRMLScalarInterpolator\fP"
+.br
+.RI "The \fBSoVRMLScalarInterpolator\fP class is used to interpolate scalar values\&. "
+.ti -1c
+.RI "class \fBSoVRMLScript\fP"
+.br
+.RI "The \fBSoVRMLScript\fP class is used to control the scene using scripts\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP "
+.ti -1c
+.RI "class \fBSoVRMLShape\fP"
+.br
+.RI "The \fBSoVRMLShape\fP class holds geometry and geometry appearance nodes\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP "
+.ti -1c
+.RI "class \fBSoVRMLSound\fP"
+.br
+.RI "The \fBSoVRMLSound\fP class is used to represent a sound source\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP "
+.ti -1c
+.RI "class \fBSoVRMLSphere\fP"
+.br
+.RI "The \fBSoVRMLSphere\fP class is used to represent a spherical 3D object\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP "
+.ti -1c
+.RI "class \fBSoVRMLSphereSensor\fP"
+.br
+.RI "The \fBSoVRMLSphereSensor\fP class maps pointer motion into rotations on a sphere\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP "
+.ti -1c
+.RI "class \fBSoVRMLSpotLight\fP"
+.br
+.RI "The \fBSoVRMLSpotLight\fP class defines a spot light source\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP "
+.ti -1c
+.RI "class \fBSoVRMLSwitch\fP"
+.br
+.RI "The \fBSoVRMLSwitch\fP class is a group node for traversing selected children\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP "
+.ti -1c
+.RI "class \fBSoVRMLText\fP"
+.br
+.RI "The \fBSoVRMLText\fP class is used to represent text in a scene\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP "
+.ti -1c
+.RI "class \fBSoVRMLTextureCoordinate\fP"
+.br
+.RI "The \fBSoVRMLTextureCoordinate\fP class binds texture coordinates to vertex-based geometry\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP "
+.ti -1c
+.RI "class \fBSoVRMLTextureTransform\fP"
+.br
+.RI "The \fBSoVRMLTextureTransform\fP class defines a transformation applied to texture coordinates\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP "
+.ti -1c
+.RI "class \fBSoVRMLTimeSensor\fP"
+.br
+.RI "The \fBSoVRMLTimeSensor\fP class is a multi-purpose time event generator\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP "
+.ti -1c
+.RI "class \fBSoVRMLTouchSensor\fP"
+.br
+.RI "The \fBSoVRMLTouchSensor\fP class tracks to pointer position and sends events based on user interaction\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP "
+.ti -1c
+.RI "class \fBSoVRMLTransform\fP"
+.br
+.RI "The \fBSoVRMLTransform\fP class is a grouping node that defines a transformation for its children\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP "
+.ti -1c
+.RI "class \fBSoVRMLViewpoint\fP"
+.br
+.RI "The \fBSoVRMLViewpoint\fP class is a perspective camera class\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP "
+.ti -1c
+.RI "class \fBSoVRMLVisibilitySensor\fP"
+.br
+.RI "The \fBSoVRMLVisibilitySensor\fP class will generate events based on visibility\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP "
+.ti -1c
+.RI "class \fBSoVRMLWorldInfo\fP"
+.br
+.RI "The \fBSoVRMLWorldInfo\fP class contains information about the VRML scene\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Nodes implementaing the VRML97 standard\&. 
+
+This is the set of items specified by VRML97, also known as VRML2\&.0\&. These nodes are different from VRML1/Inventor nodes in the way you structure them into scene-graphs, and in the requirements they set for traversing them correctly (VRML1/Inventor require that you traverse siblings on the left side before the node of interest, while for VRML2\&.0 this is not true)\&.
+.PP
+You can find out more about VRML97 in \fBThe Annotated VRML2\&.0 Reference Manual\fP\&.
+.PP
+The VRML97 specification is online at http://www.web3d.org/x3d/specifications/vrml/ 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

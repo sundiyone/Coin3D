@@ -1,0 +1,376 @@
+.TH "SbVec2s" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SbVec2s \- The \fBSbVec2s\fP class is a 2 dimensional vector with short integer coordinates\&.
+.PP
+This vector class is used by many other classes in Coin\&. It provides storage for a vector in 2 dimensions as well as simple integer arithmetic operations\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/SbVec2s\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSbVec2s\fP (void)"
+.br
+.ti -1c
+.RI "\fBSbVec2s\fP (const short v[2])"
+.br
+.ti -1c
+.RI "\fBSbVec2s\fP (short x, short y)"
+.br
+.ti -1c
+.RI "\fBSbVec2s\fP (const \fBSbVec2us\fP &v)"
+.br
+.ti -1c
+.RI "\fBSbVec2s\fP (const \fBSbVec2b\fP &v)"
+.br
+.ti -1c
+.RI "\fBSbVec2s\fP (const \fBSbVec2i32\fP &v)"
+.br
+.ti -1c
+.RI "\fBSbVec2s\fP (const \fBSbVec2f\fP &v)"
+.br
+.ti -1c
+.RI "\fBSbVec2s\fP (const \fBSbVec2d\fP &v)"
+.br
+.ti -1c
+.RI "\fBSbVec2s\fP & \fBsetValue\fP (const short v[2])"
+.br
+.ti -1c
+.RI "\fBSbVec2s\fP & \fBsetValue\fP (short x, short y)"
+.br
+.ti -1c
+.RI "\fBSbVec2s\fP & \fBsetValue\fP (const \fBSbVec2us\fP &v)"
+.br
+.ti -1c
+.RI "\fBSbVec2s\fP & \fBsetValue\fP (const \fBSbVec2b\fP &v)"
+.br
+.ti -1c
+.RI "\fBSbVec2s\fP & \fBsetValue\fP (const \fBSbVec2i32\fP &v)"
+.br
+.ti -1c
+.RI "\fBSbVec2s\fP & \fBsetValue\fP (const \fBSbVec2f\fP &v)"
+.br
+.ti -1c
+.RI "\fBSbVec2s\fP & \fBsetValue\fP (const \fBSbVec2d\fP &v)"
+.br
+.ti -1c
+.RI "const short * \fBgetValue\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBgetValue\fP (short &x, short &y) const"
+.br
+.ti -1c
+.RI "short & \fBoperator[]\fP (\fBint\fP i)"
+.br
+.ti -1c
+.RI "const short & \fBoperator[]\fP (\fBint\fP i) const"
+.br
+.ti -1c
+.RI "int32_t \fBdot\fP (\fBSbVec2s\fP v) const"
+.br
+.ti -1c
+.RI "void \fBnegate\fP (void)"
+.br
+.ti -1c
+.RI "\fBSbVec2s\fP & \fBoperator*=\fP (\fBint\fP d)"
+.br
+.ti -1c
+.RI "\fBSbVec2s\fP & \fBoperator*=\fP (double d)"
+.br
+.ti -1c
+.RI "\fBSbVec2s\fP & \fBoperator/=\fP (\fBint\fP d)"
+.br
+.ti -1c
+.RI "\fBSbVec2s\fP & \fBoperator/=\fP (double d)"
+.br
+.ti -1c
+.RI "\fBSbVec2s\fP & \fBoperator+=\fP (\fBSbVec2s\fP v)"
+.br
+.ti -1c
+.RI "\fBSbVec2s\fP & \fBoperator\-=\fP (\fBSbVec2s\fP v)"
+.br
+.ti -1c
+.RI "\fBSbVec2s\fP \fBoperator\-\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSbString\fP \fBtoString\fP () const"
+.br
+.ti -1c
+.RI "SbBool \fBfromString\fP (const \fBSbString\fP &str)"
+.br
+.ti -1c
+.RI "void \fBprint\fP (FILE *fp) const"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "short \fBvec\fP [2]"
+.br
+.in -1c
+.SS "Related Functions"
+(Note that these are not member functions\&.) 
+.in +1c
+.ti -1c
+.RI "\fBSbVec2s\fP \fBoperator*\fP (const \fBSbVec2s\fP &v, \fBint\fP d)"
+.br
+.ti -1c
+.RI "\fBSbVec2s\fP \fBoperator*\fP (const \fBSbVec2s\fP &v, double d)"
+.br
+.ti -1c
+.RI "\fBSbVec2s\fP \fBoperator*\fP (\fBint\fP d, const \fBSbVec2s\fP &v)"
+.br
+.ti -1c
+.RI "\fBSbVec2s\fP \fBoperator*\fP (double d, const \fBSbVec2s\fP &v)"
+.br
+.ti -1c
+.RI "\fBSbVec2s\fP \fBoperator/\fP (const \fBSbVec2s\fP &v, \fBint\fP d)"
+.br
+.ti -1c
+.RI "\fBSbVec2s\fP \fBoperator/\fP (const \fBSbVec2s\fP &v, double d)"
+.br
+.ti -1c
+.RI "\fBSbVec2s\fP \fBoperator+\fP (const \fBSbVec2s\fP &v1, const \fBSbVec2s\fP &v2)"
+.br
+.ti -1c
+.RI "\fBSbVec2s\fP \fBoperator\-\fP (const \fBSbVec2s\fP &v1, const \fBSbVec2s\fP &v2)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBoperator==\fP (const \fBSbVec2s\fP &v1, const \fBSbVec2s\fP &v2)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBoperator!=\fP (const \fBSbVec2s\fP &v1, const \fBSbVec2s\fP &v2)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBSbVec2s\fP class is a 2 dimensional vector with short integer coordinates\&.
+.PP
+This vector class is used by many other classes in Coin\&. It provides storage for a vector in 2 dimensions as well as simple integer arithmetic operations\&. 
+
+
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSbVec2f\fP, \fBSbVec2d\fP, \fBSbVec3s\fP, \fBSbVec3f\fP, \fBSbVec3d\fP, \fBSbVec4f\fP, \fBSbVec4d\fP\&. 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SbVec2s::SbVec2s (void)\fC [inline]\fP"
+The default constructor does nothing\&. The vector coordinates will be uninitialized until you do a \fBsetValue()\fP\&. 
+.SS "SbVec2s::SbVec2s (const short v[2])\fC [inline]\fP"
+Constructs an \fBSbVec2s\fP instance with initial values from \fIv\fP\&. 
+.SS "SbVec2s::SbVec2s (short x, short y)\fC [inline]\fP"
+Constructs an \fBSbVec2s\fP instance with the initial vector endpoints from \fIx\fP and \fIy\fP\&. 
+.SS "SbVec2s::SbVec2s (const \fBSbVec2us\fP & v)\fC [inline]\fP, \fC [explicit]\fP"
+Constructs an \fBSbVec2s\fP instance from the value in an \fBSbVec2us\fP instance\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.5 
+.RE
+.PP
+
+.SS "SbVec2s::SbVec2s (const \fBSbVec2b\fP & v)\fC [inline]\fP, \fC [explicit]\fP"
+Constructs an \fBSbVec2s\fP instance from the value in an \fBSbVec2b\fP instance\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.5 
+.RE
+.PP
+
+.SS "SbVec2s::SbVec2s (const \fBSbVec2i32\fP & v)\fC [inline]\fP, \fC [explicit]\fP"
+Constructs an \fBSbVec2s\fP instance from the value in an \fBSbVec2i32\fP instance\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.5 
+.RE
+.PP
+
+.SS "SbVec2s::SbVec2s (const \fBSbVec2f\fP & v)\fC [inline]\fP, \fC [explicit]\fP"
+Constructs an \fBSbVec2s\fP instance from the value in an \fBSbVec2f\fP instance\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.5 
+.RE
+.PP
+
+.SS "SbVec2s::SbVec2s (const \fBSbVec2d\fP & v)\fC [inline]\fP, \fC [explicit]\fP"
+Constructs an \fBSbVec2s\fP instance from the value in an \fBSbVec2d\fP instance\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.5 
+.RE
+.PP
+
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSbVec2s\fP & SbVec2s::setValue (const short v[2])\fC [inline]\fP"
+Set new x and y coordinates for the vector from \fIv\fP\&. Returns reference to self\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetValue()\fP\&. 
+.RE
+.PP
+
+.SS "\fBSbVec2s\fP & SbVec2s::setValue (short x, short y)\fC [inline]\fP"
+Set new x and y coordinates for the vector\&. Returns reference to self\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetValue()\fP\&. 
+.RE
+.PP
+
+.SS "\fBSbVec2s\fP & SbVec2s::setValue (const \fBSbVec2us\fP & v)"
+
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.5 
+.RE
+.PP
+
+.SS "\fBSbVec2s\fP & SbVec2s::setValue (const \fBSbVec2b\fP & v)"
+
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.5 
+.RE
+.PP
+
+.SS "\fBSbVec2s\fP & SbVec2s::setValue (const \fBSbVec2i32\fP & v)"
+
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.5 
+.RE
+.PP
+
+.SS "\fBSbVec2s\fP & SbVec2s::setValue (const \fBSbVec2f\fP & v)"
+
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.5 
+.RE
+.PP
+
+.SS "\fBSbVec2s\fP & SbVec2s::setValue (const \fBSbVec2d\fP & v)"
+
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.5 
+.RE
+.PP
+
+.SS "const short * SbVec2s::getValue (void) const\fC [inline]\fP"
+Returns a pointer to an array of two floats containing the x and y coordinates of the vector\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetValue()\fP\&. 
+.RE
+.PP
+
+.SS "void SbVec2s::getValue (short & x, short & y) const\fC [inline]\fP"
+Returns the x and y coordinates of the vector\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetValue()\fP\&. 
+.RE
+.PP
+
+.SS "short & SbVec2s::operator[] (\fBint\fP i)\fC [inline]\fP"
+Index operator\&. Returns modifiable x or y coordinate\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetValue()\fP and \fBsetValue()\fP\&. 
+.RE
+.PP
+
+.SS "const short & SbVec2s::operator[] (\fBint\fP i) const\fC [inline]\fP"
+Index operator\&. Returns x or y coordinate\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetValue()\fP\&. 
+.RE
+.PP
+
+.SS "int32_t SbVec2s::dot (\fBSbVec2s\fP v) const\fC [inline]\fP"
+Calculates and returns the result of taking the dot product of this vector and \fIv\fP\&. 
+.SS "void SbVec2s::negate (void)\fC [inline]\fP"
+Negate the vector (i\&.e\&. point it in the opposite direction)\&. 
+.SS "\fBSbVec2s\fP & SbVec2s::operator*= (\fBint\fP d)\fC [inline]\fP"
+Multiply components of vector with value \fId\fP\&. Returns reference to self\&. 
+.SS "\fBSbVec2s\fP & SbVec2s::operator*= (double d)"
+Multiply components of vector with value \fId\fP\&. Returns reference to self\&. 
+.SS "\fBSbVec2s\fP & SbVec2s::operator/= (\fBint\fP d)\fC [inline]\fP"
+Divides components of vector with value \fId\fP\&. Returns reference to self\&. 
+.SS "\fBSbVec2s\fP & SbVec2s::operator/= (double d)\fC [inline]\fP"
+Divides components of vector with value \fId\fP\&. Returns reference to self\&. 
+.SS "\fBSbVec2s\fP & SbVec2s::operator+= (\fBSbVec2s\fP v)\fC [inline]\fP"
+Adds this vector and vector \fIv\fP\&. Returns reference to self\&. 
+.SS "\fBSbVec2s\fP & SbVec2s::operator\-= (\fBSbVec2s\fP v)\fC [inline]\fP"
+Subtracts vector \fIv\fP from this vector\&. Returns reference to self\&. 
+.SS "\fBSbVec2s\fP SbVec2s::operator\- (void) const\fC [inline]\fP"
+Non-destructive negation operator\&. Returns a new \fBSbVec2s\fP instance which points in the opposite direction of this vector\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBnegate()\fP\&. 
+.RE
+.PP
+
+.SS "\fBSbString\fP SbVec2s::toString () const"
+Return a string representation of this object 
+.SS "SbBool SbVec2s::fromString (const \fBSbString\fP & str)"
+Convert from a string representation, return wether this is a valid conversion 
+.SS "void SbVec2s::print (FILE * fp) const"
+Dump the state of this object to the \fIfile\fP stream\&. Only works in debug version of library, method does nothing in an optimized compile\&. 
+.SH "Friends And Related Function Documentation"
+.PP 
+.SS "\fBSbVec2s\fP operator* (const \fBSbVec2s\fP & v, \fBint\fP d)\fC [related]\fP"
+Returns an \fBSbVec2s\fP instance which is the components of vector \fIv\fP multiplied with \fId\fP\&. 
+.SS "\fBSbVec2s\fP operator* (const \fBSbVec2s\fP & v, double d)\fC [related]\fP"
+Returns an \fBSbVec2s\fP instance which is the components of vector \fIv\fP multiplied with \fId\fP\&. 
+.SS "\fBSbVec2s\fP operator* (\fBint\fP d, const \fBSbVec2s\fP & v)\fC [related]\fP"
+Returns an \fBSbVec2s\fP instance which is the components of vector \fIv\fP multiplied with \fId\fP\&. 
+.SS "\fBSbVec2s\fP operator* (double d, const \fBSbVec2s\fP & v)\fC [related]\fP"
+Returns an \fBSbVec2s\fP instance which is the components of vector \fIv\fP multiplied with \fId\fP\&. 
+.SS "\fBSbVec2s\fP operator/ (const \fBSbVec2s\fP & v, \fBint\fP d)\fC [related]\fP"
+Returns an \fBSbVec2s\fP instance which is the components of vector \fIv\fP divided on \fId\fP\&. 
+.SS "\fBSbVec2s\fP operator/ (const \fBSbVec2s\fP & v, double d)\fC [related]\fP"
+Returns an \fBSbVec2s\fP instance which is the components of vector \fIv\fP divided on \fId\fP\&. 
+.SS "\fBSbVec2s\fP operator+ (const \fBSbVec2s\fP & v1, const \fBSbVec2s\fP & v2)\fC [related]\fP"
+Returns an \fBSbVec2s\fP instance which is the sum of vectors \fIv1\fP and \fIv2\fP\&. 
+.SS "\fBSbVec2s\fP operator\- (const \fBSbVec2s\fP & v1, const \fBSbVec2s\fP & v2)\fC [related]\fP"
+Returns an \fBSbVec2s\fP instance which is vector \fIv2\fP subtracted from vector \fIv1\fP\&. 
+.SS "\fBint\fP operator== (const \fBSbVec2s\fP & v1, const \fBSbVec2s\fP & v2)\fC [related]\fP"
+Returns \fI1\fP if \fIv1\fP and \fIv2\fP are equal, \fI0\fP otherwise\&. 
+.SS "\fBint\fP operator!= (const \fBSbVec2s\fP & v1, const \fBSbVec2s\fP & v2)\fC [related]\fP"
+Returns \fI1\fP if \fIv1\fP and \fIv2\fP are not equal, \fI0\fP if they are equal\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

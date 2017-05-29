@@ -1,0 +1,430 @@
+.TH "SoTextureCombine" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoTextureCombine \- The \fBSoTextureCombine\fP class is a node for setting texture combine functions\&.
+.PP
+This node is more or less an exact mapping of the OpenGL ARB_texture_env_combine extension (included in OpenGL in OpenGL v1\&.3)\&. See http://oss.sgi.com/projects/ogl-sample/registry/ARB/texture_env_combine.txt for more information about this extension\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/nodes/SoTextureCombine\&.h>\fP
+.PP
+Inherits \fBSoNode\fP\&.
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBSource\fP { \fBPRIMARY_COLOR\fP = SoTextureCombineElement::PRIMARY_COLOR, \fBTEXTURE\fP = SoTextureCombineElement::TEXTURE, \fBCONSTANT\fP = SoTextureCombineElement::CONSTANT, \fBPREVIOUS\fP = SoTextureCombineElement::PREVIOUS }"
+.br
+.ti -1c
+.RI "enum \fBOperand\fP { \fBSRC_COLOR\fP = SoTextureCombineElement::SRC_COLOR, \fBONE_MINUS_SRC_COLOR\fP = SoTextureCombineElement::ONE_MINUS_SRC_COLOR, \fBSRC_ALPHA\fP = SoTextureCombineElement::SRC_ALPHA, \fBONE_MINUS_SRC_ALPHA\fP = SoTextureCombineElement::ONE_MINUS_SRC_ALPHA }"
+.br
+.ti -1c
+.RI "enum \fBOperation\fP { \fBREPLACE\fP = SoTextureCombineElement::REPLACE, \fBMODULATE\fP = SoTextureCombineElement::MODULATE, \fBADD\fP = SoTextureCombineElement::ADD, \fBADD_SIGNED\fP = SoTextureCombineElement::ADD_SIGNED, \fBSUBTRACT\fP = SoTextureCombineElement::SUBTRACT, \fBINTERPOLATE\fP = SoTextureCombineElement::INTERPOLATE, \fBDOT3_RGB\fP = SoTextureCombineElement::DOT3_RGB, \fBDOT3_RGBA\fP = SoTextureCombineElement::DOT3_RGBA }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "\fBSoTextureCombine\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBdoAction\fP (\fBSoAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBcallback\fP (\fBSoCallbackAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBGLRender\fP (\fBSoGLRenderAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBpick\fP (\fBSoPickAction\fP *action)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoMFEnum\fP \fBrgbSource\fP"
+.br
+.ti -1c
+.RI "\fBSoMFEnum\fP \fBalphaSource\fP"
+.br
+.ti -1c
+.RI "\fBSoMFEnum\fP \fBrgbOperand\fP"
+.br
+.ti -1c
+.RI "\fBSoMFEnum\fP \fBalphaOperand\fP"
+.br
+.ti -1c
+.RI "\fBSoSFEnum\fP \fBrgbOperation\fP"
+.br
+.ti -1c
+.RI "\fBSoSFEnum\fP \fBalphaOperation\fP"
+.br
+.ti -1c
+.RI "\fBSoSFFloat\fP \fBrgbScale\fP"
+.br
+.ti -1c
+.RI "\fBSoSFFloat\fP \fBalphaScale\fP"
+.br
+.ti -1c
+.RI "\fBSoSFVec4f\fP \fBconstantColor\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fB~SoTextureCombine\fP ()"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoTextureCombine\fP class is a node for setting texture combine functions\&.
+.PP
+This node is more or less an exact mapping of the OpenGL ARB_texture_env_combine extension (included in OpenGL in OpenGL v1\&.3)\&. See http://oss.sgi.com/projects/ogl-sample/registry/ARB/texture_env_combine.txt for more information about this extension\&. 
+
+Basically this node lets you specify up to three sources, and a function to combine those sources\&. In addition to the function, it's possible to apply simple operands on the sources\&. In the documentation below, the sources will be called Arg0, Arg1, and Arg2, just like in the ARB_texture_env_mode specification\&.
+.PP
+It's possible to specify both a color and an alpha operation\&.
+.PP
+This node has many fields, but usually it is sufficient to set only one or very few fields\&. The selected operation decides which values you need to set\&. One common example is to add a light map to textured geometry\&. A lightmap can look like this:
+.PP
+ Rendering of an Example LigntMap 
+.PP
+The example below just shows how to apply the lightmap to a cube, with one light source on each side of the cube\&. Usually the texture coordinates are calculated so that a spot light or a point light is simulated\&.
+.PP
+.PP
+.nf
+Texture2 { filename "wood.jpg" }
+
+Switch {
+  whichChild -3   # use to toggle lightmap on/off
+  TextureUnit {
+    unit 1
+  }
+  TextureCombine {
+    rgbOperation ADD_SIGNED
+    rgbSource [PREVIOUS, TEXTURE]
+    rgbOperand [SRC_COLOR, SRC_COLOR ]
+    alphaOperation REPLACE
+    alphaSource [TEXTURE]
+    alphaOperand [SRC_ALPHA]
+  }
+  Texture2 { filename "lightmap.jpg" }
+  TextureUnit { unit 0 }
+}
+Cube { }.fi
+.PP
+.PP
+The scene above in a viewer:
+.PP
+ Rendering of Example Scenegraph
+.PP
+In addition to the functions you can set in rgbOperation (or alphaOperation), it's possible to create more complex texture functions by combining two textures that have already been combined\&. You can use the \fBSoSceneTexture2\fP node to create those textures\&. Below is an example that shows how to implement Arg0*Arg1
+.IP "\(bu" 2
+Arg2*Arg0, where Arg0 = texture1 RGB, Arg1 = texture2 RGB, Arg2 = texture 2 alpha:
+.PP
+.PP
+.PP
+.nf
+ShapeHints { vertexOrdering COUNTERCLOCKWISE shapeType SOLID }
+
+Separator {
+  SceneTexture2 {
+    size 256 256
+    transparencyFunction NONE
+    scene Separator {
+      OrthographicCamera {
+        height 2
+        aspectRatio 1
+        position 0 0 1
+        viewportMapping LEAVE_ALONE
+      }
+      LightModel { model BASE_COLOR }
+      Coordinate3 {
+        point [ -1 -1 0, 1 -1 0, 1 1 0, -1 1 0 ] 
+      }
+      DEF texture1 Texture2 { filename "texture1.png" }
+      TextureUnit { unit 1 }
+      TextureCombine {
+        rgbOperation MODULATE
+        rgbSource [ PREVIOUS, TEXTURE ]
+        rgbOperand [ SRC_COLOR, SRC_COLOR ]
+        alphaOperation REPLACE
+        alphaSource [TEXTURE]
+        alphaOperand [ SRC_ALPHA ]
+      }
+      DEF texture2 Texture2 { filename "texture2_with_alpha.png" }
+      TextureCoordinate2 {
+        point [0 0, 1 0, 1 1, 0 1]
+      }
+      FaceSet { numVertices 4 }
+    }
+  }
+  TextureUnit { unit 1 }
+  TextureCombine {
+    rgbOperation ADD
+    rgbSource [ PREVIOUS, TEXTURE ]
+    rgbOperand [ SRC_COLOR, SRC_COLOR ]
+    alphaOperation REPLACE
+    alphaSource [TEXTURE]
+    alphaOperand [ SRC_ALPHA ]
+  }
+  SceneTexture2 {
+    size 256 256
+    transparencyFunction NONE
+    scene Separator {
+      OrthographicCamera {
+        height 2
+        aspectRatio 1
+        position 0 0 1
+        viewportMapping LEAVE_ALONE
+      }
+      LightModel { model BASE_COLOR }
+      Coordinate3 {
+        point [ -1 -1 0, 1 -1 0, 1 1 0, -1 1 0 ] 
+      }
+      USE texture1
+      TextureUnit { unit 1 }
+      TextureCombine {
+        rgbOperation MODULATE
+        rgbSource [ PREVIOUS, TEXTURE ]
+        rgbOperand [ SRC_COLOR, SRC_ALPHA ]
+        alphaOperation REPLACE
+        alphaSource [TEXTURE]
+        alphaOperand [ SRC_ALPHA ]
+      }
+      USE texture2
+      TextureCoordinate2 {
+        point [0 0, 1 0, 1 1, 0 1]
+      }
+      FaceSet { numVertices 4 }
+    }
+  }
+  # map resulting texture onto a Cube
+  Cube { }
+}
+.fi
+.PP
+.PP
+It should be possible to create almost any kind of texture function using this scheme, at the cost of extra texture memory usage (the intermediate textures), of course\&.
+.PP
+\fBFILE FORMAT/DEFAULTS:\fP 
+.PP
+.nf
+TextureCombine {
+    rgbSource [  ]
+    alphaSource [  ]
+    rgbOperand [  ]
+    alphaOperand [  ]
+    rgbOperation MODULATE
+    alphaOperation MODULATE
+    rgbScale 1
+    alphaScale 1
+    constantColor 1 1 1 1
+}
+
+.fi
+.PP
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.3 
+.RE
+.PP
+
+.SH "Member Enumeration Documentation"
+.PP 
+.SS "enum \fBSoTextureCombine::Source\fP"
+For enumerating combiner sources\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fIPRIMARY_COLOR \fP\fP
+Choose primary color as source\&. 
+.TP
+\fB\fITEXTURE \fP\fP
+Choose texture as source\&. 
+.TP
+\fB\fICONSTANT \fP\fP
+Choose the constantColor field as source\&. 
+.TP
+\fB\fIPREVIOUS \fP\fP
+Choose the previous unit's texture as source\&. 
+.SS "enum \fBSoTextureCombine::Operand\fP"
+For enumerating source operands\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fISRC_COLOR \fP\fP
+Use the source color as operand\&. 
+.TP
+\fB\fIONE_MINUS_SRC_COLOR \fP\fP
+Use one minus source color as operand\&. 
+.TP
+\fB\fISRC_ALPHA \fP\fP
+Use the source alpha as operand\&. 
+.TP
+\fB\fIONE_MINUS_SRC_ALPHA \fP\fP
+Use one minus source alpha as operand\&. 
+.SS "enum \fBSoTextureCombine::Operation\fP"
+For enumerating combiner operations/functions\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fIREPLACE \fP\fP
+dst = Arg0 
+.TP
+\fB\fIMODULATE \fP\fP
+dst = Arg0 * Arg1 
+.TP
+\fB\fIADD \fP\fP
+dst = Arg0 + Arg1 
+.TP
+\fB\fIADD_SIGNED \fP\fP
+dst = Arg0 + Arg1 - 0\&.5 
+.TP
+\fB\fISUBTRACT \fP\fP
+dst = Arg0 - Arg1 
+.TP
+\fB\fIINTERPOLATE \fP\fP
+dst = Arg0 * (Arg2) + Arg1 * (1-Arg2) 
+.TP
+\fB\fIDOT3_RGB \fP\fP
+Dot product of Arg0 and Arg1 
+.TP
+\fB\fIDOT3_RGBA \fP\fP
+Dot product (including alpha) of Arg0 and Arg1 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoTextureCombine::SoTextureCombine (void)"
+Constructor\&. 
+.SS "SoTextureCombine::~SoTextureCombine ()\fC [protected]\fP, \fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoTextureCombine::getClassTypeId (void)\fC [static]\fP"
+SoTextureCombine::rgbSource
+.PP
+The color sources\&. This field is empty by default, but you can insert up to three values [Arg0, Arg1, Arg2]\&. When the field contains less than three values, the default [TEXTURE, PREVIOUS, CONSTANT], will be used for missing values\&.
+.PP
+For texture unit 0, PREVIOUS maps to PRIMARY_COLOR,
+.PP
+SoTextureCombine::alphaSource
+.PP
+The alpha sources\&. This field is empty by default, but you can insert up to three values [Arg0, Arg1, Arg2]\&. When the field contains less than three values, the default [TEXTURE, PREVIOUS, CONSTANT], will be used for missing values\&.
+.PP
+For texture unit 0, PREVIOUS maps to PRIMARY_COLOR,
+.PP
+SoTextureCombine::rgbOperand
+.PP
+The color operands\&. This field is empty by default, but you can insert up to three values\&. When the field contains less than three values, the default [SRC_COLOR, SRC_COLOR, SRC_COLOR] will be used for missing values\&.
+.PP
+SoTextureCombine::alphaOperand
+.PP
+The alpha operands\&. This field is empty by default, but you can insert up to three values\&. When the field contains less than three values, the default [SRC_ALPHA, SRC_ALPHA, SRC_ALPHA] will be used for missing values\&. Please not that only SRC_ALPHA and ONE_MINUS_SRC_ALPHA are valid operands for alpha operations\&.
+.PP
+SoTextureCombine::rgbOperation
+.PP
+The color operation\&. Default value is MODULATE\&.
+.PP
+SoTextureCombine::alphaOperation
+.PP
+The alpha operation\&. Default value is MODULATE\&.
+.PP
+SoTextureCombine::rgbScale
+.PP
+Scale color result by this value\&. Supported values are 1, 2, and 4\&.
+.PP
+SoTextureCombine::alphaScale
+.PP
+Scale alpha result by this value\&. Supported values are 1, 2, and 4\&.
+.PP
+SoTextureCombine::constantColor
+.PP
+The constant color (when CONSTANT is used as source)\&. Default value is (1,1,1,1)\&. 
+.SS "\fBSoType\fP SoTextureCombine::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Implements \fBSoBase\fP\&.
+.SS "const \fBSoFieldData\fP * SoTextureCombine::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoFieldContainer\fP\&.
+.SS "void SoTextureCombine::doAction (\fBSoAction\fP * action)\fC [virtual]\fP"
+This function performs the typical operation of a node for any action\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "void SoTextureCombine::callback (\fBSoCallbackAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoCallbackAction\fP\&.
+.PP
+Simply updates the state according to how the node behaves for the render action, so the application programmer can use the \fBSoCallbackAction\fP for extracting information about the scene graph\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "void SoTextureCombine::GLRender (\fBSoGLRenderAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGLRenderAction\fP\&.
+.PP
+This is called during rendering traversals\&. Nodes influencing the rendering state in any way or who wants to throw geometry primitives at OpenGL overrides this method\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "void SoTextureCombine::pick (\fBSoPickAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoPickAction\fP\&.
+.PP
+Does common processing for \fBSoPickAction\fP \fIaction\fP instances\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

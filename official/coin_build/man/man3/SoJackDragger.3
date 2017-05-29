@@ -1,0 +1,282 @@
+.TH "SoJackDragger" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoJackDragger \- The \fBSoJackDragger\fP class is a dragger you can translate, rotate and scale\&.
+.PP
+Here's how the dragger looks with its default geometry in the inactive state:  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/draggers/SoJackDragger\&.h>\fP
+.PP
+Inherits \fBSoDragger\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "virtual const \fBSoNodekitCatalog\fP * \fBgetNodekitCatalog\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoJackDragger\fP (void)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static const \fBSoNodekitCatalog\fP * \fBgetClassNodekitCatalog\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFRotation\fP \fBrotation\fP"
+.br
+.ti -1c
+.RI "\fBSoSFVec3f\fP \fBtranslation\fP"
+.br
+.ti -1c
+.RI "\fBSoSFVec3f\fP \fBscaleFactor\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fB~SoJackDragger\fP (void)"
+.br
+.ti -1c
+.RI "virtual SbBool \fBsetUpConnections\fP (SbBool onoff, SbBool doitalways=FALSE)"
+.br
+.ti -1c
+.RI "virtual void \fBsetDefaultOnNonWritingFields\fP (void)"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.ti -1c
+.RI "static const \fBSoNodekitCatalog\fP ** \fBgetClassNodekitCatalogPtr\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinvalidateSurroundScaleCB\fP (void *f, \fBSoDragger\fP *d)"
+.br
+.ti -1c
+.RI "static void \fBfieldSensorCB\fP (void *f, \fBSoSensor\fP *s)"
+.br
+.ti -1c
+.RI "static void \fBvalueChangedCB\fP (void *f, \fBSoDragger\fP *d)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFNode\fP \fBantiSquish\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBrotator\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBscaler\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBsurroundScale\fP"
+.br
+.ti -1c
+.RI "\fBSoSFNode\fP \fBtranslator\fP"
+.br
+.ti -1c
+.RI "\fBSoFieldSensor\fP * \fBrotFieldSensor\fP"
+.br
+.ti -1c
+.RI "\fBSoFieldSensor\fP * \fBtranslFieldSensor\fP"
+.br
+.ti -1c
+.RI "\fBSoFieldSensor\fP * \fBscaleFieldSensor\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoJackDragger\fP class is a dragger you can translate, rotate and scale\&.
+.PP
+Here's how the dragger looks with its default geometry in the inactive state: 
+
+ Screen Shot of Default Dragger
+.PP
+Translation is done with this dragger by picking the flat transparent box ('x-z' translation) or the solid middle part of the axis ('y'-axis translation)\&. Press a SHIFT-key while translating in x-z to constrain to one of the principal axes\&.
+.PP
+Uniform scale operations can be done by dragging any of the 6 cubes\&. Non-uniform scale operations can not be done with this dragger\&.
+.PP
+Rotations are invoked by clicking and dragging the line parts of the 3 principal 'axes' of the dragger geometry\&.
+.PP
+\fBNB:\fP How to rotate the dragger might be abit unintuitive for the end user\&. If the dragger is to be used 'out of the box', a good documentation should be added to your application\&. An alternative is to modify the geometry to increase the affordance of the dragger\&. See the \fBSoDragger\fP documentation on how to change the geometry of a dragger\&.
+.PP
+An 'action shot' of the \fBSoJackDragger\fP used within an \fBSoClipPlaneManip\fP:  Action Shot of Jack Dragger in a Clip Plane Manipulator
+.PP
+The name 'Jack dragger' probably stems from this dragger being implemented by SGI for interacting with a 'jack-in-the-box' type model way back in the Inventor history\&.
+.PP
+For programmer convenience, this dragger comes fully wrapped within instances of the \fBSoJackManip\fP class\&. The \fBSoClipPlaneManip\fP manipulator also uses this dragger, for controlling an \fBSoClipPlane\fP node\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoJackDragger::SoJackDragger (void)"
+Default constructor, sets up the dragger nodekit catalog with the interaction and feedback geometry\&.
+.PP
+Node kit structure (new entries versus parent class marked with arrow prefix):
+.PP
+.PP
+.nf
+CLASS SoJackDragger
+-->"this"
+      "callbackList"
+      "topSeparator"
+         "motionMatrix"
+-->      "surroundScale"
+-->      "antiSquish"
+-->      "scaler"
+-->      "rotator"
+-->      "translator"
+         "geomSeparator"
+.fi
+.PP
+.PP
+(See \fBSoBaseKit::printDiagram()\fP for information about the output formatting\&.)
+.PP
+Detailed information on catalog parts:
+.PP
+.PP
+.nf
+CLASS SoJackDragger
+PVT   "this",  SoJackDragger  ---
+      "callbackList",  SoNodeKitListPart [ SoCallback, SoEventCallback ]
+PVT   "topSeparator",  SoSeparator  ---
+PVT   "motionMatrix",  SoMatrixTransform  ---
+      "surroundScale",  SoSurroundScale  ---
+      "antiSquish",  SoAntiSquish  ---
+      "scaler",  SoScaleUniformDragger  ---
+      "rotator",  SoRotateSphericalDragger  ---
+      "translator",  SoDragPointDragger  ---
+PVT   "geomSeparator",  SoSeparator  ---
+.fi
+.PP
+.PP
+(See \fBSoBaseKit::printTable()\fP for information about the output formatting\&.) 
+.SS "SoJackDragger::~SoJackDragger (void)\fC [protected]\fP, \fC [virtual]\fP"
+Protected destructor\&.
+.PP
+(Dragger classes are derived from \fBSoBase\fP, so they are reference counted and automatically destroyed when their reference count goes to 0\&.) 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoJackDragger::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Reimplemented from \fBSoDragger\fP\&.
+.SS "const \fBSoFieldData\fP * SoJackDragger::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoDragger\fP\&.
+.SS "const \fBSoNodekitCatalog\fP * SoJackDragger::getNodekitCatalog (void) const\fC [virtual]\fP"
+Returns the nodekit catalog which defines the layout of this class' kit\&. 
+.PP
+Reimplemented from \fBSoDragger\fP\&.
+.SS "SbBool SoJackDragger::setUpConnections (SbBool onoff, SbBool doitalways = \fCFALSE\fP)\fC [protected]\fP, \fC [virtual]\fP"
+Sets up all internal connections for instances of this class\&.
+.PP
+(This method will usually not be of interest to the application programmer, unless you want to extend the library with new custom nodekits or dragger classes\&. If so, see the \fBSoBaseKit\fP class documentation\&.) 
+.PP
+Reimplemented from \fBSoInteractionKit\fP\&.
+.SS "void SoJackDragger::setDefaultOnNonWritingFields (void)\fC [protected]\fP, \fC [virtual]\fP"
+(Be aware that this method is unlikely to be of interest to the application programmer who does not want to extend the library with new custom nodekits or draggers\&. If you indeed \fIare\fP writing extensions, see the information in the \fBSoBaseKit\fP class documentation\&.)
+.PP
+This is a virtual method, and the code in it should call \fBSoField::setDefault()\fP with argument \fCTRUE\fP on part fields that should not be written upon scenegraph export operations\&.
+.PP
+This is typically done when:
+.PP
+.PD 0
+.IP "1." 4
+field value is \fCNULL\fP and part is \fCNULL\fP by default 
+.PP
+
+.IP "2." 4
+it is a leaf \fBSoGroup\fP or \fBSoSeparator\fP node with no children 
+.PP
+
+.IP "3." 4
+it is a leaf listpart with no children and an \fBSoGroup\fP or \fBSoSeparator\fP container 
+.PP
+
+.IP "4." 4
+it is a non-leaf part and it's of \fBSoGroup\fP type and all fields are at their default values 
+.PP
+
+.PP
+.PP
+Subclasses should usually override this to do additional settings for new member fields\&. From the subclass, do remember to call 'upwards' to your superclass' \fBsetDefaultOnNonWritingFields()\fP method\&. 
+.PP
+Reimplemented from \fBSoDragger\fP\&.
+.SS "void SoJackDragger::invalidateSurroundScaleCB (void * f, \fBSoDragger\fP * d)\fC [static]\fP, \fC [protected]\fP"
+Used to invalidate the \fIsurroundScale\fP and \fIantiSquish\fP parts when a child dragger starts or finishes dragging\&. 
+.SS "void SoJackDragger::fieldSensorCB (void * d, \fBSoSensor\fP * s)\fC [static]\fP, \fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoJackDragger::valueChangedCB (void * f, \fBSoDragger\fP * d)\fC [static]\fP, \fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSoSFRotation\fP SoJackDragger::rotation"
+This field is continuously updated to contain the rotation of the current direction vector of the dragger\&. 
+.SS "\fBSoSFVec3f\fP SoJackDragger::translation"
+Continuously updated to contain the current translation from the dragger's local origo position\&.
+.PP
+The application programmer applying this dragger in his code should connect the relevant node fields in the scene to this field to make it follow the dragger\&. 
+.SS "\fBSoSFVec3f\fP SoJackDragger::scaleFactor"
+Continuously updated to contain the current vector of scaling along the X, Y and Z axes\&.
+.PP
+Only uniform scaling can be done with the \fBSoJackDragger\fP, so the 3 vector components will always be equal\&. 
+.SS "\fBSoFieldSensor\fP * SoJackDragger::rotFieldSensor\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "\fBSoFieldSensor\fP * SoJackDragger::translFieldSensor\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "\fBSoFieldSensor\fP * SoJackDragger::scaleFieldSensor\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

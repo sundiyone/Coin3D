@@ -1,0 +1,257 @@
+.TH "SoNurbsSurface" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoNurbsSurface \- The \fBSoNurbsSurface\fP class is used to render smooth surfaces\&.
+.PP
+A general explanation of NURBS is beyond the scope of the Coin documentation\&. For detailed information, refer to the specialized literature on the topic (for example 'An Introduction to NURBS: With
+Historical Perspective' by David F\&. Rogers)\&. A basic overview of curve and surface rendering using NURBS can be found in chapter 8 of 'The Inventor Mentor'\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/nodes/SoNurbsSurface\&.h>\fP
+.PP
+Inherits \fBSoShape\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "\fBSoNurbsSurface\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBGLRender\fP (\fBSoGLRenderAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBrayPick\fP (\fBSoRayPickAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBgetPrimitiveCount\fP (\fBSoGetPrimitiveCountAction\fP *action)"
+.br
+.ti -1c
+.RI "void \fBsendPrimitive\fP (\fBSoAction\fP *, \fBSoPrimitiveVertex\fP *)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFInt32\fP \fBnumUControlPoints\fP"
+.br
+.ti -1c
+.RI "\fBSoSFInt32\fP \fBnumVControlPoints\fP"
+.br
+.ti -1c
+.RI "\fBSoSFInt32\fP \fBnumSControlPoints\fP"
+.br
+.ti -1c
+.RI "\fBSoSFInt32\fP \fBnumTControlPoints\fP"
+.br
+.ti -1c
+.RI "\fBSoMFFloat\fP \fBuKnotVector\fP"
+.br
+.ti -1c
+.RI "\fBSoMFFloat\fP \fBvKnotVector\fP"
+.br
+.ti -1c
+.RI "\fBSoMFFloat\fP \fBsKnotVector\fP"
+.br
+.ti -1c
+.RI "\fBSoMFFloat\fP \fBtKnotVector\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fB~SoNurbsSurface\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBgeneratePrimitives\fP (\fBSoAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBcomputeBBox\fP (\fBSoAction\fP *action, \fBSbBox3f\fP &box, \fBSbVec3f\fP &center)"
+.br
+.ti -1c
+.RI "\fBSoDetail\fP * \fBcreateTriangleDetail\fP (\fBSoRayPickAction\fP *action, const \fBSoPrimitiveVertex\fP *v1, const \fBSoPrimitiveVertex\fP *v2, const \fBSoPrimitiveVertex\fP *v3, \fBSoPickedPoint\fP *pp)"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoNurbsSurface\fP class is used to render smooth surfaces\&.
+.PP
+A general explanation of NURBS is beyond the scope of the Coin documentation\&. For detailed information, refer to the specialized literature on the topic (for example 'An Introduction to NURBS: With
+Historical Perspective' by David F\&. Rogers)\&. A basic overview of curve and surface rendering using NURBS can be found in chapter 8 of 'The Inventor Mentor'\&. 
+
+Note that knot values should be specified as [0, 1, 2,\&.\&.\&., a] rather than [0, 1/a, 2/a,\&.\&.\&., 1] to avoid tesselation errors due to floating point precision problems\&. (Even if the rendered surface \fIlooks\fP correct, such issues might surface when e\&.g\&. doing picking, since the tesselated representation used internally is not the same as the one you see rendered by OpenGL on-screen\&.)
+.PP
+Each control point has a weight that changes the shape of its basis function\&. Weight is analogous to having magnets pulling on the curve\&. Coordinate3 sets control points to have an equal weight of 1\&.0 (nonrational)\&. Use Coordinate4 to specify x, y, z and weight values (rational)\&.
+.PP
+A basic usage example:
+.PP
+.PP
+.nf
+#Inventor V2\&.1 ascii
+
+ShapeHints {
+  vertexOrdering COUNTERCLOCKWISE
+}
+
+Coordinate3 {
+   point [
+     -3 -3 -3, -3 -1 -3, -3  1 -3, -3  3 -3,
+     -1 -3 -3, -1 -1  3, -1  1  3, -1  3 -3,
+      1 -3 -3,  1 -1  3,  1  1  3,  1  3 -3,
+      3 -3 -3,  3 -1 -3,  3  1 -3,  3  3 -3
+    ]
+}
+
+NurbsSurface {
+   numUControlPoints 4
+   numVControlPoints 4
+   uKnotVector [ 0\&.0, 0\&.0, 0\&.0, 0\&.0, 1\&.0, 1\&.0, 1\&.0, 1\&.0 ]
+   vKnotVector [ 0\&.0, 0\&.0, 0\&.0, 0\&.0, 1\&.0, 1\&.0, 1\&.0, 1\&.0 ]
+}
+.fi
+.PP
+.PP
+ Rendering of Example Scenegraph
+.PP
+\fBFILE FORMAT/DEFAULTS:\fP 
+.PP
+.nf
+NurbsSurface {
+    numUControlPoints 0
+    numVControlPoints 0
+    numSControlPoints 0
+    numTControlPoints 0
+    uKnotVector 0
+    vKnotVector 0
+    sKnotVector 0
+    tKnotVector 0
+}
+
+.fi
+.PP
+ 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoNurbsSurface::SoNurbsSurface (void)"
+Constructor\&. 
+.SS "SoNurbsSurface::~SoNurbsSurface ()\fC [protected]\fP, \fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoNurbsSurface::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Reimplemented from \fBSoShape\fP\&.
+.SS "const \fBSoFieldData\fP * SoNurbsSurface::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoShape\fP\&.
+.SS "void SoNurbsSurface::GLRender (\fBSoGLRenderAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGLRenderAction\fP\&.
+.PP
+This is called during rendering traversals\&. Nodes influencing the rendering state in any way or who wants to throw geometry primitives at OpenGL overrides this method\&. 
+.PP
+Reimplemented from \fBSoShape\fP\&.
+.SS "void SoNurbsSurface::rayPick (\fBSoRayPickAction\fP * action)\fC [virtual]\fP"
+Calculates picked point based on primitives generated by subclasses\&. 
+.PP
+Reimplemented from \fBSoShape\fP\&.
+.SS "void SoNurbsSurface::getPrimitiveCount (\fBSoGetPrimitiveCountAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGetPrimitiveCountAction\fP\&.
+.PP
+Calculates the number of triangle, line segment and point primitives for the node and adds these to the counters of the \fIaction\fP\&.
+.PP
+Nodes influencing how geometry nodes calculates their primitive count also overrides this method to change the relevant state variables\&. 
+.PP
+Reimplemented from \fBSoShape\fP\&.
+.SS "void SoNurbsSurface::sendPrimitive (\fBSoAction\fP *, \fBSoPrimitiveVertex\fP *)"
+This method is part of the original SGI Inventor API, but not implemented in Coin, as it looks like a method that should probably have been private in Open Inventor\&. 
+.SS "void SoNurbsSurface::generatePrimitives (\fBSoAction\fP * action)\fC [protected]\fP, \fC [virtual]\fP"
+The method implements action behavior for shape nodes for \fBSoCallbackAction\fP\&. It is invoked from \fBSoShape::callback()\fP\&. (Subclasses should \fInot\fP override \fBSoNode::callback()\fP\&.)
+.PP
+The subclass implementations uses the convenience methods \fBSoShape::beginShape()\fP, \fBSoShape::shapeVertex()\fP, and \fBSoShape::endShape()\fP, with \fBSoDetail\fP instances, to pass the primitives making up the shape back to the caller\&. 
+.PP
+Implements \fBSoShape\fP\&.
+.SS "void SoNurbsSurface::computeBBox (\fBSoAction\fP * action, \fBSbBox3f\fP & box, \fBSbVec3f\fP & center)\fC [protected]\fP, \fC [virtual]\fP"
+Calculates the bounding box of all control points, and sets the center to the average of these points\&. 
+.PP
+Implements \fBSoShape\fP\&.
+.SS "\fBSoDetail\fP * SoNurbsSurface::createTriangleDetail (\fBSoRayPickAction\fP * action, const \fBSoPrimitiveVertex\fP * v1, const \fBSoPrimitiveVertex\fP * v2, const \fBSoPrimitiveVertex\fP * v3, \fBSoPickedPoint\fP * pp)\fC [protected]\fP, \fC [virtual]\fP"
+Will create triangle detail for a \fBSoPickedPoint\fP\&. This method will only be called internally, when \fBgeneratePrimitives()\fP is used for picking (\fBSoShape::rayPick()\fP is not overridden)\&.
+.PP
+This method returns \fCNULL\fP in Open Inventor, and subclasses will need to override this method to create details for a \fBSoPickedPoint\fP\&.
+.PP
+This is not necessary with Coin\&. Of course, if you choose to override it, it will work in the same way as Open Inventor\&.
+.PP
+For this to work, you must supply a face or line detail when generating primitives\&. If you supply \fCNULL\fP for the detail argument in \fBSoShape::beginShape()\fP, you'll have to override this method\&. 
+.PP
+Reimplemented from \fBSoShape\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSoSFInt32\fP SoNurbsSurface::numUControlPoints"
+Number of control points in the U direction\&. 
+.SS "\fBSoSFInt32\fP SoNurbsSurface::numVControlPoints"
+Number of control points in the V direction\&. 
+.SS "\fBSoSFInt32\fP SoNurbsSurface::numSControlPoints"
+Number of control points in the S direction\&. 
+.SS "\fBSoSFInt32\fP SoNurbsSurface::numTControlPoints"
+Number of control points in the T direction\&. 
+.SS "\fBSoMFFloat\fP SoNurbsSurface::uKnotVector"
+The Bezier knot vector for the U direction\&. 
+.SS "\fBSoMFFloat\fP SoNurbsSurface::vKnotVector"
+The Bezier knot vector for the V direction\&. 
+.SS "\fBSoMFFloat\fP SoNurbsSurface::sKnotVector"
+The Bezier knot vector for the S direction\&. 
+.SS "\fBSoMFFloat\fP SoNurbsSurface::tKnotVector"
+The Bezier knot vector for the T direction\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

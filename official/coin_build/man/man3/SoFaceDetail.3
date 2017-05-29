@@ -1,0 +1,187 @@
+.TH "SoFaceDetail" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoFaceDetail \- The \fBSoFaceDetail\fP class is for storing detailed polygon information\&.
+.PP
+Instances of this class are used among other things for storing information about polygons after pick operations, and for storing information returned to tessellation callbacks\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/details/SoFaceDetail\&.h>\fP
+.PP
+Inherits \fBSoDetail\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoFaceDetail\fP (void)"
+.br
+.ti -1c
+.RI "virtual \fB~SoFaceDetail\fP ()"
+.br
+.ti -1c
+.RI "virtual \fBSoDetail\fP * \fBcopy\fP (void) const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetNumPoints\fP (void) const"
+.br
+.ti -1c
+.RI "const \fBSoPointDetail\fP * \fBgetPoint\fP (const \fBint\fP idx) const"
+.br
+.ti -1c
+.RI "\fBSoPointDetail\fP * \fBgetPoints\fP (void)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetFaceIndex\fP (void) const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetPartIndex\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBsetNumPoints\fP (const \fBint\fP num)"
+.br
+.ti -1c
+.RI "void \fBsetPoint\fP (const \fBint\fP idx, const \fBSoPointDetail\fP *const detail)"
+.br
+.ti -1c
+.RI "void \fBsetFaceIndex\fP (const \fBint\fP idx)"
+.br
+.ti -1c
+.RI "void \fBsetPartIndex\fP (const \fBint\fP idx)"
+.br
+.ti -1c
+.RI "void \fBincFaceIndex\fP (void)"
+.br
+.ti -1c
+.RI "void \fBincPartIndex\fP (void)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBcleanupClass\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoFaceDetail\fP class is for storing detailed polygon information\&.
+.PP
+Instances of this class are used among other things for storing information about polygons after pick operations, and for storing information returned to tessellation callbacks\&. 
+
+Note that a \fBSoFaceDetail\fP instance consists of a set of \fBSoPointDetail\fP instances, one for each vertex of the polygon it represents\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoRayPickAction\fP, \fBSoPickedPoint\fP, \fBSoCallbackAction\fP 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoFaceDetail::SoFaceDetail (void)"
+Default constructor sets up an empty, non-valid detail specification\&. 
+.SS "SoFaceDetail::~SoFaceDetail ()\fC [virtual]\fP"
+Destructor, free internal resources used for storing the polygon vertices\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoFaceDetail::getTypeId (void) const\fC [virtual]\fP"
+Returns the type identification of a detail derived from a class inheriting \fBSoDetail\fP\&. This is used for run-time type checking and 'downward' casting\&.
+.PP
+Usage example:
+.PP
+.PP
+.nf
+void fuhbear(SoDetail * detail)
+{
+  if (detail->getTypeId() == SoFaceDetail::getClassTypeId()) {
+    // safe downward cast, know the type
+    SoFaceDetail * facedetail = (SoFaceDetail *)detail;
+  }
+  return; // ignore if not a SoFaceDetail
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new detail classes: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through Inventor/nodes/SoSubDetail\&.h: SO_DETAIL_SOURCE and SO_DETAIL_INIT_CLASS\&. 
+.PP
+Implements \fBSoDetail\fP\&.
+.SS "\fBSoDetail\fP * SoFaceDetail::copy (void) const\fC [virtual]\fP"
+Return a deep copy of ourself\&.
+.PP
+\fBNote that if the Coin library has been built as a DLL under Microsoft Windows and you use this method from application code, you \fImust\fP make sure that both the Coin DLL and the application executable is using the same instance of a C Run-Time (CRT) library\&. Otherwise, you \fIwill\fP get memory heap corruption upon deallocating the returned instances, eventually leading to mysterious crashes\&.\fP 
+.PP
+Implements \fBSoDetail\fP\&.
+.SS "\fBint\fP SoFaceDetail::getNumPoints (void) const"
+Number of vertices making up the polygon\&. 
+.SS "const \fBSoPointDetail\fP * SoFaceDetail::getPoint (const \fBint\fP idx) const"
+Returns a pointer into the array of vertices, starting at the \fIidx'th\fP vertice of the polygon\&.
+.PP
+The array will contain (\fBSoFaceDetail::getNumPoints()\fP - \fIidx\fP) elements\&. 
+.SS "\fBSoPointDetail\fP * SoFaceDetail::getPoints (void)"
+Returns the full array of vertice details for the polygon\&. The array will contain \fBSoFaceDetail::getNumPoints()\fP elements\&. 
+.SS "\fBint\fP SoFaceDetail::getFaceIndex (void) const"
+Returns the index of this polygon within the faceset node it is part of\&. 
+.SS "\fBint\fP SoFaceDetail::getPartIndex (void) const"
+If this \fBSoFaceDetail\fP represents a triangle tessellated from a complex shape, this method returns the index of the part of the complex shape it was tessellated from\&. 
+.SS "void SoFaceDetail::setNumPoints (const \fBint\fP num)"
+Used internally from library client code setting up a \fBSoFaceDetail\fP instance\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetNumPoints()\fP 
+.RE
+.PP
+
+.SS "void SoFaceDetail::setPoint (const \fBint\fP idx, const \fBSoPointDetail\fP *const detail)"
+Used internally from library client code setting up a \fBSoFaceDetail\fP instance\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetPoint()\fP, \fBgetPoints()\fP 
+.RE
+.PP
+
+.SS "void SoFaceDetail::setFaceIndex (const \fBint\fP idx)"
+Used internally from library client code setting up a \fBSoFaceDetail\fP instance\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetFaceIndex()\fP 
+.RE
+.PP
+
+.SS "void SoFaceDetail::setPartIndex (const \fBint\fP idx)"
+Used internally from library client code setting up a \fBSoFaceDetail\fP instance\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBgetPartIndex()\fP 
+.RE
+.PP
+
+.SS "void SoFaceDetail::incFaceIndex (void)"
+Used internally from library client code setting up a \fBSoFaceDetail\fP instance\&.
+.PP
+This function is specific for Coin, and is not present in SGI/TGS Open Inventor\&. 
+.SS "void SoFaceDetail::incPartIndex (void)"
+Used internally from library client code setting up a \fBSoFaceDetail\fP instance\&.
+.PP
+This function is specific for Coin, and is not present in SGI/TGS Open Inventor\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

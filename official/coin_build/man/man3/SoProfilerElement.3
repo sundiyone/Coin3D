@@ -1,0 +1,81 @@
+.TH "SoProfilerElement" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoProfilerElement \- The \fBSoProfilerElement\fP element class is for registering statistics during scene graph traversals\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/annex/Profiler/SoProfilerElement\&.h>\fP
+.PP
+Inherits \fBSoElement\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual SbBool \fBmatches\fP (const \fBSoElement\fP *element) const"
+.br
+.ti -1c
+.RI "virtual \fBSoElement\fP * \fBcopyMatchInfo\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSbProfilingData\fP & \fBgetProfilingData\fP (void)"
+.br
+.ti -1c
+.RI "const \fBSbProfilingData\fP & \fBgetProfilingData\fP (void) const"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static \fBint\fP \fBgetClassStackIndex\fP (void)"
+.br
+.ti -1c
+.RI "static void * \fBcreateInstance\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.ti -1c
+.RI "static \fBSoProfilerElement\fP * \fBget\fP (\fBSoState\fP *state)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSbProfilingData\fP \fBdata\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoProfilerElement\fP element class is for registering statistics during scene graph traversals\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void * SoProfilerElement::createInstance (void)\fC [static]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "\fBSoProfilerElement\fP * SoProfilerElement::get (\fBSoState\fP * state)\fC [static]\fP"
+This is the required method of fetching the \fBSoProfilerElement\fP instance\&. 
+.SS "SbBool SoProfilerElement::matches (const \fBSoElement\fP * element) const\fC [virtual]\fP"
+This function returns \fCTRUE\fP is the element matches another element (of the same class), with respect to cache validity\&.
+.PP
+If the application programmer's extension element has a \fBmatches()\fP function, it should also have a \fBcopyMatchInfo()\fP function\&. 
+.PP
+Implements \fBSoElement\fP\&.
+.SS "\fBSoElement\fP * SoProfilerElement::copyMatchInfo (void) const\fC [virtual]\fP"
+This function creates a copy of the element that contains enough information to enable the \fBmatches()\fP function to work\&.
+.PP
+Used to help with scenegraph traversal caching operations\&. 
+.PP
+Implements \fBSoElement\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

@@ -1,0 +1,83 @@
+.TH "ScXMLDivideOpExprDataObj" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ScXMLDivideOpExprDataObj
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits \fBScXMLExprDataObj\fP\&.
+.PP
+Inherited by \fBScXMLCoinDivideOpExprDataObj\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "\fBScXMLDivideOpExprDataObj\fP (\fBScXMLDataObj\fP *lhs, \fBScXMLDataObj\fP *rhs)"
+.br
+.ti -1c
+.RI "void \fBsetLHS\fP (\fBScXMLDataObj\fP *lhs)"
+.br
+.ti -1c
+.RI "const \fBScXMLDataObj\fP * \fBgetLHS\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBsetRHS\fP (\fBScXMLDataObj\fP *rhs)"
+.br
+.ti -1c
+.RI "const \fBScXMLDataObj\fP * \fBgetRHS\fP (void) const"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void * \fBcreateInstance\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBcleanClass\fP (void)"
+.br
+.ti -1c
+.RI "static \fBScXMLDataObj\fP * \fBcreateFor\fP (\fBScXMLDataObj\fP *lhs, \fBScXMLDataObj\fP *rhs)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual SbBool \fBevaluateNow\fP (\fBScXMLStateMachine\fP *sm, \fBScXMLDataObj\fP *&pointer) const"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP ScXMLDivideOpExprDataObj::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoBase::getTypeId() const\fP 
+.RE
+.PP
+
+.PP
+Implements \fBScXMLExprDataObj\fP\&.
+.PP
+Reimplemented in \fBScXMLCoinDivideOpExprDataObj\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

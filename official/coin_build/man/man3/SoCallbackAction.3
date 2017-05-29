@@ -1,0 +1,653 @@
+.TH "SoCallbackAction" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoCallbackAction \- The \fBSoCallbackAction\fP class invokes callbacks at specific nodes\&.
+.PP
+This action has mechanisms for tracking traversal position and traversal state\&. In combination with the ability to pass geometry primitives to callback actions set by the user, this does for instance make it rather straightforward to extract the geometry of a scene graph\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/actions/SoCallbackAction\&.h>\fP
+.PP
+Inherits \fBSoAction\fP\&.
+.PP
+Inherited by \fBSoVectorizeAction\fP\&.
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBResponse\fP { \fBCONTINUE\fP, \fBABORT\fP, \fBPRUNE\fP }"
+.br
+.ti -1c
+.RI "typedef \fBResponse\fP \fBSoCallbackActionCB\fP(void *userdata, \fBSoCallbackAction\fP *action, const \fBSoNode\fP *node)"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoCallbackAction\fP (void)"
+.br
+.ti -1c
+.RI "\fBSoCallbackAction\fP (const \fBSbViewportRegion\fP &vp)"
+.br
+.ti -1c
+.RI "virtual \fB~SoCallbackAction\fP (void)"
+.br
+.ti -1c
+.RI "void \fBsetViewportRegion\fP (const \fBSbViewportRegion\fP &vp)"
+.br
+.ti -1c
+.RI "void \fBaddPreCallback\fP (const \fBSoType\fP type, \fBSoCallbackActionCB\fP *cb, void *userdata)"
+.br
+.ti -1c
+.RI "void \fBaddPostCallback\fP (const \fBSoType\fP type, \fBSoCallbackActionCB\fP *cb, void *userdata)"
+.br
+.ti -1c
+.RI "void \fBaddPreTailCallback\fP (\fBSoCallbackActionCB\fP *cb, void *userdata)"
+.br
+.ti -1c
+.RI "void \fBaddPostTailCallback\fP (\fBSoCallbackActionCB\fP *cb, void *userdata)"
+.br
+.ti -1c
+.RI "void \fBaddTriangleCallback\fP (const \fBSoType\fP type, \fBSoTriangleCB\fP *cb, void *userdata)"
+.br
+.ti -1c
+.RI "void \fBaddLineSegmentCallback\fP (const \fBSoType\fP type, \fBSoLineSegmentCB\fP *cb, void *userdata)"
+.br
+.ti -1c
+.RI "void \fBaddPointCallback\fP (const \fBSoType\fP type, \fBSoPointCB\fP *cb, void *userdata)"
+.br
+.ti -1c
+.RI "\fBSoDecimationTypeElement::Type\fP \fBgetDecimationType\fP (void) const"
+.br
+.ti -1c
+.RI "float \fBgetDecimationPercentage\fP (void) const"
+.br
+.ti -1c
+.RI "float \fBgetComplexity\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoComplexity::Type\fP \fBgetComplexityType\fP (void) const"
+.br
+.ti -1c
+.RI "int32_t \fBgetNumCoordinates\fP (void) const"
+.br
+.ti -1c
+.RI "const \fBSbVec3f\fP & \fBgetCoordinate3\fP (const \fBint\fP index) const"
+.br
+.ti -1c
+.RI "const \fBSbVec4f\fP & \fBgetCoordinate4\fP (const \fBint\fP index) const"
+.br
+.ti -1c
+.RI "\fBSoDrawStyle::Style\fP \fBgetDrawStyle\fP (void) const"
+.br
+.ti -1c
+.RI "unsigned short \fBgetLinePattern\fP (void) const"
+.br
+.ti -1c
+.RI "float \fBgetLineWidth\fP (void) const"
+.br
+.ti -1c
+.RI "float \fBgetPointSize\fP (void) const"
+.br
+.ti -1c
+.RI "const \fBSbName\fP & \fBgetFontName\fP (void) const"
+.br
+.ti -1c
+.RI "float \fBgetFontSize\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoLightModel::Model\fP \fBgetLightModel\fP (void) const"
+.br
+.ti -1c
+.RI "const \fBSbVec3f\fP & \fBgetLightAttenuation\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBgetMaterial\fP (\fBSbColor\fP &ambient, \fBSbColor\fP &diffuse, \fBSbColor\fP &specular, \fBSbColor\fP &emission, float &shininess, float &transparency, const \fBint\fP index=0) const"
+.br
+.ti -1c
+.RI "\fBSoMaterialBinding::Binding\fP \fBgetMaterialBinding\fP (void) const"
+.br
+.ti -1c
+.RI "uint32_t \fBgetNumNormals\fP (void) const"
+.br
+.ti -1c
+.RI "const \fBSbVec3f\fP & \fBgetNormal\fP (const \fBint\fP index) const"
+.br
+.ti -1c
+.RI "\fBSoNormalBinding::Binding\fP \fBgetNormalBinding\fP (void) const"
+.br
+.ti -1c
+.RI "int32_t \fBgetNumProfileCoordinates\fP (void) const"
+.br
+.ti -1c
+.RI "const \fBSbVec2f\fP & \fBgetProfileCoordinate2\fP (const \fBint\fP index) const"
+.br
+.ti -1c
+.RI "const \fBSbVec3f\fP & \fBgetProfileCoordinate3\fP (const \fBint\fP index) const"
+.br
+.ti -1c
+.RI "const \fBSoNodeList\fP & \fBgetProfile\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoShapeHints::VertexOrdering\fP \fBgetVertexOrdering\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoShapeHints::ShapeType\fP \fBgetShapeType\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoShapeHints::FaceType\fP \fBgetFaceType\fP (void) const"
+.br
+.ti -1c
+.RI "float \fBgetCreaseAngle\fP (void) const"
+.br
+.ti -1c
+.RI "int32_t \fBgetNumTextureCoordinates\fP (void) const"
+.br
+.ti -1c
+.RI "const \fBSbVec2f\fP & \fBgetTextureCoordinate2\fP (const \fBint\fP index) const"
+.br
+.ti -1c
+.RI "const \fBSbVec3f\fP & \fBgetTextureCoordinate3\fP (const \fBint\fP index) const"
+.br
+.ti -1c
+.RI "const \fBSbVec4f\fP & \fBgetTextureCoordinate4\fP (const \fBint\fP index) const"
+.br
+.ti -1c
+.RI "\fBSoTextureCoordinateBinding::Binding\fP \fBgetTextureCoordinateBinding\fP (void) const"
+.br
+.ti -1c
+.RI "const \fBSbColor\fP & \fBgetTextureBlendColor\fP (void) const"
+.br
+.ti -1c
+.RI "const unsigned char * \fBgetTextureImage\fP (\fBSbVec2s\fP &size, \fBint\fP &numcomps) const"
+.br
+.ti -1c
+.RI "const unsigned char * \fBgetTextureImage\fP (\fBSbVec3s\fP &size, \fBint\fP &numcomps) const"
+.br
+.ti -1c
+.RI "const \fBSbMatrix\fP & \fBgetTextureMatrix\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoTexture2::Model\fP \fBgetTextureModel\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoTexture2::Wrap\fP \fBgetTextureWrapS\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoTexture2::Wrap\fP \fBgetTextureWrapT\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoTexture2::Wrap\fP \fBgetTextureWrapR\fP (void) const"
+.br
+.ti -1c
+.RI "const \fBSbMatrix\fP & \fBgetModelMatrix\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoUnits::Units\fP \fBgetUnits\fP (void) const"
+.br
+.ti -1c
+.RI "float \fBgetFocalDistance\fP (void) const"
+.br
+.ti -1c
+.RI "const \fBSbMatrix\fP & \fBgetProjectionMatrix\fP (void) const"
+.br
+.ti -1c
+.RI "const \fBSbMatrix\fP & \fBgetViewingMatrix\fP (void) const"
+.br
+.ti -1c
+.RI "const \fBSbViewVolume\fP & \fBgetViewVolume\fP (void) const"
+.br
+.ti -1c
+.RI "const \fBSbViewportRegion\fP & \fBgetViewportRegion\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoPickStyle::Style\fP \fBgetPickStyle\fP (void) const"
+.br
+.ti -1c
+.RI "int32_t \fBgetSwitch\fP (void) const"
+.br
+.ti -1c
+.RI "\fBResponse\fP \fBgetCurrentResponse\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBinvokePreCallbacks\fP (const \fBSoNode\fP *const node)"
+.br
+.ti -1c
+.RI "void \fBinvokePostCallbacks\fP (const \fBSoNode\fP *const node)"
+.br
+.ti -1c
+.RI "void \fBinvokeTriangleCallbacks\fP (const \fBSoShape\fP *const shape, const \fBSoPrimitiveVertex\fP *const v1, const \fBSoPrimitiveVertex\fP *const v2, const \fBSoPrimitiveVertex\fP *const v3)"
+.br
+.ti -1c
+.RI "void \fBinvokeLineSegmentCallbacks\fP (const \fBSoShape\fP *const shape, const \fBSoPrimitiveVertex\fP *const v1, const \fBSoPrimitiveVertex\fP *const v2)"
+.br
+.ti -1c
+.RI "void \fBinvokePointCallbacks\fP (const \fBSoShape\fP *const shape, const \fBSoPrimitiveVertex\fP *const v)"
+.br
+.ti -1c
+.RI "SbBool \fBshouldGeneratePrimitives\fP (const \fBSoShape\fP *shape) const"
+.br
+.ti -1c
+.RI "virtual \fBSoNode\fP * \fBgetCurPathTail\fP (void)"
+.br
+.ti -1c
+.RI "void \fBsetCurrentNode\fP (\fBSoNode\fP *const node)"
+.br
+.ti -1c
+.RI "void \fBsetCallbackAll\fP (SbBool callbackall)"
+.br
+.ti -1c
+.RI "SbBool \fBisCallbackAll\fP (void) const"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBaddMethod\fP (const \fBSoType\fP type, \fBSoActionMethod\fP method)"
+.br
+.ti -1c
+.RI "static void \fBenableElement\fP (const \fBSoType\fP type, const \fBint\fP stackindex)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoEnabledElementsList\fP & \fBgetEnabledElements\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBbeginTraversal\fP (\fBSoNode\fP *node)"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoEnabledElementsList\fP * \fBgetClassEnabledElements\fP (void)"
+.br
+.ti -1c
+.RI "static \fBSoActionMethodList\fP * \fBgetClassActionMethods\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoCallbackAction\fP class invokes callbacks at specific nodes\&.
+.PP
+This action has mechanisms for tracking traversal position and traversal state\&. In combination with the ability to pass geometry primitives to callback actions set by the user, this does for instance make it rather straightforward to extract the geometry of a scene graph\&. 
+
+You should be able to use this action for most of your 'simple' traversal needs, instead of cooking up your own code, as the \fBSoCallbackAction\fP is rather flexible\&.
+.PP
+A common use of this action is to extract geometry of non-primitive shapes as triangles\&. A full-fledged example that demonstrates this on a scenegraph with two spheres follows:
+.PP
+.PP
+.nf
+#include <Inventor/SoDB\&.h>
+#include <Inventor/SoPrimitiveVertex\&.h>
+#include <Inventor/actions/SoCallbackAction\&.h>
+#include <Inventor/nodes/SoCoordinate3\&.h>
+#include <Inventor/nodes/SoIndexedFaceSet\&.h>
+#include <Inventor/nodes/SoSeparator\&.h>
+#include <Inventor/nodes/SoShape\&.h>
+#include <Inventor/nodes/SoSphere\&.h>
+#include <Inventor/nodes/SoTranslation\&.h>
+
+
+static SoCoordinate3 * coord3 = NULL;
+static SoIndexedFaceSet * ifs = NULL;
+
+static int coord3idx = 0;
+
+
+static void
+triangle_cb(void * userdata, SoCallbackAction * action,
+            const SoPrimitiveVertex * v1,
+            const SoPrimitiveVertex * v2,
+            const SoPrimitiveVertex * v3)
+{
+  const SbVec3f vtx[] = { v1->getPoint(), v2->getPoint(), v3->getPoint() };
+  const SbMatrix mm = action->getModelMatrix();
+
+  SbVec3f vx[3];
+  for (int j=0; j < 3; j++) { mm\&.multVecMatrix(vtx[j], vx[j]); }
+
+  // (This is sub-optimal -- should scan for the same vertex
+  // coordinates already being present in the SoCoordinate3
+  // node\&. We'll get lots of duplicate coordinates from this\&.)
+  coord3->point\&.setNum(coord3->point\&.getNum() + 3);
+  coord3->point\&.setValues(coord3idx, 3, vx);
+
+  int32_t indices[] = { coord3idx, coord3idx + 1, coord3idx + 2, -1 };
+  coord3idx += 3;
+
+  int oldsize = ifs->coordIndex\&.getNum();
+  ifs->coordIndex\&.setNum(oldsize + 4);
+  ifs->coordIndex\&.setValues(oldsize, 4, indices);
+
+  // (Note that it would likely be desirable to grab normal vectors,
+  // materials and / or texture coordinates in a real-world
+  // application\&. How to do this is not shown by the above code,
+  // but it is not much different from the extraction of vertex
+  // coordinates\&.)
+}
+
+
+int
+main(void)
+{
+  SoDB::init();
+
+  SoSeparator * root = new SoSeparator;
+  root->addChild(new SoSphere);
+  SoTranslation * trans = new SoTranslation;
+  trans->translation\&.setValue(10, 0, 0);
+  root->addChild(trans);
+  SoSphere * ss = new SoSphere;
+  ss->radius = 3;
+  root->addChild(ss);
+
+  root->ref();
+
+  coord3 = new SoCoordinate3;
+  coord3->point\&.setNum(0);
+  ifs = new SoIndexedFaceSet;
+  ifs->coordIndex\&.setNum(0);
+
+  SoCallbackAction ca;
+  ca\&.addTriangleCallback(SoShape::getClassTypeId(), triangle_cb, NULL);
+  ca\&.apply(root);
+
+  root->unref();
+
+  // [the generated SoCoordinate3 and SoIndexedFaceSet nodes would now
+  // typically be used in a scenegraph in a viewer, or written to disk
+  // or something]
+
+  return 0;
+}
+.fi
+.PP
+ 
+.SH "Member Typedef Documentation"
+.PP 
+.SS "\fBResponse\fP SoCallbackAction::SoCallbackActionCB"
+Callback functions need to be of this type\&. \fInode\fP is at the current traversal point in the scene graph\&. 
+.SH "Member Enumeration Documentation"
+.PP 
+.SS "enum \fBSoCallbackAction::Response\fP"
+Response values for callback function\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fICONTINUE \fP\fP
+Continue traversal as usual\&. 
+.TP
+\fB\fIABORT \fP\fP
+Abort traversal immediately\&. No other callbacks are called after this has been returned\&. 
+.TP
+\fB\fIPRUNE \fP\fP
+Don't do traversal of neither the current node (if returning from a pre-traversal callback) nor its children\&.
+.PP
+If returned from a pre-callback, the post-callbacks will still be called\&. If returned from a post-callback, the behaviour will be the same as for returning CONTINUE\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoCallbackAction::SoCallbackAction (void)"
+Default constructor\&. Will set the viewport to a standard viewport with size 640x512\&. 
+.SS "SoCallbackAction::SoCallbackAction (const \fBSbViewportRegion\fP & vp)"
+Constructor which lets you specify the viewport\&.
+.PP
+This constructor is an extension versus the Open Inventor API\&. 
+.SS "SoCallbackAction::~SoCallbackAction (void)\fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoCallbackAction::getTypeId (void) const\fC [virtual]\fP"
+Returns the type identification of an action derived from a class inheriting \fBSoAction\fP\&. This is used for run-time type checking and 'downward' casting\&.
+.PP
+Usage example:
+.PP
+.PP
+.nf
+void bar(SoAction * action)
+{
+  if (action->getTypeId() == SoGLRenderAction::getClassTypeId()) {
+    // safe downward cast, know the type
+    SoGLRenderAction * glrender = (SoGLRenderAction *)action;
+  }
+  return; // ignore if not renderaction
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new actions: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through Inventor/nodes/SoSubAction\&.h: SO_ACTION_SOURCE, SO_ACTION_INIT_CLASS and SO_ACTION_CONSTRUCTOR\&.
+.PP
+For more information on writing Coin extensions, see the \fBSoAction\fP class documentation\&.
+.PP
+Returns the actual type id of an object derived from a class inheriting \fBSoAction\fP\&. Needs to be overridden in \fIall\fP subclasses\&. 
+.PP
+Implements \fBSoAction\fP\&.
+.PP
+Reimplemented in \fBSoVectorizeAction\fP, and \fBSoVectorizePSAction\fP\&.
+.SS "void SoCallbackAction::addMethod (const \fBSoType\fP type, \fBSoActionMethod\fP method)\fC [static]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoCallbackAction::enableElement (const \fBSoType\fP type, const \fBint\fP stackindex)\fC [static]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "const \fBSoEnabledElementsList\fP & SoCallbackAction::getEnabledElements (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a list of the elements used by action instances of this class upon traversal operations\&. 
+.PP
+Reimplemented from \fBSoAction\fP\&.
+.PP
+Reimplemented in \fBSoVectorizeAction\fP, and \fBSoVectorizePSAction\fP\&.
+.SS "void SoCallbackAction::setViewportRegion (const \fBSbViewportRegion\fP & vp)"
+Sets the viewport region for this action\&. When set, the viewport element is initialized right before a traversal starts, making it the current viewport\&.
+.PP
+This method is an extension versus the Open Inventor API\&. 
+.SS "void SoCallbackAction::addPreCallback (const \fBSoType\fP type, \fBSoCallbackActionCB\fP * cb, void * userdata)"
+Set a function \fIcb\fP to call before every node of \fItype\fP is traversed\&. \fIcb\fP will be called with \fIuserdata\fP\&. 
+.SS "void SoCallbackAction::addPostCallback (const \fBSoType\fP type, \fBSoCallbackActionCB\fP * cb, void * userdata)"
+Set a function \fIcb\fP to call after every node of \fItype\fP has been traversed\&. \fIcb\fP will be called with \fIuserdata\fP\&. 
+.SS "void SoCallbackAction::addPreTailCallback (\fBSoCallbackActionCB\fP * cb, void * userdata)"
+Set a function \fIcb\fP to call before the tail of a path is traversed\&. \fIcb\fP will be called with \fIuserdata\fP\&. 
+.SS "void SoCallbackAction::addPostTailCallback (\fBSoCallbackActionCB\fP * cb, void * userdata)"
+Set a function \fIcb\fP to call after the tail of a path has been traversed\&. \fIcb\fP will be called with \fIuserdata\fP\&. 
+.SS "void SoCallbackAction::addTriangleCallback (const \fBSoType\fP type, \fBSoTriangleCB\fP * cb, void * userdata)"
+Set a function \fIcb\fP to call when traversing a node of \fItype\fP which generates triangle primitives for rendering\&. \fIcb\fP will be called with \fIuserdata\fP\&. 
+.SS "void SoCallbackAction::addLineSegmentCallback (const \fBSoType\fP type, \fBSoLineSegmentCB\fP * cb, void * userdata)"
+Set a function \fIcb\fP to call when traversing a node of \fItype\fP which generates line primitives for rendering\&. \fIcb\fP will be called with \fIuserdata\fP\&. 
+.SS "void SoCallbackAction::addPointCallback (const \fBSoType\fP type, \fBSoPointCB\fP * cb, void * userdata)"
+Set a function \fIcb\fP to call when traversing a node of \fItype\fP which generates single point primitives for rendering\&. \fIcb\fP will be called with \fIuserdata\fP\&. 
+.SS "\fBSoDecimationTypeElement::Type\fP SoCallbackAction::getDecimationType (void) const"
+Returns current decimation type setting\&. 
+.SS "float SoCallbackAction::getDecimationPercentage (void) const"
+Returns current decimation percentage setting\&. 
+.SS "float SoCallbackAction::getComplexity (void) const"
+Returns current complexity setting\&. 
+.SS "\fBSoComplexity::Type\fP SoCallbackAction::getComplexityType (void) const"
+Returns current complexity type setting\&. 
+.SS "int32_t SoCallbackAction::getNumCoordinates (void) const"
+Returns current number of coordinates in the state\&. 
+.SS "const \fBSbVec3f\fP & SoCallbackAction::getCoordinate3 (const \fBint\fP index) const"
+Returns a coordinate triplet from the current state pool of coordinates\&. 
+.SS "const \fBSbVec4f\fP & SoCallbackAction::getCoordinate4 (const \fBint\fP index) const"
+Returns a coordinate quartuplet from the current state pool of coordinates\&. 
+.SS "\fBSoDrawStyle::Style\fP SoCallbackAction::getDrawStyle (void) const"
+Returns current draw style setting\&. 
+.SS "unsigned short SoCallbackAction::getLinePattern (void) const"
+Returns current line pattern setting\&. 
+.SS "float SoCallbackAction::getLineWidth (void) const"
+Returns current line width setting\&. 
+.SS "float SoCallbackAction::getPointSize (void) const"
+Returns current point size setting\&. 
+.SS "const \fBSbName\fP & SoCallbackAction::getFontName (void) const"
+Returns current fontname setting\&. 
+.SS "float SoCallbackAction::getFontSize (void) const"
+Returns current fontsize setting\&. 
+.SS "\fBSoLightModel::Model\fP SoCallbackAction::getLightModel (void) const"
+Returns current lightmodel setting\&. 
+.SS "const \fBSbVec3f\fP & SoCallbackAction::getLightAttenuation (void) const"
+Returns current light attenuation setting\&. 
+.SS "void SoCallbackAction::getMaterial (\fBSbColor\fP & ambient, \fBSbColor\fP & diffuse, \fBSbColor\fP & specular, \fBSbColor\fP & emission, float & shininess, float & transparency, const \fBint\fP index = \fC0\fP) const"
+Returns current material settings\&. 
+.SS "\fBSoMaterialBinding::Binding\fP SoCallbackAction::getMaterialBinding (void) const"
+Returns current materialbinding setting\&. 
+.SS "uint32_t SoCallbackAction::getNumNormals (void) const"
+Returns current number of normals in the state\&. 
+.SS "const \fBSbVec3f\fP & SoCallbackAction::getNormal (const \fBint\fP index) const"
+Returns the normal vectors at \fIindex\fP from the current state\&. 
+.SS "\fBSoNormalBinding::Binding\fP SoCallbackAction::getNormalBinding (void) const"
+Returns current normalbinding setting\&. 
+.SS "int32_t SoCallbackAction::getNumProfileCoordinates (void) const"
+Returns current number of profile coordinates in the state\&. 
+.SS "const \fBSbVec2f\fP & SoCallbackAction::getProfileCoordinate2 (const \fBint\fP index) const"
+Returns current number of \fBSbVec2f\fP profile coordinates in the state\&. 
+.SS "const \fBSbVec3f\fP & SoCallbackAction::getProfileCoordinate3 (const \fBint\fP index) const"
+Returns current number of \fBSbVec3f\fP profile coordinates in the state\&. 
+.SS "const \fBSoNodeList\fP & SoCallbackAction::getProfile (void) const"
+Returns current list of profile nodes\&. 
+.SS "\fBSoShapeHints::VertexOrdering\fP SoCallbackAction::getVertexOrdering (void) const"
+Returns current vertexordering shapehint setting\&.
+.PP
+Please note that this is the vertex ordering set by the \fBSoShapeHints\fP node\&. If you want to find the vertex ordering for VRML nodes you'll need to read this directly from the \fIccw\fP field in those nodes\&. 
+.SS "\fBSoShapeHints::ShapeType\fP SoCallbackAction::getShapeType (void) const"
+Returns current shapetype hint setting\&.
+.PP
+Please note that this is the shape type set by the \fBSoShapeHints\fP node\&. If you want to find the shape type for VRML nodes you'll need to read this directly from the \fIsolid\fP field in those nodes\&. 
+.SS "\fBSoShapeHints::FaceType\fP SoCallbackAction::getFaceType (void) const"
+Returns current facetype hint setting\&.
+.PP
+Please note that this is the face type set by the \fBSoShapeHints\fP node\&. If you want to find the face type for VRML nodes you'll need to read this directly from the \fIconvex\fP field in those nodes\&. 
+.SS "float SoCallbackAction::getCreaseAngle (void) const"
+Returns current creaseangle setting\&. Please note that this is the crease angle value set by the \fBSoShapeHints\fP node\&. If you want to find the crease angle for VRML nodes you'll need to read this directly from the creaseAngle field in those nodes\&. 
+.SS "int32_t SoCallbackAction::getNumTextureCoordinates (void) const"
+Returns current number of texture coordinates in the traversal state\&. 
+.SS "const \fBSbVec2f\fP & SoCallbackAction::getTextureCoordinate2 (const \fBint\fP index) const"
+Returns \fBSbVec2f\fP texture coordinate at \fIindex\fP from the texture coordinate pool of the traversal state\&. 
+.SS "const \fBSbVec3f\fP & SoCallbackAction::getTextureCoordinate3 (const \fBint\fP index) const"
+Returns \fBSbVec3f\fP texture coordinate at \fIindex\fP from the texture coordinate pool of the traversal state\&.
+.PP
+This function is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.RE
+.PP
+
+.SS "const \fBSbVec4f\fP & SoCallbackAction::getTextureCoordinate4 (const \fBint\fP index) const"
+Returns \fBSbVec4f\fP texture coordinate at \fIindex\fP from the texture coordinate pool of the traversal state\&. 
+.SS "\fBSoTextureCoordinateBinding::Binding\fP SoCallbackAction::getTextureCoordinateBinding (void) const"
+Returns current texturecoordinate binding setting\&. 
+.SS "const \fBSbColor\fP & SoCallbackAction::getTextureBlendColor (void) const"
+Returns current texture blend color setting\&. 
+.SS "const unsigned char * SoCallbackAction::getTextureImage (\fBSbVec2s\fP & size, \fBint\fP & numcomps) const"
+Returns current texture image settings\&. 
+.SS "const unsigned char * SoCallbackAction::getTextureImage (\fBSbVec3s\fP & size, \fBint\fP & numcomps) const"
+Returns current 3D texture image settings\&.
+.PP
+This function is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.RE
+.PP
+
+.SS "const \fBSbMatrix\fP & SoCallbackAction::getTextureMatrix (void) const"
+Returns current texture transformation matrix setting\&. 
+.SS "\fBSoTexture2::Model\fP SoCallbackAction::getTextureModel (void) const"
+Returns current texturemapping model setting\&. 
+.SS "\fBSoTexture2::Wrap\fP SoCallbackAction::getTextureWrapS (void) const"
+Returns current texture wrapping setting for the \fCS\fP coordinate\&. 
+.SS "\fBSoTexture2::Wrap\fP SoCallbackAction::getTextureWrapT (void) const"
+Returns current texture wrapping setting for the \fCT\fP coordinate\&. 
+.SS "\fBSoTexture2::Wrap\fP SoCallbackAction::getTextureWrapR (void) const"
+Returns current texture wrapping setting for the \fCR\fP coordinate\&.
+.PP
+This function is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&.
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.0 
+.RE
+.PP
+
+.SS "const \fBSbMatrix\fP & SoCallbackAction::getModelMatrix (void) const"
+Returns current model matrix\&. 
+.SS "\fBSoUnits::Units\fP SoCallbackAction::getUnits (void) const"
+Returns current units setting\&. 
+.SS "float SoCallbackAction::getFocalDistance (void) const"
+Returns current camera focal distance setting\&. 
+.SS "const \fBSbMatrix\fP & SoCallbackAction::getProjectionMatrix (void) const"
+Returns current projection matrix\&. 
+.SS "const \fBSbMatrix\fP & SoCallbackAction::getViewingMatrix (void) const"
+Returns current viewing matrix\&. 
+.SS "const \fBSbViewVolume\fP & SoCallbackAction::getViewVolume (void) const"
+Returns current view volume setting\&. 
+.SS "const \fBSbViewportRegion\fP & SoCallbackAction::getViewportRegion (void) const"
+Returns current viewport region setting\&.
+.PP
+This method is an extension versus the Open Inventor API\&. 
+.SS "\fBSoPickStyle::Style\fP SoCallbackAction::getPickStyle (void) const"
+Returns current pickstyle setting\&. 
+.SS "int32_t SoCallbackAction::getSwitch (void) const"
+Returns last \fBSoSwitch::whichChild\fP setting during the traversal\&. 
+.SS "\fBSoCallbackAction::Response\fP SoCallbackAction::getCurrentResponse (void) const"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoCallbackAction::invokePreCallbacks (const \fBSoNode\fP *const node)"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP
+.PP
+Invoke all 'pre traversal' callbacks\&. 
+.SS "void SoCallbackAction::invokePostCallbacks (const \fBSoNode\fP *const node)"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP
+.PP
+Invoke all 'post traversal' callbacks\&. 
+.SS "void SoCallbackAction::invokeTriangleCallbacks (const \fBSoShape\fP *const shape, const \fBSoPrimitiveVertex\fP *const v1, const \fBSoPrimitiveVertex\fP *const v2, const \fBSoPrimitiveVertex\fP *const v3)"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP
+.PP
+Invoke all 'triangle generation' callbacks\&. 
+.SS "void SoCallbackAction::invokeLineSegmentCallbacks (const \fBSoShape\fP *const shape, const \fBSoPrimitiveVertex\fP *const v1, const \fBSoPrimitiveVertex\fP *const v2)"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP
+.PP
+Invoke all 'line segment generation' callbacks\&. 
+.SS "void SoCallbackAction::invokePointCallbacks (const \fBSoShape\fP *const shape, const \fBSoPrimitiveVertex\fP *const v)"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP
+.PP
+Invoke all 'point' callbacks\&. 
+.SS "SbBool SoCallbackAction::shouldGeneratePrimitives (const \fBSoShape\fP * shape) const"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP
+.PP
+Check from the shape nodes whether or not to generate primitives from the complex shapes\&. If there are no callbacks attached to the node types, making the primitives would only be a waste of CPU\&. 
+.SS "\fBSoNode\fP * SoCallbackAction::getCurPathTail (void)\fC [virtual]\fP"
+Returns the current tail of the traversal path for the callback action\&. 
+.PP
+Reimplemented from \fBSoAction\fP\&.
+.SS "void SoCallbackAction::setCurrentNode (\fBSoNode\fP *const node)"
+Used from nodes during traversal to keep a current node pointer in the action\&. 
+.SS "void SoCallbackAction::beginTraversal (\fBSoNode\fP * node)\fC [protected]\fP, \fC [virtual]\fP"
+This virtual method is called from \fBSoAction::apply()\fP, and is the entry point for the actual scenegraph traversal\&.
+.PP
+It can be overridden to initialize the action at traversal start, for specific initializations in the action subclasses inheriting \fBSoAction\fP\&.
+.PP
+Default method just calls \fBtraverse()\fP, which any overridden implementation of the method must do too (or call \fBSoAction::beginTraversal()\fP) to trigger the scenegraph traversal\&. 
+.PP
+Reimplemented from \fBSoAction\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

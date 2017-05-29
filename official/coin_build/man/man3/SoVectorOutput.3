@@ -1,0 +1,68 @@
+.TH "SoVectorOutput" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoVectorOutput \- The \fBSoVectorOutput\fP class is used for setting vector output file\&.
+.PP
+\fBSoVectorizeAction\fP will create an \fBSoVectorOutput\fP which will output to stdout by default\&. \fBSoVectorizeAction::getOutput()\fP can be used to fetch this output, and the user will probably want to set a file to output to\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/annex/HardCopy/SoVectorOutput\&.h>\fP
+.PP
+Inherited by \fBSoPSVectorOutput\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSoVectorOutput\fP (void)"
+.br
+.ti -1c
+.RI "virtual \fB~SoVectorOutput\fP ()"
+.br
+.ti -1c
+.RI "virtual SbBool \fBopenFile\fP (const char *filename)"
+.br
+.ti -1c
+.RI "virtual void \fBcloseFile\fP (void)"
+.br
+.ti -1c
+.RI "FILE * \fBgetFilePointer\fP (void)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBSoVectorOutput\fP class is used for setting vector output file\&.
+.PP
+\fBSoVectorizeAction\fP will create an \fBSoVectorOutput\fP which will output to stdout by default\&. \fBSoVectorizeAction::getOutput()\fP can be used to fetch this output, and the user will probably want to set a file to output to\&. 
+
+
+.PP
+\fBSince:\fP
+.RS 4
+Coin 2\&.1 
+.PP
+TGS provides HardCopy support as a separate extension for TGS Inventor\&. 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoVectorOutput::SoVectorOutput (void)"
+Constructor\&. Will make this instance output to \fIstdout\fP\&. 
+.SS "SoVectorOutput::~SoVectorOutput ()\fC [virtual]\fP"
+Destructor\&. Will close the file opened in \fBopenFile()\fP\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "SbBool SoVectorOutput::openFile (const char * filename)\fC [virtual]\fP"
+Opens \fIfilename\fP for output\&. Returns \fIFALSE\fP if file could not be opened for writing\&. If the file already exists, it will be truncated\&. 
+.SS "void SoVectorOutput::closeFile (void)\fC [virtual]\fP"
+Closes the file opened in \fBopenFile()\fP 
+.SS "FILE * SoVectorOutput::getFilePointer (void)"
+Returns the \fIstdio\fP file handle pointer\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

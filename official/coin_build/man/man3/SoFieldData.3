@@ -1,0 +1,165 @@
+.TH "SoFieldData" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoFieldData \- The \fBSoFieldData\fP class is a container for a prototype set of fields\&.
+.PP
+This class is instantiated once for each class of objects which use fields, and which needs to be able to import and export them\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/fields/SoFieldData\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSoFieldData\fP (void)"
+.br
+.ti -1c
+.RI "\fBSoFieldData\fP (const \fBSoFieldData\fP &fd)"
+.br
+.ti -1c
+.RI "\fBSoFieldData\fP (const \fBSoFieldData\fP *fd)"
+.br
+.ti -1c
+.RI "\fBSoFieldData\fP (\fBint\fP numfields)"
+.br
+.ti -1c
+.RI "\fB~SoFieldData\fP ()"
+.br
+.ti -1c
+.RI "void \fBaddField\fP (\fBSoFieldContainer\fP *base, const char *name, const \fBSoField\fP *field)"
+.br
+.ti -1c
+.RI "void \fBoverlay\fP (\fBSoFieldContainer\fP *to, const \fBSoFieldContainer\fP *from, SbBool copyconnections) const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetNumFields\fP (void) const"
+.br
+.ti -1c
+.RI "const \fBSbName\fP & \fBgetFieldName\fP (\fBint\fP index) const"
+.br
+.ti -1c
+.RI "\fBSoField\fP * \fBgetField\fP (const \fBSoFieldContainer\fP *object, \fBint\fP index) const"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetIndex\fP (const \fBSoFieldContainer\fP *fc, const \fBSoField\fP *field) const"
+.br
+.ti -1c
+.RI "void \fBaddEnumValue\fP (const char *enumname, const char *valuename, \fBint\fP value)"
+.br
+.ti -1c
+.RI "void \fBgetEnumData\fP (const char *enumname, \fBint\fP &num, const \fBint\fP *&values, const \fBSbName\fP *&names)"
+.br
+.ti -1c
+.RI "SbBool \fBread\fP (\fBSoInput\fP *input, \fBSoFieldContainer\fP *object, SbBool erroronunknownfield, SbBool &notbuiltin) const"
+.br
+.ti -1c
+.RI "SbBool \fBread\fP (\fBSoInput\fP *input, \fBSoFieldContainer\fP *object, const \fBSbName\fP &fieldname, SbBool &foundname) const"
+.br
+.ti -1c
+.RI "void \fBwrite\fP (\fBSoOutput\fP *out, const \fBSoFieldContainer\fP *object) const"
+.br
+.ti -1c
+.RI "void \fBcopy\fP (const \fBSoFieldData\fP *src)"
+.br
+.ti -1c
+.RI "SbBool \fBisSame\fP (const \fBSoFieldContainer\fP *c1, const \fBSoFieldContainer\fP *c2) const"
+.br
+.ti -1c
+.RI "SbBool \fBreadFieldDescriptions\fP (\fBSoInput\fP *input, \fBSoFieldContainer\fP *object, \fBint\fP numdescriptionsexpected, const SbBool readfieldvalues=TRUE) const"
+.br
+.ti -1c
+.RI "void \fBwriteFieldDescriptions\fP (\fBSoOutput\fP *out, const \fBSoFieldContainer\fP *object) const"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBSoFieldData\fP class is a container for a prototype set of fields\&.
+.PP
+This class is instantiated once for each class of objects which use fields, and which needs to be able to import and export them\&. 
+
+Each field of a class is stored with the name it has been given within its 'owner' class and a pointer offset to the dynamic instance of the field itself\&.
+.PP
+Enumeration sets are stored with (name, value) pairs, to make it possible to address, read and save enum type fields by name\&.
+.PP
+It is unlikely that application programmers should need to use any of the methods of this class directly\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoField\fP, \fBSoFieldContainer\fP 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoFieldData::SoFieldData (void)"
+Default constructor\&. 
+.SS "SoFieldData::SoFieldData (const \fBSoFieldData\fP & fd)"
+Copy constructor\&. 
+.SS "SoFieldData::SoFieldData (const \fBSoFieldData\fP * fd)"
+Copy constructor taking a pointer value as an argument\&. Handles \fCNULL\fP pointers by behaving like the default constructor\&. 
+.SS "SoFieldData::SoFieldData (\fBint\fP numfields)"
+Constructor\&. Takes an indication on the number of fields which should be stored, to make sure the memory handling is efficient\&. 
+.SS "SoFieldData::~SoFieldData ()"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void SoFieldData::addField (\fBSoFieldContainer\fP * base, const char * name, const \fBSoField\fP * field)"
+Add a new field to our internal list\&.
+.PP
+The \fIname\fP will be stored along with an pointer offset between \fIbase\fP and \fIfield\fP, which will be valid for all instances of the class type of \fIbase\fP\&. 
+.SS "void SoFieldData::overlay (\fBSoFieldContainer\fP * to, const \fBSoFieldContainer\fP * from, SbBool copyconnections) const"
+Copy fields from container \fIfrom\fP to container \fIto\fP\&. If \fIcopyconnections\fP is \fCTRUE\fP, we'll also copy the connections field \fIfrom\fP has made\&.
+.PP
+If you think the method signature is a bit strange, you're correct\&. This should really have been a static method (the owner \fCthis\fP instance of the method isn't used at all, due to how the internal representation of field template list are stored), but for unknown reasons this is a dynamic method in Open Inventor\&. So also in Coin, to keep compatibility\&. 
+.SS "\fBint\fP SoFieldData::getNumFields (void) const"
+Returns number of fields contained within this instance\&. 
+.SS "const \fBSbName\fP & SoFieldData::getFieldName (\fBint\fP index) const"
+Returns the name of the field at \fIindex\fP\&. 
+.SS "\fBSoField\fP * SoFieldData::getField (const \fBSoFieldContainer\fP * object, \fBint\fP index) const"
+Returns a pointer to the field at \fIindex\fP within the \fIobject\fP instance\&. 
+.SS "\fBint\fP SoFieldData::getIndex (const \fBSoFieldContainer\fP * fc, const \fBSoField\fP * field) const"
+Returns the internal index value of \fIfield\fP in \fIfc\fP\&. If \fIfield\fP is not part of \fIfc\fP, returns -1\&. 
+.SS "void SoFieldData::addEnumValue (const char * enumname, const char * valuename, \fBint\fP value)"
+Either adds a new enum set (with an initial member), or adds a new value member to an existing enum set\&. 
+.SS "void SoFieldData::getEnumData (const char * enumname, \fBint\fP & num, const \fBint\fP *& values, const \fBSbName\fP *& names)"
+Returns the \fInames\fP and \fIvalues\fP of enumeration entry with the \fIenumname\fP\&. The number of (name, value) pairs available in the enumeration is returned in \fInum\fP\&. 
+.SS "SbBool SoFieldData::read (\fBSoInput\fP * in, \fBSoFieldContainer\fP * object, SbBool erroronunknownfield, SbBool & notbuiltin) const"
+Read field data from the \fIin\fP stream for fields belonging to \fIobject\fP\&. Returns \fCTRUE\fP if everything went ok, or \fCFALSE\fP if any error conditions occurs\&.
+.PP
+\fIerroronunknownfield\fP decides whether or not \fCFALSE\fP should be returned if a name identifier not recognized as a fieldname of \fIobject\fP is encountered\&. Note that \fIerroronunknownfield\fP should be \fCFALSE\fP if \fIobject\fP is a container with child objects, otherwise the code will fail upon the first child name specification\&.
+.PP
+If \fInotbuiltin\fP is \fCTRUE\fP on return, \fIobject\fP is an unknown node or engine type\&. Unknown nodes are recognized by the \fCfields\fP keyword first in their file format definition, and unknown engines by the \fCinputs\fP keyword\&. 
+.SS "SbBool SoFieldData::read (\fBSoInput\fP * in, \fBSoFieldContainer\fP * object, const \fBSbName\fP & fieldname, SbBool & foundname) const"
+Find field \fIfieldname\fP in \fIobject\fP, and if it is available, set \fIfoundname\fP to \fCTRUE\fP and try to read the field specification from \fIin\fP\&. If \fIfoundname\fP is set to \fCTRUE\fP, the return value says whether or not the field specification could be read without any problems\&.
+.PP
+If \fIfieldname\fP is not part of \fIobject\fP, returns \fCFALSE\fP with \fIfoundname\fP also set to \fCFALSE\fP\&. 
+.SS "void SoFieldData::write (\fBSoOutput\fP * out, const \fBSoFieldContainer\fP * object) const"
+Write to \fIout\fP field names and field values for the fields of \fIobject\fP\&. 
+.SS "void SoFieldData::copy (const \fBSoFieldData\fP * src)"
+Copy contents of \fIsrc\fP into this instance\&.
+.PP
+If there was any data set up in this instance before the method was called, the old data is removed first\&.
+.PP
+Note that this only copies the field set template specification from \fIsrc\fP, \fInot\fP actual field contents\&. For copying field contents, see the \fBSoFieldData::overlay()\fP method\&. 
+.SS "SbBool SoFieldData::isSame (const \fBSoFieldContainer\fP * c1, const \fBSoFieldContainer\fP * c2) const"
+Compares \fIc1\fP and \fIc2\fP to see if they have the same field data set and if the fields of \fIc1\fP have the same values as the fields of \fIc2\fP\&.
+.PP
+Field connections are not considered (i\&.e\&. we will return \fCTRUE\fP if the values of the fields of \fIc1\fP are equal to the fields of \fIc2\fP, even if they differ in how they have made connections to other fields)\&.
+.PP
+If you think the method signature is a bit strange, you're correct\&. This should really have been a static method (the owner \fCthis\fP instance of the method isn't used at all, due to how the internal representations of field template lists are stored), but for unknown reasons this is a dynamic method in Open Inventor\&. So also in Coin, to keep compatibility\&. 
+.SS "SbBool SoFieldData::readFieldDescriptions (\fBSoInput\fP * in, \fBSoFieldContainer\fP * object, \fBint\fP numdescriptionsexpected, const SbBool readfieldvalues = \fCTRUE\fP) const"
+Reads a set of field specifications from \fIin\fP for an unknown nodeclass type, in the form '[ FIELDCLASS FIELDNAME, FIELDCLASS FIELDNAME, \&.\&.\&. ]'\&.
+.PP
+\fInumdescriptionsexpected\fP is used for binary format import to know how many descriptions should be parsed\&.
+.PP
+If \fIreadfieldvalues\fP is \fITRUE\fP (the default), the field initial value is expected after the field name in the \fBSoInput\fP stream\&. 
+.SS "void SoFieldData::writeFieldDescriptions (\fBSoOutput\fP * out, const \fBSoFieldContainer\fP * object) const"
+Write a set of field specifications to \fIout\fP for an unknown nodeclass type, in the form '[ FIELDCLASS FIELDNAME, FIELDCLASS FIELDNAME, \&.\&.\&. ]'\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

@@ -1,0 +1,309 @@
+.TH "SoTransformManip" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoTransformManip \- The \fBSoTransformManip\fP class is used to manipulate transformations\&.
+.PP
+A manipulator is used by replacing the node you want to edit in the graph with the manipulator\&. Draggers are used to to manipulate the node\&. When manipulation is finished, the node is put back into the graph, replacing the manipulator\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/manips/SoTransformManip\&.h>\fP
+.PP
+Inherits \fBSoTransform\fP\&.
+.PP
+Inherited by \fBSoCenterballManip\fP, \fBSoHandleBoxManip\fP, \fBSoJackManip\fP, \fBSoTabBoxManip\fP, \fBSoTrackballManip\fP, \fBSoTransformBoxManip\fP, and \fBSoTransformerManip\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "\fBSoTransformManip\fP (void)"
+.br
+.ti -1c
+.RI "\fBSoDragger\fP * \fBgetDragger\fP (void)"
+.br
+.ti -1c
+.RI "SbBool \fBreplaceNode\fP (\fBSoPath\fP *p)"
+.br
+.ti -1c
+.RI "SbBool \fBreplaceManip\fP (\fBSoPath\fP *p, \fBSoTransform\fP *newone) const"
+.br
+.ti -1c
+.RI "virtual void \fBdoAction\fP (\fBSoAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBcallback\fP (\fBSoCallbackAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBGLRender\fP (\fBSoGLRenderAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBgetBoundingBox\fP (\fBSoGetBoundingBoxAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBgetMatrix\fP (\fBSoGetMatrixAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBhandleEvent\fP (\fBSoHandleEventAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBpick\fP (\fBSoPickAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBsearch\fP (\fBSoSearchAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual \fBSoChildList\fP * \fBgetChildren\fP (void) const"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fB~SoTransformManip\fP (void)"
+.br
+.ti -1c
+.RI "void \fBsetDragger\fP (\fBSoDragger\fP *newdragger)"
+.br
+.ti -1c
+.RI "virtual void \fBcopyContents\fP (const \fBSoFieldContainer\fP *fromfc, SbBool copyconnections)"
+.br
+.ti -1c
+.RI "void \fBattachSensors\fP (const SbBool onoff)"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBtransferFieldValues\fP (const \fBSoTransform\fP *from, \fBSoTransform\fP *to)"
+.br
+.ti -1c
+.RI "static void \fBvalueChangedCB\fP (void *f, \fBSoDragger\fP *d)"
+.br
+.ti -1c
+.RI "static void \fBfieldSensorCB\fP (void *f, \fBSoSensor\fP *d)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoFieldSensor\fP * \fBrotateFieldSensor\fP"
+.br
+.ti -1c
+.RI "\fBSoFieldSensor\fP * \fBtranslFieldSensor\fP"
+.br
+.ti -1c
+.RI "\fBSoFieldSensor\fP * \fBscaleFieldSensor\fP"
+.br
+.ti -1c
+.RI "\fBSoFieldSensor\fP * \fBcenterFieldSensor\fP"
+.br
+.ti -1c
+.RI "\fBSoFieldSensor\fP * \fBscaleOrientFieldSensor\fP"
+.br
+.ti -1c
+.RI "\fBSoChildList\fP * \fBchildren\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoTransformManip\fP class is used to manipulate transformations\&.
+.PP
+A manipulator is used by replacing the node you want to edit in the graph with the manipulator\&. Draggers are used to to manipulate the node\&. When manipulation is finished, the node is put back into the graph, replacing the manipulator\&. 
+
+The \fBSoTransformManip\fP class is an abstract class which should not be used directly -- use one of it's subclasses\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoTransformManip::SoTransformManip (void)"
+The constructor\&. 
+.SS "SoTransformManip::~SoTransformManip (void)\fC [protected]\fP, \fC [virtual]\fP"
+The destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoTransformManip::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Reimplemented from \fBSoTransform\fP\&.
+.PP
+Reimplemented in \fBSoHandleBoxManip\fP, \fBSoTrackballManip\fP, \fBSoTransformerManip\fP, \fBSoTransformBoxManip\fP, \fBSoTabBoxManip\fP, \fBSoCenterballManip\fP, and \fBSoJackManip\fP\&.
+.SS "const \fBSoFieldData\fP * SoTransformManip::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoTransform\fP\&.
+.PP
+Reimplemented in \fBSoHandleBoxManip\fP, \fBSoTrackballManip\fP, \fBSoTransformerManip\fP, \fBSoTransformBoxManip\fP, \fBSoTabBoxManip\fP, \fBSoCenterballManip\fP, and \fBSoJackManip\fP\&.
+.SS "\fBSoDragger\fP * SoTransformManip::getDragger (void)"
+Returns the dragger used by this manipulator\&. 
+.SS "SbBool SoTransformManip::replaceNode (\fBSoPath\fP * path)"
+Replaces a node at the tail end of \fIpath\fP with this manipulator\&. The node must be an instance of a node class derived from \fBSoTransform\fP\&.
+.PP
+The manipulator will when inserted automatically copy the field data from the node, to make it initially affect the state in the same way as the node\&.
+.PP
+Returns \fCTRUE\fP if successful, and \fCFALSE\fP if the given node could not be replaced with the manipulator\&. The operation will for instance fail if the tail node of the given path is not of \fBSoTransform\fP type, or for any other condition where it is not possible to replace the node with this manipulator\&. 
+.SS "SbBool SoTransformManip::replaceManip (\fBSoPath\fP * path, \fBSoTransform\fP * newone) const"
+Replaces this manipulator from the position specified by \fIpath\fP with \fInewnode\fP\&. If \fInewnode\fP is \fCNULL\fP, an \fBSoTransform\fP will be created for you\&. 
+.SS "void SoTransformManip::doAction (\fBSoAction\fP * action)\fC [virtual]\fP"
+This function performs the typical operation of a node for any action\&. 
+.PP
+Reimplemented from \fBSoTransform\fP\&.
+.SS "void SoTransformManip::callback (\fBSoCallbackAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoCallbackAction\fP\&.
+.PP
+Simply updates the state according to how the node behaves for the render action, so the application programmer can use the \fBSoCallbackAction\fP for extracting information about the scene graph\&. 
+.PP
+Reimplemented from \fBSoTransform\fP\&.
+.SS "void SoTransformManip::GLRender (\fBSoGLRenderAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGLRenderAction\fP\&.
+.PP
+This is called during rendering traversals\&. Nodes influencing the rendering state in any way or who wants to throw geometry primitives at OpenGL overrides this method\&. 
+.PP
+Reimplemented from \fBSoTransform\fP\&.
+.SS "void SoTransformManip::getBoundingBox (\fBSoGetBoundingBoxAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGetBoundingBoxAction\fP\&.
+.PP
+Calculates bounding box and center coordinates for node and modifies the values of the \fIaction\fP to encompass the bounding box for this node and to shift the center point for the scene more towards the one for this node\&.
+.PP
+Nodes influencing how geometry nodes calculates their bounding box also overrides this method to change the relevant state variables\&. 
+.PP
+Reimplemented from \fBSoTransform\fP\&.
+.SS "void SoTransformManip::getMatrix (\fBSoGetMatrixAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoGetMatrixAction\fP\&.
+.PP
+Updates \fIaction\fP by accumulating with the transformation matrix of this node (if any)\&. 
+.PP
+Reimplemented from \fBSoTransform\fP\&.
+.SS "void SoTransformManip::handleEvent (\fBSoHandleEventAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoHandleEventAction\fP\&.
+.PP
+Inspects the event data from \fIaction\fP, and processes it if it is something which this node should react to\&.
+.PP
+Nodes influencing relevant state variables for how event handling is done also overrides this method\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "void SoTransformManip::pick (\fBSoPickAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoPickAction\fP\&.
+.PP
+Does common processing for \fBSoPickAction\fP \fIaction\fP instances\&. 
+.PP
+Reimplemented from \fBSoTransform\fP\&.
+.SS "void SoTransformManip::search (\fBSoSearchAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoSearchAction\fP\&.
+.PP
+Compares the search criteria from the \fIaction\fP to see if this node is a match\&. Searching is done by matching up \fIall\fP criteria set up in the \fBSoSearchAction\fP -- if \fIany\fP of the requested criteria is a miss, the search is not deemed successful for the node\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoSearchAction\fP 
+.RE
+.PP
+
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "\fBSoChildList\fP * SoTransformManip::getChildren (void) const\fC [virtual]\fP"
+Returns the children of this node\&. This node only has the dragger as a child\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "void SoTransformManip::setDragger (\fBSoDragger\fP * newdragger)\fC [protected]\fP"
+Sets up the dragger instance to be controlled by this manipulator\&. 
+.SS "void SoTransformManip::copyContents (const \fBSoFieldContainer\fP * from, SbBool copyconnections)\fC [protected]\fP, \fC [virtual]\fP"
+Makes a deep copy of all data of \fIfrom\fP into this instance, \fIexcept\fP external scenegraph references if \fIcopyconnections\fP is \fCFALSE\fP\&.
+.PP
+This is the method that should be overridden by extension node / engine / dragger / whatever subclasses which needs to account for internal data that are not handled automatically\&.
+.PP
+For copying nodes from application code, you should not invoke this function directly, but rather call the \fBSoNode::copy()\fP function:
+.PP
+.PP
+.nf
+SoNode * mynewnode = templatenode->copy();
+.fi
+.PP
+.PP
+The same also goes for engines\&.
+.PP
+Make sure that when you override the \fBcopyContents()\fP method in your extension class that you also make it call upwards to it's parent superclass in the inheritance hierarchy, as \fBcopyContents()\fP in for instance \fBSoNode\fP and \fBSoFieldContainer\fP does important work\&. It should go something like this:
+.PP
+.PP
+.nf
+void
+MyCoinExtensionNode::copyContents(const SoFieldContainer * from,
+                                  SbBool copyconnections)
+{
+  // let parent superclasses do their thing (copy fields, copy
+  // instance name, etc etc)
+  SoNode::copyContents(from, copyconnections);
+
+  // [\&.\&.then copy internal data\&.\&.]
+}
+.fi
+.PP
+ 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "void SoTransformManip::transferFieldValues (const \fBSoTransform\fP * from, \fBSoTransform\fP * to)\fC [static]\fP, \fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP Copies field values from one node to the other\&. 
+.SS "void SoTransformManip::valueChangedCB (void * m, \fBSoDragger\fP * dragger)\fC [static]\fP, \fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP Callback to update field values when motion matrix changes\&. 
+.SS "void SoTransformManip::fieldSensorCB (void * m, \fBSoSensor\fP * d)\fC [static]\fP, \fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP Callback to update motion matrix when a field is modified\&. 
+.SS "void SoTransformManip::attachSensors (const SbBool onoff)\fC [protected]\fP"
+Can be used by subclasses to attach/detach field sensors\&. 
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSoFieldSensor\fP * SoTransformManip::rotateFieldSensor\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "\fBSoFieldSensor\fP * SoTransformManip::translFieldSensor\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "\fBSoFieldSensor\fP * SoTransformManip::scaleFieldSensor\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "\fBSoFieldSensor\fP * SoTransformManip::centerFieldSensor\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "\fBSoFieldSensor\fP * SoTransformManip::scaleOrientFieldSensor\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "\fBSoChildList\fP * SoTransformManip::children\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

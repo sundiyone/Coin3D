@@ -1,0 +1,280 @@
+
+                          Install Instructions
+
+                 Copyright 2001-2008  Systems in Motion
+
+                         http://www.coin3d.org/
+
+
+Introduction
+============
+
+This document contains instructions for those who have downloaded the
+Quarter source code and want to build the library and install it on
+their system.  It does not contain any information about installing
+binary distributions of Quarter.
+
+
+Cookbook Procedure
+==================
+
+If you are impatient and just want a standard installation, you can go
+ahead and run through the following cookbook procedure.  If you get into
+trouble following it, please read through the rest of this document
+before contacting The Coin Team for technical support.  Remember to
+substitute "1.0.0" with the version identifier for the Quarter library you
+are building.
+
+  # 1. Unpack source code and make a build directory somewhere:
+
+    cd /tmp
+    gzip -cd Quarter-1.0.0.tar.gz | tar xvf -
+    mkdir quarter-build
+
+  # 2. Run configure from the build directory:
+
+    cd quarter-build
+    ../Quarter-1.0.0/configure
+
+  # 3. Build the Quarter library:
+
+    make
+
+  # 4. Install the Quarter library:
+
+    make install
+
+  # 5. Remove source and object files when you don't need them anymore:
+
+    cd ..
+    rm -rf quarter-build Quarter-1.0.0
+
+
+The Build Environment
+=====================
+
+Quarter uses GNU Autoconf, Automake and Libtool for the configuration,
+compilation, and installation procedures.  This means you need a POSIX
+shell environment and a decent "make" implementation.  You also need a
+compiler for C/C++.
+
+All unixes have Bourne shells that are close enough to the POSIX
+standard to be usable, and in the odd case where the vendor shell does
+not cut it, you can install the GNU Bourne Again Shell (bash) as a
+replacement.  Many unixes have poor make implementations wihtout
+proper support for VPATH and other features that GNU Automake depend
+on.  If you experience problems during the build phase, you might want
+to try using GNU make instead of the vendor make program.  Make sure
+it is first in the PATH and that $MAKE is not set to another make
+implementation.
+
+On Microsoft Windows platforms, you need to install the Cygwin
+environment (www.cygwin.com) or something equivalent to get a POSIX
+shell and the extra utilities needed to get through the build procedure.
+For compilation, the Visual C++ compiler is used.  Using gcc may be
+fully possible but has not been tested yet, and disabling the VC++
+requirement needs special user intervention at configure time (see list
+of configure options below).
+
+The file INSTALL.GNU contains the standard, generic, installation
+instructions for the GNU build environment.
+
+
+Configuration Options
+=====================
+
+--help
+
+  Specifying this option will cause configure to list all its command
+  line options and exit.
+
+--version
+
+  This option will cause the configure script to display version
+  information about the package and the version of GNU Autoconf that
+  created the configure script.
+
+--prefix=<PATH>
+
+  This option decides where the Quarter library is going to be
+  installed.  The default is usually /usr/local but can be set to
+  something else with this option.  Often used alternatives are /usr
+  and /opt/Quarter.
+
+--without-framework
+
+  On Mac OS X, the default behaviour is to install Quarter as a
+  framework so you can compile/link with it by using the compiler
+  option "-framework Quarter".  If you want to make a plain
+  installation into $prefix/{lib,include} instead, use this option.
+
+--with-framework
+
+  To test the framework layout on non-Macs.
+
+--with-framework-prefix=PATH
+
+  To install the framework into another directory than /Library/Frameworks,
+  use this option.  Note also the DESTDIR make variable.
+
+--enable-shared --disable-shared
+--disable-static --enable-static
+
+  On UNIX platforms, the default configuration is to create a shared
+  library of Quarter. The above options will change this behaviour. It is
+  for most UNIX platforms possible to create both shared and static
+  libraries at the same time.
+
+  On Windows platforms, the default configuration is to create a dynamic
+  loadable library (DLL) of Quarter.  It is *not* possible to create both
+  a DLL and a static library at the same time because the object files
+  are compiled differently in those two modes.  Enabling static will
+  automatically disable shared, but the -shared options has precedence
+  over the -static options.  Warning:  Do not first build one library
+  and then build the other in the same build directory - the object
+  files must the removed to avoid trouble.
+
+--enable-html
+
+  This option is used to enable the generation of HTML documentation for
+  the C++ classes Quarter consist of.
+  
+  There is no --htmldir option available for GNU autoconf scripts, but
+  you can specify the "htmldir" variable instead, like this:
+
+    configure --enable-html htmldir=doc/html
+
+  This will make HTML documentation be installed in ${prefix}/doc/html.
+  Absolute paths are also possible.
+
+  You need the "doxygen" utility to generate the HTML documentation.
+
+--disable-debug
+
+  This options turns off some run-time checking, warnings and asserts.
+  The default is to have them enabled.
+
+  Note that you also need to use the "--disable-symbols" option
+  described below to make a library which is as "slim" as possible, as
+  you would typically do for a release version of your software.
+
+--disable-symbols
+
+  This option turns off debug symbols.  Debug symbols are needed to
+  get call stacks if the library crashes, and to make it possible to
+  trace the code inside a debugger with enough information available
+  within that environment to match up with the sourcecode.  The
+  default is to have debug symbols enabled.
+
+--with-msvcrt=<crt>
+
+  This option sets which C library to link with for MS Visual C++ builds.
+  The options are (with aliases on the right):
+
+  * singlethread-static        [ /ml  | ml  | libc    ]
+    singlethread-static-debug  [ /mld | mld | libcd   ]
+    multithread-static         [ /mt  | mt  | libcmt  ]
+    multithread-static-debug   [ /mtd | mtd | libcmtd ]
+    multithread-dynamic        [ /md  | md  | msvcrt  ]
+    multithread-dynamic-debug  [ /mdd | mdd | msvcrtd ]
+
+  [*] default choice
+
+--with-doxygen=<PATH>
+
+  With this option, you can specify where doxygen is installed, in case
+  the configure script can not find it by doing a path search.
+
+--with-suffix=<string>
+
+  This option appends a suffix to the filename of the Quarter library.  It
+  can be used to e.g. append "_g" to a debug version of Quarter.
+
+CPPFLAGS="<string>"
+CFLAGS="<string>"
+CXXFLAGS="<string>"
+LDFLAGS="<string>"
+LIBS="<string>"
+
+  If you need to add command line flags to respectively the source code
+  preprocessor, the C compiler, the C++ compiler, and the linker, invoke
+  configure with an argument like one of the above.
+
+    [quarter]/configure CFLAGS="-ansi -pedantic" CXXFLAGS="-ansi -pedantic" [...]
+
+  This would cause compilation of both C and C++ files to be done with
+  the "-ansi" and "-pedantic" options.
+
+  You can also use this technique to add MSVC++ command line compiler
+  options, like e.g. CXXFLAGS="/WX" for treating warnings as errors.
+
+  You can also override other things like which compiler is used by
+  setting $CC, $CXX, $LD, $AR and $RANLIB amongst other variables.
+
+
+Build Options
+=============
+
+Although you take care of setting most configurable things when you run
+the configure script, there are a couple of things you can specify at
+the build phase.
+
+Parallel Builds 
+
+  If your build system has much available memory and perhaps multiple
+  processors, you can speed up the compilation by getting "make" to
+  compile multiple files at the same time.  This is (for GNU make)
+  specified through the "-j" option.  If you want four concurrent jobs
+  managed by make at all times, try starting the build like this:
+
+    make -j 4
+
+
+When Things Fail
+================
+
+If you experience configure/build/install problems beyond what can be
+resolved by following the instructions in this file and the relevant
+README files and the FAQ, you can ask for help on the mailing list
+<coin-discuss@coin3d.org> (subscribtion is needed for posting), or you
+can contact <coin-support@coin3d.org> for technical support.  Before
+asking, check that the subject hasn't been discussed and resolved
+already by looking through the coin-discuss web archive at
+http://auto.coin3d.org/coin-discuss/index.html
+
+If you decide to send mail about the problem, you need to include all
+the information that is relevant to the problem with your description.
+This includes the file 'config.log' and the terminal output from around
+where things fail (the compiler output for the compilation that fails or
+the last lines of output from the configure script).  A description of
+the build environment you use may also be helpful, e.g. the compiler
+suite and versions of libraries and any system customizations that may
+be relevant to the problem.
+
+
+
+3DConnexion Space Navigator support
+===================================
+
+The Space navigator support in Quarter relies on the spacenav library
+[http://spacenav.sourceforge.net]. Only Linux is support at the moment
+as the 3DConnexion driver relies on X11 for sending events. The
+autodetection of spacenav is only available when configuring with
+CMAKE. It is however possible to enable this support when using
+AutoTools as well [*].
+
+Please note: The spacenav mechanism needs to grab X11 events directly
+from the source and has therefore installed an event listener on the
+QApplication instance using the
+QCoreApplication::setEventFilter(EventFilter filter) method. Only one
+such listener can exist for an QApplication, so if your application
+also does this, the spacenav mechanism will be disabled.
+
+
+
+[*] Declaring the HAVE_SPACENAV_LIB #define enables the spacenav
+code. Setting the CPPFLAGS and the LDFLAGS before configuring will
+enable Make to include the proper spacenav files when compiling and
+linking. E.g. something like this CPPFLAGS="-DHAVE_SPACENAV_LIB
+-I/spacenav/include/dir/" LDFLAGS="-L/spacenav/lib/dir -lspnav". NB:
+this is not properly tested, though. Use CMAKE if possible.

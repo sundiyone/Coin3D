@@ -1,0 +1,45 @@
+.TH "errors" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+errors \- The error classes are static classes that contain a callback pointer for handling errors of the given type\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBSoDebugError\fP"
+.br
+.RI "The \fBSoDebugError\fP class is the internal debugging message passing mechanism\&.
+.PP
+This class basically serves two purposes: "
+.ti -1c
+.RI "class \fBSoError\fP"
+.br
+.RI "The \fBSoError\fP class is the base class for all the error handling classes\&.
+.PP
+The default error handler just prints messages on the standard error output channel, but this can be overridden by client applications\&. "
+.ti -1c
+.RI "class \fBSoMemoryError\fP"
+.br
+.RI "The \fBSoMemoryError\fP class is used to inform of problems with memory allocation\&.
+.PP
+Modern operating systems takes care of handling most out of memory conditions for you, but in certain situations it can be wise to do some manual checking and intervention\&. This class is provided as an aid to help out in these situations\&. "
+.ti -1c
+.RI "class \fBSoReadError\fP"
+.br
+.RI "The \fBSoReadError\fP class is used during model import operations\&.
+.PP
+During model file import, this class will be used to output any error or warning messages\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+The error classes are static classes that contain a callback pointer for handling errors of the given type\&. 
+
+Coin has default handlers for displaying all the types, but these can be overridden by applications by setting other callbacks\&. 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

@@ -1,0 +1,63 @@
+.TH "SoEngineOutputList" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoEngineOutputList \- The \fBSoEngineOutputList\fP class is a container for \fBSoEngineOutput\fP objects\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/lists/SoEngineOutputList\&.h>\fP
+.PP
+Inherits \fBSbPList\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSoEngineOutputList\fP (void)"
+.br
+.ti -1c
+.RI "\fBSoEngineOutputList\fP (const \fBint\fP sizehint)"
+.br
+.ti -1c
+.RI "\fBSoEngineOutputList\fP (const \fBSoEngineOutputList\fP &l)"
+.br
+.ti -1c
+.RI "void \fBappend\fP (\fBSoEngineOutput\fP *output)"
+.br
+.ti -1c
+.RI "void \fBinsert\fP (\fBSoEngineOutput\fP *output, const \fBint\fP insertbefore)"
+.br
+.ti -1c
+.RI "\fBSoEngineOutput\fP * \fBoperator[]\fP (const \fBint\fP idx) const"
+.br
+.ti -1c
+.RI "void \fBset\fP (const \fBint\fP idx, \fBSoEngineOutput\fP *item)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoEngineOutputList\fP class is a container for \fBSoEngineOutput\fP objects\&. 
+
+
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSbList\fP 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoEngineOutputList::SoEngineOutputList (void)\fC [inline]\fP"
+Default constructor\&. 
+.SS "SoEngineOutputList::SoEngineOutputList (const \fBint\fP sizehint)\fC [inline]\fP"
+This constructor initializes the internal allocated size for the list to \fIsizehint\fP\&. Note that the list will still initially contain zero items\&. 
+.SS "SoEngineOutputList::SoEngineOutputList (const \fBSoEngineOutputList\fP & l)\fC [inline]\fP"
+Copy constructor\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

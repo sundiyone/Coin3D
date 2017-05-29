@@ -1,0 +1,412 @@
+.TH "SoCalculator" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoCalculator \- General purpose calculator for floats and 3D float vectors\&.
+.PP
+The \fBSoCalculator\fP uses the values from the input fields (which are either single floating point values or vectors) as variables in the free-form engine expressions and places the results on the output fields\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/engines/SoCalculator\&.h>\fP
+.PP
+Inherits \fBSoEngine\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual const \fBSoEngineOutputData\fP * \fBgetOutputData\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoCalculator\fP (void)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void * \fBcreateInstance\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoMFFloat\fP \fBa\fP"
+.br
+.ti -1c
+.RI "\fBSoMFFloat\fP \fBb\fP"
+.br
+.ti -1c
+.RI "\fBSoMFFloat\fP \fBc\fP"
+.br
+.ti -1c
+.RI "\fBSoMFFloat\fP \fBd\fP"
+.br
+.ti -1c
+.RI "\fBSoMFFloat\fP \fBe\fP"
+.br
+.ti -1c
+.RI "\fBSoMFFloat\fP \fBf\fP"
+.br
+.ti -1c
+.RI "\fBSoMFFloat\fP \fBg\fP"
+.br
+.ti -1c
+.RI "\fBSoMFFloat\fP \fBh\fP"
+.br
+.ti -1c
+.RI "\fBSoMFVec3f\fP \fBA\fP"
+.br
+.ti -1c
+.RI "\fBSoMFVec3f\fP \fBB\fP"
+.br
+.ti -1c
+.RI "\fBSoMFVec3f\fP \fBC\fP"
+.br
+.ti -1c
+.RI "\fBSoMFVec3f\fP \fBD\fP"
+.br
+.ti -1c
+.RI "\fBSoMFVec3f\fP \fBE\fP"
+.br
+.ti -1c
+.RI "\fBSoMFVec3f\fP \fBF\fP"
+.br
+.ti -1c
+.RI "\fBSoMFVec3f\fP \fBG\fP"
+.br
+.ti -1c
+.RI "\fBSoMFVec3f\fP \fBH\fP"
+.br
+.ti -1c
+.RI "\fBSoMFString\fP \fBexpression\fP"
+.br
+.ti -1c
+.RI "\fBSoEngineOutput\fP \fBoa\fP"
+.br
+.ti -1c
+.RI "\fBSoEngineOutput\fP \fBob\fP"
+.br
+.ti -1c
+.RI "\fBSoEngineOutput\fP \fBoc\fP"
+.br
+.ti -1c
+.RI "\fBSoEngineOutput\fP \fBod\fP"
+.br
+.ti -1c
+.RI "\fBSoEngineOutput\fP \fBoA\fP"
+.br
+.ti -1c
+.RI "\fBSoEngineOutput\fP \fBoB\fP"
+.br
+.ti -1c
+.RI "\fBSoEngineOutput\fP \fBoC\fP"
+.br
+.ti -1c
+.RI "\fBSoEngineOutput\fP \fBoD\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fB~SoCalculator\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBinputChanged\fP (\fBSoField\fP *which)"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetInputDataPtr\fP (void)"
+.br
+.ti -1c
+.RI "static const \fBSoEngineOutputData\fP ** \fBgetOutputDataPtr\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+General purpose calculator for floats and 3D float vectors\&.
+.PP
+The \fBSoCalculator\fP uses the values from the input fields (which are either single floating point values or vectors) as variables in the free-form engine expressions and places the results on the output fields\&. 
+
+The engine has sixteen input fields; eight scalar inputs (\fIa\fP, \fIb\fP, \fIc\fP, \fId\fP, \fIe\fP, \fIf\fP \fIg\fP, and \fIh\fP), and eight vector inputs (\fIA\fP, \fIB\fP, \fIC\fP, \fID\fP, \fIE\fP, \fIF\fP, \fIG\fP, and \fIH\fP)\&.
+.PP
+There are eight output fields; four scalar outputs (\fIoa\fP, \fIob\fP, \fIoc\fP, and \fIod\fP), and four vector outputs (\fIoA\fP, \fIoB\fP, \fIoC\fP, and \fIoD\fP)\&.
+.PP
+The expression syntax is quite similar to C/C++, with a very limited set of keywords and functions\&.
+.PP
+An example:
+.PP
+.PP
+.nf
+oa = a * (0\&.5 + b) / c
+.fi
+.PP
+.PP
+Will multiply the value in \fIa\fP with the value in \fIb\fP plus 0\&.5, divide that result with \fIc\fP, and place the result in \fIoa\fP\&. Since this is an engine, the expression will only be evaluated when someone attempts to read the value in \fIoa\fP, not every time an input in changed\&.
+.PP
+All inputs are multi-fields, and if there are several values in an input, the expression will be evaluated once for every input field value, and the output will create as many values as there are input field values\&.
+.PP
+If there is more than one input field, and the input fields do not have the same number of values, the engine will create as many output values as the input field with the biggest number of values\&. When the index get out of bounds for some other input field, the last field value will be used\&.
+.PP
+Vector expressions are similar to scalar expression\&. An example:
+.PP
+.PP
+.nf
+oA = A + vec3f(1\&.0, 0\&.0, 0\&.0) * B
+.fi
+.PP
+.PP
+Will take the vector in \fIA\fP, add the value in \fIB\fP multiplied with (1,0,0), and place the result in \fIoA\fP\&.
+.PP
+In addition to regular arithmetics, the \fBSoCalculator\fP syntax also includes some functions\&.
+.PP
+Scalar functions:
+.PP
+.PD 0
+.IP "\(bu" 2
+cos(x) - cosine function (x in radians) 
+.IP "\(bu" 2
+sin(x) - sinus function 
+.IP "\(bu" 2
+tan(x) - tangent function 
+.IP "\(bu" 2
+acos(x) - arc cosine function 
+.IP "\(bu" 2
+asin(x) - arc sinus function 
+.IP "\(bu" 2
+atan(x) - arc tangent function 
+.IP "\(bu" 2
+atan2(y, x) - arc tangent function of two variables (y, x)\&. 
+.IP "\(bu" 2
+cosh(x) - hyperbolic cosine function 
+.IP "\(bu" 2
+sinh(x) - hyperbolic sinus function 
+.IP "\(bu" 2
+tanh(x) - hyperbolic tangent function 
+.IP "\(bu" 2
+sqrt(x) - square root function 
+.IP "\(bu" 2
+pow(x,y) - x raised to the power of y 
+.IP "\(bu" 2
+exp(x) - e to the power of x 
+.IP "\(bu" 2
+log(x) - natural logarithm of x 
+.IP "\(bu" 2
+log10() - base-10 logarithm of x 
+.IP "\(bu" 2
+ceil(x) - rounds x upwards to the nearest integer 
+.IP "\(bu" 2
+floor(x) - rounds x downwards to the nearest integer 
+.IP "\(bu" 2
+fabs(x) - absolute value 
+.IP "\(bu" 2
+fmod(x, y) - remainder of dividing x by y 
+.IP "\(bu" 2
+rand(x) - pseudo-random value between 0 and 1
+.PP
+Vector functions:
+.PP
+.PD 0
+.IP "\(bu" 2
+cross(x, y) - cross product of x and y 
+.IP "\(bu" 2
+dot(x,y) - dot product of x and y (returns scalar value) 
+.IP "\(bu" 2
+length(x) - length of x (returns scalar value) 
+.IP "\(bu" 2
+normalize(x) - returns normalized version of x 
+.IP "\(bu" 2
+x[y] - access components in x (y should be a scalar value in the range [0,2])
+.PP
+There are also some named constants that can be used:
+.PP
+.PD 0
+.IP "\(bu" 2
+MAXFLOAT 
+.IP "\(bu" 2
+MINFLOAT 
+.IP "\(bu" 2
+M_E 
+.IP "\(bu" 2
+M_LOG2E 
+.IP "\(bu" 2
+M_LOG10E 
+.IP "\(bu" 2
+M_LN2 
+.IP "\(bu" 2
+M_PI 
+.IP "\(bu" 2
+M_SQRT2 - sqrt(2) 
+.IP "\(bu" 2
+M_SQRT1_2 - sqrt(1/2)
+.PP
+The only control flow available is the \fI\fP? operator\&. An example:
+.PP
+.PP
+.nf
+oa = (a > b) ? (a * 0\&.5) : (b * c)
+.fi
+.PP
+.PP
+(The parentheses are not necessary, they're there just to make the example easier to read)
+.PP
+In addition to the standard comparators (\fI<\fP, \fI>\fP, \fI<=\fP, \fI>=\fP, \fI==\fP, \fI!=\fP), you can also use && (AND) and || (OR) to combine expression, and the unary ! (NOT) operator\&.
+.PP
+One final thing worth mentioning is the temporary variables\&. There exists sixteen temporary variables that can be used in expressions\&. \fIta\fP, \fItb\fP, \fItc\fP, \fItd\fP, \fIte\fP, \fItf\fP, \fItg\fP, and \fIth\fP are scalar variables, and \fItA\fP, \fItB\fP, \fItC\fP, \fItD\fP, \fItE\fP, \fItF\fP, \fItG\fP, and \fItH\fP are vector variables\&. They are usually used when you have more than one expression that should be evaluated in order\&.
+.PP
+An example with three expressions:
+.PP
+.PP
+.nf
+ta = a * b; tb = c + d; tc = e - f
+tA = vec3f(ta, tb, tc) + A
+oA = tA * B
+.fi
+.PP
+.PP
+The example just shows how temporary variables can be used to make your expressions easier to read\&. Please note that it's possible to have several statements in one expression\&. You just separate them with semicolons\&.
+.PP
+Here is a simple example of how an \fBSoCalculator\fP engine may be used in an \&.iv file:
+.PP
+.PP
+.nf
+DEF mycamera PerspectiveCamera {
+  orientation 1 0 0 1\&.57
+}
+
+DEF headlight DirectionalLight {
+  intensity 0\&.8
+  direction 0 0 1
+}
+
+Separator {
+  # Render a cube not affected by lighting
+  LightModel { model BASE_COLOR }
+  BaseColor { rgb = Calculator {
+                      a = USE headlight \&. intensity
+                      expression [ "oA = vec3f( a, a, a)" ]
+                    } \&. oA }
+  Cube {}
+}
+.fi
+.PP
+.PP
+In the example, the color of the Cube is a function of the intensity of the DirectionalLight, even though the Cube is rendered without lighting because of the BASE_COLOR LightModel\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoCalculator::SoCalculator (void)"
+Constructor\&. 
+.SS "SoCalculator::~SoCalculator (void)\fC [protected]\fP, \fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoCalculator::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Implements \fBSoBase\fP\&.
+.SS "const \fBSoFieldData\fP * SoCalculator::getFieldData (void) const\fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoFieldContainer\fP\&.
+.SS "const \fBSoEngineOutputData\fP * SoCalculator::getOutputData (void) const\fC [virtual]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.PP
+Implements \fBSoEngine\fP\&.
+.SS "void SoCalculator::inputChanged (\fBSoField\fP * which)\fC [protected]\fP, \fC [virtual]\fP"
+Called when an input is changed\&. The default method does nothing, but subclasses may override this method to do The Right Thing when a specific field is changed\&. 
+.PP
+Reimplemented from \fBSoEngine\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSoMFFloat\fP SoCalculator::a"
+Input floating point value for the expressions\&. 
+.SS "\fBSoMFFloat\fP SoCalculator::b"
+Input floating point value for the expressions\&. 
+.SS "\fBSoMFFloat\fP SoCalculator::c"
+Input floating point value for the expressions\&. 
+.SS "\fBSoMFFloat\fP SoCalculator::d"
+Input floating point value for the expressions\&. 
+.SS "\fBSoMFFloat\fP SoCalculator::e"
+Input floating point value for the expressions\&. 
+.SS "\fBSoMFFloat\fP SoCalculator::f"
+Input floating point value for the expressions\&. 
+.SS "\fBSoMFFloat\fP SoCalculator::g"
+Input floating point value for the expressions\&. 
+.SS "\fBSoMFFloat\fP SoCalculator::h"
+Input floating point value for the expressions\&. 
+.SS "\fBSoMFVec3f\fP SoCalculator::A"
+Input vector with three floating point values for the expressions\&. 
+.SS "\fBSoMFVec3f\fP SoCalculator::B"
+Input vector with three floating point values for the expressions\&. 
+.SS "\fBSoMFVec3f\fP SoCalculator::C"
+Input vector with three floating point values for the expressions\&. 
+.SS "\fBSoMFVec3f\fP SoCalculator::D"
+Input vector with three floating point values for the expressions\&. 
+.SS "\fBSoMFVec3f\fP SoCalculator::E"
+Input vector with three floating point values for the expressions\&. 
+.SS "\fBSoMFVec3f\fP SoCalculator::F"
+Input vector with three floating point values for the expressions\&. 
+.SS "\fBSoMFVec3f\fP SoCalculator::G"
+Input vector with three floating point values for the expressions\&. 
+.SS "\fBSoMFVec3f\fP SoCalculator::H"
+Input vector with three floating point values for the expressions\&. 
+.SS "\fBSoMFString\fP SoCalculator::expression"
+Mathematical expressions for the calculator\&. 
+.SS "\fBSoEngineOutput\fP SoCalculator::oa"
+(\fBSoMFFloat\fP) Output value with result from the calculations\&. 
+.SS "\fBSoEngineOutput\fP SoCalculator::ob"
+(\fBSoMFFloat\fP) Output value with result from the calculations\&. 
+.SS "\fBSoEngineOutput\fP SoCalculator::oc"
+(\fBSoMFFloat\fP) Output value with result from the calculations\&. 
+.SS "\fBSoEngineOutput\fP SoCalculator::od"
+(\fBSoMFFloat\fP) Output value with result from the calculations\&. 
+.SS "\fBSoEngineOutput\fP SoCalculator::oA"
+(\fBSoMFVec3f\fP) Output value with result from the calculations\&. 
+.SS "\fBSoEngineOutput\fP SoCalculator::oB"
+(\fBSoMFVec3f\fP) Output value with result from the calculations\&. 
+.SS "\fBSoEngineOutput\fP SoCalculator::oC"
+(\fBSoMFVec3f\fP) Output value with result from the calculations\&. 
+.SS "\fBSoEngineOutput\fP SoCalculator::oD"
+(\fBSoMFVec3f\fP) Output value with result from the calculations\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

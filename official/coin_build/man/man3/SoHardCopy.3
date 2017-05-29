@@ -1,0 +1,39 @@
+.TH "SoHardCopy" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoHardCopy \- The \fBSoHardCopy\fP class is a static class for initializing the hardcopy support\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/annex/HardCopy/SoHardCopy\&.h>\fP
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static void \fBinit\fP (void)"
+.br
+.ti -1c
+.RI "static const char * \fBgetProductName\fP (void)"
+.br
+.ti -1c
+.RI "static const char * \fBgetVersion\fP (void)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBSoHardCopy\fP class is a static class for initializing the hardcopy support\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void SoHardCopy::init (void)\fC [static]\fP"
+Initialization of the hardcopy support happens automatically from \fBSoDB::init()\fP, so the application programmer should normally not have to worry about it\&. 
+.SS "const char * SoHardCopy::getProductName (void)\fC [static]\fP"
+Returns name of the hardcopy extension\&. 
+.SS "const char * SoHardCopy::getVersion (void)\fC [static]\fP"
+Version number will always match Coin version number\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

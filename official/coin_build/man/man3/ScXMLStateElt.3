@@ -1,0 +1,270 @@
+.TH "ScXMLStateElt" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ScXMLStateElt \- implements the <state> SCXML element\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/scxml/ScXMLStateElt\&.h>\fP
+.PP
+Inherits \fBScXMLAbstractStateElt\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "\fBScXMLStateElt\fP (void)"
+.br
+.ti -1c
+.RI "virtual \fB~ScXMLStateElt\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBsetSrcAttribute\fP (const char *src)"
+.br
+.ti -1c
+.RI "const char * \fBgetSrcAttribute\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBsetInitialAttribute\fP (const char *initial)"
+.br
+.ti -1c
+.RI "const char * \fBgetInitialAttribute\fP (void) const"
+.br
+.ti -1c
+.RI "virtual SbBool \fBhandleXMLAttributes\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBcopyContents\fP (const \fBScXMLElt\fP *rhs)"
+.br
+.ti -1c
+.RI "virtual const \fBScXMLElt\fP * \fBsearch\fP (const char *attrname, const char *attrvalue) const"
+.br
+.ti -1c
+.RI "virtual void \fBsetOnEntry\fP (\fBScXMLOnEntryElt\fP *onentry)"
+.br
+.ti -1c
+.RI "virtual \fBScXMLOnEntryElt\fP * \fBgetOnEntry\fP (void) const"
+.br
+.ti -1c
+.RI "virtual void \fBsetOnExit\fP (\fBScXMLOnExitElt\fP *onexit)"
+.br
+.ti -1c
+.RI "virtual \fBScXMLOnExitElt\fP * \fBgetOnExit\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fBint\fP \fBgetNumTransitions\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fBScXMLTransitionElt\fP * \fBgetTransition\fP (\fBint\fP idx) const"
+.br
+.ti -1c
+.RI "virtual void \fBaddTransition\fP (\fBScXMLTransitionElt\fP *transition)"
+.br
+.ti -1c
+.RI "virtual void \fBremoveTransition\fP (\fBScXMLTransitionElt\fP *transition)"
+.br
+.ti -1c
+.RI "virtual void \fBclearAllTransitions\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBsetInitial\fP (\fBScXMLInitialElt\fP *initial)"
+.br
+.ti -1c
+.RI "virtual \fBScXMLInitialElt\fP * \fBgetInitial\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fBint\fP \fBgetNumStates\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fBScXMLStateElt\fP * \fBgetState\fP (\fBint\fP idx) const"
+.br
+.ti -1c
+.RI "virtual void \fBaddState\fP (\fBScXMLStateElt\fP *state)"
+.br
+.ti -1c
+.RI "virtual void \fBremoveState\fP (\fBScXMLStateElt\fP *state)"
+.br
+.ti -1c
+.RI "virtual void \fBclearAllStates\fP (void)"
+.br
+.ti -1c
+.RI "virtual \fBint\fP \fBgetNumParallels\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fBScXMLParallelElt\fP * \fBgetParallel\fP (\fBint\fP idx) const"
+.br
+.ti -1c
+.RI "virtual void \fBaddParallel\fP (\fBScXMLParallelElt\fP *state)"
+.br
+.ti -1c
+.RI "virtual void \fBremoveParallel\fP (\fBScXMLParallelElt\fP *state)"
+.br
+.ti -1c
+.RI "virtual void \fBclearAllParallels\fP (void)"
+.br
+.ti -1c
+.RI "virtual \fBint\fP \fBgetNumFinals\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fBScXMLFinalElt\fP * \fBgetFinal\fP (\fBint\fP idx) const"
+.br
+.ti -1c
+.RI "virtual void \fBaddFinal\fP (\fBScXMLFinalElt\fP *state)"
+.br
+.ti -1c
+.RI "virtual void \fBremoveFinal\fP (\fBScXMLFinalElt\fP *state)"
+.br
+.ti -1c
+.RI "virtual void \fBclearAllFinals\fP (void)"
+.br
+.ti -1c
+.RI "virtual \fBint\fP \fBgetNumHistories\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fBScXMLHistoryElt\fP * \fBgetHistory\fP (\fBint\fP idx) const"
+.br
+.ti -1c
+.RI "virtual void \fBaddHistory\fP (\fBScXMLHistoryElt\fP *history)"
+.br
+.ti -1c
+.RI "virtual void \fBremoveHistory\fP (\fBScXMLHistoryElt\fP *history)"
+.br
+.ti -1c
+.RI "virtual void \fBclearAllHistories\fP (void)"
+.br
+.ti -1c
+.RI "virtual \fBint\fP \fBgetNumAnchors\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fBScXMLAnchorElt\fP * \fBgetAnchor\fP (\fBint\fP idx) const"
+.br
+.ti -1c
+.RI "virtual void \fBaddAnchor\fP (\fBScXMLAnchorElt\fP *anchor)"
+.br
+.ti -1c
+.RI "virtual void \fBremoveAnchor\fP (\fBScXMLAnchorElt\fP *anchor)"
+.br
+.ti -1c
+.RI "virtual void \fBclearAllAnchors\fP (void)"
+.br
+.ti -1c
+.RI "virtual void \fBsetDataModel\fP (\fBScXMLDataModelElt\fP *datamodel)"
+.br
+.ti -1c
+.RI "virtual \fBScXMLDataModelElt\fP * \fBgetDataModel\fP (void) const"
+.br
+.ti -1c
+.RI "SbBool \fBisAtomicState\fP (void) const"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBScXMLEltReader\fP * \fBgetElementReader\fP (void)"
+.br
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void * \fBcreateInstance\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBcleanClass\fP (void)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "char * \fBsrc\fP"
+.br
+.ti -1c
+.RI "char * \fBinitial\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+implements the <state> SCXML element\&. 
+
+
+.PP
+\fBSince:\fP
+.RS 4
+Coin 3\&.0 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "ScXMLStateElt::ScXMLStateElt (void)"
+Constructor\&. 
+.SS "ScXMLStateElt::~ScXMLStateElt (void)\fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP ScXMLStateElt::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoBase::getTypeId() const\fP 
+.RE
+.PP
+
+.PP
+Implements \fBScXMLAbstractStateElt\fP\&.
+.SS "void ScXMLStateElt::setSrcAttribute (const char * srcstr)\fC [virtual]\fP"
+Sets the XML 'src' attribute for the SCXML <state> element\&. To get the attribute value intepreted and taken action upon, you will also need to [FIXME] 
+.SS "const char * ScXMLStateElt::getSrcAttribute (void) const\fC [inline]\fP"
+Returns the XML 'src' attribute for this SCXML <state> element\&. 
+.SS "void ScXMLStateElt::setInitialAttribute (const char * initialstr)\fC [virtual]\fP"
+Sets the XML 'initial' attribute for the SCXML <state> element\&. If this value is set, the state should not contain an <initial> element, and vice versa\&.
+.PP
+When set, this value must be the value of a descendant an identifier for a child state\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBScXMLInitialElt\fP 
+.RE
+.PP
+
+.SS "const char * ScXMLStateElt::getInitialAttribute (void) const\fC [inline]\fP"
+Returns the XML 'initial' attribute for the SCXML <state> element\&. 
+.SS "SbBool ScXMLStateElt::handleXMLAttributes (void)\fC [virtual]\fP"
+This method is called when the file reader has set all the XML attributes on the object, and wants the object to handle them and report if the values were ok or if a read error should be produced\&.
+.PP
+\fBReturns:\fP
+.RS 4
+TRUE if the attributes are ok, and FALSE on error\&.
+.RE
+.PP
+This base class implementation does nothing and just returns TRUE\&. 
+.PP
+Reimplemented from \fBScXMLAbstractStateElt\fP\&.
+.SS "const \fBScXMLElt\fP * ScXMLStateElt::search (const char * attrname, const char * attrvalue) const\fC [virtual]\fP"
+This method searches the SCXML structure for an element with the given attributevalue for the given attribute\&.
+.PP
+Returns NULL if nothing was found\&.
+.PP
+This function needs to be reimplemented to traverse child elements\&. 
+.PP
+Reimplemented from \fBScXMLAbstractStateElt\fP\&.
+.SS "SbBool ScXMLStateElt::isAtomicState (void) const"
+Returns TRUE if this is an 'atomic state', which means that it has no sub-states but contains executable content\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

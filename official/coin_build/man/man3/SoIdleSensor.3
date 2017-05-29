@@ -1,0 +1,62 @@
+.TH "SoIdleSensor" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoIdleSensor \- The \fBSoIdleSensor\fP class is a sensor which will trigger as soon as the application is idle\&.
+.PP
+An \fBSoIdleSensor\fP differs from an \fBSoOneShotSensor\fP in that it will not trigger if the delay queue processing is occurring due to the delay queue timeout, but \fIonly\fP when the application is idle\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/sensors/SoIdleSensor\&.h>\fP
+.PP
+Inherits \fBSoDelayQueueSensor\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSoIdleSensor\fP (void)"
+.br
+.ti -1c
+.RI "\fBSoIdleSensor\fP (\fBSoSensorCB\fP *\fBfunc\fP, void *data)"
+.br
+.ti -1c
+.RI "virtual \fB~SoIdleSensor\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoIdleSensor\fP class is a sensor which will trigger as soon as the application is idle\&.
+.PP
+An \fBSoIdleSensor\fP differs from an \fBSoOneShotSensor\fP in that it will not trigger if the delay queue processing is occurring due to the delay queue timeout, but \fIonly\fP when the application is idle\&. 
+
+
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoDB::setDelaySensorTimeout()\fP 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoIdleSensor::SoIdleSensor (void)"
+Default constructor\&. 
+.SS "SoIdleSensor::SoIdleSensor (\fBSoSensorCB\fP * func, void * data)"
+Constructor taking as parameters the sensor callback function and the userdata which will be passed the callback\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetFunction()\fP, \fBsetData()\fP 
+.RE
+.PP
+
+.SS "SoIdleSensor::~SoIdleSensor (void)\fC [virtual]\fP"
+Destructor\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

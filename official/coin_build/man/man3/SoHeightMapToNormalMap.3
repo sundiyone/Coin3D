@@ -1,0 +1,172 @@
+.TH "SoHeightMapToNormalMap" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoHeightMapToNormalMap \- Engine for computing a normal map from a height map\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/engines/SoHeightMapToNormalMap\&.h>\fP
+.PP
+Inherits \fBSoTexture2Convert\fP\&.
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBNormalMapFormat\fP { \fBINT8\fP }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual const \fBSoEngineOutputData\fP * \fBgetOutputData\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoHeightMapToNormalMap\fP (void)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void * \fBcreateInstance\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBconvert\fP (const unsigned char *srcptr, \fBSbVec2s\fP size, \fBint\fP nc, \fBSbImage\fP &dst_out)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFEnum\fP \fBformat\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual void \fBinputChanged\fP (\fBSoField\fP *which)"
+.br
+.ti -1c
+.RI "virtual void \fBevaluate\fP (void)"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetInputDataPtr\fP (void)"
+.br
+.ti -1c
+.RI "static const \fBSoEngineOutputData\fP ** \fBgetOutputDataPtr\fP (void)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+Engine for computing a normal map from a height map\&. 
+
+This engine will create a normal map texture from a height map texture\&. You can use it in an Inventor file like this:
+.PP
+.PP
+.nf
+Texture2 {
+  image = HeightMapToNormalMap {
+    sourceImage = Texture2 { filename "HeightMap\&.jpg" } \&. image
+  } \&. image
+}
+.fi
+.PP
+.PP
+Be aware that the field connections will remain active, so both Texture2 nodes and the HeightMapToNormalMap engine will be kept resident in memory (unless you intervene manually and detach the engine) even though only the 'outer' Texture2 node is needed\&. This can give quite a big memory use overhead\&.
+.PP
+Be aware that this class is an extension for Coin, and it is not available in the original SGI Open Inventor v2\&.1 API\&. 
+.PP
+\fBSince:\fP
+.RS 4
+Coin 3\&.0 
+.RE
+.PP
+
+.SH "Member Enumeration Documentation"
+.PP 
+.SS "enum \fBSoHeightMapToNormalMap::NormalMapFormat\fP"
+Enumeration of available normal map formats\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fIINT8 \fP\fP
+Encode the normals as a 3 component byte texture\&. This is the only option for now, as long as float textures are not conveniently supported in Coin\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoHeightMapToNormalMap::SoHeightMapToNormalMap (void)"
+Constructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoHeightMapToNormalMap::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Reimplemented from \fBSoTexture2Convert\fP\&.
+.SS "const \fBSoFieldData\fP * SoHeightMapToNormalMap::getFieldData (void) const\fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoTexture2Convert\fP\&.
+.SS "const \fBSoEngineOutputData\fP * SoHeightMapToNormalMap::getOutputData (void) const\fC [virtual]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.PP
+Reimplemented from \fBSoTexture2Convert\fP\&.
+.SS "void SoHeightMapToNormalMap::initClass (void)\fC [static]\fP"
+Class initializer\&. 
+.SS "void SoHeightMapToNormalMap::convert (const unsigned char * srcptr, \fBSbVec2s\fP size, \fBint\fP nc, \fBSbImage\fP & dst_out)\fC [static]\fP"
+Static function for computing a normal map from a height map\&. This function can be used directly without any engine instantiation\&. 
+.SS "void SoHeightMapToNormalMap::inputChanged (\fBSoField\fP * which)\fC [protected]\fP, \fC [virtual]\fP"
+Called when an input is changed\&. The default method does nothing, but subclasses may override this method to do The Right Thing when a specific field is changed\&. 
+.PP
+Reimplemented from \fBSoEngine\fP\&.
+.SS "void SoHeightMapToNormalMap::evaluate (void)\fC [protected]\fP, \fC [virtual]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.PP
+Implements \fBSoEngine\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSoMFEnum\fP SoHeightMapToNormalMap::format"
+This setting decides what kind of normal map is generated\&. For now, only the INT8 format is available, and it is the default value\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

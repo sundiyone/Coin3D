@@ -1,0 +1,327 @@
+.TH "SoVRMLGroup" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoVRMLGroup \- The \fBSoVRMLGroup\fP class is used for grouping VRML nodes\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/VRMLnodes/SoVRMLGroup\&.h>\fP
+.PP
+Inherits \fBSoVRMLParent\fP\&.
+.PP
+Inherited by \fBSoVRMLCollision\fP, and \fBSoVRMLTransform\fP\&.
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBCacheEnabled\fP { \fBOFF\fP, \fBON\fP, \fBAUTO\fP }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "\fBSoVRMLGroup\fP (void)"
+.br
+.ti -1c
+.RI "\fBSoVRMLGroup\fP (\fBint\fP numChildren)"
+.br
+.ti -1c
+.RI "virtual void \fBdoAction\fP (\fBSoAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBcallback\fP (\fBSoCallbackAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBGLRender\fP (\fBSoGLRenderAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBgetBoundingBox\fP (\fBSoGetBoundingBoxAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBgetMatrix\fP (\fBSoGetMatrixAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBrayPick\fP (\fBSoRayPickAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBsearch\fP (\fBSoSearchAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBwrite\fP (\fBSoWriteAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBgetPrimitiveCount\fP (\fBSoGetPrimitiveCountAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBaudioRender\fP (\fBSoAudioRenderAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBGLRenderBelowPath\fP (\fBSoGLRenderAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBGLRenderInPath\fP (\fBSoGLRenderAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBGLRenderOffPath\fP (\fBSoGLRenderAction\fP *action)"
+.br
+.ti -1c
+.RI "virtual void \fBnotify\fP (\fBSoNotList\fP *list)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBsetNumRenderCaches\fP (\fBint\fP num)"
+.br
+.ti -1c
+.RI "static \fBint\fP \fBgetNumRenderCaches\fP (void)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFEnum\fP \fBrenderCaching\fP"
+.br
+.ti -1c
+.RI "\fBSoSFEnum\fP \fBboundingBoxCaching\fP"
+.br
+.ti -1c
+.RI "\fBSoSFEnum\fP \fBrenderCulling\fP"
+.br
+.ti -1c
+.RI "\fBSoSFEnum\fP \fBpickCulling\fP"
+.br
+.ti -1c
+.RI "\fBSoSFVec3f\fP \fBbboxCenter\fP"
+.br
+.ti -1c
+.RI "\fBSoSFVec3f\fP \fBbboxSize\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fB~SoVRMLGroup\fP ()"
+.br
+.ti -1c
+.RI "virtual SbBool \fBcullTest\fP (\fBSoState\fP *state)"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.in -1c
+.SS "Static Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "static \fBint\fP \fBnumRenderCaches\fP = 2"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoVRMLGroup\fP class is used for grouping VRML nodes\&.
+.PP
+\fBThe detailed class documentation is taken verbatim from the VRML97 standard (ISO/IEC 14772-1:1997)\&. It is copyright The Web3D Consortium, and is used by permission of the Consortium:\fP 
+
+
+.PP
+.nf
+Group {
+  eventIn      MFNode  addChildren
+  eventIn      MFNode  removeChildren
+  exposedField MFNode  children      []
+  field        SFVec3f bboxCenter    0 0 0     # (-inf,inf)
+  field        SFVec3f bboxSize      -1 -1 -1  # (0,inf) or -1,-1,-1
+}
+
+.fi
+.PP
+.PP
+A Group node contains children nodes without introducing a new transformation\&. It is equivalent to a Transform node containing an identity transform\&. More details on the children, addChildren, and removeChildren fields and eventIns can be found in 4\&.6\&.5, Grouping and children nodes (http://www.web3d.org/x3d/specifications/vrml/ISO-IEC-14772-VRML97/part1/concepts.html#4.6.5)\&.
+.PP
+The bboxCenter and bboxSize fields specify a bounding box that encloses the Group node's children\&. This is a hint that may be used for optimization purposes\&. The results are undefined if the specified bounding box is smaller than the actual bounding box of the children at any time\&. A default bboxSize value, (-1, -1, -1), implies that the bounding box is not specified and, if needed, is calculated by the browser\&. A description of the bboxCenter and bboxSize fields is contained in 4\&.6\&.4, Bounding boxes (http://www.web3d.org/x3d/specifications/vrml/ISO-IEC-14772-VRML97/part1/concepts.html#4.6.4)\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoVRMLGroup::SoVRMLGroup (void)"
+Constructor\&. 
+.SS "SoVRMLGroup::SoVRMLGroup (\fBint\fP numchildren)"
+Constructor\&. \fInumchildren\fP is the expected number of children\&. 
+.SS "SoVRMLGroup::~SoVRMLGroup ()\fC [protected]\fP, \fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoVRMLGroup::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Reimplemented from \fBSoVRMLParent\fP\&.
+.PP
+Reimplemented in \fBSoVRMLCollision\fP, and \fBSoVRMLTransform\fP\&.
+.SS "const \fBSoFieldData\fP * SoVRMLGroup::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoVRMLParent\fP\&.
+.PP
+Reimplemented in \fBSoVRMLCollision\fP, and \fBSoVRMLTransform\fP\&.
+.SS "void SoVRMLGroup::setNumRenderCaches (\fBint\fP num)\fC [static]\fP"
+Set the maximum number of render caches per group node\&. 
+.SS "\fBint\fP SoVRMLGroup::getNumRenderCaches (void)\fC [static]\fP"
+Returns the maximum number of render caches per group node\&. 
+.SS "void SoVRMLGroup::doAction (\fBSoAction\fP * action)\fC [virtual]\fP"
+This function performs the typical operation of a node for any action\&. 
+.PP
+Reimplemented from \fBSoVRMLParent\fP\&.
+.PP
+Reimplemented in \fBSoVRMLTransform\fP\&.
+.SS "void SoVRMLGroup::callback (\fBSoCallbackAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoCallbackAction\fP\&.
+.PP
+Simply updates the state according to how the node behaves for the render action, so the application programmer can use the \fBSoCallbackAction\fP for extracting information about the scene graph\&. 
+.PP
+Reimplemented from \fBSoGroup\fP\&.
+.PP
+Reimplemented in \fBSoVRMLTransform\fP\&.
+.SS "void SoVRMLGroup::GLRender (\fBSoGLRenderAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGLRenderAction\fP\&.
+.PP
+This is called during rendering traversals\&. Nodes influencing the rendering state in any way or who wants to throw geometry primitives at OpenGL overrides this method\&. 
+.PP
+Reimplemented from \fBSoGroup\fP\&.
+.PP
+Reimplemented in \fBSoVRMLCollision\fP\&.
+.SS "void SoVRMLGroup::getBoundingBox (\fBSoGetBoundingBoxAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGetBoundingBoxAction\fP\&.
+.PP
+Calculates bounding box and center coordinates for node and modifies the values of the \fIaction\fP to encompass the bounding box for this node and to shift the center point for the scene more towards the one for this node\&.
+.PP
+Nodes influencing how geometry nodes calculates their bounding box also overrides this method to change the relevant state variables\&. 
+.PP
+Reimplemented from \fBSoGroup\fP\&.
+.PP
+Reimplemented in \fBSoVRMLTransform\fP\&.
+.SS "void SoVRMLGroup::getMatrix (\fBSoGetMatrixAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoGetMatrixAction\fP\&.
+.PP
+Updates \fIaction\fP by accumulating with the transformation matrix of this node (if any)\&. 
+.PP
+Reimplemented from \fBSoGroup\fP\&.
+.PP
+Reimplemented in \fBSoVRMLTransform\fP\&.
+.SS "void SoVRMLGroup::rayPick (\fBSoRayPickAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoRayPickAction\fP\&.
+.PP
+Checks the ray specification of the \fIaction\fP and tests for intersection with the data of the node\&.
+.PP
+Nodes influencing relevant state variables for how picking is done also overrides this method\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.PP
+Reimplemented in \fBSoVRMLTransform\fP\&.
+.SS "void SoVRMLGroup::search (\fBSoSearchAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoSearchAction\fP\&.
+.PP
+Compares the search criteria from the \fIaction\fP to see if this node is a match\&. Searching is done by matching up \fIall\fP criteria set up in the \fBSoSearchAction\fP -- if \fIany\fP of the requested criteria is a miss, the search is not deemed successful for the node\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoSearchAction\fP 
+.RE
+.PP
+
+.PP
+Reimplemented from \fBSoVRMLParent\fP\&.
+.SS "void SoVRMLGroup::write (\fBSoWriteAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoWriteAction\fP\&.
+.PP
+Writes out a node object, and any connected nodes, engines etc, if necessary\&. 
+.PP
+Reimplemented from \fBSoVRMLParent\fP\&.
+.SS "void SoVRMLGroup::getPrimitiveCount (\fBSoGetPrimitiveCountAction\fP * action)\fC [virtual]\fP"
+Action method for the \fBSoGetPrimitiveCountAction\fP\&.
+.PP
+Calculates the number of triangle, line segment and point primitives for the node and adds these to the counters of the \fIaction\fP\&.
+.PP
+Nodes influencing how geometry nodes calculates their primitive count also overrides this method to change the relevant state variables\&. 
+.PP
+Reimplemented from \fBSoVRMLParent\fP\&.
+.PP
+Reimplemented in \fBSoVRMLTransform\fP\&.
+.SS "void SoVRMLGroup::audioRender (\fBSoAudioRenderAction\fP * action)\fC [virtual]\fP"
+Action method for \fBSoAudioRenderAction\fP\&.
+.PP
+Does common processing for \fBSoAudioRenderAction\fP \fIaction\fP instances\&. 
+.PP
+Reimplemented from \fBSoGroup\fP\&.
+.PP
+Reimplemented in \fBSoVRMLTransform\fP\&.
+.SS "void SoVRMLGroup::GLRenderBelowPath (\fBSoGLRenderAction\fP * action)\fC [virtual]\fP"
+Implements the SoAction::BELOW_PATH traversal method for the rendering action\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.PP
+Reimplemented in \fBSoVRMLTransform\fP\&.
+.SS "void SoVRMLGroup::GLRenderInPath (\fBSoGLRenderAction\fP * action)\fC [virtual]\fP"
+Implements the SoAction::IN_PATH traversal method for the rendering action\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.PP
+Reimplemented in \fBSoVRMLTransform\fP\&.
+.SS "void SoVRMLGroup::GLRenderOffPath (\fBSoGLRenderAction\fP * action)\fC [virtual]\fP"
+Implements the SoAction::OFF_PATH traversal method for the rendering action\&. 
+.PP
+Reimplemented from \fBSoNode\fP\&.
+.SS "void SoVRMLGroup::notify (\fBSoNotList\fP * l)\fC [virtual]\fP"
+Notifies all auditors for this instance when changes are made\&. 
+.PP
+Reimplemented from \fBSoVRMLParent\fP\&.
+.PP
+Reimplemented in \fBSoVRMLTransform\fP, and \fBSoVRMLCollision\fP\&.
+.SS "SbBool SoVRMLGroup::cullTest (\fBSoState\fP * state)\fC [protected]\fP, \fC [virtual]\fP"
+Returns TRUE if children can be culled\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

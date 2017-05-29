@@ -1,0 +1,46 @@
+.TH "SoNodeKit" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoNodeKit \- The \fBSoNodeKit\fP class is used to initialize the nodekit classes\&.
+.PP
+The sole function of \fBSoNodeKit\fP is to be just a placeholder for the toplevel initialization code for all nodekit-related classes\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/nodekits/SoNodeKit\&.h>\fP
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static void \fBinit\fP (void)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The \fBSoNodeKit\fP class is used to initialize the nodekit classes\&.
+.PP
+The sole function of \fBSoNodeKit\fP is to be just a placeholder for the toplevel initialization code for all nodekit-related classes\&. 
+
+
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSoBaseKit\fP 
+.RE
+.PP
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void SoNodeKit::init (void)\fC [static]\fP"
+Initialize the nodekit system\&.
+.PP
+Note that this method is \fInot\fP called implicitly from \fBSoDB::init()\fP\&. As a matter of fact, this method calls \fBSoDB::init()\fP itself to make sure all the underlying classes for the nodekits classes have been initialized\&.
+.PP
+This method is also called from within \fBSoInteraction::init()\fP, as the interaction functionality in Coin depends on the nodekit classes\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

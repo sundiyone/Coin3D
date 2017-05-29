@@ -1,0 +1,92 @@
+.TH "SoFieldList" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoFieldList \- The \fBSoFieldList\fP class is a container for pointers to \fBSoField\fP objects\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/lists/SoFieldList\&.h>\fP
+.PP
+Inherits \fBSbPList\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSoFieldList\fP (void)"
+.br
+.ti -1c
+.RI "\fBSoFieldList\fP (const \fBint\fP sizehint)"
+.br
+.ti -1c
+.RI "\fBSoFieldList\fP (const \fBSoFieldList\fP &l)"
+.br
+.ti -1c
+.RI "void \fBappend\fP (\fBSoField\fP *field)"
+.br
+.ti -1c
+.RI "void \fBinsert\fP (\fBSoField\fP *field, const \fBint\fP insertbefore)"
+.br
+.ti -1c
+.RI "\fBSoField\fP * \fBoperator[]\fP (const \fBint\fP idx) const"
+.br
+.ti -1c
+.RI "void \fBset\fP (const \fBint\fP idx, \fBSoField\fP *field)"
+.br
+.ti -1c
+.RI "\fBSoField\fP * \fBget\fP (const \fBint\fP idx) const"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoFieldList\fP class is a container for pointers to \fBSoField\fP objects\&. 
+
+
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSbList\fP 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoFieldList::SoFieldList (void)\fC [inline]\fP"
+Default constructor\&. 
+.SS "SoFieldList::SoFieldList (const \fBint\fP sizehint)\fC [inline]\fP"
+This constructor initializes the internal allocated size for the list to \fIsizehint\fP\&. Note that the list will still initially contain zero items\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSbList::SbList(const int)\fP 
+.RE
+.PP
+
+.SS "SoFieldList::SoFieldList (const \fBSoFieldList\fP & l)\fC [inline]\fP"
+Copy constructor\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBSbList::SbList(const SbList<Type> & l)\fP 
+.RE
+.PP
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void SoFieldList::append (\fBSoField\fP * field)\fC [inline]\fP"
+Overridden from parent to accept an \fBSoField\fP pointer argument\&. 
+.SS "void SoFieldList::insert (\fBSoField\fP * field, const \fBint\fP insertbefore)\fC [inline]\fP"
+Overridden from parent to accept an \fBSoField\fP pointer argument\&. 
+.SS "\fBSoField\fP * SoFieldList::operator[] (const \fBint\fP idx) const\fC [inline]\fP"
+Overridden from parent to return an \fBSoField\fP pointer\&. 
+.SS "void SoFieldList::set (const \fBint\fP index, \fBSoField\fP * item)\fC [inline]\fP"
+Overridden from parent to accept an \fBSoField\fP pointer argument\&. 
+.SS "\fBSoField\fP * SoFieldList::get (const \fBint\fP idx) const\fC [inline]\fP"
+Overridden from parent to return an \fBSoField\fP pointer\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

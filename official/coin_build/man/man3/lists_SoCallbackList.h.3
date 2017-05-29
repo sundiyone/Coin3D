@@ -1,0 +1,35 @@
+.TH "SoCallbackList.h" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoCallbackList.h
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <Inventor/lists/SbPList\&.h>\fP
+.br
+
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBSoCallbackList\fP"
+.br
+.RI "The \fBSoCallbackList\fP is a container for callback function pointers\&.
+.PP
+This list stores callback function pointers (along with user-specified extra data to pass to the callbacks) and provides a method for triggering the callback functions\&. "
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef void \fBSoCallbackListCB\fP(void *userdata, void *callbackdata)"
+.br
+.in -1c
+.SH "Typedef Documentation"
+.PP 
+.SS "void SoCallbackListCB"
+The type definition for callback functions\&. The \fIuserdata\fP is supplied alongside the function pointer when it is added to the list\&. When the callback is invoked the specific \fIuserdata\fP for that function is supplied, as well as the \fIcallbackdata\fP that is sent to all functions invoked\&. 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.

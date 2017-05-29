@@ -1,0 +1,37 @@
+.TH "coin300" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+coin300New Features in Coin v3\&.0\&.0 
+ \- This is a brief summary of the new features in Coin v3\&.0:
+.PP
+.IP "\(bu" 2
+New scene graph traversal profiling subsystem\&.
+.IP "\(bu" 2
+New node \fBSoVertexAttribute\fP which provides vertex attribute support for shaders\&.
+.IP "\(bu" 2
+New \fBSoDepthBuffer\fP node to control depth buffer settings\&.
+.IP "\(bu" 2
+New \fBSoShadowSpotLight\fP node in the shadow generation subsystem\&.
+.IP "\(bu" 2
+New \fBSoHeightMapToNormalMap\fP engine to convert depthmap images to three- component normal maps\&.
+.IP "\(bu" 2
+\fBSoPickStyle\fP has three new style settings, SHAPE_ON_TOP, BOUNDING_BOX_ON_TOP, and SHAPE_FRONTFACES\&.
+.IP "\(bu" 2
+Integrated XML parser used for various purposes\&.
+.IP "\(bu" 2
+GL feature control through a new GLDriverDatabase subsystem which is configurable through XML files\&.
+.IP "\(bu" 2
+Statechart XML engine, which has been used to implement examiner-mode viewer navigation at the Coin level (earlier this functionality was implemented over and over again in the various GUI libraries)\&.
+.IP "\(bu" 2
+Foreign file format support through \fBSoForeignFileKit\fP, with an example \fBSoSTLFileKit\fP implementation for STL import\&.
+.IP "\(bu" 2
+There is a testsuite framework based on Boost\&.Test
+.IP "\(bu" 2
+Translation draggers (1D/2D) are now fitted with new fields minTranslation and maxTranslation to add the ability of restricting the range the draggers can operate in\&. When this feature is used, and draggers are stored to file, it has consequences for the file format, and you lose the ability to load those files with older versions of Coin\&.
+.IP "\(bu" 2
+Slight change in antialiased rendering with \fBSoGLRenderAction::setNumPasses()\fP\&. Antialiased rendering is no longer shifted 1/2 pixel to the left compared to single-pass non-antialiased rendering\&.
+.IP "\(bu" 2
+Dynamic loading of support libraries for Mac OS X has been changed, which has consequences for which possibilities are available for bundling such libraries when creating your application bundles\&. 
+.PP
+

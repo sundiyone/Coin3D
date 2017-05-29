@@ -1,0 +1,573 @@
+.TH "SoSelection" 3 "Sun May 28 2017" "Version 4.0.0a" "Coin" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SoSelection \- The \fBSoSelection\fP class manages a list of selected nodes\&.
+.PP
+Inserting an \fBSoSelection\fP node in your scene graph enables you to let the user 'pick' with the left mousebutton to select/deselect objects below the \fBSoSelection\fP node\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Inventor/nodes/SoSelection\&.h>\fP
+.PP
+Inherits \fBSoSeparator\fP\&.
+.PP
+Inherited by \fBSoExtSelection\fP\&.
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBPolicy\fP { \fBSINGLE\fP, \fBTOGGLE\fP, \fBSHIFT\fP, \fBDISABLE\fP }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBSoType\fP \fBgetTypeId\fP (void) const"
+.br
+.RI "Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. "
+.ti -1c
+.RI "\fBSoSelection\fP (void)"
+.br
+.ti -1c
+.RI "\fBSoSelection\fP (const \fBint\fP nChildren)"
+.br
+.ti -1c
+.RI "void \fBselect\fP (const \fBSoPath\fP *path)"
+.br
+.ti -1c
+.RI "void \fBselect\fP (\fBSoNode\fP *node)"
+.br
+.ti -1c
+.RI "void \fBdeselect\fP (const \fBSoPath\fP *path)"
+.br
+.ti -1c
+.RI "void \fBdeselect\fP (const \fBint\fP which)"
+.br
+.ti -1c
+.RI "void \fBdeselect\fP (\fBSoNode\fP *node)"
+.br
+.ti -1c
+.RI "void \fBtoggle\fP (const \fBSoPath\fP *path)"
+.br
+.ti -1c
+.RI "void \fBtoggle\fP (\fBSoNode\fP *node)"
+.br
+.ti -1c
+.RI "SbBool \fBisSelected\fP (const \fBSoPath\fP *path) const"
+.br
+.ti -1c
+.RI "SbBool \fBisSelected\fP (\fBSoNode\fP *node) const"
+.br
+.ti -1c
+.RI "void \fBdeselectAll\fP (void)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBgetNumSelected\fP (void) const"
+.br
+.ti -1c
+.RI "const \fBSoPathList\fP * \fBgetList\fP (void) const"
+.br
+.ti -1c
+.RI "\fBSoPath\fP * \fBgetPath\fP (const \fBint\fP index) const"
+.br
+.ti -1c
+.RI "\fBSoPath\fP * \fBoperator[]\fP (const \fBint\fP i) const"
+.br
+.ti -1c
+.RI "void \fBaddSelectionCallback\fP (SoSelectionPathCB *f, void *userData=NULL)"
+.br
+.ti -1c
+.RI "void \fBremoveSelectionCallback\fP (SoSelectionPathCB *f, void *userData=NULL)"
+.br
+.ti -1c
+.RI "void \fBaddDeselectionCallback\fP (SoSelectionPathCB *f, void *userData=NULL)"
+.br
+.ti -1c
+.RI "void \fBremoveDeselectionCallback\fP (SoSelectionPathCB *f, void *userData=NULL)"
+.br
+.ti -1c
+.RI "void \fBaddStartCallback\fP (SoSelectionClassCB *f, void *userData=NULL)"
+.br
+.ti -1c
+.RI "void \fBremoveStartCallback\fP (SoSelectionClassCB *f, void *userData=NULL)"
+.br
+.ti -1c
+.RI "void \fBaddFinishCallback\fP (SoSelectionClassCB *f, void *userData=NULL)"
+.br
+.ti -1c
+.RI "void \fBremoveFinishCallback\fP (SoSelectionClassCB *f, void *userData=NULL)"
+.br
+.ti -1c
+.RI "void \fBsetPickFilterCallback\fP (\fBSoSelectionPickCB\fP *f, void *userData=NULL, const SbBool callOnlyIfSelectable=TRUE)"
+.br
+.ti -1c
+.RI "void \fBsetPickMatching\fP (const SbBool \fBpickMatching\fP)"
+.br
+.ti -1c
+.RI "SbBool \fBisPickMatching\fP (void) const"
+.br
+.ti -1c
+.RI "SbBool \fBgetPickMatching\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBaddChangeCallback\fP (SoSelectionClassCB *f, void *userData=NULL)"
+.br
+.ti -1c
+.RI "void \fBremoveChangeCallback\fP (SoSelectionClassCB *f, void *userData=NULL)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBSoType\fP \fBgetClassTypeId\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBinitClass\fP (void)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoSFEnum\fP \fBpolicy\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBSoFieldData\fP * \fBgetFieldData\fP (void) const"
+.br
+.ti -1c
+.RI "virtual \fB~SoSelection\fP ()"
+.br
+.ti -1c
+.RI "void \fBinvokeSelectionPolicy\fP (\fBSoPath\fP *path, SbBool shiftDown)"
+.br
+.ti -1c
+.RI "void \fBperformSingleSelection\fP (\fBSoPath\fP *path)"
+.br
+.ti -1c
+.RI "void \fBperformToggleSelection\fP (\fBSoPath\fP *path)"
+.br
+.ti -1c
+.RI "\fBSoPath\fP * \fBcopyFromThis\fP (const \fBSoPath\fP *path) const"
+.br
+.ti -1c
+.RI "void \fBaddPath\fP (\fBSoPath\fP *path)"
+.br
+.ti -1c
+.RI "void \fBremovePath\fP (const \fBint\fP which)"
+.br
+.ti -1c
+.RI "\fBint\fP \fBfindPath\fP (const \fBSoPath\fP *path) const"
+.br
+.ti -1c
+.RI "virtual void \fBhandleEvent\fP (\fBSoHandleEventAction\fP *action)"
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static const \fBSoFieldData\fP ** \fBgetFieldDataPtr\fP (void)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBSoPathList\fP \fBselectionList\fP"
+.br
+.ti -1c
+.RI "\fBSoCallbackList\fP * \fBselCBList\fP"
+.br
+.ti -1c
+.RI "\fBSoCallbackList\fP * \fBdeselCBList\fP"
+.br
+.ti -1c
+.RI "\fBSoCallbackList\fP * \fBstartCBList\fP"
+.br
+.ti -1c
+.RI "\fBSoCallbackList\fP * \fBfinishCBList\fP"
+.br
+.ti -1c
+.RI "\fBSoSelectionPickCB\fP * \fBpickCBFunc\fP"
+.br
+.ti -1c
+.RI "void * \fBpickCBData\fP"
+.br
+.ti -1c
+.RI "SbBool \fBcallPickCBOnlyIfSelectable\fP"
+.br
+.ti -1c
+.RI "\fBSoCallbackList\fP * \fBchangeCBList\fP"
+.br
+.ti -1c
+.RI "\fBSoPath\fP * \fBmouseDownPickPath\fP"
+.br
+.ti -1c
+.RI "SbBool \fBpickMatching\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Detailed Description"
+.PP 
+The \fBSoSelection\fP class manages a list of selected nodes\&.
+.PP
+Inserting an \fBSoSelection\fP node in your scene graph enables you to let the user 'pick' with the left mousebutton to select/deselect objects below the \fBSoSelection\fP node\&. 
+
+Using an \fBSoBoxHighlightRenderAction\fP or an \fBSoLineHighlightRenderAction\fP to render scenegraphs containing \fBSoSelection\fP nodes provides a convenient way of providing visual feedback about the selections to the application user\&.
+.PP
+Beware that one common faulty assumption which is made about the node is that the scene will automatically be re-rendered whenever the user pick objects\&. This is not the case, the application programmer must himself schedule a redraw\&. A straightforward way to accomplish this is to \fBSoNode::touch()\fP the \fBSoSelection\fP node in the selection / deselection callback\&.
+.PP
+A 'skeleton' for basic use of \fBSoSelection\fP nodes is given below:
+.PP
+.PP
+.nf
+extern SoSeparator * make_scenegraph( void );
+static SoSelection * selection = NULL;
+
+// Callback function triggered for selection / deselection\&.
+void made_selection( void * userdata, SoPath * path )
+{
+  (void)fprintf( stdout, "%sselected %s\n",
+                 userdata == (void *)1L ? "" : "de",
+                 path->getTail()->getTypeId()\&.getName()\&.getString() );
+
+  selection->touch(); // to redraw
+}
+
+// *************************************************************************
+
+// Print a quick instructions notice on stdout\&.
+void show_instructions( void )
+{
+  (void)fprintf( stdout, "\nThis example program demonstrates the use of the SoSelection node type\&.\n" );
+  (void)fprintf( stdout, "\nQuick instructions:\n\n" );
+  (void)fprintf( stdout, "  * pick with left mouse button\n" );
+  (void)fprintf( stdout, "  * hold SHIFT to select multiple objects\n" );
+  (void)fprintf( stdout, "  * hit ESC to toggle back and forth to view mode\n" );
+  (void)fprintf( stdout, "\n" );
+}
+
+// *************************************************************************
+
+int main( int argc, char ** argv )
+{
+  QWidget * window = SoQt::init( argv[0] );
+  show_instructions();
+
+  selection = new SoSelection;
+  selection->policy = SoSelection::SHIFT;
+  selection->ref();
+
+  selection->addChild( make_scenegraph() );
+  selection->addSelectionCallback( made_selection, (void *)1L );
+  selection->addDeselectionCallback( made_selection, (void *)0L );
+
+  SoQtExaminerViewer * examinerviewer = new SoQtExaminerViewer( window );
+  examinerviewer->setSceneGraph( selection );
+  examinerviewer->setGLRenderAction( new SoBoxHighlightRenderAction );
+  examinerviewer->setViewing( FALSE );
+  examinerviewer->show();
+
+  SoQt::show( window );
+  SoQt::mainLoop();
+
+  delete examinerviewer;
+  selection->unref();
+
+  return 0;
+}
+.fi
+.PP
+.PP
+This node is not initialized in \fBSoDB::init()\fP, since it is part of the interaction kit 'add-on'\&. Before using this node, you should therefore call \fBSoInteraction::init()\fP\&. If you're using one of the standard GUI-toolkits (SoXt / SoQt / SoWin) \fBSoInteraction::init()\fP will be called for you from the So[Xt|Qt|Win]::init() method and you don't have to worry about it\&.
+.PP
+With regard to using multiple \fBSoSelection\fP nodes at the same time in the same scene graph: this is possible, but it is not straightforward\&. The standard viewers provided by SoQt, SoWin, et al, will only snoop on one \fBSoSelection\fP node (part of the the legacy API from SGI's InventorXt), so selection changes on the others doesn't trigger redraws\&. You don't necessarily see what's happening in other words\&. You'll have to hook up manually and trigger redraws yourself\&.
+.PP
+Also be aware that when having multiple \fBSoSelection\fP nodes in the scene graph active at the same time, the \fBSoHandleEventAction\fP traversals that you intend for selection-change on one \fBSoSelection\fP node will also affect all the other \fBSoSelection\fP nodes in the scene -- usually delesecting everything below them since you will be clicking outside the selectable objects\&. You'll therefore also have to manually override that behaviour, if you want selection change on one \fBSoSelection\fP node to not affect the others\&.
+.PP
+\fBFILE FORMAT/DEFAULTS:\fP 
+.PP
+.nf
+Selection {
+    renderCaching AUTO
+    boundingBoxCaching AUTO
+    renderCulling AUTO
+    pickCulling AUTO
+    policy SHIFT
+}
+
+.fi
+.PP
+ 
+.SH "Member Enumeration Documentation"
+.PP 
+.SS "enum \fBSoSelection::Policy\fP"
+Enum for different pick policies\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fISINGLE \fP\fP
+Only one object can be selected at any time\&. When the user picks a new object, the previous selection will be unselected\&. If the user picks on nothing, the current selection will be unselected\&.
+.PP
+Note that if a new selection matches one already present in the selection list, neither a deselect nor a select notification callback will be made about that selection path\&. 
+.TP
+\fB\fITOGGLE \fP\fP
+Picking an object toggles its selection state\&. 
+.TP
+\fB\fISHIFT \fP\fP
+Same as SINGLE, but when shift key is pressed the selection policy will be changed to TOGGLE\&. 
+.TP
+\fB\fIDISABLE \fP\fP
+Disables selection handling\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SoSelection::SoSelection (void)"
+Default constructor\&. 
+.SS "SoSelection::SoSelection (const \fBint\fP nChildren)"
+Constructor\&.
+.PP
+The argument should be the approximate number of children which is expected to be inserted below this node\&. The number need not be exact, as it is only used as a hint for better memory resource allocation\&. 
+.SS "SoSelection::~SoSelection ()\fC [protected]\fP, \fC [virtual]\fP"
+Destructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSoType\fP SoSelection::getTypeId (void) const\fC [virtual]\fP"
+
+.PP
+Returns the type identification of an object derived from a class inheriting \fBSoBase\fP\&. This is used for run-time type checking and 'downward' casting\&. Usage example:
+.PP
+.PP
+.nf
+void foo(SoNode * node)
+{
+  if (node->getTypeId() == SoFile::getClassTypeId()) {
+    SoFile * filenode = (SoFile *)node;  // safe downward cast, knows the type
+  }
+}
+.fi
+.PP
+.PP
+For application programmers wanting to extend the library with new nodes, engines, nodekits, draggers or others: this method needs to be overridden in \fIall\fP subclasses\&. This is typically done as part of setting up the full type system for extension classes, which is usually accomplished by using the pre-defined macros available through for instance \fBInventor/nodes/SoSubNode\&.h\fP (SO_NODE_INIT_CLASS and SO_NODE_CONSTRUCTOR for node classes), \fBInventor/engines/SoSubEngine\&.h\fP (for engine classes) and so on\&.
+.PP
+For more information on writing Coin extensions, see the class documentation of the toplevel superclasses for the various class groups\&. 
+.PP
+Reimplemented from \fBSoSeparator\fP\&.
+.PP
+Reimplemented in \fBSoExtSelection\fP\&.
+.SS "const \fBSoFieldData\fP * SoSelection::getFieldData (void) const\fC [protected]\fP, \fC [virtual]\fP"
+Returns a pointer to the class-wide field data storage object for this instance\&. If no fields are present, returns \fCNULL\fP\&. 
+.PP
+Reimplemented from \fBSoSeparator\fP\&.
+.PP
+Reimplemented in \fBSoExtSelection\fP\&.
+.SS "void SoSelection::select (const \fBSoPath\fP * path)"
+Adds \fIpath\fP to the list of selected objects\&. 
+.SS "void SoSelection::select (\fBSoNode\fP * node)"
+Adds \fInode\fP to the list of selected objects\&. The scene graph below the Selection node will be searched, and the path to \fInode\fP will be added if found\&. 
+.SS "void SoSelection::deselect (const \fBSoPath\fP * path)"
+Remove \fIpath\fP from the list of selected objects\&. 
+.SS "void SoSelection::deselect (const \fBint\fP which)"
+Remove objects \fIwhich\fP from the list of selected objects\&. 
+.SS "void SoSelection::deselect (\fBSoNode\fP * node)"
+Remove \fInode\fP from the list of selected objects\&. The scene graph below the Selection node will be searched, and the path to \fInode\fP will be removed if found\&. 
+.SS "void SoSelection::toggle (const \fBSoPath\fP * path)"
+If \fIpath\fP is not already selected, add \fIpath\fP to the list of selected objects\&. Otherwise remove \fIpath\fP from the list of selected objects\&. 
+.SS "void SoSelection::toggle (\fBSoNode\fP * node)"
+If \fInode\fP is not already selected, add \fIpath\fP to the list of selected objects\&. Otherwise remove \fInode\fP from the list of selected objects\&. 
+.SS "SbBool SoSelection::isSelected (const \fBSoPath\fP * path) const"
+Return \fITRUE\fP if \fIpath\fP is in the list of selected objects\&. 
+.SS "SbBool SoSelection::isSelected (\fBSoNode\fP * node) const"
+Return \fITRUE\fP if the path to \fInode\fP is in the list of selected objects\&. 
+.SS "void SoSelection::deselectAll (void)"
+Clears the selection list\&. 
+.SS "\fBint\fP SoSelection::getNumSelected (void) const"
+Returns the number of selected objects\&. 
+.SS "const \fBSoPathList\fP * SoSelection::getList (void) const"
+Returns the list of selected objects\&. 
+.SS "\fBSoPath\fP * SoSelection::getPath (const \fBint\fP index) const"
+Returns the \fIindex'th\fP selected objects\&. 
+.SS "\fBSoPath\fP * SoSelection::operator[] (const \fBint\fP i) const"
+Operator for accessing selected objects\&. 
+.SS "void SoSelection::addSelectionCallback (SoSelectionPathCB * f, void * userData = \fCNULL\fP)"
+Adds a callback which will be called every time an object is selected\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBremoveSelectionCallback()\fP 
+.RE
+.PP
+
+.SS "void SoSelection::removeSelectionCallback (SoSelectionPathCB * f, void * userData = \fCNULL\fP)"
+Removes one of the selection callbacks\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBaddSelectionCallback()\fP 
+.RE
+.PP
+
+.SS "void SoSelection::addDeselectionCallback (SoSelectionPathCB * f, void * userData = \fCNULL\fP)"
+Adds a callback which will be called every time an object is deselected\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBremoveDeselectionCallback()\fP 
+.RE
+.PP
+
+.SS "void SoSelection::removeDeselectionCallback (SoSelectionPathCB * f, void * userData = \fCNULL\fP)"
+Removes one of the deselection callbacks\&.
+.PP
+\fBSee also:\fP
+.RS 4
+addDeselctionCallback() 
+.RE
+.PP
+
+.SS "void SoSelection::addStartCallback (SoSelectionClassCB * f, void * userData = \fCNULL\fP)"
+Adds a callback which will be invoked when the user start an interactive change to the list of selected objects\&.
+.PP
+This callback is useful for storing the old selection list for undo/redo functionality\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBaddFinishCallback()\fP 
+.RE
+.PP
+
+.SS "void SoSelection::removeStartCallback (SoSelectionClassCB * f, void * userData = \fCNULL\fP)"
+Removes \fIf\fP from the list of start callbacks\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBaddStartCallback()\fP 
+.RE
+.PP
+
+.SS "void SoSelection::addFinishCallback (SoSelectionClassCB * f, void * userData = \fCNULL\fP)"
+Adds a callback which will be invoked when the user has finished an interactive change to the list of selected objects\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBaddStartCallback()\fP 
+.RE
+.PP
+
+.SS "void SoSelection::removeFinishCallback (SoSelectionClassCB * f, void * userData = \fCNULL\fP)"
+Removes \fIf\fP from the list og finish callbacks\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBaddFinishCallback()\fP 
+.RE
+.PP
+
+.SS "void SoSelection::setPickFilterCallback (\fBSoSelectionPickCB\fP * f, void * userData = \fCNULL\fP, const SbBool callOnlyIfSelectable = \fCTRUE\fP)"
+Sets the pick filter callback\&. This callback will be called when a path is about to be added to or removed from the list of selected objects\&. The callback function should return a replacement path that should be used instead of the picked path\&. The returned path will be ref'ed, copied, and then unref'ed again by the \fBSoSelection\fP node\&.
+.PP
+If no callback is set (the default), the picked path will be used for selecting/deselecting\&.
+.PP
+Possible return values from the callback:
+.PP
+.PD 0
+.IP "\(bu" 2
+NULL: simulate that nothing was picked\&. This will clear the selection for the SINGLE policy\&. The handle event action will be halted\&. 
+.IP "\(bu" 2
+A path: the path will be selected/deselected\&. The handle event action will be halted\&.  
+.IP "\(bu" 2
+A path containing only the Selection node: as NULL, but action will not be halted\&.  
+.IP "\(bu" 2
+An empty path or a path not containing the Selection node: the pick will be ignored\&.  
+.PP
+.PP
+if \fIcallOnlyIfSelectable\fP is \fCTRUE\fP, the callback will only be called if the Selection node is in the picked path\&. 
+.SS "void SoSelection::setPickMatching (const SbBool pickmatchflag)"
+When \fIpickmatchflag\fP is \fCTRUE\fP (the default), the mouse button release pick must match the mouse button press pick before object is selected/deselected\&.
+.PP
+This flag should normally not be of interest to application programmers\&. 
+.SS "SbBool SoSelection::isPickMatching (void) const"
+Returns \fITRUE\fP if pick matching is enabled\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetPickMatching()\fP 
+.RE
+.PP
+
+.SS "SbBool SoSelection::getPickMatching (void) const"
+Returns \fITRUE\fP if pick matching is enabled\&.
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsetPickMatching()\fP 
+.RE
+.PP
+
+.SS "void SoSelection::addChangeCallback (SoSelectionClassCB * f, void * userData = \fCNULL\fP)"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fPUsed by render area to receive notification when the selection list changes\&. 
+.SS "void SoSelection::removeChangeCallback (SoSelectionClassCB * f, void * userData = \fCNULL\fP)"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP Used by render area to receive notification when the selection list changes\&. 
+.SS "void SoSelection::invokeSelectionPolicy (\fBSoPath\fP * path, SbBool shiftdown)\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoSelection::performSingleSelection (\fBSoPath\fP * path)\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoSelection::performToggleSelection (\fBSoPath\fP * path)\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "\fBSoPath\fP * SoSelection::copyFromThis (const \fBSoPath\fP * path) const\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoSelection::addPath (\fBSoPath\fP * path)\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoSelection::removePath (const \fBint\fP which)\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "\fBint\fP SoSelection::findPath (const \fBSoPath\fP * path) const\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void SoSelection::handleEvent (\fBSoHandleEventAction\fP * action)\fC [protected]\fP, \fC [virtual]\fP"
+Action method for \fBSoHandleEventAction\fP\&.
+.PP
+Inspects the event data from \fIaction\fP, and processes it if it is something which this node should react to\&.
+.PP
+Nodes influencing relevant state variables for how event handling is done also overrides this method\&. 
+.PP
+Reimplemented from \fBSoSeparator\fP\&.
+.PP
+Reimplemented in \fBSoExtSelection\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBSoSFEnum\fP SoSelection::policy"
+Field for selection policy\&. Default value is SHIFT\&. 
+.SS "\fBSoPathList\fP SoSelection::selectionList\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "\fBSoCallbackList\fP * SoSelection::selCBList\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "\fBSoCallbackList\fP * SoSelection::deselCBList\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "\fBSoCallbackList\fP * SoSelection::startCBList\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "\fBSoCallbackList\fP * SoSelection::finishCBList\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "\fBSoSelectionPickCB\fP * SoSelection::pickCBFunc\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "void * SoSelection::pickCBData\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "SbBool SoSelection::callPickCBOnlyIfSelectable\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "\fBSoCallbackList\fP * SoSelection::changeCBList\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "\fBSoPath\fP * SoSelection::mouseDownPickPath\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+.SS "SbBool SoSelection::pickMatching\fC [protected]\fP"
+\fIThis API member is considered internal to the library, as it is not likely to be of interest to the application programmer\&.\fP 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Coin from the source code\&.
