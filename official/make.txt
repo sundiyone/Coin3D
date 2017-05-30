@@ -1,4 +1,14 @@
 
+
+g++ -fPIC \
+ -I/usr/include/x86_64-linux-gnu/qt5 \
+ -I/usr/local/include/Inventor \
+ -o viewer \
+ ../viewer/viewer.cpp \
+ -L/usr/local/lib -lQuarter -lCoin \
+ -lQt5Widgets -lQt5Gui -lQt53DCore -lQt5Core
+
+
 g++ -fPIC \
  -I/usr/local/include \
  -I/usr/local/include/Inventor/annex \
@@ -11,3 +21,4 @@ g++ -fPIC \
  -lQuarter \
  -lCoin -lGL -lXext -lSM -lICE -lX11 -ldl -lpthread \
  -lQt5Widgets -lQt5Gui -lQt53DCore -lQt5Core
+

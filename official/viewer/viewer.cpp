@@ -27,7 +27,7 @@ main(int n_app_args, char **app_arg)
 
   if (n_app_args == 1)
     {
-      //  Make a scene containing a red cone.
+      //  Make a scene containing a red sphere.
       SoMaterial * material = new SoMaterial();
       material->diffuseColor.setValue(1.0F, 0.0F, 0.0F); // Red
       SoSphere * sphere = new SoSphere();
@@ -51,6 +51,7 @@ main(int n_app_args, char **app_arg)
   viewer->setSceneGraph(root);
   viewer->show();
   mainWindow->setCentralWidget(viewer);
+  mainWindow->resize(800, 600);
   mainWindow->show();
 
   QObject::connect(qApp, SIGNAL(lastWindowClosed()), qApp, SLOT(quit()));
