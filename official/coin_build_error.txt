@@ -1,0 +1,6 @@
+[100%] Linking CXX shared library libCoin.dll
+/bin/sh: /D/msys64/mingw64/bin/ar.exe: Argument list too long
+make[2]: *** [src/CMakeFiles/Coin.dir/build.make:1915: src/libCoin.dll] Error 126
+make[1]: *** [CMakeFiles/Makefile2:319: src/CMakeFiles/Coin.dir/all] Error 2
+make: *** [Makefile:130: all] Error 2
+
