@@ -54,7 +54,7 @@
 
 #include <Inventor/C/basic.h>
 #include <float.h>
-#include <stdlib.h>
+#include <cstdlib>
 #include "engines/evaluator.h"
 %}
 

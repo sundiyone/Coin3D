@@ -45,7 +45,7 @@
 #include "upgraders/SoUpgrader.h"
 
 #include <stddef.h> // for nullptr
-#include <assert.h>
+#include <cassert>
 
 #include <Inventor/SbName.h>
 #include <Inventor/SbString.h>

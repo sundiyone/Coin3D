@@ -63,7 +63,7 @@
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
-#include <stdlib.h> // strtol(), rand()
+#include <cstdlib> // strtol(), rand()
 #include <limits.h> // LONG_MIN, LONG_MAX
 
 #include <Inventor/actions/SoCallbackAction.h>

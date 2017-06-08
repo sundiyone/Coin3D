@@ -53,7 +53,7 @@
 
 #include <Inventor/nodes/SoShaderParameter.h>
 
-#include <assert.h>
+#include <cassert>
 
 #include "nodes/SoSubNodeP.h"
 #include "misc/SbHash.h"

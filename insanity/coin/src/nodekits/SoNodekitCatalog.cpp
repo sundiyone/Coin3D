@@ -49,7 +49,7 @@
 
 #include <Inventor/nodekits/SoBaseKit.h>
 
-#include <assert.h>
+#include <cassert>
 #include <stdio.h> // fprintf()
 
 #include <Inventor/lists/SoTypeList.h>

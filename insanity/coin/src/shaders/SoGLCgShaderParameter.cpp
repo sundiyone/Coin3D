@@ -36,7 +36,7 @@
 
 #include <string.h>
 #include <stdio.h>
-#include <assert.h>
+#include <cassert>
 
 #include <Inventor/errors/SoDebugError.h>
 

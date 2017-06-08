@@ -43,7 +43,7 @@
 #include <Inventor/annex/FXViz/elements/SoShadowStyleElement.h>
 
 
-#include <assert.h>
+#include <cassert>
 
 /*!
   \fn SoShadowStyleElement::Style

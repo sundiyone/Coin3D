@@ -33,7 +33,7 @@
 #include "shaders/SoGLSLShaderObject.h"
 #include "coindefs.h"
 
-#include <assert.h>
+#include <cassert>
 #include <stdio.h>
 #include <Inventor/errors/SoDebugError.h>
 #include <Inventor/system/gl.h>

@@ -311,7 +311,7 @@
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
-#include <assert.h>
+#include <cassert>
 #include <string.h> // memset(), memcpy()
 #include <math.h> // for ceil()
 #include <limits.h> // SHRT_MAX

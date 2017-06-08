@@ -32,9 +32,9 @@
 
 #include <Inventor/C/threads/barrier.h>
 
-#include <stdlib.h>
+#include <cstdlib>
 #include <stdio.h>
-#include <assert.h>
+#include <cassert>
 
 #include <Inventor/C/threads/mutex.h>
 #include <Inventor/C/threads/condvar.h>

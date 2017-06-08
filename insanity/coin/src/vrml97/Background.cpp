@@ -168,7 +168,7 @@
 #include <Inventor/VRMLnodes/SoVRMLBackground.h>
 #include "coindefs.h"
 
-#include <assert.h>
+#include <cassert>
 #include <string.h>
 #include <stdio.h>
 

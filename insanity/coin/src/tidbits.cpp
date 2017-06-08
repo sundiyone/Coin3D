@@ -43,16 +43,16 @@
 #include "config.h"
 #endif /* HAVE_CONFIG_H */
 
-#include <assert.h>
+#include <cassert>
 #include <errno.h>
 #include <math.h> /* isinf(), isnan(), finite() */
 #include <float.h> /* _fpclass(), _isnan(), _finite() */
 #include <locale.h>
 #include <string.h> /* strncasecmp() */
 #include <stdio.h>
-#include <stdlib.h> /* atio() */
+#include <cstdlib> /* atio() */
 #include <ctype.h> /* tolower() */
-#include <stdlib.h> /* atexit(), putenv(), qsort(), atof() */
+#include <cstdlib> /* atexit(), putenv(), qsort(), atof() */
 #ifdef HAVE_WINDOWS_H
 #include <windows.h> /* GetEnvironmentVariable() */
 #endif /* HAVE_WINDOWS_H */

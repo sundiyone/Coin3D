@@ -35,8 +35,8 @@
 #include <Inventor/C/basic.h>
 #include <Inventor/C/XML/types.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <assert.h>
+#include <cstdlib>
+#include <cassert>
 #include <string.h>
 #include <ctype.h>
 

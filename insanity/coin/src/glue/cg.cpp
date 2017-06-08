@@ -33,8 +33,8 @@
 #include "glue/cg.h"
 #include "coindefs.h"
 
-#include <assert.h>
-#include <stdlib.h>
+#include <cassert>
+#include <cstdlib>
 #include <string.h>
 #include <stdio.h>
 

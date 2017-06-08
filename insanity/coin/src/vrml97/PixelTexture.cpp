@@ -91,7 +91,7 @@
 
 #include <Inventor/VRMLnodes/SoVRMLPixelTexture.h>
 
-#include <assert.h>
+#include <cassert>
 #include <stddef.h>
 
 #include <Inventor/VRMLnodes/SoVRMLMacros.h>

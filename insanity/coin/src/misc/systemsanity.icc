@@ -70,7 +70,7 @@ SoDB_checkGCCBuiltinExpectSanity(void)
 
 #ifndef HAVE_ASSERT_WITH_BUILTIN_EXPECT
 
-    // <assert.h> has probably been tweaked since GCC is buggy, but
+    // <cassert> has probably been tweaked since GCC is buggy, but
     // assert() does not use __builtin_expect().
 
     // Should we warn about this problem nevertheless?

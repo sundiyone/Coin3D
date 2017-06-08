@@ -38,8 +38,8 @@
 #define BZ2GLUE_ASSUME_BZIP2 1
 #endif /* !HAVE_CONFIG_H */
 
-#include <assert.h>
-#include <stdlib.h>
+#include <cassert>
+#include <cstdlib>
 #include <string.h>
 #include <stdio.h>
 

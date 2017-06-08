@@ -44,9 +44,9 @@
 #include "config.h"
 #endif /* HAVE_CONFIG_H */
 
-#include <stdlib.h>
+#include <cstdlib>
 #include <string.h>
-#include <assert.h>
+#include <cassert>
 
 #include <Inventor/C/tidbits.h>
 #include <Inventor/C/glue/gl.h>

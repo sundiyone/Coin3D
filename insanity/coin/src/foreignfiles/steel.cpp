@@ -39,7 +39,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <errno.h>
-#include <stdlib.h>
+#include <cstdlib>
 
 /* end standard C headers. */
 
@@ -660,8 +660,8 @@ char *stl_yytext;
  * - remove any error-handling asserts
  * ********************************************************************** */
 #line 45 "steel.l"
-#include <assert.h>
-#include <stdlib.h>
+#include <cassert>
+#include <cstdlib>
 #include <string.h>
 #include "coindefs.h"
 

@@ -45,7 +45,7 @@
 #include <Inventor/SoFullPath.h>
 #include <Inventor/C/tidbits.h>
 
-#include <assert.h>
+#include <cassert>
 #include <cstdlib> // qsort
 
 /*!

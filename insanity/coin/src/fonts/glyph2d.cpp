@@ -33,7 +33,7 @@
 #include "fonts/fontlib_wrapper.h"
 
 #include <string.h>
-#include <assert.h>
+#include <cassert>
 #include <stdio.h>
 
 #include <Inventor/C/base/string.h>

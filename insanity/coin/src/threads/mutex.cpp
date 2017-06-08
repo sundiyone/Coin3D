@@ -42,8 +42,8 @@
 
 #include <Inventor/C/threads/mutex.h>
 
-#include <stdlib.h>
-#include <assert.h>
+#include <cstdlib>
+#include <cassert>
 #include <stddef.h>
 #include <errno.h>
 #include <float.h>

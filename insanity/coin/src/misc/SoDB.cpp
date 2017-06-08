@@ -67,8 +67,8 @@
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
-#include <stdlib.h>
-#include <assert.h>
+#include <cstdlib>
+#include <cassert>
 #include <string.h>
 #include <stdarg.h>
 

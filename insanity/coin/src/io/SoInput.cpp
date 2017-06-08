@@ -92,7 +92,7 @@
 #endif // HAVE_CONFIG_H
 
 #include <errno.h>
-#include <stdlib.h>
+#include <cstdlib>
 #include <string.h>
 
 #include <sys/stat.h>

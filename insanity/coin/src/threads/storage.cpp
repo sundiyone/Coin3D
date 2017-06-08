@@ -46,8 +46,8 @@
 #include <Inventor/C/threads/storage.h>
 #include "coindefs.h"
 
-#include <stdlib.h>
-#include <assert.h>
+#include <cstdlib>
+#include <cassert>
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>

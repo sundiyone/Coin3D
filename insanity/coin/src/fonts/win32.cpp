@@ -33,8 +33,8 @@
 #include "coindefs.h"
 #include "fonts/win32.h"
 
-#include <stdlib.h>
-#include <assert.h>
+#include <cstdlib>
+#include <cassert>
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"

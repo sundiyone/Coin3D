@@ -56,9 +56,9 @@
 #include "SbGeoAngle.h"
 #include "SbGeoEllipsoid.h"
 
-#include <assert.h>
+#include <cassert>
 #include <stdio.h>
-#include <stdlib.h>
+#include <cstdlib>
 #include <math.h>
 
 void

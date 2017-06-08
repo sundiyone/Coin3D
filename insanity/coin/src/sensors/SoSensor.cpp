@@ -62,7 +62,7 @@
 
 /*! \file SoSensor.h */
 #include <Inventor/sensors/SoSensor.h>
-#include <stdlib.h> // nullptr
+#include <cstdlib> // nullptr
 #include <coindefs.h> // COIN_OBSOLETED()
 #include "misc/SbHash.h"
 

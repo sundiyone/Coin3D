@@ -33,7 +33,7 @@
 #include "SbGeoAngle.h"
 #include <Inventor/SbBasic.h>
 #include <math.h>
-#include <assert.h>
+#include <cassert>
 
 #define ANGLE_TOLERANCE 1e-5
 

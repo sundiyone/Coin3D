@@ -32,8 +32,8 @@
 
 #include <Inventor/C/threads/condvar.h>
 
-#include <stdlib.h>
-#include <assert.h>
+#include <cstdlib>
+#include <cassert>
 #include <errno.h>
 
 #ifdef HAVE_SYS_TIME_H

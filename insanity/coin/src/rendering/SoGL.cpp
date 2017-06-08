@@ -38,7 +38,7 @@
 #include "rendering/SoGL.h"
 #include "coindefs.h"
 
-#include <assert.h>
+#include <cassert>
 #include <stdio.h>
 #include <string.h>
 

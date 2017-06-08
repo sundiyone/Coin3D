@@ -71,7 +71,7 @@
 #include <Inventor/nodes/SoTextureCoordinateNormalMap.h>
 #include "coindefs.h"
 
-#include <stdlib.h>
+#include <cstdlib>
 #include <float.h>
 
 #ifdef HAVE_CONFIG_H

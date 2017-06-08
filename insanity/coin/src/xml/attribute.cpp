@@ -36,8 +36,8 @@
 #include <config.h>
 #endif // HAVE_CONFIG_H
 
-#include <assert.h>
-#include <stdlib.h>
+#include <cassert>
+#include <cstdlib>
 #include <string.h>
 
 #include "utils.h"

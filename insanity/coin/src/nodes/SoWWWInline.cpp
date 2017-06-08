@@ -85,7 +85,7 @@
 #include <Inventor/nodes/SoWWWInline.h>
 
 #include <stddef.h>
-#include <stdlib.h>
+#include <cstdlib>
 #include <stdio.h>
 
 #ifdef HAVE_CONFIG_H

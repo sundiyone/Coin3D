@@ -37,9 +37,9 @@
 #endif // HAVE_CONFIG_H
 
 #include <stdio.h>
-#include <stdlib.h>
+#include <cstdlib>
 #include <string.h>
-#include <assert.h>
+#include <cassert>
 
 #include <Inventor/C/base/string.h>
 #include <Inventor/C/XML/element.h>

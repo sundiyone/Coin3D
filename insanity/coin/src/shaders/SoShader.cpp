@@ -179,9 +179,9 @@
 
 #include "shaders/SoShader.h"
 
-#include <assert.h>
+#include <cassert>
 #include <stdio.h>
-#include <stdlib.h>
+#include <cstdlib>
 
 #include <Inventor/nodes/SoShaderProgram.h>
 #include <Inventor/nodes/SoShaderObject.h>

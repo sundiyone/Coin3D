@@ -33,10 +33,10 @@
 #include <SoDebug.h>
 
 #include <stdarg.h>
-#include <assert.h>
+#include <cassert>
 #include <string.h>
 #include <stdio.h>
-#include <stdlib.h>
+#include <cstdlib>
 
 #include <Inventor/C/tidbits.h>
 #include <Inventor/nodes/SoNode.h>

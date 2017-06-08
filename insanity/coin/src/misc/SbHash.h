@@ -48,7 +48,7 @@
 
 // *************************************************************************
 
-#include <assert.h>
+#include <cassert>
 #include <string.h> // memset()
 
 #include <Inventor/lists/SbList.h>

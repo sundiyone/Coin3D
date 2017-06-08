@@ -33,7 +33,7 @@
 /*! \file sched.h */
 #include <Inventor/C/threads/sched.h>
 
-#include <assert.h>
+#include <cassert>
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -73,7 +73,7 @@ void cc_sched_change_priority(cc_sched * sched,
 
 #else /* HAVE_THREADS */
 
-#include <stdlib.h>
+#include <cstdlib>
 
 #include <Inventor/C/errors/debugerror.h>
 #include <Inventor/C/threads/mutex.h>

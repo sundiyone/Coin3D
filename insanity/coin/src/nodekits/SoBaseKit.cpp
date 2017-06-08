@@ -373,8 +373,8 @@
   #include <Inventor/nodes/SoSeparator.h>
   #include <Inventor/nodes/SoSwitch.h>
   #include <Inventor/nodes/SoTranslation.h>
-  #include <assert.h>
-  #include <stdlib.h>
+  #include <cassert>
+  #include <cstdlib>
   #include <time.h>
 
   #include "ShapeScale.h"
@@ -525,7 +525,7 @@
 
 #include <Inventor/nodekits/SoBaseKit.h>
 
-#include <stdlib.h>
+#include <cstdlib>
 #include <limits.h>
 #include <ctype.h>
 #include <string.h>

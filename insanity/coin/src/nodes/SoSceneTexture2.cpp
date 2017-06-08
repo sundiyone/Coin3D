@@ -258,7 +258,7 @@
 #include <Inventor/nodes/SoSceneTexture2.h>
 #include "coindefs.h"
 
-#include <assert.h>
+#include <cassert>
 #include <string.h>
 
 #include <Inventor/errors/SoDebugError.h>

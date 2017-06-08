@@ -1188,7 +1188,6 @@ SoGLDriverDatabase::pimpl(void)
 /**************************************************************************/
 
 #include <iostream>
-using namespace std;
 
 void find_features(const cc_xml_elt * element);
 

@@ -34,7 +34,7 @@
 
 #include <float.h> /* FLT_MIN */
 #include <string.h>
-#include <assert.h>
+#include <cassert>
 #include <stdio.h>
 
 #include <Inventor/C/basic.h>

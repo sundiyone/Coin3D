@@ -211,8 +211,8 @@
 
 // *************************************************************************
 
-#include <assert.h>
-#include <stdlib.h>
+#include <cassert>
+#include <cstdlib>
 #include <string.h>
 #include <limits.h> /* SHRT_MAX */
 
@@ -4466,7 +4466,7 @@ cc_glglue_glXGetCurrentDisplay(const cc_glglue * w)
   #include <Inventor/C/glue/gl.h>
   #include <Inventor/elements/SoGLCacheContextElement.h>
   #include <Inventor/SoDB.h>
-  #include <assert.h>
+  #include <cassert>
   #include <stdio.h>
 
   int

@@ -107,9 +107,9 @@
 #include "config.h"
 #endif /* HAVE_CONFIG_H */
 
-#include <assert.h>
+#include <cassert>
 #include <stddef.h> /* nullptr definition. */
-#include <stdlib.h> /* atoi() */
+#include <cstdlib> /* atoi() */
 #include <errno.h>
 #include <string.h> /* strlen(), strcpy(), strerror() */
 #include <stdio.h>  /* snprintf() */

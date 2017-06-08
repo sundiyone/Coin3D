@@ -74,7 +74,7 @@
 
 #include <Inventor/nodes/SoTexture3.h>
 
-#include <assert.h>
+#include <cassert>
 #include <string.h>
 
 #include <Inventor/SoInput.h>

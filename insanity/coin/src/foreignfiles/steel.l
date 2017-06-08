@@ -51,8 +51,8 @@
  * ********************************************************************** */
 
 %{
-#include <assert.h>
-#include <stdlib.h>
+#include <cassert>
+#include <cstdlib>
 #include <string.h>
 
 #include <Inventor/system/inttypes.h>

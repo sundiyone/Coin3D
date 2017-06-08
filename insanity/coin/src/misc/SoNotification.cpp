@@ -41,7 +41,7 @@
 #include <Inventor/errors/SoDebugError.h>
 #include <Inventor/nodes/SoNode.h>
 #include <Inventor/SbName.h>
-#include <assert.h>
+#include <cassert>
 #include <time.h>
 
 

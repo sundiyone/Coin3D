@@ -6,8 +6,8 @@
     coin-config --build extractfont extractfont.cpp -lsimage1
  */
 
-#include <assert.h>
-#include <stdlib.h>
+#include <cassert>
+#include <cstdlib>
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
