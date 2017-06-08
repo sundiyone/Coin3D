@@ -13,7 +13,7 @@
 SET(CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS True)
 
 # Use coin-config
-find_program(Coin_CONFIG_EXECUTABLE NAMES coin-config DOC "coin-config executable")
+find_program(Coin_CONFIG_EXECUTABLE NAMES coin-config.bat coin-config DOC "coin-config executable")
 mark_as_advanced(Coin_CONFIG_EXECUTABLE)
 MESSAGE("coin-config = ${Coin_CONFIG_EXECUTABLE}")
 
@@ -21,44 +21,68 @@ if (Coin_CONFIG_EXECUTABLE)
 
   set(Coin_LIBRARY_FOUND 1)
 
-  if (UNIX)
-    execute_process(COMMAND ${Coin_CONFIG_EXECUTABLE} --cppflags OUTPUT_VARIABLE CoinConf_cppflags)
-    string(REGEX REPLACE "[\r\n]" " " CoinConf_cppflags "${CoinConf_cppflags}")
+  #if (UNIX)
+    # The executing process has to be a valid *.exe or *.bat.  Hence the bash(.exe)
+    execute_process(COMMAND bash ${Coin_CONFIG_EXECUTABLE} --cppflags
+                    OUTPUT_VARIABLE CoinConf_cppflags
+                    RESULT_VARIABLE CoinConf_failed
+                    OUTPUT_STRIP_TRAILING_WHITESPACE)
+    #MESSAGE("CoinConf       : ${CoinConf_failed}")
+    #MESSAGE("Coin cppflags  : ${CoinConf_cppflags}")
+    #string(REGEX REPLACE "[\r\n]" " " CoinConf_cppflags "${CoinConf_cppflags}")
     MESSAGE("Coin cppflags  : ${CoinConf_cppflags}")
 
-    execute_process(COMMAND ${Coin_CONFIG_EXECUTABLE} --includedir OUTPUT_VARIABLE CoinConf_includedir)
-    string(REGEX REPLACE "[\r\n]" " " CoinConf_includedir "${CoinConf_includedir}")
+    execute_process(COMMAND bash ${Coin_CONFIG_EXECUTABLE} --includedir
+                    OUTPUT_VARIABLE CoinConf_includedir
+                    RESULT_VARIABLE CoinConf_failed
+                    OUTPUT_STRIP_TRAILING_WHITESPACE)
+    #MESSAGE("CoinConf       : ${CoinConf_failed}")
+    #MESSAGE("Coin includedir: ${CoinConf_includedir}")
+    #string(REGEX REPLACE "[\r\n]" " " CoinConf_includedir "${CoinConf_includedir}")
     MESSAGE("Coin includedir: ${CoinConf_includedir}")
 
-    execute_process(COMMAND ${Coin_CONFIG_EXECUTABLE} --ldflags OUTPUT_VARIABLE CoinConf_ldflags)
-    string(REGEX REPLACE "[\r\n]" " " CoinConf_ldflags "${CoinConf_ldflags}")
+    execute_process(COMMAND bash ${Coin_CONFIG_EXECUTABLE} --ldflags
+                    OUTPUT_VARIABLE CoinConf_ldflags
+                    RESULT_VARIABLE CoinConf_failed
+                    OUTPUT_STRIP_TRAILING_WHITESPACE)
+    #MESSAGE("CoinConf       : ${CoinConf_failed}")
+    #MESSAGE("Coin ldflags   : ${CoinConf_ldflags}")
+    #string(REGEX REPLACE "[\r\n]" " " CoinConf_ldflags "${CoinConf_ldflags}")
     MESSAGE("Coin ldflags   : ${CoinConf_ldflags}")
 
-    execute_process(COMMAND ${Coin_CONFIG_EXECUTABLE} --libs OUTPUT_VARIABLE CoinConf_libs)
-    string(REGEX REPLACE "[\r\n]" " " CoinConf_libs "${CoinConf_libs}")
+    execute_process(COMMAND bash ${Coin_CONFIG_EXECUTABLE} --libs
+                    OUTPUT_VARIABLE CoinConf_libs
+                    RESULT_VARIABLE CoinConf_failed
+                    OUTPUT_STRIP_TRAILING_WHITESPACE)
+    #MESSAGE("CoinConf       : ${CoinConf_failed}")
+    #MESSAGE("Coin libs      : ${CoinConf_libs}")
+    #string(REGEX REPLACE "[\r\n]" " " CoinConf_libs "${CoinConf_libs}")
     MESSAGE("Coin libs      : ${CoinConf_libs}")
 
     string(REGEX MATCHALL "(^| )-l([./+-_\\a-zA-Z]*)" CoinConf_libs "${CoinConf_libs}")
+    MESSAGE("Coin libs      : ${CoinConf_libs}")
     string(REGEX REPLACE "(^| )-l" "" CoinConf_libs "${CoinConf_libs}")
     MESSAGE("Coin libs      : ${CoinConf_libs}")
 
     string(REGEX MATCHALL "(^| )-L([./+-_\\a-zA-Z]*)" CoinConf_ldirs "${CoinConf_ldflags}")
+    MESSAGE("Coin ldirs     : ${CoinConf_ldirs}")
     string(REGEX REPLACE "(^| )-L" "" CoinConf_ldirs "${CoinConf_ldirs}")
     MESSAGE("Coin ldirs     : ${CoinConf_ldirs}")
 
-    string(REGEX REPLACE "(^| )-l([./+-_\\a-zA-Z]*)" " " CoinConf_ldflags "${CoinConf_ldflags}")
-    string(REGEX REPLACE "(^| )-L([./+-_\\a-zA-Z]*)" " " CoinConf_ldflags "${CoinConf_ldflags}")
-    MESSAGE("Coin ldflags   : ${CoinConf_ldflags}")
+    #string(REGEX MATCHALL "(^| )-l([./+-_\\a-zA-Z]*)" " " CoinConf_ldflags "${CoinConf_ldflags}")
+    #MESSAGE("Coin ldflags   : ${CoinConf_ldflags}")
+    #string(REGEX REPLACE "(^| )-L" " " CoinConf_ldflags "${CoinConf_ldflags}")
+    #MESSAGE("Coin ldflags   : ${CoinConf_ldflags}")
 
     separate_arguments(CoinConf_includedir)
 
-    set( Coin_CXXFLAGS "${CoinConf_cppflags}" )
-    set( Coin_LINK_FLAGS "${CoinConf_ldflags}" )
-    set( Coin_INCLUDE_DIRS "${CoinConf_includedir}")
-    set( Coin_LINK_DIRS "${CoinConf_ldirs}")
-    set( Coin_LIBS "${CoinConf_libs}")
+    set( Coin_CXXFLAGS "${CoinConf_cppflags}" CACHE STRING "Coin cppflags" )
+    set( Coin_LINK_FLAGS "${CoinConf_ldflags}" CACHE STRING "Coin ldflags" )
+    set( Coin_INCLUDE_DIRS "${CoinConf_includedir}" CACHE PATH "Coin includedir" )
+    set( Coin_LINK_DIRS "${CoinConf_ldirs}" CACHE PATH "Coin ldirs" )
+    set( Coin_LIBS "${CoinConf_libs}" CACHE STRING "Coin libs" )
     #set( Coin_LIBRARY ${CoinConf_ldflags} ${Coin_LIBS})
-  endif (UNIX)
+  #endif (UNIX)
 
   #if (WIN32)
   #  set( Coin_CXXFLAGS "-I/mingw64/include -I/mingw64/include/Inventor/annex -DCOIN_NOT_DLL")

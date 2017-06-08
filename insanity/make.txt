@@ -1,14 +1,14 @@
 
 # Down in a viewer build try this:
 g++ -fPIC \
- -I/home/ed/Coin3D/coin4_install/include \
- -I/home/ed/Coin3D/coin4_install/include/Inventor/annex \
+ -I/home/ed/Coin3D/coin_install/include \
+ -I/home/ed/Coin3D/coin_install/include/Inventor/annex \
  -I/usr/include/x86_64-linux-gnu/qt5 \
  -D_REENTRANT \
  -o viewer \
  ../viewer/viewer.cpp \
  viewer_automoc.cpp \
- -L/home/ed/Coin3D/coin4_install/lib \
+ -L/home/ed/Coin3D/coin_install/lib \
  -lQuarter \
  -lCoin -lGL -lXext -lSM -lICE -lX11 -ldl -lpthread \
  -lQt5Widgets -lQt5Gui -lQt53DCore -lQt5Core
@@ -39,4 +39,84 @@ g++ -fPIC \
  -L/usr/local/lib \
  -lQuarter \
  -lCoin -lGL -lXext -lSM -lICE -lX11 -ldl -lpthread \
+ -lQt5Widgets -lQt5Gui -lQt53DCore -lQt5Core
+
+
+g++ -fPIC \
+ -I/home/ESmith-rowland/Coin3D/coin_install/include \
+ -I/home/ESmith-rowland/Coin3D/coin_install/include/Inventor/annex \
+ -I/usr/include/x86_64-linux-gnu/qt5 \
+ -D_REENTRANT \
+ -o viewer \
+ ../viewer/viewer.cpp \
+ viewer_automoc.cpp \
+ -L/home/ESmith-rowland/Coin3D/insanity/coin_install/lib \
+ -lQuarter \
+ -lCoin -lGL -lXext -lSM -lICE -lX11 -ldl -lpthread \
+ -lQt5Widgets -lQt5Gui -lQt53DCore -lQt5Core
+
+
+cd /home/ESmith-rowland/Coin3D/insanity/quarter_build/src/Quarter \
+ && /mingw64/bin/g++ -shared -o libQuarter.dll \
+    -Wl,--out-implib,libQuarter.dll.a \
+    -Wl,--major-image-version,0,--minor-image-version,0 \
+    -Wl,--whole-archive CMakeFiles/Quarter.dir/objects.a \
+    -Wl,--no-whole-archive \
+ /home/ESmith-rowland/Coin3D/insanity/coin_install/lib/libCoin.a \
+ /D/msys64/mingw64/lib/libQt53DCore.dll.a \
+ /D/msys64/mingw64/lib/libQt5Widgets.dll.a -lglu32 -lopengl32 \
+ /D/msys64/mingw64/lib/libQt5Network.dll.a \
+ /D/msys64/mingw64/lib/libQt5Gui.dll.a \
+ /D/msys64/mingw64/lib/libQt5Core.dll.a \
+ -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+
+#=====================================================
+
+export PATH=/home/ESmith-rowland/Coin3D/insanity/coin_install/bin:$PATH
+
+# Install insanity quarter...
+mkdir /home/ESmith-rowland/Coin3D/insanity/coin_install/include/Quarter
+mkdir /home/ESmith-rowland/Coin3D/insanity/coin_install/include/Quarter/devices
+mkdir /home/ESmith-rowland/Coin3D/insanity/coin_install/include/Quarter/eventhandlers
+cp /home/ESmith-rowland/Coin3D/insanity/quarter/include/Quarter/Basic.h \
+   /home/ESmith-rowland/Coin3D/insanity/coin_install/include/Quarter/Basic.h
+cp /home/ESmith-rowland/Coin3D/insanity/quarter/include/Quarter/devices/InputDevice.h \
+   /home/ESmith-rowland/Coin3D/insanity/coin_install/include/Quarter/InputDevice.h
+cp /home/ESmith-rowland/Coin3D/insanity/quarter/include/Quarter/devices/Keyboard.h \
+   /home/ESmith-rowland/Coin3D/insanity/coin_install/include/Quarter/Keyboard.h
+cp /home/ESmith-rowland/Coin3D/insanity/quarter/include/Quarter/devices/Mouse.h \
+   /home/ESmith-rowland/Coin3D/insanity/coin_install/include/Quarter/Mouse.h
+cp /home/ESmith-rowland/Coin3D/insanity/quarter/include/Quarter/devices/SpaceNavigatorDevice.h \
+   /home/ESmith-rowland/Coin3D/insanity/coin_install/include/Quarter/SpaceNavigatorDevice.h
+cp /home/ESmith-rowland/Coin3D/insanity/quarter/include/Quarter/eventhandlers/DragDropHandler.h \
+   /home/ESmith-rowland/Coin3D/insanity/coin_install/include/Quarter/DragDropHandler.h
+cp /home/ESmith-rowland/Coin3D/insanity/quarter/include/Quarter/eventhandlers/EventFilter.h \
+   /home/ESmith-rowland/Coin3D/insanity/coin_install/include/Quarter/EventFilter.h
+cp /home/ESmith-rowland/Coin3D/insanity/quarter/include/Quarter/eventhandlers/ \
+   /home/ESmith-rowland/Coin3D/insanity/coin_install/include/Quarter/FocusHandler.h
+cp /home/ESmith-rowland/Coin3D/insanity/quarter/include/Quarter/QtCoinCompatibility.h \
+   /home/ESmith-rowland/Coin3D/insanity/coin_install/include/Quarter/QtCoinCompatibility.h
+cp /home/ESmith-rowland/Coin3D/insanity/quarter/include/Quarter/Quarter.h \
+   /home/ESmith-rowland/Coin3D/insanity/coin_install/include/Quarter/Quarter.h
+cp /home/ESmith-rowland/Coin3D/insanity/quarter/include/Quarter/QuarterWidget.h \
+   /home/ESmith-rowland/Coin3D/insanity/coin_install/include/Quarter/QuarterWidget.h
+cp /home/ESmith-rowland/Coin3D/insanity/quarter_build/src/Quarter/libQuarter.dll.a \
+   /home/ESmith-rowland/Coin3D/insanity/coin_install/lib/libQuarter.dll.a
+cp /home/ESmith-rowland/Coin3D/insanity/quarter_build/src/Quarter/libQuarter.dll \
+   /home/ESmith-rowland/Coin3D/insanity/coin_install/bin/libQuarter.dll
+
+
+# Working insanity viewer.
+cd /home/ESmith-rowland/Coin3D/insanity/viewer_build && \
+g++ -fPIC \
+ -DCOIN_NOT_DLL -DQUARTER_DLL \
+ -I/home/ESmith-rowland/Coin3D/insanity/coin_install/include \
+ -I/home/ESmith-rowland/Coin3D/insanity/coin_install/include/Inventor/annex \
+ -I/usr/include/x86_64-linux-gnu/qt5 \
+ -D_REENTRANT \
+ -o viewer \
+ ../viewer/viewer.cpp \
+ /home/ESmith-rowland/Coin3D/insanity/coin_install/lib/libQuarter.dll.a \
+ /home/ESmith-rowland/Coin3D/insanity/coin_install/lib/libCoin.a \
+ -lopengl32 -lgdi32 -lwinmm -luser32 -lopengl32 -lgdi32 -lwinmm -luser32 \
  -lQt5Widgets -lQt5Gui -lQt53DCore -lQt5Core
