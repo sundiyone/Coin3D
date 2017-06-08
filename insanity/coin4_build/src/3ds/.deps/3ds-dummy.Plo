@@ -1,4 +1,0 @@
-3ds-dummy.lo: ../../../coin4/src/3ds/3ds-dummy.cpp \
- /usr/include/stdc-predef.h
-
-/usr/include/stdc-predef.h:

@@ -1,2 +1,0 @@
-/home/ed/Coin3D/quarter4_build/src/Quarter/CMakeFiles/Quarter.dir
-/home/ed/Coin3D/quarter4_build/src/Quarter/CMakeFiles/Quarter_automoc.dir
