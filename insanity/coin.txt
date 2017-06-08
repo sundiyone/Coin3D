@@ -1,11 +1,13 @@
 
 Why does cmake quarter install *.so without exe?
 
-cd coin4_build
+cd coin_build
 rm -rf *
-export PATH=/home/ed/Coin3D/coin4_install/bin:$PATH
-CPPFLAGS=-I/home/ed/Coin3D/coin4_install/include ../coin4/configure --prefix=/home/ed/Coin3D/coin4_install --enable-3ds-import
+export PATH=/home/ed/Coin3D/coin_install/bin:$PATH
+CPPFLAGS=-I/home/ed/Coin3D/coin_install/include ../coin/configure --prefix=/home/ed/Coin3D/coin_install --enable-3ds-import
 make
 make install
 
 
+Factoid: Coin is building libraries *.a with each directory.  Why aren't *those* used for
+the final build?  Or am I mixed up?  No, that's the official build.
