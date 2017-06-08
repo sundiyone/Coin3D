@@ -146,7 +146,8 @@ else()
 endif()
 
 find_package(OpenGL)
-target_link_libraries(Coin ${OPENGL_LIBRARIES})
+find_package(Freetype)
+target_link_libraries(Coin ${OPENGL_LIBRARIES} ${FREETYPE_LIBRARIES})
 
 install(TARGETS Coin
   RUNTIME DESTINATION bin

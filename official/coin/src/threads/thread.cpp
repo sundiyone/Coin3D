@@ -161,13 +161,13 @@ cc_thread_join(cc_thread * thread,
 void
 cc_sleep(float seconds)
 {
-#ifndef _WIN32
+//#ifndef _WIN32
   /* FIXME: 20011107, thammer: create a configure macro to detect
    * which sleep function is available */
   sleep(floor(seconds));
-#else
-  Sleep((int)(seconds*1000.0));
-#endif
+//#else
+//  Sleep((int)(seconds*1000.0));
+//#endif
 };
 
 #ifdef USE_PTHREAD

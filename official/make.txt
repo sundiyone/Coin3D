@@ -8,17 +8,18 @@ g++ -fPIC \
  -L/usr/local/lib -lQuarter -lCoin \
  -lQt5Widgets -lQt5Gui -lQt53DCore -lQt5Core
 
-
+cd viewer_build && \
 g++ -fPIC \
  -I/usr/local/include \
  -I/usr/local/include/Inventor/annex \
  -I/usr/include/x86_64-linux-gnu/qt5 \
  -D_REENTRANT \
+ -DCOIN_DLL \
+ -DQUARTER_DLL \
  -o viewer \
  ../viewer/viewer.cpp \
- viewer_automoc.cpp \
  -L/usr/local/lib \
  -lQuarter \
  -lCoin -lGL -lXext -lSM -lICE -lX11 -ldl -lpthread \
  -lQt5Widgets -lQt5Gui -lQt53DCore -lQt5Core
-
+cd ..

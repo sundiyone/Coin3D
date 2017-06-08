@@ -674,7 +674,7 @@ static void SFNode_deleteCB(void * COIN_UNUSED_ARG(data), SoSensor * sensor)
 {
   SoNode * node = ((SoNodeSensor *) sensor)->getAttachedNode();
   void * tmp;
-  if(!CoinVrmlJs_sensorinfohash->get((unsigned long) node, tmp)) {
+  if(!CoinVrmlJs_sensorinfohash->get((size_t) node, tmp)) {
     assert(FALSE && "Trying to delete an unregistered SoNodeSensor. Internal error.");
     return;
   }
@@ -690,7 +690,7 @@ static void SFNode_deleteCB(void * COIN_UNUSED_ARG(data), SoSensor * sensor)
 
   // Store the sensor-pointer so that it can be properly deleted later
   nodesensorstobedeleted->append((SoNodeSensor *) sensor);
-  CoinVrmlJs_sensorinfohash->erase((unsigned long) node);
+  CoinVrmlJs_sensorinfohash->erase((size_t) node);
   delete si;
 }
 
@@ -1434,7 +1434,7 @@ static void attachSensorToNode(SoNode * node, JSObject * obj)
 
   // Is a sensor already attached to this SoNode?
   void * tmp;
-  if (CoinVrmlJs_sensorinfohash->get((unsigned long) node, tmp)) {
+  if (CoinVrmlJs_sensorinfohash->get((size_t) node, tmp)) {
     CoinVrmlJs_SensorInfo * si = (CoinVrmlJs_SensorInfo *) tmp;
     si->objects.append(obj);
   }
@@ -1444,7 +1444,7 @@ static void attachSensorToNode(SoNode * node, JSObject * obj)
     ns->attach(node);
     CoinVrmlJs_SensorInfo * si = new CoinVrmlJs_SensorInfo;
     si->objects.append(obj);
-    CoinVrmlJs_sensorinfohash->put((unsigned long) node, si);
+    CoinVrmlJs_sensorinfohash->put((size_t) node, si);
   }
 }
 

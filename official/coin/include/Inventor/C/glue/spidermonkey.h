@@ -57,7 +57,8 @@ extern "C" {
 */
 typedef int JSBool;
 typedef long jsword;
-typedef jsword jsval;
+//typedef jsword jsval;
+typedef size_t jsval;
 typedef jsword jsid;
 typedef int intN;
 typedef unsigned int uintN;

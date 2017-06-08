@@ -1,8 +1,11 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 2.8.11)
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8.12)
 SET(CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS true) # Avoid unneccesary code
 
 PROJECT(Quarter)
 SET(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/SIMCMakeMacros/")
+#set(CMAKE_MODULE_PATH "/usr/local/lib/Coin/cmake")
+
+set(CMAKE_INSTALL_PREFIX "D:/msys64/usr/local")
 
 # This is a convenience macro for generating better tree structures in VS solutions.
 # Running this in any directory will affect all libraries/executables at that location.
@@ -55,7 +58,13 @@ IF(WIN32)
 ENDIF()
 
 FIND_PACKAGE(OpenGL REQUIRED)
-FIND_PACKAGE(Coin REQUIRED) # FIXME: The results of this macro is not cached.
+######FIND_PACKAGE(Coin REQUIRED) # FIXME: The results of this macro is not cached.
+# FIXME:
+SET(Coin_INCLUDE_DIR "/usr/local/include")
+SET(Coin_DEFINES "-DCOIN_DLL")
+SET(Coin_LIBRARY -L/usr/local/lib -lCoin)
+SET(Coin_LIBRARIES ${Coin_LIBRARY})
+
 SET(QT_USE_QTDESIGNER true)
 SET(QT_USE_QTTEST true)
 SET(QT_USE_QTOPENGL true)

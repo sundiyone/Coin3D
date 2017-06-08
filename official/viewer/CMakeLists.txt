@@ -1,22 +1,33 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.2)
 
 PROJECT(viewer LANGUAGES CXX)
-SET(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/../quarter/SIMCMakeMacros/")
+#SET(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/../quarter/SIMCMakeMacros/")
+set(CMAKE_MODULE_PATH "/usr/local/lib/Coin/cmake")
 
 SET(CMAKE_PREFIX_PATH "/usr/lib/x86_64-linux-gnu/qt5/lib/cmake")
 
 FIND_PACKAGE(OpenGL REQUIRED)
+#FIND_PACKAGE(Coin REQUIRED)
+#CoinConfig
+
+#add_definitions(-DCOIN_SLL -DQUARTER_DLL)
+
 
 # This is fucked somewhow!
-#FIND_PACKAGE(Coin REQUIRED) # FIXME: The results of this macro is not cached.
-#MESSAGE("Coin_LIBRARIES       = ${Coin_LIBRARIES}")
-#MESSAGE("Coin_LIB_DIR         = ${Coin_LIB_DIR}")
-#MESSAGE("Coin_INCLUDE_DIR     = ${Coin_INCLUDE_DIR}")
-#MESSAGE("Coin_DEFINES         = ${Coin_DEFINES}")
-set(Coin_LIBRARIES, "Coin;GL;Xext;SM;ICE;X11;dl;pthread")
-set(Coin_LIB_DIR, "/home/ed/Coin3D/emergent/coin_install/lib")
-set(Coin_INCLUDE_DIR, "/home/ed/Coin3D/emergent/coin_install/include")
-set(Coin_LINK_FLAGS "-L${Coin_LIB_DIR}" )
+FIND_PACKAGE(Coin REQUIRED) # FIXME: The results of this macro is not cached.
+MESSAGE("Coin_LIBRARIES       = ${Coin_LIBRARIES}")
+MESSAGE("Coin_LIB_DIR         = ${Coin_LIB_DIR}")
+MESSAGE("Coin_INCLUDE_DIR     = ${Coin_INCLUDE_DIR}")
+MESSAGE("Coin_DEFINES         = ${Coin_DEFINES}")
+
+#set(Coin_LIBRARIES, "Coin;GL;Xext;SM;ICE;X11;dl;pthread")
+#set(Coin_LIB_DIR, "D:/msys64/usr/local/lib")
+#set(Coin_INCLUDE_DIR, "D:/msys64/usr/local/include")
+#set(Coin_LINK_FLAGS "-L${Coin_LIB_DIR}" )
+SET(Coin_DEFINES "-DCOIN_DLL")
+
+SET(Quarter_LIBRARY "-L${Coin_LIB_DIR} -lQuarter")
+SET(Quarter_DEFINES "-DQUARTER_DLL")
 
 #FIND_PACKAGE(Quarter REQUIRED)
 
@@ -44,5 +55,6 @@ INCLUDE_DIRECTORIES(${QT_INCLUDE_DIR} ${Coin_INCLUDE_DIR} ${OPENGL_INCLUDE_DIR})
 
 
 # What to build
-add_executable(viewer viewer.cpp viewer_automoc.cpp)
+add_definitions(${Coin_DEFINES} ${Quarter_DEFINES})
+add_executable(viewer viewer.cpp)
 target_link_libraries(viewer ${AllLibs})
