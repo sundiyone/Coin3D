@@ -80,45 +80,45 @@ protected:
 
 }; // SbVec4ub
 
-COIN_DLL_API inline SbVec4ub operator*(SbVec4ub v, int d) {
+inline SbVec4ub operator*(SbVec4ub v, int d) {
   SbVec4ub val(v); val *= d; return val;
 }
 
-COIN_DLL_API inline SbVec4ub operator*(SbVec4ub v, double d) {
+inline SbVec4ub operator*(SbVec4ub v, double d) {
   SbVec4ub val(v); val *= d; return val;
 }
 
-COIN_DLL_API inline SbVec4ub operator*(int d, SbVec4ub v) {
+inline SbVec4ub operator*(int d, SbVec4ub v) {
   SbVec4ub val(v); val *= d; return val;
 }
 
-COIN_DLL_API inline SbVec4ub operator*(double d, SbVec4ub v) {
+inline SbVec4ub operator*(double d, SbVec4ub v) {
   SbVec4ub val(v); val *= d; return val;
 }
 
-COIN_DLL_API inline SbVec4ub operator/(SbVec4ub v, int d) {
+inline SbVec4ub operator/(SbVec4ub v, int d) {
   SbDividerChk("operator/(SbVec4ub,int)", d);
   SbVec4ub val(v); val /= d; return val;
 }
 
-COIN_DLL_API inline SbVec4ub operator/(SbVec4ub v, double d) {
+inline SbVec4ub operator/(SbVec4ub v, double d) {
   SbDividerChk("operator/(SbVec4ub,double)", d);
   SbVec4ub val(v); val /= d; return val;
 }
 
-COIN_DLL_API inline SbVec4ub operator+(SbVec4ub v1, SbVec4ub v2) {
+inline SbVec4ub operator+(SbVec4ub v1, SbVec4ub v2) {
   SbVec4ub v(v1); v += v2; return v;
 }
 
-COIN_DLL_API inline SbVec4ub operator-(SbVec4ub v1, SbVec4ub v2) {
+inline SbVec4ub operator-(SbVec4ub v1, SbVec4ub v2) {
   SbVec4ub v(v1); v -= v2; return v;
 }
 
-COIN_DLL_API inline bool operator==(SbVec4ub v1, SbVec4ub v2) {
+inline bool operator==(SbVec4ub v1, SbVec4ub v2) {
   return ((v1[0] == v2[0]) && (v1[1] == v2[1]) && (v1[2] == v2[2]) && (v1[3] == v2[3]));
 }
 
-COIN_DLL_API inline bool operator!=(SbVec4ub v1, SbVec4ub v2) {
+inline bool operator!=(SbVec4ub v1, SbVec4ub v2) {
   return !(v1 == v2);
 }
 
