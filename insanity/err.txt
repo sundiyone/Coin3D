@@ -1,0 +1,25 @@
+The Coin lib didn't make it into the build scripts!
+
+This works:
+$ cd /D/msys64/home/ESmith-rowland/Coin3D/insanity/quarter_build/src/Quarter && /D/msys64/mingw64/bin/g++.exe    -shared -o libQuarter.dll -Wl,--out-implib,libQuarter.dll.a -Wl,--major-image-version,0,--minor-image-version,0 -Wl,--whole-archive CMakeFiles/Quarter.dir/objects.a -Wl,--no-whole-archive  /home/ESmith-rowland/Coin3D/insanity/coin_install/lib/libCoin.a /D/msys64/mingw64/lib/libQt53DCore.dll.a /D/msys64/mingw64/lib/libQt5Widgets.dll.a -lglu32 -lopengl32 /D/msys64/mingw64/lib/libQt5Network.dll.a /D/msys64/mingw64/lib/libQt5Gui.dll.a /D/msys64/mingw64/lib/libQt5Core.dll.a -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+
+
+D:/msys64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/6.3.0/../../../../lib/libCoin.a(SbByteBuffer.o): In function `SbByteBuffer::SbByteBuffer(unsigned long long, char const*)':
+D:\msys64\home\ESmith-rowland\Coin3D\emergent\coin_build\src\base/../../../coin/include/Inventor/SbByteBufferP.icc:70: multiple definition of `SbByteBuffer::SbByteBuffer(unsigned long long, char const*)'
+CMakeFiles/Quarter.dir/objects.a(QuarterWidget.cpp.obj):QuarterWidget.cpp:(.text$_ZN12SbByteBufferC1EyPKc[_ZN12SbByteBufferC1EyPKc]+0x0): first defined here
+D:/msys64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/6.3.0/../../../../lib/libCoin.a(SbByteBuffer.o): In function `SbByteBuffer::~SbByteBuffer()':
+D:\msys64\home\ESmith-rowland\Coin3D\emergent\coin_build\src\base/../../../coin/include/Inventor/SbByteBufferP.icc:96: multiple definition of `SbByteBuffer::~SbByteBuffer()'
+CMakeFiles/Quarter.dir/objects.a(QuarterWidget.cpp.obj):QuarterWidget.cpp:(.text$_ZN12SbByteBufferD1Ev[_ZN12SbByteBufferD1Ev]+0x0): first defined here
+CMakeFiles/Quarter.dir/objects.a(DragDropHandler.cpp.obj):DragDropHandler.cpp:(.text+0x69f): undefined reference to `SoInput::openFile(char const*, bool)'
+CMakeFiles/Quarter.dir/objects.a(ImageReader.cpp.obj):ImageReader.cpp:(.text+0x18): undefined reference to `SbImage::addReadImageCB(bool (*)(SbString const&, SbImage*, void*), void*)'
+CMakeFiles/Quarter.dir/objects.a(ImageReader.cpp.obj):ImageReader.cpp:(.text+0x3c): undefined reference to `SbImage::removeReadImageCB(bool (*)(SbString const&, SbImage*, void*), void*)'
+CMakeFiles/Quarter.dir/objects.a(InputDevice.cpp.obj):InputDevice.cpp:(.text+0x112): undefined reference to `SoEvent::setShiftDown(bool)'
+CMakeFiles/Quarter.dir/objects.a(InputDevice.cpp.obj):InputDevice.cpp:(.text+0x155): undefined reference to `SoEvent::setAltDown(bool)'
+CMakeFiles/Quarter.dir/objects.a(InputDevice.cpp.obj):InputDevice.cpp:(.text+0x198): undefined reference to `SoEvent::setCtrlDown(bool)'
+CMakeFiles/Quarter.dir/objects.a(QuarterWidget.cpp.obj):QuarterWidget.cpp:(.text+0x174d): undefined reference to `SoSensorManager::processDelayQueue(bool)'
+CMakeFiles/Quarter.dir/objects.a(QuarterWidget.cpp.obj):QuarterWidget.cpp:(.text$_ZN8SoSFBoolaSEb[_ZN8SoSFBoolaSEb]+0x1c): undefined reference to `SoSFBool::setValue(bool)'
+CMakeFiles/Quarter.dir/objects.a(QuarterWidgetP.cpp.obj):QuarterWidgetP.cpp:(.text+0x2a1): undefined reference to `SoSearchAction::setType(SoType, bool)'
+CMakeFiles/Quarter.dir/objects.a(SensorManager.cpp.obj):SensorManager.cpp:(.text+0x28c): undefined reference to `SoRenderManager::enableRealTimeUpdate(bool)'
+CMakeFiles/Quarter.dir/objects.a(SensorManager.cpp.obj):SensorManager.cpp:(.text+0x74b): undefined reference to `SoSensorManager::processDelayQueue(bool)'
+CMakeFiles/Quarter.dir/objects.a(SensorManager.cpp.obj):SensorManager.cpp:(.text+0x7b1): undefined reference to `SoSensorManager::processDelayQueue(bool)'
+collect2.exe: error: ld returned 1 exit status

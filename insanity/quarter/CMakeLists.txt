@@ -38,12 +38,12 @@ CONFIGURE_FILE(config.h.cmake.in "${PROJECT_BINARY_DIR}/config.h")
 
 INCLUDE_DIRECTORIES(${PROJECT_BINARY_DIR})
 # You need this or Quarter will walk through the standard include locations for Coin.
-include_directories("/home/ed/Coin3D/coin4_install/include")
+include_directories("/home/ESmith-rowland/Coin3D/insanity/coin_install/include")
 
 # What to build
 ADD_SUBDIRECTORY(src)
 
-SET(CMAKE_INSTALL_PREFIX /home/ed/Coin3D/coin4_install)
+SET(CMAKE_INSTALL_PREFIX /home/ESmith-rowland/Coin3D/insanity/coin_install)
 
 #Install the public headers
 INSTALL(DIRECTORY include/Quarter/ DESTINATION include/Quarter

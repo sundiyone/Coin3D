@@ -3,7 +3,7 @@ SET(CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS true) # Avoid unneccesary code
 
 PROJECT(Quarter)
 SET(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/SIMCMakeMacros/")
-#set(CMAKE_MODULE_PATH "/usr/local/lib/Coin/cmake")
+#set(CMAKE_MODULE_PATH "D:/msys64/usr/local/lib/Coin/cmake")
 
 set(CMAKE_INSTALL_PREFIX "D:/msys64/usr/local")
 
@@ -60,20 +60,24 @@ ENDIF()
 FIND_PACKAGE(OpenGL REQUIRED)
 ######FIND_PACKAGE(Coin REQUIRED) # FIXME: The results of this macro is not cached.
 # FIXME:
-SET(Coin_INCLUDE_DIR "/usr/local/include")
+SET(Coin_INCLUDE_DIR "D:/msys64/usr/local/include")
 SET(Coin_DEFINES "-DCOIN_DLL")
-SET(Coin_LIBRARY -L/usr/local/lib -lCoin)
+SET(Coin_LIBRARY -LD:/msys64/usr/local/lib -lCoin)
 SET(Coin_LIBRARIES ${Coin_LIBRARY})
 
 SET(QT_USE_QTDESIGNER true)
 SET(QT_USE_QTTEST true)
 SET(QT_USE_QTOPENGL true)
 SET(QT_USE_QTUITOOLS true)
+SET(QT_USE_CORE true)
+SET(QT_USE_3DCORE true)
+SET(QT_USE_GUI true)
+SET(QT_USE_WIDGETS true)
 SET(CMAKE_AUTOMOC true)
 SET(CMAKE_INCLUDE_CURRENT_DIR true)
-FIND_PACKAGE(Qt5 QUIET COMPONENTS UiTools OpenGL)
+FIND_PACKAGE(Qt5 QUIET COMPONENTS Core 3DCore Gui Widgets UiTools OpenGL)
 IF(Qt5_FOUND)
-  SET(QT_LIBRARIES Qt5::UiTools Qt5::OpenGL)
+  SET(QT_LIBRARIES Qt5::Core Qt5::3DCore Qt5::UiTools Qt5::OpenGL)
 ELSE(Qt5_FOUND)
   FIND_PACKAGE(Qt4 REQUIRED)
   INCLUDE(${QT_USE_FILE})

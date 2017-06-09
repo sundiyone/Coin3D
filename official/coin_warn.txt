@@ -1,0 +1,32 @@
+I'm getting warnongs on msys2 with the combination dllimport attribute + inline.
+I think the logic is that inline gets imported/exported no matter what.
+
+g++ -c -pipe -fno-keep-inline-dllexport -march=nocona -mtune=core2 -Wa,-mbig-obj -Wold-style-cast -O2 -std=gnu++11 -frtti -Wall -Wextra -fexceptions -mthreads -DUNICODE -DCOIN_DLL -DQUARTER_DLL -D_CRT_SECURE_NO_DEPRECATE -DQT_NO_DEBUG -DQT_3DCORE_LIB -DQT_OPENGL_LIB -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_SQL_LIB -DQT_CORE_LIB -DQT_NEEDS_QMAIN -I. -I. -I../../../../usr/local/include -I../../../../mingw64/include/Qt3DCore -I../../../../mingw64/include/QtOpenGL -I../../../../mingw64/include/QtPrintSupport -I../../../../mingw64/include/QtWidgets -I../../../../mingw64/include/QtGui -I../../../../mingw64/include/QtNetwork -I../../../../mingw64/include/QtSql -I../../../../mingw64/include/QtCore -Irelease -I. -I../../../../mingw64/share/qt5/mkspecs/win32-g++  -o release/AntennaBallDialog.o AntennaBallDialog.cpp
+
+Notice the -fno-keep-inline-dllexport.
+
+Many of these:
+
+D:/msys64/usr/local/include/Inventor/SbVec2s.h:105:29: warning: inline function 'SbVec2s operator*(int, SbVec2s)' declared as  dllimport: attribute ignored [-Wattributes]
+ COIN_DLL_API inline SbVec2s operator * (int d, SbVec2s v) {
+                             ^~~~~~~~
+D:/msys64/usr/local/include/Inventor/SbVec2s.h:109:29: warning: inline function 'SbVec2s operator*(double, SbVec2s)' declared as  dllimport: attribute ignored  -Wattributes]
+ COIN_DLL_API inline SbVec2s operator * (double d, SbVec2s v) {
+                             ^~~~~~~~
+D:/msys64/usr/local/include/Inventor/SbVec2s.h:113:29: warning: inline function 'SbVec2s operator/(SbVec2s, int)' declared as  dllimport: attribute ignored [-Wattributes]
+ COIN_DLL_API inline SbVec2s operator / (SbVec2s v, int d) {
+                             ^~~~~~~~
+D:/msys64/usr/local/include/Inventor/SbVec2s.h:118:29: warning: inline function 'SbVec2s operator/(SbVec2s, double)' declared as  dllimport: attribute ignored  -Wattributes]
+ COIN_DLL_API inline SbVec2s operator / (SbVec2s v, double d) {
+                             ^~~~~~~~
+D:/msys64/usr/local/include/Inventor/SbVec2s.h:123:29: warning: inline function 'SbVec2s operator+(SbVec2s, SbVec2s)' declared as  dllimport: attribute ignored [-Wattributes]
+ COIN_DLL_API inline SbVec2s operator + (SbVec2s v1, SbVec2s v2) {
+                             ^~~~~~~~
+D:/msys64/usr/local/include/Inventor/SbVec2s.h:127:29: warning: inline function 'SbVec2s operator-(SbVec2s, SbVec2s)' declared as  dllimport: attribute ignored [-Wattributes]
+ COIN_DLL_API inline SbVec2s operator - (SbVec2s v1, SbVec2s v2) {
+                             ^~~~~~~~
+D:/msys64/usr/local/include/Inventor/SbVec2s.h:131:25: warning: inline function 'int operator==(SbVec2s, SbVec2s)' declared as  dllimport: attribute ignored [-Wattributes]
+ COIN_DLL_API inline int operator == (SbVec2s v1, SbVec2s v2) {
+                         ^~~~~~~~
+D:/msys64/usr/local/include/Inventor/SbVec2s.h:135:25: warning: inline function 'int operator!=(SbVec2s, SbVec2s)' declared as  dllimport: attribute ignored [-Wattributes]
+

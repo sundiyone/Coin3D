@@ -14,9 +14,12 @@ FIND_PACKAGE(OpenGL REQUIRED)
 #MESSAGE("Coin_INCLUDE_DIR     = ${Coin_INCLUDE_DIR}")
 #MESSAGE("Coin_DEFINES         = ${Coin_DEFINES}")
 set(Coin_LIBRARIES, "Coin;GL;Xext;SM;ICE;X11;dl;pthread")
-set(Coin_LIB_DIR, "/home/ed/Coin3D/coin4_install/lib")
-set(Coin_INCLUDE_DIR, "/home/ed/Coin3D/coin4_install/include")
+set(Coin_LIB_DIR, "/home/ed/Coin3D/insanity/coin_install/lib")
+set(Coin_INCLUDE_DIR, "/home/ed/Coin3D/insanity/coin_install/include")
 set(Coin_LINK_FLAGS "-L${Coin_LIB_DIR}" )
+
+
+ADD_DEFINITIONS(-DQUARTER_DLL)
 
 SET(QT_USE_QTOPENGL true)
 SET(QT_USE_QTUITOOLS true)
