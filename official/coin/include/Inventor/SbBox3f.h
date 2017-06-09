@@ -108,11 +108,11 @@ private:
 
 }; // SbBox3f
 
-COIN_DLL_API inline int operator == (const SbBox3f & b1, const SbBox3f & b2) {
+/*COIN_DLL_API*/ inline int operator == (const SbBox3f & b1, const SbBox3f & b2) {
   return ((b1.getMin() == b2.getMin()) && (b1.getMax() == b2.getMax()));
 }
 
-COIN_DLL_API inline int operator != (const SbBox3f & b1, const SbBox3f & b2) {
+/*COIN_DLL_API*/ inline int operator != (const SbBox3f & b1, const SbBox3f & b2) {
   return !(b1 == b2);
 }
 

@@ -101,32 +101,32 @@ protected:
 
 }; // SbVec3f
 
-COIN_DLL_API inline SbVec3f operator * (const SbVec3f & v, float d) {
+/*COIN_DLL_API*/ inline SbVec3f operator * (const SbVec3f & v, float d) {
   SbVec3f val(v); val *= d; return val;
 }
 
-COIN_DLL_API inline SbVec3f operator * (float d, const SbVec3f & v) {
+/*COIN_DLL_API*/ inline SbVec3f operator * (float d, const SbVec3f & v) {
   SbVec3f val(v); val *= d; return val;
 }
 
-COIN_DLL_API inline SbVec3f operator / (const SbVec3f & v, float d) {
+/*COIN_DLL_API*/ inline SbVec3f operator / (const SbVec3f & v, float d) {
   SbDividerChk("operator/(SbVec3f,float)", d);
   SbVec3f val(v); val /= d; return val;
 }
 
-COIN_DLL_API inline SbVec3f operator + (const SbVec3f & v1, const SbVec3f & v2) {
+/*COIN_DLL_API*/ inline SbVec3f operator + (const SbVec3f & v1, const SbVec3f & v2) {
   SbVec3f v(v1); v += v2; return v;
 }
 
-COIN_DLL_API inline SbVec3f operator - (const SbVec3f & v1, const SbVec3f & v2) {
+/*COIN_DLL_API*/ inline SbVec3f operator - (const SbVec3f & v1, const SbVec3f & v2) {
   SbVec3f v(v1); v -= v2; return v;
 }
 
-COIN_DLL_API inline int operator == (const SbVec3f & v1, const SbVec3f & v2) {
+/*COIN_DLL_API*/ inline int operator == (const SbVec3f & v1, const SbVec3f & v2) {
   return ((v1[0] == v2[0]) && (v1[1] == v2[1]) && (v1[2] == v2[2]));
 }
 
-COIN_DLL_API inline int operator != (const SbVec3f & v1, const SbVec3f & v2) {
+/*COIN_DLL_API*/ inline int operator != (const SbVec3f & v1, const SbVec3f & v2) {
   return !(v1 == v2);
 }
 

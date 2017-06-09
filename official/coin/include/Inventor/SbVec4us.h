@@ -80,45 +80,45 @@ protected:
 
 }; // SbVec4us
 
-COIN_DLL_API inline SbVec4us operator * (const SbVec4us & v, int d) {
+/*COIN_DLL_API*/ inline SbVec4us operator * (const SbVec4us & v, int d) {
   SbVec4us val(v); val *= d; return val;
 }
 
-COIN_DLL_API inline SbVec4us operator * (const SbVec4us & v, double d) {
+/*COIN_DLL_API*/ inline SbVec4us operator * (const SbVec4us & v, double d) {
   SbVec4us val(v); val *= d; return val;
 }
 
-COIN_DLL_API inline SbVec4us operator * (int d, const SbVec4us & v) {
+/*COIN_DLL_API*/ inline SbVec4us operator * (int d, const SbVec4us & v) {
   SbVec4us val(v); val *= d; return val;
 }
 
-COIN_DLL_API inline SbVec4us operator * (double d, const SbVec4us & v) {
+/*COIN_DLL_API*/ inline SbVec4us operator * (double d, const SbVec4us & v) {
   SbVec4us val(v); val *= d; return val;
 }
 
-COIN_DLL_API inline SbVec4us operator / (const SbVec4us & v, int d) {
+/*COIN_DLL_API*/ inline SbVec4us operator / (const SbVec4us & v, int d) {
   SbDividerChk("operator/(SbVec4us,int)", d);
   SbVec4us val(v); val /= d; return val;
 }
 
-COIN_DLL_API inline SbVec4us operator / (const SbVec4us & v, double d) {
+/*COIN_DLL_API*/ inline SbVec4us operator / (const SbVec4us & v, double d) {
   SbDividerChk("operator/(SbVec4us,double)", d);
   SbVec4us val(v); val /= d; return val;
 }
 
-COIN_DLL_API inline SbVec4us operator + (const SbVec4us & v1, const SbVec4us & v2) {
+/*COIN_DLL_API*/ inline SbVec4us operator + (const SbVec4us & v1, const SbVec4us & v2) {
   SbVec4us v(v1); v += v2; return v;
 }
 
-COIN_DLL_API inline SbVec4us operator - (const SbVec4us & v1, const SbVec4us & v2) {
+/*COIN_DLL_API*/ inline SbVec4us operator - (const SbVec4us & v1, const SbVec4us & v2) {
   SbVec4us v(v1); v -= v2; return v;
 }
 
-COIN_DLL_API inline int operator == (const SbVec4us & v1, const SbVec4us & v2) {
+/*COIN_DLL_API*/ inline int operator == (const SbVec4us & v1, const SbVec4us & v2) {
   return ((v1[0] == v2[0]) && (v1[1] == v2[1]) && (v1[2] == v2[2]) && (v1[3] == v2[3]));
 }
 
-COIN_DLL_API inline int operator != (const SbVec4us & v1, const SbVec4us & v2) {
+/*COIN_DLL_API*/ inline int operator != (const SbVec4us & v1, const SbVec4us & v2) {
   return !(v1 == v2);
 }
 
